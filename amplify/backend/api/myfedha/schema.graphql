@@ -1,0 +1,1608 @@
+type SMAccount
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read, update, create] }
+      { allow: private, operations: [read, update, create] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, create]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["BranchAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @key(fields: ["nationalid"])
+  @key(
+    name: "checkUserBal"
+    fields: ["phonecontact", "pw"]
+    queryField: "checkUserrrBalance"
+  )
+  @key(
+    name: "updatSMAccPhone"
+    fields: ["name", "phonecontact"]
+    queryField: "AccessingPersonalAc"
+  ) {
+  nationalid: ID!
+  name: String!
+  phonecontact: String!
+  awsemail: String!
+  balance: Float!
+  pw: String!
+
+  loanAcceptanceCode: String!
+
+  ttlDpstSM: Float!
+  TtlWthdrwnSM: Float!
+  ttlLnInSM: Float!
+  ttlLnOutSM: Float!
+  ttlLoanRecovered: Float!
+  blTimesSM: Float!
+  blClrdtmsSM: Float!
+  clrdNnvrBLSM: Float!
+  actvLnsSM: Float!
+  ttlActiveLnsInAmtSM: Float!
+  ttlBLLoansInAmtSM: Float!
+  ttlClrdLnsInAmtSM: Float!
+  ttlActiveLnsOutAmtSM: Float!
+  ttlBLLoansOutAmtSM: Float!
+  ttlClrdLnsOutAmtSM: Float!
+  tmsIHvBrwdSM: Float!
+  tmsIHvLndSM: Float!
+
+  ttlDpstChm: Float!
+  ttlWithdrwlChm: Float!
+
+  ttlChmLnIn: Float!
+
+  blChmTimes: Float!
+  blChmClrdtms: Float!
+  clrdNnvrBLChm: Float!
+  actvLnsChm: Float!
+  ttlActiveLnsInAmtChm: Float!
+  ttlBLLoansInAmChmt: Float!
+  ttlClrdLnsInAmtChm: Float!
+
+  tmsIHvBrwdChm: Float!
+  tmsIHvLndChm: Float!
+
+  ttlLnInCrdSls: Float!
+  ttlLnOutCrdSls: Float!
+  blTimesCrdSls: Float!
+  blClrdtmsCrdSls: Float!
+  clrdNnvrBLCrdSls: Float!
+  actvLnsCrdSls: Float!
+  ttlActiveLnsInAmtCrdSls: Float!
+  ttlBLLoansInAmtCrdSls: Float!
+  ttlClrdLnsInAmtCrdSls: Float!
+  ttlActiveLnsOutAmtCrdSls: Float!
+  ttlBLLoansOutAmtCrdSls: Float!
+  ttlClrdLnsOutAmtCrdSls: Float!
+  tmsIHvBrwdCrdSls: Float!
+  tmsIHvLndCrdSls: Float!
+
+  TotalTymsBL: Float!
+
+  acActivenessStatus: Status!
+  blStatus: Status!
+  loanStatus: Status!
+}
+
+type SMLoansCovered
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, update, create] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["Advocate"], operations: [read] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, create]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["BranchAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, create] }
+    ]
+  )
+  @key(
+    name: "searchmyDebtors"
+    fields: ["loanerId", "status"]
+    queryField: "checkMyDetors"
+  )
+  @key(
+    name: "confirmMyLoanee"
+    fields: ["loanercontact", "loaneecontact", "status"]
+    queryField: "confrmMyLoaneeeee"
+  )
+  @key(
+    name: "searchAdvLoaner"
+    fields: ["advregnu", "loanercontact"]
+    queryField: "checkbyAdvNLnar"
+  )
+  @key(
+    name: "searchAdvLoanee"
+    fields: ["advregnu", "loaneecontact"]
+    queryField: "chckbyAdvNLnee"
+  ) {
+  id: ID!
+  loaneeid: ID!
+  loanerId: String!
+  amountgiven: Float!
+  amountexpected: Float!
+  amountrepaid: Float!
+  loanercontact: String!
+  loaneecontact: String!
+
+  repaymentPeriod: Int!
+  advregnu: String
+  timestamp: AWSTimestamp!
+  description: String
+  status: Status!
+}
+
+type SMNonLoans
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, update, create] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, create]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["BranchAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @key(
+    name: "SMNonLoansbySender"
+    fields: ["senderID"]
+    queryField: "checkSentNonLns"
+  )
+  @key(
+    name: "SMNonLoansbyRec"
+    fields: ["receiverphonecontact"]
+    queryField: "checkReceivedNonLns"
+  ) {
+  id: ID!
+  senderID: String!
+  amountgiven: Float!
+  senderContact: String!
+  description: String
+  receiverphonecontact: String!
+}
+
+type Agent
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read, update] }
+      { allow: owner, operations: [read, update] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["RegionalAdminTwo"], operations: [read] }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      { allow: groups, groups: ["KFKubwa"], operations: [read, create, update] }
+      { allow: groups, groups: ["KFNdogo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @key(fields: ["phonecontact"])
+  @key(
+    name: "byAgentbalance"
+    fields: ["name", "pw"]
+    queryField: "updtAgentBalbyUser"
+  )
+  @key(
+    name: "agentAndSa"
+    fields: ["sagentregno"]
+    queryField: "searchMyAgents"
+  ) {
+  phonecontact: ID!
+  nationalid: String!
+  name: String!
+  ttlEarnings: Float!
+  pw: String!
+  email: String!
+  sagentregno: String!
+  TtlFltIn: Float!
+  TtlFltOut: Float!
+  floatBal: Float!
+  latitude: Float!
+  longitude: Float!
+  agentEarningBal: Float!
+  status: Status!
+}
+
+type FloatPurchase
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["BankAdmin"], operations: [create, read] }
+      { allow: groups, groups: ["KFNdogo "], operations: [update, read] }
+      { allow: owner, operations: [read, update] }
+      { allow: private, operations: [read, update] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      { allow: private, operations: [read, update] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @key(
+    name: "floatPurchasebyAgentsss"
+    fields: ["nationalid"]
+    queryField: "lstAgentFltPrchasss"
+  )
+  @key(
+    name: "byBankAdm"
+    fields: ["bankAdmid"]
+    queryField: "lstBankAdmTransaaaaccttions"
+  ) {
+  id: ID
+  agentphone: String!
+  amount: Float!
+  nationalid: String!
+  bankAdmid: String!
+  status: Status!
+}
+
+type FloatAdd
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read] }
+      { allow: private, operations: [read, create] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["KFNdogo "], operations: [read] }
+    ]
+  )
+  @key(
+    name: "FloatAddbyUser"
+    fields: ["agentPhonecontact"]
+    queryField: "createWythdrawals"
+  )
+  @key(
+    name: "bysagentregno"
+    fields: ["sagentregno"]
+    queryField: "readSAWithdrwls"
+  ) {
+  id: ID!
+  withdrawerid: String!
+  trnsactionCode: String!
+  amount: Float!
+  agentPhonecontact: String!
+
+  sagentregno: String!
+  status: Status!
+}
+
+type FloatReduction
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: owner, operations: [create, read, update] }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["KFNdogo "], operations: [read, create] }
+      { allow: private, operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @key(
+    name: "byAgntID"
+    fields: ["agentNationalid"]
+    queryField: "creatFltDeduc"
+  )
+  @key(
+    name: "byagentphone"
+    fields: ["phonecontact"]
+    queryField: "creatFltDed"
+  )
+  @key(name: "byUser", fields: ["depositerPhn"], queryField: "reeeadAmtDpstd") {
+  id: ID!
+  amount: Float!
+  depositerid: String!
+  depositerPhn: String!
+  phonecontact: String!
+  status: Status!
+  agentNationalid: String!
+}
+
+type AgentWithdrawals
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read, update, create] }
+      { allow: private, operations: [read] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BankAdmin"], operations: [read, create] }
+      { allow: groups, groups: ["KFNdogo "], operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @key(
+    name: "byAgentNatId"
+    fields: ["agentNationalid"]
+    queryField: "checkAgentWthdrawls"
+  )
+  @key(
+    name: "byAgentPhonne"
+    fields: ["AgentPhone"]
+    queryField: "lstAgentWithdrowals"
+  )
+  @key(
+    name: "byBankAdm"
+    fields: ["bankAdmId"]
+    queryField: "lstBankAdmTransactiooonnns"
+  ) {
+  AgentPhone: String!
+
+  Amount: Float!
+  id: ID!
+  bankAdmId: String
+  agentNationalid: ID!
+  status: Status!
+}
+
+type SAgent
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      { allow: owner, operations: [read, update] }
+      { allow: private, operations: [read] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["KFNdogo "], operations: [read, update] }
+      { allow: private, operations: [read, update] }
+      { allow: owner, operations: [read, update] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @key(
+    name: "saChecker"
+    fields: ["agentNnationalid"]
+    queryField: "CheckingSA"
+  )
+  @key(
+    name: "BalbySAgent"
+    fields: ["pw", "agentNnationalid"]
+    queryField: "CheckingSABalBySA"
+  ) {
+  id: ID!
+  agentNnationalid: String!
+  name: String!
+  phonecontact: String!
+  pw: String!
+  TtlEarnings: Float!
+  email: String!
+  saBalance: Float!
+  status: Status!
+}
+
+type SAgentWithdrawals
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read, create] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BankAdmin"], operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @key(
+    name: "sAgentChecker"
+    fields: ["sagentregno"]
+    queryField: "lstSAWithdrlls"
+  )
+  @key(name: "bysaNId", fields: ["sagentNatId"], queryField: "lstSAWithdrllls")
+  @key(
+    name: "byBankAdm"
+    fields: ["bankAdmid"]
+    queryField: "lstBankAdmTranssactions"
+  ) {
+  id: ID!
+  sagentphone: String!
+  sagentNatId: String!
+  sagentregno: String!
+  amount: Float!
+  bankAdmid: String
+  status: Status!
+}
+
+type BankAdmin
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: owner, operations: [read, update, create] }
+      { allow: private, operations: [read, update, create] }
+      {
+        allow: groups
+        groups: ["AdminOneTwo"]
+        operations: [read, update, create]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      { allow: owner, operations: [read, update] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @key(fields: ["nationalid"])
+  @key(
+    name: "checkAdmDtls"
+    fields: ["phonecontact"]
+    queryField: "geetbankAdmdtlsByNatId"
+  ) {
+  nationalid: ID!
+  name: String!
+  phonecontact: String!
+  TtlEarnings: Float!
+  pw: String!
+  BankAdmBal: Float!
+  email: String!
+  status: Status!
+}
+
+type BankAdmWithdrawals
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["BankAdmin"], operations: [read, create] }
+      { allow: owner, operations: [read] }
+    ]
+  )
+  @key(
+    name: "BAdmWbyPhn"
+    fields: ["phoneContact"]
+    queryField: "checkBankAdmWithdrawals"
+  ) {
+  id: ID!
+  phoneContact: String!
+
+  bankAdmNatId: String!
+  amount: Float!
+  status: Status!
+}
+
+type Advocate
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read] }
+      { allow: owner, operations: [read, update] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: groups
+        groups: ["Advocate"]
+        operations: [create, update, read]
+      }
+    ]
+  )
+  @key(fields: ["nationalid"])
+  @key(
+    name: "AdvByRegNu"
+    fields: ["advregnu"]
+    queryField: "checkAdvByRegNo"
+  ) {
+  nationalid: ID!
+  name: String!
+  phonecontact: String!
+  advregnu: String!
+  TtlEarnings: Float!
+  advBal: Float!
+  email: String!
+  status: Status!
+}
+
+type AdvocateWithdrawals
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["BankAdmin"], operations: [create, read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      { allow: owner, operations: [read, create] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["Advocate"], operations: [read, create] }
+    ]
+  )
+  @key(
+    name: "byWDrbyAdv"
+    fields: ["advNatId"]
+    queryField: "checkAdvocateWithdrawalsss"
+  ) {
+  id: ID!
+  phoneContact: String!
+  advregnu: String!
+  amount: Float!
+  advNatId: String!
+  status: Status!
+}
+
+type Company
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @key(fields: ["AdminId"])
+  @key(name: "bypw", fields: ["pw1", "pw2"], queryField: "checkbyComppw") {
+  AdminId: String!
+  phoneContact: String!
+  companyEmail: String!
+  termsNconditions: String!
+  alert: String!
+  about: String!
+  policy: String!
+  privacy: String!
+  recom: String!
+
+  agentwithdrawalFee: Float!
+  agentCom: Float!
+  sagentCom: Float!
+  companyCom: Float!
+  AdvCom: Float!
+  bankAdminCom: Float!
+  compComg: Float!
+  sawithdrawalFee: Float!
+  advuserwithdrawalFee: Float!
+  bankAdmuserwithdrawalFee: Float!
+  advocateCoverageFee: Float!
+  userTransferFee: Float!
+  userClearanceFee: Float!
+  searchAdFee: Float!
+  createBuzFee: Float!
+  crtCompAdsFee: Float!
+  crtParaAdsFee: Float!
+  pw1: String!
+  pw2: String!
+  companyEarningBal: Float!
+  companyEarning: Float!
+  agentEarningBal: Float!
+  agentEarning: Float!
+  saEarningBal: Float!
+  saarning: Float!
+  AdvEarningBal: Float!
+  AdvEarning: Float!
+  admEarningBal: Float!
+  admEarning: Float!
+
+  ttlUsrDep: Float!
+  ttlUserWthdrwl: String!
+  agentFloatIn: Float!
+  agentFloatOut: Float!
+  ttlActiveUsers: Float!
+  ttlnactvUsrs: Float!
+  ttlBLUsrs: Float!
+  ttlKFNdgActv: Float!
+  ttlKFNdgInActv: Float!
+  ttlKNdgBLStts: Float!
+  ttlKFKbwActv: Float!
+  ttlKFKbwInActv: Float!
+  ttlKKbwBLStts: Float!
+  ttlKFAdvActv: Float!
+  ttlKFAdvInActv: Float!
+  ttlKAdvBLStts: Float!
+  ttlKFAdmActv: Float!
+  ttlKFAdmInActv: Float!
+  ttlKAdmBLStts: Float!
+  ttlSMLnsIn: Float!
+  ttlChmLnsIn: Float!
+  ttlSellerLnsIn: Float!
+  ttlSMLnsInActv: Float!
+  ttlChmLnsInActv: Float!
+  ttlSellerLnsInActv: Float!
+
+  ttlSMLnsInClrd: Float!
+  ttlChmLnsInClrd: Float!
+  ttlSellerLnsInClrd: Float!
+
+  ttlSMLnsInBl: Float!
+  ttlChmLnsInBl: Float!
+  ttlSellerLnsInBl: Float!
+
+  ttlSMLnsInBlThnClr: Float!
+  ttlChmLnsInBlThnClr: Float!
+  ttlSellerLnsInBlThnClr: Float!
+
+  ttlSMLnsInNvrBlThnClr: Float!
+  ttlChmLnsInNvrBlThnClr: Float!
+  ttlSellerLnsInNvrBlThnClr: Float!
+
+  ttlCompTrnsfrEarnings: Float!
+  ttlCompBLClrncfrEarnings: Float!
+  ttlCompCovEarnings: Float!
+  ttlCompEarnings: Float!
+  ttlKFNdogoTrnsactionEarnings: Float!
+  ttlKFKubwaTrnsactionEarnings: Float!
+  ttlKFAdvTrnsactionEarnings: Float!
+  ttlKFAdmTrnsactionEarnings: Float!
+  maxInterest: Float!
+
+  totalLnsRecovered: Float!
+}
+
+type CovCreditSeller
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, create, update] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["Advocate"], operations: [read] }
+    ]
+  )
+  @key(
+    name: "searchbySellerID"
+    fields: ["sellerID"]
+    queryField: "checkMyNonCovrrrrrrrrdSales"
+  )
+  @key(
+    name: "searchbyAdv"
+    fields: ["advPhone"]
+    queryField: "checkMyNonCovrrrrrrrrdSaleees"
+  )
+  @key(
+    name: "searchOurCrdSales"
+    fields: ["sellerContact"]
+    queryField: "checkOurNonCovrredSMLoans"
+  )
+  @key(
+    name: "searchmySalesDebts"
+    fields: ["buyerContact"]
+    queryField: "checkMysalessDebts"
+  )
+  @key(
+    name: "searchAdvCredSllr"
+    fields: ["advregnu", "sellerContact", "buyerContact"]
+    queryField: "checkbyAdvNCredddSseller"
+  ) {
+  id: ID!
+  itemName: [String!]
+  itemSerialNumber: [String]
+  buyerContact: String!
+  sellerContact: String!
+  buyerID: String!
+  sellerID: String!
+  amountSold: Float!
+  amountexpectedBack: Float!
+  amountRepaid: Float!
+  repaymentPeriod: Int!
+  timestamp: AWSTimestamp!
+  description: String
+  status: Status!
+  advregnu: String!
+  advPhone: String!
+}
+
+type Group
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, create, update] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @key(fields: ["grpContact"])
+  @key(
+    name: "grpCreator"
+    fields: ["signitoryContact"]
+    queryField: "checkGrpsICrtd"
+  )
+  @key(
+    name: "grpBal"
+    fields: ["signitoryContact", "signitoryPW"]
+    queryField: "checkGrpBal"
+  ) {
+  grpContact: ID!
+  signitoryContact: String!
+  SignitoryNatid: String!
+  signitoryName: String!
+  grpName: String!
+  signitoryPW: String!
+  grpEmail: String!
+  grpBal: Float!
+  ttlGrpMembers: Float!
+  ttlLonsOut: Float!
+  description: String
+  ttlDpst: Float!
+
+  ttlWthdrwn: Float!
+
+  ttlBLMmbrs: Float!
+  ttlMmbrsWthActvLns: Float!
+
+  ttlMmbrsClrdNnvrBL: Float!
+  ttlMmbrsWithActvLns: Float!
+  ttlActiveLnsInAmt: Float!
+  ttlMmbrsBLLoansInAmt: Float!
+  ttlMmbrsClrdLnsInAmt: Float!
+
+  ttlClrdLnsOutAmt: Float!
+
+  tymsGrpHasLend: Float!
+
+  ttlLonAmountRecovered: Float
+  status: Status!
+}
+
+type GrpMembers
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read, update] }
+      { allow: private, operations: [create, read] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @key(
+    name: "byUser"
+    fields: ["memberContact", "groupContact"]
+    queryField: "checkMygroup"
+  )
+  @key(name: "myGrps", fields: ["memberContact"], queryField: "checkMygrps") {
+  id: ID!
+  groupContact: String!
+  memberContact: String!
+  memberNatId: String!
+  acBal: Float!
+  status: Status!
+}
+
+type CvrdGroupLoans
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, create, update] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["Advocate"], operations: [read] }
+    ]
+  )
+  @key(
+    name: "searchgrpDflts"
+    fields: ["grpContact", "status"]
+    queryField: "cheeeeckGrpCovrdLonDflts"
+  )
+  @key(
+    name: "searchToUpdate"
+    fields: ["loaneeID", "grpContact"]
+    queryField: "updatAmaounntrepaid"
+  )
+  @key(
+    name: "searchToClearLnr"
+    fields: ["loaneeID", "status"]
+    queryField: "clearloaneriiiiifongoing"
+  )
+  @key(
+    name: "searchAdvGrp"
+    fields: ["advRegNu", "grpContact"]
+    queryField: "checkbyAdvNGrrrpp"
+  )
+  @key(
+    name: "searchAdvLoaneei"
+    fields: ["advRegNu", "loaneeID"]
+    queryField: "checkbyAdvNLoaneeeeeei"
+  ) {
+  id: ID!
+  grpContact: String!
+
+  loaneeContact: String!
+  loaneeID: String!
+  repaymentPeriod: Int!
+  amountGiven: Float!
+  amountExpectedBack: Float!
+  amountRepaid: Float!
+  description: String
+  timestamp: AWSTimestamp!
+  advRegNu: String!
+  status: Status!
+}
+
+type GroupNonLoans
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, create, update] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["Advocate"], operations: [read] }
+    ]
+  )
+  @key(
+    name: "searchbygrpp"
+    fields: ["recipientContact"]
+    queryField: "cheeeckGrpNonLoansee"
+  )
+  @key(
+    name: "searchbygrp"
+    fields: ["grpContact"]
+    queryField: "cheeeckGrpNonLoanse"
+  ) {
+  id: ID!
+  grpContact: String!
+  recipientContact: String!
+
+  amountSent: Float!
+
+  description: String
+
+  status: Status!
+}
+
+type GrpMembersContribution
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, create, update] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  @key(
+    name: "byGrpMbr"
+    fields: ["memberContact"]
+    queryField: "checkAllMyGrpsContri"
+  )
+  @key(
+    name: "byGrppp"
+    fields: ["grpContact"]
+    queryField: "checkAllGrpContributorssss"
+  )
+  @key(
+    name: "byMemberNgrp"
+    fields: ["grpContact", "memberContact"]
+    queryField: "checkMmbrContrInAGrpp"
+  ) {
+  id: ID
+  memberContact: String!
+
+  grpContact: String!
+  contriAmount: Float!
+  status: Status!
+}
+
+type AdvertisedSingleMemberLoans
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read, update, create] }
+      { allow: private, operations: [read, update, create] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdmin"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdminTwo"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["BranchAdmin"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["BranchAdminTwo"]
+        operations: [create, update, read]
+      }
+    ]
+  )
+  @key(
+    name: "byMacximumNIntrsst"
+    fields: ["repaymentPeriod", "maximum"]
+    queryField: "byMaximumAmntNinterest"
+  ) {
+  id: ID!
+  nameOfLoaner: String!
+  maximum: Float!
+  contact: String!
+  repaymentPeriod: String!
+  interest: Float!
+  description: String
+  status: Status!
+}
+
+type AdvertisedChamaLoans
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read, update, create] }
+      { allow: private, operations: [read, update, create] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdmin"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdminTwo"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["BranchAdmin"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["BranchAdminTwo"]
+        operations: [create, update, read]
+      }
+    ]
+  )
+  @key(
+    name: "byMacximumNIntrssttt"
+    fields: ["repaymentPeriod", "maximum"]
+    queryField: "byMaximumAmntNinterestee"
+  ) {
+  id: ID!
+  nameOfLoaner: String!
+  maximum: Float!
+  contact: String!
+  repaymentPeriod: String!
+  interest: Float!
+  description: String
+  status: Status!
+}
+
+type PaidMultipleAds
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read, update] }
+      { allow: private, operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: groups
+        groups: ["MultiplePaidAds"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdmin"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdminTwo"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["BranchAdmin"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["BranchAdminTwo"]
+        operations: [create, update, read]
+      }
+    ]
+  )
+  @key(name: "BizType", fields: ["buzType"], queryField: "byBuznessType")
+  @key(
+    name: "BiznaNAreaaa"
+    fields: ["buzType", "nearByTown"]
+    queryField: "byBuznesTypeee"
+  ) {
+  id: ID!
+  bizRegNo: String!
+  ownerNatId: String!
+  item: String!
+  nameOfSeller: String!
+  buzType: String!
+  nearByTown: String!
+  contact: String!
+
+  description: String
+  status: Status!
+  latitude: Float!
+  longitude: Float!
+}
+
+type FreeBizAds
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read, update, create] }
+      { allow: private, operations: [read, update, create] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdmin"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdminTwo"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["BranchAdmin"]
+        operations: [create, read, update]
+      }
+      {
+        allow: groups
+        groups: ["BranchAdminTwo"]
+        operations: [create, update, read]
+      }
+    ]
+  )
+  @key(name: "BisnesType", fields: ["buzType"], queryField: "byBusnessType")
+  @key(
+    name: "BisnessNArea"
+    fields: ["buzType", "nearByTown"]
+    queryField: "byBiznessType"
+  ) {
+  id: ID!
+  item: String!
+  nameOfSeller: String!
+  buzType: String!
+  nearByTown: String!
+  contact: String!
+
+  description: String
+  status: Status!
+}
+
+enum Status {
+  LoanActive
+  AccountActive
+  AccountInactive
+  AccountBlackListed
+  LoaneeBlackListed
+  LoanCleared
+  NoLoan
+}

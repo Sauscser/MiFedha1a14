@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-myfedha-dev-183923-authRole",
+      "UnauthRoleArn": "arn:aws:iam::870395359033:role/amplify-myfedha-dev-183923-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::870395359033:role/amplify-myfedha-dev-183923-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-myfedha-dev-183923-deployment",
+      "UnauthRoleName": "amplify-myfedha-dev-183923-unauthRole",
+      "StackName": "amplify-myfedha-dev-183923",
+      "StackId": "arn:aws:cloudformation:us-east-2:870395359033:stack/amplify-myfedha-dev-183923/f09b4290-1edf-11ec-a727-06f98c9f9164",
+      "AmplifyAppId": "d2urykq8fwcfma"
+    },
+    "categories": {
+      "auth": {
+        "myfedha48b24838": {}
+      }
+    }
+  }
+}
