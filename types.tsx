@@ -10,11 +10,27 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {
-      KFNdogoo:undefined;
-      RegKFNdogo:undefined;
-      RegKFKbw:undefined;
+      MFNdogoo:undefined;
+      RegMFNdogo:undefined;
+      RegMFKbw:undefined;
       MyHomeie:undefined;
-      
+      RegKFKbw:undefined;
+      BuyFltFm:undefined;
+      DpstMney:undefined;
+      RegUsrScrn:undefined;
+      CrtAdmin:undefined;
+      SttinsHm:undefined;
+      MFAdminstrator:undefined;
+      MFAdminstrators:undefined;
+      MFKbwa:undefined;
+      MFKubwa:undefined;
+      MFNdogo:undefined;
+      MFNdogos:undefined;
+      MFAdvocate:undefined;
+      MFAdvocateHome:undefined;
+      RegMFNdgScrn:undefined;
+      MFAdvocateReg:undefined;
+      Home:undefined;
     }
   }
 }
@@ -35,13 +51,16 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 export type RootTabParamList = {
   TabOne: undefined;
   TabTwo: undefined;
-  Home:undefined;
-  KFNdogo:undefined;
+  
+ 
   MyAc:undefined;
   Loans:undefined;
   CredSales:undefined;
   Chama:undefined;
   Ads:undefined;
+  RegMFNdgScrn:undefined;
+  
+  
   
 };
 
