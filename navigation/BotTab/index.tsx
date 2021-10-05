@@ -47,7 +47,7 @@ const HomeTabNavigator = props => {
         }}
       />
       <BottomTab.Screen
-        name='KFNdogo'
+        name='MFNdogo'
         component={KFNdogoLoc}
         options={{
           tabBarIcon: ({color: string}) => (

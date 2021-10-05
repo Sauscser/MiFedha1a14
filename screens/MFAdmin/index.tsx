@@ -14,26 +14,28 @@ import styles from './styles';
 const RegKFKubwa = props => {
   const navigation = useNavigation();
 
-  const goToSalesAdsScreen = () => {
-    navigation.navigate('GeneralShopSchPg');
+  const goToBuyFloat = () => {
+    navigation.navigate('BuyFltFm');
   };
 
-  const goToAdvertiseSales = () => {
-    navigation.navigate('GnrlShpAdvtsScrn');
+  const goToAdvHome = () => {
+    navigation.navigate('MFAdvocateHome');
   };
 
   const goToKFKbwaRegFm = () => {
-    navigation.navigate('RegKFKbw');
+    navigation.navigate('RegMFKbw');
   };
 
-  const goToAdvrtsPrsnLn = () => {
-    navigation.navigate('GnrlShpPrsnlLnAdvtsScrn');
+  const goToMFNdogReg = () => {
+    navigation.navigate('RegMFNdgScrn');
   };
 
-  const goToAdvrtsChamaLn = () => {
-    navigation.navigate('GnrlShpChamaLnAdvtsScrn');
+  const goToAdvReg = () => {
+    navigation.navigate('MFAdvocateReg');
   };
 
+
+  
   return (
     <SafeAreaView>
       <View
@@ -51,40 +53,50 @@ const RegKFKubwa = props => {
 
               <View style={styles.viewForClientsAndTitle}>
                 <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>KFNdogo</Text>
+                  <Text style={styles.salesPressableText}>MFNdogo</Text>
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={goToAdvertiseSales}
+                      onPress={goToMFNdogReg}
                       style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Register</Text>
+                      <Text style={styles.clientsPressableText}>Reg</Text>
+                    </Pressable>
+
+                    
+
+                    <Pressable
+                      onPress={goToAdvHome}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        DeReg
+                      </Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={goToSalesAdsScreen}
+                      onPress={goToBuyFloat}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
-                        DeRegister
+                        Buy Flt
                       </Text>
                     </Pressable>
                   </View>
                 </View>
 
                 <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>KFKubwa</Text>
+                  <Text style={styles.salesPressableText}>MFKubwa</Text>
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
                       onPress={goToKFKbwaRegFm}
                       style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Register</Text>
+                      <Text style={styles.clientsPressableText}>Reg</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={goToSalesAdsScreen}
+                      onPress={goToAdvReg}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
-                        DeRegister
+                        DeReg
                       </Text>
                     </Pressable>
                   </View>
@@ -95,16 +107,16 @@ const RegKFKubwa = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={goToAdvertiseSales}
+                      onPress={goToAdvReg}
                       style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Register</Text>
+                      <Text style={styles.clientsPressableText}>Reg</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={goToSalesAdsScreen}
+                      onPress={goToAdvReg}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
-                        DeRegister
+                        DeReg
                       </Text>
                     </Pressable>
                   </View>
@@ -118,13 +130,13 @@ const RegKFKubwa = props => {
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
-                onPress={goToSalesAdsScreen}
+                onPress={goToAdvReg}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Check Bal</Text>
               </Pressable>
 
               <Pressable
-                onPress={goToSalesAdsScreen}
+                onPress={goToAdvReg}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Withdraw</Text>
               </Pressable>
@@ -136,13 +148,13 @@ const RegKFKubwa = props => {
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
-                onPress={goToSalesAdsScreen}
+                onPress={goToAdvReg}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Check Bal</Text>
               </Pressable>
 
               <Pressable
-                onPress={goToSalesAdsScreen}
+                onPress={goToAdvReg}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Withdraw</Text>
               </Pressable>

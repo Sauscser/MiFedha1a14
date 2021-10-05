@@ -10,3 +10,5 @@ export default {
   },
   isSmallDevice: width < 375,
 };
+
+

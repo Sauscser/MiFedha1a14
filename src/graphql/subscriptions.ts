@@ -59,9 +59,9 @@ export const onCreateSMAccount = /* GraphQL */ `
       acActivenessStatus
       blStatus
       loanStatus
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -122,9 +122,9 @@ export const onUpdateSMAccount = /* GraphQL */ `
       acActivenessStatus
       blStatus
       loanStatus
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -185,9 +185,9 @@ export const onDeleteSMAccount = /* GraphQL */ `
       acActivenessStatus
       blStatus
       loanStatus
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -207,9 +207,9 @@ export const onCreateSMLoansCovered = /* GraphQL */ `
       timestamp
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -229,9 +229,9 @@ export const onUpdateSMLoansCovered = /* GraphQL */ `
       timestamp
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -251,9 +251,9 @@ export const onDeleteSMLoansCovered = /* GraphQL */ `
       timestamp
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -266,9 +266,9 @@ export const onCreateSMNonLoans = /* GraphQL */ `
       senderContact
       description
       receiverphonecontact
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -281,9 +281,9 @@ export const onUpdateSMNonLoans = /* GraphQL */ `
       senderContact
       description
       receiverphonecontact
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -296,9 +296,9 @@ export const onDeleteSMNonLoans = /* GraphQL */ `
       senderContact
       description
       receiverphonecontact
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -319,9 +319,9 @@ export const onCreateAgent = /* GraphQL */ `
       longitude
       agentEarningBal
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -342,9 +342,9 @@ export const onUpdateAgent = /* GraphQL */ `
       longitude
       agentEarningBal
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -365,9 +365,9 @@ export const onDeleteAgent = /* GraphQL */ `
       longitude
       agentEarningBal
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -380,9 +380,9 @@ export const onCreateFloatPurchase = /* GraphQL */ `
       nationalid
       bankAdmid
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -395,9 +395,9 @@ export const onUpdateFloatPurchase = /* GraphQL */ `
       nationalid
       bankAdmid
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -410,9 +410,9 @@ export const onDeleteFloatPurchase = /* GraphQL */ `
       nationalid
       bankAdmid
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -426,9 +426,9 @@ export const onCreateFloatAdd = /* GraphQL */ `
       agentPhonecontact
       sagentregno
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -442,9 +442,9 @@ export const onUpdateFloatAdd = /* GraphQL */ `
       agentPhonecontact
       sagentregno
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -458,9 +458,9 @@ export const onDeleteFloatAdd = /* GraphQL */ `
       agentPhonecontact
       sagentregno
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -474,9 +474,9 @@ export const onCreateFloatReduction = /* GraphQL */ `
       phonecontact
       status
       agentNationalid
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -490,9 +490,9 @@ export const onUpdateFloatReduction = /* GraphQL */ `
       phonecontact
       status
       agentNationalid
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -506,9 +506,9 @@ export const onDeleteFloatReduction = /* GraphQL */ `
       phonecontact
       status
       agentNationalid
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -521,9 +521,9 @@ export const onCreateAgentWithdrawals = /* GraphQL */ `
       bankAdmId
       agentNationalid
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -536,9 +536,9 @@ export const onUpdateAgentWithdrawals = /* GraphQL */ `
       bankAdmId
       agentNationalid
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -551,9 +551,9 @@ export const onDeleteAgentWithdrawals = /* GraphQL */ `
       bankAdmId
       agentNationalid
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -561,7 +561,7 @@ export const onCreateSAgent = /* GraphQL */ `
   subscription OnCreateSAgent {
     onCreateSAgent {
       id
-      agentNnationalid
+      saNationalid
       name
       phonecontact
       pw
@@ -569,9 +569,9 @@ export const onCreateSAgent = /* GraphQL */ `
       email
       saBalance
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -579,7 +579,7 @@ export const onUpdateSAgent = /* GraphQL */ `
   subscription OnUpdateSAgent {
     onUpdateSAgent {
       id
-      agentNnationalid
+      saNationalid
       name
       phonecontact
       pw
@@ -587,9 +587,9 @@ export const onUpdateSAgent = /* GraphQL */ `
       email
       saBalance
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -597,7 +597,7 @@ export const onDeleteSAgent = /* GraphQL */ `
   subscription OnDeleteSAgent {
     onDeleteSAgent {
       id
-      agentNnationalid
+      saNationalid
       name
       phonecontact
       pw
@@ -605,9 +605,9 @@ export const onDeleteSAgent = /* GraphQL */ `
       email
       saBalance
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -621,9 +621,9 @@ export const onCreateSAgentWithdrawals = /* GraphQL */ `
       amount
       bankAdmid
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -637,9 +637,9 @@ export const onUpdateSAgentWithdrawals = /* GraphQL */ `
       amount
       bankAdmid
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -653,9 +653,9 @@ export const onDeleteSAgentWithdrawals = /* GraphQL */ `
       amount
       bankAdmid
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -670,9 +670,9 @@ export const onCreateBankAdmin = /* GraphQL */ `
       BankAdmBal
       email
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -687,9 +687,9 @@ export const onUpdateBankAdmin = /* GraphQL */ `
       BankAdmBal
       email
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -704,9 +704,9 @@ export const onDeleteBankAdmin = /* GraphQL */ `
       BankAdmBal
       email
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -718,9 +718,9 @@ export const onCreateBankAdmWithdrawals = /* GraphQL */ `
       bankAdmNatId
       amount
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -732,9 +732,9 @@ export const onUpdateBankAdmWithdrawals = /* GraphQL */ `
       bankAdmNatId
       amount
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -746,60 +746,63 @@ export const onDeleteBankAdmWithdrawals = /* GraphQL */ `
       bankAdmNatId
       amount
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onCreateAdvocate = /* GraphQL */ `
   subscription OnCreateAdvocate {
     onCreateAdvocate {
+      advregnu
       nationalid
+      pwd
       name
       phonecontact
-      advregnu
       TtlEarnings
       advBal
       email
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onUpdateAdvocate = /* GraphQL */ `
   subscription OnUpdateAdvocate {
     onUpdateAdvocate {
+      advregnu
       nationalid
+      pwd
       name
       phonecontact
-      advregnu
       TtlEarnings
       advBal
       email
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onDeleteAdvocate = /* GraphQL */ `
   subscription OnDeleteAdvocate {
     onDeleteAdvocate {
+      advregnu
       nationalid
+      pwd
       name
       phonecontact
-      advregnu
       TtlEarnings
       advBal
       email
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -812,9 +815,9 @@ export const onCreateAdvocateWithdrawals = /* GraphQL */ `
       amount
       advNatId
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -827,9 +830,9 @@ export const onUpdateAdvocateWithdrawals = /* GraphQL */ `
       amount
       advNatId
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -842,9 +845,9 @@ export const onDeleteAdvocateWithdrawals = /* GraphQL */ `
       amount
       advNatId
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -860,6 +863,8 @@ export const onCreateCompany = /* GraphQL */ `
       policy
       privacy
       recom
+      pw1
+      pw2
       agentwithdrawalFee
       agentCom
       sagentCom
@@ -877,8 +882,6 @@ export const onCreateCompany = /* GraphQL */ `
       createBuzFee
       crtCompAdsFee
       crtParaAdsFee
-      pw1
-      pw2
       companyEarningBal
       companyEarning
       agentEarningBal
@@ -953,6 +956,8 @@ export const onUpdateCompany = /* GraphQL */ `
       policy
       privacy
       recom
+      pw1
+      pw2
       agentwithdrawalFee
       agentCom
       sagentCom
@@ -970,8 +975,6 @@ export const onUpdateCompany = /* GraphQL */ `
       createBuzFee
       crtCompAdsFee
       crtParaAdsFee
-      pw1
-      pw2
       companyEarningBal
       companyEarning
       agentEarningBal
@@ -1046,6 +1049,8 @@ export const onDeleteCompany = /* GraphQL */ `
       policy
       privacy
       recom
+      pw1
+      pw2
       agentwithdrawalFee
       agentCom
       sagentCom
@@ -1063,8 +1068,6 @@ export const onDeleteCompany = /* GraphQL */ `
       createBuzFee
       crtCompAdsFee
       crtParaAdsFee
-      pw1
-      pw2
       companyEarningBal
       companyEarning
       agentEarningBal
@@ -1146,9 +1149,9 @@ export const onCreateCovCreditSeller = /* GraphQL */ `
       status
       advregnu
       advPhone
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1171,9 +1174,9 @@ export const onUpdateCovCreditSeller = /* GraphQL */ `
       status
       advregnu
       advPhone
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1196,9 +1199,9 @@ export const onDeleteCovCreditSeller = /* GraphQL */ `
       status
       advregnu
       advPhone
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1229,9 +1232,9 @@ export const onCreateGroup = /* GraphQL */ `
       tymsGrpHasLend
       ttlLonAmountRecovered
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1262,9 +1265,9 @@ export const onUpdateGroup = /* GraphQL */ `
       tymsGrpHasLend
       ttlLonAmountRecovered
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1295,9 +1298,9 @@ export const onDeleteGroup = /* GraphQL */ `
       tymsGrpHasLend
       ttlLonAmountRecovered
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1310,9 +1313,9 @@ export const onCreateGrpMembers = /* GraphQL */ `
       memberNatId
       acBal
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1325,9 +1328,9 @@ export const onUpdateGrpMembers = /* GraphQL */ `
       memberNatId
       acBal
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1340,9 +1343,9 @@ export const onDeleteGrpMembers = /* GraphQL */ `
       memberNatId
       acBal
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1361,9 +1364,9 @@ export const onCreateCvrdGroupLoans = /* GraphQL */ `
       timestamp
       advRegNu
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1382,9 +1385,9 @@ export const onUpdateCvrdGroupLoans = /* GraphQL */ `
       timestamp
       advRegNu
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1403,9 +1406,9 @@ export const onDeleteCvrdGroupLoans = /* GraphQL */ `
       timestamp
       advRegNu
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1418,9 +1421,9 @@ export const onCreateGroupNonLoans = /* GraphQL */ `
       amountSent
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1433,9 +1436,9 @@ export const onUpdateGroupNonLoans = /* GraphQL */ `
       amountSent
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1448,9 +1451,9 @@ export const onDeleteGroupNonLoans = /* GraphQL */ `
       amountSent
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1462,9 +1465,9 @@ export const onCreateGrpMembersContribution = /* GraphQL */ `
       grpContact
       contriAmount
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1476,9 +1479,9 @@ export const onUpdateGrpMembersContribution = /* GraphQL */ `
       grpContact
       contriAmount
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1490,9 +1493,9 @@ export const onDeleteGrpMembersContribution = /* GraphQL */ `
       grpContact
       contriAmount
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1507,9 +1510,9 @@ export const onCreateAdvertisedSingleMemberLoans = /* GraphQL */ `
       interest
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1524,9 +1527,9 @@ export const onUpdateAdvertisedSingleMemberLoans = /* GraphQL */ `
       interest
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1541,9 +1544,9 @@ export const onDeleteAdvertisedSingleMemberLoans = /* GraphQL */ `
       interest
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1558,9 +1561,9 @@ export const onCreateAdvertisedChamaLoans = /* GraphQL */ `
       interest
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1575,9 +1578,9 @@ export const onUpdateAdvertisedChamaLoans = /* GraphQL */ `
       interest
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1592,9 +1595,9 @@ export const onDeleteAdvertisedChamaLoans = /* GraphQL */ `
       interest
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1613,9 +1616,9 @@ export const onCreatePaidMultipleAds = /* GraphQL */ `
       status
       latitude
       longitude
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1634,9 +1637,9 @@ export const onUpdatePaidMultipleAds = /* GraphQL */ `
       status
       latitude
       longitude
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1655,9 +1658,9 @@ export const onDeletePaidMultipleAds = /* GraphQL */ `
       status
       latitude
       longitude
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1672,9 +1675,9 @@ export const onCreateFreeBizAds = /* GraphQL */ `
       contact
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1689,9 +1692,9 @@ export const onUpdateFreeBizAds = /* GraphQL */ `
       contact
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1706,9 +1709,9 @@ export const onDeleteFreeBizAds = /* GraphQL */ `
       contact
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;

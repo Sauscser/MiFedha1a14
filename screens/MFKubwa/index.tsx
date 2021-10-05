@@ -19,7 +19,7 @@ const KFKubwaScreen = props => {
   };
 
   const goRegKFNdogoFm = () => {
-    navigation.navigate('RegKFNdogo');
+    navigation.navigate('RegMFNdgScrn');
   };
 
   const goToAdvertiseSales = () => {
@@ -44,7 +44,7 @@ const KFKubwaScreen = props => {
         
         style={styles.kfkubwaimage}>
         <View style={styles.kfkubwaMainView}>
-          <Text style={styles.kfkubwaText}>My KFNdogos</Text>
+          <Text style={styles.kfkubwaText}>My MFNdogos</Text>
 
           <View style={styles.viewForkfkubwaPressables}>
             <Pressable

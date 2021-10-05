@@ -113,6 +113,7 @@ type SMAccount
   acActivenessStatus: Status!
   blStatus: Status!
   loanStatus: Status!
+  owner: String!
 }
 
 type SMLoansCovered
@@ -191,6 +192,7 @@ type SMLoansCovered
   timestamp: AWSTimestamp!
   description: String
   status: Status!
+  owner: String!
 }
 
 type SMNonLoans
@@ -250,6 +252,7 @@ type SMNonLoans
   senderContact: String!
   description: String
   receiverphonecontact: String!
+  owner: String!
 }
 
 type Agent
@@ -308,6 +311,7 @@ type Agent
   longitude: Float!
   agentEarningBal: Float!
   status: Status!
+  owner: String!
 }
 
 type FloatPurchase
@@ -362,6 +366,7 @@ type FloatPurchase
   nationalid: String!
   bankAdmid: String!
   status: Status!
+  owner: String!
 }
 
 type FloatAdd
@@ -416,6 +421,7 @@ type FloatAdd
 
   sagentregno: String!
   status: Status!
+  owner: String!
 }
 
 type FloatReduction
@@ -470,6 +476,7 @@ type FloatReduction
   phonecontact: String!
   status: Status!
   agentNationalid: String!
+  owner: String!
 }
 
 type AgentWithdrawals
@@ -529,6 +536,7 @@ type AgentWithdrawals
   bankAdmId: String
   agentNationalid: ID!
   status: Status!
+  owner: String!
 }
 
 type SAgent
@@ -567,18 +575,14 @@ type SAgent
       }
     ]
   )
-  @key(
-    name: "saChecker"
-    fields: ["agentNnationalid"]
-    queryField: "CheckingSA"
-  )
+  @key(name: "saChecker", fields: ["saNationalid"], queryField: "CheckingSA")
   @key(
     name: "BalbySAgent"
-    fields: ["pw", "agentNnationalid"]
+    fields: ["pw", "saNationalid"]
     queryField: "CheckingSABalBySA"
   ) {
   id: ID!
-  agentNnationalid: String!
+  saNationalid: String!
   name: String!
   phonecontact: String!
   pw: String!
@@ -586,6 +590,7 @@ type SAgent
   email: String!
   saBalance: Float!
   status: Status!
+  owner: String!
 }
 
 type SAgentWithdrawals
@@ -639,6 +644,7 @@ type SAgentWithdrawals
   amount: Float!
   bankAdmid: String
   status: Status!
+  owner: String!
 }
 
 type BankAdmin
@@ -693,6 +699,7 @@ type BankAdmin
   BankAdmBal: Float!
   email: String!
   status: Status!
+  owner: String!
 }
 
 type BankAdmWithdrawals
@@ -735,6 +742,7 @@ type BankAdmWithdrawals
   bankAdmNatId: String!
   amount: Float!
   status: Status!
+  owner: String!
 }
 
 type Advocate
@@ -775,20 +783,18 @@ type Advocate
       }
     ]
   )
-  @key(fields: ["nationalid"])
-  @key(
-    name: "AdvByRegNu"
-    fields: ["advregnu"]
-    queryField: "checkAdvByRegNo"
-  ) {
-  nationalid: ID!
+  @key(fields: ["advregnu"])
+  @key(name: "byNatId", fields: ["nationalid"], queryField: "checkAdvByNatId") {
+  advregnu: ID!
+  nationalid: String!
+  pwd: String!
   name: String!
   phonecontact: String!
-  advregnu: String!
   TtlEarnings: Float!
   advBal: Float!
   email: String!
   status: Status!
+  owner: String!
 }
 
 type AdvocateWithdrawals
@@ -833,6 +839,7 @@ type AdvocateWithdrawals
   amount: Float!
   advNatId: String!
   status: Status!
+  owner: String!
 }
 
 type Company
@@ -857,6 +864,8 @@ type Company
   policy: String!
   privacy: String!
   recom: String!
+  pw1: String!
+  pw2: String!
 
   agentwithdrawalFee: Float!
   agentCom: Float!
@@ -875,8 +884,7 @@ type Company
   createBuzFee: Float!
   crtCompAdsFee: Float!
   crtParaAdsFee: Float!
-  pw1: String!
-  pw2: String!
+
   companyEarningBal: Float!
   companyEarning: Float!
   agentEarningBal: Float!
@@ -889,7 +897,7 @@ type Company
   admEarning: Float!
 
   ttlUsrDep: Float!
-  ttlUserWthdrwl: String!
+  ttlUserWthdrwl: Float
   agentFloatIn: Float!
   agentFloatOut: Float!
   ttlActiveUsers: Float!
@@ -1018,6 +1026,7 @@ type CovCreditSeller
   status: Status!
   advregnu: String!
   advPhone: String!
+  owner: String!
 }
 
 type Group
@@ -1094,6 +1103,7 @@ type Group
 
   ttlLonAmountRecovered: Float
   status: Status!
+  owner: String!
 }
 
 type GrpMembers
@@ -1141,6 +1151,7 @@ type GrpMembers
   memberNatId: String!
   acBal: Float!
   status: Status!
+  owner: String!
 }
 
 type CvrdGroupLoans
@@ -1215,6 +1226,7 @@ type CvrdGroupLoans
   timestamp: AWSTimestamp!
   advRegNu: String!
   status: Status!
+  owner: String!
 }
 
 type GroupNonLoans
@@ -1270,6 +1282,7 @@ type GroupNonLoans
   description: String
 
   status: Status!
+  owner: String!
 }
 
 type GrpMembersContribution
@@ -1326,6 +1339,7 @@ type GrpMembersContribution
   grpContact: String!
   contriAmount: Float!
   status: Status!
+  owner: String!
 }
 
 type AdvertisedSingleMemberLoans
@@ -1390,6 +1404,7 @@ type AdvertisedSingleMemberLoans
   interest: Float!
   description: String
   status: Status!
+  owner: String!
 }
 
 type AdvertisedChamaLoans
@@ -1454,6 +1469,7 @@ type AdvertisedChamaLoans
   interest: Float!
   description: String
   status: Status!
+  owner: String!
 }
 
 type PaidMultipleAds
@@ -1529,6 +1545,7 @@ type PaidMultipleAds
   status: Status!
   latitude: Float!
   longitude: Float!
+  owner: String!
 }
 
 type FreeBizAds
@@ -1595,6 +1612,7 @@ type FreeBizAds
 
   description: String
   status: Status!
+  owner: String!
 }
 
 enum Status {

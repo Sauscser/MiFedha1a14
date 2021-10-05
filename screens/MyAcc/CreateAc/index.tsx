@@ -38,11 +38,10 @@ const CreateAcForm = (props:UserReg) => {
   const [nam, setName] = useState(null);
   const [phoneContact, setPhoneContact] = useState(null);
   const [awsEmail, setAWSEmail] = useState(null);
-  const [acBal, setAcBal] = useState('');
+  
   const [pword, setPW] = useState('');
-  const [stts, setStatus] = useState('');
-  const [myUserId, setMyUserId] = useState('');
-  const[usrDtl, setUsrDtl] = useState("");
+
+  const[ownr, setownr] = useState(null);
 
 
   
@@ -50,8 +49,9 @@ const CreateAcForm = (props:UserReg) => {
   
     const fetchUser = async () => {
       const userInfo = await Auth.currentAuthenticatedUser();
+      
       setName(userInfo.username);
-
+      setownr(userInfo.attributes.sub);
       setPhoneContact(userInfo.attributes.phone_number);
       setAWSEmail(userInfo.attributes.email);
 
@@ -140,7 +140,8 @@ const CreateAcForm = (props:UserReg) => {
           TotalTymsBL: 0,
                     acActivenessStatus: 'AccountActive',
                     blStatus: 'LoanCleared',
-                    loanStatus: "NoLoan"
+                    loanStatus: "NoLoan",
+                    owner:ownr
                   },
                 }),
               );
@@ -185,6 +186,7 @@ const CreateAcForm = (props:UserReg) => {
               <View
                  style={styles.image}>
                 <ScrollView>
+           
                   <View style={styles.loanTitleView}>
                     <Text style={styles.title}>Fill Your Account Details Below</Text>
                   </View>

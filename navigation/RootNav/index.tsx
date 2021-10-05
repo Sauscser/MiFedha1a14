@@ -10,6 +10,11 @@ import ads from '../../screens/Adverts';
 import KFKubwaScreen from '../../screens/MFKubwa';
 import KFNdogoScreen from '../../screens/MFNdogo';
 import KFAdminScreen from '../../screens/MFAdmin';
+import MFSetting from '../../screens/Settings/SignIn';
+import MFAdmSgnIn from "../../screens/MFAdmin/SignInAdm";
+import MFKw from "../../screens/MFKubwa/SignInMFK";
+import MFNd from "../../screens/MFNdogo/SignInMFN";
+import AdvSgnIn from "../../screens/Advocate/AdvocateSignIn";
 
 
 
@@ -40,9 +45,11 @@ const RootNavigator = props => {
         headerShown: false,
       }}>
         <Drawer.Screen name="Home" component={HomeNavigator} />
-        <Drawer.Screen name="KFNdogo" component={KFNdogoScreen} />
-        <Drawer.Screen name="KFKubwa" component={KFKubwaScreen} />
-        <Drawer.Screen name="KFAdmin" component={KFAdminScreen} />
+        <Drawer.Screen name="MFNdogo" component={MFNd} />
+        <Drawer.Screen name="MFKubwa" component={MFKw} />
+        <Drawer.Screen name="MFAdvocate" component={AdvSgnIn} />
+        <Drawer.Screen name="MFSettings" component={MFSetting} />
+        <Drawer.Screen name="MFAdminstrators" component={MFAdmSgnIn} />
         
         
       </Drawer.Navigator>

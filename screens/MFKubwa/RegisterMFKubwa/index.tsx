@@ -19,31 +19,41 @@ import {
 } from 'react-native';
 import styles from './styles';
 
-const RegisterKFKubwaAcForm = props => {
-  const [nationalId, setNationalid] = useState('');
+const RegisterMFKubwaAcForm = props => {
+  const [nationalId, setNationalid] = useState("");
   const [nam, setName] = useState("");
   const [phoneContact, setPhoneContact] = useState("");
-const[eml, setEml] =useState("");
-
-  const [pword, setPW] = useState('');
-  const [stts, setStatus] = useState('');
-  const [saRegNo, setSARegNo] = useState('');
-  const[lat, setLat] = useState('');
-  const[lon, setLon] = useState("");
+  const[eml, setEml] =useState("");
+  const[ownr, setOwnr] = useState(null);
+  const [pword, setPW] = useState("");
 
 
-  const onCreateNewSMAc = async () => {
+
+  const fetchUser = async () => {
+    const userInfo = await Auth.currentAuthenticatedUser();   
+    setOwnr(userInfo.attributes.sub); 
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+
+  const CreateNewSA = async () => {
     try {
       await API.graphql(
         graphqlOperation(createSAgent, {
           input: {
-            agentNnationalid: nationalId,
+            
+            saNationalid: nationalId,
             name: nam,
             phonecontact: phoneContact,
             pw: pword,
             TtlEarnings: 0,
-           saBalance: 0,   
+            email: eml,
+            saBalance: 0,   
             status: 'AccountActive',
+            owner:ownr,
           },
         }),
       );
@@ -52,10 +62,10 @@ const[eml, setEml] =useState("");
     }
 
     setNationalid('');
-    setPW('');
-    setName('');
-  
-    setPhoneContact('');
+    setPW("");
+    setName("");
+  setEml("");
+    setPhoneContact("");
   
   };
 
@@ -66,7 +76,7 @@ const[eml, setEml] =useState("");
         style={styles.image}>
         <ScrollView>
           <View style={styles.loanTitleView}>
-            <Text style={styles.title}>Fill KFKubwa Account Details Below</Text>
+            <Text style={styles.title}>Fill MFKubwa Account Details Below</Text>
           </View>
 
           
@@ -77,7 +87,7 @@ const[eml, setEml] =useState("");
               onChangeText={setPhoneContact}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>SAgent Phone</Text>
+            <Text style={styles.sendLoanText}>MFKubwa Phone</Text>
           </View>
 
           <View style={styles.sendLoanView}>
@@ -86,7 +96,7 @@ const[eml, setEml] =useState("");
               onChangeText={setNationalid}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>SAgent National Id</Text>
+            <Text style={styles.sendLoanText}>MFKubwa National Id</Text>
           </View>
 
           <View style={styles.sendLoanView}>
@@ -95,7 +105,7 @@ const[eml, setEml] =useState("");
               onChangeText={setName}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>SAgent Name</Text>
+            <Text style={styles.sendLoanText}>MFKubwa Name</Text>
           </View>
 
          
@@ -106,13 +116,21 @@ const[eml, setEml] =useState("");
               onChangeText={setPW}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>SAgent Pass Word</Text>
+            <Text style={styles.sendLoanText}>MFKubwa Pass Word</Text>
           </View>
 
+          <View style={styles.sendLoanView}>
+            <TextInput
+              value={eml}
+              onChangeText={setEml}
+              style={styles.sendLoanInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendLoanText}>MFKubwa Email</Text>
+          </View>
           
 
           <TouchableOpacity
-            onPress={onCreateNewSMAc}
+            onPress={CreateNewSA}
             style={styles.sendLoanButton}>
             <Text style={styles.sendLoanButtonText}>
               Click to Create Account
@@ -124,4 +142,4 @@ const[eml, setEml] =useState("");
   );
 };
 
-export default RegisterKFKubwaAcForm;
+export default RegisterMFKubwaAcForm;

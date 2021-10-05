@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     top: 10,
-  
   },
 
   sendLoanView: {

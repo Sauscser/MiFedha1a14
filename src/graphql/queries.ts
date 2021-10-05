@@ -59,9 +59,9 @@ export const getSMAccount = /* GraphQL */ `
       acActivenessStatus
       blStatus
       loanStatus
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -135,9 +135,9 @@ export const listSMAccounts = /* GraphQL */ `
         acActivenessStatus
         blStatus
         loanStatus
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -159,9 +159,9 @@ export const getSMLoansCovered = /* GraphQL */ `
       timestamp
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -186,9 +186,9 @@ export const listSMLoansCovereds = /* GraphQL */ `
         timestamp
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -203,9 +203,9 @@ export const getSMNonLoans = /* GraphQL */ `
       senderContact
       description
       receiverphonecontact
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -223,9 +223,9 @@ export const listSMNonLoans = /* GraphQL */ `
         senderContact
         description
         receiverphonecontact
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -248,9 +248,9 @@ export const getAgent = /* GraphQL */ `
       longitude
       agentEarningBal
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -284,9 +284,9 @@ export const listAgents = /* GraphQL */ `
         longitude
         agentEarningBal
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -301,9 +301,9 @@ export const getFloatPurchase = /* GraphQL */ `
       nationalid
       bankAdmid
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -321,9 +321,9 @@ export const listFloatPurchases = /* GraphQL */ `
         nationalid
         bankAdmid
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -339,9 +339,9 @@ export const getFloatAdd = /* GraphQL */ `
       agentPhonecontact
       sagentregno
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -360,9 +360,9 @@ export const listFloatAdds = /* GraphQL */ `
         agentPhonecontact
         sagentregno
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -378,9 +378,9 @@ export const getFloatReduction = /* GraphQL */ `
       phonecontact
       status
       agentNationalid
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -399,9 +399,9 @@ export const listFloatReductions = /* GraphQL */ `
         phonecontact
         status
         agentNationalid
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -416,9 +416,9 @@ export const getAgentWithdrawals = /* GraphQL */ `
       bankAdmId
       agentNationalid
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -440,9 +440,9 @@ export const listAgentWithdrawals = /* GraphQL */ `
         bankAdmId
         agentNationalid
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -452,7 +452,7 @@ export const getSAgent = /* GraphQL */ `
   query GetSAgent($id: ID!) {
     getSAgent(id: $id) {
       id
-      agentNnationalid
+      saNationalid
       name
       phonecontact
       pw
@@ -460,9 +460,9 @@ export const getSAgent = /* GraphQL */ `
       email
       saBalance
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -475,7 +475,7 @@ export const listSAgents = /* GraphQL */ `
     listSAgents(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        agentNnationalid
+        saNationalid
         name
         phonecontact
         pw
@@ -483,9 +483,9 @@ export const listSAgents = /* GraphQL */ `
         email
         saBalance
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -501,9 +501,9 @@ export const getSAgentWithdrawals = /* GraphQL */ `
       amount
       bankAdmid
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -526,9 +526,9 @@ export const listSAgentWithdrawals = /* GraphQL */ `
         amount
         bankAdmid
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -545,9 +545,9 @@ export const getBankAdmin = /* GraphQL */ `
       BankAdmBal
       email
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -575,9 +575,9 @@ export const listBankAdmins = /* GraphQL */ `
         BankAdmBal
         email
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -591,9 +591,9 @@ export const getBankAdmWithdrawals = /* GraphQL */ `
       bankAdmNatId
       amount
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -614,58 +614,60 @@ export const listBankAdmWithdrawals = /* GraphQL */ `
         bankAdmNatId
         amount
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
   }
 `;
 export const getAdvocate = /* GraphQL */ `
-  query GetAdvocate($nationalid: ID!) {
-    getAdvocate(nationalid: $nationalid) {
+  query GetAdvocate($advregnu: ID!) {
+    getAdvocate(advregnu: $advregnu) {
+      advregnu
       nationalid
+      pwd
       name
       phonecontact
-      advregnu
       TtlEarnings
       advBal
       email
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const listAdvocates = /* GraphQL */ `
   query ListAdvocates(
-    $nationalid: ID
+    $advregnu: ID
     $filter: ModelAdvocateFilterInput
     $limit: Int
     $nextToken: String
     $sortDirection: ModelSortDirection
   ) {
     listAdvocates(
-      nationalid: $nationalid
+      advregnu: $advregnu
       filter: $filter
       limit: $limit
       nextToken: $nextToken
       sortDirection: $sortDirection
     ) {
       items {
+        advregnu
         nationalid
+        pwd
         name
         phonecontact
-        advregnu
         TtlEarnings
         advBal
         email
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -680,9 +682,9 @@ export const getAdvocateWithdrawals = /* GraphQL */ `
       amount
       advNatId
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -704,9 +706,9 @@ export const listAdvocateWithdrawals = /* GraphQL */ `
         amount
         advNatId
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -724,6 +726,8 @@ export const getCompany = /* GraphQL */ `
       policy
       privacy
       recom
+      pw1
+      pw2
       agentwithdrawalFee
       agentCom
       sagentCom
@@ -741,8 +745,6 @@ export const getCompany = /* GraphQL */ `
       createBuzFee
       crtCompAdsFee
       crtParaAdsFee
-      pw1
-      pw2
       companyEarningBal
       companyEarning
       agentEarningBal
@@ -830,6 +832,8 @@ export const listCompanies = /* GraphQL */ `
         policy
         privacy
         recom
+        pw1
+        pw2
         agentwithdrawalFee
         agentCom
         sagentCom
@@ -847,8 +851,6 @@ export const listCompanies = /* GraphQL */ `
         createBuzFee
         crtCompAdsFee
         crtParaAdsFee
-        pw1
-        pw2
         companyEarningBal
         companyEarning
         agentEarningBal
@@ -932,9 +934,9 @@ export const getCovCreditSeller = /* GraphQL */ `
       status
       advregnu
       advPhone
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -966,9 +968,9 @@ export const listCovCreditSellers = /* GraphQL */ `
         status
         advregnu
         advPhone
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1001,9 +1003,9 @@ export const getGroup = /* GraphQL */ `
       tymsGrpHasLend
       ttlLonAmountRecovered
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1047,9 +1049,9 @@ export const listGroups = /* GraphQL */ `
         tymsGrpHasLend
         ttlLonAmountRecovered
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1064,9 +1066,9 @@ export const getGrpMembers = /* GraphQL */ `
       memberNatId
       acBal
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1084,9 +1086,9 @@ export const listGrpMembers = /* GraphQL */ `
         memberNatId
         acBal
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1107,9 +1109,9 @@ export const getCvrdGroupLoans = /* GraphQL */ `
       timestamp
       advRegNu
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1133,9 +1135,9 @@ export const listCvrdGroupLoans = /* GraphQL */ `
         timestamp
         advRegNu
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1150,9 +1152,9 @@ export const getGroupNonLoans = /* GraphQL */ `
       amountSent
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1170,9 +1172,9 @@ export const listGroupNonLoans = /* GraphQL */ `
         amountSent
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1186,9 +1188,9 @@ export const getGrpMembersContribution = /* GraphQL */ `
       grpContact
       contriAmount
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1209,9 +1211,9 @@ export const listGrpMembersContributions = /* GraphQL */ `
         grpContact
         contriAmount
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1228,9 +1230,9 @@ export const getAdvertisedSingleMemberLoans = /* GraphQL */ `
       interest
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1254,9 +1256,9 @@ export const listAdvertisedSingleMemberLoans = /* GraphQL */ `
         interest
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1273,9 +1275,9 @@ export const getAdvertisedChamaLoans = /* GraphQL */ `
       interest
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1299,9 +1301,9 @@ export const listAdvertisedChamaLoans = /* GraphQL */ `
         interest
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1322,9 +1324,9 @@ export const getPaidMultipleAds = /* GraphQL */ `
       status
       latitude
       longitude
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1348,9 +1350,9 @@ export const listPaidMultipleAds = /* GraphQL */ `
         status
         latitude
         longitude
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1367,9 +1369,9 @@ export const getFreeBizAds = /* GraphQL */ `
       contact
       description
       status
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1389,9 +1391,9 @@ export const listFreeBizAds = /* GraphQL */ `
         contact
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1469,9 +1471,9 @@ export const checkUserrrBalance = /* GraphQL */ `
         acActivenessStatus
         blStatus
         loanStatus
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1549,9 +1551,9 @@ export const accessingPersonalAc = /* GraphQL */ `
         acActivenessStatus
         blStatus
         loanStatus
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1588,9 +1590,9 @@ export const checkMyDetors = /* GraphQL */ `
         timestamp
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1627,9 +1629,9 @@ export const confrmMyLoaneeeee = /* GraphQL */ `
         timestamp
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1666,9 +1668,9 @@ export const checkbyAdvNLnar = /* GraphQL */ `
         timestamp
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1705,9 +1707,9 @@ export const chckbyAdvNLnee = /* GraphQL */ `
         timestamp
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1735,9 +1737,9 @@ export const checkSentNonLns = /* GraphQL */ `
         senderContact
         description
         receiverphonecontact
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1765,9 +1767,9 @@ export const checkReceivedNonLns = /* GraphQL */ `
         senderContact
         description
         receiverphonecontact
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1805,9 +1807,9 @@ export const updtAgentBalbyUser = /* GraphQL */ `
         longitude
         agentEarningBal
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1843,9 +1845,9 @@ export const searchMyAgents = /* GraphQL */ `
         longitude
         agentEarningBal
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1873,9 +1875,9 @@ export const lstAgentFltPrchasss = /* GraphQL */ `
         nationalid
         bankAdmid
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1903,9 +1905,9 @@ export const lstBankAdmTransaaaaccttions = /* GraphQL */ `
         nationalid
         bankAdmid
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1934,9 +1936,9 @@ export const createWythdrawals = /* GraphQL */ `
         agentPhonecontact
         sagentregno
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1965,9 +1967,9 @@ export const readSAWithdrwls = /* GraphQL */ `
         agentPhonecontact
         sagentregno
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -1996,9 +1998,9 @@ export const creatFltDeduc = /* GraphQL */ `
         phonecontact
         status
         agentNationalid
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2027,9 +2029,9 @@ export const creatFltDed = /* GraphQL */ `
         phonecontact
         status
         agentNationalid
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2058,9 +2060,9 @@ export const reeeadAmtDpstd = /* GraphQL */ `
         phonecontact
         status
         agentNationalid
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2088,9 +2090,9 @@ export const checkAgentWthdrawls = /* GraphQL */ `
         bankAdmId
         agentNationalid
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2118,9 +2120,9 @@ export const lstAgentWithdrowals = /* GraphQL */ `
         bankAdmId
         agentNationalid
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2148,9 +2150,9 @@ export const lstBankAdmTransactiooonnns = /* GraphQL */ `
         bankAdmId
         agentNationalid
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2158,14 +2160,14 @@ export const lstBankAdmTransactiooonnns = /* GraphQL */ `
 `;
 export const checkingSA = /* GraphQL */ `
   query CheckingSA(
-    $agentNnationalid: String
+    $saNationalid: String
     $sortDirection: ModelSortDirection
     $filter: ModelSAgentFilterInput
     $limit: Int
     $nextToken: String
   ) {
     CheckingSA(
-      agentNnationalid: $agentNnationalid
+      saNationalid: $saNationalid
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -2173,7 +2175,7 @@ export const checkingSA = /* GraphQL */ `
     ) {
       items {
         id
-        agentNnationalid
+        saNationalid
         name
         phonecontact
         pw
@@ -2181,9 +2183,9 @@ export const checkingSA = /* GraphQL */ `
         email
         saBalance
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2192,7 +2194,7 @@ export const checkingSA = /* GraphQL */ `
 export const checkingSABalBySA = /* GraphQL */ `
   query CheckingSABalBySA(
     $pw: String
-    $agentNnationalid: ModelStringKeyConditionInput
+    $saNationalid: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelSAgentFilterInput
     $limit: Int
@@ -2200,7 +2202,7 @@ export const checkingSABalBySA = /* GraphQL */ `
   ) {
     CheckingSABalBySA(
       pw: $pw
-      agentNnationalid: $agentNnationalid
+      saNationalid: $saNationalid
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -2208,7 +2210,7 @@ export const checkingSABalBySA = /* GraphQL */ `
     ) {
       items {
         id
-        agentNnationalid
+        saNationalid
         name
         phonecontact
         pw
@@ -2216,9 +2218,9 @@ export const checkingSABalBySA = /* GraphQL */ `
         email
         saBalance
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2247,9 +2249,9 @@ export const lstSAWithdrlls = /* GraphQL */ `
         amount
         bankAdmid
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2278,9 +2280,9 @@ export const lstSAWithdrllls = /* GraphQL */ `
         amount
         bankAdmid
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2309,9 +2311,9 @@ export const lstBankAdmTranssactions = /* GraphQL */ `
         amount
         bankAdmid
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2341,9 +2343,9 @@ export const geetbankAdmdtlsByNatId = /* GraphQL */ `
         BankAdmBal
         email
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2370,41 +2372,42 @@ export const checkBankAdmWithdrawals = /* GraphQL */ `
         bankAdmNatId
         amount
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
   }
 `;
-export const checkAdvByRegNo = /* GraphQL */ `
-  query CheckAdvByRegNo(
-    $advregnu: String
+export const checkAdvByNatId = /* GraphQL */ `
+  query CheckAdvByNatId(
+    $nationalid: String
     $sortDirection: ModelSortDirection
     $filter: ModelAdvocateFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    checkAdvByRegNo(
-      advregnu: $advregnu
+    checkAdvByNatId(
+      nationalid: $nationalid
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
       nextToken: $nextToken
     ) {
       items {
+        advregnu
         nationalid
+        pwd
         name
         phonecontact
-        advregnu
         TtlEarnings
         advBal
         email
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2432,9 +2435,9 @@ export const checkAdvocateWithdrawalsss = /* GraphQL */ `
         amount
         advNatId
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2467,6 +2470,8 @@ export const checkbyComppw = /* GraphQL */ `
         policy
         privacy
         recom
+        pw1
+        pw2
         agentwithdrawalFee
         agentCom
         sagentCom
@@ -2484,8 +2489,6 @@ export const checkbyComppw = /* GraphQL */ `
         createBuzFee
         crtCompAdsFee
         crtParaAdsFee
-        pw1
-        pw2
         companyEarningBal
         companyEarning
         agentEarningBal
@@ -2582,9 +2585,9 @@ export const checkMyNonCovrrrrrrrrdSales = /* GraphQL */ `
         status
         advregnu
         advPhone
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2622,9 +2625,9 @@ export const checkMyNonCovrrrrrrrrdSaleees = /* GraphQL */ `
         status
         advregnu
         advPhone
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2662,9 +2665,9 @@ export const checkOurNonCovrredSMLoans = /* GraphQL */ `
         status
         advregnu
         advPhone
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2702,9 +2705,9 @@ export const checkMysalessDebts = /* GraphQL */ `
         status
         advregnu
         advPhone
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2744,9 +2747,9 @@ export const checkbyAdvNCredddSseller = /* GraphQL */ `
         status
         advregnu
         advPhone
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2792,9 +2795,9 @@ export const checkGrpsICrtd = /* GraphQL */ `
         tymsGrpHasLend
         ttlLonAmountRecovered
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2842,9 +2845,9 @@ export const checkGrpBal = /* GraphQL */ `
         tymsGrpHasLend
         ttlLonAmountRecovered
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2874,9 +2877,9 @@ export const checkMygroup = /* GraphQL */ `
         memberNatId
         acBal
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2904,9 +2907,9 @@ export const checkMygrps = /* GraphQL */ `
         memberNatId
         acBal
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2942,9 +2945,9 @@ export const cheeeeckGrpCovrdLonDflts = /* GraphQL */ `
         timestamp
         advRegNu
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2980,9 +2983,9 @@ export const updatAmaounntrepaid = /* GraphQL */ `
         timestamp
         advRegNu
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3018,9 +3021,9 @@ export const clearloaneriiiiifongoing = /* GraphQL */ `
         timestamp
         advRegNu
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3056,9 +3059,9 @@ export const checkbyAdvNGrrrpp = /* GraphQL */ `
         timestamp
         advRegNu
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3094,9 +3097,9 @@ export const checkbyAdvNLoaneeeeeei = /* GraphQL */ `
         timestamp
         advRegNu
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3124,9 +3127,9 @@ export const cheeeckGrpNonLoansee = /* GraphQL */ `
         amountSent
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3154,9 +3157,9 @@ export const cheeeckGrpNonLoanse = /* GraphQL */ `
         amountSent
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3183,9 +3186,9 @@ export const checkAllMyGrpsContri = /* GraphQL */ `
         grpContact
         contriAmount
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3212,9 +3215,9 @@ export const checkAllGrpContributorssss = /* GraphQL */ `
         grpContact
         contriAmount
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3243,9 +3246,9 @@ export const checkMmbrContrInAGrpp = /* GraphQL */ `
         grpContact
         contriAmount
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3277,9 +3280,9 @@ export const byMaximumAmntNinterest = /* GraphQL */ `
         interest
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3311,9 +3314,9 @@ export const byMaximumAmntNinterestee = /* GraphQL */ `
         interest
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3347,9 +3350,9 @@ export const byBuznessType = /* GraphQL */ `
         status
         latitude
         longitude
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3385,9 +3388,9 @@ export const byBuznesTypeee = /* GraphQL */ `
         status
         latitude
         longitude
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3417,9 +3420,9 @@ export const byBusnessType = /* GraphQL */ `
         contact
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -3451,9 +3454,9 @@ export const byBiznessType = /* GraphQL */ `
         contact
         description
         status
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }

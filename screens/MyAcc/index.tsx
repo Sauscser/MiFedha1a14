@@ -23,7 +23,7 @@ const MyAccount = props => {
   };
 
   const goToSMADpstFm = () => {
-    navigation.navigate('SMADpsitFrm');
+    navigation.navigate('DpstMney');
   };
 
   const goWithdrwMny = () => {

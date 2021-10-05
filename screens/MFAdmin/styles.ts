@@ -109,15 +109,14 @@ const styles = StyleSheet.create({
 
   viewForClientsPressables: {
     backgroundColor: 'pink',
-    marginHorizontal: 30,
-    width: Dimensions.get('screen').width - 60,
+    
     height: 40,
     borderRadius: 4,
     top: 3,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    width: 110,
+    width: "97%",
   },
 
   viewForClientsCategories: {
@@ -148,9 +147,9 @@ const styles = StyleSheet.create({
 
   clientsView: {
     backgroundColor: 'brown',
-    width:"40%",
+    width:"38%",
     marginHorizontal: "10%",
-    height: 95,
+    height: "45%",
     borderRadius: 4,
 
     justifyContent: 'center',
@@ -160,7 +159,7 @@ const styles = StyleSheet.create({
 
   ClientsPressables: {
     backgroundColor: 'purple',
-    width:"47%",
+    width:"32%",
     marginHorizontal: "2%",
     height: 40,
     borderRadius: 4,
@@ -188,16 +187,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop: 30,
+    marginTop: "2%",
   },
 
   viewForAcEarningsPressables: {
     backgroundColor: 'brown',
     marginHorizontal: 15,
     width: Dimensions.get('screen').width - 30,
-    height: 60,
+    height: "60%",
     borderRadius: 20,
-    marginTop: 2,
+    marginTop: "0.5%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',

@@ -57,6 +57,7 @@ export type CreateSMAccountInput = {
   acActivenessStatus: Status,
   blStatus: Status,
   loanStatus: Status,
+  owner: string,
 };
 
 export enum Status {
@@ -242,9 +243,9 @@ export type SMAccount = {
   acActivenessStatus: Status,
   blStatus: Status,
   loanStatus: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateSMAccountInput = {
@@ -302,6 +303,7 @@ export type UpdateSMAccountInput = {
   acActivenessStatus?: Status | null,
   blStatus?: Status | null,
   loanStatus?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteSMAccountInput = {
@@ -322,6 +324,7 @@ export type CreateSMLoansCoveredInput = {
   timestamp: number,
   description?: string | null,
   status: Status,
+  owner: string,
 };
 
 export type ModelSMLoansCoveredConditionInput = {
@@ -385,9 +388,9 @@ export type SMLoansCovered = {
   timestamp: number,
   description?: string | null,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateSMLoansCoveredInput = {
@@ -404,6 +407,7 @@ export type UpdateSMLoansCoveredInput = {
   timestamp?: number | null,
   description?: string | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteSMLoansCoveredInput = {
@@ -417,6 +421,7 @@ export type CreateSMNonLoansInput = {
   senderContact: string,
   description?: string | null,
   receiverphonecontact: string,
+  owner: string,
 };
 
 export type ModelSMNonLoansConditionInput = {
@@ -438,9 +443,9 @@ export type SMNonLoans = {
   senderContact: string,
   description?: string | null,
   receiverphonecontact: string,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateSMNonLoansInput = {
@@ -450,6 +455,7 @@ export type UpdateSMNonLoansInput = {
   senderContact?: string | null,
   description?: string | null,
   receiverphonecontact?: string | null,
+  owner?: string | null,
 };
 
 export type DeleteSMNonLoansInput = {
@@ -471,6 +477,7 @@ export type CreateAgentInput = {
   longitude: number,
   agentEarningBal: number,
   status: Status,
+  owner: string,
 };
 
 export type ModelAgentConditionInput = {
@@ -508,9 +515,9 @@ export type Agent = {
   longitude: number,
   agentEarningBal: number,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateAgentInput = {
@@ -528,6 +535,7 @@ export type UpdateAgentInput = {
   longitude?: number | null,
   agentEarningBal?: number | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteAgentInput = {
@@ -541,6 +549,7 @@ export type CreateFloatPurchaseInput = {
   nationalid: string,
   bankAdmid: string,
   status: Status,
+  owner: string,
 };
 
 export type ModelFloatPurchaseConditionInput = {
@@ -562,9 +571,9 @@ export type FloatPurchase = {
   nationalid: string,
   bankAdmid: string,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateFloatPurchaseInput = {
@@ -574,6 +583,7 @@ export type UpdateFloatPurchaseInput = {
   nationalid?: string | null,
   bankAdmid?: string | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteFloatPurchaseInput = {
@@ -588,6 +598,7 @@ export type CreateFloatAddInput = {
   agentPhonecontact: string,
   sagentregno: string,
   status: Status,
+  owner: string,
 };
 
 export type ModelFloatAddConditionInput = {
@@ -611,9 +622,9 @@ export type FloatAdd = {
   agentPhonecontact: string,
   sagentregno: string,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateFloatAddInput = {
@@ -624,6 +635,7 @@ export type UpdateFloatAddInput = {
   agentPhonecontact?: string | null,
   sagentregno?: string | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteFloatAddInput = {
@@ -638,6 +650,7 @@ export type CreateFloatReductionInput = {
   phonecontact: string,
   status: Status,
   agentNationalid: string,
+  owner: string,
 };
 
 export type ModelFloatReductionConditionInput = {
@@ -661,9 +674,9 @@ export type FloatReduction = {
   phonecontact: string,
   status: Status,
   agentNationalid: string,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateFloatReductionInput = {
@@ -674,6 +687,7 @@ export type UpdateFloatReductionInput = {
   phonecontact?: string | null,
   status?: Status | null,
   agentNationalid?: string | null,
+  owner?: string | null,
 };
 
 export type DeleteFloatReductionInput = {
@@ -687,6 +701,7 @@ export type CreateAgentWithdrawalsInput = {
   bankAdmId?: string | null,
   agentNationalid: string,
   status: Status,
+  owner: string,
 };
 
 export type ModelAgentWithdrawalsConditionInput = {
@@ -708,9 +723,9 @@ export type AgentWithdrawals = {
   bankAdmId?: string | null,
   agentNationalid: string,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateAgentWithdrawalsInput = {
@@ -720,6 +735,7 @@ export type UpdateAgentWithdrawalsInput = {
   bankAdmId?: string | null,
   agentNationalid?: string | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteAgentWithdrawalsInput = {
@@ -728,7 +744,7 @@ export type DeleteAgentWithdrawalsInput = {
 
 export type CreateSAgentInput = {
   id?: string | null,
-  agentNnationalid: string,
+  saNationalid: string,
   name: string,
   phonecontact: string,
   pw: string,
@@ -736,10 +752,11 @@ export type CreateSAgentInput = {
   email: string,
   saBalance: number,
   status: Status,
+  owner: string,
 };
 
 export type ModelSAgentConditionInput = {
-  agentNnationalid?: ModelStringInput | null,
+  saNationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
   phonecontact?: ModelStringInput | null,
   pw?: ModelStringInput | null,
@@ -755,7 +772,7 @@ export type ModelSAgentConditionInput = {
 export type SAgent = {
   __typename: "SAgent",
   id: string,
-  agentNnationalid: string,
+  saNationalid: string,
   name: string,
   phonecontact: string,
   pw: string,
@@ -763,14 +780,14 @@ export type SAgent = {
   email: string,
   saBalance: number,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateSAgentInput = {
   id: string,
-  agentNnationalid?: string | null,
+  saNationalid?: string | null,
   name?: string | null,
   phonecontact?: string | null,
   pw?: string | null,
@@ -778,6 +795,7 @@ export type UpdateSAgentInput = {
   email?: string | null,
   saBalance?: number | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteSAgentInput = {
@@ -792,6 +810,7 @@ export type CreateSAgentWithdrawalsInput = {
   amount: number,
   bankAdmid?: string | null,
   status: Status,
+  owner: string,
 };
 
 export type ModelSAgentWithdrawalsConditionInput = {
@@ -815,9 +834,9 @@ export type SAgentWithdrawals = {
   amount: number,
   bankAdmid?: string | null,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateSAgentWithdrawalsInput = {
@@ -828,6 +847,7 @@ export type UpdateSAgentWithdrawalsInput = {
   amount?: number | null,
   bankAdmid?: string | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteSAgentWithdrawalsInput = {
@@ -843,6 +863,7 @@ export type CreateBankAdminInput = {
   BankAdmBal: number,
   email: string,
   status: Status,
+  owner: string,
 };
 
 export type ModelBankAdminConditionInput = {
@@ -868,9 +889,9 @@ export type BankAdmin = {
   BankAdmBal: number,
   email: string,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateBankAdminInput = {
@@ -882,6 +903,7 @@ export type UpdateBankAdminInput = {
   BankAdmBal?: number | null,
   email?: string | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteBankAdminInput = {
@@ -894,6 +916,7 @@ export type CreateBankAdmWithdrawalsInput = {
   bankAdmNatId: string,
   amount: number,
   status: Status,
+  owner: string,
 };
 
 export type ModelBankAdmWithdrawalsConditionInput = {
@@ -913,9 +936,9 @@ export type BankAdmWithdrawals = {
   bankAdmNatId: string,
   amount: number,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateBankAdmWithdrawalsInput = {
@@ -924,6 +947,7 @@ export type UpdateBankAdmWithdrawalsInput = {
   bankAdmNatId?: string | null,
   amount?: number | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteBankAdmWithdrawalsInput = {
@@ -931,20 +955,23 @@ export type DeleteBankAdmWithdrawalsInput = {
 };
 
 export type CreateAdvocateInput = {
+  advregnu: string,
   nationalid: string,
+  pwd: string,
   name: string,
   phonecontact: string,
-  advregnu: string,
   TtlEarnings: number,
   advBal: number,
   email: string,
   status: Status,
+  owner: string,
 };
 
 export type ModelAdvocateConditionInput = {
+  nationalid?: ModelStringInput | null,
+  pwd?: ModelStringInput | null,
   name?: ModelStringInput | null,
   phonecontact?: ModelStringInput | null,
-  advregnu?: ModelStringInput | null,
   TtlEarnings?: ModelFloatInput | null,
   advBal?: ModelFloatInput | null,
   email?: ModelStringInput | null,
@@ -956,32 +983,35 @@ export type ModelAdvocateConditionInput = {
 
 export type Advocate = {
   __typename: "Advocate",
+  advregnu: string,
   nationalid: string,
+  pwd: string,
   name: string,
   phonecontact: string,
-  advregnu: string,
   TtlEarnings: number,
   advBal: number,
   email: string,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateAdvocateInput = {
-  nationalid: string,
+  advregnu: string,
+  nationalid?: string | null,
+  pwd?: string | null,
   name?: string | null,
   phonecontact?: string | null,
-  advregnu?: string | null,
   TtlEarnings?: number | null,
   advBal?: number | null,
   email?: string | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteAdvocateInput = {
-  nationalid: string,
+  advregnu: string,
 };
 
 export type CreateAdvocateWithdrawalsInput = {
@@ -991,6 +1021,7 @@ export type CreateAdvocateWithdrawalsInput = {
   amount: number,
   advNatId: string,
   status: Status,
+  owner: string,
 };
 
 export type ModelAdvocateWithdrawalsConditionInput = {
@@ -1012,9 +1043,9 @@ export type AdvocateWithdrawals = {
   amount: number,
   advNatId: string,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateAdvocateWithdrawalsInput = {
@@ -1024,6 +1055,7 @@ export type UpdateAdvocateWithdrawalsInput = {
   amount?: number | null,
   advNatId?: string | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteAdvocateWithdrawalsInput = {
@@ -1040,6 +1072,8 @@ export type CreateCompanyInput = {
   policy: string,
   privacy: string,
   recom: string,
+  pw1: string,
+  pw2: string,
   agentwithdrawalFee: number,
   agentCom: number,
   sagentCom: number,
@@ -1057,8 +1091,6 @@ export type CreateCompanyInput = {
   createBuzFee: number,
   crtCompAdsFee: number,
   crtParaAdsFee: number,
-  pw1: string,
-  pw2: string,
   companyEarningBal: number,
   companyEarning: number,
   agentEarningBal: number,
@@ -1070,7 +1102,7 @@ export type CreateCompanyInput = {
   admEarningBal: number,
   admEarning: number,
   ttlUsrDep: number,
-  ttlUserWthdrwl: string,
+  ttlUserWthdrwl?: number | null,
   agentFloatIn: number,
   agentFloatOut: number,
   ttlActiveUsers: number,
@@ -1127,6 +1159,8 @@ export type ModelCompanyConditionInput = {
   policy?: ModelStringInput | null,
   privacy?: ModelStringInput | null,
   recom?: ModelStringInput | null,
+  pw1?: ModelStringInput | null,
+  pw2?: ModelStringInput | null,
   agentwithdrawalFee?: ModelFloatInput | null,
   agentCom?: ModelFloatInput | null,
   sagentCom?: ModelFloatInput | null,
@@ -1144,8 +1178,6 @@ export type ModelCompanyConditionInput = {
   createBuzFee?: ModelFloatInput | null,
   crtCompAdsFee?: ModelFloatInput | null,
   crtParaAdsFee?: ModelFloatInput | null,
-  pw1?: ModelStringInput | null,
-  pw2?: ModelStringInput | null,
   companyEarningBal?: ModelFloatInput | null,
   companyEarning?: ModelFloatInput | null,
   agentEarningBal?: ModelFloatInput | null,
@@ -1157,7 +1189,7 @@ export type ModelCompanyConditionInput = {
   admEarningBal?: ModelFloatInput | null,
   admEarning?: ModelFloatInput | null,
   ttlUsrDep?: ModelFloatInput | null,
-  ttlUserWthdrwl?: ModelStringInput | null,
+  ttlUserWthdrwl?: ModelFloatInput | null,
   agentFloatIn?: ModelFloatInput | null,
   agentFloatOut?: ModelFloatInput | null,
   ttlActiveUsers?: ModelFloatInput | null,
@@ -1219,6 +1251,8 @@ export type Company = {
   policy: string,
   privacy: string,
   recom: string,
+  pw1: string,
+  pw2: string,
   agentwithdrawalFee: number,
   agentCom: number,
   sagentCom: number,
@@ -1236,8 +1270,6 @@ export type Company = {
   createBuzFee: number,
   crtCompAdsFee: number,
   crtParaAdsFee: number,
-  pw1: string,
-  pw2: string,
   companyEarningBal: number,
   companyEarning: number,
   agentEarningBal: number,
@@ -1249,7 +1281,7 @@ export type Company = {
   admEarningBal: number,
   admEarning: number,
   ttlUsrDep: number,
-  ttlUserWthdrwl: string,
+  ttlUserWthdrwl?: number | null,
   agentFloatIn: number,
   agentFloatOut: number,
   ttlActiveUsers: number,
@@ -1309,6 +1341,8 @@ export type UpdateCompanyInput = {
   policy?: string | null,
   privacy?: string | null,
   recom?: string | null,
+  pw1?: string | null,
+  pw2?: string | null,
   agentwithdrawalFee?: number | null,
   agentCom?: number | null,
   sagentCom?: number | null,
@@ -1326,8 +1360,6 @@ export type UpdateCompanyInput = {
   createBuzFee?: number | null,
   crtCompAdsFee?: number | null,
   crtParaAdsFee?: number | null,
-  pw1?: string | null,
-  pw2?: string | null,
   companyEarningBal?: number | null,
   companyEarning?: number | null,
   agentEarningBal?: number | null,
@@ -1339,7 +1371,7 @@ export type UpdateCompanyInput = {
   admEarningBal?: number | null,
   admEarning?: number | null,
   ttlUsrDep?: number | null,
-  ttlUserWthdrwl?: string | null,
+  ttlUserWthdrwl?: number | null,
   agentFloatIn?: number | null,
   agentFloatOut?: number | null,
   ttlActiveUsers?: number | null,
@@ -1408,6 +1440,7 @@ export type CreateCovCreditSellerInput = {
   status: Status,
   advregnu: string,
   advPhone: string,
+  owner: string,
 };
 
 export type ModelCovCreditSellerConditionInput = {
@@ -1449,9 +1482,9 @@ export type CovCreditSeller = {
   status: Status,
   advregnu: string,
   advPhone: string,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateCovCreditSellerInput = {
@@ -1471,6 +1504,7 @@ export type UpdateCovCreditSellerInput = {
   status?: Status | null,
   advregnu?: string | null,
   advPhone?: string | null,
+  owner?: string | null,
 };
 
 export type DeleteCovCreditSellerInput = {
@@ -1502,6 +1536,7 @@ export type CreateGroupInput = {
   tymsGrpHasLend: number,
   ttlLonAmountRecovered?: number | null,
   status: Status,
+  owner: string,
 };
 
 export type ModelGroupConditionInput = {
@@ -1559,9 +1594,9 @@ export type Group = {
   tymsGrpHasLend: number,
   ttlLonAmountRecovered?: number | null,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateGroupInput = {
@@ -1589,6 +1624,7 @@ export type UpdateGroupInput = {
   tymsGrpHasLend?: number | null,
   ttlLonAmountRecovered?: number | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteGroupInput = {
@@ -1602,6 +1638,7 @@ export type CreateGrpMembersInput = {
   memberNatId: string,
   acBal: number,
   status: Status,
+  owner: string,
 };
 
 export type ModelGrpMembersConditionInput = {
@@ -1623,9 +1660,9 @@ export type GrpMembers = {
   memberNatId: string,
   acBal: number,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateGrpMembersInput = {
@@ -1635,6 +1672,7 @@ export type UpdateGrpMembersInput = {
   memberNatId?: string | null,
   acBal?: number | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteGrpMembersInput = {
@@ -1654,6 +1692,7 @@ export type CreateCvrdGroupLoansInput = {
   timestamp: number,
   advRegNu: string,
   status: Status,
+  owner: string,
 };
 
 export type ModelCvrdGroupLoansConditionInput = {
@@ -1687,9 +1726,9 @@ export type CvrdGroupLoans = {
   timestamp: number,
   advRegNu: string,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateCvrdGroupLoansInput = {
@@ -1705,6 +1744,7 @@ export type UpdateCvrdGroupLoansInput = {
   timestamp?: number | null,
   advRegNu?: string | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteCvrdGroupLoansInput = {
@@ -1718,6 +1758,7 @@ export type CreateGroupNonLoansInput = {
   amountSent: number,
   description?: string | null,
   status: Status,
+  owner: string,
 };
 
 export type ModelGroupNonLoansConditionInput = {
@@ -1739,9 +1780,9 @@ export type GroupNonLoans = {
   amountSent: number,
   description?: string | null,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateGroupNonLoansInput = {
@@ -1751,6 +1792,7 @@ export type UpdateGroupNonLoansInput = {
   amountSent?: number | null,
   description?: string | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteGroupNonLoansInput = {
@@ -1763,6 +1805,7 @@ export type CreateGrpMembersContributionInput = {
   grpContact: string,
   contriAmount: number,
   status: Status,
+  owner: string,
 };
 
 export type ModelGrpMembersContributionConditionInput = {
@@ -1782,9 +1825,9 @@ export type GrpMembersContribution = {
   grpContact: string,
   contriAmount: number,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateGrpMembersContributionInput = {
@@ -1793,6 +1836,7 @@ export type UpdateGrpMembersContributionInput = {
   grpContact?: string | null,
   contriAmount?: number | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteGrpMembersContributionInput = {
@@ -1808,6 +1852,7 @@ export type CreateAdvertisedSingleMemberLoansInput = {
   interest: number,
   description?: string | null,
   status: Status,
+  owner: string,
 };
 
 export type ModelAdvertisedSingleMemberLoansConditionInput = {
@@ -1833,9 +1878,9 @@ export type AdvertisedSingleMemberLoans = {
   interest: number,
   description?: string | null,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateAdvertisedSingleMemberLoansInput = {
@@ -1847,6 +1892,7 @@ export type UpdateAdvertisedSingleMemberLoansInput = {
   interest?: number | null,
   description?: string | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteAdvertisedSingleMemberLoansInput = {
@@ -1862,6 +1908,7 @@ export type CreateAdvertisedChamaLoansInput = {
   interest: number,
   description?: string | null,
   status: Status,
+  owner: string,
 };
 
 export type ModelAdvertisedChamaLoansConditionInput = {
@@ -1887,9 +1934,9 @@ export type AdvertisedChamaLoans = {
   interest: number,
   description?: string | null,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateAdvertisedChamaLoansInput = {
@@ -1901,6 +1948,7 @@ export type UpdateAdvertisedChamaLoansInput = {
   interest?: number | null,
   description?: string | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteAdvertisedChamaLoansInput = {
@@ -1920,6 +1968,7 @@ export type CreatePaidMultipleAdsInput = {
   status: Status,
   latitude: number,
   longitude: number,
+  owner: string,
 };
 
 export type ModelPaidMultipleAdsConditionInput = {
@@ -1953,9 +2002,9 @@ export type PaidMultipleAds = {
   status: Status,
   latitude: number,
   longitude: number,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdatePaidMultipleAdsInput = {
@@ -1971,6 +2020,7 @@ export type UpdatePaidMultipleAdsInput = {
   status?: Status | null,
   latitude?: number | null,
   longitude?: number | null,
+  owner?: string | null,
 };
 
 export type DeletePaidMultipleAdsInput = {
@@ -1986,6 +2036,7 @@ export type CreateFreeBizAdsInput = {
   contact: string,
   description?: string | null,
   status: Status,
+  owner: string,
 };
 
 export type ModelFreeBizAdsConditionInput = {
@@ -2011,9 +2062,9 @@ export type FreeBizAds = {
   contact: string,
   description?: string | null,
   status: Status,
+  owner: string,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateFreeBizAdsInput = {
@@ -2025,6 +2076,7 @@ export type UpdateFreeBizAdsInput = {
   contact?: string | null,
   description?: string | null,
   status?: Status | null,
+  owner?: string | null,
 };
 
 export type DeleteFreeBizAdsInput = {
@@ -2086,6 +2138,7 @@ export type ModelSMAccountFilterInput = {
   acActivenessStatus?: ModelStatusInput | null,
   blStatus?: ModelStatusInput | null,
   loanStatus?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelSMAccountFilterInput | null > | null,
   or?: Array< ModelSMAccountFilterInput | null > | null,
   not?: ModelSMAccountFilterInput | null,
@@ -2117,6 +2170,7 @@ export type ModelSMLoansCoveredFilterInput = {
   timestamp?: ModelIntInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelSMLoansCoveredFilterInput | null > | null,
   or?: Array< ModelSMLoansCoveredFilterInput | null > | null,
   not?: ModelSMLoansCoveredFilterInput | null,
@@ -2135,6 +2189,7 @@ export type ModelSMNonLoansFilterInput = {
   senderContact?: ModelStringInput | null,
   description?: ModelStringInput | null,
   receiverphonecontact?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelSMNonLoansFilterInput | null > | null,
   or?: Array< ModelSMNonLoansFilterInput | null > | null,
   not?: ModelSMNonLoansFilterInput | null,
@@ -2161,6 +2216,7 @@ export type ModelAgentFilterInput = {
   longitude?: ModelFloatInput | null,
   agentEarningBal?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelAgentFilterInput | null > | null,
   or?: Array< ModelAgentFilterInput | null > | null,
   not?: ModelAgentFilterInput | null,
@@ -2179,6 +2235,7 @@ export type ModelFloatPurchaseFilterInput = {
   nationalid?: ModelStringInput | null,
   bankAdmid?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelFloatPurchaseFilterInput | null > | null,
   or?: Array< ModelFloatPurchaseFilterInput | null > | null,
   not?: ModelFloatPurchaseFilterInput | null,
@@ -2198,6 +2255,7 @@ export type ModelFloatAddFilterInput = {
   agentPhonecontact?: ModelStringInput | null,
   sagentregno?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelFloatAddFilterInput | null > | null,
   or?: Array< ModelFloatAddFilterInput | null > | null,
   not?: ModelFloatAddFilterInput | null,
@@ -2217,6 +2275,7 @@ export type ModelFloatReductionFilterInput = {
   phonecontact?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   agentNationalid?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelFloatReductionFilterInput | null > | null,
   or?: Array< ModelFloatReductionFilterInput | null > | null,
   not?: ModelFloatReductionFilterInput | null,
@@ -2235,6 +2294,7 @@ export type ModelAgentWithdrawalsFilterInput = {
   bankAdmId?: ModelStringInput | null,
   agentNationalid?: ModelIDInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelAgentWithdrawalsFilterInput | null > | null,
   or?: Array< ModelAgentWithdrawalsFilterInput | null > | null,
   not?: ModelAgentWithdrawalsFilterInput | null,
@@ -2248,7 +2308,7 @@ export type ModelAgentWithdrawalsConnection = {
 
 export type ModelSAgentFilterInput = {
   id?: ModelIDInput | null,
-  agentNnationalid?: ModelStringInput | null,
+  saNationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
   phonecontact?: ModelStringInput | null,
   pw?: ModelStringInput | null,
@@ -2256,6 +2316,7 @@ export type ModelSAgentFilterInput = {
   email?: ModelStringInput | null,
   saBalance?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelSAgentFilterInput | null > | null,
   or?: Array< ModelSAgentFilterInput | null > | null,
   not?: ModelSAgentFilterInput | null,
@@ -2275,6 +2336,7 @@ export type ModelSAgentWithdrawalsFilterInput = {
   amount?: ModelFloatInput | null,
   bankAdmid?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelSAgentWithdrawalsFilterInput | null > | null,
   or?: Array< ModelSAgentWithdrawalsFilterInput | null > | null,
   not?: ModelSAgentWithdrawalsFilterInput | null,
@@ -2295,6 +2357,7 @@ export type ModelBankAdminFilterInput = {
   BankAdmBal?: ModelFloatInput | null,
   email?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelBankAdminFilterInput | null > | null,
   or?: Array< ModelBankAdminFilterInput | null > | null,
   not?: ModelBankAdminFilterInput | null,
@@ -2312,6 +2375,7 @@ export type ModelBankAdmWithdrawalsFilterInput = {
   bankAdmNatId?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelBankAdmWithdrawalsFilterInput | null > | null,
   or?: Array< ModelBankAdmWithdrawalsFilterInput | null > | null,
   not?: ModelBankAdmWithdrawalsFilterInput | null,
@@ -2324,14 +2388,16 @@ export type ModelBankAdmWithdrawalsConnection = {
 };
 
 export type ModelAdvocateFilterInput = {
-  nationalid?: ModelIDInput | null,
+  advregnu?: ModelIDInput | null,
+  nationalid?: ModelStringInput | null,
+  pwd?: ModelStringInput | null,
   name?: ModelStringInput | null,
   phonecontact?: ModelStringInput | null,
-  advregnu?: ModelStringInput | null,
   TtlEarnings?: ModelFloatInput | null,
   advBal?: ModelFloatInput | null,
   email?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelAdvocateFilterInput | null > | null,
   or?: Array< ModelAdvocateFilterInput | null > | null,
   not?: ModelAdvocateFilterInput | null,
@@ -2350,6 +2416,7 @@ export type ModelAdvocateWithdrawalsFilterInput = {
   amount?: ModelFloatInput | null,
   advNatId?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelAdvocateWithdrawalsFilterInput | null > | null,
   or?: Array< ModelAdvocateWithdrawalsFilterInput | null > | null,
   not?: ModelAdvocateWithdrawalsFilterInput | null,
@@ -2371,6 +2438,8 @@ export type ModelCompanyFilterInput = {
   policy?: ModelStringInput | null,
   privacy?: ModelStringInput | null,
   recom?: ModelStringInput | null,
+  pw1?: ModelStringInput | null,
+  pw2?: ModelStringInput | null,
   agentwithdrawalFee?: ModelFloatInput | null,
   agentCom?: ModelFloatInput | null,
   sagentCom?: ModelFloatInput | null,
@@ -2388,8 +2457,6 @@ export type ModelCompanyFilterInput = {
   createBuzFee?: ModelFloatInput | null,
   crtCompAdsFee?: ModelFloatInput | null,
   crtParaAdsFee?: ModelFloatInput | null,
-  pw1?: ModelStringInput | null,
-  pw2?: ModelStringInput | null,
   companyEarningBal?: ModelFloatInput | null,
   companyEarning?: ModelFloatInput | null,
   agentEarningBal?: ModelFloatInput | null,
@@ -2401,7 +2468,7 @@ export type ModelCompanyFilterInput = {
   admEarningBal?: ModelFloatInput | null,
   admEarning?: ModelFloatInput | null,
   ttlUsrDep?: ModelFloatInput | null,
-  ttlUserWthdrwl?: ModelStringInput | null,
+  ttlUserWthdrwl?: ModelFloatInput | null,
   agentFloatIn?: ModelFloatInput | null,
   agentFloatOut?: ModelFloatInput | null,
   ttlActiveUsers?: ModelFloatInput | null,
@@ -2475,6 +2542,7 @@ export type ModelCovCreditSellerFilterInput = {
   status?: ModelStatusInput | null,
   advregnu?: ModelStringInput | null,
   advPhone?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelCovCreditSellerFilterInput | null > | null,
   or?: Array< ModelCovCreditSellerFilterInput | null > | null,
   not?: ModelCovCreditSellerFilterInput | null,
@@ -2511,6 +2579,7 @@ export type ModelGroupFilterInput = {
   tymsGrpHasLend?: ModelFloatInput | null,
   ttlLonAmountRecovered?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelGroupFilterInput | null > | null,
   or?: Array< ModelGroupFilterInput | null > | null,
   not?: ModelGroupFilterInput | null,
@@ -2529,6 +2598,7 @@ export type ModelGrpMembersFilterInput = {
   memberNatId?: ModelStringInput | null,
   acBal?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelGrpMembersFilterInput | null > | null,
   or?: Array< ModelGrpMembersFilterInput | null > | null,
   not?: ModelGrpMembersFilterInput | null,
@@ -2553,6 +2623,7 @@ export type ModelCvrdGroupLoansFilterInput = {
   timestamp?: ModelIntInput | null,
   advRegNu?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelCvrdGroupLoansFilterInput | null > | null,
   or?: Array< ModelCvrdGroupLoansFilterInput | null > | null,
   not?: ModelCvrdGroupLoansFilterInput | null,
@@ -2571,6 +2642,7 @@ export type ModelGroupNonLoansFilterInput = {
   amountSent?: ModelFloatInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelGroupNonLoansFilterInput | null > | null,
   or?: Array< ModelGroupNonLoansFilterInput | null > | null,
   not?: ModelGroupNonLoansFilterInput | null,
@@ -2588,6 +2660,7 @@ export type ModelGrpMembersContributionFilterInput = {
   grpContact?: ModelStringInput | null,
   contriAmount?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelGrpMembersContributionFilterInput | null > | null,
   or?: Array< ModelGrpMembersContributionFilterInput | null > | null,
   not?: ModelGrpMembersContributionFilterInput | null,
@@ -2608,6 +2681,7 @@ export type ModelAdvertisedSingleMemberLoansFilterInput = {
   interest?: ModelFloatInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelAdvertisedSingleMemberLoansFilterInput | null > | null,
   or?: Array< ModelAdvertisedSingleMemberLoansFilterInput | null > | null,
   not?: ModelAdvertisedSingleMemberLoansFilterInput | null,
@@ -2628,6 +2702,7 @@ export type ModelAdvertisedChamaLoansFilterInput = {
   interest?: ModelFloatInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelAdvertisedChamaLoansFilterInput | null > | null,
   or?: Array< ModelAdvertisedChamaLoansFilterInput | null > | null,
   not?: ModelAdvertisedChamaLoansFilterInput | null,
@@ -2652,6 +2727,7 @@ export type ModelPaidMultipleAdsFilterInput = {
   status?: ModelStatusInput | null,
   latitude?: ModelFloatInput | null,
   longitude?: ModelFloatInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelPaidMultipleAdsFilterInput | null > | null,
   or?: Array< ModelPaidMultipleAdsFilterInput | null > | null,
   not?: ModelPaidMultipleAdsFilterInput | null,
@@ -2672,6 +2748,7 @@ export type ModelFreeBizAdsFilterInput = {
   contact?: ModelStringInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelFreeBizAdsFilterInput | null > | null,
   or?: Array< ModelFreeBizAdsFilterInput | null > | null,
   not?: ModelFreeBizAdsFilterInput | null,
@@ -2794,9 +2871,9 @@ export type CreateSMAccountMutation = {
     acActivenessStatus: Status,
     blStatus: Status,
     loanStatus: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -2862,9 +2939,9 @@ export type UpdateSMAccountMutation = {
     acActivenessStatus: Status,
     blStatus: Status,
     loanStatus: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -2930,9 +3007,9 @@ export type DeleteSMAccountMutation = {
     acActivenessStatus: Status,
     blStatus: Status,
     loanStatus: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -2957,9 +3034,9 @@ export type CreateSMLoansCoveredMutation = {
     timestamp: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -2984,9 +3061,9 @@ export type UpdateSMLoansCoveredMutation = {
     timestamp: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3011,9 +3088,9 @@ export type DeleteSMLoansCoveredMutation = {
     timestamp: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3031,9 +3108,9 @@ export type CreateSMNonLoansMutation = {
     senderContact: string,
     description?: string | null,
     receiverphonecontact: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3051,9 +3128,9 @@ export type UpdateSMNonLoansMutation = {
     senderContact: string,
     description?: string | null,
     receiverphonecontact: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3071,9 +3148,9 @@ export type DeleteSMNonLoansMutation = {
     senderContact: string,
     description?: string | null,
     receiverphonecontact: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3099,9 +3176,9 @@ export type CreateAgentMutation = {
     longitude: number,
     agentEarningBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3127,9 +3204,9 @@ export type UpdateAgentMutation = {
     longitude: number,
     agentEarningBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3155,9 +3232,9 @@ export type DeleteAgentMutation = {
     longitude: number,
     agentEarningBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3175,9 +3252,9 @@ export type CreateFloatPurchaseMutation = {
     nationalid: string,
     bankAdmid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3195,9 +3272,9 @@ export type UpdateFloatPurchaseMutation = {
     nationalid: string,
     bankAdmid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3215,9 +3292,9 @@ export type DeleteFloatPurchaseMutation = {
     nationalid: string,
     bankAdmid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3236,9 +3313,9 @@ export type CreateFloatAddMutation = {
     agentPhonecontact: string,
     sagentregno: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3257,9 +3334,9 @@ export type UpdateFloatAddMutation = {
     agentPhonecontact: string,
     sagentregno: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3278,9 +3355,9 @@ export type DeleteFloatAddMutation = {
     agentPhonecontact: string,
     sagentregno: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3299,9 +3376,9 @@ export type CreateFloatReductionMutation = {
     phonecontact: string,
     status: Status,
     agentNationalid: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3320,9 +3397,9 @@ export type UpdateFloatReductionMutation = {
     phonecontact: string,
     status: Status,
     agentNationalid: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3341,9 +3418,9 @@ export type DeleteFloatReductionMutation = {
     phonecontact: string,
     status: Status,
     agentNationalid: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3361,9 +3438,9 @@ export type CreateAgentWithdrawalsMutation = {
     bankAdmId?: string | null,
     agentNationalid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3381,9 +3458,9 @@ export type UpdateAgentWithdrawalsMutation = {
     bankAdmId?: string | null,
     agentNationalid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3401,9 +3478,9 @@ export type DeleteAgentWithdrawalsMutation = {
     bankAdmId?: string | null,
     agentNationalid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3416,7 +3493,7 @@ export type CreateSAgentMutation = {
   createSAgent?:  {
     __typename: "SAgent",
     id: string,
-    agentNnationalid: string,
+    saNationalid: string,
     name: string,
     phonecontact: string,
     pw: string,
@@ -3424,9 +3501,9 @@ export type CreateSAgentMutation = {
     email: string,
     saBalance: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3439,7 +3516,7 @@ export type UpdateSAgentMutation = {
   updateSAgent?:  {
     __typename: "SAgent",
     id: string,
-    agentNnationalid: string,
+    saNationalid: string,
     name: string,
     phonecontact: string,
     pw: string,
@@ -3447,9 +3524,9 @@ export type UpdateSAgentMutation = {
     email: string,
     saBalance: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3462,7 +3539,7 @@ export type DeleteSAgentMutation = {
   deleteSAgent?:  {
     __typename: "SAgent",
     id: string,
-    agentNnationalid: string,
+    saNationalid: string,
     name: string,
     phonecontact: string,
     pw: string,
@@ -3470,9 +3547,9 @@ export type DeleteSAgentMutation = {
     email: string,
     saBalance: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3491,9 +3568,9 @@ export type CreateSAgentWithdrawalsMutation = {
     amount: number,
     bankAdmid?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3512,9 +3589,9 @@ export type UpdateSAgentWithdrawalsMutation = {
     amount: number,
     bankAdmid?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3533,9 +3610,9 @@ export type DeleteSAgentWithdrawalsMutation = {
     amount: number,
     bankAdmid?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3555,9 +3632,9 @@ export type CreateBankAdminMutation = {
     BankAdmBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3577,9 +3654,9 @@ export type UpdateBankAdminMutation = {
     BankAdmBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3599,9 +3676,9 @@ export type DeleteBankAdminMutation = {
     BankAdmBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3618,9 +3695,9 @@ export type CreateBankAdmWithdrawalsMutation = {
     bankAdmNatId: string,
     amount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3637,9 +3714,9 @@ export type UpdateBankAdmWithdrawalsMutation = {
     bankAdmNatId: string,
     amount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3656,9 +3733,9 @@ export type DeleteBankAdmWithdrawalsMutation = {
     bankAdmNatId: string,
     amount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3670,17 +3747,18 @@ export type CreateAdvocateMutationVariables = {
 export type CreateAdvocateMutation = {
   createAdvocate?:  {
     __typename: "Advocate",
+    advregnu: string,
     nationalid: string,
+    pwd: string,
     name: string,
     phonecontact: string,
-    advregnu: string,
     TtlEarnings: number,
     advBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3692,17 +3770,18 @@ export type UpdateAdvocateMutationVariables = {
 export type UpdateAdvocateMutation = {
   updateAdvocate?:  {
     __typename: "Advocate",
+    advregnu: string,
     nationalid: string,
+    pwd: string,
     name: string,
     phonecontact: string,
-    advregnu: string,
     TtlEarnings: number,
     advBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3714,17 +3793,18 @@ export type DeleteAdvocateMutationVariables = {
 export type DeleteAdvocateMutation = {
   deleteAdvocate?:  {
     __typename: "Advocate",
+    advregnu: string,
     nationalid: string,
+    pwd: string,
     name: string,
     phonecontact: string,
-    advregnu: string,
     TtlEarnings: number,
     advBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3742,9 +3822,9 @@ export type CreateAdvocateWithdrawalsMutation = {
     amount: number,
     advNatId: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3762,9 +3842,9 @@ export type UpdateAdvocateWithdrawalsMutation = {
     amount: number,
     advNatId: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3782,9 +3862,9 @@ export type DeleteAdvocateWithdrawalsMutation = {
     amount: number,
     advNatId: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -3805,6 +3885,8 @@ export type CreateCompanyMutation = {
     policy: string,
     privacy: string,
     recom: string,
+    pw1: string,
+    pw2: string,
     agentwithdrawalFee: number,
     agentCom: number,
     sagentCom: number,
@@ -3822,8 +3904,6 @@ export type CreateCompanyMutation = {
     createBuzFee: number,
     crtCompAdsFee: number,
     crtParaAdsFee: number,
-    pw1: string,
-    pw2: string,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -3835,7 +3915,7 @@ export type CreateCompanyMutation = {
     admEarningBal: number,
     admEarning: number,
     ttlUsrDep: number,
-    ttlUserWthdrwl: string,
+    ttlUserWthdrwl?: number | null,
     agentFloatIn: number,
     agentFloatOut: number,
     ttlActiveUsers: number,
@@ -3903,6 +3983,8 @@ export type UpdateCompanyMutation = {
     policy: string,
     privacy: string,
     recom: string,
+    pw1: string,
+    pw2: string,
     agentwithdrawalFee: number,
     agentCom: number,
     sagentCom: number,
@@ -3920,8 +4002,6 @@ export type UpdateCompanyMutation = {
     createBuzFee: number,
     crtCompAdsFee: number,
     crtParaAdsFee: number,
-    pw1: string,
-    pw2: string,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -3933,7 +4013,7 @@ export type UpdateCompanyMutation = {
     admEarningBal: number,
     admEarning: number,
     ttlUsrDep: number,
-    ttlUserWthdrwl: string,
+    ttlUserWthdrwl?: number | null,
     agentFloatIn: number,
     agentFloatOut: number,
     ttlActiveUsers: number,
@@ -4001,6 +4081,8 @@ export type DeleteCompanyMutation = {
     policy: string,
     privacy: string,
     recom: string,
+    pw1: string,
+    pw2: string,
     agentwithdrawalFee: number,
     agentCom: number,
     sagentCom: number,
@@ -4018,8 +4100,6 @@ export type DeleteCompanyMutation = {
     createBuzFee: number,
     crtCompAdsFee: number,
     crtParaAdsFee: number,
-    pw1: string,
-    pw2: string,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -4031,7 +4111,7 @@ export type DeleteCompanyMutation = {
     admEarningBal: number,
     admEarning: number,
     ttlUsrDep: number,
-    ttlUserWthdrwl: string,
+    ttlUserWthdrwl?: number | null,
     agentFloatIn: number,
     agentFloatOut: number,
     ttlActiveUsers: number,
@@ -4106,9 +4186,9 @@ export type CreateCovCreditSellerMutation = {
     status: Status,
     advregnu: string,
     advPhone: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4136,9 +4216,9 @@ export type UpdateCovCreditSellerMutation = {
     status: Status,
     advregnu: string,
     advPhone: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4166,9 +4246,9 @@ export type DeleteCovCreditSellerMutation = {
     status: Status,
     advregnu: string,
     advPhone: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4204,9 +4284,9 @@ export type CreateGroupMutation = {
     tymsGrpHasLend: number,
     ttlLonAmountRecovered?: number | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4242,9 +4322,9 @@ export type UpdateGroupMutation = {
     tymsGrpHasLend: number,
     ttlLonAmountRecovered?: number | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4280,9 +4360,9 @@ export type DeleteGroupMutation = {
     tymsGrpHasLend: number,
     ttlLonAmountRecovered?: number | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4300,9 +4380,9 @@ export type CreateGrpMembersMutation = {
     memberNatId: string,
     acBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4320,9 +4400,9 @@ export type UpdateGrpMembersMutation = {
     memberNatId: string,
     acBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4340,9 +4420,9 @@ export type DeleteGrpMembersMutation = {
     memberNatId: string,
     acBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4366,9 +4446,9 @@ export type CreateCvrdGroupLoansMutation = {
     timestamp: number,
     advRegNu: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4392,9 +4472,9 @@ export type UpdateCvrdGroupLoansMutation = {
     timestamp: number,
     advRegNu: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4418,9 +4498,9 @@ export type DeleteCvrdGroupLoansMutation = {
     timestamp: number,
     advRegNu: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4438,9 +4518,9 @@ export type CreateGroupNonLoansMutation = {
     amountSent: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4458,9 +4538,9 @@ export type UpdateGroupNonLoansMutation = {
     amountSent: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4478,9 +4558,9 @@ export type DeleteGroupNonLoansMutation = {
     amountSent: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4497,9 +4577,9 @@ export type CreateGrpMembersContributionMutation = {
     grpContact: string,
     contriAmount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4516,9 +4596,9 @@ export type UpdateGrpMembersContributionMutation = {
     grpContact: string,
     contriAmount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4535,9 +4615,9 @@ export type DeleteGrpMembersContributionMutation = {
     grpContact: string,
     contriAmount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4557,9 +4637,9 @@ export type CreateAdvertisedSingleMemberLoansMutation = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4579,9 +4659,9 @@ export type UpdateAdvertisedSingleMemberLoansMutation = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4601,9 +4681,9 @@ export type DeleteAdvertisedSingleMemberLoansMutation = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4623,9 +4703,9 @@ export type CreateAdvertisedChamaLoansMutation = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4645,9 +4725,9 @@ export type UpdateAdvertisedChamaLoansMutation = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4667,9 +4747,9 @@ export type DeleteAdvertisedChamaLoansMutation = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4693,9 +4773,9 @@ export type CreatePaidMultipleAdsMutation = {
     status: Status,
     latitude: number,
     longitude: number,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4719,9 +4799,9 @@ export type UpdatePaidMultipleAdsMutation = {
     status: Status,
     latitude: number,
     longitude: number,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4745,9 +4825,9 @@ export type DeletePaidMultipleAdsMutation = {
     status: Status,
     latitude: number,
     longitude: number,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4767,9 +4847,9 @@ export type CreateFreeBizAdsMutation = {
     contact: string,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4789,9 +4869,9 @@ export type UpdateFreeBizAdsMutation = {
     contact: string,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4811,9 +4891,9 @@ export type DeleteFreeBizAdsMutation = {
     contact: string,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4878,9 +4958,9 @@ export type GetSMAccountQuery = {
     acActivenessStatus: Status,
     blStatus: Status,
     loanStatus: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -4951,9 +5031,9 @@ export type ListSMAccountsQuery = {
       acActivenessStatus: Status,
       blStatus: Status,
       loanStatus: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -4979,9 +5059,9 @@ export type GetSMLoansCoveredQuery = {
     timestamp: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5009,9 +5089,9 @@ export type ListSMLoansCoveredsQuery = {
       timestamp: number,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5030,9 +5110,9 @@ export type GetSMNonLoansQuery = {
     senderContact: string,
     description?: string | null,
     receiverphonecontact: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5053,9 +5133,9 @@ export type ListSMNonLoansQuery = {
       senderContact: string,
       description?: string | null,
       receiverphonecontact: string,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5082,9 +5162,9 @@ export type GetAgentQuery = {
     longitude: number,
     agentEarningBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5115,9 +5195,9 @@ export type ListAgentsQuery = {
       longitude: number,
       agentEarningBal: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5136,9 +5216,9 @@ export type GetFloatPurchaseQuery = {
     nationalid: string,
     bankAdmid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5159,9 +5239,9 @@ export type ListFloatPurchasesQuery = {
       nationalid: string,
       bankAdmid: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5181,9 +5261,9 @@ export type GetFloatAddQuery = {
     agentPhonecontact: string,
     sagentregno: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5205,9 +5285,9 @@ export type ListFloatAddsQuery = {
       agentPhonecontact: string,
       sagentregno: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5227,9 +5307,9 @@ export type GetFloatReductionQuery = {
     phonecontact: string,
     status: Status,
     agentNationalid: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5251,9 +5331,9 @@ export type ListFloatReductionsQuery = {
       phonecontact: string,
       status: Status,
       agentNationalid: string,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5272,9 +5352,9 @@ export type GetAgentWithdrawalsQuery = {
     bankAdmId?: string | null,
     agentNationalid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5295,9 +5375,9 @@ export type ListAgentWithdrawalsQuery = {
       bankAdmId?: string | null,
       agentNationalid: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5311,7 +5391,7 @@ export type GetSAgentQuery = {
   getSAgent?:  {
     __typename: "SAgent",
     id: string,
-    agentNnationalid: string,
+    saNationalid: string,
     name: string,
     phonecontact: string,
     pw: string,
@@ -5319,9 +5399,9 @@ export type GetSAgentQuery = {
     email: string,
     saBalance: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5337,7 +5417,7 @@ export type ListSAgentsQuery = {
     items?:  Array< {
       __typename: "SAgent",
       id: string,
-      agentNnationalid: string,
+      saNationalid: string,
       name: string,
       phonecontact: string,
       pw: string,
@@ -5345,9 +5425,9 @@ export type ListSAgentsQuery = {
       email: string,
       saBalance: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5367,9 +5447,9 @@ export type GetSAgentWithdrawalsQuery = {
     amount: number,
     bankAdmid?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5391,9 +5471,9 @@ export type ListSAgentWithdrawalsQuery = {
       amount: number,
       bankAdmid?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5414,9 +5494,9 @@ export type GetBankAdminQuery = {
     BankAdmBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5441,9 +5521,9 @@ export type ListBankAdminsQuery = {
       BankAdmBal: number,
       email: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5461,9 +5541,9 @@ export type GetBankAdmWithdrawalsQuery = {
     bankAdmNatId: string,
     amount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5483,37 +5563,38 @@ export type ListBankAdmWithdrawalsQuery = {
       bankAdmNatId: string,
       amount: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
 };
 
 export type GetAdvocateQueryVariables = {
-  nationalid: string,
+  advregnu: string,
 };
 
 export type GetAdvocateQuery = {
   getAdvocate?:  {
     __typename: "Advocate",
+    advregnu: string,
     nationalid: string,
+    pwd: string,
     name: string,
     phonecontact: string,
-    advregnu: string,
     TtlEarnings: number,
     advBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
 export type ListAdvocatesQueryVariables = {
-  nationalid?: string | null,
+  advregnu?: string | null,
   filter?: ModelAdvocateFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
@@ -5525,17 +5606,18 @@ export type ListAdvocatesQuery = {
     __typename: "ModelAdvocateConnection",
     items?:  Array< {
       __typename: "Advocate",
+      advregnu: string,
       nationalid: string,
+      pwd: string,
       name: string,
       phonecontact: string,
-      advregnu: string,
       TtlEarnings: number,
       advBal: number,
       email: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5554,9 +5636,9 @@ export type GetAdvocateWithdrawalsQuery = {
     amount: number,
     advNatId: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5577,9 +5659,9 @@ export type ListAdvocateWithdrawalsQuery = {
       amount: number,
       advNatId: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5601,6 +5683,8 @@ export type GetCompanyQuery = {
     policy: string,
     privacy: string,
     recom: string,
+    pw1: string,
+    pw2: string,
     agentwithdrawalFee: number,
     agentCom: number,
     sagentCom: number,
@@ -5618,8 +5702,6 @@ export type GetCompanyQuery = {
     createBuzFee: number,
     crtCompAdsFee: number,
     crtParaAdsFee: number,
-    pw1: string,
-    pw2: string,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -5631,7 +5713,7 @@ export type GetCompanyQuery = {
     admEarningBal: number,
     admEarning: number,
     ttlUsrDep: number,
-    ttlUserWthdrwl: string,
+    ttlUserWthdrwl?: number | null,
     agentFloatIn: number,
     agentFloatOut: number,
     ttlActiveUsers: number,
@@ -5704,6 +5786,8 @@ export type ListCompaniesQuery = {
       policy: string,
       privacy: string,
       recom: string,
+      pw1: string,
+      pw2: string,
       agentwithdrawalFee: number,
       agentCom: number,
       sagentCom: number,
@@ -5721,8 +5805,6 @@ export type ListCompaniesQuery = {
       createBuzFee: number,
       crtCompAdsFee: number,
       crtParaAdsFee: number,
-      pw1: string,
-      pw2: string,
       companyEarningBal: number,
       companyEarning: number,
       agentEarningBal: number,
@@ -5734,7 +5816,7 @@ export type ListCompaniesQuery = {
       admEarningBal: number,
       admEarning: number,
       ttlUsrDep: number,
-      ttlUserWthdrwl: string,
+      ttlUserWthdrwl?: number | null,
       agentFloatIn: number,
       agentFloatOut: number,
       ttlActiveUsers: number,
@@ -5810,9 +5892,9 @@ export type GetCovCreditSellerQuery = {
     status: Status,
     advregnu: string,
     advPhone: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5843,9 +5925,9 @@ export type ListCovCreditSellersQuery = {
       status: Status,
       advregnu: string,
       advPhone: string,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5882,9 +5964,9 @@ export type GetGroupQuery = {
     tymsGrpHasLend: number,
     ttlLonAmountRecovered?: number | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5925,9 +6007,9 @@ export type ListGroupsQuery = {
       tymsGrpHasLend: number,
       ttlLonAmountRecovered?: number | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5946,9 +6028,9 @@ export type GetGrpMembersQuery = {
     memberNatId: string,
     acBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -5969,9 +6051,9 @@ export type ListGrpMembersQuery = {
       memberNatId: string,
       acBal: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -5996,9 +6078,9 @@ export type GetCvrdGroupLoansQuery = {
     timestamp: number,
     advRegNu: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -6025,9 +6107,9 @@ export type ListCvrdGroupLoansQuery = {
       timestamp: number,
       advRegNu: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6046,9 +6128,9 @@ export type GetGroupNonLoansQuery = {
     amountSent: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -6069,9 +6151,9 @@ export type ListGroupNonLoansQuery = {
       amountSent: number,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6089,9 +6171,9 @@ export type GetGrpMembersContributionQuery = {
     grpContact: string,
     contriAmount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -6111,9 +6193,9 @@ export type ListGrpMembersContributionsQuery = {
       grpContact: string,
       contriAmount: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6134,9 +6216,9 @@ export type GetAdvertisedSingleMemberLoansQuery = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -6159,9 +6241,9 @@ export type ListAdvertisedSingleMemberLoansQuery = {
       interest: number,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6182,9 +6264,9 @@ export type GetAdvertisedChamaLoansQuery = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -6207,9 +6289,9 @@ export type ListAdvertisedChamaLoansQuery = {
       interest: number,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6234,9 +6316,9 @@ export type GetPaidMultipleAdsQuery = {
     status: Status,
     latitude: number,
     longitude: number,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -6263,9 +6345,9 @@ export type ListPaidMultipleAdsQuery = {
       status: Status,
       latitude: number,
       longitude: number,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6286,9 +6368,9 @@ export type GetFreeBizAdsQuery = {
     contact: string,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -6311,9 +6393,9 @@ export type ListFreeBizAdsQuery = {
       contact: string,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6387,9 +6469,9 @@ export type CheckUserrrBalanceQuery = {
       acActivenessStatus: Status,
       blStatus: Status,
       loanStatus: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6463,9 +6545,9 @@ export type AccessingPersonalAcQuery = {
       acActivenessStatus: Status,
       blStatus: Status,
       loanStatus: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6498,9 +6580,9 @@ export type CheckMyDetorsQuery = {
       timestamp: number,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6533,9 +6615,9 @@ export type ConfrmMyLoaneeeeeQuery = {
       timestamp: number,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6568,9 +6650,9 @@ export type CheckbyAdvNLnarQuery = {
       timestamp: number,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6603,9 +6685,9 @@ export type ChckbyAdvNLneeQuery = {
       timestamp: number,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6630,9 +6712,9 @@ export type CheckSentNonLnsQuery = {
       senderContact: string,
       description?: string | null,
       receiverphonecontact: string,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6657,9 +6739,9 @@ export type CheckReceivedNonLnsQuery = {
       senderContact: string,
       description?: string | null,
       receiverphonecontact: string,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6693,9 +6775,9 @@ export type UpdtAgentBalbyUserQuery = {
       longitude: number,
       agentEarningBal: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6728,9 +6810,9 @@ export type SearchMyAgentsQuery = {
       longitude: number,
       agentEarningBal: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6755,9 +6837,9 @@ export type LstAgentFltPrchasssQuery = {
       nationalid: string,
       bankAdmid: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6782,9 +6864,9 @@ export type LstBankAdmTransaaaaccttionsQuery = {
       nationalid: string,
       bankAdmid: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6810,9 +6892,9 @@ export type CreateWythdrawalsQuery = {
       agentPhonecontact: string,
       sagentregno: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6838,9 +6920,9 @@ export type ReadSAWithdrwlsQuery = {
       agentPhonecontact: string,
       sagentregno: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6866,9 +6948,9 @@ export type CreatFltDeducQuery = {
       phonecontact: string,
       status: Status,
       agentNationalid: string,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6894,9 +6976,9 @@ export type CreatFltDedQuery = {
       phonecontact: string,
       status: Status,
       agentNationalid: string,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6922,9 +7004,9 @@ export type ReeeadAmtDpstdQuery = {
       phonecontact: string,
       status: Status,
       agentNationalid: string,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6949,9 +7031,9 @@ export type CheckAgentWthdrawlsQuery = {
       bankAdmId?: string | null,
       agentNationalid: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -6976,9 +7058,9 @@ export type LstAgentWithdrowalsQuery = {
       bankAdmId?: string | null,
       agentNationalid: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7003,16 +7085,16 @@ export type LstBankAdmTransactiooonnnsQuery = {
       bankAdmId?: string | null,
       agentNationalid: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
 };
 
 export type CheckingSAQueryVariables = {
-  agentNnationalid?: string | null,
+  saNationalid?: string | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSAgentFilterInput | null,
   limit?: number | null,
@@ -7025,7 +7107,7 @@ export type CheckingSAQuery = {
     items?:  Array< {
       __typename: "SAgent",
       id: string,
-      agentNnationalid: string,
+      saNationalid: string,
       name: string,
       phonecontact: string,
       pw: string,
@@ -7033,9 +7115,9 @@ export type CheckingSAQuery = {
       email: string,
       saBalance: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7043,7 +7125,7 @@ export type CheckingSAQuery = {
 
 export type CheckingSABalBySAQueryVariables = {
   pw?: string | null,
-  agentNnationalid?: ModelStringKeyConditionInput | null,
+  saNationalid?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSAgentFilterInput | null,
   limit?: number | null,
@@ -7056,7 +7138,7 @@ export type CheckingSABalBySAQuery = {
     items?:  Array< {
       __typename: "SAgent",
       id: string,
-      agentNnationalid: string,
+      saNationalid: string,
       name: string,
       phonecontact: string,
       pw: string,
@@ -7064,9 +7146,9 @@ export type CheckingSABalBySAQuery = {
       email: string,
       saBalance: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7092,9 +7174,9 @@ export type LstSAWithdrllsQuery = {
       amount: number,
       bankAdmid?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7120,9 +7202,9 @@ export type LstSAWithdrlllsQuery = {
       amount: number,
       bankAdmid?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7148,9 +7230,9 @@ export type LstBankAdmTranssactionsQuery = {
       amount: number,
       bankAdmid?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7177,9 +7259,9 @@ export type GeetbankAdmdtlsByNatIdQuery = {
       BankAdmBal: number,
       email: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7203,38 +7285,39 @@ export type CheckBankAdmWithdrawalsQuery = {
       bankAdmNatId: string,
       amount: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
 };
 
-export type CheckAdvByRegNoQueryVariables = {
-  advregnu?: string | null,
+export type CheckAdvByNatIdQueryVariables = {
+  nationalid?: string | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelAdvocateFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type CheckAdvByRegNoQuery = {
-  checkAdvByRegNo?:  {
+export type CheckAdvByNatIdQuery = {
+  checkAdvByNatId?:  {
     __typename: "ModelAdvocateConnection",
     items?:  Array< {
       __typename: "Advocate",
+      advregnu: string,
       nationalid: string,
+      pwd: string,
       name: string,
       phonecontact: string,
-      advregnu: string,
       TtlEarnings: number,
       advBal: number,
       email: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7259,9 +7342,9 @@ export type CheckAdvocateWithdrawalsssQuery = {
       amount: number,
       advNatId: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7290,6 +7373,8 @@ export type CheckbyComppwQuery = {
       policy: string,
       privacy: string,
       recom: string,
+      pw1: string,
+      pw2: string,
       agentwithdrawalFee: number,
       agentCom: number,
       sagentCom: number,
@@ -7307,8 +7392,6 @@ export type CheckbyComppwQuery = {
       createBuzFee: number,
       crtCompAdsFee: number,
       crtParaAdsFee: number,
-      pw1: string,
-      pw2: string,
       companyEarningBal: number,
       companyEarning: number,
       agentEarningBal: number,
@@ -7320,7 +7403,7 @@ export type CheckbyComppwQuery = {
       admEarningBal: number,
       admEarning: number,
       ttlUsrDep: number,
-      ttlUserWthdrwl: string,
+      ttlUserWthdrwl?: number | null,
       agentFloatIn: number,
       agentFloatOut: number,
       ttlActiveUsers: number,
@@ -7402,9 +7485,9 @@ export type CheckMyNonCovrrrrrrrrdSalesQuery = {
       status: Status,
       advregnu: string,
       advPhone: string,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7439,9 +7522,9 @@ export type CheckMyNonCovrrrrrrrrdSaleeesQuery = {
       status: Status,
       advregnu: string,
       advPhone: string,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7476,9 +7559,9 @@ export type CheckOurNonCovrredSMLoansQuery = {
       status: Status,
       advregnu: string,
       advPhone: string,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7513,9 +7596,9 @@ export type CheckMysalessDebtsQuery = {
       status: Status,
       advregnu: string,
       advPhone: string,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7551,9 +7634,9 @@ export type CheckbyAdvNCredddSsellerQuery = {
       status: Status,
       advregnu: string,
       advPhone: string,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7596,9 +7679,9 @@ export type CheckGrpsICrtdQuery = {
       tymsGrpHasLend: number,
       ttlLonAmountRecovered?: number | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7642,9 +7725,9 @@ export type CheckGrpBalQuery = {
       tymsGrpHasLend: number,
       ttlLonAmountRecovered?: number | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7670,9 +7753,9 @@ export type CheckMygroupQuery = {
       memberNatId: string,
       acBal: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7697,9 +7780,9 @@ export type CheckMygrpsQuery = {
       memberNatId: string,
       acBal: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7731,9 +7814,9 @@ export type CheeeeckGrpCovrdLonDfltsQuery = {
       timestamp: number,
       advRegNu: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7765,9 +7848,9 @@ export type UpdatAmaounntrepaidQuery = {
       timestamp: number,
       advRegNu: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7799,9 +7882,9 @@ export type ClearloaneriiiiifongoingQuery = {
       timestamp: number,
       advRegNu: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7833,9 +7916,9 @@ export type CheckbyAdvNGrrrppQuery = {
       timestamp: number,
       advRegNu: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7867,9 +7950,9 @@ export type CheckbyAdvNLoaneeeeeeiQuery = {
       timestamp: number,
       advRegNu: string,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7894,9 +7977,9 @@ export type CheeeckGrpNonLoanseeQuery = {
       amountSent: number,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7921,9 +8004,9 @@ export type CheeeckGrpNonLoanseQuery = {
       amountSent: number,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7947,9 +8030,9 @@ export type CheckAllMyGrpsContriQuery = {
       grpContact: string,
       contriAmount: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -7973,9 +8056,9 @@ export type CheckAllGrpContributorssssQuery = {
       grpContact: string,
       contriAmount: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -8000,9 +8083,9 @@ export type CheckMmbrContrInAGrppQuery = {
       grpContact: string,
       contriAmount: number,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -8030,9 +8113,9 @@ export type ByMaximumAmntNinterestQuery = {
       interest: number,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -8060,9 +8143,9 @@ export type ByMaximumAmntNinteresteeQuery = {
       interest: number,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -8093,9 +8176,9 @@ export type ByBuznessTypeQuery = {
       status: Status,
       latitude: number,
       longitude: number,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -8127,9 +8210,9 @@ export type ByBuznesTypeeeQuery = {
       status: Status,
       latitude: number,
       longitude: number,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -8156,9 +8239,9 @@ export type ByBusnessTypeQuery = {
       contact: string,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -8186,9 +8269,9 @@ export type ByBiznessTypeQuery = {
       contact: string,
       description?: string | null,
       status: Status,
+      owner: string,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -8251,9 +8334,9 @@ export type OnCreateSMAccountSubscription = {
     acActivenessStatus: Status,
     blStatus: Status,
     loanStatus: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8314,9 +8397,9 @@ export type OnUpdateSMAccountSubscription = {
     acActivenessStatus: Status,
     blStatus: Status,
     loanStatus: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8377,9 +8460,9 @@ export type OnDeleteSMAccountSubscription = {
     acActivenessStatus: Status,
     blStatus: Status,
     loanStatus: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8399,9 +8482,9 @@ export type OnCreateSMLoansCoveredSubscription = {
     timestamp: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8421,9 +8504,9 @@ export type OnUpdateSMLoansCoveredSubscription = {
     timestamp: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8443,9 +8526,9 @@ export type OnDeleteSMLoansCoveredSubscription = {
     timestamp: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8458,9 +8541,9 @@ export type OnCreateSMNonLoansSubscription = {
     senderContact: string,
     description?: string | null,
     receiverphonecontact: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8473,9 +8556,9 @@ export type OnUpdateSMNonLoansSubscription = {
     senderContact: string,
     description?: string | null,
     receiverphonecontact: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8488,9 +8571,9 @@ export type OnDeleteSMNonLoansSubscription = {
     senderContact: string,
     description?: string | null,
     receiverphonecontact: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8511,9 +8594,9 @@ export type OnCreateAgentSubscription = {
     longitude: number,
     agentEarningBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8534,9 +8617,9 @@ export type OnUpdateAgentSubscription = {
     longitude: number,
     agentEarningBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8557,9 +8640,9 @@ export type OnDeleteAgentSubscription = {
     longitude: number,
     agentEarningBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8572,9 +8655,9 @@ export type OnCreateFloatPurchaseSubscription = {
     nationalid: string,
     bankAdmid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8587,9 +8670,9 @@ export type OnUpdateFloatPurchaseSubscription = {
     nationalid: string,
     bankAdmid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8602,9 +8685,9 @@ export type OnDeleteFloatPurchaseSubscription = {
     nationalid: string,
     bankAdmid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8618,9 +8701,9 @@ export type OnCreateFloatAddSubscription = {
     agentPhonecontact: string,
     sagentregno: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8634,9 +8717,9 @@ export type OnUpdateFloatAddSubscription = {
     agentPhonecontact: string,
     sagentregno: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8650,9 +8733,9 @@ export type OnDeleteFloatAddSubscription = {
     agentPhonecontact: string,
     sagentregno: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8666,9 +8749,9 @@ export type OnCreateFloatReductionSubscription = {
     phonecontact: string,
     status: Status,
     agentNationalid: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8682,9 +8765,9 @@ export type OnUpdateFloatReductionSubscription = {
     phonecontact: string,
     status: Status,
     agentNationalid: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8698,9 +8781,9 @@ export type OnDeleteFloatReductionSubscription = {
     phonecontact: string,
     status: Status,
     agentNationalid: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8713,9 +8796,9 @@ export type OnCreateAgentWithdrawalsSubscription = {
     bankAdmId?: string | null,
     agentNationalid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8728,9 +8811,9 @@ export type OnUpdateAgentWithdrawalsSubscription = {
     bankAdmId?: string | null,
     agentNationalid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8743,9 +8826,9 @@ export type OnDeleteAgentWithdrawalsSubscription = {
     bankAdmId?: string | null,
     agentNationalid: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8753,7 +8836,7 @@ export type OnCreateSAgentSubscription = {
   onCreateSAgent?:  {
     __typename: "SAgent",
     id: string,
-    agentNnationalid: string,
+    saNationalid: string,
     name: string,
     phonecontact: string,
     pw: string,
@@ -8761,9 +8844,9 @@ export type OnCreateSAgentSubscription = {
     email: string,
     saBalance: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8771,7 +8854,7 @@ export type OnUpdateSAgentSubscription = {
   onUpdateSAgent?:  {
     __typename: "SAgent",
     id: string,
-    agentNnationalid: string,
+    saNationalid: string,
     name: string,
     phonecontact: string,
     pw: string,
@@ -8779,9 +8862,9 @@ export type OnUpdateSAgentSubscription = {
     email: string,
     saBalance: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8789,7 +8872,7 @@ export type OnDeleteSAgentSubscription = {
   onDeleteSAgent?:  {
     __typename: "SAgent",
     id: string,
-    agentNnationalid: string,
+    saNationalid: string,
     name: string,
     phonecontact: string,
     pw: string,
@@ -8797,9 +8880,9 @@ export type OnDeleteSAgentSubscription = {
     email: string,
     saBalance: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8817,9 +8900,9 @@ export type OnCreateSAgentWithdrawalsSubscription = {
     amount: number,
     bankAdmid?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8837,9 +8920,9 @@ export type OnUpdateSAgentWithdrawalsSubscription = {
     amount: number,
     bankAdmid?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8857,9 +8940,9 @@ export type OnDeleteSAgentWithdrawalsSubscription = {
     amount: number,
     bankAdmid?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8874,9 +8957,9 @@ export type OnCreateBankAdminSubscription = {
     BankAdmBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8891,9 +8974,9 @@ export type OnUpdateBankAdminSubscription = {
     BankAdmBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8908,9 +8991,9 @@ export type OnDeleteBankAdminSubscription = {
     BankAdmBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8926,9 +9009,9 @@ export type OnCreateBankAdmWithdrawalsSubscription = {
     bankAdmNatId: string,
     amount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8944,9 +9027,9 @@ export type OnUpdateBankAdmWithdrawalsSubscription = {
     bankAdmNatId: string,
     amount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -8962,60 +9045,63 @@ export type OnDeleteBankAdmWithdrawalsSubscription = {
     bankAdmNatId: string,
     amount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnCreateAdvocateSubscription = {
   onCreateAdvocate?:  {
     __typename: "Advocate",
+    advregnu: string,
     nationalid: string,
+    pwd: string,
     name: string,
     phonecontact: string,
-    advregnu: string,
     TtlEarnings: number,
     advBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateAdvocateSubscription = {
   onUpdateAdvocate?:  {
     __typename: "Advocate",
+    advregnu: string,
     nationalid: string,
+    pwd: string,
     name: string,
     phonecontact: string,
-    advregnu: string,
     TtlEarnings: number,
     advBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteAdvocateSubscription = {
   onDeleteAdvocate?:  {
     __typename: "Advocate",
+    advregnu: string,
     nationalid: string,
+    pwd: string,
     name: string,
     phonecontact: string,
-    advregnu: string,
     TtlEarnings: number,
     advBal: number,
     email: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9032,9 +9118,9 @@ export type OnCreateAdvocateWithdrawalsSubscription = {
     amount: number,
     advNatId: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9051,9 +9137,9 @@ export type OnUpdateAdvocateWithdrawalsSubscription = {
     amount: number,
     advNatId: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9070,9 +9156,9 @@ export type OnDeleteAdvocateWithdrawalsSubscription = {
     amount: number,
     advNatId: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9088,6 +9174,8 @@ export type OnCreateCompanySubscription = {
     policy: string,
     privacy: string,
     recom: string,
+    pw1: string,
+    pw2: string,
     agentwithdrawalFee: number,
     agentCom: number,
     sagentCom: number,
@@ -9105,8 +9193,6 @@ export type OnCreateCompanySubscription = {
     createBuzFee: number,
     crtCompAdsFee: number,
     crtParaAdsFee: number,
-    pw1: string,
-    pw2: string,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -9118,7 +9204,7 @@ export type OnCreateCompanySubscription = {
     admEarningBal: number,
     admEarning: number,
     ttlUsrDep: number,
-    ttlUserWthdrwl: string,
+    ttlUserWthdrwl?: number | null,
     agentFloatIn: number,
     agentFloatOut: number,
     ttlActiveUsers: number,
@@ -9181,6 +9267,8 @@ export type OnUpdateCompanySubscription = {
     policy: string,
     privacy: string,
     recom: string,
+    pw1: string,
+    pw2: string,
     agentwithdrawalFee: number,
     agentCom: number,
     sagentCom: number,
@@ -9198,8 +9286,6 @@ export type OnUpdateCompanySubscription = {
     createBuzFee: number,
     crtCompAdsFee: number,
     crtParaAdsFee: number,
-    pw1: string,
-    pw2: string,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -9211,7 +9297,7 @@ export type OnUpdateCompanySubscription = {
     admEarningBal: number,
     admEarning: number,
     ttlUsrDep: number,
-    ttlUserWthdrwl: string,
+    ttlUserWthdrwl?: number | null,
     agentFloatIn: number,
     agentFloatOut: number,
     ttlActiveUsers: number,
@@ -9274,6 +9360,8 @@ export type OnDeleteCompanySubscription = {
     policy: string,
     privacy: string,
     recom: string,
+    pw1: string,
+    pw2: string,
     agentwithdrawalFee: number,
     agentCom: number,
     sagentCom: number,
@@ -9291,8 +9379,6 @@ export type OnDeleteCompanySubscription = {
     createBuzFee: number,
     crtCompAdsFee: number,
     crtParaAdsFee: number,
-    pw1: string,
-    pw2: string,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -9304,7 +9390,7 @@ export type OnDeleteCompanySubscription = {
     admEarningBal: number,
     admEarning: number,
     ttlUsrDep: number,
-    ttlUserWthdrwl: string,
+    ttlUserWthdrwl?: number | null,
     agentFloatIn: number,
     agentFloatOut: number,
     ttlActiveUsers: number,
@@ -9374,9 +9460,9 @@ export type OnCreateCovCreditSellerSubscription = {
     status: Status,
     advregnu: string,
     advPhone: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9399,9 +9485,9 @@ export type OnUpdateCovCreditSellerSubscription = {
     status: Status,
     advregnu: string,
     advPhone: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9424,9 +9510,9 @@ export type OnDeleteCovCreditSellerSubscription = {
     status: Status,
     advregnu: string,
     advPhone: string,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9457,9 +9543,9 @@ export type OnCreateGroupSubscription = {
     tymsGrpHasLend: number,
     ttlLonAmountRecovered?: number | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9490,9 +9576,9 @@ export type OnUpdateGroupSubscription = {
     tymsGrpHasLend: number,
     ttlLonAmountRecovered?: number | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9523,9 +9609,9 @@ export type OnDeleteGroupSubscription = {
     tymsGrpHasLend: number,
     ttlLonAmountRecovered?: number | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9538,9 +9624,9 @@ export type OnCreateGrpMembersSubscription = {
     memberNatId: string,
     acBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9553,9 +9639,9 @@ export type OnUpdateGrpMembersSubscription = {
     memberNatId: string,
     acBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9568,9 +9654,9 @@ export type OnDeleteGrpMembersSubscription = {
     memberNatId: string,
     acBal: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9589,9 +9675,9 @@ export type OnCreateCvrdGroupLoansSubscription = {
     timestamp: number,
     advRegNu: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9610,9 +9696,9 @@ export type OnUpdateCvrdGroupLoansSubscription = {
     timestamp: number,
     advRegNu: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9631,9 +9717,9 @@ export type OnDeleteCvrdGroupLoansSubscription = {
     timestamp: number,
     advRegNu: string,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9646,9 +9732,9 @@ export type OnCreateGroupNonLoansSubscription = {
     amountSent: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9661,9 +9747,9 @@ export type OnUpdateGroupNonLoansSubscription = {
     amountSent: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9676,9 +9762,9 @@ export type OnDeleteGroupNonLoansSubscription = {
     amountSent: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9690,9 +9776,9 @@ export type OnCreateGrpMembersContributionSubscription = {
     grpContact: string,
     contriAmount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9704,9 +9790,9 @@ export type OnUpdateGrpMembersContributionSubscription = {
     grpContact: string,
     contriAmount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9718,9 +9804,9 @@ export type OnDeleteGrpMembersContributionSubscription = {
     grpContact: string,
     contriAmount: number,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9735,9 +9821,9 @@ export type OnCreateAdvertisedSingleMemberLoansSubscription = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9752,9 +9838,9 @@ export type OnUpdateAdvertisedSingleMemberLoansSubscription = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9769,9 +9855,9 @@ export type OnDeleteAdvertisedSingleMemberLoansSubscription = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9786,9 +9872,9 @@ export type OnCreateAdvertisedChamaLoansSubscription = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9803,9 +9889,9 @@ export type OnUpdateAdvertisedChamaLoansSubscription = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9820,9 +9906,9 @@ export type OnDeleteAdvertisedChamaLoansSubscription = {
     interest: number,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9841,9 +9927,9 @@ export type OnCreatePaidMultipleAdsSubscription = {
     status: Status,
     latitude: number,
     longitude: number,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9862,9 +9948,9 @@ export type OnUpdatePaidMultipleAdsSubscription = {
     status: Status,
     latitude: number,
     longitude: number,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9883,9 +9969,9 @@ export type OnDeletePaidMultipleAdsSubscription = {
     status: Status,
     latitude: number,
     longitude: number,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9900,9 +9986,9 @@ export type OnCreateFreeBizAdsSubscription = {
     contact: string,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9917,9 +10003,9 @@ export type OnUpdateFreeBizAdsSubscription = {
     contact: string,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -9934,8 +10020,8 @@ export type OnDeleteFreeBizAdsSubscription = {
     contact: string,
     description?: string | null,
     status: Status,
+    owner: string,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };

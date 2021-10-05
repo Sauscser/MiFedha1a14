@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Alert} from "react-native"
 
-import {createAgent} from '../../../src/graphql/mutations';
+import {createAdvocate, createAgent} from '../../../src/graphql/mutations';
 
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
@@ -19,15 +19,22 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import styles from './styles';
+import Navigation from '../../../navigation';
 
-  const RegisterKFNdgAcForm = props => {
+  const RegisterMFAdvAcForm = props => {
+
+  const navigation = useNavigation();
+
+  const moveAftrSuc = () =>{
+      navigation.navigate("Home")
+  }
   const [nationalId, setNationalid] = useState('');
   const [nam, setName] = useState("");
   const [phoneContact, setPhoneContact] = useState("");
   const[eml, setEml] =useState("");
   const [ownr, setOwnr] = useState(null);
   const [pword, setPW] = useState('');
-  const [saRegNo, setSARegNo] = useState('');
+  const [advRegNo, setAdvRegNo] = useState('');
   const[lat, setLat] = useState('');
   const[lon, setLon] = useState("");
   
@@ -44,42 +51,34 @@ import styles from './styles';
   const onCreateNewMFN = async () => {
     try {
       await API.graphql(
-        graphqlOperation(createAgent, {
+        graphqlOperation(createAdvocate, {
           input: {                    
-            sagentregno: saRegNo,
-            TtlFltIn: 0,
-            TtlFltOut: 0,
-            floatBal: 0,
-            latitude: lat,
-            longitude: lon,
-            ttlEarnings:0,
-
-            agentEarningBal: 0,
-            
-
+            advregnu: advRegNo,
             nationalid: nationalId,
+            pwd: pword,
             name: nam,
             phonecontact: phoneContact,
-            pw: pword,
             email: eml,
+            advBal: 0,
+            TtlEarnings: 0,        
             owner:ownr,
             status: 'AccountActive',
           },
         }),
       );
-    } catch (error:any) {
-      console.log('Error creating account', error);
+    } 
+    
+    
+    catch (error) {       
       
-    }
+    }  
 
     setNationalid('');
     setPW('');
     setName('');
-  setEml("");
-  setLat("");
-  setLon("");
+    setEml("");  
     setPhoneContact('');
-    setSARegNo('');
+    setAdvRegNo('');
   };
 
   return (
@@ -94,11 +93,11 @@ import styles from './styles';
 
           <View style={styles.sendLoanView}>
             <TextInput
-              value={saRegNo}
-              onChangeText={setSARegNo}
+              value={advRegNo}
+              onChangeText={setAdvRegNo}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFKubwa RegNumber</Text>
+            <Text style={styles.sendLoanText}>Advocate RegNumber</Text>
           </View>
           
           <View style={styles.sendLoanView}>
@@ -107,7 +106,7 @@ import styles from './styles';
               onChangeText={setPhoneContact}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo Phone</Text>
+            <Text style={styles.sendLoanText}>Advocate Phone</Text>
           </View>
 
           <View style={styles.sendLoanView}>
@@ -116,7 +115,7 @@ import styles from './styles';
               onChangeText={setNationalid}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo National Id</Text>
+            <Text style={styles.sendLoanText}>Advocate National Id</Text>
           </View>
 
           <View style={styles.sendLoanView}>
@@ -125,7 +124,7 @@ import styles from './styles';
               onChangeText={setName}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo Name</Text>
+            <Text style={styles.sendLoanText}>Advocate Name</Text>
           </View>
 
           <View style={styles.sendLoanView}>
@@ -134,7 +133,7 @@ import styles from './styles';
               onChangeText={setEml}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo Email</Text>
+            <Text style={styles.sendLoanText}>Advocate Email</Text>
           </View>
 
           <View style={styles.sendLoanView}>
@@ -143,27 +142,9 @@ import styles from './styles';
               onChangeText={setPW}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo Pass Word</Text>
+            <Text style={styles.sendLoanText}>Advocate Pass Word</Text>
           </View>
-
-          <View style={styles.sendLoanView}>
-            <TextInput
-              value={lat}
-              onChangeText={setLat}
-              style={styles.sendLoanInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo Latitude</Text>
-          </View>
-
-          <View style={styles.sendLoanView}>
-            <TextInput
-              value={lon}
-              onChangeText={setLon}
-              style={styles.sendLoanInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo Latitude</Text>
-          </View>
-
+      
           <TouchableOpacity
             onPress={onCreateNewMFN}
             style={styles.sendLoanButton}>
@@ -177,4 +158,4 @@ import styles from './styles';
   );
 };
 
-export default RegisterKFNdgAcForm;
+export default RegisterMFAdvAcForm;
