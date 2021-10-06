@@ -126,7 +126,7 @@ gtCompDtls();
         style={styles.image}>
         <ScrollView>
           <View style={styles.loanTitleView}>
-            <Text style={styles.title}>Fill MFNdogo Account Details Below</Text>
+            <Text style={styles.title}>Fill Advocate Account Details Below</Text>
           </View>
 
           <View style={styles.sendLoanView}>

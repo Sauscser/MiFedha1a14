@@ -42,42 +42,9 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
    }, []);
 
 
-   const gtCompDtls = async () =>{
-    try{
-        const compDtls :any= await API.graphql(
-          graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
-        );
-        const actvNdg = compDtls.data.getCompany.ttlKFNdgActv
+   
 
-        const gtMFKDtsl = async () =>{
-            try{
-            const MFKb:any = await API.graphql(
-            graphqlOperation(getSAgent, {id:saRegNo})
-            );
-            const MFkClnts = MFKb.data.getSAgent.actMFNdog
-
-            const updtActMFN = async()=>{
-              try{await API.graphql(
-                graphqlOperation(updateSAgent,{
-                  input:{
-                    id:saRegNo,
-                    actMFNdog:parseFloat(MFkClnts) + 1
-                  }
-                })
-              )
-
-              }
-              catch(error){}
-            }
-
-            updtActMFN();
-              }
-        catch(e){}
-        }
-
-  useEffect(() =>{
-    gtMFKDtsl()
-  }, [])
+        
 
   const onCreateNewMFN = async () => {
     try {
@@ -105,13 +72,85 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
           },
         }),
       );
-    } catch (error:any) {
+
+      const gtMFKDtsl = async () =>{
+        try{
+        const MFKb:any = await API.graphql(
+        graphqlOperation(getSAgent, {id:saRegNo})
+        );
+        const MFkClnts = MFKb.data.getSAgent.actMFNdog
+
+        const updtActMFN = async()=>{
+          try{await API.graphql(
+            graphqlOperation(updateSAgent,{
+              input:{
+                id:saRegNo,
+                actMFNdog:parseFloat(MFkClnts) + 1
+              }
+            })
+          )
+
+          const gtCompDtls = async () =>{
+            try{
+                const compDtls :any= await API.graphql(
+                  graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+                );
+                const actvNdg = compDtls.data.getCompany.ttlKFNdgActv
+                
+                const updtActAdm = async()=>{
+                  try{
+                      await API.graphql(
+                        graphqlOperation(updateCompany,{
+                          input:{
+                            AdminId:"BaruchHabaB'ShemAdonai2",
+                            ttlKFNdgActv:parseFloat(actvNdg) + 1,
+                          }
+                        })
+                      )
+                  }
+                  catch(error){}
+                }
+            
+                updtActAdm();
+            
+              }
+        
+              catch(e){
+              
+              }
+              };
+      
+              gtCompDtls();
+              
+              useEffect(() => {
+              gtCompDtls();
+              }, []);
+
+          }
+          catch(error){}
+        }
+
+        updtActMFN();
+          }
+    catch(e){}
+    }
+
+    gtMFKDtsl();
+    useEffect(() =>{
+      gtMFKDtsl()
+      }, [])
+
+    
+    
+    } 
+    
+    catch (error:any) {
       console.log('Error creating account', error);
       
     }
 
-    updtActAdm();
-    gtMFKDtsl();
+    
+    
     
 
 
@@ -127,31 +166,10 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
 
   
 
-  const updtActAdm = async()=>{
-    try{
-        await API.graphql(
-          graphqlOperation(updateCompany,{
-            input:{
-              AdminId:"BaruchHabaB'ShemAdonai2",
-              ttlKFNdgActv:parseFloat(actvNdg) + 1,
-            }
-          })
-        )
-    }
-    catch(error){}
-  }
-  await onCreateNewMFN();
+  
+  
 
-}
 
-catch(e){
-
-}
-};
-
-useEffect(() => {
-gtCompDtls();
-}, []);
 
   return (
     <View>
@@ -236,7 +254,7 @@ gtCompDtls();
           </View>
 
           <TouchableOpacity
-            onPress={gtCompDtls}
+            onPress={onCreateNewMFN}
             style={styles.sendLoanButton}>
             <Text style={styles.sendLoanButtonText}>
               Click to Create Account

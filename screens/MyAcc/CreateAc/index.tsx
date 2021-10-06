@@ -145,6 +145,20 @@ const CreateAcForm = (props:UserReg) => {
                   },
                 }),
               );
+
+              const updtActAdm = async()=>{
+                try{
+                    await API.graphql(
+                      graphqlOperation(updateCompany,{
+                        input:{
+                          AdminId:"BaruchHabaB'ShemAdonai2",
+                          ttlActiveUsers:parseFloat(actvSMUsrs) + 1,
+                        }
+                      })
+                    )
+                }
+                catch(error){}
+              }
               await updtActAdm();
               await userDtls ()
             } catch (error) {
@@ -156,19 +170,7 @@ const CreateAcForm = (props:UserReg) => {
           };
           onCreateNewSMAc();
 
-          const updtActAdm = async()=>{
-            try{
-                await API.graphql(
-                  graphqlOperation(updateCompany,{
-                    input:{
-                      AdminId:"BaruchHabaB'ShemAdonai2",
-                      ttlActiveUsers:parseFloat(actvSMUsrs) + 1,
-                    }
-                  })
-                )
-            }
-            catch(error){}
-          }
+          
         
         
   const userDtls = async () => {

@@ -57,19 +57,7 @@ const CreateAdminForm = () => {
                 const adminPhn = resp.data.getSMAccount.phonecontact;     
                 const adminEml = resp.data.getSMAccount.awsemail;  
                 
-                const updtActAdm = async()=>{
-                  try{
-                      await API.graphql(
-                        graphqlOperation(updateCompany,{
-                          input:{
-                            AdminId:"BaruchHabaB'ShemAdonai2",
-                            ttlKFAdmActv:parseFloat(actvAdm) + 1,
-                          }
-                        })
-                      )
-                  }
-                  catch(error){}
-                }
+                
                 
                 const CrtAdminAc = async () => {
                   try {
@@ -89,15 +77,26 @@ const CreateAdminForm = () => {
                       }),
                     );
         
-                    console.log(adminId)
+                    const updtActAdm = async()=>{
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateCompany,{
+                              input:{
+                                AdminId:"BaruchHabaB'ShemAdonai2",
+                                ttlKFAdmActv:parseFloat(actvAdm) + 1,
+                              }
+                            })
+                          )
+                      }
+                      catch(error){}
+                    }
+
+                    await updtActAdm();
                    
                   } catch (error) {
                     
 
-                    if(error)
-                {Alert.alert("Account creation not successful")}
-          
-                else { await updtActAdm(); }
+                    
                   }
                   
                  
