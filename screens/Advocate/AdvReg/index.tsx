@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Alert} from "react-native"
 
-import {createAdvocate, createAgent} from '../../../src/graphql/mutations';
+import {createAdvocate, createAgent, updateCompany} from '../../../src/graphql/mutations';
 
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
@@ -20,6 +20,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import Navigation from '../../../navigation';
+import { getCompany } from '../../../src/graphql/queries';
 
   const RegisterMFAdvAcForm = props => {
 
@@ -47,6 +48,13 @@ import Navigation from '../../../navigation';
     fetchUser();
    }, []);
 
+   const gtCompDtls = async () =>{
+    try{
+        const compDtls :any= await API.graphql(
+          graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+        );
+        const actvAdv = compDtls.data.getCompany.ttlKFAdvActv
+
 
   const onCreateNewMFN = async () => {
     try {
@@ -66,12 +74,14 @@ import Navigation from '../../../navigation';
           },
         }),
       );
+      updtActAdm();
     } 
     
     
     catch (error) {       
       
     }  
+   
 
     setNationalid('');
     setPW('');
@@ -80,6 +90,34 @@ import Navigation from '../../../navigation';
     setPhoneContact('');
     setAdvRegNo('');
   };
+
+  const updtActAdm = async()=>{
+    try{
+        await API.graphql(
+          graphqlOperation(updateCompany,{
+            input:{
+              AdminId:"BaruchHabaB'ShemAdonai2",
+              ttlKFAdvActv:parseFloat(actvAdv) + 1,
+            }
+          })
+        )
+    }
+    catch(error){}
+  }
+
+  await onCreateNewMFN();
+
+
+}
+
+catch(e){
+
+}
+};
+
+useEffect(() => {
+gtCompDtls();
+}, []);
 
   return (
     <View>
@@ -146,7 +184,7 @@ import Navigation from '../../../navigation';
           </View>
       
           <TouchableOpacity
-            onPress={onCreateNewMFN}
+            onPress={gtCompDtls}
             style={styles.sendLoanButton}>
             <Text style={styles.sendLoanButtonText}>
               Click to Create Account

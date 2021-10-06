@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Alert} from "react-native"
 
-import {createAgent} from '../../../src/graphql/mutations';
+import {createAgent, updateCompany, updateSAgent} from '../../../src/graphql/mutations';
 
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
@@ -19,6 +19,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import styles from './styles';
+import { getCompany, getSAgent } from '../../../src/graphql/queries';
 
   const RegisterKFNdgAcForm = props => {
   const [nationalId, setNationalid] = useState('');
@@ -40,6 +41,43 @@ import styles from './styles';
     fetchUser();
    }, []);
 
+
+   const gtCompDtls = async () =>{
+    try{
+        const compDtls :any= await API.graphql(
+          graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+        );
+        const actvNdg = compDtls.data.getCompany.ttlKFNdgActv
+
+        const gtMFKDtsl = async () =>{
+            try{
+            const MFKb:any = await API.graphql(
+            graphqlOperation(getSAgent, {id:saRegNo})
+            );
+            const MFkClnts = MFKb.data.getSAgent.actMFNdog
+
+            const updtActMFN = async()=>{
+              try{await API.graphql(
+                graphqlOperation(updateSAgent,{
+                  input:{
+                    id:saRegNo,
+                    actMFNdog:parseFloat(MFkClnts) + 1
+                  }
+                })
+              )
+
+              }
+              catch(error){}
+            }
+
+            updtActMFN();
+              }
+        catch(e){}
+        }
+
+  useEffect(() =>{
+    gtMFKDtsl()
+  }, [])
 
   const onCreateNewMFN = async () => {
     try {
@@ -72,6 +110,11 @@ import styles from './styles';
       
     }
 
+    updtActAdm();
+    gtMFKDtsl();
+    
+
+
     setNationalid('');
     setPW('');
     setName('');
@@ -81,6 +124,34 @@ import styles from './styles';
     setPhoneContact('');
     setSARegNo('');
   };
+
+  
+
+  const updtActAdm = async()=>{
+    try{
+        await API.graphql(
+          graphqlOperation(updateCompany,{
+            input:{
+              AdminId:"BaruchHabaB'ShemAdonai2",
+              ttlKFNdgActv:parseFloat(actvNdg) + 1,
+            }
+          })
+        )
+    }
+    catch(error){}
+  }
+  await onCreateNewMFN();
+
+}
+
+catch(e){
+
+}
+};
+
+useEffect(() => {
+gtCompDtls();
+}, []);
 
   return (
     <View>
@@ -165,7 +236,7 @@ import styles from './styles';
           </View>
 
           <TouchableOpacity
-            onPress={onCreateNewMFN}
+            onPress={gtCompDtls}
             style={styles.sendLoanButton}>
             <Text style={styles.sendLoanButtonText}>
               Click to Create Account

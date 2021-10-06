@@ -457,6 +457,7 @@ export const getSAgent = /* GraphQL */ `
       phonecontact
       pw
       TtlEarnings
+      actMFNdog
       email
       saBalance
       status
@@ -480,6 +481,7 @@ export const listSAgents = /* GraphQL */ `
         phonecontact
         pw
         TtlEarnings
+        actMFNdog
         email
         saBalance
         status
@@ -2180,6 +2182,7 @@ export const checkingSA = /* GraphQL */ `
         phonecontact
         pw
         TtlEarnings
+        actMFNdog
         email
         saBalance
         status
@@ -2215,6 +2218,7 @@ export const checkingSABalBySA = /* GraphQL */ `
         phonecontact
         pw
         TtlEarnings
+        actMFNdog
         email
         saBalance
         status

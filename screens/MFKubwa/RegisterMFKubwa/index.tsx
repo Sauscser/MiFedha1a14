@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {createSAgent} from '../../../src/graphql/mutations';
+import {createSAgent, updateCompany} from '../../../src/graphql/mutations';
 
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
@@ -16,8 +16,10 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import styles from './styles';
+import { getCompany } from '../../../src/graphql/queries';
 
 const RegisterMFKubwaAcForm = props => {
   const [nationalId, setNationalid] = useState("");
@@ -38,36 +40,83 @@ const RegisterMFKubwaAcForm = props => {
     fetchUser();
   }, []);
 
+  const gtCompDtls = async () =>{
+    try{
+        const compDtls :any= await API.graphql(
+          graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+        );
+        const actvAKbwa = compDtls.data.getCompany.ttlKFKbwActv
 
-  const CreateNewSA = async () => {
-    try {
-      await API.graphql(
-        graphqlOperation(createSAgent, {
-          input: {
+        
+
+        const CreateNewSA = async () => {
+          try {
+            await API.graphql(
+              graphqlOperation(createSAgent, {
+                input: {
+                  
+                  saNationalid: nationalId,
+                  name: nam,
+                  phonecontact: phoneContact,
+                  pw: pword,
+                  TtlEarnings: 0,
+                  email: eml,
+                  saBalance: 0,   
+                  status: 'AccountActive',
+                  owner:ownr,
+                  actMFNdog:0,
+                },
+              }),
+            );
+
+            const updtActAdm = async()=>{
+              try{
+                  await API.graphql(
+                    graphqlOperation(updateCompany,{
+                      input:{
+                        AdminId:"BaruchHabaB'ShemAdonai2",
+                        ttlKFKbwActv:parseFloat(actvAKbwa) + 1,
+                      }
+                    })
+                  )
+              }
+              catch(error){}
+            }
+
+            updtActAdm();
+          } 
+
+          
+
+          
+          
+          catch (error) {
             
-            saNationalid: nationalId,
-            name: nam,
-            phonecontact: phoneContact,
-            pw: pword,
-            TtlEarnings: 0,
-            email: eml,
-            saBalance: 0,   
-            status: 'AccountActive',
-            owner:ownr,
-          },
-        }),
-      );
-    } catch (error) {
-      console.log('Error creating account', error);
-    }
+            
+          }
+         
+          setNationalid('');
+          setPW("");
+          setName("");
+        setEml("");
+          setPhoneContact("");
+        
+        };
 
-    setNationalid('');
-    setPW("");
-    setName("");
-  setEml("");
-    setPhoneContact("");
-  
-  };
+        
+
+        
+        await CreateNewSA();
+      }
+
+  catch(e){
+
+  }
+};
+
+useEffect(() => {
+gtCompDtls();
+}, []);
 
   return (
     <View>
@@ -130,7 +179,7 @@ const RegisterMFKubwaAcForm = props => {
           
 
           <TouchableOpacity
-            onPress={CreateNewSA}
+            onPress={gtCompDtls}
             style={styles.sendLoanButton}>
             <Text style={styles.sendLoanButtonText}>
               Click to Create Account

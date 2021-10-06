@@ -641,6 +641,7 @@ export const createSAgent = /* GraphQL */ `
       phonecontact
       pw
       TtlEarnings
+      actMFNdog
       email
       saBalance
       status
@@ -662,6 +663,7 @@ export const updateSAgent = /* GraphQL */ `
       phonecontact
       pw
       TtlEarnings
+      actMFNdog
       email
       saBalance
       status
@@ -683,6 +685,7 @@ export const deleteSAgent = /* GraphQL */ `
       phonecontact
       pw
       TtlEarnings
+      actMFNdog
       email
       saBalance
       status

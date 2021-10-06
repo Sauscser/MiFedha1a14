@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 
-import {createSMAccount} from '../../../src/graphql/mutations';
-import { getSMAccount, } from '../../../src/graphql/queries';
+import {createSMAccount, updateCompany} from '../../../src/graphql/mutations';
+import { getCompany, getSMAccount, } from '../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
-import { UserReg } from '../../../types';
+
 
 import {
   View,
@@ -65,28 +65,28 @@ const CreateAcForm = (props:UserReg) => {
     useEffect(() => {
         fetchUser();
       }, []);
-
-
-  
+      
+    const gtCompDtls = async () =>{
+      try{
+        const compDtls :any= await API.graphql(
+          graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+          );
+          const actvSMUsrs = compDtls.data.getCompany.ttlActiveUsers
         
-        
-          
-            
-        
-          const onCreateNewSMAc = async () => {
-            try {
-              await API.graphql(
-                graphqlOperation(createSMAccount, {
-                  input: {
-                    nationalid: nationalId,
-                    name: nam,
-                    phonecontact: phoneContact,
-                    awsemail: awsEmail,
-                    balance: 0,
-                    loanAcceptanceCode:awsEmail,
+      const onCreateNewSMAc = async () => {
+        try {
+          await API.graphql(
+          graphqlOperation(createSMAccount, {
+          input: {
+          nationalid: nationalId,
+          name: nam,
+          phonecontact: phoneContact,
+          awsemail: awsEmail,
+          balance: 0,
+          loanAcceptanceCode:awsEmail,
                    
-                    pw: pword,
-                    ttlDpstSM: 0,
+          pw: pword,
+          ttlDpstSM: 0,
           TtlWthdrwnSM: 0,
           ttlLnInSM: 0,
           ttlLnOutSM: 0,
@@ -145,18 +145,33 @@ const CreateAcForm = (props:UserReg) => {
                   },
                 }),
               );
-        
+              await updtActAdm();
               await userDtls ()
             } catch (error) {
               console.log('Error creating account', error);
             }
         
             setNationalid('');
-    setPW('');
+            setPW('');
           };
+          onCreateNewSMAc();
+
+          const updtActAdm = async()=>{
+            try{
+                await API.graphql(
+                  graphqlOperation(updateCompany,{
+                    input:{
+                      AdminId:"BaruchHabaB'ShemAdonai2",
+                      ttlActiveUsers:parseFloat(actvSMUsrs) + 1,
+                    }
+                  })
+                )
+            }
+            catch(error){}
+          }
         
         
-          const userDtls = async () => {
+  const userDtls = async () => {
     try {
       const resp:any = await API.graphql(
         graphqlOperation(getSMAccount, { nationalid: nationalId })
@@ -180,6 +195,17 @@ const CreateAcForm = (props:UserReg) => {
   useEffect(() => {
     userDtls();
   }, []);
+
+}
+
+catch(e){
+
+}
+};
+
+useEffect(() => {
+gtCompDtls();
+}, []);
         
           return (
             <View>
@@ -210,7 +236,7 @@ const CreateAcForm = (props:UserReg) => {
                   </View>
         
                   <TouchableOpacity
-                    onPress={onCreateNewSMAc}
+                    onPress={gtCompDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Create Account

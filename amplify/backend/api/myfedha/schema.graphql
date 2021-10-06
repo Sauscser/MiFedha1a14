@@ -587,6 +587,7 @@ type SAgent
   phonecontact: String!
   pw: String!
   TtlEarnings: Float!
+  actMFNdog: Float!
   email: String!
   saBalance: Float!
   status: Status!
