@@ -17,8 +17,9 @@ import MFAdm from "../../screens/MFAdmin";
 import MFKbw from "../../screens/MFKubwa";
 import MFN from "../../screens/MFNdogo";
 import AdvcHm from "../../screens/Advocate/AdvocateHm";
-import AdvSgnIn from "../../screens/Advocate/AdvocateSignIn"
-import AdvReg from "../../screens/Advocate/AdvReg"
+import AdvSgnIn from "../../screens/Advocate/AdvocateSignIn";
+import AdvReg from "../../screens/Advocate/AdvReg";
+import DActivtMFN from "../../screens/MFNdogo/DeactivateMFNdogo"
 
 
 
@@ -45,6 +46,7 @@ const HomeNavigator = props => {
       <Stack.Screen name={'MFNdogos'} component={MFN}/>
       <Stack.Screen name={'MFAdvocateHome'} component={AdvcHm}/>
       <Stack.Screen name={'MFAdvocateReg'} component={AdvReg}/>
+      <Stack.Screen name={'DActvteMFN'} component={DActivtMFN}/>
       
     </Stack.Navigator>
   );

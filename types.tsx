@@ -31,6 +31,7 @@ declare global {
       RegMFNdgScrn:undefined;
       MFAdvocateReg:undefined;
       Home:undefined;
+      DActvteMFN:undefined;
     }
   }
 }

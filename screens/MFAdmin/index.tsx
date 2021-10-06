@@ -34,6 +34,10 @@ const RegKFKubwa = props => {
     navigation.navigate('MFAdvocateReg');
   };
 
+  const DActivateMFN = () => {
+    navigation.navigate('DActvteMFN');
+  };
+
 
   
   return (
@@ -65,7 +69,7 @@ const RegKFKubwa = props => {
                     
 
                     <Pressable
-                      onPress={goToAdvHome}
+                      onPress={DActivateMFN}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         DeReg

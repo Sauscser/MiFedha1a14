@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {updateAgent} from '../../../../src/graphql/mutations';
+import {createFloatPurchase, updateAgent, updateCompany} from '../../../../src/graphql/mutations';
 
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
@@ -16,9 +16,10 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import styles from './styles';
-import { getAgent } from '../../../../src/graphql/queries';
+import { getAgent, getCompany } from '../../../../src/graphql/queries';
 
 export type buyAgntFlts = {
     amt:number;
@@ -29,15 +30,21 @@ export type buyAgntFlts = {
 const BuyFlt = (props:buyAgntFlts) => {
   
   
-  const [amt, setAmt] = useState(0);
+  const [amt, setAmt] = useState("");
   const [phoneContact, setPhoneContact] = useState("");
-  const[fltBal1, setFltBal1] =useState();
+  const[ownr, setownr] =useState(null);
+  const[bankAdminId, setBankAdminId] =useState("");
 
-const[ttlFltBal1, setttlFltBal1] =useState();
+const fetchUser = async () => {
+  const userInfo = await Auth.currentAuthenticatedUser();  
+  
+  setownr(userInfo.attributes.sub);
+  
+};
 
-
- 
-
+useEffect(() => {
+  fetchUser();
+}, []);
 
 const ftchAgInfo = async () => {
     try{
@@ -46,37 +53,106 @@ const ftchAgInfo = async () => {
         );
 
             const fltBal: any = (agntBal.data.getAgent.floatBal)
-        const ttlfltIn: any = (agntBal.data.getAgent.TtlFltIn)
-        console.log(fltBal1)
-        console.log(ttlFltBal1)
-        console.log(amt)
+            const ttlFltIn: any = (agntBal.data.getAgent.TtlFltIn)
+            const Stts: any = (agntBal.data.getAgent.status)
+        
+    const buyAgntFlt = async () => {
+          try {
+                await API.graphql(
+                  graphqlOperation(createFloatPurchase, {
+                    input: {
+                      agentphone:  phoneContact,
+                      amount:amt,
+                      nationalid:bankAdminId,
+                      bankAdmid:bankAdminId,
+                      status:"AccountActive",
+                      owner:ownr
+                                                  
+                   },
+                  }),
+                );
 
-        const buyAgntFlt = async () => {
+                const updtAgntFlt = async () => {
 
     
-            try {
-              await API.graphql(
-                graphqlOperation(updateAgent, {
-                  input: {
-                    phonecontact: phoneContact,    
-                    TtlFltIn: parseFloat(amt) + parseFloat(fltBal),
-                    floatBal: parseFloat(amt) + parseFloat(ttlfltIn),      
-                 },
-                }),
-              );
-            } catch (error) {
-              console.log('Error creating account', error);
-            }   
-           
-          };
+                  try {
+                    await API.graphql(
+                      graphqlOperation(updateAgent, {
+                        input: {
+                          phonecontact: phoneContact,    
+                          floatBal: parseFloat(amt) + parseFloat(fltBal),
+                          TtlFltIn: parseFloat(amt) + parseFloat(ttlFltIn),
+                                
+                       },
+                      }),
+                    );
+      
+                    const ftchCompInfo = async () => {
+                      try{
+                          const CompFltBal:any = await API.graphql(
+                              graphqlOperation(getCompany, {AdminId:"BaruchHabaB'ShemAdonai2"}),
+                          );
+                    
+                              const CompFtBal: any = (CompFltBal.data.getCompany.agentFloatIn)
+                          
+                        
+                    
+                          const updtCompFlt = async () => {
+                    
+                      
+                              try {
+                                await API.graphql(
+                                  graphqlOperation(updateCompany, {
+                                    input: {
+                                      AdminId: "BaruchHabaB'ShemAdonai2",    
+                                      agentFloatIn: parseFloat(amt) + parseFloat(CompFtBal),
+                                        
+                                   },
+                                  }),
+                                );
+                              } catch (error) {
+                                console.log('Error creating account', error);
+                              }   
+                             
+                            };
+                    
+                          await updtCompFlt();
+                      }
+                    
+                      catch (e) {console.log(e)}
+                    
+                      setAmt ("");
+                       
+                    }       
+                            await ftchCompInfo();
+                   
+                    useEffect(() => {
+                      ftchCompInfo();
+                    }, []);
+                  } catch (error) {
+                    console.log('Error creating account', error);
+                  }   
+                 
+                };
+              
+                   
+                      await updtAgntFlt();
+                    
+              } catch (error) {
+                console.log('Error creating account', error);
+              }   
+             
+            }; 
 
-        await buyAgntFlt();
+            if(Stts==="AccountActive")
+                      {await buyAgntFlt();}
+                      else{Alert.alert("Your MFNdogo account has been deactivated")}
     }
 
     catch (e) {console.log(e)}
 
-    setAmt (0);
-  
+    setAmt ("");
+    setBankAdminId("")
     setPhoneContact('');
 
 }
@@ -86,6 +162,8 @@ useEffect(() => {
 }, []);
 
   
+
+
 
   
 
@@ -116,6 +194,16 @@ useEffect(() => {
               editable={true}></TextInput>
             <Text style={styles.sendLoanText}>Amount</Text>
           </View>
+
+          <View style={styles.sendLoanView}>
+            <TextInput
+              value={bankAdminId}
+              onChangeText={setBankAdminId}
+              style={styles.sendLoanInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendLoanText}>Admin Id</Text>
+          </View>
+
 
           
 
