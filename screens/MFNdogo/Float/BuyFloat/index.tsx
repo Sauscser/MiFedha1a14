@@ -34,6 +34,7 @@ const BuyFlt = (props:buyAgntFlts) => {
   const [phoneContact, setPhoneContact] = useState("");
   const[ownr, setownr] =useState(null);
   const[bankAdminId, setBankAdminId] =useState("");
+  const[transId, setTransId] =useState("");
 
 const fetchUser = async () => {
   const userInfo = await Auth.currentAuthenticatedUser();  
@@ -63,8 +64,8 @@ const ftchAgInfo = async () => {
                     input: {
                       agentphone:  phoneContact,
                       amount:amt,
-                      nationalid:bankAdminId,
-                      bankAdmid:bankAdminId,
+                      transactId:bankAdminId,
+                      bankAdminID:bankAdminId,
                       status:"AccountActive",
                       owner:ownr
                                                   
@@ -154,6 +155,7 @@ const ftchAgInfo = async () => {
     setAmt ("");
     setBankAdminId("")
     setPhoneContact('');
+    setTransId("")
 
 }
 
@@ -204,8 +206,14 @@ useEffect(() => {
             <Text style={styles.sendLoanText}>Admin Id</Text>
           </View>
 
-
-          
+          <View style={styles.sendLoanView}>
+            <TextInput
+              value={transId}
+              onChangeText={setTransId}
+              style={styles.sendLoanInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendLoanText}>Transaction Id</Text>
+          </View>          
 
           
           <TouchableOpacity

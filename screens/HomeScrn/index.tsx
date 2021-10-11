@@ -8,7 +8,7 @@ const HomeScreen = props => {
   const navigation = useNavigation();
 
   const goToLoanForm = () => {
-    navigation.navigate('KFNdogoo');
+    navigation.navigate('SMNonGivLon');
   };
 
   const goToChamaMemberLoanForm = () => {

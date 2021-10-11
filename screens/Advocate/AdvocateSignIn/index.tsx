@@ -40,7 +40,7 @@ const AdvSignIn = (props) => {
                     graphqlOperation(getAdvocate, {advregnu: AdvId}
                 ),);
 
-                const pw1s = AdvDtls.data.getAdvocate.pw;
+                const pw1s = AdvDtls.data.getAdvocate.pwd;
                 
 
                 

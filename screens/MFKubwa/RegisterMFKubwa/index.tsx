@@ -80,7 +80,7 @@ const RegisterMFKubwaAcForm = props => {
                     })
                   )
               }
-              catch(error){}
+              catch(error){console.log(error)}
             }
 
             updtActAdm();
@@ -91,8 +91,7 @@ const RegisterMFKubwaAcForm = props => {
           
           
           catch (error) {
-            
-            
+            console.log(error)
           }
          
           setNationalid('');
@@ -110,7 +109,7 @@ const RegisterMFKubwaAcForm = props => {
       }
 
   catch(e){
-
+    console.log(e)
   }
 };
 

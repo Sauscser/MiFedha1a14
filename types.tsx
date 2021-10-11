@@ -24,14 +24,22 @@ declare global {
       MFAdminstrators:undefined;
       MFKbwa:undefined;
       MFKubwa:undefined;
-      MFNdogo:undefined;
+      MFNdogooo:undefined;
       MFNdogos:undefined;
       MFAdvocate:undefined;
       MFAdvocateHome:undefined;
       RegMFNdgScrn:undefined;
       MFAdvocateReg:undefined;
-      Home:undefined;
+      Homeee:undefined;
       DActvteMFN:undefined;
+      DActvteMFK:undefined;
+      DActvteMFUsr:undefined;
+      DActvteMFAd:undefined;
+      SMGivLon:undefined;
+      SMNonGivLon:undefined;
+      SMWthdFm:undefined;
+      Homes:undefined;
+      MFNdogoss:undefined;
     }
   }
 }
@@ -53,12 +61,13 @@ export type RootTabParamList = {
   TabOne: undefined;
   TabTwo: undefined;
   
- 
+  Home:undefined;
+  MFNdogo:undefined;
   MyAc:undefined;
   Loans:undefined;
   CredSales:undefined;
   Chama:undefined;
-  Ads:undefined;
+  Search:undefined;
   RegMFNdgScrn:undefined;
   
   

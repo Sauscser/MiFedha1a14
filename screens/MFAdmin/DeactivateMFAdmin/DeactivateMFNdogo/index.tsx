@@ -19,22 +19,23 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import styles from './styles';
+import { updateBankAdmin } from '../../../../src/graphql/mutations';
 
 
   
 
 
-const DeregMFNForm = (props) => {
+const DeregMFAdminForm = (props) => {
   const navigation = useNavigation();
 
-  const [phoneContact, setPhoneContact] = useState("");
+  const [AdminId, setAdminId] = useState("");
   
-  const KFNDtls = async () => {
+  const KFAdminDtls = async () => {
     try{
         await API.graphql(
-          graphqlOperation(updateAgent,{
+          graphqlOperation(updateBankAdmin,{
             input:{
-              phonecontact:phoneContact,
+              nationalid:AdminId,
               status:"AccountInactive"
             }
           })
@@ -45,8 +46,8 @@ const DeregMFNForm = (props) => {
               const compDtls :any= await API.graphql(
                 graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
                 );
-                const ActvMFNUsrs = compDtls.data.getCompany.ttlKFNdgActv
-                const InActvMFNUsrs = compDtls.data.getCompany.ttlKFNdgInActv
+                const inActvMFAdmin = compDtls.data.getCompany.ttlKFAdmInActv
+                const actvMFAdmin = compDtls.data.getCompany.ttlKFAdmActv
                    
                 const updtActAdm = async()=>{
                       try{
@@ -54,8 +55,8 @@ const DeregMFNForm = (props) => {
                             graphqlOperation(updateCompany,{
                               input:{
                                 AdminId:"BaruchHabaB'ShemAdonai2",
-                                ttlKFNdgActv:parseFloat(ActvMFNUsrs) - 1,
-                                ttlKFNdgInActv:parseFloat(InActvMFNUsrs) + 1,
+                                ttlKFAdmActv:parseFloat(actvMFAdmin) - 1,
+                                ttlKFAdmInActv:parseFloat(inActvMFAdmin) + 1,
                               }
                             })
                           )
@@ -75,7 +76,7 @@ const DeregMFNForm = (props) => {
               }, []);
     }
     catch(error){console.log(error)}
-    setPhoneContact("") 
+    setAdminId("") 
   } 
  return (
             <View>
@@ -89,8 +90,8 @@ const DeregMFNForm = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                      value={phoneContact}
-                      onChangeText={setPhoneContact}
+                      value={AdminId}
+                      onChangeText={setAdminId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>MFNdogo Phone</Text>
@@ -99,7 +100,7 @@ const DeregMFNForm = (props) => {
                   
         
                   <TouchableOpacity
-                    onPress={KFNDtls}
+                    onPress={KFAdminDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to DeRegister 
@@ -111,4 +112,4 @@ const DeregMFNForm = (props) => {
           );
         };
         
-        export default DeregMFNForm;
+        export default DeregMFAdminForm;

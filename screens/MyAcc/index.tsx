@@ -27,7 +27,7 @@ const MyAccount = props => {
   };
 
   const goWithdrwMny = () => {
-    navigation.navigate('SMAWthdrwFrm');
+    navigation.navigate('SMWthdFm');
   };
 
   const goToSMASndnonln = () => {

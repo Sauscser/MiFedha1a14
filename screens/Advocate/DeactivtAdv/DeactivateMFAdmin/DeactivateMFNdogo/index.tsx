@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {createSMAccount, updateAgent, updateCompany} from '../../../src/graphql/mutations';
-import { getAgent, getCompany, getSMAccount, } from '../../../src/graphql/queries';
+import {createSMAccount, updateAgent, updateCompany} from '../../../../../src/graphql/mutations';
+import { getAgent, getCompany, getSMAccount, } from '../../../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -19,22 +19,23 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import styles from './styles';
+import { updateBankAdmin } from '../../../../../src/graphql/mutations';
 
 
   
 
 
-const DeregMFNForm = (props) => {
+const DeregMFAdvForm = (props) => {
   const navigation = useNavigation();
 
-  const [phoneContact, setPhoneContact] = useState("");
+  const [AdvRegNo, setAdvRegNo] = useState("");
   
-  const KFNDtls = async () => {
+  const KFAdminDtls = async () => {
     try{
         await API.graphql(
-          graphqlOperation(updateAgent,{
+          graphqlOperation(updateBankAdmin,{
             input:{
-              phonecontact:phoneContact,
+              advregnu:AdvRegNo,
               status:"AccountInactive"
             }
           })
@@ -45,8 +46,8 @@ const DeregMFNForm = (props) => {
               const compDtls :any= await API.graphql(
                 graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
                 );
-                const ActvMFNUsrs = compDtls.data.getCompany.ttlKFNdgActv
-                const InActvMFNUsrs = compDtls.data.getCompany.ttlKFNdgInActv
+                const ActvMFAdv = compDtls.data.getCompany.ttlKFAdvActv
+                const actvMFAdv = compDtls.data.getCompany.ttlKFAdvInActv
                    
                 const updtActAdm = async()=>{
                       try{
@@ -54,8 +55,8 @@ const DeregMFNForm = (props) => {
                             graphqlOperation(updateCompany,{
                               input:{
                                 AdminId:"BaruchHabaB'ShemAdonai2",
-                                ttlKFNdgActv:parseFloat(ActvMFNUsrs) - 1,
-                                ttlKFNdgInActv:parseFloat(InActvMFNUsrs) + 1,
+                                ttlKFAdvActv:parseFloat(ActvMFAdv) - 1,
+                                ttlKFAdvInActv:parseFloat(actvMFAdv) + 1,
                               }
                             })
                           )
@@ -75,7 +76,7 @@ const DeregMFNForm = (props) => {
               }, []);
     }
     catch(error){console.log(error)}
-    setPhoneContact("") 
+    setAdvRegNo("") 
   } 
  return (
             <View>
@@ -84,22 +85,22 @@ const DeregMFNForm = (props) => {
                 <ScrollView>
            
                   <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill MFNdogo Details Below</Text>
+                    <Text style={styles.title}>Fill MFAdvocate Details Below</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                      value={phoneContact}
-                      onChangeText={setPhoneContact}
+                      value={AdvRegNo}
+                      onChangeText={setAdvRegNo}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>MFNdogo Phone</Text>
+                    <Text style={styles.sendLoanText}>MFAdvocate National Id</Text>
                   </View>
         
                   
         
                   <TouchableOpacity
-                    onPress={KFNDtls}
+                    onPress={KFAdminDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to DeRegister 
@@ -111,4 +112,4 @@ const DeregMFNForm = (props) => {
           );
         };
         
-        export default DeregMFNForm;
+        export default DeregMFAdvForm;

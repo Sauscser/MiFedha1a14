@@ -3,7 +3,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 const styles = StyleSheet.create({
   adminImage: {
     width: '100%',
-    height: 650,
+    height: "100%",
     resizeMode: 'cover',
     top:"2%"
   },
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
 
   salesPressableText: {
     color: 'white',
-    fontSize: 15,
-    marginTop: 1,
+    fontSize: 13,
+    
   },
 
   viewForSalesText: {
@@ -103,55 +103,67 @@ const styles = StyleSheet.create({
   },
 
   salesText: {
-    fontSize: 25,
-    color: 'white',
+    fontSize: 20,
+    color: "blue",
+    marginBottom:"1.5%"
   },
 
   viewForClientsPressables: {
     backgroundColor: 'pink',
     
-    height: 40,
+    height: "100%",
     borderRadius: 4,
-    top: 3,
+    
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    width: "97%",
+    width: "100%",
+    
   },
 
   viewForClientsCategories: {
-    backgroundColor: 'pink',
-    marginHorizontal: 1,
-    width: Dimensions.get('screen').width - 1,
-    height: 70,
+    backgroundColor: 'brown',
+    marginTop:"5%",
+    marginBottom:"5%",
+    height: "100%",
     borderRadius: 4,
-    top: 1,
+    
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    width: 113,
+    width: "33%"
+  },
+
+  viewForClientsAndTitleMFNdogo: {
+    backgroundColor: 'pink',
+    width:"100%",
+    height: "100%",
+    borderRadius: 4,
+  
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    
   },
 
   viewForClientsAndTitle: {
     backgroundColor: 'brown',
-    marginHorizontal: 5,
-    width: Dimensions.get('screen').width - 10,
-    height: 70,
+    width:"100%",
+    height: "50%",
     borderRadius: 4,
-
+   
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    top: 1,
+    
   },
+  
 
   clientsView: {
     backgroundColor: 'brown',
-    width:"38%",
-    marginHorizontal: "10%",
-    height: "45%",
+    width:"100%",
+    height: "20%",
     borderRadius: 4,
-
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
@@ -160,10 +172,11 @@ const styles = StyleSheet.create({
   ClientsPressables: {
     backgroundColor: 'purple',
     width:"32%",
-    marginHorizontal: "2%",
-    height: 40,
+    marginLeft:"1%",
+    marginRight:"1%",
+    height: "50%",
     borderRadius: 4,
-    marginTop: 1,
+  
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',

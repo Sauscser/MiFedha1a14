@@ -108,7 +108,7 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
                         })
                       )
                   }
-                  catch(error){}
+                  catch(error){console.log(error)}
                 }
             
                 updtActAdm();
@@ -116,7 +116,7 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
               }
         
               catch(e){
-              
+              console.log(e)
               }
               };
       
@@ -127,12 +127,12 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
               }, []);
 
           }
-          catch(error){}
+          catch(error){console.log(error)}
         }
 
         updtActMFN();
           }
-    catch(e){}
+    catch(e){console.log(e)}
     }
 
     gtMFKDtsl();

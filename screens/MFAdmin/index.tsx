@@ -37,21 +37,27 @@ const RegKFKubwa = props => {
   const DActivateMFN = () => {
     navigation.navigate('DActvteMFN');
   };
+  const DActivateMFK = () => {
+    navigation.navigate('DActvteMFK');
+  };
+
+  const DActivateMFUsr = () => {
+    navigation.navigate('DActvteMFUsr');
+  };
+
+  const DActivateMFAdvc = () => {
+    navigation.navigate('DActvteMFAd');
+  };
 
 
   
+  
   return (
     <SafeAreaView>
-      <View
+     
         
-        style={styles.adminImage}>
-        <View
-          style={{
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <View>
+          <View style={styles.adminImage}>
+
             <View style={styles.clientsView}>
               <Text style={styles.salesText}>Clients</Text>
 
@@ -59,7 +65,7 @@ const RegKFKubwa = props => {
                 <View style={styles.viewForClientsCategories}>
                   <Text style={styles.salesPressableText}>MFNdogo</Text>
 
-                  <View style={styles.viewForClientsPressables}>
+                  <View style={styles.viewForClientsAndTitleMFNdogo}>
                     <Pressable
                       onPress={goToMFNdogReg}
                       style={styles.ClientsPressables}>
@@ -86,6 +92,8 @@ const RegKFKubwa = props => {
                   </View>
                 </View>
 
+            
+
                 <View style={styles.viewForClientsCategories}>
                   <Text style={styles.salesPressableText}>MFKubwa</Text>
 
@@ -97,7 +105,7 @@ const RegKFKubwa = props => {
                     </Pressable>
 
                     <Pressable
-                      onPress={goToAdvReg}
+                      onPress={DActivateMFK}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         DeReg
@@ -120,14 +128,37 @@ const RegKFKubwa = props => {
                       onPress={goToAdvReg}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
-                        DeReg
+                      DeRegMFAdv
                       </Text>
                     </Pressable>
                   </View>
                 </View>
               </View>
             </View>
-          </View>
+          
+
+          <View style={styles.acEarningsView}>
+              <Text style={styles.salesText}>SM Users</Text>
+
+              
+
+                  <View style={styles.viewForAcEarningsPressables}>
+                    
+                    <Pressable
+                      onPress={DActivateMFUsr}
+                      style={styles.earningsAcPressables}>
+                      <Text style={styles.earningsAcPressableText}>DActivtUsr</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={goToAdvReg}
+                      style={styles.earningsAcPressables}>
+                      <Text style={styles.earningsAcPressableText}>
+                        BLUsr
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
 
           <View style={styles.acEarningsView}>
             <Text style={styles.salesText}>Earnings</Text>
@@ -164,8 +195,8 @@ const RegKFKubwa = props => {
               </Pressable>
             </View>
           </View>
-        </View>
-      </View>
+       
+    </View> 
     </SafeAreaView>
   );
 };

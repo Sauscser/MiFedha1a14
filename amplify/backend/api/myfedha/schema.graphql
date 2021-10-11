@@ -61,58 +61,117 @@ type SMAccount
 
   ttlDpstSM: Float!
   TtlWthdrwnSM: Float!
-  ttlLnInSM: Float!
-  ttlLnOutSM: Float!
-  ttlLoanRecovered: Float!
-  blTimesSM: Float!
-  blClrdtmsSM: Float!
-  clrdNnvrBLSM: Float!
-  actvLnsSM: Float!
-  ttlActiveLnsInAmtSM: Float!
-  ttlBLLoansInAmtSM: Float!
-  ttlClrdLnsInAmtSM: Float!
-  ttlActiveLnsOutAmtSM: Float!
-  ttlBLLoansOutAmtSM: Float!
-  ttlClrdLnsOutAmtSM: Float!
-  tmsIHvBrwdSM: Float!
-  tmsIHvLndSM: Float!
 
-  ttlDpstChm: Float!
-  ttlWithdrwlChm: Float!
+  TtlActvLonsTmsLnrCov: Float!
+  TtlActvLonsTmsLneeCov: Float!
+  TtlActvLonsAmtLnrCov: Float!
+  TtlActvLonsAmtLneeCov: Float!
+  TtlBLLonsTmsLnrCov: Float!
+  TtlBLLonsTmsLneeCov: Float!
+  TtlBLLonsAmtLnrCov: Float!
+  TtlBLLonsAmtLneeCov: Float!
+  TtlClrdLonsTmsLnrCov: Float!
+  TtlClrdLonsTmsLneeCov: Float!
+  TtlClrdLonsAmtLnrCov: Float!
+  TtlClrdLonsAmtLneeCov: Float!
+  TtlClrdBLLonsTmsLnrCov: Float!
+  TtlClrdBLLonsTmsLneeCov: Float!
+  TtlClrdBLLonsAmtLnrCov: Float!
+  TtlClrdBLLonsAmtLneeCov: Float!
+  TtlClrdNvrBLLonsTmsLnrCov: Float!
+  TtlClrdNvrBLLonsTmsLneeCov: Float!
+  TtlClrdNvrBLLonsAmtLnrCov: Float!
+  TtlClrdNvrBLLonsAmtLneeCov: Float!
+  TtlActvLonsTmsLneeChmCov: Float!
+  TtlActvLonsAmtLneeChmCov: Float!
+  TtlBLLonsTmsLneeChmCov: Float!
+  TtlBLLonsAmtLneeChmCov: Float!
+  TtlClrdLonsTmsLneeChmCov: Float!
+  TtlClrdLonsAmtLneeChmCov: Float!
+  TtlClrdBLLonsTmsLneeChmCov: Float!
+  TtlClrdBLLonsAmtLneeChmCov: Float!
+  TtlClrdNvrBLLonsTmsLneeChmCov: Float!
+  TtlClrdNvrBLLonsAmtLneeChmCov: Float!
+  TtlActvLonsTmsSllrCov: Float!
+  TtlActvLonsTmsByrCov: Float!
+  TtlActvLonsAmtSllrCov: Float!
+  TtlActvLonsAmtByrCov: Float!
+  TtlBLLonsTmsSllrCov: Float!
+  TtlBLLonsTmsByrCov: Float!
+  TtlBLLonsAmtSllrCov: Float!
+  TtlBLLonsAmtByrCov: Float!
+  TtlClrdLonsTmsSllrCov: Float!
+  TtlClrdLonsTmsByrCov: Float!
+  TtlClrdLonsAmtSllrCov: Float!
+  TtlClrdLonsAmtByrCov: Float!
+  TtlClrdBLLonsTmsSllrCov: Float!
+  TtlClrdBLLonsTmsByrCov: Float!
+  TtlClrdBLLonsAmtSllrCov: Float!
+  TtlClrdBLLonsAmtByrCov: Float!
+  TtlClrdNvrBLLonsTmsSllrCov: Float!
+  TtlClrdNvrBLLonsTmsByrCov: Float!
+  TtlClrdNvrBLLonsAmtSllrCov: Float!
+  TtlClrdNvrBLLonsAmtByrCov: Float!
 
-  ttlChmLnIn: Float!
+  TtlActvLonsTmsLnrNonCov: Float!
+  TtlActvLonsTmsLneeNonCov: Float!
+  TtlActvLonsAmtLnrNonCov: Float!
+  TtlActvLonsAmtLneeNonCov: Float!
+  TtlBLLonsTmsLnrNonCov: Float!
+  TtlBLLonsTmsLneeNonCov: Float!
+  TtlBLLonsAmtLnrNonCov: Float!
+  TtlBLLonsAmtLneeNonCov: Float!
+  TtlClrdLonsTmsLnrNonCov: Float!
+  TtlClrdLonsTmsLneeNonCov: Float!
+  TtlClrdLonsAmtLnrNonCov: Float!
+  TtlClrdLonsAmtLneeNonCov: Float!
+  TtlClrdBLLonsTmsLnrNonCov: Float!
+  TtlClrdBLLonsTmsLneeNonCov: Float!
+  TtlClrdBLLonsAmtLnrNonCov: Float!
+  TtlClrdBLLonsAmtLneeNonCov: Float!
+  TtlClrdNvrBLLonsTmsLnrNonCov: Float!
+  TtlClrdNvrBLLonsTmsLneeNonCov: Float!
+  TtlClrdNvrBLLonsAmtLnrNonCov: Float!
+  TtlClrdNvrBLLonsAmtLneeNonCov: Float!
+  TtlActvLonsTmsLneeChmNonCov: Float!
+  TtlActvLonsAmtLneeChmNonCov: Float!
+  TtlBLLonsTmsLneeChmNonCov: Float!
+  TtlBLLonsAmtLneeChmNonCov: Float!
+  TtlClrdLonsTmsLneeChmNonCov: Float!
+  TtlClrdLonsAmtLneeChmNonCov: Float!
+  TtlClrdBLLonsTmsLneeChmNonCov: Float!
+  TtlClrdBLLonsAmtLneeChmNonCov: Float!
+  TtlClrdNvrBLLonsTmsLneeChmNonCov: Float!
+  TtlClrdNvrBLLonsAmtLneeChmNonCov: Float!
+  TtlActvLonsTmsSllrNonCov: Float!
+  TtlActvLonsTmsByrNonCov: Float!
+  TtlActvLonsAmtSllrNonCov: Float!
+  TtlActvLonsAmtByrNonCov: Float!
+  TtlBLLonsTmsSllrNonCov: Float!
+  TtlBLLonsTmsByrNonCov: Float!
+  TtlBLLonsAmtSllrNonCov: Float!
+  TtlBLLonsAmtByrNonCov: Float!
+  TtlClrdLonsTmsSllrNonCov: Float!
+  TtlClrdLonsTmsByrNonCov: Float!
+  TtlClrdLonsAmtSllrNonCov: Float!
+  TtlClrdLonsAmtByrNonCov: Float!
+  TtlClrdBLLonsTmsSllrNonCov: Float!
+  TtlClrdBLLonsTmsByrNonCov: Float!
+  TtlClrdBLLonsAmtSllrNonCov: Float!
+  TtlClrdBLLonsAmtByrNonCov: Float!
+  TtlClrdNvrBLLonsTmsSllrNonCov: Float!
+  TtlClrdNvrBLLonsTmsByrNonCov: Float!
+  TtlClrdNvrBLLonsAmtSllrNonCov: Float!
+  TtlClrdNvrBLLonsAmtByrNonCov: Float!
 
-  blChmTimes: Float!
-  blChmClrdtms: Float!
-  clrdNnvrBLChm: Float!
-  actvLnsChm: Float!
-  ttlActiveLnsInAmtChm: Float!
-  ttlBLLoansInAmChmt: Float!
-  ttlClrdLnsInAmtChm: Float!
+  MaxTymsBL: Float!
 
-  tmsIHvBrwdChm: Float!
-  tmsIHvLndChm: Float!
-
-  ttlLnInCrdSls: Float!
-  ttlLnOutCrdSls: Float!
-  blTimesCrdSls: Float!
-  blClrdtmsCrdSls: Float!
-  clrdNnvrBLCrdSls: Float!
-  actvLnsCrdSls: Float!
-  ttlActiveLnsInAmtCrdSls: Float!
-  ttlBLLoansInAmtCrdSls: Float!
-  ttlClrdLnsInAmtCrdSls: Float!
-  ttlActiveLnsOutAmtCrdSls: Float!
-  ttlBLLoansOutAmtCrdSls: Float!
-  ttlClrdLnsOutAmtCrdSls: Float!
-  tmsIHvBrwdCrdSls: Float!
-  tmsIHvLndCrdSls: Float!
-
-  TotalTymsBL: Float!
-
-  acActivenessStatus: Status!
-  blStatus: Status!
   loanStatus: Status!
+  acStatus: Status!
+  blStatus: Status!
+  loanLimit: Float!
+  withdrawalLimit: Float!
+  depositLimit: Float!
   owner: String!
 }
 
@@ -164,19 +223,102 @@ type SMLoansCovered
     queryField: "checkMyDetors"
   )
   @key(
+    name: "searchmyLenders"
+    fields: ["loaneeid", "status"]
+    queryField: "checkMyLenders"
+  )
+  @key(
     name: "confirmMyLoanee"
-    fields: ["loanercontact", "loaneecontact", "status"]
+    fields: ["loanerId", "loaneeid", "status"]
     queryField: "confrmMyLoaneeeee"
   )
   @key(
-    name: "searchAdvLoaner"
-    fields: ["advregnu", "loanercontact"]
+    name: "searchAdvLoaners"
+    fields: ["advregnu", "loanerId"]
     queryField: "checkbyAdvNLnar"
   )
   @key(
+    name: "searchAdvLoaner"
+    fields: ["advregnu", "loanerId", "loaneeid"]
+    queryField: "checkbyAdvNLnars"
+  )
+  @key(
     name: "searchAdvLoanee"
-    fields: ["advregnu", "loaneecontact"]
+    fields: ["advregnu", "loaneeid"]
     queryField: "chckbyAdvNLnee"
+  ) {
+  id: ID!
+  loaneeid: String!
+  loanerId: String!
+  amountgiven: Float!
+  amountexpected: Float!
+  amountrepaid: Float!
+  loanerPW: String!
+
+  repaymentPeriod: Int!
+  advregnu: String!
+
+  description: String
+  status: Status!
+  owner: String!
+}
+
+type SMLoansNonCovered
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, update, create] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["Advocate"], operations: [read] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, create]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["BranchAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, create] }
+    ]
+  )
+  @key(
+    name: "searchmyDebtorss"
+    fields: ["loanerId", "status"]
+    queryField: "checkMyDetorss"
+  )
+  @key(
+    name: "searchmyLenderss"
+    fields: ["loaneeid", "status"]
+    queryField: "checkMyLenderss"
+  )
+  @key(
+    name: "confirmMyLoanees"
+    fields: ["loanerId", "loaneeid", "status"]
+    queryField: "confrmMyLoaneeeees"
   ) {
   id: ID!
   loaneeid: ID!
@@ -184,12 +326,10 @@ type SMLoansCovered
   amountgiven: Float!
   amountexpected: Float!
   amountrepaid: Float!
-  loanercontact: String!
-  loaneecontact: String!
+  loanerPW: String!
 
   repaymentPeriod: Int!
-  advregnu: String
-  timestamp: AWSTimestamp!
+
   description: String
   status: Status!
   owner: String!
@@ -243,15 +383,16 @@ type SMNonLoans
   )
   @key(
     name: "SMNonLoansbyRec"
-    fields: ["receiverphonecontact"]
+    fields: ["recId"]
     queryField: "checkReceivedNonLns"
   ) {
   id: ID!
   senderID: String!
+  recId: String!
   amountgiven: Float!
-  senderContact: String!
+  senderPw: String!
   description: String
-  receiverphonecontact: String!
+
   owner: String!
 }
 
@@ -352,19 +493,19 @@ type FloatPurchase
   )
   @key(
     name: "floatPurchasebyAgentsss"
-    fields: ["nationalid"]
+    fields: ["agentphone"]
     queryField: "lstAgentFltPrchasss"
   )
   @key(
     name: "byBankAdm"
-    fields: ["bankAdmid"]
+    fields: ["bankAdminID"]
     queryField: "lstBankAdmTransaaaaccttions"
   ) {
   id: ID
   agentphone: String!
   amount: Float!
-  nationalid: String!
-  bankAdmid: String!
+  transactId: String!
+  bankAdminID: String!
   status: Status!
   owner: String!
 }
@@ -404,22 +545,27 @@ type FloatAdd
     ]
   )
   @key(
-    name: "FloatAddbyUser"
+    name: "FloatAddbyAgent"
     fields: ["agentPhonecontact"]
     queryField: "createWythdrawals"
   )
   @key(
+    name: "FloatAddbyUsr"
+    fields: ["withdrawerid"]
+    queryField: "createWythdrawalsss"
+  )
+  @key(
     name: "bysagentregno"
-    fields: ["sagentregno"]
+    fields: ["sagentId"]
     queryField: "readSAWithdrwls"
   ) {
   id: ID!
   withdrawerid: String!
-  trnsactionCode: String!
+  withdrawerPW: String!
   amount: Float!
   agentPhonecontact: String!
 
-  sagentregno: String!
+  sagentId: String!
   status: Status!
   owner: String!
 }
@@ -458,25 +604,13 @@ type FloatReduction
       }
     ]
   )
-  @key(
-    name: "byAgntID"
-    fields: ["agentNationalid"]
-    queryField: "creatFltDeduc"
-  )
-  @key(
-    name: "byagentphone"
-    fields: ["phonecontact"]
-    queryField: "creatFltDed"
-  )
-  @key(name: "byUser", fields: ["depositerPhn"], queryField: "reeeadAmtDpstd") {
+  @key(name: "byAgntID", fields: ["agContact"], queryField: "creatFltDeduc")
+  @key(name: "byUser", fields: ["depositerid"], queryField: "reeeadAmtDpstd") {
   id: ID!
   amount: Float!
   depositerid: String!
-  depositerPhn: String!
-  phonecontact: String!
+  agContact: String!
   status: Status!
-  agentNationalid: String!
-  owner: String!
 }
 
 type AgentWithdrawals
@@ -515,26 +649,20 @@ type AgentWithdrawals
     ]
   )
   @key(
-    name: "byAgentNatId"
-    fields: ["agentNationalid"]
-    queryField: "checkAgentWthdrawls"
-  )
-  @key(
     name: "byAgentPhonne"
-    fields: ["AgentPhone"]
+    fields: ["agentPhone"]
     queryField: "lstAgentWithdrowals"
   )
   @key(
     name: "byBankAdm"
-    fields: ["bankAdmId"]
+    fields: ["bankAdminId"]
     queryField: "lstBankAdmTransactiooonnns"
   ) {
-  AgentPhone: String!
-
-  Amount: Float!
   id: ID!
-  bankAdmId: String
-  agentNationalid: ID!
+  agentPhone: String!
+  agPW: String!
+  bankAdminId: String!
+  Amount: Float!
   status: Status!
   owner: String!
 }
@@ -575,19 +703,15 @@ type SAgent
       }
     ]
   )
-  @key(name: "saChecker", fields: ["saNationalid"], queryField: "CheckingSA")
-  @key(
-    name: "BalbySAgent"
-    fields: ["pw", "saNationalid"]
-    queryField: "CheckingSABalBySA"
-  ) {
+  @key(name: "saChecker", fields: ["saNationalid"], queryField: "CheckingSA") {
   id: ID!
   saNationalid: String!
   name: String!
   phonecontact: String!
   pw: String!
   TtlEarnings: Float!
-  actMFNdog: Float!
+  actvMFNdog: Float!
+  InctvMFNdog: Float!
   email: String!
   saBalance: Float!
   status: Status!
@@ -627,23 +751,17 @@ type SAgentWithdrawals
       }
     ]
   )
-  @key(
-    name: "sAgentChecker"
-    fields: ["sagentregno"]
-    queryField: "lstSAWithdrlls"
-  )
-  @key(name: "bysaNId", fields: ["sagentNatId"], queryField: "lstSAWithdrllls")
+  @key(name: "sAgentChecker", fields: ["saId"], queryField: "lstSAWithdrlls")
   @key(
     name: "byBankAdm"
-    fields: ["bankAdmid"]
+    fields: ["bankAdmnId"]
     queryField: "lstBankAdmTranssactions"
   ) {
   id: ID!
-  sagentphone: String!
-  sagentNatId: String!
-  sagentregno: String!
+  saPW: String!
+  saId: String!
   amount: Float!
-  bankAdmid: String
+  bankAdmnId: String!
   status: Status!
   owner: String!
 }
@@ -686,12 +804,7 @@ type BankAdmin
       }
     ]
   )
-  @key(fields: ["nationalid"])
-  @key(
-    name: "checkAdmDtls"
-    fields: ["phonecontact"]
-    queryField: "geetbankAdmdtlsByNatId"
-  ) {
+  @key(fields: ["nationalid"]) {
   nationalid: ID!
   name: String!
   phonecontact: String!
@@ -734,11 +847,10 @@ type BankAdmWithdrawals
   )
   @key(
     name: "BAdmWbyPhn"
-    fields: ["phoneContact"]
+    fields: ["bankAdmNatId"]
     queryField: "checkBankAdmWithdrawals"
   ) {
   id: ID!
-  phoneContact: String!
 
   bankAdmNatId: String!
   amount: Float!
@@ -784,8 +896,7 @@ type Advocate
       }
     ]
   )
-  @key(fields: ["advregnu"])
-  @key(name: "byNatId", fields: ["nationalid"], queryField: "checkAdvByNatId") {
+  @key(fields: ["advregnu"]) {
   advregnu: ID!
   nationalid: String!
   pwd: String!
@@ -794,6 +905,7 @@ type Advocate
   TtlEarnings: Float!
   advBal: Float!
   email: String!
+  officeLoc: String!
   status: Status!
   owner: String!
 }
@@ -831,14 +943,19 @@ type AdvocateWithdrawals
   )
   @key(
     name: "byWDrbyAdv"
-    fields: ["advNatId"]
+    fields: ["advregnu"]
     queryField: "checkAdvocateWithdrawalsss"
+  )
+  @key(
+    name: "byWDrbyBankAdm"
+    fields: ["bankAdmnId"]
+    queryField: "checkAdvocateWithdrawalsssAdmin"
   ) {
   id: ID!
-  phoneContact: String!
+  bankAdmnId: String!
   advregnu: String!
   amount: Float!
-  advNatId: String!
+
   status: Status!
   owner: String!
 }
@@ -874,24 +991,18 @@ type Company
   companyCom: Float!
   AdvCom: Float!
   bankAdminCom: Float!
-  compComg: Float!
   sawithdrawalFee: Float!
   advuserwithdrawalFee: Float!
   bankAdmuserwithdrawalFee: Float!
-  advocateCoverageFee: Float!
   userTransferFee: Float!
   userClearanceFee: Float!
-  searchAdFee: Float!
-  createBuzFee: Float!
-  crtCompAdsFee: Float!
-  crtParaAdsFee: Float!
 
   companyEarningBal: Float!
   companyEarning: Float!
   agentEarningBal: Float!
   agentEarning: Float!
   saEarningBal: Float!
-  saarning: Float!
+  saEarning: Float!
   AdvEarningBal: Float!
   AdvEarning: Float!
   admEarningBal: Float!
@@ -902,7 +1013,7 @@ type Company
   agentFloatIn: Float!
   agentFloatOut: Float!
   ttlActiveUsers: Float!
-  ttlnactvUsrs: Float!
+  ttlInactvUsrs: Float!
   ttlBLUsrs: Float!
   ttlKFNdgActv: Float!
   ttlKFNdgInActv: Float!
@@ -916,37 +1027,86 @@ type Company
   ttlKFAdmActv: Float!
   ttlKFAdmInActv: Float!
   ttlKAdmBLStts: Float!
-  ttlSMLnsIn: Float!
-  ttlChmLnsIn: Float!
-  ttlSellerLnsIn: Float!
-  ttlSMLnsInActv: Float!
-  ttlChmLnsInActv: Float!
-  ttlSellerLnsInActv: Float!
 
-  ttlSMLnsInClrd: Float!
-  ttlChmLnsInClrd: Float!
-  ttlSellerLnsInClrd: Float!
+  ttlSMLnsInAmtCov: Float!
+  ttlChmLnsInAmtCov: Float!
+  ttlSellerLnsInAmtCov: Float!
+  ttlSMLnsInActvAmtCov: Float!
+  ttlChmLnsInActvAmtCov: Float!
+  ttlSellerLnsInActvAmtCov: Float!
+  ttlSMLnsInClrdAmtCov: Float!
+  ttlChmLnsInClrdAmtCov: Float!
+  ttlSellerLnsInClrdAmtCov: Float!
+  ttlSMLnsInBlAmtCov: Float!
+  ttlChmLnsInBlAmtCov: Float!
+  ttlSellerLnsInBlAmtCov: Float!
+  ttlSMLnsInBlThnClrAmtCov: Float!
+  ttlChmLnsInBlThnClrAmtCov: Float!
+  ttlSellerLnsInBlThnClrAmtCov: Float!
+  ttlSMLnsInNvrBlThnClrAmtCov: Float!
+  ttlChmLnsInNvrBlThnClrAmtCov: Float!
+  ttlSellerLnsInNvrBlThnClrAmtCov: Float!
+  ttlSMLnsInTymsCov: Float!
+  ttlChmLnsInTymsCov: Float!
+  ttlSellerLnsInTymsCov: Float!
+  ttlSMLnsInActvTymsCov: Float!
+  ttlChmLnsInActvTymsCov: Float!
+  ttlSellerLnsInActvTymsCov: Float!
+  ttlSMLnsInClrdTymsCov: Float!
+  ttlChmLnsInClrdTymsCov: Float!
+  ttlSellerLnsInClrdTymsCov: Float!
+  ttlSMLnsInBlTymsCov: Float!
+  ttlChmLnsInBlTymsCov: Float!
+  ttlSellerLnsInBlTymsCov: Float!
+  ttlSMLnsInBlThnClrTymsCov: Float!
+  ttlChmLnsInBlThnClrTymsCov: Float!
+  ttlSellerLnsInBlThnClrTymsCov: Float!
+  ttlSMLnsInNvrBlThnClrTymsCov: Float!
+  ttlChmLnsInNvrBlThnClrTymsCov: Float!
+  ttlSellerLnsInNvrBlThnClrTymsCov: Float!
+  ttlCompTrnsfrEarningsCov: Float!
+  ttlCompBLClrncEarningsCov: Float!
 
-  ttlSMLnsInBl: Float!
-  ttlChmLnsInBl: Float!
-  ttlSellerLnsInBl: Float!
-
-  ttlSMLnsInBlThnClr: Float!
-  ttlChmLnsInBlThnClr: Float!
-  ttlSellerLnsInBlThnClr: Float!
-
-  ttlSMLnsInNvrBlThnClr: Float!
-  ttlChmLnsInNvrBlThnClr: Float!
-  ttlSellerLnsInNvrBlThnClr: Float!
-
-  ttlCompTrnsfrEarnings: Float!
-  ttlCompBLClrncfrEarnings: Float!
+  ttlSMLnsInAmtNonCov: Float!
+  ttlChmLnsInAmtNonCov: Float!
+  ttlSellerLnsInAmtNonCov: Float!
+  ttlSMLnsInActvAmtNonCov: Float!
+  ttlChmLnsInActvAmtNonCov: Float!
+  ttlSellerLnsInActvAmtNonCov: Float!
+  ttlSMLnsInClrdAmtNonCov: Float!
+  ttlChmLnsInClrdAmtNonCov: Float!
+  ttlSellerLnsInClrdAmtNonCov: Float!
+  ttlSMLnsInBlAmtNonCov: Float!
+  ttlChmLnsInBlAmtNonCov: Float!
+  ttlSellerLnsInBlAmtNonCov: Float!
+  ttlSMLnsInBlThnClrAmtNonCov: Float!
+  ttlChmLnsInBlThnClrAmtNonCov: Float!
+  ttlSellerLnsInBlThnClrAmtNonCov: Float!
+  ttlSMLnsInNvrBlThnClrAmtNonCov: Float!
+  ttlChmLnsInNvrBlThnClrAmtNonCov: Float!
+  ttlSellerLnsInNvrBlThnClrAmtNonCov: Float!
+  ttlSMLnsInTymsNonCov: Float!
+  ttlChmLnsInTymsNonCov: Float!
+  ttlSellerLnsInTymsNonCov: Float!
+  ttlSMLnsInActvTymsNonCov: Float!
+  ttlChmLnsInActvTymsNonCov: Float!
+  ttlSellerLnsInActvTymsNonCov: Float!
+  ttlSMLnsInClrdTymsNonCov: Float!
+  ttlChmLnsInClrdTymsNonCov: Float!
+  ttlSellerLnsInClrdTymsNonCov: Float!
+  ttlSMLnsInBlTymsNonCov: Float!
+  ttlChmLnsInBlTymsNonCov: Float!
+  ttlSellerLnsInBlTymsNonCov: Float!
+  ttlSMLnsInBlThnClrTymsNonCov: Float!
+  ttlChmLnsInBlThnClrTymsNonCov: Float!
+  ttlSellerLnsInBlThnClrTymsNonCov: Float!
+  ttlSMLnsInNvrBlThnClrTymsNonCov: Float!
+  ttlChmLnsInNvrBlThnClrTymsNonCov: Float!
+  ttlSellerLnsInNvrBlThnClrTymsNonCov: Float!
+  ttlCompTrnsfrEarningsNonCov: Float!
+  ttlCompBLClrncEarningsNonCov: Float!
   ttlCompCovEarnings: Float!
-  ttlCompEarnings: Float!
-  ttlKFNdogoTrnsactionEarnings: Float!
-  ttlKFKubwaTrnsactionEarnings: Float!
-  ttlKFAdvTrnsactionEarnings: Float!
-  ttlKFAdmTrnsactionEarnings: Float!
+
   maxInterest: Float!
 
   totalLnsRecovered: Float!
@@ -988,22 +1148,12 @@ type CovCreditSeller
   )
   @key(
     name: "searchbySellerID"
-    fields: ["sellerID"]
+    fields: ["sellerID", "status"]
     queryField: "checkMyNonCovrrrrrrrrdSales"
   )
   @key(
-    name: "searchbyAdv"
-    fields: ["advPhone"]
-    queryField: "checkMyNonCovrrrrrrrrdSaleees"
-  )
-  @key(
-    name: "searchOurCrdSales"
-    fields: ["sellerContact"]
-    queryField: "checkOurNonCovrredSMLoans"
-  )
-  @key(
     name: "searchmySalesDebts"
-    fields: ["buyerContact"]
+    fields: ["buyerID", "status"]
     queryField: "checkMysalessDebts"
   )
   @key(
@@ -1012,8 +1162,8 @@ type CovCreditSeller
     queryField: "checkbyAdvNCredddSseller"
   ) {
   id: ID!
-  itemName: [String!]
-  itemSerialNumber: [String]
+  itemName: String!
+  itemSerialNumber: String
   buyerContact: String!
   sellerContact: String!
   buyerID: String!
@@ -1022,11 +1172,76 @@ type CovCreditSeller
   amountexpectedBack: Float!
   amountRepaid: Float!
   repaymentPeriod: Int!
-  timestamp: AWSTimestamp!
+
   description: String
   status: Status!
   advregnu: String!
-  advPhone: String!
+
+  owner: String!
+}
+
+type NonCovCreditSeller
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, create, update] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["Advocate"], operations: [read] }
+    ]
+  )
+  @key(
+    name: "searchbySellerIDs"
+    fields: ["sellerID", "status"]
+    queryField: "checkMyNonCovrrrrrrrrdSaless"
+  )
+  @key(
+    name: "searchmySalesDebtss"
+    fields: ["buyerID", "status"]
+    queryField: "checkMysalessDebtss"
+  )
+  @key(
+    name: "searchAdvCredSllrs"
+    fields: ["sellerContact", "buyerContact"]
+    queryField: "checkbyAdvNCredddSsellers"
+  ) {
+  id: ID!
+  itemName: String!
+  itemSerialNumber: String
+  buyerContact: String!
+  sellerContact: String!
+  buyerID: String!
+  sellerID: String!
+  amountSold: Float!
+  amountexpectedBack: Float!
+  amountRepaid: Float!
+  repaymentPeriod: Int!
+  description: String
+  status: Status!
   owner: String!
 }
 
@@ -1066,13 +1281,8 @@ type Group
   @key(fields: ["grpContact"])
   @key(
     name: "grpCreator"
-    fields: ["signitoryContact"]
+    fields: ["SignitoryNatid"]
     queryField: "checkGrpsICrtd"
-  )
-  @key(
-    name: "grpBal"
-    fields: ["signitoryContact", "signitoryPW"]
-    queryField: "checkGrpBal"
   ) {
   grpContact: ID!
   signitoryContact: String!
@@ -1083,26 +1293,32 @@ type Group
   grpEmail: String!
   grpBal: Float!
   ttlGrpMembers: Float!
-  ttlLonsOut: Float!
   description: String
   ttlDpst: Float!
 
   ttlWthdrwn: Float!
 
-  ttlBLMmbrs: Float!
-  ttlMmbrsWthActvLns: Float!
+  TtlActvLonsTmsLnrChmCov: Float!
+  TtlActvLonsAmtLnrChmCov: Float!
+  TtlBLLonsTmsLnrChmCov: Float!
+  TtlBLLonsAmtLnrChmCov: Float!
+  TtlClrdLonsTmsLnrChmCov: Float!
+  TtlClrdLonsAmtLnrChmCov: Float!
+  TtlClrdBLLonsTmsLnrChmCov: Float!
+  TtlClrdBLLonsAmtLnrChmCov: Float!
+  TtlClrdNvrBLLonsTmsLnrChmCov: Float!
+  TtlClrdNvrBLLonsAmtLnrChmCov: Float!
 
-  ttlMmbrsClrdNnvrBL: Float!
-  ttlMmbrsWithActvLns: Float!
-  ttlActiveLnsInAmt: Float!
-  ttlMmbrsBLLoansInAmt: Float!
-  ttlMmbrsClrdLnsInAmt: Float!
-
-  ttlClrdLnsOutAmt: Float!
-
-  tymsGrpHasLend: Float!
-
-  ttlLonAmountRecovered: Float
+  TtlActvLonsTmsLnrChmNonCov: Float!
+  TtlActvLonsAmtLnrChmNonCov: Float!
+  TtlBLLonsTmsLnrChmNonCov: Float!
+  TtlBLLonsAmtLnrChmNonCov: Float!
+  TtlClrdLonsTmsLnrChmNonCov: Float!
+  TtlClrdLonsAmtLnrChmNonCov: Float!
+  TtlClrdBLLonsTmsLnrChmNonCov: Float!
+  TtlClrdBLLonsAmtLnrChmNonCov: Float!
+  TtlClrdNvrBLLonsTmsLnrChmNonCov: Float!
+  TtlClrdNvrBLLonsAmtLnrChmNonCov: Float!
   status: Status!
   owner: String!
 }
@@ -1141,17 +1357,19 @@ type GrpMembers
     ]
   )
   @key(
-    name: "byUser"
-    fields: ["memberContact", "groupContact"]
-    queryField: "checkMygroup"
+    name: "GrpMmbrs"
+    fields: ["groupContact"]
+    queryField: "checkMygroupMembers"
   )
-  @key(name: "myGrps", fields: ["memberContact"], queryField: "checkMygrps") {
+  @key(name: "myGrps", fields: ["memberNatId"], queryField: "checkMygrps") {
   id: ID!
   groupContact: String!
   memberContact: String!
   memberNatId: String!
   acBal: Float!
-  status: Status!
+  AcStatus: Status!
+  loanStatus: Status!
+  blStatus: Status!
   owner: String!
 }
 
@@ -1205,9 +1423,14 @@ type CvrdGroupLoans
     queryField: "clearloaneriiiiifongoing"
   )
   @key(
-    name: "searchAdvGrp"
+    name: "searchAdvGrps"
     fields: ["advRegNu", "grpContact"]
     queryField: "checkbyAdvNGrrrpp"
+  )
+  @key(
+    name: "searchAdvGrp"
+    fields: ["advRegNu", "grpContact", "loaneeID"]
+    queryField: "checkbyAdvNGrrrppNLonie"
   )
   @key(
     name: "searchAdvLoaneei"
@@ -1216,8 +1439,6 @@ type CvrdGroupLoans
   ) {
   id: ID!
   grpContact: String!
-
-  loaneeContact: String!
   loaneeID: String!
   repaymentPeriod: Int!
   amountGiven: Float!
@@ -1226,6 +1447,68 @@ type CvrdGroupLoans
   description: String
   timestamp: AWSTimestamp!
   advRegNu: String!
+  status: Status!
+  owner: String!
+}
+
+type NonCvrdGroupLoans
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, create, update] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["Advocate"], operations: [read] }
+    ]
+  )
+  @key(
+    name: "searchgrpDfltss"
+    fields: ["grpContact", "status"]
+    queryField: "cheeeeckGrpCovrdLonDfltss"
+  )
+  @key(
+    name: "searchToUpdates"
+    fields: ["loaneeID", "grpContact"]
+    queryField: "updatAmaounntrepaids"
+  )
+  @key(
+    name: "searchToClearLnrs"
+    fields: ["loaneeID", "status"]
+    queryField: "clearloaneriiiiifongoings"
+  ) {
+  id: ID!
+  grpContact: String!
+  loaneeID: String!
+  repaymentPeriod: Int!
+  amountGiven: Float!
+  amountExpectedBack: Float!
+  amountRepaid: Float!
+  description: String
+
   status: Status!
   owner: String!
 }
@@ -1266,17 +1549,17 @@ type GroupNonLoans
   )
   @key(
     name: "searchbygrpp"
-    fields: ["recipientContact"]
-    queryField: "cheeeckGrpNonLoansee"
+    fields: ["recipientId"]
+    queryField: "cheeeckGrpMemberNonLoansee"
   )
   @key(
-    name: "searchbygrp"
+    name: "searchbygrps"
     fields: ["grpContact"]
     queryField: "cheeeckGrpNonLoanse"
   ) {
   id: ID!
   grpContact: String!
-  recipientContact: String!
+  recipientId: String!
 
   amountSent: Float!
 
@@ -1321,7 +1604,7 @@ type GrpMembersContribution
   )
   @key(
     name: "byGrpMbr"
-    fields: ["memberContact"]
+    fields: ["memberId"]
     queryField: "checkAllMyGrpsContri"
   )
   @key(
@@ -1331,11 +1614,11 @@ type GrpMembersContribution
   )
   @key(
     name: "byMemberNgrp"
-    fields: ["grpContact", "memberContact"]
+    fields: ["grpContact", "memberId"]
     queryField: "checkMmbrContrInAGrpp"
   ) {
-  id: ID
-  memberContact: String!
+  id: ID!
+  memberId: String!
 
   grpContact: String!
   contriAmount: Float!
@@ -1343,285 +1626,13 @@ type GrpMembersContribution
   owner: String!
 }
 
-type AdvertisedSingleMemberLoans
-  @model
-  @auth(
-    rules: [
-      { allow: owner, operations: [read, update, create] }
-      { allow: private, operations: [read, update, create] }
-      {
-        allow: groups
-        groups: ["Executive"]
-        operations: [read, create, update, delete]
-      }
-      {
-        allow: groups
-        groups: ["AdminOne"]
-        operations: [read, create, update, delete]
-      }
-      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
-      {
-        allow: groups
-        groups: ["RegionalAdmin"]
-        operations: [read, create, update]
-      }
-      {
-        allow: groups
-        groups: ["RegionalAdminTwo"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["CountyAdmin"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["CountyAdminTwo"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["BranchAdmin"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["BranchAdminTwo"]
-        operations: [create, update, read]
-      }
-    ]
-  )
-  @key(
-    name: "byMacximumNIntrsst"
-    fields: ["repaymentPeriod", "maximum"]
-    queryField: "byMaximumAmntNinterest"
-  ) {
-  id: ID!
-  nameOfLoaner: String!
-  maximum: Float!
-  contact: String!
-  repaymentPeriod: String!
-  interest: Float!
-  description: String
-  status: Status!
-  owner: String!
-}
-
-type AdvertisedChamaLoans
-  @model
-  @auth(
-    rules: [
-      { allow: owner, operations: [read, update, create] }
-      { allow: private, operations: [read, update, create] }
-      {
-        allow: groups
-        groups: ["Executive"]
-        operations: [read, create, update, delete]
-      }
-      {
-        allow: groups
-        groups: ["AdminOne"]
-        operations: [read, create, update, delete]
-      }
-      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
-      {
-        allow: groups
-        groups: ["RegionalAdmin"]
-        operations: [read, create, update]
-      }
-      {
-        allow: groups
-        groups: ["RegionalAdminTwo"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["CountyAdmin"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["CountyAdminTwo"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["BranchAdmin"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["BranchAdminTwo"]
-        operations: [create, update, read]
-      }
-    ]
-  )
-  @key(
-    name: "byMacximumNIntrssttt"
-    fields: ["repaymentPeriod", "maximum"]
-    queryField: "byMaximumAmntNinterestee"
-  ) {
-  id: ID!
-  nameOfLoaner: String!
-  maximum: Float!
-  contact: String!
-  repaymentPeriod: String!
-  interest: Float!
-  description: String
-  status: Status!
-  owner: String!
-}
-
-type PaidMultipleAds
-  @model
-  @auth(
-    rules: [
-      { allow: owner, operations: [read, update] }
-      { allow: private, operations: [read] }
-      {
-        allow: groups
-        groups: ["Executive"]
-        operations: [read, create, update, delete]
-      }
-      {
-        allow: groups
-        groups: ["MultiplePaidAds"]
-        operations: [read, create, update]
-      }
-      {
-        allow: groups
-        groups: ["AdminOne"]
-        operations: [read, create, update, delete]
-      }
-      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
-      {
-        allow: groups
-        groups: ["RegionalAdmin"]
-        operations: [read, create, update]
-      }
-      {
-        allow: groups
-        groups: ["RegionalAdminTwo"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["CountyAdmin"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["CountyAdminTwo"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["BranchAdmin"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["BranchAdminTwo"]
-        operations: [create, update, read]
-      }
-    ]
-  )
-  @key(name: "BizType", fields: ["buzType"], queryField: "byBuznessType")
-  @key(
-    name: "BiznaNAreaaa"
-    fields: ["buzType", "nearByTown"]
-    queryField: "byBuznesTypeee"
-  ) {
-  id: ID!
-  bizRegNo: String!
-  ownerNatId: String!
-  item: String!
-  nameOfSeller: String!
-  buzType: String!
-  nearByTown: String!
-  contact: String!
-
-  description: String
-  status: Status!
-  latitude: Float!
-  longitude: Float!
-  owner: String!
-}
-
-type FreeBizAds
-  @model
-  @auth(
-    rules: [
-      { allow: owner, operations: [read, update, create] }
-      { allow: private, operations: [read, update, create] }
-      {
-        allow: groups
-        groups: ["Executive"]
-        operations: [read, create, update, delete]
-      }
-      {
-        allow: groups
-        groups: ["AdminOne"]
-        operations: [read, create, update, delete]
-      }
-      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
-      {
-        allow: groups
-        groups: ["RegionalAdmin"]
-        operations: [read, create, update]
-      }
-      {
-        allow: groups
-        groups: ["RegionalAdminTwo"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["CountyAdmin"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["CountyAdminTwo"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["BranchAdmin"]
-        operations: [create, read, update]
-      }
-      {
-        allow: groups
-        groups: ["BranchAdminTwo"]
-        operations: [create, update, read]
-      }
-    ]
-  )
-  @key(name: "BisnesType", fields: ["buzType"], queryField: "byBusnessType")
-  @key(
-    name: "BisnessNArea"
-    fields: ["buzType", "nearByTown"]
-    queryField: "byBiznessType"
-  ) {
-  id: ID!
-  item: String!
-  nameOfSeller: String!
-  buzType: String!
-  nearByTown: String!
-  contact: String!
-
-  description: String
-  status: Status!
-  owner: String!
-}
-
 enum Status {
+  NoLoan
   LoanActive
+  LoanCleared
+  LoanBL
   AccountActive
   AccountInactive
   AccountBlackListed
-  LoaneeBlackListed
-  LoanCleared
-  NoLoan
+  AccountNotBL
 }

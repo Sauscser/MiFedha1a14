@@ -29,7 +29,7 @@ const MFNSignIn = (props) => {
 
 
   const moveToMFNHm = () => {
-    navigation.navigate("MFNdogos");
+    navigation.navigate("MFNdogoss");
   };
 
 

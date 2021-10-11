@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {createSMAccount, updateAgent, updateCompany} from '../../../src/graphql/mutations';
-import { getAgent, getCompany, getSMAccount, } from '../../../src/graphql/queries';
+import {createSMAccount, updateAgent, updateCompany, updateSAgent} from '../../../../src/graphql/mutations';
+import { getAgent, getCompany, getSMAccount, } from '../../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -24,17 +24,17 @@ import styles from './styles';
   
 
 
-const DeregMFNForm = (props) => {
+const DeregMFKForm = (props) => {
   const navigation = useNavigation();
 
-  const [phoneContact, setPhoneContact] = useState("");
+  const [MFKID, setMFKID] = useState("");
   
-  const KFNDtls = async () => {
+  const KFKDtls = async () => {
     try{
         await API.graphql(
-          graphqlOperation(updateAgent,{
+          graphqlOperation(updateSAgent,{
             input:{
-              phonecontact:phoneContact,
+              phonecontact:MFKID,
               status:"AccountInactive"
             }
           })
@@ -45,8 +45,8 @@ const DeregMFNForm = (props) => {
               const compDtls :any= await API.graphql(
                 graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
                 );
-                const ActvMFNUsrs = compDtls.data.getCompany.ttlKFNdgActv
-                const InActvMFNUsrs = compDtls.data.getCompany.ttlKFNdgInActv
+                const ActvMFKUsrs = compDtls.data.getCompany.ttlKFKbwActv
+                const InActvMFKUsrs = compDtls.data.getCompany.ttlKFKbwInActv
                    
                 const updtActAdm = async()=>{
                       try{
@@ -54,8 +54,8 @@ const DeregMFNForm = (props) => {
                             graphqlOperation(updateCompany,{
                               input:{
                                 AdminId:"BaruchHabaB'ShemAdonai2",
-                                ttlKFNdgActv:parseFloat(ActvMFNUsrs) - 1,
-                                ttlKFNdgInActv:parseFloat(InActvMFNUsrs) + 1,
+                                ttlKFKbwActv:parseFloat(ActvMFKUsrs) - 1,
+                                ttlKFKbwInActv:parseFloat(InActvMFKUsrs) + 1,
                               }
                             })
                           )
@@ -75,7 +75,7 @@ const DeregMFNForm = (props) => {
               }, []);
     }
     catch(error){console.log(error)}
-    setPhoneContact("") 
+    setMFKID("") 
   } 
  return (
             <View>
@@ -84,22 +84,22 @@ const DeregMFNForm = (props) => {
                 <ScrollView>
            
                   <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill MFNdogo Details Below</Text>
+                    <Text style={styles.title}>Fill MFKubwa Details Below</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                      value={phoneContact}
-                      onChangeText={setPhoneContact}
+                      value={MFKID}
+                      onChangeText={setMFKID}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>MFNdogo Phone</Text>
+                    <Text style={styles.sendLoanText}>MFKubwa RegNo</Text>
                   </View>
         
                   
         
                   <TouchableOpacity
-                    onPress={KFNDtls}
+                    onPress={KFKDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to DeRegister 
@@ -111,4 +111,4 @@ const DeregMFNForm = (props) => {
           );
         };
         
-        export default DeregMFNForm;
+        export default DeregMFKForm;

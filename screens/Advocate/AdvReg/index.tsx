@@ -79,7 +79,7 @@ import { getCompany } from '../../../src/graphql/queries';
     
     
     catch (error) {       
-      
+      console.log(error)
     }  
    
 
@@ -102,7 +102,7 @@ import { getCompany } from '../../../src/graphql/queries';
           })
         )
     }
-    catch(error){}
+    catch(error){console.log(error)}
   }
 
   await onCreateNewMFN();
@@ -111,7 +111,7 @@ import { getCompany } from '../../../src/graphql/queries';
 }
 
 catch(e){
-
+console.log(e)
 }
 };
 

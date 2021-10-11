@@ -44,8 +44,8 @@ const RootNavigator = props => {
       screenOptions={{
         headerShown: false,
       }}>
-        <Drawer.Screen name="Home" component={HomeNavigator} />
-        <Drawer.Screen name="MFNdogo" component={MFNd} />
+        <Drawer.Screen name="Homes" component={HomeNavigator} />
+        <Drawer.Screen name="MFNdogos" component={MFNd} />
         <Drawer.Screen name="MFKubwa" component={MFKw} />
         <Drawer.Screen name="MFAdvocate" component={AdvSgnIn} />
         <Drawer.Screen name="MFSettings" component={MFSetting} />

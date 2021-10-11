@@ -97,11 +97,11 @@ const HomeTabNavigator = props => {
       />
 
 <BottomTab.Screen
-        name='Ads'
+        name='Search'
         component={Adverts}
         options={{
           tabBarIcon: ({color: string}) => (
-            <Octicons name="megaphone" size={25} color={'blue'} />
+            <FontAwesome name="search" size={25} color={'blue'} />
           ),
         }}
       />

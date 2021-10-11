@@ -20,7 +20,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 
-const SMADepositForm = props => {
+const SMAWthdrwForm = props => {
   const [nationalId, setNationalid] = useState("");
 
   const[agPWd, setAgPWd] = useState("");
@@ -268,4 +268,4 @@ if(usrStts==="AccountActive")
   );
 };
 
-export default SMADepositForm;
+export default SMAWthdrwForm;

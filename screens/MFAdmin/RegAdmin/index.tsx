@@ -88,15 +88,13 @@ const CreateAdminForm = () => {
                             })
                           )
                       }
-                      catch(error){}
+                      catch(error){console.log(error)}
                     }
 
                     await updtActAdm();
                    
                   } catch (error) {
-                    
-
-                    
+                    console.log(error)                    
                   }
                   
                  
@@ -107,6 +105,7 @@ const CreateAdminForm = () => {
           
                 
               } catch (e) {
+                console.log(e)
                 if(e)
                 {Alert.alert("Account Details not found")}
           
@@ -126,18 +125,13 @@ const CreateAdminForm = () => {
         }
 
         catch(e){
-
+          console.log(e)
         }
     };
 
     useEffect(() => {
       gtCompDtls();
-    }, []);
-
-
-
-
-  
+    }, []);  
             
         
       return (

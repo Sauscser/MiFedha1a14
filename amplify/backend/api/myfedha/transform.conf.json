@@ -1,4 +1,15 @@
 {
     "Version": 5,
-    "ElasticsearchWarning": true
+    "ElasticsearchWarning": true,
+    "StackMapping": {
+        "QuerycheckMyNonCovrrrrrrrrdSalesResolver": "CovCreditSeller",
+        "QuerycheckMysalessDebtsResolver": "CovCreditSeller",
+        "QuerycheckbyAdvNCredddSsellerResolver": "CovCreditSeller",
+        "QuerycheeeeckGrpCovrdLonDfltsResolver": "CvrdGroupLoans",
+        "QueryupdatAmaounntrepaidResolver": "CvrdGroupLoans",
+        "QueryclearloaneriiiiifongoingResolver": "CvrdGroupLoans",
+        "QuerycheckMyDetorsResolver": "SMLoansCovered",
+        "QuerycheckMyLendersResolver": "SMLoansCovered",
+        "QueryconfrmMyLoaneeeeeResolver": "SMLoansCovered"
+    }
 }

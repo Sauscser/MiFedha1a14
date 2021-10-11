@@ -19,7 +19,13 @@ import MFN from "../../screens/MFNdogo";
 import AdvcHm from "../../screens/Advocate/AdvocateHm";
 import AdvSgnIn from "../../screens/Advocate/AdvocateSignIn";
 import AdvReg from "../../screens/Advocate/AdvReg";
-import DActivtMFN from "../../screens/MFNdogo/DeactivateMFNdogo"
+import DActivtMFN from "../../screens/MFNdogo/DeactivateMFNdogo";
+import DActivtMFK from "../../screens/MFKubwa/DeActRegMFK/DeactivateMFNdogo";
+import DActivtMFUsr from "../../screens/MyAcc/DeActivtUsr/DeactivateMFNdogo";
+import DActivtMFAdv from "../../screens/Advocate/DeactivtAdv/DeactivateMFAdmin/DeactivateMFNdogo";
+import SMGvCovLon from "../../screens/MyAcc/Loans/GiveLoan/Covered";
+import SMGvNonCovLon from "../../screens/MyAcc/Loans/GiveLoan/NonCov";
+import SMAWthdrwForm from '../../screens/MyAcc/WithdrwFunds';
 
 
 
@@ -43,10 +49,16 @@ const HomeNavigator = props => {
       <Stack.Screen name={'SttinsHm'} component={SettnsHm}/>
       <Stack.Screen name={'MFAdminstrator'} component={MFAdm}/>
       <Stack.Screen name={'MFKbwa'} component={MFKbw}/>
-      <Stack.Screen name={'MFNdogos'} component={MFN}/>
+      <Stack.Screen name={'MFNdogoss'} component={MFN}/>
       <Stack.Screen name={'MFAdvocateHome'} component={AdvcHm}/>
       <Stack.Screen name={'MFAdvocateReg'} component={AdvReg}/>
       <Stack.Screen name={'DActvteMFN'} component={DActivtMFN}/>
+      <Stack.Screen name={'DActvteMFK'} component={DActivtMFK}/>
+      <Stack.Screen name={'DActvteMFUsr'} component={DActivtMFUsr}/>
+      <Stack.Screen name={'DActvteMFAd'} component={DActivtMFAdv}/>
+      <Stack.Screen name={'SMGivLon'} component={SMGvCovLon}/>
+      <Stack.Screen name={'SMNonGivLon'} component={SMGvNonCovLon}/>
+      <Stack.Screen name={'SMWthdFm'} component={SMAWthdrwForm}/>
       
     </Stack.Navigator>
   );
