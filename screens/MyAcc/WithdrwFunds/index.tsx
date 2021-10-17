@@ -38,7 +38,7 @@ const SMAWthdrwForm = props => {
       const usrStts = accountDtl.data.getSmAccount.acStatus;
       const crtdAt = accountDtl.data.getSmAccount.createdAt;
 
-      console.log((crtdAt))    
+        
             
       const fetchAgtBal = async () => {
         try {
