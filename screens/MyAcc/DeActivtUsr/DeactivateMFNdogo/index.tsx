@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
-import {createSMAccount, updateAgent, updateCompany, updateSMAccount} from '../../../../src/graphql/mutations';
-import { getAgent, getCompany, getSMAccount, } from '../../../../src/graphql/queries';
-import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
+import {updateCompany, updateSmAccount, } from '../../../../src/graphql/mutations';
+import {getCompany } from '../../../../src/graphql/queries';
+import {graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -32,7 +32,7 @@ const DeregUsrForm = (props) => {
   const KFUsrDtls = async () => {
     try{
         await API.graphql(
-          graphqlOperation(updateSMAccount,{
+          graphqlOperation(updateSmAccount,{
             input:{
               nationalid:UsrId,
               status:"AccountInactive"

@@ -53,11 +53,7 @@ const CreateAcForm = (props:UserReg) => {
       setName(userInfo.username);
       setownr(userInfo.attributes.sub);
       setPhoneContact(userInfo.attributes.phone_number);
-      setAWSEmail(userInfo.attributes.email);
-
-      
-
-      
+      setAWSEmail(userInfo.attributes.email);      
     };
 
     

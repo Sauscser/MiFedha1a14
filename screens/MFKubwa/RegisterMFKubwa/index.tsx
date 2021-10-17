@@ -80,7 +80,10 @@ const RegisterMFKubwaAcForm = props => {
                     })
                   )
               }
-              catch(error){console.log(error)}
+              catch(error){if(error){
+                Alert.alert("Check your internet")
+                return
+              }}
             }
 
             updtActAdm();
@@ -91,32 +94,82 @@ const RegisterMFKubwaAcForm = props => {
           
           
           catch (error) {
-            console.log(error)
-          }
-         
-          setNationalid('');
-          setPW("");
-          setName("");
-        setEml("");
-          setPhoneContact("");
-        
+            if(error){
+              Alert.alert("Check your internet")
+              return
+            }
+          }               
         };
-
-        
-
-        
         await CreateNewSA();
       }
 
   catch(e){
-    console.log(e)
+    if(e){
+      Alert.alert("Check your internet")
+      return
+    }
   }
+          setNationalid('');
+          setPW("");
+          setName("");
+          setEml("");
+          setPhoneContact("");
 };
 
-useEffect(() => {
-gtCompDtls();
-}, []);
+  useEffect(() =>{
+  const mfkID=nationalId
+    if(!mfkID && mfkID!=="")
+    {
+      setNationalid("");
+      return;
+    }
+    setNationalid(mfkID);
+    }, [nationalId]
+     );
 
+     useEffect(() =>{
+      const mfkpw=pword
+        if(!mfkpw && mfkpw!=="")
+        {
+          setPW("");
+          return;
+        }
+        setPW(mfkpw);
+        }, [pword]
+         );
+
+         useEffect(() =>{
+          const mfknm=nam
+            if(!mfknm && mfknm!=="")
+            {
+              setName("");
+              return;
+            }
+            setName(mfknm);
+            }, [nam]
+             );
+
+             useEffect(() =>{
+              const mfkeml=eml
+                if(!mfkeml && mfkeml!=="")
+                {
+                  setEml("");
+                  return;
+                }
+                setEml(mfkeml);
+                }, [eml]
+                 );
+
+                 useEffect(() =>{
+                  const mfkphn=phoneContact
+                    if(!mfkphn && mfkphn!=="")
+                    {
+                      setPhoneContact("");
+                      return;
+                    }
+                    setPhoneContact(mfkphn);
+                    }, [phoneContact]
+                     );
   return (
     <View>
       <View
