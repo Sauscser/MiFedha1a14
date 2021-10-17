@@ -144,7 +144,7 @@ const SMADepositForm = props => {
                     await API.graphql(
                       graphqlOperation(updateCompany, {
                         input: {
-                          phonecontact: AgentPhn,
+                          AdminId:"BaruchHabaB'ShemAdonai2",
               
                          
                           ttlUsrDep: parseFloat(ttlUsrDpsts) + parseFloat(amount),
@@ -173,7 +173,7 @@ const SMADepositForm = props => {
               return;
             } 
             if (agtFltBl<amount) {
-              Alert.alert("MFNdogo cannot dispense this Amount")
+              Alert.alert("Insufficient MFNdogo Balance")
               return;
             } 
             if (agPW!==agPWd) {

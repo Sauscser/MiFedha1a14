@@ -5,10 +5,11 @@ import {
 
   updateAgent,
   updateCompany,
+  updateSAgent,
   updateSmAccount,
 } from '../../../src/graphql/mutations';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {getAgent, getCompany, getSmAccount} from '../../../src/graphql/queries';
+import {getAgent, getCompany, getSAgent, getSmAccount} from '../../../src/graphql/queries';
 import {
   View,
   Text,
@@ -54,6 +55,7 @@ const SMADepositForm = props => {
       const TtlWthdrwnSMs = accountDtl.data.getSmAccount.TtlWthdrwnSM;
       const usrStts = accountDtl.data.getSmAccount.acStatus; 
       const withdrawalLimits = accountDtl.data.getSmAccount.withdrawalLimit;  
+      const pws = accountDtl.data.getSmAccount.pw;
       const owners = accountDtl.data.getSmAccount.owner;
          
       
@@ -65,141 +67,199 @@ const SMADepositForm = props => {
          
           const TtlFltIns = AgentBal.data.getAgent.TtlFltIn;
           const floatBals = AgentBal.data.getAgent.floatBal;
-         
           const AgAcAct = AgentBal.data.getAgent.status;
+          const sagentregnos = AgentBal.data.getAgent.sagentregno;
 
           const gtCompDtls = async () =>{
             try{
               const compDtls :any= await API.graphql(
               graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
                 );
-                  const ttlUserWthdrwls = compDtls.data.getCompany.ttlUserWthdrwl
-                  const agentComs = compDtls.data.getCompany.agentCom
-                  const sagentComs = compDtls.data.getCompany.sagentCom
-                  const companyComs = compDtls.data.getCompany.companyCom
+                  const ttlUserWthdrwls = compDtls.data.getCompany.ttlUserWthdrwl;
+                  const agentComs = compDtls.data.getCompany.agentCom;
+                  const sagentComs = compDtls.data.getCompany.sagentCom;
+                  const companyComs = compDtls.data.getCompany.companyCom;
+                  const UsrWithdrawalFee = parseFloat(agentComs)*parseFloat(amount)
+                                            parseFloat(sagentComs)*parseFloat(amount)
+                                            parseFloat(companyComs)*parseFloat(amount)
+                  const AgentCommission = parseFloat(agentComs)*parseFloat(amount)
+                                                
+                  const saCommission =    parseFloat(sagentComs)*parseFloat(amount)
+                  
+                  const TTlAmtTrnsctd = parseFloat(amount) + UsrWithdrawalFee
+                  const compCommission = parseFloat(companyComs)*parseFloat(amount)
                   const companyEarningBals = compDtls.data.getCompany.companyEarningBal
                   const companyEarnings = compDtls.data.getCompany.companyEarning
                   const agentEarningBals = compDtls.data.getCompany.agentEarningBal
                   const agentEarnings = compDtls.data.getCompany.agentEarning
                   const saEarningBals = compDtls.data.getCompany.saEarningBal
-                  const agentFloatIns = compDtls.data.getCompany.agentFloatIn
+                  const saEarnings = compDtls.data.getCompany.saEarning
+                  const agentFloatIns = compDtls.data.getCompany.agentFloatIn                 
                   
-
-
-                  const CrtFltRed = async () => {
-                    try {
-                      await API.graphql(
-                        graphqlOperation(createFloatReduction, {
-                          input: {
+                  const gtsaDtls = async () =>{
+                    try{
+                      const compDtls :any= await API.graphql(
+                      graphqlOperation(getSAgent,{id:sagentregnos})
+                        );
+                          const TtlEarningss = compDtls.data.getCompany.TtlEarnings;
+                          const saBalances = compDtls.data.getCompany.saBalance;
                           
-                            depositerid: nationalId,                    
-                            agContact: AgentPhn,
-                            amount: amount,
-                            status: 'AccountActive',
-                          },
-                        }),
-                      );
-    
-            } catch (error) {
-              if (error){Alert.alert("Unsuccessful transaction; check internet connectiction")
-              return;}
-            }
-            await onUpdtUsrBal();
-            };  
-
-            const onUpdtUsrBal = async () => {
-              try {
-                await API.graphql(
-                  graphqlOperation(updateSmAccount, {
-                    input: {
-                      nationalid: nationalId,
+                          const CrtFltAdd = async () => {
+                            try {
+                              await API.graphql(
+                                graphqlOperation(createFloatReduction, {
+                                  input: {
+                                  
+                                    withdrawerid: nationalId,                    
+                                    agentPhonecontact: AgentPhn,
+                                    sagentId: AgentPhn,
+                                    owner: ownr,
+                                    amount: amount,
+                                    status: 'AccountActive',
+                                  },
+                                }),
+                              );
+            
+                    } catch (error) {
+                      if (error){Alert.alert("Unsuccessful transaction; check internet connectiction")
+                      return;}
+                    }
+                    await onUpdtUsrBal();
+                    };  
+        
+                    const onUpdtUsrBal = async () => {
+                      try {
+                        await API.graphql(
+                          graphqlOperation(updateSmAccount, {
+                            input: {
+                              nationalid: nationalId,
+                  
+                              balance: parseFloat(usrBala) - TTlAmtTrnsctd ,
+                              TtlWthdrwnSM: parseFloat(TtlWthdrwnSMs) + parseFloat(amount),
+                            },
+                          }),
+                        );
+                      }
+        
+                      catch (error) {
+                        if (error){Alert.alert("Check internet Connection")
+                        return;}
+                      }
+                      await onUpdtAgntBal();
+                      }; 
+        
+                      const onUpdtAgntBal = async () => {
+                        try {
+                          await API.graphql(
+                            graphqlOperation(updateAgent, {
+                              input: {
+                                phonecontact: AgentPhn,
+                    
+                               
+                                TtlFltIn: parseFloat(TtlFltIns) + parseFloat(amount),
+                                floatBal: parseFloat(floatBals) + parseFloat(amount),
+                              },
+                            }),
+                          );
+                        }
+        
+                        catch (error) {
+                          if (error){Alert.alert("Check internet Connection")
+                          return;}
+                        }
+                        await onUpdtCompDtls();
+                        }; 
+        
+                        const onUpdtCompDtls = async () => {
+                          try {
+                            await API.graphql(
+                              graphqlOperation(updateCompany, {
+                                input: {
+                                  AdminId:"BaruchHabaB'ShemAdonai2",                    
+                                 
+                                  companyEarningBal: parseFloat(companyEarningBals) + compCommission,
+                                  companyEarning: parseFloat(companyEarnings) + compCommission,
+                                  agentEarningBal: parseFloat(agentEarningBals) + AgentCommission,
+                                  agentEarning: parseFloat(agentEarnings) + AgentCommission,
+                                  saEarningBal: parseFloat(saEarningBals) + saCommission,
+                                  saEarning: parseFloat(saEarnings) + saCommission,
+                                  ttlUserWthdrwl: parseFloat(ttlUserWthdrwls) + parseFloat(amount),
+                                  agentFloatIn: parseFloat(agentFloatIns) + parseFloat(amount),
+                                  
+                                },
+                              }),
+                            );
+                          }
           
-                      balance: parseFloat(usrBala) + parseFloat(amount),
-                      ttlDpstSM: parseFloat(usrTlDpst) + parseFloat(amount),
-                    },
-                  }),
-                );
-              }
-
-              catch (error) {
-                if (error){Alert.alert("Check internet Connection")
-                return;}
-              }
-              await onUpdtAgntBal();
-              }; 
-
-              const onUpdtAgntBal = async () => {
-                try {
-                  await API.graphql(
-                    graphqlOperation(updateAgent, {
-                      input: {
-                        phonecontact: AgentPhn,
+                          catch (error) {
+                            if (error){Alert.alert("Check internet Connection")
+                            return;}
+                          }
+                          await onUpdtsaDtls();
+                          }; 
+        
+                          const onUpdtsaDtls = async () => {
+                            try {
+                              await API.graphql(
+                                graphqlOperation(updateSAgent, {
+                                  input: {
+                                    id: sagentregnos,
+                        
+                                   
+                                    TtlEarnings: parseFloat(TtlEarningss) + saCommission,
+                                    saBalance: parseFloat(saBalances) + saCommission,
+                                      
+                                  },
+                                }),
+                              );
+                            }
             
-                       
-                        TtlFltOut: parseFloat(agtTtlFtOut) + parseFloat(amount),
-                        floatBal: parseFloat(agtFltBl) - parseFloat(amount),
-                      },
-                    }),
-                  );
-                }
-
-                catch (error) {
-                  if (error){Alert.alert("Check internet Connection")
-                  return;}
-                }
-                await onUpdtCompDtls();
-                }; 
-
-                const onUpdtCompDtls = async () => {
-                  try {
-                    await API.graphql(
-                      graphqlOperation(updateCompany, {
-                        input: {
-                          phonecontact: AgentPhn,
-              
-                         
-                          ttlUsrDep: parseFloat(ttlUsrDpsts) + parseFloat(amount),
-                          agentFloatOut: parseFloat(agentFloatOuts) + parseFloat(amount),
-                        },
-                      }),
-                    );
-                  }
-  
-                  catch (error) {
-                    if (error){Alert.alert("Check internet Connection")
-                    return;}
-                  }
-                  }; 
-            
-            
-            if (usrStts!=="AccountActive") {
-              Alert.alert("User Account has been deactivated")
-              return;
-            } 
-            else if(amount>depositLimits) {
-              Alert.alert('Deposit limit exceeded');
-              return;
-            }
-            if (AgAcAct!=="AccountActive") {
-              Alert.alert("MFNdogo Account has been deactivated")
-              return;
-            } 
-            if (agtFltBl<amount) {
-              Alert.alert("MFNdogo cannot dispense this Amount")
-              return;
-            } 
-            if (agPW!==agPWd) {
-              Alert.alert("MFNdogo access denied")
-              return;
-            } 
-
-            else{await CrtFltRed()}   
-            
+                            catch (error) {
+                              if (error){Alert.alert("Check internet Connection")
+                              return;}
+                            }
+                            }; 
+                    
+                    
+                    if (TTlAmtTrnsctd > usrBala) {
+                      Alert.alert("Insufficient user Balance")
+                      return;
+                    } 
+        
+                    else if (usrStts!=="AccountActive") {
+                      Alert.alert("User Account has been deactivated")
+                      return;
+                    } 
+                    else if(amount>withdrawalLimits) {
+                      Alert.alert('Withdrawal limit exceeded');
+                      return;
+                    }
+                    if (AgAcAct!=="AccountActive") {
+                      Alert.alert("MFNdogo Account has been deactivated")
+                      return;
+                    } 
+                    
+                    if (UsrPWd!==pws) {
+                      Alert.alert("User credentials are wrong; access denied")
+                      return;
+                    } 
+        
+                    else{await CrtFltAdd()}   
+        
+        
+                    } catch (error) {
+                  if (error){Alert.alert("Check your internet connection")
+                          return;}
+                    }
+                    };    
+        
+                    await gtsaDtls();         
             
             } catch (error) {
           if (error){Alert.alert("Check your internet connection")
                   return;}
             }
+           
             };    
 
             await gtCompDtls();           
@@ -222,7 +282,7 @@ const SMADepositForm = props => {
 
     setNationalid("");
     setAmount("");
-    setAgPWd("")
+    setUsrPWd("")
     setAgentPhn("");    
   }; 
 
