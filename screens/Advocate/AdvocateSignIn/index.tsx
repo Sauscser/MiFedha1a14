@@ -52,27 +52,47 @@ const AdvSignIn = (props) => {
                   moveToAdvHm();
               }
               else{
-                Alert.alert("Access denied");
+                Alert.alert("Wrong credentials; access denied");
+                return;
 
               }
             }
 
             catch (e)
-            {
-                console.log(e)
-                if(e){Alert.alert("Wrong credentials") }
-                
+            {  
+              if(e){
+                Alert.alert("Check your internet")
+                return;                            
             }    
-            setAdvId("");
-            setAdvPW("");
+            
       
     
              }
+             setAdvId("");
+             setAdvPW("");
 
+            }
             useEffect(() =>{
-                fetchAdvDts();
-                }, []
+              const AVdId=AdvId
+                if(!AVdId && AVdId!=="")
+                {
+                  setAdvId("");
+                  return;
+                }
+                setAdvId(AVdId);
+                }, [AdvId]
                  );
+
+                 useEffect(() =>{
+                  const AVdPWs=AdvPW
+                    if(!AVdPWs && AVdPWs!=="")
+                    {
+                      setAdvId("");
+                      return;
+                    }
+                    setAdvId(AVdPWs);
+                    }, [AdvPW]
+                     );
 
 
          return (
@@ -103,7 +123,7 @@ const AdvSignIn = (props) => {
                   </View>
         
                   <TouchableOpacity
-                    onPress={fetchAdmnDts}
+                    onPress={fetchAdvDts}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Sign In

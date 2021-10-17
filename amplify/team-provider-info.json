@@ -16,5 +16,24 @@
         "myfedha48b24838": {}
       }
     }
+  },
+  "myfedha": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-myfedha-myfedha-225802-authRole",
+      "UnauthRoleArn": "arn:aws:iam::870395359033:role/amplify-myfedha-myfedha-225802-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::870395359033:role/amplify-myfedha-myfedha-225802-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-myfedha-myfedha-225802-deployment",
+      "UnauthRoleName": "amplify-myfedha-myfedha-225802-unauthRole",
+      "StackName": "amplify-myfedha-myfedha-225802",
+      "StackId": "arn:aws:cloudformation:us-east-2:870395359033:stack/amplify-myfedha-myfedha-225802/33fc7240-2f0f-11ec-9aeb-066ce1c56320",
+      "AmplifyAppId": "ddl4tuc5xxyys"
+    },
+    "categories": {
+      "auth": {
+        "myfedha48b24838": {},
+        "userPoolGroups": {}
+      }
+    }
   }
 }

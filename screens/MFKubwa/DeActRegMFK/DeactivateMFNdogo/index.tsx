@@ -17,6 +17,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import styles from './styles';
 
@@ -29,54 +30,72 @@ const DeregMFKForm = (props) => {
 
   const [MFKID, setMFKID] = useState("");
   
-  const KFKDtls = async () => {
+  
+  const gtCompDtls = async () =>{
     try{
-        await API.graphql(
-          graphqlOperation(updateSAgent,{
-            input:{
-              phonecontact:MFKID,
-              status:"AccountInactive"
-            }
-          })
-        )
-
-        const gtCompDtls = async () =>{
-            try{
-              const compDtls :any= await API.graphql(
-                graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
-                );
-                const ActvMFKUsrs = compDtls.data.getCompany.ttlKFKbwActv
-                const InActvMFKUsrs = compDtls.data.getCompany.ttlKFKbwInActv
-                   
-                const updtActAdm = async()=>{
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateCompany,{
-                              input:{
-                                AdminId:"BaruchHabaB'ShemAdonai2",
-                                ttlKFKbwActv:parseFloat(ActvMFKUsrs) - 1,
-                                ttlKFKbwInActv:parseFloat(InActvMFKUsrs) + 1,
-                              }
-                            })
-                          )
+      const compDtls :any= await API.graphql(
+        graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+        );
+        const ActvMFKUsrs = compDtls.data.getCompany.ttlKFKbwActv
+        const InActvMFKUsrs = compDtls.data.getCompany.ttlKFKbwInActv
+           
+        const updtActAdm = async()=>{
+              try{
+                  await API.graphql(
+                    graphqlOperation(updateCompany,{
+                      input:{
+                        AdminId:"BaruchHabaB'ShemAdonai2",
+                        ttlKFKbwActv:parseFloat(ActvMFKUsrs) - 1,
+                        ttlKFKbwInActv:parseFloat(InActvMFKUsrs) + 1,
                       }
-                      catch(error){console.log(error)}
-                    }
-                    await updtActAdm();
-                    
-                  } catch (error) {
-                    console.log('Error creating account', error);
-                  }
-                };    
+                    })
+                  )
+              }
+              catch(error){console.log(error)}
 
-                gtCompDtls();
-              useEffect(() => {
-              gtCompDtls();
-              }, []);
-    }
-    catch(error){console.log(error)}
-    setMFKID("") 
-  } 
+              await KFKDtls()
+              setMFKID("");
+            }
+            await updtActAdm();
+
+            const KFKDtls = async () => {
+              try{
+                  await API.graphql(
+                    graphqlOperation(updateSAgent,{
+                      input:{
+                        phonecontact:MFKID,
+                        status:"AccountInactive"
+                      }
+                    })
+                  )        
+              }
+              catch(error){if(error){
+                Alert.alert("Check your internet")
+                return
+              }}
+               
+            } 
+          
+            
+          } catch (error) {
+            if(error){
+              Alert.alert("Check your internet")
+              return
+            }
+          }
+        };    
+
+        useEffect(() =>{
+          const mfkID=MFKID
+            if(!mfkID && mfkID!=="")
+            {
+              setMFKID("");
+              return;
+            }
+            setMFKID(mfkID);
+            }, [MFKID]
+             );
+
  return (
             <View>
               <View
@@ -99,7 +118,7 @@ const DeregMFKForm = (props) => {
                   
         
                   <TouchableOpacity
-                    onPress={KFKDtls}
+                    onPress={gtCompDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to DeRegister 

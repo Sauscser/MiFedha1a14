@@ -15,7 +15,7 @@ import {API, Auth, graphqlOperation, DataStore} from 'aws-amplify';
 import {
   getAgent,
   getCompany,
-  getSMAccount,
+  getSmAccount,
   getSAgent,
   getAdvocate,
 } from '../../../../../src/graphql/queries';
@@ -68,7 +68,7 @@ const SMASendLns = props => {
   const fetchSenderUsrDtls = async () => {
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {nationalid: SenderNatId}),
+        graphqlOperation(getSmAccount, {nationalid: SenderNatId}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -132,14 +132,14 @@ const SMASendLns = props => {
               const fetchRecUsrDtls = async () => {
                 try {
                     const RecAccountDtl:any = await API.graphql(
-                        graphqlOperation(getSMAccount, {nationalid: RecNatId}),
+                        graphqlOperation(getSmAccount, {nationalid: RecNatId}),
                         );
-                        const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
-                        const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
-                        const usrAcActvStts =RecAccountDtl.data.getSMAccount.acStatus; 
-                        const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
-                        const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
-                        const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
+                        const RecUsrBal =RecAccountDtl.data.getSmAccount.balance;
+                        const usrNoBL =RecAccountDtl.data.getSmAccount.MaxTymsBL;
+                        const usrAcActvStts =RecAccountDtl.data.getSmAccount.acStatus; 
+                        const recAcptncCode =RecAccountDtl.data.getSmAccount.loanAcceptanceCode; 
+                        const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSmAccount.TtlActvLonsTmsLneeCov;
+                        const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSmAccount.TtlActvLonsAmtLneeCov;
                         
                       
                         const sendSMLn = async () => {

@@ -58,10 +58,7 @@ const AdminSignIn = (props) => {
             }
 
             catch (e)
-            {
-                console.log(e)
-                if(e){Alert.alert("Wrong credentials") }
-                
+            {                
             }    
             setAdminId("");
             setAdminPW("");
@@ -69,10 +66,27 @@ const AdminSignIn = (props) => {
     
              }
 
-            useEffect(() =>{
-                fetchAdmnDts();
-                }, []
+             useEffect(() =>{
+              const admId=AdmnId
+                if(!admId && admId!=="")
+                {
+                  setAdminId("");
+                  return;
+                }
+                setAdminId(admId);
+                }, [AdmnId]
                  );
+
+                 useEffect(() =>{
+                  const pws=AdminPW
+                    if(!pws && pws!=="")
+                    {
+                      setAdminPW("");
+                      return;
+                    }
+                    setAdminPW(pws);
+                    }, [AdminPW]
+                     );
 
 
          return (

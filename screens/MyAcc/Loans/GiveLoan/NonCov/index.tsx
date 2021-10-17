@@ -19,6 +19,7 @@ import {
   getSMAccount,
   getSAgent,
   getAdvocate,
+  getSmAccount,
 } from '../../../../../src/graphql/queries';
 
 import {useNavigation} from '@react-navigation/native';
@@ -68,15 +69,15 @@ const SMASendLns = props => {
   const fetchSenderUsrDtls = async () => {
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {nationalid: SenderNatId}),
+        graphqlOperation(getSmAccount, {nationalid: SenderNatId}),
       );
 
-      const SenderUsrBal =accountDtl.data.getSMAccount.balance;
-      const usrPW =accountDtl.data.getSMAccount.pw;
-      const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const usrLnLim =accountDtl.data.getSMAccount.loanLimit;
-      const TtlActvLonsTmsLnrNonCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLnrNonCov;
-      const TtlActvLonsAmtLnrNonCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLnrNonCov;
+      const SenderUsrBal =accountDtl.data.getSmAccount.balance;
+      const usrPW =accountDtl.data.getSmAccount.pw;
+      const usrAcActvStts =accountDtl.data.getSmAccount.acStatus;
+      const usrLnLim =accountDtl.data.getSmAccount.loanLimit;
+      const TtlActvLonsTmsLnrNonCovs =accountDtl.data.getSmAccount.TtlActvLonsTmsLnrNonCov;
+      const TtlActvLonsAmtLnrNonCovs =accountDtl.data.getSmAccount.TtlActvLonsAmtLnrNonCov;
   
       const SenderSub =accountDtl.data.getSMAccount.owner;
       
@@ -106,14 +107,14 @@ const SMASendLns = props => {
           const fetchRecUsrDtls = async () => {
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {nationalid: RecNatId}),
+                    graphqlOperation(getSmAccount, {nationalid: RecNatId}),
                     );
-                    const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
-                    const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
-                    const usrAcActvStts =RecAccountDtl.data.getSMAccount.acStatus; 
-                    const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
-                    const TtlActvLonsTmsLneeNonCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeNonCov;
-                    const TtlActvLonsAmtLneeNonCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeNonCov;
+                    const RecUsrBal =RecAccountDtl.data.getSmAccount.balance;
+                    const usrNoBL =RecAccountDtl.data.getSmAccount.MaxTymsBL;
+                    const usrAcActvStts =RecAccountDtl.data.getSmAccount.acStatus; 
+                    const recAcptncCode =RecAccountDtl.data.getSmAccount.loanAcceptanceCode; 
+                    const TtlActvLonsTmsLneeNonCovs =RecAccountDtl.data.getSmAccount.TtlActvLonsTmsLneeNonCov;
+                    const TtlActvLonsAmtLneeNonCovs =RecAccountDtl.data.getSmAccount.TtlActvLonsAmtLneeNonCov;
                   
                     const sendSMLn = async () => {
                       try {

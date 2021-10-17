@@ -851,6 +851,60 @@
         },
      
     
+        "NoneGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "None",
+              "Precedence" : 16,
+              
+              "RoleArn" : {
+                "Fn::GetAtt": [
+                    "NoneGroupRole",
+                    "Arn"
+                ]
+              },
+              
+              "UserPoolId" : {
+                "Ref": "authmyfedha48b24838UserPoolId"
+              }
+            }
+        },
+        
+        "NoneGroupRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName":{
+                    "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Ref": "authmyfedha48b24838UserPoolId"
+                          },
+                          "-NoneGroupRole"
+                        ]
+                    ]
+                },
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Federated": "cognito-identity.amazonaws.com"
+                            },
+                            "Action": "sts:AssumeRoleWithWebIdentity",
+                            "Condition": {
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+     
+    
     
         "LambdaExecutionRole": {
             "Type": "AWS::IAM::Role",
@@ -1211,6 +1265,17 @@
             "Value": {
                 "Fn::GetAtt": [
                     "MultiplePaidAdsGroupRole",
+                    "Arn"
+                ]
+            }
+        
+        },
+        
+      
+        "NoneGroupRole": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "NoneGroupRole",
                     "Arn"
                 ]
             }

@@ -54,70 +54,138 @@ import { getCompany } from '../../../src/graphql/queries';
           graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
         );
         const actvAdv = compDtls.data.getCompany.ttlKFAdvActv
-
-
-  const onCreateNewMFN = async () => {
-    try {
-      await API.graphql(
-        graphqlOperation(createAdvocate, {
-          input: {                    
-            advregnu: advRegNo,
-            nationalid: nationalId,
-            pwd: pword,
-            name: nam,
-            phonecontact: phoneContact,
-            email: eml,
-            advBal: 0,
-            TtlEarnings: 0,        
-            owner:ownr,
-            status: 'AccountActive',
-          },
-        }),
-      );
-      updtActAdm();
-    } 
-    
-    
-    catch (error) {       
-      console.log(error)
-    }  
-   
-
-    setNationalid('');
-    setPW('');
-    setName('');
-    setEml("");  
-    setPhoneContact('');
-    setAdvRegNo('');
-  };
-
-  const updtActAdm = async()=>{
-    try{
-        await API.graphql(
-          graphqlOperation(updateCompany,{
-            input:{
-              AdminId:"BaruchHabaB'ShemAdonai2",
-              ttlKFAdvActv:parseFloat(actvAdv) + 1,
-            }
-          })
-        )
-    }
-    catch(error){console.log(error)}
-  }
-
-  await onCreateNewMFN();
-
-
-}
+        
+        const onCreateNewMFN = async () => {
+          try {
+            await API.graphql(
+              graphqlOperation(createAdvocate, {
+                input: {                    
+                  advregnu: advRegNo,
+                  nationalid: nationalId,
+                  pwd: pword,
+                  name: nam,
+                  phonecontact: phoneContact,
+                  email: eml,
+                  advBal: 0,
+                  TtlEarnings: 0,        
+                  owner:ownr,
+                  status: 'AccountActive',
+                },
+              }),
+            );
+           await updtActAdm();
+          } 
+          
+          
+          catch (error) {       
+            if(error){
+              Alert.alert("Check your internet")
+              return;
+          }  
+         
+      
+        } 
+        };
+      
+        await onCreateNewMFN();
+      
+      
+        const updtActAdm = async()=>{
+          try{
+              await API.graphql(
+                graphqlOperation(updateCompany,{
+                  input:{
+                    AdminId:"BaruchHabaB'ShemAdonai2",
+                    ttlKFAdvActv:parseFloat(actvAdv) + 1,
+                  }
+                })
+              )
+          }
+          catch(error){if(error){
+            Alert.alert("Check your internet")
+            return;}
+        }
+      
+        
+      
+      
+      }
+        }
 
 catch(e){
-console.log(e)
-}
+  if(e){
+    Alert.alert("Check your internet")
+    return;
+  }
 };
 
-useEffect(() => {
-gtCompDtls();
-}, []);
+   }
+    
+useEffect(() =>{
+  const natid=nationalId
+    if(!natid && natid!=="")
+    {
+      setNationalid("");
+      return;
+    }
+    setNationalid(natid);
+    }, [nationalId]
+     );
+
+     useEffect(() =>{
+      const AVdPWs=pword
+        if(!AVdPWs && AVdPWs!=="")
+        {
+          setPW("");
+          return;
+        }
+        setPW(AVdPWs);
+        }, [pword]
+         );
+
+         useEffect(() =>{
+          const nym=nam
+            if(!nym && nym!=="")
+            {
+              setName("");
+              return;
+            }
+            setName(nym);
+            }, [nam]
+             );
+
+             useEffect(() =>{
+              const emyl=eml
+                if(!emyl && emyl!=="")
+                {
+                  setEml("");
+                  return;
+                }
+                setEml(emyl);
+                }, [eml]
+                 );
+
+                 useEffect(() =>{
+                  const phn=phoneContact
+                    if(!phn && phn!=="")
+                    {
+                      setPhoneContact("");
+                      return;
+                    }
+                    setPhoneContact(phn);
+                    }, [phoneContact]
+                     );
+
+                     useEffect(() =>{
+                      const AVdRegs=advRegNo
+                        if(!AVdRegs && AVdRegs!=="")
+                        {
+                          setAdvRegNo("");
+                          return;
+                        }
+                        setAdvRegNo(AVdRegs);
+                        }, [advRegNo]
+                         );
 
   return (
     <View>

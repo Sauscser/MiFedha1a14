@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {createBankAdmin, updateCompany} from '../../../src/graphql/mutations';
-import {getCompany, getSMAccount, } from '../../../src/graphql/queries';
+import {getCompany, getSmAccount, getSMAccount, } from '../../../src/graphql/queries';
 import {Auth, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -50,12 +50,12 @@ const CreateAdminForm = () => {
             const gtUsrDtls4AdminDtls = async () => {
               try {
                 const resp:any = await API.graphql(
-                  graphqlOperation(getSMAccount, { nationalid: nationalId })
+                  graphqlOperation(getSmAccount, { nationalid: nationalId })
                 );
-                const adminId = resp.data.getSMAccount.nationalid; 
-                const adminName = resp.data.getSMAccount.name; 
-                const adminPhn = resp.data.getSMAccount.phonecontact;     
-                const adminEml = resp.data.getSMAccount.awsemail;  
+                const adminId = resp.data.getSmAccount.nationalid; 
+                const adminName = resp.data.getSmAccount.name; 
+                const adminPhn = resp.data.getSmAccount.phonecontact;     
+                const adminEml = resp.data.getSmAccount.awsemail;  
                 
                 
                 
@@ -77,61 +77,85 @@ const CreateAdminForm = () => {
                       }),
                     );
         
-                    const updtActAdm = async()=>{
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateCompany,{
-                              input:{
-                                AdminId:"BaruchHabaB'ShemAdonai2",
-                                ttlKFAdmActv:parseFloat(actvAdm) + 1,
-                              }
-                            })
-                          )
-                      }
-                      catch(error){console.log(error)}
-                    }
-
-                    await updtActAdm();
+                    
+                    
                    
                   } catch (error) {
-                    console.log(error)                    
+                    if(error){
+                      Alert.alert("Check your internet")
+                      return
+                    }                    
                   }
-                  
+                  await updtActAdm();                  
                  
                   setPW("");
                 };
               
                 await CrtAdminAc();
+
+                const updtActAdm = async()=>{
+                  try{
+                      await API.graphql(
+                        graphqlOperation(updateCompany,{
+                          input:{
+                            AdminId:"BaruchHabaB'ShemAdonai2",
+                            ttlKFAdmActv:parseFloat(actvAdm) + 1,
+                          }
+                        })
+                      )
+                  }
+                  catch(error){if(error){
+                    Alert.alert("Check your internet")
+                    return
+                  }}
+                }
+
           
                 
               } catch (e) {
-                console.log(e)
-                if(e)
-                {Alert.alert("Account Details not found")}
-          
-                else {Alert.alert("Click Okey to proceed")}
+                if(e){
+                  Alert.alert("Check your internet")
+                  return
+                }
               }
-              setNationalid("");
-              setPW("");
+              
             };
 
             gtUsrDtls4AdminDtls();
-          
-           
-            useEffect(() => {
-              gtUsrDtls4AdminDtls();
-            }, []);
-            
+                  
         }
 
         catch(e){
-          console.log(e)
+          if(e){
+            Alert.alert("Check your internet")
+            return
+          }
         }
+              setNationalid("");
+              setPW("");
     };
 
-    useEffect(() => {
-      gtCompDtls();
-    }, []);  
+    useEffect(() =>{
+      const NatId=nationalId
+        if(!NatId && NatId!=="")
+        {
+          setNationalid("");
+          return;
+        }
+        setNationalid(NatId);
+        }, [nationalId]
+         );
+
+         useEffect(() =>{
+          const pws=pword
+            if(!pws && pws!=="")
+            {
+              setPW("");
+              return;
+            }
+            setPW(pws);
+            }, [pword]
+             );
             
         
       return (

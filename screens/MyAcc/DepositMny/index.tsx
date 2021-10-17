@@ -2,12 +2,13 @@ import React, {useEffect, useState} from 'react';
 
 import {
   createFloatReduction, 
-  updateSMAccount,
+
   updateAgent,
   updateCompany,
+  updateSmAccount,
 } from '../../../src/graphql/mutations';
 import {API, graphqlOperation} from 'aws-amplify';
-import {getSMAccount, getAgent, getCompany} from '../../../src/graphql/queries';
+import {getAgent, getCompany, getSmAccount} from '../../../src/graphql/queries';
 import {
   View,
   Text,
@@ -30,13 +31,13 @@ const SMADepositForm = props => {
   const fetchAcDtls = async () => {
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {nationalid: nationalId}),
+        graphqlOperation(getSmAccount, {nationalid: nationalId}),
       );
 
-      const usrBala = accountDtl.data.getSMAccount.balance;      
-      const usrTlDpst = accountDtl.data.getSMAccount.ttlDpstSM;
-      const usrStts = accountDtl.data.getSMAccount.acStatus;
-      const crtdAt = accountDtl.data.getSMAccount.createdAt;
+      const usrBala = accountDtl.data.getSmAccount.balance;      
+      const usrTlDpst = accountDtl.data.getSmAccount.ttlDpstSM;
+      const usrStts = accountDtl.data.getSmAccount.acStatus;
+      const crtdAt = accountDtl.data.getSmAccount.createdAt;
 
       console.log((crtdAt))    
             
@@ -70,7 +71,7 @@ const SMADepositForm = props => {
               const onUpdtUsrBal = async () => {
                 try {
                   await API.graphql(
-                    graphqlOperation(updateSMAccount, {
+                    graphqlOperation(updateSmAccount, {
                       input: {
                         nationalid: nationalId,
             

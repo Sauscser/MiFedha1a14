@@ -17,6 +17,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import styles from './styles';
 import { updateBankAdmin } from '../../../../src/graphql/mutations';
@@ -29,55 +30,81 @@ const DeregMFAdminForm = (props) => {
   const navigation = useNavigation();
 
   const [AdminId, setAdminId] = useState("");
-  
-  const KFAdminDtls = async () => {
+
+
+  const gtCompDtls = async () =>{
     try{
-        await API.graphql(
-          graphqlOperation(updateBankAdmin,{
-            input:{
-              nationalid:AdminId,
-              status:"AccountInactive"
-            }
-          })
-        )
-
-        const gtCompDtls = async () =>{
-            try{
-              const compDtls :any= await API.graphql(
-                graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
-                );
-                const inActvMFAdmin = compDtls.data.getCompany.ttlKFAdmInActv
-                const actvMFAdmin = compDtls.data.getCompany.ttlKFAdmActv
-                   
-                const updtActAdm = async()=>{
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateCompany,{
-                              input:{
-                                AdminId:"BaruchHabaB'ShemAdonai2",
-                                ttlKFAdmActv:parseFloat(actvMFAdmin) - 1,
-                                ttlKFAdmInActv:parseFloat(inActvMFAdmin) + 1,
-                              }
-                            })
-                          )
+      const compDtls :any= await API.graphql(
+        graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+        );
+        const inActvMFAdmin = compDtls.data.getCompany.ttlKFAdmInActv
+        const actvMFAdmin = compDtls.data.getCompany.ttlKFAdmActv
+           
+        const updtActAdm = async()=>{
+              try{
+                  await API.graphql(
+                    graphqlOperation(updateCompany,{
+                      input:{
+                        AdminId:"BaruchHabaB'ShemAdonai2",
+                        ttlKFAdmActv:parseFloat(actvMFAdmin) - 1,
+                        ttlKFAdmInActv:parseFloat(inActvMFAdmin) + 1,
                       }
-                      catch(error){console.log(error)}
-                    }
-                    await updtActAdm();
-                    
-                  } catch (error) {
-                    console.log('Error creating account', error);
-                  }
-                };    
+                    })
+                  )
+              }
+              catch(error){
+                if(error){
+                  Alert.alert("Check your internet")
+                  return;
+                }
+              }
 
-                gtCompDtls();
-              useEffect(() => {
-              gtCompDtls();
-              }, []);
-    }
-    catch(error){console.log(error)}
-    setAdminId("") 
-  } 
+              await KFAdminDtls();
+            }
+            await updtActAdm();
+
+            const KFAdminDtls = async () => {
+              try{
+                  await API.graphql(
+                    graphqlOperation(updateBankAdmin,{
+                      input:{
+                        nationalid:AdminId,
+                        status:"AccountInactive"
+                      }
+                    })
+                  )
+          
+                  
+              }
+              catch(error){if(error){
+                Alert.alert("Check your internet")
+                return;
+              }}
+              
+            } 
+            
+          } catch (error) {
+            if(error){
+              Alert.alert("Check your internet")
+              return
+            }
+          }
+          setAdminId("") 
+        };    
+
+        
+        useEffect(() =>{
+          const AdmID=AdminId
+            if(!AdmID && AdmID!=="")
+            {
+              setAdminId("");
+              return;
+            }
+            setAdminId(AdmID);
+            }, [AdminId]
+             );
+  
+  
  return (
             <View>
               <View
@@ -100,7 +127,7 @@ const DeregMFAdminForm = (props) => {
                   
         
                   <TouchableOpacity
-                    onPress={KFAdminDtls}
+                    onPress={gtCompDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to DeRegister 

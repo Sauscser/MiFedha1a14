@@ -2,8 +2,8 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createSMAccount = /* GraphQL */ `
-  mutation CreateSMAccount(
+export const createSmAccount = /* GraphQL */ `
+  mutation CreateSmAccount(
     $input: CreateSMAccountInput!
     $condition: ModelSMAccountConditionInput
   ) {
@@ -130,8 +130,8 @@ export const createSMAccount = /* GraphQL */ `
     }
   }
 `;
-export const updateSMAccount = /* GraphQL */ `
-  mutation UpdateSMAccount(
+export const updateSmAccount = /* GraphQL */ `
+  mutation UpdateSmAccount(
     $input: UpdateSMAccountInput!
     $condition: ModelSMAccountConditionInput
   ) {
@@ -258,8 +258,8 @@ export const updateSMAccount = /* GraphQL */ `
     }
   }
 `;
-export const deleteSMAccount = /* GraphQL */ `
-  mutation DeleteSMAccount(
+export const deleteSmAccount = /* GraphQL */ `
+  mutation DeleteSmAccount(
     $input: DeleteSMAccountInput!
     $condition: ModelSMAccountConditionInput
   ) {
@@ -386,8 +386,8 @@ export const deleteSMAccount = /* GraphQL */ `
     }
   }
 `;
-export const createSMLoansCovered = /* GraphQL */ `
-  mutation CreateSMLoansCovered(
+export const createSmLoansCovered = /* GraphQL */ `
+  mutation CreateSmLoansCovered(
     $input: CreateSMLoansCoveredInput!
     $condition: ModelSMLoansCoveredConditionInput
   ) {
@@ -409,8 +409,8 @@ export const createSMLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const updateSMLoansCovered = /* GraphQL */ `
-  mutation UpdateSMLoansCovered(
+export const updateSmLoansCovered = /* GraphQL */ `
+  mutation UpdateSmLoansCovered(
     $input: UpdateSMLoansCoveredInput!
     $condition: ModelSMLoansCoveredConditionInput
   ) {
@@ -432,8 +432,8 @@ export const updateSMLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const deleteSMLoansCovered = /* GraphQL */ `
-  mutation DeleteSMLoansCovered(
+export const deleteSmLoansCovered = /* GraphQL */ `
+  mutation DeleteSmLoansCovered(
     $input: DeleteSMLoansCoveredInput!
     $condition: ModelSMLoansCoveredConditionInput
   ) {
@@ -455,8 +455,8 @@ export const deleteSMLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const createSMLoansNonCovered = /* GraphQL */ `
-  mutation CreateSMLoansNonCovered(
+export const createSmLoansNonCovered = /* GraphQL */ `
+  mutation CreateSmLoansNonCovered(
     $input: CreateSMLoansNonCoveredInput!
     $condition: ModelSMLoansNonCoveredConditionInput
   ) {
@@ -477,8 +477,8 @@ export const createSMLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const updateSMLoansNonCovered = /* GraphQL */ `
-  mutation UpdateSMLoansNonCovered(
+export const updateSmLoansNonCovered = /* GraphQL */ `
+  mutation UpdateSmLoansNonCovered(
     $input: UpdateSMLoansNonCoveredInput!
     $condition: ModelSMLoansNonCoveredConditionInput
   ) {
@@ -499,8 +499,8 @@ export const updateSMLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const deleteSMLoansNonCovered = /* GraphQL */ `
-  mutation DeleteSMLoansNonCovered(
+export const deleteSmLoansNonCovered = /* GraphQL */ `
+  mutation DeleteSmLoansNonCovered(
     $input: DeleteSMLoansNonCoveredInput!
     $condition: ModelSMLoansNonCoveredConditionInput
   ) {
@@ -521,8 +521,8 @@ export const deleteSMLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const createSMNonLoans = /* GraphQL */ `
-  mutation CreateSMNonLoans(
+export const createSmNonLoans = /* GraphQL */ `
+  mutation CreateSmNonLoans(
     $input: CreateSMNonLoansInput!
     $condition: ModelSMNonLoansConditionInput
   ) {
@@ -539,8 +539,8 @@ export const createSMNonLoans = /* GraphQL */ `
     }
   }
 `;
-export const updateSMNonLoans = /* GraphQL */ `
-  mutation UpdateSMNonLoans(
+export const updateSmNonLoans = /* GraphQL */ `
+  mutation UpdateSmNonLoans(
     $input: UpdateSMNonLoansInput!
     $condition: ModelSMNonLoansConditionInput
   ) {
@@ -557,8 +557,8 @@ export const updateSMNonLoans = /* GraphQL */ `
     }
   }
 `;
-export const deleteSMNonLoans = /* GraphQL */ `
-  mutation DeleteSMNonLoans(
+export const deleteSmNonLoans = /* GraphQL */ `
+  mutation DeleteSmNonLoans(
     $input: DeleteSMNonLoansInput!
     $condition: ModelSMNonLoansConditionInput
   ) {
@@ -777,7 +777,6 @@ export const createFloatReduction = /* GraphQL */ `
       status
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -794,7 +793,6 @@ export const updateFloatReduction = /* GraphQL */ `
       status
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -811,7 +809,6 @@ export const deleteFloatReduction = /* GraphQL */ `
       status
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -1243,6 +1240,7 @@ export const createCompany = /* GraphQL */ `
       sawithdrawalFee
       advuserwithdrawalFee
       bankAdmuserwithdrawalFee
+      userLoanTransferFee
       userTransferFee
       userClearanceFee
       companyEarningBal
@@ -1351,7 +1349,9 @@ export const createCompany = /* GraphQL */ `
       ttlCompTrnsfrEarningsNonCov
       ttlCompBLClrncEarningsNonCov
       ttlCompCovEarnings
-      maxInterest
+      maxInterestSM
+      maxInterestCredSllr
+      maxInterestGrp
       totalLnsRecovered
       createdAt
       updatedAt
@@ -1384,6 +1384,7 @@ export const updateCompany = /* GraphQL */ `
       sawithdrawalFee
       advuserwithdrawalFee
       bankAdmuserwithdrawalFee
+      userLoanTransferFee
       userTransferFee
       userClearanceFee
       companyEarningBal
@@ -1492,7 +1493,9 @@ export const updateCompany = /* GraphQL */ `
       ttlCompTrnsfrEarningsNonCov
       ttlCompBLClrncEarningsNonCov
       ttlCompCovEarnings
-      maxInterest
+      maxInterestSM
+      maxInterestCredSllr
+      maxInterestGrp
       totalLnsRecovered
       createdAt
       updatedAt
@@ -1525,6 +1528,7 @@ export const deleteCompany = /* GraphQL */ `
       sawithdrawalFee
       advuserwithdrawalFee
       bankAdmuserwithdrawalFee
+      userLoanTransferFee
       userTransferFee
       userClearanceFee
       companyEarningBal
@@ -1633,7 +1637,9 @@ export const deleteCompany = /* GraphQL */ `
       ttlCompTrnsfrEarningsNonCov
       ttlCompBLClrncEarningsNonCov
       ttlCompCovEarnings
-      maxInterest
+      maxInterestSM
+      maxInterestCredSllr
+      maxInterestGrp
       totalLnsRecovered
       createdAt
       updatedAt

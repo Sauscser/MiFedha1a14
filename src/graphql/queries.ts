@@ -2,8 +2,8 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getSMAccount = /* GraphQL */ `
-  query GetSMAccount($nationalid: ID!) {
+export const getSmAccount = /* GraphQL */ `
+  query GetSmAccount($nationalid: ID!) {
     getSMAccount(nationalid: $nationalid) {
       nationalid
       name
@@ -127,8 +127,8 @@ export const getSMAccount = /* GraphQL */ `
     }
   }
 `;
-export const listSMAccounts = /* GraphQL */ `
-  query ListSMAccounts(
+export const listSmAccounts = /* GraphQL */ `
+  query ListSmAccounts(
     $nationalid: ID
     $filter: ModelSMAccountFilterInput
     $limit: Int
@@ -267,8 +267,8 @@ export const listSMAccounts = /* GraphQL */ `
     }
   }
 `;
-export const getSMLoansCovered = /* GraphQL */ `
-  query GetSMLoansCovered($id: ID!) {
+export const getSmLoansCovered = /* GraphQL */ `
+  query GetSmLoansCovered($id: ID!) {
     getSMLoansCovered(id: $id) {
       id
       loaneeid
@@ -287,8 +287,8 @@ export const getSMLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const listSMLoansCovereds = /* GraphQL */ `
-  query ListSMLoansCovereds(
+export const listSmLoansCovereds = /* GraphQL */ `
+  query ListSmLoansCovereds(
     $filter: ModelSMLoansCoveredFilterInput
     $limit: Int
     $nextToken: String
@@ -314,8 +314,8 @@ export const listSMLoansCovereds = /* GraphQL */ `
     }
   }
 `;
-export const getSMLoansNonCovered = /* GraphQL */ `
-  query GetSMLoansNonCovered($id: ID!) {
+export const getSmLoansNonCovered = /* GraphQL */ `
+  query GetSmLoansNonCovered($id: ID!) {
     getSMLoansNonCovered(id: $id) {
       id
       loaneeid
@@ -333,8 +333,8 @@ export const getSMLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const listSMLoansNonCovereds = /* GraphQL */ `
-  query ListSMLoansNonCovereds(
+export const listSmLoansNonCovereds = /* GraphQL */ `
+  query ListSmLoansNonCovereds(
     $filter: ModelSMLoansNonCoveredFilterInput
     $limit: Int
     $nextToken: String
@@ -363,8 +363,8 @@ export const listSMLoansNonCovereds = /* GraphQL */ `
     }
   }
 `;
-export const getSMNonLoans = /* GraphQL */ `
-  query GetSMNonLoans($id: ID!) {
+export const getSmNonLoans = /* GraphQL */ `
+  query GetSmNonLoans($id: ID!) {
     getSMNonLoans(id: $id) {
       id
       senderID
@@ -378,13 +378,13 @@ export const getSMNonLoans = /* GraphQL */ `
     }
   }
 `;
-export const listSMNonLoans = /* GraphQL */ `
-  query ListSMNonLoans(
+export const listSmNonLoanss = /* GraphQL */ `
+  query ListSmNonLoanss(
     $filter: ModelSMNonLoansFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listSMNonLoans(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listSMNonLoanss(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         senderID
@@ -547,7 +547,6 @@ export const getFloatReduction = /* GraphQL */ `
       status
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -566,7 +565,6 @@ export const listFloatReductions = /* GraphQL */ `
         status
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -587,13 +585,13 @@ export const getAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const listAgentWithdrawals = /* GraphQL */ `
-  query ListAgentWithdrawals(
+export const listAgentWithdrawalss = /* GraphQL */ `
+  query ListAgentWithdrawalss(
     $filter: ModelAgentWithdrawalsFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listAgentWithdrawals(
+    listAgentWithdrawalss(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -675,13 +673,13 @@ export const getSAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const listSAgentWithdrawals = /* GraphQL */ `
-  query ListSAgentWithdrawals(
+export const listSAgentWithdrawalss = /* GraphQL */ `
+  query ListSAgentWithdrawalss(
     $filter: ModelSAgentWithdrawalsFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listSAgentWithdrawals(
+    listSAgentWithdrawalss(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -763,13 +761,13 @@ export const getBankAdmWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const listBankAdmWithdrawals = /* GraphQL */ `
-  query ListBankAdmWithdrawals(
+export const listBankAdmWithdrawalss = /* GraphQL */ `
+  query ListBankAdmWithdrawalss(
     $filter: ModelBankAdmWithdrawalsFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listBankAdmWithdrawals(
+    listBankAdmWithdrawalss(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -854,13 +852,13 @@ export const getAdvocateWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const listAdvocateWithdrawals = /* GraphQL */ `
-  query ListAdvocateWithdrawals(
+export const listAdvocateWithdrawalss = /* GraphQL */ `
+  query ListAdvocateWithdrawalss(
     $filter: ModelAdvocateWithdrawalsFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listAdvocateWithdrawals(
+    listAdvocateWithdrawalss(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -902,6 +900,7 @@ export const getCompany = /* GraphQL */ `
       sawithdrawalFee
       advuserwithdrawalFee
       bankAdmuserwithdrawalFee
+      userLoanTransferFee
       userTransferFee
       userClearanceFee
       companyEarningBal
@@ -1010,22 +1009,24 @@ export const getCompany = /* GraphQL */ `
       ttlCompTrnsfrEarningsNonCov
       ttlCompBLClrncEarningsNonCov
       ttlCompCovEarnings
-      maxInterest
+      maxInterestSM
+      maxInterestCredSllr
+      maxInterestGrp
       totalLnsRecovered
       createdAt
       updatedAt
     }
   }
 `;
-export const listCompanies = /* GraphQL */ `
-  query ListCompanies(
+export const listCompanys = /* GraphQL */ `
+  query ListCompanys(
     $AdminId: String
     $filter: ModelCompanyFilterInput
     $limit: Int
     $nextToken: String
     $sortDirection: ModelSortDirection
   ) {
-    listCompanies(
+    listCompanys(
       AdminId: $AdminId
       filter: $filter
       limit: $limit
@@ -1053,6 +1054,7 @@ export const listCompanies = /* GraphQL */ `
         sawithdrawalFee
         advuserwithdrawalFee
         bankAdmuserwithdrawalFee
+        userLoanTransferFee
         userTransferFee
         userClearanceFee
         companyEarningBal
@@ -1161,7 +1163,9 @@ export const listCompanies = /* GraphQL */ `
         ttlCompTrnsfrEarningsNonCov
         ttlCompBLClrncEarningsNonCov
         ttlCompCovEarnings
-        maxInterest
+        maxInterestSM
+        maxInterestCredSllr
+        maxInterestGrp
         totalLnsRecovered
         createdAt
         updatedAt
@@ -1398,13 +1402,13 @@ export const getGrpMembers = /* GraphQL */ `
     }
   }
 `;
-export const listGrpMembers = /* GraphQL */ `
-  query ListGrpMembers(
+export const listGrpMemberss = /* GraphQL */ `
+  query ListGrpMemberss(
     $filter: ModelGrpMembersFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listGrpMembers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listGrpMemberss(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         groupContact
@@ -1442,13 +1446,13 @@ export const getCvrdGroupLoans = /* GraphQL */ `
     }
   }
 `;
-export const listCvrdGroupLoans = /* GraphQL */ `
-  query ListCvrdGroupLoans(
+export const listCvrdGroupLoanss = /* GraphQL */ `
+  query ListCvrdGroupLoanss(
     $filter: ModelCvrdGroupLoansFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listCvrdGroupLoans(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listCvrdGroupLoanss(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         grpContact
@@ -1487,13 +1491,13 @@ export const getNonCvrdGroupLoans = /* GraphQL */ `
     }
   }
 `;
-export const listNonCvrdGroupLoans = /* GraphQL */ `
-  query ListNonCvrdGroupLoans(
+export const listNonCvrdGroupLoanss = /* GraphQL */ `
+  query ListNonCvrdGroupLoanss(
     $filter: ModelNonCvrdGroupLoansFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listNonCvrdGroupLoans(
+    listNonCvrdGroupLoanss(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -1531,13 +1535,13 @@ export const getGroupNonLoans = /* GraphQL */ `
     }
   }
 `;
-export const listGroupNonLoans = /* GraphQL */ `
-  query ListGroupNonLoans(
+export const listGroupNonLoanss = /* GraphQL */ `
+  query ListGroupNonLoanss(
     $filter: ModelGroupNonLoansFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listGroupNonLoans(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listGroupNonLoanss(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         grpContact
@@ -2466,8 +2470,8 @@ export const createWythdrawalsss = /* GraphQL */ `
     }
   }
 `;
-export const readSAWithdrwls = /* GraphQL */ `
-  query ReadSAWithdrwls(
+export const readSaWithdrwls = /* GraphQL */ `
+  query ReadSaWithdrwls(
     $sagentId: String
     $sortDirection: ModelSortDirection
     $filter: ModelFloatAddFilterInput
@@ -2520,7 +2524,6 @@ export const creatFltDeduc = /* GraphQL */ `
         status
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2549,7 +2552,6 @@ export const reeeadAmtDpstd = /* GraphQL */ `
         status
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -2615,8 +2617,8 @@ export const lstBankAdmTransactiooonnns = /* GraphQL */ `
     }
   }
 `;
-export const checkingSA = /* GraphQL */ `
-  query CheckingSA(
+export const checkingSa = /* GraphQL */ `
+  query CheckingSa(
     $saNationalid: String
     $sortDirection: ModelSortDirection
     $filter: ModelSAgentFilterInput
@@ -2650,8 +2652,8 @@ export const checkingSA = /* GraphQL */ `
     }
   }
 `;
-export const lstSAWithdrlls = /* GraphQL */ `
-  query LstSAWithdrlls(
+export const lstSaWithdrlls = /* GraphQL */ `
+  query LstSaWithdrlls(
     $saId: String
     $sortDirection: ModelSortDirection
     $filter: ModelSAgentWithdrawalsFilterInput
@@ -2834,6 +2836,7 @@ export const checkbyComppw = /* GraphQL */ `
         sawithdrawalFee
         advuserwithdrawalFee
         bankAdmuserwithdrawalFee
+        userLoanTransferFee
         userTransferFee
         userClearanceFee
         companyEarningBal
@@ -2942,7 +2945,9 @@ export const checkbyComppw = /* GraphQL */ `
         ttlCompTrnsfrEarningsNonCov
         ttlCompBLClrncEarningsNonCov
         ttlCompCovEarnings
-        maxInterest
+        maxInterestSM
+        maxInterestCredSllr
+        maxInterestGrp
         totalLnsRecovered
         createdAt
         updatedAt

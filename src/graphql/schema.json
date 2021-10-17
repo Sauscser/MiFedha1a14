@@ -243,7 +243,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listSMNonLoans",
+          "name" : "listSMNonLoanss",
           "description" : null,
           "args" : [ {
             "name" : "filter",
@@ -571,7 +571,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listAgentWithdrawals",
+          "name" : "listAgentWithdrawalss",
           "description" : null,
           "args" : [ {
             "name" : "filter",
@@ -695,7 +695,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listSAgentWithdrawals",
+          "name" : "listSAgentWithdrawalss",
           "description" : null,
           "args" : [ {
             "name" : "filter",
@@ -837,7 +837,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listBankAdmWithdrawals",
+          "name" : "listBankAdmWithdrawalss",
           "description" : null,
           "args" : [ {
             "name" : "filter",
@@ -979,7 +979,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listAdvocateWithdrawals",
+          "name" : "listAdvocateWithdrawalss",
           "description" : null,
           "args" : [ {
             "name" : "filter",
@@ -1041,7 +1041,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listCompanies",
+          "name" : "listCompanys",
           "description" : null,
           "args" : [ {
             "name" : "AdminId",
@@ -1325,7 +1325,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listGrpMembers",
+          "name" : "listGrpMemberss",
           "description" : null,
           "args" : [ {
             "name" : "filter",
@@ -1387,7 +1387,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listCvrdGroupLoans",
+          "name" : "listCvrdGroupLoanss",
           "description" : null,
           "args" : [ {
             "name" : "filter",
@@ -1449,7 +1449,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listNonCvrdGroupLoans",
+          "name" : "listNonCvrdGroupLoanss",
           "description" : null,
           "args" : [ {
             "name" : "filter",
@@ -1511,7 +1511,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listGroupNonLoans",
+          "name" : "listGroupNonLoanss",
           "description" : null,
           "args" : [ {
             "name" : "filter",
@@ -10799,17 +10799,6 @@
           },
           "isDeprecated" : false,
           "deprecationReason" : null
-        }, {
-          "name" : "owner",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
         } ],
         "inputFields" : null,
         "interfaces" : [ ],
@@ -13438,6 +13427,21 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+          "name" : "userLoanTransferFee",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
           "name" : "userTransferFee",
           "description" : null,
           "args" : [ ],
@@ -15054,7 +15058,37 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "maxInterest",
+          "name" : "maxInterestSM",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "maxInterestCredSllr",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "maxInterestGrp",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -15331,6 +15365,15 @@
           "defaultValue" : null
         }, {
           "name" : "bankAdmuserwithdrawalFee",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "userLoanTransferFee",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -16311,7 +16354,25 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "maxInterest",
+          "name" : "maxInterestSM",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "maxInterestCredSllr",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "maxInterestGrp",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -31510,6 +31571,19 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "userLoanTransferFee",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
           "name" : "userTransferFee",
           "description" : null,
           "type" : {
@@ -32910,7 +32984,33 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "maxInterest",
+          "name" : "maxInterestSM",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "maxInterestCredSllr",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "maxInterestGrp",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
@@ -33108,6 +33208,15 @@
           "defaultValue" : null
         }, {
           "name" : "bankAdmuserwithdrawalFee",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "userLoanTransferFee",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -34088,7 +34197,25 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "maxInterest",
+          "name" : "maxInterestSM",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "maxInterestCredSllr",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "maxInterestGrp",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -34334,6 +34461,15 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "userLoanTransferFee",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "userTransferFee",
           "description" : null,
           "type" : {
@@ -35306,7 +35442,25 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "maxInterest",
+          "name" : "maxInterestSM",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "maxInterestCredSllr",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "maxInterestGrp",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -40877,46 +41031,16 @@
         "onFragment" : false,
         "onField" : true
       }, {
-        "name" : "deprecated",
-        "description" : null,
-        "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
-        "args" : [ {
-          "name" : "reason",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : "\"No longer supported\""
-        } ],
+        "name" : "aws_oidc",
+        "description" : "Tells the service this field/object has access authorized by an OIDC token.",
+        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
+        "args" : [ ],
         "onOperation" : false,
         "onFragment" : false,
         "onField" : false
       }, {
-        "name" : "aws_auth",
-        "description" : "Directs the schema to enforce authorization on a field",
-        "locations" : [ "FIELD_DEFINITION" ],
-        "args" : [ {
-          "name" : "cognito_groups",
-          "description" : "List of cognito user pool groups which have access on this field",
-          "type" : {
-            "kind" : "LIST",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        } ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
-        "name" : "aws_api_key",
-        "description" : "Tells the service this field/object has access authorized by an API key.",
+        "name" : "aws_iam",
+        "description" : "Tells the service this field/object has access authorized by sigv4 signing.",
         "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
         "args" : [ ],
         "onOperation" : false,
@@ -40944,6 +41068,35 @@
         "onFragment" : false,
         "onField" : false
       }, {
+        "name" : "aws_auth",
+        "description" : "Directs the schema to enforce authorization on a field",
+        "locations" : [ "FIELD_DEFINITION" ],
+        "args" : [ {
+          "name" : "cognito_groups",
+          "description" : "List of cognito user pool groups which have access on this field",
+          "type" : {
+            "kind" : "LIST",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        } ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
+        "name" : "aws_lambda",
+        "description" : "Tells the service this field/object has access authorized by a Lambda Authorizer.",
+        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
+        "args" : [ ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
         "name" : "aws_subscribe",
         "description" : "Tells the service which mutation triggers this subscription.",
         "locations" : [ "FIELD_DEFINITION" ],
@@ -40965,18 +41118,27 @@
         "onFragment" : false,
         "onField" : false
       }, {
-        "name" : "aws_oidc",
-        "description" : "Tells the service this field/object has access authorized by an OIDC token.",
+        "name" : "aws_api_key",
+        "description" : "Tells the service this field/object has access authorized by an API key.",
         "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
         "args" : [ ],
         "onOperation" : false,
         "onFragment" : false,
         "onField" : false
       }, {
-        "name" : "aws_iam",
-        "description" : "Tells the service this field/object has access authorized by sigv4 signing.",
-        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
-        "args" : [ ],
+        "name" : "deprecated",
+        "description" : null,
+        "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
+        "args" : [ {
+          "name" : "reason",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : "\"No longer supported\""
+        } ],
         "onOperation" : false,
         "onFragment" : false,
         "onField" : false
@@ -40998,14 +41160,6 @@
           },
           "defaultValue" : null
         } ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
-        "name" : "aws_lambda",
-        "description" : "Tells the service this field/object has access authorized by a Lambda Authorizer.",
-        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
-        "args" : [ ],
         "onOperation" : false,
         "onFragment" : false,
         "onField" : false

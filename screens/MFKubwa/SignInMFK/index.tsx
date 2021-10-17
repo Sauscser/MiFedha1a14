@@ -59,7 +59,10 @@ const MFKSignIn = (props) => {
 
             catch (e)
             {
-                console.log(e)
+              if(e){
+                Alert.alert("Check your internet")
+                return
+              }
                
                 
             }    
@@ -69,10 +72,27 @@ const MFKSignIn = (props) => {
     
              }
 
-            useEffect(() =>{
-              fetchMFKDts();
-                }, []
+             useEffect(() =>{
+              const mfkid=MFKId
+                if(!mfkid && mfkid!=="")
+                {
+                  setMFKId("");
+                  return;
+                }
+                setMFKId(mfkid);
+                }, [MFKId]
                  );
+
+                 useEffect(() =>{
+                  const mfkpws=MFKPW
+                    if(!mfkpws && mfkpws!=="")
+                    {
+                      setMFKPW("");
+                      return;
+                    }
+                    setMFKPW(mfkpws);
+                    }, [MFKPW]
+                     );
 
 
          return (

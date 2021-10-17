@@ -994,6 +994,7 @@ type Company
   sawithdrawalFee: Float!
   advuserwithdrawalFee: Float!
   bankAdmuserwithdrawalFee: Float!
+  userLoanTransferFee: Float!
   userTransferFee: Float!
   userClearanceFee: Float!
 
@@ -1107,7 +1108,10 @@ type Company
   ttlCompBLClrncEarningsNonCov: Float!
   ttlCompCovEarnings: Float!
 
-  maxInterest: Float!
+  maxInterestSM: Float!
+  maxInterestCredSllr: Float!
+  maxInterestGrp: Float!
+
 
   totalLnsRecovered: Float!
 }

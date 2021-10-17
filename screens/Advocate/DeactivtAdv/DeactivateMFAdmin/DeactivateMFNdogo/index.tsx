@@ -29,55 +29,73 @@ const DeregMFAdvForm = (props) => {
   const navigation = useNavigation();
 
   const [AdvRegNo, setAdvRegNo] = useState("");
-  
-  const KFAdminDtls = async () => {
+
+
+  const gtCompDtls = async () =>{
     try{
-        await API.graphql(
-          graphqlOperation(updateBankAdmin,{
-            input:{
-              advregnu:AdvRegNo,
-              status:"AccountInactive"
-            }
-          })
-        )
+      const compDtls :any= await API.graphql(
+        graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+        );
+        const ActvMFAdv = compDtls.data.getCompany.ttlKFAdvActv
+        const actvMFAdv = compDtls.data.getCompany.ttlKFAdvInActv
 
-        const gtCompDtls = async () =>{
-            try{
-              const compDtls :any= await API.graphql(
-                graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
-                );
-                const ActvMFAdv = compDtls.data.getCompany.ttlKFAdvActv
-                const actvMFAdv = compDtls.data.getCompany.ttlKFAdvInActv
-                   
-                const updtActAdm = async()=>{
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateCompany,{
-                              input:{
-                                AdminId:"BaruchHabaB'ShemAdonai2",
-                                ttlKFAdvActv:parseFloat(ActvMFAdv) - 1,
-                                ttlKFAdvInActv:parseFloat(actvMFAdv) + 1,
-                              }
-                            })
-                          )
-                      }
-                      catch(error){console.log(error)}
-                    }
-                    await updtActAdm();
-                    
-                  } catch (error) {
-                    console.log('Error creating account', error);
+        const KFAdminDtls = async () => {
+          try{
+              await API.graphql(
+                graphqlOperation(updateBankAdmin,{
+                  input:{
+                    advregnu:AdvRegNo,
+                    status:"AccountInactive"
                   }
-                };    
+                })
+              )
+      
+              
+          }
+      
+          
+          catch(error){console.log(error)}
+          
 
-                gtCompDtls();
-              useEffect(() => {
-              gtCompDtls();
-              }, []);
-    }
-    catch(error){console.log(error)}
-    setAdvRegNo("") 
-  } 
+          const updtActAdm = async()=>{
+            try{
+                await API.graphql(
+                  graphqlOperation(updateCompany,{
+                    input:{
+                      AdminId:"BaruchHabaB'ShemAdonai2",
+                      ttlKFAdvActv:parseFloat(ActvMFAdv) - 1,
+                      ttlKFAdvInActv:parseFloat(actvMFAdv) + 1,
+                    }
+                  })
+                )
+            }
+            catch(error){console.log(error)}
+          }
+          await updtActAdm();
+         
+        } 
+        await KFAdminDtls();         
+                  
+          } catch (error) {
+            console.log('Error creating account', error);
+          }
+
+          await setAdvRegNo("") 
+
+        };    
+        
+        useEffect(() =>{
+          const RegN=AdvRegNo
+            if(!RegN && RegN!=="")
+            {
+              setAdvRegNo("");
+              return;
+            }
+            setAdvRegNo(RegN);
+            }, [AdvRegNo]
+             );
+
+
  return (
             <View>
               <View
@@ -100,7 +118,7 @@ const DeregMFAdvForm = (props) => {
                   
         
                   <TouchableOpacity
-                    onPress={KFAdminDtls}
+                    onPress={gtCompDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to DeRegister 
