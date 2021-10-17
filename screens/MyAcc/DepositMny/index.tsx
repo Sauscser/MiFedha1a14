@@ -73,6 +73,7 @@ const SMADepositForm = props => {
               graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
                 );
                   const ttlUsrDpsts = compDtls.data.getCompany.ttlUsrDep
+                  const agentFloatOuts = compDtls.data.getCompany.agentFloatOut
 
                   const CrtFltRed = async () => {
                     try {
@@ -135,7 +136,29 @@ const SMADepositForm = props => {
                   if (error){Alert.alert("Check internet Connection")
                   return;}
                 }
+                await onUpdtCompBal();
                 }; 
+
+                const onUpdtCompBal = async () => {
+                  try {
+                    await API.graphql(
+                      graphqlOperation(updateCompany, {
+                        input: {
+                          phonecontact: AgentPhn,
+              
+                         
+                          ttlUsrDep: parseFloat(ttlUsrDpsts) + parseFloat(amount),
+                          agentFloatOut: parseFloat(agentFloatOuts) + parseFloat(amount),
+                        },
+                      }),
+                    );
+                  }
+  
+                  catch (error) {
+                    if (error){Alert.alert("Check internet Connection")
+                    return;}
+                  }
+                  }; 
             
             if (usrStts!=="AccountActive") {
               Alert.alert("User Account has been deactivated")
