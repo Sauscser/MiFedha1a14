@@ -17,6 +17,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import styles from './styles';
 
@@ -29,54 +30,78 @@ const DeregUsrForm = (props) => {
 
   const [UsrId, setUsrId] = useState("");
   
-  const KFUsrDtls = async () => {
+  
+
+  const gtCompDtls = async () =>{
     try{
-        await API.graphql(
-          graphqlOperation(updateSmAccount,{
-            input:{
-              nationalid:UsrId,
-              status:"AccountInactive"
-            }
-          })
-        )
-
-        const gtCompDtls = async () =>{
-            try{
-              const compDtls :any= await API.graphql(
-                graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
-                );
-                const ActvMFUsrs = compDtls.data.getCompany.ttlActiveUsers
-                const inactMFUsrs = compDtls.data.getCompany.ttlInactvUsrs
-                   
-                const updtActAdm = async()=>{
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateCompany,{
-                              input:{
-                                AdminId:"BaruchHabaB'ShemAdonai2",
-                                ttlActiveUsers:parseFloat(ActvMFUsrs) - 1,
-                                ttlInactvUsrs:parseFloat(inactMFUsrs) + 1,
-                              }
-                            })
-                          )
-                      }
-                      catch(error){console.log(error)}
-                    }
-                    await updtActAdm();
-                    
-                  } catch (error) {
-                    console.log('Error creating account', error);
+      const compDtls :any= await API.graphql(
+        graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+        );
+        const ActvMFUsrs = compDtls.data.getCompany.ttlActiveUsers
+        const inactMFUsrs = compDtls.data.getCompany.ttlInactvUsrs
+           
+        const KFUsrDtls = async () => {
+          try{
+              await API.graphql(
+                graphqlOperation(updateSmAccount,{
+                  input:{
+                    nationalid:UsrId,
+                    status:"AccountInactive"
                   }
-                };    
+                })
+              )
+      
+              
+          }
+          catch(error){if(error){
+            Alert.alert("Check your internet")
+            return;
+        }}
+          
+          await updtActAdm ();
+        } 
 
-                gtCompDtls();
-              useEffect(() => {
-              gtCompDtls();
-              }, []);
-    }
-    catch(error){console.log(error)}
-    setUsrId("") 
-  } 
+        await KFUsrDtls();
+
+        const updtActAdm = async()=>{
+              try{
+                  await API.graphql(
+                    graphqlOperation(updateCompany,{
+                      input:{
+                        AdminId:"BaruchHabaB'ShemAdonai2",
+                        ttlActiveUsers:parseFloat(ActvMFUsrs) - 1,
+                        ttlInactvUsrs:parseFloat(inactMFUsrs) + 1,
+                      }
+                    })
+                  )
+              }
+              catch(error){if(error){
+                Alert.alert("Check your internet")
+                return;
+            }}
+            }
+            
+            
+          } catch (error) {
+            if(error){
+              Alert.alert("Check your internet")
+              return;
+          };
+          }
+          setUsrId("") 
+        };    
+
+        useEffect(() =>{
+          const usId=UsrId
+            if(!usId && usId!=="")
+            {
+              setUsrId("");
+              return;
+            }
+            setUsrId(usId);
+            }, [UsrId]
+             );
+        
  return (
             <View>
               <View
@@ -99,7 +124,7 @@ const DeregUsrForm = (props) => {
                   
         
                   <TouchableOpacity
-                    onPress={KFUsrDtls}
+                    onPress={gtCompDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to DeRegister 

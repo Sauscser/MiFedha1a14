@@ -17,6 +17,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import styles from './styles';
 
@@ -136,7 +137,7 @@ const CreateAcForm = (props:UserReg) => {
           TtlClrdNvrBLLonsTmsByrCov: 0,
           TtlClrdNvrBLLonsAmtSllrCov: 0,
           TtlClrdNvrBLLonsAmtByrCov: 0,
-
+        
           TtlActvLonsTmsLnrNonCov: 0,
           TtlActvLonsTmsLneeNonCov: 0,
           TtlActvLonsAmtLnrNonCov: 0,
@@ -200,69 +201,70 @@ const CreateAcForm = (props:UserReg) => {
                   },
                 }),
               );
-
-              const updtActAdm = async()=>{
-                try{
-                    await API.graphql(
-                      graphqlOperation(updateCompany,{
-                        input:{
-                          AdminId:"BaruchHabaB'ShemAdonai2",
-                          ttlActiveUsers:parseFloat(actvSMUsrs) + 1,
-                        }
-                      })
-                    )
-                }
-                catch(error){}
-              }
-              await updtActAdm();
-              await userDtls ()
+              
             } catch (error) {
-              console.log('Error creating account', error);
+              if(error){
+                Alert.alert("Check your internet")
+                return;
             }
-        
-            setNationalid('');
-            setPW('');
+            }
+            await updtActAdm();
           };
           onCreateNewSMAc();
 
-          
+          const updtActAdm = async()=>{
+            try{
+                await API.graphql(
+                  graphqlOperation(updateCompany,{
+                    input:{
+                      AdminId:"BaruchHabaB'ShemAdonai2",
+                      ttlActiveUsers:parseFloat(actvSMUsrs) + 1,
+                    }
+                  })
+                )
+            }
+            catch(error){
+              if(error){
+                Alert.alert("Check your internet")
+                return;
+            }
+            }
+          }
+          await updtActAdm();
         
-        
-  const userDtls = async () => {
-    try {
-      const resp:any = await API.graphql(
-        graphqlOperation(getSMAccount, { nationalid: nationalId })
-      );
-
-      const usr = resp.data.getSMAccount.nationalid;
-
-      
-      const regUsrDtls = () => {
-        navigation.navigate("RegUsrScrn", {usr});
-      };
-      
-
-      regUsrDtls();
-    } catch (e) {
-      console.log(e);
-    }
-    setNationalid("");
-  };
-
-  useEffect(() => {
-    userDtls();
-  }, []);
-
 }
 
 catch(e){
-console.log(e)
+  if(e){
+    Alert.alert("Check your internet")
+    return;
 }
+}
+setNationalid('');
+            setPW('');
 };
 
-useEffect(() => {
-gtCompDtls();
-}, []);
+useEffect(() =>{
+  const natid=nationalId
+    if(!natid && natid!=="")
+    {
+      setNationalid("");
+      return;
+    }
+    setNationalid(natid);
+    }, [nationalId]
+     );
+
+     useEffect(() =>{
+      const pws=pword
+        if(!pws && pws!=="")
+        {
+          setPW("");
+          return;
+        }
+        setPW(pws);
+        }, [pword]
+         );
         
           return (
             <View>

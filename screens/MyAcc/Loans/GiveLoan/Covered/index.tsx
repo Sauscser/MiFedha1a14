@@ -8,6 +8,7 @@ import {
   updateAgent,
   updateCompany,
   updateSAgent,
+  updateSmAccount,
   updateSMAccount,
 } from '../../../../../src/graphql/mutations';
 
@@ -71,15 +72,15 @@ const SMASendLns = props => {
         graphqlOperation(getSmAccount, {nationalid: SenderNatId}),
       );
 
-      const SenderUsrBal =accountDtl.data.getSMAccount.balance;
-      const usrPW =accountDtl.data.getSMAccount.pw;
-      const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const usrLnLim =accountDtl.data.getSMAccount.loanLimit;
-      const TtlActvLonsTmsLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
-      const TtlActvLonsAmtLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
+      const SenderUsrBal =accountDtl.data.getSmAccount.balance;
+      const usrPW =accountDtl.data.getSmAccount.pw;
+      const usrAcActvStts =accountDtl.data.getSmAccount.acStatus;
+      const usrLnLim =accountDtl.data.getSmAccount.loanLimit;
+      const TtlActvLonsTmsLnrCovs =accountDtl.data.getSmAccount.TtlActvLonsTmsLnrCov;
+      const TtlActvLonsAmtLnrCovs =accountDtl.data.getSmAccount.TtlActvLonsAmtLnrCov;
       
   
-      const SenderSub =accountDtl.data.getSMAccount.owner;
+      const SenderSub =accountDtl.data.getSmAccount.owner;
       
       const fetchCompDtls = async () => {
         try {
@@ -161,172 +162,162 @@ const SMASendLns = props => {
                                 },
                               }),
                             );
-                            const updtSendrAc = async () =>{
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateSMAccount, {
-                                      input:{
-                                        nationalid:SenderNatId,
-                                        TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
-                                        TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(amount),
-                                                                                  
-                                        balance:parseFloat(SenderUsrBal)-TotalTransacted 
-                                       
-                                        
-                                      }
-                                    })
-                                  )
 
-                                  const updtRecAc = async () =>{
-                                    try{
-                                        await API.graphql(
-                                          graphqlOperation(updateSMAccount, {
-                                            input:{
-                                              nationalid:RecNatId,
-                                              TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
-                                              TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(amount),
-                                              
-                                              balance:parseFloat(RecUsrBal) + parseFloat(amount)                                     
-                                              
-                                                                                
-                                              
-                                            }
-                                          })
-                                        )
-                                        const updtComp = async () =>{
-                                          try{
-                                              await API.graphql(
-                                                graphqlOperation(updateCompany, {
-                                                  input:{
-                                                    AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                                        
-                                                    ttlCompCovEarnings:(CompErningFrmCovrgFee) * parseFloat(amount) + parseFloat(ttlCompCovEarningss),
-                                                    AdvEarningBal:(AdvCovRate) * parseFloat(amount) + parseFloat(AdvEarningBals),                                                                                                                                                     
-                                                    AdvEarning:(AdvCovRate) * parseFloat(amount) + parseFloat(AdvEarnings),
-                                                    companyEarningBal:CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarningBals),
-                                                    companyEarning: CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarnings),                                                    
-                                                    
-                                                    ttlSMLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInAmtCovs),
-                                                    ttlSMLnsInActvAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInActvAmtCovs),
-                                                    ttlSMLnsInTymsCov: 1 + parseFloat(ttlSMLnsInTymsCovs),
-                                                    ttlSMLnsInActvTymsCov: 1 + parseFloat(ttlSMLnsInActvTymsCovs),      
-                                                    
-                                                     
-                                                    
-                                                  }
-                                                })
-                                              )
-                                              const updtAdv = async () =>{
-                                                try{
-                                                    await API.graphql(
-                                                      graphqlOperation(updateAdvocate, {
-                                                        input:{
-                                                          advregnu: AdvRegNo,
-                                                          advBal: (AdvCovRate) * parseFloat(amount) + parseFloat(advBl) ,
-                                                          TtlEarnings:(AdvCovRate) * parseFloat(amount) + parseFloat(advTtlAern),                                 
-                                                          
-                                                        }
-                                                      })
-                                                    )
-                                                }
-                                                catch(error){
-                
-                                                }
-                                              }
-                                              await updtAdv();
-                                          }
-                                          catch(error){
-          
-                                          }
-                                        }
-                                        await updtComp();
-                                    }
-                                    catch(error){
-    
-                                    }
-                                  }
-                                  await updtRecAc();
-                              }
-                              catch(error){
-
-                              }
-                            }
-                            await updtSendrAc();
 
                           } catch (error) {
-                            
+                            if (error){Alert.alert("Check your internet connection")
+                          return;}
                           }
+                          await updtSendrAc();
                         };
-  
-                        if (usrNoBL > 1){Alert.alert('You have exceeded number of times you maybe blacklisted; kindly clear these loans');}
+
+                        const updtSendrAc = async () =>{
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateSmAccount, {
+                                  input:{
+                                    nationalid:SenderNatId,
+                                    TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
+                                    TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(amount),
+                                                                              
+                                    balance:parseFloat(SenderUsrBal)-TotalTransacted 
+                                   
+                                    
+                                  }
+                                })
+                              )
+
+
+                          }
+                          catch(error){
+                            if (error){Alert.alert("Check your internet connection")
+                            return;}
+                          }
+                          await updtRecAc();
+                        }
+                        const updtRecAc = async () =>{
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateSmAccount, {
+                                  input:{
+                                    nationalid:RecNatId,
+                                    TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
+                                    TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(amount),
+                                    
+                                    balance:parseFloat(RecUsrBal) + parseFloat(amount)                                     
+                                    
+                                                                      
+                                    
+                                  }
+                                })
+                              )                              
+                          }
+                          catch(error){
+                            if (error){Alert.alert("Check your internet connection")
+                            return;}
+                          }
+                          await updtComp();
+                        }
+
+                        const updtComp = async () =>{
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateCompany, {
+                                  input:{
+                                    AdminId: "BaruchHabaB'ShemAdonai2",                                                      
+                                        
+                                    ttlCompCovEarnings:(CompErningFrmCovrgFee) * parseFloat(amount) + parseFloat(ttlCompCovEarningss),
+                                    AdvEarningBal:(AdvCovRate) * parseFloat(amount) + parseFloat(AdvEarningBals),                                                                                                                                                     
+                                    AdvEarning:(AdvCovRate) * parseFloat(amount) + parseFloat(AdvEarnings),
+                                    companyEarningBal:CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarningBals),
+                                    companyEarning: CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarnings),                                                    
+                                    
+                                    ttlSMLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInAmtCovs),
+                                    ttlSMLnsInActvAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInActvAmtCovs),
+                                    ttlSMLnsInTymsCov: 1 + parseFloat(ttlSMLnsInTymsCovs),
+                                    ttlSMLnsInActvTymsCov: 1 + parseFloat(ttlSMLnsInActvTymsCovs),      
+                                    
+                                     
+                                    
+                                  }
+                                })
+                              )
+                              
+                              
+                          }
+                          catch(error){
+                            if (error){Alert.alert("Check your internet connection")
+                        return;}
+                          }
+                          await updtAdv();
+                        }
+                        const updtAdv = async () =>{
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateAdvocate, {
+                                  input:{
+                                    advregnu: AdvRegNo,
+                                    advBal: (AdvCovRate) * parseFloat(amount) + parseFloat(advBl) ,
+                                    TtlEarnings:(AdvCovRate) * parseFloat(amount) + parseFloat(advTtlAern),                                 
+                                    
+                                  }
+                                })
+                              )
+                          }
+                          catch(error){
+                            if (error){Alert.alert("Check your internet connection")
+      return;}
+                          }
+                        }
+                                              
+                        if (usrNoBL > 1){Alert.alert('Receiver does not qualify');}
                         else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');}
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Your account is inactive');}
                         else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > maxInterests)
                         {Alert.alert('Your interest is too high');}
+                        else if (
+                          SenderUsrBal < TotalTransacted 
+                        ) {Alert.alert('Requested amount is more than you have in your account');}
+                        else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
+                        else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
+                        else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
+                        else if(usrAcActvStts !=="AccountActive"){Alert.alert('Your account is inactive');}
+                        else if(usrLnLim < amount){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
                         
                          else {
                           await sendSMLn();
-                        }
-                        
+                        }                                                
+                    }       
+                    catch(e) {     
+                      if (e){Alert.alert("Check your internet connection")
+      return;}                 
+                    }
+                    }                    
+                      await fetchRecUsrDtls();        
                     
-    
-
-                          
-                    }
-        
-                    catch(e) {
-                      
-                    }
-                    }
-    
-                    if (
-                      SenderUsrBal < TotalTransacted 
-                    ) {Alert.alert('Requested amount is more than you have in your account');}
-                    else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
-                    else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                    else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
-                    else if(usrAcActvStts !=="AccountActive"){Alert.alert('Your account is inactive');}
-                    else if(usrLnLim < amount){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
-                      
-                     else {
-                      await fetchRecUsrDtls();
-                    }
-        
-                    useEffect(() => {
-                        fetchRecUsrDtls();
-                        }, []);
 
             }
             catch (e){
-              
+              if (e){Alert.alert("Check your internet connection")
+      return;}
             }
           }
           
           await fetchAdv();
 
-          useEffect(() => {
-            fetchAdv();
-            }, []);
-        
-        } catch (e) {
-          console.log(e);
-        }
           
         
+        } catch (e) {
+          if (e){Alert.alert("Check your internet connection")
+      return;}
+        }        
       };
       await fetchCompDtls();
     
-      useEffect(() => {
-        fetchCompDtls();
-      }, []);
-      
-
-
-
-      
       
     } catch (e) {
-     
+      if (e){Alert.alert("Check your internet connection")
+      return;}
   };
       setSenderNatId('');
       setAmount("");
@@ -339,12 +330,104 @@ const SMASendLns = props => {
       setRecAccCode("");
 }
 
-  useEffect(() => {
-    fetchSenderUsrDtls();
-  }, []);
-  
+useEffect(() =>{
+  const SnderNatIds=SenderNatId
+    if(!SnderNatIds && SnderNatIds!=="")
+    {
+      setSenderNatId("");
+      return;
+    }
+    setSenderNatId(SnderNatIds);
+    }, [SenderNatId]
+     );
 
-  
+     useEffect(() =>{
+      const amt=amount
+        if(!amt && amt!=="")
+        {
+          setAmount("");
+          return;
+        }
+        setAmount(amt);
+        }, [amount]
+         );
+
+         useEffect(() =>{
+          const RecNatIds=RecNatId
+            if(!RecNatIds && RecNatIds!=="")
+            {
+              setRecNatId("");
+              return;
+            }
+            setRecNatId(RecNatIds);
+            }, [RecNatId]
+             );
+
+             useEffect(() =>{
+              const AdvRegNoss=AdvRegNo
+                if(!AdvRegNoss && AdvRegNoss!=="")
+                {
+                  setAdvRegNo("");
+                  return;
+                }
+                setAdvRegNo(AdvRegNoss);
+                }, [AdvRegNo]
+                 );
+
+                 useEffect(() =>{
+                  const AmtExpss=AmtExp
+                    if(!AmtExpss && AmtExpss!=="")
+                    {
+                      setAmtExp("");
+                      return;
+                    }
+                    setAmtExp(AmtExpss);
+                    }, [AmtExp]
+                     );
+
+                     useEffect(() =>{
+                      const descr=Desc
+                        if(!descr && descr!=="")
+                        {
+                          setDesc("");
+                          return;
+                        }
+                        setDesc(descr);
+                        }, [Desc]
+                         );
+
+                         useEffect(() =>{
+                          const SnderPWss=SnderPW
+                            if(!SnderPWss && SnderPWss!=="")
+                            {
+                              setSnderPW("");
+                              return;
+                            }
+                            setSnderPW(SnderPWss);
+                            }, [SnderPW]
+                             );
+
+                             useEffect(() =>{
+                              const RepaymtPeriods=RepaymtPeriod
+                                if(!RepaymtPeriods && RepaymtPeriods!=="")
+                                {
+                                  setRepaymtPeriod("");
+                                  return;
+                                }
+                                setRepaymtPeriod(RepaymtPeriods);
+                                }, [RepaymtPeriod]
+                                 );
+
+                                 useEffect(() =>{
+                                  const RecAccCodes=RecAccCode
+                                    if(!RecAccCodes && RecAccCodes!=="")
+                                    {
+                                      setRecAccCode("");
+                                      return;
+                                    }
+                                    setRecAccCode(RecAccCodes);
+                                    }, [RecAccCode]
+                                     );
 
   return (
     <View>
@@ -429,7 +512,7 @@ const SMASendLns = props => {
               onChangeText={setRecAccCode}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Sender Acceptance Code</Text>
+            <Text style={styles.sendAmtText}>Reciever Acceptance Code</Text>
           </View>
 
           <View style={styles.sendAmtView}>
