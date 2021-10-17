@@ -39,116 +39,112 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
 
     useEffect(() => {
     fetchUser();
-   }, []);
+   }, []);  
 
 
-   
+   const gtMFKDtsl = async () =>{
+    try{
+    const MFKb:any = await API.graphql(
+    graphqlOperation(getSAgent, {id:saRegNo})
+    );
+    const actvMFNdogs = MFKb.data.getSAgent.actvMFNdog
 
+    const gtCompDtls = async () =>{
+      try{
+          const compDtls :any= await API.graphql(
+            graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+          );
+          const actvNdg = compDtls.data.getCompany.ttlKFNdgActv
+
+          const createNewMFN = async () => {
+            try {
+              await API.graphql(
+                graphqlOperation(createAgent, {
+                  input: {                    
+                    sagentregno: saRegNo,
+                    TtlFltIn: 0,
+                    TtlFltOut: 0,
+                    floatBal: 0,
+                    latitude: lat,
+                    longitude: lon,
+                    ttlEarnings:0,
         
-
-  const onCreateNewMFN = async () => {
-    try {
-      await API.graphql(
-        graphqlOperation(createAgent, {
-          input: {                    
-            sagentregno: saRegNo,
-            TtlFltIn: 0,
-            TtlFltOut: 0,
-            floatBal: 0,
-            latitude: lat,
-            longitude: lon,
-            ttlEarnings:0,
-
-            agentEarningBal: 0,
-            
-
-            nationalid: nationalId,
-            name: nam,
-            phonecontact: phoneContact,
-            pw: pword,
-            email: eml,
-            owner:ownr,
-            status: 'AccountActive',
-          },
-        }),
-      );
-
-      const gtMFKDtsl = async () =>{
-        try{
-        const MFKb:any = await API.graphql(
-        graphqlOperation(getSAgent, {id:saRegNo})
-        );
-        const MFkClnts = MFKb.data.getSAgent.actMFNdog
-
-        const updtActMFN = async()=>{
-          try{await API.graphql(
-            graphqlOperation(updateSAgent,{
-              input:{
-                id:saRegNo,
-                actMFNdog:parseFloat(MFkClnts) + 1
-              }
-            })
-          )
-
-          const gtCompDtls = async () =>{
-            try{
-                const compDtls :any= await API.graphql(
-                  graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
-                );
-                const actvNdg = compDtls.data.getCompany.ttlKFNdgActv
-                
-                const updtActAdm = async()=>{
-                  try{
-                      await API.graphql(
-                        graphqlOperation(updateCompany,{
-                          input:{
-                            AdminId:"BaruchHabaB'ShemAdonai2",
-                            ttlKFNdgActv:parseFloat(actvNdg) + 1,
-                          }
-                        })
-                      )
-                  }
-                  catch(error){console.log(error)}
-                }
-            
-                updtActAdm();
-            
-              }
+                    agentEarningBal: 0,
+                    
         
-              catch(e){
-              console.log(e)
+                    nationalid: nationalId,
+                    name: nam,
+                    phonecontact: phoneContact,
+                    pw: pword,
+                    email: eml,
+                    owner:ownr,
+                    status: 'AccountActive',
+                  },
+                }),
+              );
+        
               }
-              };
-      
-              gtCompDtls();
+            
+            catch (error) {
+              if(!error){
+                Alert.alert("Account created successfully")
+                return;
+            } 
+            else{Alert.alert("Please check your internet connection")} 
               
-              useEffect(() => {
-              gtCompDtls();
-              }, []);
-
+            }
+        await updtActAdm();
           }
-          catch(error){console.log(error)}
+
+          await createNewMFN();
+          
+          const updtActAdm = async()=>{
+            try{
+                await API.graphql(
+                  graphqlOperation(updateCompany,{
+                    input:{
+                      AdminId:"BaruchHabaB'ShemAdonai2",
+                      ttlKFNdgActv:parseFloat(actvNdg) + 1,
+                    }
+                  })
+                )
+            }
+            catch(error){if (error) {
+              Alert.alert("Please check your internet connection")
+            }}
+            await updtSA();
+          }
+          
+          const updtSA = async()=>{
+            try{
+                await API.graphql(
+                  graphqlOperation(updateSAgent,{
+                    input:{
+                      id:saRegNo,
+                      actvMFNdog:parseFloat(actvMFNdogs) + 1,
+                    }
+                  })
+                )
+            }
+            catch(error){if (error) {
+              Alert.alert("Please check your internet connection")
+            }}
+          }              
+
+      }
+  
+        catch(e){
+        console.log(e)
         }
+        };
+        await gtCompDtls();       
+  
+      }
+catch(e){console.log(e)}
 
-        updtActMFN();
-          }
-    catch(e){console.log(e)}
-    }
 
-    gtMFKDtsl();
-    useEffect(() =>{
-      gtMFKDtsl()
-      }, [])
 
-    
-    
-    } 
-    
-    catch (error:any) {
-      console.log('Error creating account', error);
-      
-    }
-
+  
     
     
     
@@ -157,18 +153,111 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
     setNationalid('');
     setPW('');
     setName('');
-  setEml("");
-  setLat("");
-  setLon("");
+    setEml("");
+    setLat("");
+    setLon("");
     setPhoneContact('');
     setSARegNo('');
   };
 
+  useEffect(() =>{
+    const natId=nationalId
+      if(!natId && natId!=="")
+      {
+        setNationalid("");
+        return;
+      }
+      setNationalid(natId);
+      }, [nationalId]
+       );
   
+       useEffect(() =>{
+        const pws=pword
+          if(!pws && pws!=="")
+          {
+            setPW("");
+            return;
+          }
+          setPW(pws);
+          }, [pword]
+           );
+  
+           useEffect(() =>{
+            const phn=phoneContact
+              if(!phn && phn!=="")
+              {
+                setPhoneContact("");
+                return;
+              }
+              setPhoneContact(phn);
+              }, [phoneContact]
+               );
+  
+               useEffect(() =>{
+                const name=nam
+                  if(!name && name!=="")
+                  {
+                    setName("");
+                    return;
+                  }
+                  setName(name);
+                  }, [nam]
+                   );
 
-  
-  
-
+                   useEffect(() =>{
+                    const email=eml
+                      if(!email && email!=="")
+                      {
+                        setEml("");
+                        return;
+                      }
+                      setEml(email);
+                      }, [eml]
+                       );
+                  
+                       useEffect(() =>{
+                        const lati=lat
+                          if(!lati && lati!=="")
+                          {
+                            setLat("");
+                            return;
+                          }
+                          setLat(lati);
+                          }, [lat]
+                           );
+                  
+                           useEffect(() =>{
+                            const long=lon
+                              if(!long && long!=="")
+                              {
+                                setLon("");
+                                return;
+                              }
+                              setLon(long);
+                              }, [lon]
+                               );
+                  
+                               useEffect(() =>{
+                                const phn=phoneContact
+                                  if(!phn && phn!=="")
+                                  {
+                                    setPhoneContact("");
+                                    return;
+                                  }
+                                  setPhoneContact(phn);
+                                  }, [phoneContact]
+                                   );
+                    
+                                   useEffect(() =>{
+                                    const saRN=saRegNo
+                                      if(!saRN && saRN!=="")
+                                      {
+                                        setSARegNo("");
+                                        return;
+                                      }
+                                      setSARegNo(saRN);
+                                      }, [saRegNo]
+                                       );
 
 
   return (
@@ -254,7 +343,7 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
           </View>
 
           <TouchableOpacity
-            onPress={onCreateNewMFN}
+            onPress={gtMFKDtsl}
             style={styles.sendLoanButton}>
             <Text style={styles.sendLoanButtonText}>
               Click to Create Account

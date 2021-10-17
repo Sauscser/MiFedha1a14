@@ -69,6 +69,7 @@ const SMADepositForm = props => {
           const floatBals = AgentBal.data.getAgent.floatBal;
           const AgAcAct = AgentBal.data.getAgent.status;
           const sagentregnos = AgentBal.data.getAgent.sagentregno;
+          const names = AgentBal.data.getAgent.name;
 
           const gtCompDtls = async () =>{
             try{
@@ -121,8 +122,11 @@ const SMADepositForm = props => {
                               );
             
                     } catch (error) {
-                      if (error){Alert.alert("Unsuccessful transaction; check internet connectiction")
-                      return;}
+                      if(!error){
+                        Alert.alert("Funds withdrawn successfully from " + names + "MFNdogo")
+                        return;
+                    } 
+                    else{Alert.alert("Please check your internet connection")} 
                     }
                     await onUpdtUsrBal();
                     };  

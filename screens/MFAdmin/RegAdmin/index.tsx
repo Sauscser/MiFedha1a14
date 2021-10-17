@@ -81,10 +81,11 @@ const CreateAdminForm = () => {
                     
                    
                   } catch (error) {
-                    if(error){
-                      Alert.alert("Check your internet")
-                      return
-                    }                    
+                    if(!error){
+                      Alert.alert("Account created successfully")
+                      return;
+                  } 
+                  else{Alert.alert("Please check your internet connection")}                  
                   }
                   await updtActAdm();                  
                  

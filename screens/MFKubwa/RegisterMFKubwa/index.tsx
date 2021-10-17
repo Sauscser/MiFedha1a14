@@ -69,24 +69,7 @@ const RegisterMFKubwaAcForm = props => {
               }),
             );
 
-            const updtActAdm = async()=>{
-              try{
-                  await API.graphql(
-                    graphqlOperation(updateCompany,{
-                      input:{
-                        AdminId:"BaruchHabaB'ShemAdonai2",
-                        ttlKFKbwActv:parseFloat(actvAKbwa) + 1,
-                      }
-                    })
-                  )
-              }
-              catch(error){if(error){
-                Alert.alert("Check your internet")
-                return
-              }}
-            }
-
-            updtActAdm();
+            
           } 
 
           
@@ -94,13 +77,34 @@ const RegisterMFKubwaAcForm = props => {
           
           
           catch (error) {
-            if(error){
-              Alert.alert("Check your internet")
-              return
-            }
-          }               
+            if(!error){
+              Alert.alert("Account created successfully")
+              return;
+          } 
+          else{Alert.alert("Please check your internet connection")} 
+          } 
+          await  updtActAdm();              
         };
         await CreateNewSA();
+
+        const updtActAdm = async()=>{
+          try{
+              await API.graphql(
+                graphqlOperation(updateCompany,{
+                  input:{
+                    AdminId:"BaruchHabaB'ShemAdonai2",
+                    ttlKFKbwActv:parseFloat(actvAKbwa) + 1,
+                  }
+                })
+              )
+          }
+          catch(error){if(error){
+            Alert.alert("Check your internet")
+            return
+          }}
+        }
+
+       
       }
 
   catch(e){

@@ -69,10 +69,28 @@ const MFNSignIn = (props) => {
     
              }
 
-            useEffect(() =>{
-              fetchMFNDts();
-                }, []
+             useEffect(() =>{
+              const mfnID=MFNId
+                if(!mfnID && mfnID!=="")
+                {
+                  setMFNId("");
+                  return;
+                }
+                setMFNId(mfnID);
+                }, [MFNId]
                  );
+  
+                 useEffect(() =>{
+                  const mfnPW=MFNPW
+                    if(!mfnPW && mfnPW!=="")
+                    {
+                      setMFNPW("");
+                      return;
+                    }
+                    setMFNPW(mfnPW);
+                    }, [MFNPW]
+                     );
+
 
 
          return (

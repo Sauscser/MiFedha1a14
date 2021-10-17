@@ -60,6 +60,7 @@ const AdminSignIn = (props) => {
             sawithdrawalFee: 0,
             advuserwithdrawalFee: 0,
             bankAdmuserwithdrawalFee: 0,
+            userLoanTransferFee: 0,
             userTransferFee: 0,
             userClearanceFee: 0,
           
@@ -173,8 +174,9 @@ const AdminSignIn = (props) => {
             ttlCompBLClrncEarningsNonCov: 0,
             ttlCompCovEarnings: 0,
           
-          
-            maxInterest: 0,
+            maxInterestSM: 0,
+            maxInterestCredSllr: 0,
+            maxInterestGrp: 0,
           
             totalLnsRecovered: 0,
           },
@@ -218,7 +220,7 @@ const AdminSignIn = (props) => {
 
             catch (e)
             {
-                console.log(e)
+                if (e){Alert.alert("Please check your internet connection")}
             }    
             setPWOne("");
             setPWTwo("");
@@ -226,10 +228,27 @@ const AdminSignIn = (props) => {
     
              }
 
-            useEffect(() =>{
-                 fetchExDtls();
-                }, []
+             useEffect(() =>{
+              const pw1=PWOnes
+                if(!pw1 && pw1!=="")
+                {
+                  setPWOne("");
+                  return;
+                }
+                setPWOne(pw1);
+                }, [PWOnes]
                  );
+  
+                 useEffect(() =>{
+                  const pw2=PWTwos
+                    if(!pw2 && pw2!=="")
+                    {
+                      setPWTwo("");
+                      return;
+                    }
+                    setPWTwo(pw2);
+                    }, [PWTwos]
+                     );
 
 
          return (

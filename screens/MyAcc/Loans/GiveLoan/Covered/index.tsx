@@ -165,8 +165,11 @@ const SMASendLns = props => {
 
 
                           } catch (error) {
-                            if (error){Alert.alert("Check your internet connection")
-                          return;}
+                            if(!error){
+                              Alert.alert("Covered Loan sent successfully")
+                              return;
+                          } 
+                          else{Alert.alert("Please check your internet connection")} 
                           }
                           await updtSendrAc();
                         };

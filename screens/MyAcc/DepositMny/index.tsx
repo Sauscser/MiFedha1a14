@@ -90,8 +90,11 @@ const SMADepositForm = props => {
                       );
     
             } catch (error) {
-              if (error){Alert.alert("Unsuccessful transaction; check internet connectiction")
-              return;}
+              if(!error){
+                Alert.alert("Money deposited successfully")
+                return;
+            } 
+            else{Alert.alert("Please check your internet connection")} 
             }
             await onUpdtUsrBal();
             };  

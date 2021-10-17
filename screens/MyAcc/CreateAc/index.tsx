@@ -203,9 +203,11 @@ const CreateAcForm = (props:UserReg) => {
               );
               
             } catch (error) {
-              if(error){
-                Alert.alert("Check your internet")
+              if(!error){
+                Alert.alert("Account created successfully")
                 return;
+            } 
+            else{Alert.alert("Please check your internet connection")
             }
             }
             await updtActAdm();

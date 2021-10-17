@@ -17,6 +17,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import styles from './styles';
 import { updateBankAdmin } from '../../../../../src/graphql/mutations';
@@ -54,7 +55,11 @@ const DeregMFAdvForm = (props) => {
           }
       
           
-          catch(error){console.log(error)}
+          catch(error){if(!error){
+            Alert.alert("Account deactivated successfully")
+            return;
+        } 
+        else{Alert.alert("Please check your internet connection")} }
           
 
           const updtActAdm = async()=>{

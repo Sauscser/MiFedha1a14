@@ -69,10 +69,11 @@ const DeregMFKForm = (props) => {
                     })
                   )        
               }
-              catch(error){if(error){
-                Alert.alert("Check your internet")
-                return
-              }}
+              catch(error){if(!error){
+                Alert.alert("Account deactivated successfully")
+                return;
+            } 
+            else{Alert.alert("Please check your internet connection")} }
                
             } 
           

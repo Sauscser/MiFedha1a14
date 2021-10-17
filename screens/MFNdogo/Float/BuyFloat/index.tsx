@@ -56,98 +56,108 @@ const ftchAgInfo = async () => {
             const fltBal: any = (agntBal.data.getAgent.floatBal)
             const ttlFltIn: any = (agntBal.data.getAgent.TtlFltIn)
             const Stts: any = (agntBal.data.getAgent.status)
-        
-    const buyAgntFlt = async () => {
-          try {
-                await API.graphql(
-                  graphqlOperation(createFloatPurchase, {
-                    input: {
-                      agentphone:  phoneContact,
-                      amount:amt,
-                      transactId:bankAdminId,
-                      bankAdminID:bankAdminId,
-                      status:"AccountActive",
-                      owner:ownr
-                                                  
-                   },
-                  }),
-                );
 
-                const updtAgntFlt = async () => {
+            const ftchCompInfo = async () => {
+              try{
+                  const CompFltBal:any = await API.graphql(
+                      graphqlOperation(getCompany, {AdminId:"BaruchHabaB'ShemAdonai2"}),
+                  );
+            
+                      const CompFtBal: any = (CompFltBal.data.getCompany.agentFloatIn)
+                  
+                      const buyAgntFlt = async () => {
+                        try {
+                              await API.graphql(
+                                graphqlOperation(createFloatPurchase, {
+                                  input: {
+                                    agentphone:  phoneContact,
+                                    amount:amt,
+                                    transactId:bankAdminId,
+                                    bankAdminID:bankAdminId,
+                                    status:"AccountActive",
+                                    owner:ownr
+                                                                
+                                 },
+                                }),
+                              );
+              
+                              
+              
+                                  
+                            } catch (error) {
+                              if(!error){
+                                Alert.alert("Float bought successfully")
+                                return;
+                            } 
+                            else{Alert.alert("Please check your internet connection")} 
+                            }   
+                           await updtAgntFlt();
+                          }; 
+
+                          const updtAgntFlt = async () => {
 
     
-                  try {
-                    await API.graphql(
-                      graphqlOperation(updateAgent, {
-                        input: {
-                          phonecontact: phoneContact,    
-                          floatBal: parseFloat(amt) + parseFloat(fltBal),
-                          TtlFltIn: parseFloat(amt) + parseFloat(ttlFltIn),
-                                
-                       },
-                      }),
-                    );
-      
-                    const ftchCompInfo = async () => {
-                      try{
-                          const CompFltBal:any = await API.graphql(
-                              graphqlOperation(getCompany, {AdminId:"BaruchHabaB'ShemAdonai2"}),
-                          );
-                    
-                              const CompFtBal: any = (CompFltBal.data.getCompany.agentFloatIn)
-                          
-                        
-                    
+                            try {
+                              await API.graphql(
+                                graphqlOperation(updateAgent, {
+                                  input: {
+                                    phonecontact: phoneContact,    
+                                    floatBal: parseFloat(amt) + parseFloat(fltBal),
+                                    TtlFltIn: parseFloat(amt) + parseFloat(ttlFltIn),
+                                          
+                                 },
+                                }),
+                              );
+                
+          
+                             
+                             
+                            } catch (error) {
+                              console.log('Error creating account', error);
+                            }   
+                           await updtCompFlt();
+                          };
+                                                  
                           const updtCompFlt = async () => {
                     
                       
-                              try {
-                                await API.graphql(
-                                  graphqlOperation(updateCompany, {
-                                    input: {
-                                      AdminId: "BaruchHabaB'ShemAdonai2",    
-                                      agentFloatIn: parseFloat(amt) + parseFloat(CompFtBal),
-                                        
-                                   },
-                                  }),
-                                );
-                              } catch (error) {
-                                console.log('Error creating account', error);
-                              }   
-                             
-                            };
-                    
-                          await updtCompFlt();
-                      }
-                    
-                      catch (e) {console.log(e)}
-                    
-                      setAmt ("");
-                       
-                    }       
-                            await ftchCompInfo();
-                   
-                    useEffect(() => {
-                      ftchCompInfo();
-                    }, []);
-                  } catch (error) {
-                    console.log('Error creating account', error);
-                  }   
-                 
-                };
-              
-                   
-                      await updtAgntFlt();
-                    
-              } catch (error) {
-                console.log('Error creating account', error);
-              }   
-             
-            }; 
+                            try {
+                              await API.graphql(
+                                graphqlOperation(updateCompany, {
+                                  input: {
+                                    AdminId: "BaruchHabaB'ShemAdonai2",    
+                                    agentFloatIn: parseFloat(amt) + parseFloat(CompFtBal),                                      
+                                 },
+                                }),
+                              );
+                            } catch (error) {
+                              console.log('Error creating account', error);
+                            }   
+                           
+                          };
+                  
+                        await updtCompFlt();
+       
+                                await updtAgntFlt();
+          
+                          
+                          if(Stts!=="AccountActive")
+                                    {Alert.alert("Your MFNdogo account has been deactivated");}
+                                    else{await buyAgntFlt();}
+              }            
+            
+              catch (e) {console.log(e)}
+            
+              setAmt ("");
+               
+            }       
+                    await ftchCompInfo();
 
-            if(Stts==="AccountActive")
-                      {await buyAgntFlt();}
-                      else{Alert.alert("Your MFNdogo account has been deactivated")}
+
+                    
+            
+        
+    
     }
 
     catch (e) {console.log(e)}
@@ -159,15 +169,49 @@ const ftchAgInfo = async () => {
 
 }
 
-useEffect(() => {
-  ftchAgInfo();
-}, []);
+useEffect(() =>{
+  const bnkId=bankAdminId
+    if(!bnkId && bnkId!=="")
+    {
+      setBankAdminId("");
+      return;
+    }
+    setBankAdminId(bnkId);
+    }, [bankAdminId]
+     );
 
-  
+     useEffect(() =>{
+      const trId=transId
+        if(!trId && trId!=="")
+        {
+          setTransId("");
+          return;
+        }
+        setTransId(trId);
+        }, [transId]
+         );
 
+         useEffect(() =>{
+          const phn=phoneContact
+            if(!phn && phn!=="")
+            {
+              setPhoneContact("");
+              return;
+            }
+            setPhoneContact(phn);
+            }, [phoneContact]
+             );
 
-
-  
+             useEffect(() =>{
+              const amount=amt
+                if(!amount && amount!=="")
+                {
+                  setAmt("");
+                  return;
+                }
+                setAmt(amount);
+                }, [amt]
+                 );  
 
   return (
     <View>
