@@ -276,7 +276,6 @@ export const getSmLoansCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       advregnu
       description
@@ -301,7 +300,6 @@ export const listSmLoansCovereds = /* GraphQL */ `
         amountgiven
         amountexpected
         amountrepaid
-        loanerPW
         repaymentPeriod
         advregnu
         description
@@ -323,7 +321,6 @@ export const getSmLoansNonCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       description
       status
@@ -351,7 +348,6 @@ export const listSmLoansNonCovereds = /* GraphQL */ `
         amountgiven
         amountexpected
         amountrepaid
-        loanerPW
         repaymentPeriod
         description
         status
@@ -369,8 +365,6 @@ export const getSmNonLoans = /* GraphQL */ `
       id
       senderID
       recId
-      amountgiven
-      senderPw
       description
       owner
       createdAt
@@ -389,8 +383,6 @@ export const listSmNonLoanss = /* GraphQL */ `
         id
         senderID
         recId
-        amountgiven
-        senderPw
         description
         owner
         createdAt
@@ -503,7 +495,6 @@ export const getFloatAdd = /* GraphQL */ `
     getFloatAdd(id: $id) {
       id
       withdrawerid
-      withdrawerPW
       amount
       agentPhonecontact
       sagentId
@@ -524,7 +515,6 @@ export const listFloatAdds = /* GraphQL */ `
       items {
         id
         withdrawerid
-        withdrawerPW
         amount
         agentPhonecontact
         sagentId
@@ -575,7 +565,6 @@ export const getAgentWithdrawals = /* GraphQL */ `
     getAgentWithdrawals(id: $id) {
       id
       agentPhone
-      agPW
       bankAdminId
       Amount
       status
@@ -599,7 +588,6 @@ export const listAgentWithdrawalss = /* GraphQL */ `
       items {
         id
         agentPhone
-        agPW
         bankAdminId
         Amount
         status
@@ -662,7 +650,6 @@ export const getSAgentWithdrawals = /* GraphQL */ `
   query GetSAgentWithdrawals($id: ID!) {
     getSAgentWithdrawals(id: $id) {
       id
-      saPW
       saId
       amount
       bankAdmnId
@@ -686,7 +673,6 @@ export const listSAgentWithdrawalss = /* GraphQL */ `
     ) {
       items {
         id
-        saPW
         saId
         amount
         bankAdmnId
@@ -1437,7 +1423,6 @@ export const getCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
-      timestamp
       advRegNu
       status
       owner
@@ -1462,7 +1447,6 @@ export const listCvrdGroupLoanss = /* GraphQL */ `
         amountExpectedBack
         amountRepaid
         description
-        timestamp
         advRegNu
         status
         owner
@@ -1904,7 +1888,6 @@ export const checkMyDetors = /* GraphQL */ `
         amountgiven
         amountexpected
         amountrepaid
-        loanerPW
         repaymentPeriod
         advregnu
         description
@@ -1941,7 +1924,6 @@ export const checkMyLenders = /* GraphQL */ `
         amountgiven
         amountexpected
         amountrepaid
-        loanerPW
         repaymentPeriod
         advregnu
         description
@@ -1978,7 +1960,6 @@ export const confrmMyLoaneeeee = /* GraphQL */ `
         amountgiven
         amountexpected
         amountrepaid
-        loanerPW
         repaymentPeriod
         advregnu
         description
@@ -2015,7 +1996,6 @@ export const checkbyAdvNLnar = /* GraphQL */ `
         amountgiven
         amountexpected
         amountrepaid
-        loanerPW
         repaymentPeriod
         advregnu
         description
@@ -2052,7 +2032,6 @@ export const checkbyAdvNLnars = /* GraphQL */ `
         amountgiven
         amountexpected
         amountrepaid
-        loanerPW
         repaymentPeriod
         advregnu
         description
@@ -2089,7 +2068,6 @@ export const chckbyAdvNLnee = /* GraphQL */ `
         amountgiven
         amountexpected
         amountrepaid
-        loanerPW
         repaymentPeriod
         advregnu
         description
@@ -2126,7 +2104,6 @@ export const checkMyDetorss = /* GraphQL */ `
         amountgiven
         amountexpected
         amountrepaid
-        loanerPW
         repaymentPeriod
         description
         status
@@ -2162,7 +2139,6 @@ export const checkMyLenderss = /* GraphQL */ `
         amountgiven
         amountexpected
         amountrepaid
-        loanerPW
         repaymentPeriod
         description
         status
@@ -2198,7 +2174,6 @@ export const confrmMyLoaneeeees = /* GraphQL */ `
         amountgiven
         amountexpected
         amountrepaid
-        loanerPW
         repaymentPeriod
         description
         status
@@ -2229,8 +2204,6 @@ export const checkSentNonLns = /* GraphQL */ `
         id
         senderID
         recId
-        amountgiven
-        senderPw
         description
         owner
         createdAt
@@ -2259,8 +2232,6 @@ export const checkReceivedNonLns = /* GraphQL */ `
         id
         senderID
         recId
-        amountgiven
-        senderPw
         description
         owner
         createdAt
@@ -2426,7 +2397,6 @@ export const createWythdrawals = /* GraphQL */ `
       items {
         id
         withdrawerid
-        withdrawerPW
         amount
         agentPhonecontact
         sagentId
@@ -2457,7 +2427,6 @@ export const createWythdrawalsss = /* GraphQL */ `
       items {
         id
         withdrawerid
-        withdrawerPW
         amount
         agentPhonecontact
         sagentId
@@ -2488,7 +2457,6 @@ export const readSaWithdrwls = /* GraphQL */ `
       items {
         id
         withdrawerid
-        withdrawerPW
         amount
         agentPhonecontact
         sagentId
@@ -2575,7 +2543,6 @@ export const lstAgentWithdrowals = /* GraphQL */ `
       items {
         id
         agentPhone
-        agPW
         bankAdminId
         Amount
         status
@@ -2605,7 +2572,6 @@ export const lstBankAdmTransactiooonnns = /* GraphQL */ `
       items {
         id
         agentPhone
-        agPW
         bankAdminId
         Amount
         status
@@ -2669,7 +2635,6 @@ export const lstSaWithdrlls = /* GraphQL */ `
     ) {
       items {
         id
-        saPW
         saId
         amount
         bankAdmnId
@@ -2699,7 +2664,6 @@ export const lstBankAdmTranssactions = /* GraphQL */ `
     ) {
       items {
         id
-        saPW
         saId
         amount
         bankAdmnId
@@ -3340,7 +3304,6 @@ export const cheeeeckGrpCovrdLonDflts = /* GraphQL */ `
         amountExpectedBack
         amountRepaid
         description
-        timestamp
         advRegNu
         status
         owner
@@ -3377,7 +3340,6 @@ export const updatAmaounntrepaid = /* GraphQL */ `
         amountExpectedBack
         amountRepaid
         description
-        timestamp
         advRegNu
         status
         owner
@@ -3414,7 +3376,6 @@ export const clearloaneriiiiifongoing = /* GraphQL */ `
         amountExpectedBack
         amountRepaid
         description
-        timestamp
         advRegNu
         status
         owner
@@ -3451,7 +3412,6 @@ export const checkbyAdvNGrrrpp = /* GraphQL */ `
         amountExpectedBack
         amountRepaid
         description
-        timestamp
         advRegNu
         status
         owner
@@ -3488,7 +3448,6 @@ export const checkbyAdvNGrrrppNLonie = /* GraphQL */ `
         amountExpectedBack
         amountRepaid
         description
-        timestamp
         advRegNu
         status
         owner
@@ -3525,7 +3484,6 @@ export const checkbyAdvNLoaneeeeeei = /* GraphQL */ `
         amountExpectedBack
         amountRepaid
         description
-        timestamp
         advRegNu
         status
         owner

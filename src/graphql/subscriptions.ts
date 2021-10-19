@@ -386,7 +386,6 @@ export const onCreateSmLoansCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       advregnu
       description
@@ -406,7 +405,6 @@ export const onUpdateSmLoansCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       advregnu
       description
@@ -426,7 +424,6 @@ export const onDeleteSmLoansCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       advregnu
       description
@@ -446,7 +443,6 @@ export const onCreateSmLoansNonCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       description
       status
@@ -465,7 +461,6 @@ export const onUpdateSmLoansNonCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       description
       status
@@ -484,7 +479,6 @@ export const onDeleteSmLoansNonCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       description
       status
@@ -500,8 +494,6 @@ export const onCreateSmNonLoans = /* GraphQL */ `
       id
       senderID
       recId
-      amountgiven
-      senderPw
       description
       owner
       createdAt
@@ -515,8 +507,6 @@ export const onUpdateSmNonLoans = /* GraphQL */ `
       id
       senderID
       recId
-      amountgiven
-      senderPw
       description
       owner
       createdAt
@@ -530,8 +520,6 @@ export const onDeleteSmNonLoans = /* GraphQL */ `
       id
       senderID
       recId
-      amountgiven
-      senderPw
       description
       owner
       createdAt
@@ -658,7 +646,6 @@ export const onCreateFloatAdd = /* GraphQL */ `
     onCreateFloatAdd {
       id
       withdrawerid
-      withdrawerPW
       amount
       agentPhonecontact
       sagentId
@@ -674,7 +661,6 @@ export const onUpdateFloatAdd = /* GraphQL */ `
     onUpdateFloatAdd {
       id
       withdrawerid
-      withdrawerPW
       amount
       agentPhonecontact
       sagentId
@@ -690,7 +676,6 @@ export const onDeleteFloatAdd = /* GraphQL */ `
     onDeleteFloatAdd {
       id
       withdrawerid
-      withdrawerPW
       amount
       agentPhonecontact
       sagentId
@@ -745,7 +730,6 @@ export const onCreateAgentWithdrawals = /* GraphQL */ `
     onCreateAgentWithdrawals {
       id
       agentPhone
-      agPW
       bankAdminId
       Amount
       status
@@ -760,7 +744,6 @@ export const onUpdateAgentWithdrawals = /* GraphQL */ `
     onUpdateAgentWithdrawals {
       id
       agentPhone
-      agPW
       bankAdminId
       Amount
       status
@@ -775,7 +758,6 @@ export const onDeleteAgentWithdrawals = /* GraphQL */ `
     onDeleteAgentWithdrawals {
       id
       agentPhone
-      agPW
       bankAdminId
       Amount
       status
@@ -849,7 +831,6 @@ export const onCreateSAgentWithdrawals = /* GraphQL */ `
   subscription OnCreateSAgentWithdrawals($owner: String) {
     onCreateSAgentWithdrawals(owner: $owner) {
       id
-      saPW
       saId
       amount
       bankAdmnId
@@ -864,7 +845,6 @@ export const onUpdateSAgentWithdrawals = /* GraphQL */ `
   subscription OnUpdateSAgentWithdrawals($owner: String) {
     onUpdateSAgentWithdrawals(owner: $owner) {
       id
-      saPW
       saId
       amount
       bankAdmnId
@@ -879,7 +859,6 @@ export const onDeleteSAgentWithdrawals = /* GraphQL */ `
   subscription OnDeleteSAgentWithdrawals($owner: String) {
     onDeleteSAgentWithdrawals(owner: $owner) {
       id
-      saPW
       saId
       amount
       bankAdmnId
@@ -1825,7 +1804,6 @@ export const onCreateCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
-      timestamp
       advRegNu
       status
       owner
@@ -1845,7 +1823,6 @@ export const onUpdateCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
-      timestamp
       advRegNu
       status
       owner
@@ -1865,7 +1842,6 @@ export const onDeleteCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
-      timestamp
       advRegNu
       status
       owner

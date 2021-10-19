@@ -16,6 +16,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator,
   TouchableOpacity,
   Alert,
 } from 'react-native';
@@ -29,9 +30,13 @@ const DeregMFKForm = (props) => {
   const navigation = useNavigation();
 
   const [MFKID, setMFKID] = useState("");
-  
+  const[isLoading, setIsLoading] = useState(false);  
   
   const gtCompDtls = async () =>{
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
     try{
       const compDtls :any= await API.graphql(
         graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -40,6 +45,10 @@ const DeregMFKForm = (props) => {
         const InActvMFKUsrs = compDtls.data.getCompany.ttlKFKbwInActv
            
         const updtActAdm = async()=>{
+          if(isLoading){
+            return;
+          }
+          setIsLoading(true);
               try{
                   await API.graphql(
                     graphqlOperation(updateCompany,{
@@ -51,14 +60,21 @@ const DeregMFKForm = (props) => {
                     })
                   )
               }
-              catch(error){console.log(error)}
-
+              catch(error){if(error){
+                Alert.alert("Please check your internet")
+                return;
+              }}
+              setIsLoading(false);
               await KFKDtls()
-              setMFKID("");
+              
             }
-            await updtActAdm();
+            updtActAdm();
 
             const KFKDtls = async () => {
+              if(isLoading){
+                return;
+                            }
+                            setIsLoading(true);
               try{
                   await API.graphql(
                     graphqlOperation(updateSAgent,{
@@ -71,9 +87,11 @@ const DeregMFKForm = (props) => {
               }
               catch(error){if(!error){
                 Alert.alert("Account deactivated successfully")
-                return;
+                
             } 
-            else{Alert.alert("Please check your internet connection")} }
+            else{Alert.alert("Please check your internet connection")
+            return;} }
+            setIsLoading(false);
                
             } 
           
@@ -84,6 +102,8 @@ const DeregMFKForm = (props) => {
               return
             }
           }
+          setIsLoading(false);
+          setMFKID("");
         };    
 
         useEffect(() =>{
@@ -124,6 +144,7 @@ const DeregMFKForm = (props) => {
                     <Text style={styles.sendLoanButtonText}>
                       Click to DeRegister 
                     </Text>
+                    {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
                   </TouchableOpacity>
                 </ScrollView>
               </View>

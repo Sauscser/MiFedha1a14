@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react';
 
 import {
   createFloatAdd,
-  createSMAccount,
-  createSMLoansCovered,
+  createSmAccount,
+  createSmLoansCovered,
   updateAdvocate,
   updateAgent,
   updateCompany,
   updateSAgent,
   updateSmAccount,
-  updateSMAccount,
+  
 } from '../../../../../src/graphql/mutations';
 
 import {API, Auth, graphqlOperation, DataStore} from 'aws-amplify';
@@ -34,6 +34,7 @@ import {
   Platform,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
 import { parse } from 'expo-linking';
@@ -48,7 +49,7 @@ const SMASendLns = props => {
   const [AdvRegNo, setAdvRegNo] = useState("");
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
-
+  const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
   
 
@@ -67,22 +68,30 @@ const SMASendLns = props => {
 
 
   const fetchSenderUsrDtls = async () => {
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
         graphqlOperation(getSmAccount, {nationalid: SenderNatId}),
       );
 
-      const SenderUsrBal =accountDtl.data.getSmAccount.balance;
-      const usrPW =accountDtl.data.getSmAccount.pw;
-      const usrAcActvStts =accountDtl.data.getSmAccount.acStatus;
-      const usrLnLim =accountDtl.data.getSmAccount.loanLimit;
-      const TtlActvLonsTmsLnrCovs =accountDtl.data.getSmAccount.TtlActvLonsTmsLnrCov;
-      const TtlActvLonsAmtLnrCovs =accountDtl.data.getSmAccount.TtlActvLonsAmtLnrCov;
+      const SenderUsrBal =accountDtl.data.getSMAccount.balance;
+      const usrPW =accountDtl.data.getSMAccount.pw;
+      const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
+      const usrLnLim =accountDtl.data.getSMAccount.loanLimit;
+      const TtlActvLonsTmsLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
+      const TtlActvLonsAmtLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
       
   
       const SenderSub =accountDtl.data.getSmAccount.owner;
       
       const fetchCompDtls = async () => {
+        if(isLoading){
+          return;
+        }
+        setIsLoading(true);
         try {
           const CompDtls:any = await API.graphql(
             graphqlOperation(getCompany, {
@@ -108,8 +117,7 @@ const SMASendLns = props => {
           const ttlSMLnsInAmtCovs = CompDtls.data.getCompany.ttlSMLnsInAmtCov;
           const ttlSMLnsInActvAmtCovs = CompDtls.data.getCompany.ttlSMLnsInActvAmtCov;
           const ttlSMLnsInTymsCovs = CompDtls.data.getCompany.ttlSMLnsInTymsCov;
-          const ttlSMLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSMLnsInActvTymsCov;
-          
+          const ttlSMLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSMLnsInActvTymsCov;       
 
           
 
@@ -118,6 +126,10 @@ const SMASendLns = props => {
           
           
           const fetchAdv = async () =>{
+            if(isLoading){
+              return;
+            }
+            setIsLoading(true);
             try{
 
               const AdvDtls:any = await API.graphql(
@@ -131,22 +143,30 @@ const SMASendLns = props => {
               
 
               const fetchRecUsrDtls = async () => {
+                if(isLoading){
+                  return;
+                }
+                setIsLoading(true);
                 try {
                     const RecAccountDtl:any = await API.graphql(
                         graphqlOperation(getSmAccount, {nationalid: RecNatId}),
                         );
-                        const RecUsrBal =RecAccountDtl.data.getSmAccount.balance;
-                        const usrNoBL =RecAccountDtl.data.getSmAccount.MaxTymsBL;
-                        const usrAcActvStts =RecAccountDtl.data.getSmAccount.acStatus; 
-                        const recAcptncCode =RecAccountDtl.data.getSmAccount.loanAcceptanceCode; 
-                        const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSmAccount.TtlActvLonsTmsLneeCov;
-                        const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSmAccount.TtlActvLonsAmtLneeCov;
+                        const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
+                        const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
+                        const usrAcActvStts =RecAccountDtl.data.getSMAccount.acStatus; 
+                        const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
+                        const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
+                        const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
                         
                       
                         const sendSMLn = async () => {
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
                           try {
                             await API.graphql(
-                              graphqlOperation(createSMLoansCovered, {
+                              graphqlOperation(createSmLoansCovered, {
                                 input: {
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,                                  
@@ -166,15 +186,21 @@ const SMASendLns = props => {
 
                           } catch (error) {
                             if(!error){
-                              Alert.alert("Covered Loan sent successfully")
-                              return;
+                              Alert.alert("Account deactivated successfully")
+                              
                           } 
-                          else{Alert.alert("Please check your internet connection")} 
+                          else{Alert.alert("Please check your internet connection")
+                          return;}
                           }
+                          setIsLoading(false);
                           await updtSendrAc();
                         };
 
                         const updtSendrAc = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
                           try{
                               await API.graphql(
                                 graphqlOperation(updateSmAccount, {
@@ -196,9 +222,14 @@ const SMASendLns = props => {
                             if (error){Alert.alert("Check your internet connection")
                             return;}
                           }
+                          setIsLoading(false);
                           await updtRecAc();
                         }
                         const updtRecAc = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
                           try{
                               await API.graphql(
                                 graphqlOperation(updateSmAccount, {
@@ -219,10 +250,16 @@ const SMASendLns = props => {
                             if (error){Alert.alert("Check your internet connection")
                             return;}
                           }
+                          setIsLoading(false);
                           await updtComp();
                         }
 
                         const updtComp = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(false);
+                          
                           try{
                               await API.graphql(
                                 graphqlOperation(updateCompany, {
@@ -252,9 +289,14 @@ const SMASendLns = props => {
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
+                          setIsLoading(false);
                           await updtAdv();
                         }
                         const updtAdv = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
                           try{
                               await API.graphql(
                                 graphqlOperation(updateAdvocate, {
@@ -271,6 +313,7 @@ const SMASendLns = props => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
+                          setIsLoading(false);
                         }
                                               
                         if (usrNoBL > 1){Alert.alert('Receiver does not qualify');}
@@ -295,6 +338,7 @@ const SMASendLns = props => {
                       if (e){Alert.alert("Check your internet connection")
       return;}                 
                     }
+                    setIsLoading(false);
                     }                    
                       await fetchRecUsrDtls();        
                     
@@ -304,6 +348,7 @@ const SMASendLns = props => {
               if (e){Alert.alert("Check your internet connection")
       return;}
             }
+            setIsLoading(false);
           }
           
           await fetchAdv();
@@ -313,7 +358,8 @@ const SMASendLns = props => {
         } catch (e) {
           if (e){Alert.alert("Check your internet connection")
       return;}
-        }        
+        } 
+        setIsLoading(false);       
       };
       await fetchCompDtls();
     
@@ -322,6 +368,7 @@ const SMASendLns = props => {
       if (e){Alert.alert("Check your internet connection")
       return;}
   };
+      setIsLoading(false);
       setSenderNatId('');
       setAmount("");
       setRecNatId('');
@@ -532,6 +579,7 @@ useEffect(() =>{
             onPress={fetchSenderUsrDtls}
             style={styles.sendAmtButton}>
             <Text style={styles.sendAmtButtonText}>Loan with Advocate Coverage</Text>
+            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
           </TouchableOpacity>
 
           

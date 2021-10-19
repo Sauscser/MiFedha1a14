@@ -14,6 +14,7 @@ import {
   Pressable,
   TextInput,
   ScrollView,
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
@@ -30,9 +31,13 @@ const DeregMFAdvForm = (props) => {
   const navigation = useNavigation();
 
   const [AdvRegNo, setAdvRegNo] = useState("");
-
+  const[isLoading, setIsLoading]= useState(false);
 
   const gtCompDtls = async () =>{
+    if (isLoading){
+      return;
+    }
+    setIsLoading(true);
     try{
       const compDtls :any= await API.graphql(
         graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -41,6 +46,10 @@ const DeregMFAdvForm = (props) => {
         const actvMFAdv = compDtls.data.getCompany.ttlKFAdvInActv
 
         const KFAdminDtls = async () => {
+          if(isLoading){
+            return;
+          }
+          setIsLoading(false);
           try{
               await API.graphql(
                 graphqlOperation(updateBankAdmin,{
@@ -57,12 +66,18 @@ const DeregMFAdvForm = (props) => {
           
           catch(error){if(!error){
             Alert.alert("Account deactivated successfully")
-            return;
+            
         } 
-        else{Alert.alert("Please check your internet connection")} }
+        else{Alert.alert("Please check your internet connection")
+      return;} }
+      setIsLoading(false);
           
 
           const updtActAdm = async()=>{
+            if(isLoading){
+              return;
+            }
+            setIsLoading(true);
             try{
                 await API.graphql(
                   graphqlOperation(updateCompany,{
@@ -74,17 +89,28 @@ const DeregMFAdvForm = (props) => {
                   })
                 )
             }
-            catch(error){console.log(error)}
+            catch(error){if(!error){
+              Alert.alert("Account deactivated successfully")
+              
+          } 
+          else{Alert.alert("Please check your internet connection")
+        return;}}
+        setIsLoading(false);
           }
           await updtActAdm();
          
         } 
-        await KFAdminDtls();         
+        KFAdminDtls();         
                   
           } catch (error) {
-            console.log('Error creating account', error);
+            if(!error){
+              Alert.alert("Account deactivated successfully")
+              
+          } 
+          else{Alert.alert("Please check your internet connection")
+        return;};
           }
-
+          setIsLoading(false);
           await setAdvRegNo("") 
 
         };    

@@ -17,6 +17,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 import styles from './styles';
 import Navigation from '../../../navigation';
@@ -38,6 +39,7 @@ import { getCompany } from '../../../src/graphql/queries';
   const [advRegNo, setAdvRegNo] = useState('');
   const[lat, setLat] = useState('');
   const[lon, setLon] = useState("");
+  const [isLoading, setIsLoading] =useState(false)
   
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();   
@@ -49,6 +51,10 @@ import { getCompany } from '../../../src/graphql/queries';
    }, []);
 
    const gtCompDtls = async () =>{
+     if(isLoading){
+       return;
+     }
+     setIsLoading(true);
     try{
         const compDtls :any= await API.graphql(
           graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -56,6 +62,10 @@ import { getCompany } from '../../../src/graphql/queries';
         const actvAdv = compDtls.data.getCompany.ttlKFAdvActv
         
         const onCreateNewMFN = async () => {
+          if(isLoading){
+            return;
+          }
+          setIsLoading(true);
           try {
             await API.graphql(
               graphqlOperation(createAdvocate, {
@@ -73,6 +83,7 @@ import { getCompany } from '../../../src/graphql/queries';
                 },
               }),
             );
+            setIsLoading(false);
            await updtActAdm();
           } 
           
@@ -80,18 +91,24 @@ import { getCompany } from '../../../src/graphql/queries';
           catch (error) {       
             if(!error){
               Alert.alert("Account created successfully")
-              return;
+              
           } 
-          else{Alert.alert("Please check your internet connection")} 
+          else{Alert.alert("Please check your internet connection")
+        return;} 
          
       
         } 
+        setIsLoading(false);
         };
       
-        await onCreateNewMFN();
+        onCreateNewMFN();
       
       
         const updtActAdm = async()=>{
+          if(isLoading){
+            return;
+          }
+          setIsLoading(true);
           try{
               await API.graphql(
                 graphqlOperation(updateCompany,{
@@ -108,7 +125,7 @@ import { getCompany } from '../../../src/graphql/queries';
         }
       
         
-      
+      setIsLoading(false);
       
       }
         }
@@ -119,7 +136,7 @@ catch(e){
     return;
   }
 };
-
+setIsLoading(false);
    }
     
 useEffect(() =>{
@@ -258,6 +275,7 @@ useEffect(() =>{
             <Text style={styles.sendLoanButtonText}>
               Click to Create Account
             </Text>
+            {isLoading && <ActivityIndicator color={'Blue'} size="large"/>}
           </TouchableOpacity>
         </ScrollView>
       </View>

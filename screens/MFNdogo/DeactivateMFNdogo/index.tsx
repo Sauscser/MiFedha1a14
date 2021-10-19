@@ -18,6 +18,7 @@ import {
   Platform,
   TouchableOpacity,
   Alert,
+  ActivityIndicator
 } from 'react-native';
 import styles from './styles';
 
@@ -29,10 +30,14 @@ const DeregMFNForm = (props) => {
   const navigation = useNavigation();
 
   const [phoneContact, setPhoneContact] = useState("");
-  
+  const[isLoading, setIsLoading] = useState(false);
   
 
   const gtCompDtls = async () =>{
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
     try{
       const compDtls :any= await API.graphql(
         graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -41,6 +46,10 @@ const DeregMFNForm = (props) => {
         const InActvMFNUsrs = compDtls.data.getCompany.ttlKFNdgInActv
         
         const updtActAdm = async()=>{
+          if(isLoading){
+            return;
+          }
+          setIsLoading(true);
           try{
               await API.graphql(
                 graphqlOperation(updateCompany,{
@@ -57,10 +66,16 @@ const DeregMFNForm = (props) => {
             return;
           }
         }
+        setIsLoading(false);
+        await KFNDtls(); 
       }
-        await updtActAdm();
+        updtActAdm();
 
         const KFNDtls = async () => {
+          if(isLoading){
+            return;
+          }
+          setIsLoading(true);
           try{
               await API.graphql(
                 graphqlOperation(updateAgent,{
@@ -72,21 +87,23 @@ const DeregMFNForm = (props) => {
               )        
           }
           catch(error){if(!error){
-            Alert.alert("Account deactivated successfully")
-            return;
-        } 
-        else{Alert.alert("Please check your internet connection")} }
+                Alert.alert("Account deactivated successfully")
+                
+            } 
+            else{Alert.alert("Please check your internet connection")
+            return;}
           
         } 
-        await KFNDtls();   
-      }
+          setIsLoading(false);
+      }}
            catch (error) {
             if(error){
               Alert.alert("Check your internet connection")
               return;
           }
         }
-          setPhoneContact("") 
+          setIsLoading(false);
+          setPhoneContact(""); 
         };    
 
         useEffect(() =>{
@@ -128,6 +145,7 @@ const DeregMFNForm = (props) => {
                     <Text style={styles.sendLoanButtonText}>
                       Click to DeRegister 
                     </Text>
+                    {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
                   </TouchableOpacity>
                 </ScrollView>
               </View>

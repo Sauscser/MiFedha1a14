@@ -15,6 +15,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator,
   TouchableOpacity,
   Alert,
 } from 'react-native';
@@ -35,6 +36,7 @@ const BuyFlt = (props:buyAgntFlts) => {
   const[ownr, setownr] =useState(null);
   const[bankAdminId, setBankAdminId] =useState("");
   const[transId, setTransId] =useState("");
+  const [isLoading, setIsLoading] = useState(false)
 
 const fetchUser = async () => {
   const userInfo = await Auth.currentAuthenticatedUser();  
@@ -48,24 +50,37 @@ useEffect(() => {
 }, []);
 
 const ftchAgInfo = async () => {
+  if (isLoading){
+    return;
+  }
+  setIsLoading(true);
     try{
         const agntBal:any = await API.graphql(
             graphqlOperation(getAgent, {phonecontact:phoneContact}),
         );
 
-            const fltBal: any = (agntBal.data.getAgent.floatBal)
-            const ttlFltIn: any = (agntBal.data.getAgent.TtlFltIn)
-            const Stts: any = (agntBal.data.getAgent.status)
+            const fltBal = (agntBal.data.getAgent.floatBal);
+            const ttlFltIn = (agntBal.data.getAgent.TtlFltIn);
+            const Stts = (agntBal.data.getAgent.status);
 
             const ftchCompInfo = async () => {
+              if(isLoading)
+              {return;}
+              setIsLoading(true);
+              
               try{
                   const CompFltBal:any = await API.graphql(
                       graphqlOperation(getCompany, {AdminId:"BaruchHabaB'ShemAdonai2"}),
                   );
             
-                      const CompFtBal: any = (CompFltBal.data.getCompany.agentFloatIn)
+                      const CompFtBal = (CompFltBal.data.getCompany.agentFloatIn)
+
+                      
                   
                       const buyAgntFlt = async () => {
+                        if(isLoading)
+                        {return;}
+                        setIsLoading(true);
                         try {
                               await API.graphql(
                                 graphqlOperation(createFloatPurchase, {
@@ -86,16 +101,24 @@ const ftchAgInfo = async () => {
                                   
                             } catch (error) {
                               if(!error){
-                                Alert.alert("Float bought successfully")
-                                return;
+                                Alert.alert("Account deactivated successfully")
+                                
                             } 
-                            else{Alert.alert("Please check your internet connection")} 
+                            else{Alert.alert("Please check your internet connection")
+                            return;}
                             }   
                            await updtAgntFlt();
+                           setIsLoading(false);
                           }; 
 
-                          const updtAgntFlt = async () => {
+                          if(Stts!=="AccountActive")
+                                    {Alert.alert("Your MFNdogo account has been deactivated");}
+                                    else{buyAgntFlt();}
 
+                          const updtAgntFlt = async () => {
+                            if(isLoading){
+                              return;
+                            }
     
                             try {
                               await API.graphql(
@@ -116,10 +139,13 @@ const ftchAgInfo = async () => {
                               console.log('Error creating account', error);
                             }   
                            await updtCompFlt();
+                           setIsLoading(false)
                           };
                                                   
                           const updtCompFlt = async () => {
-                    
+                    if(isLoading){
+                      return;
+                    }
                       
                             try {
                               await API.graphql(
@@ -133,22 +159,14 @@ const ftchAgInfo = async () => {
                             } catch (error) {
                               console.log('Error creating account', error);
                             }   
-                           
+                           setIsLoading(false)
                           };
-                  
-                        await updtCompFlt();
-       
-                                await updtAgntFlt();
-          
-                          
-                          if(Stts!=="AccountActive")
-                                    {Alert.alert("Your MFNdogo account has been deactivated");}
-                                    else{await buyAgntFlt();}
+                                            
               }            
             
               catch (e) {console.log(e)}
             
-              setAmt ("");
+              setIsLoading(false)
                
             }       
                     await ftchCompInfo();
@@ -166,7 +184,7 @@ const ftchAgInfo = async () => {
     setBankAdminId("")
     setPhoneContact('');
     setTransId("")
-
+setIsLoading(false)
 }
 
 useEffect(() =>{
@@ -266,6 +284,7 @@ useEffect(() =>{
             <Text style={styles.sendLoanButtonText}>
               Click to Buy
             </Text>
+            {isLoading && <ActivityIndicator color={'blue'} size = "large" />}
           </TouchableOpacity>
         </ScrollView>
       </View>

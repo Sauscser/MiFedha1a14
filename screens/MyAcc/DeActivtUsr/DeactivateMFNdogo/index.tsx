@@ -18,6 +18,7 @@ import {
   Platform,
   TouchableOpacity,
   Alert,
+  ActivityIndicator
 } from 'react-native';
 import styles from './styles';
 
@@ -29,10 +30,14 @@ const DeregUsrForm = (props) => {
   const navigation = useNavigation();
 
   const [UsrId, setUsrId] = useState("");
-  
+  const[isLoading, setIsLoading] = useState(false);
   
 
   const gtCompDtls = async () =>{
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
     try{
       const compDtls :any= await API.graphql(
         graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -41,6 +46,10 @@ const DeregUsrForm = (props) => {
         const inactMFUsrs = compDtls.data.getCompany.ttlInactvUsrs
            
         const KFUsrDtls = async () => {
+          if(isLoading){
+            return;
+          }
+          setIsLoading(true);
           try{
               await API.graphql(
                 graphqlOperation(updateSmAccount,{
@@ -55,16 +64,21 @@ const DeregUsrForm = (props) => {
           }
           catch(error){if(!error){
             Alert.alert("Account deactivated successfully")
-            return;
+            
         } 
-        else{Alert.alert("Please check your internet connection")} }
-          
+        else{Alert.alert("Please check your internet connection")
+        return;} }
+          setIsLoading(false);          
           await updtActAdm ();
         } 
 
         await KFUsrDtls();
 
         const updtActAdm = async()=>{
+          if(isLoading){
+            return;
+          }
+          setIsLoading(true);
               try{
                   await API.graphql(
                     graphqlOperation(updateCompany,{
@@ -80,6 +94,7 @@ const DeregUsrForm = (props) => {
                 Alert.alert("Check your internet")
                 return;
             }}
+            setIsLoading(false);
             }
             
             
@@ -89,6 +104,7 @@ const DeregUsrForm = (props) => {
               return;
           };
           }
+          setIsLoading(false);
           setUsrId("") 
         };    
 
@@ -130,6 +146,7 @@ const DeregUsrForm = (props) => {
                     <Text style={styles.sendLoanButtonText}>
                       Click to DeRegister 
                     </Text>
+                    {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
                   </TouchableOpacity>
                 </ScrollView>
               </View>

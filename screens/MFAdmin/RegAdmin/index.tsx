@@ -16,6 +16,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator,
   TouchableOpacity,
   Alert,
 } from 'react-native';
@@ -28,9 +29,10 @@ const CreateAdminForm = () => {
   const [nationalId, setNationalid] = useState("");
   const [ownr, setOwner] = useState(null);
   const [pword, setPW] = useState("");
+  const [isLoading, setISLoading] = useState(false);
 
   const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser({bypassCache:true});
+    const userInfo = await Auth.currentAuthenticatedUser();
     setOwner(userInfo.attributes.sub);    
    
 
@@ -40,6 +42,10 @@ const CreateAdminForm = () => {
     }, []); 
 
     const gtCompDtls = async () =>{
+      if(isLoading){
+        return;
+      }
+      setISLoading(true);
         try{
             const compDtls :any= await API.graphql(
               graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -48,18 +54,24 @@ const CreateAdminForm = () => {
             
 
             const gtUsrDtls4AdminDtls = async () => {
+              if(isLoading){
+                return;
+              }
+              setISLoading(true);
               try {
                 const resp:any = await API.graphql(
                   graphqlOperation(getSmAccount, { nationalid: nationalId })
                 );
-                const adminId = resp.data.getSmAccount.nationalid; 
-                const adminName = resp.data.getSmAccount.name; 
-                const adminPhn = resp.data.getSmAccount.phonecontact;     
-                const adminEml = resp.data.getSmAccount.awsemail;  
-                
-                
-                
+                const adminId = resp.data.getSMAccount.nationalid; 
+                const adminName = resp.data.getSMAccount.name; 
+                const adminPhn = resp.data.getSMAccount.phonecontact;     
+                const adminEml = resp.data.getSMAccount.awsemail;           
+                                
                 const CrtAdminAc = async () => {
+                  if(isLoading){
+                    return;
+                  }
+                  setISLoading(true);
                   try {
                     await API.graphql(
                       graphqlOperation(createBankAdmin, {
@@ -81,18 +93,19 @@ const CreateAdminForm = () => {
                     
                    
                   } catch (error) {
+                    console.log(error)
                     if(!error){
-                      Alert.alert("Account created successfully")
-                      return;
+                      Alert.alert("Account created successfully");
+                      
                   } 
-                  else{Alert.alert("Please check your internet connection")}                  
+                  else{Alert.alert("Please check your internet connectivity");  
+                  return;}                  
                   }
-                  await updtActAdm();                  
-                 
-                  setPW("");
+                     setISLoading(false);           
+                  await updtActAdm();               
                 };
               
-                await CrtAdminAc();
+                CrtAdminAc();
 
                 const updtActAdm = async()=>{
                   try{
@@ -106,23 +119,26 @@ const CreateAdminForm = () => {
                       )
                   }
                   catch(error){if(error){
-                    Alert.alert("Check your internet")
+                    console.log(error)
+                    Alert.alert("Please Check your internet now")
                     return
                   }}
-                }
+                  setISLoading(false);
+                };
 
           
                 
-              } catch (e) {
-                if(e){
-                  Alert.alert("Check your internet")
-                  return
+              } catch (error) {
+                if(error){
+                  console.log(error)
+                  Alert.alert("Please Check your internet")
+                  return;
                 }
               }
-              
+              setISLoading(false);
             };
 
-            gtUsrDtls4AdminDtls();
+            await gtUsrDtls4AdminDtls();
                   
         }
 
@@ -131,7 +147,7 @@ const CreateAdminForm = () => {
             Alert.alert("Check your internet")
             return
           }
-        }
+        }     setISLoading(false);
               setNationalid("");
               setPW("");
     };
@@ -192,6 +208,7 @@ const CreateAdminForm = () => {
                     <Text style={styles.sendLoanButtonText}>
                       Click to Create Account
                     </Text>
+                    {isLoading && <ActivityIndicator color={'Blue'} size="large"/>}
                   </TouchableOpacity>
                 </ScrollView>
               </View>

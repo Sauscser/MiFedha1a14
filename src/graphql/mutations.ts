@@ -398,7 +398,6 @@ export const createSmLoansCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       advregnu
       description
@@ -421,7 +420,6 @@ export const updateSmLoansCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       advregnu
       description
@@ -444,7 +442,6 @@ export const deleteSmLoansCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       advregnu
       description
@@ -467,7 +464,6 @@ export const createSmLoansNonCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       description
       status
@@ -489,7 +485,6 @@ export const updateSmLoansNonCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       description
       status
@@ -511,7 +506,6 @@ export const deleteSmLoansNonCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
-      loanerPW
       repaymentPeriod
       description
       status
@@ -530,8 +524,6 @@ export const createSmNonLoans = /* GraphQL */ `
       id
       senderID
       recId
-      amountgiven
-      senderPw
       description
       owner
       createdAt
@@ -548,8 +540,6 @@ export const updateSmNonLoans = /* GraphQL */ `
       id
       senderID
       recId
-      amountgiven
-      senderPw
       description
       owner
       createdAt
@@ -566,8 +556,6 @@ export const deleteSmNonLoans = /* GraphQL */ `
       id
       senderID
       recId
-      amountgiven
-      senderPw
       description
       owner
       createdAt
@@ -715,7 +703,6 @@ export const createFloatAdd = /* GraphQL */ `
     createFloatAdd(input: $input, condition: $condition) {
       id
       withdrawerid
-      withdrawerPW
       amount
       agentPhonecontact
       sagentId
@@ -734,7 +721,6 @@ export const updateFloatAdd = /* GraphQL */ `
     updateFloatAdd(input: $input, condition: $condition) {
       id
       withdrawerid
-      withdrawerPW
       amount
       agentPhonecontact
       sagentId
@@ -753,7 +739,6 @@ export const deleteFloatAdd = /* GraphQL */ `
     deleteFloatAdd(input: $input, condition: $condition) {
       id
       withdrawerid
-      withdrawerPW
       amount
       agentPhonecontact
       sagentId
@@ -820,7 +805,6 @@ export const createAgentWithdrawals = /* GraphQL */ `
     createAgentWithdrawals(input: $input, condition: $condition) {
       id
       agentPhone
-      agPW
       bankAdminId
       Amount
       status
@@ -838,7 +822,6 @@ export const updateAgentWithdrawals = /* GraphQL */ `
     updateAgentWithdrawals(input: $input, condition: $condition) {
       id
       agentPhone
-      agPW
       bankAdminId
       Amount
       status
@@ -856,7 +839,6 @@ export const deleteAgentWithdrawals = /* GraphQL */ `
     deleteAgentWithdrawals(input: $input, condition: $condition) {
       id
       agentPhone
-      agPW
       bankAdminId
       Amount
       status
@@ -942,7 +924,6 @@ export const createSAgentWithdrawals = /* GraphQL */ `
   ) {
     createSAgentWithdrawals(input: $input, condition: $condition) {
       id
-      saPW
       saId
       amount
       bankAdmnId
@@ -960,7 +941,6 @@ export const updateSAgentWithdrawals = /* GraphQL */ `
   ) {
     updateSAgentWithdrawals(input: $input, condition: $condition) {
       id
-      saPW
       saId
       amount
       bankAdmnId
@@ -978,7 +958,6 @@ export const deleteSAgentWithdrawals = /* GraphQL */ `
   ) {
     deleteSAgentWithdrawals(input: $input, condition: $condition) {
       id
-      saPW
       saId
       amount
       bankAdmnId
@@ -2008,7 +1987,6 @@ export const createCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
-      timestamp
       advRegNu
       status
       owner
@@ -2031,7 +2009,6 @@ export const updateCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
-      timestamp
       advRegNu
       status
       owner
@@ -2054,7 +2031,6 @@ export const deleteCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
-      timestamp
       advRegNu
       status
       owner

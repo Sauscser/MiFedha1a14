@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {createSMAccount, updateAgent, updateCompany} from '../../../src/graphql/mutations';
-import { getAgent, getCompany, getSMAccount, } from '../../../src/graphql/queries';
+import {createSmAccount, updateAgent, updateCompany} from '../../../../src/graphql/mutations';
+import { getAgent, getCompany, getSmAccount, } from '../../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -14,6 +14,7 @@ import {
   Pressable,
   TextInput,
   ScrollView,
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
@@ -30,9 +31,13 @@ const DeregMFAdminForm = (props) => {
   const navigation = useNavigation();
 
   const [AdminId, setAdminId] = useState("");
-
+  const[isLoading, setIsLoading] = useState(false);
 
   const gtCompDtls = async () =>{
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
     try{
       const compDtls :any= await API.graphql(
         graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -41,6 +46,10 @@ const DeregMFAdminForm = (props) => {
         const actvMFAdmin = compDtls.data.getCompany.ttlKFAdmActv
            
         const updtActAdm = async()=>{
+          if(isLoading){
+            return;
+          }
+          setIsLoading(true);
               try{
                   await API.graphql(
                     graphqlOperation(updateCompany,{
@@ -58,12 +67,16 @@ const DeregMFAdminForm = (props) => {
                   return;
                 }
               }
-
+                setIsLoading(false)
               await KFAdminDtls();
             }
-            await updtActAdm();
+            updtActAdm();
 
             const KFAdminDtls = async () => {
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
               try{
                   await API.graphql(
                     graphqlOperation(updateBankAdmin,{
@@ -78,10 +91,11 @@ const DeregMFAdminForm = (props) => {
               }
               catch(error){if(!error){
                 Alert.alert("Account deactivated successfully")
-                return;
+                
             } 
-            else{Alert.alert("Please check your internet connection")} }
-              
+            else{Alert.alert("Please check your internet connection")
+          return;} }
+              setIsLoading(false);
             } 
             
           } catch (error) {
@@ -90,6 +104,7 @@ const DeregMFAdminForm = (props) => {
               return
             }
           }
+          setIsLoading(false);
           setAdminId("") 
         };    
 
@@ -133,6 +148,7 @@ const DeregMFAdminForm = (props) => {
                     <Text style={styles.sendLoanButtonText}>
                       Click to DeRegister 
                     </Text>
+                    {isLoading && <ActivityIndicator color={'Blue'} size="large"/>}
                   </TouchableOpacity>
                 </ScrollView>
               </View>

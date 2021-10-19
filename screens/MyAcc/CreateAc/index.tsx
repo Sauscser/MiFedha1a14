@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {createSMAccount, updateCompany} from '../../../src/graphql/mutations';
+import {createSmAccount, createSMAccount, updateCompany} from '../../../src/graphql/mutations';
 import { getCompany, getSMAccount, } from '../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
@@ -18,6 +18,7 @@ import {
   Platform,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
 
@@ -39,7 +40,7 @@ const CreateAcForm = (props:UserReg) => {
   const [nam, setName] = useState(null);
   const [phoneContact, setPhoneContact] = useState(null);
   const [awsEmail, setAWSEmail] = useState(null);
-  
+  const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
 
   const[ownr, setownr] = useState(null);
@@ -64,6 +65,10 @@ const CreateAcForm = (props:UserReg) => {
       }, []);
       
     const gtCompDtls = async () =>{
+      if(isLoading){
+        return;
+      }
+      setIsLoading(true);
       try{
         const compDtls :any= await API.graphql(
           graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -71,9 +76,13 @@ const CreateAcForm = (props:UserReg) => {
           const actvSMUsrs = compDtls.data.getCompany.ttlActiveUsers
         
       const onCreateNewSMAc = async () => {
+        if(isLoading){
+          return;
+        }
+        setIsLoading(true);
         try {
           await API.graphql(
-          graphqlOperation(createSMAccount, {
+          graphqlOperation(createSmAccount, {
           input: {
           nationalid: nationalId,
           name: nam,
@@ -201,20 +210,27 @@ const CreateAcForm = (props:UserReg) => {
                   },
                 }),
               );
-              
+              await updtActAdm();
             } catch (error) {
+              console.log(error)
               if(!error){
                 Alert.alert("Account created successfully")
                 return;
             } 
             else{Alert.alert("Please check your internet connection")
+            return;
             }
             }
-            await updtActAdm();
+            setIsLoading(false);
+            
           };
           onCreateNewSMAc();
 
           const updtActAdm = async()=>{
+            if(isLoading){
+              return;
+            }
+            setIsLoading(true);
             try{
                 await API.graphql(
                   graphqlOperation(updateCompany,{
@@ -227,22 +243,25 @@ const CreateAcForm = (props:UserReg) => {
             }
             catch(error){
               if(error){
-                Alert.alert("Check your internet")
+                Alert.alert("Check your internet connection")
                 return;
             }
             }
+            setIsLoading(false);
           }
-          await updtActAdm();
+          
         
 }
 
 catch(e){
+  
   if(e){
     Alert.alert("Check your internet")
     return;
 }
 }
-setNationalid('');
+            setIsLoading(false)
+            setNationalid('');
             setPW('');
 };
 
@@ -302,6 +321,7 @@ useEffect(() =>{
                     <Text style={styles.sendLoanButtonText}>
                       Click to Create Account
                     </Text>
+                    {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
                   </TouchableOpacity>
                 </ScrollView>
               </View>

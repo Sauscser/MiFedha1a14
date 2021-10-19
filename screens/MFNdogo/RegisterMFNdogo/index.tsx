@@ -17,6 +17,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 import styles from './styles';
 import { getCompany, getSAgent } from '../../../src/graphql/queries';
@@ -31,6 +32,7 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
   const [saRegNo, setSARegNo] = useState('');
   const[lat, setLat] = useState('');
   const[lon, setLon] = useState("");
+  const[isLoading, setIsLoading]=useState(false);
   
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();   
@@ -43,6 +45,10 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
 
 
    const gtMFKDtsl = async () =>{
+     if(isLoading){
+       return;
+     }
+     setIsLoading(true);
     try{
     const MFKb:any = await API.graphql(
     graphqlOperation(getSAgent, {id:saRegNo})
@@ -50,6 +56,10 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
     const actvMFNdogs = MFKb.data.getSAgent.actvMFNdog
 
     const gtCompDtls = async () =>{
+      if(isLoading){
+        return;
+      }
+      setIsLoading(true);
       try{
           const compDtls :any= await API.graphql(
             graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -57,6 +67,10 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
           const actvNdg = compDtls.data.getCompany.ttlKFNdgActv
 
           const createNewMFN = async () => {
+            if(isLoading){
+              return;
+            }
+            setIsLoading(true);
             try {
               await API.graphql(
                 graphqlOperation(createAgent, {
@@ -87,18 +101,24 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
             
             catch (error) {
               if(!error){
-                Alert.alert("Account created successfully")
-                return;
+                Alert.alert("Account deactivated successfully")
+                
             } 
-            else{Alert.alert("Please check your internet connection")} 
+            else{Alert.alert("Please check your internet connection")
+            return;}
               
             }
+            setIsLoading(false);
         await updtActAdm();
           }
 
-          await createNewMFN();
+          createNewMFN();
           
           const updtActAdm = async()=>{
+            if(isLoading){
+              return;
+            }
+            setIsLoading(true);
             try{
                 await API.graphql(
                   graphqlOperation(updateCompany,{
@@ -112,10 +132,15 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
             catch(error){if (error) {
               Alert.alert("Please check your internet connection")
             }}
+            setIsLoading(false);
             await updtSA();
           }
           
           const updtSA = async()=>{
+            if(isLoading){
+              return;
+            }
+            setIsLoading(true);
             try{
                 await API.graphql(
                   graphqlOperation(updateSAgent,{
@@ -129,27 +154,22 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
             catch(error){if (error) {
               Alert.alert("Please check your internet connection")
             }}
+            setIsLoading(false)
           }              
 
       }
   
         catch(e){
-        console.log(e)
+        
         }
+        setIsLoading(false);
         };
         await gtCompDtls();       
   
       }
-catch(e){console.log(e)}
-
-
-
-  
-    
-    
-    
-
-
+catch(e){if(e) {
+  Alert.alert("Please check your internet connection")
+}} 
     setNationalid('');
     setPW('');
     setName('');

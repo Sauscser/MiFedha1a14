@@ -15,6 +15,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator,
   TouchableOpacity,
   Alert,
 } from 'react-native';
@@ -28,6 +29,7 @@ const RegisterMFKubwaAcForm = props => {
   const[eml, setEml] =useState("");
   const[ownr, setOwnr] = useState(null);
   const [pword, setPW] = useState("");
+  const[isLoading, setIsLoading] = useState(false);
 
 
 
@@ -41,6 +43,10 @@ const RegisterMFKubwaAcForm = props => {
   }, []);
 
   const gtCompDtls = async () =>{
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
     try{
         const compDtls :any= await API.graphql(
           graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -50,6 +56,10 @@ const RegisterMFKubwaAcForm = props => {
         
 
         const CreateNewSA = async () => {
+          if(isLoading){
+            return;
+          }
+          setIsLoading(true);
           try {
             await API.graphql(
               graphqlOperation(createSAgent, {
@@ -60,11 +70,13 @@ const RegisterMFKubwaAcForm = props => {
                   phonecontact: phoneContact,
                   pw: pword,
                   TtlEarnings: 0,
+                  actvMFNdog:0,
+                  InctvMFNdog:0,
                   email: eml,
                   saBalance: 0,   
                   status: 'AccountActive',
                   owner:ownr,
-                  actMFNdog:0,
+                  
                 },
               }),
             );
@@ -77,17 +89,24 @@ const RegisterMFKubwaAcForm = props => {
           
           
           catch (error) {
+            console.log(error)
             if(!error){
-              Alert.alert("Account created successfully")
-              return;
+              Alert.alert("Account registered successfully")
+              
           } 
-          else{Alert.alert("Please check your internet connection")} 
-          } 
+          else{Alert.alert("Please check your internet connection")
+          return;}
+          }
+          setIsLoading(false); 
           await  updtActAdm();              
         };
-        await CreateNewSA();
+        CreateNewSA();
 
         const updtActAdm = async()=>{
+          if(isLoading){
+            return;
+          }
+          setIsLoading(true);
           try{
               await API.graphql(
                 graphqlOperation(updateCompany,{
@@ -102,6 +121,7 @@ const RegisterMFKubwaAcForm = props => {
             Alert.alert("Check your internet")
             return
           }}
+          setIsLoading(false);
         }
 
        
@@ -113,6 +133,7 @@ const RegisterMFKubwaAcForm = props => {
       return
     }
   }
+          setIsLoading(false);
           setNationalid('');
           setPW("");
           setName("");
@@ -240,6 +261,7 @@ const RegisterMFKubwaAcForm = props => {
             <Text style={styles.sendLoanButtonText}>
               Click to Create Account
             </Text>
+            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
           </TouchableOpacity>
         </ScrollView>
       </View>

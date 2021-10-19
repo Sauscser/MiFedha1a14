@@ -15,7 +15,7 @@ import {
 
   TextInput,
   ScrollView,
-
+  ActivityIndicator,
   TouchableOpacity,
   Alert,
 } from 'react-native';
@@ -27,7 +27,7 @@ const SMADepositForm = props => {
   const[agPWd, setAgPWd] = useState("");
   const [AgentPhn, setAgentPhn] = useState("");
   const [amount, setAmount] = useState("");
-  
+  const[isLoading, setIsLoading] = useState(false);
   const [ownr, setownr] = useState(null);
 
   
@@ -45,6 +45,10 @@ const SMADepositForm = props => {
 
 
   const fetchAcDtls = async () => {
+    if(isLoading){
+      return;
+    }
+    setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
         graphqlOperation(getSmAccount, {nationalid: nationalId}),
@@ -57,6 +61,10 @@ const SMADepositForm = props => {
          
       
       const fetchAgtBal = async () => {
+        if(isLoading){
+          return;
+        }
+        setIsLoading(true);
         try {
           const AgentBal:any = await API.graphql(
             graphqlOperation(getAgent, {phonecontact: AgentPhn}),
@@ -68,6 +76,10 @@ const SMADepositForm = props => {
           const AgAcAct = AgentBal.data.getAgent.status;
 
           const gtCompDtls = async () =>{
+            if(isLoading){
+                return;
+            }
+            setIsLoading(true)
             try{
               const compDtls :any= await API.graphql(
               graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -91,15 +103,21 @@ const SMADepositForm = props => {
     
             } catch (error) {
               if(!error){
-                Alert.alert("Money deposited successfully")
-                return;
+                Alert.alert("Account deactivated successfully")
+                
             } 
-            else{Alert.alert("Please check your internet connection")} 
+            else{Alert.alert("Please check your internet connection")
+            return;}
             }
+            setIsLoading(false);
             await onUpdtUsrBal();
             };  
 
             const onUpdtUsrBal = async () => {
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
               try {
                 await API.graphql(
                   graphqlOperation(updateSmAccount, {
@@ -117,10 +135,15 @@ const SMADepositForm = props => {
                 if (error){Alert.alert("Check internet Connection")
                 return;}
               }
+              setIsLoading(false);
               await onUpdtAgntBal();
               }; 
 
               const onUpdtAgntBal = async () => {
+                if(isLoading){
+                  return;
+                }
+                setIsLoading(true);
                 try {
                   await API.graphql(
                     graphqlOperation(updateAgent, {
@@ -139,10 +162,15 @@ const SMADepositForm = props => {
                   if (error){Alert.alert("Check internet Connection")
                   return;}
                 }
+                setIsLoading(false);
                 await onUpdtCompBal();
                 }; 
 
                 const onUpdtCompBal = async () => {
+                  if(isLoading){
+                    return;
+                  }
+                  setIsLoading(true);
                   try {
                     await API.graphql(
                       graphqlOperation(updateCompany, {
@@ -161,6 +189,7 @@ const SMADepositForm = props => {
                     if (error){Alert.alert("Check internet Connection")
                     return;}
                   }
+                  setIsLoading(false);
                   }; 
             
             if (usrStts!=="AccountActive") {
@@ -191,6 +220,7 @@ const SMADepositForm = props => {
           if (error){Alert.alert("Check your internet connection")
                   return;}
             }
+            setIsLoading(false);
             };    
 
             await gtCompDtls();           
@@ -200,7 +230,9 @@ const SMADepositForm = props => {
       if (e){Alert.alert("Check your internet connection")
       return;}
          
-    }   };
+    }   
+  setIsLoading(false);
+};
 
     await fetchAgtBal();
     }
@@ -210,7 +242,7 @@ const SMADepositForm = props => {
       return;}
           
      }       
-
+    setIsLoading(false);
     setNationalid("");
     setAmount("");
     setAgPWd("")
@@ -317,6 +349,7 @@ const SMADepositForm = props => {
 
           <TouchableOpacity onPress={fetchAcDtls} style={styles.sendAmtButton}>
             <Text style={styles.sendAmtButtonText}>Click to Deposit</Text>
+            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
           </TouchableOpacity>
         </ScrollView>
       </View>

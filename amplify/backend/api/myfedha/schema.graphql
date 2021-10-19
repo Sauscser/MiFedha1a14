@@ -253,7 +253,7 @@ type SMLoansCovered
   amountgiven: Float!
   amountexpected: Float!
   amountrepaid: Float!
-  loanerPW: String!
+  
 
   repaymentPeriod: Int!
   advregnu: String!
@@ -326,7 +326,7 @@ type SMLoansNonCovered
   amountgiven: Float!
   amountexpected: Float!
   amountrepaid: Float!
-  loanerPW: String!
+  
 
   repaymentPeriod: Int!
 
@@ -389,8 +389,7 @@ type SMNonLoans
   id: ID!
   senderID: String!
   recId: String!
-  amountgiven: Float!
-  senderPw: String!
+ 
   description: String
 
   owner: String!
@@ -460,7 +459,7 @@ type FloatPurchase
   @auth(
     rules: [
       { allow: groups, groups: ["BankAdmin"], operations: [create, read] }
-      { allow: groups, groups: ["KFNdogo "], operations: [update, read] }
+      { allow: groups, groups: ["KFNdogo "], operations: [create, update, read] }
       { allow: owner, operations: [read, update] }
       { allow: private, operations: [read, update] }
       {
@@ -561,7 +560,7 @@ type FloatAdd
   ) {
   id: ID!
   withdrawerid: String!
-  withdrawerPW: String!
+ 
   amount: Float!
   agentPhonecontact: String!
 
@@ -596,7 +595,7 @@ type FloatReduction
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
       { allow: groups, groups: ["KFNdogo "], operations: [read, create] }
-      { allow: private, operations: [read] }
+      { allow: private, operations: [create, read] }
       {
         allow: groups
         groups: ["Executive"]
@@ -618,7 +617,7 @@ type AgentWithdrawals
   @auth(
     rules: [
       { allow: owner, operations: [read, update, create] }
-      { allow: private, operations: [read] }
+      { allow: private, operations: [create, read] }
       {
         allow: groups
         groups: ["AdminOne"]
@@ -660,7 +659,7 @@ type AgentWithdrawals
   ) {
   id: ID!
   agentPhone: String!
-  agPW: String!
+  
   bankAdminId: String!
   Amount: Float!
   status: Status!
@@ -678,7 +677,7 @@ type SAgent
       }
       { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
       { allow: owner, operations: [read, update] }
-      { allow: private, operations: [read] }
+      { allow: private, operations: [read, update] }
       {
         allow: groups
         groups: ["RegionalAdmin"]
@@ -723,6 +722,7 @@ type SAgentWithdrawals
   @auth(
     rules: [
       { allow: owner, operations: [read, create] }
+      
       {
         allow: groups
         groups: ["AdminOne"]
@@ -758,7 +758,7 @@ type SAgentWithdrawals
     queryField: "lstBankAdmTranssactions"
   ) {
   id: ID!
-  saPW: String!
+
   saId: String!
   amount: Float!
   bankAdmnId: String!
@@ -775,7 +775,7 @@ type BankAdmin
         groups: ["AdminOne"]
         operations: [read, create, update, delete]
       }
-      { allow: owner, operations: [read, update, create] }
+      
       { allow: private, operations: [read, update, create] }
       {
         allow: groups
@@ -801,6 +801,21 @@ type BankAdmin
         allow: groups
         groups: ["Executive"]
         operations: [read, create, update, delete]
+      }
+      {
+        allow: groups
+        groups: ["KFNdogo"]
+        operations: [read, update]
+      }
+      {
+        allow: groups
+        groups: ["Advocate"]
+        operations: [read, update]
+      }
+      {
+        allow: groups
+        groups: ["KFKubwa"]
+        operations: [read, update]
       }
     ]
   )
@@ -862,7 +877,7 @@ type Advocate
   @model
   @auth(
     rules: [
-      { allow: private, operations: [read] }
+      { allow: private, operations: [read, update] }
       { allow: owner, operations: [read, update] }
       {
         allow: groups
@@ -969,6 +984,7 @@ type Company
         groups: ["Executive"]
         operations: [read, create, update, delete]
       }
+      { allow: private, operations: [read, update] }
     ]
   )
   @key(fields: ["AdminId"])
@@ -1449,7 +1465,7 @@ type CvrdGroupLoans
   amountExpectedBack: Float!
   amountRepaid: Float!
   description: String
-  timestamp: AWSTimestamp!
+  
   advRegNu: String!
   status: Status!
   owner: String!
