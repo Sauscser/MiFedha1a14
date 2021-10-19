@@ -61,7 +61,7 @@ const MFKSignIn = (props) => {
             {
               if(e){
                 Alert.alert("Check your internet")
-                return
+                return;
               }
                
                 
