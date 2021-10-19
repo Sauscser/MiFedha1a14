@@ -94,6 +94,12 @@ const AdminSignIn = (props) => {
             ttlKFAdmActv: 0,
             ttlKFAdmInActv: 0,
             ttlKAdmBLStts: 0,
+
+            ttlNonLonssRecSM: 0,
+            ttlNonLonssSentSM:0,
+
+            ttlNonLonssRecChm: 0,
+            ttlNonLonssSentChm:0,
           
             ttlSMLnsInAmtCov: 0,
             ttlChmLnsInAmtCov: 0,

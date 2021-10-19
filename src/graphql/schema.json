@@ -219,7 +219,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "getSMNonLoans",
+          "name" : "getNonLoans",
           "description" : null,
           "args" : [ {
             "name" : "id",
@@ -237,20 +237,20 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "SMNonLoans",
+            "name" : "NonLoans",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listSMNonLoanss",
+          "name" : "listNonLoanss",
           "description" : null,
           "args" : [ {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSMNonLoansFilterInput",
+              "name" : "ModelNonLoansFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -275,7 +275,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelSMNonLoansConnection",
+            "name" : "ModelNonLoansConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -2326,7 +2326,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "checkSentNonLns",
+          "name" : "checkNonLonsbySender",
           "description" : null,
           "args" : [ {
             "name" : "senderID",
@@ -2334,6 +2334,15 @@
             "type" : {
               "kind" : "SCALAR",
               "name" : "String",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "status",
+            "description" : null,
+            "type" : {
+              "kind" : "INPUT_OBJECT",
+              "name" : "ModelStringKeyConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -2351,7 +2360,7 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSMNonLoansFilterInput",
+              "name" : "ModelNonLoansFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -2376,7 +2385,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelSMNonLoansConnection",
+            "name" : "ModelNonLoansConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -2394,6 +2403,15 @@
             },
             "defaultValue" : null
           }, {
+            "name" : "status",
+            "description" : null,
+            "type" : {
+              "kind" : "INPUT_OBJECT",
+              "name" : "ModelStringKeyConditionInput",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
             "name" : "sortDirection",
             "description" : null,
             "type" : {
@@ -2407,7 +2425,7 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSMNonLoansFilterInput",
+              "name" : "ModelNonLoansFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -2432,7 +2450,72 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelSMNonLoansConnection",
+            "name" : "ModelNonLoansConnection",
+            "ofType" : null
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "checkBySenderReciever",
+          "description" : null,
+          "args" : [ {
+            "name" : "senderID",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "recId",
+            "description" : null,
+            "type" : {
+              "kind" : "INPUT_OBJECT",
+              "name" : "ModelStringKeyConditionInput",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "sortDirection",
+            "description" : null,
+            "type" : {
+              "kind" : "ENUM",
+              "name" : "ModelSortDirection",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "filter",
+            "description" : null,
+            "type" : {
+              "kind" : "INPUT_OBJECT",
+              "name" : "ModelNonLoansFilterInput",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "limit",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "Int",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "nextToken",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          } ],
+          "type" : {
+            "kind" : "OBJECT",
+            "name" : "ModelNonLoansConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -6540,6 +6623,36 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+          "name" : "ttlNonLonsRecSM",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "ttlNonLonsSentSM",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
           "name" : "MaxTymsBL",
           "description" : null,
           "args" : [ ],
@@ -6601,6 +6714,21 @@
           "deprecationReason" : null
         }, {
           "name" : "loanLimit",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "nonLonLimit",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -6765,6 +6893,41 @@
           "deprecationReason" : null
         }, {
           "name" : "AccountNotBL",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "NonLons",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "SMCovLonRepayment",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "SMNonCovLonRepayment",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "ChmCovLonRepayment",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "ChmNonCovLonRepayment",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "CredSlCovLonRepayment",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "CredSlNonCovLonRepayment",
           "description" : null,
           "isDeprecated" : false,
           "deprecationReason" : null
@@ -7801,6 +7964,24 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "ttlNonLonsRecSM",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonsSentSM",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "MaxTymsBL",
           "description" : null,
           "type" : {
@@ -7838,6 +8019,15 @@
           "defaultValue" : null
         }, {
           "name" : "loanLimit",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "nonLonLimit",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -9292,7 +9482,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "SMNonLoans",
+        "name" : "NonLoans",
         "description" : null,
         "fields" : [ {
           "name" : "id",
@@ -9340,6 +9530,21 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+          "name" : "amount",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
           "name" : "description",
           "description" : null,
           "args" : [ ],
@@ -9347,6 +9552,21 @@
             "kind" : "SCALAR",
             "name" : "String",
             "ofType" : null
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "status",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "ENUM",
+              "name" : "Status",
+              "ofType" : null
+            }
           },
           "isDeprecated" : false,
           "deprecationReason" : null
@@ -9402,7 +9622,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "ModelSMNonLoansConnection",
+        "name" : "ModelNonLoansConnection",
         "description" : null,
         "fields" : [ {
           "name" : "items",
@@ -9413,7 +9633,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "OBJECT",
-              "name" : "SMNonLoans",
+              "name" : "NonLoans",
               "ofType" : null
             }
           },
@@ -9437,7 +9657,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelSMNonLoansFilterInput",
+        "name" : "ModelNonLoansFilterInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -9468,11 +9688,29 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "amount",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "description",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "status",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStatusInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -9493,7 +9731,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSMNonLoansFilterInput",
+              "name" : "ModelNonLoansFilterInput",
               "ofType" : null
             }
           },
@@ -9506,7 +9744,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSMNonLoansFilterInput",
+              "name" : "ModelNonLoansFilterInput",
               "ofType" : null
             }
           },
@@ -9516,7 +9754,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelSMNonLoansFilterInput",
+            "name" : "ModelNonLoansFilterInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -10676,6 +10914,17 @@
               "name" : "AWSDateTime",
               "ofType" : null
             }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "owner",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
@@ -13304,6 +13553,66 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+          "name" : "ttlNonLonssRecSM",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "ttlNonLonssSentSM",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "ttlNonLonssRecChm",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "ttlNonLonssSentChm",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
           "name" : "companyEarningBal",
           "description" : null,
           "args" : [ ],
@@ -15224,6 +15533,42 @@
           "defaultValue" : null
         }, {
           "name" : "userClearanceFee",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssRecSM",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssSentSM",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssRecChm",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssSentChm",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -17327,6 +17672,36 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+          "name" : "ttlNonLonsRecChm",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "ttlNonLonsSentChm",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
           "name" : "ttlDpst",
           "description" : null,
           "args" : [ ],
@@ -17848,6 +18223,24 @@
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonsRecChm",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonsSentChm",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -20609,7 +21002,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "createSMNonLoans",
+          "name" : "createNonLoans",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -20619,7 +21012,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "CreateSMNonLoansInput",
+                "name" : "CreateNonLoansInput",
                 "ofType" : null
               }
             },
@@ -20629,20 +21022,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSMNonLoansConditionInput",
+              "name" : "ModelNonLoansConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "SMNonLoans",
+            "name" : "NonLoans",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "updateSMNonLoans",
+          "name" : "updateNonLoans",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -20652,7 +21045,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "UpdateSMNonLoansInput",
+                "name" : "UpdateNonLoansInput",
                 "ofType" : null
               }
             },
@@ -20662,20 +21055,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSMNonLoansConditionInput",
+              "name" : "ModelNonLoansConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "SMNonLoans",
+            "name" : "NonLoans",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "deleteSMNonLoans",
+          "name" : "deleteNonLoans",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -20685,7 +21078,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "DeleteSMNonLoansInput",
+                "name" : "DeleteNonLoansInput",
                 "ofType" : null
               }
             },
@@ -20695,14 +21088,14 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSMNonLoansConditionInput",
+              "name" : "ModelNonLoansConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "SMNonLoans",
+            "name" : "NonLoans",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -24115,6 +24508,32 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "ttlNonLonsRecSM",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonsSentSM",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
           "name" : "MaxTymsBL",
           "description" : null,
           "type" : {
@@ -24168,6 +24587,19 @@
           "defaultValue" : null
         }, {
           "name" : "loanLimit",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "nonLonLimit",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
@@ -25200,6 +25632,24 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "ttlNonLonsRecSM",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonsSentSM",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "MaxTymsBL",
           "description" : null,
           "type" : {
@@ -25237,6 +25687,15 @@
           "defaultValue" : null
         }, {
           "name" : "loanLimit",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "nonLonLimit",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -26292,6 +26751,24 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "ttlNonLonsRecSM",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonsSentSM",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "MaxTymsBL",
           "description" : null,
           "type" : {
@@ -26329,6 +26806,15 @@
           "defaultValue" : null
         }, {
           "name" : "loanLimit",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "nonLonLimit",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -27166,7 +27652,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "CreateSMNonLoansInput",
+        "name" : "CreateNonLoansInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -27205,12 +27691,38 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "amount",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
           "name" : "description",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
             "name" : "String",
             "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "status",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "ENUM",
+              "name" : "Status",
+              "ofType" : null
+            }
           },
           "defaultValue" : null
         }, {
@@ -27232,7 +27744,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelSMNonLoansConditionInput",
+        "name" : "ModelNonLoansConditionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -27254,11 +27766,29 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "amount",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "description",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "status",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStatusInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -27270,7 +27800,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSMNonLoansConditionInput",
+              "name" : "ModelNonLoansConditionInput",
               "ofType" : null
             }
           },
@@ -27283,7 +27813,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSMNonLoansConditionInput",
+              "name" : "ModelNonLoansConditionInput",
               "ofType" : null
             }
           },
@@ -27293,7 +27823,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelSMNonLoansConditionInput",
+            "name" : "ModelNonLoansConditionInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -27303,7 +27833,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "UpdateSMNonLoansInput",
+        "name" : "UpdateNonLoansInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -27338,11 +27868,29 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "amount",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "description",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
             "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "status",
+          "description" : null,
+          "type" : {
+            "kind" : "ENUM",
+            "name" : "Status",
             "ofType" : null
           },
           "defaultValue" : null
@@ -27361,7 +27909,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "DeleteSMNonLoansInput",
+        "name" : "DeleteNonLoansInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -31192,6 +31740,58 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "ttlNonLonssRecSM",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssSentSM",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssRecChm",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssSentChm",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
           "name" : "companyEarningBal",
           "description" : null,
           "type" : {
@@ -32825,6 +33425,42 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "ttlNonLonssRecSM",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssSentSM",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssRecChm",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssSentChm",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "companyEarningBal",
           "description" : null,
           "type" : {
@@ -34062,6 +34698,42 @@
           "defaultValue" : null
         }, {
           "name" : "userClearanceFee",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssRecSM",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssSentSM",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssRecChm",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonssSentChm",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -36232,6 +36904,32 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "ttlNonLonsRecChm",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonsSentChm",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
           "name" : "ttlDpst",
           "description" : null,
           "type" : {
@@ -36634,6 +37332,24 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "ttlNonLonsRecChm",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonsSentChm",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "ttlDpst",
           "description" : null,
           "type" : {
@@ -36975,6 +37691,24 @@
           "type" : {
             "kind" : "SCALAR",
             "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonsRecChm",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ttlNonLonsSentChm",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
             "ofType" : null
           },
           "defaultValue" : null
@@ -38975,34 +39709,34 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onCreateSMNonLoans",
+          "name" : "onCreateNonLoans",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "SMNonLoans",
+            "name" : "NonLoans",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onUpdateSMNonLoans",
+          "name" : "onUpdateNonLoans",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "SMNonLoans",
+            "name" : "NonLoans",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onDeleteSMNonLoans",
+          "name" : "onDeleteNonLoans",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "SMNonLoans",
+            "name" : "NonLoans",
             "ofType" : null
           },
           "isDeprecated" : false,

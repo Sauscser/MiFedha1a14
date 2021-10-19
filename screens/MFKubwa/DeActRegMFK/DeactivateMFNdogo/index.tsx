@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {createSMAccount, updateAgent, updateCompany, updateSAgent} from '../../../../src/graphql/mutations';
-import { getAgent, getCompany, getSMAccount, } from '../../../../src/graphql/queries';
+import { updateAgent, updateCompany, updateSAgent} from '../../../../src/graphql/mutations';
+import { getAgent, getCompany,  } from '../../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';

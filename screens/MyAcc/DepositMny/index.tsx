@@ -54,10 +54,10 @@ const SMADepositForm = props => {
         graphqlOperation(getSmAccount, {nationalid: nationalId}),
       );
 
-      const usrBala = accountDtl.data.getSmAccount.balance;      
-      const usrTlDpst = accountDtl.data.getSmAccount.ttlDpstSM;
-      const usrStts = accountDtl.data.getSmAccount.acStatus; 
-      const depositLimits = accountDtl.data.getSmAccount.depositLimit;  
+      const usrBala = accountDtl.data.getSMAccount.balance;      
+      const usrTlDpst = accountDtl.data.getSMAccount.ttlDpstSM;
+      const usrStts = accountDtl.data.getSMAccount.acStatus; 
+      const depositLimits = accountDtl.data.getSMAccount.depositLimit;  
          
       
       const fetchAgtBal = async () => {
@@ -227,7 +227,7 @@ const SMADepositForm = props => {
       
     }     
     catch (e) {
-      if (e){Alert.alert("Check your internet connection")
+      if (e){Alert.alert("MFNdogo does not exist")
       return;}
          
     }   
@@ -238,7 +238,7 @@ const SMADepositForm = props => {
     }
 
     catch (e) {
-      if (e){Alert.alert("Check your internet connection")
+      if (e){Alert.alert("User does not exist")
       return;}
           
      }       

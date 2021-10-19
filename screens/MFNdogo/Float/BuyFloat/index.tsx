@@ -157,7 +157,9 @@ const ftchAgInfo = async () => {
                                 }),
                               );
                             } catch (error) {
-                              console.log('Error creating account', error);
+                              if(error){
+                                Alert.alert("Please check your internet connection")
+                              };
                             }   
                            setIsLoading(false)
                           };
@@ -178,7 +180,9 @@ const ftchAgInfo = async () => {
     
     }
 
-    catch (e) {console.log(e)}
+    catch (e) {if(e){
+      Alert.alert("MFNdogo does not exist")
+    }}
 
     setAmt ("");
     setBankAdminId("")

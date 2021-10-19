@@ -2,8 +2,8 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getSmAccount = /* GraphQL */ `
-  query GetSmAccount($nationalid: ID!) {
+export const getSMAccount = /* GraphQL */ `
+  query GetSMAccount($nationalid: ID!) {
     getSMAccount(nationalid: $nationalid) {
       nationalid
       name
@@ -114,11 +114,14 @@ export const getSmAccount = /* GraphQL */ `
       TtlClrdNvrBLLonsTmsByrNonCov
       TtlClrdNvrBLLonsAmtSllrNonCov
       TtlClrdNvrBLLonsAmtByrNonCov
+      ttlNonLonsRecSM
+      ttlNonLonsSentSM
       MaxTymsBL
       loanStatus
       acStatus
       blStatus
       loanLimit
+      nonLonLimit
       withdrawalLimit
       depositLimit
       owner
@@ -127,8 +130,8 @@ export const getSmAccount = /* GraphQL */ `
     }
   }
 `;
-export const listSmAccounts = /* GraphQL */ `
-  query ListSmAccounts(
+export const listSMAccounts = /* GraphQL */ `
+  query ListSMAccounts(
     $nationalid: ID
     $filter: ModelSMAccountFilterInput
     $limit: Int
@@ -252,11 +255,14 @@ export const listSmAccounts = /* GraphQL */ `
         TtlClrdNvrBLLonsTmsByrNonCov
         TtlClrdNvrBLLonsAmtSllrNonCov
         TtlClrdNvrBLLonsAmtByrNonCov
+        ttlNonLonsRecSM
+        ttlNonLonsSentSM
         MaxTymsBL
         loanStatus
         acStatus
         blStatus
         loanLimit
+        nonLonLimit
         withdrawalLimit
         depositLimit
         owner
@@ -267,8 +273,8 @@ export const listSmAccounts = /* GraphQL */ `
     }
   }
 `;
-export const getSmLoansCovered = /* GraphQL */ `
-  query GetSmLoansCovered($id: ID!) {
+export const getSMLoansCovered = /* GraphQL */ `
+  query GetSMLoansCovered($id: ID!) {
     getSMLoansCovered(id: $id) {
       id
       loaneeid
@@ -286,8 +292,8 @@ export const getSmLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const listSmLoansCovereds = /* GraphQL */ `
-  query ListSmLoansCovereds(
+export const listSMLoansCovereds = /* GraphQL */ `
+  query ListSMLoansCovereds(
     $filter: ModelSMLoansCoveredFilterInput
     $limit: Int
     $nextToken: String
@@ -312,8 +318,8 @@ export const listSmLoansCovereds = /* GraphQL */ `
     }
   }
 `;
-export const getSmLoansNonCovered = /* GraphQL */ `
-  query GetSmLoansNonCovered($id: ID!) {
+export const getSMLoansNonCovered = /* GraphQL */ `
+  query GetSMLoansNonCovered($id: ID!) {
     getSMLoansNonCovered(id: $id) {
       id
       loaneeid
@@ -330,8 +336,8 @@ export const getSmLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const listSmLoansNonCovereds = /* GraphQL */ `
-  query ListSmLoansNonCovereds(
+export const listSMLoansNonCovereds = /* GraphQL */ `
+  query ListSMLoansNonCovereds(
     $filter: ModelSMLoansNonCoveredFilterInput
     $limit: Int
     $nextToken: String
@@ -359,31 +365,35 @@ export const listSmLoansNonCovereds = /* GraphQL */ `
     }
   }
 `;
-export const getSmNonLoans = /* GraphQL */ `
-  query GetSmNonLoans($id: ID!) {
-    getSMNonLoans(id: $id) {
+export const getNonLoans = /* GraphQL */ `
+  query GetNonLoans($id: ID!) {
+    getNonLoans(id: $id) {
       id
       senderID
       recId
+      amount
       description
+      status
       owner
       createdAt
       updatedAt
     }
   }
 `;
-export const listSmNonLoanss = /* GraphQL */ `
-  query ListSmNonLoanss(
-    $filter: ModelSMNonLoansFilterInput
+export const listNonLoanss = /* GraphQL */ `
+  query ListNonLoanss(
+    $filter: ModelNonLoansFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listSMNonLoanss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listNonLoanss(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         senderID
         recId
+        amount
         description
+        status
         owner
         createdAt
         updatedAt
@@ -537,6 +547,7 @@ export const getFloatReduction = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -555,6 +566,7 @@ export const listFloatReductions = /* GraphQL */ `
         status
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -889,6 +901,10 @@ export const getCompany = /* GraphQL */ `
       userLoanTransferFee
       userTransferFee
       userClearanceFee
+      ttlNonLonssRecSM
+      ttlNonLonssSentSM
+      ttlNonLonssRecChm
+      ttlNonLonssSentChm
       companyEarningBal
       companyEarning
       agentEarningBal
@@ -1043,6 +1059,10 @@ export const listCompanys = /* GraphQL */ `
         userLoanTransferFee
         userTransferFee
         userClearanceFee
+        ttlNonLonssRecSM
+        ttlNonLonssSentSM
+        ttlNonLonssRecChm
+        ttlNonLonssSentChm
         companyEarningBal
         companyEarning
         agentEarningBal
@@ -1285,6 +1305,8 @@ export const getGroup = /* GraphQL */ `
       grpBal
       ttlGrpMembers
       description
+      ttlNonLonsRecChm
+      ttlNonLonsSentChm
       ttlDpst
       ttlWthdrwn
       TtlActvLonsTmsLnrChmCov
@@ -1340,6 +1362,8 @@ export const listGroups = /* GraphQL */ `
         grpBal
         ttlGrpMembers
         description
+        ttlNonLonsRecChm
+        ttlNonLonsSentChm
         ttlDpst
         ttlWthdrwn
         TtlActvLonsTmsLnrChmCov
@@ -1707,11 +1731,14 @@ export const checkUserrrBalance = /* GraphQL */ `
         TtlClrdNvrBLLonsTmsByrNonCov
         TtlClrdNvrBLLonsAmtSllrNonCov
         TtlClrdNvrBLLonsAmtByrNonCov
+        ttlNonLonsRecSM
+        ttlNonLonsSentSM
         MaxTymsBL
         loanStatus
         acStatus
         blStatus
         loanLimit
+        nonLonLimit
         withdrawalLimit
         depositLimit
         owner
@@ -1849,11 +1876,14 @@ export const accessingPersonalAc = /* GraphQL */ `
         TtlClrdNvrBLLonsTmsByrNonCov
         TtlClrdNvrBLLonsAmtSllrNonCov
         TtlClrdNvrBLLonsAmtByrNonCov
+        ttlNonLonsRecSM
+        ttlNonLonsSentSM
         MaxTymsBL
         loanStatus
         acStatus
         blStatus
         loanLimit
+        nonLonLimit
         withdrawalLimit
         depositLimit
         owner
@@ -2185,16 +2215,18 @@ export const confrmMyLoaneeeees = /* GraphQL */ `
     }
   }
 `;
-export const checkSentNonLns = /* GraphQL */ `
-  query CheckSentNonLns(
+export const checkNonLonsbySender = /* GraphQL */ `
+  query CheckNonLonsbySender(
     $senderID: String
+    $status: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelSMNonLoansFilterInput
+    $filter: ModelNonLoansFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    checkSentNonLns(
+    checkNonLonsbySender(
       senderID: $senderID
+      status: $status
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -2204,7 +2236,9 @@ export const checkSentNonLns = /* GraphQL */ `
         id
         senderID
         recId
+        amount
         description
+        status
         owner
         createdAt
         updatedAt
@@ -2216,12 +2250,46 @@ export const checkSentNonLns = /* GraphQL */ `
 export const checkReceivedNonLns = /* GraphQL */ `
   query CheckReceivedNonLns(
     $recId: String
+    $status: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelSMNonLoansFilterInput
+    $filter: ModelNonLoansFilterInput
     $limit: Int
     $nextToken: String
   ) {
     checkReceivedNonLns(
+      recId: $recId
+      status: $status
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        senderID
+        recId
+        amount
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const checkBySenderReciever = /* GraphQL */ `
+  query CheckBySenderReciever(
+    $senderID: String
+    $recId: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelNonLoansFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    checkBySenderReciever(
+      senderID: $senderID
       recId: $recId
       sortDirection: $sortDirection
       filter: $filter
@@ -2232,7 +2300,9 @@ export const checkReceivedNonLns = /* GraphQL */ `
         id
         senderID
         recId
+        amount
         description
+        status
         owner
         createdAt
         updatedAt
@@ -2439,8 +2509,8 @@ export const createWythdrawalsss = /* GraphQL */ `
     }
   }
 `;
-export const readSaWithdrwls = /* GraphQL */ `
-  query ReadSaWithdrwls(
+export const readSAWithdrwls = /* GraphQL */ `
+  query ReadSAWithdrwls(
     $sagentId: String
     $sortDirection: ModelSortDirection
     $filter: ModelFloatAddFilterInput
@@ -2492,6 +2562,7 @@ export const creatFltDeduc = /* GraphQL */ `
         status
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -2520,6 +2591,7 @@ export const reeeadAmtDpstd = /* GraphQL */ `
         status
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -2583,8 +2655,8 @@ export const lstBankAdmTransactiooonnns = /* GraphQL */ `
     }
   }
 `;
-export const checkingSa = /* GraphQL */ `
-  query CheckingSa(
+export const checkingSA = /* GraphQL */ `
+  query CheckingSA(
     $saNationalid: String
     $sortDirection: ModelSortDirection
     $filter: ModelSAgentFilterInput
@@ -2618,8 +2690,8 @@ export const checkingSa = /* GraphQL */ `
     }
   }
 `;
-export const lstSaWithdrlls = /* GraphQL */ `
-  query LstSaWithdrlls(
+export const lstSAWithdrlls = /* GraphQL */ `
+  query LstSAWithdrlls(
     $saId: String
     $sortDirection: ModelSortDirection
     $filter: ModelSAgentWithdrawalsFilterInput
@@ -2803,6 +2875,10 @@ export const checkbyComppw = /* GraphQL */ `
         userLoanTransferFee
         userTransferFee
         userClearanceFee
+        ttlNonLonssRecSM
+        ttlNonLonssSentSM
+        ttlNonLonssRecChm
+        ttlNonLonssSentChm
         companyEarningBal
         companyEarning
         agentEarningBal
@@ -3183,6 +3259,8 @@ export const checkGrpsICrtd = /* GraphQL */ `
         grpBal
         ttlGrpMembers
         description
+        ttlNonLonsRecChm
+        ttlNonLonsSentChm
         ttlDpst
         ttlWthdrwn
         TtlActvLonsTmsLnrChmCov

@@ -1,10 +1,10 @@
 {
-  "AppSyncApiName": "myfedha",
+  "AppSyncApiName": "MiFedha",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
   "AuthCognitoUserPoolId": {
     "Fn::GetAtt": [
-      "authmyfedha48b24838",
+      "authmyfedha9dbbb8ed",
       "Outputs.UserPoolId"
     ]
   }

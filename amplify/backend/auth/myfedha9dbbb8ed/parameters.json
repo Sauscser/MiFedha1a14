@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "myfedha48b24838_identitypool_48b24838",
+    "identityPoolName": "myfedha9dbbb8ed_identitypool_9dbbb8ed",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "myfedh48b24838",
-    "userPoolName": "myfedha48b24838_userpool_48b24838",
+    "resourceNameTruncated": "myfedh9dbbb8ed",
+    "userPoolName": "myfedha9dbbb8ed_userpool_9dbbb8ed",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -29,10 +29,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "myfedh48b24838_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "myfedh9dbbb8ed_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "48b24838",
-    "resourceName": "myfedha48b24838",
+    "sharedId": "9dbbb8ed",
+    "resourceName": "myfedha9dbbb8ed",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [

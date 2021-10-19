@@ -26,7 +26,9 @@ import DActivtMFAdv from "../../screens/Advocate/DeactivtAdv/DeactivateMFAdmin/D
 import SMGvCovLon from "../../screens/MyAcc/Loans/GiveLoan/Covered";
 import SMGvNonCovLon from "../../screens/MyAcc/Loans/GiveLoan/NonCov";
 import SMAWthdrwForm from '../../screens/MyAcc/WithdrwFunds';
-
+import SendNonLn from "../../screens/MyAcc/SendNonLons";
+import RepayCovLns from "../../screens/MyAcc/Loans/RepayLoan/CovLons";
+import RepayNonCovLns from "../../screens/MyAcc/Loans/RepayLoan/NonCovLns";
 
 
 const Stack = createNativeStackNavigator();
@@ -59,6 +61,9 @@ const HomeNavigator = props => {
       <Stack.Screen name={'SMGivLon'} component={SMGvCovLon}/>
       <Stack.Screen name={'SMNonGivLon'} component={SMGvNonCovLon}/>
       <Stack.Screen name={'SMWthdFm'} component={SMAWthdrwForm}/>
+      <Stack.Screen name={'SendNonLnss'} component={SendNonLn}/>
+      <Stack.Screen name={'RepayCovLnss'} component={RepayCovLns}/>
+      <Stack.Screen name={'RepayNonCovLnss'} component={RepayNonCovLns}/>
       
     </Stack.Navigator>
   );

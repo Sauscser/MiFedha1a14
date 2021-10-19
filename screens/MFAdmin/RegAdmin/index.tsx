@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {createBankAdmin, updateCompany} from '../../../src/graphql/mutations';
-import {getCompany, getSmAccount, getSMAccount, } from '../../../src/graphql/queries';
+import {getCompany, getSmAccount,  } from '../../../src/graphql/queries';
 import {Auth, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';

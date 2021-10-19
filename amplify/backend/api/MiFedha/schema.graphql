@@ -164,12 +164,16 @@ type SMAccount
   TtlClrdNvrBLLonsAmtSllrNonCov: Float!
   TtlClrdNvrBLLonsAmtByrNonCov: Float!
 
+  ttlNonLonsRecSM: Float!
+  ttlNonLonsSentSM:Float!
+
   MaxTymsBL: Float!
 
   loanStatus: Status!
   acStatus: Status!
   blStatus: Status!
   loanLimit: Float!
+  nonLonLimit:Float!
   withdrawalLimit: Float!
   depositLimit: Float!
   owner: String!
@@ -335,7 +339,7 @@ type SMLoansNonCovered
   owner: String!
 }
 
-type SMNonLoans
+type NonLoans
   @model
   @auth(
     rules: [
@@ -377,23 +381,31 @@ type SMNonLoans
     ]
   )
   @key(
-    name: "SMNonLoansbySender"
-    fields: ["senderID"]
-    queryField: "checkSentNonLns"
+    name: "nonLonsSender"
+    fields: ["senderID", "status"]
+    queryField: "checkNonLonsbySender"
   )
   @key(
-    name: "SMNonLoansbyRec"
-    fields: ["recId"]
+    name: "nonLoansbyRec"
+    fields: ["recId", "status"]
     queryField: "checkReceivedNonLns"
-  ) {
+  )
+  @key(
+    name: "bySenderReceiver"
+    fields: ["senderID", "recId"]
+    queryField: "checkBySenderReciever"
+  )
+   {
   id: ID!
   senderID: String!
   recId: String!
- 
+  amount: Float!
   description: String
-
+  status:Status!
   owner: String!
 }
+
+
 
 type Agent
   @model
@@ -1014,6 +1026,12 @@ type Company
   userTransferFee: Float!
   userClearanceFee: Float!
 
+  ttlNonLonssRecSM: Float!
+  ttlNonLonssSentSM:Float!
+
+  ttlNonLonssRecChm: Float!
+  ttlNonLonssSentChm:Float!
+
   companyEarningBal: Float!
   companyEarning: Float!
   agentEarningBal: Float!
@@ -1314,8 +1332,11 @@ type Group
   grpBal: Float!
   ttlGrpMembers: Float!
   description: String
-  ttlDpst: Float!
 
+  ttlNonLonsRecChm: Float!
+  ttlNonLonsSentChm:Float!
+
+  ttlDpst: Float!
   ttlWthdrwn: Float!
 
   TtlActvLonsTmsLnrChmCov: Float!
@@ -1655,4 +1676,11 @@ enum Status {
   AccountInactive
   AccountBlackListed
   AccountNotBL
+  NonLons
+  SMCovLonRepayment
+  SMNonCovLonRepayment
+  ChmCovLonRepayment
+  ChmNonCovLonRepayment
+  CredSlCovLonRepayment
+  CredSlNonCovLonRepayment
 }

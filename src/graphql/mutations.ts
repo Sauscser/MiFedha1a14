@@ -2,8 +2,8 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createSmAccount = /* GraphQL */ `
-  mutation CreateSmAccount(
+export const createSMAccount = /* GraphQL */ `
+  mutation CreateSMAccount(
     $input: CreateSMAccountInput!
     $condition: ModelSMAccountConditionInput
   ) {
@@ -117,11 +117,14 @@ export const createSmAccount = /* GraphQL */ `
       TtlClrdNvrBLLonsTmsByrNonCov
       TtlClrdNvrBLLonsAmtSllrNonCov
       TtlClrdNvrBLLonsAmtByrNonCov
+      ttlNonLonsRecSM
+      ttlNonLonsSentSM
       MaxTymsBL
       loanStatus
       acStatus
       blStatus
       loanLimit
+      nonLonLimit
       withdrawalLimit
       depositLimit
       owner
@@ -130,8 +133,8 @@ export const createSmAccount = /* GraphQL */ `
     }
   }
 `;
-export const updateSmAccount = /* GraphQL */ `
-  mutation UpdateSmAccount(
+export const updateSMAccount = /* GraphQL */ `
+  mutation UpdateSMAccount(
     $input: UpdateSMAccountInput!
     $condition: ModelSMAccountConditionInput
   ) {
@@ -245,11 +248,14 @@ export const updateSmAccount = /* GraphQL */ `
       TtlClrdNvrBLLonsTmsByrNonCov
       TtlClrdNvrBLLonsAmtSllrNonCov
       TtlClrdNvrBLLonsAmtByrNonCov
+      ttlNonLonsRecSM
+      ttlNonLonsSentSM
       MaxTymsBL
       loanStatus
       acStatus
       blStatus
       loanLimit
+      nonLonLimit
       withdrawalLimit
       depositLimit
       owner
@@ -258,8 +264,8 @@ export const updateSmAccount = /* GraphQL */ `
     }
   }
 `;
-export const deleteSmAccount = /* GraphQL */ `
-  mutation DeleteSmAccount(
+export const deleteSMAccount = /* GraphQL */ `
+  mutation DeleteSMAccount(
     $input: DeleteSMAccountInput!
     $condition: ModelSMAccountConditionInput
   ) {
@@ -373,11 +379,14 @@ export const deleteSmAccount = /* GraphQL */ `
       TtlClrdNvrBLLonsTmsByrNonCov
       TtlClrdNvrBLLonsAmtSllrNonCov
       TtlClrdNvrBLLonsAmtByrNonCov
+      ttlNonLonsRecSM
+      ttlNonLonsSentSM
       MaxTymsBL
       loanStatus
       acStatus
       blStatus
       loanLimit
+      nonLonLimit
       withdrawalLimit
       depositLimit
       owner
@@ -386,8 +395,8 @@ export const deleteSmAccount = /* GraphQL */ `
     }
   }
 `;
-export const createSmLoansCovered = /* GraphQL */ `
-  mutation CreateSmLoansCovered(
+export const createSMLoansCovered = /* GraphQL */ `
+  mutation CreateSMLoansCovered(
     $input: CreateSMLoansCoveredInput!
     $condition: ModelSMLoansCoveredConditionInput
   ) {
@@ -408,8 +417,8 @@ export const createSmLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const updateSmLoansCovered = /* GraphQL */ `
-  mutation UpdateSmLoansCovered(
+export const updateSMLoansCovered = /* GraphQL */ `
+  mutation UpdateSMLoansCovered(
     $input: UpdateSMLoansCoveredInput!
     $condition: ModelSMLoansCoveredConditionInput
   ) {
@@ -430,8 +439,8 @@ export const updateSmLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const deleteSmLoansCovered = /* GraphQL */ `
-  mutation DeleteSmLoansCovered(
+export const deleteSMLoansCovered = /* GraphQL */ `
+  mutation DeleteSMLoansCovered(
     $input: DeleteSMLoansCoveredInput!
     $condition: ModelSMLoansCoveredConditionInput
   ) {
@@ -452,8 +461,8 @@ export const deleteSmLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const createSmLoansNonCovered = /* GraphQL */ `
-  mutation CreateSmLoansNonCovered(
+export const createSMLoansNonCovered = /* GraphQL */ `
+  mutation CreateSMLoansNonCovered(
     $input: CreateSMLoansNonCoveredInput!
     $condition: ModelSMLoansNonCoveredConditionInput
   ) {
@@ -473,8 +482,8 @@ export const createSmLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const updateSmLoansNonCovered = /* GraphQL */ `
-  mutation UpdateSmLoansNonCovered(
+export const updateSMLoansNonCovered = /* GraphQL */ `
+  mutation UpdateSMLoansNonCovered(
     $input: UpdateSMLoansNonCoveredInput!
     $condition: ModelSMLoansNonCoveredConditionInput
   ) {
@@ -494,8 +503,8 @@ export const updateSmLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const deleteSmLoansNonCovered = /* GraphQL */ `
-  mutation DeleteSmLoansNonCovered(
+export const deleteSMLoansNonCovered = /* GraphQL */ `
+  mutation DeleteSMLoansNonCovered(
     $input: DeleteSMLoansNonCoveredInput!
     $condition: ModelSMLoansNonCoveredConditionInput
   ) {
@@ -515,48 +524,54 @@ export const deleteSmLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const createSmNonLoans = /* GraphQL */ `
-  mutation CreateSmNonLoans(
-    $input: CreateSMNonLoansInput!
-    $condition: ModelSMNonLoansConditionInput
+export const createNonLoans = /* GraphQL */ `
+  mutation CreateNonLoans(
+    $input: CreateNonLoansInput!
+    $condition: ModelNonLoansConditionInput
   ) {
-    createSMNonLoans(input: $input, condition: $condition) {
+    createNonLoans(input: $input, condition: $condition) {
       id
       senderID
       recId
+      amount
       description
+      status
       owner
       createdAt
       updatedAt
     }
   }
 `;
-export const updateSmNonLoans = /* GraphQL */ `
-  mutation UpdateSmNonLoans(
-    $input: UpdateSMNonLoansInput!
-    $condition: ModelSMNonLoansConditionInput
+export const updateNonLoans = /* GraphQL */ `
+  mutation UpdateNonLoans(
+    $input: UpdateNonLoansInput!
+    $condition: ModelNonLoansConditionInput
   ) {
-    updateSMNonLoans(input: $input, condition: $condition) {
+    updateNonLoans(input: $input, condition: $condition) {
       id
       senderID
       recId
+      amount
       description
+      status
       owner
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteSmNonLoans = /* GraphQL */ `
-  mutation DeleteSmNonLoans(
-    $input: DeleteSMNonLoansInput!
-    $condition: ModelSMNonLoansConditionInput
+export const deleteNonLoans = /* GraphQL */ `
+  mutation DeleteNonLoans(
+    $input: DeleteNonLoansInput!
+    $condition: ModelNonLoansConditionInput
   ) {
-    deleteSMNonLoans(input: $input, condition: $condition) {
+    deleteNonLoans(input: $input, condition: $condition) {
       id
       senderID
       recId
+      amount
       description
+      status
       owner
       createdAt
       updatedAt
@@ -762,6 +777,7 @@ export const createFloatReduction = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -778,6 +794,7 @@ export const updateFloatReduction = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -794,6 +811,7 @@ export const deleteFloatReduction = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -1222,6 +1240,10 @@ export const createCompany = /* GraphQL */ `
       userLoanTransferFee
       userTransferFee
       userClearanceFee
+      ttlNonLonssRecSM
+      ttlNonLonssSentSM
+      ttlNonLonssRecChm
+      ttlNonLonssSentChm
       companyEarningBal
       companyEarning
       agentEarningBal
@@ -1366,6 +1388,10 @@ export const updateCompany = /* GraphQL */ `
       userLoanTransferFee
       userTransferFee
       userClearanceFee
+      ttlNonLonssRecSM
+      ttlNonLonssSentSM
+      ttlNonLonssRecChm
+      ttlNonLonssSentChm
       companyEarningBal
       companyEarning
       agentEarningBal
@@ -1510,6 +1536,10 @@ export const deleteCompany = /* GraphQL */ `
       userLoanTransferFee
       userTransferFee
       userClearanceFee
+      ttlNonLonssRecSM
+      ttlNonLonssSentSM
+      ttlNonLonssRecChm
+      ttlNonLonssSentChm
       companyEarningBal
       companyEarning
       agentEarningBal
@@ -1794,6 +1824,8 @@ export const createGroup = /* GraphQL */ `
       grpBal
       ttlGrpMembers
       description
+      ttlNonLonsRecChm
+      ttlNonLonsSentChm
       ttlDpst
       ttlWthdrwn
       TtlActvLonsTmsLnrChmCov
@@ -1839,6 +1871,8 @@ export const updateGroup = /* GraphQL */ `
       grpBal
       ttlGrpMembers
       description
+      ttlNonLonsRecChm
+      ttlNonLonsSentChm
       ttlDpst
       ttlWthdrwn
       TtlActvLonsTmsLnrChmCov
@@ -1884,6 +1918,8 @@ export const deleteGroup = /* GraphQL */ `
       grpBal
       ttlGrpMembers
       description
+      ttlNonLonsRecChm
+      ttlNonLonsSentChm
       ttlDpst
       ttlWthdrwn
       TtlActvLonsTmsLnrChmCov

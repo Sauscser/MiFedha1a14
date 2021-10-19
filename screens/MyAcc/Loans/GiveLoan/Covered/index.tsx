@@ -153,7 +153,7 @@ const SMASendLns = props => {
                         );
                         const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
-                        const usrAcActvStts =RecAccountDtl.data.getSMAccount.acStatus; 
+                        const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
                         const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
                         const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
@@ -318,7 +318,8 @@ const SMASendLns = props => {
                                               
                         if (usrNoBL > 1){Alert.alert('Receiver does not qualify');}
                         else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');}
-                        else if(usrAcActvStts !== "AccountActive"){Alert.alert('Your account is inactive');}
+                        else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
+                        else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > maxInterests)
                         {Alert.alert('Your interest is too high');}
                         else if (
@@ -327,11 +328,11 @@ const SMASendLns = props => {
                         else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                         else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
-                        else if(usrAcActvStts !=="AccountActive"){Alert.alert('Your account is inactive');}
+                        
                         else if(usrLnLim < amount){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
                         
                          else {
-                          await sendSMLn();
+                          sendSMLn();
                         }                                                
                     }       
                     catch(e) {     
@@ -345,7 +346,7 @@ const SMASendLns = props => {
 
             }
             catch (e){
-              if (e){Alert.alert("Check your internet connection")
+              if (e){Alert.alert("Reciever does not exist")
       return;}
             }
             setIsLoading(false);
@@ -365,7 +366,7 @@ const SMASendLns = props => {
     
       
     } catch (e) {
-      if (e){Alert.alert("Check your internet connection")
+      if (e){Alert.alert("Sender does not exist")
       return;}
   };
       setIsLoading(false);

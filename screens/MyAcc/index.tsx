@@ -31,7 +31,7 @@ const MyAccount = props => {
   };
 
   const goToSMASndnonln = () => {
-    navigation.navigate('SMASndNonLns');
+    navigation.navigate('SendNonLnss');
   };
 
   const goToAdvrtsChamaLn = () => {

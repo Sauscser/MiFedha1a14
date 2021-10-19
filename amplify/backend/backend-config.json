@@ -1,12 +1,14 @@
 {
   "auth": {
-    "myfedha48b24838": {
+    "myfedha9dbbb8ed": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
-        "loginMechanisms": [],
+        "loginMechanisms": [
+          "PREFERRED_USERNAME"
+        ],
         "signupAttributes": [
           "EMAIL"
         ],
@@ -29,7 +31,7 @@
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "myfedha48b24838",
+          "resourceName": "myfedha9dbbb8ed",
           "attributes": [
             "UserPoolId",
             "AppClientIDWeb",
@@ -41,7 +43,7 @@
     }
   },
   "api": {
-    "myfedha": {
+    "MiFedha": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -49,7 +51,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authmyfedha48b24838"
+              "userPoolId": "authmyfedha9dbbb8ed"
             }
           },
           "additionalAuthenticationProviders": []

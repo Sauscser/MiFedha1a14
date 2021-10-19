@@ -40,6 +40,10 @@ declare global {
       SMWthdFm:undefined;
       Homes:undefined;
       MFNdogoss:undefined;
+      SendNonLnss:undefined;
+      CreateSMAc:undefined;
+      RepayCovLnss:undefined;
+      RepayNonCovLnss:undefined;
     }
   }
 }

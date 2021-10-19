@@ -2,8 +2,8 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateSmAccount = /* GraphQL */ `
-  subscription OnCreateSmAccount {
+export const onCreateSMAccount = /* GraphQL */ `
+  subscription OnCreateSMAccount {
     onCreateSMAccount {
       nationalid
       name
@@ -114,11 +114,14 @@ export const onCreateSmAccount = /* GraphQL */ `
       TtlClrdNvrBLLonsTmsByrNonCov
       TtlClrdNvrBLLonsAmtSllrNonCov
       TtlClrdNvrBLLonsAmtByrNonCov
+      ttlNonLonsRecSM
+      ttlNonLonsSentSM
       MaxTymsBL
       loanStatus
       acStatus
       blStatus
       loanLimit
+      nonLonLimit
       withdrawalLimit
       depositLimit
       owner
@@ -127,8 +130,8 @@ export const onCreateSmAccount = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateSmAccount = /* GraphQL */ `
-  subscription OnUpdateSmAccount {
+export const onUpdateSMAccount = /* GraphQL */ `
+  subscription OnUpdateSMAccount {
     onUpdateSMAccount {
       nationalid
       name
@@ -239,11 +242,14 @@ export const onUpdateSmAccount = /* GraphQL */ `
       TtlClrdNvrBLLonsTmsByrNonCov
       TtlClrdNvrBLLonsAmtSllrNonCov
       TtlClrdNvrBLLonsAmtByrNonCov
+      ttlNonLonsRecSM
+      ttlNonLonsSentSM
       MaxTymsBL
       loanStatus
       acStatus
       blStatus
       loanLimit
+      nonLonLimit
       withdrawalLimit
       depositLimit
       owner
@@ -252,8 +258,8 @@ export const onUpdateSmAccount = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteSmAccount = /* GraphQL */ `
-  subscription OnDeleteSmAccount {
+export const onDeleteSMAccount = /* GraphQL */ `
+  subscription OnDeleteSMAccount {
     onDeleteSMAccount {
       nationalid
       name
@@ -364,11 +370,14 @@ export const onDeleteSmAccount = /* GraphQL */ `
       TtlClrdNvrBLLonsTmsByrNonCov
       TtlClrdNvrBLLonsAmtSllrNonCov
       TtlClrdNvrBLLonsAmtByrNonCov
+      ttlNonLonsRecSM
+      ttlNonLonsSentSM
       MaxTymsBL
       loanStatus
       acStatus
       blStatus
       loanLimit
+      nonLonLimit
       withdrawalLimit
       depositLimit
       owner
@@ -377,8 +386,8 @@ export const onDeleteSmAccount = /* GraphQL */ `
     }
   }
 `;
-export const onCreateSmLoansCovered = /* GraphQL */ `
-  subscription OnCreateSmLoansCovered {
+export const onCreateSMLoansCovered = /* GraphQL */ `
+  subscription OnCreateSMLoansCovered {
     onCreateSMLoansCovered {
       id
       loaneeid
@@ -396,8 +405,8 @@ export const onCreateSmLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateSmLoansCovered = /* GraphQL */ `
-  subscription OnUpdateSmLoansCovered {
+export const onUpdateSMLoansCovered = /* GraphQL */ `
+  subscription OnUpdateSMLoansCovered {
     onUpdateSMLoansCovered {
       id
       loaneeid
@@ -415,8 +424,8 @@ export const onUpdateSmLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteSmLoansCovered = /* GraphQL */ `
-  subscription OnDeleteSmLoansCovered {
+export const onDeleteSMLoansCovered = /* GraphQL */ `
+  subscription OnDeleteSMLoansCovered {
     onDeleteSMLoansCovered {
       id
       loaneeid
@@ -434,8 +443,8 @@ export const onDeleteSmLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const onCreateSmLoansNonCovered = /* GraphQL */ `
-  subscription OnCreateSmLoansNonCovered {
+export const onCreateSMLoansNonCovered = /* GraphQL */ `
+  subscription OnCreateSMLoansNonCovered {
     onCreateSMLoansNonCovered {
       id
       loaneeid
@@ -452,8 +461,8 @@ export const onCreateSmLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateSmLoansNonCovered = /* GraphQL */ `
-  subscription OnUpdateSmLoansNonCovered {
+export const onUpdateSMLoansNonCovered = /* GraphQL */ `
+  subscription OnUpdateSMLoansNonCovered {
     onUpdateSMLoansNonCovered {
       id
       loaneeid
@@ -470,8 +479,8 @@ export const onUpdateSmLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteSmLoansNonCovered = /* GraphQL */ `
-  subscription OnDeleteSmLoansNonCovered {
+export const onDeleteSMLoansNonCovered = /* GraphQL */ `
+  subscription OnDeleteSMLoansNonCovered {
     onDeleteSMLoansNonCovered {
       id
       loaneeid
@@ -488,39 +497,45 @@ export const onDeleteSmLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const onCreateSmNonLoans = /* GraphQL */ `
-  subscription OnCreateSmNonLoans {
-    onCreateSMNonLoans {
+export const onCreateNonLoans = /* GraphQL */ `
+  subscription OnCreateNonLoans {
+    onCreateNonLoans {
       id
       senderID
       recId
+      amount
       description
+      status
       owner
       createdAt
       updatedAt
     }
   }
 `;
-export const onUpdateSmNonLoans = /* GraphQL */ `
-  subscription OnUpdateSmNonLoans {
-    onUpdateSMNonLoans {
+export const onUpdateNonLoans = /* GraphQL */ `
+  subscription OnUpdateNonLoans {
+    onUpdateNonLoans {
       id
       senderID
       recId
+      amount
       description
+      status
       owner
       createdAt
       updatedAt
     }
   }
 `;
-export const onDeleteSmNonLoans = /* GraphQL */ `
-  subscription OnDeleteSmNonLoans {
-    onDeleteSMNonLoans {
+export const onDeleteNonLoans = /* GraphQL */ `
+  subscription OnDeleteNonLoans {
+    onDeleteNonLoans {
       id
       senderID
       recId
+      amount
       description
+      status
       owner
       createdAt
       updatedAt
@@ -696,6 +711,7 @@ export const onCreateFloatReduction = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -709,6 +725,7 @@ export const onUpdateFloatReduction = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -722,6 +739,7 @@ export const onDeleteFloatReduction = /* GraphQL */ `
       status
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -1084,6 +1102,10 @@ export const onCreateCompany = /* GraphQL */ `
       userLoanTransferFee
       userTransferFee
       userClearanceFee
+      ttlNonLonssRecSM
+      ttlNonLonssSentSM
+      ttlNonLonssRecChm
+      ttlNonLonssSentChm
       companyEarningBal
       companyEarning
       agentEarningBal
@@ -1225,6 +1247,10 @@ export const onUpdateCompany = /* GraphQL */ `
       userLoanTransferFee
       userTransferFee
       userClearanceFee
+      ttlNonLonssRecSM
+      ttlNonLonssSentSM
+      ttlNonLonssRecChm
+      ttlNonLonssSentChm
       companyEarningBal
       companyEarning
       agentEarningBal
@@ -1366,6 +1392,10 @@ export const onDeleteCompany = /* GraphQL */ `
       userLoanTransferFee
       userTransferFee
       userClearanceFee
+      ttlNonLonssRecSM
+      ttlNonLonssSentSM
+      ttlNonLonssRecChm
+      ttlNonLonssSentChm
       companyEarningBal
       companyEarning
       agentEarningBal
@@ -1629,6 +1659,8 @@ export const onCreateGroup = /* GraphQL */ `
       grpBal
       ttlGrpMembers
       description
+      ttlNonLonsRecChm
+      ttlNonLonsSentChm
       ttlDpst
       ttlWthdrwn
       TtlActvLonsTmsLnrChmCov
@@ -1671,6 +1703,8 @@ export const onUpdateGroup = /* GraphQL */ `
       grpBal
       ttlGrpMembers
       description
+      ttlNonLonsRecChm
+      ttlNonLonsSentChm
       ttlDpst
       ttlWthdrwn
       TtlActvLonsTmsLnrChmCov
@@ -1713,6 +1747,8 @@ export const onDeleteGroup = /* GraphQL */ `
       grpBal
       ttlGrpMembers
       description
+      ttlNonLonsRecChm
+      ttlNonLonsSentChm
       ttlDpst
       ttlWthdrwn
       TtlActvLonsTmsLnrChmCov

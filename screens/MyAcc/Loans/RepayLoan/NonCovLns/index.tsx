@@ -1,24 +1,25 @@
 import React, {useEffect, useState} from 'react';
 
 import {
-  createFloatAdd,
-  createSmAccount,
+  
   createSmLoansCovered,
-  updateAdvocate,
-  updateAgent,
+  
+  createSmLoansNonCovered,
+  
+  createSmNonLoans,
+  
   updateCompany,
-  updateSAgent,
+  
   updateSmAccount,
   
 } from '../../../../../src/graphql/mutations';
 
-import {API, Auth, graphqlOperation, DataStore} from 'aws-amplify';
+import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {
-  getAgent,
+  
   getCompany,
   getSmAccount,
-  getSAgent,
-  getAdvocate,
+  
 } from '../../../../../src/graphql/queries';
 
 import {useNavigation} from '@react-navigation/native';
@@ -37,20 +38,19 @@ import {
   ActivityIndicator
 } from 'react-native';
 import styles from './styles';
-import { parse } from 'expo-linking';
 
-const SMASendLns = props => {
+
+const RepayNonCovLnsss = props => {
   const [SenderNatId, setSenderNatId] = useState('');
   const [RecNatId, setRecNatId] = useState('');
   const [SnderPW, setSnderPW] = useState("");
-  const [RepaymtPeriod, setRepaymtPeriod] = useState("");
-  const [amount, setAmount] = useState("");
-  const [AmtExp, setAmtExp] = useState("");
-  const [AdvRegNo, setAdvRegNo] = useState("");
+  
+  const [amounts, setAmount] = useState("");
+  
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
-  const [RecAccCode, setRecAccCode] = useState("");
+  
   
 
   const fetchUser = async () => {
@@ -77,10 +77,9 @@ const SMASendLns = props => {
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
       const usrPW =accountDtl.data.getSMAccount.pw;
       const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const usrLnLim =accountDtl.data.getSMAccount.loanLimit;
-      const TtlActvLonsTmsLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
-      const TtlActvLonsAmtLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;       
       const SenderSub =accountDtl.data.getSMAccount.owner;
+      const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
+      const loanLimits =accountDtl.data.getSMAccount.loanLimit;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -94,27 +93,17 @@ const SMASendLns = props => {
             }),
           );
           
-          const TtlCovRateCovRate = CompDtls.data.getCompany.userTransferFee;
-          const AdvCovRateofTtlCovRate = CompDtls.data.getCompany.AdvCom;
-          const AdvCovRate = parseFloat(AdvCovRateofTtlCovRate)*parseFloat(TtlCovRateCovRate)
-          const CompErningFrmCovrgFee = parseFloat(TtlCovRateCovRate) - AdvCovRate;
-          const UsrCovFee = AdvCovRate * parseFloat(amount) + (CompErningFrmCovrgFee)*parseFloat(amount);          
+            
           const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-          const TotalTransacted = parseFloat(amount) + UsrCovFee + parseFloat(UsrTransferFee)*parseFloat(amount);
+          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
-          const ttlCompCovEarningss = CompDtls.data.getCompany.ttlCompCovEarnings;
-
+          
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
-          const AdvEarningBals = CompDtls.data.getCompany.AdvEarningBal;
-          const AdvEarnings = CompDtls.data.getCompany.AdvEarning; 
+          const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
+          const ttlNonLonssSentSMs = CompDtls.data.getCompany.ttlNonLonssSentSM; 
          
-          const ttlSMLnsInAmtCovs = CompDtls.data.getCompany.ttlSMLnsInAmtCov;
-          const ttlSMLnsInActvAmtCovs = CompDtls.data.getCompany.ttlSMLnsInActvAmtCov;
-          const ttlSMLnsInTymsCovs = CompDtls.data.getCompany.ttlSMLnsInTymsCov;
-          const ttlSMLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSMLnsInActvTymsCov;        
-          const maxInterests = CompDtls.data.getCompany.maxInterest;
-          
+                    
           const fetchRecUsrDtls = async () => {
             if(isLoading){
               return;
@@ -124,31 +113,24 @@ const SMASendLns = props => {
                 const RecAccountDtl:any = await API.graphql(
                     graphqlOperation(getSmAccount, {nationalid: RecNatId}),
                     );
-                    const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
-                    const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
+                    const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
-                    const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
-                    const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
-                    const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
+                    const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
+                    
                     
                   
-                    const sendSMLn = async () => {
+                    const sendSMNonLn = async () => {
                       if(isLoading){
                         return;
                       }
                       setIsLoading(true)
                       try {
                         await API.graphql(
-                          graphqlOperation(createSmLoansCovered, {
+                          graphqlOperation(createSmNonLoans, {
                             input: {
-                              loaneeid: RecNatId,
-                              loanerId: SenderNatId,                                  
-                              amountgiven: amount,
-                              amountexpected: AmtExp,
-                              amountrepaid: 0,
-                              loanerPW: SnderPW,
-                              repaymentPeriod: RepaymtPeriod,
-                              advregnu: AdvRegNo,
+                              recId: RecNatId,
+                              senderID: SenderNatId,                                  
+                              amount: amounts,                              
                               description: Desc,
                               status: "LoanActive",
                               owner: ownr
@@ -179,9 +161,7 @@ const SMASendLns = props => {
                             graphqlOperation(updateSmAccount, {
                               input:{
                                 nationalid:SenderNatId,
-                                TtlActvLonsTmsLnrNonCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
-                                TtlActvLonsAmtLnrNonCov: parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(amount),
-                                                                          
+                                ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
                                 balance:parseFloat(SenderUsrBal)-TotalTransacted 
                                
                                 
@@ -198,6 +178,7 @@ const SMASendLns = props => {
                       setIsLoading(false);
                       await updtRecAc();
                     }
+
                     const updtRecAc = async () =>{
                       if(isLoading){
                         return;
@@ -208,10 +189,8 @@ const SMASendLns = props => {
                             graphqlOperation(updateSmAccount, {
                               input:{
                                 nationalid:RecNatId,
-                                TtlActvLonsTmsLneeNonCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
-                                TtlActvLonsAmtLneeNonCov: parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(amount),
-                                
-                                balance:parseFloat(RecUsrBal) + parseFloat(amount)                                     
+                                ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
+                                balance:parseFloat(RecUsrBal) + parseFloat(amounts)                                     
                                 
                                                                   
                                 
@@ -237,19 +216,12 @@ const SMASendLns = props => {
                             graphqlOperation(updateCompany, {
                               input:{
                                 AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                    
-                                ttlCompCovEarnings:(CompErningFrmCovrgFee) * parseFloat(amount) + parseFloat(ttlCompCovEarningss),
-                                AdvEarningBal:(AdvCovRate) * parseFloat(amount) + parseFloat(AdvEarningBals),                                                                                                                                                     
-                                AdvEarning:(AdvCovRate) * parseFloat(amount) + parseFloat(AdvEarnings),
-                                companyEarningBal:CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarningBals),
-                                companyEarning: CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarnings),                                                    
+                               
+                                companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
+                                companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
                                 
-                                ttlSMLnsInAmtNonCov: parseFloat(amount) + parseFloat(ttlSMLnsInAmtCovs),
-                                ttlSMLnsInActvAmtNonCov: parseFloat(amount) + parseFloat(ttlSMLnsInActvAmtCovs),
-                                ttlSMLnsInTymsNonCov: 1 + parseFloat(ttlSMLnsInTymsCovs),
-                                ttlSMLnsInActvTymsNonCov: 1 + parseFloat(ttlSMLnsInActvTymsCovs),      
-                                
-                                 
+                                ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
+                                ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
                                 
                               }
                             })
@@ -265,12 +237,10 @@ const SMASendLns = props => {
                     }
                     
                                           
-                    if (usrNoBL > 1){Alert.alert('Receiver does not qualify');}
-                    else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');}
-                    else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
+                    
+                    if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                    else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > maxInterests)
-                    {Alert.alert('Your interest is too high');}
+                    
                     else if (
                       SenderUsrBal < TotalTransacted 
                     ) {Alert.alert('Requested amount is more than you have in your account');}
@@ -278,14 +248,14 @@ const SMASendLns = props => {
                     else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                     else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
                     
-                    else if(usrLnLim < amount){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
+                    else if(loanLimits < amounts){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');}
                     
                      else {
-                      sendSMLn();
+                      sendSMNonLn();
                     }                                                
                 }       
                 catch(e) {     
-                  if (e){Alert.alert("Receiver does not exist")
+                  if (e){Alert.alert("Reciever does not exist")
   return;}                 
                 }
                 setIsLoading(false);
@@ -308,12 +278,10 @@ const SMASendLns = props => {
       setSenderNatId('');
       setAmount("");
       setRecNatId('');
-      setAdvRegNo("");
-      setAmtExp("");
+      
       setDesc("");
       setSnderPW("");
-      setRepaymtPeriod("");
-      setRecAccCode("");
+      
 }
 
 useEffect(() =>{
@@ -328,14 +296,14 @@ useEffect(() =>{
      );
 
      useEffect(() =>{
-      const amt=amount
+      const amt=amounts
         if(!amt && amt!=="")
         {
           setAmount("");
           return;
         }
         setAmount(amt);
-        }, [amount]
+        }, [amounts]
          );
 
          useEffect(() =>{
@@ -349,27 +317,9 @@ useEffect(() =>{
             }, [RecNatId]
              );
 
-             useEffect(() =>{
-              const AdvRegNoss=AdvRegNo
-                if(!AdvRegNoss && AdvRegNoss!=="")
-                {
-                  setAdvRegNo("");
-                  return;
-                }
-                setAdvRegNo(AdvRegNoss);
-                }, [AdvRegNo]
-                 );
+             
 
-                 useEffect(() =>{
-                  const AmtExpss=AmtExp
-                    if(!AmtExpss && AmtExpss!=="")
-                    {
-                      setAmtExp("");
-                      return;
-                    }
-                    setAmtExp(AmtExpss);
-                    }, [AmtExp]
-                     );
+                 
 
                      useEffect(() =>{
                       const descr=Desc
@@ -393,27 +343,9 @@ useEffect(() =>{
                             }, [SnderPW]
                              );
 
-                             useEffect(() =>{
-                              const RepaymtPeriods=RepaymtPeriod
-                                if(!RepaymtPeriods && RepaymtPeriods!=="")
-                                {
-                                  setRepaymtPeriod("");
-                                  return;
-                                }
-                                setRepaymtPeriod(RepaymtPeriods);
-                                }, [RepaymtPeriod]
-                                 );
+                             
 
-                                 useEffect(() =>{
-                                  const RecAccCodes=RecAccCode
-                                    if(!RecAccCodes && RecAccCodes!=="")
-                                    {
-                                      setRecAccCode("");
-                                      return;
-                                    }
-                                    setRecAccCode(RecAccCodes);
-                                    }, [RecAccCode]
-                                     );
+                                 
 
   return (
     <View>
@@ -423,7 +355,7 @@ useEffect(() =>{
         <ScrollView>
          
           <View style={styles.amountTitleView}>
-            <Text style={styles.title}>Fill Loan Details Below</Text>
+            <Text style={styles.title}>Fill account Details Below</Text>
           </View>
 
           <View style={styles.sendAmtView}>
@@ -446,13 +378,13 @@ useEffect(() =>{
 
           <View style={styles.sendAmtView}>
             <TextInput
-              value={amount}
+              value={amounts}
               onChangeText={setAmount}
               style={styles.sendAmtInput}
               editable={true}
               ></TextInput>
               
-            <Text style={styles.sendAmtText}>Amount Loaned</Text>
+            <Text style={styles.sendAmtText}>Amount Sent</Text>
           </View>
 
 
@@ -465,33 +397,7 @@ useEffect(() =>{
             <Text style={styles.sendAmtText}>Sender PassWord</Text>
           </View>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={AmtExp}
-              onChangeText={setAmtExp}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Amount Expected Back</Text>
-          </View>
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={RepaymtPeriod}
-              onChangeText={setRepaymtPeriod}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Repayment Period</Text>
-          </View>
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              multiline={true}
-              value={RecAccCode}
-              onChangeText={setRecAccCode}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Reciever Acceptance Code</Text>
-          </View>
+          
 
           <View style={styles.sendAmtView}>
             <TextInput
@@ -506,7 +412,7 @@ useEffect(() =>{
           <TouchableOpacity
             onPress={fetchSenderUsrDtls}
             style={styles.sendAmtButton}>
-            <Text style={styles.sendAmtButtonText}>Loan without Advocate Coverage</Text>
+            <Text style={styles.sendAmtButtonText}>Send</Text>
             {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
           </TouchableOpacity>
 
@@ -517,4 +423,4 @@ useEffect(() =>{
   );
 };
 
-export default SMASendLns;
+export default RepayNonCovLnsss;

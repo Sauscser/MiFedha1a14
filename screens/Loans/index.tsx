@@ -30,6 +30,14 @@ const MyLoanAccount = props => {
     navigation.navigate('SMAWthdrwFrm');
   };
 
+  const payNonCovLn = () => {
+    navigation.navigate('RepayNonCovLnss');
+  };
+
+  const payCovLn = () => {
+    navigation.navigate('RepayCovLnss');
+  };
+
   const goToSMASndnonln = () => {
     navigation.navigate('SMASndNonLns');
   };
@@ -51,8 +59,12 @@ const MyLoanAccount = props => {
               <Text style={styles.acPressableText}>Give Loan</Text>
             </Pressable>
 
-            <Pressable onPress={goWithdrwMny} style={styles.myMoneyPressables}>
-              <Text style={styles.acPressableText}>Pay Loan</Text>
+            <Pressable onPress={payCovLn} style={styles.myMoneyPressables}>
+              <Text style={styles.acPressableText}>Pay Covered Loan</Text>
+            </Pressable>
+
+            <Pressable onPress={payNonCovLn} style={styles.myMoneyPressables}>
+              <Text style={styles.acPressableText}>Pay Non-Covered Loan</Text>
             </Pressable>
 
             <Pressable onPress={goWithdrwMny} style={styles.myMoneyPressables}>

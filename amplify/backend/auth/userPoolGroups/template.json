@@ -1,23 +1,23 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Parameters": {
-        "authmyfedha48b24838UserPoolId": {
+        "authmyfedha9dbbb8edUserPoolId": {
             "Type": "String",
-            "Default": "authmyfedha48b24838UserPoolId"
+            "Default": "authmyfedha9dbbb8edUserPoolId"
         },
         
-        "authmyfedha48b24838IdentityPoolId": {
+        "authmyfedha9dbbb8edIdentityPoolId": {
             "Type": "String",
-            "Default": "authmyfedha48b24838IdentityPoolId"
+            "Default": "authmyfedha9dbbb8edIdentityPoolId"
         },
         
-        "authmyfedha48b24838AppClientID": {
+        "authmyfedha9dbbb8edAppClientID": {
             "Type": "String",
-            "Default": "authmyfedha48b24838AppClientID"
+            "Default": "authmyfedha9dbbb8edAppClientID"
         },
-        "authmyfedha48b24838AppClientIDWeb": {
+        "authmyfedha9dbbb8edAppClientIDWeb": {
             "Type": "String",
-            "Default": "authmyfedha48b24838AppClientIDWeb"
+            "Default": "authmyfedha9dbbb8edAppClientIDWeb"
         },
         "AuthRoleArn": {
             "Type": "String"
@@ -55,7 +55,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
+                "Ref": "authmyfedha9dbbb8edUserPoolId"
               }
             }
         },
@@ -68,7 +68,7 @@
                         "",
                         [
                           {
-                            "Ref": "authmyfedha48b24838UserPoolId"
+                            "Ref": "authmyfedha9dbbb8edUserPoolId"
                           },
                           "-ExecutiveGroupRole"
                         ]
@@ -85,7 +85,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha9dbbb8edIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -109,7 +109,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
+                "Ref": "authmyfedha9dbbb8edUserPoolId"
               }
             }
         },
@@ -122,7 +122,7 @@
                         "",
                         [
                           {
-                            "Ref": "authmyfedha48b24838UserPoolId"
+                            "Ref": "authmyfedha9dbbb8edUserPoolId"
                           },
                           "-AdminOneGroupRole"
                         ]
@@ -139,7 +139,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha9dbbb8edIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -163,7 +163,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
+                "Ref": "authmyfedha9dbbb8edUserPoolId"
               }
             }
         },
@@ -176,7 +176,7 @@
                         "",
                         [
                           {
-                            "Ref": "authmyfedha48b24838UserPoolId"
+                            "Ref": "authmyfedha9dbbb8edUserPoolId"
                           },
                           "-AdminOneTwoGroupRole"
                         ]
@@ -193,7 +193,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha9dbbb8edIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -217,7 +217,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
+                "Ref": "authmyfedha9dbbb8edUserPoolId"
               }
             }
         },
@@ -230,7 +230,7 @@
                         "",
                         [
                           {
-                            "Ref": "authmyfedha48b24838UserPoolId"
+                            "Ref": "authmyfedha9dbbb8edUserPoolId"
                           },
                           "-RegionalAdminGroupRole"
                         ]
@@ -247,7 +247,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha9dbbb8edIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -271,7 +271,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
+                "Ref": "authmyfedha9dbbb8edUserPoolId"
               }
             }
         },
@@ -284,7 +284,7 @@
                         "",
                         [
                           {
-                            "Ref": "authmyfedha48b24838UserPoolId"
+                            "Ref": "authmyfedha9dbbb8edUserPoolId"
                           },
                           "-RegionalAdminTwoGroupRole"
                         ]
@@ -301,7 +301,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha9dbbb8edIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -325,7 +325,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
+                "Ref": "authmyfedha9dbbb8edUserPoolId"
               }
             }
         },
@@ -338,7 +338,7 @@
                         "",
                         [
                           {
-                            "Ref": "authmyfedha48b24838UserPoolId"
+                            "Ref": "authmyfedha9dbbb8edUserPoolId"
                           },
                           "-CountyAdminGroupRole"
                         ]
@@ -355,7 +355,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha9dbbb8edIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -379,7 +379,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
+                "Ref": "authmyfedha9dbbb8edUserPoolId"
               }
             }
         },
@@ -392,7 +392,7 @@
                         "",
                         [
                           {
-                            "Ref": "authmyfedha48b24838UserPoolId"
+                            "Ref": "authmyfedha9dbbb8edUserPoolId"
                           },
                           "-CountyAdminTwoGroupRole"
                         ]
@@ -409,7 +409,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha9dbbb8edIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -433,7 +433,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
+                "Ref": "authmyfedha9dbbb8edUserPoolId"
               }
             }
         },
@@ -446,7 +446,7 @@
                         "",
                         [
                           {
-                            "Ref": "authmyfedha48b24838UserPoolId"
+                            "Ref": "authmyfedha9dbbb8edUserPoolId"
                           },
                           "-BranchAdminGroupRole"
                         ]
@@ -463,7 +463,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha9dbbb8edIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -487,7 +487,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
+                "Ref": "authmyfedha9dbbb8edUserPoolId"
               }
             }
         },
@@ -500,7 +500,7 @@
                         "",
                         [
                           {
-                            "Ref": "authmyfedha48b24838UserPoolId"
+                            "Ref": "authmyfedha9dbbb8edUserPoolId"
                           },
                           "-BranchAdminTwoGroupRole"
                         ]
@@ -517,7 +517,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha9dbbb8edIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -541,7 +541,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
+                "Ref": "authmyfedha9dbbb8edUserPoolId"
               }
             }
         },
@@ -554,7 +554,7 @@
                         "",
                         [
                           {
-                            "Ref": "authmyfedha48b24838UserPoolId"
+                            "Ref": "authmyfedha9dbbb8edUserPoolId"
                           },
                           "-BankAdminGroupRole"
                         ]
@@ -571,7 +571,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha9dbbb8edIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -595,7 +595,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
+                "Ref": "authmyfedha9dbbb8edUserPoolId"
               }
             }
         },
@@ -608,7 +608,7 @@
                         "",
                         [
                           {
-                            "Ref": "authmyfedha48b24838UserPoolId"
+                            "Ref": "authmyfedha9dbbb8edUserPoolId"
                           },
                           "-KFKubwaGroupRole"
                         ]
@@ -625,7 +625,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha9dbbb8edIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -649,7 +649,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
+                "Ref": "authmyfedha9dbbb8edUserPoolId"
               }
             }
         },
@@ -662,7 +662,7 @@
                         "",
                         [
                           {
-                            "Ref": "authmyfedha48b24838UserPoolId"
+                            "Ref": "authmyfedha9dbbb8edUserPoolId"
                           },
                           "-KFNdogoGroupRole"
                         ]
@@ -679,7 +679,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha9dbbb8edIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -703,7 +703,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
+                "Ref": "authmyfedha9dbbb8edUserPoolId"
               }
             }
         },
@@ -716,7 +716,7 @@
                         "",
                         [
                           {
-                            "Ref": "authmyfedha48b24838UserPoolId"
+                            "Ref": "authmyfedha9dbbb8edUserPoolId"
                           },
                           "-AdvocateGroupRole"
                         ]
@@ -733,169 +733,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
-                              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-     
-    
-        "SalesAdsPaidGroup": {
-          "Type" : "AWS::Cognito::UserPoolGroup",
-          "Properties" : {
-              "GroupName" : "SalesAdsPaid",
-              "Precedence" : 14,
-              
-              "RoleArn" : {
-                "Fn::GetAtt": [
-                    "SalesAdsPaidGroupRole",
-                    "Arn"
-                ]
-              },
-              
-              "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
-              }
-            }
-        },
-        
-        "SalesAdsPaidGroupRole": {
-            "Type": "AWS::IAM::Role",
-            "Properties": {
-                "RoleName":{
-                    "Fn::Join": [
-                        "",
-                        [
-                          {
-                            "Ref": "authmyfedha48b24838UserPoolId"
-                          },
-                          "-SalesAdsPaidGroupRole"
-                        ]
-                    ]
-                },
-                "AssumeRolePolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                        {
-                            "Sid": "",
-                            "Effect": "Allow",
-                            "Principal": {
-                                "Federated": "cognito-identity.amazonaws.com"
-                            },
-                            "Action": "sts:AssumeRoleWithWebIdentity",
-                            "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
-                              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-     
-    
-        "MultiplePaidAdsGroup": {
-          "Type" : "AWS::Cognito::UserPoolGroup",
-          "Properties" : {
-              "GroupName" : "MultiplePaidAds",
-              "Precedence" : 15,
-              
-              "RoleArn" : {
-                "Fn::GetAtt": [
-                    "MultiplePaidAdsGroupRole",
-                    "Arn"
-                ]
-              },
-              
-              "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
-              }
-            }
-        },
-        
-        "MultiplePaidAdsGroupRole": {
-            "Type": "AWS::IAM::Role",
-            "Properties": {
-                "RoleName":{
-                    "Fn::Join": [
-                        "",
-                        [
-                          {
-                            "Ref": "authmyfedha48b24838UserPoolId"
-                          },
-                          "-MultiplePaidAdsGroupRole"
-                        ]
-                    ]
-                },
-                "AssumeRolePolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                        {
-                            "Sid": "",
-                            "Effect": "Allow",
-                            "Principal": {
-                                "Federated": "cognito-identity.amazonaws.com"
-                            },
-                            "Action": "sts:AssumeRoleWithWebIdentity",
-                            "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
-                              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-     
-    
-        "NoneGroup": {
-          "Type" : "AWS::Cognito::UserPoolGroup",
-          "Properties" : {
-              "GroupName" : "None",
-              "Precedence" : 16,
-              
-              "RoleArn" : {
-                "Fn::GetAtt": [
-                    "NoneGroupRole",
-                    "Arn"
-                ]
-              },
-              
-              "UserPoolId" : {
-                "Ref": "authmyfedha48b24838UserPoolId"
-              }
-            }
-        },
-        
-        "NoneGroupRole": {
-            "Type": "AWS::IAM::Role",
-            "Properties": {
-                "RoleName":{
-                    "Fn::Join": [
-                        "",
-                        [
-                          {
-                            "Ref": "authmyfedha48b24838UserPoolId"
-                          },
-                          "-NoneGroupRole"
-                        ]
-                    ]
-                },
-                "AssumeRolePolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                        {
-                            "Sid": "",
-                            "Effect": "Allow",
-                            "Principal": {
-                                "Federated": "cognito-identity.amazonaws.com"
-                            },
-                            "Action": "sts:AssumeRoleWithWebIdentity",
-                            "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha48b24838IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmyfedha9dbbb8edIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -921,7 +759,7 @@
                                 "",
                                 [
 
-                                  "myfedha48b24838",
+                                  "myfedha9dbbb8ed",
                                   "-ExecutionRole-",
                                   {
                                     "Ref": "env"
@@ -1082,16 +920,16 @@
                     "Ref": "UnauthRoleArn"
                 },
                 "identityPoolId": {
-                    "Ref": "authmyfedha48b24838IdentityPoolId"
+                    "Ref": "authmyfedha9dbbb8edIdentityPoolId"
                 },
                 "userPoolId": {
-                    "Ref": "authmyfedha48b24838UserPoolId"
+                    "Ref": "authmyfedha9dbbb8edUserPoolId"
                 },
                 "appClientIDWeb": {
-                    "Ref": "authmyfedha48b24838AppClientIDWeb"
+                    "Ref": "authmyfedha9dbbb8edAppClientIDWeb"
                 },
                 "appClientID": {
-                    "Ref": "authmyfedha48b24838AppClientID"
+                    "Ref": "authmyfedha9dbbb8edAppClientID"
                 },
                 "region": {
                     "Ref": "AWS::Region"
@@ -1243,39 +1081,6 @@
             "Value": {
                 "Fn::GetAtt": [
                     "AdvocateGroupRole",
-                    "Arn"
-                ]
-            }
-        
-        },
-        
-      
-        "SalesAdsPaidGroupRole": {
-            "Value": {
-                "Fn::GetAtt": [
-                    "SalesAdsPaidGroupRole",
-                    "Arn"
-                ]
-            }
-        
-        },
-        
-      
-        "MultiplePaidAdsGroupRole": {
-            "Value": {
-                "Fn::GetAtt": [
-                    "MultiplePaidAdsGroupRole",
-                    "Arn"
-                ]
-            }
-        
-        },
-        
-      
-        "NoneGroupRole": {
-            "Value": {
-                "Fn::GetAtt": [
-                    "NoneGroupRole",
                     "Arn"
                 ]
             }

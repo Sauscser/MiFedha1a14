@@ -112,11 +112,14 @@ export type CreateSMAccountInput = {
   TtlClrdNvrBLLonsTmsByrNonCov: number,
   TtlClrdNvrBLLonsAmtSllrNonCov: number,
   TtlClrdNvrBLLonsAmtByrNonCov: number,
+  ttlNonLonsRecSM: number,
+  ttlNonLonsSentSM: number,
   MaxTymsBL: number,
   loanStatus: Status,
   acStatus: Status,
   blStatus: Status,
   loanLimit: number,
+  nonLonLimit: number,
   withdrawalLimit: number,
   depositLimit: number,
   owner: string,
@@ -131,6 +134,13 @@ export enum Status {
   AccountInactive = "AccountInactive",
   AccountBlackListed = "AccountBlackListed",
   AccountNotBL = "AccountNotBL",
+  NonLons = "NonLons",
+  SMCovLonRepayment = "SMCovLonRepayment",
+  SMNonCovLonRepayment = "SMNonCovLonRepayment",
+  ChmCovLonRepayment = "ChmCovLonRepayment",
+  ChmNonCovLonRepayment = "ChmNonCovLonRepayment",
+  CredSlCovLonRepayment = "CredSlCovLonRepayment",
+  CredSlNonCovLonRepayment = "CredSlNonCovLonRepayment",
 }
 
 
@@ -243,11 +253,14 @@ export type ModelSMAccountConditionInput = {
   TtlClrdNvrBLLonsTmsByrNonCov?: ModelFloatInput | null,
   TtlClrdNvrBLLonsAmtSllrNonCov?: ModelFloatInput | null,
   TtlClrdNvrBLLonsAmtByrNonCov?: ModelFloatInput | null,
+  ttlNonLonsRecSM?: ModelFloatInput | null,
+  ttlNonLonsSentSM?: ModelFloatInput | null,
   MaxTymsBL?: ModelFloatInput | null,
   loanStatus?: ModelStatusInput | null,
   acStatus?: ModelStatusInput | null,
   blStatus?: ModelStatusInput | null,
   loanLimit?: ModelFloatInput | null,
+  nonLonLimit?: ModelFloatInput | null,
   withdrawalLimit?: ModelFloatInput | null,
   depositLimit?: ModelFloatInput | null,
   and?: Array< ModelSMAccountConditionInput | null > | null,
@@ -314,125 +327,128 @@ export type ModelStatusInput = {
 
 export type SMAccount = {
   __typename: "SMAccount",
-  nationalid?: string,
-  name?: string,
-  phonecontact?: string,
-  awsemail?: string,
-  balance?: number,
-  pw?: string,
-  loanAcceptanceCode?: string,
-  ttlDpstSM?: number,
-  TtlWthdrwnSM?: number,
-  TtlActvLonsTmsLnrCov?: number,
-  TtlActvLonsTmsLneeCov?: number,
-  TtlActvLonsAmtLnrCov?: number,
-  TtlActvLonsAmtLneeCov?: number,
-  TtlBLLonsTmsLnrCov?: number,
-  TtlBLLonsTmsLneeCov?: number,
-  TtlBLLonsAmtLnrCov?: number,
-  TtlBLLonsAmtLneeCov?: number,
-  TtlClrdLonsTmsLnrCov?: number,
-  TtlClrdLonsTmsLneeCov?: number,
-  TtlClrdLonsAmtLnrCov?: number,
-  TtlClrdLonsAmtLneeCov?: number,
-  TtlClrdBLLonsTmsLnrCov?: number,
-  TtlClrdBLLonsTmsLneeCov?: number,
-  TtlClrdBLLonsAmtLnrCov?: number,
-  TtlClrdBLLonsAmtLneeCov?: number,
-  TtlClrdNvrBLLonsTmsLnrCov?: number,
-  TtlClrdNvrBLLonsTmsLneeCov?: number,
-  TtlClrdNvrBLLonsAmtLnrCov?: number,
-  TtlClrdNvrBLLonsAmtLneeCov?: number,
-  TtlActvLonsTmsLneeChmCov?: number,
-  TtlActvLonsAmtLneeChmCov?: number,
-  TtlBLLonsTmsLneeChmCov?: number,
-  TtlBLLonsAmtLneeChmCov?: number,
-  TtlClrdLonsTmsLneeChmCov?: number,
-  TtlClrdLonsAmtLneeChmCov?: number,
-  TtlClrdBLLonsTmsLneeChmCov?: number,
-  TtlClrdBLLonsAmtLneeChmCov?: number,
-  TtlClrdNvrBLLonsTmsLneeChmCov?: number,
-  TtlClrdNvrBLLonsAmtLneeChmCov?: number,
-  TtlActvLonsTmsSllrCov?: number,
-  TtlActvLonsTmsByrCov?: number,
-  TtlActvLonsAmtSllrCov?: number,
-  TtlActvLonsAmtByrCov?: number,
-  TtlBLLonsTmsSllrCov?: number,
-  TtlBLLonsTmsByrCov?: number,
-  TtlBLLonsAmtSllrCov?: number,
-  TtlBLLonsAmtByrCov?: number,
-  TtlClrdLonsTmsSllrCov?: number,
-  TtlClrdLonsTmsByrCov?: number,
-  TtlClrdLonsAmtSllrCov?: number,
-  TtlClrdLonsAmtByrCov?: number,
-  TtlClrdBLLonsTmsSllrCov?: number,
-  TtlClrdBLLonsTmsByrCov?: number,
-  TtlClrdBLLonsAmtSllrCov?: number,
-  TtlClrdBLLonsAmtByrCov?: number,
-  TtlClrdNvrBLLonsTmsSllrCov?: number,
-  TtlClrdNvrBLLonsTmsByrCov?: number,
-  TtlClrdNvrBLLonsAmtSllrCov?: number,
-  TtlClrdNvrBLLonsAmtByrCov?: number,
-  TtlActvLonsTmsLnrNonCov?: number,
-  TtlActvLonsTmsLneeNonCov?: number,
-  TtlActvLonsAmtLnrNonCov?: number,
-  TtlActvLonsAmtLneeNonCov?: number,
-  TtlBLLonsTmsLnrNonCov?: number,
-  TtlBLLonsTmsLneeNonCov?: number,
-  TtlBLLonsAmtLnrNonCov?: number,
-  TtlBLLonsAmtLneeNonCov?: number,
-  TtlClrdLonsTmsLnrNonCov?: number,
-  TtlClrdLonsTmsLneeNonCov?: number,
-  TtlClrdLonsAmtLnrNonCov?: number,
-  TtlClrdLonsAmtLneeNonCov?: number,
-  TtlClrdBLLonsTmsLnrNonCov?: number,
-  TtlClrdBLLonsTmsLneeNonCov?: number,
-  TtlClrdBLLonsAmtLnrNonCov?: number,
-  TtlClrdBLLonsAmtLneeNonCov?: number,
-  TtlClrdNvrBLLonsTmsLnrNonCov?: number,
-  TtlClrdNvrBLLonsTmsLneeNonCov?: number,
-  TtlClrdNvrBLLonsAmtLnrNonCov?: number,
-  TtlClrdNvrBLLonsAmtLneeNonCov?: number,
-  TtlActvLonsTmsLneeChmNonCov?: number,
-  TtlActvLonsAmtLneeChmNonCov?: number,
-  TtlBLLonsTmsLneeChmNonCov?: number,
-  TtlBLLonsAmtLneeChmNonCov?: number,
-  TtlClrdLonsTmsLneeChmNonCov?: number,
-  TtlClrdLonsAmtLneeChmNonCov?: number,
-  TtlClrdBLLonsTmsLneeChmNonCov?: number,
-  TtlClrdBLLonsAmtLneeChmNonCov?: number,
-  TtlClrdNvrBLLonsTmsLneeChmNonCov?: number,
-  TtlClrdNvrBLLonsAmtLneeChmNonCov?: number,
-  TtlActvLonsTmsSllrNonCov?: number,
-  TtlActvLonsTmsByrNonCov?: number,
-  TtlActvLonsAmtSllrNonCov?: number,
-  TtlActvLonsAmtByrNonCov?: number,
-  TtlBLLonsTmsSllrNonCov?: number,
-  TtlBLLonsTmsByrNonCov?: number,
-  TtlBLLonsAmtSllrNonCov?: number,
-  TtlBLLonsAmtByrNonCov?: number,
-  TtlClrdLonsTmsSllrNonCov?: number,
-  TtlClrdLonsTmsByrNonCov?: number,
-  TtlClrdLonsAmtSllrNonCov?: number,
-  TtlClrdLonsAmtByrNonCov?: number,
-  TtlClrdBLLonsTmsSllrNonCov?: number,
-  TtlClrdBLLonsTmsByrNonCov?: number,
-  TtlClrdBLLonsAmtSllrNonCov?: number,
-  TtlClrdBLLonsAmtByrNonCov?: number,
-  TtlClrdNvrBLLonsTmsSllrNonCov?: number,
-  TtlClrdNvrBLLonsTmsByrNonCov?: number,
-  TtlClrdNvrBLLonsAmtSllrNonCov?: number,
-  TtlClrdNvrBLLonsAmtByrNonCov?: number,
-  MaxTymsBL?: number,
-  loanStatus?: Status,
-  acStatus?: Status,
-  blStatus?: Status,
-  loanLimit?: number,
-  withdrawalLimit?: number,
-  depositLimit?: number,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  nationalid: string,
+  name: string,
+  phonecontact: string,
+  awsemail: string,
+  balance: number,
+  pw: string,
+  loanAcceptanceCode: string,
+  ttlDpstSM: number,
+  TtlWthdrwnSM: number,
+  TtlActvLonsTmsLnrCov: number,
+  TtlActvLonsTmsLneeCov: number,
+  TtlActvLonsAmtLnrCov: number,
+  TtlActvLonsAmtLneeCov: number,
+  TtlBLLonsTmsLnrCov: number,
+  TtlBLLonsTmsLneeCov: number,
+  TtlBLLonsAmtLnrCov: number,
+  TtlBLLonsAmtLneeCov: number,
+  TtlClrdLonsTmsLnrCov: number,
+  TtlClrdLonsTmsLneeCov: number,
+  TtlClrdLonsAmtLnrCov: number,
+  TtlClrdLonsAmtLneeCov: number,
+  TtlClrdBLLonsTmsLnrCov: number,
+  TtlClrdBLLonsTmsLneeCov: number,
+  TtlClrdBLLonsAmtLnrCov: number,
+  TtlClrdBLLonsAmtLneeCov: number,
+  TtlClrdNvrBLLonsTmsLnrCov: number,
+  TtlClrdNvrBLLonsTmsLneeCov: number,
+  TtlClrdNvrBLLonsAmtLnrCov: number,
+  TtlClrdNvrBLLonsAmtLneeCov: number,
+  TtlActvLonsTmsLneeChmCov: number,
+  TtlActvLonsAmtLneeChmCov: number,
+  TtlBLLonsTmsLneeChmCov: number,
+  TtlBLLonsAmtLneeChmCov: number,
+  TtlClrdLonsTmsLneeChmCov: number,
+  TtlClrdLonsAmtLneeChmCov: number,
+  TtlClrdBLLonsTmsLneeChmCov: number,
+  TtlClrdBLLonsAmtLneeChmCov: number,
+  TtlClrdNvrBLLonsTmsLneeChmCov: number,
+  TtlClrdNvrBLLonsAmtLneeChmCov: number,
+  TtlActvLonsTmsSllrCov: number,
+  TtlActvLonsTmsByrCov: number,
+  TtlActvLonsAmtSllrCov: number,
+  TtlActvLonsAmtByrCov: number,
+  TtlBLLonsTmsSllrCov: number,
+  TtlBLLonsTmsByrCov: number,
+  TtlBLLonsAmtSllrCov: number,
+  TtlBLLonsAmtByrCov: number,
+  TtlClrdLonsTmsSllrCov: number,
+  TtlClrdLonsTmsByrCov: number,
+  TtlClrdLonsAmtSllrCov: number,
+  TtlClrdLonsAmtByrCov: number,
+  TtlClrdBLLonsTmsSllrCov: number,
+  TtlClrdBLLonsTmsByrCov: number,
+  TtlClrdBLLonsAmtSllrCov: number,
+  TtlClrdBLLonsAmtByrCov: number,
+  TtlClrdNvrBLLonsTmsSllrCov: number,
+  TtlClrdNvrBLLonsTmsByrCov: number,
+  TtlClrdNvrBLLonsAmtSllrCov: number,
+  TtlClrdNvrBLLonsAmtByrCov: number,
+  TtlActvLonsTmsLnrNonCov: number,
+  TtlActvLonsTmsLneeNonCov: number,
+  TtlActvLonsAmtLnrNonCov: number,
+  TtlActvLonsAmtLneeNonCov: number,
+  TtlBLLonsTmsLnrNonCov: number,
+  TtlBLLonsTmsLneeNonCov: number,
+  TtlBLLonsAmtLnrNonCov: number,
+  TtlBLLonsAmtLneeNonCov: number,
+  TtlClrdLonsTmsLnrNonCov: number,
+  TtlClrdLonsTmsLneeNonCov: number,
+  TtlClrdLonsAmtLnrNonCov: number,
+  TtlClrdLonsAmtLneeNonCov: number,
+  TtlClrdBLLonsTmsLnrNonCov: number,
+  TtlClrdBLLonsTmsLneeNonCov: number,
+  TtlClrdBLLonsAmtLnrNonCov: number,
+  TtlClrdBLLonsAmtLneeNonCov: number,
+  TtlClrdNvrBLLonsTmsLnrNonCov: number,
+  TtlClrdNvrBLLonsTmsLneeNonCov: number,
+  TtlClrdNvrBLLonsAmtLnrNonCov: number,
+  TtlClrdNvrBLLonsAmtLneeNonCov: number,
+  TtlActvLonsTmsLneeChmNonCov: number,
+  TtlActvLonsAmtLneeChmNonCov: number,
+  TtlBLLonsTmsLneeChmNonCov: number,
+  TtlBLLonsAmtLneeChmNonCov: number,
+  TtlClrdLonsTmsLneeChmNonCov: number,
+  TtlClrdLonsAmtLneeChmNonCov: number,
+  TtlClrdBLLonsTmsLneeChmNonCov: number,
+  TtlClrdBLLonsAmtLneeChmNonCov: number,
+  TtlClrdNvrBLLonsTmsLneeChmNonCov: number,
+  TtlClrdNvrBLLonsAmtLneeChmNonCov: number,
+  TtlActvLonsTmsSllrNonCov: number,
+  TtlActvLonsTmsByrNonCov: number,
+  TtlActvLonsAmtSllrNonCov: number,
+  TtlActvLonsAmtByrNonCov: number,
+  TtlBLLonsTmsSllrNonCov: number,
+  TtlBLLonsTmsByrNonCov: number,
+  TtlBLLonsAmtSllrNonCov: number,
+  TtlBLLonsAmtByrNonCov: number,
+  TtlClrdLonsTmsSllrNonCov: number,
+  TtlClrdLonsTmsByrNonCov: number,
+  TtlClrdLonsAmtSllrNonCov: number,
+  TtlClrdLonsAmtByrNonCov: number,
+  TtlClrdBLLonsTmsSllrNonCov: number,
+  TtlClrdBLLonsTmsByrNonCov: number,
+  TtlClrdBLLonsAmtSllrNonCov: number,
+  TtlClrdBLLonsAmtByrNonCov: number,
+  TtlClrdNvrBLLonsTmsSllrNonCov: number,
+  TtlClrdNvrBLLonsTmsByrNonCov: number,
+  TtlClrdNvrBLLonsAmtSllrNonCov: number,
+  TtlClrdNvrBLLonsAmtByrNonCov: number,
+  ttlNonLonsRecSM: number,
+  ttlNonLonsSentSM: number,
+  MaxTymsBL: number,
+  loanStatus: Status,
+  acStatus: Status,
+  blStatus: Status,
+  loanLimit: number,
+  nonLonLimit: number,
+  withdrawalLimit: number,
+  depositLimit: number,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateSMAccountInput = {
@@ -545,11 +561,14 @@ export type UpdateSMAccountInput = {
   TtlClrdNvrBLLonsTmsByrNonCov?: number | null,
   TtlClrdNvrBLLonsAmtSllrNonCov?: number | null,
   TtlClrdNvrBLLonsAmtByrNonCov?: number | null,
+  ttlNonLonsRecSM?: number | null,
+  ttlNonLonsSentSM?: number | null,
   MaxTymsBL?: number | null,
   loanStatus?: Status | null,
   acStatus?: Status | null,
   blStatus?: Status | null,
   loanLimit?: number | null,
+  nonLonLimit?: number | null,
   withdrawalLimit?: number | null,
   depositLimit?: number | null,
   owner?: string | null,
@@ -602,19 +621,19 @@ export type ModelIntInput = {
 
 export type SMLoansCovered = {
   __typename: "SMLoansCovered",
-  id?: string,
-  loaneeid?: string,
-  loanerId?: string,
-  amountgiven?: number,
-  amountexpected?: number,
-  amountrepaid?: number,
-  repaymentPeriod?: number,
-  advregnu?: string,
+  id: string,
+  loaneeid: string,
+  loanerId: string,
+  amountgiven: number,
+  amountexpected: number,
+  amountrepaid: number,
+  repaymentPeriod: number,
+  advregnu: string,
   description?: string | null,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateSMLoansCoveredInput = {
@@ -680,18 +699,18 @@ export type ModelIDInput = {
 
 export type SMLoansNonCovered = {
   __typename: "SMLoansNonCovered",
-  id?: string,
-  loaneeid?: string,
-  loanerId?: string,
-  amountgiven?: number,
-  amountexpected?: number,
-  amountrepaid?: number,
-  repaymentPeriod?: number,
+  id: string,
+  loaneeid: string,
+  loanerId: string,
+  amountgiven: number,
+  amountexpected: number,
+  amountrepaid: number,
+  repaymentPeriod: number,
   description?: string | null,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateSMLoansNonCoveredInput = {
@@ -711,43 +730,51 @@ export type DeleteSMLoansNonCoveredInput = {
   id: string,
 };
 
-export type CreateSMNonLoansInput = {
+export type CreateNonLoansInput = {
   id?: string | null,
   senderID: string,
   recId: string,
+  amount: number,
   description?: string | null,
+  status: Status,
   owner: string,
 };
 
-export type ModelSMNonLoansConditionInput = {
+export type ModelNonLoansConditionInput = {
   senderID?: ModelStringInput | null,
   recId?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
   description?: ModelStringInput | null,
-  and?: Array< ModelSMNonLoansConditionInput | null > | null,
-  or?: Array< ModelSMNonLoansConditionInput | null > | null,
-  not?: ModelSMNonLoansConditionInput | null,
+  status?: ModelStatusInput | null,
+  and?: Array< ModelNonLoansConditionInput | null > | null,
+  or?: Array< ModelNonLoansConditionInput | null > | null,
+  not?: ModelNonLoansConditionInput | null,
 };
 
-export type SMNonLoans = {
-  __typename: "SMNonLoans",
-  id?: string,
-  senderID?: string,
-  recId?: string,
+export type NonLoans = {
+  __typename: "NonLoans",
+  id: string,
+  senderID: string,
+  recId: string,
+  amount: number,
   description?: string | null,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
-export type UpdateSMNonLoansInput = {
+export type UpdateNonLoansInput = {
   id: string,
   senderID?: string | null,
   recId?: string | null,
+  amount?: number | null,
   description?: string | null,
+  status?: Status | null,
   owner?: string | null,
 };
 
-export type DeleteSMNonLoansInput = {
+export type DeleteNonLoansInput = {
   id: string,
 };
 
@@ -790,23 +817,23 @@ export type ModelAgentConditionInput = {
 
 export type Agent = {
   __typename: "Agent",
-  phonecontact?: string,
-  nationalid?: string,
-  name?: string,
-  ttlEarnings?: number,
-  pw?: string,
-  email?: string,
-  sagentregno?: string,
-  TtlFltIn?: number,
-  TtlFltOut?: number,
-  floatBal?: number,
-  latitude?: number,
-  longitude?: number,
-  agentEarningBal?: number,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  phonecontact: string,
+  nationalid: string,
+  name: string,
+  ttlEarnings: number,
+  pw: string,
+  email: string,
+  sagentregno: string,
+  TtlFltIn: number,
+  TtlFltOut: number,
+  floatBal: number,
+  latitude: number,
+  longitude: number,
+  agentEarningBal: number,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateAgentInput = {
@@ -855,14 +882,14 @@ export type ModelFloatPurchaseConditionInput = {
 export type FloatPurchase = {
   __typename: "FloatPurchase",
   id?: string | null,
-  agentphone?: string,
-  amount?: number,
-  transactId?: string,
-  bankAdminID?: string,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  agentphone: string,
+  amount: number,
+  transactId: string,
+  bankAdminID: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateFloatPurchaseInput = {
@@ -902,15 +929,15 @@ export type ModelFloatAddConditionInput = {
 
 export type FloatAdd = {
   __typename: "FloatAdd",
-  id?: string,
-  withdrawerid?: string,
-  amount?: number,
-  agentPhonecontact?: string,
-  sagentId?: string,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  id: string,
+  withdrawerid: string,
+  amount: number,
+  agentPhonecontact: string,
+  sagentId: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateFloatAddInput = {
@@ -947,13 +974,14 @@ export type ModelFloatReductionConditionInput = {
 
 export type FloatReduction = {
   __typename: "FloatReduction",
-  id?: string,
-  amount?: number,
-  depositerid?: string,
-  agContact?: string,
-  status?: Status,
-  createdAt?: string,
-  updatedAt?: string,
+  id: string,
+  amount: number,
+  depositerid: string,
+  agContact: string,
+  status: Status,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
 };
 
 export type UpdateFloatReductionInput = {
@@ -989,14 +1017,14 @@ export type ModelAgentWithdrawalsConditionInput = {
 
 export type AgentWithdrawals = {
   __typename: "AgentWithdrawals",
-  id?: string,
-  agentPhone?: string,
-  bankAdminId?: string,
-  Amount?: number,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  id: string,
+  agentPhone: string,
+  bankAdminId: string,
+  Amount: number,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateAgentWithdrawalsInput = {
@@ -1045,20 +1073,20 @@ export type ModelSAgentConditionInput = {
 
 export type SAgent = {
   __typename: "SAgent",
-  id?: string,
-  saNationalid?: string,
-  name?: string,
-  phonecontact?: string,
-  pw?: string,
-  TtlEarnings?: number,
-  actvMFNdog?: number,
-  InctvMFNdog?: number,
-  email?: string,
-  saBalance?: number,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  id: string,
+  saNationalid: string,
+  name: string,
+  phonecontact: string,
+  pw: string,
+  TtlEarnings: number,
+  actvMFNdog: number,
+  InctvMFNdog: number,
+  email: string,
+  saBalance: number,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateSAgentInput = {
@@ -1101,14 +1129,14 @@ export type ModelSAgentWithdrawalsConditionInput = {
 
 export type SAgentWithdrawals = {
   __typename: "SAgentWithdrawals",
-  id?: string,
-  saId?: string,
-  amount?: number,
-  bankAdmnId?: string,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  id: string,
+  saId: string,
+  amount: number,
+  bankAdmnId: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateSAgentWithdrawalsInput = {
@@ -1151,17 +1179,17 @@ export type ModelBankAdminConditionInput = {
 
 export type BankAdmin = {
   __typename: "BankAdmin",
-  nationalid?: string,
-  name?: string,
-  phonecontact?: string,
-  TtlEarnings?: number,
-  pw?: string,
-  BankAdmBal?: number,
-  email?: string,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  nationalid: string,
+  name: string,
+  phonecontact: string,
+  TtlEarnings: number,
+  pw: string,
+  BankAdmBal: number,
+  email: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateBankAdminInput = {
@@ -1199,13 +1227,13 @@ export type ModelBankAdmWithdrawalsConditionInput = {
 
 export type BankAdmWithdrawals = {
   __typename: "BankAdmWithdrawals",
-  id?: string,
-  bankAdmNatId?: string,
-  amount?: number,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  id: string,
+  bankAdmNatId: string,
+  amount: number,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateBankAdmWithdrawalsInput = {
@@ -1251,19 +1279,19 @@ export type ModelAdvocateConditionInput = {
 
 export type Advocate = {
   __typename: "Advocate",
-  advregnu?: string,
-  nationalid?: string,
-  pwd?: string,
-  name?: string,
-  phonecontact?: string,
-  TtlEarnings?: number,
-  advBal?: number,
-  email?: string,
-  officeLoc?: string,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  advregnu: string,
+  nationalid: string,
+  pwd: string,
+  name: string,
+  phonecontact: string,
+  TtlEarnings: number,
+  advBal: number,
+  email: string,
+  officeLoc: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateAdvocateInput = {
@@ -1305,14 +1333,14 @@ export type ModelAdvocateWithdrawalsConditionInput = {
 
 export type AdvocateWithdrawals = {
   __typename: "AdvocateWithdrawals",
-  id?: string,
-  bankAdmnId?: string,
-  advregnu?: string,
-  amount?: number,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  id: string,
+  bankAdmnId: string,
+  advregnu: string,
+  amount: number,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateAdvocateWithdrawalsInput = {
@@ -1352,6 +1380,10 @@ export type CreateCompanyInput = {
   userLoanTransferFee: number,
   userTransferFee: number,
   userClearanceFee: number,
+  ttlNonLonssRecSM: number,
+  ttlNonLonssSentSM: number,
+  ttlNonLonssRecChm: number,
+  ttlNonLonssSentChm: number,
   companyEarningBal: number,
   companyEarning: number,
   agentEarningBal: number,
@@ -1487,6 +1519,10 @@ export type ModelCompanyConditionInput = {
   userLoanTransferFee?: ModelFloatInput | null,
   userTransferFee?: ModelFloatInput | null,
   userClearanceFee?: ModelFloatInput | null,
+  ttlNonLonssRecSM?: ModelFloatInput | null,
+  ttlNonLonssSentSM?: ModelFloatInput | null,
+  ttlNonLonssRecChm?: ModelFloatInput | null,
+  ttlNonLonssSentChm?: ModelFloatInput | null,
   companyEarningBal?: ModelFloatInput | null,
   companyEarning?: ModelFloatInput | null,
   agentEarningBal?: ModelFloatInput | null,
@@ -1604,141 +1640,145 @@ export type ModelCompanyConditionInput = {
 
 export type Company = {
   __typename: "Company",
-  AdminId?: string,
-  phoneContact?: string,
-  companyEmail?: string,
-  termsNconditions?: string,
-  alert?: string,
-  about?: string,
-  policy?: string,
-  privacy?: string,
-  recom?: string,
-  pw1?: string,
-  pw2?: string,
-  agentwithdrawalFee?: number,
-  agentCom?: number,
-  sagentCom?: number,
-  companyCom?: number,
-  AdvCom?: number,
-  bankAdminCom?: number,
-  sawithdrawalFee?: number,
-  advuserwithdrawalFee?: number,
-  bankAdmuserwithdrawalFee?: number,
-  userLoanTransferFee?: number,
-  userTransferFee?: number,
-  userClearanceFee?: number,
-  companyEarningBal?: number,
-  companyEarning?: number,
-  agentEarningBal?: number,
-  agentEarning?: number,
-  saEarningBal?: number,
-  saEarning?: number,
-  AdvEarningBal?: number,
-  AdvEarning?: number,
-  admEarningBal?: number,
-  admEarning?: number,
-  ttlUsrDep?: number,
+  AdminId: string,
+  phoneContact: string,
+  companyEmail: string,
+  termsNconditions: string,
+  alert: string,
+  about: string,
+  policy: string,
+  privacy: string,
+  recom: string,
+  pw1: string,
+  pw2: string,
+  agentwithdrawalFee: number,
+  agentCom: number,
+  sagentCom: number,
+  companyCom: number,
+  AdvCom: number,
+  bankAdminCom: number,
+  sawithdrawalFee: number,
+  advuserwithdrawalFee: number,
+  bankAdmuserwithdrawalFee: number,
+  userLoanTransferFee: number,
+  userTransferFee: number,
+  userClearanceFee: number,
+  ttlNonLonssRecSM: number,
+  ttlNonLonssSentSM: number,
+  ttlNonLonssRecChm: number,
+  ttlNonLonssSentChm: number,
+  companyEarningBal: number,
+  companyEarning: number,
+  agentEarningBal: number,
+  agentEarning: number,
+  saEarningBal: number,
+  saEarning: number,
+  AdvEarningBal: number,
+  AdvEarning: number,
+  admEarningBal: number,
+  admEarning: number,
+  ttlUsrDep: number,
   ttlUserWthdrwl?: number | null,
-  agentFloatIn?: number,
-  agentFloatOut?: number,
-  ttlActiveUsers?: number,
-  ttlInactvUsrs?: number,
-  ttlBLUsrs?: number,
-  ttlKFNdgActv?: number,
-  ttlKFNdgInActv?: number,
-  ttlKNdgBLStts?: number,
-  ttlKFKbwActv?: number,
-  ttlKFKbwInActv?: number,
-  ttlKKbwBLStts?: number,
-  ttlKFAdvActv?: number,
-  ttlKFAdvInActv?: number,
-  ttlKAdvBLStts?: number,
-  ttlKFAdmActv?: number,
-  ttlKFAdmInActv?: number,
-  ttlKAdmBLStts?: number,
-  ttlSMLnsInAmtCov?: number,
-  ttlChmLnsInAmtCov?: number,
-  ttlSellerLnsInAmtCov?: number,
-  ttlSMLnsInActvAmtCov?: number,
-  ttlChmLnsInActvAmtCov?: number,
-  ttlSellerLnsInActvAmtCov?: number,
-  ttlSMLnsInClrdAmtCov?: number,
-  ttlChmLnsInClrdAmtCov?: number,
-  ttlSellerLnsInClrdAmtCov?: number,
-  ttlSMLnsInBlAmtCov?: number,
-  ttlChmLnsInBlAmtCov?: number,
-  ttlSellerLnsInBlAmtCov?: number,
-  ttlSMLnsInBlThnClrAmtCov?: number,
-  ttlChmLnsInBlThnClrAmtCov?: number,
-  ttlSellerLnsInBlThnClrAmtCov?: number,
-  ttlSMLnsInNvrBlThnClrAmtCov?: number,
-  ttlChmLnsInNvrBlThnClrAmtCov?: number,
-  ttlSellerLnsInNvrBlThnClrAmtCov?: number,
-  ttlSMLnsInTymsCov?: number,
-  ttlChmLnsInTymsCov?: number,
-  ttlSellerLnsInTymsCov?: number,
-  ttlSMLnsInActvTymsCov?: number,
-  ttlChmLnsInActvTymsCov?: number,
-  ttlSellerLnsInActvTymsCov?: number,
-  ttlSMLnsInClrdTymsCov?: number,
-  ttlChmLnsInClrdTymsCov?: number,
-  ttlSellerLnsInClrdTymsCov?: number,
-  ttlSMLnsInBlTymsCov?: number,
-  ttlChmLnsInBlTymsCov?: number,
-  ttlSellerLnsInBlTymsCov?: number,
-  ttlSMLnsInBlThnClrTymsCov?: number,
-  ttlChmLnsInBlThnClrTymsCov?: number,
-  ttlSellerLnsInBlThnClrTymsCov?: number,
-  ttlSMLnsInNvrBlThnClrTymsCov?: number,
-  ttlChmLnsInNvrBlThnClrTymsCov?: number,
-  ttlSellerLnsInNvrBlThnClrTymsCov?: number,
-  ttlCompTrnsfrEarningsCov?: number,
-  ttlCompBLClrncEarningsCov?: number,
-  ttlSMLnsInAmtNonCov?: number,
-  ttlChmLnsInAmtNonCov?: number,
-  ttlSellerLnsInAmtNonCov?: number,
-  ttlSMLnsInActvAmtNonCov?: number,
-  ttlChmLnsInActvAmtNonCov?: number,
-  ttlSellerLnsInActvAmtNonCov?: number,
-  ttlSMLnsInClrdAmtNonCov?: number,
-  ttlChmLnsInClrdAmtNonCov?: number,
-  ttlSellerLnsInClrdAmtNonCov?: number,
-  ttlSMLnsInBlAmtNonCov?: number,
-  ttlChmLnsInBlAmtNonCov?: number,
-  ttlSellerLnsInBlAmtNonCov?: number,
-  ttlSMLnsInBlThnClrAmtNonCov?: number,
-  ttlChmLnsInBlThnClrAmtNonCov?: number,
-  ttlSellerLnsInBlThnClrAmtNonCov?: number,
-  ttlSMLnsInNvrBlThnClrAmtNonCov?: number,
-  ttlChmLnsInNvrBlThnClrAmtNonCov?: number,
-  ttlSellerLnsInNvrBlThnClrAmtNonCov?: number,
-  ttlSMLnsInTymsNonCov?: number,
-  ttlChmLnsInTymsNonCov?: number,
-  ttlSellerLnsInTymsNonCov?: number,
-  ttlSMLnsInActvTymsNonCov?: number,
-  ttlChmLnsInActvTymsNonCov?: number,
-  ttlSellerLnsInActvTymsNonCov?: number,
-  ttlSMLnsInClrdTymsNonCov?: number,
-  ttlChmLnsInClrdTymsNonCov?: number,
-  ttlSellerLnsInClrdTymsNonCov?: number,
-  ttlSMLnsInBlTymsNonCov?: number,
-  ttlChmLnsInBlTymsNonCov?: number,
-  ttlSellerLnsInBlTymsNonCov?: number,
-  ttlSMLnsInBlThnClrTymsNonCov?: number,
-  ttlChmLnsInBlThnClrTymsNonCov?: number,
-  ttlSellerLnsInBlThnClrTymsNonCov?: number,
-  ttlSMLnsInNvrBlThnClrTymsNonCov?: number,
-  ttlChmLnsInNvrBlThnClrTymsNonCov?: number,
-  ttlSellerLnsInNvrBlThnClrTymsNonCov?: number,
-  ttlCompTrnsfrEarningsNonCov?: number,
-  ttlCompBLClrncEarningsNonCov?: number,
-  ttlCompCovEarnings?: number,
-  maxInterestSM?: number,
-  maxInterestCredSllr?: number,
-  maxInterestGrp?: number,
-  totalLnsRecovered?: number,
-  createdAt?: string,
-  updatedAt?: string,
+  agentFloatIn: number,
+  agentFloatOut: number,
+  ttlActiveUsers: number,
+  ttlInactvUsrs: number,
+  ttlBLUsrs: number,
+  ttlKFNdgActv: number,
+  ttlKFNdgInActv: number,
+  ttlKNdgBLStts: number,
+  ttlKFKbwActv: number,
+  ttlKFKbwInActv: number,
+  ttlKKbwBLStts: number,
+  ttlKFAdvActv: number,
+  ttlKFAdvInActv: number,
+  ttlKAdvBLStts: number,
+  ttlKFAdmActv: number,
+  ttlKFAdmInActv: number,
+  ttlKAdmBLStts: number,
+  ttlSMLnsInAmtCov: number,
+  ttlChmLnsInAmtCov: number,
+  ttlSellerLnsInAmtCov: number,
+  ttlSMLnsInActvAmtCov: number,
+  ttlChmLnsInActvAmtCov: number,
+  ttlSellerLnsInActvAmtCov: number,
+  ttlSMLnsInClrdAmtCov: number,
+  ttlChmLnsInClrdAmtCov: number,
+  ttlSellerLnsInClrdAmtCov: number,
+  ttlSMLnsInBlAmtCov: number,
+  ttlChmLnsInBlAmtCov: number,
+  ttlSellerLnsInBlAmtCov: number,
+  ttlSMLnsInBlThnClrAmtCov: number,
+  ttlChmLnsInBlThnClrAmtCov: number,
+  ttlSellerLnsInBlThnClrAmtCov: number,
+  ttlSMLnsInNvrBlThnClrAmtCov: number,
+  ttlChmLnsInNvrBlThnClrAmtCov: number,
+  ttlSellerLnsInNvrBlThnClrAmtCov: number,
+  ttlSMLnsInTymsCov: number,
+  ttlChmLnsInTymsCov: number,
+  ttlSellerLnsInTymsCov: number,
+  ttlSMLnsInActvTymsCov: number,
+  ttlChmLnsInActvTymsCov: number,
+  ttlSellerLnsInActvTymsCov: number,
+  ttlSMLnsInClrdTymsCov: number,
+  ttlChmLnsInClrdTymsCov: number,
+  ttlSellerLnsInClrdTymsCov: number,
+  ttlSMLnsInBlTymsCov: number,
+  ttlChmLnsInBlTymsCov: number,
+  ttlSellerLnsInBlTymsCov: number,
+  ttlSMLnsInBlThnClrTymsCov: number,
+  ttlChmLnsInBlThnClrTymsCov: number,
+  ttlSellerLnsInBlThnClrTymsCov: number,
+  ttlSMLnsInNvrBlThnClrTymsCov: number,
+  ttlChmLnsInNvrBlThnClrTymsCov: number,
+  ttlSellerLnsInNvrBlThnClrTymsCov: number,
+  ttlCompTrnsfrEarningsCov: number,
+  ttlCompBLClrncEarningsCov: number,
+  ttlSMLnsInAmtNonCov: number,
+  ttlChmLnsInAmtNonCov: number,
+  ttlSellerLnsInAmtNonCov: number,
+  ttlSMLnsInActvAmtNonCov: number,
+  ttlChmLnsInActvAmtNonCov: number,
+  ttlSellerLnsInActvAmtNonCov: number,
+  ttlSMLnsInClrdAmtNonCov: number,
+  ttlChmLnsInClrdAmtNonCov: number,
+  ttlSellerLnsInClrdAmtNonCov: number,
+  ttlSMLnsInBlAmtNonCov: number,
+  ttlChmLnsInBlAmtNonCov: number,
+  ttlSellerLnsInBlAmtNonCov: number,
+  ttlSMLnsInBlThnClrAmtNonCov: number,
+  ttlChmLnsInBlThnClrAmtNonCov: number,
+  ttlSellerLnsInBlThnClrAmtNonCov: number,
+  ttlSMLnsInNvrBlThnClrAmtNonCov: number,
+  ttlChmLnsInNvrBlThnClrAmtNonCov: number,
+  ttlSellerLnsInNvrBlThnClrAmtNonCov: number,
+  ttlSMLnsInTymsNonCov: number,
+  ttlChmLnsInTymsNonCov: number,
+  ttlSellerLnsInTymsNonCov: number,
+  ttlSMLnsInActvTymsNonCov: number,
+  ttlChmLnsInActvTymsNonCov: number,
+  ttlSellerLnsInActvTymsNonCov: number,
+  ttlSMLnsInClrdTymsNonCov: number,
+  ttlChmLnsInClrdTymsNonCov: number,
+  ttlSellerLnsInClrdTymsNonCov: number,
+  ttlSMLnsInBlTymsNonCov: number,
+  ttlChmLnsInBlTymsNonCov: number,
+  ttlSellerLnsInBlTymsNonCov: number,
+  ttlSMLnsInBlThnClrTymsNonCov: number,
+  ttlChmLnsInBlThnClrTymsNonCov: number,
+  ttlSellerLnsInBlThnClrTymsNonCov: number,
+  ttlSMLnsInNvrBlThnClrTymsNonCov: number,
+  ttlChmLnsInNvrBlThnClrTymsNonCov: number,
+  ttlSellerLnsInNvrBlThnClrTymsNonCov: number,
+  ttlCompTrnsfrEarningsNonCov: number,
+  ttlCompBLClrncEarningsNonCov: number,
+  ttlCompCovEarnings: number,
+  maxInterestSM: number,
+  maxInterestCredSllr: number,
+  maxInterestGrp: number,
+  totalLnsRecovered: number,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateCompanyInput = {
@@ -1765,6 +1805,10 @@ export type UpdateCompanyInput = {
   userLoanTransferFee?: number | null,
   userTransferFee?: number | null,
   userClearanceFee?: number | null,
+  ttlNonLonssRecSM?: number | null,
+  ttlNonLonssSentSM?: number | null,
+  ttlNonLonssRecChm?: number | null,
+  ttlNonLonssSentChm?: number | null,
   companyEarningBal?: number | null,
   companyEarning?: number | null,
   agentEarningBal?: number | null,
@@ -1920,23 +1964,23 @@ export type ModelCovCreditSellerConditionInput = {
 
 export type CovCreditSeller = {
   __typename: "CovCreditSeller",
-  id?: string,
-  itemName?: string,
+  id: string,
+  itemName: string,
   itemSerialNumber?: string | null,
-  buyerContact?: string,
-  sellerContact?: string,
-  buyerID?: string,
-  sellerID?: string,
-  amountSold?: number,
-  amountexpectedBack?: number,
-  amountRepaid?: number,
-  repaymentPeriod?: number,
+  buyerContact: string,
+  sellerContact: string,
+  buyerID: string,
+  sellerID: string,
+  amountSold: number,
+  amountexpectedBack: number,
+  amountRepaid: number,
+  repaymentPeriod: number,
   description?: string | null,
-  status?: Status,
-  advregnu?: string,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  status: Status,
+  advregnu: string,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateCovCreditSellerInput = {
@@ -1998,22 +2042,22 @@ export type ModelNonCovCreditSellerConditionInput = {
 
 export type NonCovCreditSeller = {
   __typename: "NonCovCreditSeller",
-  id?: string,
-  itemName?: string,
+  id: string,
+  itemName: string,
   itemSerialNumber?: string | null,
-  buyerContact?: string,
-  sellerContact?: string,
-  buyerID?: string,
-  sellerID?: string,
-  amountSold?: number,
-  amountexpectedBack?: number,
-  amountRepaid?: number,
-  repaymentPeriod?: number,
+  buyerContact: string,
+  sellerContact: string,
+  buyerID: string,
+  sellerID: string,
+  amountSold: number,
+  amountexpectedBack: number,
+  amountRepaid: number,
+  repaymentPeriod: number,
   description?: string | null,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateNonCovCreditSellerInput = {
@@ -2048,6 +2092,8 @@ export type CreateGroupInput = {
   grpBal: number,
   ttlGrpMembers: number,
   description?: string | null,
+  ttlNonLonsRecChm: number,
+  ttlNonLonsSentChm: number,
   ttlDpst: number,
   ttlWthdrwn: number,
   TtlActvLonsTmsLnrChmCov: number,
@@ -2084,6 +2130,8 @@ export type ModelGroupConditionInput = {
   grpBal?: ModelFloatInput | null,
   ttlGrpMembers?: ModelFloatInput | null,
   description?: ModelStringInput | null,
+  ttlNonLonsRecChm?: ModelFloatInput | null,
+  ttlNonLonsSentChm?: ModelFloatInput | null,
   ttlDpst?: ModelFloatInput | null,
   ttlWthdrwn?: ModelFloatInput | null,
   TtlActvLonsTmsLnrChmCov?: ModelFloatInput | null,
@@ -2114,42 +2162,44 @@ export type ModelGroupConditionInput = {
 
 export type Group = {
   __typename: "Group",
-  grpContact?: string,
-  signitoryContact?: string,
-  SignitoryNatid?: string,
-  signitoryName?: string,
-  grpName?: string,
-  signitoryPW?: string,
-  grpEmail?: string,
-  grpBal?: number,
-  ttlGrpMembers?: number,
+  grpContact: string,
+  signitoryContact: string,
+  SignitoryNatid: string,
+  signitoryName: string,
+  grpName: string,
+  signitoryPW: string,
+  grpEmail: string,
+  grpBal: number,
+  ttlGrpMembers: number,
   description?: string | null,
-  ttlDpst?: number,
-  ttlWthdrwn?: number,
-  TtlActvLonsTmsLnrChmCov?: number,
-  TtlActvLonsAmtLnrChmCov?: number,
-  TtlBLLonsTmsLnrChmCov?: number,
-  TtlBLLonsAmtLnrChmCov?: number,
-  TtlClrdLonsTmsLnrChmCov?: number,
-  TtlClrdLonsAmtLnrChmCov?: number,
-  TtlClrdBLLonsTmsLnrChmCov?: number,
-  TtlClrdBLLonsAmtLnrChmCov?: number,
-  TtlClrdNvrBLLonsTmsLnrChmCov?: number,
-  TtlClrdNvrBLLonsAmtLnrChmCov?: number,
-  TtlActvLonsTmsLnrChmNonCov?: number,
-  TtlActvLonsAmtLnrChmNonCov?: number,
-  TtlBLLonsTmsLnrChmNonCov?: number,
-  TtlBLLonsAmtLnrChmNonCov?: number,
-  TtlClrdLonsTmsLnrChmNonCov?: number,
-  TtlClrdLonsAmtLnrChmNonCov?: number,
-  TtlClrdBLLonsTmsLnrChmNonCov?: number,
-  TtlClrdBLLonsAmtLnrChmNonCov?: number,
-  TtlClrdNvrBLLonsTmsLnrChmNonCov?: number,
-  TtlClrdNvrBLLonsAmtLnrChmNonCov?: number,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  ttlNonLonsRecChm: number,
+  ttlNonLonsSentChm: number,
+  ttlDpst: number,
+  ttlWthdrwn: number,
+  TtlActvLonsTmsLnrChmCov: number,
+  TtlActvLonsAmtLnrChmCov: number,
+  TtlBLLonsTmsLnrChmCov: number,
+  TtlBLLonsAmtLnrChmCov: number,
+  TtlClrdLonsTmsLnrChmCov: number,
+  TtlClrdLonsAmtLnrChmCov: number,
+  TtlClrdBLLonsTmsLnrChmCov: number,
+  TtlClrdBLLonsAmtLnrChmCov: number,
+  TtlClrdNvrBLLonsTmsLnrChmCov: number,
+  TtlClrdNvrBLLonsAmtLnrChmCov: number,
+  TtlActvLonsTmsLnrChmNonCov: number,
+  TtlActvLonsAmtLnrChmNonCov: number,
+  TtlBLLonsTmsLnrChmNonCov: number,
+  TtlBLLonsAmtLnrChmNonCov: number,
+  TtlClrdLonsTmsLnrChmNonCov: number,
+  TtlClrdLonsAmtLnrChmNonCov: number,
+  TtlClrdBLLonsTmsLnrChmNonCov: number,
+  TtlClrdBLLonsAmtLnrChmNonCov: number,
+  TtlClrdNvrBLLonsTmsLnrChmNonCov: number,
+  TtlClrdNvrBLLonsAmtLnrChmNonCov: number,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateGroupInput = {
@@ -2163,6 +2213,8 @@ export type UpdateGroupInput = {
   grpBal?: number | null,
   ttlGrpMembers?: number | null,
   description?: string | null,
+  ttlNonLonsRecChm?: number | null,
+  ttlNonLonsSentChm?: number | null,
   ttlDpst?: number | null,
   ttlWthdrwn?: number | null,
   TtlActvLonsTmsLnrChmCov?: number | null,
@@ -2220,17 +2272,17 @@ export type ModelGrpMembersConditionInput = {
 
 export type GrpMembers = {
   __typename: "GrpMembers",
-  id?: string,
-  groupContact?: string,
-  memberContact?: string,
-  memberNatId?: string,
-  acBal?: number,
-  AcStatus?: Status,
-  loanStatus?: Status,
-  blStatus?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  id: string,
+  groupContact: string,
+  memberContact: string,
+  memberNatId: string,
+  acBal: number,
+  AcStatus: Status,
+  loanStatus: Status,
+  blStatus: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateGrpMembersInput = {
@@ -2280,19 +2332,19 @@ export type ModelCvrdGroupLoansConditionInput = {
 
 export type CvrdGroupLoans = {
   __typename: "CvrdGroupLoans",
-  id?: string,
-  grpContact?: string,
-  loaneeID?: string,
-  repaymentPeriod?: number,
-  amountGiven?: number,
-  amountExpectedBack?: number,
-  amountRepaid?: number,
+  id: string,
+  grpContact: string,
+  loaneeID: string,
+  repaymentPeriod: number,
+  amountGiven: number,
+  amountExpectedBack: number,
+  amountRepaid: number,
   description?: string | null,
-  advRegNu?: string,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  advRegNu: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateCvrdGroupLoansInput = {
@@ -2342,18 +2394,18 @@ export type ModelNonCvrdGroupLoansConditionInput = {
 
 export type NonCvrdGroupLoans = {
   __typename: "NonCvrdGroupLoans",
-  id?: string,
-  grpContact?: string,
-  loaneeID?: string,
-  repaymentPeriod?: number,
-  amountGiven?: number,
-  amountExpectedBack?: number,
-  amountRepaid?: number,
+  id: string,
+  grpContact: string,
+  loaneeID: string,
+  repaymentPeriod: number,
+  amountGiven: number,
+  amountExpectedBack: number,
+  amountRepaid: number,
   description?: string | null,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateNonCvrdGroupLoansInput = {
@@ -2396,15 +2448,15 @@ export type ModelGroupNonLoansConditionInput = {
 
 export type GroupNonLoans = {
   __typename: "GroupNonLoans",
-  id?: string,
-  grpContact?: string,
-  recipientId?: string,
-  amountSent?: number,
+  id: string,
+  grpContact: string,
+  recipientId: string,
+  amountSent: number,
   description?: string | null,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateGroupNonLoansInput = {
@@ -2442,14 +2494,14 @@ export type ModelGrpMembersContributionConditionInput = {
 
 export type GrpMembersContribution = {
   __typename: "GrpMembersContribution",
-  id?: string,
-  memberId?: string,
-  grpContact?: string,
-  contriAmount?: number,
-  status?: Status,
-  owner?: string,
-  createdAt?: string,
-  updatedAt?: string,
+  id: string,
+  memberId: string,
+  grpContact: string,
+  contriAmount: number,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateGrpMembersContributionInput = {
@@ -2575,11 +2627,14 @@ export type ModelSMAccountFilterInput = {
   TtlClrdNvrBLLonsTmsByrNonCov?: ModelFloatInput | null,
   TtlClrdNvrBLLonsAmtSllrNonCov?: ModelFloatInput | null,
   TtlClrdNvrBLLonsAmtByrNonCov?: ModelFloatInput | null,
+  ttlNonLonsRecSM?: ModelFloatInput | null,
+  ttlNonLonsSentSM?: ModelFloatInput | null,
   MaxTymsBL?: ModelFloatInput | null,
   loanStatus?: ModelStatusInput | null,
   acStatus?: ModelStatusInput | null,
   blStatus?: ModelStatusInput | null,
   loanLimit?: ModelFloatInput | null,
+  nonLonLimit?: ModelFloatInput | null,
   withdrawalLimit?: ModelFloatInput | null,
   depositLimit?: ModelFloatInput | null,
   owner?: ModelStringInput | null,
@@ -2645,20 +2700,22 @@ export type ModelSMLoansNonCoveredConnection = {
   nextToken?: string | null,
 };
 
-export type ModelSMNonLoansFilterInput = {
+export type ModelNonLoansFilterInput = {
   id?: ModelIDInput | null,
   senderID?: ModelStringInput | null,
   recId?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
   description?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
-  and?: Array< ModelSMNonLoansFilterInput | null > | null,
-  or?: Array< ModelSMNonLoansFilterInput | null > | null,
-  not?: ModelSMNonLoansFilterInput | null,
+  and?: Array< ModelNonLoansFilterInput | null > | null,
+  or?: Array< ModelNonLoansFilterInput | null > | null,
+  not?: ModelNonLoansFilterInput | null,
 };
 
-export type ModelSMNonLoansConnection = {
-  __typename: "ModelSMNonLoansConnection",
-  items?:  Array<SMNonLoans | null > | null,
+export type ModelNonLoansConnection = {
+  __typename: "ModelNonLoansConnection",
+  items?:  Array<NonLoans | null > | null,
   nextToken?: string | null,
 };
 
@@ -2907,6 +2964,10 @@ export type ModelCompanyFilterInput = {
   userLoanTransferFee?: ModelFloatInput | null,
   userTransferFee?: ModelFloatInput | null,
   userClearanceFee?: ModelFloatInput | null,
+  ttlNonLonssRecSM?: ModelFloatInput | null,
+  ttlNonLonssSentSM?: ModelFloatInput | null,
+  ttlNonLonssRecChm?: ModelFloatInput | null,
+  ttlNonLonssSentChm?: ModelFloatInput | null,
   companyEarningBal?: ModelFloatInput | null,
   companyEarning?: ModelFloatInput | null,
   agentEarningBal?: ModelFloatInput | null,
@@ -3092,6 +3153,8 @@ export type ModelGroupFilterInput = {
   grpBal?: ModelFloatInput | null,
   ttlGrpMembers?: ModelFloatInput | null,
   description?: ModelStringInput | null,
+  ttlNonLonsRecChm?: ModelFloatInput | null,
+  ttlNonLonsSentChm?: ModelFloatInput | null,
   ttlDpst?: ModelFloatInput | null,
   ttlWthdrwn?: ModelFloatInput | null,
   TtlActvLonsTmsLnrChmCov?: ModelFloatInput | null,
@@ -3315,12 +3378,12 @@ export type ModelCvrdGroupLoansSearchAdvGrpCompositeKeyInput = {
   loaneeID?: string | null,
 };
 
-export type CreateSmAccountMutationVariables = {
-  input?: CreateSMAccountInput,
+export type CreateSMAccountMutationVariables = {
+  input: CreateSMAccountInput,
   condition?: ModelSMAccountConditionInput | null,
 };
 
-export type CreateSmAccountMutation = {
+export type CreateSMAccountMutation = {
   createSMAccount?:  {
     __typename: "SMAccount",
     nationalid: string,
@@ -3432,11 +3495,14 @@ export type CreateSmAccountMutation = {
     TtlClrdNvrBLLonsTmsByrNonCov: number,
     TtlClrdNvrBLLonsAmtSllrNonCov: number,
     TtlClrdNvrBLLonsAmtByrNonCov: number,
+    ttlNonLonsRecSM: number,
+    ttlNonLonsSentSM: number,
     MaxTymsBL: number,
     loanStatus: Status,
     acStatus: Status,
     blStatus: Status,
     loanLimit: number,
+    nonLonLimit: number,
     withdrawalLimit: number,
     depositLimit: number,
     owner: string,
@@ -3445,12 +3511,12 @@ export type CreateSmAccountMutation = {
   } | null,
 };
 
-export type UpdateSmAccountMutationVariables = {
-  input?: UpdateSMAccountInput,
+export type UpdateSMAccountMutationVariables = {
+  input: UpdateSMAccountInput,
   condition?: ModelSMAccountConditionInput | null,
 };
 
-export type UpdateSmAccountMutation = {
+export type UpdateSMAccountMutation = {
   updateSMAccount?:  {
     __typename: "SMAccount",
     nationalid: string,
@@ -3562,11 +3628,14 @@ export type UpdateSmAccountMutation = {
     TtlClrdNvrBLLonsTmsByrNonCov: number,
     TtlClrdNvrBLLonsAmtSllrNonCov: number,
     TtlClrdNvrBLLonsAmtByrNonCov: number,
+    ttlNonLonsRecSM: number,
+    ttlNonLonsSentSM: number,
     MaxTymsBL: number,
     loanStatus: Status,
     acStatus: Status,
     blStatus: Status,
     loanLimit: number,
+    nonLonLimit: number,
     withdrawalLimit: number,
     depositLimit: number,
     owner: string,
@@ -3575,12 +3644,12 @@ export type UpdateSmAccountMutation = {
   } | null,
 };
 
-export type DeleteSmAccountMutationVariables = {
-  input?: DeleteSMAccountInput,
+export type DeleteSMAccountMutationVariables = {
+  input: DeleteSMAccountInput,
   condition?: ModelSMAccountConditionInput | null,
 };
 
-export type DeleteSmAccountMutation = {
+export type DeleteSMAccountMutation = {
   deleteSMAccount?:  {
     __typename: "SMAccount",
     nationalid: string,
@@ -3692,11 +3761,14 @@ export type DeleteSmAccountMutation = {
     TtlClrdNvrBLLonsTmsByrNonCov: number,
     TtlClrdNvrBLLonsAmtSllrNonCov: number,
     TtlClrdNvrBLLonsAmtByrNonCov: number,
+    ttlNonLonsRecSM: number,
+    ttlNonLonsSentSM: number,
     MaxTymsBL: number,
     loanStatus: Status,
     acStatus: Status,
     blStatus: Status,
     loanLimit: number,
+    nonLonLimit: number,
     withdrawalLimit: number,
     depositLimit: number,
     owner: string,
@@ -3705,12 +3777,12 @@ export type DeleteSmAccountMutation = {
   } | null,
 };
 
-export type CreateSmLoansCoveredMutationVariables = {
-  input?: CreateSMLoansCoveredInput,
+export type CreateSMLoansCoveredMutationVariables = {
+  input: CreateSMLoansCoveredInput,
   condition?: ModelSMLoansCoveredConditionInput | null,
 };
 
-export type CreateSmLoansCoveredMutation = {
+export type CreateSMLoansCoveredMutation = {
   createSMLoansCovered?:  {
     __typename: "SMLoansCovered",
     id: string,
@@ -3729,12 +3801,12 @@ export type CreateSmLoansCoveredMutation = {
   } | null,
 };
 
-export type UpdateSmLoansCoveredMutationVariables = {
-  input?: UpdateSMLoansCoveredInput,
+export type UpdateSMLoansCoveredMutationVariables = {
+  input: UpdateSMLoansCoveredInput,
   condition?: ModelSMLoansCoveredConditionInput | null,
 };
 
-export type UpdateSmLoansCoveredMutation = {
+export type UpdateSMLoansCoveredMutation = {
   updateSMLoansCovered?:  {
     __typename: "SMLoansCovered",
     id: string,
@@ -3753,12 +3825,12 @@ export type UpdateSmLoansCoveredMutation = {
   } | null,
 };
 
-export type DeleteSmLoansCoveredMutationVariables = {
-  input?: DeleteSMLoansCoveredInput,
+export type DeleteSMLoansCoveredMutationVariables = {
+  input: DeleteSMLoansCoveredInput,
   condition?: ModelSMLoansCoveredConditionInput | null,
 };
 
-export type DeleteSmLoansCoveredMutation = {
+export type DeleteSMLoansCoveredMutation = {
   deleteSMLoansCovered?:  {
     __typename: "SMLoansCovered",
     id: string,
@@ -3777,12 +3849,12 @@ export type DeleteSmLoansCoveredMutation = {
   } | null,
 };
 
-export type CreateSmLoansNonCoveredMutationVariables = {
-  input?: CreateSMLoansNonCoveredInput,
+export type CreateSMLoansNonCoveredMutationVariables = {
+  input: CreateSMLoansNonCoveredInput,
   condition?: ModelSMLoansNonCoveredConditionInput | null,
 };
 
-export type CreateSmLoansNonCoveredMutation = {
+export type CreateSMLoansNonCoveredMutation = {
   createSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
@@ -3800,12 +3872,12 @@ export type CreateSmLoansNonCoveredMutation = {
   } | null,
 };
 
-export type UpdateSmLoansNonCoveredMutationVariables = {
-  input?: UpdateSMLoansNonCoveredInput,
+export type UpdateSMLoansNonCoveredMutationVariables = {
+  input: UpdateSMLoansNonCoveredInput,
   condition?: ModelSMLoansNonCoveredConditionInput | null,
 };
 
-export type UpdateSmLoansNonCoveredMutation = {
+export type UpdateSMLoansNonCoveredMutation = {
   updateSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
@@ -3823,12 +3895,12 @@ export type UpdateSmLoansNonCoveredMutation = {
   } | null,
 };
 
-export type DeleteSmLoansNonCoveredMutationVariables = {
-  input?: DeleteSMLoansNonCoveredInput,
+export type DeleteSMLoansNonCoveredMutationVariables = {
+  input: DeleteSMLoansNonCoveredInput,
   condition?: ModelSMLoansNonCoveredConditionInput | null,
 };
 
-export type DeleteSmLoansNonCoveredMutation = {
+export type DeleteSMLoansNonCoveredMutation = {
   deleteSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
@@ -3846,54 +3918,60 @@ export type DeleteSmLoansNonCoveredMutation = {
   } | null,
 };
 
-export type CreateSmNonLoansMutationVariables = {
-  input?: CreateSMNonLoansInput,
-  condition?: ModelSMNonLoansConditionInput | null,
+export type CreateNonLoansMutationVariables = {
+  input: CreateNonLoansInput,
+  condition?: ModelNonLoansConditionInput | null,
 };
 
-export type CreateSmNonLoansMutation = {
-  createSMNonLoans?:  {
-    __typename: "SMNonLoans",
+export type CreateNonLoansMutation = {
+  createNonLoans?:  {
+    __typename: "NonLoans",
     id: string,
     senderID: string,
     recId: string,
+    amount: number,
     description?: string | null,
+    status: Status,
     owner: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type UpdateSmNonLoansMutationVariables = {
-  input?: UpdateSMNonLoansInput,
-  condition?: ModelSMNonLoansConditionInput | null,
+export type UpdateNonLoansMutationVariables = {
+  input: UpdateNonLoansInput,
+  condition?: ModelNonLoansConditionInput | null,
 };
 
-export type UpdateSmNonLoansMutation = {
-  updateSMNonLoans?:  {
-    __typename: "SMNonLoans",
+export type UpdateNonLoansMutation = {
+  updateNonLoans?:  {
+    __typename: "NonLoans",
     id: string,
     senderID: string,
     recId: string,
+    amount: number,
     description?: string | null,
+    status: Status,
     owner: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type DeleteSmNonLoansMutationVariables = {
-  input?: DeleteSMNonLoansInput,
-  condition?: ModelSMNonLoansConditionInput | null,
+export type DeleteNonLoansMutationVariables = {
+  input: DeleteNonLoansInput,
+  condition?: ModelNonLoansConditionInput | null,
 };
 
-export type DeleteSmNonLoansMutation = {
-  deleteSMNonLoans?:  {
-    __typename: "SMNonLoans",
+export type DeleteNonLoansMutation = {
+  deleteNonLoans?:  {
+    __typename: "NonLoans",
     id: string,
     senderID: string,
     recId: string,
+    amount: number,
     description?: string | null,
+    status: Status,
     owner: string,
     createdAt: string,
     updatedAt: string,
@@ -3901,7 +3979,7 @@ export type DeleteSmNonLoansMutation = {
 };
 
 export type CreateAgentMutationVariables = {
-  input?: CreateAgentInput,
+  input: CreateAgentInput,
   condition?: ModelAgentConditionInput | null,
 };
 
@@ -3929,7 +4007,7 @@ export type CreateAgentMutation = {
 };
 
 export type UpdateAgentMutationVariables = {
-  input?: UpdateAgentInput,
+  input: UpdateAgentInput,
   condition?: ModelAgentConditionInput | null,
 };
 
@@ -3957,7 +4035,7 @@ export type UpdateAgentMutation = {
 };
 
 export type DeleteAgentMutationVariables = {
-  input?: DeleteAgentInput,
+  input: DeleteAgentInput,
   condition?: ModelAgentConditionInput | null,
 };
 
@@ -3985,7 +4063,7 @@ export type DeleteAgentMutation = {
 };
 
 export type CreateFloatPurchaseMutationVariables = {
-  input?: CreateFloatPurchaseInput,
+  input: CreateFloatPurchaseInput,
   condition?: ModelFloatPurchaseConditionInput | null,
 };
 
@@ -4005,7 +4083,7 @@ export type CreateFloatPurchaseMutation = {
 };
 
 export type UpdateFloatPurchaseMutationVariables = {
-  input?: UpdateFloatPurchaseInput,
+  input: UpdateFloatPurchaseInput,
   condition?: ModelFloatPurchaseConditionInput | null,
 };
 
@@ -4025,7 +4103,7 @@ export type UpdateFloatPurchaseMutation = {
 };
 
 export type DeleteFloatPurchaseMutationVariables = {
-  input?: DeleteFloatPurchaseInput,
+  input: DeleteFloatPurchaseInput,
   condition?: ModelFloatPurchaseConditionInput | null,
 };
 
@@ -4045,7 +4123,7 @@ export type DeleteFloatPurchaseMutation = {
 };
 
 export type CreateFloatAddMutationVariables = {
-  input?: CreateFloatAddInput,
+  input: CreateFloatAddInput,
   condition?: ModelFloatAddConditionInput | null,
 };
 
@@ -4065,7 +4143,7 @@ export type CreateFloatAddMutation = {
 };
 
 export type UpdateFloatAddMutationVariables = {
-  input?: UpdateFloatAddInput,
+  input: UpdateFloatAddInput,
   condition?: ModelFloatAddConditionInput | null,
 };
 
@@ -4085,7 +4163,7 @@ export type UpdateFloatAddMutation = {
 };
 
 export type DeleteFloatAddMutationVariables = {
-  input?: DeleteFloatAddInput,
+  input: DeleteFloatAddInput,
   condition?: ModelFloatAddConditionInput | null,
 };
 
@@ -4105,7 +4183,7 @@ export type DeleteFloatAddMutation = {
 };
 
 export type CreateFloatReductionMutationVariables = {
-  input?: CreateFloatReductionInput,
+  input: CreateFloatReductionInput,
   condition?: ModelFloatReductionConditionInput | null,
 };
 
@@ -4119,11 +4197,12 @@ export type CreateFloatReductionMutation = {
     status: Status,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type UpdateFloatReductionMutationVariables = {
-  input?: UpdateFloatReductionInput,
+  input: UpdateFloatReductionInput,
   condition?: ModelFloatReductionConditionInput | null,
 };
 
@@ -4137,11 +4216,12 @@ export type UpdateFloatReductionMutation = {
     status: Status,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type DeleteFloatReductionMutationVariables = {
-  input?: DeleteFloatReductionInput,
+  input: DeleteFloatReductionInput,
   condition?: ModelFloatReductionConditionInput | null,
 };
 
@@ -4155,11 +4235,12 @@ export type DeleteFloatReductionMutation = {
     status: Status,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type CreateAgentWithdrawalsMutationVariables = {
-  input?: CreateAgentWithdrawalsInput,
+  input: CreateAgentWithdrawalsInput,
   condition?: ModelAgentWithdrawalsConditionInput | null,
 };
 
@@ -4178,7 +4259,7 @@ export type CreateAgentWithdrawalsMutation = {
 };
 
 export type UpdateAgentWithdrawalsMutationVariables = {
-  input?: UpdateAgentWithdrawalsInput,
+  input: UpdateAgentWithdrawalsInput,
   condition?: ModelAgentWithdrawalsConditionInput | null,
 };
 
@@ -4197,7 +4278,7 @@ export type UpdateAgentWithdrawalsMutation = {
 };
 
 export type DeleteAgentWithdrawalsMutationVariables = {
-  input?: DeleteAgentWithdrawalsInput,
+  input: DeleteAgentWithdrawalsInput,
   condition?: ModelAgentWithdrawalsConditionInput | null,
 };
 
@@ -4216,7 +4297,7 @@ export type DeleteAgentWithdrawalsMutation = {
 };
 
 export type CreateSAgentMutationVariables = {
-  input?: CreateSAgentInput,
+  input: CreateSAgentInput,
   condition?: ModelSAgentConditionInput | null,
 };
 
@@ -4241,7 +4322,7 @@ export type CreateSAgentMutation = {
 };
 
 export type UpdateSAgentMutationVariables = {
-  input?: UpdateSAgentInput,
+  input: UpdateSAgentInput,
   condition?: ModelSAgentConditionInput | null,
 };
 
@@ -4266,7 +4347,7 @@ export type UpdateSAgentMutation = {
 };
 
 export type DeleteSAgentMutationVariables = {
-  input?: DeleteSAgentInput,
+  input: DeleteSAgentInput,
   condition?: ModelSAgentConditionInput | null,
 };
 
@@ -4291,7 +4372,7 @@ export type DeleteSAgentMutation = {
 };
 
 export type CreateSAgentWithdrawalsMutationVariables = {
-  input?: CreateSAgentWithdrawalsInput,
+  input: CreateSAgentWithdrawalsInput,
   condition?: ModelSAgentWithdrawalsConditionInput | null,
 };
 
@@ -4310,7 +4391,7 @@ export type CreateSAgentWithdrawalsMutation = {
 };
 
 export type UpdateSAgentWithdrawalsMutationVariables = {
-  input?: UpdateSAgentWithdrawalsInput,
+  input: UpdateSAgentWithdrawalsInput,
   condition?: ModelSAgentWithdrawalsConditionInput | null,
 };
 
@@ -4329,7 +4410,7 @@ export type UpdateSAgentWithdrawalsMutation = {
 };
 
 export type DeleteSAgentWithdrawalsMutationVariables = {
-  input?: DeleteSAgentWithdrawalsInput,
+  input: DeleteSAgentWithdrawalsInput,
   condition?: ModelSAgentWithdrawalsConditionInput | null,
 };
 
@@ -4348,7 +4429,7 @@ export type DeleteSAgentWithdrawalsMutation = {
 };
 
 export type CreateBankAdminMutationVariables = {
-  input?: CreateBankAdminInput,
+  input: CreateBankAdminInput,
   condition?: ModelBankAdminConditionInput | null,
 };
 
@@ -4370,7 +4451,7 @@ export type CreateBankAdminMutation = {
 };
 
 export type UpdateBankAdminMutationVariables = {
-  input?: UpdateBankAdminInput,
+  input: UpdateBankAdminInput,
   condition?: ModelBankAdminConditionInput | null,
 };
 
@@ -4392,7 +4473,7 @@ export type UpdateBankAdminMutation = {
 };
 
 export type DeleteBankAdminMutationVariables = {
-  input?: DeleteBankAdminInput,
+  input: DeleteBankAdminInput,
   condition?: ModelBankAdminConditionInput | null,
 };
 
@@ -4414,7 +4495,7 @@ export type DeleteBankAdminMutation = {
 };
 
 export type CreateBankAdmWithdrawalsMutationVariables = {
-  input?: CreateBankAdmWithdrawalsInput,
+  input: CreateBankAdmWithdrawalsInput,
   condition?: ModelBankAdmWithdrawalsConditionInput | null,
 };
 
@@ -4432,7 +4513,7 @@ export type CreateBankAdmWithdrawalsMutation = {
 };
 
 export type UpdateBankAdmWithdrawalsMutationVariables = {
-  input?: UpdateBankAdmWithdrawalsInput,
+  input: UpdateBankAdmWithdrawalsInput,
   condition?: ModelBankAdmWithdrawalsConditionInput | null,
 };
 
@@ -4450,7 +4531,7 @@ export type UpdateBankAdmWithdrawalsMutation = {
 };
 
 export type DeleteBankAdmWithdrawalsMutationVariables = {
-  input?: DeleteBankAdmWithdrawalsInput,
+  input: DeleteBankAdmWithdrawalsInput,
   condition?: ModelBankAdmWithdrawalsConditionInput | null,
 };
 
@@ -4468,7 +4549,7 @@ export type DeleteBankAdmWithdrawalsMutation = {
 };
 
 export type CreateAdvocateMutationVariables = {
-  input?: CreateAdvocateInput,
+  input: CreateAdvocateInput,
   condition?: ModelAdvocateConditionInput | null,
 };
 
@@ -4492,7 +4573,7 @@ export type CreateAdvocateMutation = {
 };
 
 export type UpdateAdvocateMutationVariables = {
-  input?: UpdateAdvocateInput,
+  input: UpdateAdvocateInput,
   condition?: ModelAdvocateConditionInput | null,
 };
 
@@ -4516,7 +4597,7 @@ export type UpdateAdvocateMutation = {
 };
 
 export type DeleteAdvocateMutationVariables = {
-  input?: DeleteAdvocateInput,
+  input: DeleteAdvocateInput,
   condition?: ModelAdvocateConditionInput | null,
 };
 
@@ -4540,7 +4621,7 @@ export type DeleteAdvocateMutation = {
 };
 
 export type CreateAdvocateWithdrawalsMutationVariables = {
-  input?: CreateAdvocateWithdrawalsInput,
+  input: CreateAdvocateWithdrawalsInput,
   condition?: ModelAdvocateWithdrawalsConditionInput | null,
 };
 
@@ -4559,7 +4640,7 @@ export type CreateAdvocateWithdrawalsMutation = {
 };
 
 export type UpdateAdvocateWithdrawalsMutationVariables = {
-  input?: UpdateAdvocateWithdrawalsInput,
+  input: UpdateAdvocateWithdrawalsInput,
   condition?: ModelAdvocateWithdrawalsConditionInput | null,
 };
 
@@ -4578,7 +4659,7 @@ export type UpdateAdvocateWithdrawalsMutation = {
 };
 
 export type DeleteAdvocateWithdrawalsMutationVariables = {
-  input?: DeleteAdvocateWithdrawalsInput,
+  input: DeleteAdvocateWithdrawalsInput,
   condition?: ModelAdvocateWithdrawalsConditionInput | null,
 };
 
@@ -4597,7 +4678,7 @@ export type DeleteAdvocateWithdrawalsMutation = {
 };
 
 export type CreateCompanyMutationVariables = {
-  input?: CreateCompanyInput,
+  input: CreateCompanyInput,
   condition?: ModelCompanyConditionInput | null,
 };
 
@@ -4627,6 +4708,10 @@ export type CreateCompanyMutation = {
     userLoanTransferFee: number,
     userTransferFee: number,
     userClearanceFee: number,
+    ttlNonLonssRecSM: number,
+    ttlNonLonssSentSM: number,
+    ttlNonLonssRecChm: number,
+    ttlNonLonssSentChm: number,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -4743,7 +4828,7 @@ export type CreateCompanyMutation = {
 };
 
 export type UpdateCompanyMutationVariables = {
-  input?: UpdateCompanyInput,
+  input: UpdateCompanyInput,
   condition?: ModelCompanyConditionInput | null,
 };
 
@@ -4773,6 +4858,10 @@ export type UpdateCompanyMutation = {
     userLoanTransferFee: number,
     userTransferFee: number,
     userClearanceFee: number,
+    ttlNonLonssRecSM: number,
+    ttlNonLonssSentSM: number,
+    ttlNonLonssRecChm: number,
+    ttlNonLonssSentChm: number,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -4889,7 +4978,7 @@ export type UpdateCompanyMutation = {
 };
 
 export type DeleteCompanyMutationVariables = {
-  input?: DeleteCompanyInput,
+  input: DeleteCompanyInput,
   condition?: ModelCompanyConditionInput | null,
 };
 
@@ -4919,6 +5008,10 @@ export type DeleteCompanyMutation = {
     userLoanTransferFee: number,
     userTransferFee: number,
     userClearanceFee: number,
+    ttlNonLonssRecSM: number,
+    ttlNonLonssSentSM: number,
+    ttlNonLonssRecChm: number,
+    ttlNonLonssSentChm: number,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -5035,7 +5128,7 @@ export type DeleteCompanyMutation = {
 };
 
 export type CreateCovCreditSellerMutationVariables = {
-  input?: CreateCovCreditSellerInput,
+  input: CreateCovCreditSellerInput,
   condition?: ModelCovCreditSellerConditionInput | null,
 };
 
@@ -5063,7 +5156,7 @@ export type CreateCovCreditSellerMutation = {
 };
 
 export type UpdateCovCreditSellerMutationVariables = {
-  input?: UpdateCovCreditSellerInput,
+  input: UpdateCovCreditSellerInput,
   condition?: ModelCovCreditSellerConditionInput | null,
 };
 
@@ -5091,7 +5184,7 @@ export type UpdateCovCreditSellerMutation = {
 };
 
 export type DeleteCovCreditSellerMutationVariables = {
-  input?: DeleteCovCreditSellerInput,
+  input: DeleteCovCreditSellerInput,
   condition?: ModelCovCreditSellerConditionInput | null,
 };
 
@@ -5119,7 +5212,7 @@ export type DeleteCovCreditSellerMutation = {
 };
 
 export type CreateNonCovCreditSellerMutationVariables = {
-  input?: CreateNonCovCreditSellerInput,
+  input: CreateNonCovCreditSellerInput,
   condition?: ModelNonCovCreditSellerConditionInput | null,
 };
 
@@ -5146,7 +5239,7 @@ export type CreateNonCovCreditSellerMutation = {
 };
 
 export type UpdateNonCovCreditSellerMutationVariables = {
-  input?: UpdateNonCovCreditSellerInput,
+  input: UpdateNonCovCreditSellerInput,
   condition?: ModelNonCovCreditSellerConditionInput | null,
 };
 
@@ -5173,7 +5266,7 @@ export type UpdateNonCovCreditSellerMutation = {
 };
 
 export type DeleteNonCovCreditSellerMutationVariables = {
-  input?: DeleteNonCovCreditSellerInput,
+  input: DeleteNonCovCreditSellerInput,
   condition?: ModelNonCovCreditSellerConditionInput | null,
 };
 
@@ -5200,7 +5293,7 @@ export type DeleteNonCovCreditSellerMutation = {
 };
 
 export type CreateGroupMutationVariables = {
-  input?: CreateGroupInput,
+  input: CreateGroupInput,
   condition?: ModelGroupConditionInput | null,
 };
 
@@ -5217,6 +5310,8 @@ export type CreateGroupMutation = {
     grpBal: number,
     ttlGrpMembers: number,
     description?: string | null,
+    ttlNonLonsRecChm: number,
+    ttlNonLonsSentChm: number,
     ttlDpst: number,
     ttlWthdrwn: number,
     TtlActvLonsTmsLnrChmCov: number,
@@ -5247,7 +5342,7 @@ export type CreateGroupMutation = {
 };
 
 export type UpdateGroupMutationVariables = {
-  input?: UpdateGroupInput,
+  input: UpdateGroupInput,
   condition?: ModelGroupConditionInput | null,
 };
 
@@ -5264,6 +5359,8 @@ export type UpdateGroupMutation = {
     grpBal: number,
     ttlGrpMembers: number,
     description?: string | null,
+    ttlNonLonsRecChm: number,
+    ttlNonLonsSentChm: number,
     ttlDpst: number,
     ttlWthdrwn: number,
     TtlActvLonsTmsLnrChmCov: number,
@@ -5294,7 +5391,7 @@ export type UpdateGroupMutation = {
 };
 
 export type DeleteGroupMutationVariables = {
-  input?: DeleteGroupInput,
+  input: DeleteGroupInput,
   condition?: ModelGroupConditionInput | null,
 };
 
@@ -5311,6 +5408,8 @@ export type DeleteGroupMutation = {
     grpBal: number,
     ttlGrpMembers: number,
     description?: string | null,
+    ttlNonLonsRecChm: number,
+    ttlNonLonsSentChm: number,
     ttlDpst: number,
     ttlWthdrwn: number,
     TtlActvLonsTmsLnrChmCov: number,
@@ -5341,7 +5440,7 @@ export type DeleteGroupMutation = {
 };
 
 export type CreateGrpMembersMutationVariables = {
-  input?: CreateGrpMembersInput,
+  input: CreateGrpMembersInput,
   condition?: ModelGrpMembersConditionInput | null,
 };
 
@@ -5363,7 +5462,7 @@ export type CreateGrpMembersMutation = {
 };
 
 export type UpdateGrpMembersMutationVariables = {
-  input?: UpdateGrpMembersInput,
+  input: UpdateGrpMembersInput,
   condition?: ModelGrpMembersConditionInput | null,
 };
 
@@ -5385,7 +5484,7 @@ export type UpdateGrpMembersMutation = {
 };
 
 export type DeleteGrpMembersMutationVariables = {
-  input?: DeleteGrpMembersInput,
+  input: DeleteGrpMembersInput,
   condition?: ModelGrpMembersConditionInput | null,
 };
 
@@ -5407,7 +5506,7 @@ export type DeleteGrpMembersMutation = {
 };
 
 export type CreateCvrdGroupLoansMutationVariables = {
-  input?: CreateCvrdGroupLoansInput,
+  input: CreateCvrdGroupLoansInput,
   condition?: ModelCvrdGroupLoansConditionInput | null,
 };
 
@@ -5431,7 +5530,7 @@ export type CreateCvrdGroupLoansMutation = {
 };
 
 export type UpdateCvrdGroupLoansMutationVariables = {
-  input?: UpdateCvrdGroupLoansInput,
+  input: UpdateCvrdGroupLoansInput,
   condition?: ModelCvrdGroupLoansConditionInput | null,
 };
 
@@ -5455,7 +5554,7 @@ export type UpdateCvrdGroupLoansMutation = {
 };
 
 export type DeleteCvrdGroupLoansMutationVariables = {
-  input?: DeleteCvrdGroupLoansInput,
+  input: DeleteCvrdGroupLoansInput,
   condition?: ModelCvrdGroupLoansConditionInput | null,
 };
 
@@ -5479,7 +5578,7 @@ export type DeleteCvrdGroupLoansMutation = {
 };
 
 export type CreateNonCvrdGroupLoansMutationVariables = {
-  input?: CreateNonCvrdGroupLoansInput,
+  input: CreateNonCvrdGroupLoansInput,
   condition?: ModelNonCvrdGroupLoansConditionInput | null,
 };
 
@@ -5502,7 +5601,7 @@ export type CreateNonCvrdGroupLoansMutation = {
 };
 
 export type UpdateNonCvrdGroupLoansMutationVariables = {
-  input?: UpdateNonCvrdGroupLoansInput,
+  input: UpdateNonCvrdGroupLoansInput,
   condition?: ModelNonCvrdGroupLoansConditionInput | null,
 };
 
@@ -5525,7 +5624,7 @@ export type UpdateNonCvrdGroupLoansMutation = {
 };
 
 export type DeleteNonCvrdGroupLoansMutationVariables = {
-  input?: DeleteNonCvrdGroupLoansInput,
+  input: DeleteNonCvrdGroupLoansInput,
   condition?: ModelNonCvrdGroupLoansConditionInput | null,
 };
 
@@ -5548,7 +5647,7 @@ export type DeleteNonCvrdGroupLoansMutation = {
 };
 
 export type CreateGroupNonLoansMutationVariables = {
-  input?: CreateGroupNonLoansInput,
+  input: CreateGroupNonLoansInput,
   condition?: ModelGroupNonLoansConditionInput | null,
 };
 
@@ -5568,7 +5667,7 @@ export type CreateGroupNonLoansMutation = {
 };
 
 export type UpdateGroupNonLoansMutationVariables = {
-  input?: UpdateGroupNonLoansInput,
+  input: UpdateGroupNonLoansInput,
   condition?: ModelGroupNonLoansConditionInput | null,
 };
 
@@ -5588,7 +5687,7 @@ export type UpdateGroupNonLoansMutation = {
 };
 
 export type DeleteGroupNonLoansMutationVariables = {
-  input?: DeleteGroupNonLoansInput,
+  input: DeleteGroupNonLoansInput,
   condition?: ModelGroupNonLoansConditionInput | null,
 };
 
@@ -5608,7 +5707,7 @@ export type DeleteGroupNonLoansMutation = {
 };
 
 export type CreateGrpMembersContributionMutationVariables = {
-  input?: CreateGrpMembersContributionInput,
+  input: CreateGrpMembersContributionInput,
   condition?: ModelGrpMembersContributionConditionInput | null,
 };
 
@@ -5627,7 +5726,7 @@ export type CreateGrpMembersContributionMutation = {
 };
 
 export type UpdateGrpMembersContributionMutationVariables = {
-  input?: UpdateGrpMembersContributionInput,
+  input: UpdateGrpMembersContributionInput,
   condition?: ModelGrpMembersContributionConditionInput | null,
 };
 
@@ -5646,7 +5745,7 @@ export type UpdateGrpMembersContributionMutation = {
 };
 
 export type DeleteGrpMembersContributionMutationVariables = {
-  input?: DeleteGrpMembersContributionInput,
+  input: DeleteGrpMembersContributionInput,
   condition?: ModelGrpMembersContributionConditionInput | null,
 };
 
@@ -5664,11 +5763,11 @@ export type DeleteGrpMembersContributionMutation = {
   } | null,
 };
 
-export type GetSmAccountQueryVariables = {
-  nationalid?: string,
+export type GetSMAccountQueryVariables = {
+  nationalid: string,
 };
 
-export type GetSmAccountQuery = {
+export type GetSMAccountQuery = {
   getSMAccount?:  {
     __typename: "SMAccount",
     nationalid: string,
@@ -5780,11 +5879,14 @@ export type GetSmAccountQuery = {
     TtlClrdNvrBLLonsTmsByrNonCov: number,
     TtlClrdNvrBLLonsAmtSllrNonCov: number,
     TtlClrdNvrBLLonsAmtByrNonCov: number,
+    ttlNonLonsRecSM: number,
+    ttlNonLonsSentSM: number,
     MaxTymsBL: number,
     loanStatus: Status,
     acStatus: Status,
     blStatus: Status,
     loanLimit: number,
+    nonLonLimit: number,
     withdrawalLimit: number,
     depositLimit: number,
     owner: string,
@@ -5793,7 +5895,7 @@ export type GetSmAccountQuery = {
   } | null,
 };
 
-export type ListSmAccountsQueryVariables = {
+export type ListSMAccountsQueryVariables = {
   nationalid?: string | null,
   filter?: ModelSMAccountFilterInput | null,
   limit?: number | null,
@@ -5801,7 +5903,7 @@ export type ListSmAccountsQueryVariables = {
   sortDirection?: ModelSortDirection | null,
 };
 
-export type ListSmAccountsQuery = {
+export type ListSMAccountsQuery = {
   listSMAccounts?:  {
     __typename: "ModelSMAccountConnection",
     items?:  Array< {
@@ -5915,11 +6017,14 @@ export type ListSmAccountsQuery = {
       TtlClrdNvrBLLonsTmsByrNonCov: number,
       TtlClrdNvrBLLonsAmtSllrNonCov: number,
       TtlClrdNvrBLLonsAmtByrNonCov: number,
+      ttlNonLonsRecSM: number,
+      ttlNonLonsSentSM: number,
       MaxTymsBL: number,
       loanStatus: Status,
       acStatus: Status,
       blStatus: Status,
       loanLimit: number,
+      nonLonLimit: number,
       withdrawalLimit: number,
       depositLimit: number,
       owner: string,
@@ -5930,11 +6035,11 @@ export type ListSmAccountsQuery = {
   } | null,
 };
 
-export type GetSmLoansCoveredQueryVariables = {
-  id?: string,
+export type GetSMLoansCoveredQueryVariables = {
+  id: string,
 };
 
-export type GetSmLoansCoveredQuery = {
+export type GetSMLoansCoveredQuery = {
   getSMLoansCovered?:  {
     __typename: "SMLoansCovered",
     id: string,
@@ -5953,13 +6058,13 @@ export type GetSmLoansCoveredQuery = {
   } | null,
 };
 
-export type ListSmLoansCoveredsQueryVariables = {
+export type ListSMLoansCoveredsQueryVariables = {
   filter?: ModelSMLoansCoveredFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListSmLoansCoveredsQuery = {
+export type ListSMLoansCoveredsQuery = {
   listSMLoansCovereds?:  {
     __typename: "ModelSMLoansCoveredConnection",
     items?:  Array< {
@@ -5982,11 +6087,11 @@ export type ListSmLoansCoveredsQuery = {
   } | null,
 };
 
-export type GetSmLoansNonCoveredQueryVariables = {
-  id?: string,
+export type GetSMLoansNonCoveredQueryVariables = {
+  id: string,
 };
 
-export type GetSmLoansNonCoveredQuery = {
+export type GetSMLoansNonCoveredQuery = {
   getSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
@@ -6004,13 +6109,13 @@ export type GetSmLoansNonCoveredQuery = {
   } | null,
 };
 
-export type ListSmLoansNonCoveredsQueryVariables = {
+export type ListSMLoansNonCoveredsQueryVariables = {
   filter?: ModelSMLoansNonCoveredFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListSmLoansNonCoveredsQuery = {
+export type ListSMLoansNonCoveredsQuery = {
   listSMLoansNonCovereds?:  {
     __typename: "ModelSMLoansNonCoveredConnection",
     items?:  Array< {
@@ -6032,38 +6137,42 @@ export type ListSmLoansNonCoveredsQuery = {
   } | null,
 };
 
-export type GetSmNonLoansQueryVariables = {
-  id?: string,
+export type GetNonLoansQueryVariables = {
+  id: string,
 };
 
-export type GetSmNonLoansQuery = {
-  getSMNonLoans?:  {
-    __typename: "SMNonLoans",
+export type GetNonLoansQuery = {
+  getNonLoans?:  {
+    __typename: "NonLoans",
     id: string,
     senderID: string,
     recId: string,
+    amount: number,
     description?: string | null,
+    status: Status,
     owner: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type ListSmNonLoanssQueryVariables = {
-  filter?: ModelSMNonLoansFilterInput | null,
+export type ListNonLoanssQueryVariables = {
+  filter?: ModelNonLoansFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListSmNonLoanssQuery = {
-  listSMNonLoanss?:  {
-    __typename: "ModelSMNonLoansConnection",
+export type ListNonLoanssQuery = {
+  listNonLoanss?:  {
+    __typename: "ModelNonLoansConnection",
     items?:  Array< {
-      __typename: "SMNonLoans",
+      __typename: "NonLoans",
       id: string,
       senderID: string,
       recId: string,
+      amount: number,
       description?: string | null,
+      status: Status,
       owner: string,
       createdAt: string,
       updatedAt: string,
@@ -6073,7 +6182,7 @@ export type ListSmNonLoanssQuery = {
 };
 
 export type GetAgentQueryVariables = {
-  phonecontact?: string,
+  phonecontact: string,
 };
 
 export type GetAgentQuery = {
@@ -6135,7 +6244,7 @@ export type ListAgentsQuery = {
 };
 
 export type GetFloatPurchaseQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetFloatPurchaseQuery = {
@@ -6179,7 +6288,7 @@ export type ListFloatPurchasesQuery = {
 };
 
 export type GetFloatAddQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetFloatAddQuery = {
@@ -6223,7 +6332,7 @@ export type ListFloatAddsQuery = {
 };
 
 export type GetFloatReductionQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetFloatReductionQuery = {
@@ -6236,6 +6345,7 @@ export type GetFloatReductionQuery = {
     status: Status,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -6257,13 +6367,14 @@ export type ListFloatReductionsQuery = {
       status: Status,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
 };
 
 export type GetAgentWithdrawalsQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetAgentWithdrawalsQuery = {
@@ -6305,7 +6416,7 @@ export type ListAgentWithdrawalssQuery = {
 };
 
 export type GetSAgentQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetSAgentQuery = {
@@ -6359,7 +6470,7 @@ export type ListSAgentsQuery = {
 };
 
 export type GetSAgentWithdrawalsQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetSAgentWithdrawalsQuery = {
@@ -6401,7 +6512,7 @@ export type ListSAgentWithdrawalssQuery = {
 };
 
 export type GetBankAdminQueryVariables = {
-  nationalid?: string,
+  nationalid: string,
 };
 
 export type GetBankAdminQuery = {
@@ -6451,7 +6562,7 @@ export type ListBankAdminsQuery = {
 };
 
 export type GetBankAdmWithdrawalsQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetBankAdmWithdrawalsQuery = {
@@ -6491,7 +6602,7 @@ export type ListBankAdmWithdrawalssQuery = {
 };
 
 export type GetAdvocateQueryVariables = {
-  advregnu?: string,
+  advregnu: string,
 };
 
 export type GetAdvocateQuery = {
@@ -6545,7 +6656,7 @@ export type ListAdvocatesQuery = {
 };
 
 export type GetAdvocateWithdrawalsQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetAdvocateWithdrawalsQuery = {
@@ -6587,7 +6698,7 @@ export type ListAdvocateWithdrawalssQuery = {
 };
 
 export type GetCompanyQueryVariables = {
-  AdminId?: string,
+  AdminId: string,
 };
 
 export type GetCompanyQuery = {
@@ -6616,6 +6727,10 @@ export type GetCompanyQuery = {
     userLoanTransferFee: number,
     userTransferFee: number,
     userClearanceFee: number,
+    ttlNonLonssRecSM: number,
+    ttlNonLonssSentSM: number,
+    ttlNonLonssRecChm: number,
+    ttlNonLonssSentChm: number,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -6767,6 +6882,10 @@ export type ListCompanysQuery = {
       userLoanTransferFee: number,
       userTransferFee: number,
       userClearanceFee: number,
+      ttlNonLonssRecSM: number,
+      ttlNonLonssSentSM: number,
+      ttlNonLonssRecChm: number,
+      ttlNonLonssSentChm: number,
       companyEarningBal: number,
       companyEarning: number,
       agentEarningBal: number,
@@ -6885,7 +7004,7 @@ export type ListCompanysQuery = {
 };
 
 export type GetCovCreditSellerQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetCovCreditSellerQuery = {
@@ -6945,7 +7064,7 @@ export type ListCovCreditSellersQuery = {
 };
 
 export type GetNonCovCreditSellerQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetNonCovCreditSellerQuery = {
@@ -7003,7 +7122,7 @@ export type ListNonCovCreditSellersQuery = {
 };
 
 export type GetGroupQueryVariables = {
-  grpContact?: string,
+  grpContact: string,
 };
 
 export type GetGroupQuery = {
@@ -7019,6 +7138,8 @@ export type GetGroupQuery = {
     grpBal: number,
     ttlGrpMembers: number,
     description?: string | null,
+    ttlNonLonsRecChm: number,
+    ttlNonLonsSentChm: number,
     ttlDpst: number,
     ttlWthdrwn: number,
     TtlActvLonsTmsLnrChmCov: number,
@@ -7071,6 +7192,8 @@ export type ListGroupsQuery = {
       grpBal: number,
       ttlGrpMembers: number,
       description?: string | null,
+      ttlNonLonsRecChm: number,
+      ttlNonLonsSentChm: number,
       ttlDpst: number,
       ttlWthdrwn: number,
       TtlActvLonsTmsLnrChmCov: number,
@@ -7103,7 +7226,7 @@ export type ListGroupsQuery = {
 };
 
 export type GetGrpMembersQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetGrpMembersQuery = {
@@ -7151,7 +7274,7 @@ export type ListGrpMemberssQuery = {
 };
 
 export type GetCvrdGroupLoansQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetCvrdGroupLoansQuery = {
@@ -7203,7 +7326,7 @@ export type ListCvrdGroupLoanssQuery = {
 };
 
 export type GetNonCvrdGroupLoansQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetNonCvrdGroupLoansQuery = {
@@ -7253,7 +7376,7 @@ export type ListNonCvrdGroupLoanssQuery = {
 };
 
 export type GetGroupNonLoansQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetGroupNonLoansQuery = {
@@ -7297,7 +7420,7 @@ export type ListGroupNonLoanssQuery = {
 };
 
 export type GetGrpMembersContributionQueryVariables = {
-  id?: string,
+  id: string,
 };
 
 export type GetGrpMembersContributionQuery = {
@@ -7461,11 +7584,14 @@ export type CheckUserrrBalanceQuery = {
       TtlClrdNvrBLLonsTmsByrNonCov: number,
       TtlClrdNvrBLLonsAmtSllrNonCov: number,
       TtlClrdNvrBLLonsAmtByrNonCov: number,
+      ttlNonLonsRecSM: number,
+      ttlNonLonsSentSM: number,
       MaxTymsBL: number,
       loanStatus: Status,
       acStatus: Status,
       blStatus: Status,
       loanLimit: number,
+      nonLonLimit: number,
       withdrawalLimit: number,
       depositLimit: number,
       owner: string,
@@ -7599,11 +7725,14 @@ export type AccessingPersonalAcQuery = {
       TtlClrdNvrBLLonsTmsByrNonCov: number,
       TtlClrdNvrBLLonsAmtSllrNonCov: number,
       TtlClrdNvrBLLonsAmtByrNonCov: number,
+      ttlNonLonsRecSM: number,
+      ttlNonLonsSentSM: number,
       MaxTymsBL: number,
       loanStatus: Status,
       acStatus: Status,
       blStatus: Status,
       loanLimit: number,
+      nonLonLimit: number,
       withdrawalLimit: number,
       depositLimit: number,
       owner: string,
@@ -7899,23 +8028,26 @@ export type ConfrmMyLoaneeeeesQuery = {
   } | null,
 };
 
-export type CheckSentNonLnsQueryVariables = {
+export type CheckNonLonsbySenderQueryVariables = {
   senderID?: string | null,
+  status?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
-  filter?: ModelSMNonLoansFilterInput | null,
+  filter?: ModelNonLoansFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type CheckSentNonLnsQuery = {
-  checkSentNonLns?:  {
-    __typename: "ModelSMNonLoansConnection",
+export type CheckNonLonsbySenderQuery = {
+  checkNonLonsbySender?:  {
+    __typename: "ModelNonLoansConnection",
     items?:  Array< {
-      __typename: "SMNonLoans",
+      __typename: "NonLoans",
       id: string,
       senderID: string,
       recId: string,
+      amount: number,
       description?: string | null,
+      status: Status,
       owner: string,
       createdAt: string,
       updatedAt: string,
@@ -7926,21 +8058,52 @@ export type CheckSentNonLnsQuery = {
 
 export type CheckReceivedNonLnsQueryVariables = {
   recId?: string | null,
+  status?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
-  filter?: ModelSMNonLoansFilterInput | null,
+  filter?: ModelNonLoansFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
 export type CheckReceivedNonLnsQuery = {
   checkReceivedNonLns?:  {
-    __typename: "ModelSMNonLoansConnection",
+    __typename: "ModelNonLoansConnection",
     items?:  Array< {
-      __typename: "SMNonLoans",
+      __typename: "NonLoans",
       id: string,
       senderID: string,
       recId: string,
+      amount: number,
       description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type CheckBySenderRecieverQueryVariables = {
+  senderID?: string | null,
+  recId?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelNonLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CheckBySenderRecieverQuery = {
+  checkBySenderReciever?:  {
+    __typename: "ModelNonLoansConnection",
+    items?:  Array< {
+      __typename: "NonLoans",
+      id: string,
+      senderID: string,
+      recId: string,
+      amount: number,
+      description?: string | null,
+      status: Status,
       owner: string,
       createdAt: string,
       updatedAt: string,
@@ -8128,7 +8291,7 @@ export type CreateWythdrawalsssQuery = {
   } | null,
 };
 
-export type ReadSaWithdrwlsQueryVariables = {
+export type ReadSAWithdrwlsQueryVariables = {
   sagentId?: string | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelFloatAddFilterInput | null,
@@ -8136,7 +8299,7 @@ export type ReadSaWithdrwlsQueryVariables = {
   nextToken?: string | null,
 };
 
-export type ReadSaWithdrwlsQuery = {
+export type ReadSAWithdrwlsQuery = {
   readSAWithdrwls?:  {
     __typename: "ModelFloatAddConnection",
     items?:  Array< {
@@ -8175,6 +8338,7 @@ export type CreatFltDeducQuery = {
       status: Status,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -8200,6 +8364,7 @@ export type ReeeadAmtDpstdQuery = {
       status: Status,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -8257,7 +8422,7 @@ export type LstBankAdmTransactiooonnnsQuery = {
   } | null,
 };
 
-export type CheckingSaQueryVariables = {
+export type CheckingSAQueryVariables = {
   saNationalid?: string | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSAgentFilterInput | null,
@@ -8265,7 +8430,7 @@ export type CheckingSaQueryVariables = {
   nextToken?: string | null,
 };
 
-export type CheckingSaQuery = {
+export type CheckingSAQuery = {
   CheckingSA?:  {
     __typename: "ModelSAgentConnection",
     items?:  Array< {
@@ -8289,7 +8454,7 @@ export type CheckingSaQuery = {
   } | null,
 };
 
-export type LstSaWithdrllsQueryVariables = {
+export type LstSAWithdrllsQueryVariables = {
   saId?: string | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSAgentWithdrawalsFilterInput | null,
@@ -8297,7 +8462,7 @@ export type LstSaWithdrllsQueryVariables = {
   nextToken?: string | null,
 };
 
-export type LstSaWithdrllsQuery = {
+export type LstSAWithdrllsQuery = {
   lstSAWithdrlls?:  {
     __typename: "ModelSAgentWithdrawalsConnection",
     items?:  Array< {
@@ -8455,6 +8620,10 @@ export type CheckbyComppwQuery = {
       userLoanTransferFee: number,
       userTransferFee: number,
       userClearanceFee: number,
+      ttlNonLonssRecSM: number,
+      ttlNonLonssSentSM: number,
+      ttlNonLonssRecChm: number,
+      ttlNonLonssSentChm: number,
       companyEarningBal: number,
       companyEarning: number,
       agentEarningBal: number,
@@ -8808,6 +8977,8 @@ export type CheckGrpsICrtdQuery = {
       grpBal: number,
       ttlGrpMembers: number,
       description?: string | null,
+      ttlNonLonsRecChm: number,
+      ttlNonLonsSentChm: number,
       ttlDpst: number,
       ttlWthdrwn: number,
       TtlActvLonsTmsLnrChmCov: number,
@@ -9315,7 +9486,7 @@ export type CheckMmbrContrInAGrppQuery = {
   } | null,
 };
 
-export type OnCreateSmAccountSubscription = {
+export type OnCreateSMAccountSubscription = {
   onCreateSMAccount?:  {
     __typename: "SMAccount",
     nationalid: string,
@@ -9427,11 +9598,14 @@ export type OnCreateSmAccountSubscription = {
     TtlClrdNvrBLLonsTmsByrNonCov: number,
     TtlClrdNvrBLLonsAmtSllrNonCov: number,
     TtlClrdNvrBLLonsAmtByrNonCov: number,
+    ttlNonLonsRecSM: number,
+    ttlNonLonsSentSM: number,
     MaxTymsBL: number,
     loanStatus: Status,
     acStatus: Status,
     blStatus: Status,
     loanLimit: number,
+    nonLonLimit: number,
     withdrawalLimit: number,
     depositLimit: number,
     owner: string,
@@ -9440,7 +9614,7 @@ export type OnCreateSmAccountSubscription = {
   } | null,
 };
 
-export type OnUpdateSmAccountSubscription = {
+export type OnUpdateSMAccountSubscription = {
   onUpdateSMAccount?:  {
     __typename: "SMAccount",
     nationalid: string,
@@ -9552,11 +9726,14 @@ export type OnUpdateSmAccountSubscription = {
     TtlClrdNvrBLLonsTmsByrNonCov: number,
     TtlClrdNvrBLLonsAmtSllrNonCov: number,
     TtlClrdNvrBLLonsAmtByrNonCov: number,
+    ttlNonLonsRecSM: number,
+    ttlNonLonsSentSM: number,
     MaxTymsBL: number,
     loanStatus: Status,
     acStatus: Status,
     blStatus: Status,
     loanLimit: number,
+    nonLonLimit: number,
     withdrawalLimit: number,
     depositLimit: number,
     owner: string,
@@ -9565,7 +9742,7 @@ export type OnUpdateSmAccountSubscription = {
   } | null,
 };
 
-export type OnDeleteSmAccountSubscription = {
+export type OnDeleteSMAccountSubscription = {
   onDeleteSMAccount?:  {
     __typename: "SMAccount",
     nationalid: string,
@@ -9677,11 +9854,14 @@ export type OnDeleteSmAccountSubscription = {
     TtlClrdNvrBLLonsTmsByrNonCov: number,
     TtlClrdNvrBLLonsAmtSllrNonCov: number,
     TtlClrdNvrBLLonsAmtByrNonCov: number,
+    ttlNonLonsRecSM: number,
+    ttlNonLonsSentSM: number,
     MaxTymsBL: number,
     loanStatus: Status,
     acStatus: Status,
     blStatus: Status,
     loanLimit: number,
+    nonLonLimit: number,
     withdrawalLimit: number,
     depositLimit: number,
     owner: string,
@@ -9690,7 +9870,7 @@ export type OnDeleteSmAccountSubscription = {
   } | null,
 };
 
-export type OnCreateSmLoansCoveredSubscription = {
+export type OnCreateSMLoansCoveredSubscription = {
   onCreateSMLoansCovered?:  {
     __typename: "SMLoansCovered",
     id: string,
@@ -9709,7 +9889,7 @@ export type OnCreateSmLoansCoveredSubscription = {
   } | null,
 };
 
-export type OnUpdateSmLoansCoveredSubscription = {
+export type OnUpdateSMLoansCoveredSubscription = {
   onUpdateSMLoansCovered?:  {
     __typename: "SMLoansCovered",
     id: string,
@@ -9728,7 +9908,7 @@ export type OnUpdateSmLoansCoveredSubscription = {
   } | null,
 };
 
-export type OnDeleteSmLoansCoveredSubscription = {
+export type OnDeleteSMLoansCoveredSubscription = {
   onDeleteSMLoansCovered?:  {
     __typename: "SMLoansCovered",
     id: string,
@@ -9747,7 +9927,7 @@ export type OnDeleteSmLoansCoveredSubscription = {
   } | null,
 };
 
-export type OnCreateSmLoansNonCoveredSubscription = {
+export type OnCreateSMLoansNonCoveredSubscription = {
   onCreateSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
@@ -9765,7 +9945,7 @@ export type OnCreateSmLoansNonCoveredSubscription = {
   } | null,
 };
 
-export type OnUpdateSmLoansNonCoveredSubscription = {
+export type OnUpdateSMLoansNonCoveredSubscription = {
   onUpdateSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
@@ -9783,7 +9963,7 @@ export type OnUpdateSmLoansNonCoveredSubscription = {
   } | null,
 };
 
-export type OnDeleteSmLoansNonCoveredSubscription = {
+export type OnDeleteSMLoansNonCoveredSubscription = {
   onDeleteSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
@@ -9801,39 +9981,45 @@ export type OnDeleteSmLoansNonCoveredSubscription = {
   } | null,
 };
 
-export type OnCreateSmNonLoansSubscription = {
-  onCreateSMNonLoans?:  {
-    __typename: "SMNonLoans",
+export type OnCreateNonLoansSubscription = {
+  onCreateNonLoans?:  {
+    __typename: "NonLoans",
     id: string,
     senderID: string,
     recId: string,
+    amount: number,
     description?: string | null,
+    status: Status,
     owner: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnUpdateSmNonLoansSubscription = {
-  onUpdateSMNonLoans?:  {
-    __typename: "SMNonLoans",
+export type OnUpdateNonLoansSubscription = {
+  onUpdateNonLoans?:  {
+    __typename: "NonLoans",
     id: string,
     senderID: string,
     recId: string,
+    amount: number,
     description?: string | null,
+    status: Status,
     owner: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnDeleteSmNonLoansSubscription = {
-  onDeleteSMNonLoans?:  {
-    __typename: "SMNonLoans",
+export type OnDeleteNonLoansSubscription = {
+  onDeleteNonLoans?:  {
+    __typename: "NonLoans",
     id: string,
     senderID: string,
     recId: string,
+    amount: number,
     description?: string | null,
+    status: Status,
     owner: string,
     createdAt: string,
     updatedAt: string,
@@ -10009,6 +10195,7 @@ export type OnCreateFloatReductionSubscription = {
     status: Status,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -10022,6 +10209,7 @@ export type OnUpdateFloatReductionSubscription = {
     status: Status,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -10035,6 +10223,7 @@ export type OnDeleteFloatReductionSubscription = {
     status: Status,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -10433,6 +10622,10 @@ export type OnCreateCompanySubscription = {
     userLoanTransferFee: number,
     userTransferFee: number,
     userClearanceFee: number,
+    ttlNonLonssRecSM: number,
+    ttlNonLonssSentSM: number,
+    ttlNonLonssRecChm: number,
+    ttlNonLonssSentChm: number,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -10574,6 +10767,10 @@ export type OnUpdateCompanySubscription = {
     userLoanTransferFee: number,
     userTransferFee: number,
     userClearanceFee: number,
+    ttlNonLonssRecSM: number,
+    ttlNonLonssSentSM: number,
+    ttlNonLonssRecChm: number,
+    ttlNonLonssSentChm: number,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -10715,6 +10912,10 @@ export type OnDeleteCompanySubscription = {
     userLoanTransferFee: number,
     userTransferFee: number,
     userClearanceFee: number,
+    ttlNonLonssRecSM: number,
+    ttlNonLonssSentSM: number,
+    ttlNonLonssRecChm: number,
+    ttlNonLonssSentChm: number,
     companyEarningBal: number,
     companyEarning: number,
     agentEarningBal: number,
@@ -10978,6 +11179,8 @@ export type OnCreateGroupSubscription = {
     grpBal: number,
     ttlGrpMembers: number,
     description?: string | null,
+    ttlNonLonsRecChm: number,
+    ttlNonLonsSentChm: number,
     ttlDpst: number,
     ttlWthdrwn: number,
     TtlActvLonsTmsLnrChmCov: number,
@@ -11020,6 +11223,8 @@ export type OnUpdateGroupSubscription = {
     grpBal: number,
     ttlGrpMembers: number,
     description?: string | null,
+    ttlNonLonsRecChm: number,
+    ttlNonLonsSentChm: number,
     ttlDpst: number,
     ttlWthdrwn: number,
     TtlActvLonsTmsLnrChmCov: number,
@@ -11062,6 +11267,8 @@ export type OnDeleteGroupSubscription = {
     grpBal: number,
     ttlGrpMembers: number,
     description?: string | null,
+    ttlNonLonsRecChm: number,
+    ttlNonLonsSentChm: number,
     ttlDpst: number,
     ttlWthdrwn: number,
     TtlActvLonsTmsLnrChmCov: number,
