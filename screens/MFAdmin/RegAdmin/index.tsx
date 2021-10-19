@@ -93,12 +93,12 @@ const CreateAdminForm = () => {
                     
                    
                   } catch (error) {
-                    console.log(error)
+                    
                     if(!error){
                       Alert.alert("Account created successfully");
                       
                   } 
-                  else{Alert.alert("Please check your internet connectivity");  
+                  else{Alert.alert("This Admin already exists");  
                   return;}                  
                   }
                      setISLoading(false);           
@@ -131,7 +131,7 @@ const CreateAdminForm = () => {
               } catch (error) {
                 if(error){
                   console.log(error)
-                  Alert.alert("Please Check your internet")
+                  Alert.alert("Please first create this user Account")
                   return;
                 }
               }

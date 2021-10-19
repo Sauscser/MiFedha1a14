@@ -52,13 +52,16 @@ const AdminSignIn = (props) => {
                     moveToAdminHm();
               }
               else{
-                Alert.alert("Access denied");
+                Alert.alert("Wrong credentials; access denied");
 
               }
             }
 
             catch (e)
-            {                
+            {  if(e) 
+              {Alert.alert("Either you are not authorised or check your internet");
+            return;
+          }            
             }    
             setAdminId("");
             setAdminPW("");

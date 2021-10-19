@@ -500,7 +500,7 @@ useEffect(() =>{
               onChangeText={setRepaymtPeriod}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Repayment Period</Text>
+            <Text style={styles.sendAmtText}>Repayment Period in days</Text>
           </View>
 
           <View style={styles.sendAmtView}>

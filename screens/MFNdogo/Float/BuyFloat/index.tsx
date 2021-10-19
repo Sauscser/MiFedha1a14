@@ -20,7 +20,7 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
-import { getAgent, getCompany } from '../../../../src/graphql/queries';
+import { getAgent, getBankAdmin, getCompany } from '../../../../src/graphql/queries';
 
 export type buyAgntFlts = {
     amt:number;
@@ -36,6 +36,7 @@ const BuyFlt = (props:buyAgntFlts) => {
   const[ownr, setownr] =useState(null);
   const[bankAdminId, setBankAdminId] =useState("");
   const[transId, setTransId] =useState("");
+  const[pwss, setpwss] =useState("");
   const [isLoading, setIsLoading] = useState(false)
 
 const fetchUser = async () => {
@@ -75,94 +76,136 @@ const ftchAgInfo = async () => {
             
                       const CompFtBal = (CompFltBal.data.getCompany.agentFloatIn)
 
-                      
-                  
-                      const buyAgntFlt = async () => {
+                      const ftchAdmiInfo = async () => {
                         if(isLoading)
                         {return;}
                         setIsLoading(true);
-                        try {
-                              await API.graphql(
-                                graphqlOperation(createFloatPurchase, {
-                                  input: {
-                                    agentphone:  phoneContact,
-                                    amount:amt,
-                                    transactId:bankAdminId,
-                                    bankAdminID:bankAdminId,
-                                    status:"AccountActive",
-                                    owner:ownr
-                                                                
-                                 },
-                                }),
-                              );
+                        
+                        try{
+                            const CompFltBal:any = await API.graphql(
+                                graphqlOperation(getBankAdmin, {nationalid:bankAdminId}),
+                            );
+                      
+                                const nationalids = CompFltBal.data.getBankAdmin.nationalid;
+                                const pws = CompFltBal.data.getBankAdmin.pw;
+
+
+                                const buyAgntFlt = async () => {
+                                  if(isLoading)
+                                  {return;}
+                                  setIsLoading(true);
+                                  try {
+                                        await API.graphql(
+                                          graphqlOperation(createFloatPurchase, {
+                                            input: {
+                                              agentphone:  phoneContact,
+                                              amount:amt,
+                                              transactId:bankAdminId,
+                                              bankAdminID:bankAdminId,
+                                              status:"AccountActive",
+                                              owner:ownr
+                                                                          
+                                           },
+                                          }),
+                                        );
+                        
+                                        
+                        
+                                            
+                                      } catch (error) {
+                                        console.log(error)
+                                        if(!error){
+                                          Alert.alert("Float successfully bought successfully")
+                                          
+                                      } 
+                                      else{Alert.alert("Enter details correctly or check your internet connection ")
+                                      return;}
+                                      }   
+                                     await updtAgntFlt();
+                                     setIsLoading(false);
+                                    }; 
+          
+                                    if(Stts!=="AccountActive")
+                                              {Alert.alert("Your MFNdogo account has been deactivated");}
+
+                                              else if(bankAdminId===nationalids && pws!==pwss)
+                                              {Alert.alert("Admin password is wrong");
+                                            }
+
+                                            
+                                            else if(bankAdminId !==nationalids )
+                                              {Alert.alert("Admin does not exist");
+                                            }
+          
+                                              else{buyAgntFlt();}
+          
+                                    const updtAgntFlt = async () => {
+                                      if(isLoading){
+                                        return;
+                                      }
               
-                              
-              
-                                  
-                            } catch (error) {
+                                      try {
+                                        await API.graphql(
+                                          graphqlOperation(updateAgent, {
+                                            input: {
+                                              phonecontact: phoneContact,    
+                                              floatBal: parseFloat(amt) + parseFloat(fltBal),
+                                              TtlFltIn: parseFloat(amt) + parseFloat(ttlFltIn),
+                                                    
+                                           },
+                                          }),
+                                        );
+                          
+                    
+                                       
+                                       
+                                      } catch (error) {
+                                        console.log('Error creating account', error);
+                                      }   
+                                     await updtCompFlt();
+                                     setIsLoading(false)
+                                    };
+                                                            
+                                    const updtCompFlt = async () => {
+                              if(isLoading){
+                                return;
+                              }
+                                
+                                      try {
+                                        await API.graphql(
+                                          graphqlOperation(updateCompany, {
+                                            input: {
+                                              AdminId: "BaruchHabaB'ShemAdonai2",    
+                                              agentFloatIn: parseFloat(amt) + parseFloat(CompFtBal),                                      
+                                           },
+                                          }),
+                                        );
+                                      } catch (error) {
+                                        console.log(error)
+                                        if(error){
+                                          Alert.alert("Please check your internet connection")
+                                        };
+                                      }   
+                                     setIsLoading(false)
+                                    };
+
+                            }
+                            catch (error) {
+
+                              console.log(error)
                               if(!error){
                                 Alert.alert("Account deactivated successfully")
                                 
                             } 
-                            else{Alert.alert("Please check your internet connection")
+                            else{Alert.alert("Please Enter details correctly or check your internet connection ")
                             return;}
-                            }   
-                           await updtAgntFlt();
-                           setIsLoading(false);
-                          }; 
-
-                          if(Stts!=="AccountActive")
-                                    {Alert.alert("Your MFNdogo account has been deactivated");}
-                                    else{buyAgntFlt();}
-
-                          const updtAgntFlt = async () => {
-                            if(isLoading){
-                              return;
-                            }
-    
-                            try {
-                              await API.graphql(
-                                graphqlOperation(updateAgent, {
-                                  input: {
-                                    phonecontact: phoneContact,    
-                                    floatBal: parseFloat(amt) + parseFloat(fltBal),
-                                    TtlFltIn: parseFloat(amt) + parseFloat(ttlFltIn),
-                                          
-                                 },
-                                }),
-                              );
-                
-          
-                             
-                             
-                            } catch (error) {
-                              console.log('Error creating account', error);
-                            }   
-                           await updtCompFlt();
-                           setIsLoading(false)
-                          };
-                                                  
-                          const updtCompFlt = async () => {
-                    if(isLoading){
-                      return;
-                    }
+                            }  
+                            setIsLoading(false);
+                          } 
+                            
+                            await ftchAdmiInfo();
+                  
                       
-                            try {
-                              await API.graphql(
-                                graphqlOperation(updateCompany, {
-                                  input: {
-                                    AdminId: "BaruchHabaB'ShemAdonai2",    
-                                    agentFloatIn: parseFloat(amt) + parseFloat(CompFtBal),                                      
-                                 },
-                                }),
-                              );
-                            } catch (error) {
-                              if(error){
-                                Alert.alert("Please check your internet connection")
-                              };
-                            }   
-                           setIsLoading(false)
-                          };
                                             
               }            
             
@@ -188,7 +231,8 @@ const ftchAgInfo = async () => {
     setBankAdminId("")
     setPhoneContact('');
     setTransId("")
-setIsLoading(false)
+    setpwss("")
+    setIsLoading(false)
 }
 
 useEffect(() =>{
@@ -235,6 +279,17 @@ useEffect(() =>{
                 }, [amt]
                  );  
 
+                 useEffect(() =>{
+                  const pwssss=pwss
+                    if(!pwssss && pwssss!=="")
+                    {
+                      setpwss("");
+                      return;
+                    }
+                    setpwss(pwssss);
+                    }, [pwss]
+                     );  
+
   return (
     <View>
       <View
@@ -270,6 +325,15 @@ useEffect(() =>{
               style={styles.sendLoanInput}
               editable={true}></TextInput>
             <Text style={styles.sendLoanText}>Admin Id</Text>
+          </View>
+
+          <View style={styles.sendLoanView}>
+            <TextInput
+              value={pwss}
+              onChangeText={setpwss}
+              style={styles.sendLoanInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendLoanText}>Admin PassWord</Text>
           </View>
 
           <View style={styles.sendLoanView}>

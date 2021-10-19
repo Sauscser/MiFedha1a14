@@ -167,9 +167,12 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
         await gtCompDtls();       
   
       }
-catch(e){if(e) {
-  Alert.alert("Please check your internet connection")
-}} 
+catch(e){
+  console.log(e)
+  if(e) {Alert.alert("This MFKubwa does not exist");
+return;
+}
+}
     setNationalid('');
     setPW('');
     setName('');
@@ -368,6 +371,7 @@ catch(e){if(e) {
             <Text style={styles.sendLoanButtonText}>
               Click to Create Account
             </Text>
+            {isLoading && <ActivityIndicator color={'blue'} size = "large" />}
           </TouchableOpacity>
         </ScrollView>
       </View>

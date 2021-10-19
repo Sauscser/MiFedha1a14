@@ -2,15 +2,17 @@ import React, {useEffect, useState} from 'react';
 
 import {
   
-  createSmLoansCovered,
+  createSMLoansCovered,
   
-  createSmLoansNonCovered,
+  createSMLoansNonCovered,
   
-  createSmNonLoans,
+  createNonLoans,
   
   updateCompany,
   
-  updateSmAccount,
+  updateSMAccount,
+  updateSMLoansCovered,
+  updateSMLoansNonCovered,
   
 } from '../../../../../src/graphql/mutations';
 
@@ -18,7 +20,9 @@ import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {
   
   getCompany,
-  getSmAccount,
+  getSMAccount,
+  getSMLoansCovered,
+  getSMLoansNonCovered,
   
 } from '../../../../../src/graphql/queries';
 
@@ -46,7 +50,7 @@ const RepayNonCovLnsss = props => {
   const [SnderPW, setSnderPW] = useState("");
   
   const [amounts, setAmount] = useState("");
-  
+  const[LnId, setLnId] = useState("")
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
@@ -71,7 +75,7 @@ const RepayNonCovLnsss = props => {
     setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSmAccount, {nationalid: SenderNatId}),
+        graphqlOperation(getSMAccount, {nationalid: SenderNatId}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -79,7 +83,11 @@ const RepayNonCovLnsss = props => {
       const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
       const SenderSub =accountDtl.data.getSMAccount.owner;
       const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
-      const loanLimits =accountDtl.data.getSMAccount.loanLimit;
+      const nonLonLimits =accountDtl.data.getSMAccount.nonLonLimit;
+      const TtlActvLonsTmsLneeNonCovss =accountDtl.data.getSMAccount.TtlActvLonsTmsLneeNonCov;
+      const TtlActvLonsAmtLneeNonCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeNonCov;
+      const TtlClrdLonsTmsLneeNonCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsLneeNonCov;
+      const TtlClrdLonsAmtLneeNonCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtLneeNonCov;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -95,9 +103,10 @@ const RepayNonCovLnsss = props => {
           
             
           const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
-          const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
           
+          const CompPhoneContact = CompDtls.data.getCompany.phoneContact;      
+          const ttlSMLnsInClrdAmtNonCovs = CompDtls.data.getCompany.ttlSMLnsInClrdAmtNonCov; 
+          const ttlSMLnsInClrdTymsNonCovs = CompDtls.data.getCompany.ttlSMLnsInClrdTymsNonCov;
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
           const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
@@ -111,148 +120,385 @@ const RepayNonCovLnsss = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSmAccount, {nationalid: RecNatId}),
+                    graphqlOperation(getSMAccount, {nationalid: RecNatId}),
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                     const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
+                    const TtlActvLonsTmsLnrNonCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrNonCov;
+                    const TtlActvLonsAmtLnrNonCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrNonCov;
+                    const TtlClrdLonsTmsLneeNonCovssss =accountDtl.data.getSMAccount.TtlClrdLonsTmsLnrNonCov;
+                    const TtlClrdLonsAmtLneeNonCovssss =accountDtl.data.getSMAccount.TtlClrdLonsAmtLnrNonCov;
+
+                    const ftchCvdSMLn = async () => {
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try {
+                          const RecAccountDtl:any = await API.graphql(
+                              graphqlOperation(getSMLoansNonCovered, {id: LnId}),
+                              );
+                              
+                              const amountexpecteds =RecAccountDtl.data.getSMLoansNonCovered.amountexpected; 
+                              const amountrepaids =RecAccountDtl.data.getSMLoansNonCovered.amountrepaid; 
+                              const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids); 
+                              const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
+                               
+
+                              const updtSMCvLn  = async () =>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateSMLoansCovered, {
+                                        input:{
+                                          id:LnId,
+                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids)
+                                          
+                                        }
+                                      })
+                                    )
+          
+          
+                                }
+                                catch(error){
+                                  if (error){Alert.alert("Check your internet connection")
+                                  return;}
+                                }
+                                setIsLoading(false);
+                                await sendNonLnLnOver();
+                              }
+                              
+                              const sendNonLnLnOver = async () => {
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true)
+                                try {
+                                  await API.graphql(
+                                    graphqlOperation(createNonLoans, {
+                                      input: {
+                                        recId: RecNatId,
+                                        senderID: SenderNatId,                                  
+                                        amount: amounts,                              
+                                        description: Desc,
+                                        status: "SMCovLonRepayment",
+                                        owner: ownr
+                                      },
+                                    }),
+                                  );
+          
+          
+                                } catch (error) {
+                                  if(!error){
+                                    Alert.alert("Account deactivated successfully")
+                                    
+                                } 
+                                else{Alert.alert("Please check your internet connection")
+                                return;}
+                                }
+                                setIsLoading(false);
+                                await updtSendrAcLonOvr();
+                              };
+          
+                              const updtSendrAcLonOvr = async () =>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateSMAccount, {
+                                        input:{
+                                          nationalid:SenderNatId,
+                                          ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
+                                          balance:parseFloat(SenderUsrBal)-TotalTransacted ,
+                                          TtlActvLonsTmsLneeNonCov:parseFloat(TtlActvLonsTmsLneeNonCovss)-1,                                          
+                                          TtlActvLonsAmtLneeNonCov: parseFloat(TtlActvLonsAmtLneeNonCovs) - parseFloat(amounts), 
+                                          TtlClrdLonsTmsLneeNonCov: 1 + parseFloat(TtlClrdLonsTmsLneeNonCovs),
+                                          TtlClrdLonsAmtLneeNonCov: parseFloat(TtlClrdLonsAmtLneeNonCovs) + parseFloat(amounts),
+                                                                             
+                                          
+                                        }
+                                      })
+                                    )
+          
+          
+                                }
+                                catch(error){
+                                  if (error){Alert.alert("Check your internet connection")
+                                  return;}
+                                }
+                                setIsLoading(false);
+                                await updtRecAcLonOver();
+                              }
+          
+                              const updtRecAcLonOver = async () =>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateSMAccount, {
+                                        input:{
+                                          nationalid:RecNatId,
+                                          ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
+                                          balance:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
+                                          TtlActvLonsTmsLnrNonCov: parseFloat(TtlActvLonsTmsLnrNonCovssss) - 1,
+                                          TtlActvLonsAmtLnrNonCov: parseFloat(TtlActvLonsAmtLnrNonCovssss) - parseFloat(amounts),
+                                          TtlClrdLonsTmsLnrNonCov: parseFloat(TtlClrdLonsTmsLneeNonCovssss) + 1,
+                                          TtlClrdLonsAmtLnrNonCov: parseFloat(TtlClrdLonsAmtLneeNonCovssss) + parseFloat(amounts),
+                                                                            
+                                          
+                                        }
+                                      })
+                                    )                              
+                                }
+                                catch(error){
+                                  if (error){Alert.alert("Check your internet connection")
+                                  return;}
+                                }
+                                setIsLoading(false);
+                                await updtCompLnOvr();
+                              }
+          
+                              const updtCompLnOvr = async () =>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateCompany, {
+                                        input:{
+                                          AdminId: "BaruchHabaB'ShemAdonai2",                                                      
+                                         
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
+                                          
+                                          ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
+                                          ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
+                                          ttlSMLnsInClrdAmtNonCov: parseFloat(ttlSMLnsInClrdAmtNonCovs) + parseFloat(amounts), 
+                                          ttlSMLnsInClrdTymsNonCov: parseFloat(ttlSMLnsInClrdTymsNonCovs) + 1
+                                          
+                                        }
+                                      })
+                                    )
+                                    
+                                    
+                                }
+                                catch(error){
+                                  if (error){Alert.alert("Check your internet connection")
+                              return;}
+                                }
+                                
+                                setIsLoading(false);
+                              }                                                                                                            
+                        
+
+                              const repyCovLn = async () =>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateSMLoansCovered, {
+                                        input:{
+                                          id:LnId,
+                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids)
+                                          
+                                        }
+                                      })
+                                    )
+          
+          
+                                }
+                                catch(error){
+                                  if (error){Alert.alert("Check your internet connection")
+                                  return;}
+                                }
+                                setIsLoading(false);
+                                await sendNonLn();
+                              }
+                              
+                              const sendNonLn = async () => {
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true)
+                                try {
+                                  await API.graphql(
+                                    graphqlOperation(createNonLoans, {
+                                      input: {
+                                        recId: RecNatId,
+                                        senderID: SenderNatId,                                  
+                                        amount: amounts,                              
+                                        description: Desc,
+                                        status: "SMCovLonRepayment",
+                                        owner: ownr
+                                      },
+                                    }),
+                                  );
+          
+          
+                                } catch (error) {
+                                  if(!error){
+                                    Alert.alert("Account deactivated successfully")
+                                    
+                                } 
+                                else{Alert.alert("Please check your internet connection")
+                                return;}
+                                }
+                                setIsLoading(false);
+                                await updtSendrAc();
+                              };
+          
+                              const updtSendrAc = async () =>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateSMAccount, {
+                                        input:{
+                                          nationalid:SenderNatId,
+                                          ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
+                                          balance:parseFloat(SenderUsrBal)-TotalTransacted,
+                                          TtlActvLonsTmsLneeNonCov:parseFloat(TtlActvLonsTmsLneeNonCovss)-1,                                          
+                                          TtlActvLonsAmtLneeNonCov: parseFloat(TtlActvLonsAmtLneeNonCovs) - parseFloat(amounts), 
+                                          TtlClrdLonsTmsLneeNonCov: 1 + parseFloat(TtlClrdLonsTmsLneeNonCovs),
+                                          TtlClrdLonsAmtLneeNonCov: parseFloat(TtlClrdLonsAmtLneeNonCovs) + parseFloat(amounts), 
+                                         
+                                          
+                                        }
+                                      })
+                                    )
+          
+          
+                                }
+                                catch(error){
+                                  if (error){Alert.alert("Check your internet connection")
+                                  return;}
+                                }
+                                setIsLoading(false);
+                                await updtRecAc();
+                              }
+          
+                              const updtRecAc = async () =>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateSMAccount, {
+                                        input:{
+                                          nationalid:RecNatId,
+                                          ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
+                                          balance:parseFloat(RecUsrBal) + parseFloat(amounts),
+                                          TtlActvLonsTmsLnrNonCov: parseFloat(TtlActvLonsTmsLnrNonCovssss) - 1,
+                                          TtlActvLonsAmtLnrNonCov: parseFloat(TtlActvLonsAmtLnrNonCovssss) - parseFloat(amounts),
+                                          TtlClrdLonsTmsLnrNonCov: parseFloat(TtlClrdLonsTmsLneeNonCovssss) + 1,
+                                          TtlClrdLonsAmtLnrNonCov: parseFloat(TtlClrdLonsAmtLneeNonCovssss) + parseFloat(amounts),                                     
+                                          
+                                                                            
+                                          
+                                        }
+                                      })
+                                    )                              
+                                }
+                                catch(error){
+                                  if (error){Alert.alert("Check your internet connection")
+                                  return;}
+                                }
+                                setIsLoading(false);
+                                await updtComp();
+                              }
+          
+                              const updtComp = async () =>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateCompany, {
+                                        input:{
+                                          AdminId: "BaruchHabaB'ShemAdonai2",                                                      
+                                         
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
+                                          
+                                          ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
+                                          ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
+                                          ttlSMLnsInClrdAmtNonCov: parseFloat(ttlSMLnsInClrdAmtNonCovs) + parseFloat(amounts), 
+                                          ttlSMLnsInClrdTymsNonCov: parseFloat(ttlSMLnsInClrdTymsNonCovs) + 1
+                                          
+                                        }
+                                      })
+                                    )
+                                    
+                                    
+                                }
+                                catch(error){
+                                  if (error){Alert.alert("Check your internet connection")
+                              return;}
+                                }
+                                
+                                setIsLoading(false);
+                              }
+
+                                                          
+                                                    
+                              
+                              if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');
+                              return;
+                            }
+                              else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');
+                              return;
+                            }
+                              
+                              else if (
+                                parseFloat(SenderUsrBal) < TotalTransacted 
+                              ) {Alert.alert('Requested amount is more than you have in your account');
+                            return;
+                          }
+                              
+                              else if(usrPW !==SnderPW){Alert.alert('Wrong password');
+                            return;
+                          }
+                              
+                              
+                              else if(parseFloat(nonLonLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');
+                            return;
+                          }
+
+                          else if(parseFloat(amounts) > LonBal){Alert.alert("Your Loan Balance is lesser")}
+
+                          else if(parseFloat(amounts) === LonBal){updtSMCvLn();}                         
+                          
+                              
+                               else {
+                                repyCovLn();
+                              }
+                          }
+                          catch (e) {
+                            if (e){Alert.alert("There is no such a loan")
+                            return;}
+                        };
+                      }
+                    
+                      await ftchCvdSMLn();
                     
                     
                   
-                    const sendSMNonLn = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true)
-                      try {
-                        await API.graphql(
-                          graphqlOperation(createSmNonLoans, {
-                            input: {
-                              recId: RecNatId,
-                              senderID: SenderNatId,                                  
-                              amount: amounts,                              
-                              description: Desc,
-                              status: "LoanActive",
-                              owner: ownr
-                            },
-                          }),
-                        );
-
-
-                      } catch (error) {
-                        if(!error){
-                          Alert.alert("Account deactivated successfully")
-                          
-                      } 
-                      else{Alert.alert("Please check your internet connection")
-                      return;}
-                      }
-                      setIsLoading(false);
-                      await updtSendrAc();
-                    };
-
-                    const updtSendrAc = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateSmAccount, {
-                              input:{
-                                nationalid:SenderNatId,
-                                ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
-                                balance:parseFloat(SenderUsrBal)-TotalTransacted 
-                               
-                                
-                              }
-                            })
-                          )
-
-
-                      }
-                      catch(error){
-                        if (error){Alert.alert("Check your internet connection")
-                        return;}
-                      }
-                      setIsLoading(false);
-                      await updtRecAc();
-                    }
-
-                    const updtRecAc = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateSmAccount, {
-                              input:{
-                                nationalid:RecNatId,
-                                ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
-                                balance:parseFloat(RecUsrBal) + parseFloat(amounts)                                     
-                                
-                                                                  
-                                
-                              }
-                            })
-                          )                              
-                      }
-                      catch(error){
-                        if (error){Alert.alert("Check your internet connection")
-                        return;}
-                      }
-                      setIsLoading(false);
-                      await updtComp();
-                    }
-
-                    const updtComp = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateCompany, {
-                              input:{
-                                AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                               
-                                companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
-                                companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
-                                
-                                ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
-                                ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
-                                
-                              }
-                            })
-                          )
-                          
-                          
-                      }
-                      catch(error){
-                        if (error){Alert.alert("Check your internet connection")
-                    return;}
-                      }
-                      setIsLoading(false);
-                    }
-                    
-                                          
-                    
-                    if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                    else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                    
-                    else if (
-                      SenderUsrBal < TotalTransacted 
-                    ) {Alert.alert('Requested amount is more than you have in your account');}
-                    
-                    else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                    else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
-                    
-                    else if(loanLimits < amounts){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');}
-                    
-                     else {
-                      sendSMNonLn();
-                    }                                                
+                                                
                 }       
                 catch(e) {     
                   if (e){Alert.alert("Reciever does not exist")
@@ -278,11 +524,13 @@ const RepayNonCovLnsss = props => {
       setSenderNatId('');
       setAmount("");
       setRecNatId('');
-      
+      setLnId("");
       setDesc("");
       setSnderPW("");
       
 }
+
+
 
 useEffect(() =>{
   const SnderNatIds=SenderNatId
@@ -318,8 +566,7 @@ useEffect(() =>{
              );
 
              
-
-                 
+             
 
                      useEffect(() =>{
                       const descr=Desc
@@ -343,6 +590,18 @@ useEffect(() =>{
                             }, [SnderPW]
                              );
 
+                             useEffect(() =>{
+                              const LnIds=LnId
+                                if(!LnIds && LnIds!=="")
+                                {
+                                  setLnId("");
+                                  return;
+                                }
+                                setLnId(LnIds);
+                                }, [LnId]
+                                 );
+    
+
                              
 
                                  
@@ -364,7 +623,7 @@ useEffect(() =>{
               onChangeText={setSenderNatId}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Sender National Id</Text>
+            <Text style={styles.sendAmtText}>Loanee National Id</Text>
           </View>
 
           <View style={styles.sendAmtView}>
@@ -373,7 +632,7 @@ useEffect(() =>{
               onChangeText={setRecNatId}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Receiver National Id</Text>
+            <Text style={styles.sendAmtText}>Loaner National Id</Text>
           </View>
 
           <View style={styles.sendAmtView}>
@@ -404,6 +663,16 @@ useEffect(() =>{
               multiline={true}
               value={Desc}
               onChangeText={setDesc}
+              style={styles.sendAmtInputDesc}
+              editable={true}></TextInput>
+            <Text style={styles.sendAmtText}>Description</Text>
+          </View>
+
+          <View style={styles.sendAmtView}>
+            <TextInput
+              multiline={true}
+              value={LnId}
+              onChangeText={setLnId}
               style={styles.sendAmtInputDesc}
               editable={true}></TextInput>
             <Text style={styles.sendAmtText}>Description</Text>

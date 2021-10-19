@@ -79,7 +79,11 @@ const RepayCovLnsss = props => {
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
       const usrPW =accountDtl.data.getSMAccount.pw;
       const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const SenderSub =accountDtl.data.getSMAccount.owner;
+      const TtlActvLonsTmsLneeCovss =accountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
+      const TtlActvLonsAmtLneeCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
+      const TtlClrdLonsTmsLneeCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsLneeCov;
+      const TtlClrdLonsAmtLneeCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtLneeCov;
+      
       const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
       const nonLonLimits =accountDtl.data.getSMAccount.nonLonLimit;
       
@@ -97,8 +101,9 @@ const RepayCovLnsss = props => {
           
             
           const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-          
-          const CompPhoneContact = CompDtls.data.getCompany.phoneContact;      
+          const CompPhoneContact = CompDtls.data.getCompany.phoneContact;  
+          const ttlSMLnsInClrdAmtCovs = CompDtls.data.getCompany.ttlSMLnsInClrdAmtCov; 
+          const ttlSMLnsInClrdTymsCovs = CompDtls.data.getCompany.ttlSMLnsInClrdTymsCov;
           
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
@@ -118,6 +123,12 @@ const RepayCovLnsss = props => {
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                     const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
+                    const TtlActvLonsTmsLnrCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
+                    const TtlActvLonsAmtLnrCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
+                    const TtlClrdLonsTmsLneeCovssss =accountDtl.data.getSMAccount.TtlClrdLonsTmsLnrCov;
+                    const TtlClrdLonsAmtLneeCovssss =accountDtl.data.getSMAccount.TtlClrdLonsAmtLnrCov;
+                    
+                    
 
                     const ftchCvdSMLn = async () => {
                       if(isLoading){
@@ -128,12 +139,166 @@ const RepayCovLnsss = props => {
                           const RecAccountDtl:any = await API.graphql(
                               graphqlOperation(getSMLoansCovered, {id: LnId}),
                               );
-                              const balances =RecAccountDtl.data.getSMAccount.balance;
-                              const amountexpecteds =RecAccountDtl.data.getSMAccount.amountexpected; 
-                              const amountrepaids =RecAccountDtl.data.getSMAccount.amountrepaid; 
+                              
+                              const amountexpecteds =RecAccountDtl.data.getSMLoansCovered.amountexpected; 
+                              const amountrepaids =RecAccountDtl.data.getSMLoansCovered.amountrepaid; 
                               const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids); 
-                              const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts) + LonBal;
+                              const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
                                
+                              const updtSMCvLn  = async () =>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateSMLoansCovered, {
+                                        input:{
+                                          id:LnId,
+                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids)
+                                          
+                                        }
+                                      })
+                                    )
+          
+          
+                                }
+                                catch(error){
+                                  if (error){Alert.alert("Check your internet connection")
+                                  return;}
+                                }
+                                setIsLoading(false);
+                                await sendNonLnLnOver();
+                              }
+                              
+                              const sendNonLnLnOver = async () => {
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true)
+                                try {
+                                  await API.graphql(
+                                    graphqlOperation(createNonLoans, {
+                                      input: {
+                                        recId: RecNatId,
+                                        senderID: SenderNatId,                                  
+                                        amount: amounts,                              
+                                        description: Desc,
+                                        status: "SMCovLonRepayment",
+                                        owner: ownr
+                                      },
+                                    }),
+                                  );
+          
+          
+                                } catch (error) {
+                                  if(!error){
+                                    Alert.alert("Account deactivated successfully")
+                                    
+                                } 
+                                else{Alert.alert("Please check your internet connection")
+                                return;}
+                                }
+                                setIsLoading(false);
+                                await updtSendrAcLonOvr();
+                              };
+          
+                              const updtSendrAcLonOvr = async () =>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateSMAccount, {
+                                        input:{
+                                          nationalid:SenderNatId,
+                                          ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
+                                          balance:parseFloat(SenderUsrBal)-TotalTransacted ,
+                                          TtlActvLonsTmsLneeCov:parseFloat(TtlActvLonsTmsLneeCovss)-1,                                          
+                                          TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts), 
+                                          TtlClrdLonsTmsLneeCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
+                                          TtlClrdLonsAmtLneeCov: parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts),
+                                                                             
+                                          
+                                        }
+                                      })
+                                    )
+          
+          
+                                }
+                                catch(error){
+                                  if (error){Alert.alert("Check your internet connection")
+                                  return;}
+                                }
+                                setIsLoading(false);
+                                await updtRecAcLonOver();
+                              }
+          
+                              const updtRecAcLonOver = async () =>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateSMAccount, {
+                                        input:{
+                                          nationalid:RecNatId,
+                                          ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
+                                          balance:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
+                                          TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovssss) - 1,
+                                          TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovssss) - parseFloat(amounts),
+                                          TtlClrdLonsTmsLnrCov: parseFloat(TtlClrdLonsTmsLneeCovssss) + 1,
+                                          TtlClrdLonsAmtLnrCov: parseFloat(TtlClrdLonsAmtLneeCovssss) + parseFloat(amounts),
+                                                                            
+                                          
+                                        }
+                                      })
+                                    )                              
+                                }
+                                catch(error){
+                                  if (error){Alert.alert("Check your internet connection")
+                                  return;}
+                                }
+                                setIsLoading(false);
+                                await updtCompLnOvr();
+                              }
+          
+                              const updtCompLnOvr = async () =>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateCompany, {
+                                        input:{
+                                          AdminId: "BaruchHabaB'ShemAdonai2",                                                      
+                                         
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
+                                          
+                                          ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
+                                          ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
+                                          ttlSMLnsInClrdAmtCov: parseFloat(ttlSMLnsInClrdAmtCovs) + parseFloat(amounts), 
+                                          ttlSMLnsInClrdTymsCov: parseFloat(ttlSMLnsInClrdTymsCovs) + 1
+                                          
+                                          
+                                        }
+                                      })
+                                    )
+                                    
+                                    
+                                }
+                                catch(error){
+                                  if (error){Alert.alert("Check your internet connection")
+                              return;}
+                                }
+                                
+                                setIsLoading(false);
+                              }                                                                                                            
+                        
 
                               const repyCovLn = async () =>{
                                 if(isLoading){
@@ -145,7 +310,7 @@ const RepayCovLnsss = props => {
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
                                           id:LnId,
-                                          amountrepaid: parseFloat(amounts) + ,
+                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids)
                                           
                                         }
                                       })
@@ -174,7 +339,7 @@ const RepayCovLnsss = props => {
                                         senderID: SenderNatId,                                  
                                         amount: amounts,                              
                                         description: Desc,
-                                        status: "LoanActive",
+                                        status: "SMCovLonRepayment",
                                         owner: ownr
                                       },
                                     }),
@@ -204,7 +369,11 @@ const RepayCovLnsss = props => {
                                         input:{
                                           nationalid:SenderNatId,
                                           ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
-                                          balance:parseFloat(SenderUsrBal)-TotalTransacted 
+                                          balance:parseFloat(SenderUsrBal)-TotalTransacted,
+                                          TtlActvLonsTmsLneeCov:parseFloat(TtlActvLonsTmsLneeCovss)-1,                                          
+                                          TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts), 
+                                          TtlClrdLonsTmsLneeCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
+                                          TtlClrdLonsAmtLneeCov: parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts), 
                                          
                                           
                                         }
@@ -232,7 +401,11 @@ const RepayCovLnsss = props => {
                                         input:{
                                           nationalid:RecNatId,
                                           ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
-                                          balance:parseFloat(RecUsrBal) + parseFloat(amounts)                                     
+                                          balance:parseFloat(RecUsrBal) + parseFloat(amounts),
+                                          TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovssss) - 1,
+                                          TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovssss) - parseFloat(amounts),
+                                          TtlClrdLonsTmsLnrCov: parseFloat(TtlClrdLonsTmsLneeCovssss) + 1,
+                                          TtlClrdLonsAmtLnrCov: parseFloat(TtlClrdLonsAmtLneeCovssss) + parseFloat(amounts),                                     
                                           
                                                                             
                                           
@@ -264,6 +437,8 @@ const RepayCovLnsss = props => {
                                           
                                           ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
                                           ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
+                                          ttlSMLnsInClrdAmtCov: parseFloat(ttlSMLnsInClrdAmtCovs) + parseFloat(amounts), 
+                                          ttlSMLnsInClrdTymsCov: parseFloat(ttlSMLnsInClrdAmtCovs) + 1
                                           
                                         }
                                       })
@@ -279,35 +454,7 @@ const RepayCovLnsss = props => {
                                 setIsLoading(false);
                               }
 
-                              const updtSMCvLn = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateSMLoansCovered, {
-                                        input:{
-                                          id: LnId,                                                      
-                                         
-                                          amountrepaid: 0,                                           
-                                          status: "LoanCleared"
-                                          
-                                        }
-                                      })
-                                    )
-                                    
-                                    
-                                }
-                                catch(error){
-                                  if (error){Alert.alert("Check your internet connection")
-                              return;}
-                                }
-                                await sendNonLn();
-                                setIsLoading(false);
-                              }
-                              updtSMCvLn();
-                              
+                                                          
                                                     
                               
                               if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');
@@ -326,15 +473,15 @@ const RepayCovLnsss = props => {
                               else if(usrPW !==SnderPW){Alert.alert('Wrong password');
                             return;
                           }
-                              else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');
-                            return;
-                          }
+                              
                               
                               else if(parseFloat(nonLonLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');
                             return;
                           }
 
-                          else if(parseFloat(amounts) >= LonBal){updtSMCvLn();}                         
+                          else if(parseFloat(amounts) > LonBal){Alert.alert("Your Loan Balance is lesser")}
+
+                          else if(parseFloat(amounts) === LonBal){updtSMCvLn();}                         
                           
                               
                                else {
@@ -342,16 +489,13 @@ const RepayCovLnsss = props => {
                               }
                           }
                           catch (e) {
-                            if (e){Alert.alert("Sender does not exist")
+                            if (e){Alert.alert("There is no such a loan")
                             return;}
                         };
                       }
                     
                       await ftchCvdSMLn();
-                    
-                    
-                  
-                                                
+                                                                                         
                 }       
                 catch(e) {     
                   if (e){Alert.alert("Reciever does not exist")

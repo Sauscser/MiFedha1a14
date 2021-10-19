@@ -63,6 +63,12 @@ const AdminSignIn = (props) => {
             userLoanTransferFee: 0,
             userTransferFee: 0,
             userClearanceFee: 0,
+
+            ttlNonLonssRecSM: 0,
+            ttlNonLonssSentSM:0,
+
+            ttlNonLonssRecChm: 0,
+            ttlNonLonssSentChm:0,
           
             companyEarningBal: 0,
             companyEarning: 0,
@@ -95,12 +101,7 @@ const AdminSignIn = (props) => {
             ttlKFAdmInActv: 0,
             ttlKAdmBLStts: 0,
 
-            ttlNonLonssRecSM: 0,
-            ttlNonLonssSentSM:0,
-
-            ttlNonLonssRecChm: 0,
-            ttlNonLonssSentChm:0,
-          
+                      
             ttlSMLnsInAmtCov: 0,
             ttlChmLnsInAmtCov: 0,
             ttlSellerLnsInAmtCov: 0,
@@ -192,6 +193,7 @@ const AdminSignIn = (props) => {
       
       
     } catch (error) {
+     
       if(error) {await fetchExDtls ()}
 
       else {await fetchExDtls ()}
@@ -226,6 +228,7 @@ const AdminSignIn = (props) => {
 
             catch (e)
             {
+              
                 if (e){Alert.alert("Please check your internet connection")}
             }    
             setPWOne("");
