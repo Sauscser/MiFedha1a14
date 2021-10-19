@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {updateCompany, updateSmAccount, } from '../../../../src/graphql/mutations';
+import {updateCompany, updateSMAccount, } from '../../../../src/graphql/mutations';
 import {getCompany } from '../../../../src/graphql/queries';
 import {graphqlOperation, API} from 'aws-amplify';
 
@@ -52,7 +52,7 @@ const DeregUsrForm = (props) => {
           setIsLoading(true);
           try{
               await API.graphql(
-                graphqlOperation(updateSmAccount,{
+                graphqlOperation(updateSMAccount,{
                   input:{
                     nationalid:UsrId,
                     status:"AccountInactive"

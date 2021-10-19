@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {createSmAccount, createSMAccount, updateCompany} from '../../../src/graphql/mutations';
+import {createSMAccount, updateCompany} from '../../../src/graphql/mutations';
 import { getCompany, getSMAccount, } from '../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
@@ -82,7 +82,7 @@ const CreateAcForm = (props:UserReg) => {
         setIsLoading(true);
         try {
           await API.graphql(
-          graphqlOperation(createSmAccount, {
+          graphqlOperation(createSMAccount, {
           input: {
           nationalid: nationalId,
           name: nam,
@@ -207,6 +207,7 @@ const CreateAcForm = (props:UserReg) => {
           blStatus: 'LoanCleared',
           loanStatus: "NoLoan",
           loanLimit: 100000,
+          nonLonLimit:100000,
           withdrawalLimit: 100000,
           depositLimit: 100000,
           owner:ownr

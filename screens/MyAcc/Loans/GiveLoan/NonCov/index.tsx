@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 
 import {
   createFloatAdd,
-  createSmAccount,
-  createSmLoansCovered,
+  createSMAccount,
+  createSMLoansCovered,
   updateAdvocate,
   updateAgent,
   updateCompany,
   updateSAgent,
-  updateSmAccount,
+  updateSMAccount,
   
 } from '../../../../../src/graphql/mutations';
 
@@ -16,7 +16,7 @@ import {API, Auth, graphqlOperation, DataStore} from 'aws-amplify';
 import {
   getAgent,
   getCompany,
-  getSmAccount,
+  getSMAccount,
   getSAgent,
   getAdvocate,
 } from '../../../../../src/graphql/queries';
@@ -71,7 +71,7 @@ const SMASendLns = props => {
     setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSmAccount, {nationalid: SenderNatId}),
+        graphqlOperation(getSMAccount, {nationalid: SenderNatId}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -122,7 +122,7 @@ const SMASendLns = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSmAccount, {nationalid: RecNatId}),
+                    graphqlOperation(getSMAccount, {nationalid: RecNatId}),
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
                     const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
@@ -139,7 +139,7 @@ const SMASendLns = props => {
                       setIsLoading(true)
                       try {
                         await API.graphql(
-                          graphqlOperation(createSmLoansCovered, {
+                          graphqlOperation(createSMLoansCovered, {
                             input: {
                               loaneeid: RecNatId,
                               loanerId: SenderNatId,                                  
@@ -176,7 +176,7 @@ const SMASendLns = props => {
                       setIsLoading(true);
                       try{
                           await API.graphql(
-                            graphqlOperation(updateSmAccount, {
+                            graphqlOperation(updateSMAccount, {
                               input:{
                                 nationalid:SenderNatId,
                                 TtlActvLonsTmsLnrNonCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
@@ -205,7 +205,7 @@ const SMASendLns = props => {
                       setIsLoading(true);
                       try{
                           await API.graphql(
-                            graphqlOperation(updateSmAccount, {
+                            graphqlOperation(updateSMAccount, {
                               input:{
                                 nationalid:RecNatId,
                                 TtlActvLonsTmsLneeNonCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
@@ -265,27 +265,47 @@ const SMASendLns = props => {
                     }
                     
                                           
-                    if (usrNoBL > 1){Alert.alert('Receiver does not qualify');}
-                    else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');}
-                    else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                    else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                    else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > maxInterests)
-                    {Alert.alert('Your interest is too high');}
+                    if (parseFloat(usrNoBL) > 1){Alert.alert('Receiver does not qualify');
+                  return
+                }
+                    else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');
+                  return;
+                }
+                    else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');
+                  return;
+                }
+                    else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');
+                  return;
+                }
+                    else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > parseFloat(maxInterests))
+                    {Alert.alert('Your interest is too high');
+                  return;
+                }
                     else if (
-                      SenderUsrBal < TotalTransacted 
-                    ) {Alert.alert('Requested amount is more than you have in your account');}
+                      parseFloat(SenderUsrBal) < TotalTransacted 
+                    ) {Alert.alert('Requested amount is more than you have in your account');
+                  return;
+                }
                     
-                    else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                    else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
+                    else if(usrPW !==SnderPW){Alert.alert('Wrong password');
+                  return;
+                }
+                    else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');
+                  return;
+                }
                     
-                    else if(usrLnLim < amount){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
+                    else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');
+                  return;
+                }
                     
                      else {
                       sendSMLn();
                     }                                                
                 }       
                 catch(e) {     
-                  if (e){Alert.alert("Receiver does not exist")
+                  if (e){Alert.alert("Receiver does not exist");
+                  
+            
   return;}                 
                 }
                 setIsLoading(false);

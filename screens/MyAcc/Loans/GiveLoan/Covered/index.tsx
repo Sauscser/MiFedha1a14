@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 
 import {
   createFloatAdd,
-  createSmAccount,
-  createSmLoansCovered,
+  createSMAccount,
+  createSMLoansCovered,
   updateAdvocate,
   updateAgent,
   updateCompany,
   updateSAgent,
-  updateSmAccount,
+  updateSMAccount,
   
 } from '../../../../../src/graphql/mutations';
 
@@ -16,7 +16,7 @@ import {API, Auth, graphqlOperation, DataStore} from 'aws-amplify';
 import {
   getAgent,
   getCompany,
-  getSmAccount,
+  getSMAccount,
   getSAgent,
   getAdvocate,
 } from '../../../../../src/graphql/queries';
@@ -74,7 +74,7 @@ const SMASendLns = props => {
     setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSmAccount, {nationalid: SenderNatId}),
+        graphqlOperation(getSMAccount, {nationalid: SenderNatId}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -149,7 +149,7 @@ const SMASendLns = props => {
                 setIsLoading(true);
                 try {
                     const RecAccountDtl:any = await API.graphql(
-                        graphqlOperation(getSmAccount, {nationalid: RecNatId}),
+                        graphqlOperation(getSMAccount, {nationalid: RecNatId}),
                         );
                         const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
@@ -166,7 +166,7 @@ const SMASendLns = props => {
                           setIsLoading(true);
                           try {
                             await API.graphql(
-                              graphqlOperation(createSmLoansCovered, {
+                              graphqlOperation(createSMLoansCovered, {
                                 input: {
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,                                  
@@ -203,7 +203,7 @@ const SMASendLns = props => {
                           setIsLoading(true);
                           try{
                               await API.graphql(
-                                graphqlOperation(updateSmAccount, {
+                                graphqlOperation(updateSMAccount, {
                                   input:{
                                     nationalid:SenderNatId,
                                     TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
@@ -232,7 +232,7 @@ const SMASendLns = props => {
                           setIsLoading(true);
                           try{
                               await API.graphql(
-                                graphqlOperation(updateSmAccount, {
+                                graphqlOperation(updateSMAccount, {
                                   input:{
                                     nationalid:RecNatId,
                                     TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
@@ -316,20 +316,24 @@ const SMASendLns = props => {
                           setIsLoading(false);
                         }
                                               
-                        if (usrNoBL > 1){Alert.alert('Receiver does not qualify');}
-                        else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');}
+                        if (parseFloat(usrNoBL) > 1){Alert.alert('Receiver does not qualify');
+                      return;
+                    }
+                        else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');
+                      return;
+                    }
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > maxInterests)
                         {Alert.alert('Your interest is too high');}
                         else if (
-                          SenderUsrBal < TotalTransacted 
+                          parseFloat(SenderUsrBal) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
                         else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                         else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
                         
-                        else if(usrLnLim < amount){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
+                        else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
                         
                          else {
                           sendSMLn();

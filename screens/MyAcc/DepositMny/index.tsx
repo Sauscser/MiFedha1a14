@@ -5,10 +5,10 @@ import {
 
   updateAgent,
   updateCompany,
-  updateSmAccount,
+  updateSMAccount,
 } from '../../../src/graphql/mutations';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {getAgent, getCompany, getSmAccount} from '../../../src/graphql/queries';
+import {getAgent, getCompany, getSMAccount} from '../../../src/graphql/queries';
 import {
   View,
   Text,
@@ -51,7 +51,7 @@ const SMADepositForm = props => {
     setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSmAccount, {nationalid: nationalId}),
+        graphqlOperation(getSMAccount, {nationalid: nationalId}),
       );
 
       const usrBala = accountDtl.data.getSMAccount.balance;      
@@ -120,7 +120,7 @@ const SMADepositForm = props => {
               setIsLoading(true);
               try {
                 await API.graphql(
-                  graphqlOperation(updateSmAccount, {
+                  graphqlOperation(updateSMAccount, {
                     input: {
                       nationalid: nationalId,
           
@@ -196,7 +196,7 @@ const SMADepositForm = props => {
               Alert.alert("User Account has been deactivated")
               return;
             } 
-            else if(amount>depositLimits) {
+            else if(parseFloat(amount)>parseFloat(depositLimits)) {
               Alert.alert('Deposit limit exceeded');
               return;
             }
@@ -204,7 +204,7 @@ const SMADepositForm = props => {
               Alert.alert("MFNdogo Account has been deactivated")
               return;
             } 
-            if (agtFltBl<amount) {
+            if (parseFloat(agtFltBl)<parseFloat(amount)) {
               Alert.alert("Insufficient MFNdogo Balance")
               return;
             } 

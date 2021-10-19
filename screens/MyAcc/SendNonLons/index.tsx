@@ -2,15 +2,15 @@ import React, {useEffect, useState} from 'react';
 
 import {
   
-  createSmLoansCovered,
+  createSMLoansCovered,
   
-  createSmLoansNonCovered,
+  createSMLoansNonCovered,
   
   createNonLoans,
   
   updateCompany,
   
-  updateSmAccount,
+  updateSMAccount,
   
 } from '../../.././src/graphql/mutations';
 
@@ -18,7 +18,7 @@ import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {
   
   getCompany,
-  getSmAccount,
+  getSMAccount,
   
 } from '../../.././src/graphql/queries';
 
@@ -71,7 +71,7 @@ const SMASendNonLns = props => {
     setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSmAccount, {nationalid: SenderNatId}),
+        graphqlOperation(getSMAccount, {nationalid: SenderNatId}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -111,7 +111,7 @@ const SMASendNonLns = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSmAccount, {nationalid: RecNatId}),
+                    graphqlOperation(getSMAccount, {nationalid: RecNatId}),
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
@@ -158,7 +158,7 @@ const SMASendNonLns = props => {
                       setIsLoading(true);
                       try{
                           await API.graphql(
-                            graphqlOperation(updateSmAccount, {
+                            graphqlOperation(updateSMAccount, {
                               input:{
                                 nationalid:SenderNatId,
                                 ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
@@ -186,7 +186,7 @@ const SMASendNonLns = props => {
                       setIsLoading(true);
                       try{
                           await API.graphql(
-                            graphqlOperation(updateSmAccount, {
+                            graphqlOperation(updateSMAccount, {
                               input:{
                                 nationalid:RecNatId,
                                 ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
@@ -242,13 +242,13 @@ const SMASendNonLns = props => {
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                     
                     else if (
-                      SenderUsrBal < TotalTransacted 
+                      parseFloat(SenderUsrBal) < TotalTransacted 
                     ) {Alert.alert('Requested amount is more than you have in your account');}
                     
                     else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                     else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
                     
-                    else if(loanLimits < amounts){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');}
+                    else if(parseFloat(loanLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');}
                     
                      else {
                       sendSMNonLn();

@@ -263,7 +263,7 @@ const SMADepositForm = props => {
                             }; 
                     
                     
-                    if (TTlAmtTrnsctd > usrBala) {
+                    if (TTlAmtTrnsctd > parseFloat(usrBala)) {
                       Alert.alert("Insufficient user Balance")
                       return;
                     } 
@@ -272,7 +272,7 @@ const SMADepositForm = props => {
                       Alert.alert("User Account has been deactivated")
                       return;
                     } 
-                    else if(amount>withdrawalLimits) {
+                    else if(parseFloat(amount)>parseFloat(withdrawalLimits)) {
                       Alert.alert('Withdrawal limit exceeded');
                       return;
                     }

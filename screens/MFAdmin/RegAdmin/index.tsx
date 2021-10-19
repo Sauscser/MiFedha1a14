@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {createBankAdmin, updateCompany} from '../../../src/graphql/mutations';
-import {getCompany, getSmAccount,  } from '../../../src/graphql/queries';
+import {getCompany, getSMAccount,  } from '../../../src/graphql/queries';
 import {Auth, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -60,7 +60,7 @@ const CreateAdminForm = () => {
               setISLoading(true);
               try {
                 const resp:any = await API.graphql(
-                  graphqlOperation(getSmAccount, { nationalid: nationalId })
+                  graphqlOperation(getSMAccount, { nationalid: nationalId })
                 );
                 const adminId = resp.data.getSMAccount.nationalid; 
                 const adminName = resp.data.getSMAccount.name; 
