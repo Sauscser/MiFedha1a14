@@ -126,7 +126,7 @@ import { getCompany } from '../../../src/graphql/queries';
             Alert.alert("Check your internet")
             return;}
         }
-      
+        Alert.alert("Advocate "+advRegNo+ " successfully registed.")
         setIsLoading(false);     
       
       }

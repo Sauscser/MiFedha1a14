@@ -111,8 +111,8 @@ const DeregMFAdvForm = (props) => {
         return;};
           }
           setIsLoading(false);
-          await setAdvRegNo("") 
-
+          setAdvRegNo("") 
+          Alert.alert(AdvRegNo + " successfully deregistered.")
         };    
         
         useEffect(() =>{

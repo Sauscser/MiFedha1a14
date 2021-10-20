@@ -94,6 +94,7 @@ const DeregUsrForm = (props) => {
                 Alert.alert("Check your internet")
                 return;
             }}
+            Alert.alert("User has been deactivated")
             setIsLoading(false);
             }
             

@@ -81,7 +81,7 @@ const RepayNonCovLnsss = props => {
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
       const usrPW =accountDtl.data.getSMAccount.pw;
       const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const SenderSub =accountDtl.data.getSMAccount.owner;
+      const names =accountDtl.data.getSMAccount.name;
       const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
       const nonLonLimits =accountDtl.data.getSMAccount.nonLonLimit;
       const TtlActvLonsTmsLneeNonCovss =accountDtl.data.getSMAccount.TtlActvLonsTmsLneeNonCov;
@@ -129,6 +129,7 @@ const RepayNonCovLnsss = props => {
                     const TtlActvLonsAmtLnrNonCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrNonCov;
                     const TtlClrdLonsTmsLneeNonCovssss =accountDtl.data.getSMAccount.TtlClrdLonsTmsLnrNonCov;
                     const TtlClrdLonsAmtLneeNonCovssss =accountDtl.data.getSMAccount.TtlClrdLonsAmtLnrNonCov;
+                    const namess =accountDtl.data.getSMAccount.name;
 
                     const ftchCvdSMLn = async () => {
                       if(isLoading){
@@ -146,7 +147,7 @@ const RepayNonCovLnsss = props => {
                               const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
                                
 
-                              const updtSMCvLn  = async () =>{
+                              const updtSMCvLnLonOver  = async () =>{
                                 if(isLoading){
                                   return;
                                 }
@@ -156,8 +157,9 @@ const RepayNonCovLnsss = props => {
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
                                           id:LnId,
-                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids)
-                                          
+                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
+                                          lonBal: LonBal+parseFloat(amounts),
+                                          status: "LoanCleared",
                                         }
                                       })
                                     )
@@ -221,7 +223,8 @@ const RepayNonCovLnsss = props => {
                                           TtlClrdLonsTmsLneeNonCov: 1 + parseFloat(TtlClrdLonsTmsLneeNonCovs),
                                           TtlClrdLonsAmtLneeNonCov: parseFloat(TtlClrdLonsAmtLneeNonCovs) + parseFloat(amounts),
                                                                              
-                                          
+                                          loanStatus: "NoLoan",
+                                          blStatus: "AccountNotBL",
                                         }
                                       })
                                     )
@@ -295,7 +298,7 @@ const RepayNonCovLnsss = props => {
                                   if (error){Alert.alert("Check your internet connection")
                               return;}
                                 }
-                                
+                                Alert.alert(names + " has repayed " + amounts + " to " + namess);
                                 setIsLoading(false);
                               }                                                                                                            
                         
@@ -310,8 +313,8 @@ const RepayNonCovLnsss = props => {
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
                                           id:LnId,
-                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids)
-                                          
+                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
+                                          lonBal:LonBal - parseFloat(amounts)
                                         }
                                       })
                                     )
@@ -447,7 +450,7 @@ const RepayNonCovLnsss = props => {
                                   if (error){Alert.alert("Check your internet connection")
                               return;}
                                 }
-                                
+                                Alert.alert(names + " has repayed " + namess +" Ksh. "+ amounts);
                                 setIsLoading(false);
                               }
 
@@ -470,15 +473,15 @@ const RepayNonCovLnsss = props => {
                               else if(usrPW !==SnderPW){Alert.alert('Wrong password');
                             return;
                           }
-                              
+                          else if(SenderNatId === RecNatId){Alert.alert('You cannot Repay Yourself');}
                               
                               else if(parseFloat(nonLonLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');
                             return;
                           }
 
-                          else if(parseFloat(amounts) > LonBal){Alert.alert("Your Loan Balance is lesser")}
+                          else if(parseFloat(amounts) > LonBal){Alert.alert("Your Loan Balance is lesser" +LonBal)}
 
-                          else if(parseFloat(amounts) === LonBal){updtSMCvLn();}                         
+                          else if(parseFloat(amounts) === LonBal){updtSMCvLnLonOver();}                         
                           
                               
                                else {
@@ -655,7 +658,18 @@ useEffect(() =>{
 
           
 
+         
           <View style={styles.sendAmtView}>
+            <TextInput
+              multiline={true}
+              value={LnId}
+              onChangeText={setLnId}
+              style={styles.sendAmtInputDesc}
+              editable={true}></TextInput>
+            <Text style={styles.sendAmtText}>Loan Id</Text>
+          </View>
+
+          <View style={styles.sendAmtViewDesc}>
             <TextInput
               multiline={true}
               value={Desc}
@@ -665,15 +679,6 @@ useEffect(() =>{
             <Text style={styles.sendAmtText}>Description</Text>
           </View>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              multiline={true}
-              value={LnId}
-              onChangeText={setLnId}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Description</Text>
-          </View>
 
           <TouchableOpacity
             onPress={fetchSenderUsrDtls}

@@ -53,7 +53,8 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
     const MFKb:any = await API.graphql(
     graphqlOperation(getSAgent, {id:saRegNo})
     );
-    const actvMFNdogs = MFKb.data.getSAgent.actvMFNdog
+    const actvMFNdogs = MFKb.data.getSAgent.actvMFNdog;
+    const names = MFKb.data.getSAgent.name
 
     const gtCompDtls = async () =>{
       if(isLoading){
@@ -154,6 +155,7 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
             catch(error){if (error) {
               Alert.alert("Please check your internet connection")
             }}
+            "MFNdogo " +nam+"successfully registered under "+names+" MFKubwa"
             setIsLoading(false)
           }              
 

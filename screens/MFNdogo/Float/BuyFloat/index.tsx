@@ -60,9 +60,10 @@ const ftchAgInfo = async () => {
             graphqlOperation(getAgent, {phonecontact:phoneContact}),
         );
 
-            const fltBal = (agntBal.data.getAgent.floatBal);
-            const ttlFltIn = (agntBal.data.getAgent.TtlFltIn);
-            const Stts = (agntBal.data.getAgent.status);
+            const fltBal = agntBal.data.getAgent.floatBal;
+            const ttlFltIn = agntBal.data.getAgent.TtlFltIn;
+            const Stts = agntBal.data.getAgent.status;
+            const names = agntBal.data.getAgent.name;
 
             const ftchCompInfo = async () => {
               if(isLoading)
@@ -185,7 +186,8 @@ const ftchAgInfo = async () => {
                                         if(error){
                                           Alert.alert("Please check your internet connection")
                                         };
-                                      }   
+                                      }  
+                                      Alert.alert(names + " has purchased Ksh. "+amt+" float"); 
                                      setIsLoading(false)
                                     };
 

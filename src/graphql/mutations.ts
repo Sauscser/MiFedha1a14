@@ -287,6 +287,7 @@ export const createSMLoansCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
+      lonBala
       repaymentPeriod
       advregnu
       description
@@ -309,6 +310,7 @@ export const updateSMLoansCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
+      lonBala
       repaymentPeriod
       advregnu
       description
@@ -331,6 +333,7 @@ export const deleteSMLoansCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
+      lonBala
       repaymentPeriod
       advregnu
       description
@@ -353,6 +356,7 @@ export const createSMLoansNonCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
+      lonBala
       repaymentPeriod
       description
       status
@@ -374,6 +378,7 @@ export const updateSMLoansNonCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
+      lonBala
       repaymentPeriod
       description
       status
@@ -395,6 +400,7 @@ export const deleteSMLoansNonCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountrepaid
+      lonBala
       repaymentPeriod
       description
       status
@@ -1477,6 +1483,7 @@ export const createCovCreditSeller = /* GraphQL */ `
       amountexpectedBack
       amountRepaid
       repaymentPeriod
+      lonBala
       description
       status
       advregnu
@@ -1503,6 +1510,7 @@ export const updateCovCreditSeller = /* GraphQL */ `
       amountexpectedBack
       amountRepaid
       repaymentPeriod
+      lonBala
       description
       status
       advregnu
@@ -1529,6 +1537,7 @@ export const deleteCovCreditSeller = /* GraphQL */ `
       amountexpectedBack
       amountRepaid
       repaymentPeriod
+      lonBala
       description
       status
       advregnu
@@ -1554,6 +1563,7 @@ export const createNonCovCreditSeller = /* GraphQL */ `
       amountSold
       amountexpectedBack
       amountRepaid
+      lonBala
       repaymentPeriod
       description
       status
@@ -1579,6 +1589,7 @@ export const updateNonCovCreditSeller = /* GraphQL */ `
       amountSold
       amountexpectedBack
       amountRepaid
+      lonBala
       repaymentPeriod
       description
       status
@@ -1604,6 +1615,7 @@ export const deleteNonCovCreditSeller = /* GraphQL */ `
       amountSold
       amountexpectedBack
       amountRepaid
+      lonBala
       repaymentPeriod
       description
       status
@@ -1804,6 +1816,7 @@ export const createCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
+      lonBala
       advRegNu
       status
       owner
@@ -1826,6 +1839,7 @@ export const updateCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
+      lonBala
       advRegNu
       status
       owner
@@ -1848,6 +1862,7 @@ export const deleteCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
+      lonBala
       advRegNu
       status
       owner
@@ -1870,6 +1885,7 @@ export const createNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
+      lonBala
       status
       owner
       createdAt
@@ -1891,6 +1907,7 @@ export const updateNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
+      lonBala
       status
       owner
       createdAt
@@ -1912,6 +1929,7 @@ export const deleteNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
+      lonBala
       status
       owner
       createdAt

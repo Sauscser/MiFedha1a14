@@ -81,6 +81,7 @@ const SMASendNonCovLns = props => {
       const TtlActvLonsTmsLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
       const TtlActvLonsAmtLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;       
       const SenderSub =accountDtl.data.getSMAccount.owner;
+      const names =accountDtl.data.getSMAccount.name;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -125,6 +126,7 @@ const SMASendNonCovLns = props => {
                     graphqlOperation(getSMAccount, {nationalid: RecNatId}),
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
+                    const namess =RecAccountDtl.data.getSMAccount.name;
                     const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                     const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
@@ -146,7 +148,7 @@ const SMASendNonCovLns = props => {
                               amountgiven: amount,
                               amountexpected: AmtExp,
                               amountrepaid: 0,
-                            
+                              lonBala:0,
                               repaymentPeriod: RepaymtPeriod,
                               advregnu: AdvRegNo,
                               description: Desc,
@@ -210,7 +212,7 @@ const SMASendNonCovLns = props => {
                                 nationalid:RecNatId,
                                 TtlActvLonsTmsLneeNonCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
                                 TtlActvLonsAmtLneeNonCov: parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(amount),
-                                
+                                loanStatus:"LoanActive",
                                 balance:parseFloat(RecUsrBal) + parseFloat(amount)                                     
                                 
                                                                   
@@ -261,6 +263,7 @@ const SMASendNonCovLns = props => {
                         if (error){Alert.alert("Check your internet connection")
                     return;}
                       }
+                      Alert.alert(names + " has loaned " + namess +" Ksh. " + amount ); 
                       setIsLoading(false);
                     }
                     
@@ -277,6 +280,7 @@ const SMASendNonCovLns = props => {
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');
                   return;
                 }
+                else if(SenderNatId === RecNatId){Alert.alert('You cannot Loan Yourself');}
                     else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > parseFloat(maxInterests))
                     {Alert.alert('Your interest is too high');
                   return;
@@ -513,7 +517,7 @@ useEffect(() =>{
             <Text style={styles.sendAmtText}>Reciever Acceptance Code</Text>
           </View>
 
-          <View style={styles.sendAmtView}>
+          <View style={styles.sendAmtViewDesc}>
             <TextInput
               multiline={true}
               value={Desc}

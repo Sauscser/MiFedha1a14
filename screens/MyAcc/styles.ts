@@ -34,17 +34,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 
-  viewForSalesPressables: {
-    backgroundColor: 'green',
-    marginHorizontal: 4,
-    width: Dimensions.get('screen').width - 8,
-    height: 170,
-    borderRadius: 20,
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
+  
 
   myMoneyPressables: {
     backgroundColor: 'purple',
@@ -88,7 +78,7 @@ const styles = StyleSheet.create({
 
   acPressableText: {
     color: 'white',
-    fontSize: 15,
+    fontSize: 12,
     marginTop: 1,
   },
 

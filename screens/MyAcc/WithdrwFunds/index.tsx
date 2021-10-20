@@ -9,7 +9,7 @@ import {
   updateSmAccount,
 } from '../../../src/graphql/mutations';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {getAgent, getCompany, getSAgent, getSmAccount} from '../../../src/graphql/queries';
+import {getAgent, getCompany, getSAgent, getSMAccount, getSmAccount} from '../../../src/graphql/queries';
 import {
   View,
   Text,
@@ -52,15 +52,16 @@ const SMADepositForm = props => {
     setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSmAccount, {nationalid: nationalId}),
+        graphqlOperation(getSMAccount, {nationalid: nationalId}),
       );
 
-      const usrBala = accountDtl.data.getSmAccount.balance;      
-      const TtlWthdrwnSMs = accountDtl.data.getSmAccount.TtlWthdrwnSM;
-      const usrStts = accountDtl.data.getSmAccount.acStatus; 
-      const withdrawalLimits = accountDtl.data.getSmAccount.withdrawalLimit;  
+      const usrBala = accountDtl.data.getSMAccount.balance;      
+      const TtlWthdrwnSMs = accountDtl.data.getSMAccount.TtlWthdrwnSM;
+      const usrStts = accountDtl.data.getSMAccount.acStatus; 
+      const withdrawalLimits = accountDtl.data.getSMAccount.withdrawalLimit;  
       const pws = accountDtl.data.getSmAccount.pw;
-      const owners = accountDtl.data.getSmAccount.owner;
+      const owners = accountDtl.data.getSMAccount.owner;
+      const names = accountDtl.data.getSMAccount.name;
          
       
       const fetchAgtBal = async () => {
@@ -77,7 +78,7 @@ const SMADepositForm = props => {
           const floatBals = AgentBal.data.getAgent.floatBal;
           const AgAcAct = AgentBal.data.getAgent.status;
           const sagentregnos = AgentBal.data.getAgent.sagentregno;
-          const names = AgentBal.data.getAgent.name;
+          const namess = AgentBal.data.getAgent.name;
 
           const gtCompDtls = async () =>{
             if(isLoading){
@@ -199,41 +200,10 @@ const SMADepositForm = props => {
                           return;}
                         }
                         setIsLoading(false);
-                        await onUpdtCompDtls();
+                        await onUpdtsaDtls();
                         }; 
         
-                        const onUpdtCompDtls = async () => {
-                          if(isLoading){
-                            return;
-                          }
-                            setIsLoading(true);
-                          try {
-                            await API.graphql(
-                              graphqlOperation(updateCompany, {
-                                input: {
-                                  AdminId:"BaruchHabaB'ShemAdonai2",                    
-                                 
-                                  companyEarningBal: parseFloat(companyEarningBals) + compCommission,
-                                  companyEarning: parseFloat(companyEarnings) + compCommission,
-                                  agentEarningBal: parseFloat(agentEarningBals) + AgentCommission,
-                                  agentEarning: parseFloat(agentEarnings) + AgentCommission,
-                                  saEarningBal: parseFloat(saEarningBals) + saCommission,
-                                  saEarning: parseFloat(saEarnings) + saCommission,
-                                  ttlUserWthdrwl: parseFloat(ttlUserWthdrwls) + parseFloat(amount),
-                                  agentFloatIn: parseFloat(agentFloatIns) + parseFloat(amount),
-                                  
-                                },
-                              }),
-                            );
-                          }
-          
-                          catch (error) {
-                            if (error){Alert.alert("Check internet Connection")
-                            return;}
-                          }
-                          setIsLoading(false);
-                          await onUpdtsaDtls();
-                          }; 
+                        
         
                           const onUpdtsaDtls = async () => {
                             if(isLoading){
@@ -259,8 +229,42 @@ const SMADepositForm = props => {
                               if (error){Alert.alert("Check internet Connection")
                               return;}
                             }
+                            await onUpdtCompDtls();
                             setIsLoading(false);
                             }; 
+
+                            const onUpdtCompDtls = async () => {
+                              if(isLoading){
+                                return;
+                              }
+                                setIsLoading(true);
+                              try {
+                                await API.graphql(
+                                  graphqlOperation(updateCompany, {
+                                    input: {
+                                      AdminId:"BaruchHabaB'ShemAdonai2",                    
+                                     
+                                      companyEarningBal: parseFloat(companyEarningBals) + compCommission,
+                                      companyEarning: parseFloat(companyEarnings) + compCommission,
+                                      agentEarningBal: parseFloat(agentEarningBals) + AgentCommission,
+                                      agentEarning: parseFloat(agentEarnings) + AgentCommission,
+                                      saEarningBal: parseFloat(saEarningBals) + saCommission,
+                                      saEarning: parseFloat(saEarnings) + saCommission,
+                                      ttlUserWthdrwl: parseFloat(ttlUserWthdrwls) + parseFloat(amount),
+                                      agentFloatIn: parseFloat(agentFloatIns) + parseFloat(amount),
+                                      
+                                    },
+                                  }),
+                                );
+                              }
+              
+                              catch (error) {
+                                if (error){Alert.alert("Check internet Connection")
+                                return;}
+                              }
+                              setIsLoading(false);
+                              Alert.alert(names + " has withdrawn Ksh. " + amount + " from " + namess + " MFNdogo");
+                              }; 
                     
                     
                     if (TTlAmtTrnsctd > parseFloat(usrBala)) {
@@ -272,6 +276,12 @@ const SMADepositForm = props => {
                       Alert.alert("User Account has been deactivated")
                       return;
                     } 
+
+                    else if (ownr!==owners) {
+                      Alert.alert("You cannot withdraw from another account")
+                      return;
+                    }  
+
                     else if(parseFloat(amount)>parseFloat(withdrawalLimits)) {
                       Alert.alert('Withdrawal limit exceeded');
                       return;

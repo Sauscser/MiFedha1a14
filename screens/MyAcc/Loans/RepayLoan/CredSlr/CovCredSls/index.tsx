@@ -476,7 +476,7 @@ const RepayCovLnsss = props => {
                             return;
                           }
 
-                          else if(parseFloat(amounts) > LonBal){Alert.alert("Your Loan Balance is lesser")}
+                          else if(parseFloat(amounts) > LonBal){Alert.alert("Your Loan Balance is lesser: " +LonBal)}
 
                           else if(parseFloat(amounts) === LonBal){updtSMCvLn();}                         
                           
@@ -652,15 +652,7 @@ useEffect(() =>{
 
           
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              multiline={true}
-              value={Desc}
-              onChangeText={setDesc}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Description</Text>
-          </View>
+          
 
           <View style={styles.sendAmtView}>
             <TextInput
@@ -670,6 +662,16 @@ useEffect(() =>{
               style={styles.sendAmtInputDesc}
               editable={true}></TextInput>
             <Text style={styles.sendAmtText}>Loan Id</Text>
+          </View>
+
+          <View style={styles.sendAmtViewDesc}>
+            <TextInput
+              multiline={true}
+              value={Desc}
+              onChangeText={setDesc}
+              style={styles.sendAmtInputDesc}
+              editable={true}></TextInput>
+            <Text style={styles.sendAmtText}>Description</Text>
           </View>
 
           <TouchableOpacity

@@ -222,7 +222,7 @@ type SMLoansCovered
   amountgiven: Float!
   amountexpected: Float!
   amountrepaid: Float!
-  
+  lonBala:Float!
 
   repaymentPeriod: Int!
   advregnu: String!
@@ -295,7 +295,7 @@ type SMLoansNonCovered
   amountgiven: Float!
   amountexpected: Float!
   amountrepaid: Float!
-  
+  lonBala:Float!
 
   repaymentPeriod: Int!
 
@@ -677,8 +677,7 @@ type SAgent
         groups: ["Executive"]
         operations: [read, create, update, delete]
       }
-    ]
-  )
+wes  )
   @key(name: "saChecker", fields: ["saNationalid"], queryField: "CheckingSA") {
   id: ID!
   saNationalid: String!
@@ -1154,7 +1153,7 @@ type CovCreditSeller
   amountexpectedBack: Float!
   amountRepaid: Float!
   repaymentPeriod: Int!
-
+  lonBala:Float!
   description: String
   status: Status!
   advregnu: String!
@@ -1221,6 +1220,7 @@ type NonCovCreditSeller
   amountSold: Float!
   amountexpectedBack: Float!
   amountRepaid: Float!
+  lonBala:Float!
   repaymentPeriod: Int!
   description: String
   status: Status!
@@ -1423,7 +1423,7 @@ type CvrdGroupLoans
   amountExpectedBack: Float!
   amountRepaid: Float!
   description: String
-  
+  lonBala:Float!
   advRegNu: String!
   status: Status!
   owner: String!
@@ -1486,7 +1486,7 @@ type NonCvrdGroupLoans
   amountExpectedBack: Float!
   amountRepaid: Float!
   description: String
-
+  lonBala:String!
   status: Status!
   owner: String!
 }

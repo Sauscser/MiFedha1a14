@@ -169,7 +169,7 @@ const CreateAcForm = (props:UserReg) => {
           MaxTymsBL: 0,
           
           acStatus: 'AccountActive',
-          blStatus: 'LoanCleared',
+          blStatus: 'AccountNotBL',
           loanStatus: "NoLoan",
           loanLimit: 100000,
           nonLonLimit:100000,
@@ -216,6 +216,7 @@ const CreateAcForm = (props:UserReg) => {
                 return;
             }
             }
+            Alert.alert("Congrats " + nam + ", You have created an account")
             setIsLoading(false);
           }
           

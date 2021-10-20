@@ -86,14 +86,14 @@ const DeregMFNForm = (props) => {
                 })
               )        
           }
-          catch(error){if(!error){
-                Alert.alert("Account deactivated successfully")
+          catch(error){if(error){
+                Alert.alert("MFNdogo does not exist or Check your internet connection");
+                return;
                 
             } 
-            else{Alert.alert("Please check your internet connection")
-            return;}
-          
+            
         } 
+          Alert.alert("MFNdogo successfully deactivated")
           setIsLoading(false);
       }}
            catch (error) {

@@ -149,7 +149,7 @@ const MyLoanAccount = props => {
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
-                onPress={payNonCovLn}
+                onPress={goBL}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Covered Loans</Text>
               </Pressable>

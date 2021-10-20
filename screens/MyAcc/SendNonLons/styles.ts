@@ -77,6 +77,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  sendAmtViewDesc: {
+    backgroundColor: 'skyblue',
+    marginHorizontal: 10,
+    width: Dimensions.get('screen').width - 20,
+    height: "15%",
+    borderRadius: 20,
+    marginTop: "20%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    padding:"1%",
+   
+  },
+
   sendAmtInputDesc: {
     backgroundColor: 'white',
     marginHorizontal: 15,

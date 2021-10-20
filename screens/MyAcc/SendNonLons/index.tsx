@@ -80,6 +80,7 @@ const SMASendNonLns = props => {
       const SenderSub =accountDtl.data.getSMAccount.owner;
       const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
       const loanLimits =accountDtl.data.getSMAccount.loanLimit;
+      const names =accountDtl.data.getSMAccount.name;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -116,6 +117,7 @@ const SMASendNonLns = props => {
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                     const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
+                    const namess =RecAccountDtl.data.getSMAccount.name;
                     
                     
                   
@@ -233,6 +235,7 @@ const SMASendNonLns = props => {
                         if (error){Alert.alert("Check your internet connection")
                     return;}
                       }
+                      Alert.alert(names + " has sent Ksh. " + amounts + " to " + namess);
                       setIsLoading(false);
                     }
                     
@@ -240,7 +243,7 @@ const SMASendNonLns = props => {
                     
                     if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                    
+                    else if(SenderNatId === RecNatId){Alert.alert('You cannot Send money to yourself Yourself');}
                     else if (
                       parseFloat(SenderUsrBal) < TotalTransacted 
                     ) {Alert.alert('Requested amount is more than you have in your account');}
@@ -399,7 +402,7 @@ useEffect(() =>{
 
           
 
-          <View style={styles.sendAmtView}>
+          <View style={styles.sendAmtViewDesc}>
             <TextInput
               multiline={true}
               value={Desc}

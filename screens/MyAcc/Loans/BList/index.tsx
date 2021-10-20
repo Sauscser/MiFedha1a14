@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {updateCompany, updateSMAccount, } from '../../../../src/graphql/mutations';
+import {updateCompany, updateSMAccount, updateSMLoansCovered, } from '../../../../src/graphql/mutations';
 import {getCompany, getSMAccount, getSMLoansCovered } from '../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
@@ -69,6 +69,7 @@ const BLLoanee = (props) => {
               const loanerIds = compDtls.data.getSMLoansCovered.loanerId
               const amountexpecteds = compDtls.data.getSMLoansCovered.amountexpected
               const amountrepaids = compDtls.data.getSMLoansCovered.amountrepaid
+              const statusssss = compDtls.data.getSMLoansCovered.status
               const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
@@ -84,6 +85,7 @@ const BLLoanee = (props) => {
                     const acStatuss = compDtls.data.getSMAccount.acStatus
                     const TtlBLLonsTmsLnrCovs = compDtls.data.getSMAccount.TtlBLLonsTmsLnrCov
                     const TtlBLLonsAmtLnrCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLnrCov
+                    const names = compDtls.data.getSMAccount.name
                          
                     const gtLoaneeDtls = async () =>{
                       if(isLoading){
@@ -94,9 +96,11 @@ const BLLoanee = (props) => {
                         const compDtls :any= await API.graphql(
                           graphqlOperation(getSMAccount,{nationalid:loaneeids})
                           );
-                          const TtlBLLonsTmsLneeCovs = compDtls.data.getSMLoansCovered.TtlBLLonsTmsLneeCov
-                          const TtlBLLonsAmtLneeCovs = compDtls.data.getSMLoansCovered.TtlBLLonsAmtLneeCov
+                          const TtlBLLonsTmsLneeCovs = compDtls.data.getSMAccount.TtlBLLonsTmsLneeCov
+                          const TtlBLLonsAmtLneeCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLneeCov
                           const acStatusss = compDtls.data.getSMAccount.acStatus
+                          const namess = compDtls.data.getSMAccount.name
+                          
                           const updateLoanerDtls = async () => {
                             if(isLoading){
                               return;
@@ -120,7 +124,10 @@ const BLLoanee = (props) => {
                               
                           } 
                           else{Alert.alert("Please check your internet connection")
-                          return;} }
+                          return;} 
+                        console.log(error)
+                      }
+
                             setIsLoading(false);          
                             await updtActAdm ();
                           } 
@@ -132,6 +139,11 @@ const BLLoanee = (props) => {
                           else if(owners !== ownr){
                             Alert.alert("You are not the one owed this loan")
                           } 
+
+                          else if(statusssss === "LoanBL"){
+                            Alert.alert("This Loan is already Black Listed")
+                          } 
+
                           else if(acStatuss !== "AccountActive"){
                             Alert.alert("Loaner account has been deactivated")
                           } 
@@ -159,7 +171,9 @@ const BLLoanee = (props) => {
                                       })
                                     )
                                 }
-                                catch(error){if(error){
+                                catch(error){
+                                  console.log(error)
+                                  if(error){
                                   Alert.alert("Check your internet")
                                   return;
                               }}
@@ -176,9 +190,41 @@ const BLLoanee = (props) => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount,{
                                         input:{
-                                          nationalid:loanerIds,
+                                          nationalid:loaneeids,
                                           TtlBLLonsTmsLneeCov: parseFloat(TtlBLLonsTmsLneeCovs) + 1,
                                           TtlBLLonsAmtLneeCov: parseFloat(TtlBLLonsAmtLneeCovs) + parseFloat(amountexpecteds),
+                                          blStatus:"AccountBlackListed",
+                                          loanStatus: "LoanActive"
+                                        }
+                                      })
+                                    )
+                            
+                                    
+                                }
+                                catch(error){
+                                  console.log(error)
+                                  if(!error){
+                                  Alert.alert("Account deactivated successfully")
+                                  
+                              } 
+                              else{Alert.alert("Please check your internet connection")
+                              return;} }
+                              await updateLoanDtls();
+                                setIsLoading(false);          
+                              } 
+
+                              const updateLoanDtls = async () => {
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateSMLoansCovered, {
+                                        input:{
+                                          id:LonId,
+                                          loaneeid:loaneeids,
+                                          loanerId:loanerIds,
                                           status:"LoanBL",
                                         }
                                       })
@@ -186,17 +232,24 @@ const BLLoanee = (props) => {
                             
                                     
                                 }
-                                catch(error){if(!error){
+                                catch(error){
+                                  console.log(error)
+                                  if(!error){
                                   Alert.alert("Account deactivated successfully")
                                   
                               } 
                               else{Alert.alert("Please check your internet connection")
                               return;} }
+                              Alert.alert(names +", you have blacklisted "+ namess)
                                 setIsLoading(false);          
                               } 
+                              
                         }
             
-                        catch(error){if(!error){
+                        
+                        catch(error){
+                          console.log(error)
+                          if(!error){
                           Alert.alert("Account deactivated successfully")
                           
                       } 
@@ -208,14 +261,16 @@ const BLLoanee = (props) => {
                       await gtLoaneeDtls(); 
                   }
       
-                  catch(error){ }
+                  catch(error){ console.log(error)}
                   setIsLoading(false);         
                   
                 }
                 await gtLoanerDtls(); 
             }
 
-            catch(error){if(error){
+            catch(error){
+              console.log(error)
+              if(error){
               Alert.alert("Loan does not exist")
               return;              
           } 
@@ -225,11 +280,14 @@ const BLLoanee = (props) => {
           await gtLoanDtls();        
             
           } catch (error) {
+            console.log(error)
+            
             if(error){
               Alert.alert("Check your internet")
               return;
           };
           }
+          
           setIsLoading(false);
           setLonId("") 
         };    
@@ -270,7 +328,7 @@ const BLLoanee = (props) => {
                     onPress={gtCompDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
-                      Click to DeRegister 
+                      Click to Black List 
                     </Text>
                     {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
                   </TouchableOpacity>
