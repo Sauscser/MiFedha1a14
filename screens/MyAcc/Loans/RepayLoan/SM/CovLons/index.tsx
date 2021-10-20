@@ -83,7 +83,7 @@ const RepayCovLnsss = props => {
       const TtlActvLonsAmtLneeCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
       const TtlClrdLonsTmsLneeCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsLneeCov;
       const TtlClrdLonsAmtLneeCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtLneeCov;
-      
+      const names =accountDtl.data.getSMAccount.name;
       const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
       const nonLonLimits =accountDtl.data.getSMAccount.nonLonLimit;
       
@@ -127,6 +127,7 @@ const RepayCovLnsss = props => {
                     const TtlActvLonsAmtLnrCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
                     const TtlClrdLonsTmsLneeCovssss =accountDtl.data.getSMAccount.TtlClrdLonsTmsLnrCov;
                     const TtlClrdLonsAmtLneeCovssss =accountDtl.data.getSMAccount.TtlClrdLonsAmtLnrCov;
+                    const namess =accountDtl.data.getSMAccount.name;
                     
                     
 
@@ -292,8 +293,7 @@ const RepayCovLnsss = props => {
                                     
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Check your internet connection")
-                              return;}
+                                  Alert.alert(names + " has sent " + amounts + " to " + namess)
                                 }
                                 
                                 setIsLoading(false);
@@ -444,8 +444,7 @@ const RepayCovLnsss = props => {
                                     
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Check your internet connection")
-                              return;}
+                                  Alert.alert(names + " has sent " + amounts + " to " + namess)
                                 }
                                 
                                 setIsLoading(false);

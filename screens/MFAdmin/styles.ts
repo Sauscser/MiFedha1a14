@@ -230,7 +230,7 @@ width:"40%",
 
   earningsAcPressableText: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 15,
     marginTop: 1,
   },
 });

@@ -35,7 +35,7 @@ declare global {
       DActvteMFK:undefined;
       DActvteMFUsr:undefined;
       DActvteMFAd:undefined;
-      SMGivLon:undefined;
+      SMGivCovLon:undefined;
       SMNonGivLon:undefined;
       SMWthdFm:undefined;
       Homes:undefined;

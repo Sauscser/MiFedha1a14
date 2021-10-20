@@ -39,7 +39,7 @@ import {
 import styles from './styles';
 import { parse } from 'expo-linking';
 
-const SMASendLns = props => {
+const SMASendNonCovLns = props => {
   const [SenderNatId, setSenderNatId] = useState('');
   const [RecNatId, setRecNatId] = useState('');
   const [SnderPW, setSnderPW] = useState("");
@@ -537,4 +537,4 @@ useEffect(() =>{
   );
 };
 
-export default SMASendLns;
+export default SMASendNonCovLns;

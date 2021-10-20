@@ -224,13 +224,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-width:"40%",
+    width:"40%",
     marginHorizontal: "10%"
+    
+    
   },
 
   earningsAcPressableText: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 15,
     marginTop: 1,
   },
 });

@@ -26,8 +26,8 @@ const MyLoanAccount = props => {
     navigation.navigate('DpstMney');
   };
 
-  const goWithdrwMny = () => {
-    navigation.navigate('SMAWthdrwFrm');
+  const givCovLnSM = () => {
+    navigation.navigate('SMGivCovLon');
   };
 
   const payNonCovLn = () => {
@@ -38,8 +38,8 @@ const MyLoanAccount = props => {
     navigation.navigate('RepayCovLnss');
   };
 
-  const goToSMASndnonln = () => {
-    navigation.navigate('SMASndNonLns');
+  const SMASndnonCovLn = () => {
+    navigation.navigate('SMNonGivLon');
   };
 
   const goBL = () => {
@@ -89,7 +89,7 @@ const MyLoanAccount = props => {
                     </Pressable>
 
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={SMASndnonCovLn}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Non-Covered Loans
@@ -122,60 +122,60 @@ const MyLoanAccount = props => {
           
 
           <View style={styles.acEarningsView}>
-              <Text style={styles.salesText}>SM Users</Text>
+              <Text style={styles.salesText}>Single Member Give Loan</Text>
 
               
 
                   <View style={styles.viewForAcEarningsPressables}>
                     
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={givCovLnSM}
                       style={styles.earningsAcPressables}>
-                      <Text style={styles.earningsAcPressableText}>DActivtUsr</Text>
+                      <Text style={styles.earningsAcPressableText}>Covered Loans</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={SMASndnonCovLn}
                       style={styles.earningsAcPressables}>
                       <Text style={styles.earningsAcPressableText}>
-                        BLUsr
+                        Non-Covered
                       </Text>
                     </Pressable>
                   </View>
                 </View>
 
           <View style={styles.acEarningsView}>
-            <Text style={styles.salesText}>Earnings</Text>
+            <Text style={styles.salesText}>Black-List</Text>
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
                 onPress={payNonCovLn}
                 style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Check Bal</Text>
+                <Text style={styles.earningsAcPressableText}>Covered Loans</Text>
               </Pressable>
 
               <Pressable
                 onPress={payNonCovLn}
                 style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Withdraw</Text>
+                <Text style={styles.earningsAcPressableText}>Non Covered</Text>
               </Pressable>
             </View>
           </View>
 
           <View style={styles.acEarningsView}>
-            <Text style={styles.salesText}>My Ac</Text>
+            <Text style={styles.salesText}>Loan Status</Text>
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
                 onPress={payNonCovLn}
                 style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Check Bal</Text>
+                <Text style={styles.earningsAcPressableText}>Specific Loan</Text>
               </Pressable>
 
               <Pressable
                 onPress={payNonCovLn}
                 style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Withdraw</Text>
+                <Text style={styles.earningsAcPressableText}>General Status</Text>
               </Pressable>
             </View>
           </View>

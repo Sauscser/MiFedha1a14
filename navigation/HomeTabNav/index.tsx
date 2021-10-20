@@ -24,7 +24,7 @@ import DActivtMFK from "../../screens/MFKubwa/DeActRegMFK/DeactivateMFNdogo";
 import DActivtMFUsr from "../../screens/MyAcc/DeActivtUsr/DeactivateMFNdogo";
 import DActivtMFAdv from "../../screens/Advocate/DeactivtAdv/DeactivateMFAdmin/DeactivateMFNdogo";
 import SMGvCovLon from "../../screens/MyAcc/Loans/GiveLoan/Covered";
-import SMGvNonCovLon from "../../screens/MyAcc/Loans/GiveLoan/NonCov";
+import SMASendNonCovLns from "../../screens/MyAcc/Loans/GiveLoan/NonCov";
 import SMAWthdrwForm from '../../screens/MyAcc/WithdrwFunds';
 import SendNonLn from "../../screens/MyAcc/SendNonLons";
 import RepayCovLns from "../../screens/MyAcc/Loans/RepayLoan/SM/CovLons";
@@ -59,8 +59,8 @@ const HomeNavigator = props => {
       <Stack.Screen name={'DActvteMFK'} component={DActivtMFK}/>
       <Stack.Screen name={'DActvteMFUsr'} component={DActivtMFUsr}/>
       <Stack.Screen name={'DActvteMFAd'} component={DActivtMFAdv}/>
-      <Stack.Screen name={'SMGivLon'} component={SMGvCovLon}/>
-      <Stack.Screen name={'SMNonGivLon'} component={SMGvNonCovLon}/>
+      <Stack.Screen name={'SMGivCovLon'} component={SMGvCovLon}/>
+      <Stack.Screen name={'SMNonGivLon'} component={SMASendNonCovLns}/>
       <Stack.Screen name={'SMWthdFm'} component={SMAWthdrwForm}/>
       <Stack.Screen name={'SendNonLnss'} component={SendNonLn}/>
       <Stack.Screen name={'RepayCovLnss'} component={RepayCovLns}/>
