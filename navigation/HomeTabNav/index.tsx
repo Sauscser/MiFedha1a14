@@ -27,8 +27,9 @@ import SMGvCovLon from "../../screens/MyAcc/Loans/GiveLoan/Covered";
 import SMGvNonCovLon from "../../screens/MyAcc/Loans/GiveLoan/NonCov";
 import SMAWthdrwForm from '../../screens/MyAcc/WithdrwFunds';
 import SendNonLn from "../../screens/MyAcc/SendNonLons";
-import RepayCovLns from "../../screens/MyAcc/Loans/RepayLoan/CovLons";
-import RepayNonCovLns from "../../screens/MyAcc/Loans/RepayLoan/NonCovLns";
+import RepayCovLns from "../../screens/MyAcc/Loans/RepayLoan/SM/CovLons";
+import RepayNonCovLns from "../../screens/MyAcc/Loans/RepayLoan/SM/NonCovLns";
+import BListLnee from "../../screens/MyAcc/Loans/BList";
 
 
 const Stack = createNativeStackNavigator();
@@ -64,6 +65,7 @@ const HomeNavigator = props => {
       <Stack.Screen name={'SendNonLnss'} component={SendNonLn}/>
       <Stack.Screen name={'RepayCovLnss'} component={RepayCovLns}/>
       <Stack.Screen name={'RepayNonCovLnss'} component={RepayNonCovLns}/>
+      <Stack.Screen name={'BListLneess'} component={BListLnee}/>
       
     </Stack.Navigator>
   );
