@@ -142,11 +142,12 @@ const RepayCovLnsss = props => {
                               );
                               
                               const amountexpecteds =RecAccountDtl.data.getSMLoansCovered.amountexpected; 
+                               
                               const amountrepaids =RecAccountDtl.data.getSMLoansCovered.amountrepaid; 
                               const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids); 
                               const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
                                
-                              const updtSMCvLn  = async () =>{
+                              const updtSMCvLnLnOver  = async () =>{
                                 if(isLoading){
                                   return;
                                 }
@@ -156,10 +157,10 @@ const RepayCovLnsss = props => {
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
                                           id:LnId,
-                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids)
-                                          
-                                        }
-                                      })
+                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
+                                          lonBal: LonBal+parseFloat(amounts),
+                                          status: "LoanCleared",
+                                      }})
                                     )
           
           
@@ -220,6 +221,8 @@ const RepayCovLnsss = props => {
                                           TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts), 
                                           TtlClrdLonsTmsLneeCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
                                           TtlClrdLonsAmtLneeCov: parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts),
+                                          loanStatus: "NoLoan",
+                                          blStatus: "AccountNotBL",
                                                                              
                                           
                                         }
@@ -293,9 +296,9 @@ const RepayCovLnsss = props => {
                                     
                                 }
                                 catch(error){
-                                  Alert.alert(names + " has sent " + amounts + " to " + namess)
+                                  
                                 }
-                                
+                                Alert.alert(names + " has repayed " + namess +" Ksh. "+ amounts);
                                 setIsLoading(false);
                               }                                                                                                            
                         
@@ -310,8 +313,8 @@ const RepayCovLnsss = props => {
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
                                           id:LnId,
-                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids)
-                                          
+                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
+                                          lonBala: LonBal - parseFloat(amounts),
                                         }
                                       })
                                     )
@@ -323,10 +326,10 @@ const RepayCovLnsss = props => {
                                   return;}
                                 }
                                 setIsLoading(false);
-                                await sendNonLn();
+                                await sendCovLn();
                               }
                               
-                              const sendNonLn = async () => {
+                              const sendCovLn = async () => {
                                 if(isLoading){
                                   return;
                                 }
@@ -444,9 +447,9 @@ const RepayCovLnsss = props => {
                                     
                                 }
                                 catch(error){
-                                  Alert.alert(names + " has sent " + amounts + " to " + namess)
+                                  
                                 }
-                                
+                                Alert.alert(names + " has repayed " + amounts + " to " + namess);
                                 setIsLoading(false);
                               }
 
@@ -465,6 +468,7 @@ const RepayCovLnsss = props => {
                               ) {Alert.alert('Requested amount is more than you have in your account');
                             return;
                           }
+                          else if(SenderNatId === RecNatId){Alert.alert('You cannot Repay Yourself');}
                               
                               else if(usrPW !==SnderPW){Alert.alert('Wrong password');
                             return;
@@ -475,9 +479,10 @@ const RepayCovLnsss = props => {
                             return;
                           }
 
-                          else if(parseFloat(amounts) > LonBal){Alert.alert("Your Loan Balance is lesser")}
+                          else if(parseFloat(amounts) > LonBal){Alert.alert("Your Loan Balance is lesser: "+LonBal)}
+                          
 
-                          else if(parseFloat(amounts) === LonBal){updtSMCvLn();}                         
+                          else if(parseFloat(amounts) === LonBal){updtSMCvLnLnOver();}                         
                           
                               
                                else {
@@ -646,20 +651,12 @@ useEffect(() =>{
               onChangeText={setSnderPW}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Sender PassWord</Text>
+            <Text style={styles.sendAmtText}>Loanee PassWord</Text>
           </View>
 
           
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              multiline={true}
-              value={Desc}
-              onChangeText={setDesc}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Description</Text>
-          </View>
+          
 
           <View style={styles.sendAmtView}>
             <TextInput
@@ -670,6 +667,18 @@ useEffect(() =>{
               editable={true}></TextInput>
             <Text style={styles.sendAmtText}>Loan Id</Text>
           </View>
+          
+          <View style={styles.sendAmtViewDesc}>
+            <TextInput
+              multiline={true}
+              value={Desc}
+              onChangeText={setDesc}
+              style={styles.sendAmtInputDesc}
+              editable={true}></TextInput>
+            <Text style={styles.sendAmtText}>Description</Text>
+          </View>
+          
+          
 
           <TouchableOpacity
             onPress={fetchSenderUsrDtls}

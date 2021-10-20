@@ -83,7 +83,7 @@ const SMASendLns = props => {
       const usrLnLim =accountDtl.data.getSMAccount.loanLimit;
       const TtlActvLonsTmsLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
       const TtlActvLonsAmtLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
-      
+      const names =accountDtl.data.getSMAccount.name;
   
       const SenderSub =accountDtl.data.getSMAccount.owner;
       
@@ -157,7 +157,7 @@ const SMASendLns = props => {
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
                         const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
                         const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
-                        
+                        const namess =RecAccountDtl.data.getSMAccount.name;
                       
                         const sendSMLn = async () => {
                           if(isLoading){
@@ -173,7 +173,7 @@ const SMASendLns = props => {
                                   amountgiven: amount,
                                   amountexpected: AmtExp,
                                   amountrepaid: 0,
-                                  
+                                  lonBala:0,
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: AdvRegNo,
                                   description: Desc,
@@ -237,9 +237,9 @@ const SMASendLns = props => {
                                     nationalid:RecNatId,
                                     TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
                                     TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(amount),
-                                    
-                                    balance:parseFloat(RecUsrBal) + parseFloat(amount)                                     
-                                    
+                                    balance:parseFloat(RecUsrBal) + parseFloat(amount)  ,
+                                    loanStatus:"LoanActive",                                    
+                                    blStatus: "AccountNotBL",
                                                                       
                                     
                                   }
@@ -313,6 +313,7 @@ const SMASendLns = props => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
+                          Alert.alert(names + " has loaned " + namess +" Ksh. " + amount );
                           setIsLoading(false);
                         }
                                               
@@ -323,6 +324,7 @@ const SMASendLns = props => {
                       return;
                     }
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
+                        else if(SenderNatId === RecNatId){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > maxInterests)
                         {Alert.alert('Your interest is too high');}
@@ -486,112 +488,114 @@ useEffect(() =>{
                                      );
 
   return (
-    <View>
-      <View
-        
-        style={styles.image}>
-        <ScrollView>
+    
+      <View style={styles.image}>
+        <ScrollView >
          
-          <View style={styles.amountTitleView}>
-            <Text style={styles.title}>Fill Loan Details Below</Text>
-          </View>
+         <View style={styles.amountTitleView}>
+           <Text style={styles.title}>Fill Loan Details Below</Text>
+         </View>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={SenderNatId}
-              onChangeText={setSenderNatId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Sender National Id</Text>
-          </View>
+         <View style={styles.sendAmtView}>
+           <TextInput
+             value={SenderNatId}
+             onChangeText={setSenderNatId}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Sender National Id</Text>
+         </View>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={RecNatId}
-              onChangeText={setRecNatId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Receiver National Id</Text>
-          </View>
+         <View style={styles.sendAmtView}>
+           <TextInput
+             value={RecNatId}
+             onChangeText={setRecNatId}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Receiver National Id</Text>
+         </View>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={amount}
-              onChangeText={setAmount}
-              style={styles.sendAmtInput}
-              editable={true}
-              ></TextInput>
-              
-            <Text style={styles.sendAmtText}>Amount Loaned</Text>
-          </View>
+         <View style={styles.sendAmtView}>
+           <TextInput
+             value={amount}
+             onChangeText={setAmount}
+             style={styles.sendAmtInput}
+             editable={true}
+             ></TextInput>
+             
+           <Text style={styles.sendAmtText}>Amount Loaned</Text>
+         </View>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={AdvRegNo}
-              onChangeText={setAdvRegNo}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Advocate Reg Number</Text>
-          </View>
+         <View style={styles.sendAmtView}>
+           <TextInput
+             value={AdvRegNo}
+             onChangeText={setAdvRegNo}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Advocate Reg Number</Text>
+         </View>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={SnderPW}
-              onChangeText={setSnderPW}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Sender PassWord</Text>
-          </View>
+         <View style={styles.sendAmtView}>
+           <TextInput
+             value={SnderPW}
+             onChangeText={setSnderPW}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Sender PassWord</Text>
+         </View>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={AmtExp}
-              onChangeText={setAmtExp}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Amount Expected Back</Text>
-          </View>
+         <View style={styles.sendAmtView}>
+           <TextInput
+             value={AmtExp}
+             onChangeText={setAmtExp}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Amount Expected Back</Text>
+         </View>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={RepaymtPeriod}
-              onChangeText={setRepaymtPeriod}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Repayment Period in days</Text>
-          </View>
+         <View style={styles.sendAmtView}>
+           <TextInput
+             value={RepaymtPeriod}
+             onChangeText={setRepaymtPeriod}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Repayment Period in days</Text>
+         </View>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              multiline={true}
-              value={RecAccCode}
-              onChangeText={setRecAccCode}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Reciever Acceptance Code</Text>
-          </View>
+         <View style={styles.sendAmtView}>
+           <TextInput
+             multiline={true}
+             value={RecAccCode}
+             onChangeText={setRecAccCode}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Reciever Acceptance Code</Text>
+         </View>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              multiline={true}
-              value={Desc}
-              onChangeText={setDesc}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Description</Text>
-          </View>
+         <View style={styles.sendAmtViewDesc}>
+           <TextInput
+             multiline={true}
+             value={Desc}
+             onChangeText={setDesc}
+             style={styles.sendAmtInputDesc}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Description</Text>
+         </View>
 
-          <TouchableOpacity
-            onPress={fetchSenderUsrDtls}
-            style={styles.sendAmtButton}>
-            <Text style={styles.sendAmtButtonText}>Loan with Advocate Coverage</Text>
-            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
-          </TouchableOpacity>
+         
+         
 
-          
-        </ScrollView>
+         <TouchableOpacity
+           onPress={fetchSenderUsrDtls}
+           style={styles.sendAmtButton}>
+           <Text style={styles.sendAmtButtonText}>Loan with Advocate Coverage</Text>
+           {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
+         </TouchableOpacity>
+
+         
+       </ScrollView>
       </View>
-    </View>
+             
+    
   );
 };
 

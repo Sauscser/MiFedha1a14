@@ -212,7 +212,10 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
+                                          
                                           nationalid:SenderNatId,
+                                          loanStatus:"NoLoan",
+                                          blStatus:"AccountNotBL",
                                           ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted ,
                                           TtlActvLonsTmsLneeCov:parseFloat(TtlActvLonsTmsLneeCovss)-1,                                          
@@ -476,7 +479,7 @@ const RepayCovLnsss = props => {
                             return;
                           }
 
-                          else if(parseFloat(amounts) > LonBal){Alert.alert("Your Loan Balance is lesser")}
+                          else if(parseFloat(amounts) > LonBal){Alert.alert("Your Loan Balance is lesser: " +LonBal)}
 
                           else if(parseFloat(amounts) === LonBal){updtSMCvLn();}                         
                           
@@ -652,7 +655,7 @@ useEffect(() =>{
 
           
 
-          <View style={styles.sendAmtView}>
+          <View style={styles.sendAmtViewDesc}>
             <TextInput
               multiline={true}
               value={Desc}
