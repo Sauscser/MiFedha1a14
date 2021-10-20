@@ -57,7 +57,8 @@ const SMADepositForm = props => {
       const usrBala = accountDtl.data.getSMAccount.balance;      
       const usrTlDpst = accountDtl.data.getSMAccount.ttlDpstSM;
       const usrStts = accountDtl.data.getSMAccount.acStatus; 
-      const depositLimits = accountDtl.data.getSMAccount.depositLimit;  
+      const depositLimits = accountDtl.data.getSMAccount.depositLimit;
+      const names = accountDtl.data.getSMAccount.name;  
          
       
       const fetchAgtBal = async () => {
@@ -186,9 +187,9 @@ const SMADepositForm = props => {
                   }
   
                   catch (error) {
-                    if (error){Alert.alert("Check internet Connection")
-                    return;}
+                    
                   }
+                  Alert.alert("Ksh. " + amount+" deposited to "+ names);
                   setIsLoading(false);
                   }; 
             

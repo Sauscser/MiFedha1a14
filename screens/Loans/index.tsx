@@ -48,44 +48,139 @@ const MyLoanAccount = props => {
 
   return (
     <SafeAreaView>
-      <View
+     
         
-        style={styles.image}>
-        
-          <Text style={styles.accountText}>Loan Transactions</Text>
+          <View style={styles.adminImage}>
 
-          <View>
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Repay Loan</Text>
 
-          <View style={styles.viewForSalesPressables}>
-            <Pressable onPress={goToGiveCovLns} style={styles.myMoneyPressables}>
-              <Text style={styles.acPressableText}>Give Loan</Text>
-            </Pressable>
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Single Member</Text>
 
-            <Pressable onPress={payCovLn} style={styles.myMoneyPressables}>
-              <Text style={styles.acPressableText}>Pay Covered Loan</Text>
-            </Pressable>
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={payCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
+                    </Pressable>
 
-            <Pressable onPress={payNonCovLn} style={styles.myMoneyPressables}>
-              <Text style={styles.acPressableText}>Pay Non-Covered Loan</Text>
-            </Pressable>
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Non-Covered Loans
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Credit Seller</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Covered</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Non-Covered Loans
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Chama</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      Non-Covered Loans
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
             </View>
+          
 
-            <View style={styles.viewForSalesPressables}>
-            <Pressable onPress={goBL} style={styles.myMoneyPressables}>
-              <Text style={styles.acPressableText}>Black List Debtor</Text>
-            </Pressable>
+          <View style={styles.acEarningsView}>
+              <Text style={styles.salesText}>SM Users</Text>
 
-            <Pressable
-              onPress={goToSMASndnonln}
-              style={styles.myMoneyPressables}>
-              <Text style={styles.acPressableText}>Loan Status</Text>
-            </Pressable>
+              
+
+                  <View style={styles.viewForAcEarningsPressables}>
+                    
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.earningsAcPressables}>
+                      <Text style={styles.earningsAcPressableText}>DActivtUsr</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.earningsAcPressables}>
+                      <Text style={styles.earningsAcPressableText}>
+                        BLUsr
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+          <View style={styles.acEarningsView}>
+            <Text style={styles.salesText}>Earnings</Text>
+
+            <View style={styles.viewForAcEarningsPressables}>
+              <Pressable
+                onPress={payNonCovLn}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>Check Bal</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={payNonCovLn}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>Withdraw</Text>
+              </Pressable>
+            </View>
           </View>
-          </View>
-        </View>
 
-        
-      
+          <View style={styles.acEarningsView}>
+            <Text style={styles.salesText}>My Ac</Text>
+
+            <View style={styles.viewForAcEarningsPressables}>
+              <Pressable
+                onPress={payNonCovLn}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>Check Bal</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={payNonCovLn}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>Withdraw</Text>
+              </Pressable>
+            </View>
+          </View>
+       
+    </View> 
     </SafeAreaView>
   );
 };

@@ -29,24 +29,12 @@ export const createSMAccount = /* GraphQL */ `
       TtlClrdLonsTmsLneeCov
       TtlClrdLonsAmtLnrCov
       TtlClrdLonsAmtLneeCov
-      TtlClrdBLLonsTmsLnrCov
-      TtlClrdBLLonsTmsLneeCov
-      TtlClrdBLLonsAmtLnrCov
-      TtlClrdBLLonsAmtLneeCov
-      TtlClrdNvrBLLonsTmsLnrCov
-      TtlClrdNvrBLLonsTmsLneeCov
-      TtlClrdNvrBLLonsAmtLnrCov
-      TtlClrdNvrBLLonsAmtLneeCov
       TtlActvLonsTmsLneeChmCov
       TtlActvLonsAmtLneeChmCov
       TtlBLLonsTmsLneeChmCov
       TtlBLLonsAmtLneeChmCov
       TtlClrdLonsTmsLneeChmCov
       TtlClrdLonsAmtLneeChmCov
-      TtlClrdBLLonsTmsLneeChmCov
-      TtlClrdBLLonsAmtLneeChmCov
-      TtlClrdNvrBLLonsTmsLneeChmCov
-      TtlClrdNvrBLLonsAmtLneeChmCov
       TtlActvLonsTmsSllrCov
       TtlActvLonsTmsByrCov
       TtlActvLonsAmtSllrCov
@@ -59,14 +47,6 @@ export const createSMAccount = /* GraphQL */ `
       TtlClrdLonsTmsByrCov
       TtlClrdLonsAmtSllrCov
       TtlClrdLonsAmtByrCov
-      TtlClrdBLLonsTmsSllrCov
-      TtlClrdBLLonsTmsByrCov
-      TtlClrdBLLonsAmtSllrCov
-      TtlClrdBLLonsAmtByrCov
-      TtlClrdNvrBLLonsTmsSllrCov
-      TtlClrdNvrBLLonsTmsByrCov
-      TtlClrdNvrBLLonsAmtSllrCov
-      TtlClrdNvrBLLonsAmtByrCov
       TtlActvLonsTmsLnrNonCov
       TtlActvLonsTmsLneeNonCov
       TtlActvLonsAmtLnrNonCov
@@ -79,24 +59,12 @@ export const createSMAccount = /* GraphQL */ `
       TtlClrdLonsTmsLneeNonCov
       TtlClrdLonsAmtLnrNonCov
       TtlClrdLonsAmtLneeNonCov
-      TtlClrdBLLonsTmsLnrNonCov
-      TtlClrdBLLonsTmsLneeNonCov
-      TtlClrdBLLonsAmtLnrNonCov
-      TtlClrdBLLonsAmtLneeNonCov
-      TtlClrdNvrBLLonsTmsLnrNonCov
-      TtlClrdNvrBLLonsTmsLneeNonCov
-      TtlClrdNvrBLLonsAmtLnrNonCov
-      TtlClrdNvrBLLonsAmtLneeNonCov
       TtlActvLonsTmsLneeChmNonCov
       TtlActvLonsAmtLneeChmNonCov
       TtlBLLonsTmsLneeChmNonCov
       TtlBLLonsAmtLneeChmNonCov
       TtlClrdLonsTmsLneeChmNonCov
       TtlClrdLonsAmtLneeChmNonCov
-      TtlClrdBLLonsTmsLneeChmNonCov
-      TtlClrdBLLonsAmtLneeChmNonCov
-      TtlClrdNvrBLLonsTmsLneeChmNonCov
-      TtlClrdNvrBLLonsAmtLneeChmNonCov
       TtlActvLonsTmsSllrNonCov
       TtlActvLonsTmsByrNonCov
       TtlActvLonsAmtSllrNonCov
@@ -109,14 +77,6 @@ export const createSMAccount = /* GraphQL */ `
       TtlClrdLonsTmsByrNonCov
       TtlClrdLonsAmtSllrNonCov
       TtlClrdLonsAmtByrNonCov
-      TtlClrdBLLonsTmsSllrNonCov
-      TtlClrdBLLonsTmsByrNonCov
-      TtlClrdBLLonsAmtSllrNonCov
-      TtlClrdBLLonsAmtByrNonCov
-      TtlClrdNvrBLLonsTmsSllrNonCov
-      TtlClrdNvrBLLonsTmsByrNonCov
-      TtlClrdNvrBLLonsAmtSllrNonCov
-      TtlClrdNvrBLLonsAmtByrNonCov
       ttlNonLonsRecSM
       ttlNonLonsSentSM
       MaxTymsBL
@@ -160,24 +120,12 @@ export const updateSMAccount = /* GraphQL */ `
       TtlClrdLonsTmsLneeCov
       TtlClrdLonsAmtLnrCov
       TtlClrdLonsAmtLneeCov
-      TtlClrdBLLonsTmsLnrCov
-      TtlClrdBLLonsTmsLneeCov
-      TtlClrdBLLonsAmtLnrCov
-      TtlClrdBLLonsAmtLneeCov
-      TtlClrdNvrBLLonsTmsLnrCov
-      TtlClrdNvrBLLonsTmsLneeCov
-      TtlClrdNvrBLLonsAmtLnrCov
-      TtlClrdNvrBLLonsAmtLneeCov
       TtlActvLonsTmsLneeChmCov
       TtlActvLonsAmtLneeChmCov
       TtlBLLonsTmsLneeChmCov
       TtlBLLonsAmtLneeChmCov
       TtlClrdLonsTmsLneeChmCov
       TtlClrdLonsAmtLneeChmCov
-      TtlClrdBLLonsTmsLneeChmCov
-      TtlClrdBLLonsAmtLneeChmCov
-      TtlClrdNvrBLLonsTmsLneeChmCov
-      TtlClrdNvrBLLonsAmtLneeChmCov
       TtlActvLonsTmsSllrCov
       TtlActvLonsTmsByrCov
       TtlActvLonsAmtSllrCov
@@ -190,14 +138,6 @@ export const updateSMAccount = /* GraphQL */ `
       TtlClrdLonsTmsByrCov
       TtlClrdLonsAmtSllrCov
       TtlClrdLonsAmtByrCov
-      TtlClrdBLLonsTmsSllrCov
-      TtlClrdBLLonsTmsByrCov
-      TtlClrdBLLonsAmtSllrCov
-      TtlClrdBLLonsAmtByrCov
-      TtlClrdNvrBLLonsTmsSllrCov
-      TtlClrdNvrBLLonsTmsByrCov
-      TtlClrdNvrBLLonsAmtSllrCov
-      TtlClrdNvrBLLonsAmtByrCov
       TtlActvLonsTmsLnrNonCov
       TtlActvLonsTmsLneeNonCov
       TtlActvLonsAmtLnrNonCov
@@ -210,24 +150,12 @@ export const updateSMAccount = /* GraphQL */ `
       TtlClrdLonsTmsLneeNonCov
       TtlClrdLonsAmtLnrNonCov
       TtlClrdLonsAmtLneeNonCov
-      TtlClrdBLLonsTmsLnrNonCov
-      TtlClrdBLLonsTmsLneeNonCov
-      TtlClrdBLLonsAmtLnrNonCov
-      TtlClrdBLLonsAmtLneeNonCov
-      TtlClrdNvrBLLonsTmsLnrNonCov
-      TtlClrdNvrBLLonsTmsLneeNonCov
-      TtlClrdNvrBLLonsAmtLnrNonCov
-      TtlClrdNvrBLLonsAmtLneeNonCov
       TtlActvLonsTmsLneeChmNonCov
       TtlActvLonsAmtLneeChmNonCov
       TtlBLLonsTmsLneeChmNonCov
       TtlBLLonsAmtLneeChmNonCov
       TtlClrdLonsTmsLneeChmNonCov
       TtlClrdLonsAmtLneeChmNonCov
-      TtlClrdBLLonsTmsLneeChmNonCov
-      TtlClrdBLLonsAmtLneeChmNonCov
-      TtlClrdNvrBLLonsTmsLneeChmNonCov
-      TtlClrdNvrBLLonsAmtLneeChmNonCov
       TtlActvLonsTmsSllrNonCov
       TtlActvLonsTmsByrNonCov
       TtlActvLonsAmtSllrNonCov
@@ -240,14 +168,6 @@ export const updateSMAccount = /* GraphQL */ `
       TtlClrdLonsTmsByrNonCov
       TtlClrdLonsAmtSllrNonCov
       TtlClrdLonsAmtByrNonCov
-      TtlClrdBLLonsTmsSllrNonCov
-      TtlClrdBLLonsTmsByrNonCov
-      TtlClrdBLLonsAmtSllrNonCov
-      TtlClrdBLLonsAmtByrNonCov
-      TtlClrdNvrBLLonsTmsSllrNonCov
-      TtlClrdNvrBLLonsTmsByrNonCov
-      TtlClrdNvrBLLonsAmtSllrNonCov
-      TtlClrdNvrBLLonsAmtByrNonCov
       ttlNonLonsRecSM
       ttlNonLonsSentSM
       MaxTymsBL
@@ -291,24 +211,12 @@ export const deleteSMAccount = /* GraphQL */ `
       TtlClrdLonsTmsLneeCov
       TtlClrdLonsAmtLnrCov
       TtlClrdLonsAmtLneeCov
-      TtlClrdBLLonsTmsLnrCov
-      TtlClrdBLLonsTmsLneeCov
-      TtlClrdBLLonsAmtLnrCov
-      TtlClrdBLLonsAmtLneeCov
-      TtlClrdNvrBLLonsTmsLnrCov
-      TtlClrdNvrBLLonsTmsLneeCov
-      TtlClrdNvrBLLonsAmtLnrCov
-      TtlClrdNvrBLLonsAmtLneeCov
       TtlActvLonsTmsLneeChmCov
       TtlActvLonsAmtLneeChmCov
       TtlBLLonsTmsLneeChmCov
       TtlBLLonsAmtLneeChmCov
       TtlClrdLonsTmsLneeChmCov
       TtlClrdLonsAmtLneeChmCov
-      TtlClrdBLLonsTmsLneeChmCov
-      TtlClrdBLLonsAmtLneeChmCov
-      TtlClrdNvrBLLonsTmsLneeChmCov
-      TtlClrdNvrBLLonsAmtLneeChmCov
       TtlActvLonsTmsSllrCov
       TtlActvLonsTmsByrCov
       TtlActvLonsAmtSllrCov
@@ -321,14 +229,6 @@ export const deleteSMAccount = /* GraphQL */ `
       TtlClrdLonsTmsByrCov
       TtlClrdLonsAmtSllrCov
       TtlClrdLonsAmtByrCov
-      TtlClrdBLLonsTmsSllrCov
-      TtlClrdBLLonsTmsByrCov
-      TtlClrdBLLonsAmtSllrCov
-      TtlClrdBLLonsAmtByrCov
-      TtlClrdNvrBLLonsTmsSllrCov
-      TtlClrdNvrBLLonsTmsByrCov
-      TtlClrdNvrBLLonsAmtSllrCov
-      TtlClrdNvrBLLonsAmtByrCov
       TtlActvLonsTmsLnrNonCov
       TtlActvLonsTmsLneeNonCov
       TtlActvLonsAmtLnrNonCov
@@ -341,24 +241,12 @@ export const deleteSMAccount = /* GraphQL */ `
       TtlClrdLonsTmsLneeNonCov
       TtlClrdLonsAmtLnrNonCov
       TtlClrdLonsAmtLneeNonCov
-      TtlClrdBLLonsTmsLnrNonCov
-      TtlClrdBLLonsTmsLneeNonCov
-      TtlClrdBLLonsAmtLnrNonCov
-      TtlClrdBLLonsAmtLneeNonCov
-      TtlClrdNvrBLLonsTmsLnrNonCov
-      TtlClrdNvrBLLonsTmsLneeNonCov
-      TtlClrdNvrBLLonsAmtLnrNonCov
-      TtlClrdNvrBLLonsAmtLneeNonCov
       TtlActvLonsTmsLneeChmNonCov
       TtlActvLonsAmtLneeChmNonCov
       TtlBLLonsTmsLneeChmNonCov
       TtlBLLonsAmtLneeChmNonCov
       TtlClrdLonsTmsLneeChmNonCov
       TtlClrdLonsAmtLneeChmNonCov
-      TtlClrdBLLonsTmsLneeChmNonCov
-      TtlClrdBLLonsAmtLneeChmNonCov
-      TtlClrdNvrBLLonsTmsLneeChmNonCov
-      TtlClrdNvrBLLonsAmtLneeChmNonCov
       TtlActvLonsTmsSllrNonCov
       TtlActvLonsTmsByrNonCov
       TtlActvLonsAmtSllrNonCov
@@ -371,14 +259,6 @@ export const deleteSMAccount = /* GraphQL */ `
       TtlClrdLonsTmsByrNonCov
       TtlClrdLonsAmtSllrNonCov
       TtlClrdLonsAmtByrNonCov
-      TtlClrdBLLonsTmsSllrNonCov
-      TtlClrdBLLonsTmsByrNonCov
-      TtlClrdBLLonsAmtSllrNonCov
-      TtlClrdBLLonsAmtByrNonCov
-      TtlClrdNvrBLLonsTmsSllrNonCov
-      TtlClrdNvrBLLonsTmsByrNonCov
-      TtlClrdNvrBLLonsAmtSllrNonCov
-      TtlClrdNvrBLLonsAmtByrNonCov
       ttlNonLonsRecSM
       ttlNonLonsSentSM
       MaxTymsBL
@@ -1260,7 +1140,6 @@ export const createCompany = /* GraphQL */ `
       agentFloatOut
       ttlActiveUsers
       ttlInactvUsrs
-      ttlBLUsrs
       ttlKFNdgActv
       ttlKFNdgInActv
       ttlKNdgBLStts
@@ -1285,12 +1164,6 @@ export const createCompany = /* GraphQL */ `
       ttlSMLnsInBlAmtCov
       ttlChmLnsInBlAmtCov
       ttlSellerLnsInBlAmtCov
-      ttlSMLnsInBlThnClrAmtCov
-      ttlChmLnsInBlThnClrAmtCov
-      ttlSellerLnsInBlThnClrAmtCov
-      ttlSMLnsInNvrBlThnClrAmtCov
-      ttlChmLnsInNvrBlThnClrAmtCov
-      ttlSellerLnsInNvrBlThnClrAmtCov
       ttlSMLnsInTymsCov
       ttlChmLnsInTymsCov
       ttlSellerLnsInTymsCov
@@ -1303,12 +1176,6 @@ export const createCompany = /* GraphQL */ `
       ttlSMLnsInBlTymsCov
       ttlChmLnsInBlTymsCov
       ttlSellerLnsInBlTymsCov
-      ttlSMLnsInBlThnClrTymsCov
-      ttlChmLnsInBlThnClrTymsCov
-      ttlSellerLnsInBlThnClrTymsCov
-      ttlSMLnsInNvrBlThnClrTymsCov
-      ttlChmLnsInNvrBlThnClrTymsCov
-      ttlSellerLnsInNvrBlThnClrTymsCov
       ttlCompTrnsfrEarningsCov
       ttlCompBLClrncEarningsCov
       ttlSMLnsInAmtNonCov
@@ -1323,12 +1190,6 @@ export const createCompany = /* GraphQL */ `
       ttlSMLnsInBlAmtNonCov
       ttlChmLnsInBlAmtNonCov
       ttlSellerLnsInBlAmtNonCov
-      ttlSMLnsInBlThnClrAmtNonCov
-      ttlChmLnsInBlThnClrAmtNonCov
-      ttlSellerLnsInBlThnClrAmtNonCov
-      ttlSMLnsInNvrBlThnClrAmtNonCov
-      ttlChmLnsInNvrBlThnClrAmtNonCov
-      ttlSellerLnsInNvrBlThnClrAmtNonCov
       ttlSMLnsInTymsNonCov
       ttlChmLnsInTymsNonCov
       ttlSellerLnsInTymsNonCov
@@ -1341,12 +1202,6 @@ export const createCompany = /* GraphQL */ `
       ttlSMLnsInBlTymsNonCov
       ttlChmLnsInBlTymsNonCov
       ttlSellerLnsInBlTymsNonCov
-      ttlSMLnsInBlThnClrTymsNonCov
-      ttlChmLnsInBlThnClrTymsNonCov
-      ttlSellerLnsInBlThnClrTymsNonCov
-      ttlSMLnsInNvrBlThnClrTymsNonCov
-      ttlChmLnsInNvrBlThnClrTymsNonCov
-      ttlSellerLnsInNvrBlThnClrTymsNonCov
       ttlCompTrnsfrEarningsNonCov
       ttlCompBLClrncEarningsNonCov
       ttlCompCovEarnings
@@ -1408,7 +1263,6 @@ export const updateCompany = /* GraphQL */ `
       agentFloatOut
       ttlActiveUsers
       ttlInactvUsrs
-      ttlBLUsrs
       ttlKFNdgActv
       ttlKFNdgInActv
       ttlKNdgBLStts
@@ -1433,12 +1287,6 @@ export const updateCompany = /* GraphQL */ `
       ttlSMLnsInBlAmtCov
       ttlChmLnsInBlAmtCov
       ttlSellerLnsInBlAmtCov
-      ttlSMLnsInBlThnClrAmtCov
-      ttlChmLnsInBlThnClrAmtCov
-      ttlSellerLnsInBlThnClrAmtCov
-      ttlSMLnsInNvrBlThnClrAmtCov
-      ttlChmLnsInNvrBlThnClrAmtCov
-      ttlSellerLnsInNvrBlThnClrAmtCov
       ttlSMLnsInTymsCov
       ttlChmLnsInTymsCov
       ttlSellerLnsInTymsCov
@@ -1451,12 +1299,6 @@ export const updateCompany = /* GraphQL */ `
       ttlSMLnsInBlTymsCov
       ttlChmLnsInBlTymsCov
       ttlSellerLnsInBlTymsCov
-      ttlSMLnsInBlThnClrTymsCov
-      ttlChmLnsInBlThnClrTymsCov
-      ttlSellerLnsInBlThnClrTymsCov
-      ttlSMLnsInNvrBlThnClrTymsCov
-      ttlChmLnsInNvrBlThnClrTymsCov
-      ttlSellerLnsInNvrBlThnClrTymsCov
       ttlCompTrnsfrEarningsCov
       ttlCompBLClrncEarningsCov
       ttlSMLnsInAmtNonCov
@@ -1471,12 +1313,6 @@ export const updateCompany = /* GraphQL */ `
       ttlSMLnsInBlAmtNonCov
       ttlChmLnsInBlAmtNonCov
       ttlSellerLnsInBlAmtNonCov
-      ttlSMLnsInBlThnClrAmtNonCov
-      ttlChmLnsInBlThnClrAmtNonCov
-      ttlSellerLnsInBlThnClrAmtNonCov
-      ttlSMLnsInNvrBlThnClrAmtNonCov
-      ttlChmLnsInNvrBlThnClrAmtNonCov
-      ttlSellerLnsInNvrBlThnClrAmtNonCov
       ttlSMLnsInTymsNonCov
       ttlChmLnsInTymsNonCov
       ttlSellerLnsInTymsNonCov
@@ -1489,12 +1325,6 @@ export const updateCompany = /* GraphQL */ `
       ttlSMLnsInBlTymsNonCov
       ttlChmLnsInBlTymsNonCov
       ttlSellerLnsInBlTymsNonCov
-      ttlSMLnsInBlThnClrTymsNonCov
-      ttlChmLnsInBlThnClrTymsNonCov
-      ttlSellerLnsInBlThnClrTymsNonCov
-      ttlSMLnsInNvrBlThnClrTymsNonCov
-      ttlChmLnsInNvrBlThnClrTymsNonCov
-      ttlSellerLnsInNvrBlThnClrTymsNonCov
       ttlCompTrnsfrEarningsNonCov
       ttlCompBLClrncEarningsNonCov
       ttlCompCovEarnings
@@ -1556,7 +1386,6 @@ export const deleteCompany = /* GraphQL */ `
       agentFloatOut
       ttlActiveUsers
       ttlInactvUsrs
-      ttlBLUsrs
       ttlKFNdgActv
       ttlKFNdgInActv
       ttlKNdgBLStts
@@ -1581,12 +1410,6 @@ export const deleteCompany = /* GraphQL */ `
       ttlSMLnsInBlAmtCov
       ttlChmLnsInBlAmtCov
       ttlSellerLnsInBlAmtCov
-      ttlSMLnsInBlThnClrAmtCov
-      ttlChmLnsInBlThnClrAmtCov
-      ttlSellerLnsInBlThnClrAmtCov
-      ttlSMLnsInNvrBlThnClrAmtCov
-      ttlChmLnsInNvrBlThnClrAmtCov
-      ttlSellerLnsInNvrBlThnClrAmtCov
       ttlSMLnsInTymsCov
       ttlChmLnsInTymsCov
       ttlSellerLnsInTymsCov
@@ -1599,12 +1422,6 @@ export const deleteCompany = /* GraphQL */ `
       ttlSMLnsInBlTymsCov
       ttlChmLnsInBlTymsCov
       ttlSellerLnsInBlTymsCov
-      ttlSMLnsInBlThnClrTymsCov
-      ttlChmLnsInBlThnClrTymsCov
-      ttlSellerLnsInBlThnClrTymsCov
-      ttlSMLnsInNvrBlThnClrTymsCov
-      ttlChmLnsInNvrBlThnClrTymsCov
-      ttlSellerLnsInNvrBlThnClrTymsCov
       ttlCompTrnsfrEarningsCov
       ttlCompBLClrncEarningsCov
       ttlSMLnsInAmtNonCov
@@ -1619,12 +1436,6 @@ export const deleteCompany = /* GraphQL */ `
       ttlSMLnsInBlAmtNonCov
       ttlChmLnsInBlAmtNonCov
       ttlSellerLnsInBlAmtNonCov
-      ttlSMLnsInBlThnClrAmtNonCov
-      ttlChmLnsInBlThnClrAmtNonCov
-      ttlSellerLnsInBlThnClrAmtNonCov
-      ttlSMLnsInNvrBlThnClrAmtNonCov
-      ttlChmLnsInNvrBlThnClrAmtNonCov
-      ttlSellerLnsInNvrBlThnClrAmtNonCov
       ttlSMLnsInTymsNonCov
       ttlChmLnsInTymsNonCov
       ttlSellerLnsInTymsNonCov
@@ -1637,12 +1448,6 @@ export const deleteCompany = /* GraphQL */ `
       ttlSMLnsInBlTymsNonCov
       ttlChmLnsInBlTymsNonCov
       ttlSellerLnsInBlTymsNonCov
-      ttlSMLnsInBlThnClrTymsNonCov
-      ttlChmLnsInBlThnClrTymsNonCov
-      ttlSellerLnsInBlThnClrTymsNonCov
-      ttlSMLnsInNvrBlThnClrTymsNonCov
-      ttlChmLnsInNvrBlThnClrTymsNonCov
-      ttlSellerLnsInNvrBlThnClrTymsNonCov
       ttlCompTrnsfrEarningsNonCov
       ttlCompBLClrncEarningsNonCov
       ttlCompCovEarnings
@@ -1834,20 +1639,12 @@ export const createGroup = /* GraphQL */ `
       TtlBLLonsAmtLnrChmCov
       TtlClrdLonsTmsLnrChmCov
       TtlClrdLonsAmtLnrChmCov
-      TtlClrdBLLonsTmsLnrChmCov
-      TtlClrdBLLonsAmtLnrChmCov
-      TtlClrdNvrBLLonsTmsLnrChmCov
-      TtlClrdNvrBLLonsAmtLnrChmCov
       TtlActvLonsTmsLnrChmNonCov
       TtlActvLonsAmtLnrChmNonCov
       TtlBLLonsTmsLnrChmNonCov
       TtlBLLonsAmtLnrChmNonCov
       TtlClrdLonsTmsLnrChmNonCov
       TtlClrdLonsAmtLnrChmNonCov
-      TtlClrdBLLonsTmsLnrChmNonCov
-      TtlClrdBLLonsAmtLnrChmNonCov
-      TtlClrdNvrBLLonsTmsLnrChmNonCov
-      TtlClrdNvrBLLonsAmtLnrChmNonCov
       status
       owner
       createdAt
@@ -1881,20 +1678,12 @@ export const updateGroup = /* GraphQL */ `
       TtlBLLonsAmtLnrChmCov
       TtlClrdLonsTmsLnrChmCov
       TtlClrdLonsAmtLnrChmCov
-      TtlClrdBLLonsTmsLnrChmCov
-      TtlClrdBLLonsAmtLnrChmCov
-      TtlClrdNvrBLLonsTmsLnrChmCov
-      TtlClrdNvrBLLonsAmtLnrChmCov
       TtlActvLonsTmsLnrChmNonCov
       TtlActvLonsAmtLnrChmNonCov
       TtlBLLonsTmsLnrChmNonCov
       TtlBLLonsAmtLnrChmNonCov
       TtlClrdLonsTmsLnrChmNonCov
       TtlClrdLonsAmtLnrChmNonCov
-      TtlClrdBLLonsTmsLnrChmNonCov
-      TtlClrdBLLonsAmtLnrChmNonCov
-      TtlClrdNvrBLLonsTmsLnrChmNonCov
-      TtlClrdNvrBLLonsAmtLnrChmNonCov
       status
       owner
       createdAt
@@ -1928,20 +1717,12 @@ export const deleteGroup = /* GraphQL */ `
       TtlBLLonsAmtLnrChmCov
       TtlClrdLonsTmsLnrChmCov
       TtlClrdLonsAmtLnrChmCov
-      TtlClrdBLLonsTmsLnrChmCov
-      TtlClrdBLLonsAmtLnrChmCov
-      TtlClrdNvrBLLonsTmsLnrChmCov
-      TtlClrdNvrBLLonsAmtLnrChmCov
       TtlActvLonsTmsLnrChmNonCov
       TtlActvLonsAmtLnrChmNonCov
       TtlBLLonsTmsLnrChmNonCov
       TtlBLLonsAmtLnrChmNonCov
       TtlClrdLonsTmsLnrChmNonCov
       TtlClrdLonsAmtLnrChmNonCov
-      TtlClrdBLLonsTmsLnrChmNonCov
-      TtlClrdBLLonsAmtLnrChmNonCov
-      TtlClrdNvrBLLonsTmsLnrChmNonCov
-      TtlClrdNvrBLLonsAmtLnrChmNonCov
       status
       owner
       createdAt

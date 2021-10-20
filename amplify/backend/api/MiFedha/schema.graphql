@@ -74,24 +74,14 @@ type SMAccount
   TtlClrdLonsTmsLneeCov: Float!
   TtlClrdLonsAmtLnrCov: Float!
   TtlClrdLonsAmtLneeCov: Float!
-  TtlClrdBLLonsTmsLnrCov: Float!
-  TtlClrdBLLonsTmsLneeCov: Float!
-  TtlClrdBLLonsAmtLnrCov: Float!
-  TtlClrdBLLonsAmtLneeCov: Float!
-  TtlClrdNvrBLLonsTmsLnrCov: Float!
-  TtlClrdNvrBLLonsTmsLneeCov: Float!
-  TtlClrdNvrBLLonsAmtLnrCov: Float!
-  TtlClrdNvrBLLonsAmtLneeCov: Float!
+  
   TtlActvLonsTmsLneeChmCov: Float!
   TtlActvLonsAmtLneeChmCov: Float!
   TtlBLLonsTmsLneeChmCov: Float!
   TtlBLLonsAmtLneeChmCov: Float!
   TtlClrdLonsTmsLneeChmCov: Float!
   TtlClrdLonsAmtLneeChmCov: Float!
-  TtlClrdBLLonsTmsLneeChmCov: Float!
-  TtlClrdBLLonsAmtLneeChmCov: Float!
-  TtlClrdNvrBLLonsTmsLneeChmCov: Float!
-  TtlClrdNvrBLLonsAmtLneeChmCov: Float!
+     
   TtlActvLonsTmsSllrCov: Float!
   TtlActvLonsTmsByrCov: Float!
   TtlActvLonsAmtSllrCov: Float!
@@ -104,14 +94,7 @@ type SMAccount
   TtlClrdLonsTmsByrCov: Float!
   TtlClrdLonsAmtSllrCov: Float!
   TtlClrdLonsAmtByrCov: Float!
-  TtlClrdBLLonsTmsSllrCov: Float!
-  TtlClrdBLLonsTmsByrCov: Float!
-  TtlClrdBLLonsAmtSllrCov: Float!
-  TtlClrdBLLonsAmtByrCov: Float!
-  TtlClrdNvrBLLonsTmsSllrCov: Float!
-  TtlClrdNvrBLLonsTmsByrCov: Float!
-  TtlClrdNvrBLLonsAmtSllrCov: Float!
-  TtlClrdNvrBLLonsAmtByrCov: Float!
+  
 
   TtlActvLonsTmsLnrNonCov: Float!
   TtlActvLonsTmsLneeNonCov: Float!
@@ -125,24 +108,14 @@ type SMAccount
   TtlClrdLonsTmsLneeNonCov: Float!
   TtlClrdLonsAmtLnrNonCov: Float!
   TtlClrdLonsAmtLneeNonCov: Float!
-  TtlClrdBLLonsTmsLnrNonCov: Float!
-  TtlClrdBLLonsTmsLneeNonCov: Float!
-  TtlClrdBLLonsAmtLnrNonCov: Float!
-  TtlClrdBLLonsAmtLneeNonCov: Float!
-  TtlClrdNvrBLLonsTmsLnrNonCov: Float!
-  TtlClrdNvrBLLonsTmsLneeNonCov: Float!
-  TtlClrdNvrBLLonsAmtLnrNonCov: Float!
-  TtlClrdNvrBLLonsAmtLneeNonCov: Float!
+  
   TtlActvLonsTmsLneeChmNonCov: Float!
   TtlActvLonsAmtLneeChmNonCov: Float!
   TtlBLLonsTmsLneeChmNonCov: Float!
   TtlBLLonsAmtLneeChmNonCov: Float!
   TtlClrdLonsTmsLneeChmNonCov: Float!
   TtlClrdLonsAmtLneeChmNonCov: Float!
-  TtlClrdBLLonsTmsLneeChmNonCov: Float!
-  TtlClrdBLLonsAmtLneeChmNonCov: Float!
-  TtlClrdNvrBLLonsTmsLneeChmNonCov: Float!
-  TtlClrdNvrBLLonsAmtLneeChmNonCov: Float!
+  
   TtlActvLonsTmsSllrNonCov: Float!
   TtlActvLonsTmsByrNonCov: Float!
   TtlActvLonsAmtSllrNonCov: Float!
@@ -155,14 +128,6 @@ type SMAccount
   TtlClrdLonsTmsByrNonCov: Float!
   TtlClrdLonsAmtSllrNonCov: Float!
   TtlClrdLonsAmtByrNonCov: Float!
-  TtlClrdBLLonsTmsSllrNonCov: Float!
-  TtlClrdBLLonsTmsByrNonCov: Float!
-  TtlClrdBLLonsAmtSllrNonCov: Float!
-  TtlClrdBLLonsAmtByrNonCov: Float!
-  TtlClrdNvrBLLonsTmsSllrNonCov: Float!
-  TtlClrdNvrBLLonsTmsByrNonCov: Float!
-  TtlClrdNvrBLLonsAmtSllrNonCov: Float!
-  TtlClrdNvrBLLonsAmtByrNonCov: Float!
 
   ttlNonLonsRecSM: Float!
   ttlNonLonsSentSM:Float!
@@ -1049,7 +1014,6 @@ type Company
   agentFloatOut: Float!
   ttlActiveUsers: Float!
   ttlInactvUsrs: Float!
-  ttlBLUsrs: Float!
   ttlKFNdgActv: Float!
   ttlKFNdgInActv: Float!
   ttlKNdgBLStts: Float!
@@ -1075,12 +1039,7 @@ type Company
   ttlSMLnsInBlAmtCov: Float!
   ttlChmLnsInBlAmtCov: Float!
   ttlSellerLnsInBlAmtCov: Float!
-  ttlSMLnsInBlThnClrAmtCov: Float!
-  ttlChmLnsInBlThnClrAmtCov: Float!
-  ttlSellerLnsInBlThnClrAmtCov: Float!
-  ttlSMLnsInNvrBlThnClrAmtCov: Float!
-  ttlChmLnsInNvrBlThnClrAmtCov: Float!
-  ttlSellerLnsInNvrBlThnClrAmtCov: Float!
+  
   ttlSMLnsInTymsCov: Float!
   ttlChmLnsInTymsCov: Float!
   ttlSellerLnsInTymsCov: Float!
@@ -1093,12 +1052,7 @@ type Company
   ttlSMLnsInBlTymsCov: Float!
   ttlChmLnsInBlTymsCov: Float!
   ttlSellerLnsInBlTymsCov: Float!
-  ttlSMLnsInBlThnClrTymsCov: Float!
-  ttlChmLnsInBlThnClrTymsCov: Float!
-  ttlSellerLnsInBlThnClrTymsCov: Float!
-  ttlSMLnsInNvrBlThnClrTymsCov: Float!
-  ttlChmLnsInNvrBlThnClrTymsCov: Float!
-  ttlSellerLnsInNvrBlThnClrTymsCov: Float!
+  
   ttlCompTrnsfrEarningsCov: Float!
   ttlCompBLClrncEarningsCov: Float!
 
@@ -1114,12 +1068,7 @@ type Company
   ttlSMLnsInBlAmtNonCov: Float!
   ttlChmLnsInBlAmtNonCov: Float!
   ttlSellerLnsInBlAmtNonCov: Float!
-  ttlSMLnsInBlThnClrAmtNonCov: Float!
-  ttlChmLnsInBlThnClrAmtNonCov: Float!
-  ttlSellerLnsInBlThnClrAmtNonCov: Float!
-  ttlSMLnsInNvrBlThnClrAmtNonCov: Float!
-  ttlChmLnsInNvrBlThnClrAmtNonCov: Float!
-  ttlSellerLnsInNvrBlThnClrAmtNonCov: Float!
+  
   ttlSMLnsInTymsNonCov: Float!
   ttlChmLnsInTymsNonCov: Float!
   ttlSellerLnsInTymsNonCov: Float!
@@ -1132,12 +1081,7 @@ type Company
   ttlSMLnsInBlTymsNonCov: Float!
   ttlChmLnsInBlTymsNonCov: Float!
   ttlSellerLnsInBlTymsNonCov: Float!
-  ttlSMLnsInBlThnClrTymsNonCov: Float!
-  ttlChmLnsInBlThnClrTymsNonCov: Float!
-  ttlSellerLnsInBlThnClrTymsNonCov: Float!
-  ttlSMLnsInNvrBlThnClrTymsNonCov: Float!
-  ttlChmLnsInNvrBlThnClrTymsNonCov: Float!
-  ttlSellerLnsInNvrBlThnClrTymsNonCov: Float!
+  
   ttlCompTrnsfrEarningsNonCov: Float!
   ttlCompBLClrncEarningsNonCov: Float!
   ttlCompCovEarnings: Float!
@@ -1345,10 +1289,6 @@ type Group
   TtlBLLonsAmtLnrChmCov: Float!
   TtlClrdLonsTmsLnrChmCov: Float!
   TtlClrdLonsAmtLnrChmCov: Float!
-  TtlClrdBLLonsTmsLnrChmCov: Float!
-  TtlClrdBLLonsAmtLnrChmCov: Float!
-  TtlClrdNvrBLLonsTmsLnrChmCov: Float!
-  TtlClrdNvrBLLonsAmtLnrChmCov: Float!
 
   TtlActvLonsTmsLnrChmNonCov: Float!
   TtlActvLonsAmtLnrChmNonCov: Float!
@@ -1356,10 +1296,7 @@ type Group
   TtlBLLonsAmtLnrChmNonCov: Float!
   TtlClrdLonsTmsLnrChmNonCov: Float!
   TtlClrdLonsAmtLnrChmNonCov: Float!
-  TtlClrdBLLonsTmsLnrChmNonCov: Float!
-  TtlClrdBLLonsAmtLnrChmNonCov: Float!
-  TtlClrdNvrBLLonsTmsLnrChmNonCov: Float!
-  TtlClrdNvrBLLonsAmtLnrChmNonCov: Float!
+  
   status: Status!
   owner: String!
 }
