@@ -42,8 +42,8 @@ const MyLoanAccount = props => {
     navigation.navigate('SMASndNonLns');
   };
 
-  const goToAdvrtsChamaLn = () => {
-    navigation.navigate('GnrlShpChamaLnAdvtsScrn');
+  const goBL = () => {
+    navigation.navigate('BListLneess');
   };
 
   return (
@@ -53,6 +53,8 @@ const MyLoanAccount = props => {
         style={styles.image}>
         
           <Text style={styles.accountText}>Loan Transactions</Text>
+
+          <View>
 
           <View style={styles.viewForSalesPressables}>
             <Pressable onPress={goToGiveCovLns} style={styles.myMoneyPressables}>
@@ -66,8 +68,10 @@ const MyLoanAccount = props => {
             <Pressable onPress={payNonCovLn} style={styles.myMoneyPressables}>
               <Text style={styles.acPressableText}>Pay Non-Covered Loan</Text>
             </Pressable>
+            </View>
 
-            <Pressable onPress={goWithdrwMny} style={styles.myMoneyPressables}>
+            <View style={styles.viewForSalesPressables}>
+            <Pressable onPress={goBL} style={styles.myMoneyPressables}>
               <Text style={styles.acPressableText}>Black List Debtor</Text>
             </Pressable>
 
@@ -76,6 +80,7 @@ const MyLoanAccount = props => {
               style={styles.myMoneyPressables}>
               <Text style={styles.acPressableText}>Loan Status</Text>
             </Pressable>
+          </View>
           </View>
         </View>
 

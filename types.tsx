@@ -44,6 +44,7 @@ declare global {
       CreateSMAc:undefined;
       RepayCovLnss:undefined;
       RepayNonCovLnss:undefined;
+      BListLneess:undefined;
     }
   }
 }

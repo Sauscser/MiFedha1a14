@@ -37,16 +37,17 @@ const styles = StyleSheet.create({
 
   myMoneyPressables: {
     backgroundColor: 'purple',
-    marginHorizontal: 1,
-    width: Dimensions.get('screen').width - 2,
-    height: 60,
+    marginHorizontal: 130,
+    width: Dimensions.get('screen').width - 260,
+    height: "40%",
     borderRadius: 20,
-    marginTop: 10,
+    marginRight:"1%",
+    marginLeft:"1%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-
-    width: 80,
+    marginTop:"5%"
+    
   },
 
   acPressables: {
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
 
-    width: 80,
+    
   },
 
   

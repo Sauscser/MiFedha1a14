@@ -38,8 +38,8 @@ import { getCompany } from '../../../src/graphql/queries';
   const [pword, setPW] = useState('');
   const [advRegNo, setAdvRegNo] = useState('');
   const[lat, setLat] = useState('');
-  const[lon, setLon] = useState("");
-  const [isLoading, setIsLoading] =useState(false)
+  const[officeLocs, setOfficeLoc] = useState("");
+  const [isLoading, setIsLoading] =useState(false);
   
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();   
@@ -77,27 +77,30 @@ import { getCompany } from '../../../src/graphql/queries';
                   phonecontact: phoneContact,
                   email: eml,
                   advBal: 0,
+                  officeLoc: officeLocs,
                   TtlEarnings: 0,        
                   owner:ownr,
                   status: 'AccountActive',
                 },
               }),
             );
-            setIsLoading(false);
-           await updtActAdm();
+            
           } 
           
           
-          catch (error) {       
+          catch (error) {    
+            console.log(error)   
             if(!error){
               Alert.alert("Account created successfully")
               
           } 
-          else{Alert.alert("Please check your internet connection")
+          else{Alert.alert("Not authorised to register Advocate")
         return;} 
          
       
         } 
+        
+           await updtActAdm();
         setIsLoading(false);
         };
       
@@ -124,8 +127,7 @@ import { getCompany } from '../../../src/graphql/queries';
             return;}
         }
       
-        
-      setIsLoading(false);
+        setIsLoading(false);     
       
       }
         }
@@ -136,7 +138,17 @@ catch(e){
     return;
   }
 };
+
+
 setIsLoading(false);
+setNationalid("");
+setPW("");
+setName("");
+setEml("");
+setAdvRegNo("");
+setPhoneContact("");
+setOfficeLoc("");
+
    }
     
 useEffect(() =>{
@@ -205,6 +217,17 @@ useEffect(() =>{
                         }, [advRegNo]
                          );
 
+                         useEffect(() =>{
+                          const officeLocss=officeLocs
+                            if(!officeLocss && officeLocss!=="")
+                            {
+                              setOfficeLoc("");
+                              return;
+                            }
+                            setOfficeLoc(officeLocss);
+                            }, [officeLocs]
+                             );
+
   return (
     <View>
       <View
@@ -267,6 +290,15 @@ useEffect(() =>{
               style={styles.sendLoanInput}
               editable={true}></TextInput>
             <Text style={styles.sendLoanText}>Advocate Pass Word</Text>
+          </View>
+
+          <View style={styles.sendLoanView}>
+            <TextInput
+              value={officeLocs}
+              onChangeText={setOfficeLoc}
+              style={styles.sendLoanInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendLoanText}>Advocate Office Location</Text>
           </View>
       
           <TouchableOpacity

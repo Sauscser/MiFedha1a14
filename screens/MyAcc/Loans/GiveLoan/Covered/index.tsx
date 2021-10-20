@@ -85,7 +85,7 @@ const SMASendLns = props => {
       const TtlActvLonsAmtLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
       
   
-      const SenderSub =accountDtl.data.getSmAccount.owner;
+      const SenderSub =accountDtl.data.getSMAccount.owner;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -173,7 +173,7 @@ const SMASendLns = props => {
                                   amountgiven: amount,
                                   amountexpected: AmtExp,
                                   amountrepaid: 0,
-                                  loanerPW: SnderPW,
+                                  
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: AdvRegNo,
                                   description: Desc,
@@ -350,7 +350,7 @@ const SMASendLns = props => {
 
             }
             catch (e){
-              if (e){Alert.alert("Reciever does not exist")
+              if (e){Alert.alert("Advocate not registered")
       return;}
             }
             setIsLoading(false);
@@ -370,7 +370,8 @@ const SMASendLns = props => {
     
       
     } catch (e) {
-      if (e){Alert.alert("Sender does not exist")
+      console.log(e)
+      if (e){Alert.alert("Please fill details correctly or check your internet connection")
       return;}
   };
       setIsLoading(false);
