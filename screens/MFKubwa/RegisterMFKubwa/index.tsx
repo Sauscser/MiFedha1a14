@@ -67,7 +67,7 @@ const RegisterMFKubwaAcForm = props => {
                   
                   saNationalid: nationalId,
                   name: nam,
-                  phonecontact: phoneContact,
+                  saPhoneContact: phoneContact,
                   pw: pword,
                   TtlEarnings: 0,
                   actvMFNdog:0,
@@ -121,6 +121,7 @@ const RegisterMFKubwaAcForm = props => {
             Alert.alert("Check your internet")
             return
           }}
+          Alert.alert("Account registered successfully")
           setIsLoading(false);
         }
 
