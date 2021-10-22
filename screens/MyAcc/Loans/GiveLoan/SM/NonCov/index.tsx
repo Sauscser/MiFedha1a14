@@ -10,7 +10,7 @@ import {
   updateSAgent,
   updateSMAccount,
   
-} from '../../../../../src/graphql/mutations';
+} from '../../../../../../src/graphql/mutations';
 
 import {API, Auth, graphqlOperation, DataStore} from 'aws-amplify';
 import {
@@ -19,7 +19,7 @@ import {
   getSMAccount,
   getSAgent,
   getAdvocate,
-} from '../../../../../src/graphql/queries';
+} from '../../../../../../src/graphql/queries';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -42,6 +42,7 @@ import { parse } from 'expo-linking';
 const SMASendLns = props => {
   const [SenderNatId, setSenderNatId] = useState('');
   const [RecNatId, setRecNatId] = useState('');
+  const [RecPhn, setRecPhn] = useState('');
   const [SnderPW, setSnderPW] = useState("");
   const [RepaymtPeriod, setRepaymtPeriod] = useState("");
   const [amount, setAmount] = useState("");
@@ -51,12 +52,13 @@ const SMASendLns = props => {
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
+  const [SendrPhn, setSendrPhn] = useState(null);
   
 
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-     
+    setSendrPhn(userInfo.attributes.phone_number);
   }
 
   useEffect(() => {
@@ -74,7 +76,7 @@ const SMASendLns = props => {
     setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {nationalid: SenderNatId}),
+        graphqlOperation(getSMAccount, {phonecontact: SendrPhn}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -125,21 +127,7 @@ const SMASendLns = props => {
 
           
           
-          const fetchAdv = async () =>{
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
-            try{
-
-              const AdvDtls:any = await API.graphql(
-                graphqlOperation(getAdvocate,
-                  {advregnu: AdvRegNo}),
-                  
-              );
-              const advTtlAern = AdvDtls.data.getAdvocate.TtlEarnings;
-              const advBl = AdvDtls.data.getAdvocate.advBal;
-              const advStts = AdvDtls.data.getAdvocate.status;
+          
               
 
               const fetchRecUsrDtls = async () => {
@@ -149,7 +137,7 @@ const SMASendLns = props => {
                 setIsLoading(true);
                 try {
                     const RecAccountDtl:any = await API.graphql(
-                        graphqlOperation(getSMAccount, {nationalid: RecNatId}),
+                        graphqlOperation(getSMAccount, {phonecontact: RecPhn}),
                         );
                         const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
@@ -169,7 +157,9 @@ const SMASendLns = props => {
                               graphqlOperation(createSMLoansCovered, {
                                 input: {
                                   loaneeid: RecNatId,
-                                  loanerId: SenderNatId,                                  
+                                  loanerId: SenderNatId,
+                                  loanerPhn:SendrPhn,
+                                  loaneePhn: RecPhn,                                  
                                   amountgiven: amount,
                                   amountexpected: AmtExp,
                                   amountrepaid: 0,
@@ -205,7 +195,7 @@ const SMASendLns = props => {
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    nationalid:SenderNatId,
+                                    phonecontact:SendrPhn,
                                     TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
                                     TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(amount),
                                                                               
@@ -234,7 +224,7 @@ const SMASendLns = props => {
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    nationalid:RecNatId,
+                                    phonecontact:RecPhn,
                                     TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
                                     TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(amount),
                                     balance:parseFloat(RecUsrBal) + parseFloat(amount)  ,
@@ -290,32 +280,9 @@ const SMASendLns = props => {
                         return;}
                           }
                           setIsLoading(false);
-                          await updtAdv();
+                         
                         }
-                        const updtAdv = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateAdvocate, {
-                                  input:{
-                                    advregnu: AdvRegNo,
-                                    advBal: (AdvCovRate) * parseFloat(amount) + parseFloat(advBl) ,
-                                    TtlEarnings:(AdvCovRate) * parseFloat(amount) + parseFloat(advTtlAern),                                 
-                                    
-                                  }
-                                })
-                              )
-                          }
-                          catch(error){
-                            if (error){Alert.alert("Check your internet connection")
-      return;}
-                          }
-                          Alert.alert(names + " has loaned " + namess +" Ksh. " + amount );
-                          setIsLoading(false);
-                        }
+                        
                                               
                         if (parseFloat(usrNoBL) > 1){Alert.alert('Receiver does not qualify');
                       return;
@@ -331,7 +298,7 @@ const SMASendLns = props => {
                         else if (
                           parseFloat(SenderUsrBal) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
-                        else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
+                        
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                         else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
                         
@@ -350,15 +317,7 @@ const SMASendLns = props => {
                       await fetchRecUsrDtls();        
                     
 
-            }
-            catch (e){
-              if (e){Alert.alert("Advocate not registered")
-      return;}
-            }
-            setIsLoading(false);
-          }
-          
-          await fetchAdv();
+            
 
           
         
@@ -386,9 +345,21 @@ const SMASendLns = props => {
       setSnderPW("");
       setRepaymtPeriod("");
       setRecAccCode("");
+      setRecPhn("");
 }
 
 useEffect(() =>{
+  const RecPhns=RecPhn
+    if(!RecPhns && RecPhns!=="")
+    {
+      setRecPhn("");
+      return;
+    }
+    setRecPhn(RecPhns);
+    }, [RecPhn]
+     );
+     
+     useEffect(() =>{
   const SnderNatIds=SenderNatId
     if(!SnderNatIds && SnderNatIds!=="")
     {
@@ -512,6 +483,15 @@ useEffect(() =>{
              style={styles.sendAmtInput}
              editable={true}></TextInput>
            <Text style={styles.sendAmtText}>Receiver National Id</Text>
+         </View>
+
+         <View style={styles.sendAmtView}>
+           <TextInput
+             value={RecPhn}
+             onChangeText={setRecPhn}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Receiver Phone</Text>
          </View>
 
          <View style={styles.sendAmtView}>

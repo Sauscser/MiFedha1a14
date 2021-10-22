@@ -44,7 +44,7 @@ const SMASendNonLns = props => {
   const [SenderNatId, setSenderNatId] = useState('');
   const [RecNatId, setRecNatId] = useState('');
   const [SnderPW, setSnderPW] = useState("");
-  
+  const [SendrPhn, setSendrPhn] = useState("");  
   const [amounts, setAmount] = useState("");
   
   const [Desc, setDesc] = useState("");
@@ -56,7 +56,7 @@ const SMASendNonLns = props => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-     
+    setSendrPhn(userInfo.attributes.phone_number);
   }
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const SMASendNonLns = props => {
     setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {nationalid: SenderNatId}),
+        graphqlOperation(getSMAccount, {phonecontact: SendrPhn}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -112,7 +112,7 @@ const SMASendNonLns = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {nationalid: RecNatId}),
+                    graphqlOperation(getSMAccount, {phonecontact: RecNatId}),
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
@@ -130,8 +130,8 @@ const SMASendNonLns = props => {
                         await API.graphql(
                           graphqlOperation(createNonLoans, {
                             input: {
-                              recId: RecNatId,
-                              senderID: SenderNatId,                                  
+                              recPhn: RecNatId,
+                              senderPhn: SendrPhn,                                  
                               amount: amounts,                              
                               description: Desc,
                               status: "NonLons",
@@ -162,7 +162,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                nationalid:SenderNatId,
+                                recPhn:SendrPhn,
                                 ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
                                 balance:parseFloat(SenderUsrBal)-TotalTransacted 
                                
@@ -190,7 +190,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                nationalid:RecNatId,
+                                recPhn:RecNatId,
                                 ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
                                 balance:parseFloat(RecUsrBal) + parseFloat(amounts)                                     
                                 
@@ -361,14 +361,7 @@ useEffect(() =>{
             <Text style={styles.title}>Fill account Details Below</Text>
           </View>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={SenderNatId}
-              onChangeText={setSenderNatId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Sender National Id</Text>
-          </View>
+          
 
           <View style={styles.sendAmtView}>
             <TextInput
@@ -376,7 +369,7 @@ useEffect(() =>{
               onChangeText={setRecNatId}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Receiver National Id</Text>
+            <Text style={styles.sendAmtText}>Receiver Phone</Text>
           </View>
 
           <View style={styles.sendAmtView}>

@@ -45,6 +45,7 @@ declare global {
       RepayCovLnss:undefined;
       RepayNonCovLnss:undefined;
       BListLneess:undefined;
+      BListCredByr:undefined;
     }
   }
 }

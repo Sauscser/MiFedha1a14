@@ -23,13 +23,14 @@ import DActivtMFN from "../../screens/MFNdogo/DeactivateMFNdogo";
 import DActivtMFK from "../../screens/MFKubwa/DeActRegMFK/DeactivateMFNdogo";
 import DActivtMFUsr from "../../screens/MyAcc/DeActivtUsr/DeactivateMFNdogo";
 import DActivtMFAdv from "../../screens/Advocate/DeactivtAdv/DeactivateMFAdmin/DeactivateMFNdogo";
-import SMGvCovLon from "../../screens/MyAcc/Loans/GiveLoan/Covered";
-import SMASendNonCovLns from "../../screens/MyAcc/Loans/GiveLoan/NonCov";
+import SMGvCovLon from "../../screens/MyAcc/Loans/GiveLoan/SM/Covered";
+import SMASendNonCovLns from "../../screens/MyAcc/Loans/GiveLoan/SM/NonCov";
 import SMAWthdrwForm from '../../screens/MyAcc/WithdrwFunds';
 import SendNonLn from "../../screens/MyAcc/SendNonLons";
 import RepayCovLns from "../../screens/MyAcc/Loans/RepayLoan/SM/CovLons";
 import RepayNonCovLns from "../../screens/MyAcc/Loans/RepayLoan/SM/NonCovLns";
-import BListLnee from "../../screens/MyAcc/Loans/BList";
+import BListLnee from "../../screens/MyAcc/Loans/BList/SMLoanee";
+import BListCredByr from "../../screens/MyAcc/Loans/BList/CredLoanee";
 
 
 const Stack = createNativeStackNavigator();
@@ -66,6 +67,7 @@ const HomeNavigator = props => {
       <Stack.Screen name={'RepayCovLnss'} component={RepayCovLns}/>
       <Stack.Screen name={'RepayNonCovLnss'} component={RepayNonCovLns}/>
       <Stack.Screen name={'BListLneess'} component={BListLnee}/>
+      <Stack.Screen name={'BListCredByr'} component={BListCredByr}/>
       
     </Stack.Navigator>
   );

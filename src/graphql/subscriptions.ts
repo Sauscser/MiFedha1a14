@@ -271,6 +271,8 @@ export const onCreateSMLoansCovered = /* GraphQL */ `
     onCreateSMLoansCovered {
       id
       loaneeid
+      loaneePhn
+      loanerPhn
       loanerId
       amountgiven
       amountexpected
@@ -291,6 +293,8 @@ export const onUpdateSMLoansCovered = /* GraphQL */ `
     onUpdateSMLoansCovered {
       id
       loaneeid
+      loaneePhn
+      loanerPhn
       loanerId
       amountgiven
       amountexpected
@@ -311,6 +315,8 @@ export const onDeleteSMLoansCovered = /* GraphQL */ `
     onDeleteSMLoansCovered {
       id
       loaneeid
+      loaneePhn
+      loanerPhn
       loanerId
       amountgiven
       amountexpected
@@ -330,6 +336,8 @@ export const onCreateSMLoansNonCovered = /* GraphQL */ `
   subscription OnCreateSMLoansNonCovered {
     onCreateSMLoansNonCovered {
       id
+      loaneePhn
+      loanerPhn
       loaneeid
       loanerId
       amountgiven
@@ -349,6 +357,8 @@ export const onUpdateSMLoansNonCovered = /* GraphQL */ `
   subscription OnUpdateSMLoansNonCovered {
     onUpdateSMLoansNonCovered {
       id
+      loaneePhn
+      loanerPhn
       loaneeid
       loanerId
       amountgiven
@@ -368,6 +378,8 @@ export const onDeleteSMLoansNonCovered = /* GraphQL */ `
   subscription OnDeleteSMLoansNonCovered {
     onDeleteSMLoansNonCovered {
       id
+      loaneePhn
+      loanerPhn
       loaneeid
       loanerId
       amountgiven
@@ -387,8 +399,8 @@ export const onCreateNonLoans = /* GraphQL */ `
   subscription OnCreateNonLoans {
     onCreateNonLoans {
       id
-      senderID
-      recId
+      senderPhn
+      recPhn
       amount
       description
       status
@@ -402,8 +414,8 @@ export const onUpdateNonLoans = /* GraphQL */ `
   subscription OnUpdateNonLoans {
     onUpdateNonLoans {
       id
-      senderID
-      recId
+      senderPhn
+      recPhn
       amount
       description
       status
@@ -417,8 +429,8 @@ export const onDeleteNonLoans = /* GraphQL */ `
   subscription OnDeleteNonLoans {
     onDeleteNonLoans {
       id
-      senderID
-      recId
+      senderPhn
+      recPhn
       amount
       description
       status
@@ -674,10 +686,9 @@ export const onDeleteAgentWithdrawals = /* GraphQL */ `
 export const onCreateSAgent = /* GraphQL */ `
   subscription OnCreateSAgent {
     onCreateSAgent {
-      id
+      saPhoneContact
       saNationalid
       name
-      phonecontact
       pw
       TtlEarnings
       actvMFNdog
@@ -694,10 +705,9 @@ export const onCreateSAgent = /* GraphQL */ `
 export const onUpdateSAgent = /* GraphQL */ `
   subscription OnUpdateSAgent {
     onUpdateSAgent {
-      id
+      saPhoneContact
       saNationalid
       name
-      phonecontact
       pw
       TtlEarnings
       actvMFNdog
@@ -714,10 +724,9 @@ export const onUpdateSAgent = /* GraphQL */ `
 export const onDeleteSAgent = /* GraphQL */ `
   subscription OnDeleteSAgent {
     onDeleteSAgent {
-      id
+      saPhoneContact
       saNationalid
       name
-      phonecontact
       pw
       TtlEarnings
       actvMFNdog
@@ -1627,7 +1636,7 @@ export const onCreateCvrdGroupLoans = /* GraphQL */ `
     onCreateCvrdGroupLoans {
       id
       grpContact
-      loaneeID
+      loaneePhn
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -1647,7 +1656,7 @@ export const onUpdateCvrdGroupLoans = /* GraphQL */ `
     onUpdateCvrdGroupLoans {
       id
       grpContact
-      loaneeID
+      loaneePhn
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -1667,7 +1676,7 @@ export const onDeleteCvrdGroupLoans = /* GraphQL */ `
     onDeleteCvrdGroupLoans {
       id
       grpContact
-      loaneeID
+      loaneePhn
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -1687,7 +1696,7 @@ export const onCreateNonCvrdGroupLoans = /* GraphQL */ `
     onCreateNonCvrdGroupLoans {
       id
       grpContact
-      loaneeID
+      loaneePhn
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -1706,7 +1715,7 @@ export const onUpdateNonCvrdGroupLoans = /* GraphQL */ `
     onUpdateNonCvrdGroupLoans {
       id
       grpContact
-      loaneeID
+      loaneePhn
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -1725,7 +1734,7 @@ export const onDeleteNonCvrdGroupLoans = /* GraphQL */ `
     onDeleteNonCvrdGroupLoans {
       id
       grpContact
-      loaneeID
+      loaneePhn
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -1744,7 +1753,7 @@ export const onCreateGroupNonLoans = /* GraphQL */ `
     onCreateGroupNonLoans {
       id
       grpContact
-      recipientId
+      recipientPhn
       amountSent
       description
       status
@@ -1759,7 +1768,7 @@ export const onUpdateGroupNonLoans = /* GraphQL */ `
     onUpdateGroupNonLoans {
       id
       grpContact
-      recipientId
+      recipientPhn
       amountSent
       description
       status
@@ -1774,7 +1783,7 @@ export const onDeleteGroupNonLoans = /* GraphQL */ `
     onDeleteGroupNonLoans {
       id
       grpContact
-      recipientId
+      recipientPhn
       amountSent
       description
       status
@@ -1788,7 +1797,7 @@ export const onCreateGrpMembersContribution = /* GraphQL */ `
   subscription OnCreateGrpMembersContribution {
     onCreateGrpMembersContribution {
       id
-      memberId
+      memberPhn
       grpContact
       contriAmount
       status
@@ -1802,7 +1811,7 @@ export const onUpdateGrpMembersContribution = /* GraphQL */ `
   subscription OnUpdateGrpMembersContribution {
     onUpdateGrpMembersContribution {
       id
-      memberId
+      memberPhn
       grpContact
       contriAmount
       status
@@ -1816,7 +1825,7 @@ export const onDeleteGrpMembersContribution = /* GraphQL */ `
   subscription OnDeleteGrpMembersContribution {
     onDeleteGrpMembersContribution {
       id
-      memberId
+      memberPhn
       grpContact
       contriAmount
       status

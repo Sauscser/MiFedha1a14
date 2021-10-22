@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {createCompany} from '../../../src/graphql/mutations';
 import { getBankAdmin, getCompany} from '../../../src/graphql/queries';
-import {graphqlOperation, API} from 'aws-amplify';
+import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -24,13 +24,24 @@ const AdminSignIn = (props) => {
   const navigation = useNavigation();
 
   const [AdmnId, setAdminId] = useState("");
-  const [AdminPW, setAdminPW] = useState("");  
+  const [AdminPW, setAdminPW] = useState(""); 
+  const [ownr, setownr] = useState(null);  
 
 
 
   const moveToAdminHm = () => {
     navigation.navigate("MFAdminstrator");
   };
+
+  const fetchUser = async () => {
+    const userInfo = await Auth.currentAuthenticatedUser();
+    setownr(userInfo.attributes.sub);  
+    
+  }
+
+  useEffect(() => {
+    fetchUser();
+    }, []);  
 
 
     
@@ -41,25 +52,26 @@ const AdminSignIn = (props) => {
                 ),);
 
                 const pw1s = AdminDtls.data.getBankAdmin.pw;
-                
+                const owners = AdminDtls.data.getBankAdmin.owner;             
 
-                
-
-
-                if(AdminPW === pw1s )
+                if (ownr!==owners){
+                  Alert.alert("This is not your Admin account")
+                } 
+                else if(AdminPW !== pw1s )
                 {
-              
-                    moveToAdminHm();
+                  Alert.alert("Wrong credentials; access denied");
+                   
               }
               else{
-                Alert.alert("Wrong credentials; access denied");
+                moveToAdminHm();
 
               }
             }
 
             catch (e)
-            {  if(e) 
-              {Alert.alert("Either you are not authorised or check your internet");
+            {  if(e)
+              console.log(e) 
+              if(e){Alert.alert("Either you dont have Admin Ac or check your internet");
             return;
           }            
             }    

@@ -39,17 +39,8 @@ type SMAccount
       }
     ]
   )
-  @key(fields: ["nationalid"])
-  @key(
-    name: "checkUserBal"
-    fields: ["phonecontact", "pw"]
-    queryField: "checkUserrrBalance"
-  )
-  @key(
-    name: "updatSMAccPhone"
-    fields: ["name", "phonecontact"]
-    queryField: "AccessingPersonalAc"
-  ) {
+  @key(fields: ["phonecontact"])
+  {
   nationalid: ID!
   name: String!
   phonecontact: String!
@@ -186,39 +177,13 @@ type SMLoansCovered
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, create] }
     ]
   )
-  @key(
-    name: "searchmyDebtors"
-    fields: ["loanerId", "status"]
-    queryField: "checkMyDetors"
-  )
-  @key(
-    name: "searchmyLenders"
-    fields: ["loaneeid", "status"]
-    queryField: "checkMyLenders"
-  )
-  @key(
-    name: "confirmMyLoanee"
-    fields: ["loanerId", "loaneeid", "status"]
-    queryField: "confrmMyLoaneeeee"
-  )
-  @key(
-    name: "searchAdvLoaners"
-    fields: ["advregnu", "loanerId"]
-    queryField: "checkbyAdvNLnar"
-  )
-  @key(
-    name: "searchAdvLoaner"
-    fields: ["advregnu", "loanerId", "loaneeid"]
-    queryField: "checkbyAdvNLnars"
-  )
-  @key(
-    name: "searchAdvLoanee"
-    fields: ["advregnu", "loaneeid"]
-    queryField: "chckbyAdvNLnee"
-  ) {
+  {
   id: ID!
   loaneeid: String!
+  loaneePhn: String!
+  loanerPhn:String!
   loanerId: String!
+  
   amountgiven: Float!
   amountexpected: Float!
   amountrepaid: Float!
@@ -274,22 +239,10 @@ type SMLoansNonCovered
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, create] }
     ]
   )
-  @key(
-    name: "searchmyDebtorss"
-    fields: ["loanerId", "status"]
-    queryField: "checkMyDetorss"
-  )
-  @key(
-    name: "searchmyLenderss"
-    fields: ["loaneeid", "status"]
-    queryField: "checkMyLenderss"
-  )
-  @key(
-    name: "confirmMyLoanees"
-    fields: ["loanerId", "loaneeid", "status"]
-    queryField: "confrmMyLoaneeeees"
-  ) {
+  {
   id: ID!
+  loaneePhn: String!
+  loanerPhn:String!
   loaneeid: ID!
   loanerId: String!
   amountgiven: Float!
@@ -345,25 +298,11 @@ type NonLoans
       }
     ]
   )
-  @key(
-    name: "nonLonsSender"
-    fields: ["senderID", "status"]
-    queryField: "checkNonLonsbySender"
-  )
-  @key(
-    name: "nonLoansbyRec"
-    fields: ["recId", "status"]
-    queryField: "checkReceivedNonLns"
-  )
-  @key(
-    name: "bySenderReceiver"
-    fields: ["senderID", "recId"]
-    queryField: "checkBySenderReciever"
-  )
-   {
+  
+  {
   id: ID!
-  senderID: String!
-  recId: String!
+  senderPhn: String!
+  recPhn: String!
   amount: Float!
   description: String
   status:Status!
@@ -404,16 +343,7 @@ type Agent
     ]
   )
   @key(fields: ["phonecontact"])
-  @key(
-    name: "byAgentbalance"
-    fields: ["name", "pw"]
-    queryField: "updtAgentBalbyUser"
-  )
-  @key(
-    name: "agentAndSa"
-    fields: ["sagentregno"]
-    queryField: "searchMyAgents"
-  ) {
+  {
   phonecontact: ID!
   nationalid: String!
   name: String!
@@ -467,16 +397,7 @@ type FloatPurchase
       }
     ]
   )
-  @key(
-    name: "floatPurchasebyAgentsss"
-    fields: ["agentphone"]
-    queryField: "lstAgentFltPrchasss"
-  )
-  @key(
-    name: "byBankAdm"
-    fields: ["bankAdminID"]
-    queryField: "lstBankAdmTransaaaaccttions"
-  ) {
+  {
   id: ID
   agentphone: String!
   amount: Float!
@@ -520,21 +441,7 @@ type FloatAdd
       { allow: groups, groups: ["KFNdogo "], operations: [read] }
     ]
   )
-  @key(
-    name: "FloatAddbyAgent"
-    fields: ["agentPhonecontact"]
-    queryField: "createWythdrawals"
-  )
-  @key(
-    name: "FloatAddbyUsr"
-    fields: ["withdrawerid"]
-    queryField: "createWythdrawalsss"
-  )
-  @key(
-    name: "bysagentregno"
-    fields: ["sagentId"]
-    queryField: "readSAWithdrwls"
-  ) {
+  {
   id: ID!
   withdrawerid: String!
  
@@ -580,8 +487,7 @@ type FloatReduction
       }
     ]
   )
-  @key(name: "byAgntID", fields: ["agContact"], queryField: "creatFltDeduc")
-  @key(name: "byUser", fields: ["depositerid"], queryField: "reeeadAmtDpstd") {
+  {
   id: ID!
   amount: Float!
   depositerid: String!
@@ -624,16 +530,7 @@ type AgentWithdrawals
       }
     ]
   )
-  @key(
-    name: "byAgentPhonne"
-    fields: ["agentPhone"]
-    queryField: "lstAgentWithdrowals"
-  )
-  @key(
-    name: "byBankAdm"
-    fields: ["bankAdminId"]
-    queryField: "lstBankAdmTransactiooonnns"
-  ) {
+ {
   id: ID!
   agentPhone: String!
   
@@ -677,12 +574,15 @@ type SAgent
         groups: ["Executive"]
         operations: [read, create, update, delete]
       }
-wes  )
-  @key(name: "saChecker", fields: ["saNationalid"], queryField: "CheckingSA") {
-  id: ID!
+      ]
+  )
+
+  @key(fields: ["saPhoneContact"])
+   {
+  saPhoneContact: String!
   saNationalid: String!
   name: String!
-  phonecontact: String!
+  
   pw: String!
   TtlEarnings: Float!
   actvMFNdog: Float!
@@ -727,12 +627,7 @@ type SAgentWithdrawals
       }
     ]
   )
-  @key(name: "sAgentChecker", fields: ["saId"], queryField: "lstSAWithdrlls")
-  @key(
-    name: "byBankAdm"
-    fields: ["bankAdmnId"]
-    queryField: "lstBankAdmTranssactions"
-  ) {
+  {
   id: ID!
 
   saId: String!
@@ -836,11 +731,7 @@ type BankAdmWithdrawals
       { allow: owner, operations: [read] }
     ]
   )
-  @key(
-    name: "BAdmWbyPhn"
-    fields: ["bankAdmNatId"]
-    queryField: "checkBankAdmWithdrawals"
-  ) {
+  {
   id: ID!
 
   bankAdmNatId: String!
@@ -932,16 +823,7 @@ type AdvocateWithdrawals
       { allow: groups, groups: ["Advocate"], operations: [read, create] }
     ]
   )
-  @key(
-    name: "byWDrbyAdv"
-    fields: ["advregnu"]
-    queryField: "checkAdvocateWithdrawalsss"
-  )
-  @key(
-    name: "byWDrbyBankAdm"
-    fields: ["bankAdmnId"]
-    queryField: "checkAdvocateWithdrawalsssAdmin"
-  ) {
+  {
   id: ID!
   bankAdmnId: String!
   advregnu: String!
@@ -964,7 +846,7 @@ type Company
     ]
   )
   @key(fields: ["AdminId"])
-  @key(name: "bypw", fields: ["pw1", "pw2"], queryField: "checkbyComppw") {
+  {
   AdminId: String!
   phoneContact: String!
   companyEmail: String!
@@ -1127,21 +1009,7 @@ type CovCreditSeller
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
-  @key(
-    name: "searchbySellerID"
-    fields: ["sellerID", "status"]
-    queryField: "checkMyNonCovrrrrrrrrdSales"
-  )
-  @key(
-    name: "searchmySalesDebts"
-    fields: ["buyerID", "status"]
-    queryField: "checkMysalessDebts"
-  )
-  @key(
-    name: "searchAdvCredSllr"
-    fields: ["advregnu", "sellerContact", "buyerContact"]
-    queryField: "checkbyAdvNCredddSseller"
-  ) {
+  {
   id: ID!
   itemName: String!
   itemSerialNumber: String
@@ -1195,21 +1063,7 @@ type NonCovCreditSeller
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
-  @key(
-    name: "searchbySellerIDs"
-    fields: ["sellerID", "status"]
-    queryField: "checkMyNonCovrrrrrrrrdSaless"
-  )
-  @key(
-    name: "searchmySalesDebtss"
-    fields: ["buyerID", "status"]
-    queryField: "checkMysalessDebtss"
-  )
-  @key(
-    name: "searchAdvCredSllrs"
-    fields: ["sellerContact", "buyerContact"]
-    queryField: "checkbyAdvNCredddSsellers"
-  ) {
+  {
   id: ID!
   itemName: String!
   itemSerialNumber: String
@@ -1261,11 +1115,7 @@ type Group
     ]
   )
   @key(fields: ["grpContact"])
-  @key(
-    name: "grpCreator"
-    fields: ["SignitoryNatid"]
-    queryField: "checkGrpsICrtd"
-  ) {
+  {
   grpContact: ID!
   signitoryContact: String!
   SignitoryNatid: String!
@@ -1334,12 +1184,7 @@ type GrpMembers
       }
     ]
   )
-  @key(
-    name: "GrpMmbrs"
-    fields: ["groupContact"]
-    queryField: "checkMygroupMembers"
-  )
-  @key(name: "myGrps", fields: ["memberNatId"], queryField: "checkMygrps") {
+  {
   id: ID!
   groupContact: String!
   memberContact: String!
@@ -1385,39 +1230,10 @@ type CvrdGroupLoans
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
-  @key(
-    name: "searchgrpDflts"
-    fields: ["grpContact", "status"]
-    queryField: "cheeeeckGrpCovrdLonDflts"
-  )
-  @key(
-    name: "searchToUpdate"
-    fields: ["loaneeID", "grpContact"]
-    queryField: "updatAmaounntrepaid"
-  )
-  @key(
-    name: "searchToClearLnr"
-    fields: ["loaneeID", "status"]
-    queryField: "clearloaneriiiiifongoing"
-  )
-  @key(
-    name: "searchAdvGrps"
-    fields: ["advRegNu", "grpContact"]
-    queryField: "checkbyAdvNGrrrpp"
-  )
-  @key(
-    name: "searchAdvGrp"
-    fields: ["advRegNu", "grpContact", "loaneeID"]
-    queryField: "checkbyAdvNGrrrppNLonie"
-  )
-  @key(
-    name: "searchAdvLoaneei"
-    fields: ["advRegNu", "loaneeID"]
-    queryField: "checkbyAdvNLoaneeeeeei"
-  ) {
+  {
   id: ID!
   grpContact: String!
-  loaneeID: String!
+  loaneePhn: String!
   repaymentPeriod: Int!
   amountGiven: Float!
   amountExpectedBack: Float!
@@ -1463,24 +1279,10 @@ type NonCvrdGroupLoans
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
-  @key(
-    name: "searchgrpDfltss"
-    fields: ["grpContact", "status"]
-    queryField: "cheeeeckGrpCovrdLonDfltss"
-  )
-  @key(
-    name: "searchToUpdates"
-    fields: ["loaneeID", "grpContact"]
-    queryField: "updatAmaounntrepaids"
-  )
-  @key(
-    name: "searchToClearLnrs"
-    fields: ["loaneeID", "status"]
-    queryField: "clearloaneriiiiifongoings"
-  ) {
+  {
   id: ID!
   grpContact: String!
-  loaneeID: String!
+  loaneePhn: String!
   repaymentPeriod: Int!
   amountGiven: Float!
   amountExpectedBack: Float!
@@ -1525,19 +1327,10 @@ type GroupNonLoans
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
-  @key(
-    name: "searchbygrpp"
-    fields: ["recipientId"]
-    queryField: "cheeeckGrpMemberNonLoansee"
-  )
-  @key(
-    name: "searchbygrps"
-    fields: ["grpContact"]
-    queryField: "cheeeckGrpNonLoanse"
-  ) {
+  {
   id: ID!
   grpContact: String!
-  recipientId: String!
+  recipientPhn: String!
 
   amountSent: Float!
 
@@ -1580,23 +1373,9 @@ type GrpMembersContribution
       }
     ]
   )
-  @key(
-    name: "byGrpMbr"
-    fields: ["memberId"]
-    queryField: "checkAllMyGrpsContri"
-  )
-  @key(
-    name: "byGrppp"
-    fields: ["grpContact"]
-    queryField: "checkAllGrpContributorssss"
-  )
-  @key(
-    name: "byMemberNgrp"
-    fields: ["grpContact", "memberId"]
-    queryField: "checkMmbrContrInAGrpp"
-  ) {
+  {
   id: ID!
-  memberId: String!
+  memberPhn: String!
 
   grpContact: String!
   contriAmount: Float!

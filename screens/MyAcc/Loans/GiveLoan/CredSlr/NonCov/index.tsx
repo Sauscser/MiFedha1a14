@@ -4,13 +4,14 @@ import {
   createFloatAdd,
   createSMAccount,
   createSMLoansCovered,
+  createSMLoansNonCovered,
   updateAdvocate,
   updateAgent,
   updateCompany,
   updateSAgent,
   updateSMAccount,
   
-} from '../../../../../src/graphql/mutations';
+} from '../../../../../../src/graphql/mutations';
 
 import {API, Auth, graphqlOperation, DataStore} from 'aws-amplify';
 import {
@@ -19,7 +20,7 @@ import {
   getSMAccount,
   getSAgent,
   getAdvocate,
-} from '../../../../../src/graphql/queries';
+} from '../../../../../../src/graphql/queries';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -46,7 +47,7 @@ const SMASendNonCovLns = props => {
   const [RepaymtPeriod, setRepaymtPeriod] = useState("");
   const [amount, setAmount] = useState("");
   const [AmtExp, setAmtExp] = useState("");
-  const [AdvRegNo, setAdvRegNo] = useState("");
+  
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
@@ -141,7 +142,7 @@ const SMASendNonCovLns = props => {
                       setIsLoading(true)
                       try {
                         await API.graphql(
-                          graphqlOperation(createSMLoansCovered, {
+                          graphqlOperation(createSMLoansNonCovered, {
                             input: {
                               loaneeid: RecNatId,
                               loanerId: SenderNatId,                                  
@@ -150,7 +151,7 @@ const SMASendNonCovLns = props => {
                               amountrepaid: 0,
                               lonBala:0,
                               repaymentPeriod: RepaymtPeriod,
-                              advregnu: AdvRegNo,
+                              
                               description: Desc,
                               status: "LoanActive",
                               owner: ownr
@@ -373,16 +374,7 @@ useEffect(() =>{
             }, [RecNatId]
              );
 
-             useEffect(() =>{
-              const AdvRegNoss=AdvRegNo
-                if(!AdvRegNoss && AdvRegNoss!=="")
-                {
-                  setAdvRegNo("");
-                  return;
-                }
-                setAdvRegNo(AdvRegNoss);
-                }, [AdvRegNo]
-                 );
+             
 
                  useEffect(() =>{
                   const AmtExpss=AmtExp

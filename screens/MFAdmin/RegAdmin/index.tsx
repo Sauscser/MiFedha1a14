@@ -25,7 +25,7 @@ import styles from './styles';
 const CreateAdminForm = () => { 
 
   const navigation = useNavigation();
-
+  const [PhoneContact, setPhoneContact] = useState("");
   const [nationalId, setNationalid] = useState("");
   const [ownr, setOwner] = useState(null);
   const [pword, setPW] = useState("");
@@ -34,12 +34,15 @@ const CreateAdminForm = () => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setOwner(userInfo.attributes.sub);    
-   
+    setPhoneContact(userInfo.attributes.phone_number);
+
 
       };
       useEffect(() => {
       fetchUser();
     }, []); 
+
+    
 
     const gtCompDtls = async () =>{
       if(isLoading){
@@ -60,11 +63,11 @@ const CreateAdminForm = () => {
               setISLoading(true);
               try {
                 const resp:any = await API.graphql(
-                  graphqlOperation(getSMAccount, { nationalid: nationalId })
+                  graphqlOperation(getSMAccount, { phonecontact: PhoneContact })
                 );
                 const adminId = resp.data.getSMAccount.nationalid; 
                 const adminName = resp.data.getSMAccount.name; 
-                const adminPhn = resp.data.getSMAccount.phonecontact;     
+                
                 const adminEml = resp.data.getSMAccount.awsemail;           
                                 
                 const CrtAdminAc = async () => {
@@ -78,7 +81,7 @@ const CreateAdminForm = () => {
                         input: {
                           nationalid: adminId,
                           name: adminName,
-                          phonecontact: adminPhn,
+                          phonecontact: PhoneContact,
                           TtlEarnings: 0,
                           pw: pword,
                           BankAdmBal: 0,
@@ -94,12 +97,12 @@ const CreateAdminForm = () => {
                    
                   } catch (error) {
                     
-                    if(!error){
-                      Alert.alert("Account created successfully");
+                    if(error){
+                      Alert.alert("This Admin already exists");
+                      return;
                       
                   } 
-                  else{Alert.alert("This Admin already exists");  
-                  return;}                  
+                              
                   }
                      setISLoading(false);           
                   await updtActAdm();               
@@ -123,6 +126,7 @@ const CreateAdminForm = () => {
                     Alert.alert("Please Check your internet now")
                     return
                   }}
+                  Alert.alert("Congrats "+ adminName + ", you are now an Admin")
                   setISLoading(false);
                 };
 
@@ -184,14 +188,6 @@ const CreateAdminForm = () => {
                     <Text style={styles.title}>Fill Account Details Below</Text>
                   </View>
         
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={nationalId}
-                      onChangeText={setNationalid}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>National Id</Text>
-                  </View>
         
                   <View style={styles.sendLoanView}>
                     <TextInput

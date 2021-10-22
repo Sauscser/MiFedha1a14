@@ -54,7 +54,7 @@ const DeregUsrForm = (props) => {
               await API.graphql(
                 graphqlOperation(updateSMAccount,{
                   input:{
-                    nationalid:UsrId,
+                    phonecontact:UsrId,
                     status:"AccountInactive"
                   }
                 })
@@ -136,7 +136,7 @@ const DeregUsrForm = (props) => {
                       onChangeText={setUsrId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>User National ID</Text>
+                    <Text style={styles.sendLoanText}>User Phone Number</Text>
                   </View>
         
                   

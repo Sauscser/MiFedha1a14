@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {createSMAccount, updateCompany} from '../../../src/graphql/mutations';
-import { getCompany, getSMAccount, } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount, listSMAccounts, } from '../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -63,6 +63,31 @@ const CreateAcForm = (props:UserReg) => {
     useEffect(() => {
         fetchUser();
       }, []);
+
+      const ChckUsrExistence = async () => {
+        try {
+          const UsrDtls:any = await API.graphql(
+            graphqlOperation(listSMAccounts,
+              { filter: {
+                  
+                    nationalid: { eq: nationalId}
+                              
+                }}
+            )
+          )
+          if (UsrDtls.data.listSMAccounts.items.length > 0) {
+            Alert.alert("This National ID is already registered");
+            return;
+            
+          }
+          else{
+          gtCompDtls();
+        }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    
       
     const gtCompDtls = async () =>{
       if(isLoading){
@@ -73,7 +98,7 @@ const CreateAcForm = (props:UserReg) => {
         const compDtls :any= await API.graphql(
           graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
           );
-          const actvSMUsrs = compDtls.data.getCompany.ttlActiveUsers
+          const actvSMUsrs = compDtls.data.getCompany.ttlActiveUsers;
         
       const onCreateNewSMAc = async () => {
         if(isLoading){
@@ -179,17 +204,16 @@ const CreateAcForm = (props:UserReg) => {
                   },
                 }),
               );
-              await updtActAdm();
+              
             } catch (error) {
               console.log(error)
-              if(!error){
-                Alert.alert("Account created successfully")
+              if(error){
+                Alert.alert("Please Sign up using as a different Phone number")
                 return;
             } 
-            else{Alert.alert("Please check your internet connection")
-            return;
+            
             }
-            }
+            await updtActAdm();
             setIsLoading(false);
             
           };
@@ -224,7 +248,7 @@ const CreateAcForm = (props:UserReg) => {
 }
 
 catch(e){
-  
+  console.log(e)
   if(e){
     Alert.alert("Check your internet")
     return;
@@ -234,6 +258,7 @@ catch(e){
             setNationalid('');
             setPW('');
 };
+
 
 useEffect(() =>{
   const natid=nationalId
@@ -286,7 +311,7 @@ useEffect(() =>{
                   </View>
         
                   <TouchableOpacity
-                    onPress={gtCompDtls}
+                    onPress={ChckUsrExistence}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Create Account

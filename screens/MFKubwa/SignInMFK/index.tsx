@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {createCompany} from '../../../src/graphql/mutations';
 import { getBankAdmin, getCompany, getSAgent} from '../../../src/graphql/queries';
-import {graphqlOperation, API} from 'aws-amplify';
+import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -24,7 +24,8 @@ const MFKSignIn = (props) => {
   const navigation = useNavigation();
 
   const [MFKId, setMFKId] = useState("");
-  const [MFKPW, setMFKPW] = useState("");  
+  const [MFKPW, setMFKPW] = useState("");
+  const [ownr, setownr] = useState("");   
 
 
 
@@ -33,34 +34,44 @@ const MFKSignIn = (props) => {
   };
 
 
+  const fetchUser = async () => {
+    const userInfo = await Auth.currentAuthenticatedUser();
+    setownr(userInfo.attributes.sub);  
+    
+  }
+
+  useEffect(() => {
+    fetchUser();
+    }, []); 
     
       const fetchMFKDts = async () => {
         try {
                 const MFKDtls: any = await API.graphql(
-                    graphqlOperation(getSAgent, {id: MFKId}
+                    graphqlOperation(getSAgent, {saPhoneContact: MFKId}
                 ),);
 
                 const pw1s = MFKDtls.data.getSAgent.pw;
-                
+                const owners = MFKDtls.data.getSAgent.owner;
 
                 
 
 
-                if(MFKPW === pw1s )
+                if(MFKPW !== pw1s ){
+                  Alert.alert("Your password is wrong");
+                                  }
+                                  
+                                  else
                 {
               
                   moveToMFKHm();
               }
-              else{
-                Alert.alert("You are not authorised to access these settings");
-
-              }
+              
             }
 
             catch (e)
             {
               if(e){
-                Alert.alert("Check your internet")
+                Alert.alert("Either you dont have MFKubwa Ac or Check your internet")
                 return;
               }
                

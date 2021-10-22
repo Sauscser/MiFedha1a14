@@ -52,13 +52,14 @@ const RepayCovLnsss = props => {
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
-  
+  const [SendrPhn, setSendrPhn] = useState(null);
+  const [RecPhn, setRecPhn] = useState("");
   
 
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-     
+    setSendrPhn(userInfo.attributes.phone_number);
   }
 
   useEffect(() => {
@@ -73,7 +74,7 @@ const RepayCovLnsss = props => {
     setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {nationalid: SenderNatId}),
+        graphqlOperation(getSMAccount, {phonecontact: SendrPhn}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -118,7 +119,7 @@ const RepayCovLnsss = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {nationalid: RecNatId}),
+                    graphqlOperation(getSMAccount, {phonecontact: RecPhn}),
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
@@ -182,8 +183,8 @@ const RepayCovLnsss = props => {
                                   await API.graphql(
                                     graphqlOperation(createNonLoans, {
                                       input: {
-                                        recId: RecNatId,
-                                        senderID: SenderNatId,                                  
+                                        senderPhn: SendrPhn,
+                                        recPhn: RecPhn,                                  
                                         amount: amounts,                              
                                         description: Desc,
                                         status: "SMCovLonRepayment",
@@ -214,7 +215,7 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          nationalid:SenderNatId,
+                                          phonecontact:SendrPhn,
                                           ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted ,
                                           TtlActvLonsTmsLneeCov:parseFloat(TtlActvLonsTmsLneeCovss)-1,                                          
@@ -248,7 +249,7 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          nationalid:RecNatId,
+                                          phonecontact:RecPhn,
                                           ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
                                           balance:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
                                           TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovssss) - 1,
@@ -338,8 +339,8 @@ const RepayCovLnsss = props => {
                                   await API.graphql(
                                     graphqlOperation(createNonLoans, {
                                       input: {
-                                        recId: RecNatId,
-                                        senderID: SenderNatId,                                  
+                                        recPhn: RecPhn,
+                                        senderPhn: SendrPhn,                                  
                                         amount: amounts,                              
                                         description: Desc,
                                         status: "SMCovLonRepayment",
@@ -370,10 +371,10 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          nationalid:SenderNatId,
+                                          phonecontact:SendrPhn,
                                           ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted,
-                                          TtlActvLonsTmsLneeCov:parseFloat(TtlActvLonsTmsLneeCovss)-1,                                          
+                                                                                   
                                           TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts), 
                                           
                                          
@@ -401,10 +402,10 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          nationalid:RecNatId,
+                                          phonecontact:RecPhn,
                                           ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
                                           balance:parseFloat(RecUsrBal) + parseFloat(amounts),
-                                          TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovssss) - 1,
+                                          
                                           TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovssss) - parseFloat(amounts),
                                           
                                           
@@ -519,16 +520,26 @@ const RepayCovLnsss = props => {
       return;}
   };
       setIsLoading(false);
-      setSenderNatId('');
+      
       setAmount("");
       setRecNatId('');
       setLnId("");
       setDesc("");
       setSnderPW("");
+      setRecPhn("");
       
 }
 
-
+useEffect(() =>{
+  const RecPhns=RecPhn
+    if(!RecPhns && RecPhns!=="")
+    {
+      setRecPhn("");
+      return;
+    }
+    setRecPhn(RecPhns);
+    }, [RecPhn]
+     );
 
 useEffect(() =>{
   const SnderNatIds=SenderNatId
@@ -617,11 +628,11 @@ useEffect(() =>{
 
           <View style={styles.sendAmtView}>
             <TextInput
-              value={SenderNatId}
-              onChangeText={setSenderNatId}
+              value={RecPhn}
+              onChangeText={setRecPhn}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Loanee National Id</Text>
+            <Text style={styles.sendAmtText}>Loanee Phone</Text>
           </View>
 
           <View style={styles.sendAmtView}>
@@ -632,6 +643,8 @@ useEffect(() =>{
               editable={true}></TextInput>
             <Text style={styles.sendAmtText}>Loaner National Id</Text>
           </View>
+
+          
 
           <View style={styles.sendAmtView}>
             <TextInput

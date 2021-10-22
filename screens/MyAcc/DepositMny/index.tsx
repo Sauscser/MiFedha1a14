@@ -27,6 +27,7 @@ const SMADepositForm = props => {
   const[agPWd, setAgPWd] = useState("");
   const [AgentPhn, setAgentPhn] = useState("");
   const [amount, setAmount] = useState("");
+  const [UsrId, setUsrId] = useState("");
   const[isLoading, setIsLoading] = useState(false);
   const [ownr, setownr] = useState(null);
 
@@ -51,7 +52,7 @@ const SMADepositForm = props => {
     setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {nationalid: nationalId}),
+        graphqlOperation(getSMAccount, {phonecontact: nationalId}),
       );
 
       const usrBala = accountDtl.data.getSMAccount.balance;      
@@ -75,6 +76,7 @@ const SMADepositForm = props => {
           const agtFltBl = AgentBal.data.getAgent.floatBal;
           const agPW = AgentBal.data.getAgent.pw;
           const AgAcAct = AgentBal.data.getAgent.status;
+          const nationalids = AgentBal.data.getAgent.nationalid;
 
           const gtCompDtls = async () =>{
             if(isLoading){
@@ -123,7 +125,7 @@ const SMADepositForm = props => {
                 await API.graphql(
                   graphqlOperation(updateSMAccount, {
                     input: {
-                      nationalid: nationalId,
+                      phonecontact: nationalId,
           
                       balance: parseFloat(usrBala) + parseFloat(amount),
                       ttlDpstSM: parseFloat(usrTlDpst) + parseFloat(amount),
@@ -197,6 +199,11 @@ const SMADepositForm = props => {
               Alert.alert("User Account has been deactivated")
               return;
             } 
+
+            if (nationalids!==UsrId) {
+              Alert.alert("User ID is wrong")
+              return;
+            } 
             else if(parseFloat(amount)>parseFloat(depositLimits)) {
               Alert.alert('Deposit limit exceeded');
               return;
@@ -247,10 +254,22 @@ const SMADepositForm = props => {
     setNationalid("");
     setAmount("");
     setAgPWd("")
-    setAgentPhn("");    
+    setAgentPhn("");  
+    setUsrId("");   
   }; 
 
   useEffect(() =>{
+    const UsrIds=UsrId
+      if(!UsrIds && UsrIds!=="")
+      {
+        setUsrId("");
+        return;
+      }
+      setUsrId(UsrIds);
+      }, [UsrId]
+       );
+       
+       useEffect(() =>{
     const usId=nationalId
       if(!usId && usId!=="")
       {
@@ -316,7 +335,16 @@ const SMADepositForm = props => {
               onChangeText={setNationalid}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Depositer Nat Id</Text>
+            <Text style={styles.sendAmtText}>Depositer Phone Number</Text>
+          </View>
+
+          <View style={styles.sendAmtView}>
+            <TextInput
+              value={UsrId}
+              onChangeText={setUsrId}
+              style={styles.sendAmtInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendAmtText}>Depositer ID</Text>
           </View>
 
          

@@ -51,7 +51,7 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
      setIsLoading(true);
     try{
     const MFKb:any = await API.graphql(
-    graphqlOperation(getSAgent, {id:saRegNo})
+    graphqlOperation(getSAgent, {saPhoneContact:saRegNo})
     );
     const actvMFNdogs = MFKb.data.getSAgent.actvMFNdog;
     const names = MFKb.data.getSAgent.name
@@ -146,7 +146,7 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
                 await API.graphql(
                   graphqlOperation(updateSAgent,{
                     input:{
-                      id:saRegNo,
+                      saPhoneContact:saRegNo,
                       actvMFNdog:parseFloat(actvMFNdogs) + 1,
                     }
                   })

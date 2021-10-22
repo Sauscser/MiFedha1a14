@@ -1,5 +1,5 @@
 {
-  "AppSyncApiName": "MiFedha",
+  "AppSyncApiName": "myfedha",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
   "AuthCognitoUserPoolId": {

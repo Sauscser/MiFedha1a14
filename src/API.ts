@@ -105,8 +105,8 @@ export enum Status {
 
 
 export type ModelSMAccountConditionInput = {
+  nationalid?: ModelIDInput | null,
   name?: ModelStringInput | null,
-  phonecontact?: ModelStringInput | null,
   awsemail?: ModelStringInput | null,
   balance?: ModelFloatInput | null,
   pw?: ModelStringInput | null,
@@ -188,7 +188,7 @@ export type ModelSMAccountConditionInput = {
   not?: ModelSMAccountConditionInput | null,
 };
 
-export type ModelStringInput = {
+export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -226,6 +226,22 @@ export type ModelSizeInput = {
   ge?: number | null,
   gt?: number | null,
   between?: Array< number | null > | null,
+};
+
+export type ModelStringInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
 };
 
 export type ModelFloatInput = {
@@ -332,9 +348,9 @@ export type SMAccount = {
 };
 
 export type UpdateSMAccountInput = {
-  nationalid: string,
+  nationalid?: string | null,
   name?: string | null,
-  phonecontact?: string | null,
+  phonecontact: string,
   awsemail?: string | null,
   balance?: number | null,
   pw?: string | null,
@@ -415,12 +431,14 @@ export type UpdateSMAccountInput = {
 };
 
 export type DeleteSMAccountInput = {
-  nationalid: string,
+  phonecontact: string,
 };
 
 export type CreateSMLoansCoveredInput = {
   id?: string | null,
   loaneeid: string,
+  loaneePhn: string,
+  loanerPhn: string,
   loanerId: string,
   amountgiven: number,
   amountexpected: number,
@@ -435,6 +453,8 @@ export type CreateSMLoansCoveredInput = {
 
 export type ModelSMLoansCoveredConditionInput = {
   loaneeid?: ModelStringInput | null,
+  loaneePhn?: ModelStringInput | null,
+  loanerPhn?: ModelStringInput | null,
   loanerId?: ModelStringInput | null,
   amountgiven?: ModelFloatInput | null,
   amountexpected?: ModelFloatInput | null,
@@ -465,6 +485,8 @@ export type SMLoansCovered = {
   __typename: "SMLoansCovered",
   id: string,
   loaneeid: string,
+  loaneePhn: string,
+  loanerPhn: string,
   loanerId: string,
   amountgiven: number,
   amountexpected: number,
@@ -482,6 +504,8 @@ export type SMLoansCovered = {
 export type UpdateSMLoansCoveredInput = {
   id: string,
   loaneeid?: string | null,
+  loaneePhn?: string | null,
+  loanerPhn?: string | null,
   loanerId?: string | null,
   amountgiven?: number | null,
   amountexpected?: number | null,
@@ -500,6 +524,8 @@ export type DeleteSMLoansCoveredInput = {
 
 export type CreateSMLoansNonCoveredInput = {
   id?: string | null,
+  loaneePhn: string,
+  loanerPhn: string,
   loaneeid: string,
   loanerId: string,
   amountgiven: number,
@@ -513,6 +539,8 @@ export type CreateSMLoansNonCoveredInput = {
 };
 
 export type ModelSMLoansNonCoveredConditionInput = {
+  loaneePhn?: ModelStringInput | null,
+  loanerPhn?: ModelStringInput | null,
   loaneeid?: ModelIDInput | null,
   loanerId?: ModelStringInput | null,
   amountgiven?: ModelFloatInput | null,
@@ -527,25 +555,11 @@ export type ModelSMLoansNonCoveredConditionInput = {
   not?: ModelSMLoansNonCoveredConditionInput | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
 export type SMLoansNonCovered = {
   __typename: "SMLoansNonCovered",
   id: string,
+  loaneePhn: string,
+  loanerPhn: string,
   loaneeid: string,
   loanerId: string,
   amountgiven: number,
@@ -562,6 +576,8 @@ export type SMLoansNonCovered = {
 
 export type UpdateSMLoansNonCoveredInput = {
   id: string,
+  loaneePhn?: string | null,
+  loanerPhn?: string | null,
   loaneeid?: string | null,
   loanerId?: string | null,
   amountgiven?: number | null,
@@ -580,8 +596,8 @@ export type DeleteSMLoansNonCoveredInput = {
 
 export type CreateNonLoansInput = {
   id?: string | null,
-  senderID: string,
-  recId: string,
+  senderPhn: string,
+  recPhn: string,
   amount: number,
   description?: string | null,
   status: Status,
@@ -589,8 +605,8 @@ export type CreateNonLoansInput = {
 };
 
 export type ModelNonLoansConditionInput = {
-  senderID?: ModelStringInput | null,
-  recId?: ModelStringInput | null,
+  senderPhn?: ModelStringInput | null,
+  recPhn?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
@@ -602,8 +618,8 @@ export type ModelNonLoansConditionInput = {
 export type NonLoans = {
   __typename: "NonLoans",
   id: string,
-  senderID: string,
-  recId: string,
+  senderPhn: string,
+  recPhn: string,
   amount: number,
   description?: string | null,
   status: Status,
@@ -614,8 +630,8 @@ export type NonLoans = {
 
 export type UpdateNonLoansInput = {
   id: string,
-  senderID?: string | null,
-  recId?: string | null,
+  senderPhn?: string | null,
+  recPhn?: string | null,
   amount?: number | null,
   description?: string | null,
   status?: Status | null,
@@ -889,10 +905,9 @@ export type DeleteAgentWithdrawalsInput = {
 };
 
 export type CreateSAgentInput = {
-  id?: string | null,
+  saPhoneContact: string,
   saNationalid: string,
   name: string,
-  phonecontact: string,
   pw: string,
   TtlEarnings: number,
   actvMFNdog: number,
@@ -906,7 +921,6 @@ export type CreateSAgentInput = {
 export type ModelSAgentConditionInput = {
   saNationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
-  phonecontact?: ModelStringInput | null,
   pw?: ModelStringInput | null,
   TtlEarnings?: ModelFloatInput | null,
   actvMFNdog?: ModelFloatInput | null,
@@ -921,10 +935,9 @@ export type ModelSAgentConditionInput = {
 
 export type SAgent = {
   __typename: "SAgent",
-  id: string,
+  saPhoneContact: string,
   saNationalid: string,
   name: string,
-  phonecontact: string,
   pw: string,
   TtlEarnings: number,
   actvMFNdog: number,
@@ -938,10 +951,9 @@ export type SAgent = {
 };
 
 export type UpdateSAgentInput = {
-  id: string,
+  saPhoneContact: string,
   saNationalid?: string | null,
   name?: string | null,
-  phonecontact?: string | null,
   pw?: string | null,
   TtlEarnings?: number | null,
   actvMFNdog?: number | null,
@@ -953,7 +965,7 @@ export type UpdateSAgentInput = {
 };
 
 export type DeleteSAgentInput = {
-  id: string,
+  saPhoneContact: string,
 };
 
 export type CreateSAgentWithdrawalsInput = {
@@ -2028,7 +2040,7 @@ export type DeleteGrpMembersInput = {
 export type CreateCvrdGroupLoansInput = {
   id?: string | null,
   grpContact: string,
-  loaneeID: string,
+  loaneePhn: string,
   repaymentPeriod: number,
   amountGiven: number,
   amountExpectedBack: number,
@@ -2042,7 +2054,7 @@ export type CreateCvrdGroupLoansInput = {
 
 export type ModelCvrdGroupLoansConditionInput = {
   grpContact?: ModelStringInput | null,
-  loaneeID?: ModelStringInput | null,
+  loaneePhn?: ModelStringInput | null,
   repaymentPeriod?: ModelIntInput | null,
   amountGiven?: ModelFloatInput | null,
   amountExpectedBack?: ModelFloatInput | null,
@@ -2060,7 +2072,7 @@ export type CvrdGroupLoans = {
   __typename: "CvrdGroupLoans",
   id: string,
   grpContact: string,
-  loaneeID: string,
+  loaneePhn: string,
   repaymentPeriod: number,
   amountGiven: number,
   amountExpectedBack: number,
@@ -2077,7 +2089,7 @@ export type CvrdGroupLoans = {
 export type UpdateCvrdGroupLoansInput = {
   id: string,
   grpContact?: string | null,
-  loaneeID?: string | null,
+  loaneePhn?: string | null,
   repaymentPeriod?: number | null,
   amountGiven?: number | null,
   amountExpectedBack?: number | null,
@@ -2096,7 +2108,7 @@ export type DeleteCvrdGroupLoansInput = {
 export type CreateNonCvrdGroupLoansInput = {
   id?: string | null,
   grpContact: string,
-  loaneeID: string,
+  loaneePhn: string,
   repaymentPeriod: number,
   amountGiven: number,
   amountExpectedBack: number,
@@ -2109,7 +2121,7 @@ export type CreateNonCvrdGroupLoansInput = {
 
 export type ModelNonCvrdGroupLoansConditionInput = {
   grpContact?: ModelStringInput | null,
-  loaneeID?: ModelStringInput | null,
+  loaneePhn?: ModelStringInput | null,
   repaymentPeriod?: ModelIntInput | null,
   amountGiven?: ModelFloatInput | null,
   amountExpectedBack?: ModelFloatInput | null,
@@ -2126,7 +2138,7 @@ export type NonCvrdGroupLoans = {
   __typename: "NonCvrdGroupLoans",
   id: string,
   grpContact: string,
-  loaneeID: string,
+  loaneePhn: string,
   repaymentPeriod: number,
   amountGiven: number,
   amountExpectedBack: number,
@@ -2142,7 +2154,7 @@ export type NonCvrdGroupLoans = {
 export type UpdateNonCvrdGroupLoansInput = {
   id: string,
   grpContact?: string | null,
-  loaneeID?: string | null,
+  loaneePhn?: string | null,
   repaymentPeriod?: number | null,
   amountGiven?: number | null,
   amountExpectedBack?: number | null,
@@ -2160,7 +2172,7 @@ export type DeleteNonCvrdGroupLoansInput = {
 export type CreateGroupNonLoansInput = {
   id?: string | null,
   grpContact: string,
-  recipientId: string,
+  recipientPhn: string,
   amountSent: number,
   description?: string | null,
   status: Status,
@@ -2169,7 +2181,7 @@ export type CreateGroupNonLoansInput = {
 
 export type ModelGroupNonLoansConditionInput = {
   grpContact?: ModelStringInput | null,
-  recipientId?: ModelStringInput | null,
+  recipientPhn?: ModelStringInput | null,
   amountSent?: ModelFloatInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
@@ -2182,7 +2194,7 @@ export type GroupNonLoans = {
   __typename: "GroupNonLoans",
   id: string,
   grpContact: string,
-  recipientId: string,
+  recipientPhn: string,
   amountSent: number,
   description?: string | null,
   status: Status,
@@ -2194,7 +2206,7 @@ export type GroupNonLoans = {
 export type UpdateGroupNonLoansInput = {
   id: string,
   grpContact?: string | null,
-  recipientId?: string | null,
+  recipientPhn?: string | null,
   amountSent?: number | null,
   description?: string | null,
   status?: Status | null,
@@ -2207,7 +2219,7 @@ export type DeleteGroupNonLoansInput = {
 
 export type CreateGrpMembersContributionInput = {
   id?: string | null,
-  memberId: string,
+  memberPhn: string,
   grpContact: string,
   contriAmount: number,
   status: Status,
@@ -2215,7 +2227,7 @@ export type CreateGrpMembersContributionInput = {
 };
 
 export type ModelGrpMembersContributionConditionInput = {
-  memberId?: ModelStringInput | null,
+  memberPhn?: ModelStringInput | null,
   grpContact?: ModelStringInput | null,
   contriAmount?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
@@ -2227,7 +2239,7 @@ export type ModelGrpMembersContributionConditionInput = {
 export type GrpMembersContribution = {
   __typename: "GrpMembersContribution",
   id: string,
-  memberId: string,
+  memberPhn: string,
   grpContact: string,
   contriAmount: number,
   status: Status,
@@ -2238,7 +2250,7 @@ export type GrpMembersContribution = {
 
 export type UpdateGrpMembersContributionInput = {
   id: string,
-  memberId?: string | null,
+  memberPhn?: string | null,
   grpContact?: string | null,
   contriAmount?: number | null,
   status?: Status | null,
@@ -2350,6 +2362,8 @@ export type ModelSMAccountConnection = {
 export type ModelSMLoansCoveredFilterInput = {
   id?: ModelIDInput | null,
   loaneeid?: ModelStringInput | null,
+  loaneePhn?: ModelStringInput | null,
+  loanerPhn?: ModelStringInput | null,
   loanerId?: ModelStringInput | null,
   amountgiven?: ModelFloatInput | null,
   amountexpected?: ModelFloatInput | null,
@@ -2373,6 +2387,8 @@ export type ModelSMLoansCoveredConnection = {
 
 export type ModelSMLoansNonCoveredFilterInput = {
   id?: ModelIDInput | null,
+  loaneePhn?: ModelStringInput | null,
+  loanerPhn?: ModelStringInput | null,
   loaneeid?: ModelIDInput | null,
   loanerId?: ModelStringInput | null,
   amountgiven?: ModelFloatInput | null,
@@ -2396,8 +2412,8 @@ export type ModelSMLoansNonCoveredConnection = {
 
 export type ModelNonLoansFilterInput = {
   id?: ModelIDInput | null,
-  senderID?: ModelStringInput | null,
-  recId?: ModelStringInput | null,
+  senderPhn?: ModelStringInput | null,
+  recPhn?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
@@ -2514,10 +2530,9 @@ export type ModelAgentWithdrawalsConnection = {
 };
 
 export type ModelSAgentFilterInput = {
-  id?: ModelIDInput | null,
+  saPhoneContact?: ModelStringInput | null,
   saNationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
-  phonecontact?: ModelStringInput | null,
   pw?: ModelStringInput | null,
   TtlEarnings?: ModelFloatInput | null,
   actvMFNdog?: ModelFloatInput | null,
@@ -2877,7 +2892,7 @@ export type ModelGrpMembersConnection = {
 export type ModelCvrdGroupLoansFilterInput = {
   id?: ModelIDInput | null,
   grpContact?: ModelStringInput | null,
-  loaneeID?: ModelStringInput | null,
+  loaneePhn?: ModelStringInput | null,
   repaymentPeriod?: ModelIntInput | null,
   amountGiven?: ModelFloatInput | null,
   amountExpectedBack?: ModelFloatInput | null,
@@ -2901,7 +2916,7 @@ export type ModelCvrdGroupLoansConnection = {
 export type ModelNonCvrdGroupLoansFilterInput = {
   id?: ModelIDInput | null,
   grpContact?: ModelStringInput | null,
-  loaneeID?: ModelStringInput | null,
+  loaneePhn?: ModelStringInput | null,
   repaymentPeriod?: ModelIntInput | null,
   amountGiven?: ModelFloatInput | null,
   amountExpectedBack?: ModelFloatInput | null,
@@ -2924,7 +2939,7 @@ export type ModelNonCvrdGroupLoansConnection = {
 export type ModelGroupNonLoansFilterInput = {
   id?: ModelIDInput | null,
   grpContact?: ModelStringInput | null,
-  recipientId?: ModelStringInput | null,
+  recipientPhn?: ModelStringInput | null,
   amountSent?: ModelFloatInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
@@ -2942,7 +2957,7 @@ export type ModelGroupNonLoansConnection = {
 
 export type ModelGrpMembersContributionFilterInput = {
   id?: ModelIDInput | null,
-  memberId?: ModelStringInput | null,
+  memberPhn?: ModelStringInput | null,
   grpContact?: ModelStringInput | null,
   contriAmount?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
@@ -2956,91 +2971,6 @@ export type ModelGrpMembersContributionConnection = {
   __typename: "ModelGrpMembersContributionConnection",
   items?:  Array<GrpMembersContribution | null > | null,
   nextToken?: string | null,
-};
-
-export type ModelStringKeyConditionInput = {
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-};
-
-export type ModelSMLoansCoveredConfirmMyLoaneeCompositeKeyConditionInput = {
-  eq?: ModelSMLoansCoveredConfirmMyLoaneeCompositeKeyInput | null,
-  le?: ModelSMLoansCoveredConfirmMyLoaneeCompositeKeyInput | null,
-  lt?: ModelSMLoansCoveredConfirmMyLoaneeCompositeKeyInput | null,
-  ge?: ModelSMLoansCoveredConfirmMyLoaneeCompositeKeyInput | null,
-  gt?: ModelSMLoansCoveredConfirmMyLoaneeCompositeKeyInput | null,
-  between?: Array< ModelSMLoansCoveredConfirmMyLoaneeCompositeKeyInput | null > | null,
-  beginsWith?: ModelSMLoansCoveredConfirmMyLoaneeCompositeKeyInput | null,
-};
-
-export type ModelSMLoansCoveredConfirmMyLoaneeCompositeKeyInput = {
-  loaneeid?: string | null,
-  status?: Status | null,
-};
-
-export type ModelSMLoansCoveredSearchAdvLoanerCompositeKeyConditionInput = {
-  eq?: ModelSMLoansCoveredSearchAdvLoanerCompositeKeyInput | null,
-  le?: ModelSMLoansCoveredSearchAdvLoanerCompositeKeyInput | null,
-  lt?: ModelSMLoansCoveredSearchAdvLoanerCompositeKeyInput | null,
-  ge?: ModelSMLoansCoveredSearchAdvLoanerCompositeKeyInput | null,
-  gt?: ModelSMLoansCoveredSearchAdvLoanerCompositeKeyInput | null,
-  between?: Array< ModelSMLoansCoveredSearchAdvLoanerCompositeKeyInput | null > | null,
-  beginsWith?: ModelSMLoansCoveredSearchAdvLoanerCompositeKeyInput | null,
-};
-
-export type ModelSMLoansCoveredSearchAdvLoanerCompositeKeyInput = {
-  loanerId?: string | null,
-  loaneeid?: string | null,
-};
-
-export type ModelSMLoansNonCoveredConfirmMyLoaneesCompositeKeyConditionInput = {
-  eq?: ModelSMLoansNonCoveredConfirmMyLoaneesCompositeKeyInput | null,
-  le?: ModelSMLoansNonCoveredConfirmMyLoaneesCompositeKeyInput | null,
-  lt?: ModelSMLoansNonCoveredConfirmMyLoaneesCompositeKeyInput | null,
-  ge?: ModelSMLoansNonCoveredConfirmMyLoaneesCompositeKeyInput | null,
-  gt?: ModelSMLoansNonCoveredConfirmMyLoaneesCompositeKeyInput | null,
-  between?: Array< ModelSMLoansNonCoveredConfirmMyLoaneesCompositeKeyInput | null > | null,
-  beginsWith?: ModelSMLoansNonCoveredConfirmMyLoaneesCompositeKeyInput | null,
-};
-
-export type ModelSMLoansNonCoveredConfirmMyLoaneesCompositeKeyInput = {
-  loaneeid?: string | null,
-  status?: Status | null,
-};
-
-export type ModelCovCreditSellerSearchAdvCredSllrCompositeKeyConditionInput = {
-  eq?: ModelCovCreditSellerSearchAdvCredSllrCompositeKeyInput | null,
-  le?: ModelCovCreditSellerSearchAdvCredSllrCompositeKeyInput | null,
-  lt?: ModelCovCreditSellerSearchAdvCredSllrCompositeKeyInput | null,
-  ge?: ModelCovCreditSellerSearchAdvCredSllrCompositeKeyInput | null,
-  gt?: ModelCovCreditSellerSearchAdvCredSllrCompositeKeyInput | null,
-  between?: Array< ModelCovCreditSellerSearchAdvCredSllrCompositeKeyInput | null > | null,
-  beginsWith?: ModelCovCreditSellerSearchAdvCredSllrCompositeKeyInput | null,
-};
-
-export type ModelCovCreditSellerSearchAdvCredSllrCompositeKeyInput = {
-  sellerContact?: string | null,
-  buyerContact?: string | null,
-};
-
-export type ModelCvrdGroupLoansSearchAdvGrpCompositeKeyConditionInput = {
-  eq?: ModelCvrdGroupLoansSearchAdvGrpCompositeKeyInput | null,
-  le?: ModelCvrdGroupLoansSearchAdvGrpCompositeKeyInput | null,
-  lt?: ModelCvrdGroupLoansSearchAdvGrpCompositeKeyInput | null,
-  ge?: ModelCvrdGroupLoansSearchAdvGrpCompositeKeyInput | null,
-  gt?: ModelCvrdGroupLoansSearchAdvGrpCompositeKeyInput | null,
-  between?: Array< ModelCvrdGroupLoansSearchAdvGrpCompositeKeyInput | null > | null,
-  beginsWith?: ModelCvrdGroupLoansSearchAdvGrpCompositeKeyInput | null,
-};
-
-export type ModelCvrdGroupLoansSearchAdvGrpCompositeKeyInput = {
-  grpContact?: string | null,
-  loaneeID?: string | null,
 };
 
 export type CreateSMAccountMutationVariables = {
@@ -3332,6 +3262,8 @@ export type CreateSMLoansCoveredMutation = {
     __typename: "SMLoansCovered",
     id: string,
     loaneeid: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -3357,6 +3289,8 @@ export type UpdateSMLoansCoveredMutation = {
     __typename: "SMLoansCovered",
     id: string,
     loaneeid: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -3382,6 +3316,8 @@ export type DeleteSMLoansCoveredMutation = {
     __typename: "SMLoansCovered",
     id: string,
     loaneeid: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -3406,6 +3342,8 @@ export type CreateSMLoansNonCoveredMutation = {
   createSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -3430,6 +3368,8 @@ export type UpdateSMLoansNonCoveredMutation = {
   updateSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -3454,6 +3394,8 @@ export type DeleteSMLoansNonCoveredMutation = {
   deleteSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -3478,8 +3420,8 @@ export type CreateNonLoansMutation = {
   createNonLoans?:  {
     __typename: "NonLoans",
     id: string,
-    senderID: string,
-    recId: string,
+    senderPhn: string,
+    recPhn: string,
     amount: number,
     description?: string | null,
     status: Status,
@@ -3498,8 +3440,8 @@ export type UpdateNonLoansMutation = {
   updateNonLoans?:  {
     __typename: "NonLoans",
     id: string,
-    senderID: string,
-    recId: string,
+    senderPhn: string,
+    recPhn: string,
     amount: number,
     description?: string | null,
     status: Status,
@@ -3518,8 +3460,8 @@ export type DeleteNonLoansMutation = {
   deleteNonLoans?:  {
     __typename: "NonLoans",
     id: string,
-    senderID: string,
-    recId: string,
+    senderPhn: string,
+    recPhn: string,
     amount: number,
     description?: string | null,
     status: Status,
@@ -3855,10 +3797,9 @@ export type CreateSAgentMutationVariables = {
 export type CreateSAgentMutation = {
   createSAgent?:  {
     __typename: "SAgent",
-    id: string,
+    saPhoneContact: string,
     saNationalid: string,
     name: string,
-    phonecontact: string,
     pw: string,
     TtlEarnings: number,
     actvMFNdog: number,
@@ -3880,10 +3821,9 @@ export type UpdateSAgentMutationVariables = {
 export type UpdateSAgentMutation = {
   updateSAgent?:  {
     __typename: "SAgent",
-    id: string,
+    saPhoneContact: string,
     saNationalid: string,
     name: string,
-    phonecontact: string,
     pw: string,
     TtlEarnings: number,
     actvMFNdog: number,
@@ -3905,10 +3845,9 @@ export type DeleteSAgentMutationVariables = {
 export type DeleteSAgentMutation = {
   deleteSAgent?:  {
     __typename: "SAgent",
-    id: string,
+    saPhoneContact: string,
     saNationalid: string,
     name: string,
-    phonecontact: string,
     pw: string,
     TtlEarnings: number,
     actvMFNdog: number,
@@ -4973,7 +4912,7 @@ export type CreateCvrdGroupLoansMutation = {
     __typename: "CvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -4998,7 +4937,7 @@ export type UpdateCvrdGroupLoansMutation = {
     __typename: "CvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -5023,7 +4962,7 @@ export type DeleteCvrdGroupLoansMutation = {
     __typename: "CvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -5048,7 +4987,7 @@ export type CreateNonCvrdGroupLoansMutation = {
     __typename: "NonCvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -5072,7 +5011,7 @@ export type UpdateNonCvrdGroupLoansMutation = {
     __typename: "NonCvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -5096,7 +5035,7 @@ export type DeleteNonCvrdGroupLoansMutation = {
     __typename: "NonCvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -5120,7 +5059,7 @@ export type CreateGroupNonLoansMutation = {
     __typename: "GroupNonLoans",
     id: string,
     grpContact: string,
-    recipientId: string,
+    recipientPhn: string,
     amountSent: number,
     description?: string | null,
     status: Status,
@@ -5140,7 +5079,7 @@ export type UpdateGroupNonLoansMutation = {
     __typename: "GroupNonLoans",
     id: string,
     grpContact: string,
-    recipientId: string,
+    recipientPhn: string,
     amountSent: number,
     description?: string | null,
     status: Status,
@@ -5160,7 +5099,7 @@ export type DeleteGroupNonLoansMutation = {
     __typename: "GroupNonLoans",
     id: string,
     grpContact: string,
-    recipientId: string,
+    recipientPhn: string,
     amountSent: number,
     description?: string | null,
     status: Status,
@@ -5179,7 +5118,7 @@ export type CreateGrpMembersContributionMutation = {
   createGrpMembersContribution?:  {
     __typename: "GrpMembersContribution",
     id: string,
-    memberId: string,
+    memberPhn: string,
     grpContact: string,
     contriAmount: number,
     status: Status,
@@ -5198,7 +5137,7 @@ export type UpdateGrpMembersContributionMutation = {
   updateGrpMembersContribution?:  {
     __typename: "GrpMembersContribution",
     id: string,
-    memberId: string,
+    memberPhn: string,
     grpContact: string,
     contriAmount: number,
     status: Status,
@@ -5217,7 +5156,7 @@ export type DeleteGrpMembersContributionMutation = {
   deleteGrpMembersContribution?:  {
     __typename: "GrpMembersContribution",
     id: string,
-    memberId: string,
+    memberPhn: string,
     grpContact: string,
     contriAmount: number,
     status: Status,
@@ -5228,7 +5167,7 @@ export type DeleteGrpMembersContributionMutation = {
 };
 
 export type GetSMAccountQueryVariables = {
-  nationalid: string,
+  phonecontact: string,
 };
 
 export type GetSMAccountQuery = {
@@ -5320,7 +5259,7 @@ export type GetSMAccountQuery = {
 };
 
 export type ListSMAccountsQueryVariables = {
-  nationalid?: string | null,
+  phonecontact?: string | null,
   filter?: ModelSMAccountFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
@@ -5428,6 +5367,8 @@ export type GetSMLoansCoveredQuery = {
     __typename: "SMLoansCovered",
     id: string,
     loaneeid: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -5456,6 +5397,8 @@ export type ListSMLoansCoveredsQuery = {
       __typename: "SMLoansCovered",
       id: string,
       loaneeid: string,
+      loaneePhn: string,
+      loanerPhn: string,
       loanerId: string,
       amountgiven: number,
       amountexpected: number,
@@ -5481,6 +5424,8 @@ export type GetSMLoansNonCoveredQuery = {
   getSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -5508,6 +5453,8 @@ export type ListSMLoansNonCoveredsQuery = {
     items?:  Array< {
       __typename: "SMLoansNonCovered",
       id: string,
+      loaneePhn: string,
+      loanerPhn: string,
       loaneeid: string,
       loanerId: string,
       amountgiven: number,
@@ -5533,8 +5480,8 @@ export type GetNonLoansQuery = {
   getNonLoans?:  {
     __typename: "NonLoans",
     id: string,
-    senderID: string,
-    recId: string,
+    senderPhn: string,
+    recPhn: string,
     amount: number,
     description?: string | null,
     status: Status,
@@ -5556,8 +5503,8 @@ export type ListNonLoanssQuery = {
     items?:  Array< {
       __typename: "NonLoans",
       id: string,
-      senderID: string,
-      recId: string,
+      senderPhn: string,
+      recPhn: string,
       amount: number,
       description?: string | null,
       status: Status,
@@ -5804,16 +5751,15 @@ export type ListAgentWithdrawalssQuery = {
 };
 
 export type GetSAgentQueryVariables = {
-  id: string,
+  saPhoneContact: string,
 };
 
 export type GetSAgentQuery = {
   getSAgent?:  {
     __typename: "SAgent",
-    id: string,
+    saPhoneContact: string,
     saNationalid: string,
     name: string,
-    phonecontact: string,
     pw: string,
     TtlEarnings: number,
     actvMFNdog: number,
@@ -5828,9 +5774,11 @@ export type GetSAgentQuery = {
 };
 
 export type ListSAgentsQueryVariables = {
+  saPhoneContact?: string | null,
   filter?: ModelSAgentFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
 };
 
 export type ListSAgentsQuery = {
@@ -5838,10 +5786,9 @@ export type ListSAgentsQuery = {
     __typename: "ModelSAgentConnection",
     items?:  Array< {
       __typename: "SAgent",
-      id: string,
+      saPhoneContact: string,
       saNationalid: string,
       name: string,
-      phonecontact: string,
       pw: string,
       TtlEarnings: number,
       actvMFNdog: number,
@@ -6608,7 +6555,7 @@ export type GetCvrdGroupLoansQuery = {
     __typename: "CvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -6636,7 +6583,7 @@ export type ListCvrdGroupLoanssQuery = {
       __typename: "CvrdGroupLoans",
       id: string,
       grpContact: string,
-      loaneeID: string,
+      loaneePhn: string,
       repaymentPeriod: number,
       amountGiven: number,
       amountExpectedBack: number,
@@ -6662,7 +6609,7 @@ export type GetNonCvrdGroupLoansQuery = {
     __typename: "NonCvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -6689,7 +6636,7 @@ export type ListNonCvrdGroupLoanssQuery = {
       __typename: "NonCvrdGroupLoans",
       id: string,
       grpContact: string,
-      loaneeID: string,
+      loaneePhn: string,
       repaymentPeriod: number,
       amountGiven: number,
       amountExpectedBack: number,
@@ -6714,7 +6661,7 @@ export type GetGroupNonLoansQuery = {
     __typename: "GroupNonLoans",
     id: string,
     grpContact: string,
-    recipientId: string,
+    recipientPhn: string,
     amountSent: number,
     description?: string | null,
     status: Status,
@@ -6737,7 +6684,7 @@ export type ListGroupNonLoanssQuery = {
       __typename: "GroupNonLoans",
       id: string,
       grpContact: string,
-      recipientId: string,
+      recipientPhn: string,
       amountSent: number,
       description?: string | null,
       status: Status,
@@ -6757,7 +6704,7 @@ export type GetGrpMembersContributionQuery = {
   getGrpMembersContribution?:  {
     __typename: "GrpMembersContribution",
     id: string,
-    memberId: string,
+    memberPhn: string,
     grpContact: string,
     contriAmount: number,
     status: Status,
@@ -6779,1943 +6726,7 @@ export type ListGrpMembersContributionsQuery = {
     items?:  Array< {
       __typename: "GrpMembersContribution",
       id: string,
-      memberId: string,
-      grpContact: string,
-      contriAmount: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckUserrrBalanceQueryVariables = {
-  phonecontact?: string | null,
-  pw?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSMAccountFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckUserrrBalanceQuery = {
-  checkUserrrBalance?:  {
-    __typename: "ModelSMAccountConnection",
-    items?:  Array< {
-      __typename: "SMAccount",
-      nationalid: string,
-      name: string,
-      phonecontact: string,
-      awsemail: string,
-      balance: number,
-      pw: string,
-      loanAcceptanceCode: string,
-      ttlDpstSM: number,
-      TtlWthdrwnSM: number,
-      TtlActvLonsTmsLnrCov: number,
-      TtlActvLonsTmsLneeCov: number,
-      TtlActvLonsAmtLnrCov: number,
-      TtlActvLonsAmtLneeCov: number,
-      TtlBLLonsTmsLnrCov: number,
-      TtlBLLonsTmsLneeCov: number,
-      TtlBLLonsAmtLnrCov: number,
-      TtlBLLonsAmtLneeCov: number,
-      TtlClrdLonsTmsLnrCov: number,
-      TtlClrdLonsTmsLneeCov: number,
-      TtlClrdLonsAmtLnrCov: number,
-      TtlClrdLonsAmtLneeCov: number,
-      TtlActvLonsTmsLneeChmCov: number,
-      TtlActvLonsAmtLneeChmCov: number,
-      TtlBLLonsTmsLneeChmCov: number,
-      TtlBLLonsAmtLneeChmCov: number,
-      TtlClrdLonsTmsLneeChmCov: number,
-      TtlClrdLonsAmtLneeChmCov: number,
-      TtlActvLonsTmsSllrCov: number,
-      TtlActvLonsTmsByrCov: number,
-      TtlActvLonsAmtSllrCov: number,
-      TtlActvLonsAmtByrCov: number,
-      TtlBLLonsTmsSllrCov: number,
-      TtlBLLonsTmsByrCov: number,
-      TtlBLLonsAmtSllrCov: number,
-      TtlBLLonsAmtByrCov: number,
-      TtlClrdLonsTmsSllrCov: number,
-      TtlClrdLonsTmsByrCov: number,
-      TtlClrdLonsAmtSllrCov: number,
-      TtlClrdLonsAmtByrCov: number,
-      TtlActvLonsTmsLnrNonCov: number,
-      TtlActvLonsTmsLneeNonCov: number,
-      TtlActvLonsAmtLnrNonCov: number,
-      TtlActvLonsAmtLneeNonCov: number,
-      TtlBLLonsTmsLnrNonCov: number,
-      TtlBLLonsTmsLneeNonCov: number,
-      TtlBLLonsAmtLnrNonCov: number,
-      TtlBLLonsAmtLneeNonCov: number,
-      TtlClrdLonsTmsLnrNonCov: number,
-      TtlClrdLonsTmsLneeNonCov: number,
-      TtlClrdLonsAmtLnrNonCov: number,
-      TtlClrdLonsAmtLneeNonCov: number,
-      TtlActvLonsTmsLneeChmNonCov: number,
-      TtlActvLonsAmtLneeChmNonCov: number,
-      TtlBLLonsTmsLneeChmNonCov: number,
-      TtlBLLonsAmtLneeChmNonCov: number,
-      TtlClrdLonsTmsLneeChmNonCov: number,
-      TtlClrdLonsAmtLneeChmNonCov: number,
-      TtlActvLonsTmsSllrNonCov: number,
-      TtlActvLonsTmsByrNonCov: number,
-      TtlActvLonsAmtSllrNonCov: number,
-      TtlActvLonsAmtByrNonCov: number,
-      TtlBLLonsTmsSllrNonCov: number,
-      TtlBLLonsTmsByrNonCov: number,
-      TtlBLLonsAmtSllrNonCov: number,
-      TtlBLLonsAmtByrNonCov: number,
-      TtlClrdLonsTmsSllrNonCov: number,
-      TtlClrdLonsTmsByrNonCov: number,
-      TtlClrdLonsAmtSllrNonCov: number,
-      TtlClrdLonsAmtByrNonCov: number,
-      ttlNonLonsRecSM: number,
-      ttlNonLonsSentSM: number,
-      MaxTymsBL: number,
-      loanStatus: Status,
-      acStatus: Status,
-      blStatus: Status,
-      loanLimit: number,
-      nonLonLimit: number,
-      withdrawalLimit: number,
-      depositLimit: number,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type AccessingPersonalAcQueryVariables = {
-  name?: string | null,
-  phonecontact?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSMAccountFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type AccessingPersonalAcQuery = {
-  AccessingPersonalAc?:  {
-    __typename: "ModelSMAccountConnection",
-    items?:  Array< {
-      __typename: "SMAccount",
-      nationalid: string,
-      name: string,
-      phonecontact: string,
-      awsemail: string,
-      balance: number,
-      pw: string,
-      loanAcceptanceCode: string,
-      ttlDpstSM: number,
-      TtlWthdrwnSM: number,
-      TtlActvLonsTmsLnrCov: number,
-      TtlActvLonsTmsLneeCov: number,
-      TtlActvLonsAmtLnrCov: number,
-      TtlActvLonsAmtLneeCov: number,
-      TtlBLLonsTmsLnrCov: number,
-      TtlBLLonsTmsLneeCov: number,
-      TtlBLLonsAmtLnrCov: number,
-      TtlBLLonsAmtLneeCov: number,
-      TtlClrdLonsTmsLnrCov: number,
-      TtlClrdLonsTmsLneeCov: number,
-      TtlClrdLonsAmtLnrCov: number,
-      TtlClrdLonsAmtLneeCov: number,
-      TtlActvLonsTmsLneeChmCov: number,
-      TtlActvLonsAmtLneeChmCov: number,
-      TtlBLLonsTmsLneeChmCov: number,
-      TtlBLLonsAmtLneeChmCov: number,
-      TtlClrdLonsTmsLneeChmCov: number,
-      TtlClrdLonsAmtLneeChmCov: number,
-      TtlActvLonsTmsSllrCov: number,
-      TtlActvLonsTmsByrCov: number,
-      TtlActvLonsAmtSllrCov: number,
-      TtlActvLonsAmtByrCov: number,
-      TtlBLLonsTmsSllrCov: number,
-      TtlBLLonsTmsByrCov: number,
-      TtlBLLonsAmtSllrCov: number,
-      TtlBLLonsAmtByrCov: number,
-      TtlClrdLonsTmsSllrCov: number,
-      TtlClrdLonsTmsByrCov: number,
-      TtlClrdLonsAmtSllrCov: number,
-      TtlClrdLonsAmtByrCov: number,
-      TtlActvLonsTmsLnrNonCov: number,
-      TtlActvLonsTmsLneeNonCov: number,
-      TtlActvLonsAmtLnrNonCov: number,
-      TtlActvLonsAmtLneeNonCov: number,
-      TtlBLLonsTmsLnrNonCov: number,
-      TtlBLLonsTmsLneeNonCov: number,
-      TtlBLLonsAmtLnrNonCov: number,
-      TtlBLLonsAmtLneeNonCov: number,
-      TtlClrdLonsTmsLnrNonCov: number,
-      TtlClrdLonsTmsLneeNonCov: number,
-      TtlClrdLonsAmtLnrNonCov: number,
-      TtlClrdLonsAmtLneeNonCov: number,
-      TtlActvLonsTmsLneeChmNonCov: number,
-      TtlActvLonsAmtLneeChmNonCov: number,
-      TtlBLLonsTmsLneeChmNonCov: number,
-      TtlBLLonsAmtLneeChmNonCov: number,
-      TtlClrdLonsTmsLneeChmNonCov: number,
-      TtlClrdLonsAmtLneeChmNonCov: number,
-      TtlActvLonsTmsSllrNonCov: number,
-      TtlActvLonsTmsByrNonCov: number,
-      TtlActvLonsAmtSllrNonCov: number,
-      TtlActvLonsAmtByrNonCov: number,
-      TtlBLLonsTmsSllrNonCov: number,
-      TtlBLLonsTmsByrNonCov: number,
-      TtlBLLonsAmtSllrNonCov: number,
-      TtlBLLonsAmtByrNonCov: number,
-      TtlClrdLonsTmsSllrNonCov: number,
-      TtlClrdLonsTmsByrNonCov: number,
-      TtlClrdLonsAmtSllrNonCov: number,
-      TtlClrdLonsAmtByrNonCov: number,
-      ttlNonLonsRecSM: number,
-      ttlNonLonsSentSM: number,
-      MaxTymsBL: number,
-      loanStatus: Status,
-      acStatus: Status,
-      blStatus: Status,
-      loanLimit: number,
-      nonLonLimit: number,
-      withdrawalLimit: number,
-      depositLimit: number,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckMyDetorsQueryVariables = {
-  loanerId?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSMLoansCoveredFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckMyDetorsQuery = {
-  checkMyDetors?:  {
-    __typename: "ModelSMLoansCoveredConnection",
-    items?:  Array< {
-      __typename: "SMLoansCovered",
-      id: string,
-      loaneeid: string,
-      loanerId: string,
-      amountgiven: number,
-      amountexpected: number,
-      amountrepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      advregnu: string,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckMyLendersQueryVariables = {
-  loaneeid?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSMLoansCoveredFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckMyLendersQuery = {
-  checkMyLenders?:  {
-    __typename: "ModelSMLoansCoveredConnection",
-    items?:  Array< {
-      __typename: "SMLoansCovered",
-      id: string,
-      loaneeid: string,
-      loanerId: string,
-      amountgiven: number,
-      amountexpected: number,
-      amountrepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      advregnu: string,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type ConfrmMyLoaneeeeeQueryVariables = {
-  loanerId?: string | null,
-  loaneeidStatus?: ModelSMLoansCoveredConfirmMyLoaneeCompositeKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSMLoansCoveredFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ConfrmMyLoaneeeeeQuery = {
-  confrmMyLoaneeeee?:  {
-    __typename: "ModelSMLoansCoveredConnection",
-    items?:  Array< {
-      __typename: "SMLoansCovered",
-      id: string,
-      loaneeid: string,
-      loanerId: string,
-      amountgiven: number,
-      amountexpected: number,
-      amountrepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      advregnu: string,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckbyAdvNLnarQueryVariables = {
-  advregnu?: string | null,
-  loanerId?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSMLoansCoveredFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckbyAdvNLnarQuery = {
-  checkbyAdvNLnar?:  {
-    __typename: "ModelSMLoansCoveredConnection",
-    items?:  Array< {
-      __typename: "SMLoansCovered",
-      id: string,
-      loaneeid: string,
-      loanerId: string,
-      amountgiven: number,
-      amountexpected: number,
-      amountrepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      advregnu: string,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckbyAdvNLnarsQueryVariables = {
-  advregnu?: string | null,
-  loanerIdLoaneeid?: ModelSMLoansCoveredSearchAdvLoanerCompositeKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSMLoansCoveredFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckbyAdvNLnarsQuery = {
-  checkbyAdvNLnars?:  {
-    __typename: "ModelSMLoansCoveredConnection",
-    items?:  Array< {
-      __typename: "SMLoansCovered",
-      id: string,
-      loaneeid: string,
-      loanerId: string,
-      amountgiven: number,
-      amountexpected: number,
-      amountrepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      advregnu: string,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type ChckbyAdvNLneeQueryVariables = {
-  advregnu?: string | null,
-  loaneeid?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSMLoansCoveredFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ChckbyAdvNLneeQuery = {
-  chckbyAdvNLnee?:  {
-    __typename: "ModelSMLoansCoveredConnection",
-    items?:  Array< {
-      __typename: "SMLoansCovered",
-      id: string,
-      loaneeid: string,
-      loanerId: string,
-      amountgiven: number,
-      amountexpected: number,
-      amountrepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      advregnu: string,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckMyDetorssQueryVariables = {
-  loanerId?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSMLoansNonCoveredFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckMyDetorssQuery = {
-  checkMyDetorss?:  {
-    __typename: "ModelSMLoansNonCoveredConnection",
-    items?:  Array< {
-      __typename: "SMLoansNonCovered",
-      id: string,
-      loaneeid: string,
-      loanerId: string,
-      amountgiven: number,
-      amountexpected: number,
-      amountrepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckMyLenderssQueryVariables = {
-  loaneeid?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSMLoansNonCoveredFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckMyLenderssQuery = {
-  checkMyLenderss?:  {
-    __typename: "ModelSMLoansNonCoveredConnection",
-    items?:  Array< {
-      __typename: "SMLoansNonCovered",
-      id: string,
-      loaneeid: string,
-      loanerId: string,
-      amountgiven: number,
-      amountexpected: number,
-      amountrepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type ConfrmMyLoaneeeeesQueryVariables = {
-  loanerId?: string | null,
-  loaneeidStatus?: ModelSMLoansNonCoveredConfirmMyLoaneesCompositeKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSMLoansNonCoveredFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ConfrmMyLoaneeeeesQuery = {
-  confrmMyLoaneeeees?:  {
-    __typename: "ModelSMLoansNonCoveredConnection",
-    items?:  Array< {
-      __typename: "SMLoansNonCovered",
-      id: string,
-      loaneeid: string,
-      loanerId: string,
-      amountgiven: number,
-      amountexpected: number,
-      amountrepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckNonLonsbySenderQueryVariables = {
-  senderID?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckNonLonsbySenderQuery = {
-  checkNonLonsbySender?:  {
-    __typename: "ModelNonLoansConnection",
-    items?:  Array< {
-      __typename: "NonLoans",
-      id: string,
-      senderID: string,
-      recId: string,
-      amount: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckReceivedNonLnsQueryVariables = {
-  recId?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckReceivedNonLnsQuery = {
-  checkReceivedNonLns?:  {
-    __typename: "ModelNonLoansConnection",
-    items?:  Array< {
-      __typename: "NonLoans",
-      id: string,
-      senderID: string,
-      recId: string,
-      amount: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckBySenderRecieverQueryVariables = {
-  senderID?: string | null,
-  recId?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckBySenderRecieverQuery = {
-  checkBySenderReciever?:  {
-    __typename: "ModelNonLoansConnection",
-    items?:  Array< {
-      __typename: "NonLoans",
-      id: string,
-      senderID: string,
-      recId: string,
-      amount: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type UpdtAgentBalbyUserQueryVariables = {
-  name?: string | null,
-  pw?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelAgentFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type UpdtAgentBalbyUserQuery = {
-  updtAgentBalbyUser?:  {
-    __typename: "ModelAgentConnection",
-    items?:  Array< {
-      __typename: "Agent",
-      phonecontact: string,
-      nationalid: string,
-      name: string,
-      ttlEarnings: number,
-      pw: string,
-      email: string,
-      sagentregno: string,
-      TtlFltIn: number,
-      TtlFltOut: number,
-      floatBal: number,
-      latitude: number,
-      longitude: number,
-      agentEarningBal: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type SearchMyAgentsQueryVariables = {
-  sagentregno?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelAgentFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type SearchMyAgentsQuery = {
-  searchMyAgents?:  {
-    __typename: "ModelAgentConnection",
-    items?:  Array< {
-      __typename: "Agent",
-      phonecontact: string,
-      nationalid: string,
-      name: string,
-      ttlEarnings: number,
-      pw: string,
-      email: string,
-      sagentregno: string,
-      TtlFltIn: number,
-      TtlFltOut: number,
-      floatBal: number,
-      latitude: number,
-      longitude: number,
-      agentEarningBal: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type LstAgentFltPrchasssQueryVariables = {
-  agentphone?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelFloatPurchaseFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type LstAgentFltPrchasssQuery = {
-  lstAgentFltPrchasss?:  {
-    __typename: "ModelFloatPurchaseConnection",
-    items?:  Array< {
-      __typename: "FloatPurchase",
-      id?: string | null,
-      agentphone: string,
-      amount: number,
-      transactId: string,
-      bankAdminID: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type LstBankAdmTransaaaaccttionsQueryVariables = {
-  bankAdminID?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelFloatPurchaseFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type LstBankAdmTransaaaaccttionsQuery = {
-  lstBankAdmTransaaaaccttions?:  {
-    __typename: "ModelFloatPurchaseConnection",
-    items?:  Array< {
-      __typename: "FloatPurchase",
-      id?: string | null,
-      agentphone: string,
-      amount: number,
-      transactId: string,
-      bankAdminID: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CreateWythdrawalsQueryVariables = {
-  agentPhonecontact?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelFloatAddFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CreateWythdrawalsQuery = {
-  createWythdrawals?:  {
-    __typename: "ModelFloatAddConnection",
-    items?:  Array< {
-      __typename: "FloatAdd",
-      id: string,
-      withdrawerid: string,
-      amount: number,
-      agentPhonecontact: string,
-      sagentId: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CreateWythdrawalsssQueryVariables = {
-  withdrawerid?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelFloatAddFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CreateWythdrawalsssQuery = {
-  createWythdrawalsss?:  {
-    __typename: "ModelFloatAddConnection",
-    items?:  Array< {
-      __typename: "FloatAdd",
-      id: string,
-      withdrawerid: string,
-      amount: number,
-      agentPhonecontact: string,
-      sagentId: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type ReadSAWithdrwlsQueryVariables = {
-  sagentId?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelFloatAddFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ReadSAWithdrwlsQuery = {
-  readSAWithdrwls?:  {
-    __typename: "ModelFloatAddConnection",
-    items?:  Array< {
-      __typename: "FloatAdd",
-      id: string,
-      withdrawerid: string,
-      amount: number,
-      agentPhonecontact: string,
-      sagentId: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CreatFltDeducQueryVariables = {
-  agContact?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelFloatReductionFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CreatFltDeducQuery = {
-  creatFltDeduc?:  {
-    __typename: "ModelFloatReductionConnection",
-    items?:  Array< {
-      __typename: "FloatReduction",
-      id: string,
-      amount: number,
-      depositerid: string,
-      agContact: string,
-      status: Status,
-      createdAt: string,
-      updatedAt: string,
-      owner?: string | null,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type ReeeadAmtDpstdQueryVariables = {
-  depositerid?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelFloatReductionFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ReeeadAmtDpstdQuery = {
-  reeeadAmtDpstd?:  {
-    __typename: "ModelFloatReductionConnection",
-    items?:  Array< {
-      __typename: "FloatReduction",
-      id: string,
-      amount: number,
-      depositerid: string,
-      agContact: string,
-      status: Status,
-      createdAt: string,
-      updatedAt: string,
-      owner?: string | null,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type LstAgentWithdrowalsQueryVariables = {
-  agentPhone?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelAgentWithdrawalsFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type LstAgentWithdrowalsQuery = {
-  lstAgentWithdrowals?:  {
-    __typename: "ModelAgentWithdrawalsConnection",
-    items?:  Array< {
-      __typename: "AgentWithdrawals",
-      id: string,
-      agentPhone: string,
-      bankAdminId: string,
-      Amount: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type LstBankAdmTransactiooonnnsQueryVariables = {
-  bankAdminId?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelAgentWithdrawalsFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type LstBankAdmTransactiooonnnsQuery = {
-  lstBankAdmTransactiooonnns?:  {
-    __typename: "ModelAgentWithdrawalsConnection",
-    items?:  Array< {
-      __typename: "AgentWithdrawals",
-      id: string,
-      agentPhone: string,
-      bankAdminId: string,
-      Amount: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckingSAQueryVariables = {
-  saNationalid?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSAgentFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckingSAQuery = {
-  CheckingSA?:  {
-    __typename: "ModelSAgentConnection",
-    items?:  Array< {
-      __typename: "SAgent",
-      id: string,
-      saNationalid: string,
-      name: string,
-      phonecontact: string,
-      pw: string,
-      TtlEarnings: number,
-      actvMFNdog: number,
-      InctvMFNdog: number,
-      email: string,
-      saBalance: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type LstSAWithdrllsQueryVariables = {
-  saId?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSAgentWithdrawalsFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type LstSAWithdrllsQuery = {
-  lstSAWithdrlls?:  {
-    __typename: "ModelSAgentWithdrawalsConnection",
-    items?:  Array< {
-      __typename: "SAgentWithdrawals",
-      id: string,
-      saId: string,
-      amount: number,
-      bankAdmnId: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type LstBankAdmTranssactionsQueryVariables = {
-  bankAdmnId?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSAgentWithdrawalsFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type LstBankAdmTranssactionsQuery = {
-  lstBankAdmTranssactions?:  {
-    __typename: "ModelSAgentWithdrawalsConnection",
-    items?:  Array< {
-      __typename: "SAgentWithdrawals",
-      id: string,
-      saId: string,
-      amount: number,
-      bankAdmnId: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckBankAdmWithdrawalsQueryVariables = {
-  bankAdmNatId?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelBankAdmWithdrawalsFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckBankAdmWithdrawalsQuery = {
-  checkBankAdmWithdrawals?:  {
-    __typename: "ModelBankAdmWithdrawalsConnection",
-    items?:  Array< {
-      __typename: "BankAdmWithdrawals",
-      id: string,
-      bankAdmNatId: string,
-      amount: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckAdvocateWithdrawalsssQueryVariables = {
-  advregnu?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelAdvocateWithdrawalsFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckAdvocateWithdrawalsssQuery = {
-  checkAdvocateWithdrawalsss?:  {
-    __typename: "ModelAdvocateWithdrawalsConnection",
-    items?:  Array< {
-      __typename: "AdvocateWithdrawals",
-      id: string,
-      bankAdmnId: string,
-      advregnu: string,
-      amount: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckAdvocateWithdrawalsssAdminQueryVariables = {
-  bankAdmnId?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelAdvocateWithdrawalsFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckAdvocateWithdrawalsssAdminQuery = {
-  checkAdvocateWithdrawalsssAdmin?:  {
-    __typename: "ModelAdvocateWithdrawalsConnection",
-    items?:  Array< {
-      __typename: "AdvocateWithdrawals",
-      id: string,
-      bankAdmnId: string,
-      advregnu: string,
-      amount: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckbyComppwQueryVariables = {
-  pw1?: string | null,
-  pw2?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCompanyFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckbyComppwQuery = {
-  checkbyComppw?:  {
-    __typename: "ModelCompanyConnection",
-    items?:  Array< {
-      __typename: "Company",
-      AdminId: string,
-      phoneContact: string,
-      companyEmail: string,
-      termsNconditions: string,
-      alert: string,
-      about: string,
-      policy: string,
-      privacy: string,
-      recom: string,
-      pw1: string,
-      pw2: string,
-      agentwithdrawalFee: number,
-      agentCom: number,
-      sagentCom: number,
-      companyCom: number,
-      AdvCom: number,
-      bankAdminCom: number,
-      sawithdrawalFee: number,
-      advuserwithdrawalFee: number,
-      bankAdmuserwithdrawalFee: number,
-      userLoanTransferFee: number,
-      userTransferFee: number,
-      userClearanceFee: number,
-      ttlNonLonssRecSM: number,
-      ttlNonLonssSentSM: number,
-      ttlNonLonssRecChm: number,
-      ttlNonLonssSentChm: number,
-      companyEarningBal: number,
-      companyEarning: number,
-      agentEarningBal: number,
-      agentEarning: number,
-      saEarningBal: number,
-      saEarning: number,
-      AdvEarningBal: number,
-      AdvEarning: number,
-      admEarningBal: number,
-      admEarning: number,
-      ttlUsrDep: number,
-      ttlUserWthdrwl?: number | null,
-      agentFloatIn: number,
-      agentFloatOut: number,
-      ttlActiveUsers: number,
-      ttlInactvUsrs: number,
-      ttlKFNdgActv: number,
-      ttlKFNdgInActv: number,
-      ttlKNdgBLStts: number,
-      ttlKFKbwActv: number,
-      ttlKFKbwInActv: number,
-      ttlKKbwBLStts: number,
-      ttlKFAdvActv: number,
-      ttlKFAdvInActv: number,
-      ttlKAdvBLStts: number,
-      ttlKFAdmActv: number,
-      ttlKFAdmInActv: number,
-      ttlKAdmBLStts: number,
-      ttlSMLnsInAmtCov: number,
-      ttlChmLnsInAmtCov: number,
-      ttlSellerLnsInAmtCov: number,
-      ttlSMLnsInActvAmtCov: number,
-      ttlChmLnsInActvAmtCov: number,
-      ttlSellerLnsInActvAmtCov: number,
-      ttlSMLnsInClrdAmtCov: number,
-      ttlChmLnsInClrdAmtCov: number,
-      ttlSellerLnsInClrdAmtCov: number,
-      ttlSMLnsInBlAmtCov: number,
-      ttlChmLnsInBlAmtCov: number,
-      ttlSellerLnsInBlAmtCov: number,
-      ttlSMLnsInTymsCov: number,
-      ttlChmLnsInTymsCov: number,
-      ttlSellerLnsInTymsCov: number,
-      ttlSMLnsInActvTymsCov: number,
-      ttlChmLnsInActvTymsCov: number,
-      ttlSellerLnsInActvTymsCov: number,
-      ttlSMLnsInClrdTymsCov: number,
-      ttlChmLnsInClrdTymsCov: number,
-      ttlSellerLnsInClrdTymsCov: number,
-      ttlSMLnsInBlTymsCov: number,
-      ttlChmLnsInBlTymsCov: number,
-      ttlSellerLnsInBlTymsCov: number,
-      ttlCompTrnsfrEarningsCov: number,
-      ttlCompBLClrncEarningsCov: number,
-      ttlSMLnsInAmtNonCov: number,
-      ttlChmLnsInAmtNonCov: number,
-      ttlSellerLnsInAmtNonCov: number,
-      ttlSMLnsInActvAmtNonCov: number,
-      ttlChmLnsInActvAmtNonCov: number,
-      ttlSellerLnsInActvAmtNonCov: number,
-      ttlSMLnsInClrdAmtNonCov: number,
-      ttlChmLnsInClrdAmtNonCov: number,
-      ttlSellerLnsInClrdAmtNonCov: number,
-      ttlSMLnsInBlAmtNonCov: number,
-      ttlChmLnsInBlAmtNonCov: number,
-      ttlSellerLnsInBlAmtNonCov: number,
-      ttlSMLnsInTymsNonCov: number,
-      ttlChmLnsInTymsNonCov: number,
-      ttlSellerLnsInTymsNonCov: number,
-      ttlSMLnsInActvTymsNonCov: number,
-      ttlChmLnsInActvTymsNonCov: number,
-      ttlSellerLnsInActvTymsNonCov: number,
-      ttlSMLnsInClrdTymsNonCov: number,
-      ttlChmLnsInClrdTymsNonCov: number,
-      ttlSellerLnsInClrdTymsNonCov: number,
-      ttlSMLnsInBlTymsNonCov: number,
-      ttlChmLnsInBlTymsNonCov: number,
-      ttlSellerLnsInBlTymsNonCov: number,
-      ttlCompTrnsfrEarningsNonCov: number,
-      ttlCompBLClrncEarningsNonCov: number,
-      ttlCompCovEarnings: number,
-      maxInterestSM: number,
-      maxInterestCredSllr: number,
-      maxInterestGrp: number,
-      totalLnsRecovered: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckMyNonCovrrrrrrrrdSalesQueryVariables = {
-  sellerID?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCovCreditSellerFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckMyNonCovrrrrrrrrdSalesQuery = {
-  checkMyNonCovrrrrrrrrdSales?:  {
-    __typename: "ModelCovCreditSellerConnection",
-    items?:  Array< {
-      __typename: "CovCreditSeller",
-      id: string,
-      itemName: string,
-      itemSerialNumber?: string | null,
-      buyerContact: string,
-      sellerContact: string,
-      buyerID: string,
-      sellerID: string,
-      amountSold: number,
-      amountexpectedBack: number,
-      amountRepaid: number,
-      repaymentPeriod: number,
-      lonBala: number,
-      description?: string | null,
-      status: Status,
-      advregnu: string,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckMysalessDebtsQueryVariables = {
-  buyerID?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCovCreditSellerFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckMysalessDebtsQuery = {
-  checkMysalessDebts?:  {
-    __typename: "ModelCovCreditSellerConnection",
-    items?:  Array< {
-      __typename: "CovCreditSeller",
-      id: string,
-      itemName: string,
-      itemSerialNumber?: string | null,
-      buyerContact: string,
-      sellerContact: string,
-      buyerID: string,
-      sellerID: string,
-      amountSold: number,
-      amountexpectedBack: number,
-      amountRepaid: number,
-      repaymentPeriod: number,
-      lonBala: number,
-      description?: string | null,
-      status: Status,
-      advregnu: string,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckbyAdvNCredddSsellerQueryVariables = {
-  advregnu?: string | null,
-  sellerContactBuyerContact?: ModelCovCreditSellerSearchAdvCredSllrCompositeKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCovCreditSellerFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckbyAdvNCredddSsellerQuery = {
-  checkbyAdvNCredddSseller?:  {
-    __typename: "ModelCovCreditSellerConnection",
-    items?:  Array< {
-      __typename: "CovCreditSeller",
-      id: string,
-      itemName: string,
-      itemSerialNumber?: string | null,
-      buyerContact: string,
-      sellerContact: string,
-      buyerID: string,
-      sellerID: string,
-      amountSold: number,
-      amountexpectedBack: number,
-      amountRepaid: number,
-      repaymentPeriod: number,
-      lonBala: number,
-      description?: string | null,
-      status: Status,
-      advregnu: string,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckMyNonCovrrrrrrrrdSalessQueryVariables = {
-  sellerID?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonCovCreditSellerFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckMyNonCovrrrrrrrrdSalessQuery = {
-  checkMyNonCovrrrrrrrrdSaless?:  {
-    __typename: "ModelNonCovCreditSellerConnection",
-    items?:  Array< {
-      __typename: "NonCovCreditSeller",
-      id: string,
-      itemName: string,
-      itemSerialNumber?: string | null,
-      buyerContact: string,
-      sellerContact: string,
-      buyerID: string,
-      sellerID: string,
-      amountSold: number,
-      amountexpectedBack: number,
-      amountRepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckMysalessDebtssQueryVariables = {
-  buyerID?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonCovCreditSellerFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckMysalessDebtssQuery = {
-  checkMysalessDebtss?:  {
-    __typename: "ModelNonCovCreditSellerConnection",
-    items?:  Array< {
-      __typename: "NonCovCreditSeller",
-      id: string,
-      itemName: string,
-      itemSerialNumber?: string | null,
-      buyerContact: string,
-      sellerContact: string,
-      buyerID: string,
-      sellerID: string,
-      amountSold: number,
-      amountexpectedBack: number,
-      amountRepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckbyAdvNCredddSsellersQueryVariables = {
-  sellerContact?: string | null,
-  buyerContact?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonCovCreditSellerFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckbyAdvNCredddSsellersQuery = {
-  checkbyAdvNCredddSsellers?:  {
-    __typename: "ModelNonCovCreditSellerConnection",
-    items?:  Array< {
-      __typename: "NonCovCreditSeller",
-      id: string,
-      itemName: string,
-      itemSerialNumber?: string | null,
-      buyerContact: string,
-      sellerContact: string,
-      buyerID: string,
-      sellerID: string,
-      amountSold: number,
-      amountexpectedBack: number,
-      amountRepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckGrpsICrtdQueryVariables = {
-  SignitoryNatid?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelGroupFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckGrpsICrtdQuery = {
-  checkGrpsICrtd?:  {
-    __typename: "ModelGroupConnection",
-    items?:  Array< {
-      __typename: "Group",
-      grpContact: string,
-      signitoryContact: string,
-      SignitoryNatid: string,
-      signitoryName: string,
-      grpName: string,
-      signitoryPW: string,
-      grpEmail: string,
-      grpBal: number,
-      ttlGrpMembers: number,
-      description?: string | null,
-      ttlNonLonsRecChm: number,
-      ttlNonLonsSentChm: number,
-      ttlDpst: number,
-      ttlWthdrwn: number,
-      TtlActvLonsTmsLnrChmCov: number,
-      TtlActvLonsAmtLnrChmCov: number,
-      TtlBLLonsTmsLnrChmCov: number,
-      TtlBLLonsAmtLnrChmCov: number,
-      TtlClrdLonsTmsLnrChmCov: number,
-      TtlClrdLonsAmtLnrChmCov: number,
-      TtlActvLonsTmsLnrChmNonCov: number,
-      TtlActvLonsAmtLnrChmNonCov: number,
-      TtlBLLonsTmsLnrChmNonCov: number,
-      TtlBLLonsAmtLnrChmNonCov: number,
-      TtlClrdLonsTmsLnrChmNonCov: number,
-      TtlClrdLonsAmtLnrChmNonCov: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckMygroupMembersQueryVariables = {
-  groupContact?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelGrpMembersFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckMygroupMembersQuery = {
-  checkMygroupMembers?:  {
-    __typename: "ModelGrpMembersConnection",
-    items?:  Array< {
-      __typename: "GrpMembers",
-      id: string,
-      groupContact: string,
-      memberContact: string,
-      memberNatId: string,
-      acBal: number,
-      AcStatus: Status,
-      loanStatus: Status,
-      blStatus: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckMygrpsQueryVariables = {
-  memberNatId?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelGrpMembersFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckMygrpsQuery = {
-  checkMygrps?:  {
-    __typename: "ModelGrpMembersConnection",
-    items?:  Array< {
-      __typename: "GrpMembers",
-      id: string,
-      groupContact: string,
-      memberContact: string,
-      memberNatId: string,
-      acBal: number,
-      AcStatus: Status,
-      loanStatus: Status,
-      blStatus: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheeeeckGrpCovrdLonDfltsQueryVariables = {
-  grpContact?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCvrdGroupLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheeeeckGrpCovrdLonDfltsQuery = {
-  cheeeeckGrpCovrdLonDflts?:  {
-    __typename: "ModelCvrdGroupLoansConnection",
-    items?:  Array< {
-      __typename: "CvrdGroupLoans",
-      id: string,
-      grpContact: string,
-      loaneeID: string,
-      repaymentPeriod: number,
-      amountGiven: number,
-      amountExpectedBack: number,
-      amountRepaid: number,
-      description?: string | null,
-      lonBala: number,
-      advRegNu: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type UpdatAmaounntrepaidQueryVariables = {
-  loaneeID?: string | null,
-  grpContact?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCvrdGroupLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type UpdatAmaounntrepaidQuery = {
-  updatAmaounntrepaid?:  {
-    __typename: "ModelCvrdGroupLoansConnection",
-    items?:  Array< {
-      __typename: "CvrdGroupLoans",
-      id: string,
-      grpContact: string,
-      loaneeID: string,
-      repaymentPeriod: number,
-      amountGiven: number,
-      amountExpectedBack: number,
-      amountRepaid: number,
-      description?: string | null,
-      lonBala: number,
-      advRegNu: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type ClearloaneriiiiifongoingQueryVariables = {
-  loaneeID?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCvrdGroupLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ClearloaneriiiiifongoingQuery = {
-  clearloaneriiiiifongoing?:  {
-    __typename: "ModelCvrdGroupLoansConnection",
-    items?:  Array< {
-      __typename: "CvrdGroupLoans",
-      id: string,
-      grpContact: string,
-      loaneeID: string,
-      repaymentPeriod: number,
-      amountGiven: number,
-      amountExpectedBack: number,
-      amountRepaid: number,
-      description?: string | null,
-      lonBala: number,
-      advRegNu: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckbyAdvNGrrrppQueryVariables = {
-  advRegNu?: string | null,
-  grpContact?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCvrdGroupLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckbyAdvNGrrrppQuery = {
-  checkbyAdvNGrrrpp?:  {
-    __typename: "ModelCvrdGroupLoansConnection",
-    items?:  Array< {
-      __typename: "CvrdGroupLoans",
-      id: string,
-      grpContact: string,
-      loaneeID: string,
-      repaymentPeriod: number,
-      amountGiven: number,
-      amountExpectedBack: number,
-      amountRepaid: number,
-      description?: string | null,
-      lonBala: number,
-      advRegNu: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckbyAdvNGrrrppNLonieQueryVariables = {
-  advRegNu?: string | null,
-  grpContactLoaneeID?: ModelCvrdGroupLoansSearchAdvGrpCompositeKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCvrdGroupLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckbyAdvNGrrrppNLonieQuery = {
-  checkbyAdvNGrrrppNLonie?:  {
-    __typename: "ModelCvrdGroupLoansConnection",
-    items?:  Array< {
-      __typename: "CvrdGroupLoans",
-      id: string,
-      grpContact: string,
-      loaneeID: string,
-      repaymentPeriod: number,
-      amountGiven: number,
-      amountExpectedBack: number,
-      amountRepaid: number,
-      description?: string | null,
-      lonBala: number,
-      advRegNu: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckbyAdvNLoaneeeeeeiQueryVariables = {
-  advRegNu?: string | null,
-  loaneeID?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCvrdGroupLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckbyAdvNLoaneeeeeeiQuery = {
-  checkbyAdvNLoaneeeeeei?:  {
-    __typename: "ModelCvrdGroupLoansConnection",
-    items?:  Array< {
-      __typename: "CvrdGroupLoans",
-      id: string,
-      grpContact: string,
-      loaneeID: string,
-      repaymentPeriod: number,
-      amountGiven: number,
-      amountExpectedBack: number,
-      amountRepaid: number,
-      description?: string | null,
-      lonBala: number,
-      advRegNu: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheeeeckGrpCovrdLonDfltssQueryVariables = {
-  grpContact?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonCvrdGroupLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheeeeckGrpCovrdLonDfltssQuery = {
-  cheeeeckGrpCovrdLonDfltss?:  {
-    __typename: "ModelNonCvrdGroupLoansConnection",
-    items?:  Array< {
-      __typename: "NonCvrdGroupLoans",
-      id: string,
-      grpContact: string,
-      loaneeID: string,
-      repaymentPeriod: number,
-      amountGiven: number,
-      amountExpectedBack: number,
-      amountRepaid: number,
-      description?: string | null,
-      lonBala: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type UpdatAmaounntrepaidsQueryVariables = {
-  loaneeID?: string | null,
-  grpContact?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonCvrdGroupLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type UpdatAmaounntrepaidsQuery = {
-  updatAmaounntrepaids?:  {
-    __typename: "ModelNonCvrdGroupLoansConnection",
-    items?:  Array< {
-      __typename: "NonCvrdGroupLoans",
-      id: string,
-      grpContact: string,
-      loaneeID: string,
-      repaymentPeriod: number,
-      amountGiven: number,
-      amountExpectedBack: number,
-      amountRepaid: number,
-      description?: string | null,
-      lonBala: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type ClearloaneriiiiifongoingsQueryVariables = {
-  loaneeID?: string | null,
-  status?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonCvrdGroupLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ClearloaneriiiiifongoingsQuery = {
-  clearloaneriiiiifongoings?:  {
-    __typename: "ModelNonCvrdGroupLoansConnection",
-    items?:  Array< {
-      __typename: "NonCvrdGroupLoans",
-      id: string,
-      grpContact: string,
-      loaneeID: string,
-      repaymentPeriod: number,
-      amountGiven: number,
-      amountExpectedBack: number,
-      amountRepaid: number,
-      description?: string | null,
-      lonBala: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheeeckGrpMemberNonLoanseeQueryVariables = {
-  recipientId?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelGroupNonLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheeeckGrpMemberNonLoanseeQuery = {
-  cheeeckGrpMemberNonLoansee?:  {
-    __typename: "ModelGroupNonLoansConnection",
-    items?:  Array< {
-      __typename: "GroupNonLoans",
-      id: string,
-      grpContact: string,
-      recipientId: string,
-      amountSent: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheeeckGrpNonLoanseQueryVariables = {
-  grpContact?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelGroupNonLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheeeckGrpNonLoanseQuery = {
-  cheeeckGrpNonLoanse?:  {
-    __typename: "ModelGroupNonLoansConnection",
-    items?:  Array< {
-      __typename: "GroupNonLoans",
-      id: string,
-      grpContact: string,
-      recipientId: string,
-      amountSent: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckAllMyGrpsContriQueryVariables = {
-  memberId?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelGrpMembersContributionFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckAllMyGrpsContriQuery = {
-  checkAllMyGrpsContri?:  {
-    __typename: "ModelGrpMembersContributionConnection",
-    items?:  Array< {
-      __typename: "GrpMembersContribution",
-      id: string,
-      memberId: string,
-      grpContact: string,
-      contriAmount: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckAllGrpContributorssssQueryVariables = {
-  grpContact?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelGrpMembersContributionFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckAllGrpContributorssssQuery = {
-  checkAllGrpContributorssss?:  {
-    __typename: "ModelGrpMembersContributionConnection",
-    items?:  Array< {
-      __typename: "GrpMembersContribution",
-      id: string,
-      memberId: string,
-      grpContact: string,
-      contriAmount: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CheckMmbrContrInAGrppQueryVariables = {
-  grpContact?: string | null,
-  memberId?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelGrpMembersContributionFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CheckMmbrContrInAGrppQuery = {
-  checkMmbrContrInAGrpp?:  {
-    __typename: "ModelGrpMembersContributionConnection",
-    items?:  Array< {
-      __typename: "GrpMembersContribution",
-      id: string,
-      memberId: string,
+      memberPhn: string,
       grpContact: string,
       contriAmount: number,
       status: Status,
@@ -8996,6 +7007,8 @@ export type OnCreateSMLoansCoveredSubscription = {
     __typename: "SMLoansCovered",
     id: string,
     loaneeid: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -9016,6 +7029,8 @@ export type OnUpdateSMLoansCoveredSubscription = {
     __typename: "SMLoansCovered",
     id: string,
     loaneeid: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -9036,6 +7051,8 @@ export type OnDeleteSMLoansCoveredSubscription = {
     __typename: "SMLoansCovered",
     id: string,
     loaneeid: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -9055,6 +7072,8 @@ export type OnCreateSMLoansNonCoveredSubscription = {
   onCreateSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -9074,6 +7093,8 @@ export type OnUpdateSMLoansNonCoveredSubscription = {
   onUpdateSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -9093,6 +7114,8 @@ export type OnDeleteSMLoansNonCoveredSubscription = {
   onDeleteSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
+    loaneePhn: string,
+    loanerPhn: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -9112,8 +7135,8 @@ export type OnCreateNonLoansSubscription = {
   onCreateNonLoans?:  {
     __typename: "NonLoans",
     id: string,
-    senderID: string,
-    recId: string,
+    senderPhn: string,
+    recPhn: string,
     amount: number,
     description?: string | null,
     status: Status,
@@ -9127,8 +7150,8 @@ export type OnUpdateNonLoansSubscription = {
   onUpdateNonLoans?:  {
     __typename: "NonLoans",
     id: string,
-    senderID: string,
-    recId: string,
+    senderPhn: string,
+    recPhn: string,
     amount: number,
     description?: string | null,
     status: Status,
@@ -9142,8 +7165,8 @@ export type OnDeleteNonLoansSubscription = {
   onDeleteNonLoans?:  {
     __typename: "NonLoans",
     id: string,
-    senderID: string,
-    recId: string,
+    senderPhn: string,
+    recPhn: string,
     amount: number,
     description?: string | null,
     status: Status,
@@ -9399,10 +7422,9 @@ export type OnDeleteAgentWithdrawalsSubscription = {
 export type OnCreateSAgentSubscription = {
   onCreateSAgent?:  {
     __typename: "SAgent",
-    id: string,
+    saPhoneContact: string,
     saNationalid: string,
     name: string,
-    phonecontact: string,
     pw: string,
     TtlEarnings: number,
     actvMFNdog: number,
@@ -9419,10 +7441,9 @@ export type OnCreateSAgentSubscription = {
 export type OnUpdateSAgentSubscription = {
   onUpdateSAgent?:  {
     __typename: "SAgent",
-    id: string,
+    saPhoneContact: string,
     saNationalid: string,
     name: string,
-    phonecontact: string,
     pw: string,
     TtlEarnings: number,
     actvMFNdog: number,
@@ -9439,10 +7460,9 @@ export type OnUpdateSAgentSubscription = {
 export type OnDeleteSAgentSubscription = {
   onDeleteSAgent?:  {
     __typename: "SAgent",
-    id: string,
+    saPhoneContact: string,
     saNationalid: string,
     name: string,
-    phonecontact: string,
     pw: string,
     TtlEarnings: number,
     actvMFNdog: number,
@@ -10388,7 +8408,7 @@ export type OnCreateCvrdGroupLoansSubscription = {
     __typename: "CvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -10408,7 +8428,7 @@ export type OnUpdateCvrdGroupLoansSubscription = {
     __typename: "CvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -10428,7 +8448,7 @@ export type OnDeleteCvrdGroupLoansSubscription = {
     __typename: "CvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -10448,7 +8468,7 @@ export type OnCreateNonCvrdGroupLoansSubscription = {
     __typename: "NonCvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -10467,7 +8487,7 @@ export type OnUpdateNonCvrdGroupLoansSubscription = {
     __typename: "NonCvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -10486,7 +8506,7 @@ export type OnDeleteNonCvrdGroupLoansSubscription = {
     __typename: "NonCvrdGroupLoans",
     id: string,
     grpContact: string,
-    loaneeID: string,
+    loaneePhn: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -10505,7 +8525,7 @@ export type OnCreateGroupNonLoansSubscription = {
     __typename: "GroupNonLoans",
     id: string,
     grpContact: string,
-    recipientId: string,
+    recipientPhn: string,
     amountSent: number,
     description?: string | null,
     status: Status,
@@ -10520,7 +8540,7 @@ export type OnUpdateGroupNonLoansSubscription = {
     __typename: "GroupNonLoans",
     id: string,
     grpContact: string,
-    recipientId: string,
+    recipientPhn: string,
     amountSent: number,
     description?: string | null,
     status: Status,
@@ -10535,7 +8555,7 @@ export type OnDeleteGroupNonLoansSubscription = {
     __typename: "GroupNonLoans",
     id: string,
     grpContact: string,
-    recipientId: string,
+    recipientPhn: string,
     amountSent: number,
     description?: string | null,
     status: Status,
@@ -10549,7 +8569,7 @@ export type OnCreateGrpMembersContributionSubscription = {
   onCreateGrpMembersContribution?:  {
     __typename: "GrpMembersContribution",
     id: string,
-    memberId: string,
+    memberPhn: string,
     grpContact: string,
     contriAmount: number,
     status: Status,
@@ -10563,7 +8583,7 @@ export type OnUpdateGrpMembersContributionSubscription = {
   onUpdateGrpMembersContribution?:  {
     __typename: "GrpMembersContribution",
     id: string,
-    memberId: string,
+    memberPhn: string,
     grpContact: string,
     contriAmount: number,
     status: Status,
@@ -10577,7 +8597,7 @@ export type OnDeleteGrpMembersContributionSubscription = {
   onDeleteGrpMembersContribution?:  {
     __typename: "GrpMembersContribution",
     id: string,
-    memberId: string,
+    memberPhn: string,
     grpContact: string,
     contriAmount: number,
     status: Status,

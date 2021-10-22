@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
 
 import {
+  createFloatAdd,
   createFloatReduction, 
 
   updateAgent,
   updateCompany,
   updateSAgent,
-  updateSmAccount,
+  updateSMAccount,
+  
 } from '../../../src/graphql/mutations';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {getAgent, getCompany, getSAgent, getSMAccount, getSmAccount} from '../../../src/graphql/queries';
+import {getAgent, getCompany, getSAgent, getSMAccount} from '../../../src/graphql/queries';
 import {
   View,
   Text,
@@ -23,7 +25,7 @@ import {
 import styles from './styles';
 
 const SMADepositForm = props => {
-  const [nationalId, setNationalid] = useState("");
+  const [WthDrwrPhn, setWthDrwrPhn] = useState(null);
 
   const[UsrPWd, setUsrPWd] = useState("");
   const [AgentPhn, setAgentPhn] = useState("");
@@ -37,7 +39,7 @@ const SMADepositForm = props => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-     
+    setWthDrwrPhn(userInfo.attributes.phone_number); 
   }
 
   useEffect(() => {
@@ -52,7 +54,7 @@ const SMADepositForm = props => {
     setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {nationalid: nationalId}),
+        graphqlOperation(getSMAccount, {phonecontact: WthDrwrPhn}),
       );
 
       const usrBala = accountDtl.data.getSMAccount.balance;      
@@ -117,7 +119,7 @@ const SMADepositForm = props => {
                     setIsLoading(true);
                     try{
                       const compDtls :any= await API.graphql(
-                      graphqlOperation(getSAgent,{id:sagentregnos})
+                      graphqlOperation(getSAgent,{saPhoneContact:sagentregnos})
                         );
                           const TtlEarningss = compDtls.data.getCompany.TtlEarnings;
                           const saBalances = compDtls.data.getCompany.saBalance;
@@ -125,12 +127,12 @@ const SMADepositForm = props => {
                           const CrtFltAdd = async () => {
                             try {
                               await API.graphql(
-                                graphqlOperation(createFloatReduction, {
+                                graphqlOperation(createFloatAdd, {
                                   input: {
                                   
-                                    withdrawerid: nationalId,                    
+                                    withdrawerid: WthDrwrPhn,                    
                                     agentPhonecontact: AgentPhn,
-                                    sagentId: AgentPhn,
+                                    sagentId: sagentregnos,
                                     owner: ownr,
                                     amount: amount,
                                     status: 'AccountActive',
@@ -157,9 +159,9 @@ const SMADepositForm = props => {
                       setIsLoading(true);
                       try {
                         await API.graphql(
-                          graphqlOperation(updateSmAccount, {
+                          graphqlOperation(updateSMAccount, {
                             input: {
-                              nationalid: nationalId,
+                              phonecontact: WthDrwrPhn,
                   
                               balance: parseFloat(usrBala) - TTlAmtTrnsctd ,
                               TtlWthdrwnSM: parseFloat(TtlWthdrwnSMs) + parseFloat(amount),
@@ -214,7 +216,7 @@ const SMADepositForm = props => {
                               await API.graphql(
                                 graphqlOperation(updateSAgent, {
                                   input: {
-                                    id: sagentregnos,
+                                    saPhoneContact: sagentregnos,
                         
                                    
                                     TtlEarnings: parseFloat(TtlEarningss) + saCommission,
@@ -335,22 +337,13 @@ const SMADepositForm = props => {
           
      }       
     setIsLoading(false)
-    setNationalid("");
+    
     setAmount("");
     setUsrPWd("")
     setAgentPhn("");    
   }; 
 
-  useEffect(() =>{
-    const usId=nationalId
-      if(!usId && usId!=="")
-      {
-        setNationalid("");
-        return;
-      }
-      setNationalid(usId);
-      }, [nationalId]
-       );
+  
 
        useEffect(() =>{
         const amt=amount
@@ -398,19 +391,7 @@ const SMADepositForm = props => {
           <View style={styles.amountTitleView}>
             <Text style={styles.title}>Fill Account Details Below</Text>
           </View>
-
-         
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={nationalId}
-              onChangeText={setNationalid}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Depositer Nat Id</Text>
-          </View>
-
-         
+      
 
           <View style={styles.sendAmtView}>
             <TextInput

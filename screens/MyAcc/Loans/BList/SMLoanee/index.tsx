@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {updateCompany, updateSMAccount, updateSMLoansCovered, } from '../../../../src/graphql/mutations';
-import {getCompany, getSMAccount, getSMLoansCovered } from '../../../../src/graphql/queries';
+import {updateCompany, updateSMAccount, updateSMLoansCovered, } from '../../../../../src/graphql/mutations';
+import {getCompany, getSMAccount, getSMLoansCovered } from '../../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -65,8 +65,8 @@ const BLLoanee = (props) => {
             const compDtls :any= await API.graphql(
               graphqlOperation(getSMLoansCovered,{id:LonId})
               );
-              const loaneeids = compDtls.data.getSMLoansCovered.loaneeid
-              const loanerIds = compDtls.data.getSMLoansCovered.loanerId
+              const buyerContacts = compDtls.data.getSMLoansCovered.buyerContact
+              const sellerContacts = compDtls.data.getSMLoansCovered.sellerContact
               const amountexpecteds = compDtls.data.getSMLoansCovered.amountexpected
               const amountrepaids = compDtls.data.getSMLoansCovered.amountrepaid
               const statusssss = compDtls.data.getSMLoansCovered.status
@@ -79,7 +79,7 @@ const BLLoanee = (props) => {
                 setIsLoading(true);
                 try{
                   const compDtls :any= await API.graphql(
-                    graphqlOperation(getSMAccount,{nationalid:loanerIds})
+                    graphqlOperation(getSMAccount,{nationalid:sellerContacts})
                     );
                     const owners = compDtls.data.getSMAccount.owner
                     const acStatuss = compDtls.data.getSMAccount.acStatus
@@ -94,7 +94,7 @@ const BLLoanee = (props) => {
                       setIsLoading(true);
                       try{
                         const compDtls :any= await API.graphql(
-                          graphqlOperation(getSMAccount,{nationalid:loaneeids})
+                          graphqlOperation(getSMAccount,{nationalid:buyerContacts})
                           );
                           const TtlBLLonsTmsLneeCovs = compDtls.data.getSMAccount.TtlBLLonsTmsLneeCov
                           const TtlBLLonsAmtLneeCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLneeCov
@@ -110,7 +110,7 @@ const BLLoanee = (props) => {
                                 await API.graphql(
                                   graphqlOperation(updateSMAccount,{
                                     input:{
-                                      nationalid:loanerIds,
+                                      nationalid:sellerContacts,
                                       TtlBLLonsTmsLnrCov: parseFloat(TtlBLLonsTmsLnrCovs) + 1,
                                       TtlBLLonsAmtLnrCov: parseFloat(TtlBLLonsAmtLnrCovs) + parseFloat(amountexpecteds)
                                     }
@@ -190,7 +190,7 @@ const BLLoanee = (props) => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount,{
                                         input:{
-                                          nationalid:loaneeids,
+                                          nationalid:buyerContacts,
                                           TtlBLLonsTmsLneeCov: parseFloat(TtlBLLonsTmsLneeCovs) + 1,
                                           TtlBLLonsAmtLneeCov: parseFloat(TtlBLLonsAmtLneeCovs) + parseFloat(amountexpecteds),
                                           blStatus:"AccountBlackListed",
@@ -223,8 +223,7 @@ const BLLoanee = (props) => {
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
                                           id:LonId,
-                                          loaneeid:loaneeids,
-                                          loanerId:loanerIds,
+                                          
                                           status:"LoanBL",
                                         }
                                       })

@@ -283,6 +283,8 @@ export const createSMLoansCovered = /* GraphQL */ `
     createSMLoansCovered(input: $input, condition: $condition) {
       id
       loaneeid
+      loaneePhn
+      loanerPhn
       loanerId
       amountgiven
       amountexpected
@@ -306,6 +308,8 @@ export const updateSMLoansCovered = /* GraphQL */ `
     updateSMLoansCovered(input: $input, condition: $condition) {
       id
       loaneeid
+      loaneePhn
+      loanerPhn
       loanerId
       amountgiven
       amountexpected
@@ -329,6 +333,8 @@ export const deleteSMLoansCovered = /* GraphQL */ `
     deleteSMLoansCovered(input: $input, condition: $condition) {
       id
       loaneeid
+      loaneePhn
+      loanerPhn
       loanerId
       amountgiven
       amountexpected
@@ -351,6 +357,8 @@ export const createSMLoansNonCovered = /* GraphQL */ `
   ) {
     createSMLoansNonCovered(input: $input, condition: $condition) {
       id
+      loaneePhn
+      loanerPhn
       loaneeid
       loanerId
       amountgiven
@@ -373,6 +381,8 @@ export const updateSMLoansNonCovered = /* GraphQL */ `
   ) {
     updateSMLoansNonCovered(input: $input, condition: $condition) {
       id
+      loaneePhn
+      loanerPhn
       loaneeid
       loanerId
       amountgiven
@@ -395,6 +405,8 @@ export const deleteSMLoansNonCovered = /* GraphQL */ `
   ) {
     deleteSMLoansNonCovered(input: $input, condition: $condition) {
       id
+      loaneePhn
+      loanerPhn
       loaneeid
       loanerId
       amountgiven
@@ -417,8 +429,8 @@ export const createNonLoans = /* GraphQL */ `
   ) {
     createNonLoans(input: $input, condition: $condition) {
       id
-      senderID
-      recId
+      senderPhn
+      recPhn
       amount
       description
       status
@@ -435,8 +447,8 @@ export const updateNonLoans = /* GraphQL */ `
   ) {
     updateNonLoans(input: $input, condition: $condition) {
       id
-      senderID
-      recId
+      senderPhn
+      recPhn
       amount
       description
       status
@@ -453,8 +465,8 @@ export const deleteNonLoans = /* GraphQL */ `
   ) {
     deleteNonLoans(input: $input, condition: $condition) {
       id
-      senderID
-      recId
+      senderPhn
+      recPhn
       amount
       description
       status
@@ -758,10 +770,9 @@ export const createSAgent = /* GraphQL */ `
     $condition: ModelSAgentConditionInput
   ) {
     createSAgent(input: $input, condition: $condition) {
-      id
+      saPhoneContact
       saNationalid
       name
-      phonecontact
       pw
       TtlEarnings
       actvMFNdog
@@ -781,10 +792,9 @@ export const updateSAgent = /* GraphQL */ `
     $condition: ModelSAgentConditionInput
   ) {
     updateSAgent(input: $input, condition: $condition) {
-      id
+      saPhoneContact
       saNationalid
       name
-      phonecontact
       pw
       TtlEarnings
       actvMFNdog
@@ -804,10 +814,9 @@ export const deleteSAgent = /* GraphQL */ `
     $condition: ModelSAgentConditionInput
   ) {
     deleteSAgent(input: $input, condition: $condition) {
-      id
+      saPhoneContact
       saNationalid
       name
-      phonecontact
       pw
       TtlEarnings
       actvMFNdog
@@ -1810,7 +1819,7 @@ export const createCvrdGroupLoans = /* GraphQL */ `
     createCvrdGroupLoans(input: $input, condition: $condition) {
       id
       grpContact
-      loaneeID
+      loaneePhn
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -1833,7 +1842,7 @@ export const updateCvrdGroupLoans = /* GraphQL */ `
     updateCvrdGroupLoans(input: $input, condition: $condition) {
       id
       grpContact
-      loaneeID
+      loaneePhn
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -1856,7 +1865,7 @@ export const deleteCvrdGroupLoans = /* GraphQL */ `
     deleteCvrdGroupLoans(input: $input, condition: $condition) {
       id
       grpContact
-      loaneeID
+      loaneePhn
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -1879,7 +1888,7 @@ export const createNonCvrdGroupLoans = /* GraphQL */ `
     createNonCvrdGroupLoans(input: $input, condition: $condition) {
       id
       grpContact
-      loaneeID
+      loaneePhn
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -1901,7 +1910,7 @@ export const updateNonCvrdGroupLoans = /* GraphQL */ `
     updateNonCvrdGroupLoans(input: $input, condition: $condition) {
       id
       grpContact
-      loaneeID
+      loaneePhn
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -1923,7 +1932,7 @@ export const deleteNonCvrdGroupLoans = /* GraphQL */ `
     deleteNonCvrdGroupLoans(input: $input, condition: $condition) {
       id
       grpContact
-      loaneeID
+      loaneePhn
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -1945,7 +1954,7 @@ export const createGroupNonLoans = /* GraphQL */ `
     createGroupNonLoans(input: $input, condition: $condition) {
       id
       grpContact
-      recipientId
+      recipientPhn
       amountSent
       description
       status
@@ -1963,7 +1972,7 @@ export const updateGroupNonLoans = /* GraphQL */ `
     updateGroupNonLoans(input: $input, condition: $condition) {
       id
       grpContact
-      recipientId
+      recipientPhn
       amountSent
       description
       status
@@ -1981,7 +1990,7 @@ export const deleteGroupNonLoans = /* GraphQL */ `
     deleteGroupNonLoans(input: $input, condition: $condition) {
       id
       grpContact
-      recipientId
+      recipientPhn
       amountSent
       description
       status
@@ -1998,7 +2007,7 @@ export const createGrpMembersContribution = /* GraphQL */ `
   ) {
     createGrpMembersContribution(input: $input, condition: $condition) {
       id
-      memberId
+      memberPhn
       grpContact
       contriAmount
       status
@@ -2015,7 +2024,7 @@ export const updateGrpMembersContribution = /* GraphQL */ `
   ) {
     updateGrpMembersContribution(input: $input, condition: $condition) {
       id
-      memberId
+      memberPhn
       grpContact
       contriAmount
       status
@@ -2032,7 +2041,7 @@ export const deleteGrpMembersContribution = /* GraphQL */ `
   ) {
     deleteGrpMembersContribution(input: $input, condition: $condition) {
       id
-      memberId
+      memberPhn
       grpContact
       contriAmount
       status

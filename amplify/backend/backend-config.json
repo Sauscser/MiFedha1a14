@@ -43,7 +43,7 @@
     }
   },
   "api": {
-    "MiFedha": {
+    "myfedha": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {

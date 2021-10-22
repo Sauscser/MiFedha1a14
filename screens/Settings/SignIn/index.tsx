@@ -172,6 +172,7 @@ const AdminSignIn = (props) => {
       
       
     } catch (error) {
+      console.log(error)
      
       if(error) {await fetchExDtls ()}
 
