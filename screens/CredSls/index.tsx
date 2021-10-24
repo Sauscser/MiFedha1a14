@@ -14,12 +14,12 @@ import styles from './styles';
 const CredSalesAccount = props => {
   const navigation = useNavigation();
 
-  const goToGiveCovLns = () => {
-    navigation.navigate('SMGivLon');
+  const CovCredSlss = () => {
+    navigation.navigate('CovCredSls');
   };
 
-  const goToCreateSMAc = () => {
-    navigation.navigate('CreateSMAc');
+  const NonCovCredSlsss = () => {
+    navigation.navigate('NonCovCredSlss');
   };
 
   const goToSMADpstFm = () => {
@@ -63,13 +63,13 @@ const CredSalesAccount = props => {
                   <View style={styles.viewForAcEarningsPressables}>
                     
                     <Pressable
-                      onPress={givCovLnSM}
+                      onPress={CovCredSlss}
                       style={styles.earningsAcPressables}>
                       <Text style={styles.earningsAcPressableText}>Covered CredSls</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={SMASndnonCovLn}
+                      onPress={NonCovCredSlsss}
                       style={styles.earningsAcPressables}>
                       <Text style={styles.earningsAcPressableText}>
                         Non-Covered CredSls

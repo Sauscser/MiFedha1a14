@@ -1156,6 +1156,10 @@ export const createCompany = /* GraphQL */ `
       agentFloatOut
       ttlActiveUsers
       ttlInactvUsrs
+      ttlActiveChm
+      ttlInactvChm
+      ttlActiveChmUsers
+      ttlInactvChmUsrs
       ttlKFNdgActv
       ttlKFNdgInActv
       ttlKNdgBLStts
@@ -1281,6 +1285,10 @@ export const updateCompany = /* GraphQL */ `
       agentFloatOut
       ttlActiveUsers
       ttlInactvUsrs
+      ttlActiveChm
+      ttlInactvChm
+      ttlActiveChmUsers
+      ttlInactvChmUsrs
       ttlKFNdgActv
       ttlKFNdgInActv
       ttlKNdgBLStts
@@ -1406,6 +1414,10 @@ export const deleteCompany = /* GraphQL */ `
       agentFloatOut
       ttlActiveUsers
       ttlInactvUsrs
+      ttlActiveChm
+      ttlInactvChm
+      ttlActiveChmUsers
+      ttlInactvChmUsrs
       ttlKFNdgActv
       ttlKFNdgInActv
       ttlKNdgBLStts

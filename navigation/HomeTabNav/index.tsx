@@ -33,7 +33,9 @@ import BListLnee from "../../screens/MyAcc/Loans/BList/SMLoanee";
 import BListCredByr from "../../screens/MyAcc/Loans/BList/CredLoanee";
 import CovCredSls from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Cov";
 import NonCovCredSls from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/NonCov";
-import CredSlsHm from "../../screens/CredSls";
+import CreateChm from "../../screens/Chama/CrtChm";
+import AddChmMembrss from "../../screens/Chama/AddChmMembrs";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -74,6 +76,8 @@ const HomeNavigator = props => {
       <Stack.Screen name={'CovCredSls'} component={CovCredSls}/>
       <Stack.Screen name={'NonCovCredSlss'} component={NonCovCredSls}/>
       <Stack.Screen name={'CredSlsHms'} component={NonCovCredSls}/>
+      <Stack.Screen name={'CreateChms'} component={CreateChm}/>
+      <Stack.Screen name={'AddChmMembrsss'} component={AddChmMembrss}/>
       
     </Stack.Navigator>
   );

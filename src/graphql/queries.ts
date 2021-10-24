@@ -860,6 +860,10 @@ export const getCompany = /* GraphQL */ `
       agentFloatOut
       ttlActiveUsers
       ttlInactvUsrs
+      ttlActiveChm
+      ttlInactvChm
+      ttlActiveChmUsers
+      ttlInactvChmUsrs
       ttlKFNdgActv
       ttlKFNdgInActv
       ttlKNdgBLStts
@@ -995,6 +999,10 @@ export const listCompanys = /* GraphQL */ `
         agentFloatOut
         ttlActiveUsers
         ttlInactvUsrs
+        ttlActiveChm
+        ttlInactvChm
+        ttlActiveChmUsers
+        ttlInactvChmUsrs
         ttlKFNdgActv
         ttlKFNdgInActv
         ttlKNdgBLStts

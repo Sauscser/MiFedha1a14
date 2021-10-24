@@ -127,22 +127,7 @@ const NonCovCredSls = props => {
 
           
           
-          const fetchAdv = async () =>{
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
-            try{
-
-              const AdvDtls:any = await API.graphql(
-                graphqlOperation(getAdvocate,
-                  {advregnu: AdvRegNo}),
-                  
-              );
-              const advTtlAern = AdvDtls.data.getAdvocate.TtlEarnings;
-              const advBl = AdvDtls.data.getAdvocate.advBal;
-              const advStts = AdvDtls.data.getAdvocate.status;
-              const namesssssss = AdvDtls.data.getAdvocate.name;
+          
               
 
               const fetchRecUsrDtls = async () => {
@@ -294,32 +279,9 @@ const NonCovCredSls = props => {
                         return;}
                           }
                           setIsLoading(false);
-                          await updtAdv();
+                          Alert.alert(names + " sells on credit to " + namess +"goods worth Ksh. " + amount );
                         }
-                        const updtAdv = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateAdvocate, {
-                                  input:{
-                                    advregnu: AdvRegNo,
-                                    advBal: (AdvCovRate) * parseFloat(amount) + parseFloat(advBl) ,
-                                    TtlEarnings:(AdvCovRate) * parseFloat(amount) + parseFloat(advTtlAern),                                 
-                                    
-                                  }
-                                })
-                              )
-                          }
-                          catch(error){
-                            if (error){Alert.alert("Check your internet connection")
-      return;}
-                          }
-                          Alert.alert(names + " sells on credit to " + namess +"goods worth Ksh. " + amount +": "+ namesssssss+" coverage");
-                          setIsLoading(false);
-                        }
+                        
                                               
                         if (parseFloat(usrNoBL) > 1){Alert.alert('Receiver does not qualify');
                       return;
@@ -331,11 +293,11 @@ const NonCovCredSls = props => {
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > maxInterests)
-                        {Alert.alert('Your interest is too high');}
+                        {Alert.alert("Too high interest:" + maxInterests + " per day");}
                         else if (
                           parseFloat(SenderUsrBal) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
-                        else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
+                       
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                         
                         
@@ -354,15 +316,7 @@ const NonCovCredSls = props => {
                       await fetchRecUsrDtls();        
                     
 
-            }
-            catch (e){
-              if (e){Alert.alert("Advocate not registered")
-      return;}
-            }
-            setIsLoading(false);
-          }
-          
-          await fetchAdv();
+            
 
           
         

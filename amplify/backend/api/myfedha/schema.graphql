@@ -896,6 +896,11 @@ type Company
   agentFloatOut: Float!
   ttlActiveUsers: Float!
   ttlInactvUsrs: Float!
+  ttlActiveChm: Float!
+  ttlInactvChm: Float!
+  ttlActiveChmUsers: Float!
+  ttlInactvChmUsrs: Float!
+  
   ttlKFNdgActv: Float!
   ttlKFNdgInActv: Float!
   ttlKNdgBLStts: Float!

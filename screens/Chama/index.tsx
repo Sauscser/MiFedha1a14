@@ -1,56 +1,226 @@
 import React from 'react';
-import {View, Text, ImageBackground, Pressable} from 'react-native';
-import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
-import {Auth} from 'aws-amplify';
+import {
+  View,
+  Text,
+  ImageBackground,
+  Pressable,
+  FlatList,
+  SafeAreaView,
+  Dimensions,
+} from 'react-native';
+import styles from './styles';
 
-const HomeScreen = props => {
+const MyLoanAccount = props => {
   const navigation = useNavigation();
 
-  const goToLoanForm = () => {
-    navigation.navigate('KFNdogoo');
+  const CreateChmss = () => {
+    navigation.navigate('CreateChms');
   };
 
-  const goToChamaMemberLoanForm = () => {
-    navigation.navigate('KFNdogoo');
+  const AddChmMembrssss = () => {
+    navigation.navigate('AddChmMembrsss');
+  };
+  
+  const goToCreateSMAc = () => {
+    navigation.navigate('CreateSMAc');
   };
 
-  const goToSellOnCreditForm = () => {
-    navigation.navigate('KFNdogoo');
+  const goToSMADpstFm = () => {
+    navigation.navigate('DpstMney');
+  };
+
+  const givCovLnSM = () => {
+    navigation.navigate('SMGivCovLon');
+  };
+
+  const payNonCovLn = () => {
+    navigation.navigate('RepayNonCovLnss');
+  };
+
+  const payCovLn = () => {
+    navigation.navigate('RepayCovLnss');
+  };
+
+  const SMASndnonCovLn = () => {
+    navigation.navigate('SMNonGivLon');
+  };
+
+  const goBL = () => {
+    navigation.navigate('BListLneess');
   };
 
   return (
-    <View>
-      <View
+    <SafeAreaView>
+     
         
-        style={styles.image}>
-        <Pressable onPress={goToLoanForm} style={styles.loanFriendButton}>
-          <Text style={styles.loanAFriendText}>Loan a Friend</Text>
-        </Pressable>
+          <View style={styles.adminImage}>
 
-        <Text style={styles.title}>
-          Bizna ni kuokoleana na kudumisha urafiki
-        </Text>
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Chama Loan</Text>
 
-        <View style={styles.viewForPressables}>
-          <Pressable
-            onPress={goToChamaMemberLoanForm}
-            style={styles.chamaLoanAndCreditSalesButton}>
-            <Text style={styles.ChamaLoanAndCreditSalesText}>
-              Loan Chama Member
-            </Text>
-          </Pressable>
-          <Pressable
-            onPress={goToSellOnCreditForm}
-            style={styles.chamaLoanAndCreditSalesButton}>
-            <Text style={styles.ChamaLoanAndCreditSalesText}>
-              Sell on Credit
-            </Text>
-          </Pressable>
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Give Loan</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={payCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Non-Covered Loans
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Black-List</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Covered</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={SMASndnonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Non-Covered Loans
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Repay</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      Non-Covered Loans
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Members</Text>
+
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Registration</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={AddChmMembrssss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Reg</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        De-Reg
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Money</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Contribute</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={SMASndnonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                       Send to Member
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Status</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Specific Chama</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      All Vyamas
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            </View>
+
+      <View style={styles.acEarningsView}>
+          <Text style={styles.salesText}>Chama Account</Text>
+
+          <View style={styles.viewForAcEarningsPressables}>
+            <Pressable onPress={CreateChmss} style={styles.myMoneyPressables}>
+              <Text style={styles.acPressableText}>Create</Text>
+            </Pressable>
+
+            <Pressable onPress={givCovLnSM} style={styles.myMoneyPressables}>
+              <Text style={styles.acPressableText}>Disolve</Text>
+            </Pressable>
+
+            <Pressable onPress={givCovLnSM} style={styles.myMoneyPressables}>
+              <Text style={styles.acPressableText}>Update</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={givCovLnSM}
+              style={styles.myMoneyPressables}>
+              <Text style={styles.acPressableText}>View</Text>
+            </Pressable>
+          </View>
         </View>
-      </View>
-    </View>
+          
+
+          
+    </View> 
+    </SafeAreaView>
   );
 };
 
-export default HomeScreen;
+export default MyLoanAccount;

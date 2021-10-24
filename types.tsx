@@ -49,6 +49,8 @@ declare global {
       CovCredSls:undefined;
       NonCovCredSlss:undefined;
       CredSlsHms:undefined;
+      CreateChms:undefined;
+      AddChmMembrsss:undefined;
     }
   }
 }

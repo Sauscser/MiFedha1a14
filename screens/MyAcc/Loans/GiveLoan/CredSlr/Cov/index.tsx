@@ -199,6 +199,7 @@ const CovCredSls = props => {
 
 
                           } catch (error) {
+                            console.log(error)
                             if(!error){
                               Alert.alert("Account deactivated successfully")
                               
@@ -233,6 +234,7 @@ const CovCredSls = props => {
 
                           }
                           catch(error){
+                            console.log(error)
                             if (error){Alert.alert("Check your internet connection")
                             return;}
                           }
@@ -261,6 +263,7 @@ const CovCredSls = props => {
                               )                              
                           }
                           catch(error){
+                            console.log(error)
                             if (error){Alert.alert("Check your internet connection")
                             return;}
                           }
@@ -316,8 +319,8 @@ const CovCredSls = props => {
                                 graphqlOperation(updateAdvocate, {
                                   input:{
                                     advregnu: AdvRegNo,
-                                    advBal: (AdvCovRate) * parseFloat(amount) + parseFloat(advBl) ,
-                                    TtlEarnings:(AdvCovRate) * parseFloat(amount) + parseFloat(advTtlAern),                                 
+                                    advBal: AdvCovAmt + parseFloat(advBl) ,
+                                    TtlEarnings:AdvCovAmt + parseFloat(advTtlAern),                                 
                                     
                                   }
                                 })
@@ -327,7 +330,7 @@ const CovCredSls = props => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
-                          Alert.alert(names + " sells on credit to " + namess +"goods worth Ksh. " + amount +": "+ namesssssss+" coverage");
+                          Alert.alert(names + " sells on credit to " + namess +" goods worth Ksh. " + amount +": "+ namesssssss+" coverage");
                           setIsLoading(false);
                         }
                                               
@@ -341,7 +344,7 @@ const CovCredSls = props => {
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > maxInterests)
-                        {Alert.alert('Your interest is too high');}
+                        {Alert.alert('Too high interest: '+ maxInterests + " per day");}
                         else if (
                           parseFloat(SenderUsrBal) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
