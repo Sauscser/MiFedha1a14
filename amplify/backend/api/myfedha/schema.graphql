@@ -1027,7 +1027,7 @@ type CovCreditSeller
   description: String
   status: Status!
   advregnu: String!
-
+  
   owner: String!
 }
 
@@ -1079,6 +1079,7 @@ type NonCovCreditSeller
   lonBala:Float!
   repaymentPeriod: Int!
   description: String
+
   status: Status!
   owner: String!
 }
@@ -1243,6 +1244,7 @@ type CvrdGroupLoans
   description: String
   lonBala:Float!
   advRegNu: String!
+  
   status: Status!
   owner: String!
 }
@@ -1290,6 +1292,7 @@ type NonCvrdGroupLoans
   amountExpectedBack: Float!
   amountRepaid: Float!
   description: String
+  
   lonBala:String!
   status: Status!
   owner: String!
@@ -1388,6 +1391,7 @@ type GrpMembersContribution
 enum Status {
   NoLoan
   LoanActive
+  LoanInActive
   LoanCleared
   LoanBL
   AccountActive

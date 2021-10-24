@@ -31,6 +31,9 @@ import RepayCovLns from "../../screens/MyAcc/Loans/RepayLoan/SM/CovLons";
 import RepayNonCovLns from "../../screens/MyAcc/Loans/RepayLoan/SM/NonCovLns";
 import BListLnee from "../../screens/MyAcc/Loans/BList/SMLoanee";
 import BListCredByr from "../../screens/MyAcc/Loans/BList/CredLoanee";
+import CovCredSls from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Cov";
+import NonCovCredSls from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/NonCov";
+import CredSlsHm from "../../screens/CredSls";
 
 
 const Stack = createNativeStackNavigator();
@@ -68,6 +71,9 @@ const HomeNavigator = props => {
       <Stack.Screen name={'RepayNonCovLnss'} component={RepayNonCovLns}/>
       <Stack.Screen name={'BListLneess'} component={BListLnee}/>
       <Stack.Screen name={'BListCredByr'} component={BListCredByr}/>
+      <Stack.Screen name={'CovCredSls'} component={CovCredSls}/>
+      <Stack.Screen name={'NonCovCredSlss'} component={NonCovCredSls}/>
+      <Stack.Screen name={'CredSlsHms'} component={NonCovCredSls}/>
       
     </Stack.Navigator>
   );

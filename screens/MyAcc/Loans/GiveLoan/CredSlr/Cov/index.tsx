@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {
+  createCovCreditSeller,
   createFloatAdd,
   createSMAccount,
   createSMLoansCovered,
@@ -53,6 +54,8 @@ const CovCredSls = props => {
   const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
   const [SendrPhn, setSendrPhn] = useState(null);
+  const [ItmNm, setItmNm] = useState("");
+  const [ItmSrlNu, setItmSrlNu] = useState("");
   
 
   const fetchUser = async () => {
@@ -116,10 +119,13 @@ const CovCredSls = props => {
           const AdvEarningBals = CompDtls.data.getCompany.AdvEarningBal;
           const AdvEarnings = CompDtls.data.getCompany.AdvEarning; 
          
-          const ttlSMLnsInAmtCovs = CompDtls.data.getCompany.ttlSMLnsInAmtCov;
-          const ttlSMLnsInActvAmtCovs = CompDtls.data.getCompany.ttlSMLnsInActvAmtCov;
-          const ttlSMLnsInTymsCovs = CompDtls.data.getCompany.ttlSMLnsInTymsCov;
-          const ttlSMLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSMLnsInActvTymsCov;       
+          const ttlSellerLnsInAmtCovs = CompDtls.data.getCompany.ttlSellerLnsInAmtCov;
+          
+          const ttlSellerLnsInTymsCovs = CompDtls.data.getCompany.ttlSellerLnsInTymsCov;
+          const ttlSellerLnsInActvAmtCovs = CompDtls.data.getCompany.ttlSellerLnsInActvAmtCov;
+          
+          const ttlSellerLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSellerLnsInActvTymsCov;
+                 
 
           
 
@@ -169,15 +175,17 @@ const CovCredSls = props => {
                           setIsLoading(true);
                           try {
                             await API.graphql(
-                              graphqlOperation(createSMLoansCovered, {
+                              graphqlOperation(createCovCreditSeller, {
                                 input: {
-                                  loaneeid: RecNatId,
-                                  loanerId: SenderNatId,
-                                  loanerPhn:SendrPhn,
-                                  loaneePhn: RecPhn,                                  
-                                  amountgiven: amount,
-                                  amountexpected: AmtExp,
-                                  amountrepaid: 0,
+                                  itemName:ItmNm,
+                                  itemSerialNumber:ItmSrlNu,
+                                  buyerID: RecNatId,
+                                  sellerID: SenderNatId,
+                                  sellerContact:SendrPhn,
+                                  buyerContact: RecPhn,                                  
+                                  amountSold: amount,
+                                  amountexpectedBack: AmtExp,
+                                  amountRepaid: 0,
                                   lonBala:0,
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: AdvRegNo,
@@ -277,10 +285,10 @@ const CovCredSls = props => {
                                     companyEarningBal:CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarningBals),
                                     companyEarning: CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarnings),                                                    
                                     
-                                    ttlSMLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInAmtCovs),
-                                    ttlSMLnsInActvAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInActvAmtCovs),
-                                    ttlSMLnsInTymsCov: 1 + parseFloat(ttlSMLnsInTymsCovs),
-                                    ttlSMLnsInActvTymsCov: 1 + parseFloat(ttlSMLnsInActvTymsCovs),      
+                                    ttlSellerLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSellerLnsInAmtCovs),
+                                    ttlSellerLnsInActvAmtCov: parseFloat(amount) + parseFloat(ttlSellerLnsInActvAmtCovs),
+                                    ttlSellerLnsInTymsCov: 1 + parseFloat(ttlSellerLnsInTymsCovs),
+                                    ttlSellerLnsInActvTymsCov: 1 + parseFloat(ttlSellerLnsInActvTymsCovs),      
                                     
                                      
                                     
@@ -318,7 +326,7 @@ const CovCredSls = props => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
-                          Alert.alert(names + " loans " + namess +" Ksh. " + amount +": "+ namesssssss+" coverage");
+                          Alert.alert(names + " sells on credit to " + namess +"goods worth Ksh. " + amount +": "+ namesssssss+" coverage");
                           setIsLoading(false);
                         }
                                               
@@ -392,7 +400,31 @@ const CovCredSls = props => {
       setRepaymtPeriod("");
       setRecAccCode("");
       setRecPhn("");
+      setItmNm("");
+      setItmSrlNu("");
 }
+
+useEffect(() =>{
+  const ItmSrlNus=ItmSrlNu
+    if(!ItmSrlNus && ItmSrlNus!=="")
+    {
+      setItmSrlNu("");
+      return;
+    }
+    setItmSrlNu(ItmSrlNus);
+    }, [ItmSrlNu]
+     );
+
+     useEffect(() =>{
+      const ItmNms=ItmNm
+        if(!ItmNms && ItmNms!=="")
+        {
+          setItmNm("");
+          return;
+        }
+        setItmNm(ItmNms);
+        }, [ItmNm]
+         );
 
 useEffect(() =>{
   const RecPhns=RecPhn
@@ -603,7 +635,7 @@ useEffect(() =>{
          <TouchableOpacity
            onPress={fetchSenderUsrDtls}
            style={styles.sendAmtButton}>
-           <Text style={styles.sendAmtButtonText}>Loan with Advocate Coverage</Text>
+           <Text style={styles.sendAmtButtonText}>Credit Sell with Advocate Coverage</Text>
            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
          </TouchableOpacity>
 

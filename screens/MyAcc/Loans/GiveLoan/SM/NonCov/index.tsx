@@ -102,21 +102,17 @@ const SMASendNonCovLns = props => {
             }),
           );
           
-          const TtlCovRateCovRate = CompDtls.data.getCompany.userTransferFee;
-          const AdvCovRateofTtlCovRate = CompDtls.data.getCompany.AdvCom;
-          const AdvCovRate = parseFloat(AdvCovRateofTtlCovRate)*parseFloat(TtlCovRateCovRate)
-          const CompErningFrmCovrgFee = parseFloat(TtlCovRateCovRate) - AdvCovRate;
-          const UsrCovFee = AdvCovRate * parseFloat(amount) + (CompErningFrmCovrgFee)*parseFloat(amount);          
-          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-          const TotalTransacted = parseFloat(amount) + UsrCovFee + parseFloat(UsrTransferFee)*parseFloat(amount);
+          const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
+          
+          
+          const TotalTransacted = parseFloat(amount) + parseFloat(userLoanTransferFees)*parseFloat(amount);
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
-          const ttlCompCovEarningss = CompDtls.data.getCompany.ttlCompCovEarnings;
+          
 
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
-          const AdvEarningBals = CompDtls.data.getCompany.AdvEarningBal;
-          const AdvEarnings = CompDtls.data.getCompany.AdvEarning; 
-         
+          
+          
           const ttlSMLnsInAmtCovs = CompDtls.data.getCompany.ttlSMLnsInAmtCov;
           const ttlSMLnsInActvAmtCovs = CompDtls.data.getCompany.ttlSMLnsInActvAmtCov;
           const ttlSMLnsInTymsCovs = CompDtls.data.getCompany.ttlSMLnsInTymsCov;
@@ -257,11 +253,9 @@ const SMASendNonCovLns = props => {
                                   input:{
                                     AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                         
-                                    ttlCompCovEarnings:(CompErningFrmCovrgFee) * parseFloat(amount) + parseFloat(ttlCompCovEarningss),
-                                    AdvEarningBal:(AdvCovRate) * parseFloat(amount) + parseFloat(AdvEarningBals),                                                                                                                                                     
-                                    AdvEarning:(AdvCovRate) * parseFloat(amount) + parseFloat(AdvEarnings),
-                                    companyEarningBal:CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarningBals),
-                                    companyEarning: CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarnings),                                                    
+                                    
+                                    companyEarningBal:userLoanTransferFees * parseFloat(amount) + parseFloat(companyEarningBals),
+                                    companyEarning: userLoanTransferFees * parseFloat(amount) + parseFloat(companyEarnings),                                                    
                                     
                                     ttlSMLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInAmtCovs),
                                     ttlSMLnsInActvAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInActvAmtCovs),

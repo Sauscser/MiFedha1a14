@@ -77,7 +77,7 @@ const HomeTabNavigator = props => {
       />
 
 <BottomTab.Screen
-        name='CredSales'
+        name='CredSlsHms'
         component={CredtSales}
         options={{
           tabBarIcon: ({color: string}) => (

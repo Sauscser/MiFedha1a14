@@ -46,6 +46,9 @@ declare global {
       RepayNonCovLnss:undefined;
       BListLneess:undefined;
       BListCredByr:undefined;
+      CovCredSls:undefined;
+      NonCovCredSlss:undefined;
+      CredSlsHms:undefined;
     }
   }
 }
@@ -71,7 +74,7 @@ export type RootTabParamList = {
   MFNdogo:undefined;
   MyAc:undefined;
   Loans:undefined;
-  CredSales:undefined;
+  CredSlsHms:undefined;
   Chama:undefined;
   Search:undefined;
   RegMFNdgScrn:undefined;
