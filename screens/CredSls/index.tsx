@@ -52,77 +52,11 @@ const CredSalesAccount = props => {
         
           <View style={styles.adminImage}>
 
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Repay Loan</Text>
 
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Single Member</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={payCovLn}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={payNonCovLn}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        Non-Covered Loans
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-            
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Credit Seller</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={payNonCovLn}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Covered</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={SMASndnonCovLn}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        Non-Covered Loans
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Chama</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={payNonCovLn}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={payNonCovLn}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                      Non-Covered Loans
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-            </View>
           
 
           <View style={styles.acEarningsView}>
-              <Text style={styles.salesText}>Single Member Give Loan</Text>
+              <Text style={styles.salesText}>Make Credit Sales</Text>
 
               
 
@@ -131,51 +65,69 @@ const CredSalesAccount = props => {
                     <Pressable
                       onPress={givCovLnSM}
                       style={styles.earningsAcPressables}>
-                      <Text style={styles.earningsAcPressableText}>Covered Loans</Text>
+                      <Text style={styles.earningsAcPressableText}>Covered CredSls</Text>
                     </Pressable>
 
                     <Pressable
                       onPress={SMASndnonCovLn}
                       style={styles.earningsAcPressables}>
                       <Text style={styles.earningsAcPressableText}>
-                        Non-Covered
+                        Non-Covered CredSls
                       </Text>
                     </Pressable>
                   </View>
                 </View>
 
           <View style={styles.acEarningsView}>
-            <Text style={styles.salesText}>Black-List</Text>
+            <Text style={styles.salesText}>Black-List CredSls</Text>
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
                 onPress={goBL}
                 style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Covered Loans</Text>
+                <Text style={styles.earningsAcPressableText}>Covered CredSls</Text>
               </Pressable>
 
               <Pressable
                 onPress={payNonCovLn}
                 style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Non Covered</Text>
+                <Text style={styles.earningsAcPressableText}>Non Covered CredSls</Text>
               </Pressable>
             </View>
           </View>
 
           <View style={styles.acEarningsView}>
-            <Text style={styles.salesText}>Loan Status</Text>
+            <Text style={styles.salesText}>Repay Credit Sales</Text>
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
-                onPress={payNonCovLn}
+                onPress={goBL}
                 style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Specific Loan</Text>
+                <Text style={styles.earningsAcPressableText}>Covered CredSls</Text>
               </Pressable>
 
               <Pressable
                 onPress={payNonCovLn}
                 style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>General Status</Text>
+                <Text style={styles.earningsAcPressableText}>Non Covered CredSls</Text>
+              </Pressable>
+            </View>
+          </View>
+
+          <View style={styles.acEarningsView}>
+            <Text style={styles.salesText}>Get Credit Sales Loan Status</Text>
+
+            <View style={styles.viewForAcEarningsPressables}>
+              <Pressable
+                onPress={payNonCovLn}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>Specific CredSl Status</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={payNonCovLn}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>General CredSl Status</Text>
               </Pressable>
             </View>
           </View>

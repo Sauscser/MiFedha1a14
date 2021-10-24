@@ -103,7 +103,7 @@ const RepayNonCovLnsss = props => {
           );
           
             
-          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
+          const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;  
           const ttlSMLnsInClrdAmtCovs = CompDtls.data.getCompany.ttlSMLnsInClrdAmtCov; 
           const ttlSMLnsInClrdTymsCovs = CompDtls.data.getCompany.ttlSMLnsInClrdTymsCov;
@@ -283,8 +283,8 @@ const RepayNonCovLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                          
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
+                                          companyEarningBal:userLoanTransferFees * parseFloat(amounts) + parseFloat(companyEarningBals),
+                                          companyEarning: userLoanTransferFees * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
                                           
                                           ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
                                           ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),

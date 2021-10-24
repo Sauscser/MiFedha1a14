@@ -871,6 +871,7 @@ type Company
   userLoanTransferFee: Float!
   userTransferFee: Float!
   userClearanceFee: Float!
+  CoverageFee: Float!
 
   ttlNonLonssRecSM: Float!
   ttlNonLonssSentSM:Float!

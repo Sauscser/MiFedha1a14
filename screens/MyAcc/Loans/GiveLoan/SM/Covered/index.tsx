@@ -101,13 +101,16 @@ const SMASendLns = props => {
             }),
           );
           
-          const TtlCovRateCovRate = CompDtls.data.getCompany.userTransferFee;
-          const AdvCovRateofTtlCovRate = CompDtls.data.getCompany.AdvCom;
-          const AdvCovRate = parseFloat(AdvCovRateofTtlCovRate)*parseFloat(TtlCovRateCovRate)
-          const CompErningFrmCovrgFee = parseFloat(TtlCovRateCovRate) - AdvCovRate;
-          const UsrCovFee = AdvCovRate * parseFloat(amount) + (CompErningFrmCovrgFee)*parseFloat(amount);          
-          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-          const TotalTransacted = parseFloat(amount) + UsrCovFee + parseFloat(UsrTransferFee)*parseFloat(amount);
+          const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
+          const AdvComs = CompDtls.data.getCompany.AdvCom;
+          const CoverageFees = CompDtls.data.getCompany.CoverageFee;
+          const CompCovFee =1- (parseFloat(CoverageFees)*parseFloat(AdvComs))
+          const AdvCovAmt = parseFloat(AdvComs)*parseFloat(CoverageFees)*parseFloat(amount)
+          const CompCovAmt = CompCovFee*parseFloat(amount)
+          const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)
+                   
+          
+          const TotalTransacted = parseFloat(amount) + ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount);
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
           const ttlCompCovEarningss = CompDtls.data.getCompany.ttlCompCovEarnings;
 
@@ -271,11 +274,11 @@ const SMASendLns = props => {
                                   input:{
                                     AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                         
-                                    ttlCompCovEarnings:(CompErningFrmCovrgFee) * parseFloat(amount) + parseFloat(ttlCompCovEarningss),
-                                    AdvEarningBal:(AdvCovRate) * parseFloat(amount) + parseFloat(AdvEarningBals),                                                                                                                                                     
-                                    AdvEarning:(AdvCovRate) * parseFloat(amount) + parseFloat(AdvEarnings),
-                                    companyEarningBal:CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarningBals),
-                                    companyEarning: CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarnings),                                                    
+                                    ttlCompCovEarnings:CompCovAmt + parseFloat(ttlCompCovEarningss),
+                                    AdvEarningBal:AdvCovAmt + parseFloat(AdvEarningBals),                                                                                                                                                     
+                                    AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
+                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals),
+                                    companyEarning: CompCovAmt + parseFloat(companyEarnings),                                                    
                                     
                                     ttlSMLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInAmtCovs),
                                     ttlSMLnsInActvAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInActvAmtCovs),
@@ -307,8 +310,8 @@ const SMASendLns = props => {
                                 graphqlOperation(updateAdvocate, {
                                   input:{
                                     advregnu: AdvRegNo,
-                                    advBal: (AdvCovRate) * parseFloat(amount) + parseFloat(advBl) ,
-                                    TtlEarnings:(AdvCovRate) * parseFloat(amount) + parseFloat(advTtlAern),                                 
+                                    advBal: AdvCovAmt + parseFloat(advBl) ,
+                                    TtlEarnings:AdvCovAmt + parseFloat(advTtlAern),                                 
                                     
                                   }
                                 })

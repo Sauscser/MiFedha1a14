@@ -997,6 +997,7 @@ export const onCreateCompany = /* GraphQL */ `
       userLoanTransferFee
       userTransferFee
       userClearanceFee
+      CoverageFee
       ttlNonLonssRecSM
       ttlNonLonssSentSM
       ttlNonLonssRecChm
@@ -1118,6 +1119,7 @@ export const onUpdateCompany = /* GraphQL */ `
       userLoanTransferFee
       userTransferFee
       userClearanceFee
+      CoverageFee
       ttlNonLonssRecSM
       ttlNonLonssSentSM
       ttlNonLonssRecChm
@@ -1239,6 +1241,7 @@ export const onDeleteCompany = /* GraphQL */ `
       userLoanTransferFee
       userTransferFee
       userClearanceFee
+      CoverageFee
       ttlNonLonssRecSM
       ttlNonLonssSentSM
       ttlNonLonssRecChm

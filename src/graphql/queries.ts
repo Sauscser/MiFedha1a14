@@ -839,6 +839,7 @@ export const getCompany = /* GraphQL */ `
       userLoanTransferFee
       userTransferFee
       userClearanceFee
+      CoverageFee
       ttlNonLonssRecSM
       ttlNonLonssSentSM
       ttlNonLonssRecChm
@@ -973,6 +974,7 @@ export const listCompanys = /* GraphQL */ `
         userLoanTransferFee
         userTransferFee
         userClearanceFee
+        CoverageFee
         ttlNonLonssRecSM
         ttlNonLonssSentSM
         ttlNonLonssRecChm

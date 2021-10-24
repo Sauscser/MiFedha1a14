@@ -86,8 +86,8 @@ const CovCredSls = props => {
       const usrPW =accountDtl.data.getSMAccount.pw;
       const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
       const usrLnLim =accountDtl.data.getSMAccount.loanLimit;
-      const TtlActvLonsTmsLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
-      const TtlActvLonsAmtLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
+      const TtlActvLonsTmsSllrCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsSllrCov;
+      const TtlActvLonsAmtSllrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtSllrCov;
       const names =accountDtl.data.getSMAccount.name;
   
       const SenderSub =accountDtl.data.getSMAccount.owner;
@@ -104,13 +104,14 @@ const CovCredSls = props => {
             }),
           );
           
-          const TtlCovRateCovRate = CompDtls.data.getCompany.userTransferFee;
-          const AdvCovRateofTtlCovRate = CompDtls.data.getCompany.AdvCom;
-          const AdvCovRate = parseFloat(AdvCovRateofTtlCovRate)*parseFloat(TtlCovRateCovRate)
-          const CompErningFrmCovrgFee = parseFloat(TtlCovRateCovRate) - AdvCovRate;
-          const UsrCovFee = AdvCovRate * parseFloat(amount) + (CompErningFrmCovrgFee)*parseFloat(amount);          
-          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-          const TotalTransacted = parseFloat(amount) + UsrCovFee + parseFloat(UsrTransferFee)*parseFloat(amount);
+          const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
+          const AdvComs = CompDtls.data.getCompany.AdvCom;
+          const CoverageFees = CompDtls.data.getCompany.CoverageFee;
+          const CompCovFee =1- (parseFloat(CoverageFees)*parseFloat(AdvComs))
+          const AdvCovAmt = parseFloat(AdvComs)*parseFloat(CoverageFees)*parseFloat(amount)
+          const CompCovAmt = CompCovFee*parseFloat(amount)
+          const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)
+          const TotalTransacted = parseFloat(amount) + ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount);
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
           const ttlCompCovEarningss = CompDtls.data.getCompany.ttlCompCovEarnings;
 
@@ -164,8 +165,8 @@ const CovCredSls = props => {
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
                         const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
-                        const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
-                        const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
+                        const TtlActvLonsTmsByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsByrCov;
+                        const TtlActvLonsAmtByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtByrCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
                       
                         const sendSMLn = async () => {
@@ -219,8 +220,8 @@ const CovCredSls = props => {
                                 graphqlOperation(updateSMAccount, {
                                   input:{
                                     phonecontact:SendrPhn,
-                                    TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
-                                    TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(amount),
+                                    TtlActvLonsTmsSllrCov: parseFloat(TtlActvLonsTmsSllrCovs)+1,
+                                    TtlActvLonsAmtSllrCov: parseFloat(TtlActvLonsAmtSllrCovs) + parseFloat(amount),
                                                                               
                                     balance:parseFloat(SenderUsrBal)-TotalTransacted 
                                    
@@ -248,8 +249,8 @@ const CovCredSls = props => {
                                 graphqlOperation(updateSMAccount, {
                                   input:{
                                     phonecontact:RecPhn,
-                                    TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
-                                    TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(amount),
+                                    TtlActvLonsTmsByrCov: parseFloat(TtlActvLonsTmsByrCovs) +1 ,
+                                    TtlActvLonsAmtByrCov: parseFloat(TtlActvLonsAmtByrCovs)+ parseFloat(amount),
                                     balance:parseFloat(RecUsrBal) + parseFloat(amount)  ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
@@ -279,11 +280,11 @@ const CovCredSls = props => {
                                   input:{
                                     AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                         
-                                    ttlCompCovEarnings:(CompErningFrmCovrgFee) * parseFloat(amount) + parseFloat(ttlCompCovEarningss),
-                                    AdvEarningBal:(AdvCovRate) * parseFloat(amount) + parseFloat(AdvEarningBals),                                                                                                                                                     
-                                    AdvEarning:(AdvCovRate) * parseFloat(amount) + parseFloat(AdvEarnings),
-                                    companyEarningBal:CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarningBals),
-                                    companyEarning: CompErningFrmCovrgFee * parseFloat(amount) + parseFloat(companyEarnings),                                                    
+                                    ttlCompCovEarnings:CompCovAmt + parseFloat(ttlCompCovEarningss),
+                                    AdvEarningBal:AdvCovAmt + parseFloat(AdvEarningBals),                                                                                                                                                     
+                                    AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
+                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals),
+                                    companyEarning: CompCovAmt + parseFloat(companyEarnings),  
                                     
                                     ttlSellerLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSellerLnsInAmtCovs),
                                     ttlSellerLnsInActvAmtCov: parseFloat(amount) + parseFloat(ttlSellerLnsInActvAmtCovs),
@@ -565,6 +566,23 @@ useEffect(() =>{
            <Text style={styles.sendAmtText}>Sender PassWord</Text>
          </View>
 
+         <View style={styles.sendAmtView}>
+           <TextInput
+             value={ItmNm}
+             onChangeText={setItmNm}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Item Name</Text>
+         </View>
+
+         <View style={styles.sendAmtView}>
+           <TextInput
+             value={ItmSrlNu}
+             onChangeText={setItmSrlNu}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Item Serial Number</Text>
+         </View>
 
          <View style={styles.sendAmtView}>
            <TextInput
