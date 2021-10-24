@@ -163,7 +163,9 @@ const AdminSignIn = (props) => {
             maxInterestSM: 0,
             maxInterestCredSllr: 0,
             maxInterestGrp: 0,
-          
+            
+            maxMFNdogos:100,
+
             totalLnsRecovered: 0,
           },
         }),

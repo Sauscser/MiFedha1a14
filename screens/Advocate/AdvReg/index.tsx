@@ -103,8 +103,12 @@ import { getCompany } from '../../../src/graphql/queries';
            await updtActAdm();
         setIsLoading(false);
         };
-      
-        onCreateNewMFN();
+        if(phoneContact.length!==13)
+        {Alert.alert("Ensure right format of the phone number");
+      return;
+    }
+    else{onCreateNewMFN();}
+        
       
       
         const updtActAdm = async()=>{
@@ -126,7 +130,7 @@ import { getCompany } from '../../../src/graphql/queries';
             Alert.alert("Check your internet")
             return;}
         }
-        Alert.alert("Advocate "+advRegNo+ " successfully registed.")
+        Alert.alert("Advocate "+advRegNo+ " successfully registered.")
         setIsLoading(false);     
       
       }
@@ -249,6 +253,7 @@ useEffect(() =>{
           
           <View style={styles.sendLoanView}>
             <TextInput
+            placeholder="+2547xxxxxxxx"
               value={phoneContact}
               onChangeText={setPhoneContact}
               style={styles.sendLoanInput}

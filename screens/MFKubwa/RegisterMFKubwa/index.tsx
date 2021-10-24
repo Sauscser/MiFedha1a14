@@ -90,17 +90,26 @@ const RegisterMFKubwaAcForm = props => {
           
           catch (error) {
             console.log(error)
-            if(!error){
-              Alert.alert("Account registered successfully")
+            if(error){
+              Alert.alert("Account already registered ");
+              return;
               
           } 
-          else{Alert.alert("Please check your internet connection")
-          return;}
+          
           }
           setIsLoading(false); 
           await  updtActAdm();              
         };
-        CreateNewSA();
+        if(phoneContact.length!==13)
+        {Alert.alert("Please use the hinted format of the Phone number");
+      return;
+    }
+    else if (pword.length<8)
+    {Alert.alert("Password is too short; at least eight characters");
+  return;
+}
+    else{CreateNewSA();}
+        
 
         const updtActAdm = async()=>{
           if(isLoading){
@@ -130,7 +139,7 @@ const RegisterMFKubwaAcForm = props => {
 
   catch(e){
     if(e){
-      Alert.alert("Check your internet")
+      Alert.alert("Please ensure all details are filled correctly")
       return
     }
   }
@@ -210,7 +219,8 @@ const RegisterMFKubwaAcForm = props => {
           
           <View style={styles.sendLoanView}>
             <TextInput
-              value={phoneContact}
+            placeholder="+2547xxxxxxxx"
+            value={phoneContact}
               onChangeText={setPhoneContact}
               style={styles.sendLoanInput}
               editable={true}></TextInput>

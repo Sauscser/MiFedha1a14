@@ -69,7 +69,10 @@ const DeregMFNForm = (props) => {
         setIsLoading(false);
         await KFNDtls(); 
       }
-        updtActAdm();
+      if(phoneContact.length!==13)
+      {Alert.alert("Ensure right format of the phone number");
+    return;}
+    else {updtActAdm();}
 
         const KFNDtls = async () => {
           if(isLoading){
@@ -130,6 +133,7 @@ const DeregMFNForm = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder="+254xxxxxxxxx"
                       value={phoneContact}
                       onChangeText={setPhoneContact}
                       style={styles.sendLoanInput}

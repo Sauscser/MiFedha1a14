@@ -4,6 +4,7 @@ import {
   createFloatAdd,
   createSMAccount,
   createSMLoansCovered,
+  createSMLoansNonCovered,
   updateAdvocate,
   updateAgent,
   updateCompany,
@@ -39,7 +40,7 @@ import {
 import styles from './styles';
 import { parse } from 'expo-linking';
 
-const SMASendLns = props => {
+const SMASendNonCovLns = props => {
   const [SenderNatId, setSenderNatId] = useState('');
   const [RecNatId, setRecNatId] = useState('');
   const [RecPhn, setRecPhn] = useState('');
@@ -154,7 +155,7 @@ const SMASendLns = props => {
                           setIsLoading(true);
                           try {
                             await API.graphql(
-                              graphqlOperation(createSMLoansCovered, {
+                              graphqlOperation(createSMLoansNonCovered, {
                                 input: {
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,
@@ -165,7 +166,7 @@ const SMASendLns = props => {
                                   amountrepaid: 0,
                                   lonBala:0,
                                   repaymentPeriod: RepaymtPeriod,
-                                  advregnu: AdvRegNo,
+                                  
                                   description: Desc,
                                   status: "LoanActive",
                                   owner: ownr
@@ -279,8 +280,9 @@ const SMASendLns = props => {
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
+                          Alert.alert(names + " loans " + namess +" Ksh. " + amount );
                           setIsLoading(false);
-                         
+                          
                         }
                         
                                               
@@ -291,7 +293,7 @@ const SMASendLns = props => {
                       return;
                     }
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                        else if(SenderNatId === RecNatId){Alert.alert('You cannot Loan Yourself');}
+                        else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > maxInterests)
                         {Alert.alert('Your interest is too high');}
@@ -300,7 +302,7 @@ const SMASendLns = props => {
                         ) {Alert.alert('Requested amount is more than you have in your account');}
                         
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                        else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
+                        
                         
                         else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
                         
@@ -318,7 +320,6 @@ const SMASendLns = props => {
                     
 
             
-
           
         
         } catch (e) {
@@ -467,51 +468,15 @@ useEffect(() =>{
            <Text style={styles.title}>Fill Loan Details Below</Text>
          </View>
 
+         
          <View style={styles.sendAmtView}>
            <TextInput
-             value={SenderNatId}
-             onChangeText={setSenderNatId}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Sender National Id</Text>
-         </View>
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-             value={RecNatId}
-             onChangeText={setRecNatId}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Receiver National Id</Text>
-         </View>
-
-         <View style={styles.sendAmtView}>
-           <TextInput
+           placeholder="+2547xxxxxxxx"
              value={RecPhn}
              onChangeText={setRecPhn}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
            <Text style={styles.sendAmtText}>Receiver Phone</Text>
-         </View>
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-             value={amount}
-             onChangeText={setAmount}
-             style={styles.sendAmtInput}
-             editable={true}
-             ></TextInput>
-             
-           <Text style={styles.sendAmtText}>Amount Loaned</Text>
-         </View>
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-             value={AdvRegNo}
-             onChangeText={setAdvRegNo}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Advocate Reg Number</Text>
          </View>
 
          <View style={styles.sendAmtView}>
@@ -523,8 +488,23 @@ useEffect(() =>{
            <Text style={styles.sendAmtText}>Sender PassWord</Text>
          </View>
 
+
          <View style={styles.sendAmtView}>
            <TextInput
+           keyboardType={"decimal-pad"}
+             value={amount}
+             onChangeText={setAmount}
+             style={styles.sendAmtInput}
+             editable={true}
+             ></TextInput>
+             
+           <Text style={styles.sendAmtText}>Amount Loaned</Text>
+         </View>
+
+                  
+         <View style={styles.sendAmtView}>
+           <TextInput
+           keyboardType={"decimal-pad"}
              value={AmtExp}
              onChangeText={setAmtExp}
              style={styles.sendAmtInput}
@@ -534,12 +514,16 @@ useEffect(() =>{
 
          <View style={styles.sendAmtView}>
            <TextInput
+           keyboardType={"decimal-pad"}
              value={RepaymtPeriod}
              onChangeText={setRepaymtPeriod}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
            <Text style={styles.sendAmtText}>Repayment Period in days</Text>
          </View>
+
+         
+
 
          <View style={styles.sendAmtView}>
            <TextInput
@@ -567,7 +551,7 @@ useEffect(() =>{
          <TouchableOpacity
            onPress={fetchSenderUsrDtls}
            style={styles.sendAmtButton}>
-           <Text style={styles.sendAmtButtonText}>Loan with Advocate Coverage</Text>
+           <Text style={styles.sendAmtButtonText}>Loan without Advocate Coverage</Text>
            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
          </TouchableOpacity>
 
@@ -579,4 +563,4 @@ useEffect(() =>{
   );
 };
 
-export default SMASendLns;
+export default SMASendNonCovLns;

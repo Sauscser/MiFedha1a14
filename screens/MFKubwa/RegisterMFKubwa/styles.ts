@@ -1,6 +1,12 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: 'white',
+  },
   image: {
     width: '100%',
     height: 670,

@@ -927,6 +927,7 @@ export const getCompany = /* GraphQL */ `
       maxInterestSM
       maxInterestCredSllr
       maxInterestGrp
+      maxMFNdogos
       totalLnsRecovered
       createdAt
       updatedAt
@@ -1060,6 +1061,7 @@ export const listCompanys = /* GraphQL */ `
         maxInterestSM
         maxInterestCredSllr
         maxInterestGrp
+        maxMFNdogos
         totalLnsRecovered
         createdAt
         updatedAt

@@ -404,6 +404,7 @@ const SMADepositForm = props => {
 
           <View style={styles.sendAmtView}>
             <TextInput
+            keyboardType={"decimal-pad"}
               value={amount}
               onChangeText={setAmount}
               style={styles.sendAmtInput}

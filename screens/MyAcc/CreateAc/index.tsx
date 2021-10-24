@@ -217,7 +217,14 @@ const CreateAcForm = (props:UserReg) => {
             setIsLoading(false);
             
           };
-          onCreateNewSMAc();
+          if (pword.length < 8)
+          {Alert.alert("password is too short; at least eight characters");
+        return;
+      } 
+      
+      else {
+        onCreateNewSMAc();
+      }
 
           const updtActAdm = async()=>{
             if(isLoading){

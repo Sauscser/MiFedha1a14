@@ -648,6 +648,7 @@ useEffect(() =>{
 
           <View style={styles.sendAmtView}>
             <TextInput
+            keyboardType={"decimal-pad"}
               value={amounts}
               onChangeText={setAmount}
               style={styles.sendAmtInput}

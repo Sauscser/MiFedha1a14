@@ -971,6 +971,8 @@ type Company
   maxInterestCredSllr: Float!
   maxInterestGrp: Float!
 
+  maxMFNdogos:Float!
+
 
   totalLnsRecovered: Float!
 }

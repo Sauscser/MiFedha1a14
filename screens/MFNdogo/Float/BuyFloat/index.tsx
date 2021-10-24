@@ -115,12 +115,11 @@ const ftchAgInfo = async () => {
                                             
                                       } catch (error) {
                                         console.log(error)
-                                        if(!error){
-                                          Alert.alert("Float successfully bought successfully")
-                                          
+                                        if(error){
+                                          Alert.alert("This MFNdogo does not exist");
+                                    return;                                          
                                       } 
-                                      else{Alert.alert("Enter details correctly or check your internet connection ")
-                                      return;}
+                                      
                                       }   
                                      await updtAgntFlt();
                                      setIsLoading(false);
@@ -133,7 +132,10 @@ const ftchAgInfo = async () => {
                                               {Alert.alert("Admin password is wrong");
                                             }
 
-                                            
+                                           else if(phoneContact.length!==13)
+                                  {Alert.alert("Ensure right format of the phone number");
+                                return;
+                                          }
                                             else if(bankAdminId !==nationalids )
                                               {Alert.alert("Admin does not exist");
                                             }
@@ -167,7 +169,7 @@ const ftchAgInfo = async () => {
                                      setIsLoading(false)
                                     };
                                                             
-                                    const updtCompFlt = async () => {
+                          const updtCompFlt = async () => {
                               if(isLoading){
                                 return;
                               }
@@ -188,6 +190,7 @@ const ftchAgInfo = async () => {
                                         };
                                       }  
                                       Alert.alert(names + " has purchased Ksh. "+amt+" float"); 
+                                      
                                      setIsLoading(false)
                                     };
 
@@ -195,18 +198,16 @@ const ftchAgInfo = async () => {
                             catch (error) {
 
                               console.log(error)
-                              if(!error){
-                                Alert.alert("Account deactivated successfully")
-                                
+                              if(error){
+                                Alert.alert("Admin Account doesnt exist or is inactive");
+                                return;                                
                             } 
-                            else{Alert.alert("Please Enter details correctly or check your internet connection ")
-                            return;}
+                            
                             }  
                             setIsLoading(false);
                           } 
                             
-                            await ftchAdmiInfo();
-                  
+                            await ftchAdmiInfo();                
                       
                                             
               }            
@@ -304,6 +305,7 @@ useEffect(() =>{
 
           <View style={styles.sendLoanView}>
             <TextInput
+            placeholder="+2547xxxxxxxx"
               value={phoneContact}
               onChangeText={setPhoneContact}
               style={styles.sendLoanInput}
@@ -313,6 +315,7 @@ useEffect(() =>{
           
           <View style={styles.sendLoanView}>
             <TextInput
+            keyboardType={"decimal-pad"}
               value={amt}
               onChangeText={setAmt}
               style={styles.sendLoanInput}

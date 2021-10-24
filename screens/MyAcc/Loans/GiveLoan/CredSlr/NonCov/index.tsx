@@ -462,6 +462,7 @@ useEffect(() =>{
 
           <View style={styles.sendAmtView}>
             <TextInput
+            keyboardType={"decimal-pad"}
               value={amount}
               onChangeText={setAmount}
               style={styles.sendAmtInput}
@@ -483,6 +484,7 @@ useEffect(() =>{
 
           <View style={styles.sendAmtView}>
             <TextInput
+            keyboardType={"decimal-pad"}
               value={AmtExp}
               onChangeText={setAmtExp}
               style={styles.sendAmtInput}
@@ -492,6 +494,7 @@ useEffect(() =>{
 
           <View style={styles.sendAmtView}>
             <TextInput
+            keyboardType={"decimal-pad"}
               value={RepaymtPeriod}
               onChangeText={setRepaymtPeriod}
               style={styles.sendAmtInput}

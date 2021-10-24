@@ -66,6 +66,7 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
             graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
           );
           const actvNdg = compDtls.data.getCompany.ttlKFNdgActv
+          const maxMFNdogoss = compDtls.data.getCompany.maxMFNdogos
 
           const createNewMFN = async () => {
             if(isLoading){
@@ -113,7 +114,18 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
         await updtActAdm();
           }
 
-          createNewMFN();
+          if(pword.length<8) {Alert.alert("Password is too short; at least eight characters");
+        return;
+      } 
+      else if(phoneContact.length !==13){
+        Alert.alert("Please use the hinted format of the Phone number");
+        return;
+      } 
+      else if((actvMFNdogs+1)>maxMFNdogoss){
+        Alert.alert("Exceeded MFNdogo slots; Open another MFKubwa account");
+        return;
+      }
+      else{createNewMFN();}
           
           const updtActAdm = async()=>{
             if(isLoading){
@@ -154,8 +166,9 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
             }
             catch(error){if (error) {
               Alert.alert("Please check your internet connection")
+              return;
             }}
-            "MFNdogo " +nam+"successfully registered under "+names+" MFKubwa"
+            Alert.alert(" MFKubwa " +names+ " has registered MFNdogo "  +nam );
             setIsLoading(false)
           }              
 
@@ -297,15 +310,17 @@ return;
 
           <View style={styles.sendLoanView}>
             <TextInput
+            placeholder="+2547xxxxxxxx"
               value={saRegNo}
               onChangeText={setSARegNo}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFKubwa RegNumber</Text>
+            <Text style={styles.sendLoanText}>MFKubwa Phone number</Text>
           </View>
           
           <View style={styles.sendLoanView}>
             <TextInput
+            placeholder={"+2547xxxxxxxx"}
               value={phoneContact}
               onChangeText={setPhoneContact}
               style={styles.sendLoanInput}

@@ -60,6 +60,7 @@ const SMADepositForm = props => {
       const usrStts = accountDtl.data.getSMAccount.acStatus; 
       const depositLimits = accountDtl.data.getSMAccount.depositLimit;
       const names = accountDtl.data.getSMAccount.name;  
+      const nationalids = accountDtl.data.getSMAccount.nationalid;  
          
       
       const fetchAgtBal = async () => {
@@ -76,8 +77,7 @@ const SMADepositForm = props => {
           const agtFltBl = AgentBal.data.getAgent.floatBal;
           const agPW = AgentBal.data.getAgent.pw;
           const AgAcAct = AgentBal.data.getAgent.status;
-          const nationalids = AgentBal.data.getAgent.nationalid;
-
+          
           const gtCompDtls = async () =>{
             if(isLoading){
                 return;
@@ -191,7 +191,7 @@ const SMADepositForm = props => {
                   catch (error) {
                     
                   }
-                  Alert.alert("Ksh. " + amount+" deposited to "+ names);
+                  Alert.alert("Ksh. " + amount+" deposited in "+ names+ "'s ac ");
                   setIsLoading(false);
                   }; 
             
@@ -201,27 +201,29 @@ const SMADepositForm = props => {
             } 
 
             if (nationalids!==UsrId) {
-              Alert.alert("User ID is wrong")
+              Alert.alert("Depositer ID is wrong")
               return;
             } 
             else if(parseFloat(amount)>parseFloat(depositLimits)) {
               Alert.alert('Deposit limit exceeded');
               return;
             }
-            if (AgAcAct!=="AccountActive") {
+           else if (AgAcAct!=="AccountActive") {
               Alert.alert("MFNdogo Account has been deactivated")
               return;
             } 
-            if (parseFloat(agtFltBl)<parseFloat(amount)) {
+           else if (parseFloat(agtFltBl)<parseFloat(amount)) {
               Alert.alert("Insufficient MFNdogo Balance")
               return;
             } 
-            if (agPW!==agPWd) {
+            else if (agPW!==agPWd) {
               Alert.alert("MFNdogo access denied")
               return;
             } 
+            
+          
 
-            else{await CrtFltRed()}   
+            else{CrtFltRed()}   
             
             
             } catch (error) {
@@ -331,6 +333,7 @@ const SMADepositForm = props => {
 
           <View style={styles.sendAmtView}>
             <TextInput
+            placeholder="+2547xxxxxxxx"
               value={nationalId}
               onChangeText={setNationalid}
               style={styles.sendAmtInput}
@@ -351,6 +354,7 @@ const SMADepositForm = props => {
 
           <View style={styles.sendAmtView}>
             <TextInput
+            placeholder="+2547xxxxxxxx"
               value={AgentPhn}
               onChangeText={setAgentPhn}
               style={styles.sendAmtInput}
@@ -360,6 +364,7 @@ const SMADepositForm = props => {
 
           <View style={styles.sendAmtView}>
             <TextInput
+            keyboardType={"decimal-pad"}
               value={amount}
               onChangeText={setAmount}
               style={styles.sendAmtInput}

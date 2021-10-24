@@ -3,9 +3,10 @@ import {StyleSheet, Dimensions} from 'react-native';
 const styles = StyleSheet.create({
   image: {
     width: '100%',
-    height: 670,
+    height: "100%",
     resizeMode: 'cover',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 20,
@@ -13,34 +14,34 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 
-  loanTitleView: {
+  amountTitleView: {
     backgroundColor: 'white',
+   
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: 40,
     borderRadius: 5,
-    marginTop: 30,
+    marginTop: "5%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    top: 10,
-  
+    
   },
 
-  sendLoanView: {
+  sendAmtView: {
     backgroundColor: 'skyblue',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: 90,
+    height: "6%",
     borderRadius: 20,
-    marginTop: 30,
+    marginTop: "5%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    marginBottom: 20,
+    padding:"1%",
+   
   },
 
-  sendLoanText: {
+  sendAmtText: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
@@ -48,54 +49,57 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 30,
   },
-  sendLoanButton: {
+  sendAmtButton: {
     backgroundColor: '#fff',
-    height: 45,
+    height: "3%",
     borderRadius: 30,
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30,
-    marginBottom: 400,
+    marginTop: "5%",
+    marginBottom: "95%",
   },
-  sendLoanButtonText: {
-    fontSize: 30,
+  sendAmtButtonText: {
+    fontSize: 18,
     fontWeight: 'bold',
     color: 'black',
   },
 
-  sendLoanInput: {
+  sendAmtInput: {
     backgroundColor: 'white',
-    width: 300,
-    height: 45,
+    marginHorizontal: 15,
+    width: Dimensions.get('screen').width - 30,
+    height: "60%",
     borderRadius: 10,
-    marginTop: 15,
+    marginTop: "2%",
     justifyContent: 'center',
     alignItems: 'center',
   },
-
-  loanSpecificationsTextInput: {
-    backgroundColor: 'white',
-    width: 300,
-    height: 200,
-    borderRadius: 10,
-    marginTop: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  loanSpecificationView: {
+  sendAmtViewDesc: {
     backgroundColor: 'skyblue',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: 250,
+    height: "12%",
     borderRadius: 20,
-    marginTop: 30,
+    marginTop: "5%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    marginBottom: 20,
+    padding:"1%",
+   
+  },
+
+  sendAmtInputDesc: {
+    backgroundColor: 'white',
+    marginHorizontal: 15,
+    width: Dimensions.get('screen').width - 30,
+    height: "70%",
+    borderRadius: 10,
+    marginTop: "2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    
   },
 });
 export default styles;

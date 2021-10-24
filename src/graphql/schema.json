@@ -10679,6 +10679,21 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+          "name" : "maxMFNdogos",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
           "name" : "totalLnsRecovered",
           "description" : null,
           "args" : [ ],
@@ -11760,6 +11775,15 @@
           "defaultValue" : null
         }, {
           "name" : "maxInterestGrp",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "maxMFNdogos",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -26322,6 +26346,19 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "maxMFNdogos",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
           "name" : "totalLnsRecovered",
           "description" : null,
           "type" : {
@@ -27326,6 +27363,15 @@
           "defaultValue" : null
         }, {
           "name" : "maxInterestGrp",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "maxMFNdogos",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -28382,6 +28428,15 @@
           "defaultValue" : null
         }, {
           "name" : "maxInterestGrp",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "maxMFNdogos",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
