@@ -26,7 +26,7 @@ import styles from './styles';
   
 
 
-const BLLoanee = (props) => {
+const BLCredByr = (props) => {
   const navigation = useNavigation();
 
   const [LonId, setLonId] = useState("");
@@ -65,7 +65,7 @@ const BLLoanee = (props) => {
             const compDtls :any= await API.graphql(
               graphqlOperation(getSMLoansCovered,{id:LonId})
               );
-              const buyerContacts = compDtls.data.getSMLoansCovered.buyerContact
+              const loaneeids = compDtls.data.getSMLoansCovered.loaneeid
               const sellerContacts = compDtls.data.getSMLoansCovered.sellerContact
               const amountexpecteds = compDtls.data.getSMLoansCovered.amountexpected
               const amountrepaids = compDtls.data.getSMLoansCovered.amountrepaid
@@ -144,11 +144,11 @@ const BLLoanee = (props) => {
                             Alert.alert("This Loan is already Black Listed")
                           } 
 
-                          else if(acStatuss !== "AccountActive"){
+                          else if(acStatuss === "AccountInactive"){
                             Alert.alert("Loaner account has been deactivated")
                           } 
 
-                          else if(acStatusss !== "AccountActive"){
+                          else if(acStatusss === "AccountInactive"){
                             Alert.alert("Loanee account has been deactivated")
                           } 
                           else{updateLoanerDtls();}
@@ -337,4 +337,4 @@ const BLLoanee = (props) => {
           );
         };
         
-        export default BLLoanee;
+        export default BLCredByr;
