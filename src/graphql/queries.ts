@@ -79,6 +79,7 @@ export const getSMAccount = /* GraphQL */ `
       ttlNonLonsRecChm
       ttlNonLonsSentChm
       MaxTymsBL
+      MaxTymsIHvBL
       loanStatus
       acStatus
       blStatus
@@ -182,6 +183,7 @@ export const listSMAccounts = /* GraphQL */ `
         ttlNonLonsRecChm
         ttlNonLonsSentChm
         MaxTymsBL
+        MaxTymsIHvBL
         loanStatus
         acStatus
         blStatus
@@ -1219,6 +1221,7 @@ export const getGroup = /* GraphQL */ `
       ttlNonLonsSentChm
       ttlDpst
       ttlWthdrwn
+      tymsChmHvBL
       TtlActvLonsTmsLnrChmCov
       TtlActvLonsAmtLnrChmCov
       TtlBLLonsTmsLnrChmCov
@@ -1268,6 +1271,7 @@ export const listGroups = /* GraphQL */ `
         ttlNonLonsSentChm
         ttlDpst
         ttlWthdrwn
+        tymsChmHvBL
         TtlActvLonsTmsLnrChmCov
         TtlActvLonsAmtLnrChmCov
         TtlBLLonsTmsLnrChmCov

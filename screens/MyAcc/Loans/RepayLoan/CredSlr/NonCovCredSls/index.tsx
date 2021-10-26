@@ -88,7 +88,8 @@ const RepayNonCovLnsss = props => {
       const TtlActvLonsAmtLneeNonCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeNonCov;
       const TtlClrdLonsTmsLneeNonCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsLneeNonCov;
       const TtlClrdLonsAmtLneeNonCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtLneeNonCov;
-      
+      const MaxTymsBLs =accountDtl.data.getSMAccount.MaxTymsBL;
+
       const fetchCompDtls = async () => {
         if(isLoading){
           return;
@@ -129,6 +130,7 @@ const RepayNonCovLnsss = props => {
                     const TtlActvLonsAmtLnrNonCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrNonCov;
                     const TtlClrdLonsTmsLneeNonCovssss =accountDtl.data.getSMAccount.TtlClrdLonsTmsLnrNonCov;
                     const TtlClrdLonsAmtLneeNonCovssss =accountDtl.data.getSMAccount.TtlClrdLonsAmtLnrNonCov;
+                    const MaxTymsIHvBLs =accountDtl.data.getSMAccount.MaxTymsIHvBL;
 
                     const ftchCvdSMLn = async () => {
                       if(isLoading){
@@ -220,7 +222,7 @@ const RepayNonCovLnsss = props => {
                                           TtlActvLonsAmtLneeNonCov: parseFloat(TtlActvLonsAmtLneeNonCovs) - parseFloat(amounts), 
                                           TtlClrdLonsTmsLneeNonCov: 1 + parseFloat(TtlClrdLonsTmsLneeNonCovs),
                                           TtlClrdLonsAmtLneeNonCov: parseFloat(TtlClrdLonsAmtLneeNonCovs) + parseFloat(amounts),
-                                                                             
+                                          MaxTymsBL:parseFloat(MaxTymsBLs)-1 ,                                   
                                           
                                         }
                                       })
@@ -252,7 +254,7 @@ const RepayNonCovLnsss = props => {
                                           TtlActvLonsAmtLnrNonCov: parseFloat(TtlActvLonsAmtLnrNonCovssss) - parseFloat(amounts),
                                           TtlClrdLonsTmsLnrNonCov: parseFloat(TtlClrdLonsTmsLneeNonCovssss) + 1,
                                           TtlClrdLonsAmtLnrNonCov: parseFloat(TtlClrdLonsAmtLneeNonCovssss) + parseFloat(amounts),
-                                                                            
+                                          MaxTymsIHvBL:parseFloat(MaxTymsIHvBLs) - 1,                                
                                           
                                         }
                                       })

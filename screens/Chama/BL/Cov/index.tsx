@@ -56,8 +56,8 @@ const BLChmCovLoanee = (props) => {
       const compDtls :any= await API.graphql(
         graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
         );
-        const ttlChmLnsInBlAmtNonCovs = compDtls.data.getCompany.ttlChmLnsInBlAmtNonCov
-        const ttlChmLnsInBlTymsNonCovs = compDtls.data.getCompany.ttlChmLnsInBlTymsNonCov
+        const ttlChmLnsInBlTymsCovs = compDtls.data.getCompany.ttlChmLnsInBlTymsCov
+        const ttlChmLnsInBlAmtCovs = compDtls.data.getCompany.ttlChmLnsInBlAmtCov
 
         const gtLoanDtls = async () =>{
           if(isLoading){
@@ -89,6 +89,7 @@ const BLChmCovLoanee = (props) => {
                     const TtlBLLonsTmsLnrChmCovs = compDtls.data.getGroup.TtlBLLonsTmsLnrChmCov
                     const TtlBLLonsAmtLnrChmCovs = compDtls.data.getGroup.TtlBLLonsAmtLnrChmCov
                     const grpNames = compDtls.data.getGroup.grpName
+                    const tymsChmHvBLs = compDtls.data.getGroup.tymsChmHvBL
                          
                     const gtLoaneeDtls = async () =>{
                       if(isLoading){
@@ -103,7 +104,8 @@ const BLChmCovLoanee = (props) => {
                           const TtlBLLonsAmtLneeChmCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLneeChmCov
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
-                          
+                          const MaxTymsBLs =compDtls.data.getSMAccount.MaxTymsBL;
+
                           const updateLoanerDtls = async () => {
                             if(isLoading){
                               return;
@@ -114,6 +116,7 @@ const BLChmCovLoanee = (props) => {
                                   graphqlOperation(updateGroup,{
                                     input:{
                                       grpContact:loanerPhns,
+                                      tymsChmHvBL: parseFloat(tymsChmHvBLs) + 1,
                                       TtlBLLonsTmsLnrChmCov: parseFloat(TtlBLLonsTmsLnrChmCovs) + 1,
                                       TtlBLLonsAmtLnrChmCov: parseFloat(TtlBLLonsAmtLnrChmCovs) + parseFloat(amountexpecteds)
                                     }
@@ -167,8 +170,8 @@ const BLChmCovLoanee = (props) => {
                                       graphqlOperation(updateCompany,{
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
-                                          ttlChmLnsInBlAmtNonCov: parseFloat(ttlChmLnsInBlAmtNonCovs) + parseFloat(amountexpecteds),
-                                          ttlChmLnsInBlTymsNonCov: parseFloat(ttlChmLnsInBlTymsNonCovs) + 1
+                                          ttlChmLnsInBlTymsCov: parseFloat(ttlChmLnsInBlTymsCovs) + parseFloat(amountexpecteds),
+                                          ttlChmLnsInBlAmtCov: parseFloat(ttlChmLnsInBlAmtCovs) + 1
 
                                         }
                                       })
@@ -194,6 +197,7 @@ const BLChmCovLoanee = (props) => {
                                       graphqlOperation(updateSMAccount,{
                                         input:{
                                           phonecontact:loaneePhns,
+                                          MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsLneeChmCov: parseFloat(TtlBLLonsTmsLneeChmCovs) + 1,
                                           TtlBLLonsAmtLneeChmCov: parseFloat(TtlBLLonsAmtLneeChmCovs) + parseFloat(amountexpecteds),
                                           blStatus:"AccountBlackListed",

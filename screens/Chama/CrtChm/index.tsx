@@ -111,7 +111,7 @@ const CreateChama = (props:UserReg) => {
                 
                   ttlDpst: 0,
                   ttlWthdrwn: 0,
-                
+                  tymsChmHvBL:0,
                   TtlActvLonsTmsLnrChmCov: 0,
                   TtlActvLonsAmtLnrChmCov: 0,
                   TtlBLLonsTmsLnrChmCov: 0,

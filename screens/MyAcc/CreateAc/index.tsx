@@ -194,7 +194,7 @@ const CreateAcForm = (props:UserReg) => {
           ttlNonLonsSentChm:0,
         
           MaxTymsBL: 0,
-          
+          MaxTymsIHvBL: 0,
           acStatus: 'AccountActive',
           blStatus: 'AccountNotBL',
           loanStatus: "NoLoan",

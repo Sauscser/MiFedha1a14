@@ -81,6 +81,7 @@ const RepayNonCovLnsss = props => {
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
       const usrPW =accountDtl.data.getSMAccount.pw;
+      const MaxTymsBLs =accountDtl.data.getSMAccount.MaxTymsBL;
       const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
       const TtlActvLonsTmsLneeCovss =accountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
       const TtlActvLonsAmtLneeCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
@@ -103,7 +104,7 @@ const RepayNonCovLnsss = props => {
           );
           
             
-          const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
+          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;  
           const ttlSMLnsInClrdAmtCovs = CompDtls.data.getCompany.ttlSMLnsInClrdAmtCov; 
           const ttlSMLnsInClrdTymsCovs = CompDtls.data.getCompany.ttlSMLnsInClrdTymsCov;
@@ -131,7 +132,7 @@ const RepayNonCovLnsss = props => {
                     const TtlClrdLonsTmsLneeCovssss =accountDtl.data.getSMAccount.TtlClrdLonsTmsLnrCov;
                     const TtlClrdLonsAmtLneeCovssss =accountDtl.data.getSMAccount.TtlClrdLonsAmtLnrCov;
                     const namess =accountDtl.data.getSMAccount.name;
-                    
+                    const MaxTymsIHvBLs =accountDtl.data.getSMAccount.MaxTymsIHvBL;
                     
 
                     const ftchCvdSMLn = async () => {
@@ -220,6 +221,7 @@ const RepayNonCovLnsss = props => {
                                           phonecontact:SendrPhn,
                                           ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted ,
+                                          MaxTymsBL:parseFloat(MaxTymsBLs)-1 ,
                                           TtlActvLonsTmsLneeCov:parseFloat(TtlActvLonsTmsLneeCovss)-1,                                          
                                           TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts), 
                                           TtlClrdLonsTmsLneeCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
@@ -258,7 +260,7 @@ const RepayNonCovLnsss = props => {
                                           TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovssss) - parseFloat(amounts),
                                           TtlClrdLonsTmsLnrCov: parseFloat(TtlClrdLonsTmsLneeCovssss) + 1,
                                           TtlClrdLonsAmtLnrCov: parseFloat(TtlClrdLonsAmtLneeCovssss) + parseFloat(amounts),
-                                                                            
+                                          MaxTymsIHvBL:parseFloat(MaxTymsIHvBLs) - 1,                                  
                                           
                                         }
                                       })
@@ -283,8 +285,8 @@ const RepayNonCovLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                          
-                                          companyEarningBal:userLoanTransferFees * parseFloat(amounts) + parseFloat(companyEarningBals),
-                                          companyEarning: userLoanTransferFees * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
                                           
                                           ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
                                           ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),

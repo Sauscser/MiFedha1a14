@@ -84,9 +84,11 @@ const RepayCovLnsss = props => {
       const TtlActvLonsAmtLneeCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
       const TtlClrdLonsTmsLneeCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsLneeCov;
       const TtlClrdLonsAmtLneeCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtLneeCov;
+      
       const names =accountDtl.data.getSMAccount.name;
       const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
       const nonLonLimits =accountDtl.data.getSMAccount.nonLonLimit;
+      const MaxTymsBLs =accountDtl.data.getSMAccount.MaxTymsBL;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -129,6 +131,7 @@ const RepayCovLnsss = props => {
                     const TtlClrdLonsTmsLneeCovssss =accountDtl.data.getSMAccount.TtlClrdLonsTmsLnrCov;
                     const TtlClrdLonsAmtLneeCovssss =accountDtl.data.getSMAccount.TtlClrdLonsAmtLnrCov;
                     const namess =accountDtl.data.getSMAccount.name;
+                    const MaxTymsIHvBLs =accountDtl.data.getSMAccount.MaxTymsIHvBL;
                     
                     
 
@@ -218,10 +221,13 @@ const RepayCovLnsss = props => {
                                           phonecontact:SendrPhn,
                                           ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted ,
+                                          MaxTymsBL:parseFloat(MaxTymsBLs)-1 ,
                                           TtlActvLonsTmsLneeCov:parseFloat(TtlActvLonsTmsLneeCovss)-1,                                          
                                           TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts), 
                                           TtlClrdLonsTmsLneeCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
                                           TtlClrdLonsAmtLneeCov: parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts),
+                                       
+                                          
                                           loanStatus: "NoLoan",
                                           blStatus: "AccountNotBL",
                                                                              
@@ -251,7 +257,8 @@ const RepayCovLnsss = props => {
                                         input:{
                                           phonecontact:RecPhn,
                                           ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
-                                          balance:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
+                                          balance:parseFloat(RecUsrBal) + parseFloat(amounts), 
+                                          MaxTymsIHvBL:parseFloat(MaxTymsIHvBLs) - 1,                                     
                                           TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovssss) - 1,
                                           TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovssss) - parseFloat(amounts),
                                           TtlClrdLonsTmsLnrCov: parseFloat(TtlClrdLonsTmsLneeCovssss) + 1,

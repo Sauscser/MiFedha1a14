@@ -79,6 +79,7 @@ export const onCreateSMAccount = /* GraphQL */ `
       ttlNonLonsRecChm
       ttlNonLonsSentChm
       MaxTymsBL
+      MaxTymsIHvBL
       loanStatus
       acStatus
       blStatus
@@ -169,6 +170,7 @@ export const onUpdateSMAccount = /* GraphQL */ `
       ttlNonLonsRecChm
       ttlNonLonsSentChm
       MaxTymsBL
+      MaxTymsIHvBL
       loanStatus
       acStatus
       blStatus
@@ -259,6 +261,7 @@ export const onDeleteSMAccount = /* GraphQL */ `
       ttlNonLonsRecChm
       ttlNonLonsSentChm
       MaxTymsBL
+      MaxTymsIHvBL
       loanStatus
       acStatus
       blStatus
@@ -1516,6 +1519,7 @@ export const onCreateGroup = /* GraphQL */ `
       ttlNonLonsSentChm
       ttlDpst
       ttlWthdrwn
+      tymsChmHvBL
       TtlActvLonsTmsLnrChmCov
       TtlActvLonsAmtLnrChmCov
       TtlBLLonsTmsLnrChmCov
@@ -1552,6 +1556,7 @@ export const onUpdateGroup = /* GraphQL */ `
       ttlNonLonsSentChm
       ttlDpst
       ttlWthdrwn
+      tymsChmHvBL
       TtlActvLonsTmsLnrChmCov
       TtlActvLonsAmtLnrChmCov
       TtlBLLonsTmsLnrChmCov
@@ -1588,6 +1593,7 @@ export const onDeleteGroup = /* GraphQL */ `
       ttlNonLonsSentChm
       ttlDpst
       ttlWthdrwn
+      tymsChmHvBL
       TtlActvLonsTmsLnrChmCov
       TtlActvLonsAmtLnrChmCov
       TtlBLLonsTmsLnrChmCov

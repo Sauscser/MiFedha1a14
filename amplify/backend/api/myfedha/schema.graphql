@@ -128,6 +128,8 @@ type SMAccount
   ttlNonLonsSentChm:Float!
 
   MaxTymsBL: Float!
+  MaxTymsIHvBL: Float!
+  
 
   loanStatus: Status!
   acStatus: Status!
@@ -1148,6 +1150,8 @@ type Group
 
   ttlDpst: Float!
   ttlWthdrwn: Float!
+
+  tymsChmHvBL:Float!
 
   TtlActvLonsTmsLnrChmCov: Float!
   TtlActvLonsAmtLnrChmCov: Float!

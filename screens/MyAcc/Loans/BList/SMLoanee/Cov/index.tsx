@@ -86,6 +86,7 @@ const BLSMCovLoanee = (props) => {
                     const TtlBLLonsTmsLnrCovs = compDtls.data.getSMAccount.TtlBLLonsTmsLnrCov
                     const TtlBLLonsAmtLnrCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLnrCov
                     const names = compDtls.data.getSMAccount.name
+                    const MaxTymsIHvBLs = compDtls.data.getSMAccount.MaxTymsIHvBL
                          
                     const gtLoaneeDtls = async () =>{
                       if(isLoading){
@@ -100,6 +101,7 @@ const BLSMCovLoanee = (props) => {
                           const TtlBLLonsAmtLneeCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLneeCov
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
+                          const MaxTymsBLs =compDtls.data.getSMAccount.MaxTymsBL;
                           
                           const updateLoanerDtls = async () => {
                             if(isLoading){
@@ -112,6 +114,7 @@ const BLSMCovLoanee = (props) => {
                                     input:{
                                       phonecontact:loanerPhns,
                                       TtlBLLonsTmsLnrCov: parseFloat(TtlBLLonsTmsLnrCovs) + 1,
+                                      MaxTymsIHvBL: parseFloat(MaxTymsIHvBLs) + 1,
                                       TtlBLLonsAmtLnrCov: parseFloat(TtlBLLonsAmtLnrCovs) + parseFloat(amountexpecteds)
                                     }
                                   })
@@ -192,6 +195,7 @@ const BLSMCovLoanee = (props) => {
                                         input:{
                                           phonecontact:loaneePhns,
                                           TtlBLLonsTmsLneeCov: parseFloat(TtlBLLonsTmsLneeCovs) + 1,
+                                          MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsAmtLneeCov: parseFloat(TtlBLLonsAmtLneeCovs) + parseFloat(amountexpecteds),
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"

@@ -86,7 +86,8 @@ const BLSMNonCovLoanee = (props) => {
                     const TtlBLLonsTmsLnrNonCovs = compDtls.data.getSMAccount.TtlBLLonsTmsLnrNonCov
                     const TtlBLLonsAmtLnrNonCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLnrNonCov
                     const names = compDtls.data.getSMAccount.name
-                         
+                    const MaxTymsIHvBLs = compDtls.data.getSMAccount.MaxTymsIHvBL
+
                     const gtLoaneeDtls = async () =>{
                       if(isLoading){
                         return;
@@ -100,7 +101,8 @@ const BLSMNonCovLoanee = (props) => {
                           const TtlBLLonsAmtLneeNonCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLneeNonCov
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
-                          
+                          const MaxTymsBLs =compDtls.data.getSMAccount.MaxTymsBL;
+
                           const updateLoanerDtls = async () => {
                             if(isLoading){
                               return;
@@ -111,6 +113,7 @@ const BLSMNonCovLoanee = (props) => {
                                   graphqlOperation(updateSMAccount,{
                                     input:{
                                       phonecontact:loanerPhns,
+                                      MaxTymsIHvBL: parseFloat(MaxTymsIHvBLs) + 1,
                                       TtlBLLonsTmsLnrNonCov: parseFloat(TtlBLLonsTmsLnrNonCovs) + 1,
                                       TtlBLLonsAmtLnrNonCov: parseFloat(TtlBLLonsAmtLnrNonCovs) + parseFloat(amountexpecteds)
                                     }
@@ -191,6 +194,7 @@ const BLSMNonCovLoanee = (props) => {
                                       graphqlOperation(updateSMAccount,{
                                         input:{
                                           phonecontact:loaneePhns,
+                                          MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsLneeNonCov: parseFloat(TtlBLLonsTmsLneeNonCovs) + 1,
                                           TtlBLLonsAmtLneeNonCov: parseFloat(TtlBLLonsAmtLneeNonCovs) + parseFloat(amountexpecteds),
                                           blStatus:"AccountBlackListed",
