@@ -26,7 +26,7 @@ import styles from './styles';
   
 
 
-const BLLoanee = (props) => {
+const BLSMLoanee = (props) => {
   const navigation = useNavigation();
 
   const [LonId, setLonId] = useState("");
@@ -144,11 +144,11 @@ const BLLoanee = (props) => {
                             Alert.alert("This Loan is already Black Listed")
                           } 
 
-                          else if(acStatuss !== "AccountActive"){
+                          else if(acStatuss === "AccountInactive"){
                             Alert.alert("Loaner account has been deactivated")
                           } 
 
-                          else if(acStatusss !== "AccountActive"){
+                          else if(acStatusss === "AccountInactive"){
                             Alert.alert("Loanee account has been deactivated")
                           } 
                           else{updateLoanerDtls();}
@@ -337,4 +337,4 @@ const BLLoanee = (props) => {
           );
         };
         
-        export default BLLoanee;
+        export default BLSMLoanee;

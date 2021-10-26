@@ -984,6 +984,7 @@ type Company
   maxInterestGrp: Float!
 
   maxMFNdogos:Float!
+  maxBLs:Float!
 
 
   totalLnsRecovered: Float!
@@ -1410,7 +1411,9 @@ enum Status {
   AccountInactive
   AccountBlackListed
   AccountNotBL
-  NonLons
+  SMNonLons
+  ChmMbrGrpContri
+  ChmSndMbr
   SMCovLonRepayment
   SMNonCovLonRepayment
   ChmCovLonRepayment

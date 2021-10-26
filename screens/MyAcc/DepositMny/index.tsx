@@ -95,14 +95,16 @@ const SMADepositForm = props => {
                       await API.graphql(
                         graphqlOperation(createFloatReduction, {
                           input: {
-                          
+                            
                             depositerid: nationalId,                    
                             agContact: AgentPhn,
                             amount: amount,
                             status: 'AccountActive',
                           },
+                          
                         }),
                       );
+                      
     
             } catch (error) {
               if(!error){

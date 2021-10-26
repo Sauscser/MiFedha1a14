@@ -11,6 +11,7 @@ import {
   updateCompany,
   
   updateSMAccount,
+  updateGroup,
   
 } from '../../.././src/graphql/mutations';
 
@@ -18,6 +19,7 @@ import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {
   
   getCompany,
+  getGroup,
   getSMAccount,
   
 } from '../../.././src/graphql/queries';
@@ -40,11 +42,11 @@ import {
 import styles from './styles';
 
 
-const SMASendNonLns = props => {
+const SMASendChmNonLns = props => {
   const [SenderNatId, setSenderNatId] = useState('');
   const [RecNatId, setRecNatId] = useState('');
   const [SnderPW, setSnderPW] = useState("");
-  const [SendrPhn, setSendrPhn] = useState("");  
+  const [SendrPhn, setSendrPhn] = useState(null);  
   const [amounts, setAmount] = useState("");
   
   const [Desc, setDesc] = useState("");
@@ -101,8 +103,8 @@ const SMASendNonLns = props => {
           
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
-          const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
-          const ttlNonLonssSentSMs = CompDtls.data.getCompany.ttlNonLonssSentSM; 
+          const ttlNonLonssRecChmss = CompDtls.data.getCompany.ttlNonLonssRecChms;
+        
          
                     
           const fetchRecUsrDtls = async () => {
@@ -112,12 +114,12 @@ const SMASendNonLns = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {phonecontact: RecNatId}),
+                    graphqlOperation(getGroup, {grpContact: RecNatId}),
                     );
-                    const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
-                    const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
-                    const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
-                    const namess =RecAccountDtl.data.getSMAccount.name;
+                    const grpBals =RecAccountDtl.data.getGroup.grpBal;                    
+                    const statuss =RecAccountDtl.data.getGroup.status; 
+                    const ttlNonLonsRecChmsssssss =RecAccountDtl.data.getGroup.ttlNonLonsRecChm;
+                    const grpNames =RecAccountDtl.data.getGroup.grpName;
                     
                     
                   
@@ -134,7 +136,7 @@ const SMASendNonLns = props => {
                               senderPhn: SendrPhn,                                  
                               amount: amounts,                              
                               description: Desc,
-                              status: "NonLons",
+                              status: "ChmMbrGrpContri",
                               owner: ownr
                             },
                           }),
@@ -165,8 +167,7 @@ const SMASendNonLns = props => {
                                 recPhn:SendrPhn,
                                 ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
                                 balance:parseFloat(SenderUsrBal)-TotalTransacted 
-                               
-                                
+                                                               
                               }
                             })
                           )
@@ -188,11 +189,11 @@ const SMASendNonLns = props => {
                       setIsLoading(true);
                       try{
                           await API.graphql(
-                            graphqlOperation(updateSMAccount, {
+                            graphqlOperation(updateGroup, {
                               input:{
-                                recPhn:RecNatId,
-                                ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
-                                balance:parseFloat(RecUsrBal) + parseFloat(amounts)                                     
+                                grpContact:RecNatId,
+                                ttlNonLonsRecChm: parseFloat(ttlNonLonsRecChmsssssss) + parseFloat(amounts) ,
+                                grpBal:parseFloat(grpBals) + parseFloat(amounts)                                     
                                 
                                                                   
                                 
@@ -222,8 +223,8 @@ const SMASendNonLns = props => {
                                 companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
                                 companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
                                 
-                                ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
-                                ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
+                                ttlNonLonssRecChms: parseFloat(amounts) + parseFloat(ttlNonLonssRecChmss),
+                                
                                 
                               }
                             })
@@ -235,15 +236,15 @@ const SMASendNonLns = props => {
                         if (error){Alert.alert("Check your internet connection")
                     return;}
                       }
-                      Alert.alert(names + " has sent Ksh. " + amounts + " to " + namess);
+                      Alert.alert(names + " has sent Ksh. " + amounts + " to " + grpNames+" Chama");
                       setIsLoading(false);
                     }
                     
                                           
                     
                     if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                    else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                    else if(SenderNatId === RecNatId){Alert.alert('You cannot Send money to yourself Yourself');}
+                    else if(statuss !== "AccountActive"){Alert.alert('Chama account is inactive');}
+                    
                     else if (
                       parseFloat(SenderUsrBal) < TotalTransacted 
                     ) {Alert.alert('Requested amount is more than you have in your account');}
@@ -369,7 +370,7 @@ useEffect(() =>{
               onChangeText={setRecNatId}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Receiver Phone</Text>
+            <Text style={styles.sendAmtText}>Chama Phone</Text>
           </View>
 
           <View style={styles.sendAmtView}>
@@ -420,4 +421,4 @@ useEffect(() =>{
   );
 };
 
-export default SMASendNonLns;
+export default SMASendChmNonLns;

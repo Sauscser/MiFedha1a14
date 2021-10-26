@@ -123,10 +123,11 @@ const SMASendLns = props => {
           const ttlSMLnsInActvAmtCovs = CompDtls.data.getCompany.ttlSMLnsInActvAmtCov;
           const ttlSMLnsInTymsCovs = CompDtls.data.getCompany.ttlSMLnsInTymsCov;
           const ttlSMLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSMLnsInActvTymsCov;       
-
+          const maxInterests = CompDtls.data.getCompany.maxInterest;
+          const maxBLss = CompDtls.data.getCompany.maxBLs;
           
 
-          const maxInterests = CompDtls.data.getCompany.maxInterest;
+          
 
           
           
@@ -322,7 +323,7 @@ const SMASendLns = props => {
                           setIsLoading(false);
                         }
                                               
-                        if (parseFloat(usrNoBL) > 1){Alert.alert('Receiver does not qualify');
+                        if (parseFloat(usrNoBL) > maxBLss){Alert.alert('Receiver does not qualify');
                       return;
                     }
                         else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');

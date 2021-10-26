@@ -126,10 +126,9 @@ const ChmCovLns = props => {
           
           const ttlChmLnsInTymsCovs = CompDtls.data.getCompany.ttlChmLnsInTymsCov;
             
+          const maxInterests = CompDtls.data.getCompany.maxInterest;          
 
-          
-
-          const maxInterests = CompDtls.data.getCompany.maxInterest;
+          const maxBLss = CompDtls.data.getCompany.maxBLs;
 
           
           
@@ -164,8 +163,8 @@ const ChmCovLns = props => {
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
                         const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
-                        const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
-                        const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
+                        const TtlActvLonsTmsLneeChmCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmCov;
+                        const TtlActvLonsAmtLneeChmCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
                       
                         const sendSMLn = async () => {
@@ -245,8 +244,8 @@ const ChmCovLns = props => {
                                 graphqlOperation(updateSMAccount, {
                                   input:{
                                     phonecontact:RecPhn,
-                                    TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
-                                    TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(amount),
+                                    TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
+                                    TtlActvLonsAmtLneeChmCov: parseFloat(TtlActvLonsAmtLneeChmCovs)+ parseFloat(amount),
                                     balance:parseFloat(RecUsrBal) + parseFloat(amount)  ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
@@ -327,12 +326,13 @@ const ChmCovLns = props => {
                           setIsLoading(false);
                         }
                                               
-                        if (parseFloat(usrNoBL) > 1){Alert.alert('Receiver does not qualify');
+                        if (parseFloat(usrNoBL) > maxBLss){Alert.alert('Receiver does not qualify');
                       return;
                     }
                         else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');
                       return;
                     }
+                    else if(ownr !==SenderSub){Alert.alert('You are not the creator/signitory of this group');}
                         else if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(ChmPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
@@ -343,11 +343,9 @@ const ChmCovLns = props => {
                         ) {Alert.alert('Requested amount is more than you have in your account');}
                         else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
                         else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');}
-                        
-                        
-                        
-                        
-                         else {
+                                                                 
+            
+                                                 else {
                           sendSMLn();
                         }                                                
                     }       

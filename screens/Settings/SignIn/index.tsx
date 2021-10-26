@@ -164,7 +164,9 @@ const AdminSignIn = (props) => {
             ttlCompTrnsfrEarningsNonCov: 0,
             ttlCompBLClrncEarningsNonCov: 0,
             ttlCompCovEarnings: 0,
-          
+            
+            maxBLs:0,
+
             maxInterestSM: 0.00033,
             maxInterestCredSllr: 0.00033,
             maxInterestGrp: 0.00033,

@@ -44,7 +44,7 @@ const SMASendNonLns = props => {
   const [SenderNatId, setSenderNatId] = useState('');
   const [RecNatId, setRecNatId] = useState('');
   const [SnderPW, setSnderPW] = useState("");
-  const [SendrPhn, setSendrPhn] = useState("");  
+  const [SendrPhn, setSendrPhn] = useState(null);  
   const [amounts, setAmount] = useState("");
   
   const [Desc, setDesc] = useState("");
