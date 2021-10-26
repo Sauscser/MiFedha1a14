@@ -21,12 +21,15 @@ import {
   ActivityIndicator
 } from 'react-native';
 import styles from './styles';
+import { getCvrdGroupLoans, getGroup } from '../../../../src/graphql/queries';
+import { updateGroup } from '../../../../src/graphql/mutations';
+import { onUpdateCvrdGroupLoans } from '../../../../src/graphql/subscriptions';
 
 
   
 
 
-const BLSMCovLoanee = (props) => {
+const BLChmCovLoanee = (props) => {
   const navigation = useNavigation();
 
   const [LonId, setLonId] = useState("");
@@ -53,8 +56,8 @@ const BLSMCovLoanee = (props) => {
       const compDtls :any= await API.graphql(
         graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
         );
-        const ttlSMLnsInBlAmtCovs = compDtls.data.getCompany.ttlSMLnsInBlAmtCov
-        const ttlSMLnsInBlTymsCovs = compDtls.data.getCompany.ttlSMLnsInBlTymsCov
+        const ttlChmLnsInBlAmtNonCovs = compDtls.data.getCompany.ttlChmLnsInBlAmtNonCov
+        const ttlChmLnsInBlTymsNonCovs = compDtls.data.getCompany.ttlChmLnsInBlTymsNonCov
 
         const gtLoanDtls = async () =>{
           if(isLoading){
@@ -63,13 +66,13 @@ const BLSMCovLoanee = (props) => {
           setIsLoading(true);
           try{
             const compDtls :any= await API.graphql(
-              graphqlOperation(getSMLoansCovered,{id:LonId})
+              graphqlOperation(getCvrdGroupLoans,{id:LonId})
               );
-              const loaneePhns = compDtls.data.getSMLoansCovered.loaneePhn
-              const loanerPhns = compDtls.data.getSMLoansCovered.loanerPhn
-              const amountexpecteds = compDtls.data.getSMLoansCovered.amountexpected
-              const amountrepaids = compDtls.data.getSMLoansCovered.amountrepaid
-              const statusssss = compDtls.data.getSMLoansCovered.status
+              const loaneePhns = compDtls.data.getCvrdGroupLoans.loaneePhn
+              const loanerPhns = compDtls.data.getCvrdGroupLoans.grpContact
+              const amountexpecteds = compDtls.data.getCvrdGroupLoans.amountExpectedBack
+              const amountrepaids = compDtls.data.getCvrdGroupLoans.amountRepaid
+              const statusssss = compDtls.data.getCvrdGroupLoans.status
               const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
@@ -79,13 +82,13 @@ const BLSMCovLoanee = (props) => {
                 setIsLoading(true);
                 try{
                   const compDtls :any= await API.graphql(
-                    graphqlOperation(getSMAccount,{phonecontact:loanerPhns})
+                    graphqlOperation(getGroup,{grpContact:loanerPhns})
                     );
-                    const owners = compDtls.data.getSMAccount.owner
-                    const acStatuss = compDtls.data.getSMAccount.acStatus
-                    const TtlBLLonsTmsLnrCovs = compDtls.data.getSMAccount.TtlBLLonsTmsLnrCov
-                    const TtlBLLonsAmtLnrCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLnrCov
-                    const names = compDtls.data.getSMAccount.name
+                    const owners = compDtls.data.getGroup.owner
+                    const acStatuss = compDtls.data.getGroup.status
+                    const TtlBLLonsTmsLnrChmCovs = compDtls.data.getGroup.TtlBLLonsTmsLnrChmCov
+                    const TtlBLLonsAmtLnrChmCovs = compDtls.data.getGroup.TtlBLLonsAmtLnrChmCov
+                    const grpNames = compDtls.data.getGroup.grpName
                          
                     const gtLoaneeDtls = async () =>{
                       if(isLoading){
@@ -96,8 +99,8 @@ const BLSMCovLoanee = (props) => {
                         const compDtls :any= await API.graphql(
                           graphqlOperation(getSMAccount,{phonecontact:loaneePhns})
                           );
-                          const TtlBLLonsTmsLneeCovs = compDtls.data.getSMAccount.TtlBLLonsTmsLneeCov
-                          const TtlBLLonsAmtLneeCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLneeCov
+                          const TtlBLLonsTmsLneeChmCovs = compDtls.data.getSMAccount.TtlBLLonsTmsLneeChmCov
+                          const TtlBLLonsAmtLneeChmCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLneeChmCov
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
                           
@@ -108,11 +111,11 @@ const BLSMCovLoanee = (props) => {
                             setIsLoading(true);
                             try{
                                 await API.graphql(
-                                  graphqlOperation(updateSMAccount,{
+                                  graphqlOperation(updateGroup,{
                                     input:{
-                                      phonecontact:loanerPhns,
-                                      TtlBLLonsTmsLnrCov: parseFloat(TtlBLLonsTmsLnrCovs) + 1,
-                                      TtlBLLonsAmtLnrCov: parseFloat(TtlBLLonsAmtLnrCovs) + parseFloat(amountexpecteds)
+                                      grpContact:loanerPhns,
+                                      TtlBLLonsTmsLnrChmCov: parseFloat(TtlBLLonsTmsLnrChmCovs) + 1,
+                                      TtlBLLonsAmtLnrChmCov: parseFloat(TtlBLLonsAmtLnrChmCovs) + parseFloat(amountexpecteds)
                                     }
                                   })
                                 )
@@ -164,8 +167,8 @@ const BLSMCovLoanee = (props) => {
                                       graphqlOperation(updateCompany,{
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
-                                          ttlSMLnsInBlAmtCov: parseFloat(ttlSMLnsInBlAmtCovs) + parseFloat(amountexpecteds),
-                                          ttlSMLnsInBlTymsCov: parseFloat(ttlSMLnsInBlTymsCovs) + 1
+                                          ttlChmLnsInBlAmtNonCov: parseFloat(ttlChmLnsInBlAmtNonCovs) + parseFloat(amountexpecteds),
+                                          ttlChmLnsInBlTymsNonCov: parseFloat(ttlChmLnsInBlTymsNonCovs) + 1
 
                                         }
                                       })
@@ -191,8 +194,8 @@ const BLSMCovLoanee = (props) => {
                                       graphqlOperation(updateSMAccount,{
                                         input:{
                                           phonecontact:loaneePhns,
-                                          TtlBLLonsTmsLneeCov: parseFloat(TtlBLLonsTmsLneeCovs) + 1,
-                                          TtlBLLonsAmtLneeCov: parseFloat(TtlBLLonsAmtLneeCovs) + parseFloat(amountexpecteds),
+                                          TtlBLLonsTmsLneeChmCov: parseFloat(TtlBLLonsTmsLneeChmCovs) + 1,
+                                          TtlBLLonsAmtLneeChmCov: parseFloat(TtlBLLonsAmtLneeChmCovs) + parseFloat(amountexpecteds),
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
@@ -220,7 +223,7 @@ const BLSMCovLoanee = (props) => {
                                 setIsLoading(true);
                                 try{
                                     await API.graphql(
-                                      graphqlOperation(updateSMLoansCovered, {
+                                      graphqlOperation(onUpdateCvrdGroupLoans, {
                                         input:{
                                           id:LonId,
                                           
@@ -239,7 +242,7 @@ const BLSMCovLoanee = (props) => {
                               } 
                               else{Alert.alert("Please check your internet connection")
                               return;} }
-                              Alert.alert(names +", you have blacklisted "+ namess)
+                              Alert.alert(grpNames +", you have blacklisted "+ namess)
                                 setIsLoading(false);          
                               } 
                               
@@ -337,4 +340,4 @@ const BLSMCovLoanee = (props) => {
           );
         };
         
-        export default BLSMCovLoanee;
+        export default BLChmCovLoanee;

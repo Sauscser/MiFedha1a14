@@ -67,8 +67,8 @@ const BLNonCovCredByr = (props) => {
               );
               const buyerContacts = compDtls.data.getNonCovCreditSeller.buyerContact
               const sellerContacts = compDtls.data.getNonCovCreditSeller.sellerContact
-              const amountexpecteds = compDtls.data.getNonCovCreditSeller.amountexpected
-              const amountrepaids = compDtls.data.getNonCovCreditSeller.amountrepaid
+              const amountexpecteds = compDtls.data.getNonCovCreditSeller.amountexpectedBack
+              const amountrepaids = compDtls.data.getNonCovCreditSeller.amountRepaid
               const statusssss = compDtls.data.getNonCovCreditSeller.status
               const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
 
