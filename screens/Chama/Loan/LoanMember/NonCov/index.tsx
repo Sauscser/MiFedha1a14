@@ -4,6 +4,7 @@ import {
   createFloatAdd,
   createSMAccount,
   createSMLoansCovered,
+  createSMLoansNonCovered,
   updateAdvocate,
   updateAgent,
   updateCompany,
@@ -39,7 +40,7 @@ import {
 import styles from './styles';
 import { parse } from 'expo-linking';
 
-const SMASendLns = props => {
+const SMASendNonCovLns = props => {
   const [SenderNatId, setSenderNatId] = useState('');
   const [RecNatId, setRecNatId] = useState('');
   const [RecPhn, setRecPhn] = useState('');
@@ -102,23 +103,16 @@ const SMASendLns = props => {
           );
           
           const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
-          const AdvComs = CompDtls.data.getCompany.AdvCom;
-          const CoverageFees = CompDtls.data.getCompany.CoverageFee;
-          const CompCovFee =1- (parseFloat(CoverageFees)*parseFloat(AdvComs))
-          const AdvCovAmt = parseFloat(AdvComs)*parseFloat(CoverageFees)*parseFloat(amount)
-          const CompCovAmt = CompCovFee*parseFloat(amount)
-          const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)
-                   
           
-          const TotalTransacted = parseFloat(amount) + ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount);
+          
+          const TotalTransacted = parseFloat(amount) + parseFloat(userLoanTransferFees)*parseFloat(amount);
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
-          const ttlCompCovEarningss = CompDtls.data.getCompany.ttlCompCovEarnings;
+          
 
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
-          const AdvEarningBals = CompDtls.data.getCompany.AdvEarningBal;
-          const AdvEarnings = CompDtls.data.getCompany.AdvEarning; 
-         
+          
+          
           const ttlSMLnsInAmtCovs = CompDtls.data.getCompany.ttlSMLnsInAmtCov;
           const ttlSMLnsInActvAmtCovs = CompDtls.data.getCompany.ttlSMLnsInActvAmtCov;
           const ttlSMLnsInTymsCovs = CompDtls.data.getCompany.ttlSMLnsInTymsCov;
@@ -130,22 +124,7 @@ const SMASendLns = props => {
 
           
           
-          const fetchAdv = async () =>{
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
-            try{
-
-              const AdvDtls:any = await API.graphql(
-                graphqlOperation(getAdvocate,
-                  {advregnu: AdvRegNo}),
-                  
-              );
-              const advTtlAern = AdvDtls.data.getAdvocate.TtlEarnings;
-              const advBl = AdvDtls.data.getAdvocate.advBal;
-              const advStts = AdvDtls.data.getAdvocate.status;
-              const namesssssss = AdvDtls.data.getAdvocate.name;
+          
               
 
               const fetchRecUsrDtls = async () => {
@@ -172,7 +151,7 @@ const SMASendLns = props => {
                           setIsLoading(true);
                           try {
                             await API.graphql(
-                              graphqlOperation(createSMLoansCovered, {
+                              graphqlOperation(createSMLoansNonCovered, {
                                 input: {
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,
@@ -183,7 +162,7 @@ const SMASendLns = props => {
                                   amountrepaid: 0,
                                   lonBala:0,
                                   repaymentPeriod: RepaymtPeriod,
-                                  advregnu: AdvRegNo,
+                                  
                                   description: Desc,
                                   status: "LoanActive",
                                   owner: ownr
@@ -274,15 +253,16 @@ const SMASendLns = props => {
                                   input:{
                                     AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                         
-                                    ttlCompCovEarnings:CompCovAmt + parseFloat(ttlCompCovEarningss),
-                                    AdvEarningBal:AdvCovAmt + parseFloat(AdvEarningBals),                                                                                                                                                     
-                                    AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
-                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals),
-                                    companyEarning: CompCovAmt + parseFloat(companyEarnings),                                                    
+                                    
+                                    companyEarningBal:userLoanTransferFees * parseFloat(amount) + parseFloat(companyEarningBals),
+                                    companyEarning: userLoanTransferFees * parseFloat(amount) + parseFloat(companyEarnings),                                                    
                                     
                                     ttlSMLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInAmtCovs),
-                                    
+                                    ttlSMLnsInActvAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInActvAmtCovs),
                                     ttlSMLnsInTymsCov: 1 + parseFloat(ttlSMLnsInTymsCovs),
+                                    ttlSMLnsInActvTymsCov: 1 + parseFloat(ttlSMLnsInActvTymsCovs),      
+                                    
+                                     
                                     
                                   }
                                 })
@@ -294,33 +274,11 @@ const SMASendLns = props => {
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
+                          Alert.alert(names + " loans " + namess +" Ksh. " + amount );
                           setIsLoading(false);
-                          await updtAdv();
+                          
                         }
-                        const updtAdv = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateAdvocate, {
-                                  input:{
-                                    advregnu: AdvRegNo,
-                                    advBal: AdvCovAmt + parseFloat(advBl) ,
-                                    TtlEarnings:AdvCovAmt + parseFloat(advTtlAern),                                 
-                                    
-                                  }
-                                })
-                              )
-                          }
-                          catch(error){
-                            if (error){Alert.alert("Check your internet connection")
-      return;}
-                          }
-                          Alert.alert(names + " loans " + namess +" Ksh. " + amount +": "+ namesssssss+" coverage");
-                          setIsLoading(false);
-                        }
+                        
                                               
                         if (parseFloat(usrNoBL) > 1){Alert.alert('Receiver does not qualify');
                       return;
@@ -336,7 +294,7 @@ const SMASendLns = props => {
                         else if (
                           parseFloat(SenderUsrBal) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
-                        else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
+                        
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                         
                         
@@ -355,16 +313,7 @@ const SMASendLns = props => {
                       await fetchRecUsrDtls();        
                     
 
-            }
-            catch (e){
-              if (e){Alert.alert("Advocate not registered")
-      return;}
-            }
-            setIsLoading(false);
-          }
-          
-          await fetchAdv();
-
+            
           
         
         } catch (e) {
@@ -567,14 +516,7 @@ useEffect(() =>{
            <Text style={styles.sendAmtText}>Repayment Period in days</Text>
          </View>
 
-         <View style={styles.sendAmtView}>
-           <TextInput
-             value={AdvRegNo}
-             onChangeText={setAdvRegNo}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Advocate Reg Number</Text>
-         </View>
+         
 
 
          <View style={styles.sendAmtView}>
@@ -603,7 +545,7 @@ useEffect(() =>{
          <TouchableOpacity
            onPress={fetchSenderUsrDtls}
            style={styles.sendAmtButton}>
-           <Text style={styles.sendAmtButtonText}>Loan with Advocate Coverage</Text>
+           <Text style={styles.sendAmtButtonText}>Loan without Advocate Coverage</Text>
            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
          </TouchableOpacity>
 
@@ -615,4 +557,4 @@ useEffect(() =>{
   );
 };
 
-export default SMASendLns;
+export default SMASendNonCovLns;

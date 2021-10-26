@@ -53,6 +53,7 @@ type SMAccount
   ttlDpstSM: Float!
   TtlWthdrwnSM: Float!
 
+
   TtlActvLonsTmsLnrCov: Float!
   TtlActvLonsTmsLneeCov: Float!
   TtlActvLonsAmtLnrCov: Float!
@@ -122,6 +123,9 @@ type SMAccount
 
   ttlNonLonsRecSM: Float!
   ttlNonLonsSentSM:Float!
+
+  ttlNonLonsRecChm: Float!
+  ttlNonLonsSentChm:Float!
 
   MaxTymsBL: Float!
 
@@ -900,6 +904,8 @@ type Company
   ttlInactvChm: Float!
   ttlActiveChmUsers: Float!
   ttlInactvChmUsrs: Float!
+
+
   
   ttlKFNdgActv: Float!
   ttlKFNdgInActv: Float!

@@ -18,12 +18,24 @@ const MyLoanAccount = props => {
     navigation.navigate('CreateChms');
   };
 
+  const ChmCovLonss = () => {
+    navigation.navigate('ChmCovLons');
+  };
+
+  const ChmNonCovLonss = () => {
+    navigation.navigate('ChmNonCovLons');
+  };
+
+  const ChmContrss = () => {
+    navigation.navigate('ChmContrs');
+  };
+
   const AddChmMembrssss = () => {
     navigation.navigate('AddChmMembrsss');
   };
   
-  const goToCreateSMAc = () => {
-    navigation.navigate('CreateSMAc');
+  const SndMbrsMnyss = () => {
+    navigation.navigate('SndMbrsMnys');
   };
 
   const goToSMADpstFm = () => {
@@ -65,13 +77,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={payCovLn}
+                      onPress={ChmCovLonss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Covered Loans</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={ChmNonCovLonss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Non-Covered Loans
@@ -155,13 +167,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={ChmContrss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Contribute</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={SMASndnonCovLn}
+                      onPress={SndMbrsMnyss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                        Send to Member

@@ -79,6 +79,8 @@ export const createSMAccount = /* GraphQL */ `
       TtlClrdLonsAmtByrNonCov
       ttlNonLonsRecSM
       ttlNonLonsSentSM
+      ttlNonLonsRecChm
+      ttlNonLonsSentChm
       MaxTymsBL
       loanStatus
       acStatus
@@ -170,6 +172,8 @@ export const updateSMAccount = /* GraphQL */ `
       TtlClrdLonsAmtByrNonCov
       ttlNonLonsRecSM
       ttlNonLonsSentSM
+      ttlNonLonsRecChm
+      ttlNonLonsSentChm
       MaxTymsBL
       loanStatus
       acStatus
@@ -261,6 +265,8 @@ export const deleteSMAccount = /* GraphQL */ `
       TtlClrdLonsAmtByrNonCov
       ttlNonLonsRecSM
       ttlNonLonsSentSM
+      ttlNonLonsRecChm
+      ttlNonLonsSentChm
       MaxTymsBL
       loanStatus
       acStatus

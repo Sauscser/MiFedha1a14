@@ -51,6 +51,10 @@ declare global {
       CredSlsHms:undefined;
       CreateChms:undefined;
       AddChmMembrsss:undefined;
+      ChmCovLons:undefined;
+      ChmNonCovLons:undefined;
+      ChmContrs:undefined;
+      SndMbrsMnys:undefined;
     }
   }
 }

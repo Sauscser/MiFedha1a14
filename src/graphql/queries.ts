@@ -76,6 +76,8 @@ export const getSMAccount = /* GraphQL */ `
       TtlClrdLonsAmtByrNonCov
       ttlNonLonsRecSM
       ttlNonLonsSentSM
+      ttlNonLonsRecChm
+      ttlNonLonsSentChm
       MaxTymsBL
       loanStatus
       acStatus
@@ -177,6 +179,8 @@ export const listSMAccounts = /* GraphQL */ `
         TtlClrdLonsAmtByrNonCov
         ttlNonLonsRecSM
         ttlNonLonsSentSM
+        ttlNonLonsRecChm
+        ttlNonLonsSentChm
         MaxTymsBL
         loanStatus
         acStatus

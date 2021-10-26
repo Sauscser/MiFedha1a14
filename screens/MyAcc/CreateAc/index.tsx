@@ -190,6 +190,8 @@ const CreateAcForm = (props:UserReg) => {
 
           ttlNonLonsRecSM: 0,
           ttlNonLonsSentSM:0,
+          ttlNonLonsRecChm: 0,
+          ttlNonLonsSentChm:0,
         
           MaxTymsBL: 0,
           

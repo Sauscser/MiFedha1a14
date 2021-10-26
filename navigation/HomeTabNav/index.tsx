@@ -35,6 +35,11 @@ import CovCredSls from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Cov";
 import NonCovCredSls from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/NonCov";
 import CreateChm from "../../screens/Chama/CrtChm";
 import AddChmMembrss from "../../screens/Chama/AddChmMembrs";
+import ChmCovLon from "../../screens/Chama/Loan/LoanMember/Cov";
+import ChmNonCovLon from "../../screens/Chama/Loan/LoanMember/NonCov";
+import ChmContr from "../../screens/Chama/Contribtns";
+import SndMbrsMny from "../../screens/Chama/SendMmbrsMny";
+
 
 
 
@@ -78,6 +83,10 @@ const HomeNavigator = props => {
       <Stack.Screen name={'CredSlsHms'} component={NonCovCredSls}/>
       <Stack.Screen name={'CreateChms'} component={CreateChm}/>
       <Stack.Screen name={'AddChmMembrsss'} component={AddChmMembrss}/>
+      <Stack.Screen name={'ChmCovLons'} component={ChmCovLon}/>
+      <Stack.Screen name={'ChmNonCovLons'} component={ChmNonCovLon}/>
+      <Stack.Screen name={'ChmContrs'} component={ChmContr}/>
+      <Stack.Screen name={'SndMbrsMnys'} component={SndMbrsMny}/>
       
     </Stack.Navigator>
   );
