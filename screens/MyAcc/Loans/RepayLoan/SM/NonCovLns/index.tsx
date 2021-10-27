@@ -87,6 +87,8 @@ const RepayNonCovLnsss = props => {
       const TtlActvLonsAmtLneeCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
       const TtlClrdLonsTmsLneeCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsLneeCov;
       const TtlClrdLonsAmtLneeCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtLneeCov;
+      const TtlBLLonsTmsLneeNonCovs =accountDtl.data.getSMAccount.TtlBLLonsTmsLneeNonCov;
+      const TtlBLLonsAmtLneeNonCovs =accountDtl.data.getSMAccount.TtlBLLonsAmtLneeNonCov;
       const names =accountDtl.data.getSMAccount.name;
       const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
       const nonLonLimits =accountDtl.data.getSMAccount.nonLonLimit;
@@ -131,6 +133,8 @@ const RepayNonCovLnsss = props => {
                     const TtlActvLonsAmtLnrCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
                     const TtlClrdLonsTmsLneeCovssss =accountDtl.data.getSMAccount.TtlClrdLonsTmsLnrCov;
                     const TtlClrdLonsAmtLneeCovssss =accountDtl.data.getSMAccount.TtlClrdLonsAmtLnrCov;
+                    const TtlBLLonsTmsLnrNonCovssss =accountDtl.data.getSMAccount.TtlBLLonsTmsLnrNonCov;
+                    const TtlBLLonsAmtLnrNonCovssss =accountDtl.data.getSMAccount.TtlBLLonsAmtLnrNonCov;
                     const namess =accountDtl.data.getSMAccount.name;
                     const MaxTymsIHvBLs =accountDtl.data.getSMAccount.MaxTymsIHvBL;
                     
@@ -226,6 +230,8 @@ const RepayNonCovLnsss = props => {
                                           TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts), 
                                           TtlClrdLonsTmsLneeCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
                                           TtlClrdLonsAmtLneeCov: parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts),
+                                          TtlBLLonsTmsLneeNonCov:parseFloat(TtlBLLonsTmsLneeNonCovs)-1,                                          
+                                          TtlBLLonsAmtLneeNonCov: parseFloat(TtlBLLonsAmtLneeNonCovs) - parseFloat(amounts), 
                                           loanStatus: "NoLoan",
                                           blStatus: "AccountNotBL",
                                                                              
@@ -260,6 +266,8 @@ const RepayNonCovLnsss = props => {
                                           TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovssss) - parseFloat(amounts),
                                           TtlClrdLonsTmsLnrCov: parseFloat(TtlClrdLonsTmsLneeCovssss) + 1,
                                           TtlClrdLonsAmtLnrCov: parseFloat(TtlClrdLonsAmtLneeCovssss) + parseFloat(amounts),
+                                          TtlBLLonsTmsLnrNonCov:parseFloat(TtlBLLonsTmsLnrNonCovssss)-1,                                          
+                                          TtlBLLonsAmtLnrNonCov: parseFloat(TtlBLLonsAmtLnrNonCovssss) - parseFloat(amounts),
                                           MaxTymsIHvBL:parseFloat(MaxTymsIHvBLs) - 1,                                  
                                           
                                         }
@@ -347,7 +355,7 @@ const RepayNonCovLnsss = props => {
                                         senderPhn: SendrPhn,                                  
                                         amount: amounts,                              
                                         description: Desc,
-                                        status: "SMCovLonRepayment",
+                                        status: "SMNonCovLonRepayment",
                                         owner: ownr
                                       },
                                     }),

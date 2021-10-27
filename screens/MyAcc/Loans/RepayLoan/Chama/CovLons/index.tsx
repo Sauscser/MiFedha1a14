@@ -85,7 +85,8 @@ const RepayCovChmLnsss = props => {
       const usrPW =accountDtl.data.getSMAccount.pw;
       const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
       const TtlClrdLonsTmsLneeChmCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsLneeChmCov;
-      const TtlActvLonsAmtLneeCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
+      const TtlActvLonsTmsLneeChmCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmCov;
+      const TtlActvLonsAmtLneeChmCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmCov;
       const TtlClrdLonsAmtLneeChmCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtLneeChmCov;
       const TtlBLLonsTmsLneeChmCovs =accountDtl.data.getSMAccount.TtlBLLonsTmsLneeChmCov;
       const TtlBLLonsAmtLneeChmCovs =accountDtl.data.getSMAccount.TtlBLLonsAmtLneeChmCov;
@@ -138,6 +139,8 @@ const RepayCovChmLnsss = props => {
                     const TtlBLLonsTmsLnrChmCovs =accountDtl.data.getGroup.TtlBLLonsTmsLnrChmCov;
                     const TtlBLLonsAmtLnrChmCovs =accountDtl.data.getGroup.TtlBLLonsAmtLnrChmCov;
                     const namess =accountDtl.data.getGroup.grpName;
+                    const TtlActvLonsTmsLnrChmCovs =accountDtl.data.getGroup.TtlActvLonsTmsLnrChmCov;
+                    const TtlActvLonsAmtLnrChmCovs =accountDtl.data.getGroup.TtlActvLonsAmtLnrChmCov;
                     
                     
 
@@ -168,7 +171,7 @@ const RepayCovChmLnsss = props => {
                                         input:{
                                           id:LnId,
                                           amountRepaid: parseFloat(amounts) + parseFloat(amountrepaids),
-                                          lonBala: LonBal+parseFloat(amounts),
+                                          lonBala: LonBal-parseFloat(amounts),
                                           status: "LoanCleared",
                                       }})
                                     )
@@ -229,7 +232,8 @@ const RepayCovChmLnsss = props => {
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted ,
                                           TtlClrdLonsTmsLneeChmCov:parseFloat(TtlClrdLonsTmsLneeChmCovs)+1,                                          
                                           TtlClrdLonsAmtLneeChmCov: parseFloat(TtlClrdLonsAmtLneeChmCovs) + parseFloat(amounts), 
-                                          
+                                          TtlActvLonsTmsLneeChmCov:parseFloat(TtlActvLonsTmsLneeChmCovs)-1,                                          
+                                          TtlActvLonsAmtLneeChmCov: parseFloat(TtlActvLonsAmtLneeChmCovs) - parseFloat(amounts),
                                           TtlBLLonsTmsLneeChmCov:  parseFloat(TtlBLLonsTmsLneeChmCovs) - 1,
                                           TtlBLLonsAmtLneeChmCov: parseFloat(TtlBLLonsAmtLneeChmCovs) - parseFloat(amounts),
                                           MaxTymsBLs: parseFloat(MaxTymsBLss) - 1,
@@ -268,7 +272,8 @@ const RepayCovChmLnsss = props => {
                                           TtlClrdLonsTmsLnrChmCov: parseFloat(TtlClrdLonsTmsLnrChmCovs) + 1,
                                           tymsChmHvBL: parseFloat(tymsChmHvBLs) - 1,
                                           TtlClrdLonsAmtLnrChmCov: parseFloat(TtlClrdLonsAmtLnrChmCovs) + parseFloat(amounts),
-                                                                            
+                                          TtlActvLonsTmsLnrChmCov:parseFloat(TtlActvLonsTmsLnrChmCovs)-1,                                          
+                                          TtlActvLonsAmtLnrChmCov: parseFloat(TtlActvLonsAmtLnrChmCovs) - parseFloat(amounts),                                                                            
                                           
                                         }
                                       })
@@ -356,7 +361,7 @@ const RepayCovChmLnsss = props => {
                                         senderPhn: SendrPhn,                                  
                                         amount: amounts,                              
                                         description: Desc,
-                                        status: "SMCovLonRepayment",
+                                        status: "ChmCovLonRepayment",
                                         owner: ownr
                                       },
                                     }),
@@ -388,7 +393,7 @@ const RepayCovChmLnsss = props => {
                                           ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted,
                                                                                    
-                                          TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts), 
+                                          TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) - parseFloat(amounts), 
                                           
                                          
                                           
@@ -418,7 +423,7 @@ const RepayCovChmLnsss = props => {
                                           grpContact:RecPhn,
                                           ttlNonLonsRecChm: parseFloat(ttlNonLonsRecChms) + parseFloat(amounts) ,
                                           balance:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
-                                                                                   
+                                          TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs) - parseFloat(amounts),                                        
                                           tymsChmHvBL: parseFloat(tymsChmHvBLs) - 1,
                                           
                                         }

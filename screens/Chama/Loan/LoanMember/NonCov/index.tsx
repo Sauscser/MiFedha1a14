@@ -133,12 +133,7 @@ const ChmNonCovLns = props => {
 
           
           
-          const fetchAdv = async () =>{
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
-            try{
+          
 
               
               const fetchRecUsrDtls = async () => {

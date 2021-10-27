@@ -88,7 +88,8 @@ const RepayNonCovChmLnsss = props => {
       const usrPW =accountDtl.data.getSMAccount.pw;
       const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
       const TtlClrdLonsTmsLneeChmNonCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsLneeChmNonCov;
-      const TtlActvLonsAmtLneeNonCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeNonCov;
+      const TtlActvLonsTmsLneeChmNonCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmNonCov;
+      const TtlActvLonsAmtLneeChmNonCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmNonCov;
       const TtlClrdLonsAmtLneeChmNonCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtLneeChmNonCov;
       const TtlBLLonsTmsLneeChmNonCovs =accountDtl.data.getSMAccount.TtlBLLonsTmsLneeChmNonCov;
       const TtlBLLonsAmtLneeChmNonCovs =accountDtl.data.getSMAccount.TtlBLLonsAmtLneeChmNonCov;
@@ -141,6 +142,8 @@ const RepayNonCovChmLnsss = props => {
                     const TtlBLLonsTmsLnrChmNonCovs =accountDtl.data.getGroup.TtlBLLonsTmsLnrChmNonCov;
                     const TtlBLLonsAmtLnrChmNonCovs =accountDtl.data.getGroup.TtlBLLonsAmtLnrChmNonCov;
                     const namess =accountDtl.data.getGroup.grpName;
+                    const TtlActvLonsTmsLnrChmNonCovs =accountDtl.data.getGroup.TtlActvLonsTmsLnrChmNonCov;
+                    const TtlActvLonsAmtLnrChmNonCovs =accountDtl.data.getGroup.TtlActvLonsAmtLnrChmNonCov;
                     
                     
 
@@ -199,7 +202,7 @@ const RepayNonCovChmLnsss = props => {
                                         recPhn: RecPhn,                                  
                                         amount: amounts,                              
                                         description: Desc,
-                                        status: "ChmCovLonRepayment",
+                                        status: "ChmNonCovLonRepayment",
                                         owner: ownr
                                       },
                                     }),
@@ -232,7 +235,8 @@ const RepayNonCovChmLnsss = props => {
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted ,
                                           TtlClrdLonsTmsLneeChmNonCov:parseFloat(TtlClrdLonsTmsLneeChmNonCovs)+1,                                          
                                           TtlClrdLonsAmtLneeChmNonCov: parseFloat(TtlClrdLonsAmtLneeChmNonCovs) + parseFloat(amounts), 
-                                          
+                                          TtlActvLonsTmsLneeChmNonCov:parseFloat(TtlActvLonsTmsLneeChmNonCovs)-1,                                          
+                                          TtlActvLonsAmtLneeChmNonCov: parseFloat(TtlActvLonsAmtLneeChmNonCovs) - parseFloat(amounts),
                                           TtlBLLonsTmsLneeChmNonCov:  parseFloat(TtlBLLonsTmsLneeChmNonCovs) - 1,
                                           TtlBLLonsAmtLneeChmNonCov: parseFloat(TtlBLLonsAmtLneeChmNonCovs) - parseFloat(amounts),
                                           MaxTymsBLs: parseFloat(MaxTymsBLss) - 1,
@@ -271,7 +275,8 @@ const RepayNonCovChmLnsss = props => {
                                           TtlClrdLonsTmsLnrChmNonCov: parseFloat(TtlClrdLonsTmsLnrChmNonCovs) + 1,
                                           tymsChmHvBL: parseFloat(tymsChmHvBLs) - 1,
                                           TtlClrdLonsAmtLnrChmNonCov: parseFloat(TtlClrdLonsAmtLnrChmNonCovs) + parseFloat(amounts),
-                                                                            
+                                          TtlActvLonsTmsLnrChmNonCov:parseFloat(TtlActvLonsTmsLnrChmNonCovs)-1,                                          
+                                          TtlActvLonsAmtLnrChmNonCov: parseFloat(TtlActvLonsAmtLnrChmNonCovs) - parseFloat(amounts),                                  
                                           
                                         }
                                       })
@@ -359,7 +364,7 @@ const RepayNonCovChmLnsss = props => {
                                         senderPhn: SendrPhn,                                  
                                         amount: amounts,                              
                                         description: Desc,
-                                        status: "SMCovLonRepayment",
+                                        status: "ChmNonCovLonRepayment",
                                         owner: ownr
                                       },
                                     }),
@@ -391,7 +396,7 @@ const RepayNonCovChmLnsss = props => {
                                           ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted,
                                                                                    
-                                          TtlActvLonsAmtLneeNonCov: parseFloat(TtlActvLonsAmtLneeNonCovs) - parseFloat(amounts), 
+                                          TtlActvLonsTmsLneeChmNonCov: parseFloat(TtlActvLonsTmsLneeChmNonCovs) - parseFloat(amounts), 
                                           
                                          
                                           
@@ -421,7 +426,7 @@ const RepayNonCovChmLnsss = props => {
                                           grpContact:RecPhn,
                                           ttlNonLonsRecChm: parseFloat(ttlNonLonsRecChms) + parseFloat(amounts) ,
                                           balance:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
-                                                                                   
+                                          TtlActvLonsTmsLnrChmNonCov: parseFloat(TtlActvLonsTmsLnrChmNonCovs) - parseFloat(amounts),                                          
                                           tymsChmHvBL: parseFloat(tymsChmHvBLs) - 1,
                                           
                                         }
