@@ -12,6 +12,7 @@ import {
   
   updateSMAccount,
   updateGroup,
+  updateGrpMembers,
   
 } from '../../.././src/graphql/mutations';
 
@@ -20,6 +21,7 @@ import {
   
   getCompany,
   getGroup,
+  getGrpMembers,
   getSMAccount,
   
 } from '../../.././src/graphql/queries';
@@ -48,7 +50,7 @@ const SMASendNonLns = props => {
   const [SnderPW, setSnderPW] = useState("");
   const [SendrPhn, setSendrPhn] = useState("");  
   const [amounts, setAmount] = useState("");
-  
+  const [MmbrId, setMmbrId] = useState('');
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
@@ -65,6 +67,20 @@ const SMASendNonLns = props => {
     fetchUser();
     }, []);  
 
+    const fetchChmMbrDtls = async () => {
+      if(isLoading){
+        return;
+      }
+      setIsLoading(true);
+      try {
+          const ChmMbrtDtl:any = await API.graphql(
+              graphqlOperation(getGrpMembers, {id: MmbrId}),
+              );
+
+              const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
+              const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
+              const acBals =ChmMbrtDtl.data.getGrpMembers.acBal;
+
 
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
@@ -73,7 +89,7 @@ const SMASendNonLns = props => {
     setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getGroup, {grpContact: SendrPhn}),
+        graphqlOperation(getGroup, {grpContact: groupContacts}),
       );
 
       const grpBals =accountDtl.data.getGroup.grpBal;
@@ -114,7 +130,7 @@ const SMASendNonLns = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {phonecontact: RecNatId}),
+                    graphqlOperation(getSMAccount, {phonecontact: memberContacts}),
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
@@ -132,8 +148,8 @@ const SMASendNonLns = props => {
                         await API.graphql(
                           graphqlOperation(createNonLoans, {
                             input: {
-                              recPhn: RecNatId,
-                              senderPhn: SendrPhn,                                  
+                              recPhn: memberContacts,
+                              senderPhn: groupContacts,                                  
                               amount: amounts,                              
                               description: Desc,
                               status: "ChmSndMbr",
@@ -164,7 +180,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateGroup, {
                               input:{
-                                grpContact:SendrPhn,
+                                grpContact:groupContacts,
                                 ttlNonLonsSentChm: parseFloat(ttlNonLonsSentChms)+parseFloat(amounts),
                                 grpBal:parseFloat(grpBals)-TotalTransacted 
                                
@@ -192,7 +208,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                recPhn:RecNatId,
+                                phonecontact:memberContacts,
                                 ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
                                 balance:parseFloat(RecUsrBal) + parseFloat(amounts)                                     
                                 
@@ -236,10 +252,36 @@ const SMASendNonLns = props => {
                         if (error){Alert.alert("Check your internet connection")
                     return;}
                       }
-                      Alert.alert(grpNames + " has sent Ksh. " + amounts + " to " + namess);
+                      await updtChmMbr();
                       setIsLoading(false);
                     }
-                    
+
+                    const updtChmMbr = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateGrpMembers, {
+                              input:{
+                                id: MmbrId,                                                      
+                               
+                                acBal:parseFloat(acBals) - parseFloat(amounts)                                                                                   
+                                
+                              }
+                            })
+                          )
+                          
+                          
+                      }
+                      catch(error){
+                        if (error){Alert.alert("Check your internet connection")
+                    return;}
+                      }
+                      Alert.alert(namess + " has sent Ksh. " + amounts + " to " + grpNames+" Chama");
+                      setIsLoading(false);
+                    }                                
                                           
                     
                     if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
@@ -279,25 +321,32 @@ const SMASendNonLns = props => {
       return;}
   };
       setIsLoading(false);
-      setSenderNatId('');
-      setAmount("");
-      setRecNatId('');
-      setSendrPhn("");
-      setDesc("");
-      setSnderPW("");
-      
-}
-
-useEffect(() =>{
-  const SendrPhns=SendrPhn
-    if(!SendrPhns && SendrPhns!=="")
-    {
-      setSendrPhn("");
-      return;
     }
-    setSendrPhn(SendrPhns);
-    }, [SendrPhn]
-     );
+    await fetchSenderUsrDtls();
+
+    } catch (e) {
+      if (e){Alert.alert("Check your internet connection")
+  return;}
+    }
+          setMmbrId('');
+          setAmount("");
+          setRecNatId('');
+          
+          setDesc("");
+          setSnderPW("");
+    setIsLoading(false);        
+  };
+
+  useEffect(() =>{
+    const SnderNatIds=MmbrId
+      if(!SnderNatIds && SnderNatIds!=="")
+      {
+        setMmbrId("");
+        return;
+      }
+      setMmbrId(SnderNatIds);
+      }, [MmbrId]
+       );
 
 useEffect(() =>{
   const SnderNatIds=SenderNatId
@@ -375,21 +424,11 @@ useEffect(() =>{
 
           <View style={styles.sendAmtView}>
             <TextInput
-              value={SendrPhn}
-              onChangeText={setSendrPhn}
+              value={MmbrId}
+              onChangeText={setMmbrId}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Chama Phone</Text>
-          </View>
-
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={RecNatId}
-              onChangeText={setRecNatId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Receiver Phone</Text>
+            <Text style={styles.sendAmtText}>Member Chama Id</Text>
           </View>
 
           <View style={styles.sendAmtView}>
@@ -427,7 +466,7 @@ useEffect(() =>{
           </View>
 
           <TouchableOpacity
-            onPress={fetchSenderUsrDtls}
+            onPress={fetchChmMbrDtls}
             style={styles.sendAmtButton}>
             <Text style={styles.sendAmtButtonText}>Send</Text>
             {isLoading && <ActivityIndicator size = "large" color = "blue"/>}

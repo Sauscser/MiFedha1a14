@@ -34,8 +34,11 @@ const MyAccount = props => {
     navigation.navigate('SendNonLnss');
   };
 
-  const goToAdvrtsChamaLn = () => {
-    navigation.navigate('GnrlShpChamaLnAdvtsScrn');
+  const BListSMLneeCovss = () => {
+    navigation.navigate('BListSMLneeCovs');
+  };
+  const BListSMLneeNonCovss = () => {
+    navigation.navigate('BListSMLneeNonCovs');
   };
 
   return (

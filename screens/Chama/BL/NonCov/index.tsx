@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {updateCompany, updateSMAccount, updateSMLoansCovered, updateSMLoansNonCovered, } from '../../../../../../src/graphql/mutations';
-import {getCompany, getSMAccount, getSMLoansCovered, getSMLoansNonCovered } from '../../../../../../src/graphql/queries';
+import {updateCompany, updateGroup, updateGrpMembers, updateNonCvrdGroupLoans, updateSMAccount, updateSMLoansCovered, updateSMLoansNonCovered, } from '../../../../src/graphql/mutations';
+import {getCompany, getGroup, getNonCvrdGroupLoans, getSMAccount, getSMLoansCovered, getSMLoansNonCovered } from '../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -21,8 +21,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import styles from './styles';
-import { getGroup, getNonCvrdGroupLoans } from '../../../../src/graphql/queries';
-import { updateGroup } from '../../../../src/graphql/mutations';
+
 
 
   
@@ -32,6 +31,8 @@ const BLChmNonCovLoanee = (props) => {
   const navigation = useNavigation();
 
   const [LonId, setLonId] = useState("");
+  const [ChmMbrId, setChmMbrId] = useState("");
+  const [SigntryPW, setSigntryPW] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
   
@@ -87,7 +88,7 @@ const BLChmNonCovLoanee = (props) => {
                     const acStatuss = compDtls.data.getGroup.status
                     const TtlBLLonsTmsLnrChmNonCovs = compDtls.data.getGroup.TtlBLLonsTmsLnrChmNonCov
                     const TtlBLLonsAmtLnrChmNonCovs = compDtls.data.getGroup.TtlBLLonsAmtLnrChmNonCov
-                    const names = compDtls.data.getGroup.grpName
+                    const grpNames = compDtls.data.getGroup.grpName
                     const tymsChmHvBLs = compDtls.data.getGroup.tymsChmHvBL
                          
                     const gtLoaneeDtls = async () =>{
@@ -226,7 +227,7 @@ const BLChmNonCovLoanee = (props) => {
                                 setIsLoading(true);
                                 try{
                                     await API.graphql(
-                                      graphqlOperation(updateSMLoansNonCovered, {
+                                      graphqlOperation(updateNonCvrdGroupLoans, {
                                         input:{
                                           id:LonId,
                                           
@@ -245,7 +246,38 @@ const BLChmNonCovLoanee = (props) => {
                               } 
                               else{Alert.alert("Please check your internet connection")
                               return;} }
-                              Alert.alert(names +", you have blacklisted "+ namess)
+
+                              await updateMbrDtls();
+                                setIsLoading(false);          
+                              } 
+
+                              const updateMbrDtls = async () => {
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateGrpMembers, {
+                                        input:{
+                                          id:ChmMbrId,
+                                          
+                                          blStatus:"AccountBlackListed",
+                                        }
+                                      })
+                                    )
+                            
+                                    
+                                }
+                                catch(error){
+                                  console.log(error)
+                                  if(!error){
+                                  Alert.alert("Account deactivated successfully")
+                                  
+                              } 
+                              else{Alert.alert("Please check your internet connection")
+                              return;} }
+                              Alert.alert(grpNames +", you have blacklisted "+ namess)
                                 setIsLoading(false);          
                               } 
                               
@@ -295,7 +327,31 @@ const BLChmNonCovLoanee = (props) => {
           
           setIsLoading(false);
           setLonId("") 
+          setChmMbrId("")
+          setSigntryPW("")
         };    
+
+        useEffect(() =>{
+          const usId=LonId
+            if(!usId && usId!=="")
+            {
+              setLonId("");
+              return;
+            }
+            setLonId(usId);
+            }, [LonId]
+             );
+
+             useEffect(() =>{
+              const SigntryPWs=SigntryPW
+                if(!SigntryPWs && SigntryPWs!=="")
+                {
+                  setSigntryPW("");
+                  return;
+                }
+                setSigntryPW(SigntryPWs);
+                }, [SigntryPW]
+                 );
 
         useEffect(() =>{
           const usId=LonId
@@ -326,6 +382,23 @@ const BLChmNonCovLoanee = (props) => {
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Loan ID</Text>
                   </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                      value={ChmMbrId}
+                      onChangeText={setChmMbrId}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Chama Group ID</Text>
+                  </View> 
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                      value={SigntryPW}
+                      onChangeText={setSigntryPW}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Chama Signitory PassWprd</Text>
+                  </View>    
         
                   
         

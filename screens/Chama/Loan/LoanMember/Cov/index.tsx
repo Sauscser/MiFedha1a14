@@ -22,6 +22,7 @@ import {
   getSAgent,
   getAdvocate,
   getGroup,
+  getGrpMembers,
 } from '../../../../../src/graphql/queries';
 
 import {useNavigation} from '@react-navigation/native';
@@ -56,7 +57,7 @@ const ChmCovLns = props => {
   const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
   const [SendrPhn, setSendrPhn] = useState(null);
-  
+  const [MmbrId, setMmbrId] = useState('');
 
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
@@ -68,8 +69,20 @@ const ChmCovLns = props => {
     fetchUser();
     }, []);  
 
-  
+    
+const fetchChmMbrDtls = async () => {
+      if(isLoading){
+        return;
+      }
+      setIsLoading(true);
+      try {
+          const ChmMbrtDtl:any = await API.graphql(
+              graphqlOperation(getGrpMembers, {id: MmbrId}),
+              );
 
+              const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
+              const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
+              
 
 
   const fetchSenderUsrDtls = async () => {
@@ -79,7 +92,7 @@ const ChmCovLns = props => {
     setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getGroup, {grpContact: ChmPhn}),
+        graphqlOperation(getGroup, {grpContact: groupContacts}),
       );
 
       const grpBals =accountDtl.data.getGroup.grpBal;
@@ -126,7 +139,8 @@ const ChmCovLns = props => {
           
           const ttlChmLnsInTymsCovs = CompDtls.data.getCompany.ttlChmLnsInTymsCov;
             
-          const maxInterests = CompDtls.data.getCompany.maxInterest;          
+          const maxInterestGrps = CompDtls.data.getCompany.maxInterestGrp;  
+          const Interest = ((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod));        
 
           const maxBLss = CompDtls.data.getCompany.maxBLs;
 
@@ -157,7 +171,7 @@ const ChmCovLns = props => {
                 setIsLoading(true);
                 try {
                     const RecAccountDtl:any = await API.graphql(
-                        graphqlOperation(getSMAccount, {phonecontact: RecPhn}),
+                        graphqlOperation(getSMAccount, {phonecontact: memberContacts}),
                         );
                         const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
@@ -176,14 +190,14 @@ const ChmCovLns = props => {
                             await API.graphql(
                               graphqlOperation(createCvrdGroupLoans, {
                                 input: {
-                                    grpContact: ChmPhn,
-                                    loaneePhn: RecPhn,
+                                    grpContact: groupContacts,
+                                    loaneePhn: memberContacts,
                                     repaymentPeriod: RepaymtPeriod,
                                     amountGiven: amount,
                                     amountExpectedBack: AmtExp,
                                     amountRepaid: 0,
                                     description: Desc,
-                                    lonBala:parseFloat(grpBals)-TotalTransacted,
+                                    lonBala:parseFloat(AmtExp),
                                     advRegNu: AdvRegNo,
                                     
                                     status: "LoanActive",
@@ -214,9 +228,9 @@ const ChmCovLns = props => {
                               await API.graphql(
                                 graphqlOperation(updateGroup, {
                                   input:{
-                                    phonecontact:ChmPhn,
+                                    grpContact:groupContacts,
                                     TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs)+1,
-                                    TtlActvLonsAmtLnrChmCovs: parseFloat(TtlActvLonsAmtLnrChmCovs) + parseFloat(amount),
+                                    TtlActvLonsAmtLnrChmCov: parseFloat(TtlActvLonsAmtLnrChmCovs) + parseFloat(amount),
                                                                               
                                     grpBal:parseFloat(grpBals)-TotalTransacted 
                                    
@@ -243,7 +257,7 @@ const ChmCovLns = props => {
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    phonecontact:RecPhn,
+                                    phonecontact:memberContacts,
                                     TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
                                     TtlActvLonsAmtLneeChmCov: parseFloat(TtlActvLonsAmtLneeChmCovs)+ parseFloat(amount),
                                     balance:parseFloat(RecUsrBal) + parseFloat(amount)  ,
@@ -256,6 +270,7 @@ const ChmCovLns = props => {
                               )                              
                           }
                           catch(error){
+                            console.log(error)
                             if (error){Alert.alert("Check your internet connection")
                             return;}
                           }
@@ -295,6 +310,7 @@ const ChmCovLns = props => {
                               
                           }
                           catch(error){
+                            console.log(error);
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
@@ -319,10 +335,11 @@ const ChmCovLns = props => {
                               )
                           }
                           catch(error){
+                            console.log(error);
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
-                          Alert.alert(grpNames + " loans " + namess +" Ksh. " + amount +": "+ namesssssss+" coverage");
+                          Alert.alert(grpNames + " Chama loans " + namess +" Ksh. " + amount +": "+ namesssssss+" coverage");
                           setIsLoading(false);
                         }
                                               
@@ -332,12 +349,12 @@ const ChmCovLns = props => {
                         else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');
                       return;
                     }
-                    else if(ownr !==SenderSub){Alert.alert('You are not the creator/signitory of this group');}
+                    else if(ownr !==SenderSub){Alert.alert('You are not the creator/signitory of this Chama');}
                         else if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                        else if(ChmPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
+                        else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > maxInterests)
-                        {Alert.alert('Your interest is too high');}
+                        else if(Interest > parseFloat(maxInterestGrps))
+                        {Alert.alert('Interest too high:' + Interest + "; Recom SI: " + maxInterestGrps+" per day");}
                         else if (
                           parseFloat(grpBals) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
@@ -349,7 +366,8 @@ const ChmCovLns = props => {
                           sendSMLn();
                         }                                                
                     }       
-                    catch(e) {     
+                    catch(e) {    
+                      console.log(e); 
                       if (e){Alert.alert("Check your internet connection")
       return;}                 
                     }
@@ -360,6 +378,7 @@ const ChmCovLns = props => {
 
             }
             catch (e){
+              console.log(e);
               if (e){Alert.alert("Advocate not registered")
       return;}
             }
@@ -371,6 +390,7 @@ const ChmCovLns = props => {
           
         
         } catch (e) {
+          console.log(e);
           if (e){Alert.alert("Check your internet connection")
       return;}
         } 
@@ -385,17 +405,39 @@ const ChmCovLns = props => {
       return;}
   };
       setIsLoading(false);
-      setChmPhn('');
-      setAmount("");
-      setRecNatId('');
-      setAdvRegNo("");
-      setAmtExp("");
-      setDesc("");
-      setSnderPW("");
-      setRepaymtPeriod("");
-      setRecAccCode("");
-      setRecPhn("");
+      
+      
 }
+await fetchSenderUsrDtls();
+
+} catch (e) {
+  console.log(e);
+  if (e){Alert.alert("Check your internet connection")
+return;}
+}
+setAmount("");
+      
+setAdvRegNo("");
+setAmtExp("");
+setDesc("");
+setSnderPW("");
+setRepaymtPeriod("");
+setRecAccCode("");
+
+setMmbrId("")
+setIsLoading(false);        
+};
+
+useEffect(() =>{
+  const SnderNatIds=MmbrId
+    if(!SnderNatIds && SnderNatIds!=="")
+    {
+      setMmbrId("");
+      return;
+    }
+    setMmbrId(SnderNatIds);
+    }, [MmbrId]
+     );
 
 useEffect(() =>{
   const RecPhns=RecPhn
@@ -517,24 +559,15 @@ useEffect(() =>{
          </View>
 
          <View style={styles.sendAmtView}>
-           <TextInput
-             value={ChmPhn}
-             onChangeText={setChmPhn}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Chama Phone</Text>
-         </View>
+            <TextInput
+              value={MmbrId}
+              onChangeText={setMmbrId}
+              style={styles.sendAmtInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendAmtText}>Member Chama Id</Text>
+          </View>
          
-         <View style={styles.sendAmtView}>
-           <TextInput
-           placeholder="+2547xxxxxxxx"
-             value={RecPhn}
-             onChangeText={setRecPhn}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Receiver Phone</Text>
-         </View>
-
+         
          <View style={styles.sendAmtView}>
            <TextInput
              value={SnderPW}
@@ -612,7 +645,7 @@ useEffect(() =>{
          
 
          <TouchableOpacity
-           onPress={fetchSenderUsrDtls}
+           onPress={fetchChmMbrDtls}
            style={styles.sendAmtButton}>
            <Text style={styles.sendAmtButtonText}>Loan with Advocate Coverage</Text>
            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}

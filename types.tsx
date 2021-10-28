@@ -35,8 +35,7 @@ declare global {
       DActvteMFK:undefined;
       DActvteMFUsr:undefined;
       DActvteMFAd:undefined;
-      SMGivCovLon:undefined;
-      SMNonGivLon:undefined;
+      
       SMWthdFm:undefined;
       Homes:undefined;
       MFNdogoss:undefined;
@@ -45,7 +44,7 @@ declare global {
       RepayCovLnss:undefined;
       RepayNonCovLnss:undefined;
       BListLneess:undefined;
-      BListCredByr:undefined;
+      
       CovCredSls:undefined;
       NonCovCredSlss:undefined;
       CredSlsHms:undefined;
@@ -55,6 +54,18 @@ declare global {
       ChmNonCovLons:undefined;
       ChmContrs:undefined;
       SndMbrsMnys:undefined;
+      BLChmMmberCovs:undefined;
+      BLChmMmberNonCovs:undefined;
+      RepyChmCovLns:undefined;
+      RepyChmNonCovLns:undefined;
+      RpayCredSlrCovs:undefined;
+      RpayCredSlrNonCovs:undefined;
+      BListCredByrCovs:undefined;
+      BListCredByrNonCovs:undefined;
+      SMGivCovLon:undefined;
+      SMGivNonCovLon:undefined;
+      BListSMLneeCovs:undefined;
+      BListSMLneeNonCovs:undefined;
     }
   }
 }

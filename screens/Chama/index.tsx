@@ -42,6 +42,21 @@ const MyLoanAccount = props => {
     navigation.navigate('DpstMney');
   };
 
+  const RepyChmCovLnss = () => {
+    navigation.navigate('RepyChmCovLns');
+  };
+
+  const RepyChmNonCovLnss = () => {
+    navigation.navigate('RepyChmNonCovLns');
+  };
+
+  const BLChmMmberCovss = () => {
+    navigation.navigate('BLChmMmberCovs');
+  };
+  const BLChmMmberNonCovss = () => {
+    navigation.navigate('BLChmMmberNonCovs');
+  };
+
   const givCovLnSM = () => {
     navigation.navigate('SMGivCovLon');
   };
@@ -99,13 +114,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={BLChmMmberCovss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Covered</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={SMASndnonCovLn}
+                      onPress={BLChmMmberNonCovss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Non-Covered Loans
@@ -119,13 +134,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={RepyChmCovLnss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Covered Loans</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={RepyChmNonCovLnss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                       Non-Covered Loans

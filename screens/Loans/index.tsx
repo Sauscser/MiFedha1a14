@@ -13,38 +13,55 @@ import styles from './styles';
 
 const MyLoanAccount = props => {
   const navigation = useNavigation();
+  
 
-  const goToGiveCovLns = () => {
-    navigation.navigate('SMGivLon');
+  const RepayCovLnsss = () => {
+    navigation.navigate('RepayCovLnss');
   };
 
-  const goToCreateSMAc = () => {
-    navigation.navigate('CreateSMAc');
+  const RepayNonCovLnsss = () => {
+    navigation.navigate('RepayNonCovLnss');
   };
 
-  const goToSMADpstFm = () => {
-    navigation.navigate('DpstMney');
+  const RepyChmCovLnss = () => {
+    navigation.navigate('RepyChmCovLns');
   };
 
-  const givCovLnSM = () => {
-    navigation.navigate('SMGivCovLon');
+  const RepyChmNonCovLnss = () => {
+    navigation.navigate('RepyChmNonCovLns');
   };
+
+  const RpayCredSlrCovss = () => {
+    navigation.navigate('RpayCredSlrCovs');
+  };
+
+  const RpayCredSlrNonCovss = () => {
+    navigation.navigate('RpayCredSlrNonCovs');
+  };
+
+  
 
   const payNonCovLn = () => {
     navigation.navigate('RepayNonCovLnss');
   };
 
-  const payCovLn = () => {
-    navigation.navigate('RepayCovLnss');
+  const BListSMLneeCovss = () => {
+    navigation.navigate('BListSMLneeCovs');
   };
 
-  const SMASndnonCovLn = () => {
-    navigation.navigate('SMNonGivLon');
+  const BListSMLneeNonCovss = () => {
+    navigation.navigate('BListSMLneeNonCovs');
   };
 
-  const goBL = () => {
-    navigation.navigate('BListLneess');
+  const SMGivCovLons = () => {
+    navigation.navigate('SMGivCovLon');
   };
+
+  const SMGivNonCovLons = () => {
+    navigation.navigate('SMGivNonCovLon');
+  };
+
+  
 
   return (
     <SafeAreaView>
@@ -61,13 +78,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={payCovLn}
+                      onPress={RepayCovLnsss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Covered Loans</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={RepayNonCovLnsss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Non-Covered Loans
@@ -83,13 +100,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={RpayCredSlrCovss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Covered</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={SMASndnonCovLn}
+                      onPress={RpayCredSlrNonCovss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Non-Covered Loans
@@ -103,13 +120,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={RepyChmCovLnss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Covered Loans</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={RepyChmNonCovLnss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                       Non-Covered Loans
@@ -129,13 +146,13 @@ const MyLoanAccount = props => {
                   <View style={styles.viewForAcEarningsPressables}>
                     
                     <Pressable
-                      onPress={givCovLnSM}
+                      onPress={SMGivCovLons}
                       style={styles.earningsAcPressables}>
                       <Text style={styles.earningsAcPressableText}>Covered Loans</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={SMASndnonCovLn}
+                      onPress={SMGivNonCovLons}
                       style={styles.earningsAcPressables}>
                       <Text style={styles.earningsAcPressableText}>
                         Non-Covered
@@ -145,17 +162,17 @@ const MyLoanAccount = props => {
                 </View>
 
           <View style={styles.acEarningsView}>
-            <Text style={styles.salesText}>Black-List</Text>
+            <Text style={styles.salesText}>Single Member Black-List</Text>
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
-                onPress={goBL}
+                onPress={BListSMLneeCovss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Covered Loans</Text>
               </Pressable>
 
               <Pressable
-                onPress={payNonCovLn}
+                onPress={BListSMLneeNonCovss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Non Covered</Text>
               </Pressable>

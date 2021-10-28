@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {updateCompany, updateSMAccount, updateSMLoansCovered, } from '../../../../../../src/graphql/mutations';
-import {getCompany, getSMAccount, getSMLoansCovered } from '../../../../../../src/graphql/queries';
+import {updateCompany, updateSMAccount, updateCvrdGroupLoans, updateGroup, updateGrpMembers, } from '../../../../src/graphql/mutations';
+import {getCompany, getSMAccount, getCvrdGroupLoans, getGroup } from '../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -21,9 +21,6 @@ import {
   ActivityIndicator
 } from 'react-native';
 import styles from './styles';
-import { getCvrdGroupLoans, getGroup } from '../../../../src/graphql/queries';
-import { updateGroup } from '../../../../src/graphql/mutations';
-import { onUpdateCvrdGroupLoans } from '../../../../src/graphql/subscriptions';
 
 
   
@@ -33,6 +30,8 @@ const BLChmCovLoanee = (props) => {
   const navigation = useNavigation();
 
   const [LonId, setLonId] = useState("");
+  const [ChmMbrId, setChmMbrId] = useState("");
+  const [SigntryPW, setSigntryPW] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
   
@@ -90,6 +89,7 @@ const BLChmCovLoanee = (props) => {
                     const TtlBLLonsAmtLnrChmCovs = compDtls.data.getGroup.TtlBLLonsAmtLnrChmCov
                     const grpNames = compDtls.data.getGroup.grpName
                     const tymsChmHvBLs = compDtls.data.getGroup.tymsChmHvBL
+                    const signitoryPWs = compDtls.data.getGroup.signitoryPW
                          
                     const gtLoaneeDtls = async () =>{
                       if(isLoading){
@@ -144,6 +144,9 @@ const BLChmCovLoanee = (props) => {
 
                           else if(owners !== ownr){
                             Alert.alert("You are not the one owed this loan")
+                          } 
+                          else if(signitoryPWs !== SigntryPW){
+                            Alert.alert("Wrong Signitory Password")
                           } 
 
                           else if(statusssss === "LoanBL"){
@@ -227,11 +230,42 @@ const BLChmCovLoanee = (props) => {
                                 setIsLoading(true);
                                 try{
                                     await API.graphql(
-                                      graphqlOperation(onUpdateCvrdGroupLoans, {
+                                      graphqlOperation(updateCvrdGroupLoans, {
                                         input:{
                                           id:LonId,
                                           
                                           status:"LoanBL",
+                                        }
+                                      })
+                                    )
+                            
+                                    
+                                }
+                                catch(error){
+                                  console.log(error)
+                                  if(!error){
+                                  Alert.alert("Account deactivated successfully")
+                                  
+                              } 
+                              else{Alert.alert("Please check your internet connection")
+                              return;} }
+                              await updateMbrDtls();
+                              
+                                setIsLoading(false);          
+                              } 
+
+                              const updateMbrDtls = async () => {
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateGrpMembers, {
+                                        input:{
+                                          id:ChmMbrId,
+                                          
+                                          blStatus:"AccountBlackListed",
                                         }
                                       })
                                     )
@@ -296,6 +330,8 @@ const BLChmCovLoanee = (props) => {
           
           setIsLoading(false);
           setLonId("") 
+          setChmMbrId("")
+          setSigntryPW("")
         };    
 
         useEffect(() =>{
@@ -308,6 +344,29 @@ const BLChmCovLoanee = (props) => {
             setLonId(usId);
             }, [LonId]
              );
+
+             useEffect(() =>{
+              const SigntryPWs=SigntryPW
+                if(!SigntryPWs && SigntryPWs!=="")
+                {
+                  setSigntryPW("");
+                  return;
+                }
+                setSigntryPW(SigntryPWs);
+                }, [SigntryPW]
+                 );
+    
+
+             useEffect(() =>{
+              const ChmMbrIds=ChmMbrId
+                if(!ChmMbrIds && ChmMbrIds!=="")
+                {
+                  setChmMbrId("");
+                  return;
+                }
+                setChmMbrId(ChmMbrIds);
+                }, [ChmMbrId]
+                 );
         
  return (
             <View>
@@ -327,7 +386,23 @@ const BLChmCovLoanee = (props) => {
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Loan ID</Text>
                   </View>
-        
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                      value={ChmMbrId}
+                      onChangeText={setChmMbrId}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Chama Group ID</Text>
+                  </View> 
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                      value={SigntryPW}
+                      onChangeText={setSigntryPW}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Chama Signitory PassWprd</Text>
+                  </View>       
                   
         
                   <TouchableOpacity

@@ -22,12 +22,20 @@ const CredSalesAccount = props => {
     navigation.navigate('NonCovCredSlss');
   };
 
-  const goToSMADpstFm = () => {
-    navigation.navigate('DpstMney');
+  const RpayCredSlrCovss = () => {
+    navigation.navigate('RpayCredSlrCovs');
   };
 
-  const givCovLnSM = () => {
-    navigation.navigate('SMGivCovLon');
+  const BListCredByrNonCovss = () => {
+    navigation.navigate('BListCredByrNonCovs');
+  };
+
+  const RpayCredSlrNonCovss = () => {
+    navigation.navigate('RpayCredSlrNonCovs');
+  };
+
+  const BListCredByrCovss = () => {
+    navigation.navigate('BListCredByrCovs');
   };
 
   const payNonCovLn = () => {
@@ -42,9 +50,7 @@ const CredSalesAccount = props => {
     navigation.navigate('SMNonGivLon');
   };
 
-  const goBL = () => {
-    navigation.navigate('BListLneess');
-  };
+  
 
   return (
     <SafeAreaView>
@@ -83,13 +89,13 @@ const CredSalesAccount = props => {
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
-                onPress={goBL}
+                onPress={BListCredByrCovss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Covered CredSls</Text>
               </Pressable>
 
               <Pressable
-                onPress={payNonCovLn}
+                onPress={BListCredByrNonCovss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Non Covered CredSls</Text>
               </Pressable>
@@ -101,13 +107,13 @@ const CredSalesAccount = props => {
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
-                onPress={goBL}
+                onPress={RpayCredSlrCovss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Covered CredSls</Text>
               </Pressable>
 
               <Pressable
-                onPress={payNonCovLn}
+                onPress={RpayCredSlrNonCovss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Non Covered CredSls</Text>
               </Pressable>

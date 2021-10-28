@@ -7,16 +7,18 @@ import {Auth} from 'aws-amplify';
 const HomeScreen = props => {
   const navigation = useNavigation();
 
-  const goToLoanForm = () => {
-    navigation.navigate('SMNonGivLon');
+  
+
+  const SMGivNonCovLons = () => {
+    navigation.navigate('SMGivNonCovLon');
   };
 
-  const goToChamaMemberLoanForm = () => {
-    navigation.navigate('KFNdogoo');
+  const ChmNonCovLonss = () => {
+    navigation.navigate('ChmNonCovLons');
   };
 
-  const goToSellOnCreditForm = () => {
-    navigation.navigate('KFNdogoo');
+  const NonCovCredSlsss = () => {
+    navigation.navigate('NonCovCredSlss');
   };
 
   return (
@@ -24,24 +26,24 @@ const HomeScreen = props => {
       <View
         
         style={styles.image}>
-        <Pressable onPress={goToLoanForm} style={styles.loanFriendButton}>
+        <Pressable onPress={SMGivNonCovLons} style={styles.loanFriendButton}>
           <Text style={styles.loanAFriendText}>Loan a Friend</Text>
         </Pressable>
 
         <Text style={styles.title}>
-          Bizna ni kuokoleana na kudumisha urafiki
+          Life ni kuokoleana na kudumisha urafiki
         </Text>
 
         <View style={styles.viewForPressables}>
           <Pressable
-            onPress={goToChamaMemberLoanForm}
+            onPress={ChmNonCovLonss}
             style={styles.chamaLoanAndCreditSalesButton}>
             <Text style={styles.ChamaLoanAndCreditSalesText}>
               Loan Chama Member
             </Text>
           </Pressable>
           <Pressable
-            onPress={goToSellOnCreditForm}
+            onPress={NonCovCredSlsss}
             style={styles.chamaLoanAndCreditSalesButton}>
             <Text style={styles.ChamaLoanAndCreditSalesText}>
               Sell on Credit

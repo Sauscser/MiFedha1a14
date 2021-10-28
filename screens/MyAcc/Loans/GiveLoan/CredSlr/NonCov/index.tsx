@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {
   createCovCreditSeller,
   createFloatAdd,
+  createNonCovCreditSeller,
   createSMAccount,
   createSMLoansCovered,
   updateAdvocate,
@@ -48,7 +49,7 @@ const NonCovCredSls = props => {
   const [RepaymtPeriod, setRepaymtPeriod] = useState("");
   const [amount, setAmount] = useState("");
   const [AmtExp, setAmtExp] = useState("");
-  const [AdvRegNo, setAdvRegNo] = useState("");
+  
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
@@ -120,14 +121,11 @@ const NonCovCredSls = props => {
           
           const ttlSellerLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSellerLnsInActvTymsCov;
           const maxBLss = CompDtls.data.getCompany.maxBLs;
-          const maxInterests = CompDtls.data.getCompany.maxInterest;       
-
-          
-
-          
-
-          
-          
+          const maxInterestCredSllrs = CompDtls.data.getCompany.maxInterestCredSllr;       
+        
+          const Interest = ((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))
+       
+      
           
               
 
@@ -155,7 +153,7 @@ const NonCovCredSls = props => {
                           setIsLoading(true);
                           try {
                             await API.graphql(
-                              graphqlOperation(createCovCreditSeller, {
+                              graphqlOperation(createNonCovCreditSeller, {
                                 input: {
                                   itemName:ItmNm,
                                   itemSerialNumber:ItmSrlNu,
@@ -166,9 +164,9 @@ const NonCovCredSls = props => {
                                   amountSold: amount,
                                   amountexpectedBack: AmtExp,
                                   amountRepaid: 0,
-                                  lonBala:0,
+                                  lonBala:AmtExp,
                                   repaymentPeriod: RepaymtPeriod,
-                                  advregnu: AdvRegNo,
+                                  
                                   description: Desc,
                                   status: "LoanActive",
                                   owner: ownr
@@ -293,14 +291,14 @@ const NonCovCredSls = props => {
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > maxInterests)
-                        {Alert.alert("Too high interest:" + maxInterests + " per day");}
+                        else if(Interest>parseFloat(maxInterestCredSllrs))
+                        {Alert.alert('Interest too high:' + Interest + "; Recom SI:" + maxInterestCredSllrs +" per day");}
                         else if (
                           parseFloat(SenderUsrBal) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
                        
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                        
+                        else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
                         
                         else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
                         
@@ -339,7 +337,7 @@ const NonCovCredSls = props => {
       setSenderNatId('');
       setAmount("");
       setRecNatId('');
-      setAdvRegNo("");
+      
       setAmtExp("");
       setDesc("");
       setSnderPW("");
@@ -416,16 +414,7 @@ useEffect(() =>{
             }, [RecNatId]
              );
 
-             useEffect(() =>{
-              const AdvRegNoss=AdvRegNo
-                if(!AdvRegNoss && AdvRegNoss!=="")
-                {
-                  setAdvRegNo("");
-                  return;
-                }
-                setAdvRegNo(AdvRegNoss);
-                }, [AdvRegNo]
-                 );
+             
 
                  useEffect(() =>{
                   const AmtExpss=AmtExp
@@ -562,15 +551,7 @@ useEffect(() =>{
            <Text style={styles.sendAmtText}>Repayment Period in days</Text>
          </View>
 
-         <View style={styles.sendAmtView}>
-           <TextInput
-             value={AdvRegNo}
-             onChangeText={setAdvRegNo}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Advocate Reg Number</Text>
-         </View>
-
+         
 
          <View style={styles.sendAmtView}>
            <TextInput

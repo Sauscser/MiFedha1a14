@@ -29,8 +29,8 @@ import SMAWthdrwForm from '../../screens/MyAcc/WithdrwFunds';
 import SendNonLn from "../../screens/MyAcc/SendNonLons";
 import RepayCovLns from "../../screens/MyAcc/Loans/RepayLoan/SM/CovLons";
 import RepayNonCovLns from "../../screens/MyAcc/Loans/RepayLoan/SM/NonCovLns";
-import BListLnee from "../../screens/MyAcc/Loans/BList/SMLoanee/Cov";
-import BListCredByr from "../../screens/MyAcc/Loans/BList/CredLoanee/Cov";
+import BListSMLneeCov from "../../screens/MyAcc/Loans/BList/SMLoanee/Cov";
+import BListSMLneeNonCov from "../../screens/MyAcc/Loans/BList/SMLoanee/NonCov";
 import CovCredSls from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Cov";
 import NonCovCredSls from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/NonCov";
 import CreateChm from "../../screens/Chama/CrtChm";
@@ -39,6 +39,14 @@ import ChmCovLon from "../../screens/Chama/Loan/LoanMember/Cov";
 import ChmNonCovLon from "../../screens/Chama/Loan/LoanMember/NonCov";
 import ChmContr from "../../screens/Chama/Contribtns";
 import SndMbrsMny from "../../screens/Chama/SendMmbrsMny";
+import BLChmMmberCov from "../../screens/Chama/BL/Cov";
+import BLChmMmberNonCov from "../../screens/Chama/BL/NonCov";
+import RepyChmCovLn from "../../screens/MyAcc/Loans/RepayLoan/Chama/CovLons";
+import RepyChmNonCovLn from "../../screens/MyAcc/Loans/RepayLoan/Chama/NonCovLons";
+import BListCredByrCov from "../../screens/MyAcc/Loans/BList/CredLoanee/Cov";
+import BListCredByrNonCov from "../../screens/MyAcc/Loans/BList/CredLoanee/NonCov";
+import RpayCredSlrCov from "../../screens/MyAcc/Loans/RepayLoan/CredSlr/CovCredSls";
+import RpayCredSlrNonCov from "../../screens/MyAcc/Loans/RepayLoan/CredSlr/NonCovCredSls";
 
 
 
@@ -71,13 +79,12 @@ const HomeNavigator = props => {
       <Stack.Screen name={'DActvteMFUsr'} component={DActivtMFUsr}/>
       <Stack.Screen name={'DActvteMFAd'} component={DActivtMFAdv}/>
       <Stack.Screen name={'SMGivCovLon'} component={SMGvCovLon}/>
-      <Stack.Screen name={'SMNonGivLon'} component={SMASendNonCovLns}/>
+      <Stack.Screen name={'SMGivNonCovLon'} component={SMASendNonCovLns}/>
       <Stack.Screen name={'SMWthdFm'} component={SMAWthdrwForm}/>
       <Stack.Screen name={'SendNonLnss'} component={SendNonLn}/>
       <Stack.Screen name={'RepayCovLnss'} component={RepayCovLns}/>
       <Stack.Screen name={'RepayNonCovLnss'} component={RepayNonCovLns}/>
-      <Stack.Screen name={'BListLneess'} component={BListLnee}/>
-      <Stack.Screen name={'BListCredByr'} component={BListCredByr}/>
+     
       <Stack.Screen name={'CovCredSls'} component={CovCredSls}/>
       <Stack.Screen name={'NonCovCredSlss'} component={NonCovCredSls}/>
       <Stack.Screen name={'CredSlsHms'} component={NonCovCredSls}/>
@@ -87,6 +94,19 @@ const HomeNavigator = props => {
       <Stack.Screen name={'ChmNonCovLons'} component={ChmNonCovLon}/>
       <Stack.Screen name={'ChmContrs'} component={ChmContr}/>
       <Stack.Screen name={'SndMbrsMnys'} component={SndMbrsMny}/>
+      <Stack.Screen name={'BLChmMmberCovs'} component={BLChmMmberCov}/>
+      <Stack.Screen name={'BLChmMmberNonCovs'} component={BLChmMmberNonCov}/>
+    
+     
+      <Stack.Screen name={'RepyChmCovLns'} component={RepyChmCovLn}/>
+      <Stack.Screen name={'RepyChmNonCovLns'} component={RepyChmNonCovLn}/>
+      <Stack.Screen name={'BListCredByrCovs'} component={BListCredByrCov}/>
+      <Stack.Screen name={'BListCredByrNonCovs'} component={BListCredByrNonCov}/>
+      <Stack.Screen name={'RpayCredSlrCovs'} component={RpayCredSlrCov}/>
+      <Stack.Screen name={'RpayCredSlrNonCovs'} component={RpayCredSlrNonCov}/>
+
+      <Stack.Screen name={'BListSMLneeCovs'} component={BListSMLneeCov}/>
+      <Stack.Screen name={'BListSMLneeNonCovs'} component={BListSMLneeNonCov}/>
       
     </Stack.Navigator>
   );

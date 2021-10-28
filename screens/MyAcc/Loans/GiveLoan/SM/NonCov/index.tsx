@@ -117,12 +117,9 @@ const SMASendNonCovLns = props => {
           const ttlSMLnsInActvAmtCovs = CompDtls.data.getCompany.ttlSMLnsInActvAmtCov;
           const ttlSMLnsInTymsCovs = CompDtls.data.getCompany.ttlSMLnsInTymsCov;
           const ttlSMLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSMLnsInActvTymsCov;  
-          const maxBLss = CompDtls.data.getCompany.maxBLs;            
-
-          
-
-          const maxInterests = CompDtls.data.getCompany.maxInterest;
-
+          const maxInterestSMs = CompDtls.data.getCompany.maxInterestSM;
+          const maxBLss = CompDtls.data.getCompany.maxBLs;
+          const Interest = ((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod));
           
           
           
@@ -161,7 +158,7 @@ const SMASendNonCovLns = props => {
                                   amountgiven: amount,
                                   amountexpected: AmtExp,
                                   amountrepaid: 0,
-                                  lonBala:0,
+                                  lonBala:AmtExp,
                                   repaymentPeriod: RepaymtPeriod,
                                   
                                   description: Desc,
@@ -288,14 +285,14 @@ const SMASendNonCovLns = props => {
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if((((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))) > maxInterests)
-                        {Alert.alert('Your interest is too high');}
+                        else if(Interest > maxInterestSMs)
+                        {Alert.alert('Interest too high:' + Interest + "; Recom SI: " + maxInterestSMs+" per day");}
                         else if (
                           parseFloat(SenderUsrBal) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
                         
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                        
+                        else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
                         
                         else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
                         
