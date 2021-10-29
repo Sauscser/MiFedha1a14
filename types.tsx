@@ -66,6 +66,7 @@ declare global {
       SMGivNonCovLon:undefined;
       BListSMLneeCovs:undefined;
       BListSMLneeNonCovs:undefined;
+      RemoveChmMbrs:undefined;
     }
   }
 }

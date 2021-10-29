@@ -643,6 +643,7 @@ useEffect(() =>{
 
           <View style={styles.sendAmtView}>
             <TextInput
+            placeholder="+2547xxxxxxxx"
               value={RecPhn}
               onChangeText={setRecPhn}
               style={styles.sendAmtInput}
@@ -652,6 +653,7 @@ useEffect(() =>{
 
           <View style={styles.sendAmtView}>
             <TextInput
+            placeholder="+2547xxxxxxxx"
               value={RecNatId}
               onChangeText={setRecNatId}
               style={styles.sendAmtInput}

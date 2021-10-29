@@ -15,7 +15,11 @@ const KFNdogoScreen = props => {
   const navigation = useNavigation();
 
   const goToSalesAdsScreen = () => {
-    navigation.navigate('GeneralShopSchPg');
+    navigation.navigate('GnrlShpAdvtsScrn');
+  };
+
+  const DpstMneys = () => {
+    navigation.navigate('DpstMney');
   };
 
   const goToAdvertiseSales = () => {
@@ -58,7 +62,7 @@ const KFNdogoScreen = props => {
             <Pressable
               onPress={goToSalesAdsScreen}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText}>Withdraw</Text>
+              <Text style={styles.floatPressableText}>MFN Withdraw</Text>
             </Pressable>
           </View>
         </View>
@@ -68,7 +72,7 @@ const KFNdogoScreen = props => {
 
           <View style={styles.viewForFloatPressables}>
             <Pressable
-              onPress={goToSalesAdsScreen}
+              onPress={goToAdvertiseSales}
               style={styles.floatView}>
               <Text style={styles.floatPressableText}>UpdateAc</Text>
             </Pressable>
@@ -78,8 +82,15 @@ const KFNdogoScreen = props => {
               style={styles.floatView}>
               <Text style={styles.floatPressableText}>ViewAc</Text>
             </Pressable>
+
+            <Pressable
+              onPress={DpstMneys}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>User Deposit</Text>
+            </Pressable>
           </View>
         </View>
+
 
         <View style={styles.floatMainView}>
           <Text style={styles.floatText}> Earnings</Text>

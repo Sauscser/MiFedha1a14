@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'skyblue',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "5%",
+    height: "8%",
     borderRadius: 20,
     marginTop: "20%",
     justifyContent: 'center',

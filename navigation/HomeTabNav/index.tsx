@@ -47,6 +47,7 @@ import BListCredByrCov from "../../screens/MyAcc/Loans/BList/CredLoanee/Cov";
 import BListCredByrNonCov from "../../screens/MyAcc/Loans/BList/CredLoanee/NonCov";
 import RpayCredSlrCov from "../../screens/MyAcc/Loans/RepayLoan/CredSlr/CovCredSls";
 import RpayCredSlrNonCov from "../../screens/MyAcc/Loans/RepayLoan/CredSlr/NonCovCredSls";
+import RemoveChmMbr from "../../screens/Chama/RmvChmMbr";
 
 
 
@@ -107,6 +108,7 @@ const HomeNavigator = props => {
 
       <Stack.Screen name={'BListSMLneeCovs'} component={BListSMLneeCov}/>
       <Stack.Screen name={'BListSMLneeNonCovs'} component={BListSMLneeNonCov}/>
+      <Stack.Screen name={'RemoveChmMbrs'} component={RemoveChmMbr}/>
       
     </Stack.Navigator>
   );

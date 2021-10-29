@@ -38,8 +38,8 @@ const MyLoanAccount = props => {
     navigation.navigate('SndMbrsMnys');
   };
 
-  const goToSMADpstFm = () => {
-    navigation.navigate('DpstMney');
+  const RemoveChmMbrss = () => {
+    navigation.navigate('RemoveChmMbrs');
   };
 
   const RepyChmCovLnss = () => {
@@ -166,7 +166,7 @@ const MyLoanAccount = props => {
                     </Pressable>
 
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={RemoveChmMbrss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         De-Reg
@@ -228,7 +228,7 @@ const MyLoanAccount = props => {
             </Pressable>
 
             <Pressable onPress={givCovLnSM} style={styles.myMoneyPressables}>
-              <Text style={styles.acPressableText}>Disolve</Text>
+              <Text style={styles.acPressableText}>Dissolve</Text>
             </Pressable>
 
             <Pressable onPress={givCovLnSM} style={styles.myMoneyPressables}>

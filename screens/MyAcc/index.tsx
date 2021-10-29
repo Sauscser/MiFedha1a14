@@ -50,21 +50,19 @@ const MyAccount = props => {
           <Text style={styles.accountText}>MyMoney</Text>
 
           <View style={styles.viewForSalesPressables}>
-            <Pressable onPress={goToSMADpstFm} style={styles.myMoneyPressables}>
-              <Text style={styles.acPressableText}>Deposit</Text>
-            </Pressable>
+            
 
-            <Pressable onPress={goToMySMAc} style={styles.myMoneyPressables}>
+            <Pressable onPress={goToMySMAc} style={styles.acPressables}>
               <Text style={styles.acPressableText}>CheckBal</Text>
             </Pressable>
 
-            <Pressable onPress={goWithdrwMny} style={styles.myMoneyPressables}>
+            <Pressable onPress={goWithdrwMny} style={styles.acPressables}>
               <Text style={styles.acPressableText}>Withdraw</Text>
             </Pressable>
 
             <Pressable
               onPress={goToSMASndnonln}
-              style={styles.myMoneyPressables}>
+              style={styles.acPressables}>
               <Text style={styles.acPressableText}>Send Non-Loan</Text>
             </Pressable>
           </View>

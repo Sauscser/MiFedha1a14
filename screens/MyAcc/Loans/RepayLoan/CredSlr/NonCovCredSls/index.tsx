@@ -644,20 +644,22 @@ useEffect(() =>{
 
           <View style={styles.sendAmtView}>
             <TextInput
+            placeholder="+2547xxxxxxxx"
               value={RecPhn}
               onChangeText={setRecPhn}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Loanee Phone</Text>
+            <Text style={styles.sendAmtText}>Credit Buyer Phone</Text>
           </View>
 
           <View style={styles.sendAmtView}>
             <TextInput
+            placeholder="+2547xxxxxxxx"
               value={RecNatId}
               onChangeText={setRecNatId}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Chama Phone</Text>
+            <Text style={styles.sendAmtText}>Credit Seller Phone</Text>
           </View>
 
           

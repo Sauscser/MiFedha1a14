@@ -187,6 +187,30 @@ const NonCovCredSls = props => {
                           await updtSendrAc();
                         };
 
+                        if (parseFloat(usrNoBL) > maxBLss){Alert.alert('Receiver does not qualify');
+                      return;
+                    }
+                        else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');
+                      return;
+                    }
+                        else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
+                        else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
+                        else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
+                        else if(Interest>parseFloat(maxInterestCredSllrs))
+                        {Alert.alert('Interest too high:' + Interest + "; Recom SI:" + maxInterestCredSllrs +" per day");}
+                        else if (
+                          parseFloat(userLoanTransferFees)*parseFloat(amount) > parseFloat(RecUsrBal)) 
+                                                   {Alert.alert('Buyer cannot facilitate; should recharge');}
+                       
+                        else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
+                        else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
+                        
+                        else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
+                        
+                         else {
+                          sendSMLn();
+                        }                 
+
                         const updtSendrAc = async () =>{
                           if(isLoading){
                             return;
@@ -200,7 +224,7 @@ const NonCovCredSls = props => {
                                     TtlActvLonsTmsSllrNonCov: parseFloat(TtlActvLonsTmsSllrNonCovs)+1,
                                     TtlActvLonsAmtSllrNonCov: parseFloat(TtlActvLonsAmtSllrNonCovs) + parseFloat(amount),
                                                                               
-                                    balance:parseFloat(SenderUsrBal)-TotalTransacted 
+                                     
                                    
                                     
                                   }
@@ -210,7 +234,7 @@ const NonCovCredSls = props => {
 
                           }
                           catch(error){
-                            if (error){Alert.alert("Check your internet connection")
+                            if (error){Alert.alert("Check internet or seller does not exist")
                             return;}
                           }
                           setIsLoading(false);
@@ -228,7 +252,7 @@ const NonCovCredSls = props => {
                                     phonecontact:RecPhn,
                                     TtlActvLonsTmsByrCov: parseFloat(TtlActvLonsTmsByrCovs) +1 ,
                                     TtlActvLonsAmtByrCov: parseFloat(TtlActvLonsAmtByrCovs)+ parseFloat(amount),
-                                    balance:parseFloat(RecUsrBal) + parseFloat(amount)  ,
+                                    balance:parseFloat(RecUsrBal) - parseFloat(userLoanTransferFees)*parseFloat(amount)  ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                                                       
@@ -238,7 +262,7 @@ const NonCovCredSls = props => {
                               )                              
                           }
                           catch(error){
-                            if (error){Alert.alert("Check your internet connection")
+                            if (error){Alert.alert("Check internet or buyer does not exist")
                             return;}
                           }
                           setIsLoading(false);
@@ -278,36 +302,14 @@ const NonCovCredSls = props => {
                         return;}
                           }
                           setIsLoading(false);
-                          Alert.alert(names + " sells on credit to " + namess +"goods worth Ksh. " + amount );
+                          Alert.alert(names + " to " + namess +" goods worth Ksh." + amount );
                         }
                         
                                               
-                        if (parseFloat(usrNoBL) > maxBLss){Alert.alert('Receiver does not qualify');
-                      return;
-                    }
-                        else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');
-                      return;
-                    }
-                        else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                        else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
-                        else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if(Interest>parseFloat(maxInterestCredSllrs))
-                        {Alert.alert('Interest too high:' + Interest + "; Recom SI:" + maxInterestCredSllrs +" per day");}
-                        else if (
-                          parseFloat(SenderUsrBal) < TotalTransacted 
-                        ) {Alert.alert('Requested amount is more than you have in your account');}
-                       
-                        else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                        else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
-                        
-                        else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
-                        
-                         else {
-                          sendSMLn();
-                        }                                                
+                                                       
                     }       
                     catch(e) {     
-                      if (e){Alert.alert("Check your internet connection")
+                      if (e){Alert.alert("Check internet or buyer does not exist")
       return;}                 
                     }
                     setIsLoading(false);
@@ -320,7 +322,7 @@ const NonCovCredSls = props => {
           
         
         } catch (e) {
-          if (e){Alert.alert("Check your internet connection")
+          if (e){Alert.alert("Check internet network or Buyer does not exist")
       return;}
         } 
         setIsLoading(false);       
@@ -330,7 +332,7 @@ const NonCovCredSls = props => {
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Please fill details correctly or check your internet connection")
+      if (e){Alert.alert("Check internet network or seller does not exist")
       return;}
   };
       setIsLoading(false);

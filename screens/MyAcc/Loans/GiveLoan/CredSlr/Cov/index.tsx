@@ -111,7 +111,7 @@ const CovCredSls = props => {
           const AdvCovAmt = parseFloat(AdvComs)*parseFloat(CoverageFees)*parseFloat(amount)
           const CompCovAmt = CompCovFee*parseFloat(amount)
           const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)
-          const TotalTransacted = parseFloat(amount) + ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount);
+          const TotalTransacted = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount);
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
           const ttlCompCovEarningss = CompDtls.data.getCompany.ttlCompCovEarnings;
 
@@ -212,6 +212,29 @@ const CovCredSls = props => {
                           setIsLoading(false);
                           await updtSendrAc();
                         };
+                        if (parseFloat(usrNoBL) > maxBLss){Alert.alert('Receiver does not qualify');
+                      return;
+                    }
+                        else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');
+                      return;
+                    }
+                        else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
+                        else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
+                        else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
+                        else if(Interest > parseFloat(maxInterestCredSllrs))
+                        {Alert.alert('Interest too high:' + Interest + "; Recom SI:" + maxInterestCredSllrs +" per day");}
+                        else if (
+                          parseFloat(RecUsrBal) < TotalTransacted 
+                        ) {Alert.alert('Buyer cannot facilitate; should recharge');}
+                        else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
+                        else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
+                        else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
+                        
+                        else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
+                        
+                         else {
+                          sendSMLn();
+                        }                     
 
                         const updtSendrAc = async () =>{
                           if(isLoading){
@@ -226,7 +249,7 @@ const CovCredSls = props => {
                                     TtlActvLonsTmsSllrCov: parseFloat(TtlActvLonsTmsSllrCovs)+1,
                                     TtlActvLonsAmtSllrCov: parseFloat(TtlActvLonsAmtSllrCovs) + parseFloat(amount),
                                                                               
-                                    balance:parseFloat(SenderUsrBal)-TotalTransacted 
+                                    
                                    
                                     
                                   }
@@ -255,7 +278,7 @@ const CovCredSls = props => {
                                     phonecontact:RecPhn,
                                     TtlActvLonsTmsByrCov: parseFloat(TtlActvLonsTmsByrCovs) +1 ,
                                     TtlActvLonsAmtByrCov: parseFloat(TtlActvLonsAmtByrCovs)+ parseFloat(amount),
-                                    balance:parseFloat(RecUsrBal) + parseFloat(amount)  ,
+                                    balance:parseFloat(RecUsrBal) - TotalTransacted,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                                                       
@@ -332,36 +355,14 @@ const CovCredSls = props => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
-                          Alert.alert(names + " sells on credit to " + namess +" goods worth Ksh. " + amount +": "+ namesssssss+" coverage");
+                          Alert.alert(names + " to " + namess +" goods worth Ksh." + amount +":"+ namesssssss+" Adv");
                           setIsLoading(false);
                         }
                                               
-                        if (parseFloat(usrNoBL) > maxBLss){Alert.alert('Receiver does not qualify');
-                      return;
-                    }
-                        else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');
-                      return;
-                    }
-                        else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                        else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
-                        else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if(Interest > parseFloat(maxInterestCredSllrs))
-                        {Alert.alert('Interest too high:' + Interest + "; Recom SI:" + maxInterestCredSllrs +" per day");}
-                        else if (
-                          parseFloat(SenderUsrBal) < TotalTransacted 
-                        ) {Alert.alert('Requested amount is more than you have in your account');}
-                        else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
-                        else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                        else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
-                        
-                        else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
-                        
-                         else {
-                          sendSMLn();
-                        }                                                
+                                                   
                     }       
                     catch(e) {     
-                      if (e){Alert.alert("Check your internet connection")
+                      if (e){Alert.alert("Check internet network or Buyer does not exist")
       return;}                 
                     }
                     setIsLoading(false);
@@ -382,7 +383,7 @@ const CovCredSls = props => {
           
         
         } catch (e) {
-          if (e){Alert.alert("Check your internet connection")
+          if (e){Alert.alert("Please fill details correctly or check your internet connection")
       return;}
         } 
         setIsLoading(false);       
@@ -392,7 +393,7 @@ const CovCredSls = props => {
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Please fill details correctly or check your internet connection")
+      if (e){Alert.alert("Check internet network or seller does not exist")
       return;}
   };
       setIsLoading(false);

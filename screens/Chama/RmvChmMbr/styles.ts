@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     marginBottom: 400,
   },
   sendLoanButtonText: {
-    fontSize: 30,
+    fontSize: 15,
     fontWeight: 'bold',
     color: 'black',
   },
