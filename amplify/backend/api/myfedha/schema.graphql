@@ -906,8 +906,7 @@ type Company
   ttlInactvChm: Float!
   ttlActiveChmUsers: Float!
   ttlInactvChmUsrs: Float!
-
-
+  
   
   ttlKFNdgActv: Float!
   ttlKFNdgInActv: Float!

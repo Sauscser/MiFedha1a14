@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'brown',
     marginHorizontal: 5,
     width: Dimensions.get('screen').width - 10,
-    height: 95,
+    height: "20%",
     borderRadius: 20,
 
     justifyContent: 'center',
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   earningsAcPressables: {
     backgroundColor: 'purple',
     
-    height: 60,
+    height: "90%",
     borderRadius: 20,
 
     justifyContent: 'center',
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
 
   earningsAcPressableText: {
     color: 'white',
-    fontSize: 15,
+    fontSize: 11,
     marginTop: 1,
   },
 });

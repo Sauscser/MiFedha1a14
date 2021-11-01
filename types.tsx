@@ -67,6 +67,8 @@ declare global {
       BListSMLneeCovs:undefined;
       BListSMLneeNonCovs:undefined;
       RemoveChmMbrs:undefined;
+      DissolveChms:undefined;
+      UpdateChms:undefined;
     }
   }
 }

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   
   floatPressableText: {
     color: 'white',
-    fontSize: 15,
+    fontSize: 11,
     marginTop: 1,
   },
 

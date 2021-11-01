@@ -27,102 +27,58 @@ import { updateBankAdmin } from '../../../src/graphql/mutations';
   
 
 
-const DissolveChm = (props) => {
+const UpdtChm = (props) => {
   const navigation = useNavigation();
   const [SigntryPW, setSigntryPW] = useState("");
   const [groupCnt, setgroupCnt] = useState("");
+  const [LnAcCod, setLnAcCod] = useState("");
+  const [SMPW, setSMPW] = useState("");
   const[isLoading, setIsLoading] = useState(false);
   const[ownr, setownr] = useState(null);
   const[names, setName] = useState(null);
+  const[PhoneContact, setPhoneContact] = useState(null);
   
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     
     setName(userInfo.username);
     setownr(userInfo.attributes.sub);
-      
+    setPhoneContact(userInfo.attributes.phone_number);
+    
   };
   useEffect(() => {
     fetchUser();
   }, []);
 
   
-        const fetchCompDtls = async () =>{
+        const fetchChmAuthorDtls = async () =>{
             if(isLoading){
               return;
             }
             setIsLoading(true);
             try{
               const compDtls :any= await API.graphql(
-                graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+                graphqlOperation(getSMAccount,{phonecontact:PhoneContact})
                 );
-                const ttlActiveChms = compDtls.data.getCompany.ttlActiveChm                
-                const ttlInactvChms = compDtls.data.getCompany.ttlInactvChm
+                const loanAcceptanceCodes = compDtls.data.getSMAccount.loanAcceptanceCode                
+                const pws = compDtls.data.getSMAccount.pw
                
-
                 const ftchChmDtls = async () =>{
-                    if(isLoading){
-                      return;
-                    }
-                    setIsLoading(true);
-                    try{
-                      const compDtls :any= await API.graphql(
-                        graphqlOperation(getGroup,{grpContact:groupCnt})
-                        );
-                        const signitoryPWs = compDtls.data.getGroup.signitoryPW
-                        const grpNames = compDtls.data.getGroup.grpName
-                        const owners = compDtls.data.getGroup.owner
-                        const ttlNonLonsRecChms = compDtls.data.getGroup.ttlNonLonsRecChm
-                        const ttlNonLonsSentChms = compDtls.data.getGroup.ttlNonLonsSentChm
-                        const grpBals = compDtls.data.getGroup.grpBal
+                  if(isLoading){
+                    return;
+                  }
+                  setIsLoading(true);
+                  try{
+                    const compDtls :any= await API.graphql(
+                      graphqlOperation(getGroup,{grpContact:groupCnt})
+                      );
+                      
+                      const grpNames = compDtls.data.getGroup.grpName
+                      const statuss = compDtls.data.getGroup.status
+                      const owners = compDtls.data.getGroup.owner
+                
                         
-
-                        const updateComp = async()=>{
-                                    if(isLoading){
-                                      return;
-                                    }
-                                    setIsLoading(true);
-                                        try{
-                                            await API.graphql(
-                                              graphqlOperation(updateCompany,{
-                                                input:{
-                                                  AdminId: "BaruchHabaB'ShemAdonai2",
-                                                  ttlActiveChm:parseFloat(ttlActiveChms) - 1,
-                                                  ttlInactvChm:parseFloat(ttlInactvChms) + 1,
-                                                  
-                                                }
-                                              })
-                                            )
-                                        }
-                                        catch(error){
-                                          if(error){
-                                            Alert.alert("Check internet; otherwise chama doesnt exist")
-                                            return;
-                                          }
-                                        }
-                                          setIsLoading(false)
-                                        await updtChmDtls();
-                                      }
-                                      if(ttlNonLonsRecChms>ttlNonLonsSentChms)
-                                      {
-                                          Alert.alert("Chama has Members Money");
-                                      }
                                       
-                                      else if(signitoryPWs!==SigntryPW)
-                                      {
-                                          Alert.alert("Wrong signitory password");
-                                      }
-
-                                      else if(ownr!==owners)
-                                      {
-                                          Alert.alert("You are not the author of the Chama");
-                                      }
-
-                                      else if(grpBals>0)
-                                      {
-                                          Alert.alert("Chama has money in its account");
-                                      }
-                                      else {updateComp();}
                           
                                       const updtChmDtls = async () => {
                                         if(isLoading){
@@ -134,7 +90,7 @@ const DissolveChm = (props) => {
                                               graphqlOperation(updateGroup,{
                                                 input:{
                                                   grpContact:groupCnt,
-                                                  status:"AccountInactive"
+                                                  signitoryPW:SigntryPW
                                                 }
                                               })
                                             )
@@ -148,17 +104,40 @@ const DissolveChm = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +" has dissolved "+grpNames+" Chama");
+                                        Alert.alert(names +" has updated "+grpNames+"'s Chama password");
                                       } 
 
+                                      if(LnAcCod>loanAcceptanceCodes)
+                                      {
+                                          Alert.alert("Wrong SM A/C Loan Acceptance Code; Prove authorship of Chama");
+                                      }
+                                      
+                                      else if(SMPW!==pws)
+                                      {
+                                          Alert.alert("Wrong SM A/C PW; Prove authorship of Chama");
+                                      }
+
+                                      else if(ownr!==owners)
+                                      {
+                                          Alert.alert("You are not the author of the Chama");
+                                      }
+
+                                      else if(statuss!=="AccountActive")
+                                      {
+                                          Alert.alert("This Chama Account is inactive");
+                                      }
+
+                                      
+                                      else {updtChmDtls();}
+
         
-                    } catch (error) {
-                        if(error){
-                          Alert.alert("Check internet; otherwise Chama doesnt exist")
-                          return
-                        }
-                      }}
-                      await ftchChmDtls();
+                                    } catch (error) {
+                                      if(error){
+                                        Alert.alert("Check internet; otherwise Chama doesnt exist")
+                                        return
+                                      }
+                                    }}
+                                    await ftchChmDtls();            
 
             } catch (error) {
                 if(error){
@@ -166,13 +145,14 @@ const DissolveChm = (props) => {
                   return
                 }
               }
-
-              
+         
            
 
             setIsLoading(false);
               setgroupCnt("");
               setSigntryPW("")
+              setSMPW("")
+              setLnAcCod("")
           
             }
         
@@ -197,6 +177,28 @@ const DissolveChm = (props) => {
                   setSigntryPW(SigntryPWs);
                   }, [SigntryPW]
                    );
+
+                   useEffect(() =>{
+                    const LnAcCods=LnAcCod
+                      if(!LnAcCods && LnAcCods!=="")
+                      {
+                        setLnAcCod("");
+                        return;
+                      }
+                      setLnAcCod(LnAcCods);
+                      }, [LnAcCod]
+                       );
+
+                       useEffect(() =>{
+                        const SMPWs=SMPW
+                          if(!SMPWs && SMPWs!=="")
+                          {
+                            setSMPW("");
+                            return;
+                          }
+                          setSMPW(SMPWs);
+                          }, [SMPW]
+                           );
   
   
  return (
@@ -221,19 +223,36 @@ const DissolveChm = (props) => {
 
                   <View style={styles.sendLoanView}>
                     <TextInput
+                      value={SMPW}
+                      onChangeText={setSMPW}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>SM Ac PW</Text>
+                  </View>       
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                      value={LnAcCod}
+                      onChangeText={setLnAcCod}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>SM Loan Acceptance Code</Text>
+                  </View>     
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
                       value={SigntryPW}
                       onChangeText={setSigntryPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Signitory PassWord</Text>
-                  </View>       
-                  
+                    <Text style={styles.sendLoanText}>New Chama PassWord</Text>
+                  </View>                       
         
                   <TouchableOpacity
-                    onPress={fetchCompDtls}
+                    onPress={fetchChmAuthorDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
-                      Click to dissolve Chama
+                      Click to Update Chama Details
                     </Text>
                     {isLoading && <ActivityIndicator color={'Blue'} size="large"/>}
                   </TouchableOpacity>
@@ -243,4 +262,4 @@ const DissolveChm = (props) => {
           );
         };
         
-        export default DissolveChm;
+        export default UpdtChm;

@@ -65,12 +65,12 @@ const MyLoanAccount = props => {
     navigation.navigate('RepayNonCovLnss');
   };
 
-  const payCovLn = () => {
-    navigation.navigate('RepayCovLnss');
+  const DissolveChmss = () => {
+    navigation.navigate('DissolveChms');
   };
 
-  const SMASndnonCovLn = () => {
-    navigation.navigate('SMNonGivLon');
+  const UpdateChmss = () => {
+    navigation.navigate('UpdateChms');
   };
 
   const goBL = () => {
@@ -227,11 +227,11 @@ const MyLoanAccount = props => {
               <Text style={styles.acPressableText}>Create</Text>
             </Pressable>
 
-            <Pressable onPress={givCovLnSM} style={styles.myMoneyPressables}>
+            <Pressable onPress={DissolveChmss} style={styles.myMoneyPressables}>
               <Text style={styles.acPressableText}>Dissolve</Text>
             </Pressable>
 
-            <Pressable onPress={givCovLnSM} style={styles.myMoneyPressables}>
+            <Pressable onPress={UpdateChmss} style={styles.myMoneyPressables}>
               <Text style={styles.acPressableText}>Update</Text>
             </Pressable>
 

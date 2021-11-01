@@ -207,11 +207,12 @@ const DeregChmMmbr = (props) => {
                 <ScrollView>
            
                   <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill MFNdogo Details Below</Text>
+                    <Text style={styles.title}>Fill Details Below</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    
                       value={ChmMmbrId}
                       onChangeText={setChmMmbrId}
                       style={styles.sendLoanInput}
