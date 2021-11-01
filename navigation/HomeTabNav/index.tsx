@@ -50,6 +50,8 @@ import RpayCredSlrNonCov from "../../screens/MyAcc/Loans/RepayLoan/CredSlr/NonCo
 import RemoveChmMbr from "../../screens/Chama/RmvChmMbr";
 import DissolveChm from "../../screens/Chama/Dissolve";
 import UpdateChm from "../../screens/Chama/Update";
+import UpdateSMPW from "../../screens/MyAcc/UpdatePW";
+import UpdateMFAdminPW from "../../screens/MFAdmin/Update";
 
 
 const Stack = createNativeStackNavigator();
@@ -111,6 +113,8 @@ const HomeNavigator = props => {
       <Stack.Screen name={'RemoveChmMbrs'} component={RemoveChmMbr}/>
       <Stack.Screen name={'DissolveChms'} component={DissolveChm}/>
       <Stack.Screen name={'UpdateChms'} component={UpdateChm}/>
+      <Stack.Screen name={'UpdateSMPWs'} component={UpdateSMPW}/>
+      <Stack.Screen name={'UpdateMFAdminPWs'} component={UpdateMFAdminPW}/>
 
     </Stack.Navigator>
   );

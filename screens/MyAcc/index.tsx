@@ -37,8 +37,8 @@ const MyAccount = props => {
   const BListSMLneeCovss = () => {
     navigation.navigate('BListSMLneeCovs');
   };
-  const BListSMLneeNonCovss = () => {
-    navigation.navigate('BListSMLneeNonCovs');
+  const UpdateSMPWss = () => {
+    navigation.navigate('UpdateSMPWs');
   };
 
   return (
@@ -76,7 +76,7 @@ const MyAccount = props => {
               <Text style={styles.acPressableText}>Create</Text>
             </Pressable>
 
-            <Pressable onPress={goToMySMAc} style={styles.acPressables}>
+            <Pressable onPress={UpdateSMPWss} style={styles.acPressables}>
               <Text style={styles.acPressableText}>Update</Text>
             </Pressable>
 

@@ -220,12 +220,27 @@ const styles = StyleSheet.create({
     
     height: 60,
     borderRadius: 20,
-
+    marginLeft:"3%",
+    marginRight:"3%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-width:"40%",
-    marginHorizontal: "10%"
+    width:"26%",
+    
+  },
+
+  earningsAcPressablesSMNErn: {
+    backgroundColor: 'purple',
+    
+    height: 60,
+    borderRadius: 20,
+    marginLeft:"10%",
+    marginRight:"10%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width:"26%",
+    
   },
 
   earningsAcPressableText: {

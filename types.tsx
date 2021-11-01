@@ -69,6 +69,8 @@ declare global {
       RemoveChmMbrs:undefined;
       DissolveChms:undefined;
       UpdateChms:undefined;
+      UpdateSMPWs:undefined;
+      UpdateMFAdminPWs:undefined;
     }
   }
 }

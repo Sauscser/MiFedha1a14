@@ -45,6 +45,9 @@ const RegKFKubwa = props => {
     navigation.navigate('DActvteMFUsr');
   };
 
+  const UpdateMFAdminPWss = () => {
+    navigation.navigate('UpdateMFAdminPWs');
+  };
   const DActivateMFAdvc = () => {
     navigation.navigate('DActvteMFAd');
   };
@@ -136,49 +139,7 @@ const RegKFKubwa = props => {
               </View>
             </View>
           
-
-          <View style={styles.acEarningsView}>
-              <Text style={styles.salesText}>SM Users</Text>
-
-              
-
-                  <View style={styles.viewForAcEarningsPressables}>
-                    
-                    <Pressable
-                      onPress={DActivateMFUsr}
-                      style={styles.earningsAcPressables}>
-                      <Text style={styles.earningsAcPressableText}>DActivtUsr</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={goToAdvReg}
-                      style={styles.earningsAcPressables}>
-                      <Text style={styles.earningsAcPressableText}>
-                        BLUsr
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-          <View style={styles.acEarningsView}>
-            <Text style={styles.salesText}>Earnings</Text>
-
-            <View style={styles.viewForAcEarningsPressables}>
-              <Pressable
-                onPress={goToAdvReg}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Check Bal</Text>
-              </Pressable>
-
-              <Pressable
-                onPress={goToAdvReg}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Withdraw</Text>
-              </Pressable>
-            </View>
-          </View>
-
-          <View style={styles.acEarningsView}>
+            <View style={styles.acEarningsView}>
             <Text style={styles.salesText}>My Ac</Text>
 
             <View style={styles.viewForAcEarningsPressables}>
@@ -193,8 +154,57 @@ const RegKFKubwa = props => {
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Withdraw</Text>
               </Pressable>
+
+              <Pressable
+                onPress={UpdateMFAdminPWss}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>Update</Text>
+              </Pressable>
             </View>
           </View>
+
+          <View style={styles.acEarningsView}>
+              <Text style={styles.salesText}>SM Users</Text>
+
+              
+
+                  <View style={styles.viewForAcEarningsPressables}>
+                    
+                    <Pressable
+                      onPress={DActivateMFUsr}
+                      style={styles.earningsAcPressablesSMNErn}>
+                      <Text style={styles.earningsAcPressableText}>DActivtUsr</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={goToAdvReg}
+                      style={styles.earningsAcPressablesSMNErn}>
+                      <Text style={styles.earningsAcPressableText}>
+                        BLUsr
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+          <View style={styles.acEarningsView}>
+            <Text style={styles.salesText}>Earnings</Text>
+
+            <View style={styles.viewForAcEarningsPressables}>
+              <Pressable
+                onPress={goToAdvReg}
+                style={styles.earningsAcPressablesSMNErn}>
+                <Text style={styles.earningsAcPressableText}>Check Bal</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={goToAdvReg}
+                style={styles.earningsAcPressablesSMNErn}>
+                <Text style={styles.earningsAcPressableText}>Withdraw</Text>
+              </Pressable>
+            </View>
+          </View>
+
+         
        
     </View> 
     </SafeAreaView>
