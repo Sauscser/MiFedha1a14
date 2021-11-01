@@ -340,7 +340,7 @@ type Agent
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
       { allow: groups, groups: ["KFKubwa"], operations: [read, create, update] }
-      { allow: groups, groups: ["KFNdogo"], operations: [read, update] }
+      { allow: groups, groups: ["KFNdogo"], operations: [read, create, update] }
       {
         allow: groups
         groups: ["Executive"]
@@ -573,6 +573,7 @@ type SAgent
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
       { allow: groups, groups: ["KFNdogo "], operations: [read, update] }
+      { allow: groups, groups: ["KFKubwa "], operations: [read, create, update] }
       { allow: private, operations: [read, update] }
       { allow: owner, operations: [read, update] }
       {
@@ -684,6 +685,8 @@ type BankAdmin
         groups: ["KFNdogo"]
         operations: [read, update]
       }
+
+      
       {
         allow: groups
         groups: ["Advocate"]
