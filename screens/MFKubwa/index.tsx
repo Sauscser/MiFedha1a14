@@ -30,12 +30,18 @@ const KFKubwaScreen = props => {
     navigation.navigate('Loan Ads Search Results');
   };
 
-  const goToAdvrtsPrsnLn = () => {
-    navigation.navigate('GnrlShpPrsnlLnAdvtsScrn');
+  const UpdtMFKPWss = () => {
+    navigation.navigate('UpdtMFKPWs');
   };
 
-  const goToAdvrtsChamaLn = () => {
-    navigation.navigate('GnrlShpChamaLnAdvtsScrn');
+  const RegMFKbws = () => {
+    navigation.navigate('RegMFKbw');}
+
+    const goToAdvrtsChamaLn = () => {
+      navigation.navigate('GnrlShpChamaLnAdvtsScrn');}
+
+      const MFKWthdrwss = () => {
+        navigation.navigate('MFKWthdrws');
   };
 
   return (
@@ -70,7 +76,7 @@ const KFKubwaScreen = props => {
 
           <View style={styles.viewForkfkubwaPressables}>
             <Pressable
-              onPress={goToSalesAdsScreen}
+              onPress={UpdtMFKPWss}
               style={styles.kfkubwaView}>
               <Text style={styles.kfkubwaPressableText}>UpdateAc</Text>
             </Pressable>
@@ -80,6 +86,13 @@ const KFKubwaScreen = props => {
               style={styles.kfkubwaView}>
               <Text style={styles.kfkubwaPressableText}>ViewAc</Text>
             </Pressable>
+
+            <Pressable
+              onPress={RegMFKbws}
+              style={styles.kfkubwaView}>
+              <Text style={styles.kfkubwaPressableText}>CreateAc</Text>
+            </Pressable>
+
           </View>
         </View>
 
@@ -93,7 +106,7 @@ const KFKubwaScreen = props => {
               <Text style={styles.kfkubwaPressableText}>Check Bal</Text>
             </Pressable>
 
-            <Pressable onPress={goToPubLnScreen} style={styles.kfkubwaView}>
+            <Pressable onPress={MFKWthdrwss} style={styles.kfkubwaView}>
               <Text style={styles.kfkubwaPressableText}>Withdraw</Text>
             </Pressable>
           </View>

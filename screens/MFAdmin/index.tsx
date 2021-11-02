@@ -18,8 +18,8 @@ const RegKFKubwa = props => {
     navigation.navigate('BuyFltFm');
   };
 
-  const goToAdvHome = () => {
-    navigation.navigate('MFAdvocateHome');
+  const WithdwAdmnss = () => {
+    navigation.navigate('WithdwAdmns');
   };
 
   const goToKFKbwaRegFm = () => {
@@ -48,12 +48,13 @@ const RegKFKubwa = props => {
   const UpdateMFAdminPWss = () => {
     navigation.navigate('UpdateMFAdminPWs');
   };
-  const DActivateMFAdvc = () => {
-    navigation.navigate('DActvteMFAd');
+  const BLUsrsss = () => {
+    navigation.navigate('BLUsrss');
   };
 
-
-  
+  const CrtAdmins = () => {
+    navigation.navigate('CrtAdmin');
+  };  
   
   return (
     <SafeAreaView>
@@ -150,9 +151,9 @@ const RegKFKubwa = props => {
               </Pressable>
 
               <Pressable
-                onPress={goToAdvReg}
+                onPress={CrtAdmins}
                 style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Withdraw</Text>
+                <Text style={styles.earningsAcPressableText}>CreateAc</Text>
               </Pressable>
 
               <Pressable
@@ -177,7 +178,7 @@ const RegKFKubwa = props => {
                     </Pressable>
 
                     <Pressable
-                      onPress={goToAdvReg}
+                      onPress={BLUsrsss}
                       style={styles.earningsAcPressablesSMNErn}>
                       <Text style={styles.earningsAcPressableText}>
                         BLUsr
@@ -197,7 +198,7 @@ const RegKFKubwa = props => {
               </Pressable>
 
               <Pressable
-                onPress={goToAdvReg}
+                onPress={WithdwAdmnss}
                 style={styles.earningsAcPressablesSMNErn}>
                 <Text style={styles.earningsAcPressableText}>Withdraw</Text>
               </Pressable>

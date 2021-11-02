@@ -17,7 +17,7 @@ import MFAdm from "../../screens/MFAdmin";
 import MFKbw from "../../screens/MFKubwa";
 import MFN from "../../screens/MFNdogo";
 import AdvcHm from "../../screens/Advocate/AdvocateHm";
-import AdvSgnIn from "../../screens/Advocate/AdvocateSignIn";
+import AdvHm from "../../screens/Advocate/AdvocateHm";
 import AdvReg from "../../screens/Advocate/AdvReg";
 import DActivtMFN from "../../screens/MFNdogo/DeactivateMFNdogo";
 import DActivtMFK from "../../screens/MFKubwa/DeActRegMFK/DeactivateMFNdogo";
@@ -52,7 +52,15 @@ import DissolveChm from "../../screens/Chama/Dissolve";
 import UpdateChm from "../../screens/Chama/Update";
 import UpdateSMPW from "../../screens/MyAcc/UpdatePW";
 import UpdateMFAdminPW from "../../screens/MFAdmin/Update";
-
+import WithdwAdmn from "../../screens/MFAdmin/Withdraw";
+import WithdwAdv from "../../screens/Advocate/Withdrw";
+import UpdtMFAdvPW from "../../screens/Advocate/UpdatePW";
+import BLUsrs from "../../screens/MyAcc/BLUsr";
+import UpdtMFKPW from "../../screens/MFKubwa/UpdatPW";
+import MFKWthdrw from "../../screens/MFKubwa/WithDrw";
+import UpdtMFNPW from "../../screens/MFNdogo/UpdtMFNPW";
+import WthdrwMFN from "../../screens/MFNdogo/Wthdrw";
+import WthdrwMFNFlt from "../../screens/MFNdogo/WithdrwFlt";
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
@@ -62,6 +70,18 @@ const HomeNavigator = props => {
         headerShown: false,
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
+
+      <Stack.Screen name={'WthdrwMFNFlts'} component={WthdrwMFNFlt} />
+      <Stack.Screen name={'AdvHms'} component={AdvHm} />
+      <Stack.Screen name={'WthdrwMFNs'} component={WthdrwMFN} />
+      <Stack.Screen name={'UpdtMFNPWs'} component={UpdtMFNPW} />
+      <Stack.Screen name={'MFKWthdrws'} component={MFKWthdrw} />
+      <Stack.Screen name={'UpdtMFKPWs'} component={UpdtMFKPW} />
+      <Stack.Screen name={'BLUsrss'} component={BLUsrs} />
+      <Stack.Screen name={'UpdtMFAdvPWs'} component={UpdtMFAdvPW} />
+      <Stack.Screen name={'WithdwAdvs'} component={WithdwAdv} />
+      <Stack.Screen name={'WithdwAdmns'} component={WithdwAdmn} />
+
       <Stack.Screen name={'MFNdogoo'} component={KFNdogo} />
       <Stack.Screen name={'MyHomeie'} component={Homeie} />
       <Stack.Screen name={'RegMFKbw'} component={RegisterKFKubwaAcForm} />

@@ -22,16 +22,21 @@ const KFAdvHome = props => {
     navigation.navigate('MFAdvocateHome');
   };
 
-  const goToPubLnScreen = () => {
-    navigation.navigate('MFAdvocateHome');
+  const MFAdvocateRegs = () => {
+    navigation.navigate('MFAdvocateReg');
   };
 
-  const goToAdvrtsPrsnLn = () => {
-    navigation.navigate('MFAdvocateHome');
+  const WithdwAdvss = () => {
+    navigation.navigate('WithdwAdvs');
   };
 
   const goToAdvrtsChamaLn = () => {
     navigation.navigate('MFAdvocateHome');
+  }
+    const UpdtMFAdvPWss = () => {
+      navigation.navigate('UpdtMFAdvPWs');
+  
+    
   };
 
   return (
@@ -45,7 +50,7 @@ const KFAdvHome = props => {
 
           <View style={styles.viewForFloatPressables}>
             <Pressable
-              onPress={goToSalesAdsScreen}
+              onPress={UpdtMFAdvPWss}
               style={styles.floatView}>
               <Text style={styles.floatPressableText}>UpdateAc</Text>
             </Pressable>
@@ -56,9 +61,9 @@ const KFAdvHome = props => {
               <Text style={styles.floatPressableText}>ViewAc</Text>
             </Pressable>
             <Pressable
-              onPress={goToSalesAdsScreen}
+              onPress={MFAdvocateRegs}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText}>View Clients</Text>
+              <Text style={styles.floatPressableText}>CreateAc</Text>
             </Pressable>
           </View>
         </View>
@@ -73,8 +78,14 @@ const KFAdvHome = props => {
               <Text style={styles.floatPressableText}>Check Bal</Text>
             </Pressable>
 
-            <Pressable onPress={goToPubLnScreen} style={styles.floatView}>
+            <Pressable onPress={WithdwAdvss} style={styles.floatView}>
               <Text style={styles.floatPressableText}>Withdraw</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={goToSalesAdsScreen}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>View Clients</Text>
             </Pressable>
           </View>
         </View>

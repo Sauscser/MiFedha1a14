@@ -71,6 +71,16 @@ declare global {
       UpdateChms:undefined;
       UpdateSMPWs:undefined;
       UpdateMFAdminPWs:undefined;
+      WithdwAdvs:undefined;
+      WithdwAdmns:undefined;
+      UpdtMFAdvPWs:undefined;
+      BLUsrss:undefined;
+      UpdtMFKPWs:undefined;
+      MFKWthdrws:undefined;
+      UpdtMFNPWs:undefined;
+      WthdrwMFNs:undefined;
+      AdvHms:undefined;
+      WthdrwMFNFlts:undefined;
     }
   }
 }

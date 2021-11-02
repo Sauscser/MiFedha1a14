@@ -30,12 +30,24 @@ const KFNdogoScreen = props => {
     navigation.navigate('Loan Ads Search Results');
   };
 
-  const goToAdvrtsPrsnLn = () => {
-    navigation.navigate('GnrlShpPrsnlLnAdvtsScrn');
+  const RegMFNdogos = () => {
+    navigation.navigate('RegMFNdgScrn');
   };
 
   const goToAdvrtsChamaLn = () => {
     navigation.navigate('GnrlShpChamaLnAdvtsScrn');
+  };
+
+  const UpdtMFNPWss = () => {
+    navigation.navigate('UpdtMFNPWs');
+  };
+
+  const WthdrwMFNss = () => {
+    navigation.navigate('WthdrwMFNs');
+  };
+
+  const WthdrwMFNFltss = () => {
+    navigation.navigate('WthdrwMFNFlts');
   };
 
   return (
@@ -60,7 +72,7 @@ const KFNdogoScreen = props => {
             </Pressable>
 
             <Pressable
-              onPress={goToSalesAdsScreen}
+              onPress={WthdrwMFNFltss}
               style={styles.floatView}>
               <Text style={styles.floatPressableText}>MFN Withdraw</Text>
             </Pressable>
@@ -72,7 +84,7 @@ const KFNdogoScreen = props => {
 
           <View style={styles.viewForFloatPressables}>
             <Pressable
-              onPress={goToAdvertiseSales}
+              onPress={UpdtMFNPWss}
               style={styles.floatView}>
               <Text style={styles.floatPressableText}>UpdateAc</Text>
             </Pressable>
@@ -84,9 +96,9 @@ const KFNdogoScreen = props => {
             </Pressable>
 
             <Pressable
-              onPress={DpstMneys}
+              onPress={RegMFNdogos}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText}>User Deposit</Text>
+              <Text style={styles.floatPressableText}>CreateAc</Text>
             </Pressable>
           </View>
         </View>
@@ -102,8 +114,14 @@ const KFNdogoScreen = props => {
               <Text style={styles.floatPressableText}>Check Bal</Text>
             </Pressable>
 
-            <Pressable onPress={goToPubLnScreen} style={styles.floatView}>
+            <Pressable onPress={WthdrwMFNss} style={styles.floatView}>
               <Text style={styles.floatPressableText}>Withdraw</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={DpstMneys}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>User Deposit</Text>
             </Pressable>
           </View>
         </View>

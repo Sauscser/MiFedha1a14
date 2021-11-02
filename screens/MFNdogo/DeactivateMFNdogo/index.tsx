@@ -133,7 +133,7 @@ const DeregMFNForm = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="+254xxxxxxxxx"
+                   placeholder="+2547xxxxxxxx"
                       value={phoneContact}
                       onChangeText={setPhoneContact}
                       style={styles.sendLoanInput}

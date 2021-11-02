@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {  updateCompany, updateGroup, updateGrpMembers, updateSMAccount} from '../../../src/graphql/mutations';
-import {  getBankAdmin, getCompany, getGroup, getGrpMembers, getSMAccount } from '../../../src/graphql/queries';
+import {  updateCompany, updateGroup, updateGrpMembers, updateSAgent, updateSMAccount} from '../../../src/graphql/mutations';
+import {  getBankAdmin, getCompany, getGroup, getGrpMembers, getSAgent, getSMAccount } from '../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -27,7 +27,7 @@ import { updateBankAdmin } from '../../../src/graphql/mutations';
   
 
 
-const UpdtMFAdmPW = (props) => {
+const UpdtMFKPW = (props) => {
   const navigation = useNavigation();
   const [SigntryPW, setSigntryPW] = useState("");
   const [AdminID, setAdminId] = useState("");
@@ -52,30 +52,30 @@ const UpdtMFAdmPW = (props) => {
   }, []);
 
   
-        const fetchAdmnDtls = async () =>{
+        const fetchMFKDtls = async () =>{
             if(isLoading){
               return;
             }
             setIsLoading(true);
             try{
-              const compDtls :any= await API.graphql(
-                graphqlOperation(getBankAdmin,{nationalid:AdminID})
+              const MFKDtls :any= await API.graphql(
+                graphqlOperation(getSAgent,{saPhoneContact:AdminID})
                 );
-                const pws = compDtls.data.getBankAdmin.pw   
-                const owners = compDtls.data.getBankAdmin.owner 
-                const acStatuss = compDtls.data.getBankAdmin.acStatus            
+                const pws = MFKDtls.data.getSAgent.pw   
+                const owners = MFKDtls.data.getSAgent.owner 
+                const acStatuss = MFKDtls.data.getSAgent.status            
                 
                           
-                                      const updtAdmnDtls = async () => {
+                                      const updtMFKDtls = async () => {
                                         if(isLoading){
                                           return;
                                         }
                                         setIsLoading(true);
                                         try{
                                             await API.graphql(
-                                              graphqlOperation(updateBankAdmin,{
+                                              graphqlOperation(updateSAgent,{
                                                 input:{
-                                                  nationalid:AdminID,
+                                                  saPhoneContact:AdminID,
                                                   pw:NewAdmnPW
                                                 }
                                               })
@@ -100,16 +100,16 @@ const UpdtMFAdmPW = (props) => {
                                       
                                       else if(ownr!==owners)
                                       {
-                                          Alert.alert("You are not the owner of this Admin A/c");
+                                          Alert.alert("You are not the owner of this MFKubwa A/c");
                                       }
 
                                       else if(acStatuss!=="AccountActive")
                                       {
-                                          Alert.alert("This Admin Account is inactive");
+                                          Alert.alert("This MFKubwa Account is inactive");
                                       }
 
                                       
-                                      else {updtAdmnDtls();}
+                                      else {updtMFKDtls();}
 
         
                                 
@@ -183,16 +183,17 @@ const UpdtMFAdmPW = (props) => {
                 <ScrollView>
            
                   <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Admin Details Below</Text>
+                    <Text style={styles.title}>Fill MFK Details Below</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder="+2547xxxxxxxx"
                       value={AdminID}
                       onChangeText={setAdminId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Admin ID</Text>
+                    <Text style={styles.sendLoanText}>MFKubwa Phone</Text>
                   </View> 
         
                   <View style={styles.sendLoanView}>
@@ -218,10 +219,10 @@ const UpdtMFAdmPW = (props) => {
                                    
         
                   <TouchableOpacity
-                    onPress={fetchAdmnDtls}
+                    onPress={fetchMFKDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
-                      Click to Update Admin Details
+                      Click to Update MFK Details
                     </Text>
                     {isLoading && <ActivityIndicator color={'Blue'} size="large"/>}
                   </TouchableOpacity>
@@ -231,4 +232,4 @@ const UpdtMFAdmPW = (props) => {
           );
         };
         
-        export default UpdtMFAdmPW;
+        export default UpdtMFKPW;

@@ -117,11 +117,12 @@ const MFKSignIn = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder="+2547xxxxxxxx"
                       value={MFKId}
                       onChangeText={setMFKId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>MFKubwa Id</Text>
+                    <Text style={styles.sendLoanText}>MFKubwa Phone</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>

@@ -29,7 +29,7 @@ const AdvSignIn = (props) => {
 
 
   const moveToAdvHm = () => {
-    navigation.navigate("MFAdvocate");
+    navigation.navigate("AdvHms");
   };
 
 
@@ -61,7 +61,7 @@ const AdvSignIn = (props) => {
             catch (e)
             {  
               if(e){
-                Alert.alert("Check your internet")
+                Alert.alert("Check your internet; or Ac doesnt exist")
                 return;                            
             }    
             
@@ -73,13 +73,13 @@ const AdvSignIn = (props) => {
 
             }
             useEffect(() =>{
-              const AVdId=AdvId
-                if(!AVdId && AVdId!=="")
+              const AVdIds=AdvId
+                if(!AVdIds && AVdIds!=="")
                 {
                   setAdvId("");
                   return;
                 }
-                setAdvId(AVdId);
+                setAdvId(AVdIds);
                 }, [AdvId]
                  );
 
@@ -87,10 +87,10 @@ const AdvSignIn = (props) => {
                   const AVdPWs=AdvPW
                     if(!AVdPWs && AVdPWs!=="")
                     {
-                      setAdvId("");
+                      setAdvPW("");
                       return;
                     }
-                    setAdvId(AVdPWs);
+                    setAdvPW(AVdPWs);
                     }, [AdvPW]
                      );
 
@@ -110,7 +110,7 @@ const AdvSignIn = (props) => {
                       onChangeText={setAdvId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Admin Id</Text>
+                    <Text style={styles.sendLoanText}>Advocate RegNo</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>

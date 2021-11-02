@@ -108,6 +108,7 @@ const MFNSignIn = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder="+2547xxxxxxxx"
                       value={MFNId}
                       onChangeText={setMFNId}
                       style={styles.sendLoanInput}

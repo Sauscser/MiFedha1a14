@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {  updateCompany, updateGroup, updateGrpMembers, updateSMAccount} from '../../../src/graphql/mutations';
-import {  getBankAdmin, getCompany, getGroup, getGrpMembers, getSMAccount } from '../../../src/graphql/queries';
+import {  updateAdvocate, updateCompany, updateGroup, updateGrpMembers, updateSMAccount} from '../../../src/graphql/mutations';
+import {  getAdvocate, getBankAdmin, getCompany, getGroup, getGrpMembers, getSMAccount } from '../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -27,10 +27,10 @@ import { updateBankAdmin } from '../../../src/graphql/mutations';
   
 
 
-const UpdtMFAdmPW = (props) => {
+const UpdtMFAdvPW = (props) => {
   const navigation = useNavigation();
   const [SigntryPW, setSigntryPW] = useState("");
-  const [AdminID, setAdminId] = useState("");
+  const [AdvRegNo, setAdvRegNo] = useState("");
   const [LnAcCod, setLnAcCod] = useState("");
   const [NewAdmnPW, setNewAdmnPW] = useState("");
   const [OldAdmnPW, setOldAdmnPW] = useState("");
@@ -52,31 +52,31 @@ const UpdtMFAdmPW = (props) => {
   }, []);
 
   
-        const fetchAdmnDtls = async () =>{
+        const fetchAdvDtls = async () =>{
             if(isLoading){
               return;
             }
             setIsLoading(true);
             try{
-              const compDtls :any= await API.graphql(
-                graphqlOperation(getBankAdmin,{nationalid:AdminID})
+              const AdvDtls :any= await API.graphql(
+                graphqlOperation(getAdvocate,{advregnu:AdvRegNo})
                 );
-                const pws = compDtls.data.getBankAdmin.pw   
-                const owners = compDtls.data.getBankAdmin.owner 
-                const acStatuss = compDtls.data.getBankAdmin.acStatus            
+                const pwds = AdvDtls.data.getAdvocate.pwd   
+                const owners = AdvDtls.data.getAdvocate.owner 
+                const statuss = AdvDtls.data.getAdvocate.status            
                 
                           
-                                      const updtAdmnDtls = async () => {
+                                      const updtAdvDtls = async () => {
                                         if(isLoading){
                                           return;
                                         }
                                         setIsLoading(true);
                                         try{
                                             await API.graphql(
-                                              graphqlOperation(updateBankAdmin,{
+                                              graphqlOperation(updateAdvocate,{
                                                 input:{
-                                                  nationalid:AdminID,
-                                                  pw:NewAdmnPW
+                                                  advregnu:AdvRegNo,
+                                                  pwd:NewAdmnPW
                                                 }
                                               })
                                             )
@@ -85,7 +85,7 @@ const UpdtMFAdmPW = (props) => {
                                         }
                                         catch(error){if(error){
                                           console.log(error)
-                                          Alert.alert("Please check internet; otherwise Admin doesnt exist")
+                                          Alert.alert("Please check internet; otherwise Advocate doesnt exist")
                                           
                                       } 
                                     }
@@ -93,7 +93,7 @@ const UpdtMFAdmPW = (props) => {
                                         Alert.alert(names +", You have successfully updated your PassWord");
                                       } 
 
-                                      if(pws!==OldAdmnPW)
+                                      if(pwds!==OldAdmnPW)
                                       {
                                           Alert.alert("Wrong Old Password; call HR");
                                       }
@@ -103,13 +103,13 @@ const UpdtMFAdmPW = (props) => {
                                           Alert.alert("You are not the owner of this Admin A/c");
                                       }
 
-                                      else if(acStatuss!=="AccountActive")
+                                      else if(statuss!=="AccountActive")
                                       {
-                                          Alert.alert("This Admin Account is inactive");
+                                          Alert.alert("This Advocate Account is inactive");
                                       }
 
                                       
-                                      else {updtAdmnDtls();}
+                                      else {updtAdvDtls();}
 
         
                                 
@@ -127,7 +127,7 @@ const UpdtMFAdmPW = (props) => {
               setNewAdmnPW("");
               setSigntryPW("")
               setOldAdmnPW("")
-              setAdminId("")
+              setAdvRegNo("")
           
             }
         
@@ -165,14 +165,14 @@ const UpdtMFAdmPW = (props) => {
                        );
 
                        useEffect(() =>{
-                        const AdminIDs=AdminID
-                          if(!AdminIDs && AdminIDs!=="")
+                        const AdvRegNos=AdvRegNo
+                          if(!AdvRegNos && AdvRegNos!=="")
                           {
-                            setAdminId("");
+                            setAdvRegNo("");
                             return;
                           }
-                          setAdminId(AdminIDs);
-                          }, [AdminID]
+                          setAdvRegNo(AdvRegNos);
+                          }, [AdvRegNo]
                            );
   
   
@@ -183,16 +183,16 @@ const UpdtMFAdmPW = (props) => {
                 <ScrollView>
            
                   <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Admin Details Below</Text>
+                    <Text style={styles.title}>Fill Advocate Details Below</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>
                     <TextInput
-                      value={AdminID}
-                      onChangeText={setAdminId}
+                      value={AdvRegNo}
+                      onChangeText={setAdvRegNo}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Admin ID</Text>
+                    <Text style={styles.sendLoanText}>Advocate Reg No</Text>
                   </View> 
         
                   <View style={styles.sendLoanView}>
@@ -201,7 +201,7 @@ const UpdtMFAdmPW = (props) => {
                       onChangeText={setOldAdmnPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Old Admin PW</Text>
+                    <Text style={styles.sendLoanText}>Old Advocate PW</Text>
                   </View>   
 
                        
@@ -212,16 +212,16 @@ const UpdtMFAdmPW = (props) => {
                       onChangeText={setNewAdmnPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>New Admin PW</Text>
+                    <Text style={styles.sendLoanText}>New Advocate PW</Text>
                   </View>     
 
                                    
         
                   <TouchableOpacity
-                    onPress={fetchAdmnDtls}
+                    onPress={fetchAdvDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
-                      Click to Update Admin Details
+                      Click to Update Advocate Details
                     </Text>
                     {isLoading && <ActivityIndicator color={'Blue'} size="large"/>}
                   </TouchableOpacity>
@@ -231,4 +231,4 @@ const UpdtMFAdmPW = (props) => {
           );
         };
         
-        export default UpdtMFAdmPW;
+        export default UpdtMFAdvPW;

@@ -395,6 +395,7 @@ const SMADepositForm = props => {
 
           <View style={styles.sendAmtView}>
             <TextInput
+            placeholder="+2547xxxxxxxx"
               value={AgentPhn}
               onChangeText={setAgentPhn}
               style={styles.sendAmtInput}
