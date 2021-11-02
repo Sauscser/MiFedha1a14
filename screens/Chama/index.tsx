@@ -204,14 +204,14 @@ const MyLoanAccount = props => {
                     <Pressable
                       onPress={payNonCovLn}
                       style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Specific Chama</Text>
+                      <Text style={styles.clientsPressableText}>LoanerChama</Text>
                     </Pressable>
 
                     <Pressable
                       onPress={payNonCovLn}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
-                      All Vyamas
+                      ChamaLoanee
                       </Text>
                     </Pressable>
                   </View>

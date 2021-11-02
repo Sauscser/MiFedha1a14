@@ -134,6 +134,33 @@ const styles = StyleSheet.create({
     width: "33%"
   },
 
+  viewForClientsCategoriesLnSt: {
+    backgroundColor: 'brown',
+    marginTop:"4%",
+    marginBottom:"4%",
+    height: "100%",
+    borderRadius: 4,
+    marginLeft:"10%",
+    marginRight:"10%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    width: "33%"
+  },
+
+  viewForClientsAndTitleLnSt: {
+    backgroundColor: 'brown',
+    width:"100%",
+    height: "50%",
+    borderRadius: 4,
+   
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    
+  },
+  
+
   viewForClientsAndTitleMFNdogo: {
     backgroundColor: 'pink',
     width:"100%",

@@ -137,6 +137,55 @@ const MyLoanAccount = props => {
               </View>
             </View>
           
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Loan Status</Text>
+
+              <View style={styles.viewForClientsAndTitleLnSt}>
+              <View style={styles.viewForClientsCategoriesLnSt}>
+                  <Text style={styles.salesPressableText}>CoveredLoan</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={RepayCovLnsss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Loaner</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={RepayNonCovLnsss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Loanee
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategoriesLnSt}>
+                  <Text style={styles.salesPressableText}>Non-Covered</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={RpayCredSlrCovss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Loaner</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={RpayCredSlrNonCovss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Loanee
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+
+              </View>
+            </View>
 
           <View style={styles.acEarningsView}>
               <Text style={styles.salesText}>Single Member Give Loan</Text>
@@ -178,24 +227,9 @@ const MyLoanAccount = props => {
               </Pressable>
             </View>
           </View>
+          
 
-          <View style={styles.acEarningsView}>
-            <Text style={styles.salesText}>Loan Status</Text>
 
-            <View style={styles.viewForAcEarningsPressables}>
-              <Pressable
-                onPress={payNonCovLn}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Specific Loan</Text>
-              </Pressable>
-
-              <Pressable
-                onPress={payNonCovLn}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>General Status</Text>
-              </Pressable>
-            </View>
-          </View>
        
     </View> 
     </SafeAreaView>
