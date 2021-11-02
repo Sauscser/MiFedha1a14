@@ -194,7 +194,8 @@ type SMLoansCovered
   amountexpected: Float!
   amountrepaid: Float!
   lonBala:Float!
-
+  loaneename:String!
+  loanername:String!
   repaymentPeriod: Int!
   advregnu: String!
 
@@ -255,7 +256,8 @@ type SMLoansNonCovered
   amountexpected: Float!
   amountrepaid: Float!
   lonBala:Float!
-
+  loaneename:String!
+  loanername:String!
   repaymentPeriod: Int!
 
   description: String
@@ -309,6 +311,8 @@ type NonLoans
   id: ID!
   senderPhn: String!
   recPhn: String!
+  RecName:String!
+  SenderName:String!
   amount: Float!
   description: String
   status:Status!
@@ -905,10 +909,13 @@ type Company
   agentFloatOut: Float!
   ttlActiveUsers: Float!
   ttlInactvUsrs: Float!
+  ttlBLUsrs: Float!
   ttlActiveChm: Float!
   ttlInactvChm: Float!
+  ttlBLChm: Float!
   ttlActiveChmUsers: Float!
   ttlInactvChmUsrs: Float!
+  ttlBLChmUsrs: Float!
   
   
   ttlKFNdgActv: Float!
@@ -1035,6 +1042,8 @@ type CovCreditSeller
   buyerContact: String!
   sellerContact: String!
   buyerID: String!
+  buyerName:String!
+  SellerName:String!
   sellerID: String!
   amountSold: Float!
   amountexpectedBack: Float!
@@ -1089,6 +1098,8 @@ type NonCovCreditSeller
   buyerContact: String!
   sellerContact: String!
   buyerID: String!
+  buyerName:String!
+  SellerName:String!
   sellerID: String!
   amountSold: Float!
   amountexpectedBack: Float!
@@ -1210,6 +1221,7 @@ type GrpMembers
   id: ID!
   groupContact: String!
   memberContact: String!
+  memberName:String!
   memberNatId: String!
   acBal: Float!
   AcStatus: Status!
@@ -1263,7 +1275,8 @@ type CvrdGroupLoans
   description: String
   lonBala:Float!
   advRegNu: String!
-  
+  loaneeName:String!
+  LoanerName:String!
   status: Status!
   owner: String!
 }
@@ -1311,7 +1324,8 @@ type NonCvrdGroupLoans
   amountExpectedBack: Float!
   amountRepaid: Float!
   description: String
-  
+  loaneeName:String!
+  loanerName:String!
   lonBala:String!
   status: Status!
   owner: String!
@@ -1355,7 +1369,8 @@ type GroupNonLoans
   id: ID!
   grpContact: String!
   recipientPhn: String!
-
+  receiverName:String!
+  SenderName:String!
   amountSent: Float!
 
   description: String
@@ -1400,7 +1415,8 @@ type GrpMembersContribution
   {
   id: ID!
   memberPhn: String!
-
+  mmberNme:String!
+  GrpName:String!
   grpContact: String!
   contriAmount: Float!
   status: Status!

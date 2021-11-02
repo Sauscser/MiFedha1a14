@@ -287,6 +287,8 @@ export const onCreateSMLoansCovered = /* GraphQL */ `
       amountexpected
       amountrepaid
       lonBala
+      loaneename
+      loanername
       repaymentPeriod
       advregnu
       description
@@ -309,6 +311,8 @@ export const onUpdateSMLoansCovered = /* GraphQL */ `
       amountexpected
       amountrepaid
       lonBala
+      loaneename
+      loanername
       repaymentPeriod
       advregnu
       description
@@ -331,6 +335,8 @@ export const onDeleteSMLoansCovered = /* GraphQL */ `
       amountexpected
       amountrepaid
       lonBala
+      loaneename
+      loanername
       repaymentPeriod
       advregnu
       description
@@ -353,6 +359,8 @@ export const onCreateSMLoansNonCovered = /* GraphQL */ `
       amountexpected
       amountrepaid
       lonBala
+      loaneename
+      loanername
       repaymentPeriod
       description
       status
@@ -374,6 +382,8 @@ export const onUpdateSMLoansNonCovered = /* GraphQL */ `
       amountexpected
       amountrepaid
       lonBala
+      loaneename
+      loanername
       repaymentPeriod
       description
       status
@@ -395,6 +405,8 @@ export const onDeleteSMLoansNonCovered = /* GraphQL */ `
       amountexpected
       amountrepaid
       lonBala
+      loaneename
+      loanername
       repaymentPeriod
       description
       status
@@ -410,6 +422,8 @@ export const onCreateNonLoans = /* GraphQL */ `
       id
       senderPhn
       recPhn
+      RecName
+      SenderName
       amount
       description
       status
@@ -425,6 +439,8 @@ export const onUpdateNonLoans = /* GraphQL */ `
       id
       senderPhn
       recPhn
+      RecName
+      SenderName
       amount
       description
       status
@@ -440,6 +456,8 @@ export const onDeleteNonLoans = /* GraphQL */ `
       id
       senderPhn
       recPhn
+      RecName
+      SenderName
       amount
       description
       status
@@ -1027,10 +1045,13 @@ export const onCreateCompany = /* GraphQL */ `
       agentFloatOut
       ttlActiveUsers
       ttlInactvUsrs
+      ttlBLUsrs
       ttlActiveChm
       ttlInactvChm
+      ttlBLChm
       ttlActiveChmUsers
       ttlInactvChmUsrs
+      ttlBLChmUsrs
       ttlKFNdgActv
       ttlKFNdgInActv
       ttlKNdgBLStts
@@ -1154,10 +1175,13 @@ export const onUpdateCompany = /* GraphQL */ `
       agentFloatOut
       ttlActiveUsers
       ttlInactvUsrs
+      ttlBLUsrs
       ttlActiveChm
       ttlInactvChm
+      ttlBLChm
       ttlActiveChmUsers
       ttlInactvChmUsrs
+      ttlBLChmUsrs
       ttlKFNdgActv
       ttlKFNdgInActv
       ttlKNdgBLStts
@@ -1281,10 +1305,13 @@ export const onDeleteCompany = /* GraphQL */ `
       agentFloatOut
       ttlActiveUsers
       ttlInactvUsrs
+      ttlBLUsrs
       ttlActiveChm
       ttlInactvChm
+      ttlBLChm
       ttlActiveChmUsers
       ttlInactvChmUsrs
+      ttlBLChmUsrs
       ttlKFNdgActv
       ttlKFNdgInActv
       ttlKNdgBLStts
@@ -1370,6 +1397,8 @@ export const onCreateCovCreditSeller = /* GraphQL */ `
       buyerContact
       sellerContact
       buyerID
+      buyerName
+      SellerName
       sellerID
       amountSold
       amountexpectedBack
@@ -1394,6 +1423,8 @@ export const onUpdateCovCreditSeller = /* GraphQL */ `
       buyerContact
       sellerContact
       buyerID
+      buyerName
+      SellerName
       sellerID
       amountSold
       amountexpectedBack
@@ -1418,6 +1449,8 @@ export const onDeleteCovCreditSeller = /* GraphQL */ `
       buyerContact
       sellerContact
       buyerID
+      buyerName
+      SellerName
       sellerID
       amountSold
       amountexpectedBack
@@ -1442,6 +1475,8 @@ export const onCreateNonCovCreditSeller = /* GraphQL */ `
       buyerContact
       sellerContact
       buyerID
+      buyerName
+      SellerName
       sellerID
       amountSold
       amountexpectedBack
@@ -1465,6 +1500,8 @@ export const onUpdateNonCovCreditSeller = /* GraphQL */ `
       buyerContact
       sellerContact
       buyerID
+      buyerName
+      SellerName
       sellerID
       amountSold
       amountexpectedBack
@@ -1488,6 +1525,8 @@ export const onDeleteNonCovCreditSeller = /* GraphQL */ `
       buyerContact
       sellerContact
       buyerID
+      buyerName
+      SellerName
       sellerID
       amountSold
       amountexpectedBack
@@ -1619,6 +1658,7 @@ export const onCreateGrpMembers = /* GraphQL */ `
       id
       groupContact
       memberContact
+      memberName
       memberNatId
       acBal
       AcStatus
@@ -1636,6 +1676,7 @@ export const onUpdateGrpMembers = /* GraphQL */ `
       id
       groupContact
       memberContact
+      memberName
       memberNatId
       acBal
       AcStatus
@@ -1653,6 +1694,7 @@ export const onDeleteGrpMembers = /* GraphQL */ `
       id
       groupContact
       memberContact
+      memberName
       memberNatId
       acBal
       AcStatus
@@ -1677,6 +1719,8 @@ export const onCreateCvrdGroupLoans = /* GraphQL */ `
       description
       lonBala
       advRegNu
+      loaneeName
+      LoanerName
       status
       owner
       createdAt
@@ -1697,6 +1741,8 @@ export const onUpdateCvrdGroupLoans = /* GraphQL */ `
       description
       lonBala
       advRegNu
+      loaneeName
+      LoanerName
       status
       owner
       createdAt
@@ -1717,6 +1763,8 @@ export const onDeleteCvrdGroupLoans = /* GraphQL */ `
       description
       lonBala
       advRegNu
+      loaneeName
+      LoanerName
       status
       owner
       createdAt
@@ -1735,6 +1783,8 @@ export const onCreateNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
+      loaneeName
+      loanerName
       lonBala
       status
       owner
@@ -1754,6 +1804,8 @@ export const onUpdateNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
+      loaneeName
+      loanerName
       lonBala
       status
       owner
@@ -1773,6 +1825,8 @@ export const onDeleteNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
+      loaneeName
+      loanerName
       lonBala
       status
       owner
@@ -1787,6 +1841,8 @@ export const onCreateGroupNonLoans = /* GraphQL */ `
       id
       grpContact
       recipientPhn
+      receiverName
+      SenderName
       amountSent
       description
       status
@@ -1802,6 +1858,8 @@ export const onUpdateGroupNonLoans = /* GraphQL */ `
       id
       grpContact
       recipientPhn
+      receiverName
+      SenderName
       amountSent
       description
       status
@@ -1817,6 +1875,8 @@ export const onDeleteGroupNonLoans = /* GraphQL */ `
       id
       grpContact
       recipientPhn
+      receiverName
+      SenderName
       amountSent
       description
       status
@@ -1831,6 +1891,8 @@ export const onCreateGrpMembersContribution = /* GraphQL */ `
     onCreateGrpMembersContribution {
       id
       memberPhn
+      mmberNme
+      GrpName
       grpContact
       contriAmount
       status
@@ -1845,6 +1907,8 @@ export const onUpdateGrpMembersContribution = /* GraphQL */ `
     onUpdateGrpMembersContribution {
       id
       memberPhn
+      mmberNme
+      GrpName
       grpContact
       contriAmount
       status
@@ -1859,6 +1923,8 @@ export const onDeleteGrpMembersContribution = /* GraphQL */ `
     onDeleteGrpMembersContribution {
       id
       memberPhn
+      mmberNme
+      GrpName
       grpContact
       contriAmount
       status

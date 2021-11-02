@@ -7,7 +7,7 @@ import KFNdogo from "../../screens/MFNdogo"
 import Homeie from "../../screens/HomeScrn"
 import RegisterKFKubwaAcForm from '../../screens/MFKubwa/RegisterMFKubwa';
 import CreateAcForm from '../../screens/MyAcc/CreateAc';
-import DisplayRegUsrScrn from '../../components/MyAc/DisplayRegUsrDtls';
+
 import RegMFNdogoFm from '../../screens/MFNdogo/RegisterMFNdogo';
 import BuyFltForm from "../../screens/MFNdogo/Float/BuyFloat";
 import DpstMny from "../../screens/MyAcc/DepositMny";
@@ -61,6 +61,10 @@ import MFKWthdrw from "../../screens/MFKubwa/WithDrw";
 import UpdtMFNPW from "../../screens/MFNdogo/UpdtMFNPW";
 import WthdrwMFN from "../../screens/MFNdogo/Wthdrw";
 import WthdrwMFNFlt from "../../screens/MFNdogo/WithdrwFlt";
+import ViewMyLoanees from "../../screens/MyAcc/Loans/ViewSMLns/Cov/MyLoanees";
+import ViewMyLoaners from "../../screens/MyAcc/Loans/ViewSMLns/Cov/MyLoaners";
+import ViewMyNonCovLoanees from "../../screens/MyAcc/Loans/ViewSMLns/NonCov/MyLoanees";
+import ViewMyNonCovLoaners from "../../screens/MyAcc/Loans/ViewSMLns/NonCov/MyLoaners";
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
@@ -71,6 +75,10 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'ViewMyNonCovLoaneess'} component={ViewMyNonCovLoanees} />
+      <Stack.Screen name={'ViewMyNonCovLoanerss'} component={ViewMyNonCovLoaners} />
+      <Stack.Screen name={'ViewMyCovLoanerss'} component={ViewMyLoaners} />
+      <Stack.Screen name={'ViewMyCovLoaneess'} component={ViewMyLoanees} />
       <Stack.Screen name={'WthdrwMFNFlts'} component={WthdrwMFNFlt} />
       <Stack.Screen name={'AdvHms'} component={AdvHm} />
       <Stack.Screen name={'WthdrwMFNs'} component={WthdrwMFN} />
@@ -86,7 +94,7 @@ const HomeNavigator = props => {
       <Stack.Screen name={'MyHomeie'} component={Homeie} />
       <Stack.Screen name={'RegMFKbw'} component={RegisterKFKubwaAcForm} />
       <Stack.Screen name={'CreateSMAc'} component={CreateAcForm} />
-      <Stack.Screen name={'RegUsrScrn'} component={DisplayRegUsrScrn}/>
+      
       <Stack.Screen name={'RegMFNdgScrn'} component={RegMFNdogoFm}/>
       <Stack.Screen name={'BuyFltFm'} component={BuyFltForm}/>
       <Stack.Screen name={'DpstMney'} component={DpstMny}/>

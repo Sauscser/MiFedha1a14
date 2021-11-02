@@ -183,6 +183,7 @@ const ChmNonCovLns = props => {
                                     amountExpectedBack: AmtExp,
                                     amountRepaid: 0,
                                     description: Desc,
+                                    laoneeName:namess,
                                     lonBala:parseFloat(AmtExp),
                                     status: "LoanActive",
                                     owner: ownr,
@@ -323,7 +324,7 @@ const ChmNonCovLns = props => {
                           Alert.alert('Receiver account is inactive');
                         }
                         else if(Interest > parseFloat(maxInterestGrps))
-                        {Alert.alert('Interest too high:' + Interest + "; Recom SI:" + maxInterestGrps+" per day");}
+                        {Alert.alert('Interest too high:' + Interest.toFixed(5) + "; Recom SI:" + maxInterestGrps+" per day");}
                         else if (
                           parseFloat(grpBals) < TotalTransacted 
                         ) {

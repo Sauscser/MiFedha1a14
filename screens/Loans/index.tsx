@@ -60,6 +60,21 @@ const MyLoanAccount = props => {
   const SMGivNonCovLons = () => {
     navigation.navigate('SMGivNonCovLon');
   };
+  const ViewMyCovLoaneesss = () => {
+    navigation.navigate('ViewMyCovLoaneess');
+  };
+
+  const ViewMyCovLoanersss = () => {
+    navigation.navigate('ViewMyCovLoanerss');
+  };
+
+  const ViewMyNonCovLoaneess = () => {
+    navigation.navigate('ViewMyNonCovLoaneess');
+  };
+
+  const ViewMyNonCovLoanersss = () => {
+    navigation.navigate('ViewMyNonCovLoanerss');
+  };
 
   
 
@@ -146,16 +161,16 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={RepayCovLnsss}
+                      onPress={ViewMyCovLoaneesss}
                       style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Loaner</Text>
+                      <Text style={styles.clientsPressableText}>My Loanees</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={RepayNonCovLnsss}
+                      onPress={ViewMyCovLoanersss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
-                        Loanee
+                        My Loaners
                       </Text>
                     </Pressable>
                   </View>
@@ -168,16 +183,16 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={RpayCredSlrCovss}
+                      onPress={ViewMyNonCovLoaneess}
                       style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Loaner</Text>
+                      <Text style={styles.clientsPressableText}>My Loanees</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={RpayCredSlrNonCovss}
+                      onPress={ViewMyNonCovLoanersss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
-                        Loanee
+                        My Loaners
                       </Text>
                     </Pressable>
                   </View>
@@ -226,11 +241,8 @@ const MyLoanAccount = props => {
                 <Text style={styles.earningsAcPressableText}>Non Covered</Text>
               </Pressable>
             </View>
-          </View>
-          
-
-
-       
+          </View>        
+     
     </View> 
     </SafeAreaView>
   );

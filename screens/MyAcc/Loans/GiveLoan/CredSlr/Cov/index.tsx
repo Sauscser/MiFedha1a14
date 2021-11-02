@@ -189,6 +189,8 @@ const CovCredSls = props => {
                                   amountSold: amount,
                                   amountexpectedBack: AmtExp,
                                   amountRepaid: 0,
+                                  buyerName:namess,
+                                  Sellername:names,
                                   lonBala:parseFloat(AmtExp),
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: AdvRegNo,
@@ -222,7 +224,7 @@ const CovCredSls = props => {
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(Interest > parseFloat(maxInterestCredSllrs))
-                        {Alert.alert('Interest too high:' + Interest + "; Recom SI:" + maxInterestCredSllrs +" per day");}
+                        {Alert.alert('Interest too high:' + Interest.toFixed(5) + "; Recom SI:" + maxInterestCredSllrs +" per day");}
                         else if (
                           parseFloat(RecUsrBal) < TotalTransacted 
                         ) {Alert.alert('Buyer cannot facilitate; should recharge');}

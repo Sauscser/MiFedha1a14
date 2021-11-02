@@ -81,6 +81,10 @@ declare global {
       WthdrwMFNs:undefined;
       AdvHms:undefined;
       WthdrwMFNFlts:undefined;
+      ViewMyCovLoaneess:undefined;
+      ViewMyCovLoanerss:undefined;
+      ViewMyNonCovLoaneess:undefined;
+      ViewMyNonCovLoanerss:undefined;
     }
   }
 }

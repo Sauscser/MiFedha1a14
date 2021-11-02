@@ -13,6 +13,7 @@ import {
   updateSMAccount,
   updateGroup,
   updateGrpMembers,
+  createGrpMembersContribution,
   
 } from '../../.././src/graphql/mutations';
 
@@ -138,6 +139,38 @@ const SMASendChmNonLns = props => {
                                 const grpNames =RecAccountDtl.data.getGroup.grpName;
                                 
                                 
+                                const CrtChmMbrContri = async () => {
+                                  if(isLoading){
+                                    return;
+                                  }
+                                  setIsLoading(true)
+                                  try {
+                                    await API.graphql(
+                                      graphqlOperation(createGrpMembersContribution, {
+                                        input: {
+                                          memberPhn: MmbrId,
+                                          mmberNme:names,
+                                          grpContact: groupContacts,
+                                          contriAmount: amounts,
+                                          status: "AccountActive",
+                                          owner: ownr
+                                        },
+                                      }),
+                                    );
+            
+            
+                                  } catch (error) {
+                                    if(!error){
+                                      Alert.alert("Account deactivated successfully")
+                                      
+                                  } 
+                                  else{Alert.alert("Please check your internet connection")
+                                  return;
+                                }
+                                  }
+                                  setIsLoading(false);
+                                  await sendSMNonLn();
+                                };
                               
                                 const sendSMNonLn = async () => {
                                   if(isLoading){
@@ -306,7 +339,8 @@ const SMASendChmNonLns = props => {
                                 else if(parseFloat(loanLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');}
                                 
                                  else {
-                                  sendSMNonLn();
+                                  CrtChmMbrContri();
+                                  
                                 }                                                
                             }       
                             catch(e) {     

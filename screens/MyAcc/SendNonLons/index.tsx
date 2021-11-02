@@ -134,6 +134,7 @@ const SMASendNonLns = props => {
                               senderPhn: SendrPhn,                                  
                               amount: amounts,                              
                               description: Desc,
+                              RecName:namess,
                               status: "NonLons",
                               owner: ownr
                             },

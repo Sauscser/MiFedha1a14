@@ -164,6 +164,8 @@ const NonCovCredSls = props => {
                                   amountSold: amount,
                                   amountexpectedBack: AmtExp,
                                   amountRepaid: 0,
+                                  buyerName:namess,
+                                  SellerName:names,
                                   lonBala:AmtExp,
                                   repaymentPeriod: RepaymtPeriod,
                                   
@@ -197,7 +199,7 @@ const NonCovCredSls = props => {
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(Interest>parseFloat(maxInterestCredSllrs))
-                        {Alert.alert('Interest too high:' + Interest + "; Recom SI:" + maxInterestCredSllrs +" per day");}
+                        {Alert.alert('Interest too high:' + Interest.toFixed(5) + "; Recom SI:" + maxInterestCredSllrs +" per day");}
                         else if (
                           parseFloat(userLoanTransferFees)*parseFloat(amount) > parseFloat(RecUsrBal)) 
                                                    {Alert.alert('Buyer cannot facilitate; should recharge');}

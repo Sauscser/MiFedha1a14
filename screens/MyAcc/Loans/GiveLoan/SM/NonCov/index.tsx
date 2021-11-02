@@ -41,8 +41,7 @@ import styles from './styles';
 import { parse } from 'expo-linking';
 
 const SMASendNonCovLns = props => {
-  const [SenderNatId, setSenderNatId] = useState('');
-  const [RecNatId, setRecNatId] = useState('');
+  
   const [RecPhn, setRecPhn] = useState('');
   const [SnderPW, setSnderPW] = useState("");
   const [RepaymtPeriod, setRepaymtPeriod] = useState("");
@@ -87,7 +86,7 @@ const SMASendNonCovLns = props => {
       const TtlActvLonsTmsLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
       const TtlActvLonsAmtLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
       const names =accountDtl.data.getSMAccount.name;
-  
+      const SenderNatId =accountDtl.data.getSMAccount.nationalid;
       const SenderSub =accountDtl.data.getSMAccount.owner;
       
       const fetchCompDtls = async () => {
@@ -141,7 +140,8 @@ const SMASendNonCovLns = props => {
                         const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
                         const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
-                      
+                        const RecNatId =RecAccountDtl.data.getSMAccount.nationalid;
+
                         const sendSMLn = async () => {
                           if(isLoading){
                             return;
@@ -158,6 +158,8 @@ const SMASendNonCovLns = props => {
                                   amountgiven: amount,
                                   amountexpected: AmtExp,
                                   amountrepaid: 0,
+                                  loaneename:namess,
+                                  loanername:names,
                                   lonBala:AmtExp,
                                   repaymentPeriod: RepaymtPeriod,
                                   
@@ -286,7 +288,7 @@ const SMASendNonCovLns = props => {
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(Interest > maxInterestSMs)
-                        {Alert.alert('Interest too high:' + Interest + "; Recom SI: " + maxInterestSMs+" per day");}
+                        {Alert.alert('Interest too high:' + Interest.toFixed(5) + "; Recom SI: " + maxInterestSMs+" per day");}
                         else if (
                           parseFloat(SenderUsrBal) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
@@ -327,9 +329,9 @@ const SMASendNonCovLns = props => {
       return;}
   };
       setIsLoading(false);
-      setSenderNatId('');
+     
       setAmount("");
-      setRecNatId('');
+      
       setAdvRegNo("");
       setAmtExp("");
       setDesc("");
@@ -350,16 +352,7 @@ useEffect(() =>{
     }, [RecPhn]
      );
      
-     useEffect(() =>{
-  const SnderNatIds=SenderNatId
-    if(!SnderNatIds && SnderNatIds!=="")
-    {
-      setSenderNatId("");
-      return;
-    }
-    setSenderNatId(SnderNatIds);
-    }, [SenderNatId]
-     );
+    
 
      useEffect(() =>{
       const amt=amount
@@ -372,16 +365,7 @@ useEffect(() =>{
         }, [amount]
          );
 
-         useEffect(() =>{
-          const RecNatIds=RecNatId
-            if(!RecNatIds && RecNatIds!=="")
-            {
-              setRecNatId("");
-              return;
-            }
-            setRecNatId(RecNatIds);
-            }, [RecNatId]
-             );
+         
 
              useEffect(() =>{
               const AdvRegNoss=AdvRegNo

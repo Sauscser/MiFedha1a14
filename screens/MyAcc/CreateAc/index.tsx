@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {createSMAccount, updateCompany} from '../../../src/graphql/mutations';
 import { getCompany, getSMAccount, listSMAccounts, } from '../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
-import PasswordInputText from 'react-native-hide-show-password-input';
+
 import {useNavigation} from '@react-navigation/native';
 
 

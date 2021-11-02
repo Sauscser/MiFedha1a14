@@ -123,25 +123,18 @@ const fetchChmMbrDtls = async () => {
           const CompCovFee =1- (parseFloat(CoverageFees)*parseFloat(AdvComs))
           const AdvCovAmt = parseFloat(AdvComs)*parseFloat(CoverageFees)*parseFloat(amount)
           const CompCovAmt = CompCovFee*parseFloat(amount)
-          const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)
-                   
+          const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)                
           
-          const TotalTransacted = parseFloat(amount) + ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount);
-             
+          const TotalTransacted = parseFloat(amount) + ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount);             
           const ttlCompCovEarningss = CompDtls.data.getCompany.ttlCompCovEarnings;
-
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
           const AdvEarningBals = CompDtls.data.getCompany.AdvEarningBal;
-          const AdvEarnings = CompDtls.data.getCompany.AdvEarning; 
-         
-          const ttlChmLnsInAmtCovs = CompDtls.data.getCompany.ttlChmLnsInAmtCov;
-          
-          const ttlChmLnsInTymsCovs = CompDtls.data.getCompany.ttlChmLnsInTymsCov;
-            
+          const AdvEarnings = CompDtls.data.getCompany.AdvEarning;          
+          const ttlChmLnsInAmtCovs = CompDtls.data.getCompany.ttlChmLnsInAmtCov;          
+          const ttlChmLnsInTymsCovs = CompDtls.data.getCompany.ttlChmLnsInTymsCov;            
           const maxInterestGrps = CompDtls.data.getCompany.maxInterestGrp;  
-          const Interest = ((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod));        
-
+          const Interest = ((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod));     
           const maxBLss = CompDtls.data.getCompany.maxBLs;
 
           
@@ -199,7 +192,7 @@ const fetchChmMbrDtls = async () => {
                                     description: Desc,
                                     lonBala:parseFloat(AmtExp),
                                     advRegNu: AdvRegNo,
-                                    
+                                    loaneeName:namess,
                                     status: "LoanActive",
                                     owner: ownr,
                                 },
@@ -354,7 +347,7 @@ const fetchChmMbrDtls = async () => {
                         else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(Interest > parseFloat(maxInterestGrps))
-                        {Alert.alert('Interest too high:' + Interest + "; Recom SI: " + maxInterestGrps+" per day");}
+                        {Alert.alert('Interest too high:' + Interest.toFixed(5) + "; Recom SI: " + maxInterestGrps+" per day");}
                         else if (
                           parseFloat(grpBals) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}

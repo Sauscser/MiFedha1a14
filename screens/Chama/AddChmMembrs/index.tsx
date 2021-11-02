@@ -111,6 +111,7 @@ const AddChmMmbrs = (props:UserReg) => {
                             memberContact: phoneContacts,
                             memberNatId: nationalidsss,
                             acBal: 0,
+                            memberName:namess,
                             AcStatus: "AccountActive",
                             loanStatus: "NoLoan",
                             blStatus: "AccountNotBL",

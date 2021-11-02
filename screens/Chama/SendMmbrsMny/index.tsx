@@ -13,6 +13,7 @@ import {
   updateSMAccount,
   updateGroup,
   updateGrpMembers,
+  createGroupNonLoans,
   
 } from '../../.././src/graphql/mutations';
 
@@ -137,7 +138,40 @@ const SMASendNonLns = props => {
                     const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
                     const namess =RecAccountDtl.data.getSMAccount.name;
                     
-                    
+                    const GrpNonLns = async () => {
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true)
+                      try {
+                        await API.graphql(
+                          graphqlOperation(createGroupNonLoans, {
+                            input: {
+                              grpContact: groupContacts,
+                              recipientPhn: memberContacts,
+                              receiverName:namess,
+                              amountSent: amounts,
+
+                              description: Desc,
+
+                              status: "AccountActive",
+                              owner: ownr,
+                            },
+                          }),
+                        );
+
+
+                      } catch (error) {
+                        if(!error){
+                          Alert.alert("Account deactivated successfully")
+                          
+                      } 
+                      else{Alert.alert("Please check your internet connection")
+                      return;}
+                      }
+                      setIsLoading(false);
+                      await sendSMNonLn();
+                    };
                   
                     const sendSMNonLn = async () => {
                       if(isLoading){
@@ -297,7 +331,7 @@ const SMASendNonLns = props => {
                     
                     
                      else {
-                      sendSMNonLn();
+                      GrpNonLns();
                     }                                                
                 }       
                 catch(e) {     

@@ -211,6 +211,8 @@ export const getSMLoansCovered = /* GraphQL */ `
       amountexpected
       amountrepaid
       lonBala
+      loaneename
+      loanername
       repaymentPeriod
       advregnu
       description
@@ -238,6 +240,8 @@ export const listSMLoansCovereds = /* GraphQL */ `
         amountexpected
         amountrepaid
         lonBala
+        loaneename
+        loanername
         repaymentPeriod
         advregnu
         description
@@ -262,6 +266,8 @@ export const getSMLoansNonCovered = /* GraphQL */ `
       amountexpected
       amountrepaid
       lonBala
+      loaneename
+      loanername
       repaymentPeriod
       description
       status
@@ -292,6 +298,8 @@ export const listSMLoansNonCovereds = /* GraphQL */ `
         amountexpected
         amountrepaid
         lonBala
+        loaneename
+        loanername
         repaymentPeriod
         description
         status
@@ -309,6 +317,8 @@ export const getNonLoans = /* GraphQL */ `
       id
       senderPhn
       recPhn
+      RecName
+      SenderName
       amount
       description
       status
@@ -329,6 +339,8 @@ export const listNonLoanss = /* GraphQL */ `
         id
         senderPhn
         recPhn
+        RecName
+        SenderName
         amount
         description
         status
@@ -866,10 +878,13 @@ export const getCompany = /* GraphQL */ `
       agentFloatOut
       ttlActiveUsers
       ttlInactvUsrs
+      ttlBLUsrs
       ttlActiveChm
       ttlInactvChm
+      ttlBLChm
       ttlActiveChmUsers
       ttlInactvChmUsrs
+      ttlBLChmUsrs
       ttlKFNdgActv
       ttlKFNdgInActv
       ttlKNdgBLStts
@@ -1006,10 +1021,13 @@ export const listCompanys = /* GraphQL */ `
         agentFloatOut
         ttlActiveUsers
         ttlInactvUsrs
+        ttlBLUsrs
         ttlActiveChm
         ttlInactvChm
+        ttlBLChm
         ttlActiveChmUsers
         ttlInactvChmUsrs
+        ttlBLChmUsrs
         ttlKFNdgActv
         ttlKFNdgInActv
         ttlKNdgBLStts
@@ -1097,6 +1115,8 @@ export const getCovCreditSeller = /* GraphQL */ `
       buyerContact
       sellerContact
       buyerID
+      buyerName
+      SellerName
       sellerID
       amountSold
       amountexpectedBack
@@ -1130,6 +1150,8 @@ export const listCovCreditSellers = /* GraphQL */ `
         buyerContact
         sellerContact
         buyerID
+        buyerName
+        SellerName
         sellerID
         amountSold
         amountexpectedBack
@@ -1156,6 +1178,8 @@ export const getNonCovCreditSeller = /* GraphQL */ `
       buyerContact
       sellerContact
       buyerID
+      buyerName
+      SellerName
       sellerID
       amountSold
       amountexpectedBack
@@ -1188,6 +1212,8 @@ export const listNonCovCreditSellers = /* GraphQL */ `
         buyerContact
         sellerContact
         buyerID
+        buyerName
+        SellerName
         sellerID
         amountSold
         amountexpectedBack
@@ -1299,6 +1325,7 @@ export const getGrpMembers = /* GraphQL */ `
       id
       groupContact
       memberContact
+      memberName
       memberNatId
       acBal
       AcStatus
@@ -1321,6 +1348,7 @@ export const listGrpMemberss = /* GraphQL */ `
         id
         groupContact
         memberContact
+        memberName
         memberNatId
         acBal
         AcStatus
@@ -1347,6 +1375,8 @@ export const getCvrdGroupLoans = /* GraphQL */ `
       description
       lonBala
       advRegNu
+      loaneeName
+      LoanerName
       status
       owner
       createdAt
@@ -1372,6 +1402,8 @@ export const listCvrdGroupLoanss = /* GraphQL */ `
         description
         lonBala
         advRegNu
+        loaneeName
+        LoanerName
         status
         owner
         createdAt
@@ -1392,6 +1424,8 @@ export const getNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountRepaid
       description
+      loaneeName
+      loanerName
       lonBala
       status
       owner
@@ -1420,6 +1454,8 @@ export const listNonCvrdGroupLoanss = /* GraphQL */ `
         amountExpectedBack
         amountRepaid
         description
+        loaneeName
+        loanerName
         lonBala
         status
         owner
@@ -1436,6 +1472,8 @@ export const getGroupNonLoans = /* GraphQL */ `
       id
       grpContact
       recipientPhn
+      receiverName
+      SenderName
       amountSent
       description
       status
@@ -1456,6 +1494,8 @@ export const listGroupNonLoanss = /* GraphQL */ `
         id
         grpContact
         recipientPhn
+        receiverName
+        SenderName
         amountSent
         description
         status
@@ -1472,6 +1512,8 @@ export const getGrpMembersContribution = /* GraphQL */ `
     getGrpMembersContribution(id: $id) {
       id
       memberPhn
+      mmberNme
+      GrpName
       grpContact
       contriAmount
       status
@@ -1495,6 +1537,8 @@ export const listGrpMembersContributions = /* GraphQL */ `
       items {
         id
         memberPhn
+        mmberNme
+        GrpName
         grpContact
         contriAmount
         status
