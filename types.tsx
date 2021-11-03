@@ -85,6 +85,9 @@ declare global {
       ViewMyCovLoanerss:undefined;
       ViewMyNonCovLoaneess:undefined;
       ViewMyNonCovLoanerss:undefined;
+      ViewSmAcs:undefined;
+      ViewSmAcss:undefined;
+      ViewMySMAcs:undefined;
     }
   }
 }

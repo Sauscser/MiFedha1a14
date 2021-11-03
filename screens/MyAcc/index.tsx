@@ -41,6 +41,10 @@ const MyAccount = props => {
     navigation.navigate('UpdateSMPWs');
   };
 
+  const ViewSmAcss = () => {
+    navigation.navigate('ViewSmAcs');
+  };
+
   return (
     <SafeAreaView>
       <View
@@ -53,7 +57,7 @@ const MyAccount = props => {
             
 
             <Pressable onPress={goToMySMAc} style={styles.acPressables}>
-              <Text style={styles.acPressableText}>CheckBal</Text>
+              <Text style={styles.acPressableText}>View NonLons</Text>
             </Pressable>
 
             <Pressable onPress={goWithdrwMny} style={styles.acPressables}>
@@ -80,7 +84,7 @@ const MyAccount = props => {
               <Text style={styles.acPressableText}>Update</Text>
             </Pressable>
 
-            <Pressable onPress={goToMySMAc} style={styles.acPressables}>
+            <Pressable onPress={ViewSmAcss} style={styles.acPressables}>
               <Text style={styles.acPressableText}>View</Text>
             </Pressable>
           </View>

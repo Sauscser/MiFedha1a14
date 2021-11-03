@@ -16,32 +16,32 @@ const styles = StyleSheet.create ({
 
     },
     ownerName: {
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: '900',
         color: '#ad1c65'
     },
 
     ownerContact: {
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: '900',
         color: '#981658'
     },
 
     amountoffered: {
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: '900',
         color: '#88124e',
         textDecorationLine: "underline"
     },
 
     repaymentPeriod: {
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: '900',
         color: '#7b0e45'
     },
 
     interest: {
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: '900',
         color: '#69093a'
     },
@@ -49,7 +49,7 @@ const styles = StyleSheet.create ({
     
 
     loanerotherdescriptions: {
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: '900',
         color: '#420423'
     }, 

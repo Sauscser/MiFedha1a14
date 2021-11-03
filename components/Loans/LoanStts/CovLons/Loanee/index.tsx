@@ -16,6 +16,8 @@ export interface SMCvLnSttus {
         loaneename:string,
         status: string,
         description: string,
+        createdAt:string,
+        updatedAt:string,
         
     }}
 
@@ -33,6 +35,8 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
     loaneename,
     status,
     description,
+    createdAt,
+    updatedAt,
    }} = props ;
     return (
         <View style = {styles.container}>              
@@ -77,7 +81,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                       Repayment Period in days: {repaymentPeriod.toFixed(2)}                    
+                       Repayment Period in days: {repaymentPeriod}                    
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
@@ -86,6 +90,14 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
                       Loan Status: {status}                    
+                    </Text> 
+                    <Text style = {styles.interest}>                       
+                       {/* interest*/}
+                     Created At: {createdAt}                    
+                    </Text> 
+                    <Text style = {styles.interest}>                       
+                       {/* interest*/}
+                     Last Update: {updatedAt}                    
                     </Text> 
                     <ScrollView>
                     <Text style = {styles.loanerotherdescriptions} >                       
