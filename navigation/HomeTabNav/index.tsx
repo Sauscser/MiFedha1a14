@@ -67,6 +67,8 @@ import ViewMyNonCovLoanees from "../../screens/MyAcc/Loans/ViewSMLns/NonCov/MyLo
 import ViewMyNonCovLoaners from "../../screens/MyAcc/Loans/ViewSMLns/NonCov/MyLoaners";
 import ViewSmAc from "../../screens/MyAcc/ViewMySMAcc";
 import ViewSmAcs from "../../components/MyAc/ViewAc";
+import VwNonLnsRec from "../../screens/MyAcc/ViewNonLnsRec";
+import VwNonLnsSnt from "../../screens/MyAcc/ViewNonLnsSnt";
 
 
 const Stack = createNativeStackNavigator();
@@ -78,7 +80,8 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
-    
+      <Stack.Screen name={'VwNonLnsSnts'} component={VwNonLnsSnt} />
+      <Stack.Screen name={'VwNonLnsRecs'} component={VwNonLnsRec} />
       <Stack.Screen name={'ViewSmAcss'} component={ViewSmAcs} />
       <Stack.Screen name={'ViewSmAcs'} component={ViewSmAc} />
       <Stack.Screen name={'ViewMyNonCovLoaneess'} component={ViewMyNonCovLoanees} />

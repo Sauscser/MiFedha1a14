@@ -52,16 +52,32 @@ const styles = StyleSheet.create({
 
   acPressables: {
     backgroundColor: 'purple',
-    marginHorizontal: 10,
-    width: Dimensions.get('screen').width - 20,
-    height: 60,
-    borderRadius: 20,
-    marginTop: 10,
+    
+    height: "60%",
+    borderRadius: 5,
+    marginTop: "4%",
+    marginLeft:"2%",
+    marginRight:"2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+
+    width: "30%",
+  },
+
+  acNonLnsPressables: {
+    backgroundColor: 'blue',
+    
+    height: "99%",
+    borderRadius: 5,
+    marginTop: "4%",
+    marginLeft:"2%",
+    marginRight:"2%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-
-    width: 80,
+    
+    width: "45%",
   },
 
   viewForSalesPressables: {

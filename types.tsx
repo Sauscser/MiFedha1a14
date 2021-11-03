@@ -88,6 +88,8 @@ declare global {
       ViewSmAcs:undefined;
       ViewSmAcss:undefined;
       ViewMySMAcs:undefined;
+      VwNonLnsRecs:undefined;
+      VwNonLnsSnts:undefined;
     }
   }
 }

@@ -45,6 +45,14 @@ const MyAccount = props => {
     navigation.navigate('ViewSmAcs');
   };
 
+  const VwNonLnsRecss = () => {
+    navigation.navigate('VwNonLnsRecs');
+  };
+
+  const VwNonLnsSntss = () => {
+    navigation.navigate('VwNonLnsSnts');
+  };
+
   return (
     <SafeAreaView>
       <View
@@ -55,10 +63,20 @@ const MyAccount = props => {
 
           <View style={styles.viewForSalesPressables}>
             
-
-            <Pressable onPress={goToMySMAc} style={styles.acPressables}>
-              <Text style={styles.acPressableText}>View NonLons</Text>
+            <View style={styles.acPressables}>
+            <View>
+            <Text style={styles.acPressableText}>NonLons</Text>
+            </View>
+            <View style = {{flexDirection:"row"}}>
+            <Pressable onPress={VwNonLnsSntss} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>Sent</Text>
             </Pressable>
+            <Pressable onPress={VwNonLnsRecss} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>Rec</Text>
+            </Pressable>
+            </View>
+            </View>
+            
 
             <Pressable onPress={goWithdrwMny} style={styles.acPressables}>
               <Text style={styles.acPressableText}>Withdraw</Text>

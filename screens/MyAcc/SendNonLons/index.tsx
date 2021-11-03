@@ -135,7 +135,8 @@ const SMASendNonLns = props => {
                               amount: amounts,                              
                               description: Desc,
                               RecName:namess,
-                              status: "NonLons",
+                              SenderName:names,
+                              status: "SMNonLons",
                               owner: ownr
                             },
                           }),
@@ -143,6 +144,7 @@ const SMASendNonLns = props => {
 
 
                       } catch (error) {
+                        console.log(error)
                         if(!error){
                           Alert.alert("Account deactivated successfully")
                           
@@ -163,7 +165,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                recPhn:SendrPhn,
+                                phonecontact:SendrPhn,
                                 ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
                                 balance:parseFloat(SenderUsrBal)-TotalTransacted 
                                
@@ -175,6 +177,7 @@ const SMASendNonLns = props => {
 
                       }
                       catch(error){
+                        console.log(error)
                         if (error){Alert.alert("Check your internet connection")
                         return;}
                       }
@@ -191,7 +194,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                recPhn:RecNatId,
+                                phonecontact:RecNatId,
                                 ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
                                 balance:parseFloat(RecUsrBal) + parseFloat(amounts)                                     
                                 
@@ -202,6 +205,7 @@ const SMASendNonLns = props => {
                           )                              
                       }
                       catch(error){
+                        console.log(error)
                         if (error){Alert.alert("Check your internet connection")
                         return;}
                       }
@@ -233,6 +237,7 @@ const SMASendNonLns = props => {
                           
                       }
                       catch(error){
+                        console.log(error)
                         if (error){Alert.alert("Check your internet connection")
                     return;}
                       }
@@ -258,7 +263,8 @@ const SMASendNonLns = props => {
                       sendSMNonLn();
                     }                                                
                 }       
-                catch(e) {     
+                catch(e) {   
+                  console.log(e)  
                   if (e){Alert.alert("Reciever does not exist")
   return;}                 
                 }
@@ -266,6 +272,7 @@ const SMASendNonLns = props => {
                 }                    
                   await fetchRecUsrDtls();
         } catch (e) {
+          console.log(e)
           if (e){Alert.alert("Check your internet connection")
       return;}
         }
@@ -275,6 +282,7 @@ const SMASendNonLns = props => {
     
       
     } catch (e) {
+      console.log(e)
       if (e){Alert.alert("Sender does not exist")
       return;}
   };
@@ -366,6 +374,7 @@ useEffect(() =>{
 
           <View style={styles.sendAmtView}>
             <TextInput
+            placeholder="+2547xxxxxxxx"
               value={RecNatId}
               onChangeText={setRecNatId}
               style={styles.sendAmtInput}

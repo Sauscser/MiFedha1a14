@@ -150,6 +150,7 @@ const SMASendChmNonLns = props => {
                                         input: {
                                           memberPhn: MmbrId,
                                           mmberNme:names,
+                                          GrpName:grpNames,
                                           grpContact: groupContacts,
                                           contriAmount: amounts,
                                           status: "AccountActive",
@@ -182,7 +183,9 @@ const SMASendChmNonLns = props => {
                                       graphqlOperation(createNonLoans, {
                                         input: {
                                           recPhn: groupContacts,
-                                          senderPhn: memberContacts,                                  
+                                          senderPhn: memberContacts,  
+                                          RecName:names,
+                                          SenderName:grpNames,                             
                                           amount: amounts,                              
                                           description: Desc,
                                           status: "ChmMbrGrpContri",

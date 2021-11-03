@@ -150,6 +150,7 @@ const SMASendNonLns = props => {
                               grpContact: groupContacts,
                               recipientPhn: memberContacts,
                               receiverName:namess,
+                              SenderName:grpNames,
                               amountSent: amounts,
 
                               description: Desc,
@@ -183,7 +184,9 @@ const SMASendNonLns = props => {
                           graphqlOperation(createNonLoans, {
                             input: {
                               recPhn: memberContacts,
-                              senderPhn: groupContacts,                                  
+                              senderPhn: groupContacts,  
+                              RecName:namess,
+                              SenderName:grpNames,                               
                               amount: amounts,                              
                               description: Desc,
                               status: "ChmSndMbr",
