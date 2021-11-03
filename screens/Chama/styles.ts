@@ -37,11 +37,55 @@ const styles = StyleSheet.create({
     marginBottom:"5%",
     height: "100%",
     borderRadius: 4,
-    
+    marginLeft:"0.5%",
+    marginRight:"0.5%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
     width: "33%"
+  },
+
+  
+
+  viewForClientsCategoriesChama2: {
+    backgroundColor: 'purple',
+    marginTop:"5%",
+  
+    height: "30%",
+    borderRadius: 4,
+    marginLeft:"2%",
+    marginRight:"2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    width: "90%"
+  },
+
+  viewForClientsCategoriesChama4: {
+    backgroundColor: 'purple',
+    
+    marginBottom:"5%",
+    height: "70%",
+    borderRadius: 4,
+    marginLeft:"2%",
+    marginRight:"2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: "90%"
+  },
+
+  viewForClientsCategoriesChama3: {
+    backgroundColor: 'green',
+    
+    height: "100%",
+    borderRadius: 4,
+    marginLeft:"2%",
+    marginRight:"2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: "55%"
   },
 
   salesPressableText: {
@@ -65,7 +109,7 @@ const styles = StyleSheet.create({
 
   ClientsPressables: {
     backgroundColor: 'purple',
-    width:"45%",
+    width:"48%",
     marginLeft:"1%",
     marginRight:"1%",
     height: "90%",
@@ -78,6 +122,20 @@ const styles = StyleSheet.create({
     
   },
 
+  ClientsPressablesLnStts: {
+    backgroundColor: 'purple',
+    width:"48%",
+    marginLeft:"1%",
+    marginRight:"1%",
+    height: "100%",
+    borderRadius: 4,
+  
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+
+    
+  },
 
   acEarningsView: {
     backgroundColor: 'brown',
@@ -122,6 +180,11 @@ const styles = StyleSheet.create({
   clientsPressableText: {
     color: 'white',
     fontSize: 10,
+    marginTop: 1,
+  },
+  clientsPressableTextStts: {
+    color: 'white',
+    fontSize: 7,
     marginTop: 1,
   },
 

@@ -193,6 +193,7 @@ const fetchChmMbrDtls = async () => {
                                     lonBala:parseFloat(AmtExp),
                                     advRegNu: AdvRegNo,
                                     loaneeName:namess,
+                                    LoanerName:grpNames,
                                     status: "LoanActive",
                                     owner: ownr,
                                 },

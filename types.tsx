@@ -90,6 +90,8 @@ declare global {
       ViewMySMAcs:undefined;
       VwNonLnsRecs:undefined;
       VwNonLnsSnts:undefined;
+      ChmSignInss:undefined;
+      ChmLnsGvnOuts:{grpContact:string};
     }
   }
 }

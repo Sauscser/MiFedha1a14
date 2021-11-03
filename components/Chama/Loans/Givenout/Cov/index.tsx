@@ -1,11 +1,13 @@
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import {View, Text, ImageBackground, Pressable, TextInput, ScrollView} from 'react-native';
+
 import styles from './styles';
 
 
 export interface ChmCvLnSttusSent {
     Loaner: {
-        id:String,
+        id:string,
         loaneeName: string,
         amountGiven: number,
         amountExpectedBack: number,
@@ -18,6 +20,7 @@ export interface ChmCvLnSttusSent {
         loaneePhn:string,
         createdAt:string,
         updatedAt:string,
+        grpContact:string,
         
     }}
 
@@ -36,9 +39,16 @@ const ChmCvLnSttsSent = (props:ChmCvLnSttusSent) => {
     loaneeName,
     description,
     loaneePhn,
+    grpContact,
     createdAt,
     updatedAt,
    }} = props ;
+
+   const navigation = useNavigation();
+
+   const TryChmLn = () => {
+      navigation.navigate("ChmLnsGvnOuts", {grpContact});
+   }
     return (
         <View style = {styles.container}>              
             <View style = {{alignItems:"center"}}>

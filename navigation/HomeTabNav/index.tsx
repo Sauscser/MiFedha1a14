@@ -69,6 +69,8 @@ import ViewSmAc from "../../screens/MyAcc/ViewMySMAcc";
 import ViewSmAcs from "../../components/MyAc/ViewAc";
 import VwNonLnsRec from "../../screens/MyAcc/ViewNonLnsRec";
 import VwNonLnsSnt from "../../screens/MyAcc/ViewNonLnsSnt";
+import ChmSignIns from "../../screens/Chama/ViewLns/ChamaSignIn";
+import ChmLnsGvnOut from "../../screens/Chama/ViewLns/GivenOut/Cov";
 
 
 const Stack = createNativeStackNavigator();
@@ -80,6 +82,8 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'ChmSignInss'} component={ChmSignIns} />
+      <Stack.Screen name={'ChmLnsGvnOuts'} component={ChmLnsGvnOut} />
       <Stack.Screen name={'VwNonLnsSnts'} component={VwNonLnsSnt} />
       <Stack.Screen name={'VwNonLnsRecs'} component={VwNonLnsRec} />
       <Stack.Screen name={'ViewSmAcss'} component={ViewSmAcs} />

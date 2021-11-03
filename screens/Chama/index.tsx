@@ -73,8 +73,8 @@ const MyLoanAccount = props => {
     navigation.navigate('UpdateChms');
   };
 
-  const goBL = () => {
-    navigation.navigate('BListLneess');
+  const ChmSignInsss = () => {
+    navigation.navigate('ChmSignInss');
   };
 
   return (
@@ -201,21 +201,57 @@ const MyLoanAccount = props => {
                   <Text style={styles.salesPressableText}>Status</Text>
 
                   <View style={styles.viewForClientsPressables}>
+
+                    <View style={styles.ClientsPressablesLnStts}>
+
+                      <View style={styles.viewForClientsCategoriesChama2}>
+                      <Text style={styles.salesPressableText}>Chama</Text>
+                      </View>
+
+                    <View style={styles.viewForClientsCategoriesChama4}>
                     <Pressable
-                      onPress={payNonCovLn}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>LoanerChama</Text>
+                      onPress={ChmSignInsss}
+                      style={styles.viewForClientsCategoriesChama3}>
+                      <Text style={styles.clientsPressableTextStts}>Covered</Text>
                     </Pressable>
 
                     <Pressable
                       onPress={payNonCovLn}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                      ChamaLoanee
+                      style={styles.viewForClientsCategoriesChama3}>
+                      <Text style={styles.clientsPressableTextStts}>
+                      NonCov
                       </Text>
                     </Pressable>
+                    </View>
+                    </View>
+
+                    <View style={styles.ClientsPressablesLnStts}>
+
+                      <View style={styles.viewForClientsCategoriesChama2}>
+                      <Text style={styles.salesPressableText}>Member</Text>
+                      </View>
+
+                    <View style={styles.viewForClientsCategoriesChama4}>
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.viewForClientsCategoriesChama3}>
+                      <Text style={styles.clientsPressableTextStts}>Covered</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={payNonCovLn}
+                      style={styles.viewForClientsCategoriesChama3}>
+                      <Text style={styles.clientsPressableTextStts}>
+                      NonCov
+                      </Text>
+                    </Pressable>
+                    </View>
+                    </View>
+                    
                   </View>
                 </View>
+
+
               </View>
             </View>
 

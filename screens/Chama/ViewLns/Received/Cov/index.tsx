@@ -1,9 +1,10 @@
 import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
-import { listSMLoansCovereds } from '../../../../../../src/graphql/queries';
+
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../../components/Loans/LoanStts/CovLons/Loaner";
+import LnerStts from "../../../../../components/Chama/Loans/Received/Cov";
 import styles from './styles';
+import { listCvrdGroupLoanss } from '../../../../../src/graphql/queries';
 
 const FetchSMCovLns = props => {
 
@@ -26,7 +27,7 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
+              const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoanss, 
                 { filter: {
                     and: {
                       loaneePhn: { eq: LneePhn}
@@ -34,7 +35,7 @@ const FetchSMCovLns = props => {
                     }
                   }}
                   ));
-              setLoanees(Lonees.data.listSMLoansCovereds.items);
+              setLoanees(Lonees.data.listCvrdGroupLoanss.items);
             } catch (e) {
               console.log(e);
             } finally {

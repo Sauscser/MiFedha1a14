@@ -1,9 +1,11 @@
 import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
-import { listSMLoansCovereds } from '../../../../../../src/graphql/queries';
+
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../../components/Loans/LoanStts/CovLons/Loanee";
+import LnerStts from "../../../../../components/Chama/Loans/Givenout/Cov";
 import styles from './styles';
+import { listCvrdGroupLoanss } from '../../../../../src/graphql/queries';
+import { useRoute } from '@react-navigation/native';
 
 const FetchSMCovLns = props => {
 
@@ -11,30 +13,21 @@ const FetchSMCovLns = props => {
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLnerPhn(userInfo.attributes.phone_number);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    const route = useRoute();
+   
 
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
+              const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoanss, 
                 { filter: {
                     and: {
-                        loanerPhn: { eq: LnerPhn}
+                      grpContact: { eq: route.params.grpContact}
                       
                     }
                   }}
                   ));
-              setLoanees(Lonees.data.listSMLoansCovereds.items);
+              setLoanees(Lonees.data.listCvrdGroupLoanss.items);
             } catch (e) {
               console.log(e);
             } finally {
@@ -51,7 +44,7 @@ const FetchSMCovLns = props => {
       <FlatList
       style= {{width:"100%"}}
         data={Loanees}
-        renderItem={({item}) => <LnerStts Loanee={item} />}
+        renderItem={({item}) => <LnerStts Loaner={item} />}
         onRefresh={fetchLoanees}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
@@ -59,7 +52,7 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Loanees</Text>
+            <Text style={styles.label}> Chama Loanees</Text>
           </>
         )}
       />

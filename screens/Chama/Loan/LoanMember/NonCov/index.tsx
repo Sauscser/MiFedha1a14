@@ -184,6 +184,7 @@ const ChmNonCovLns = props => {
                                     amountRepaid: 0,
                                     description: Desc,
                                     laoneeName:namess,
+                                    LoanerName:grpNames,
                                     lonBala:parseFloat(AmtExp),
                                     status: "LoanActive",
                                     owner: ownr,
