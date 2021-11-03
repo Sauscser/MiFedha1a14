@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import {View, Text, ImageBackground, Pressable, TextInput, ScrollView} from 'react-native';
 import styles from './styles';
@@ -5,7 +6,7 @@ import styles from './styles';
 
 export interface ChmNonCvLnSttusSent {
     Loaner: {
-        id:String,
+        id:string,
         loaneeName: string,
         amountGiven: number,
         amountExpectedBack: number,
@@ -14,6 +15,7 @@ export interface ChmNonCvLnSttusSent {
         repaymentPeriod: number,
         loaneePhn:string,
         status: string,
+        grpContact:string,
         description: string,
         loanername:string,
         createdAt:string,
@@ -31,7 +33,7 @@ const ChmNonCvLnSttsSent = (props:ChmNonCvLnSttusSent) => {
     amountRepaid,
     lonBala,
     repaymentPeriod,
-
+    grpContact,
     status,
     loaneeName,
     description,
@@ -39,6 +41,11 @@ const ChmNonCvLnSttsSent = (props:ChmNonCvLnSttusSent) => {
     createdAt,
     updatedAt,
    }} = props ;
+
+   const navigation = useNavigation();
+
+   const TryChmLn = () => {
+      navigation.navigate("ChmLnsGvnOutNonCovs", {grpContact});}
     return (
         <View style = {styles.container}>              
             <View style = {{alignItems:"center"}}>
@@ -86,7 +93,6 @@ const ChmNonCvLnSttsSent = (props:ChmNonCvLnSttusSent) => {
                        {/* interest*/}
                       Loan Status: {status}                    
                     </Text> 
-                    <ScrollView>
                     <Text style = {styles.loanerotherdescriptions} >                       
                        {/* other description*/} 
                        Created At: {createdAt}                 
@@ -95,6 +101,8 @@ const ChmNonCvLnSttsSent = (props:ChmNonCvLnSttusSent) => {
                        {/* other description*/} 
                        Last Update: {updatedAt}                 
                     </Text>   
+                    <ScrollView>
+                    
                     <Text style = {styles.loanerotherdescriptions} >                       
                        {/* other description*/} 
                        More: {description}                 

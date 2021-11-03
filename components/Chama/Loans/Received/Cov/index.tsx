@@ -4,8 +4,8 @@ import styles from './styles';
 
 
 export interface ChmCvLnSttusRec {
-    Loaner: {
-        id:String,
+    Loanee: {
+        id:string,
         grpContact: string,
         amountGiven: number,
         amountExpectedBack: number,
@@ -23,7 +23,7 @@ export interface ChmCvLnSttusRec {
 
 const ChmCvLnSttsRec = (props:ChmCvLnSttusRec) => {
    const {
-    Loaner: {
+    Loanee: {
     id,
     
     amountGiven,

@@ -76,6 +76,15 @@ const MyLoanAccount = props => {
   const ChmSignInsss = () => {
     navigation.navigate('ChmSignInss');
   };
+  const ChamSignIn2ss = () => {
+    navigation.navigate('ChamSignIn2s');
+  };
+  const ChmLnsRecCovss = () => {
+    navigation.navigate('ChmLnsRecCovs');
+  };
+  const ChmLnsRecNonCovss = () => {
+    navigation.navigate('ChmLnsRecNonCovs');
+  };
 
   return (
     <SafeAreaView>
@@ -216,7 +225,7 @@ const MyLoanAccount = props => {
                     </Pressable>
 
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={ChamSignIn2ss}
                       style={styles.viewForClientsCategoriesChama3}>
                       <Text style={styles.clientsPressableTextStts}>
                       NonCov
@@ -233,13 +242,13 @@ const MyLoanAccount = props => {
 
                     <View style={styles.viewForClientsCategoriesChama4}>
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={ChmLnsRecCovss}
                       style={styles.viewForClientsCategoriesChama3}>
                       <Text style={styles.clientsPressableTextStts}>Covered</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={payNonCovLn}
+                      onPress={ChmLnsRecNonCovss}
                       style={styles.viewForClientsCategoriesChama3}>
                       <Text style={styles.clientsPressableTextStts}>
                       NonCov

@@ -2,34 +2,24 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import ChmNonCvLns from "../../../../../components/Chama/Loans/Givenout/NonCov";
+import LnerStts from "../../../../../components/Chama/Loans/Givenout/Cov";
 import styles from './styles';
-import { listGroupNonLoanss, listNonCvrdGroupLoanss } from '../../../../../src/graphql/queries';
+import { listCvrdGroupLoanss } from '../../../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/native';
 
-const FetchSMNonCovLns = props => {
+const FetchSMCovLns = props => {
 
-    const[LnerPhn, setLneePhn] = useState(null);
+    const[LnerPhn, setLnerPhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
-    const route = useRoute();
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneePhn(userInfo.attributes.phone_number);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    const route = useRoute();
+   
 
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoanss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoanss, 
                 { filter: {
                     and: {
                       grpContact: { eq: route.params.grpContact}
@@ -37,7 +27,7 @@ const FetchSMNonCovLns = props => {
                     }
                   }}
                   ));
-              setLoanees(Lonees.data.listNonCvrdGroupLoanss.items);
+              setLoanees(Lonees.data.listCvrdGroupLoanss.items);
             } catch (e) {
               console.log(e);
             } finally {
@@ -54,7 +44,7 @@ const FetchSMNonCovLns = props => {
       <FlatList
       style= {{width:"100%"}}
         data={Loanees}
-        renderItem={({item}) => <ChmNonCvLns Loaner={item} />}
+        renderItem={({item}) => <LnerStts Loaner={item} />}
         onRefresh={fetchLoanees}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
@@ -62,7 +52,7 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Loanees</Text>
+            <Text style={styles.label}> Chama Loanees</Text>
           </>
         )}
       />
@@ -70,4 +60,4 @@ const FetchSMNonCovLns = props => {
   );
 };
 
-export default FetchSMNonCovLns;
+export default FetchSMCovLns;

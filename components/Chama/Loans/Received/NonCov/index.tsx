@@ -7,9 +7,9 @@ export interface SMCvLnSttus {
     Loanee: {
         id:string,
         loaneePhn: string,
-        amountgiven: number,
-        amountexpected: number,
-        amountrepaid: number,
+        amountGiven: number,
+        amountExpectedBack: number,
+        amountRepaid: number,
         lonBala: number,
         repaymentPeriod: number,
         loaneename:string,
@@ -25,9 +25,9 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
     Loanee: {
     id,
     loaneePhn,
-    amountgiven,
-    amountexpected,
-    amountrepaid,
+    amountGiven,
+    amountExpectedBack,
+    amountRepaid,
     lonBala,
     repaymentPeriod,
     loaneename,
@@ -62,15 +62,15 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                     </Text>
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
-                       Amount Given (Ksh): {amountgiven.toFixed(2)}                
+                       Amount Given (Ksh): {amountGiven.toFixed(2)}                
                     </Text>                     
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Amount Expected Back(Ksh): {amountexpected.toFixed(2)}
+                       Amount Expected Back(Ksh): {amountExpectedBack.toFixed(2)}
                     </Text>   
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
-                       Amount Repaid(Ksh): {amountrepaid.toFixed(2)}                  
+                       Amount Repaid(Ksh): {amountRepaid.toFixed(2)}                  
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}

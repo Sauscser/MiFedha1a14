@@ -70,7 +70,14 @@ import ViewSmAcs from "../../components/MyAc/ViewAc";
 import VwNonLnsRec from "../../screens/MyAcc/ViewNonLnsRec";
 import VwNonLnsSnt from "../../screens/MyAcc/ViewNonLnsSnt";
 import ChmSignIns from "../../screens/Chama/ViewLns/ChamaSignIn";
-import ChmLnsGvnOut from "../../screens/Chama/ViewLns/GivenOut/Cov";
+
+import ChamSignIn2 from "../../screens/Chama/ViewLns/ChamaSignIn2";
+import ChamSignIn3 from "../../screens/Chama/ViewLns/ChamaSignIn3";
+import ChamSignIn4 from "../../screens/Chama/ViewLns/ChamaSignIn4";
+import ChmLnsGvnOutCov from "../../screens/Chama/ViewLns/GivenOut/Cov";
+import ChmLnsGvnOutNonCov from "../../screens/Chama/ViewLns/GivenOut/NonCov";
+import ChmLnsRecCov from "../../screens/Chama/ViewLns/Received/Cov";
+import ChmLnsRecNonCov from "../../screens/Chama/ViewLns/Received/NonCov";
 
 
 const Stack = createNativeStackNavigator();
@@ -82,8 +89,14 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'ChamSignIn2s'} component={ChamSignIn2} />
+      <Stack.Screen name={'ChamSignIn3s'} component={ChamSignIn3} />
+      <Stack.Screen name={'ChamSignIn4s'} component={ChamSignIn4} />
       <Stack.Screen name={'ChmSignInss'} component={ChmSignIns} />
-      <Stack.Screen name={'ChmLnsGvnOuts'} component={ChmLnsGvnOut} />
+      <Stack.Screen name={'ChmLnsGvnOuts'} component={ChmLnsGvnOutCov} />
+      <Stack.Screen name={'ChmLnsGvnOutNonCovs'} component={ChmLnsGvnOutNonCov} />
+      <Stack.Screen name={'ChmLnsRecCovs'} component={ChmLnsRecCov} />
+      <Stack.Screen name={'ChmLnsRecNonCovs'} component={ChmLnsRecNonCov} />
       <Stack.Screen name={'VwNonLnsSnts'} component={VwNonLnsSnt} />
       <Stack.Screen name={'VwNonLnsRecs'} component={VwNonLnsRec} />
       <Stack.Screen name={'ViewSmAcss'} component={ViewSmAcs} />

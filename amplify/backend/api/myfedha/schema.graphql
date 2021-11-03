@@ -1326,7 +1326,7 @@ type NonCvrdGroupLoans
   description: String
   loaneeName:String!
   loanerName:String!
-  lonBala:String!
+  lonBala:Float!
   status: Status!
   owner: String!
 }
