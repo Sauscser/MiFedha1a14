@@ -145,8 +145,10 @@ const CreateChama = (props:UserReg) => {
                 };
                 if (pword.length < 8)
                 {Alert.alert("password is too short; at least eight characters");
-              return;
+              
             } 
+            else if(phoneContact===ChmPhn)
+            {Alert.alert("This Phone number is for an individual user")}
             
             else {
               onCreateNewSMAc();

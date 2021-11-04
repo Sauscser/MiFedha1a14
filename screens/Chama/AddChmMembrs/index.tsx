@@ -111,6 +111,7 @@ const AddChmMmbrs = (props:UserReg) => {
                             memberContact: phoneContacts,
                             memberNatId: nationalidsss,
                             acBal: 0,
+                            groupName:grpNames,
                             memberName:namess,
                             AcStatus: "AccountActive",
                             loanStatus: "NoLoan",
@@ -207,7 +208,7 @@ const AddChmMmbrs = (props:UserReg) => {
             catch(e){
               console.log(e)
               if(e){
-                Alert.alert("Group does not exist; otherwise check inernet connection")
+                Alert.alert("Group does not exist; otherwise check internet connection")
                 return;
             }
             }

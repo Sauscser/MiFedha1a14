@@ -323,7 +323,7 @@ const SMASendNonLns = props => {
                     
                     if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                    else if(SendrPhn === RecNatId){Alert.alert('You cannot Send money to yourself Yourself');}
+                    
                     else if (
                       parseFloat(grpBals) < TotalTransacted 
                     ) {Alert.alert('Requested amount is more than you have in your account');}
@@ -487,7 +487,7 @@ useEffect(() =>{
               onChangeText={setSnderPW}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Sender PassWord</Text>
+            <Text style={styles.sendAmtText}>Signitory PassWord</Text>
           </View>
 
           

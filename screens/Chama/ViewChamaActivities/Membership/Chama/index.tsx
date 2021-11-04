@@ -32,7 +32,7 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listGrpMemberss, 
                 { filter: {
                     and: {
-                      grpContact: { eq: route.params.grpContact}
+                      groupContact: { eq: route.params.grpContact}
                       
                     }
                   }}
@@ -63,7 +63,7 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Loaners</Text>
+            <Text style={styles.label}> Chama Members</Text>
           </>
         )}
       />
