@@ -98,6 +98,7 @@ declare global {
       ChmLnsGvnOutNonCovs:{grpContact:string};
       ChmLnsRecCovs:undefined;
       ChmLnsRecNonCovs:undefined;
+      ChamaGenInfos:{grpContact:string};
     }
   }
 }

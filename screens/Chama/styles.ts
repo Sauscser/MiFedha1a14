@@ -10,13 +10,28 @@ const styles = StyleSheet.create({
 
   clientsView: {
     backgroundColor: 'brown',
-    width:"100%",
-    height: "21%",
+    marginHorizontal: 5,
+    width: Dimensions.get('screen').width - 10,
+    height: "18%",
     borderRadius: 4,
     marginTop:4,
+    
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+  },
+
+  acEarningsView: {
+    backgroundColor: 'brown',
+    marginHorizontal: 5,
+    width: Dimensions.get('screen').width - 10,
+    height: 95,
+    borderRadius: 20,
+
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginTop: "2%",
   },
 
   viewForClientsAndTitle: {
@@ -137,18 +152,7 @@ const styles = StyleSheet.create({
     
   },
 
-  acEarningsView: {
-    backgroundColor: 'brown',
-    marginHorizontal: 5,
-    width: Dimensions.get('screen').width - 10,
-    height: 95,
-    borderRadius: 20,
-
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-    marginTop: "2%",
-  },
+  
 
 
   viewForAcEarningsPressables: {

@@ -78,6 +78,7 @@ import ChmLnsGvnOutCov from "../../screens/Chama/ViewLns/GivenOut/Cov";
 import ChmLnsGvnOutNonCov from "../../screens/Chama/ViewLns/GivenOut/NonCov";
 import ChmLnsRecCov from "../../screens/Chama/ViewLns/Received/Cov";
 import ChmLnsRecNonCov from "../../screens/Chama/ViewLns/Received/NonCov";
+import ChamaGenInfo from "../../screens/Chama/ViewLns/Generalnfo";
 
 
 const Stack = createNativeStackNavigator();
@@ -89,6 +90,7 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'ChamaGenInfos'} component={ChamaGenInfo} />
       <Stack.Screen name={'ChamSignIn2s'} component={ChamSignIn2} />
       <Stack.Screen name={'ChamSignIn3s'} component={ChamSignIn3} />
       <Stack.Screen name={'ChamSignIn4s'} component={ChamSignIn4} />

@@ -2,24 +2,25 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../components/Chama/Loans/Givenout/Cov";
+import ChamInfo from "../../../../components/Chama/GeneralInfo";
 import styles from './styles';
-import { listCvrdGroupLoanss } from '../../../../../src/graphql/queries';
+
 import { useRoute } from '@react-navigation/native';
+import { listGroups } from '../../../../src/graphql/queries';
 
 const FetchSMCovLns = props => {
 
     const[LnerPhn, setLnerPhn] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [Loanees, setLoanees] = useState([]);
+    const [Chm, setChm] = useState([]);
 
     const route = useRoute();
    
 
-        const fetchLoanees = async () => {
+        const fetchChm = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoanss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listGroups, 
                 { filter: {
                     and: {
                       grpContact: { eq: route.params.grpContact}
@@ -27,7 +28,7 @@ const FetchSMCovLns = props => {
                     }
                   }}
                   ));
-              setLoanees(Lonees.data.listCvrdGroupLoanss.items);
+              setChm(Lonees.data.listGroups.items);
             } catch (e) {
               console.log(e);
             } finally {
@@ -36,23 +37,24 @@ const FetchSMCovLns = props => {
           };
         
           useEffect(() => {
-            fetchLoanees();
+            fetchChm();
           }, [])
 
   return (
     <View style={styles.root}>
       <FlatList
       style= {{width:"100%"}}
-        data={Loanees}
-        renderItem={({item}) => <LnerStts Loaner={item} />}
-        onRefresh={fetchLoanees}
+        data={Chm}
+        renderItem={({item}) => <ChamInfo ChmDtls={item} />}
+        keyExtractor={(item, index) => index.toString()}
+        onRefresh={fetchChm}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Chama Loanees</Text>
+            <Text style={styles.label}> Chama Info</Text>
           </>
         )}
       />

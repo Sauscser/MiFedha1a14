@@ -55,6 +55,7 @@ const FetchSMNonCovLns = props => {
       style= {{width:"100%"}}
         data={Loanees}
         renderItem={({item}) => <ChmNonCvLns Loaner={item} />}
+        keyExtractor={(item, index) => index.toString()}
         onRefresh={fetchLoanees}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
@@ -62,7 +63,7 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Loanees</Text>
+            <Text style={styles.label}> Chama Loanees</Text>
           </>
         )}
       />

@@ -5,71 +5,73 @@ import {View, Text, ImageBackground, Pressable, TextInput, ScrollView} from 'rea
 import styles from './styles';
 
 
-export interface ChmCvLnSttusSent {
-    Loaner: {
+export interface ChmaInfo {
+    ChmDtls: {
 
-      grpName: String!
-      signitoryPW: String!
-      grpEmail: String!
-      grpBal: Float!
-      ttlGrpMembers: Float!
-      description: String
+      grpName: string,
+      grpBal: number,
+      ttlGrpMembers: number
+      ttlDpst: number,
+      ttlWthdrwn: number,
     
-      ttlNonLonsRecChm: Float!
-      ttlNonLonsSentChm:Float!
+      tymsChmHvBL:number,
+     
+      
     
-      ttlDpst: Float!
-      ttlWthdrwn: Float!
+      ttlNonLonsRecChm: number,
+      ttlNonLonsSentChm:number,
     
-      tymsChmHvBL:Float!
+      
     
-      TtlActvLonsTmsLnrChmCov: Float!
-      TtlActvLonsAmtLnrChmCov: Float!
-      TtlBLLonsTmsLnrChmCov: Float!
-      TtlBLLonsAmtLnrChmCov: Float!
-      TtlClrdLonsTmsLnrChmCov: Float!
-      TtlClrdLonsAmtLnrChmCov: Float!
+      TtlActvLonsTmsLnrChmCov: number,
+      TtlActvLonsAmtLnrChmCov: number,
+      TtlBLLonsTmsLnrChmCov: number,
+      TtlBLLonsAmtLnrChmCov: number,
+      TtlClrdLonsTmsLnrChmCov: number,
+      TtlClrdLonsAmtLnrChmCov: number,
     
-      TtlActvLonsTmsLnrChmNonCov: Float!
-      TtlActvLonsAmtLnrChmNonCov: Float!
-      TtlBLLonsTmsLnrChmNonCov: Float!
-      TtlBLLonsAmtLnrChmNonCov: Float!
-      TtlClrdLonsTmsLnrChmNonCov: Float!
-      TtlClrdLonsAmtLnrChmNonCov: Float!
+      TtlActvLonsTmsLnrChmNonCov: number,
+      TtlActvLonsAmtLnrChmNonCov: number,
+      TtlBLLonsTmsLnrChmNonCov: number,
+      TtlBLLonsAmtLnrChmNonCov: number,
+      TtlClrdLonsTmsLnrChmNonCov: number,
+      TtlClrdLonsAmtLnrChmNonCov: number,
+      description: string,
         
     }}
 
-const ChmCvLnSttsSent = (props:ChmCvLnSttusSent) => {
+const ChmInfo = (props:ChmaInfo) => {
    const {
-    Loaner: {
-    id,    
-    amountGiven,
-    amountExpectedBack,
-    amountRepaid,
-    lonBala,
-    repaymentPeriod,
-    advRegNu,
-    status,
-    loaneeName,
-    description,
-    loaneePhn,
-    grpContact,
-    createdAt,
-    updatedAt,
-    id,    
-    amountGiven,
-    amountExpectedBack,
-    amountRepaid,
-    lonBala,
-    repaymentPeriod,
-    advRegNu,
-    status,
-    loaneeName,
-    description,
-    loaneePhn,
-    grpContact,
-    createdAt,
-    updatedAt,
+      ChmDtls: {
+      grpName,
+      grpBal,
+      ttlGrpMembers,
+      ttlDpst,
+      ttlWthdrwn,
+    
+      tymsChmHvBL,
+     
+      
+    
+      ttlNonLonsRecChm,
+      ttlNonLonsSentChm,
+    
+      
+    
+      TtlActvLonsTmsLnrChmCov,
+      TtlActvLonsAmtLnrChmCov,
+      TtlBLLonsTmsLnrChmCov,
+      TtlBLLonsAmtLnrChmCov,
+      TtlClrdLonsTmsLnrChmCov,
+      TtlClrdLonsAmtLnrChmCov,
+    
+      TtlActvLonsTmsLnrChmNonCov,
+      TtlActvLonsAmtLnrChmNonCov,
+      TtlBLLonsTmsLnrChmNonCov,
+      TtlBLLonsAmtLnrChmNonCov,
+      TtlClrdLonsTmsLnrChmNonCov,
+      TtlClrdLonsAmtLnrChmNonCov,
+      description,
    }} = props ;
 
    const navigation = useNavigation();
@@ -79,67 +81,127 @@ const ChmCvLnSttsSent = (props:ChmCvLnSttusSent) => {
    }
     return (
         <View style = {styles.container}>              
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.loanAdvert}>                       
-                       {/*loaner details */}   
-                       {loaneeName}               
-                    </Text>
-            </View>
             
-            <ScrollView >              
-                       
-                        
-
-                    
-                     <Text style = {styles.ownerName}>                       
+            
+            <ScrollView >       
+            <View style = {{alignItems:"center"}}>
+            <Text style = {styles.subTitle}>                       
                        {/*loaner details */}   
-                       Loan Id: {id}                 
+                       General Chama Info              
                     </Text>
-                    
+            </View>      
+
+                     <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                       Chama Name: {grpName}                
+                    </Text>                                               
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
-                       Amount Given (Ksh): {amountGiven.toFixed(2)}                
+                       Account Balance (Ksh): {grpBal.toFixed(2)}                
                     </Text>                     
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Amount Expected Back(Ksh): {amountExpectedBack.toFixed(2)}
+                       Chama Members: {ttlGrpMembers}
                     </Text>   
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
-                       Amount Repaid(Ksh): {amountRepaid.toFixed(2)}                  
+                       Chama Deposits(Ksh): {ttlDpst.toFixed(2)}                  
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                       Loan Balance(Ksh): {lonBala.toFixed(2)}                    
+                       Chama Withdrawals(Ksh): {ttlWthdrwn.toFixed(2)}                    
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                       Repayment Period in days: {repaymentPeriod}                    
+                      Chama BlackListings: {tymsChmHvBL}                    
+                    </Text> 
+
+
+
+                    <View style = {{alignItems:"center"}}>
+                     <Text style = {styles.subTitle}>                       
+                       {/*loaner details */}   
+                       Non-Loans               
+                    </Text>
+                     </View>
+                    <Text style = {styles.interest}>                       
+                       {/* interest*/}
+                      Members Contributions: {ttlNonLonsRecChm.toFixed(2)}                    
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                      Advocate Registration Number: {loaneePhn}                    
+                      Money Sent to Members (Ksh): {ttlNonLonsSentChm.toFixed(2)}                    
                     </Text> 
+
+
+                    <View style = {{alignItems:"center"}}>
+                     <Text style = {styles.subTitle}>                       
+                       {/*loaner details */}   
+                       Covered Loans               
+                    </Text>
+                     </View>
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                      Advocate Registration Number: {advRegNu}                    
+                      Total Active Loans: {TtlActvLonsTmsLnrChmCov}                    
                     </Text> 
+                    <Text style = {styles.loanerotherdescriptions} >                       
+                       {/* other description*/} 
+                       Amount of Total Active Loans: {TtlActvLonsAmtLnrChmCov.toFixed(2)}                 
+                    </Text>   
+                    <Text style = {styles.loanerotherdescriptions} >                       
+                       {/* other description*/} 
+                       Black Listed loans: {TtlBLLonsTmsLnrChmCov}                 
+                    </Text>   
+                    <Text style = {styles.loanerotherdescriptions} >                       
+                       {/* other description*/} 
+                       Black-Listed amount (Ksh): {TtlBLLonsAmtLnrChmCov.toFixed(2)}                 
+                    </Text>   
+                    <Text style = {styles.loanerotherdescriptions} >                       
+                       {/* other description*/} 
+                      Cleared Loans: {TtlClrdLonsTmsLnrChmCov}                 
+                    </Text>   
+                    <Text style = {styles.loanerotherdescriptions} >                       
+                       {/* other description*/} 
+                       Amount of Cleared Loans (Ksh): {TtlClrdLonsAmtLnrChmCov.toFixed(2)}                 
+                    </Text>   
+                   
+
+
+                     <View style = {{alignItems:"center"}}>
+                     <Text style = {styles.subTitle}>                       
+                       {/*loaner details */}   
+                       NonCovered Loans               
+                    </Text>
+                     </View>
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                      Loan Status: {status}                    
+                      Total Active Loans: {TtlActvLonsTmsLnrChmNonCov}                    
                     </Text> 
+                    <Text style = {styles.loanerotherdescriptions} >                       
+                       {/* other description*/} 
+                       Amount of Total Active Loans: {TtlActvLonsAmtLnrChmNonCov.toFixed(2)}                 
+                    </Text>   
+                    <Text style = {styles.loanerotherdescriptions} >                       
+                       {/* other description*/} 
+                       Black Listed loans: {TtlBLLonsTmsLnrChmNonCov}                 
+                    </Text>   
+                    <Text style = {styles.loanerotherdescriptions} >                       
+                       {/* other description*/} 
+                       Black-Listed amount (Ksh): {TtlBLLonsAmtLnrChmNonCov.toFixed(2)}                 
+                    </Text>   
+                    <Text style = {styles.loanerotherdescriptions} >                       
+                       {/* other description*/} 
+                      Cleared Loans: {TtlClrdLonsTmsLnrChmNonCov}                 
+                    </Text>   
+                    <Text style = {styles.loanerotherdescriptions} >                       
+                       {/* other description*/} 
+                       Amount of Cleared Loans (Ksh): {TtlClrdLonsAmtLnrChmNonCov.toFixed(2)}                 
+                    </Text>     
                     <ScrollView>
+                    
                     <Text style = {styles.loanerotherdescriptions} >                       
                        {/* other description*/} 
-                       Created At: {createdAt}                 
-                    </Text>   
-                    <Text style = {styles.loanerotherdescriptions} >                       
-                       {/* other description*/} 
-                       Last Update: {updatedAt}                 
-                    </Text>   
-                    <Text style = {styles.loanerotherdescriptions} >                       
-                       {/* other description*/} 
-                       More: {description}                 
+                       More about Chama: {description}                 
                     </Text>   
                     </ScrollView>              
             
@@ -152,4 +214,4 @@ const ChmCvLnSttsSent = (props:ChmCvLnSttusSent) => {
     );
 }; 
 
-export default ChmCvLnSttsSent
+export default ChmInfo

@@ -196,7 +196,9 @@ const RepayCovChmLnsss = props => {
                                     graphqlOperation(createNonLoans, {
                                       input: {
                                         senderPhn: SendrPhn,
-                                        recPhn: RecPhn,                                  
+                                        recPhn: RecPhn,  
+                                        RecName:namess,
+                                        SenderName:names,                                
                                         amount: amounts,                              
                                         description: Desc,
                                         status: "ChmCovLonRepayment",
@@ -265,7 +267,7 @@ const RepayCovChmLnsss = props => {
                                       graphqlOperation(updateGroup, {
                                         input:{
                                           grpContact:RecPhn,
-                                          ttlNonLonsRecChm: parseFloat(ttlNonLonsRecChms) + parseFloat(amounts) ,
+                                          
                                           balance:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
                                           TtlBLLonsTmsLnrChmCov: parseFloat(TtlBLLonsTmsLnrChmCovs) - 1,
                                           TtlBLLonsAmtLnrChmCov: parseFloat(TtlBLLonsAmtLnrChmCovs) - parseFloat(amounts),
@@ -358,7 +360,9 @@ const RepayCovChmLnsss = props => {
                                     graphqlOperation(createNonLoans, {
                                       input: {
                                         recPhn: RecPhn,
-                                        senderPhn: SendrPhn,                                  
+                                        senderPhn: SendrPhn, 
+                                        RecName:namess,
+                                        SenderName:names,                                
                                         amount: amounts,                              
                                         description: Desc,
                                         status: "ChmCovLonRepayment",
@@ -421,7 +425,7 @@ const RepayCovChmLnsss = props => {
                                       graphqlOperation(updateGroup, {
                                         input:{
                                           grpContact:RecPhn,
-                                          ttlNonLonsRecChm: parseFloat(ttlNonLonsRecChms) + parseFloat(amounts) ,
+                                          
                                           balance:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
                                           TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs) - parseFloat(amounts),                                        
                                           tymsChmHvBL: parseFloat(tymsChmHvBLs) - 1,

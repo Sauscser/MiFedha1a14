@@ -31,7 +31,7 @@ const styles = StyleSheet.create ({
         fontSize: 13,
         fontWeight: '900',
         color: '#88124e',
-        textDecorationLine: "underline"
+        
     },
 
     repaymentPeriod: {
@@ -46,7 +46,13 @@ const styles = StyleSheet.create ({
         color: '#69093a'
     },
 
-    
+    subTitle: {
+        fontSize: 25,
+        fontWeight: '900',
+        color: '#88124e',
+        marginTop:"5%",
+        textDecorationLine: "underline"
+    },   
 
     loanerotherdescriptions: {
         fontSize: 13,

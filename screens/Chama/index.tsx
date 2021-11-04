@@ -86,6 +86,10 @@ const MyLoanAccount = props => {
     navigation.navigate('ChmLnsRecNonCovs');
   };
 
+  const ChamSignIn3ss = () => {
+    navigation.navigate('ChamSignIn3s');
+  };
+
   return (
     <SafeAreaView>
      
@@ -161,6 +165,74 @@ const MyLoanAccount = props => {
             </View>
 
             <View style={styles.clientsView}>
+              <Text style={styles.salesText}>View Chama Activities</Text>
+
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Contributions</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={ChmCovLonss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Chama</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={ChmNonCovLonss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Member
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Chama Remittance</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={BLChmMmberCovss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Chama</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={BLChmMmberNonCovss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Member
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Membership</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={RepyChmCovLnss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Chama</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={RepyChmNonCovLnss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      Member
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.clientsView}>
               <Text style={styles.salesText}>Members</Text>
 
               <View style={styles.viewForClientsAndTitle}>
@@ -207,7 +279,7 @@ const MyLoanAccount = props => {
                 </View>
 
                 <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Status</Text>
+                  <Text style={styles.salesPressableText}>Loan Status</Text>
 
                   <View style={styles.viewForClientsPressables}>
 
@@ -281,7 +353,7 @@ const MyLoanAccount = props => {
             </Pressable>
 
             <Pressable
-              onPress={givCovLnSM}
+              onPress={ChamSignIn3ss}
               style={styles.myMoneyPressables}>
               <Text style={styles.acPressableText}>View</Text>
             </Pressable>

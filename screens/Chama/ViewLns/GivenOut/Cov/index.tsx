@@ -45,6 +45,7 @@ const FetchSMCovLns = props => {
       style= {{width:"100%"}}
         data={Loanees}
         renderItem={({item}) => <LnerStts Loaner={item} />}
+        keyExtractor={(item, index) => index.toString()}
         onRefresh={fetchLoanees}
         refreshing={loading}
         showsVerticalScrollIndicator={false}

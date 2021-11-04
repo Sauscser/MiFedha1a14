@@ -53,6 +53,7 @@ const FetchSMNonCovLns = props => {
       style= {{width:"100%"}}
         data={Loanees}
         renderItem={({item}) => <LnerStts Loanee={item} />}
+        keyExtractor={(item, index) => index.toString()}
         onRefresh={fetchLoanees}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
