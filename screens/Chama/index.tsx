@@ -57,13 +57,7 @@ const MyLoanAccount = props => {
     navigation.navigate('BLChmMmberNonCovs');
   };
 
-  const givCovLnSM = () => {
-    navigation.navigate('SMGivCovLon');
-  };
-
-  const payNonCovLn = () => {
-    navigation.navigate('RepayNonCovLnss');
-  };
+  
 
   const DissolveChmss = () => {
     navigation.navigate('DissolveChms');
@@ -88,6 +82,30 @@ const MyLoanAccount = props => {
 
   const ChamSignIn3ss = () => {
     navigation.navigate('ChamSignIn3s');
+  };
+
+  const ChamSignIn4ss = () => {
+    navigation.navigate('ChamSignIn4s');
+  };
+
+  const ChmSignIn5ss = () => {
+    navigation.navigate('ChmSignIn5s');
+  };
+
+  const ChmSignIn6ss = () => {
+    navigation.navigate('ChmSignIn6s');
+  };
+
+  const ChamaMmbrRemtss = () => {
+    navigation.navigate('ChamaMmbrRemts');
+  };
+
+  const ChmMmbrContriss = () => {
+    navigation.navigate('ChmMmbrContris');
+  };
+
+  const ChmMmbrMmbrsss = () => {
+    navigation.navigate('ChmMmbrMmbrss');
   };
 
   return (
@@ -173,13 +191,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={ChmCovLonss}
+                      onPress={ChmSignIn5ss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Chama</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={ChmNonCovLonss}
+                      onPress={ChmMmbrContriss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Member
@@ -195,13 +213,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={BLChmMmberCovss}
+                      onPress={ChamSignIn4ss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Chama</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={BLChmMmberNonCovss}
+                      onPress={ChamaMmbrRemtss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Member
@@ -215,13 +233,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={RepyChmCovLnss}
+                      onPress={ChmSignIn6ss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Chama</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={RepyChmNonCovLnss}
+                      onPress={ChmMmbrMmbrsss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                       Member

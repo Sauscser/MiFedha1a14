@@ -1831,6 +1831,7 @@ export const createGrpMembers = /* GraphQL */ `
     createGrpMembers(input: $input, condition: $condition) {
       id
       groupContact
+      groupName
       memberContact
       memberName
       memberNatId
@@ -1852,6 +1853,7 @@ export const updateGrpMembers = /* GraphQL */ `
     updateGrpMembers(input: $input, condition: $condition) {
       id
       groupContact
+      groupName
       memberContact
       memberName
       memberNatId
@@ -1873,6 +1875,7 @@ export const deleteGrpMembers = /* GraphQL */ `
     deleteGrpMembers(input: $input, condition: $condition) {
       id
       groupContact
+      groupName
       memberContact
       memberName
       memberNatId

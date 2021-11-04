@@ -2,9 +2,9 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../components/Chama/Loans/Received/Cov";
+import MmbrChmRemInfo from "../../../../../components/Chama/ChmActivities/ChmRemit/Member";
 import styles from './styles';
-import { listCvrdGroupLoanss } from '../../../../../src/graphql/queries';
+import { listCvrdGroupLoanss, listGroupNonLoanss } from '../../../../../src/graphql/queries';
 
 const FetchSMCovLns = props => {
 
@@ -27,15 +27,15 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoanss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listGroupNonLoanss, 
                 { filter: {
                     and: {
-                      loaneePhn: { eq: LneePhn}
+                      recipientPhn: { eq: LneePhn}
                       
                     }
                   }}
                   ));
-              setLoanees(Lonees.data.listCvrdGroupLoanss.items);
+              setLoanees(Lonees.data.listGroupNonLoanss.items);
             } catch (e) {
               console.log(e);
             } finally {
@@ -52,7 +52,7 @@ const FetchSMCovLns = props => {
       <FlatList
       style= {{width:"100%"}}
         data={Loanees}
-        renderItem={({item}) => <LnerStts Loanee={item} />}
+        renderItem={({item}) => <MmbrChmRemInfo memberContriDtls={item} />}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={fetchLoanees}
         refreshing={loading}
@@ -61,7 +61,7 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Loaners</Text>
+            <Text style={styles.label}> My Group Contributions</Text>
           </>
         )}
       />

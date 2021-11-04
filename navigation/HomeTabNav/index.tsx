@@ -79,6 +79,15 @@ import ChmLnsGvnOutNonCov from "../../screens/Chama/ViewLns/GivenOut/NonCov";
 import ChmLnsRecCov from "../../screens/Chama/ViewLns/Received/Cov";
 import ChmLnsRecNonCov from "../../screens/Chama/ViewLns/Received/NonCov";
 import ChamaGenInfo from "../../screens/Chama/ViewLns/Generalnfo";
+import ChmSignIn5 from "../../screens/Chama/ViewLns/ChamaSignIn5";
+import ChmSignIn6 from "../../screens/Chama/ViewLns/ChamaSignIn6";
+import ChamaRemt from "../../screens/Chama/ViewChamaActivities/ChmRemit/Chama";
+import ChmContri from "../../screens/Chama/ViewChamaActivities/Contributions/Chama";
+import ChmMmbrs from "../../screens/Chama/ViewChamaActivities/Membership/Chama";
+import ChamaMmbrRemt from "../../screens/Chama/ViewChamaActivities/ChmRemit/Member";
+import ChmMmbrContri from "../../screens/Chama/ViewChamaActivities/Contributions/Member";
+import ChmMmbrMmbrs from "../../screens/Chama/ViewChamaActivities/Membership/Member";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -90,6 +99,14 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'ChamaMmbrRemts'} component={ChamaMmbrRemt} />
+      <Stack.Screen name={'ChmMmbrContris'} component={ChmMmbrContri} />
+      <Stack.Screen name={'ChmMmbrMmbrss'} component={ChmMmbrMmbrs} />
+      <Stack.Screen name={'ChamaRemts'} component={ChamaRemt} />
+      <Stack.Screen name={'ChmContris'} component={ChmContri} />
+      <Stack.Screen name={'ChmMmbrss'} component={ChmMmbrs} />
+      <Stack.Screen name={'ChmSignIn5s'} component={ChmSignIn5} />
+      <Stack.Screen name={'ChmSignIn6s'} component={ChmSignIn6} />
       <Stack.Screen name={'ChamaGenInfos'} component={ChamaGenInfo} />
       <Stack.Screen name={'ChamSignIn2s'} component={ChamSignIn2} />
       <Stack.Screen name={'ChamSignIn3s'} component={ChamSignIn3} />

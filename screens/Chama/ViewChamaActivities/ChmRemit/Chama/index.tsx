@@ -2,11 +2,12 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import ChamInfo from "../../../../components/Chama/GeneralInfo";
+import ChamReminfo from "../../../../../components/Chama/ChmActivities/ChmRemit/Chama";
 import styles from './styles';
 
 import { useRoute } from '@react-navigation/native';
 import { listGroups } from '../../../../src/graphql/queries';
+import { listGroupNonLoanss } from '../../../../../src/graphql/queries';
 
 const FetchSMCovLns = props => {
 
@@ -20,7 +21,7 @@ const FetchSMCovLns = props => {
         const fetchChm = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listGroups, 
+              const Lonees:any = await API.graphql(graphqlOperation(listGroupNonLoanss, 
                 { filter: {
                     and: {
                       grpContact: { eq: route.params.grpContact}
@@ -28,7 +29,7 @@ const FetchSMCovLns = props => {
                     }
                   }}
                   ));
-              setChm(Lonees.data.listGroups.items);
+              setChm(Lonees.data.listGroupNonLoanss.items);
             } catch (e) {
               console.log(e);
             } finally {
@@ -45,7 +46,7 @@ const FetchSMCovLns = props => {
       <FlatList
       style= {{width:"100%"}}
         data={Chm}
-        renderItem={({item}) => <ChamInfo ChmDtls={item} />}
+        renderItem={({item}) => <ChamReminfo ChamaRemitDtls={item} />}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={fetchChm}
         refreshing={loading}
@@ -54,7 +55,7 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Chama Info</Text>
+            <Text style={styles.label}> Chama Remit Info</Text>
           </>
         )}
       />

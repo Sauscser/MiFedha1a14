@@ -1657,6 +1657,7 @@ export const onCreateGrpMembers = /* GraphQL */ `
     onCreateGrpMembers {
       id
       groupContact
+      groupName
       memberContact
       memberName
       memberNatId
@@ -1675,6 +1676,7 @@ export const onUpdateGrpMembers = /* GraphQL */ `
     onUpdateGrpMembers {
       id
       groupContact
+      groupName
       memberContact
       memberName
       memberNatId
@@ -1693,6 +1695,7 @@ export const onDeleteGrpMembers = /* GraphQL */ `
     onDeleteGrpMembers {
       id
       groupContact
+      groupName
       memberContact
       memberName
       memberNatId

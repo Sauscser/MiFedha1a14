@@ -2,9 +2,9 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../components/Chama/Loans/Received/Cov";
+import LnerStts from "../../../../../components/Chama/ChmActivities/Contributions/Member";
 import styles from './styles';
-import { listCvrdGroupLoanss } from '../../../../../src/graphql/queries';
+import { listCvrdGroupLoanss, listGrpMembersContributions } from '../../../../../src/graphql/queries';
 
 const FetchSMCovLns = props => {
 
@@ -27,15 +27,15 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoanss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listGrpMembersContributions, 
                 { filter: {
                     and: {
-                      loaneePhn: { eq: LneePhn}
+                      memberContact: { eq: LneePhn}
                       
                     }
                   }}
                   ));
-              setLoanees(Lonees.data.listCvrdGroupLoanss.items);
+              setLoanees(Lonees.data.listGrpMembersContributions.items);
             } catch (e) {
               console.log(e);
             } finally {
@@ -52,7 +52,7 @@ const FetchSMCovLns = props => {
       <FlatList
       style= {{width:"100%"}}
         data={Loanees}
-        renderItem={({item}) => <LnerStts Loanee={item} />}
+        renderItem={({item}) => <LnerStts MmbrContriDtls={item} />}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={fetchLoanees}
         refreshing={loading}
@@ -61,7 +61,7 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Loaners</Text>
+            <Text style={styles.label}> My Chama Contributions</Text>
           </>
         )}
       />

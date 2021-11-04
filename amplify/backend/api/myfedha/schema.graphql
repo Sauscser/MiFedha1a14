@@ -1220,6 +1220,7 @@ type GrpMembers
   {
   id: ID!
   groupContact: String!
+  groupName: String!
   memberContact: String!
   memberName:String!
   memberNatId: String!

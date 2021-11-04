@@ -1324,6 +1324,7 @@ export const getGrpMembers = /* GraphQL */ `
     getGrpMembers(id: $id) {
       id
       groupContact
+      groupName
       memberContact
       memberName
       memberNatId
@@ -1347,6 +1348,7 @@ export const listGrpMemberss = /* GraphQL */ `
       items {
         id
         groupContact
+        groupName
         memberContact
         memberName
         memberNatId

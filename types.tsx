@@ -91,7 +91,7 @@ declare global {
       VwNonLnsRecs:undefined;
       VwNonLnsSnts:undefined;
       ChmSignInss:undefined;
-      ChamSignIn4s:undefined;
+      
       ChamSignIn3s:undefined;
       ChamSignIn2s:undefined;
       ChmLnsGvnOuts:{grpContact:string};
@@ -99,6 +99,16 @@ declare global {
       ChmLnsRecCovs:undefined;
       ChmLnsRecNonCovs:undefined;
       ChamaGenInfos:{grpContact:string};
+      ChamSignIn4s:undefined;
+      ChmSignIn5s:undefined;
+      ChmSignIn6s:undefined;
+      ChamaRemts:{grpContact:string};
+      ChmContris:{grpContact:string};
+      ChmMmbrss:{grpContact:string};
+      ChamaMmbrRemts:undefined;
+      ChmMmbrContris:undefined;
+      ChmMmbrMmbrss:undefined;
+      
     }
   }
 }
