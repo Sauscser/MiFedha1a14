@@ -18,6 +18,7 @@ export interface ChmCvLnSttusSent {
         status: string,
         description: string,
         loaneePhn:string,
+        memberId:string,
         createdAt:string,
         updatedAt:string,
         grpContact:string,
@@ -37,6 +38,7 @@ const ChmCvLnSttsSent = (props:ChmCvLnSttusSent) => {
     advRegNu,
     status,
     loaneeName,
+    memberId,
     description,
     loaneePhn,
     grpContact,
@@ -66,6 +68,11 @@ const ChmCvLnSttsSent = (props:ChmCvLnSttusSent) => {
                      <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
                        Loan Id: {id}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Member Chama ID: {memberId}                 
                     </Text>
                     
                     <Text style = {styles.ownerContact}>                       

@@ -96,7 +96,8 @@ const AddChmMmbrs = (props:UserReg) => {
                       graphqlOperation(getGroup,{grpContact:ChmPhn})
                       );
                       const ttlGrpMemberss = compDtls.data.getGroup.ttlGrpMembers;  
-                      const grpNames = compDtls.data.getGroup.grpName;              
+                      const grpNames = compDtls.data.getGroup.grpName; 
+                      const owners = compDtls.data.getGroup.owner;              
                     
                       const CrtChm = async () => {
                         if(isLoading){
@@ -111,6 +112,7 @@ const AddChmMmbrs = (props:UserReg) => {
                             memberContact: phoneContacts,
                             memberNatId: nationalidsss,
                             acBal: 0,
+                            ttlAcBal:0,
                             groupName:grpNames,
                             memberName:namess,
                             AcStatus: "AccountActive",
@@ -143,6 +145,11 @@ const AddChmMmbrs = (props:UserReg) => {
 
                       else  if (phoneContacts.length < 13)
                           {Alert.alert("Please enter phone number as hinted");
+                        return;
+                      } 
+
+                      else  if (ownr === owners)
+                          {Alert.alert("You are not the author of this Chama");
                         return;
                       } 
                       

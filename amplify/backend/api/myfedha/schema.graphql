@@ -457,7 +457,10 @@ type FloatAdd
  
   amount: Float!
   agentPhonecontact: String!
-
+  agentName:String!
+  userName:String!
+  saName:String!
+  saPhone:String!
   sagentId: String!
   status: Status!
   owner: String!
@@ -502,6 +505,8 @@ type FloatReduction
   amount: Float!
   depositerid: String!
   agContact: String!
+  agentName:String!
+  userName:String!
   status: Status!
 }
 
@@ -1225,6 +1230,7 @@ type GrpMembers
   memberName:String!
   memberNatId: String!
   acBal: Float!
+  ttlAcBal: Float!
   AcStatus: Status!
   loanStatus: Status!
   blStatus: Status!
@@ -1275,6 +1281,7 @@ type CvrdGroupLoans
   amountRepaid: Float!
   description: String
   lonBala:Float!
+  memberId:String!
   advRegNu: String!
   loaneeName:String!
   LoanerName:String!
@@ -1327,6 +1334,7 @@ type NonCvrdGroupLoans
   description: String
   loaneeName:String!
   loanerName:String!
+  memberId:String!
   lonBala:Float!
   status: Status!
   owner: String!
@@ -1373,9 +1381,8 @@ type GroupNonLoans
   receiverName:String!
   SenderName:String!
   amountSent: Float!
-
+  memberId:String!
   description: String
-
   status: Status!
   owner: String!
 }
@@ -1420,6 +1427,7 @@ type GrpMembersContribution
   GrpName:String!
   grpContact: String!
   contriAmount: Float!
+  memberId:String!
   status: Status!
   owner: String!
 }

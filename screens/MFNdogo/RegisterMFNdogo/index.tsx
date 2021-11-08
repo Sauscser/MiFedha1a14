@@ -20,7 +20,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import styles from './styles';
-import { getCompany, getSAgent } from '../../../src/graphql/queries';
+import { getCompany, getSAgent, getSMAccount } from '../../../src/graphql/queries';
 
   const RegisterKFNdgAcForm = props => {
   const [nationalId, setNationalid] = useState('');
@@ -67,6 +67,18 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
           );
           const actvNdg = compDtls.data.getCompany.ttlKFNdgActv
           const maxMFNdogoss = compDtls.data.getCompany.maxMFNdogos
+
+          const ChckUsrExistence = async () => {
+            try {
+              const UsrDtls:any = await API.graphql(
+                graphqlOperation(getSMAccount,
+                  { filter: {
+                      
+                        nationalid: { eq: phoneContact}
+                                  
+                    }}
+                )
+              )
 
           const createNewMFN = async () => {
             if(isLoading){
@@ -121,6 +133,8 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
         Alert.alert("Please use the hinted format of the Phone number");
         return;
       } 
+
+      else if(UsrDtls.data.getSMAccount.items.length > 0){Alert.alert("This number belongs to another user")}
       else if((actvMFNdogs+1)>maxMFNdogoss){
         Alert.alert("Exceeded MFNdogo slots; Open another MFKubwa account");
         return;
@@ -170,7 +184,16 @@ import { getCompany, getSAgent } from '../../../src/graphql/queries';
             }}
             Alert.alert(" MFKubwa " +names+ " has registered MFNdogo "  +nam );
             setIsLoading(false)
-          }              
+          }   
+          
+        }
+  
+        catch(e){
+        
+        }
+        setIsLoading(false);
+        };
+        await ChckUsrExistence(); 
 
       }
   

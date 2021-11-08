@@ -62,6 +62,7 @@ const FetchSMNonLnsRec = props => {
           <>
             
             <Text style={styles.label}>Received Non Loans</Text>
+            <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}
       />

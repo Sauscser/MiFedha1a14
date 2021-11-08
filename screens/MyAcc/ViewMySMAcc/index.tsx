@@ -62,6 +62,7 @@ const FetchSMNonCovLns = props => {
           <>
             
             <Text style={styles.label}> My Account</Text>
+            <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}
       />

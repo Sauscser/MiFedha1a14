@@ -52,7 +52,7 @@ declare global {
       AddChmMembrsss:undefined;
       ChmCovLons:undefined;
       ChmNonCovLons:undefined;
-      ChmContrs:undefined;
+      ChmContrs:{ContriToMmbrId:string};
       SndMbrsMnys:undefined;
       BLChmMmberCovs:undefined;
       BLChmMmberNonCovs:undefined;
@@ -108,6 +108,12 @@ declare global {
       ChamaMmbrRemts:undefined;
       ChmMmbrContris:undefined;
       ChmMmbrMmbrss:undefined;
+      CredSlsLneess:undefined;
+      CredSlsLnerss:undefined;
+      CredByrLneess:undefined;
+      CredByrLnerss:undefined;
+      SMDpsitss:undefined;
+      SMWthdrwlss:undefined;
       
     }
   }

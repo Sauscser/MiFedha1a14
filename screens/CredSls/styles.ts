@@ -215,25 +215,96 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
+  viewForAcEarningsPressables2: {
+    backgroundColor: 'brown',
+    marginHorizontal: 15,
+    width: Dimensions.get('screen').width - 30,
+    height: "60%",
+    borderRadius: 20,
+    marginTop: "0.5%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+
   earningsAcPressables: {
     backgroundColor: 'purple',
     
     height: "90%",
-    borderRadius: 20,
+    borderRadius: 5,
 
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     width:"40%",
-    marginHorizontal: "10%"
+    marginLeft:"3%",
+    marginRight:"3%"
+  
     
     
   },
+
+  viewForAcEarningsPressables2Text: {
+    backgroundColor: 'brown',
+    marginHorizontal: 15,
+    width: Dimensions.get('screen').width - 30,
+    height: "60%",
+    borderRadius: 20,
+    marginTop: "0.5%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+
+  earningsAcPressables2: {
+    backgroundColor: 'blue',
+    
+    height: "60%",
+    borderRadius: 5,
+
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width:"45%",
+    marginLeft:"3%",
+    marginRight:"3%"
+    
+    
+    
+  },
+
+
 
   earningsAcPressableText: {
     color: 'white',
     fontSize: 11,
     marginTop: 1,
+  },
+
+  viewForClientsCategoriesLnSt: {
+    backgroundColor: 'brown',
+    marginTop:"1%",
+    marginBottom:"4%",
+    height: "100%",
+    borderRadius: 4,
+    marginLeft:"10%",
+    marginRight:"10%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    width: "33%"
+  },
+
+  viewForClientsAndTitleLnSt: {
+    backgroundColor: 'brown',
+    width:"90%",
+    height: "50%",
+    borderRadius: 4,
+   
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    
   },
 });
 export default styles;

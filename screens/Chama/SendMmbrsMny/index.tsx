@@ -27,7 +27,7 @@ import {
   
 } from '../../.././src/graphql/queries';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {
   View,
@@ -55,6 +55,7 @@ const SMASendNonLns = props => {
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
+  const route = useRoute();
   
   
 
@@ -75,12 +76,13 @@ const SMASendNonLns = props => {
       setIsLoading(true);
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getGrpMembers, {id: MmbrId}),
+              graphqlOperation(getGrpMembers, {id: route.params.ContriToMmbrId}),
               );
 
               const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
               const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
               const acBals =ChmMbrtDtl.data.getGrpMembers.acBal;
+              const ttlAcBals =ChmMbrtDtl.data.getGrpMembers.ttlAcBal;
 
 
   const fetchSenderUsrDtls = async () => {
@@ -154,7 +156,7 @@ const SMASendNonLns = props => {
                               amountSent: amounts,
 
                               description: Desc,
-
+                              memberId:route.params.ContriToMmbrId,
                               status: "AccountActive",
                               owner: ownr,
                             },
@@ -302,9 +304,10 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateGrpMembers, {
                               input:{
-                                id: MmbrId,                                                      
+                                id: route.params.ContriToMmbrId,                                                      
                                
-                                acBal:parseFloat(acBals) - parseFloat(amounts)                                                                                   
+                                acBal:parseFloat(acBals) - parseFloat(amounts),
+                                ttlAcBal:parseFloat(ttlAcBals) - parseFloat(amounts)                                                                                    
                                 
                               }
                             })
@@ -323,6 +326,7 @@ const SMASendNonLns = props => {
                     
                     if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
+                    else if(parseFloat(ttlAcBals)  <0){Alert.alert('Member input is not as much');}
                     
                     else if (
                       parseFloat(grpBals) < TotalTransacted 

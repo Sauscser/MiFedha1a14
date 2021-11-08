@@ -588,6 +588,10 @@ export const onCreateFloatAdd = /* GraphQL */ `
       withdrawerid
       amount
       agentPhonecontact
+      agentName
+      userName
+      saName
+      saPhone
       sagentId
       status
       owner
@@ -603,6 +607,10 @@ export const onUpdateFloatAdd = /* GraphQL */ `
       withdrawerid
       amount
       agentPhonecontact
+      agentName
+      userName
+      saName
+      saPhone
       sagentId
       status
       owner
@@ -618,6 +626,10 @@ export const onDeleteFloatAdd = /* GraphQL */ `
       withdrawerid
       amount
       agentPhonecontact
+      agentName
+      userName
+      saName
+      saPhone
       sagentId
       status
       owner
@@ -633,6 +645,8 @@ export const onCreateFloatReduction = /* GraphQL */ `
       amount
       depositerid
       agContact
+      agentName
+      userName
       status
       createdAt
       updatedAt
@@ -647,6 +661,8 @@ export const onUpdateFloatReduction = /* GraphQL */ `
       amount
       depositerid
       agContact
+      agentName
+      userName
       status
       createdAt
       updatedAt
@@ -661,6 +677,8 @@ export const onDeleteFloatReduction = /* GraphQL */ `
       amount
       depositerid
       agContact
+      agentName
+      userName
       status
       createdAt
       updatedAt
@@ -1662,6 +1680,7 @@ export const onCreateGrpMembers = /* GraphQL */ `
       memberName
       memberNatId
       acBal
+      ttlAcBal
       AcStatus
       loanStatus
       blStatus
@@ -1681,6 +1700,7 @@ export const onUpdateGrpMembers = /* GraphQL */ `
       memberName
       memberNatId
       acBal
+      ttlAcBal
       AcStatus
       loanStatus
       blStatus
@@ -1700,6 +1720,7 @@ export const onDeleteGrpMembers = /* GraphQL */ `
       memberName
       memberNatId
       acBal
+      ttlAcBal
       AcStatus
       loanStatus
       blStatus
@@ -1721,6 +1742,7 @@ export const onCreateCvrdGroupLoans = /* GraphQL */ `
       amountRepaid
       description
       lonBala
+      memberId
       advRegNu
       loaneeName
       LoanerName
@@ -1743,6 +1765,7 @@ export const onUpdateCvrdGroupLoans = /* GraphQL */ `
       amountRepaid
       description
       lonBala
+      memberId
       advRegNu
       loaneeName
       LoanerName
@@ -1765,6 +1788,7 @@ export const onDeleteCvrdGroupLoans = /* GraphQL */ `
       amountRepaid
       description
       lonBala
+      memberId
       advRegNu
       loaneeName
       LoanerName
@@ -1788,6 +1812,7 @@ export const onCreateNonCvrdGroupLoans = /* GraphQL */ `
       description
       loaneeName
       loanerName
+      memberId
       lonBala
       status
       owner
@@ -1809,6 +1834,7 @@ export const onUpdateNonCvrdGroupLoans = /* GraphQL */ `
       description
       loaneeName
       loanerName
+      memberId
       lonBala
       status
       owner
@@ -1830,6 +1856,7 @@ export const onDeleteNonCvrdGroupLoans = /* GraphQL */ `
       description
       loaneeName
       loanerName
+      memberId
       lonBala
       status
       owner
@@ -1847,6 +1874,7 @@ export const onCreateGroupNonLoans = /* GraphQL */ `
       receiverName
       SenderName
       amountSent
+      memberId
       description
       status
       owner
@@ -1864,6 +1892,7 @@ export const onUpdateGroupNonLoans = /* GraphQL */ `
       receiverName
       SenderName
       amountSent
+      memberId
       description
       status
       owner
@@ -1881,6 +1910,7 @@ export const onDeleteGroupNonLoans = /* GraphQL */ `
       receiverName
       SenderName
       amountSent
+      memberId
       description
       status
       owner
@@ -1898,6 +1928,7 @@ export const onCreateGrpMembersContribution = /* GraphQL */ `
       GrpName
       grpContact
       contriAmount
+      memberId
       status
       owner
       createdAt
@@ -1914,6 +1945,7 @@ export const onUpdateGrpMembersContribution = /* GraphQL */ `
       GrpName
       grpContact
       contriAmount
+      memberId
       status
       owner
       createdAt
@@ -1930,6 +1962,7 @@ export const onDeleteGrpMembersContribution = /* GraphQL */ `
       GrpName
       grpContact
       contriAmount
+      memberId
       status
       owner
       createdAt

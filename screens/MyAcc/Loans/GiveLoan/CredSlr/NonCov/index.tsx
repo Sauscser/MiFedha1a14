@@ -492,7 +492,7 @@ useEffect(() =>{
              onChangeText={setRecPhn}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Receiver Phone</Text>
+           <Text style={styles.sendAmtText}>Buyer Phone</Text>
          </View>
 
          <View style={styles.sendAmtView}>
@@ -501,7 +501,7 @@ useEffect(() =>{
              onChangeText={setSnderPW}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Sender PassWord</Text>
+           <Text style={styles.sendAmtText}>Seller PassWord</Text>
          </View>
 
          <View style={styles.sendAmtView}>

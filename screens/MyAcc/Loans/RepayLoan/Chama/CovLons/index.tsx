@@ -14,6 +14,7 @@ import {
   updateSMLoansCovered,
   updateCvrdGroupLoans,
   updateGroup,
+  updateGrpMembers,
   
 } from '../../../../../../src/graphql/mutations';
 
@@ -23,6 +24,7 @@ import {
   getCompany,
   getCvrdGroupLoans,
   getGroup,
+  getGrpMembers,
   getSMAccount,
   getSMLoansCovered,
   
@@ -155,11 +157,52 @@ const RepayCovChmLnsss = props => {
                               );
                               
                               const amountexpecteds =RecAccountDtl.data.getCvrdGroupLoans.amountExpectedBack; 
+                              const memberIds =RecAccountDtl.data.getCvrdGroupLoans.memberId;
                                
                               const amountrepaids =RecAccountDtl.data.getCvrdGroupLoans.amountRepaid; 
                               const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids); 
                               const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
-                               
+                              
+                              const fetchMmbrDtls = async () => {
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try {
+                                    const RecAccountDtl:any = await API.graphql(
+                                        graphqlOperation(getGrpMembers, {id: memberIds}),
+                                        );
+                                        
+                                        
+                                        const ttlAcBals =RecAccountDtl.data.getCvrdGroupLoans.ttlAcBal;
+                                         
+                                        
+                                        const updtChmMbrTTlBlOvr  = async () =>{
+                                          if(isLoading){
+                                            return;
+                                          }
+                                          setIsLoading(true);
+                                          try{
+                                              await API.graphql(
+                                                graphqlOperation(updateGrpMembers, {
+                                                  input:{
+                                                    id:memberIds,
+                                                    ttlAcBal: parseFloat(amounts) + parseFloat(amountrepaids),
+                                                    loanStatus: "LoanCleared",
+                                                    blStatus: "AccountNotBL",
+                                                }})
+                                              )
+                    
+                    
+                                          }
+                                          catch(error){
+                                            if (error){Alert.alert("Check your internet connection")
+                                            return;}
+                                          }
+                                          setIsLoading(false);
+                                          await updtSMCvLnLnOver();
+                                        }
+
                               const updtSMCvLnLnOver  = async () =>{
                                 if(isLoading){
                                   return;
@@ -321,7 +364,32 @@ const RepayCovChmLnsss = props => {
                                 }
                                 Alert.alert(names + " has repayed " + namess +" Ksh. "+ amounts);
                                 setIsLoading(false);
-                              }                                                                                                            
+                              }    
+                              
+                              const updtChmMbrTTlBl  = async () =>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateGrpMembers, {
+                                        input:{
+                                          id:memberIds,
+                                          ttlAcBal: parseFloat(amounts) + parseFloat(amountrepaids),
+                                          
+                                      }})
+                                    )
+          
+          
+                                }
+                                catch(error){
+                                  if (error){Alert.alert("Check your internet connection")
+                                  return;}
+                                }
+                                setIsLoading(false);
+                                await repyCovLn();
+                              }
                         
 
                               const repyCovLn = async () =>{
@@ -502,12 +570,21 @@ const RepayCovChmLnsss = props => {
                           else if(parseFloat(amounts) > LonBal){Alert.alert("Your Loan Balance is lesser: "+LonBal)}
                           
 
-                          else if(parseFloat(amounts) === LonBal){updtSMCvLnLnOver();}                         
+                          else if(parseFloat(amounts) === LonBal){updtChmMbrTTlBlOvr();}                         
                           
                               
                                else {
-                                repyCovLn();
+                                updtChmMbrTTlBl();
                               }
+
+                            }
+                            catch (e) {
+                              if (e){Alert.alert("There is no such a member")
+                              return;}
+                          };
+                        }
+                      
+                        await fetchMmbrDtls();
                           }
                           catch (e) {
                             if (e){Alert.alert("There is no such a loan")

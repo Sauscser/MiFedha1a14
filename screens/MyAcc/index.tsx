@@ -14,16 +14,16 @@ import styles from './styles';
 const MyAccount = props => {
   const navigation = useNavigation();
 
-  const goToMySMAc = () => {
-    navigation.navigate('ViewMySMAcBal');
+  const SMDpsitsss = () => {
+    navigation.navigate('SMDpsitss');
   };
 
   const goToCreateSMAc = () => {
     navigation.navigate('CreateSMAc');
   };
 
-  const goToSMADpstFm = () => {
-    navigation.navigate('DpstMney');
+  const SMWthdrwlsss = () => {
+    navigation.navigate('SMWthdrwlss');
   };
 
   const goWithdrwMny = () => {
@@ -34,9 +34,6 @@ const MyAccount = props => {
     navigation.navigate('SendNonLnss');
   };
 
-  const BListSMLneeCovss = () => {
-    navigation.navigate('BListSMLneeCovs');
-  };
   const UpdateSMPWss = () => {
     navigation.navigate('UpdateSMPWs');
   };
@@ -65,7 +62,7 @@ const MyAccount = props => {
             
             <View style={styles.acPressables}>
             <View>
-            <Text style={styles.acPressableText}>NonLons</Text>
+            <Text style={styles.acPressableText}>View NonLons</Text>
             </View>
             <View style = {{flexDirection:"row"}}>
             <Pressable onPress={VwNonLnsSntss} style={styles.acNonLnsPressables}>
@@ -78,9 +75,19 @@ const MyAccount = props => {
             </View>
             
 
-            <Pressable onPress={goWithdrwMny} style={styles.acPressables}>
-              <Text style={styles.acPressableText}>Withdraw</Text>
+            <View style={styles.acPressables}>
+            <View>
+            <Text style={styles.acPressableText}>Withdrawals</Text>
+            </View>
+            <View style = {{flexDirection:"row"}}>
+            <Pressable onPress={goWithdrwMny} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>Make</Text>
             </Pressable>
+            <Pressable onPress={SMDpsitsss} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>View</Text>
+            </Pressable>
+            </View>
+            </View>
 
             <Pressable
               onPress={goToSMASndnonln}
@@ -102,9 +109,19 @@ const MyAccount = props => {
               <Text style={styles.acPressableText}>Update</Text>
             </Pressable>
 
-            <Pressable onPress={ViewSmAcss} style={styles.acPressables}>
-              <Text style={styles.acPressableText}>View</Text>
+            <View style={styles.acPressables}>
+            <View>
+            <Text style={styles.acPressableText}>View</Text>
+            </View>
+            <View style = {{flexDirection:"row"}}>
+            <Pressable onPress={ViewSmAcss} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>A/c</Text>
             </Pressable>
+            <Pressable onPress={SMWthdrwlsss} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>Dposit</Text>
+            </Pressable>
+            </View>
+            </View>
           </View>
         </View>
       </View>

@@ -61,7 +61,7 @@ const SMADepositForm = props => {
       const TtlWthdrwnSMs = accountDtl.data.getSMAccount.TtlWthdrwnSM;
       const usrStts = accountDtl.data.getSMAccount.acStatus; 
       const withdrawalLimits = accountDtl.data.getSMAccount.withdrawalLimit;  
-      const pws = accountDtl.data.getSmAccount.pw;
+      const pws = accountDtl.data.getSMAccount.pw;
       const owners = accountDtl.data.getSMAccount.owner;
       const names = accountDtl.data.getSMAccount.name;
          
@@ -121,8 +121,9 @@ const SMADepositForm = props => {
                       const compDtls :any= await API.graphql(
                       graphqlOperation(getSAgent,{saPhoneContact:sagentregnos})
                         );
-                          const TtlEarningss = compDtls.data.getCompany.TtlEarnings;
-                          const saBalances = compDtls.data.getCompany.saBalance;
+                          const TtlEarningss = compDtls.data.getSAgent.TtlEarnings;
+                          const saBalances = compDtls.data.getSAgent.saBalance;
+                          const namessssssss = compDtls.data.getSAgent.name;
                           
                           const CrtFltAdd = async () => {
                             try {
@@ -135,12 +136,17 @@ const SMADepositForm = props => {
                                     sagentId: sagentregnos,
                                     owner: ownr,
                                     amount: amount,
+                                    agentName:namess,
+                                    userName:names,
+                                    saName:namessssssss,
+                                    saPhone:sagentregnos,
                                     status: 'AccountActive',
                                   },
                                 }),
                               );
             
                     } catch (error) {
+                      console.log(error)
                       if(!error){
                         Alert.alert("Account deactivated successfully")
                         
@@ -171,6 +177,7 @@ const SMADepositForm = props => {
                       }
         
                       catch (error) {
+                        console.log(error)
                         if (error){Alert.alert("Check internet Connection")
                         return;}
                       }
@@ -198,6 +205,7 @@ const SMADepositForm = props => {
                         }
         
                         catch (error) {
+                          console.log(error)
                           if (error){Alert.alert("Check internet Connection")
                           return;}
                         }
@@ -228,6 +236,7 @@ const SMADepositForm = props => {
                             }
             
                             catch (error) {
+                              console.log(error)
                               if (error){Alert.alert("Check internet Connection")
                               return;}
                             }
@@ -261,6 +270,7 @@ const SMADepositForm = props => {
                               }
               
                               catch (error) {
+                                console.log(error)
                                 if (error){Alert.alert("Check internet Connection")
                                 return;}
                               }
@@ -302,6 +312,7 @@ const SMADepositForm = props => {
         
         
                     } catch (error) {
+                      console.log(error)
                   if (error){Alert.alert("Check your internet connection")
                           return;}
                     }
@@ -311,6 +322,7 @@ const SMADepositForm = props => {
                     await gtsaDtls();         
             
             } catch (error) {
+              console.log(error)
           if (error){Alert.alert("Check your internet connection")
                   return;}
             }
@@ -321,6 +333,7 @@ const SMADepositForm = props => {
       
     }     
     catch (e) {
+      console.log(e)
       if (e){Alert.alert("Check your internet connection")
       return;}
          
@@ -332,6 +345,7 @@ const SMADepositForm = props => {
     }
 
     catch (e) {
+      console.log(e)
       if (e){Alert.alert("Check your internet connection")
       return;}
           

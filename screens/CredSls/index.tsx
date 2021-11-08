@@ -38,16 +38,19 @@ const CredSalesAccount = props => {
     navigation.navigate('BListCredByrCovs');
   };
 
-  const payNonCovLn = () => {
-    navigation.navigate('RepayNonCovLnss');
+  const CredSlsLneesss = () => {
+    navigation.navigate('CredSlsLneess');
   };
 
-  const payCovLn = () => {
-    navigation.navigate('RepayCovLnss');
+  const CredSlsLnersss = () => {
+    navigation.navigate('CredSlsLnerss');
   };
 
-  const SMASndnonCovLn = () => {
-    navigation.navigate('SMNonGivLon');
+  const CredByrLneesss = () => {
+    navigation.navigate('CredByrLneess');
+  };
+  const CredByrLnersss = () => {
+    navigation.navigate('CredByrLnerss');
   };
 
   
@@ -60,7 +63,53 @@ const CredSalesAccount = props => {
 
 
           
+          <View style={styles.clientsView}>
+              <Text style={styles.salesText}>CredSales Loan Status</Text>
 
+              <View style={styles.viewForClientsAndTitleLnSt}>
+              <View style={styles.viewForClientsCategoriesLnSt}>
+                  <Text style={styles.salesPressableText}>CoveredLoan</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={CredSlsLneesss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>My Loanees</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={CredSlsLnersss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        My Loaners
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategoriesLnSt}>
+                  <Text style={styles.salesPressableText}>Non-Covered</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={CredByrLneesss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>My Loanees</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={CredByrLnersss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        My Loaners
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+       </View>
+       </View>
           <View style={styles.acEarningsView}>
               <Text style={styles.salesText}>Make Credit Sales</Text>
 
@@ -120,25 +169,10 @@ const CredSalesAccount = props => {
             </View>
           </View>
 
-          <View style={styles.acEarningsView}>
-            <Text style={styles.salesText}>Get Credit Sales Loan Status</Text>
+          
 
-            <View style={styles.viewForAcEarningsPressables}>
-              <Pressable
-                onPress={payNonCovLn}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Specific CredSl Status</Text>
-              </Pressable>
-
-              <Pressable
-                onPress={payNonCovLn}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>General CredSl Status</Text>
-              </Pressable>
-            </View>
-          </View>
-       
-    </View> 
+    
+    </View>
     </SafeAreaView>
   );
 };

@@ -457,6 +457,10 @@ export const getFloatAdd = /* GraphQL */ `
       withdrawerid
       amount
       agentPhonecontact
+      agentName
+      userName
+      saName
+      saPhone
       sagentId
       status
       owner
@@ -477,6 +481,10 @@ export const listFloatAdds = /* GraphQL */ `
         withdrawerid
         amount
         agentPhonecontact
+        agentName
+        userName
+        saName
+        saPhone
         sagentId
         status
         owner
@@ -494,6 +502,8 @@ export const getFloatReduction = /* GraphQL */ `
       amount
       depositerid
       agContact
+      agentName
+      userName
       status
       createdAt
       updatedAt
@@ -513,6 +523,8 @@ export const listFloatReductions = /* GraphQL */ `
         amount
         depositerid
         agContact
+        agentName
+        userName
         status
         createdAt
         updatedAt
@@ -1329,6 +1341,7 @@ export const getGrpMembers = /* GraphQL */ `
       memberName
       memberNatId
       acBal
+      ttlAcBal
       AcStatus
       loanStatus
       blStatus
@@ -1353,6 +1366,7 @@ export const listGrpMemberss = /* GraphQL */ `
         memberName
         memberNatId
         acBal
+        ttlAcBal
         AcStatus
         loanStatus
         blStatus
@@ -1376,6 +1390,7 @@ export const getCvrdGroupLoans = /* GraphQL */ `
       amountRepaid
       description
       lonBala
+      memberId
       advRegNu
       loaneeName
       LoanerName
@@ -1403,6 +1418,7 @@ export const listCvrdGroupLoanss = /* GraphQL */ `
         amountRepaid
         description
         lonBala
+        memberId
         advRegNu
         loaneeName
         LoanerName
@@ -1428,6 +1444,7 @@ export const getNonCvrdGroupLoans = /* GraphQL */ `
       description
       loaneeName
       loanerName
+      memberId
       lonBala
       status
       owner
@@ -1458,6 +1475,7 @@ export const listNonCvrdGroupLoanss = /* GraphQL */ `
         description
         loaneeName
         loanerName
+        memberId
         lonBala
         status
         owner
@@ -1477,6 +1495,7 @@ export const getGroupNonLoans = /* GraphQL */ `
       receiverName
       SenderName
       amountSent
+      memberId
       description
       status
       owner
@@ -1499,6 +1518,7 @@ export const listGroupNonLoanss = /* GraphQL */ `
         receiverName
         SenderName
         amountSent
+        memberId
         description
         status
         owner
@@ -1518,6 +1538,7 @@ export const getGrpMembersContribution = /* GraphQL */ `
       GrpName
       grpContact
       contriAmount
+      memberId
       status
       owner
       createdAt
@@ -1543,6 +1564,7 @@ export const listGrpMembersContributions = /* GraphQL */ `
         GrpName
         grpContact
         contriAmount
+        memberId
         status
         owner
         createdAt

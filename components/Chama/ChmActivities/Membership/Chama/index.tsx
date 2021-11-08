@@ -11,7 +11,7 @@ export interface ChamaMmbrshpInfo {
       groupContact: string,
       memberContact: string,
       memberName:string,
-      
+      memberId:string,
       acBal: number,
     
       AcStatus: string,
@@ -26,6 +26,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
       ChamaMmbrshpDtls: {
          id,
          groupContact,
+         memberId,
          memberContact,
          memberName,
          loanStatus,
@@ -54,7 +55,8 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
                      Member Name: {memberName}                
-                    </Text>                     
+                    </Text>   
+                                      
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
                        Account Balance (Ksh): {acBal.toFixed(2)}

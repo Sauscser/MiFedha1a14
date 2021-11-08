@@ -82,6 +82,7 @@ const SMASendChmNonLns = props => {
               const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
               const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
               const acBals =ChmMbrtDtl.data.getGrpMembers.acBal;
+              const ttlAcBals =ChmMbrtDtl.data.getGrpMembers.ttlAcBal;
 
               const fetchSenderUsrDtls = async () => {
                 if(isLoading){
@@ -154,6 +155,7 @@ const SMASendChmNonLns = props => {
                                           GrpName:grpNames,
                                           grpContact: groupContacts,
                                           contriAmount: amounts,
+                                          memberId:MmbrId,
                                           status: "AccountActive",
                                           owner: ownr
                                         },
@@ -311,7 +313,8 @@ const SMASendChmNonLns = props => {
                                           input:{
                                             id: MmbrId,                                                      
                                            
-                                            acBal:parseFloat(acBals) + parseFloat(amounts)                                                                                   
+                                            acBal:parseFloat(acBals) + parseFloat(amounts)  ,
+                                            ttlAcBal:parseFloat(ttlAcBals) + parseFloat(amounts)                                                                                   
                                             
                                           }
                                         })

@@ -9,6 +9,7 @@ import {
   updateAgent,
   updateCompany,
   updateGroup,
+  updateGrpMembers,
   updateSAgent,
   updateSMAccount,
   
@@ -82,6 +83,7 @@ const fetchChmMbrDtls = async () => {
 
               const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
               const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
+              const ttlAcBals =ChmMbrtDtl.data.getGrpMembers.ttlAcBal;
               
 
 
@@ -174,6 +176,38 @@ const fetchChmMbrDtls = async () => {
                         const TtlActvLonsAmtLneeChmCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
                       
+                        const updatMmbr = async () => {
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
+                          try {
+                            await API.graphql(
+                              graphqlOperation(updateGrpMembers, {
+                                input: {
+                                  id: MmbrId,
+                                  ttlAcBal: parseFloat(ttlAcBals) - parseFloat(amount),
+                                  
+                                  loanStatus:"LoanActive",                                    
+                                  blStatus: "AccountNotBL",
+                                
+                                },
+                              }),
+                            );
+
+
+                          } catch (error) {
+                            if(!error){
+                              Alert.alert("Account deactivated successfully")
+                              
+                          } 
+                          else{Alert.alert("Check internet")
+                          return;}
+                          }
+                          setIsLoading(false);
+                          await sendSMLn();
+                        };
+                        
                         const sendSMLn = async () => {
                           if(isLoading){
                             return;
@@ -194,6 +228,7 @@ const fetchChmMbrDtls = async () => {
                                     advRegNu: AdvRegNo,
                                     loaneeName:namess,
                                     LoanerName:grpNames,
+                                    memberId:MmbrId,
                                     status: "LoanActive",
                                     owner: ownr,
                                 },
@@ -357,7 +392,7 @@ const fetchChmMbrDtls = async () => {
                                                                  
             
                                                  else {
-                          sendSMLn();
+                                                  updatMmbr();
                         }                                                
                     }       
                     catch(e) {    
@@ -406,7 +441,7 @@ await fetchSenderUsrDtls();
 
 } catch (e) {
   console.log(e);
-  if (e){Alert.alert("Check your internet connection")
+  if (e){Alert.alert("Check internet or enter correct Member ID")
 return;}
 }
 setAmount("");

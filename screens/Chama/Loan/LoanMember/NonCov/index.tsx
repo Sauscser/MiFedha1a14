@@ -11,6 +11,7 @@ import {
   updateAgent,
   updateCompany,
   updateGroup,
+  updateGrpMembers,
   updateSAgent,
   updateSMAccount,
   
@@ -84,7 +85,7 @@ const ChmNonCovLns = props => {
 
               const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
               const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
-              const acBals =ChmMbrtDtl.data.getGrpMembers.acBal;
+              const ttlAcBals =ChmMbrtDtl.data.getGrpMembers.ttlAcBal;
 
 
   const fetchSenderUsrDtls = async () => {
@@ -167,6 +168,38 @@ const ChmNonCovLns = props => {
                         const TtlActvLonsAmtLneeChmNonCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmNonCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
                       
+                        const updatMmbr = async () => {
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
+                          try {
+                            await API.graphql(
+                              graphqlOperation(updateGrpMembers, {
+                                input: {
+                                  id: MmbrId,
+                                  ttlAcBal: parseFloat(ttlAcBals) - parseFloat(amount),
+                                  
+                                  loanStatus:"LoanActive",                                    
+                                  blStatus: "AccountNotBL",
+                                
+                                },
+                              }),
+                            );
+
+
+                          } catch (error) {
+                            if(!error){
+                              Alert.alert("Account deactivated successfully")
+                              
+                          } 
+                          else{Alert.alert("Check internet")
+                          return;}
+                          }
+                          setIsLoading(false);
+                          await sendSMLn();
+                        };
+                        
                         const sendSMLn = async () => {
                           if(isLoading){
                             return;
@@ -185,6 +218,7 @@ const ChmNonCovLns = props => {
                                     description: Desc,
                                     loaneeName:namess,
                                     loanerName:grpNames,
+                                    memberId:MmbrId,
                                     lonBala:parseFloat(AmtExp),
                                     status: "LoanActive",
                                     owner: ownr,
@@ -338,7 +372,7 @@ const ChmNonCovLns = props => {
                                                                  
             
                                                  else {
-                          sendSMLn();
+                                                  updatMmbr();
                         }                                                
                     }       
                     catch(e) {     

@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/core';
+import { useNavigation, NavigationHelpersContext, } from '@react-navigation/native';
 import React from 'react';
 import {View, Text, ImageBackground, Pressable, TextInput, ScrollView} from 'react-native';
 
@@ -11,11 +11,11 @@ export interface ChamaRemitInfo {
       grpContact: string,
       recipientPhn: string,
       receiverName:string,
-      
+      memberId:string,
       amountSent: number,
     
       description: string,
-    
+      
       status: string,
       createdAt:string,
       
@@ -26,23 +26,32 @@ const ChmRemitInfo = (props:ChamaRemitInfo) => {
       ChamaRemitDtls: {
          id,
          grpContact,
+         memberId,
          recipientPhn,
          receiverName,
          status,
          amountSent,
          createdAt,       
          description,
-       
+        
        
    }} = props ;
 
+   /*
+   const ContriToMmbr = props.ChamaRemitDtls;
    const navigation = useNavigation();
 
+   const go2Contri2Mbr = () =>{
+      navigation.navigate("ChmContrs", {ContriToMmbrId: ContriToMmbr.memberId});
+   }
+   */
    
     return (
-        <View style = {styles.container}>              
-            
-            
+       /* <Pressable 
+        onPress={go2Contri2Mbr}
+        style = {styles.container}>       </Pressable>       
+            */
+            <View>
             <ScrollView >       
                
 
@@ -53,7 +62,11 @@ const ChmRemitInfo = (props:ChamaRemitInfo) => {
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
                      Member Name: {receiverName}                
-                    </Text>                     
+                    </Text>    
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                     Member Chama ID: {memberId}                
+                    </Text>                   
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
                        Amount (Ksh): {amountSent.toFixed(2)}

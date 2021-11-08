@@ -87,6 +87,14 @@ import ChmMmbrs from "../../screens/Chama/ViewChamaActivities/Membership/Chama";
 import ChamaMmbrRemt from "../../screens/Chama/ViewChamaActivities/ChmRemit/Member";
 import ChmMmbrContri from "../../screens/Chama/ViewChamaActivities/Contributions/Member";
 import ChmMmbrMmbrs from "../../screens/Chama/ViewChamaActivities/Membership/Member";
+import CredSlsLnees from "../../screens/MyAcc/Loans/ViewCredSls/Cov/Loanees";
+import CredSlsLners from "../../screens/MyAcc/Loans/ViewCredSls/Cov/Loaners";
+import CredByrLnees from "../../screens/MyAcc/Loans/ViewCredSls/NonCov/Loanees";
+import CredByrLners from "../../screens/MyAcc/Loans/ViewCredSls/NonCov/Loaners";
+import SMDpsits from "../../screens/MyAcc/DepositMny/VwSMDpsts";
+import SMWthdrwls from "../../screens/MyAcc/WithdrwFunds/VwSMWthdrwls";
+
+
 
 
 
@@ -99,6 +107,12 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'SMDpsitss'} component={SMDpsits} />
+      <Stack.Screen name={'SMWthdrwlss'} component={SMWthdrwls} />
+      <Stack.Screen name={'CredSlsLneess'} component={CredSlsLnees} />
+      <Stack.Screen name={'CredSlsLnerss'} component={CredSlsLners} />
+      <Stack.Screen name={'CredByrLneess'} component={CredByrLnees} />
+      <Stack.Screen name={'CredByrLnerss'} component={CredByrLners} />
       <Stack.Screen name={'ChamaMmbrRemts'} component={ChamaMmbrRemt} />
       <Stack.Screen name={'ChmMmbrContris'} component={ChmMmbrContri} />
       <Stack.Screen name={'ChmMmbrMmbrss'} component={ChmMmbrMmbrs} />

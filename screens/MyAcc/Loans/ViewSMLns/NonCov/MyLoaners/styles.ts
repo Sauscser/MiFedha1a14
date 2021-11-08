@@ -12,6 +12,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  label2: {
+    fontSize: 18,
+    fontWeight: "normal",
+  },
+  
   
 });
 

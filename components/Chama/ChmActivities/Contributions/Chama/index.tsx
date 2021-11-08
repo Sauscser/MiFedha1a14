@@ -11,7 +11,7 @@ export interface ChamaContriInfo {
      grpContact: string,
      memberPhn: string,
      mmberNme:string,
-     
+     memberId:string,
      contriAmount: number,
    
     
@@ -29,6 +29,7 @@ const ChmContriInfo = (props:ChamaContriInfo) => {
         memberPhn,
         mmberNme,
         status,
+        memberId,
         contriAmount,
         createdAt,       
       
@@ -55,7 +56,11 @@ const ChmContriInfo = (props:ChamaContriInfo) => {
                    <Text style = {styles.ownerContact}>                       
                       {/*loaner details */}  
                     Member Name: {mmberNme}                
-                   </Text>                     
+                   </Text>      
+                   <Text style = {styles.ownerContact}>                       
+                      {/*loaner details */}  
+                    Member Chama ID: {memberId}                
+                   </Text>                    
                    <Text style ={styles.amountoffered}>                       
                       {/* amount*/} 
                       Amount (Ksh): {contriAmount.toFixed(2)}

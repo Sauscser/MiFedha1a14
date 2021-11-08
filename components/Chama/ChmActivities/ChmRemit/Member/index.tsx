@@ -10,7 +10,7 @@ export interface MmbrContriInfo {
      grpContact: string,
      
      SenderName:string,
-     
+     memberId:string,
      amountSent: number,
    
      description: string,
@@ -25,7 +25,7 @@ const MmbrContriInfo = (props:MmbrContriInfo) => {
      memberContriDtls: {
         id,
         grpContact,
-        
+        memberId,
         SenderName,
         status,
         amountSent,

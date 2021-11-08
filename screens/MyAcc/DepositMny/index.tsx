@@ -49,7 +49,7 @@ const SMADepositForm = props => {
     if(isLoading){
       return;
     }
-    setIsLoading(false);
+    setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
         graphqlOperation(getSMAccount, {phonecontact: nationalId}),
@@ -76,7 +76,10 @@ const SMADepositForm = props => {
           const agtTtlFtOut = AgentBal.data.getAgent.TtlFltOut;
           const agtFltBl = AgentBal.data.getAgent.floatBal;
           const agPW = AgentBal.data.getAgent.pw;
+          const agentNames = AgentBal.data.getAgent.name;
           const AgAcAct = AgentBal.data.getAgent.status;
+          const owners = AgentBal.data.getAgent.owner;
+          
           
           const gtCompDtls = async () =>{
             if(isLoading){
@@ -98,6 +101,8 @@ const SMADepositForm = props => {
                             
                             depositerid: nationalId,                    
                             agContact: AgentPhn,
+                            agentName:agentNames,
+                            userName:names,
                             amount: amount,
                             status: 'AccountActive',
                           },
@@ -107,6 +112,7 @@ const SMADepositForm = props => {
                       
     
             } catch (error) {
+              console.log(error)
               if(!error){
                 Alert.alert("Account deactivated successfully")
                 
@@ -137,6 +143,7 @@ const SMADepositForm = props => {
               }
 
               catch (error) {
+                console.log(error)
                 if (error){Alert.alert("Check internet Connection")
                 return;}
               }
@@ -164,6 +171,7 @@ const SMADepositForm = props => {
                 }
 
                 catch (error) {
+                  console.log(error)
                   if (error){Alert.alert("Check internet Connection")
                   return;}
                 }
@@ -191,6 +199,7 @@ const SMADepositForm = props => {
                   }
   
                   catch (error) {
+                    console.log(error)
                     
                   }
                   Alert.alert("Ksh. " + amount+" deposited in "+ names+ "'s ac ");
@@ -202,8 +211,12 @@ const SMADepositForm = props => {
               return;
             } 
 
-            if (nationalids!==UsrId) {
+            else if (nationalids!==UsrId) {
               Alert.alert("Depositer ID is wrong")
+              return;
+            } 
+            else if (owners!==ownr) {
+              Alert.alert("This MFNdogo is not your's")
               return;
             } 
             else if(parseFloat(amount)>parseFloat(depositLimits)) {
@@ -229,6 +242,7 @@ const SMADepositForm = props => {
             
             
             } catch (error) {
+              console.log(error)
           if (error){Alert.alert("Check your internet connection")
                   return;}
             }
@@ -239,6 +253,7 @@ const SMADepositForm = props => {
       
     }     
     catch (e) {
+      console.log(e)
       if (e){Alert.alert("MFNdogo does not exist")
       return;}
          
@@ -250,6 +265,7 @@ const SMADepositForm = props => {
     }
 
     catch (e) {
+      console.log(e)
       if (e){Alert.alert("User does not exist")
       return;}
           

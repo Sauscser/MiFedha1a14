@@ -20,7 +20,7 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
-import { getCompany } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount } from '../../../src/graphql/queries';
 
 const RegisterMFKubwaAcForm = props => {
   const [nationalId, setNationalid] = useState("");
@@ -53,86 +53,111 @@ const RegisterMFKubwaAcForm = props => {
         );
         const actvAKbwa = compDtls.data.getCompany.ttlKFKbwActv
 
-        
 
-        const CreateNewSA = async () => {
-          if(isLoading){
-            return;
-          }
-          setIsLoading(true);
+        const ChckUsrExistence = async () => {
           try {
-            await API.graphql(
-              graphqlOperation(createSAgent, {
-                input: {
-                  
-                  saNationalid: nationalId,
-                  name: nam,
-                  saPhoneContact: phoneContact,
-                  pw: pword,
-                  TtlEarnings: 0,
-                  actvMFNdog:0,
-                  InctvMFNdog:0,
-                  email: eml,
-                  saBalance: 0,   
-                  status: 'AccountActive',
-                  owner:ownr,
-                  
-                },
-              }),
-            );
+            const UsrDtls:any = await API.graphql(
+              graphqlOperation(getSMAccount,
+                { filter: {
+                    
+                      nationalid: { eq: phoneContact}
+                                
+                  }}
+              )
+            )
 
-            
-          } 
-
-          
-
-          
-          
-          catch (error) {
-            console.log(error)
-            if(error){
-              Alert.alert("Account already registered ");
-              return;
+            const CreateNewSA = async () => {
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
+              try {
+                await API.graphql(
+                  graphqlOperation(createSAgent, {
+                    input: {
+                      
+                      saNationalid: nationalId,
+                      name: nam,
+                      saPhoneContact: phoneContact,
+                      pw: pword,
+                      TtlEarnings: 0,
+                      actvMFNdog:0,
+                      InctvMFNdog:0,
+                      email: eml,
+                      saBalance: 0,   
+                      status: 'AccountActive',
+                      owner:ownr,
+                      
+                    },
+                  }),
+                );
+    
+                
+              } 
+    
               
-          } 
-          
-          }
-          setIsLoading(false); 
-          await  updtActAdm();              
-        };
-        if(phoneContact.length!==13)
-        {Alert.alert("Please use the hinted format of the Phone number");
+    
+              
+              
+              catch (error) {
+                console.log(error)
+                if(error){
+                  Alert.alert("Account already registered ");
+                  return;
+                  
+              } 
+              
+              }
+              setIsLoading(false); 
+              await  updtActAdm();              
+            };
+            if(phoneContact.length!==13)
+            {Alert.alert("Please use the hinted format of the Phone number");
+          return;
+        }
+        else if (pword.length<8)
+        {Alert.alert("Password is too short; at least eight characters");
       return;
     }
-    else if (pword.length<8)
-    {Alert.alert("Password is too short; at least eight characters");
-  return;
-}
-    else{CreateNewSA();}
+
+    else if(UsrDtls.data.getSMAccount.items.length > 0){Alert.alert("This number belongs to another user")}
+        else{CreateNewSA();}
+            
+    
+            const updtActAdm = async()=>{
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
+              try{
+                  await API.graphql(
+                    graphqlOperation(updateCompany,{
+                      input:{
+                        AdminId:"BaruchHabaB'ShemAdonai2",
+                        ttlKFKbwActv:parseFloat(actvAKbwa) + 1,
+                      }
+                    })
+                  )
+              }
+              catch(error){if(error){
+                Alert.alert("Check your internet")
+                return
+              }}
+              Alert.alert("Account registered successfully")
+              setIsLoading(false);
+            }
+            
+          } catch (e) {
+            if(e){Alert.alert("Please first sign up")}
+            console.error(e);
+          }
+        }
+
+        await ChckUsrExistence();
+
         
 
-        const updtActAdm = async()=>{
-          if(isLoading){
-            return;
-          }
-          setIsLoading(true);
-          try{
-              await API.graphql(
-                graphqlOperation(updateCompany,{
-                  input:{
-                    AdminId:"BaruchHabaB'ShemAdonai2",
-                    ttlKFKbwActv:parseFloat(actvAKbwa) + 1,
-                  }
-                })
-              )
-          }
-          catch(error){if(error){
-            Alert.alert("Check your internet")
-            return
-          }}
-          Alert.alert("Account registered successfully")
-          setIsLoading(false);
-        }
+
 
        
       }
