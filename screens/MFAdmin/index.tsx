@@ -70,13 +70,7 @@ const RegKFKubwa = props => {
                   <Text style={styles.salesPressableText}>MFNdogo</Text>
 
                   <View style={styles.viewForClientsAndTitleMFNdogo}>
-                    <Pressable
-                      onPress={goToMFNdogReg}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Reg</Text>
-                    </Pressable>
-
-                    
+                   
 
                     <Pressable
                       onPress={DActivateMFN}
@@ -102,11 +96,7 @@ const RegKFKubwa = props => {
                   <Text style={styles.salesPressableText}>MFKubwa</Text>
 
                   <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={goToKFKbwaRegFm}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Reg</Text>
-                    </Pressable>
+                   
 
                     <Pressable
                       onPress={DActivateMFK}
@@ -122,11 +112,7 @@ const RegKFKubwa = props => {
                   <Text style={styles.salesPressableText}>Advocate</Text>
 
                   <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={goToAdvReg}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Reg</Text>
-                    </Pressable>
+                    
 
                     <Pressable
                       onPress={goToAdvReg}
@@ -144,12 +130,7 @@ const RegKFKubwa = props => {
             <Text style={styles.salesText}>My Ac</Text>
 
             <View style={styles.viewForAcEarningsPressables}>
-              <Pressable
-                onPress={goToAdvReg}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Check Bal</Text>
-              </Pressable>
-
+              
               <Pressable
                 onPress={CrtAdmins}
                 style={styles.earningsAcPressables}>
@@ -187,23 +168,7 @@ const RegKFKubwa = props => {
                   </View>
                 </View>
 
-          <View style={styles.acEarningsView}>
-            <Text style={styles.salesText}>Earnings</Text>
-
-            <View style={styles.viewForAcEarningsPressables}>
-              <Pressable
-                onPress={goToAdvReg}
-                style={styles.earningsAcPressablesSMNErn}>
-                <Text style={styles.earningsAcPressableText}>Check Bal</Text>
-              </Pressable>
-
-              <Pressable
-                onPress={WithdwAdmnss}
-                style={styles.earningsAcPressablesSMNErn}>
-                <Text style={styles.earningsAcPressableText}>Withdraw</Text>
-              </Pressable>
-            </View>
-          </View>
+         
 
          
        

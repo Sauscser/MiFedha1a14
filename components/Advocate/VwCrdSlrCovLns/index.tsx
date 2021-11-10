@@ -121,7 +121,7 @@ const ViewSMDeposts = (props:SMAccount) => {
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                      Seller Contact: {buyerContact}                 
+                      Buyer Contact: {buyerContact}                 
                     </Text>
                                                          
                   

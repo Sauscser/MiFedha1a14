@@ -76,8 +76,8 @@ const MFNSignIn = (props) => {
                   <TouchableOpacity
                     onPress={moveToMFNHm}
                     style={styles.sendLoanButton}>
-                    <Text style={styles.sendLoanButtonText}>
-                      Click to Sign In
+                    <Text style={styles.sendLoanButtonText2}>
+                      Find convenient MFNdogo
                     </Text>
                   </TouchableOpacity>
                 </ScrollView>

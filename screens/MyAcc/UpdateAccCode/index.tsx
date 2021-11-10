@@ -62,7 +62,8 @@ const UpdtSMPW = (props) => {
                 );
                 const loanAcceptanceCodes = compDtls.data.getSMAccount.loanAcceptanceCode   
                 const owners = compDtls.data.getSMAccount.owner 
-                const acStatuss = compDtls.data.getSMAccount.acStatus            
+                const acStatuss = compDtls.data.getSMAccount.acStatus  
+                const pwss = compDtls.data.getSMAccount.pw                
                 
                           
                                       const updtSMDtls = async () => {
@@ -75,7 +76,8 @@ const UpdtSMPW = (props) => {
                                               graphqlOperation(updateSMAccount,{
                                                 input:{
                                                   phonecontact:PhoneContact,
-                                                  pw:SMPW
+                                                  
+                                                  loanAcceptanceCode:LnAcCod,
                                                   
                                                 }
                                               })
@@ -90,17 +92,17 @@ const UpdtSMPW = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +", You have successfully updated your PassWord");
+                                        Alert.alert(names +", You have updated your LoanAcceptanceCode");
                                       } 
 
-                                      if(LnAcCod!==loanAcceptanceCodes)
+                                      if(SMPW!==pwss)
                                       {
-                                          Alert.alert("Wrong SM A/C Loan Acceptance Code; Prove authorship of Chama");
+                                          Alert.alert("Wrong SM A/C password; Prove Ownership of Account");
                                       }
                                       
                                       else if(ownr!==owners)
                                       {
-                                          Alert.alert("You are not the author of the Chama");
+                                          Alert.alert("You are not the Owner of the Account");
                                       }
 
                                       else if(acStatuss!=="AccountActive")
@@ -116,7 +118,7 @@ const UpdtSMPW = (props) => {
 
             } catch (error) {
                 if(error){
-                  Alert.alert("Check internet; otherwise Chama doesnt exist")
+                  Alert.alert("Check internet; otherwise User doesnt exist")
                   return
                 }
               }
@@ -188,20 +190,20 @@ const UpdtSMPW = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                      value={SMPW}
-                      onChangeText={setSMPW}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>New SM Ac PW</Text>
-                  </View>       
-
-                  <View style={styles.sendLoanView}>
-                    <TextInput
                       value={LnAcCod}
                       onChangeText={setLnAcCod}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>SM Loan Acceptance Code</Text>
+                    <Text style={styles.sendLoanText}>New Loan Acceptance Code</Text>
+                  </View>       
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                      value={SMPW}
+                      onChangeText={setSMPW}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>User Pass Word</Text>
                   </View>     
 
                                    

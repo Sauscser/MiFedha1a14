@@ -17,20 +17,23 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: 40,
+    height: "40%",
     borderRadius: 5,
-    marginTop: 30,
+    marginTop: "25%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    top: 10,
+    
+    
+    
+  
   },
 
   sendLoanView: {
     backgroundColor: 'skyblue',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "15%",
+    height: 90,
     borderRadius: 20,
     marginTop: 30,
     justifyContent: 'center',
@@ -45,18 +48,8 @@ const styles = StyleSheet.create({
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    
+    marginLeft: 30,
   },
-
-  sendLoanText2: {
-    fontSize: 10,
-    fontWeight: 'normal',
-    color: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-    
-  },
-
   sendLoanButton: {
     backgroundColor: '#fff',
     height: 45,
@@ -70,12 +63,6 @@ const styles = StyleSheet.create({
   },
   sendLoanButtonText: {
     fontSize: 30,
-    fontWeight: 'bold',
-    color: 'black',
-  },
-
-  sendLoanButtonText2: {
-    fontSize: 20,
     fontWeight: 'bold',
     color: 'black',
   },

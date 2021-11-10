@@ -50,6 +50,10 @@ const MyAccount = props => {
     navigation.navigate('VwNonLnsSnts');
   };
 
+  const UpdateAccCodesss = () => {
+    navigation.navigate('UpdateAccCodess');
+  };
+
   return (
     <SafeAreaView>
       <View
@@ -105,9 +109,19 @@ const MyAccount = props => {
               <Text style={styles.acPressableText}>Create</Text>
             </Pressable>
 
-            <Pressable onPress={UpdateSMPWss} style={styles.acPressables}>
-              <Text style={styles.acPressableText}>Update</Text>
+            <View style={styles.acPressables}>
+            <View>
+            <Text style={styles.acPressableText}>Update</Text>
+            </View>
+            <View style = {{flexDirection:"row"}}>
+            <Pressable onPress={UpdateSMPWss} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>PWord</Text>
             </Pressable>
+            <Pressable onPress={UpdateAccCodesss} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>AccCd</Text>
+            </Pressable>
+            </View>
+            </View>
 
             <View style={styles.acPressables}>
             <View>

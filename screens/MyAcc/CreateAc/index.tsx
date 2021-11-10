@@ -45,6 +45,10 @@ const CreateAcForm = (props:UserReg) => {
 
   const[ownr, setownr] = useState(null);
 
+  const moveToWelcomPg = () => {
+    navigation.navigate("WelcomePgss", {awsEmail});
+  };
+
 
   
 
@@ -250,7 +254,7 @@ const CreateAcForm = (props:UserReg) => {
                 return;
             }
             }
-            Alert.alert("Congrats " + nam + ", You have created an account")
+            moveToWelcomPg();
             setIsLoading(false);
           }
           

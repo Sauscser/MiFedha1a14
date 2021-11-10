@@ -2,11 +2,11 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import NonLnSent from "../../../components/MFNdogo/VwUsrDposit";
+import NonLnSent from "../../../components/Advocate/VwAc";
 import styles from './styles';
 
 
-import { listFloatReductions } from '../../../src/graphql/queries';
+import { listAdvocates } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 
 const FetchSMNonLnsSnt = props => {
@@ -31,16 +31,16 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listFloatReductions, 
+              const Lonees:any = await API.graphql(graphqlOperation(listAdvocates, 
                 { filter: {
                     and: {
-                      agContact: { eq: route.params.MFNId},
+                      advregnu: { eq: route.params.AdvReNo},
                       
                       
                     }
                   }}
                   ));
-                  setRecvrs(Lonees.data.listFloatReductions.items);
+                  setRecvrs(Lonees.data.listAdvocates.items);
             } catch (e) {
               console.log(e);
             } finally {
@@ -66,7 +66,7 @@ const FetchSMNonLnsSnt = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> User Deposits</Text>
+            <Text style={styles.label}> My Advocate Ac</Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}

@@ -129,6 +129,29 @@ declare global {
       VwUsrDpstss:{MFNId:string};
       VwMFNAcss:{MFNId:string};
       SearchMFNsssss:{town:string};
+
+      VwAdvAcs:{AdvReNo:string};
+      VwAdvChamaCovLnss:{AdvReNo:string};
+      VwAdvCrdSlrCovLnss:{AdvReNo:string};
+      VwAdvSMCovLnss:{AdvReNo:string};
+      VwAdvWthdrwlss:{AdvReNo:string};
+      VwMFKAcs:{MFKPhn:string};
+      VwMFKWthdrwlss:{MFKPhn:string};
+
+      AdvVwCrdSlsSgnIns:undefined;
+      AdvVwSMSgnIns:undefined;
+      AdvWthdrwlSgnIns:undefined;
+      AdvVwAcSgnIns:undefined;
+      AdvVwChmSgnIns:undefined;
+      VwMFKAcSgnIns:undefined;
+      VwMFKWthdrwlsSgnIns:undefined;
+
+      MFKVwMFNSgnInss:undefined;
+      MFKVwMFNss:{MFKPhn:string};
+
+      UpdateAccCodess:undefined;
+      WelcomePgss:{awsEmail:null};
+
     }
   }
 }

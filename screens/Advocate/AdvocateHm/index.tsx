@@ -18,9 +18,7 @@ const KFAdvHome = props => {
     navigation.navigate('MFAdvocateHome');
   };
 
-  const goToAdvertiseSales = () => {
-    navigation.navigate('MFAdvocateHome');
-  };
+  
 
   const MFAdvocateRegs = () => {
     navigation.navigate('MFAdvocateReg');
@@ -39,11 +37,57 @@ const KFAdvHome = props => {
     
   };
 
+  const AdvVwCrdSlsSgnInss = () => {
+    navigation.navigate('AdvVwCrdSlsSgnIns');
+  };
+  const AdvVwSMSgnInss = () => {
+    navigation.navigate('AdvVwSMSgnIns');
+  };
+  const AdvWthdrwlSgnInss = () => {
+    navigation.navigate('AdvWthdrwlSgnIns');
+  };
+  const AdvVwAcSgnInss = () => {
+    navigation.navigate('AdvVwAcSgnIns');
+  };
+  const AdvVwChmSgnInss = () => {
+    navigation.navigate('AdvVwChmSgnIns');
+  };
+
   return (
     <SafeAreaView>
       <View
         
         style={styles.floatimage}>
+        
+        <View style={styles.floatMainView}>
+          <Text style={styles.floatText}> View</Text>
+
+          <View style={styles.viewForFloatPressables}>
+            <Pressable
+              onPress={AdvVwCrdSlsSgnInss}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText2}>CredSls</Text>
+            </Pressable>
+
+            <Pressable onPress={AdvVwSMSgnInss} style={styles.floatView}>
+              <Text style={styles.floatPressableText2}>SMLoans</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={AdvWthdrwlSgnInss}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText2}>My Withdrwls</Text>
+            </Pressable>
+
+            
+
+            <Pressable
+              onPress={AdvVwChmSgnInss}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText2}>Chama Loans</Text>
+            </Pressable>
+          </View>
+        </View>
         
         <View style={styles.floatMainView}>
           <Text style={styles.floatText}>My Account</Text>
@@ -56,7 +100,7 @@ const KFAdvHome = props => {
             </Pressable>
 
             <Pressable
-              onPress={goToSalesAdsScreen}
+              onPress={AdvVwAcSgnInss}
               style={styles.floatView}>
               <Text style={styles.floatPressableText}>ViewAc</Text>
             </Pressable>
@@ -72,21 +116,12 @@ const KFAdvHome = props => {
           <Text style={styles.floatText}> Earnings</Text>
 
           <View style={styles.viewForFloatPressables}>
-            <Pressable
-              onPress={goToAdvrtsChamaLn}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>Check Bal</Text>
-            </Pressable>
-
+            
             <Pressable onPress={WithdwAdvss} style={styles.floatView}>
               <Text style={styles.floatPressableText}>Withdraw</Text>
             </Pressable>
 
-            <Pressable
-              onPress={goToSalesAdsScreen}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>View Clients</Text>
-            </Pressable>
+            
           </View>
         </View>
       </View>

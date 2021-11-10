@@ -14,21 +14,13 @@ import styles from './styles';
 const KFKubwaScreen = props => {
   const navigation = useNavigation();
 
-  const goToSalesAdsScreen = () => {
-    navigation.navigate('GeneralShopSchPg');
-  };
+  
 
   const goRegKFNdogoFm = () => {
     navigation.navigate('RegMFNdgScrn');
   };
 
-  const goToAdvertiseSales = () => {
-    navigation.navigate('GnrlShpAdvtsScrn');
-  };
-
-  const goToPubLnScreen = () => {
-    navigation.navigate('Loan Ads Search Results');
-  };
+  
 
   const UpdtMFKPWss = () => {
     navigation.navigate('UpdtMFKPWs');
@@ -37,12 +29,22 @@ const KFKubwaScreen = props => {
   const RegMFKbws = () => {
     navigation.navigate('RegMFKbw');}
 
-    const goToAdvrtsChamaLn = () => {
-      navigation.navigate('GnrlShpChamaLnAdvtsScrn');}
-
+    
       const MFKWthdrwss = () => {
         navigation.navigate('MFKWthdrws');
   };
+
+  const VwMFKAcSgnInss = () => {
+    navigation.navigate('VwMFKAcSgnIns');}
+
+    const VwMFKWthdrwlsSgnInss = () => {
+      navigation.navigate('VwMFKWthdrwlsSgnIns');
+    };
+    const MFKVwMFNSgnInsss = () => {
+      navigation.navigate('MFKVwMFNSgnInss');
+    };
+  
+    
 
   return (
     <SafeAreaView>
@@ -54,7 +56,7 @@ const KFKubwaScreen = props => {
 
           <View style={styles.viewForkfkubwaPressables}>
             <Pressable
-              onPress={goToAdvertiseSales}
+              onPress={MFKVwMFNSgnInsss}
               style={styles.kfkubwaView}>
               <Text style={styles.kfkubwaPressableText}>View</Text>
             </Pressable>
@@ -64,7 +66,7 @@ const KFKubwaScreen = props => {
             </Pressable>
 
             <Pressable
-              onPress={goToSalesAdsScreen}
+              onPress={VwMFKWthdrwlsSgnInss}
               style={styles.kfkubwaView}>
               <Text style={styles.kfkubwaPressableText}>DeRegister</Text>
             </Pressable>
@@ -82,7 +84,7 @@ const KFKubwaScreen = props => {
             </Pressable>
 
             <Pressable
-              onPress={goToSalesAdsScreen}
+              onPress={VwMFKAcSgnInss}
               style={styles.kfkubwaView}>
               <Text style={styles.kfkubwaPressableText}>ViewAc</Text>
             </Pressable>
@@ -100,14 +102,14 @@ const KFKubwaScreen = props => {
           <Text style={styles.kfkubwaText}> Earnings</Text>
 
           <View style={styles.viewForkfkubwaPressables}>
-            <Pressable
-              onPress={goToAdvrtsChamaLn}
-              style={styles.kfkubwaView}>
-              <Text style={styles.kfkubwaPressableText}>Check Bal</Text>
-            </Pressable>
+            
 
             <Pressable onPress={MFKWthdrwss} style={styles.kfkubwaView}>
               <Text style={styles.kfkubwaPressableText}>Withdraw</Text>
+            </Pressable>
+
+            <Pressable onPress={VwMFKWthdrwlsSgnInss} style={styles.kfkubwaView}>
+              <Text style={styles.kfkubwaPressableText}>My Withdrawals</Text>
             </Pressable>
           </View>
         </View>

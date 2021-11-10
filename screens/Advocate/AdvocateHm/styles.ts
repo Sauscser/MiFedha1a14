@@ -34,13 +34,19 @@ const styles = StyleSheet.create({
   },
 
   
+
+  
   floatPressableText: {
     color: 'white',
     fontSize: 15,
     marginTop: 1,
   },
 
-  
+  floatPressableText2: {
+    color: 'white',
+    fontSize: 11,
+    marginTop: 1,
+  },
 
   floatMainView: {
     backgroundColor: 'skyblue',

@@ -13,7 +13,7 @@ export interface SMAccount {
       loaneePhn: string,      
       loanerPhn: string,  
       loanername:string,
-      loaneeName: string,  
+      loaneename: string,  
       amountgiven:number,
       amountexpected: number,      
       amountrepaid: number,  
@@ -33,7 +33,7 @@ const ViewSMDeposts = (props:SMAccount) => {
          loaneePhn,
          loanerPhn,  
          loanername,
-         loaneeName,
+         loaneename,
          amountgiven,
          amountexpected,
          amountrepaid,
@@ -58,12 +58,12 @@ const ViewSMDeposts = (props:SMAccount) => {
             <ScrollView >              
             <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Chama Name : {loanername}                 
+                       Loaner Name : {loanername}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Chama Member Name: {loaneeName}                 
+                       Loanee Name: {loaneename}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
@@ -92,12 +92,12 @@ const ViewSMDeposts = (props:SMAccount) => {
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Chama Contact : {loanerPhn}                 
+                      Loaner Contact : {loanerPhn}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Chama Member Contact: {loaneePhn}                 
+                       Loanee Contact: {loaneePhn}                 
                     </Text>
                                                                
                     

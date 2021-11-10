@@ -2,11 +2,11 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import NonLnSent from "../../../components/MFNdogo/VwUsrDposit";
+import NonLnSent from "../../../components/Advocate/VwChmCovLns";
 import styles from './styles';
 
 
-import { listFloatReductions } from '../../../src/graphql/queries';
+import { listCvrdGroupLoanss, listFloatReductions } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 
 const FetchSMNonLnsSnt = props => {
@@ -31,16 +31,16 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listFloatReductions, 
+              const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoanss, 
                 { filter: {
                     and: {
-                      agContact: { eq: route.params.MFNId},
+                      advRegNu: { eq: route.params.AdvReNo},
                       
                       
                     }
                   }}
                   ));
-                  setRecvrs(Lonees.data.listFloatReductions.items);
+                  setRecvrs(Lonees.data.listCvrdGroupLoanss.items);
             } catch (e) {
               console.log(e);
             } finally {
@@ -66,7 +66,7 @@ const FetchSMNonLnsSnt = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> User Deposits</Text>
+            <Text style={styles.label}> Chama Covered Loans</Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}

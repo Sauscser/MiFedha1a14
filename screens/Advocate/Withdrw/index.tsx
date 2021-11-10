@@ -91,8 +91,8 @@ const AdvWthdwl = props => {
                                 graphqlOperation(createAdvocateWithdrawals, {
                                   input: {
                                   
-                                    bankAdmNatId: "BnkkAdmNatId",                    
-                                    
+                                    bankAdmnId: "BnkkAdmNatId",                    
+                                    advregnu: AdvReNo,  
                                     owner: ownr,
                                     amount: amount,
                                     status: 'AccountActive',
@@ -274,7 +274,7 @@ const AdvWthdwl = props => {
               onChangeText={setUsrPWd}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>User PW</Text>
+            <Text style={styles.sendAmtText}>Advocate PW</Text>
           </View>
 
           <TouchableOpacity onPress={fetchAcDtls} style={styles.sendAmtButton}>

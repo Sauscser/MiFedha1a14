@@ -107,6 +107,26 @@ import VwMFNWthdrls from "../../screens/MFNdogo/Wthdrw/VwMFNWthdrl";
 import VwMFNFltBuys from "../../screens/MFNdogo/Float/VwMFNFltBuy";
 import SearchMFNs from "../../screens/MFNdogo/SearchMFN";
 
+import AdvVwCrdSlsSgnIn from "../../screens/Advocate/AdvVwCrdSlsSgnIn";
+import AdvVwSMSgnIn from "../../screens/Advocate/AdvVwSMSgnIn";
+import AdvWthdrwlSgnIn from "../../screens/Advocate/AdvWthdrwlSgnIn";
+import AdvVwAcSgnIn from "../../screens/Advocate/AdvVwAcSgnIn";
+import AdvVwChmSgnIn from "../../screens/Advocate/AdvVwChmSgnIn";
+import VwAdvAc from "../../screens/Advocate/VwAdvAc";
+import VwAdvChamaCovLns from "../../screens/Advocate/VwAdvChamaCovLns";
+import VwAdvCrdSlrCovLns from "../../screens/Advocate/VwAdvCrdSlrCovLns";
+import VwAdvSMCovLns from "../../screens/Advocate/VwAdvSMCovLns";
+import VwAdvWthdrwls from "../../screens/Advocate/VwAdvWthdrwls";
+import VwMFKAcSgnIn from "../../screens/MFKubwa/VwMFKAcSgnIn";
+import VwMFKWthdrwlsSgnIn from "../../screens/MFKubwa/VwMFKWthdrwlsSgnIn";
+import VwMFKAc from "../../screens/MFKubwa/VwMFKAc";
+import VwMFKWthdrwls from "../../screens/MFKubwa/VwMFKWthdrwls";
+import MFKVwMFNSgnIns from "../../screens/MFKubwa/MFKVwMFNSgnIn";
+import MFKVwMFNs from "../../screens/MFKubwa/MFKVwMFN";
+import UpdateAccCodes from "../../screens/MyAcc/UpdateAccCode";
+import WelcomePgs from "../../screens/MyAcc/WelcomePg";
+
+
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
@@ -117,14 +137,33 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'WelcomePgss'} component={WelcomePgs} />
+      <Stack.Screen name={'UpdateAccCodess'} component={UpdateAccCodes} />
+      <Stack.Screen name={'MFKVwMFNSgnInss'} component={MFKVwMFNSgnIns} />
+      <Stack.Screen name={'MFKVwMFNss'} component={MFKVwMFNs} />
+      
+      <Stack.Screen name={'AdvVwCrdSlsSgnIns'} component={AdvVwCrdSlsSgnIn} />
+      <Stack.Screen name={'AdvVwSMSgnIns'} component={AdvVwSMSgnIn} />
+      <Stack.Screen name={'AdvWthdrwlSgnIns'} component={AdvWthdrwlSgnIn} />
+      <Stack.Screen name={'AdvVwAcSgnIns'} component={AdvVwAcSgnIn} />
+      <Stack.Screen name={'AdvVwChmSgnIns'} component={AdvVwChmSgnIn} />
+      <Stack.Screen name={'VwAdvAcs'} component={VwAdvAc} />
+      <Stack.Screen name={'VwAdvChamaCovLnss'} component={VwAdvChamaCovLns} />      
+      <Stack.Screen name={'VwAdvCrdSlrCovLnss'} component={VwAdvCrdSlrCovLns} />
+      <Stack.Screen name={'VwAdvSMCovLnss'} component={VwAdvSMCovLns} />
+      <Stack.Screen name={'VwAdvWthdrwlss'} component={VwAdvWthdrwls} />
+      <Stack.Screen name={'VwMFKAcSgnIns'} component={VwMFKAcSgnIn} />
+      <Stack.Screen name={'VwMFKWthdrwlsSgnIns'} component={VwMFKWthdrwlsSgnIn} />
+      <Stack.Screen name={'VwMFKAcs'} component={VwMFKAc} />
+      <Stack.Screen name={'VwMFKWthdrwlss'} component={VwMFKWthdrwls} />
+
       <Stack.Screen name={'SearchMFNsssss'} component={SearchMFNs} />
       <Stack.Screen name={'VwMFNFltBuyss'} component={VwMFNFltBuys} />
       <Stack.Screen name={'VwMFNWthdrlss'} component={VwMFNWthdrls} />
       <Stack.Screen name={'VwFltWthdrwlss'} component={VwFltWthdrwls} />
       <Stack.Screen name={'VwUsrWthdrwlss'} component={VwUsrWthdrwls} />
       <Stack.Screen name={'VwUsrDpstss'} component={VwUsrDpsts} />
-      <Stack.Screen name={'VwMFNAcss'} component={VwMFNAcs} />
-      
+      <Stack.Screen name={'VwMFNAcss'} component={VwMFNAcs} />      
       <Stack.Screen name={'VwMFNAccountSgnIns'} component={VwMFNAccountSgnIn} />
       <Stack.Screen name={'FltWthdrwlsSgnIns'} component={FltWthdrwlsSgnIn} />
       <Stack.Screen name={'UsrWthdrwlsSgnIns'} component={UsrWthdrwlsSgnIn} />

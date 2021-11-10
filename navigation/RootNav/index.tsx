@@ -12,9 +12,9 @@ import KFNdogoScreen from '../../screens/MFNdogo';
 import KFAdminScreen from '../../screens/MFAdmin';
 import MFSetting from '../../screens/Settings/SignIn';
 import MFAdmSgnIn from "../../screens/MFAdmin/SignInAdm";
-import MFKw from "../../screens/MFKubwa/SignInMFK";
+import MFKw from "../../screens/MFKubwa";
 import MFNd from "../../screens/MFNdogo";
-import AdvSgnIn from "../../screens/Advocate/AdvocateSignIn";
+import AdvSgnIn from "../../screens/Advocate/AdvocateHm";
 
 
 
