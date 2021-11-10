@@ -95,7 +95,8 @@ const MFNWthdwFlt = props => {
                                   
                                     depositerid: "None",                    
                                     agContact:MFKPhn,
-                                    
+                                    agentName:"None",
+                                    userName:"None",
                                     amount: amount,
                                     status: 'AccountActive',
                                   },
@@ -125,7 +126,7 @@ const MFNWthdwFlt = props => {
                             input: {
                               phonecontact: WthDrwrPhn,
                   
-                              balance: parseFloat(floatBals) + parseFloat(amount) ,
+                              balance: parseFloat(usrBala) + parseFloat(amount) ,
                               
                             },
                           }),
@@ -136,10 +137,38 @@ const MFNWthdwFlt = props => {
                         if (error){Alert.alert("Check internet Connection")
                         return;}
                       }
-                      Alert.alert(names + ", You have transfered Ksh. "+ amount +" to your SM account")
+                      Alert.alert(names + ", You have transfered Ksh. "+ amount +" float to your SM account")
                       setIsLoading(false);
-                      
+                      await onUpdtMFNBal();
                       }; 
+
+                      const onUpdtMFNBal = async () => {
+                        if(isLoading){
+                          return;
+                        }
+                        setIsLoading(true);
+                        try {
+                          await API.graphql(
+                            graphqlOperation(updateAgent, {
+                              input: {
+                                phonecontact: MFKPhn,
+                    
+                                floatBal: parseFloat(floatBals) - parseFloat(amount) ,
+                                
+                              },
+                            }),
+                          );
+                        }
+          
+                        catch (error) {
+                          if (error){Alert.alert("Check internet Connection")
+                          return;}
+                        }
+                        Alert.alert(names + ", You have transfered Ksh. "+ amount +" to your SM account")
+                        setIsLoading(false);
+                        
+                        }; 
+          
         
                       
                     

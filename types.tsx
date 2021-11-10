@@ -114,7 +114,21 @@ declare global {
       CredByrLnerss:undefined;
       SMDpsitss:undefined;
       SMWthdrwlss:undefined;
-      
+
+      VwMFNAccountSgnIns:undefined;
+      FltWthdrwlsSgnIns:undefined;
+      UsrWthdrwlsSgnIns:undefined;
+      MFNWithdrawlsSgnIns:undefined;
+      UsrDpositSgnIns:undefined;
+      FloatBghtSgnIns:undefined;
+
+      VwMFNFltBuyss:{MFNId:string};
+      VwMFNWthdrlss:{MFNId:string};
+      VwFltWthdrwlss:{MFNId:string};
+      VwUsrWthdrwlss:{MFNId:string};
+      VwUsrDpstss:{MFNId:string};
+      VwMFNAcss:{MFNId:string};
+      SearchMFNsssss:{town:string};
     }
   }
 }

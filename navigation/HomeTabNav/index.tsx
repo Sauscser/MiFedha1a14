@@ -93,9 +93,19 @@ import CredByrLnees from "../../screens/MyAcc/Loans/ViewCredSls/NonCov/Loanees";
 import CredByrLners from "../../screens/MyAcc/Loans/ViewCredSls/NonCov/Loaners";
 import SMDpsits from "../../screens/MyAcc/DepositMny/VwSMDpsts";
 import SMWthdrwls from "../../screens/MyAcc/WithdrwFunds/VwSMWthdrwls";
-
-
-
+import VwMFNAccountSgnIn from "../../screens/MFNdogo/SignInMFN copy";
+import UsrDpositSgnIn from "../../screens/MFNdogo/SignInMFN copy 2";
+import MFNWithdrawlsSgnIn from "../../screens/MFNdogo/SignInMFN copy 3";
+import UsrWthdrwlsSgnIn from "../../screens/MFNdogo/SignInMFN copy 4";
+import FltWthdrwlsSgnIn from "../../screens/MFNdogo/SignInMFN copy 5";
+import FloatBghtSgnIn from "../../screens/MFNdogo/SignInMFN copy 6";
+import VwMFNAcs from "../../screens/MFNdogo/VwMFNAc";
+import VwUsrDpsts from "../../screens/MFNdogo/VwUsrDpst";
+import VwUsrWthdrwls from "../../screens/MFNdogo/VwUsrWthdrwl";
+import VwFltWthdrwls from "../../screens/MFNdogo/WithdrwFlt/VwFltWthdrwl";
+import VwMFNWthdrls from "../../screens/MFNdogo/Wthdrw/VwMFNWthdrl";
+import VwMFNFltBuys from "../../screens/MFNdogo/Float/VwMFNFltBuy";
+import SearchMFNs from "../../screens/MFNdogo/SearchMFN";
 
 
 const Stack = createNativeStackNavigator();
@@ -107,6 +117,20 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'SearchMFNsssss'} component={SearchMFNs} />
+      <Stack.Screen name={'VwMFNFltBuyss'} component={VwMFNFltBuys} />
+      <Stack.Screen name={'VwMFNWthdrlss'} component={VwMFNWthdrls} />
+      <Stack.Screen name={'VwFltWthdrwlss'} component={VwFltWthdrwls} />
+      <Stack.Screen name={'VwUsrWthdrwlss'} component={VwUsrWthdrwls} />
+      <Stack.Screen name={'VwUsrDpstss'} component={VwUsrDpsts} />
+      <Stack.Screen name={'VwMFNAcss'} component={VwMFNAcs} />
+      
+      <Stack.Screen name={'VwMFNAccountSgnIns'} component={VwMFNAccountSgnIn} />
+      <Stack.Screen name={'FltWthdrwlsSgnIns'} component={FltWthdrwlsSgnIn} />
+      <Stack.Screen name={'UsrWthdrwlsSgnIns'} component={UsrWthdrwlsSgnIn} />
+      <Stack.Screen name={'MFNWithdrawlsSgnIns'} component={MFNWithdrawlsSgnIn} />
+      <Stack.Screen name={'UsrDpositSgnIns'} component={UsrDpositSgnIn} />
+      <Stack.Screen name={'FloatBghtSgnIns'} component={FloatBghtSgnIn} />
       <Stack.Screen name={'SMDpsitss'} component={SMDpsits} />
       <Stack.Screen name={'SMWthdrwlss'} component={SMWthdrwls} />
       <Stack.Screen name={'CredSlsLneess'} component={CredSlsLnees} />

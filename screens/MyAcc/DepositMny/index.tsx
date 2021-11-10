@@ -215,10 +215,7 @@ const SMADepositForm = props => {
               Alert.alert("Depositer ID is wrong")
               return;
             } 
-            else if (owners!==ownr) {
-              Alert.alert("This MFNdogo is not your's")
-              return;
-            } 
+            
             else if(parseFloat(amount)>parseFloat(depositLimits)) {
               Alert.alert('Deposit limit exceeded');
               return;

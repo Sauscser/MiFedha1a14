@@ -1,8 +1,9 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+import { Platform, Text, View, StyleSheet } from 'react-native';
+import * as Location from 'expo-location';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import RootNavigator from './navigation/RootNav';
@@ -12,6 +13,7 @@ import config from './src/aws-exports'
 Amplify.configure(config)
 
 function App() {
+  
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 

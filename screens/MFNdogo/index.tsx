@@ -14,29 +14,18 @@ import styles from './styles';
 const KFNdogoScreen = props => {
   const navigation = useNavigation();
 
-  const goToSalesAdsScreen = () => {
-    navigation.navigate('GnrlShpAdvtsScrn');
-  };
+  
 
   const DpstMneys = () => {
     navigation.navigate('DpstMney');
   };
 
-  const goToAdvertiseSales = () => {
-    navigation.navigate('GnrlShpAdvtsScrn');
-  };
-
-  const goToPubLnScreen = () => {
-    navigation.navigate('Loan Ads Search Results');
-  };
-
+  
   const RegMFNdogos = () => {
     navigation.navigate('RegMFNdgScrn');
   };
 
-  const goToAdvrtsChamaLn = () => {
-    navigation.navigate('GnrlShpChamaLnAdvtsScrn');
-  };
+  
 
   const UpdtMFNPWss = () => {
     navigation.navigate('UpdtMFNPWs');
@@ -50,31 +39,64 @@ const KFNdogoScreen = props => {
     navigation.navigate('WthdrwMFNFlts');
   };
 
+  const VwMFNAccountSgnInss = () => {
+    navigation.navigate('VwMFNAccountSgnIns');
+  };
+  const FltWthdrwlsSgnInss = () => {
+    navigation.navigate('FltWthdrwlsSgnIns');
+  };
+
+  const UsrWthdrwlsSgnInss = () => {
+    navigation.navigate('UsrWthdrwlsSgnIns');
+  };
+
+  const MFNWithdrawlsSgnInss = () => {
+    navigation.navigate('MFNWithdrawlsSgnIns');
+  };
+
+  const UsrDpositSgnInss = () => {
+    navigation.navigate('UsrDpositSgnIns');
+  };
+  const FloatBghtSgnInss = () => {
+    navigation.navigate('FloatBghtSgnIns');
+  };
+
   return (
     <SafeAreaView>
       <View
         
         style={styles.floatimage}>
-        <View style={styles.floatMainView}>
-          <Text style={styles.floatText}>Float</Text>
+       <View style={styles.floatMainView}>
+          <Text style={styles.floatText}>View</Text>
 
           <View style={styles.viewForFloatPressables}>
             <Pressable
-              onPress={goToAdvertiseSales}
+              onPress={FloatBghtSgnInss}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText}>Buy</Text>
+              <Text style={styles.floatPressableText2}>UsrDposit</Text>
             </Pressable>
 
             <Pressable
-              onPress={goToSalesAdsScreen}
+              onPress={UsrDpositSgnInss}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText}>CheckBal</Text>
+              <Text style={styles.floatPressableText2}>FloatBght</Text>
             </Pressable>
 
             <Pressable
-              onPress={WthdrwMFNFltss}
+              onPress={MFNWithdrawlsSgnInss}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText}>MFN Withdraw</Text>
+              <Text style={styles.floatPressableText2}>MFNWithdrawls</Text>
+            </Pressable>
+            <Pressable
+              onPress={UsrWthdrwlsSgnInss}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText2}>UsrWthdrwls</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={FltWthdrwlsSgnInss}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText2}>FltWthdrwls</Text>
             </Pressable>
           </View>
         </View>
@@ -90,7 +112,7 @@ const KFNdogoScreen = props => {
             </Pressable>
 
             <Pressable
-              onPress={goToSalesAdsScreen}
+              onPress={VwMFNAccountSgnInss}
               style={styles.floatView}>
               <Text style={styles.floatPressableText}>ViewAc</Text>
             </Pressable>
@@ -103,17 +125,33 @@ const KFNdogoScreen = props => {
           </View>
         </View>
 
+         <View style={styles.floatMainView}>
+          <Text style={styles.floatText}>Float</Text>
+
+          <View style={styles.viewForFloatPressables}>
+            <Pressable
+              onPress={VwMFNAccountSgnInss}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>Buy</Text>
+            </Pressable>
+
+            
+            <Pressable
+              onPress={WthdrwMFNFltss}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>MFN Withdraw</Text>
+            </Pressable>
+          </View>
+        </View>
+
+        
+
 
         <View style={styles.floatMainView}>
           <Text style={styles.floatText}> Earnings</Text>
 
           <View style={styles.viewForFloatPressables}>
-            <Pressable
-              onPress={goToAdvrtsChamaLn}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>Check Bal</Text>
-            </Pressable>
-
+            
             <Pressable onPress={WthdrwMFNss} style={styles.floatView}>
               <Text style={styles.floatPressableText}>Withdraw</Text>
             </Pressable>

@@ -96,13 +96,14 @@ const MFNWthdwl = props => {
                                     bankAdminId: "BnkkAdmNatId",                    
                                     agentPhone:MFKPhn,
                                     owner: ownr,
-                                    amount: amount,
+                                    Amount: amount,
                                     status: 'AccountActive',
                                   },
                                 }),
                               );
             
                     } catch (error) {
+                      console.log(error)
                       if(!error){
                         Alert.alert("Account deactivated successfully")
                         
@@ -133,6 +134,7 @@ const MFNWthdwl = props => {
                       }
         
                       catch (error) {
+                        console.log(error)
                         if (error){Alert.alert("Check internet Connection")
                         return;}
                       }
@@ -144,7 +146,7 @@ const MFNWthdwl = props => {
                       
                     
                     if (parseFloat(amount) > parseFloat(agentEarningBals)) {
-                      Alert.alert("Insufficient Admin Balance")
+                      Alert.alert("Insufficient MFNdogo Balance")
                       return;
                     } 
         
@@ -179,6 +181,7 @@ const MFNWthdwl = props => {
       
     }     
     catch (e) {
+      console.log(e)
       if (e){Alert.alert("Check your internet connection")
       return;}
          
@@ -190,6 +193,7 @@ const MFNWthdwl = props => {
     }
 
     catch (e) {
+      console.log(e)
       if (e){Alert.alert("Check your internet connection")
       return;}
           

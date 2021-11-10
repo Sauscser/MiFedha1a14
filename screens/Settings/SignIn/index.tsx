@@ -65,6 +65,9 @@ const AdminSignIn = (props) => {
             userClearanceFee: 0.02,
             CoverageFee:0.025,
 
+            enquiryFee: 0,
+            UsrWthdrwlFees: 0.025,
+
             ttlNonLonssRecSM: 0,
             ttlNonLonssSentSM:0,
 
@@ -221,7 +224,7 @@ const AdminSignIn = (props) => {
             catch (e)
             {
               
-                if (e){Alert.alert("Please check your internet connection")}
+                if (e){Alert.alert("Check internet; unauthorised access")}
             }    
             setPWOne("");
             setPWTwo("");

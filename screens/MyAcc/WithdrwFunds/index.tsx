@@ -76,8 +76,10 @@ const SMADepositForm = props => {
             graphqlOperation(getAgent, {phonecontact: AgentPhn}),
           );    
          
-          const TtlFltIns = AgentBal.data.getAgent.TtlFltIn;
+          const TtlFltInsss = AgentBal.data.getAgent.TtlFltIn;
           const floatBals = AgentBal.data.getAgent.floatBal;
+          const ttlEarningssss = AgentBal.data.getAgent.ttlEarnings;
+          const agentEarningBalsss = AgentBal.data.getAgent.agentEarningBal;
           const AgAcAct = AgentBal.data.getAgent.status;
           const sagentregnos = AgentBal.data.getAgent.sagentregno;
           const namess = AgentBal.data.getAgent.name;
@@ -95,15 +97,17 @@ const SMADepositForm = props => {
                   const agentComs = compDtls.data.getCompany.agentCom;
                   const sagentComs = compDtls.data.getCompany.sagentCom;
                   const companyComs = compDtls.data.getCompany.companyCom;
-                  const UsrWithdrawalFee = parseFloat(agentComs)*parseFloat(amount)
-                                            parseFloat(sagentComs)*parseFloat(amount)
-                                            parseFloat(companyComs)*parseFloat(amount)
-                  const AgentCommission = parseFloat(agentComs)*parseFloat(amount)
-                                                
-                  const saCommission =    parseFloat(sagentComs)*parseFloat(amount)
+                  const UsrWthdrwlFeess = compDtls.data.getCompany.UsrWthdrwlFees;
                   
+
+                  const AgentCommission = parseFloat(agentComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)                                                
+                  const saCommission =    parseFloat(sagentComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+                  const compCommission = parseFloat(companyComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+
+                  const UsrWithdrawalFee = AgentCommission+saCommission+compCommission;
+
                   const TTlAmtTrnsctd = parseFloat(amount) + UsrWithdrawalFee
-                  const compCommission = parseFloat(companyComs)*parseFloat(amount)
+                  
                   const companyEarningBals = compDtls.data.getCompany.companyEarningBal
                   const companyEarnings = compDtls.data.getCompany.companyEarning
                   const agentEarningBals = compDtls.data.getCompany.agentEarningBal
@@ -197,8 +201,10 @@ const SMADepositForm = props => {
                                 phonecontact: AgentPhn,
                     
                                
-                                TtlFltIn: parseFloat(TtlFltIns) + parseFloat(amount),
+                                ttlEarnings: parseFloat(ttlEarningssss) + AgentCommission,
+                                agentEarningBal: parseFloat(agentEarningBalsss) + AgentCommission,
                                 floatBal: parseFloat(floatBals) + parseFloat(amount),
+                                TtlFltIn: parseFloat(TtlFltInsss) + parseFloat(amount),
                               },
                             }),
                           );

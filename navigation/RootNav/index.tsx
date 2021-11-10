@@ -13,7 +13,7 @@ import KFAdminScreen from '../../screens/MFAdmin';
 import MFSetting from '../../screens/Settings/SignIn';
 import MFAdmSgnIn from "../../screens/MFAdmin/SignInAdm";
 import MFKw from "../../screens/MFKubwa/SignInMFK";
-import MFNd from "../../screens/MFNdogo/SignInMFN";
+import MFNd from "../../screens/MFNdogo";
 import AdvSgnIn from "../../screens/Advocate/AdvocateSignIn";
 
 
@@ -45,7 +45,7 @@ const RootNavigator = props => {
         headerShown: false,
       }}>
         <Drawer.Screen name="Homes" component={HomeNavigator} />
-        <Drawer.Screen name="MFNdogos" component={MFNd} />
+        <Drawer.Screen name="MFNdogos" component={KFNdogoScreen} />
         <Drawer.Screen name="MFKubwa" component={MFKw} />
         <Drawer.Screen name="MFAdvocate" component={AdvSgnIn} />
         <Drawer.Screen name="MFSettings" component={MFSetting} />

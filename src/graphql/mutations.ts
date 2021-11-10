@@ -524,6 +524,7 @@ export const createAgent = /* GraphQL */ `
       agentEarningBal
       status
       owner
+      town
       createdAt
       updatedAt
     }
@@ -550,6 +551,7 @@ export const updateAgent = /* GraphQL */ `
       agentEarningBal
       status
       owner
+      town
       createdAt
       updatedAt
     }
@@ -576,6 +578,7 @@ export const deleteAgent = /* GraphQL */ `
       agentEarningBal
       status
       owner
+      town
       createdAt
       updatedAt
     }
@@ -1181,6 +1184,8 @@ export const createCompany = /* GraphQL */ `
       userTransferFee
       userClearanceFee
       CoverageFee
+      enquiryFee
+      UsrWthdrwlFees
       ttlNonLonssRecSM
       ttlNonLonssSentSM
       ttlNonLonssRecChm
@@ -1314,6 +1319,8 @@ export const updateCompany = /* GraphQL */ `
       userTransferFee
       userClearanceFee
       CoverageFee
+      enquiryFee
+      UsrWthdrwlFees
       ttlNonLonssRecSM
       ttlNonLonssSentSM
       ttlNonLonssRecChm
@@ -1447,6 +1454,8 @@ export const deleteCompany = /* GraphQL */ `
       userTransferFee
       userClearanceFee
       CoverageFee
+      enquiryFee
+      UsrWthdrwlFees
       ttlNonLonssRecSM
       ttlNonLonssSentSM
       ttlNonLonssRecChm

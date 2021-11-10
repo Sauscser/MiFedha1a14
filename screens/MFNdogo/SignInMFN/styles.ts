@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'skyblue',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: 90,
+    height: "15%",
     borderRadius: 20,
     marginTop: 30,
     justifyContent: 'center',
@@ -45,8 +45,18 @@ const styles = StyleSheet.create({
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 30,
+    
   },
+
+  sendLoanText2: {
+    fontSize: 10,
+    fontWeight: 'normal',
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  },
+
   sendLoanButton: {
     backgroundColor: '#fff',
     height: 45,

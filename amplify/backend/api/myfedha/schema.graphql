@@ -354,7 +354,7 @@ type Agent
   )
   @key(fields: ["phonecontact"])
   {
-  phonecontact: ID!
+  phonecontact: String!
   nationalid: String!
   name: String!
   ttlEarnings: Float!
@@ -369,7 +369,11 @@ type Agent
   agentEarningBal: Float!
   status: Status!
   owner: String!
+  town:String!
+  
 }
+
+
 
 type FloatPurchase
   @model
@@ -890,6 +894,9 @@ type Company
   userTransferFee: Float!
   userClearanceFee: Float!
   CoverageFee: Float!
+
+  enquiryFee: Float!
+  UsrWthdrwlFees: Float!
 
   ttlNonLonssRecSM: Float!
   ttlNonLonssSentSM:Float!
@@ -1451,4 +1458,5 @@ enum Status {
   ChmNonCovLonRepayment
   CredSlCovLonRepayment
   CredSlNonCovLonRepayment
+  TransactionRev
 }

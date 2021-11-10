@@ -11,7 +11,8 @@ import ModalScreen from '../../screens/ModalScreen';
 import NotFoundScreen from '../../screens/NotFoundScreen';
 import TabOneScreen from '../../screens/TabOneScreen';
 import HomeScreen from '../../screens/HomeScrn';
-import KFNdogoLoc from '../../screens/MFNdogo';
+import KFNdogoLoc from '../../screens/MFNdogo/SearchMFN';
+import FindKFNdogoLoc from '../../screens/MFNdogo/SignInMFN';
 import MyAccount from '../../screens/MyAcc';
 import LoanScreen from '../../screens/Loans';
 import CredtSales from '../../screens/CredSls';
@@ -48,7 +49,7 @@ const HomeTabNavigator = props => {
       />
       <BottomTab.Screen
         name='MFNdogo'
-        component={KFNdogoLoc}
+        component={FindKFNdogoLoc}
         options={{
           tabBarIcon: ({color: string}) => (
             <FontAwesome name="map-marker" size={25} color={'blue'} />

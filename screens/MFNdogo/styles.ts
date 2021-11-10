@@ -40,19 +40,25 @@ const styles = StyleSheet.create({
     marginTop: 1,
   },
 
+  floatPressableText2: {
+    color: 'white',
+    fontSize: 8,
+    marginTop: 1,
+  },
+
   
 
   floatMainView: {
     backgroundColor: 'skyblue',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "20%",
+    height: "17%",
     borderRadius: 20,
 
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop: "5%",
+    marginTop: "1%",
     
    
   },

@@ -353,7 +353,7 @@ export const listNonLoanss = /* GraphQL */ `
   }
 `;
 export const getAgent = /* GraphQL */ `
-  query GetAgent($phonecontact: ID!) {
+  query GetAgent($phonecontact: String!) {
     getAgent(phonecontact: $phonecontact) {
       phonecontact
       nationalid
@@ -370,6 +370,7 @@ export const getAgent = /* GraphQL */ `
       agentEarningBal
       status
       owner
+      town
       createdAt
       updatedAt
     }
@@ -377,7 +378,7 @@ export const getAgent = /* GraphQL */ `
 `;
 export const listAgents = /* GraphQL */ `
   query ListAgents(
-    $phonecontact: ID
+    $phonecontact: String
     $filter: ModelAgentFilterInput
     $limit: Int
     $nextToken: String
@@ -406,6 +407,7 @@ export const listAgents = /* GraphQL */ `
         agentEarningBal
         status
         owner
+        town
         createdAt
         updatedAt
       }
@@ -870,6 +872,8 @@ export const getCompany = /* GraphQL */ `
       userTransferFee
       userClearanceFee
       CoverageFee
+      enquiryFee
+      UsrWthdrwlFees
       ttlNonLonssRecSM
       ttlNonLonssSentSM
       ttlNonLonssRecChm
@@ -1013,6 +1017,8 @@ export const listCompanys = /* GraphQL */ `
         userTransferFee
         userClearanceFee
         CoverageFee
+        enquiryFee
+        UsrWthdrwlFees
         ttlNonLonssRecSM
         ttlNonLonssSentSM
         ttlNonLonssRecChm

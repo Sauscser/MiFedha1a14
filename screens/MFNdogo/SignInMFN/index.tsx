@@ -23,76 +23,31 @@ import styles from './styles';
 const MFNSignIn = (props) => {  
   const navigation = useNavigation();
 
-  const [MFNId, setMFNId] = useState("");
-  const [MFNPW, setMFNPW] = useState("");  
+  const [town, settown] = useState("");
+  
 
 
 
   const moveToMFNHm = () => {
-    navigation.navigate("MFNdogoss");
-  };
-
-
-    
-      const fetchMFNDts = async () => {
-        try {
-                const MFNDtls: any = await API.graphql(
-                    graphqlOperation(getAgent, {phonecontact: MFNId}
-                ),);
-
-                const pw1s = MFNDtls.data.getAgent.pw;
-                
-
-                
-
-
-                if(MFNPW === pw1s )
-                {
-              
-                  moveToMFNHm();
-              }
-              else{
-                Alert.alert("You are not authorised to access these settings");
-
-              }
-            }
-
-            catch (e)
-            {
-              if(e){
-                Alert.alert("MFNdogo does not exist; otherwise check internet connection");
-                return;
-              }
-                console.log(e)
-               
-                
-            }    
-            setMFNId("");
-            setMFNPW("");
+    navigation.navigate("SearchMFNsssss", {town});
+  
+            settown("");
+            
       
     
              }
 
-             useEffect(() =>{
-              const mfnID=MFNId
-                if(!mfnID && mfnID!=="")
-                {
-                  setMFNId("");
-                  return;
-                }
-                setMFNId(mfnID);
-                }, [MFNId]
-                 );
+             
   
                  useEffect(() =>{
-                  const mfnPW=MFNPW
-                    if(!mfnPW && mfnPW!=="")
+                  const towns=town
+                    if(!towns && towns!=="")
                     {
-                      setMFNPW("");
+                      settown("");
                       return;
                     }
-                    setMFNPW(mfnPW);
-                    }, [MFNPW]
+                    settown(towns);
+                    }, [town]
                      );
 
 
@@ -108,25 +63,18 @@ const MFNSignIn = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="+2547xxxxxxxx"
-                      value={MFNId}
-                      onChangeText={setMFNId}
+                    
+                      value={town}
+                      onChangeText={settown}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>MFNdogo Phone</Text>
+                    <Text style={styles.sendLoanText}>Town</Text>
+                    <Text style={styles.sendLoanText2}>(Enter part or full name)</Text>
                   </View>
         
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={MFNPW}
-                      onChangeText={setMFNPW}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Pass Word</Text>
-                  </View>
-        
+                  
                   <TouchableOpacity
-                    onPress={fetchMFNDts}
+                    onPress={moveToMFNHm}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Sign In

@@ -20,7 +20,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import styles from './styles';
-import { getCompany, getSAgent, getSMAccount } from '../../../src/graphql/queries';
+import { getCompany, getSAgent, getSMAccount, listSMAccounts } from '../../../src/graphql/queries';
 
   const RegisterKFNdgAcForm = props => {
   const [nationalId, setNationalid] = useState('');
@@ -31,6 +31,7 @@ import { getCompany, getSAgent, getSMAccount } from '../../../src/graphql/querie
   const [pword, setPW] = useState('');
   const [saRegNo, setSARegNo] = useState('');
   const[lat, setLat] = useState('');
+  const[twn, settwn] = useState("");
   const[lon, setLon] = useState("");
   const[isLoading, setIsLoading]=useState(false);
   
@@ -71,10 +72,10 @@ import { getCompany, getSAgent, getSMAccount } from '../../../src/graphql/querie
           const ChckUsrExistence = async () => {
             try {
               const UsrDtls:any = await API.graphql(
-                graphqlOperation(getSMAccount,
+                graphqlOperation(listSMAccounts,
                   { filter: {
                       
-                        nationalid: { eq: phoneContact}
+                    phonecontact: { eq: phoneContact}
                                   
                     }}
                 )
@@ -89,24 +90,23 @@ import { getCompany, getSAgent, getSMAccount } from '../../../src/graphql/querie
               await API.graphql(
                 graphqlOperation(createAgent, {
                   input: {                    
+                    phonecontact: phoneContact,
+                    nationalid: nationalId,
+                    name: nam,
+                    ttlEarnings:0,
+                    pw: pword,
+                    email: eml,
                     sagentregno: saRegNo,
                     TtlFltIn: 0,
                     TtlFltOut: 0,
-                    floatBal: 0,
+                    floatBal: 0,   
                     latitude: lat,
-                    longitude: lon,
-                    ttlEarnings:0,
-        
+                    longitude: lon,              
                     agentEarningBal: 0,
-                    
-        
-                    nationalid: nationalId,
-                    name: nam,
-                    phonecontact: phoneContact,
-                    pw: pword,
-                    email: eml,
+                    town:twn,      
                     owner:ownr,
                     status: 'AccountActive',
+
                   },
                 }),
               );
@@ -114,6 +114,7 @@ import { getCompany, getSAgent, getSMAccount } from '../../../src/graphql/querie
               }
             
             catch (error) {
+              console.log(error)
               if(!error){
                 Alert.alert("Account deactivated successfully")
                 
@@ -134,13 +135,15 @@ import { getCompany, getSAgent, getSMAccount } from '../../../src/graphql/querie
         return;
       } 
 
-      else if(UsrDtls.data.getSMAccount.items.length > 0){Alert.alert("This number belongs to another user")}
+      else if(UsrDtls.data.listSMAccounts.items.length > 0){Alert.alert("This number belongs to another user")}
       else if((actvMFNdogs+1)>maxMFNdogoss){
         Alert.alert("Exceeded MFNdogo slots; Open another MFKubwa account");
         return;
       }
       else{createNewMFN();}
           
+
+
           const updtActAdm = async()=>{
             if(isLoading){
               return;
@@ -157,6 +160,7 @@ import { getCompany, getSAgent, getSMAccount } from '../../../src/graphql/querie
                 )
             }
             catch(error){if (error) {
+              console.log(error)
               Alert.alert("Please check your internet connection")
             }}
             setIsLoading(false);
@@ -179,6 +183,7 @@ import { getCompany, getSAgent, getSMAccount } from '../../../src/graphql/querie
                 )
             }
             catch(error){if (error) {
+              console.log(error)
               Alert.alert("Please check your internet connection")
               return;
             }}
@@ -189,6 +194,7 @@ import { getCompany, getSAgent, getSMAccount } from '../../../src/graphql/querie
         }
   
         catch(e){
+          console.log(e)
         
         }
         setIsLoading(false);
@@ -198,6 +204,7 @@ import { getCompany, getSAgent, getSMAccount } from '../../../src/graphql/querie
       }
   
         catch(e){
+          console.log(e)
         
         }
         setIsLoading(false);
@@ -219,6 +226,7 @@ return;
     setLon("");
     setPhoneContact('');
     setSARegNo('');
+    settwn("")
   };
 
   useEffect(() =>{
@@ -231,6 +239,17 @@ return;
       setNationalid(natId);
       }, [nationalId]
        );
+
+       useEffect(() =>{
+        const twns=twn
+          if(!twns && twns!=="")
+          {
+            settwn("");
+            return;
+          }
+          settwn(twns);
+          }, [twn]
+           );
   
        useEffect(() =>{
         const pws=pword
@@ -298,16 +317,7 @@ return;
                               }, [lon]
                                );
                   
-                               useEffect(() =>{
-                                const phn=phoneContact
-                                  if(!phn && phn!=="")
-                                  {
-                                    setPhoneContact("");
-                                    return;
-                                  }
-                                  setPhoneContact(phn);
-                                  }, [phoneContact]
-                                   );
+                               
                     
                                    useEffect(() =>{
                                     const saRN=saRegNo
@@ -393,7 +403,7 @@ return;
               onChangeText={setLat}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo Latitude</Text>
+            <Text style={styles.sendLoanText}>Location Latitude</Text>
           </View>
 
           <View style={styles.sendLoanView}>
@@ -402,7 +412,17 @@ return;
               onChangeText={setLon}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo Latitude</Text>
+            <Text style={styles.sendLoanText}>Location Longitude</Text>
+          </View>
+
+          <View style={styles.sendLoanView}>
+            <TextInput
+            
+              value={twn}
+              onChangeText={settwn}
+              style={styles.sendLoanInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendLoanText}>MFNdogo Nearby Town</Text>
           </View>
 
           <TouchableOpacity
