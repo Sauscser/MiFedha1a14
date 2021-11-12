@@ -85,8 +85,8 @@ const UpdtSMPW = (props) => {
                                               graphqlOperation(updateCompany,{
                                                 input:{
                                                   AdminId:"BaruchHabaB'ShemAdonai2",
-                                                  pw1:CompPW1,
-                                                  pw2:CompPW2
+                                                  policy:CompPW1,
+                                                  
                                                 }
                                               })
                                             )
@@ -100,7 +100,7 @@ const UpdtSMPW = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert("You have successfully updated Company PassWords");
+                                        Alert.alert("You have successfully updated Company Policy");
                                       } 
 
                                       if(LnAcCod!==loanAcceptanceCodes)
@@ -205,17 +205,10 @@ const UpdtSMPW = (props) => {
                       onChangeText={setCompPW1}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>New PW1</Text>
+                    <Text style={styles.sendLoanText}>New Policy</Text>
                   </View>   
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={CompPW2}
-                      onChangeText={setCompPW2}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>New PW2</Text>
-                  </View>         
+                    
 
                   <View style={styles.sendLoanView}>
                     <TextInput

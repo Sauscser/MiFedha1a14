@@ -243,7 +243,7 @@ const SettinsHm = props => {
                     <Pressable
                       onPress={Alertsss}
                       style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>UpdtAlrt</Text>
+                      <Text style={styles.clientsPressableText}>UpdtAlert</Text>
                     </Pressable>
 
                     <Pressable

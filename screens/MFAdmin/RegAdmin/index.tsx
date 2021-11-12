@@ -27,13 +27,13 @@ const CreateAdminForm = () => {
   const navigation = useNavigation();
   const [PhoneContact, setPhoneContact] = useState("");
   const [nationalId, setNationalid] = useState("");
-  const [ownr, setOwner] = useState(null);
+  const [ownr, setOwner] = useState("");
   const [pword, setPW] = useState("");
   const [isLoading, setISLoading] = useState(false);
 
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
-    setOwner(userInfo.attributes.sub);    
+      
     setPhoneContact(userInfo.attributes.phone_number);
 
 
@@ -152,19 +152,19 @@ const CreateAdminForm = () => {
             return
           }
         }     setISLoading(false);
-              setNationalid("");
+              setOwner("");
               setPW("");
     };
 
     useEffect(() =>{
-      const NatId=nationalId
-        if(!NatId && NatId!=="")
+      const ownrs=ownr
+        if(!ownrs && ownrs!=="")
         {
-          setNationalid("");
+          setOwner("");
           return;
         }
-        setNationalid(NatId);
-        }, [nationalId]
+        setOwner(ownrs);
+        }, [ownr]
          );
 
          useEffect(() =>{
@@ -196,6 +196,15 @@ const CreateAdminForm = () => {
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Pass Word</Text>
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                      value={ownr}
+                      onChangeText={setOwner}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>AdminSub</Text>
                   </View>
         
                   <TouchableOpacity

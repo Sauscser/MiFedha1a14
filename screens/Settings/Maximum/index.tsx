@@ -29,19 +29,23 @@ import { updateBankAdmin } from '../../../src/graphql/mutations';
 
 const UpdtSMPW = (props) => {
   const navigation = useNavigation();
-  const [CompPW2, setCompPW2] = useState("");
-  const [groupCnt, setgroupCnt] = useState("");
+  const [maxInttSM, setmaxInttSM] = useState("");
+  const [maxIntCredSllr, setmaxIntCredSllr] = useState("");
+  const [maxIntGrp, setmaxIntGrp] = useState("");
+  const[maxMFNdogo, setmaxMFNdogo] = useState("");
+  const[maxBL, setmaxBL] = useState("");
+  const[PhoneContact, setPhoneContact] = useState(null);
+
   const [LnAcCod, setLnAcCod] = useState("");
-  const [CompPW1, setCompPW1] = useState("");
+  
   const[isLoading, setIsLoading] = useState(false);
   const[ownr, setownr] = useState(null);
-  const[names, setName] = useState(null);
-  const[PhoneContact, setPhoneContact] = useState(null);
+  
   
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     
-    setName(userInfo.username);
+    
     setownr(userInfo.attributes.sub);
     setPhoneContact(userInfo.attributes.phone_number);
     
@@ -85,8 +89,11 @@ const UpdtSMPW = (props) => {
                                               graphqlOperation(updateCompany,{
                                                 input:{
                                                   AdminId:"BaruchHabaB'ShemAdonai2",
-                                                  pw1:CompPW1,
-                                                  pw2:CompPW2
+                                                  maxInterestSM:maxInttSM,
+                                                  maxInterestCredSllr:maxIntCredSllr,
+                                                  maxMFNdogos:maxMFNdogo,
+                                                  maxInterestGrp:maxIntGrp,                                                  
+                                                  maxBLs:maxBL,
                                                 }
                                               })
                                             )
@@ -100,7 +107,7 @@ const UpdtSMPW = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert("You have successfully updated Company PassWords");
+                                        Alert.alert("You have successfully updated Company Maximums");
                                       } 
 
                                       if(LnAcCod!==loanAcceptanceCodes)
@@ -137,34 +144,69 @@ const UpdtSMPW = (props) => {
            
 
             setIsLoading(false);
-              setgroupCnt("");
-              setCompPW1("")
-              setCompPW2("")
+              setmaxInttSM("");
+              setmaxIntCredSllr("")
+              setmaxIntGrp("")
+              setmaxMFNdogo("");
+              setmaxBL("")
               setLnAcCod("")
           
             }
         
         useEffect(() =>{
-          const groupCnts=groupCnt
-            if(!groupCnts && groupCnts!=="")
+          const maxInttSMs=maxInttSM
+            if(!maxInttSMs && maxInttSMs!=="")
             {
-              setgroupCnt("");
+              setmaxInttSM("");
               return;
             }
-            setgroupCnt(groupCnts);
-            }, [groupCnt]
+            setmaxInttSM(maxInttSMs);
+            }, [maxInttSM]
              );
 
              useEffect(() =>{
-                const CompPW1s=CompPW1
-                  if(!CompPW1s && CompPW1s!=="")
+                const maxIntCredSllrs=maxIntCredSllr
+                  if(!maxIntCredSllrs && maxIntCredSllrs!=="")
                   {
-                    setCompPW1("");
+                    setmaxIntCredSllr("");
                     return;
                   }
-                  setCompPW1(CompPW1s);
-                  }, [CompPW1]
+                  setmaxIntCredSllr(maxIntCredSllrs);
+                  }, [maxIntCredSllr]
                    );
+
+                   useEffect(() =>{
+                    const maxIntGrps=maxIntGrp
+                      if(!maxIntGrps && maxIntGrps!=="")
+                      {
+                        setmaxIntGrp("");
+                        return;
+                      }
+                      setmaxIntGrp(maxIntGrps);
+                      }, [maxIntGrp]
+                       );
+
+                       useEffect(() =>{
+                        const maxMFNdogos=maxMFNdogo
+                          if(!maxMFNdogos && maxMFNdogos!=="")
+                          {
+                            setmaxMFNdogo("");
+                            return;
+                          }
+                          setmaxMFNdogo(maxMFNdogos);
+                          }, [maxMFNdogo]
+                           );
+
+                           useEffect(() =>{
+                            const maxBLs=maxBL
+                              if(!maxBLs && maxBLs!=="")
+                              {
+                                setmaxBL("");
+                                return;
+                              }
+                              setmaxBL(maxBLs);
+                              }, [maxBL]
+                               );
 
                    useEffect(() =>{
                     const LnAcCods=LnAcCod
@@ -177,16 +219,7 @@ const UpdtSMPW = (props) => {
                       }, [LnAcCod]
                        );
 
-                       useEffect(() =>{
-                        const CompPW2s=CompPW2
-                          if(!CompPW2s && CompPW2s!=="")
-                          {
-                            setCompPW2("");
-                            return;
-                          }
-                          setCompPW2(CompPW2s);
-                          }, [CompPW2]
-                           );
+                       
   
   
  return (
@@ -199,23 +232,62 @@ const UpdtSMPW = (props) => {
                     <Text style={styles.title}>Fill Ac Details Below</Text>
                   </View>
         
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={CompPW1}
-                      onChangeText={setCompPW1}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>New PW1</Text>
-                  </View>   
+                  <View style={styles.sendLoanView2}>
+             <TextInput
+             keyboardType={"decimal-pad"}
+               value={maxInttSM}
+               onChangeText={setmaxInttSM}
+               style={styles.sendLoanInput2}
+               editable={true}
+               multiline={true}></TextInput>
+             <Text style={styles.sendLoanText}>MFNdogo Int Max</Text>
+           </View>   
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={CompPW2}
-                      onChangeText={setCompPW2}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>New PW2</Text>
-                  </View>         
+           <View style={styles.sendLoanView2}>
+             <TextInput
+             keyboardType={"decimal-pad"}
+               value={maxIntCredSllr}
+               onChangeText={setmaxIntCredSllr}
+               style={styles.sendLoanInput2}
+               editable={true}
+               multiline={true}></TextInput>
+             <Text style={styles.sendLoanText}>CredSlr Int Max</Text>
+           </View>   
+
+           <View style={styles.sendLoanView2}>
+             <TextInput
+             keyboardType={"decimal-pad"}
+               value={maxIntGrp}
+               onChangeText={setmaxIntGrp}
+               style={styles.sendLoanInput2}
+               editable={true}
+               multiline={true}></TextInput>
+             <Text style={styles.sendLoanText}>Grp Int Max</Text>
+           </View>   
+
+           <View style={styles.sendLoanView2}>
+             <TextInput
+             keyboardType={"decimal-pad"}
+               value={maxMFNdogo}
+               onChangeText={setmaxMFNdogo}
+               style={styles.sendLoanInput2}
+               editable={true}
+               multiline={true}></TextInput>
+             <Text style={styles.sendLoanText}>Max MFNdogos</Text>
+           </View>   
+
+           <View style={styles.sendLoanView2}>
+             <TextInput
+             keyboardType={"decimal-pad"}
+               value={maxBL}
+               onChangeText={setmaxBL}
+               style={styles.sendLoanInput2}
+               editable={true}
+               multiline={true}></TextInput>
+             <Text style={styles.sendLoanText}>Max BListings</Text>
+           </View>   
+
+               
 
                   <View style={styles.sendLoanView}>
                     <TextInput

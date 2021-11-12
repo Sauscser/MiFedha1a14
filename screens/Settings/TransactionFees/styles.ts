@@ -6,7 +6,19 @@ const styles = StyleSheet.create({
     height: "100%",
     resizeMode: 'cover',
     justifyContent: 'center',
+    alignItems: 'center',
+    
   },
+
+  scrollVw: {
+    width: '100%',
+    height: "100%",
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    marginTop:"2%",
+    
+  },
+
   title: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -15,31 +27,17 @@ const styles = StyleSheet.create({
 
   loanTitleView: {
     backgroundColor: 'white',
+   
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: 40,
     borderRadius: 5,
-    marginTop: 30,
+    marginTop: "5%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    top: 10,
+  },
+
   
-  },
-
-  sendLoanView: {
-    backgroundColor: 'skyblue',
-    marginHorizontal: 10,
-    width: Dimensions.get('screen').width - 20,
-    height: 90,
-    borderRadius: 20,
-    marginTop: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-    marginBottom: 20,
-  },
-
   sendLoanText: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -50,15 +48,18 @@ const styles = StyleSheet.create({
   },
   sendLoanButton: {
     backgroundColor: '#fff',
-    height: 45,
+    height: "3%",
     borderRadius: 30,
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30,
-    marginBottom: 400,
+    marginTop: "5%",
+    marginBottom: "100%",
+    
   },
+
+  
   sendLoanButtonText: {
     fontSize: 15,
     fontWeight: 'bold',
@@ -69,18 +70,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'skyblue',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "20%",
+    height: "7%",
     borderRadius: 20,
-    marginTop: 30,
+    marginTop: "5%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    marginBottom: 20,
+    padding:"1%",
   },
 
   sendLoanInput2: {
     backgroundColor: 'white',
-    width: "96%",
+    marginHorizontal: 15,
+    width: Dimensions.get('screen').width - 30,
     height: "70%",
     borderRadius: 10,
     marginTop: "2%",
@@ -88,10 +90,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  sendLoanView: {
+    backgroundColor: 'skyblue',
+    marginHorizontal: 10,
+    width: Dimensions.get('screen').width - 20,
+    height: "6%",
+    borderRadius: 20,
+    marginTop: "5%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    padding:"1%",
+  },
+
+
   sendLoanInput: {
     backgroundColor: 'white',
-    width: "96%",
-    height: "70%",
+    marginHorizontal: 15,
+    width: Dimensions.get('screen').width - 30,
+    height: "60%",
     borderRadius: 10,
     marginTop: "2%",
     justifyContent: 'center',

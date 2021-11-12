@@ -100,7 +100,7 @@ const UpdtSMPW = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert("You have successfully updated Company PassWords");
+                                        Alert.alert("You have successfully updated Company Alert");
                                       } 
 
                                       if(LnAcCod!==loanAcceptanceCodes)

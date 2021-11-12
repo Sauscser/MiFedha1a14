@@ -29,10 +29,14 @@ import { updateBankAdmin } from '../../../src/graphql/mutations';
 
 const UpdtSMPW = (props) => {
   const navigation = useNavigation();
-  const [CompPW2, setCompPW2] = useState("");
-  const [groupCnt, setgroupCnt] = useState("");
+  const [LnTrFee, setLnTrFee] = useState("");
+  const [UsrTrFee, setUsrTrFee] = useState("");
+  const [UsrClrnceFee, setUsrClrnceFee] = useState("");
+  const [CovFee, setCovFee] = useState("");
+  const [EnqFee, setEnqFee] = useState("");
+  const [WthdrwlFee, setWthdrwlFee] = useState("");
   const [LnAcCod, setLnAcCod] = useState("");
-  const [CompPW1, setCompPW1] = useState("");
+  
   const[isLoading, setIsLoading] = useState(false);
   const[ownr, setownr] = useState(null);
   const[names, setName] = useState(null);
@@ -85,8 +89,12 @@ const UpdtSMPW = (props) => {
                                               graphqlOperation(updateCompany,{
                                                 input:{
                                                   AdminId:"BaruchHabaB'ShemAdonai2",
-                                                  pw1:CompPW1,
-                                                  pw2:CompPW2
+                                                  userLoanTransferFee:LnTrFee,
+                                                  userTransferFee:UsrTrFee,
+                                                  userClearanceFee:UsrClrnceFee,
+                                                  CoverageFee:CovFee,
+                                                  enquiryFee:EnqFee,
+                                                  UsrWthdrwlFees:WthdrwlFee,
                                                 }
                                               })
                                             )
@@ -100,7 +108,7 @@ const UpdtSMPW = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert("You have successfully updated Company PassWords");
+                                        Alert.alert("You have successfully updated Company Transfer Fees");
                                       } 
 
                                       if(LnAcCod!==loanAcceptanceCodes)
@@ -137,34 +145,82 @@ const UpdtSMPW = (props) => {
            
 
             setIsLoading(false);
-              setgroupCnt("");
-              setCompPW1("")
-              setCompPW2("")
+            setLnTrFee("");
+            setUsrTrFee("")
+            setUsrClrnceFee("")
+            setCovFee("");
+            setEnqFee("")
+            setWthdrwlFee("")
               setLnAcCod("")
           
             }
         
         useEffect(() =>{
-          const groupCnts=groupCnt
-            if(!groupCnts && groupCnts!=="")
+          const LnTrFees=LnTrFee
+            if(!LnTrFees && LnTrFees!=="")
             {
-              setgroupCnt("");
+              setLnTrFee("");
               return;
             }
-            setgroupCnt(groupCnts);
-            }, [groupCnt]
+            setLnTrFee(LnTrFees);
+            }, [LnTrFee]
              );
 
              useEffect(() =>{
-                const CompPW1s=CompPW1
-                  if(!CompPW1s && CompPW1s!=="")
+                const UsrTrFees=UsrTrFee
+                  if(!UsrTrFees && UsrTrFees!=="")
                   {
-                    setCompPW1("");
+                    setUsrTrFee("");
                     return;
                   }
-                  setCompPW1(CompPW1s);
-                  }, [CompPW1]
+                  setUsrTrFee(UsrTrFees);
+                  }, [UsrTrFee]
                    );
+
+                   useEffect(() =>{
+                    const UsrClrnceFees=UsrClrnceFee
+                      if(!UsrClrnceFees && UsrClrnceFees!=="")
+                      {
+                        setUsrClrnceFee("");
+                        return;
+                      }
+                      setUsrClrnceFee(UsrClrnceFees);
+                      }, [UsrClrnceFee]
+                       );
+
+                       useEffect(() =>{
+                        const CovFees=CovFee
+                          if(!CovFees && CovFees!=="")
+                          {
+                            setCovFee("");
+                            return;
+                          }
+                          setCovFee(CovFees);
+                          }, [CovFee]
+                           );
+              
+                           useEffect(() =>{
+                              const EnqFees=EnqFee
+                                if(!EnqFees && EnqFees!=="")
+                                {
+                                  setEnqFee("");
+                                  return;
+                                }
+                                setEnqFee(EnqFees);
+                                }, [EnqFee]
+                                 );
+              
+                                 useEffect(() =>{
+                                  const WthdrwlFees=WthdrwlFee
+                                    if(!WthdrwlFees && WthdrwlFees!=="")
+                                    {
+                                      setWthdrwlFee("");
+                                      return;
+                                    }
+                                    setWthdrwlFee(WthdrwlFees);
+                                    }, [WthdrwlFee]
+                                     );
+              
 
                    useEffect(() =>{
                     const LnAcCods=LnAcCod
@@ -177,16 +233,7 @@ const UpdtSMPW = (props) => {
                       }, [LnAcCod]
                        );
 
-                       useEffect(() =>{
-                        const CompPW2s=CompPW2
-                          if(!CompPW2s && CompPW2s!=="")
-                          {
-                            setCompPW2("");
-                            return;
-                          }
-                          setCompPW2(CompPW2s);
-                          }, [CompPW2]
-                           );
+                       
   
   
  return (
@@ -201,21 +248,63 @@ const UpdtSMPW = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                      value={CompPW1}
-                      onChangeText={setCompPW1}
+                    keyboardType={"decimal-pad"}
+                      value={LnTrFee}
+                      onChangeText={setLnTrFee}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>New PW1</Text>
+                    <Text style={styles.sendLoanText}>Loan Fee</Text>
                   </View>   
 
                   <View style={styles.sendLoanView}>
                     <TextInput
-                      value={CompPW2}
-                      onChangeText={setCompPW2}
+                    keyboardType={"decimal-pad"}
+                      value={UsrTrFee}
+                      onChangeText={setUsrTrFee}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>New PW2</Text>
+                    <Text style={styles.sendLoanText}>NonLn Fee</Text>
+                  </View>    
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    keyboardType={"decimal-pad"}
+                      value={UsrClrnceFee}
+                      onChangeText={setUsrClrnceFee}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Clearance Fee</Text>
+                  </View>   
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    keyboardType={"decimal-pad"}
+                      value={CovFee}
+                      onChangeText={setCovFee}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Coverage Fee</Text>
                   </View>         
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    keyboardType={"decimal-pad"}
+                      value={EnqFee}
+                      onChangeText={setEnqFee}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Enquiry Fee</Text>
+                  </View>   
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    keyboardType={"decimal-pad"}
+                      value={WthdrwlFee}
+                      onChangeText={setWthdrwlFee}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Withdrawal Fee</Text>
+                  </View>              
 
                   <View style={styles.sendLoanView}>
                     <TextInput
