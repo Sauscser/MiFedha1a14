@@ -152,6 +152,19 @@ declare global {
       UpdateAccCodess:undefined;
       WelcomePgss:{awsEmail:null};
 
+      Aboutss:undefined;
+      Alertss:undefined;
+      Contactsss:undefined;
+      Maximumss:undefined;
+      Passwordsss:undefined;
+      Policyss:undefined;
+      Privacyss:undefined;
+      Recommendationsss:undefined;
+      TCss:undefined;
+      TransactionFeess:undefined;
+      VwCompDtlss:undefined;
+      Commissionss:undefined;
+
     }
   }
 }

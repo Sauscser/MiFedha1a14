@@ -1145,6 +1145,7 @@ export const onCreateCompany = /* GraphQL */ `
       maxInterestGrp
       maxMFNdogos
       maxBLs
+      owner
       totalLnsRecovered
       createdAt
       updatedAt
@@ -1277,6 +1278,7 @@ export const onUpdateCompany = /* GraphQL */ `
       maxInterestGrp
       maxMFNdogos
       maxBLs
+      owner
       totalLnsRecovered
       createdAt
       updatedAt
@@ -1409,6 +1411,7 @@ export const onDeleteCompany = /* GraphQL */ `
       maxInterestGrp
       maxMFNdogos
       maxBLs
+      owner
       totalLnsRecovered
       createdAt
       updatedAt

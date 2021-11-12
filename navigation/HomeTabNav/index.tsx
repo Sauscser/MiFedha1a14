@@ -126,6 +126,19 @@ import MFKVwMFNs from "../../screens/MFKubwa/MFKVwMFN";
 import UpdateAccCodes from "../../screens/MyAcc/UpdateAccCode";
 import WelcomePgs from "../../screens/MyAcc/WelcomePg";
 
+import Abouts from "../../screens/Settings/About";
+import Alerts from "../../screens/Settings/Alert";
+import Contactss from "../../screens/Settings/Contacts";
+import Maximums from "../../screens/Settings/Maximum";
+import Passwordss from "../../screens/Settings/Passwords";
+import Policys from "../../screens/Settings/Policy";
+import Privacys from "../../screens/Settings/Privacy";
+import Recommendationss from "../../screens/Settings/Recommendations";
+import TCs from "../../screens/Settings/TC";
+import TransactionFees from "../../screens/Settings/TransactionFees";
+import VwCompDtls from "../../screens/Settings/VwCompDtls";
+import Commissions from "../../screens/Settings/Commissions";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -137,11 +150,23 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'Commissionss'} component={Commissions} />
+      <Stack.Screen name={'VwCompDtlss'} component={VwCompDtls} />
+       <Stack.Screen name={'Aboutss'} component={Abouts} />
+      <Stack.Screen name={'Alertss'} component={Alerts} />
+      <Stack.Screen name={'Contactsss'} component={Contactss} />
+      <Stack.Screen name={'Maximumss'} component={Maximums} />      
+      <Stack.Screen name={'Passwordsss'} component={Passwordss} />
+      <Stack.Screen name={'Policyss'} component={Policys} />
+      <Stack.Screen name={'Privacyss'} component={Privacys} />
+      <Stack.Screen name={'Recommendationsss'} component={Recommendationss} />
+      <Stack.Screen name={'TCss'} component={TCs} />
+      <Stack.Screen name={'TransactionFeess'} component={TransactionFees} />
+      
       <Stack.Screen name={'WelcomePgss'} component={WelcomePgs} />
       <Stack.Screen name={'UpdateAccCodess'} component={UpdateAccCodes} />
       <Stack.Screen name={'MFKVwMFNSgnInss'} component={MFKVwMFNSgnIns} />
-      <Stack.Screen name={'MFKVwMFNss'} component={MFKVwMFNs} />
-      
+      <Stack.Screen name={'MFKVwMFNss'} component={MFKVwMFNs} />      
       <Stack.Screen name={'AdvVwCrdSlsSgnIns'} component={AdvVwCrdSlsSgnIn} />
       <Stack.Screen name={'AdvVwSMSgnIns'} component={AdvVwSMSgnIn} />
       <Stack.Screen name={'AdvWthdrwlSgnIns'} component={AdvWthdrwlSgnIn} />

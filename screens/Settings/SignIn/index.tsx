@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {createCompany} from '../../../src/graphql/mutations';
 import { getCompany} from '../../../src/graphql/queries';
-import {graphqlOperation, API} from 'aws-amplify';
+import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -24,9 +24,23 @@ const AdminSignIn = (props) => {
   const navigation = useNavigation();
 
   const [PWOnes, setPWOne] = useState("");
-  const [PWTwos, setPWTwo] = useState("");  
+  const [PWTwos, setPWTwo] = useState(""); 
+  const [ownr, setownr] = useState("");  
+ 
 
+  const fetchUser = async () => {
+    const userInfo = await Auth.currentAuthenticatedUser();
+    
+    
+    setownr(userInfo.attributes.sub);
+    
+  };
 
+  
+
+  useEffect(() => {
+      fetchUser();
+    }, []);
 
   const moveToRegAdmin = () => {
     navigation.navigate("SttinsHm");
@@ -180,6 +194,7 @@ const AdminSignIn = (props) => {
             maxMFNdogos:100,
 
             totalLnsRecovered: 0,
+            owner:ownr,
           },
         }),
       );

@@ -1009,7 +1009,7 @@ type Company
   maxMFNdogos:Float!
   maxBLs:Float!
 
-
+  owner:String!
   totalLnsRecovered: Float!
 }
 

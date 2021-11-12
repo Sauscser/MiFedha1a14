@@ -22,53 +22,326 @@ const SettinsHm = props => {
     navigation.navigate('RegMFNdgScrn');
   };
 
-  const goToAdvertiseSales = () => {
-    navigation.navigate('GnrlShpAdvtsScrn');
+  const Passwordssss = () => {
+    navigation.navigate('Passwordsss');
   };
 
-  const goToPubLnScreen = () => {
-    navigation.navigate('Loan Ads Search Results');
+  const VwCompDtlsss = () => {
+    navigation.navigate('VwCompDtlss');
   };
 
-  const goToAdvrtsPrsnLn = () => {
-    navigation.navigate('GnrlShpPrsnlLnAdvtsScrn');
+  const Aboutsss = () => {
+    navigation.navigate('Aboutss');
   };
 
-  const goToAdvrtsChamaLn = () => {
-    navigation.navigate('GnrlShpChamaLnAdvtsScrn');
+  const Alertsss = () => {
+    navigation.navigate('Alertss');
   };
+  const Contactssss = () => {
+    navigation.navigate('Contactsss');
+  };
+
+  const Maximumsss = () => {
+    navigation.navigate('Maximumss');
+  };
+  const Policysss = () => {
+    navigation.navigate('Policyss');
+  };
+
+  const Privacysss = () => {
+    navigation.navigate('Privacyss');
+  };
+  const Recommendationssss = () => {
+    navigation.navigate('Recommendationsss');
+  };
+
+  const TCsss = () => {
+    navigation.navigate('TCss');
+  };
+  const TransactionFeesss = () => {
+    navigation.navigate('TransactionFeess');
+  };
+
+ 
+
+  const Commissionsss = () => {
+    navigation.navigate('Commissionss');
+  };
+
+  
 
   return (
     <SafeAreaView>
-      <View
+     
         
-        style={styles.kfkubwaimage}>
-        <View style={styles.kfkubwaMainView}>
-          <Text style={styles.kfkubwaText}>Main Settings</Text>
+          <View style={styles.adminImage}>
 
-          <View style={styles.viewForkfkubwaPressables}>
-            <Pressable
-              onPress={crtAdmin}
-              style={styles.kfkubwaView}>
-              <Text style={styles.kfkubwaPressableText}>Reg Admin</Text>
-            </Pressable>
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Clients</Text>
 
-            <Pressable onPress={goRegKFNdogoFm} style={styles.kfkubwaView}>
-              <Text style={styles.kfkubwaPressableText}>DeReg Admin</Text>
-            </Pressable>
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={crtAdmin}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Create Admin</Text>
+                    </Pressable>
 
-            <Pressable
-              onPress={crtAdmin}
-              style={styles.kfkubwaView}>
-              <Text style={styles.kfkubwaPressableText}>Other Settings</Text>
-            </Pressable>
-          </View>
-        </View>
+                    <Pressable
+                      onPress={VwCompDtlsss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                       View CompAc
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
 
-        
+            
 
-        
-      </View>
+                <View style={styles.viewForClientsCategories}>
+                 
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={crtAdmin}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>VwChmAc</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={crtAdmin}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                       VwUsrAc
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.viewForClientsCategories}>
+            
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={crtAdmin}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>VwAdvAc</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={crtAdmin}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                     VwMFKAc
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            </View>
+          
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Clients</Text>
+
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+               
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={crtAdmin}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>VwMFNAc</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={Recommendationssss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        UpdtRecom
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                 
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={Passwordssss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>UpdtPw</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={Privacysss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        UpdtPrivacy
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.viewForClientsCategories}>
+               
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={TransactionFeesss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>UpdtTrsnctnFee</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={Maximumsss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      UpdtMaxs
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Clients</Text>
+
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={Contactssss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>UpdtContcts</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={TCsss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        UpdtTC
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={Alertsss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>UpdtAlrt</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={Aboutsss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        UpdtAbt
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.viewForClientsCategories}>
+                 
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={Policysss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>UpdtPolicy</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={Commissionsss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      UpdtCom
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Clients</Text>
+
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={crtAdmin}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>UpdtContcts</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={crtAdmin}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        UpdtTC
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={crtAdmin}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>UpdtAlrt</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={crtAdmin}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        UpdtAbt
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.viewForClientsCategories}>
+                 
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={crtAdmin}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>UpdtPolicy</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={crtAdmin}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      UpdtPrivacy
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            </View>
+    </View> 
     </SafeAreaView>
   );
 };
