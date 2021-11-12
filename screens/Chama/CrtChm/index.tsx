@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {createGroup, createSMAccount, updateCompany} from '../../../src/graphql/mutations';
+import {createGroup, createGrpMembers, createSMAccount, updateCompany} from '../../../src/graphql/mutations';
 import { getCompany, getSMAccount, listSMAccounts, } from '../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
@@ -139,7 +139,7 @@ const CreateChama = (props:UserReg) => {
                   } 
                   
                   }
-                  await updtActAdm();
+                  await CrtChm();
                   setIsLoading(false);
                   
                 };
@@ -153,6 +153,50 @@ const CreateChama = (props:UserReg) => {
             else {
               onCreateNewSMAc();
             }
+
+
+            const CrtChm = async () => {
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
+              try {
+                await API.graphql(
+                graphqlOperation(createGrpMembers, {
+                input: {
+                  groupContact: ChmPhn,
+                  memberContact: phoneContact,
+                  memberNatId: nationalidsss,
+                  GrossLnsGvn:0,
+                  LonAmtGven: 0,
+                  AmtRepaid:0,
+                  LnBal: 0,
+                  NonLonAcBal: 0,
+                  ttlNonLonAcBal: 0,
+                  groupName:ChmNm,
+                  memberName:namess,
+                  AcStatus: "AccountActive",
+                  loanStatus: "NoLoan",
+                  blStatus: "AccountNotBL",
+                  owner: ownr,
+                  
+                        },
+                      }),
+                    );
+                    
+                  } catch (error) {
+                    console.log(error)
+                    if(error){
+                      Alert.alert("Please Sign up using as a different Phone number")
+                      return;
+                  } 
+                  
+                  }
+                  await updtActAdm();
+                  setIsLoading(false);
+                  
+                };
+                
       
                 const updtActAdm = async()=>{
                   if(isLoading){

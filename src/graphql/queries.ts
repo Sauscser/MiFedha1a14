@@ -1348,8 +1348,12 @@ export const getGrpMembers = /* GraphQL */ `
       memberContact
       memberName
       memberNatId
-      acBal
-      ttlAcBal
+      ttlLoanAcBal
+      GrossLnsGvn
+      LonAmtGven
+      AmtRepaid
+      LnBal
+      ttlNonLonAcBal
       AcStatus
       loanStatus
       blStatus
@@ -1373,8 +1377,12 @@ export const listGrpMemberss = /* GraphQL */ `
         memberContact
         memberName
         memberNatId
-        acBal
-        ttlAcBal
+        ttlLoanAcBal
+        GrossLnsGvn
+        LonAmtGven
+        AmtRepaid
+        LnBal
+        ttlNonLonAcBal
         AcStatus
         loanStatus
         blStatus

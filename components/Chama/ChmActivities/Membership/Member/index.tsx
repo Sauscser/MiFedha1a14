@@ -11,9 +11,10 @@ export interface ChamaMmbrshpInfo {
       grpContact: string,
       
       groupName:string,
-      
-      acBal: number,
-    
+      NonLonAcBal:number,
+      ttlNonLonAcBal: number,
+      ttlLoanAcBal:number,
+      loanAcBal:number,
       AcStatus: string,
       loanStatus: string,
       blStatus: string,
@@ -30,7 +31,10 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
          groupName,
          loanStatus,
          blStatus,
-         acBal,
+         NonLonAcBal,
+         ttlNonLonAcBal,
+         ttlLoanAcBal,
+         loanAcBal,
          createdAt,       
          AcStatus,
        
@@ -57,8 +61,21 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                     </Text>                     
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Account Balance (Ksh): {acBal.toFixed(2)}
+                       Total NonLoans Ac Bal (Ksh): {ttlNonLonAcBal.toFixed(2)}
                     </Text>   
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       NonLoans Ac Bal (Ksh): {NonLonAcBal.toFixed(2)}
+                    </Text>   
+                    
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Total Loans Ac Bal (Ksh): {ttlLoanAcBal.toFixed(2)}
+                    </Text>   
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Loans Ac Bal (Ksh): {loanAcBal.toFixed(2)}
+                    </Text>     
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
                       Chama Phone: {grpContact}                  

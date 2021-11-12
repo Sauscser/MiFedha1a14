@@ -1865,8 +1865,12 @@ export const createGrpMembers = /* GraphQL */ `
       memberContact
       memberName
       memberNatId
-      acBal
-      ttlAcBal
+      ttlLoanAcBal
+      GrossLnsGvn
+      LonAmtGven
+      AmtRepaid
+      LnBal
+      ttlNonLonAcBal
       AcStatus
       loanStatus
       blStatus
@@ -1888,8 +1892,12 @@ export const updateGrpMembers = /* GraphQL */ `
       memberContact
       memberName
       memberNatId
-      acBal
-      ttlAcBal
+      ttlLoanAcBal
+      GrossLnsGvn
+      LonAmtGven
+      AmtRepaid
+      LnBal
+      ttlNonLonAcBal
       AcStatus
       loanStatus
       blStatus
@@ -1911,8 +1919,12 @@ export const deleteGrpMembers = /* GraphQL */ `
       memberContact
       memberName
       memberNatId
-      acBal
-      ttlAcBal
+      ttlLoanAcBal
+      GrossLnsGvn
+      LonAmtGven
+      AmtRepaid
+      LnBal
+      ttlNonLonAcBal
       AcStatus
       loanStatus
       blStatus

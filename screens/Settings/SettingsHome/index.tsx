@@ -76,72 +76,7 @@ const SettinsHm = props => {
         
           <View style={styles.adminImage}>
 
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Clients</Text>
 
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories}>
-                  
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={crtAdmin}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Create Admin</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={VwCompDtlsss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                       View CompAc
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-            
-
-                <View style={styles.viewForClientsCategories}>
-                 
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={crtAdmin}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>VwChmAc</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={crtAdmin}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                       VwUsrAc
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-                <View style={styles.viewForClientsCategories}>
-            
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={crtAdmin}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>VwAdvAc</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={crtAdmin}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                     VwMFKAc
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-            </View>
           
             <View style={styles.clientsView}>
               <Text style={styles.salesText}>Clients</Text>
@@ -154,7 +89,7 @@ const SettinsHm = props => {
                     <Pressable
                       onPress={crtAdmin}
                       style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>VwMFNAc</Text>
+                      <Text style={styles.clientsPressableText}>Create Admin</Text>
                     </Pressable>
 
                     <Pressable
@@ -276,71 +211,8 @@ const SettinsHm = props => {
                 </View>
               </View>
             </View>
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Clients</Text>
 
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories}>
-                  
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={crtAdmin}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>UpdtContcts</Text>
-                    </Pressable>
 
-                    <Pressable
-                      onPress={crtAdmin}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        UpdtTC
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-            
-
-                <View style={styles.viewForClientsCategories}>
-                  
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={crtAdmin}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>UpdtAlrt</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={crtAdmin}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        UpdtAbt
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-                <View style={styles.viewForClientsCategories}>
-                 
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={crtAdmin}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>UpdtPolicy</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={crtAdmin}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                      UpdtPrivacy
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-            </View>
     </View> 
     </SafeAreaView>
   );

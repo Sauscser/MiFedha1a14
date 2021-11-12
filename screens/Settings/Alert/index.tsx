@@ -86,7 +86,7 @@ const UpdtSMPW = (props) => {
                                                 input:{
                                                   AdminId:"BaruchHabaB'ShemAdonai2",
                                                   alert:CompPW1,
-                                                  pw2:CompPW2
+                                                 
                                                 }
                                               })
                                             )

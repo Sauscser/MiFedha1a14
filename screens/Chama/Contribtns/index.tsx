@@ -81,8 +81,8 @@ const SMASendChmNonLns = props => {
 
               const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
               const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
-              const acBals =ChmMbrtDtl.data.getGrpMembers.acBal;
-              const ttlAcBals =ChmMbrtDtl.data.getGrpMembers.ttlAcBal;
+              const NonLonAcBals =ChmMbrtDtl.data.getGrpMembers.NonLonAcBal;
+              const ttlNonLonAcBal =ChmMbrtDtl.data.getGrpMembers.ttlNonLonAcBal;
 
               const fetchSenderUsrDtls = async () => {
                 if(isLoading){
@@ -173,43 +173,10 @@ const SMASendChmNonLns = props => {
                                 }
                                   }
                                   setIsLoading(false);
-                                  await sendSMNonLn();
-                                };
-                              
-                                const sendSMNonLn = async () => {
-                                  if(isLoading){
-                                    return;
-                                  }
-                                  setIsLoading(true)
-                                  try {
-                                    await API.graphql(
-                                      graphqlOperation(createNonLoans, {
-                                        input: {
-                                          recPhn: groupContacts,
-                                          senderPhn: memberContacts,  
-                                          RecName:names,
-                                          SenderName:grpNames,                             
-                                          amount: amounts,                              
-                                          description: Desc,
-                                          status: "ChmMbrGrpContri",
-                                          owner: ownr
-                                        },
-                                      }),
-                                    );
-            
-            
-                                  } catch (error) {
-                                    if(!error){
-                                      Alert.alert("Account deactivated successfully")
-                                      
-                                  } 
-                                  else{Alert.alert("Please check your internet connection")
-                                  return;
-                                }
-                                  }
-                                  setIsLoading(false);
                                   await updtSendrAc();
                                 };
+                              
+                                
             
                                 const updtSendrAc = async () =>{
                                   if(isLoading){
@@ -221,7 +188,7 @@ const SMASendChmNonLns = props => {
                                         graphqlOperation(updateSMAccount, {
                                           input:{
                                             phonecontact:memberContacts,
-                                            ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
+                                            
                                             balance:parseFloat(SenderUsrBal)-TotalTransacted 
                                                                            
                                           }
@@ -250,9 +217,9 @@ const SMASendChmNonLns = props => {
                                         graphqlOperation(updateGroup, {
                                           input:{
                                             grpContact:groupContacts,
-                                            ttlNonLonsRecChm: parseFloat(ttlNonLonsRecChmsssssss) + parseFloat(amounts) ,
-                                            grpBal:parseFloat(grpBals) + parseFloat(amounts)                                     
                                             
+                                            grpBal:parseFloat(grpBals) + parseFloat(amounts),                                     
+                                            ttlNonLonsRecChm: parseFloat(amounts) + parseFloat(ttlNonLonsRecChmsssssss)
                                                                               
                                             
                                           }
@@ -313,8 +280,8 @@ const SMASendChmNonLns = props => {
                                           input:{
                                             id: MmbrId,                                                      
                                            
-                                            acBal:parseFloat(acBals) + parseFloat(amounts)  ,
-                                            ttlAcBal:parseFloat(ttlAcBals) + parseFloat(amounts)                                                                                   
+                                            NonLonAcBal:parseFloat(NonLonAcBals) + parseFloat(amounts)  ,
+                                            ttlNonLonAcBal:parseFloat(ttlNonLonAcBal) + parseFloat(amounts)                                                                                   
                                             
                                           }
                                         })

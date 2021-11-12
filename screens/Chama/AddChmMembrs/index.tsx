@@ -74,6 +74,7 @@ const AddChmMmbrs = (props:UserReg) => {
 
           const nationalidsss = UsrDtls.data.getSMAccount.nationalid;
           const namess = UsrDtls.data.getSMAccount.name;
+          const owners = UsrDtls.data.getSMAccount.owner;
         
           const gtCompDtls = async () =>{
             if(isLoading){
@@ -111,14 +112,18 @@ const AddChmMmbrs = (props:UserReg) => {
                             groupContact: ChmPhn,
                             memberContact: phoneContacts,
                             memberNatId: nationalidsss,
-                            acBal: 0,
-                            ttlAcBal:0,
+                            GrossLnsGvn:0,
+                            LonAmtGven: 0,
+                            AmtRepaid:0,
+                            LnBal: 0,
+                            NonLonAcBal: 0,
+                            ttlNonLonAcBal: 0,
                             groupName:grpNames,
                             memberName:namess,
                             AcStatus: "AccountActive",
                             loanStatus: "NoLoan",
                             blStatus: "AccountNotBL",
-                            owner: namess,
+                            owner: owners,
                             
                                   },
                                 }),
