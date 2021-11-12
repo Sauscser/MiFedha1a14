@@ -83,8 +83,10 @@ const fetchChmMbrDtls = async () => {
 
               const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
               const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
-              const ttlAcBals =ChmMbrtDtl.data.getGrpMembers.ttlAcBal;
-              
+              const GrossLnsGvns =ChmMbrtDtl.data.getGrpMembers.GrossLnsGvn;
+              const LonAmtGvens =ChmMbrtDtl.data.getGrpMembers.LonAmtGven;
+              const LnBals =ChmMbrtDtl.data.getGrpMembers.LnBal;
+                         
 
 
   const fetchSenderUsrDtls = async () => {
@@ -122,8 +124,9 @@ const fetchChmMbrDtls = async () => {
           const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
           const AdvComs = CompDtls.data.getCompany.AdvCom;
           const CoverageFees = CompDtls.data.getCompany.CoverageFee;
-          const CompCovFee =1- (parseFloat(CoverageFees)*parseFloat(AdvComs))
-          const AdvCovAmt = parseFloat(AdvComs)*parseFloat(CoverageFees)*parseFloat(amount)
+          const AdvCovFee =(parseFloat(CoverageFees)*parseFloat(AdvComs))
+          const CompCovFee =1 - (parseFloat(CoverageFees)*parseFloat(AdvComs))
+          const AdvCovAmt = AdvCovFee*parseFloat(amount)
           const CompCovAmt = CompCovFee*parseFloat(amount)
           const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)                
           
@@ -186,8 +189,9 @@ const fetchChmMbrDtls = async () => {
                               graphqlOperation(updateGrpMembers, {
                                 input: {
                                   id: MmbrId,
-                                  ttlAcBal: parseFloat(ttlAcBals) - parseFloat(amount),
-                                  
+                                  LonAmtGven: parseFloat(LonAmtGvens) + parseFloat(amount),
+                                  GrossLnsGvn: parseFloat(GrossLnsGvns) + parseFloat(AmtExp),
+                                  LnBals: parseFloat(LnBals) + parseFloat(amount),                                  
                                   loanStatus:"LoanActive",                                    
                                   blStatus: "AccountNotBL",
                                 

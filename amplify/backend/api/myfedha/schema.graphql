@@ -1236,8 +1236,12 @@ type GrpMembers
   memberContact: String!
   memberName:String!
   memberNatId: String!
-  acBal: Float!
-  ttlAcBal: Float!
+  GrossLnsGvn:Float!
+  LonAmtGven: Float!
+  AmtRepaid:Float!
+  LnBal: Float!
+  NonLoanAcBal:Float!
+  ttlNonLonAcBal: Float!
   AcStatus: Status!
   loanStatus: Status!
   blStatus: Status!

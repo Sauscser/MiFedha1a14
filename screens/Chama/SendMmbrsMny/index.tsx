@@ -76,14 +76,15 @@ const SMASendNonLns = props => {
       setIsLoading(true);
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getGrpMembers, {id: route.params.ContriToMmbrId}),
+              graphqlOperation(getGrpMembers, {id: MmbrId}),
               );
 
               const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
               const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
-              const acBals =ChmMbrtDtl.data.getGrpMembers.acBal;
-              const ttlAcBals =ChmMbrtDtl.data.getGrpMembers.ttlAcBal;
-
+              const NonLonAcBals =ChmMbrtDtl.data.getGrpMembers.NonLonAcBal;
+              const NonLonAcBals =ChmMbrtDtl.data.getGrpMembers.NonLonAcBal;
+              const ttlNonLonAcBals =ChmMbrtDtl.data.getGrpMembers.ttlNonLonAcBal;
+              
 
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
@@ -118,7 +119,7 @@ const SMASendNonLns = props => {
             
           const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
           const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
-          const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
+               
           
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
@@ -137,7 +138,7 @@ const SMASendNonLns = props => {
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
-                    const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
+                    
                     const namess =RecAccountDtl.data.getSMAccount.name;
                     
                     const GrpNonLns = async () => {
@@ -156,7 +157,7 @@ const SMASendNonLns = props => {
                               amountSent: amounts,
 
                               description: Desc,
-                              memberId:route.params.ContriToMmbrId,
+                              memberId:MmbrId,
                               status: "AccountActive",
                               owner: ownr,
                             },
@@ -173,42 +174,10 @@ const SMASendNonLns = props => {
                       return;}
                       }
                       setIsLoading(false);
-                      await sendSMNonLn();
-                    };
-                  
-                    const sendSMNonLn = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true)
-                      try {
-                        await API.graphql(
-                          graphqlOperation(createNonLoans, {
-                            input: {
-                              recPhn: memberContacts,
-                              senderPhn: groupContacts,  
-                              RecName:namess,
-                              SenderName:grpNames,                               
-                              amount: amounts,                              
-                              description: Desc,
-                              status: "ChmSndMbr",
-                              owner: ownr
-                            },
-                          }),
-                        );
-
-
-                      } catch (error) {
-                        if(!error){
-                          Alert.alert("Account deactivated successfully")
-                          
-                      } 
-                      else{Alert.alert("Please check your internet connection")
-                      return;}
-                      }
-                      setIsLoading(false);
                       await updtSendrAc();
                     };
+                  
+                    
 
                     const updtSendrAc = async () =>{
                       if(isLoading){
@@ -248,7 +217,7 @@ const SMASendNonLns = props => {
                             graphqlOperation(updateSMAccount, {
                               input:{
                                 phonecontact:memberContacts,
-                                ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
+                                
                                 balance:parseFloat(RecUsrBal) + parseFloat(amounts)                                     
                                 
                                                                   
@@ -304,10 +273,9 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateGrpMembers, {
                               input:{
-                                id: route.params.ContriToMmbrId,                                                      
+                                id:MmbrId,                                                      
                                
-                                acBal:parseFloat(acBals) - parseFloat(amounts),
-                                ttlAcBal:parseFloat(ttlAcBals) - parseFloat(amounts)                                                                                    
+                                NonLonAcBal:parseFloat(NonLonAcBals) - parseFloat(amounts),
                                 
                               }
                             })
