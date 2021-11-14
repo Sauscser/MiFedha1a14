@@ -2,7 +2,7 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import ChamReminfo from "../../../../../components/Chama/ChmActivities/ChmRemit/Chama";
+import ChamReminfo from "../../../../../components/Chama/ChmActivities/ChmRemit/VwChama";
 import styles from './styles';
 
 import { useRoute } from '@react-navigation/native';

@@ -55,6 +55,7 @@ const BLSMCovLoanee = (props) => {
         );
         const ttlSMLnsInBlAmtCovs = compDtls.data.getCompany.ttlSMLnsInBlAmtCov
         const ttlSMLnsInBlTymsCovs = compDtls.data.getCompany.ttlSMLnsInBlTymsCov
+        const userClearanceFees = compDtls.data.getCompany.userClearanceFee
 
         const gtLoanDtls = async () =>{
           if(isLoading){
@@ -68,6 +69,9 @@ const BLSMCovLoanee = (props) => {
               const loaneePhns = compDtls.data.getSMLoansCovered.loaneePhn
               const loanerPhns = compDtls.data.getSMLoansCovered.loanerPhn
               const amountexpecteds = compDtls.data.getSMLoansCovered.amountexpected
+              const amountgivens = compDtls.data.getCovCreditSeller.amountgiven
+              const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountgivens)+ parseFloat(amountExpectedBackWthClrncs)
               const amountrepaids = compDtls.data.getSMLoansCovered.amountrepaid
               const statusssss = compDtls.data.getSMLoansCovered.status
               const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
@@ -115,7 +119,7 @@ const BLSMCovLoanee = (props) => {
                                       phonecontact:loanerPhns,
                                       TtlBLLonsTmsLnrCov: parseFloat(TtlBLLonsTmsLnrCovs) + 1,
                                       MaxTymsIHvBL: parseFloat(MaxTymsIHvBLs) + 1,
-                                      TtlBLLonsAmtLnrCov: parseFloat(TtlBLLonsAmtLnrCovs) + parseFloat(amountexpecteds)
+                                      TtlBLLonsAmtLnrCov: parseFloat(TtlBLLonsAmtLnrCovs) + amountExpectedBackWthClrncss
                                     }
                                   })
                                 )
@@ -167,7 +171,7 @@ const BLSMCovLoanee = (props) => {
                                       graphqlOperation(updateCompany,{
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
-                                          ttlSMLnsInBlAmtCov: parseFloat(ttlSMLnsInBlAmtCovs) + parseFloat(amountexpecteds),
+                                          ttlSMLnsInBlAmtCov: parseFloat(ttlSMLnsInBlAmtCovs) + amountExpectedBackWthClrncss,
                                           ttlSMLnsInBlTymsCov: parseFloat(ttlSMLnsInBlTymsCovs) + 1
 
                                         }
@@ -196,7 +200,7 @@ const BLSMCovLoanee = (props) => {
                                           phonecontact:loaneePhns,
                                           TtlBLLonsTmsLneeCov: parseFloat(TtlBLLonsTmsLneeCovs) + 1,
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
-                                          TtlBLLonsAmtLneeCov: parseFloat(TtlBLLonsAmtLneeCovs) + parseFloat(amountexpecteds),
+                                          TtlBLLonsAmtLneeCov: parseFloat(TtlBLLonsAmtLneeCovs) + amountExpectedBackWthClrncss,
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
@@ -227,7 +231,8 @@ const BLSMCovLoanee = (props) => {
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
                                           id:LonId,
-                                          
+                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
+                                          lonBala:amountExpectedBackWthClrncss- parseFloat (amountrepaids),
                                           status:"LoanBL",
                                         }
                                       })

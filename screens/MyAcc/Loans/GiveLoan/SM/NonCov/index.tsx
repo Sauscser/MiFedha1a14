@@ -157,6 +157,7 @@ const SMASendNonCovLns = props => {
                                   loaneePhn: RecPhn,                                  
                                   amountgiven: amount,
                                   amountexpected: AmtExp,
+                                  amountExpectedBackWthClrnc:AmtExp,
                                   amountrepaid: 0,
                                   loaneename:namess,
                                   loanername:names,

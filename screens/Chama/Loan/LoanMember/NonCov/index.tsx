@@ -226,9 +226,11 @@ const fetchChmMbrDtls = async () => {
                                     repaymentPeriod: RepaymtPeriod,
                                     amountGiven: amount,
                                     amountExpectedBack: AmtExp,
+                                    amountExpectedBackWthClrnc:AmtExp,
                                     amountRepaid: 0,
                                     description: Desc,
                                     lonBala:parseFloat(AmtExp),
+                                    
                                     advRegNu: AdvRegNo,
                                     loaneeName:namess,
                                     LoanerName:grpNames,

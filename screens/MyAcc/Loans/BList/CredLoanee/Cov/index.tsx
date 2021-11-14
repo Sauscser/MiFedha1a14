@@ -55,6 +55,7 @@ const BLCovCredByr = (props) => {
         );
         const ttlSellerLnsInBlAmtCovs = compDtls.data.getCompany.ttlSellerLnsInBlAmtCov
         const ttlSellerLnsInBlTymsCovs = compDtls.data.getCompany.ttlSellerLnsInBlTymsCov
+        const userClearanceFees = compDtls.data.getCompany.userClearanceFee
 
         const gtLoanDtls = async () =>{
           if(isLoading){
@@ -69,8 +70,12 @@ const BLCovCredByr = (props) => {
               const sellerContacts = compDtls.data.getCovCreditSeller.sellerContact
               const amountexpecteds = compDtls.data.getCovCreditSeller.amountexpectedBack
               const amountrepaids = compDtls.data.getCovCreditSeller.amountRepaid
+              const amountSolds = compDtls.data.getCovCreditSeller.amountSold
+              const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountSolds) + parseFloat(amountExpectedBackWthClrncs)
               const statusssss = compDtls.data.getCovCreditSeller.status
-              const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
+              const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
+              
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -115,7 +120,7 @@ const BLCovCredByr = (props) => {
                                       phonecontact:sellerContacts,
                                       MaxTymsIHvBL: parseFloat(MaxTymsIHvBLs) + 1,
                                       TtlBLLonsTmsSllrCov: parseFloat(TtlBLLonsTmsSllrCovs) + 1,
-                                      TtlBLLonsAmtSllrCov: parseFloat(TtlBLLonsAmtSllrCovs) + parseFloat(amountexpecteds)
+                                      TtlBLLonsAmtSllrCov: parseFloat(TtlBLLonsAmtSllrCovs) + amountExpectedBackWthClrncss
                                     }
                                   })
                                 )
@@ -167,8 +172,8 @@ const BLCovCredByr = (props) => {
                                       graphqlOperation(updateCompany,{
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
-                                          ttlSellerLnsInBlTymsCov: parseFloat(ttlSellerLnsInBlTymsCovs) + parseFloat(amountexpecteds),
-                                          ttlSellerLnsInBlAmtCov: parseFloat(ttlSellerLnsInBlAmtCovs) + 1
+                                          ttlSellerLnsInBlTymsCov: parseFloat(ttlSellerLnsInBlTymsCovs) + 1,
+                                          ttlSellerLnsInBlAmtCov: parseFloat(ttlSellerLnsInBlAmtCovs) + amountExpectedBackWthClrncss
 
                                         }
                                       })
@@ -196,7 +201,8 @@ const BLCovCredByr = (props) => {
                                           phonecontact:buyerContacts,
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsByrCov: parseFloat(TtlBLLonsTmsByrCovs) + 1,
-                                          TtlBLLonsAmtByrCov: parseFloat(TtlBLLonsAmtByrCovs) + parseFloat(amountexpecteds),
+                                          TtlBLLonsAmtByrCov: parseFloat(TtlBLLonsAmtByrCovs) + amountExpectedBackWthClrncss,
+                                          
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
@@ -227,8 +233,9 @@ const BLCovCredByr = (props) => {
                                       graphqlOperation(updateCovCreditSeller, {
                                         input:{
                                           id:LonId,
-                                          
+                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
                                           status:"LoanBL",
+                                          lonBala:amountExpectedBackWthClrncss- parseFloat (amountrepaids)
                                         }
                                       })
                                     )

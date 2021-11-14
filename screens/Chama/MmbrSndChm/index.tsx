@@ -2,9 +2,9 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import MmbrChmRemInfo from "../../../../../components/Chama/ChmActivities/ChmRemit/VwMember";
+import LnerStts from "../../../components/Chama/ChmActivities/Membership/MbrSndTChm";
 import styles from './styles';
-import { listCvrdGroupLoanss, listGroupNonLoanss } from '../../../../../src/graphql/queries';
+import { listCvrdGroupLoanss, listGrpMemberss } from '../../../src/graphql/queries';
 
 const FetchSMCovLns = props => {
 
@@ -27,15 +27,15 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listGroupNonLoanss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listGrpMemberss, 
                 { filter: {
                     and: {
-                      recipientPhn: { eq: LneePhn}
+                      memberContact: { eq: LneePhn}
                       
                     }
                   }}
                   ));
-              setLoanees(Lonees.data.listGroupNonLoanss.items);
+              setLoanees(Lonees.data.listGrpMemberss.items);
             } catch (e) {
               console.log(e);
             } finally {
@@ -52,7 +52,7 @@ const FetchSMCovLns = props => {
       <FlatList
       style= {{width:"100%"}}
         data={Loanees}
-        renderItem={({item}) => <MmbrChmRemInfo memberContriDtls={item} />}
+        renderItem={({item}) => <LnerStts ChamaMmbrshpDtls={item} />}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={fetchLoanees}
         refreshing={loading}
@@ -61,7 +61,8 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Chama Remittance</Text>
+            <Text style={styles.label}> My Chamas</Text>
+            <Text style={styles.label}>Please swipe down to load</Text>
           </>
         )}
       />

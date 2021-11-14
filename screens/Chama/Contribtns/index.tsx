@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import  {useRoute} from '@react-navigation/native';;
 import {
   
   createSMLoansCovered,
@@ -55,6 +55,7 @@ const SMASendChmNonLns = props => {
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
+  const route = useRoute();
   
   
   
@@ -76,12 +77,12 @@ const SMASendChmNonLns = props => {
       setIsLoading(true);
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getGrpMembers, {id: MmbrId}),
+              graphqlOperation(getGrpMembers, {id: route.params.id}),
               );
 
               const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
               const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
-              const NonLonAcBals =ChmMbrtDtl.data.getGrpMembers.NonLonAcBal;
+              const NonLoanAcBals =ChmMbrtDtl.data.getGrpMembers.NonLoanAcBal;
               const ttlNonLonAcBal =ChmMbrtDtl.data.getGrpMembers.ttlNonLonAcBal;
 
               const fetchSenderUsrDtls = async () => {
@@ -150,12 +151,12 @@ const SMASendChmNonLns = props => {
                                     await API.graphql(
                                       graphqlOperation(createGrpMembersContribution, {
                                         input: {
-                                          memberPhn: MmbrId,
+                                          memberPhn: memberContacts,
                                           mmberNme:names,
                                           GrpName:grpNames,
                                           grpContact: groupContacts,
                                           contriAmount: amounts,
-                                          memberId:MmbrId,
+                                          memberId:route.params.id,
                                           status: "AccountActive",
                                           owner: ownr
                                         },
@@ -278,9 +279,9 @@ const SMASendChmNonLns = props => {
                                       await API.graphql(
                                         graphqlOperation(updateGrpMembers, {
                                           input:{
-                                            id: MmbrId,                                                      
+                                            id: route.params.id,                                                      
                                            
-                                            NonLonAcBal:parseFloat(NonLonAcBals) + parseFloat(amounts)  ,
+                                            NonLoanAcBal:parseFloat(NonLoanAcBals) + parseFloat(amounts)  ,
                                             ttlNonLonAcBal:parseFloat(ttlNonLonAcBal) + parseFloat(amounts)                                                                                   
                                             
                                           }
@@ -440,14 +441,7 @@ useEffect(() =>{
 
           
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={MmbrId}
-              onChangeText={setMmbrId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Member Chama Id</Text>
-          </View>
+        
 
           <View style={styles.sendAmtView}>
             <TextInput

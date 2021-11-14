@@ -285,6 +285,7 @@ export const onCreateSMLoansCovered = /* GraphQL */ `
       loanerId
       amountgiven
       amountexpected
+      amountExpectedBackWthClrnc
       amountrepaid
       lonBala
       loaneename
@@ -309,6 +310,7 @@ export const onUpdateSMLoansCovered = /* GraphQL */ `
       loanerId
       amountgiven
       amountexpected
+      amountExpectedBackWthClrnc
       amountrepaid
       lonBala
       loaneename
@@ -333,6 +335,7 @@ export const onDeleteSMLoansCovered = /* GraphQL */ `
       loanerId
       amountgiven
       amountexpected
+      amountExpectedBackWthClrnc
       amountrepaid
       lonBala
       loaneename
@@ -357,6 +360,7 @@ export const onCreateSMLoansNonCovered = /* GraphQL */ `
       loanerId
       amountgiven
       amountexpected
+      amountExpectedBackWthClrnc
       amountrepaid
       lonBala
       loaneename
@@ -380,6 +384,7 @@ export const onUpdateSMLoansNonCovered = /* GraphQL */ `
       loanerId
       amountgiven
       amountexpected
+      amountExpectedBackWthClrnc
       amountrepaid
       lonBala
       loaneename
@@ -403,6 +408,7 @@ export const onDeleteSMLoansNonCovered = /* GraphQL */ `
       loanerId
       amountgiven
       amountexpected
+      amountExpectedBackWthClrnc
       amountrepaid
       lonBala
       loaneename
@@ -1432,6 +1438,7 @@ export const onCreateCovCreditSeller = /* GraphQL */ `
       sellerID
       amountSold
       amountexpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
       lonBala
@@ -1458,6 +1465,7 @@ export const onUpdateCovCreditSeller = /* GraphQL */ `
       sellerID
       amountSold
       amountexpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
       lonBala
@@ -1484,6 +1492,7 @@ export const onDeleteCovCreditSeller = /* GraphQL */ `
       sellerID
       amountSold
       amountexpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
       lonBala
@@ -1510,6 +1519,7 @@ export const onCreateNonCovCreditSeller = /* GraphQL */ `
       sellerID
       amountSold
       amountexpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       lonBala
       repaymentPeriod
@@ -1535,6 +1545,7 @@ export const onUpdateNonCovCreditSeller = /* GraphQL */ `
       sellerID
       amountSold
       amountexpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       lonBala
       repaymentPeriod
@@ -1560,6 +1571,7 @@ export const onDeleteNonCovCreditSeller = /* GraphQL */ `
       sellerID
       amountSold
       amountexpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       lonBala
       repaymentPeriod
@@ -1691,11 +1703,11 @@ export const onCreateGrpMembers = /* GraphQL */ `
       memberContact
       memberName
       memberNatId
-      ttlLoanAcBal
       GrossLnsGvn
       LonAmtGven
       AmtRepaid
       LnBal
+      NonLoanAcBal
       ttlNonLonAcBal
       AcStatus
       loanStatus
@@ -1715,11 +1727,11 @@ export const onUpdateGrpMembers = /* GraphQL */ `
       memberContact
       memberName
       memberNatId
-      ttlLoanAcBal
       GrossLnsGvn
       LonAmtGven
       AmtRepaid
       LnBal
+      NonLoanAcBal
       ttlNonLonAcBal
       AcStatus
       loanStatus
@@ -1739,11 +1751,11 @@ export const onDeleteGrpMembers = /* GraphQL */ `
       memberContact
       memberName
       memberNatId
-      ttlLoanAcBal
       GrossLnsGvn
       LonAmtGven
       AmtRepaid
       LnBal
+      NonLoanAcBal
       ttlNonLonAcBal
       AcStatus
       loanStatus
@@ -1763,6 +1775,7 @@ export const onCreateCvrdGroupLoans = /* GraphQL */ `
       repaymentPeriod
       amountGiven
       amountExpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       description
       lonBala
@@ -1786,6 +1799,7 @@ export const onUpdateCvrdGroupLoans = /* GraphQL */ `
       repaymentPeriod
       amountGiven
       amountExpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       description
       lonBala
@@ -1809,6 +1823,7 @@ export const onDeleteCvrdGroupLoans = /* GraphQL */ `
       repaymentPeriod
       amountGiven
       amountExpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       description
       lonBala
@@ -1832,6 +1847,7 @@ export const onCreateNonCvrdGroupLoans = /* GraphQL */ `
       repaymentPeriod
       amountGiven
       amountExpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       description
       loaneeName
@@ -1854,6 +1870,7 @@ export const onUpdateNonCvrdGroupLoans = /* GraphQL */ `
       repaymentPeriod
       amountGiven
       amountExpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       description
       loaneeName
@@ -1876,6 +1893,7 @@ export const onDeleteNonCvrdGroupLoans = /* GraphQL */ `
       repaymentPeriod
       amountGiven
       amountExpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       description
       loaneeName

@@ -83,14 +83,15 @@ const RepayCovChmLnsss = props => {
               graphqlOperation(getCvrdGroupLoans, {id: LnId}),
               );
               
-              const amountexpecteds =RecAccountDtl.data.getCvrdGroupLoans.amountExpectedBack; 
+              const amountExpectedBackWthClrncs =RecAccountDtl.data.getCvrdGroupLoans.amountExpectedBackWthClrnc; 
               const memberIds =RecAccountDtl.data.getCvrdGroupLoans.memberId;
 
               const grpContactssss =RecAccountDtl.data.getCvrdGroupLoans.grpContact; 
               const loaneePhnssss =RecAccountDtl.data.getCvrdGroupLoans.loaneePhn;
+              const lonBalas =RecAccountDtl.data.getCvrdGroupLoans.lonBala;
                
-              const amountrepaids =RecAccountDtl.data.getCvrdGroupLoans.amountRepaid; 
-              const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids); 
+              const amountRepaidss =RecAccountDtl.data.getCvrdGroupLoans.amountRepaid; 
+              const LonBalsss = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountRepaidss); 
               
 
   const fetchSenderUsrDtls = async () => {
@@ -115,7 +116,7 @@ const RepayCovChmLnsss = props => {
       const names =accountDtl.data.getSMAccount.name;
       
       const nonLonLimits =accountDtl.data.getSMAccount.nonLonLimit;
-      const MaxTymsBLss =accountDtl.data.getSMAccount.MaxTymsBLs;
+      const MaxTymsBLss =accountDtl.data.getSMAccount.MaxTymsBL;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -196,8 +197,8 @@ const RepayCovChmLnsss = props => {
                                                     id:memberIds,
                                                     AmtRepaid: parseFloat(AmtRepaids)+parseFloat(amounts) ,
                                                     LnBal: parseFloat(LnBals)-parseFloat(amounts) ,
-                                                    loanStatus: "LoanCleared",
-                                                    blStatus: "AccountNotBL",
+                                                    
+                                                    
                                                 }})
                                               )
                     
@@ -211,6 +212,7 @@ const RepayCovChmLnsss = props => {
                                           await updtSMCvLnLnOver();
                                         }
 
+                                        
                               const updtSMCvLnLnOver  = async () =>{
                                 if(isLoading){
                                   return;
@@ -221,8 +223,8 @@ const RepayCovChmLnsss = props => {
                                       graphqlOperation(updateCvrdGroupLoans, {
                                         input:{
                                           id:LnId,
-                                          amountRepaid: parseFloat(amounts) + parseFloat(amountrepaids),
-                                          lonBala: LonBal-parseFloat(amounts),
+                                          amountRepaid: parseFloat(amounts) + parseFloat(amountRepaidss),
+                                          lonBala: LonBalsss-parseFloat(amounts),
                                           status: "LoanCleared",
                                       }})
                                     )
@@ -281,18 +283,14 @@ const RepayCovChmLnsss = props => {
                                       graphqlOperation(updateSMAccount, {
                                         input:{
                                           phonecontact:SendrPhn,
-                                          
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted ,
+                                          MaxTymsBL:parseFloat(MaxTymsBLss)-1 ,
                                           TtlClrdLonsTmsLneeChmCov:parseFloat(TtlClrdLonsTmsLneeChmCovs)+1,                                          
                                           TtlClrdLonsAmtLneeChmCov: parseFloat(TtlClrdLonsAmtLneeChmCovs) + parseFloat(amounts), 
                                           TtlActvLonsTmsLneeChmCov:parseFloat(TtlActvLonsTmsLneeChmCovs)-1,                                          
                                           TtlActvLonsAmtLneeChmCov: parseFloat(TtlActvLonsAmtLneeChmCovs) - parseFloat(amounts),
                                           TtlBLLonsTmsLneeChmCov:  parseFloat(TtlBLLonsTmsLneeChmCovs) - 1,
                                           TtlBLLonsAmtLneeChmCov: parseFloat(TtlBLLonsAmtLneeChmCovs) - parseFloat(amounts),
-                                          MaxTymsBLs: parseFloat(MaxTymsBLss) - 1,
-                                          loanStatus: "NoLoan",
-                                          blStatus: "AccountNotBL",
-                                                                             
                                           
                                         }
                                       })
@@ -307,6 +305,8 @@ const RepayCovChmLnsss = props => {
                                 setIsLoading(false);
                                 await updtRecAcLonOver();
                               }
+
+                              
           
                               const updtRecAcLonOver = async () =>{
                                 if(isLoading){
@@ -384,7 +384,8 @@ const RepayCovChmLnsss = props => {
                                       graphqlOperation(updateGrpMembers, {
                                         input:{
                                           id:memberIds,
-                                          loanAcBal: parseFloat(loanAcBals) - parseFloat(amounts),
+                                          AmtRepaid: parseFloat(AmtRepaids)+parseFloat(amounts) ,
+                                          LnBal: parseFloat(LnBals)-parseFloat(amounts) ,
                                           
                                       }})
                                     )
@@ -410,8 +411,8 @@ const RepayCovChmLnsss = props => {
                                       graphqlOperation(updateCvrdGroupLoans, {
                                         input:{
                                           id:LnId,
-                                          amountRepaid: parseFloat(amounts) + parseFloat(amountrepaids),
-                                          lonBala: LonBal - parseFloat(amounts),
+                                          amountRepaid: parseFloat(amounts) + parseFloat(amountRepaidss),
+                                          lonBala: LonBalsss-parseFloat(amounts),
                                         }
                                       })
                                     )
@@ -439,7 +440,7 @@ const RepayCovChmLnsss = props => {
                                           phonecontact:SendrPhn,
                                           
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted,
-                                                                       
+                                                                 
                                           TtlActvLonsAmtLneeChmCov: parseFloat(TtlActvLonsAmtLneeChmCovs) - parseFloat(amounts),
                                         }
                                       })
@@ -469,8 +470,7 @@ const RepayCovChmLnsss = props => {
                                           grpBal:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
                                           
                                           TtlActvLonsAmtLnrChmCov: parseFloat(TtlActvLonsAmtLnrChmCovs) - parseFloat(amounts),                                        
-                                          tymsChmHvBL: parseFloat(tymsChmHvBLs) - 1,
-                                          
+                                         
                                         }
                                       })
                                     )                              
@@ -535,10 +535,10 @@ const RepayCovChmLnsss = props => {
                             return;
                           }
 
-                          else if(parseFloat(amounts) > LonBal){Alert.alert("Your Loan Balance is lesser: "+LonBal)}
+                          else if(parseFloat(amounts) > lonBalas){Alert.alert("Your Loan Balance is lesser: "+lonBalas)}
                           
 
-                          else if(parseFloat(amounts) === LonBal){updtChmMbrTTlBlOvr();}                         
+                          else if(parseFloat(amounts) === lonBalas){updtChmMbrTTlBlOvr();}                         
                           
                               
                                else {

@@ -37,7 +37,7 @@ import CreateChm from "../../screens/Chama/CrtChm";
 import AddChmMembrss from "../../screens/Chama/AddChmMembrs";
 import ChmCovLon from "../../screens/Chama/Loan/LoanMember/Cov";
 import ChmNonCovLon from "../../screens/Chama/Loan/LoanMember/NonCov";
-import ChmContr from "../../screens/Chama/Contribtns";
+import Contributionsss from "../../screens/Chama/Contribtns";
 import SndMbrsMny from "../../screens/Chama/SendMmbrsMny";
 import BLChmMmberCov from "../../screens/Chama/BL/Cov";
 import BLChmMmberNonCov from "../../screens/Chama/BL/NonCov";
@@ -138,6 +138,10 @@ import TCs from "../../screens/Settings/TC";
 import TransactionFees from "../../screens/Settings/TransactionFees";
 import VwCompDtls from "../../screens/Settings/VwCompDtls";
 import Commissions from "../../screens/Settings/Commissions";
+import SndChmMbrMny from "../../screens/Chama/ViewChamaActivities/Membership/SndToChmMbr";
+import ChamaSndMbrMneys from "../../screens/Chama/ChamaSndMbrMney";
+import SndToChmMbrs from "../../screens/Chama/ViewChamaActivities/Membership/SndToChmMbr";
+import MmbrSndChms from "../../screens/Chama/MmbrSndChm";
 
 
 
@@ -150,6 +154,10 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'MmbrSndChmss'} component={MmbrSndChms} />
+      <Stack.Screen name={'SndToChmMbrss'} component={SndToChmMbrs} />
+      <Stack.Screen name={'ChamaSndMbrMneys'} component={ChamaSndMbrMneys} />
+      <Stack.Screen name={'SndChmMbrMnys'} component={SndChmMbrMny} />
       <Stack.Screen name={'Commissionss'} component={Commissions} />
       <Stack.Screen name={'VwCompDtlss'} component={VwCompDtls} />
        <Stack.Screen name={'Aboutss'} component={Abouts} />
@@ -270,7 +278,7 @@ const HomeNavigator = props => {
       <Stack.Screen name={'AddChmMembrsss'} component={AddChmMembrss}/>
       <Stack.Screen name={'ChmCovLons'} component={ChmCovLon}/>
       <Stack.Screen name={'ChmNonCovLons'} component={ChmNonCovLon}/>
-      <Stack.Screen name={'ChmContrs'} component={ChmContr}/>
+      <Stack.Screen name={'Contributionssss'} component={Contributionsss}/>
       <Stack.Screen name={'SndMbrsMnys'} component={SndMbrsMny}/>
       <Stack.Screen name={'BLChmMmberCovs'} component={BLChmMmberCov}/>
       <Stack.Screen name={'BLChmMmberNonCovs'} component={BLChmMmberNonCov}/>

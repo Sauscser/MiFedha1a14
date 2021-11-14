@@ -148,10 +148,10 @@ const RepayCovLnsss = props => {
                               graphqlOperation(getSMLoansCovered, {id: LnId}),
                               );
                               
-                              const amountexpecteds =RecAccountDtl.data.getSMLoansCovered.amountexpected; 
+                              const lonBalasss =RecAccountDtl.data.getSMLoansCovered.lonBala; 
                                
                               const amountrepaids =RecAccountDtl.data.getSMLoansCovered.amountrepaid; 
-                              const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids); 
+                              
                               const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
                                
                               const updtSMCvLnLnOver  = async () =>{
@@ -165,7 +165,7 @@ const RepayCovLnsss = props => {
                                         input:{
                                           id:LnId,
                                           amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
-                                          lonBal: LonBal+parseFloat(amounts),
+                                          lonBal: lonBalasss+parseFloat(amounts),
                                           status: "LoanCleared",
                                       }})
                                     )
@@ -222,21 +222,16 @@ const RepayCovLnsss = props => {
                                       graphqlOperation(updateSMAccount, {
                                         input:{
                                           phonecontact:SendrPhn,
-                                          ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
+                                          
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted ,
-                                          MaxTymsBL:parseFloat(MaxTymsBLs)-1 ,
+                                          
                                           TtlActvLonsTmsLneeCov:parseFloat(TtlActvLonsTmsLneeCovss)-1,                                          
                                           TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts), 
                                           TtlClrdLonsTmsLneeCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
                                           TtlClrdLonsAmtLneeCov: parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts),
                                           TtlBLLonsTmsLneeCov:parseFloat(TtlBLLonsTmsLneeCovs)-1,                                          
                                           TtlBLLonsAmtLneeCov: parseFloat(TtlBLLonsAmtLneeCovs) - parseFloat(amounts), 
-                                       
-                                          
-                                          loanStatus: "NoLoan",
-                                          blStatus: "AccountNotBL",
-                                                                             
-                                          
+                                          MaxTymsBL: parseFloat(MaxTymsBLs) - 1,
                                         }
                                       })
                                     )
@@ -261,7 +256,7 @@ const RepayCovLnsss = props => {
                                       graphqlOperation(updateSMAccount, {
                                         input:{
                                           phonecontact:RecPhn,
-                                          ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
+                                          
                                           balance:parseFloat(RecUsrBal) + parseFloat(amounts), 
                                           MaxTymsIHvBL:parseFloat(MaxTymsIHvBLs) - 1,                                     
                                           TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovssss) - 1,
@@ -297,8 +292,7 @@ const RepayCovLnsss = props => {
                                           companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
                                           companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
                                           
-                                          ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
-                                          ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
+                                          
                                           ttlSMLnsInClrdAmtCov: parseFloat(ttlSMLnsInClrdAmtCovs) + parseFloat(amounts), 
                                           ttlSMLnsInClrdTymsCov: parseFloat(ttlSMLnsInClrdTymsCovs) + 1
                                           
@@ -328,7 +322,7 @@ const RepayCovLnsss = props => {
                                         input:{
                                           id:LnId,
                                           amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
-                                          lonBala: LonBal - parseFloat(amounts),
+                                          lonBala: lonBalasss - parseFloat(amounts),
                                         }
                                       })
                                     )
@@ -385,7 +379,7 @@ const RepayCovLnsss = props => {
                                       graphqlOperation(updateSMAccount, {
                                         input:{
                                           phonecontact:SendrPhn,
-                                          ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
+                                          
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted,
                                                                                    
                                           TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts), 
@@ -416,7 +410,7 @@ const RepayCovLnsss = props => {
                                       graphqlOperation(updateSMAccount, {
                                         input:{
                                           phonecontact:RecPhn,
-                                          ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
+                                          
                                           balance:parseFloat(RecUsrBal) + parseFloat(amounts),
                                           
                                           TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovssss) - parseFloat(amounts),
@@ -493,10 +487,10 @@ const RepayCovLnsss = props => {
                             return;
                           }
 
-                          else if(parseFloat(amounts) > LonBal){Alert.alert("Your Loan Balance is lesser: "+LonBal)}
+                          else if(parseFloat(amounts) > lonBalasss){Alert.alert("Your Loan Balance is lesser: "+lonBalasss)}
                           
 
-                          else if(parseFloat(amounts) === LonBal){updtSMCvLnLnOver();}                         
+                          else if(parseFloat(amounts) === lonBalasss){updtSMCvLnLnOver();}                         
                           
                               
                                else {

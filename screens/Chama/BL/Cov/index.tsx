@@ -57,6 +57,7 @@ const BLChmCovLoanee = (props) => {
         );
         const ttlChmLnsInBlTymsCovs = compDtls.data.getCompany.ttlChmLnsInBlTymsCov
         const ttlChmLnsInBlAmtCovs = compDtls.data.getCompany.ttlChmLnsInBlAmtCov
+        const userClearanceFees = compDtls.data.getCompany.userClearanceFee
 
         const gtLoanDtls = async () =>{
           if(isLoading){
@@ -71,8 +72,11 @@ const BLChmCovLoanee = (props) => {
               const loanerPhns = compDtls.data.getCvrdGroupLoans.grpContact
               const amountexpecteds = compDtls.data.getCvrdGroupLoans.amountExpectedBack
               const amountrepaids = compDtls.data.getCvrdGroupLoans.amountRepaid
+              const amountGivens = compDtls.data.getCovCreditSeller.amountGiven
+              const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountGivens) + amountExpectedBackWthClrncs
               const statusssss = compDtls.data.getCvrdGroupLoans.status
-              const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
+              const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -118,7 +122,7 @@ const BLChmCovLoanee = (props) => {
                                       grpContact:loanerPhns,
                                       tymsChmHvBL: parseFloat(tymsChmHvBLs) + 1,
                                       TtlBLLonsTmsLnrChmCov: parseFloat(TtlBLLonsTmsLnrChmCovs) + 1,
-                                      TtlBLLonsAmtLnrChmCov: parseFloat(TtlBLLonsAmtLnrChmCovs) + parseFloat(amountexpecteds)
+                                      TtlBLLonsAmtLnrChmCov: parseFloat(TtlBLLonsAmtLnrChmCovs) + amountExpectedBackWthClrncss
                                     }
                                   })
                                 )
@@ -173,8 +177,8 @@ const BLChmCovLoanee = (props) => {
                                       graphqlOperation(updateCompany,{
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
-                                          ttlChmLnsInBlTymsCov: parseFloat(ttlChmLnsInBlTymsCovs) + parseFloat(amountexpecteds),
-                                          ttlChmLnsInBlAmtCov: parseFloat(ttlChmLnsInBlAmtCovs) + 1
+                                          ttlChmLnsInBlTymsCov: parseFloat(ttlChmLnsInBlTymsCovs) + 1,
+                                          ttlChmLnsInBlAmtCov: parseFloat(ttlChmLnsInBlAmtCovs) + amountExpectedBackWthClrncss
 
                                         }
                                       })
@@ -202,7 +206,7 @@ const BLChmCovLoanee = (props) => {
                                           phonecontact:loaneePhns,
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsLneeChmCov: parseFloat(TtlBLLonsTmsLneeChmCovs) + 1,
-                                          TtlBLLonsAmtLneeChmCov: parseFloat(TtlBLLonsAmtLneeChmCovs) + parseFloat(amountexpecteds),
+                                          TtlBLLonsAmtLneeChmCov: parseFloat(TtlBLLonsAmtLneeChmCovs) + amountExpectedBackWthClrncss,
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
@@ -233,7 +237,8 @@ const BLChmCovLoanee = (props) => {
                                       graphqlOperation(updateCvrdGroupLoans, {
                                         input:{
                                           id:LonId,
-                                          
+                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
+                                          lonBala:amountExpectedBackWthClrncss-parseFloat(amountrepaids),
                                           status:"LoanBL",
                                         }
                                       })

@@ -209,6 +209,7 @@ export const getSMLoansCovered = /* GraphQL */ `
       loanerId
       amountgiven
       amountexpected
+      amountExpectedBackWthClrnc
       amountrepaid
       lonBala
       loaneename
@@ -238,6 +239,7 @@ export const listSMLoansCovereds = /* GraphQL */ `
         loanerId
         amountgiven
         amountexpected
+        amountExpectedBackWthClrnc
         amountrepaid
         lonBala
         loaneename
@@ -264,6 +266,7 @@ export const getSMLoansNonCovered = /* GraphQL */ `
       loanerId
       amountgiven
       amountexpected
+      amountExpectedBackWthClrnc
       amountrepaid
       lonBala
       loaneename
@@ -296,6 +299,7 @@ export const listSMLoansNonCovereds = /* GraphQL */ `
         loanerId
         amountgiven
         amountexpected
+        amountExpectedBackWthClrnc
         amountrepaid
         lonBala
         loaneename
@@ -1140,6 +1144,7 @@ export const getCovCreditSeller = /* GraphQL */ `
       sellerID
       amountSold
       amountexpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
       lonBala
@@ -1175,6 +1180,7 @@ export const listCovCreditSellers = /* GraphQL */ `
         sellerID
         amountSold
         amountexpectedBack
+        amountExpectedBackWthClrnc
         amountRepaid
         repaymentPeriod
         lonBala
@@ -1203,6 +1209,7 @@ export const getNonCovCreditSeller = /* GraphQL */ `
       sellerID
       amountSold
       amountexpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       lonBala
       repaymentPeriod
@@ -1237,6 +1244,7 @@ export const listNonCovCreditSellers = /* GraphQL */ `
         sellerID
         amountSold
         amountexpectedBack
+        amountExpectedBackWthClrnc
         amountRepaid
         lonBala
         repaymentPeriod
@@ -1348,11 +1356,11 @@ export const getGrpMembers = /* GraphQL */ `
       memberContact
       memberName
       memberNatId
-      ttlLoanAcBal
       GrossLnsGvn
       LonAmtGven
       AmtRepaid
       LnBal
+      NonLoanAcBal
       ttlNonLonAcBal
       AcStatus
       loanStatus
@@ -1377,11 +1385,11 @@ export const listGrpMemberss = /* GraphQL */ `
         memberContact
         memberName
         memberNatId
-        ttlLoanAcBal
         GrossLnsGvn
         LonAmtGven
         AmtRepaid
         LnBal
+        NonLoanAcBal
         ttlNonLonAcBal
         AcStatus
         loanStatus
@@ -1403,6 +1411,7 @@ export const getCvrdGroupLoans = /* GraphQL */ `
       repaymentPeriod
       amountGiven
       amountExpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       description
       lonBala
@@ -1431,6 +1440,7 @@ export const listCvrdGroupLoanss = /* GraphQL */ `
         repaymentPeriod
         amountGiven
         amountExpectedBack
+        amountExpectedBackWthClrnc
         amountRepaid
         description
         lonBala
@@ -1456,6 +1466,7 @@ export const getNonCvrdGroupLoans = /* GraphQL */ `
       repaymentPeriod
       amountGiven
       amountExpectedBack
+      amountExpectedBackWthClrnc
       amountRepaid
       description
       loaneeName
@@ -1487,6 +1498,7 @@ export const listNonCvrdGroupLoanss = /* GraphQL */ `
         repaymentPeriod
         amountGiven
         amountExpectedBack
+        amountExpectedBackWthClrnc
         amountRepaid
         description
         loaneeName

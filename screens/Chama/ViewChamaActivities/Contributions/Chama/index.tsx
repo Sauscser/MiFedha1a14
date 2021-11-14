@@ -2,7 +2,7 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import ChmMbrContr from "../../../../../components/Chama/ChmActivities/Contributions/Chama";
+import ChmMbrContr from "../../../../../components/Chama/ChmActivities/Contributions/VwChama";
 import styles from './styles';
 import { listCvrdGroupLoanss, listGrpMembersContributions } from '../../../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';

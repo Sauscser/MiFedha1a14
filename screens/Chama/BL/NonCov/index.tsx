@@ -58,6 +58,8 @@ const BLChmNonCovLoanee = (props) => {
         );
         const ttlChmLnsInBlAmtNonCovs = compDtls.data.getCompany.ttlChmLnsInBlAmtNonCov
         const ttlChmLnsInBlTymsNonCovs = compDtls.data.getCompany.ttlChmLnsInBlTymsNonCov
+        const userClearanceFees = compDtls.data.getCompany.userClearanceFee
+
 
         const gtLoanDtls = async () =>{
           if(isLoading){
@@ -72,8 +74,11 @@ const BLChmNonCovLoanee = (props) => {
               const loanerPhns = compDtls.data.getNonCvrdGroupLoans.grpContact
               const amountexpecteds = compDtls.data.getNonCvrdGroupLoans.amountExpectedBack
               const amountrepaids = compDtls.data.getNonCvrdGroupLoans.amountRepaid
+              const amountGivens = compDtls.data.getCovCreditSeller.amountGiven
+              const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountGivens) + amountExpectedBackWthClrncs
               const statusssss = compDtls.data.getNonCvrdGroupLoans.status
-              const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
+              const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -118,7 +123,7 @@ const BLChmNonCovLoanee = (props) => {
                                       grpContact:loanerPhns,
                                       tymsChmHvBL: parseFloat(tymsChmHvBLs) + 1,
                                       TtlBLLonsTmsLnrChmNonCov: parseFloat(TtlBLLonsTmsLnrChmNonCovs) + 1,
-                                      TtlBLLonsAmtLnrChmNonCov: parseFloat(TtlBLLonsAmtLnrChmNonCovs) + parseFloat(amountexpecteds)
+                                      TtlBLLonsAmtLnrChmNonCov: parseFloat(TtlBLLonsAmtLnrChmNonCovs) + amountExpectedBackWthClrncss
                                     }
                                   })
                                 )
@@ -170,7 +175,7 @@ const BLChmNonCovLoanee = (props) => {
                                       graphqlOperation(updateCompany,{
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
-                                          ttlChmLnsInBlAmtNonCov: parseFloat(ttlChmLnsInBlAmtNonCovs) + parseFloat(amountexpecteds),
+                                          ttlChmLnsInBlAmtNonCov: parseFloat(ttlChmLnsInBlAmtNonCovs) + amountExpectedBackWthClrncss,
                                           ttlChmLnsInBlTymsNonCov: parseFloat(ttlChmLnsInBlTymsNonCovs) + 1
 
                                         }
@@ -199,7 +204,7 @@ const BLChmNonCovLoanee = (props) => {
                                           phonecontact:loaneePhns,
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsLneeChmNonCov: parseFloat(TtlBLLonsTmsLneeChmNonCovs) + 1,
-                                          TtlBLLonsAmtLneeChmNonCov: parseFloat(TtlBLLonsAmtLneeChmNonCovs) + parseFloat(amountexpecteds),
+                                          TtlBLLonsAmtLneeChmNonCov: parseFloat(TtlBLLonsAmtLneeChmNonCovs) + amountExpectedBackWthClrncss,
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
@@ -230,7 +235,8 @@ const BLChmNonCovLoanee = (props) => {
                                       graphqlOperation(updateNonCvrdGroupLoans, {
                                         input:{
                                           id:LonId,
-                                          
+                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
+                                          lonBala:amountExpectedBackWthClrncss-parseFloat(amountrepaids),
                                           status:"LoanBL",
                                         }
                                       })

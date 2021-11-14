@@ -185,6 +185,7 @@ const SMASendLns = props => {
                                   loaneename:namess,
                                   loanername:names,
                                   amountexpected: AmtExp,
+                                  amountExpectedBackWthClrnc:AmtExp,
                                   amountrepaid: 0,
                                   lonBala:AmtExp,
                                   repaymentPeriod: RepaymtPeriod,

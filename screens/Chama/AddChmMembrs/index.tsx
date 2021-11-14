@@ -116,7 +116,7 @@ const AddChmMmbrs = (props:UserReg) => {
                             LonAmtGven: 0,
                             AmtRepaid:0,
                             LnBal: 0,
-                            NonLonAcBal: 0,
+                            NonLoanAcBal: 0,
                             ttlNonLonAcBal: 0,
                             groupName:grpNames,
                             memberName:namess,

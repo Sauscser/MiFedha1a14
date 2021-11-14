@@ -34,8 +34,8 @@ const MyLoanAccount = props => {
     navigation.navigate('AddChmMembrsss');
   };
   
-  const SndMbrsMnyss = () => {
-    navigation.navigate('SndMbrsMnys');
+  const MmbrSndChmsss = () => {
+    navigation.navigate('MmbrSndChmss');
   };
 
   const RemoveChmMbrss = () => {
@@ -96,8 +96,8 @@ const MyLoanAccount = props => {
     navigation.navigate('ChmSignIn6s');
   };
 
-  const ChamaMmbrRemtss = () => {
-    navigation.navigate('ChamaMmbrRemts');
+  const ChamaSndMbrMneyss = () => {
+    navigation.navigate('ChamaSndMbrMneys');
   };
 
   const ChmMmbrContriss = () => {
@@ -219,7 +219,7 @@ const MyLoanAccount = props => {
                     </Pressable>
 
                     <Pressable
-                      onPress={ChamaMmbrRemtss}
+                      onPress={ChamaSndMbrMneyss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Member
@@ -281,13 +281,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={ChmContrss}
+                      onPress={MmbrSndChmsss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Contribute</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={SndMbrsMnyss}
+                      onPress={ChamaSndMbrMneyss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                        Send to Member

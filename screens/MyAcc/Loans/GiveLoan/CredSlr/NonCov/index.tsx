@@ -163,6 +163,7 @@ const NonCovCredSls = props => {
                                   buyerContact: RecPhn,                                  
                                   amountSold: amount,
                                   amountexpectedBack: AmtExp,
+                                  amountExpectedBackWthClrnc:AmtExp,
                                   amountRepaid: 0,
                                   buyerName:namess,
                                   SellerName:names,

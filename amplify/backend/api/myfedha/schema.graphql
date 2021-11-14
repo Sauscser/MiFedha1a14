@@ -192,6 +192,7 @@ type SMLoansCovered
   
   amountgiven: Float!
   amountexpected: Float!
+  amountExpectedBackWthClrnc: Float!
   amountrepaid: Float!
   lonBala:Float!
   loaneename:String!
@@ -254,6 +255,7 @@ type SMLoansNonCovered
   loanerId: String!
   amountgiven: Float!
   amountexpected: Float!
+  amountExpectedBackWthClrnc: Float!
   amountrepaid: Float!
   lonBala:Float!
   loaneename:String!
@@ -1059,6 +1061,7 @@ type CovCreditSeller
   sellerID: String!
   amountSold: Float!
   amountexpectedBack: Float!
+  amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
   repaymentPeriod: Int!
   lonBala:Float!
@@ -1115,6 +1118,7 @@ type NonCovCreditSeller
   sellerID: String!
   amountSold: Float!
   amountexpectedBack: Float!
+  amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
   lonBala:Float!
   repaymentPeriod: Int!
@@ -1236,6 +1240,7 @@ type GrpMembers
   memberContact: String!
   memberName:String!
   memberNatId: String!
+
   GrossLnsGvn:Float!
   LonAmtGven: Float!
   AmtRepaid:Float!
@@ -1289,6 +1294,7 @@ type CvrdGroupLoans
   repaymentPeriod: Int!
   amountGiven: Float!
   amountExpectedBack: Float!
+  amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
   description: String
   lonBala:Float!
@@ -1341,6 +1347,7 @@ type NonCvrdGroupLoans
   repaymentPeriod: Int!
   amountGiven: Float!
   amountExpectedBack: Float!
+  amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
   description: String
   loaneeName:String!

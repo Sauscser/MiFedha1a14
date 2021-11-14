@@ -53,7 +53,7 @@ declare global {
       ChmCovLons:undefined;
       ChmNonCovLons:undefined;
       ChmContrs:{ContriToMmbrId:string};
-      SndMbrsMnys:undefined;
+      SndMbrsMnys:{id:string};
       BLChmMmberCovs:undefined;
       BLChmMmberNonCovs:undefined;
       RepyChmCovLns:undefined;
@@ -103,9 +103,9 @@ declare global {
       ChmSignIn5s:undefined;
       ChmSignIn6s:undefined;
       ChamaRemts:{grpContact:string};
-      ChmContris:{grpContact:string};
+      ChmContris:{id:string};
       ChmMmbrss:{grpContact:string};
-      ChamaMmbrRemts:undefined;
+      ChamaMmbrRemts:{id:string};
       ChmMmbrContris:undefined;
       ChmMmbrMmbrss:undefined;
       CredSlsLneess:undefined;
@@ -164,6 +164,11 @@ declare global {
       TransactionFeess:undefined;
       VwCompDtlss:undefined;
       Commissionss:undefined;
+      SndChmMbrMnys:{grpContact:string};
+      ChamaSndMbrMneys:undefined;
+      SndToChmMbrss:{grpContact:string};
+      MmbrSndChmss:undefined;
+      Contributionssss:{id:string}
 
     }
   }

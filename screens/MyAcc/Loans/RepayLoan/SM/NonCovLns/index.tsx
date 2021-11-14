@@ -232,8 +232,7 @@ const RepayNonCovLnsss = props => {
                                           TtlClrdLonsAmtLneeCov: parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts),
                                           TtlBLLonsTmsLneeNonCov:parseFloat(TtlBLLonsTmsLneeNonCovs)-1,                                          
                                           TtlBLLonsAmtLneeNonCov: parseFloat(TtlBLLonsAmtLneeNonCovs) - parseFloat(amounts), 
-                                          loanStatus: "NoLoan",
-                                          blStatus: "AccountNotBL",
+                                          
                                                                              
                                           
                                         }

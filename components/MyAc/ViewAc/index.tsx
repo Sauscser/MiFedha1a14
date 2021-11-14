@@ -214,23 +214,106 @@ const SMCvLnStts = (props:SMAccount) => {
                        {/*loaner details */}   
                        Ac Balance (Ksh): {balance.toFixed(2)}                 
                     </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Available Loans: {loanStatus}                 
-                    </Text>
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Account Status: {acStatus}                
-                    </Text>                     
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                      Black Listing of Account: {blStatus}
-                    </Text>   
+                                        
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
                       Times I am Black-Listed: {MaxTymsBL}                  
                     </Text> 
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current Covered Active Loanees (Ksh): {TtlActvLonsAmtLnrCov - TtlClrdLonsAmtLnrCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current Covered Active Loanees: {TtlActvLonsTmsLneeCov - TtlClrdLonsTmsLneeCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current Covered Active Loaners (Ksh): {TtlActvLonsAmtLnrCov - TtlClrdLonsAmtLnrCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current Covered Active Loanees: {TtlActvLonsTmsLneeCov - TtlClrdLonsTmsLneeCov}                 
+                    </Text> 
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current Covered Active Buyers (Ksh): {TtlActvLonsAmtByrCov - TtlClrdLonsAmtByrCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current Covered Active Buyers: {TtlActvLonsTmsByrCov - TtlClrdLonsTmsByrCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current Covered Active Sellers (Ksh): {TtlActvLonsAmtSllrCov - TtlClrdLonsAmtSllrCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current Covered Active Sellers: {TtlActvLonsTmsSllrCov - TtlClrdLonsTmsSllrCov}                 
+                    </Text>  
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current Covered Active Chama Loans (Ksh): {TtlActvLonsAmtLneeChmCov - TtlClrdLonsAmtLneeChmCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current Covered Active Chama Loans: {TtlActvLonsTmsLneeChmCov - TtlClrdLonsTmsLneeChmCov}                 
+                    </Text>
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current NonCovered Active Loanees (Ksh): {TtlActvLonsAmtLnrNonCov - TtlClrdLonsAmtLnrNonCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current NonCovered Active Loanees: {TtlActvLonsTmsLneeNonCov - TtlClrdLonsTmsLneeNonCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current NonCovered Active Loaners (Ksh): {TtlActvLonsAmtLnrNonCov - TtlClrdLonsAmtLnrNonCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current NonCovered Active Loanees: {TtlActvLonsTmsLneeNonCov - TtlClrdLonsTmsLneeNonCov}                 
+                    </Text> 
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current NonCovered Active Buyers (Ksh): {TtlActvLonsAmtByrNonCov - TtlClrdLonsAmtByrNonCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current NonCovered Active Buyers: {TtlActvLonsTmsByrNonCov - TtlClrdLonsTmsByrNonCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current NonCovered Active Sellers (Ksh): {TtlActvLonsAmtSllrNonCov - TtlClrdLonsAmtSllrNonCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current NonCovered Active Sellers: {TtlActvLonsTmsSllrNonCov - TtlClrdLonsTmsSllrNonCov}                 
+                    </Text>  
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current NonCovered Active Chama Loans (Ksh): {TtlActvLonsAmtLneeChmNonCov - TtlClrdLonsAmtLneeChmNonCov}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current NonCovered Active Chama Loans: {TtlActvLonsTmsLneeChmNonCov - TtlClrdLonsTmsLneeChmNonCov}                 
+                    </Text>       
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
                        Times I have Blacklisted: {MaxTymsIHvBL}                    

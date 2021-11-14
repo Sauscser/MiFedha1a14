@@ -103,7 +103,7 @@ const CreateChama = (props:UserReg) => {
                   signitoryPW: pword,
                   grpEmail: awsEmail,
                   grpBal: 0,
-                  ttlGrpMembers: 0,
+                  ttlGrpMembers: 1,
                   description: ChmDesc,
                 
                   ttlNonLonsRecChm: 0,
@@ -171,7 +171,7 @@ const CreateChama = (props:UserReg) => {
                   LonAmtGven: 0,
                   AmtRepaid:0,
                   LnBal: 0,
-                  NonLonAcBal: 0,
+                  NonLoanAcBal: 0,
                   ttlNonLonAcBal: 0,
                   groupName:ChmNm,
                   memberName:namess,

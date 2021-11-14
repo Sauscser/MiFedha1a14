@@ -76,16 +76,15 @@ const SMASendNonLns = props => {
       setIsLoading(true);
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getGrpMembers, {id: MmbrId}),
+              graphqlOperation(getGrpMembers, {id: route.params.id}),
               );
 
               const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
               const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
-              const NonLonAcBals =ChmMbrtDtl.data.getGrpMembers.NonLonAcBal;
-              const NonLonAcBals =ChmMbrtDtl.data.getGrpMembers.NonLonAcBal;
-              const ttlNonLonAcBals =ChmMbrtDtl.data.getGrpMembers.ttlNonLonAcBal;
+              const NonLoanAcBals =ChmMbrtDtl.data.getGrpMembers.NonLoanAcBal;
               
-
+              const LnBal =ChmMbrtDtl.data.getGrpMembers.LnBal;
+              
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
       return;
@@ -157,7 +156,7 @@ const SMASendNonLns = props => {
                               amountSent: amounts,
 
                               description: Desc,
-                              memberId:MmbrId,
+                              memberId:route.params.id,
                               status: "AccountActive",
                               owner: ownr,
                             },
@@ -166,6 +165,7 @@ const SMASendNonLns = props => {
 
 
                       } catch (error) {
+                        console.log(error)
                         if(!error){
                           Alert.alert("Account deactivated successfully")
                           
@@ -200,6 +200,7 @@ const SMASendNonLns = props => {
 
                       }
                       catch(error){
+                        console.log(error)
                         if (error){Alert.alert("Check your internet connection")
                         return;}
                       }
@@ -218,7 +219,7 @@ const SMASendNonLns = props => {
                               input:{
                                 phonecontact:memberContacts,
                                 
-                                balance:parseFloat(RecUsrBal) + parseFloat(amounts)                                     
+                                balance:parseFloat(RecUsrBal) + parseFloat(amounts)                              
                                 
                                                                   
                                 
@@ -227,6 +228,7 @@ const SMASendNonLns = props => {
                           )                              
                       }
                       catch(error){
+                        console.log(error)
                         if (error){Alert.alert("Check your internet connection")
                         return;}
                       }
@@ -257,6 +259,7 @@ const SMASendNonLns = props => {
                           
                       }
                       catch(error){
+                        console.log(error)
                         if (error){Alert.alert("Check your internet connection")
                     return;}
                       }
@@ -273,9 +276,9 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateGrpMembers, {
                               input:{
-                                id:MmbrId,                                                      
+                                id:route.params.id,                                                      
                                
-                                NonLonAcBal:parseFloat(NonLonAcBals) - parseFloat(amounts),
+                                NonLoanAcBal:parseFloat(NonLoanAcBals) - parseFloat(amounts),
                                 
                               }
                             })
@@ -284,17 +287,18 @@ const SMASendNonLns = props => {
                           
                       }
                       catch(error){
+                        console.log(error)
                         if (error){Alert.alert("Check your internet connection")
                     return;}
                       }
-                      Alert.alert(namess + " has sent Ksh. " + amounts + " to " + grpNames+" Chama");
+                      Alert.alert(grpNames + " has sent "+ namess + " has sent Ksh. " + amounts);
                       setIsLoading(false);
                     }                                
                                           
                     
                     if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                    else if(parseFloat(ttlAcBals)  <0){Alert.alert('Member input is not as much');}
+                    else if((parseFloat(LnBal) + LnBal)  > parseFloat(amounts)){Alert.alert('Member input is not as much');}
                     
                     else if (
                       parseFloat(grpBals) < TotalTransacted 
@@ -317,6 +321,7 @@ const SMASendNonLns = props => {
                 }                    
                   await fetchRecUsrDtls();
         } catch (e) {
+          console.log(e)
           if (e){Alert.alert("Check your internet connection")
       return;}
         }
@@ -334,6 +339,7 @@ const SMASendNonLns = props => {
     await fetchSenderUsrDtls();
 
     } catch (e) {
+      console.log(e)
       if (e){Alert.alert("Check your internet connection")
   return;}
     }
@@ -429,15 +435,6 @@ useEffect(() =>{
          
           <View style={styles.amountTitleView}>
             <Text style={styles.title}>Fill account Details Below</Text>
-          </View>
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={MmbrId}
-              onChangeText={setMmbrId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Member Chama Id</Text>
           </View>
 
           <View style={styles.sendAmtView}>

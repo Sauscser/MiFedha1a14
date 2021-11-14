@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 
-import { getCompany, getGroup, getSMAccount, listSMAccounts, } from '../../../../src/graphql/queries';
+import { getCompany, getGroup, getSMAccount, listSMAccounts, } from '../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -45,7 +45,7 @@ const ChmSignIn = (props) => {
   const[ownr, setownr] = useState(null);
 
   const FetchGrpLonsSts = () => {
-    navigation.navigate("SndChmMbrMnys", {grpContact});
+    navigation.navigate("SndToChmMbrss", {grpContact});
   };
   
 
@@ -87,7 +87,7 @@ const ChmSignIn = (props) => {
             catch(e){
               console.log(e)
               if(e){
-                Alert.alert("Group does not exist; otherwise check inernet connection")
+                Alert.alert("Group does not exist; otherwise check internet connection")
                 return;
             }
             }

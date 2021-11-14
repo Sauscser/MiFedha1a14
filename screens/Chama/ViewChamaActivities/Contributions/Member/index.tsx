@@ -2,7 +2,7 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../components/Chama/ChmActivities/Contributions/Member";
+import LnerStts from "../../../../../components/Chama/ChmActivities/Contributions/VwMember";
 import styles from './styles';
 import { listCvrdGroupLoanss, listGrpMembersContributions } from '../../../../../src/graphql/queries';
 

@@ -11,10 +11,12 @@ export interface ChamaMmbrshpInfo {
       grpContact: string,
       
       groupName:string,
-      NonLonAcBal:number,
+      GrossLnsGvn:number,
+      LonAmtGven: number,
+      AmtRepaid:number,
+      LnBal: number,
+      NonLoanAcBal:number,
       ttlNonLonAcBal: number,
-      ttlLoanAcBal:number,
-      loanAcBal:number,
       AcStatus: string,
       loanStatus: string,
       blStatus: string,
@@ -31,10 +33,12 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
          groupName,
          loanStatus,
          blStatus,
-         NonLonAcBal,
+         GrossLnsGvn,
+         LonAmtGven,
+         AmtRepaid,
+         LnBal,
+         NonLoanAcBal,
          ttlNonLonAcBal,
-         ttlLoanAcBal,
-         loanAcBal,
          createdAt,       
          AcStatus,
        
@@ -65,17 +69,27 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                     </Text>   
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       NonLoans Ac Bal (Ksh): {NonLonAcBal.toFixed(2)}
+                       NonLoans Ac Bal (Ksh): {GrossLnsGvn.toFixed(2)}
                     </Text>   
                     
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Total Loans Ac Bal (Ksh): {ttlLoanAcBal.toFixed(2)}
+                       Total Loans Ac Bal (Ksh): {LonAmtGven.toFixed(2)}
                     </Text>   
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Loans Ac Bal (Ksh): {loanAcBal.toFixed(2)}
+                       Loans Ac Bal (Ksh): {AmtRepaid.toFixed(2)}
                     </Text>     
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       NonLoans Ac Bal (Ksh): {LnBal.toFixed(2)}
+                    </Text>   
+                    
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Total Loans Ac Bal (Ksh): {NonLoanAcBal.toFixed(2)}
+                    </Text>   
+                      
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
                       Chama Phone: {grpContact}                  

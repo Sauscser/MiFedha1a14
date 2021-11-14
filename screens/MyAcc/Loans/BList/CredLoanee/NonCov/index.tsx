@@ -55,6 +55,7 @@ const BLNonCovCredByr = (props) => {
         );
         const ttlSellerLnsInBlAmtNonCovs = compDtls.data.getCompany.ttlSellerLnsInBlAmtNonCov
         const ttlSellerLnsInBlTymsNonCovs = compDtls.data.getCompany.ttlSellerLnsInBlTymsNonCov
+        const userClearanceFees = compDtls.data.getCompany.userClearanceFee
 
         const gtLoanDtls = async () =>{
           if(isLoading){
@@ -69,8 +70,11 @@ const BLNonCovCredByr = (props) => {
               const sellerContacts = compDtls.data.getNonCovCreditSeller.sellerContact
               const amountexpecteds = compDtls.data.getNonCovCreditSeller.amountexpectedBack
               const amountrepaids = compDtls.data.getNonCovCreditSeller.amountRepaid
+              const amountSolds = compDtls.data.getCovCreditSeller.amountSold
+              const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountSolds) + parseFloat(amountExpectedBackWthClrncs)
               const statusssss = compDtls.data.getNonCovCreditSeller.status
-              const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
+              const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -112,7 +116,7 @@ const BLNonCovCredByr = (props) => {
                                     input:{
                                       phonecontact:sellerContacts,
                                       TtlBLLonsTmsSllrNonCov: parseFloat(TtlBLLonsTmsSllrNonCovs) + 1,
-                                      TtlBLLonsAmtSllrNonCov: parseFloat(TtlBLLonsAmtSllrNonCovs) + parseFloat(amountexpecteds)
+                                      TtlBLLonsAmtSllrNonCov: parseFloat(TtlBLLonsAmtSllrNonCovs) + amountExpectedBackWthClrncss
                                     }
                                   })
                                 )
@@ -164,8 +168,8 @@ const BLNonCovCredByr = (props) => {
                                       graphqlOperation(updateCompany,{
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
-                                          ttlSellerLnsInBlTymsNonCov: parseFloat(ttlSellerLnsInBlTymsNonCovs) + parseFloat(amountexpecteds),
-                                          ttlSellerLnsInBlAmtNonCov: parseFloat(ttlSellerLnsInBlAmtNonCovs) + 1
+                                          ttlSellerLnsInBlTymsNonCov: parseFloat(ttlSellerLnsInBlTymsNonCovs) + 1,
+                                          ttlSellerLnsInBlAmtNonCov: parseFloat(ttlSellerLnsInBlAmtNonCovs) + amountExpectedBackWthClrncss
 
                                         }
                                       })
@@ -192,7 +196,7 @@ const BLNonCovCredByr = (props) => {
                                         input:{
                                           phonecontact:buyerContacts,
                                           TtlBLLonsTmsByrNonCov: parseFloat(TtlBLLonsTmsByrNonCovs) + 1,
-                                          TtlBLLonsAmtByrNonCov: parseFloat(TtlBLLonsAmtByrNonCovs) + parseFloat(amountexpecteds),
+                                          TtlBLLonsAmtByrNonCov: parseFloat(TtlBLLonsAmtByrNonCovs) + amountExpectedBackWthClrncss,
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
@@ -223,7 +227,8 @@ const BLNonCovCredByr = (props) => {
                                       graphqlOperation(updateNonCovCreditSeller, {
                                         input:{
                                           id:LonId,
-                                          
+                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
+                                          lonBala:amountExpectedBackWthClrncss- parseFloat (amountrepaids),
                                           status:"LoanBL",
                                         }
                                       })
