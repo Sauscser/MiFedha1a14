@@ -50,14 +50,16 @@ declare global {
       CredSlsHms:undefined;
       CreateChms:undefined;
       AddChmMembrsss:undefined;
-      ChmCovLons:undefined;
-      ChmNonCovLons:undefined;
+      ChmCovLons:{id:string};
+      ChmNonCovLons:{id:string};
       ChmContrs:{ContriToMmbrId:string};
       SndMbrsMnys:{id:string};
       BLChmMmberCovs:undefined;
       BLChmMmberNonCovs:undefined;
-      RepyChmCovLns:undefined;
-      RepyChmNonCovLns:undefined;
+
+      RepyChmCovLns:{id:string};
+      RepyChmNonCovLns:{id:string};
+
       RpayCredSlrCovs:undefined;
       RpayCredSlrNonCovs:undefined;
       BListCredByrCovs:undefined;
@@ -169,6 +171,12 @@ declare global {
       SndToChmMbrss:{grpContact:string};
       MmbrSndChmss:undefined;
       Contributionssss:{id:string}
+      SgnIn2LnMmbrs:undefined;
+      VwChmMbrs2Ln:{grpContact:string};
+      SgnIn2LnMmbrNonCovs:undefined;
+      VwChmMbrs2NonCovLnss:{grpContact:string}
+      Vw2RpyCovs:undefined;
+      Vw2RpyNonCovs:undefined;
 
     }
   }

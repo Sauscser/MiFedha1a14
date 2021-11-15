@@ -142,6 +142,12 @@ import SndChmMbrMny from "../../screens/Chama/ViewChamaActivities/Membership/Snd
 import ChamaSndMbrMneys from "../../screens/Chama/ChamaSndMbrMney";
 import SndToChmMbrs from "../../screens/Chama/ViewChamaActivities/Membership/SndToChmMbr";
 import MmbrSndChms from "../../screens/Chama/MmbrSndChm";
+import SgnIn2LnMmbr from "../../screens/Chama/SgnIn2LnMmbrCov";
+import VwChmMbrs2Ln from "../../screens/Chama/VwChmMbrs2Ln";
+import SgnIn2LnMmbrNonCov from "../../screens/Chama/SgnIn2LnMmbrNonCov";
+import VwChmMbrs2NonCovLns from "../../screens/Chama/VwChmMbrs2NonCovLn";
+import Vw2RpyCov from "../../screens/Chama/Vw2RpyChmLns/Cov";
+import Vw2RpyNonCov from "../../screens/Chama/Vw2RpyChmLns/NonCov";
 
 
 
@@ -154,6 +160,12 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'Vw2RpyNonCovs'} component={Vw2RpyNonCov} />
+      <Stack.Screen name={'Vw2RpyCovs'} component={Vw2RpyCov} />
+      <Stack.Screen name={'VwChmMbrs2NonCovLnss'} component={VwChmMbrs2NonCovLns} />
+      <Stack.Screen name={'SgnIn2LnMmbrNonCovs'} component={SgnIn2LnMmbrNonCov} />
+      <Stack.Screen name={'SgnIn2LnMmbrs'} component={SgnIn2LnMmbr} />
+      <Stack.Screen name={'VwChmMbrs2Ln'} component={VwChmMbrs2Ln} />
       <Stack.Screen name={'MmbrSndChmss'} component={MmbrSndChms} />
       <Stack.Screen name={'SndToChmMbrss'} component={SndToChmMbrs} />
       <Stack.Screen name={'ChamaSndMbrMneys'} component={ChamaSndMbrMneys} />

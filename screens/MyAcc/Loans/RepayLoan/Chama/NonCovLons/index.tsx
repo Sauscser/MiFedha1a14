@@ -15,6 +15,7 @@ import {
   updateCvrdGroupLoans,
   updateGroup,
   updateGrpMembers,
+  updateNonCvrdGroupLoans,
   
 } from '../../../../../../src/graphql/mutations';
 
@@ -25,12 +26,13 @@ import {
   getCvrdGroupLoans,
   getGroup,
   getGrpMembers,
+  getNonCvrdGroupLoans,
   getSMAccount,
   getSMLoansCovered,
   
 } from '../../../../../../src/graphql/queries';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {
   View,
@@ -59,6 +61,7 @@ const RepayNonCovChmLnsss = props => {
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
   const [SendrPhn, setSendrPhn] = useState(null);
+  const route = useRoute();
   
   
 
@@ -80,18 +83,18 @@ const RepayNonCovChmLnsss = props => {
       setIsLoading(true);
       try {
           const RecAccountDtl:any = await API.graphql(
-              graphqlOperation(getCvrdGroupLoans, {id: LnId}),
+              graphqlOperation(getNonCvrdGroupLoans, {id: route.params.id}),
               );
               
-              const amountExpectedBackWthClrncs =RecAccountDtl.data.getCvrdGroupLoans.amountExpectedBackWthClrnc; 
-              const memberIds =RecAccountDtl.data.getCvrdGroupLoans.memberId;
+              const amountExpectedBackWthClrncs =RecAccountDtl.data.getNonCvrdGroupLoans.amountExpectedBackWthClrnc; 
+              const memberIds =RecAccountDtl.data.getNonCvrdGroupLoans.memberId;
 
-              const grpContactssss =RecAccountDtl.data.getCvrdGroupLoans.grpContact; 
-              const loaneePhnssss =RecAccountDtl.data.getCvrdGroupLoans.loaneePhn;
+              const grpContactssss =RecAccountDtl.data.getNonCvrdGroupLoans.grpContact; 
+              const loaneePhnssss =RecAccountDtl.data.getNonCvrdGroupLoans.loaneePhn;
                
-              const lonBalas =RecAccountDtl.data.getCvrdGroupLoans.lonBala;
+              const lonBalas =RecAccountDtl.data.getNonCvrdGroupLoans.lonBala;
                
-              const amountRepaidss =RecAccountDtl.data.getCvrdGroupLoans.amountRepaid; 
+              const amountRepaidss =RecAccountDtl.data.getNonCvrdGroupLoans.amountRepaid; 
               const LonBalsss = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountRepaidss); 
               
 
@@ -108,12 +111,12 @@ const RepayNonCovChmLnsss = props => {
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
       const usrPW =accountDtl.data.getSMAccount.pw;
       const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const TtlClrdLonsTmsLneeChmCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsLneeChmCov;
-      const TtlActvLonsTmsLneeChmCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmCov;
-      const TtlActvLonsAmtLneeChmCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmCov;
-      const TtlClrdLonsAmtLneeChmCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtLneeChmCov;
-      const TtlBLLonsTmsLneeChmCovs =accountDtl.data.getSMAccount.TtlBLLonsTmsLneeChmCov;
-      const TtlBLLonsAmtLneeChmCovs =accountDtl.data.getSMAccount.TtlBLLonsAmtLneeChmCov;
+      const TtlClrdLonsTmsLneeChmNonCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsLneeChmNonCov;
+      const TtlActvLonsTmsLneeChmNonCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmNonCov;
+      const TtlActvLonsAmtLneeChmNonCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmNonCov;
+      const TtlClrdLonsAmtLneeChmNonCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtLneeChmNonCov;
+      const TtlBLLonsTmsLneeChmNonCovs =accountDtl.data.getSMAccount.TtlBLLonsTmsLneeChmNonCov;
+      const TtlBLLonsAmtLneeChmNonCovs =accountDtl.data.getSMAccount.TtlBLLonsAmtLneeChmNonCov;
       const names =accountDtl.data.getSMAccount.name;
       
       const nonLonLimits =accountDtl.data.getSMAccount.nonLonLimit;
@@ -134,12 +137,12 @@ const RepayNonCovChmLnsss = props => {
             
           const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;  
-          const ttlChmLnsInClrdTymsCovs = CompDtls.data.getCompany.ttlChmLnsInClrdTymsCov; 
-          const ttlChmLnsInClrdAmtCovs = CompDtls.data.getCompany.ttlChmLnsInClrdAmtCov;
-          const ttlChmLnsInBlTymsCovs = CompDtls.data.getCompany.ttlChmLnsInBlTymsCov; 
-          const ttlChmLnsInBlAmtCovs = CompDtls.data.getCompany.ttlChmLnsInBlAmtCov;
-          const ttlChmLnsInActvAmtCov = CompDtls.data.getCompany.ttlChmLnsInActvAmtCov;
-          const ttlChmLnsInActvTymsCov = CompDtls.data.getCompany.ttlChmLnsInActvTymsCov;
+          const ttlChmLnsInClrdTymsNonCovs = CompDtls.data.getCompany.ttlChmLnsInClrdTymsNonCov; 
+          const ttlChmLnsInClrdAmtNonCovs = CompDtls.data.getCompany.ttlChmLnsInClrdAmtNonCov;
+          const ttlChmLnsInBlTymsNonCovs = CompDtls.data.getCompany.ttlChmLnsInBlTymsNonCov; 
+          const ttlChmLnsInBlAmtNonCovs = CompDtls.data.getCompany.ttlChmLnsInBlAmtNonCov;
+          const ttlChmLnsInActvAmtNonCov = CompDtls.data.getCompany.ttlChmLnsInActvAmtNonCov;
+          const ttlChmLnsInActvTymsNonCov = CompDtls.data.getCompany.ttlChmLnsInActvTymsNonCov;
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
          
@@ -160,13 +163,13 @@ const RepayNonCovChmLnsss = props => {
                     const usrAcActvSttss =RecAccountDtl.data.getGroup.status; 
                    
                     const tymsChmHvBLs =RecAccountDtl.data.getGroup.tymsChmHvBL;                    
-                    const TtlClrdLonsTmsLnrChmCovs =accountDtl.data.getGroup.TtlClrdLonsTmsLnrChmCov;
-                    const TtlClrdLonsAmtLnrChmCovs =accountDtl.data.getGroup.TtlClrdLonsAmtLnrChmCov;
-                    const TtlBLLonsTmsLnrChmCovs =accountDtl.data.getGroup.TtlBLLonsTmsLnrChmCov;
-                    const TtlBLLonsAmtLnrChmCovs =accountDtl.data.getGroup.TtlBLLonsAmtLnrChmCov;
-                    const namess =accountDtl.data.getGroup.grpName;
-                    const TtlActvLonsTmsLnrChmCovs =accountDtl.data.getGroup.TtlActvLonsTmsLnrChmCov;
-                    const TtlActvLonsAmtLnrChmCovs =accountDtl.data.getGroup.TtlActvLonsAmtLnrChmCov;
+                    const TtlClrdLonsTmsLnrChmNonCovs =RecAccountDtl.data.getGroup.TtlClrdLonsTmsLnrChmNonCov;
+                    const TtlClrdLonsAmtLnrChmNonCovs =RecAccountDtl.data.getGroup.TtlClrdLonsAmtLnrChmNonCov;
+                    const TtlBLLonsTmsLnrChmNonCovs =RecAccountDtl.data.getGroup.TtlBLLonsTmsLnrChmNonCov;
+                    const TtlBLLonsAmtLnrChmNonCovs =RecAccountDtl.data.getGroup.TtlBLLonsAmtLnrChmNonCov;
+                    const namess =RecAccountDtl.data.getGroup.grpName;
+                    const TtlActvLonsTmsLnrChmNonCovs =RecAccountDtl.data.getGroup.TtlActvLonsTmsLnrChmNonCov;
+                    const TtlActvLonsAmtLnrChmNonCovs =RecAccountDtl.data.getGroup.TtlActvLonsAmtLnrChmNonCov;
                     
                     
 
@@ -205,6 +208,7 @@ const RepayNonCovChmLnsss = props => {
                     
                                           }
                                           catch(error){
+                                            console.log(error)
                                             if (error){Alert.alert("Check your internet connection")
                                             return;}
                                           }
@@ -219,9 +223,9 @@ const RepayNonCovChmLnsss = props => {
                                 setIsLoading(true);
                                 try{
                                     await API.graphql(
-                                      graphqlOperation(updateCvrdGroupLoans, {
+                                      graphqlOperation(updateNonCvrdGroupLoans, {
                                         input:{
-                                          id:LnId,
+                                          id:route.params.id,
                                           amountRepaid: parseFloat(amounts) + parseFloat(amountRepaidss),
                                           lonBala: LonBalsss-parseFloat(amounts),
                                           status: "LoanCleared",
@@ -231,6 +235,7 @@ const RepayNonCovChmLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -261,6 +266,7 @@ const RepayNonCovChmLnsss = props => {
           
           
                                 } catch (error) {
+                                  console.log(error)
                                   if(!error){
                                     Alert.alert("Account deactivated successfully")
                                     
@@ -284,12 +290,12 @@ const RepayNonCovChmLnsss = props => {
                                           phonecontact:SendrPhn,
                                           
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted ,
-                                          TtlClrdLonsTmsLneeChmCov:parseFloat(TtlClrdLonsTmsLneeChmCovs)+1,                                          
-                                          TtlClrdLonsAmtLneeChmCov: parseFloat(TtlClrdLonsAmtLneeChmCovs) + parseFloat(amounts), 
-                                          TtlActvLonsTmsLneeChmCov:parseFloat(TtlActvLonsTmsLneeChmCovs)-1,                                          
-                                          TtlActvLonsAmtLneeChmCov: parseFloat(TtlActvLonsAmtLneeChmCovs) - parseFloat(amounts),
-                                          TtlBLLonsTmsLneeChmCov:  parseFloat(TtlBLLonsTmsLneeChmCovs) - 1,
-                                          TtlBLLonsAmtLneeChmCov: parseFloat(TtlBLLonsAmtLneeChmCovs) - parseFloat(amounts),
+                                          TtlClrdLonsTmsLneeChmNonCov:parseFloat(TtlClrdLonsTmsLneeChmNonCovs)+1,                                          
+                                          TtlClrdLonsAmtLneeChmNonCov: parseFloat(TtlClrdLonsAmtLneeChmNonCovs) + parseFloat(amounts), 
+                                          TtlActvLonsTmsLneeChmNonCov:parseFloat(TtlActvLonsTmsLneeChmNonCovs)-1,                                          
+                                          TtlActvLonsAmtLneeChmNonCov: parseFloat(TtlActvLonsAmtLneeChmNonCovs) - parseFloat(amounts),
+                                          TtlBLLonsTmsLneeChmNonCov:  parseFloat(TtlBLLonsTmsLneeChmNonCovs) - 1,
+                                          TtlBLLonsAmtLneeChmNonCov: parseFloat(TtlBLLonsAmtLneeChmNonCovs) - parseFloat(amounts),
                                           MaxTymsBL: parseFloat(MaxTymsBLss) - 1,
                                           
                                                                              
@@ -301,6 +307,7 @@ const RepayNonCovChmLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -320,19 +327,20 @@ const RepayNonCovChmLnsss = props => {
                                           grpContact:grpContactssss,
                                           
                                           grpBal:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
-                                          TtlBLLonsTmsLnrChmCov: parseFloat(TtlBLLonsTmsLnrChmCovs) - 1,
-                                          TtlBLLonsAmtLnrChmCov: parseFloat(TtlBLLonsAmtLnrChmCovs) - parseFloat(amounts),
-                                          TtlClrdLonsTmsLnrChmCov: parseFloat(TtlClrdLonsTmsLnrChmCovs) + 1,
+                                          TtlBLLonsTmsLnrChmNonCov: parseFloat(TtlBLLonsTmsLnrChmNonCovs) - 1,
+                                          TtlBLLonsAmtLnrChmNonCov: parseFloat(TtlBLLonsAmtLnrChmNonCovs) - parseFloat(amounts),
+                                          TtlClrdLonsTmsLnrChmNonCov: parseFloat(TtlClrdLonsTmsLnrChmNonCovs) + 1,
                                           tymsChmHvBL: parseFloat(tymsChmHvBLs) - 1,
-                                          TtlClrdLonsAmtLnrChmCov: parseFloat(TtlClrdLonsAmtLnrChmCovs) + parseFloat(amounts),
-                                          TtlActvLonsTmsLnrChmCov:parseFloat(TtlActvLonsTmsLnrChmCovs)-1,                                          
-                                          TtlActvLonsAmtLnrChmCov: parseFloat(TtlActvLonsAmtLnrChmCovs) - parseFloat(amounts),                                                                            
+                                          TtlClrdLonsAmtLnrChmNonCov: parseFloat(TtlClrdLonsAmtLnrChmNonCovs) + parseFloat(amounts),
+                                          TtlActvLonsTmsLnrChmNonCov:parseFloat(TtlActvLonsTmsLnrChmNonCovs)-1,                                          
+                                          TtlActvLonsAmtLnrChmNonCov: parseFloat(TtlActvLonsAmtLnrChmNonCovs) - parseFloat(amounts),                                                                            
                                           
                                         }
                                       })
                                     )                              
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -354,12 +362,12 @@ const RepayNonCovChmLnsss = props => {
                                           companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
                                           companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
                                           
-                                          ttlChmLnsInActvAmtCov: parseFloat(amounts) - parseFloat(ttlChmLnsInActvAmtCov),
-                                          ttlChmLnsInActvTymsCov: parseFloat(amounts) - parseFloat(ttlChmLnsInActvTymsCov),
-                                          ttlChmLnsInClrdAmtCov: parseFloat(ttlChmLnsInClrdAmtCovs) + parseFloat(amounts) ,
-                                          ttlChmLnsInClrdTymsCov: parseFloat(ttlChmLnsInClrdTymsCovs) + parseFloat(amounts) ,
-                                          ttlChmLnsInBlTymsCov: parseFloat(ttlChmLnsInBlTymsCovs) - 1, 
-                                          ttlChmLnsInBlAmtCov: parseFloat(ttlChmLnsInBlAmtCovs) - parseFloat(amounts), 
+                                          ttlChmLnsInActvAmtNonCov: parseFloat(amounts) - parseFloat(ttlChmLnsInActvAmtNonCov),
+                                          ttlChmLnsInActvTymsNonCov: parseFloat(amounts) - parseFloat(ttlChmLnsInActvTymsNonCov),
+                                          ttlChmLnsInClrdAmtNonCov: parseFloat(ttlChmLnsInClrdAmtNonCovs) + parseFloat(amounts) ,
+                                          ttlChmLnsInClrdTymsNonCov: parseFloat(ttlChmLnsInClrdTymsNonCovs) + parseFloat(amounts) ,
+                                          ttlChmLnsInBlTymsNonCov: parseFloat(ttlChmLnsInBlTymsNonCovs) - 1, 
+                                          ttlChmLnsInBlAmtNonCov: parseFloat(ttlChmLnsInBlAmtNonCovs) - parseFloat(amounts), 
                                           
                                         }
                                       })
@@ -368,6 +376,7 @@ const RepayNonCovChmLnsss = props => {
                                     
                                 }
                                 catch(error){
+                                  console.log(error)
                                   
                                 }
                                 Alert.alert(names + " has fully repayed " + namess +" Ksh. "+ amounts);
@@ -392,6 +401,7 @@ const RepayNonCovChmLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -407,9 +417,9 @@ const RepayNonCovChmLnsss = props => {
                                 setIsLoading(true);
                                 try{
                                     await API.graphql(
-                                      graphqlOperation(updateCvrdGroupLoans, {
+                                      graphqlOperation(updateNonCvrdGroupLoans, {
                                         input:{
-                                          id:LnId,
+                                          id:route.params.id,
                                           amountRepaid: parseFloat(amounts) + parseFloat(amountRepaidss),
                                           lonBala: LonBalsss-parseFloat(amounts),
                                         }
@@ -419,6 +429,7 @@ const RepayNonCovChmLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -440,7 +451,7 @@ const RepayNonCovChmLnsss = props => {
                                           
                                           balance:parseFloat(SenderUsrBal)-TotalTransacted,
                                                                        
-                                          TtlActvLonsAmtLneeChmCov: parseFloat(TtlActvLonsAmtLneeChmCovs) - parseFloat(amounts),
+                                          TtlActvLonsAmtLneeChmNonCov: parseFloat(TtlActvLonsAmtLneeChmNonCovs) - parseFloat(amounts),
                                         }
                                       })
                                     )
@@ -448,6 +459,7 @@ const RepayNonCovChmLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -468,13 +480,14 @@ const RepayNonCovChmLnsss = props => {
                                           
                                           grpBal:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
                                           
-                                          TtlActvLonsAmtLnrChmCov: parseFloat(TtlActvLonsAmtLnrChmCovs) - parseFloat(amounts),                                        
+                                          TtlActvLonsAmtLnrChmNonCov: parseFloat(TtlActvLonsAmtLnrChmNonCovs) - parseFloat(amounts),                                        
                                           
                                         }
                                       })
                                     )                              
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -495,7 +508,7 @@ const RepayNonCovChmLnsss = props => {
                                          
                                           companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
                                           companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
-                                          ttlChmLnsInActvAmtCov: ttlChmLnsInActvAmtCov - parseFloat(amounts),
+                                          ttlChmLnsInActvAmtNonCov: ttlChmLnsInActvAmtNonCov - parseFloat(amounts),
                                         }
                                       })
                                     )
@@ -505,7 +518,7 @@ const RepayNonCovChmLnsss = props => {
                                 catch(error){
                                   
                                 }
-                                Alert.alert(names + " has repayed " + amounts + " to " + namess);
+                                Alert.alert(names + " has repayed Ksh. " + amounts + " to " + namess);
                                 setIsLoading(false);
                               }
 
@@ -534,7 +547,7 @@ const RepayNonCovChmLnsss = props => {
                             return;
                           }
 
-                          else if(parseFloat(amounts) > lonBalas){Alert.alert("Your Loan Balance is lesser: "+lonBalas)}
+                          else if(parseFloat(amounts) > lonBalas){Alert.alert("Your Loan Balance is lesser: Ksh. "+lonBalas )}
                           
 
                           else if(parseFloat(amounts) === lonBalas){updtChmMbrTTlBlOvr();}                         
@@ -570,6 +583,7 @@ const RepayNonCovChmLnsss = props => {
                 }                    
                   await fetchCompDtls();
         } catch (e) {
+          console.log(e)
           if (e){Alert.alert("Check your internet connection")
       return;}
         }
@@ -579,6 +593,7 @@ const RepayNonCovChmLnsss = props => {
     
       
     } catch (e) {
+      console.log(e)
       if (e){Alert.alert("Sender does not exist")
       return;}
   };
@@ -693,19 +708,6 @@ useEffect(() =>{
             <Text style={styles.sendAmtText}>Loanee PassWord</Text>
           </View>
 
-          
-
-          
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              multiline={true}
-              value={LnId}
-              onChangeText={setLnId}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Loan Id</Text>
-          </View>
           
           <View style={styles.sendAmtViewDesc}>
             <TextInput

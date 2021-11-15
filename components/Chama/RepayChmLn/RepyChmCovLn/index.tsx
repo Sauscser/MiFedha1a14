@@ -8,21 +8,8 @@ import styles from './styles';
 export interface ChamaMmbrshpInfo {
     ChamaMmbrshpDtls: {
       id: string,
-      groupContact: string,
-      memberContact: string,
-      groupName:string,
-      memberName:string,
-      memberNatId:string,
-      GrossLnsGvn:number,
-      LonAmtGven: number,
-      AmtRepaid:number,
-      LnBal: number,
-      NonLoanAcBal:number,
-      ttlNonLonAcBal: number,
-      AcStatus: string,
-      loanStatus: string,
-      blStatus: string,
-      createdAt:string,
+      lonBala:number,
+      LoanerName:string,
       
     }}
 
@@ -30,28 +17,15 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    const {
       ChamaMmbrshpDtls: {
          id,
-         groupContact,
-         memberNatId,
-         memberContact,
-         groupName,
-         loanStatus,
-         blStatus,
-         GrossLnsGvn,
-         LonAmtGven,
-         AmtRepaid,
-         LnBal,
-         NonLoanAcBal,
-         ttlNonLonAcBal,
-         createdAt,       
-         AcStatus,
-       
-       
+         lonBala,
+         LoanerName,
+         
    }} = props ;
 
    const navigation = useNavigation();
     
    const SndChmMmbrMny = () => {
-      navigation.navigate("Contributionssss", {id})
+      navigation.navigate("RepyChmCovLns", {id})
    }
    
     return (
@@ -61,12 +35,16 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
           
                      <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
-                       Member Chama ID: {id}                
+                       Loan ID: {id}                
                     </Text>                                               
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
-                     Chama Name: {groupName}                
+                     Chama Name: {LoanerName}                
                     </Text>   
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                     loan Balance Ksh: {lonBala.toFixed(2)}                
+                    </Text>  
                                 
                
         </Pressable>

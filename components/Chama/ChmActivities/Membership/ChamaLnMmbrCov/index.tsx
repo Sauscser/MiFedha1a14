@@ -50,7 +50,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    const navigation = useNavigation();
     
    const SndChmMmbrMny = () => {
-      navigation.navigate("SndMbrsMnys", {id})
+      navigation.navigate("ChmCovLons", {id})
    }
    
     return (

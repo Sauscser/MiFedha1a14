@@ -298,7 +298,7 @@ const SMASendNonLns = props => {
                     
                     if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                    else if((parseFloat(LnBal) + LnBal)  > parseFloat(amounts)){Alert.alert('Member input is not as much');}
+                    else if((parseFloat(LnBal) + parseFloat(NonLoanAcBals))  < parseFloat(amounts)){Alert.alert('Member input is not as much');}
                     
                     else if (
                       parseFloat(grpBals) < TotalTransacted 

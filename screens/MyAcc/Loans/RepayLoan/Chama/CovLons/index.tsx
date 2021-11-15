@@ -30,7 +30,7 @@ import {
   
 } from '../../../../../../src/graphql/queries';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {
   View,
@@ -59,6 +59,7 @@ const RepayCovChmLnsss = props => {
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
   const [SendrPhn, setSendrPhn] = useState(null);
+  const route = useRoute();
   
   
 
@@ -80,7 +81,7 @@ const RepayCovChmLnsss = props => {
       setIsLoading(true);
       try {
           const RecAccountDtl:any = await API.graphql(
-              graphqlOperation(getCvrdGroupLoans, {id: LnId}),
+              graphqlOperation(getCvrdGroupLoans, {id: route.params.id}),
               );
               
               const amountExpectedBackWthClrncs =RecAccountDtl.data.getCvrdGroupLoans.amountExpectedBackWthClrnc; 
@@ -159,13 +160,13 @@ const RepayCovChmLnsss = props => {
                     const usrAcActvSttss =RecAccountDtl.data.getGroup.status; 
                    
                     const tymsChmHvBLs =RecAccountDtl.data.getGroup.tymsChmHvBL;                    
-                    const TtlClrdLonsTmsLnrChmCovs =accountDtl.data.getGroup.TtlClrdLonsTmsLnrChmCov;
-                    const TtlClrdLonsAmtLnrChmCovs =accountDtl.data.getGroup.TtlClrdLonsAmtLnrChmCov;
-                    const TtlBLLonsTmsLnrChmCovs =accountDtl.data.getGroup.TtlBLLonsTmsLnrChmCov;
-                    const TtlBLLonsAmtLnrChmCovs =accountDtl.data.getGroup.TtlBLLonsAmtLnrChmCov;
-                    const namess =accountDtl.data.getGroup.grpName;
-                    const TtlActvLonsTmsLnrChmCovs =accountDtl.data.getGroup.TtlActvLonsTmsLnrChmCov;
-                    const TtlActvLonsAmtLnrChmCovs =accountDtl.data.getGroup.TtlActvLonsAmtLnrChmCov;
+                    const TtlClrdLonsTmsLnrChmCovs =RecAccountDtl.data.getGroup.TtlClrdLonsTmsLnrChmCov;
+                    const TtlClrdLonsAmtLnrChmCovs =RecAccountDtl.data.getGroup.TtlClrdLonsAmtLnrChmCov;
+                    const TtlBLLonsTmsLnrChmCovs =RecAccountDtl.data.getGroup.TtlBLLonsTmsLnrChmCov;
+                    const TtlBLLonsAmtLnrChmCovs =RecAccountDtl.data.getGroup.TtlBLLonsAmtLnrChmCov;
+                    const namess =RecAccountDtl.data.getGroup.grpName;
+                    const TtlActvLonsTmsLnrChmCovs =RecAccountDtl.data.getGroup.TtlActvLonsTmsLnrChmCov;
+                    const TtlActvLonsAmtLnrChmCovs =RecAccountDtl.data.getGroup.TtlActvLonsAmtLnrChmCov;
                     
                     
 
@@ -222,7 +223,7 @@ const RepayCovChmLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateCvrdGroupLoans, {
                                         input:{
-                                          id:LnId,
+                                          id:route.params.id,
                                           amountRepaid: parseFloat(amounts) + parseFloat(amountRepaidss),
                                           lonBala: LonBalsss-parseFloat(amounts),
                                           status: "LoanCleared",
@@ -410,7 +411,7 @@ const RepayCovChmLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateCvrdGroupLoans, {
                                         input:{
-                                          id:LnId,
+                                          id:route.params.id,
                                           amountRepaid: parseFloat(amounts) + parseFloat(amountRepaidss),
                                           lonBala: LonBalsss-parseFloat(amounts),
                                         }
@@ -535,7 +536,7 @@ const RepayCovChmLnsss = props => {
                             return;
                           }
 
-                          else if(parseFloat(amounts) > lonBalas){Alert.alert("Your Loan Balance is lesser: "+lonBalas)}
+                          else if(parseFloat(amounts) > lonBalas){Alert.alert("Your Loan Balance is lesser: Ksh. "+lonBalas)}
                           
 
                           else if(parseFloat(amounts) === lonBalas){updtChmMbrTTlBlOvr();}                         
@@ -547,6 +548,7 @@ const RepayCovChmLnsss = props => {
 
                             }
                             catch (e) {
+                              console.log(e)
                               if (e){Alert.alert("There is no such a member")
                               return;}
                           };
@@ -555,6 +557,7 @@ const RepayCovChmLnsss = props => {
                         await fetchMmbrDtls();
                           }
                           catch (e) {
+                            console.log(e)
                             if (e){Alert.alert("There is no such a loan")
                             return;}
                         };
@@ -564,6 +567,7 @@ const RepayCovChmLnsss = props => {
                                                                                          
                 }       
                 catch(e) {     
+                  console.log(e)
                   if (e){Alert.alert("Reciever does not exist")
   return;}                 
                 }
@@ -694,20 +698,6 @@ useEffect(() =>{
             <Text style={styles.sendAmtText}>Loanee PassWord</Text>
           </View>
 
-          
-
-          
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              multiline={true}
-              value={LnId}
-              onChangeText={setLnId}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Loan Id</Text>
-          </View>
-          
           <View style={styles.sendAmtViewDesc}>
             <TextInput
               multiline={true}

@@ -22,12 +22,12 @@ const MyLoanAccount = props => {
     navigation.navigate('ChmCovLons');
   };
 
-  const ChmNonCovLonss = () => {
-    navigation.navigate('ChmNonCovLons');
+  const SgnIn2LnMmbrNonCovss = () => {
+    navigation.navigate('SgnIn2LnMmbrNonCovs');
   };
 
-  const ChmContrss = () => {
-    navigation.navigate('ChmContrs');
+  const SgnIn2LnMmbrs = () => {
+    navigation.navigate('SgnIn2LnMmbrs');
   };
 
   const AddChmMembrssss = () => {
@@ -107,6 +107,14 @@ const MyLoanAccount = props => {
   const ChmMmbrMmbrsss = () => {
     navigation.navigate('ChmMmbrMmbrss');
   };
+  const Vw2RpyCovss = () => {
+    navigation.navigate('Vw2RpyCovs');
+  };
+
+  const Vw2RpyNonCovs = () => {
+    navigation.navigate('Vw2RpyNonCovs');
+  };
+
 
   return (
     <SafeAreaView>
@@ -123,13 +131,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={ChmCovLonss}
+                      onPress={SgnIn2LnMmbrs}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Covered Loans</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={ChmNonCovLonss}
+                      onPress={SgnIn2LnMmbrNonCovss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Non-Covered Loans
@@ -165,13 +173,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={RepyChmCovLnss}
+                      onPress={Vw2RpyCovss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Covered Loans</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={RepyChmNonCovLnss}
+                      onPress={Vw2RpyNonCovs}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                       Non-Covered Loans

@@ -23,12 +23,12 @@ const MyLoanAccount = props => {
     navigation.navigate('RepayNonCovLnss');
   };
 
-  const RepyChmCovLnss = () => {
-    navigation.navigate('RepyChmCovLns');
+  const Vw2RpyCovss = () => {
+    navigation.navigate('Vw2RpyCovs');
   };
 
-  const RepyChmNonCovLnss = () => {
-    navigation.navigate('RepyChmNonCovLns');
+  const Vw2RpyNonCovss = () => {
+    navigation.navigate('Vw2RpyNonCovs');
   };
 
   const RpayCredSlrCovss = () => {
@@ -135,13 +135,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={RepyChmCovLnss}
+                      onPress={Vw2RpyCovss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Covered Loans</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={RepyChmNonCovLnss}
+                      onPress={Vw2RpyNonCovss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                       Non-Covered Loans

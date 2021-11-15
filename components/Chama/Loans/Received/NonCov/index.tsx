@@ -9,10 +9,11 @@ export interface SMCvLnSttus {
         loaneePhn: string,
         amountGiven: number,
         amountExpectedBack: number,
+        amountExpectedBackWthClrnc:number
         amountRepaid: number,
         lonBala: number,
         repaymentPeriod: number,
-        loaneename:string,
+        loanername:string,
         status: string,
         description: string,
         createdAt:string,
@@ -27,10 +28,11 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
     loaneePhn,
     amountGiven,
     amountExpectedBack,
+    amountExpectedBackWthClrnc,
     amountRepaid,
     lonBala,
     repaymentPeriod,
-    loaneename,
+    loanername,
     createdAt,
     updatedAt,
     status,
@@ -43,7 +45,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
             <View style = {{alignItems:"center"}}>
             <Text style = {styles.loanAdvert}>                       
                        {/*loaner details */}   
-                       {loaneename}               
+                       {loanername}               
                     </Text>
             </View>
                   
@@ -68,6 +70,10 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                        {/* amount*/} 
                        Amount Expected Back(Ksh): {amountExpectedBack.toFixed(2)}
                     </Text>   
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Amount Expected Back with Clearance(Ksh): {amountExpectedBackWthClrnc.toFixed(2)}
+                    </Text>  
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
                        Amount Repaid(Ksh): {amountRepaid.toFixed(2)}                  

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useRoute } from '@react-navigation/core';
 
 import {
     createCvrdGroupLoans,
@@ -59,6 +60,7 @@ const ChmCovLns = props => {
   const [RecAccCode, setRecAccCode] = useState("");
   const [SendrPhn, setSendrPhn] = useState(null);
   const [MmbrId, setMmbrId] = useState('');
+  const route = useRoute();
 
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
@@ -78,7 +80,7 @@ const fetchChmMbrDtls = async () => {
       setIsLoading(true);
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getGrpMembers, {id: MmbrId}),
+              graphqlOperation(getGrpMembers, {id: route.params.id}),
               );
 
               const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
@@ -188,10 +190,10 @@ const fetchChmMbrDtls = async () => {
                             await API.graphql(
                               graphqlOperation(updateGrpMembers, {
                                 input: {
-                                  id: MmbrId,
+                                  id: route.params.id,
                                   LonAmtGven: parseFloat(LonAmtGvens) + parseFloat(amount),
                                   GrossLnsGvn: parseFloat(GrossLnsGvns) + parseFloat(AmtExp),
-                                  LnBals: parseFloat(LnBals) + parseFloat(amount),                                  
+                                  LnBal: parseFloat(LnBals) + parseFloat(amount),                                  
                                   loanStatus:"LoanActive",                                    
                                   blStatus: "AccountNotBL",
                                 
@@ -233,7 +235,7 @@ const fetchChmMbrDtls = async () => {
                                     advRegNu: AdvRegNo,
                                     loaneeName:namess,
                                     LoanerName:grpNames,
-                                    memberId:MmbrId,
+                                    memberId:route.params.id,
                                     status: "LoanActive",
                                     owner: ownr,
                                 },
@@ -592,15 +594,6 @@ useEffect(() =>{
            <Text style={styles.title}>Fill Loan Details Below</Text>
          </View>
 
-         <View style={styles.sendAmtView}>
-            <TextInput
-              value={MmbrId}
-              onChangeText={setMmbrId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Member Chama Id</Text>
-          </View>
-         
          
          <View style={styles.sendAmtView}>
            <TextInput

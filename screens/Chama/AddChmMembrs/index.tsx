@@ -153,7 +153,7 @@ const AddChmMmbrs = (props:UserReg) => {
                         return;
                       } 
 
-                      else  if (ownr === owners)
+                      else  if (ownr !== owners)
                           {Alert.alert("You are not the author of this Chama");
                         return;
                       } 

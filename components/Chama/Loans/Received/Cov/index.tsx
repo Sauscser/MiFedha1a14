@@ -9,13 +9,14 @@ export interface ChmCvLnSttusRec {
         grpContact: string,
         amountGiven: number,
         amountExpectedBack: number,
+        amountExpectedBackWthClrnc:number,
         amountRepaid: number,
         lonBala: number,
         repaymentPeriod: number,
         advRegNu: string,
         status: string,
         description: string,
-        loanerName:string,
+        LoanerName:string,
         createdAt:string,
         updatedAt:string,
         
@@ -28,12 +29,13 @@ const ChmCvLnSttsRec = (props:ChmCvLnSttusRec) => {
     
     amountGiven,
     amountExpectedBack,
+    amountExpectedBackWthClrnc,
     amountRepaid,
     lonBala,
     repaymentPeriod,
     advRegNu,
     status,
-    loanerName,
+    LoanerName,
     description,
     grpContact,
     createdAt,
@@ -44,7 +46,7 @@ const ChmCvLnSttsRec = (props:ChmCvLnSttusRec) => {
             <View style = {{alignItems:"center"}}>
             <Text style = {styles.loanAdvert}>                       
                        {/*loaner details */}   
-                       {loanerName}               
+                       {LoanerName}               
                     </Text>
             </View>
             
@@ -65,6 +67,10 @@ const ChmCvLnSttsRec = (props:ChmCvLnSttusRec) => {
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
                        Amount Expected Back(Ksh): {amountExpectedBack.toFixed(2)}
+                    </Text>   
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Amount Expected Back with Clearance fee(Ksh): {amountExpectedBackWthClrnc.toFixed(2)}
                     </Text>   
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}

@@ -10,7 +10,6 @@ export interface ChamaMmbrshpInfo {
       id: string,
       groupContact: string,
       memberContact: string,
-      groupName:string,
       memberName:string,
       memberNatId:string,
       GrossLnsGvn:number,
@@ -33,7 +32,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
          groupContact,
          memberNatId,
          memberContact,
-         groupName,
+         memberName,
          loanStatus,
          blStatus,
          GrossLnsGvn,
@@ -51,7 +50,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    const navigation = useNavigation();
     
    const SndChmMmbrMny = () => {
-      navigation.navigate("Contributionssss", {id})
+      navigation.navigate("ChmNonCovLons", {id})
    }
    
     return (
@@ -65,7 +64,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                     </Text>                                               
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
-                     Chama Name: {groupName}                
+                     Member Name: {memberName}                
                     </Text>   
                                 
                

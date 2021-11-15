@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {
     createCvrdGroupLoans,
   createFloatAdd,
+  createNonCvrdGroupLoans,
   createSMAccount,
   createSMLoansCovered,
   updateAdvocate,
@@ -26,7 +27,7 @@ import {
   getGrpMembers,
 } from '../../../../../src/graphql/queries';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {
   View,
@@ -59,6 +60,7 @@ const ChmNonCovLns = props => {
   const [RecAccCode, setRecAccCode] = useState("");
   const [SendrPhn, setSendrPhn] = useState(null);
   const [MmbrId, setMmbrId] = useState('');
+  const route = useRoute();
 
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
@@ -78,7 +80,7 @@ const fetchChmMbrDtls = async () => {
       setIsLoading(true);
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getGrpMembers, {id: MmbrId}),
+              graphqlOperation(getGrpMembers, {id: route.params.id}),
               );
 
               const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
@@ -103,8 +105,8 @@ const fetchChmMbrDtls = async () => {
       const signitoryPWs =accountDtl.data.getGroup.signitoryPW;
       const statuss =accountDtl.data.getGroup.status;
       
-      const TtlActvLonsTmsLnrChmCovs =accountDtl.data.getGroup.TtlActvLonsTmsLnrChmCov;
-      const TtlActvLonsAmtLnrChmCovs =accountDtl.data.getGroup.TtlActvLonsAmtLnrChmCov;
+      const TtlActvLonsTmsLnrChmNonCovs =accountDtl.data.getGroup.TtlActvLonsTmsLnrChmNonCov;
+      const TtlActvLonsAmtLnrChmNonCovs =accountDtl.data.getGroup.TtlActvLonsAmtLnrChmNonCov;
       const grpNames =accountDtl.data.getGroup.grpName;
   
       const SenderSub =accountDtl.data.getGroup.owner;
@@ -136,30 +138,15 @@ const fetchChmMbrDtls = async () => {
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
           const AdvEarningBals = CompDtls.data.getCompany.AdvEarningBal;
           const AdvEarnings = CompDtls.data.getCompany.AdvEarning;          
-          const ttlChmLnsInAmtCovs = CompDtls.data.getCompany.ttlChmLnsInAmtCov;          
-          const ttlChmLnsInTymsCovs = CompDtls.data.getCompany.ttlChmLnsInTymsCov;            
+          const ttlChmLnsInAmtNonCovs = CompDtls.data.getCompany.ttlChmLnsInAmtNonCov;          
+          const ttlChmLnsInTymsNonCovs = CompDtls.data.getCompany.ttlChmLnsInTymsNonCov;            
           const maxInterestGrps = CompDtls.data.getCompany.maxInterestGrp;  
           const Interest = ((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod));     
           const maxBLss = CompDtls.data.getCompany.maxBLs;
 
           
           
-          const fetchAdv = async () =>{
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
-            try{
-
-              const AdvDtls:any = await API.graphql(
-                graphqlOperation(getAdvocate,
-                  {advregnu: AdvRegNo}),
-                  
-              );
-              const advTtlAern = AdvDtls.data.getAdvocate.TtlEarnings;
-              const advBl = AdvDtls.data.getAdvocate.advBal;
-              const advStts = AdvDtls.data.getAdvocate.status;
-              const namesssssss = AdvDtls.data.getAdvocate.name;
+          
               
 
               const fetchRecUsrDtls = async () => {
@@ -175,8 +162,8 @@ const fetchChmMbrDtls = async () => {
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
                         const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
-                        const TtlActvLonsTmsLneeChmCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmCov;
-                        const TtlActvLonsAmtLneeChmCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmCov;
+                        const TtlActvLonsTmsLneeChmNonCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmNonCov;
+                        const TtlActvLonsAmtLneeChmNonCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmNonCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
                       
                         const updatMmbr = async () => {
@@ -188,10 +175,10 @@ const fetchChmMbrDtls = async () => {
                             await API.graphql(
                               graphqlOperation(updateGrpMembers, {
                                 input: {
-                                  id: MmbrId,
+                                  id: route.params.id,
                                   LonAmtGven: parseFloat(LonAmtGvens) + parseFloat(amount),
                                   GrossLnsGvn: parseFloat(GrossLnsGvns) + parseFloat(AmtExp),
-                                  LnBals: parseFloat(LnBals) + parseFloat(amount),                                  
+                                  LnBal: parseFloat(LnBals) + parseFloat(amount),                                  
                                   loanStatus:"LoanActive",                                    
                                   blStatus: "AccountNotBL",
                                 
@@ -219,7 +206,7 @@ const fetchChmMbrDtls = async () => {
                           setIsLoading(true);
                           try {
                             await API.graphql(
-                              graphqlOperation(createCvrdGroupLoans, {
+                              graphqlOperation(createNonCvrdGroupLoans, {
                                 input: {
                                     grpContact: groupContacts,
                                     loaneePhn: memberContacts,
@@ -229,12 +216,13 @@ const fetchChmMbrDtls = async () => {
                                     amountExpectedBackWthClrnc:AmtExp,
                                     amountRepaid: 0,
                                     description: Desc,
+                                    loaneeName:namess,
+                                    loanerName:grpNames,
+                                    memberId:route.params.id,
                                     lonBala:parseFloat(AmtExp),
                                     
-                                    advRegNu: AdvRegNo,
-                                    loaneeName:namess,
-                                    LoanerName:grpNames,
-                                    memberId:MmbrId,
+                                    
+                                    
                                     status: "LoanActive",
                                     owner: ownr,
                                 },
@@ -264,8 +252,8 @@ const fetchChmMbrDtls = async () => {
                                 graphqlOperation(updateGroup, {
                                   input:{
                                     grpContact:groupContacts,
-                                    TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs)+1,
-                                    TtlActvLonsAmtLnrChmCov: parseFloat(TtlActvLonsAmtLnrChmCovs) + parseFloat(amount),
+                                    TtlActvLonsTmsLnrChmNonCov: parseFloat(TtlActvLonsTmsLnrChmNonCovs)+1,
+                                    TtlActvLonsAmtLnrChmNonCov: parseFloat(TtlActvLonsAmtLnrChmNonCovs) + parseFloat(amount),
                                                                               
                                     grpBal:parseFloat(grpBals)-TotalTransacted 
                                    
@@ -293,8 +281,8 @@ const fetchChmMbrDtls = async () => {
                                 graphqlOperation(updateSMAccount, {
                                   input:{
                                     phonecontact:memberContacts,
-                                    TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
-                                    TtlActvLonsAmtLneeChmCov: parseFloat(TtlActvLonsAmtLneeChmCovs)+ parseFloat(amount),
+                                    TtlActvLonsTmsLneeChmNonCov: parseFloat(TtlActvLonsTmsLneeChmNonCovs) +1 ,
+                                    TtlActvLonsAmtLneeChmNonCov: parseFloat(TtlActvLonsAmtLneeChmNonCovs)+ parseFloat(amount),
                                     balance:parseFloat(RecUsrBal) + parseFloat(amount)  ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
@@ -331,9 +319,9 @@ const fetchChmMbrDtls = async () => {
                                     companyEarningBal:CompCovAmt + parseFloat(companyEarningBals),
                                     companyEarning: CompCovAmt + parseFloat(companyEarnings),                                                    
                                     
-                                    ttlChmLnsInAmtCov: parseFloat(amount) + parseFloat(ttlChmLnsInAmtCovs),
+                                    ttlChmLnsInAmtNonCov: parseFloat(amount) + parseFloat(ttlChmLnsInAmtNonCovs),
                                     
-                                    ttlChmLnsInTymsCov: 1 + parseFloat(ttlChmLnsInTymsCovs),
+                                    ttlChmLnsInTymsNonCov: 1 + parseFloat(ttlChmLnsInTymsNonCovs),
                                           
                                     
                                      
@@ -349,34 +337,11 @@ const fetchChmMbrDtls = async () => {
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
+                          Alert.alert(grpNames + " Chama loans " + namess +" Ksh. " + amount);
                           setIsLoading(false);
-                          await updtAdv();
+                          
                         }
-                        const updtAdv = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateAdvocate, {
-                                  input:{
-                                    advregnu: AdvRegNo,
-                                    advBal: AdvCovAmt + parseFloat(advBl) ,
-                                    TtlEarnings:AdvCovAmt + parseFloat(advTtlAern),                                 
-                                    
-                                  }
-                                })
-                              )
-                          }
-                          catch(error){
-                            console.log(error);
-                            if (error){Alert.alert("Check your internet connection")
-      return;}
-                          }
-                          Alert.alert(grpNames + " Chama loans " + namess +" Ksh. " + amount +": "+ namesssssss+" coverage");
-                          setIsLoading(false);
-                        }
+                        
                                               
                         if (parseFloat(usrNoBL) > maxBLss){Alert.alert('Receiver does not qualify');
                       return;
@@ -393,7 +358,7 @@ const fetchChmMbrDtls = async () => {
                         else if (
                           parseFloat(grpBals) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
-                        else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
+                        
                         else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');}
                                                                  
             
@@ -411,17 +376,7 @@ const fetchChmMbrDtls = async () => {
                       await fetchRecUsrDtls();        
                     
 
-            }
-            catch (e){
-              console.log(e);
-              if (e){Alert.alert("Advocate not registered")
-      return;}
-            }
-            setIsLoading(false);
-          }
-          
-          await fetchAdv();
-
+            
           
         
         } catch (e) {
@@ -594,16 +549,6 @@ useEffect(() =>{
          </View>
 
          <View style={styles.sendAmtView}>
-            <TextInput
-              value={MmbrId}
-              onChangeText={setMmbrId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Member Chama Id</Text>
-          </View>
-         
-         
-         <View style={styles.sendAmtView}>
            <TextInput
              value={SnderPW}
              onChangeText={setSnderPW}
@@ -646,16 +591,7 @@ useEffect(() =>{
            <Text style={styles.sendAmtText}>Repayment Period in days</Text>
          </View>
 
-         <View style={styles.sendAmtView}>
-           <TextInput
-             value={AdvRegNo}
-             onChangeText={setAdvRegNo}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Advocate Reg Number</Text>
-         </View>
-
-
+         
          <View style={styles.sendAmtView}>
            <TextInput
              multiline={true}
@@ -682,7 +618,7 @@ useEffect(() =>{
          <TouchableOpacity
            onPress={fetchChmMbrDtls}
            style={styles.sendAmtButton}>
-           <Text style={styles.sendAmtButtonText}>Loan with Advocate Coverage</Text>
+           <Text style={styles.sendAmtButtonText}>Loan without Advocate Coverage</Text>
            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
          </TouchableOpacity>
 
