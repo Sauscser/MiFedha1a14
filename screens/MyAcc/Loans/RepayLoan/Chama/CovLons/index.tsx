@@ -90,10 +90,10 @@ const RepayCovChmLnsss = props => {
               const grpContactssss =RecAccountDtl.data.getCvrdGroupLoans.grpContact; 
               const loaneePhnssss =RecAccountDtl.data.getCvrdGroupLoans.loaneePhn;
               const lonBalas =RecAccountDtl.data.getCvrdGroupLoans.lonBala;
-               
+              const amountExpectedBacks =RecAccountDtl.data.getCvrdGroupLoans.amountExpectedBack;
               const amountRepaidss =RecAccountDtl.data.getCvrdGroupLoans.amountRepaid; 
               const LonBalsss = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountRepaidss); 
-              
+              const ClranceAmt = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountExpectedBacks); 
 
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
@@ -143,7 +143,7 @@ const RepayCovChmLnsss = props => {
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
          
-          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
+          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts) + ClranceAmt; 
 
          
                     
