@@ -29,7 +29,7 @@ import {
   
 } from '../../../../../../src/graphql/queries';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {
   View,
@@ -48,19 +48,17 @@ import styles from './styles';
 
 
 const RepayNonCovCredSlsLnsss = props => {
-  const [SenderNatId, setSenderNatId] = useState('');
-  const [RecNatId, setRecNatId] = useState('');
+  
   const [SnderPW, setSnderPW] = useState("");
   
   const [amounts, setAmount] = useState("");
-  const[LnId, setLnId] = useState("")
+  
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
   const [SendrPhn, setSendrPhn] = useState(null);
-  const [RecPhn, setRecPhn] = useState("");
+  const route = useRoute();
   
-
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
@@ -120,6 +118,25 @@ const RepayNonCovCredSlsLnsss = props => {
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
           const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
           const ttlNonLonssSentSMs = CompDtls.data.getCompany.ttlNonLonssSentSM; 
+
+          const ftchCvdSMLn = async () => {
+            if(isLoading){
+              return;
+            }
+            setIsLoading(true);
+            try {
+                const RecAccountDtl:any = await API.graphql(
+                    graphqlOperation(getNonCovCreditSeller, {id: route.params.id}),
+                    );
+                    
+                    const lonBalas =RecAccountDtl.data.getNonCovCreditSeller.lonBala; 
+                    const amountrepaids =RecAccountDtl.data.getNonCovCreditSeller.amountRepaid;
+                    const sellerContacts =RecAccountDtl.data.getNonCovCreditSeller.sellerContact; 
+                    const buyerNames =RecAccountDtl.data.getNonCovCreditSeller.buyerName; 
+                    const SellerNames =RecAccountDtl.data.getNonCovCreditSeller.SellerName; 
+                     
+                    
+                    const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
          
                     
           const fetchRecUsrDtls = async () => {
@@ -129,35 +146,22 @@ const RepayNonCovCredSlsLnsss = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {phonecontact: RecPhn}),
+                    graphqlOperation(getSMAccount, {phonecontact: sellerContacts}),
                     );
-                    const RecUsrBal =RecAccountDtl.data.getSMAccount.grpBal;                    
+                    const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.status; 
                     const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
                     const MaxTymsIHvBLs =RecAccountDtl.data.getSMAccount.MaxTymsIHvBL;                    
-                    const TtlClrdLonsTmsSllrNonCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsSllrNonCov;
-                    const TtlClrdLonsAmtSllrNonCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtSllrNonCov;
-                    const TtlBLLonsTmsSllrNonCovs =accountDtl.data.getSMAccount.TtlBLLonsTmsSllrNonCov;
-                    const TtlBLLonsAmtSllrNonCovs =accountDtl.data.getSMAccount.TtlBLLonsAmtSllrNonCov;
-                    const namess =accountDtl.data.getSMAccount.name;
-                    const TtlActvLonsTmsSllrNonCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsSllrNonCov;
-                    const TtlActvLonsAmtSllrNonCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtSllrNonCov;
+                    const TtlClrdLonsTmsSllrNonCovs =RecAccountDtl.data.getSMAccount.TtlClrdLonsTmsSllrNonCov;
+                    const TtlClrdLonsAmtSllrNonCovs =RecAccountDtl.data.getSMAccount.TtlClrdLonsAmtSllrNonCov;
+                    const TtlBLLonsTmsSllrNonCovs =RecAccountDtl.data.getSMAccount.TtlBLLonsTmsSllrNonCov;
+                    const TtlBLLonsAmtSllrNonCovs =RecAccountDtl.data.getSMAccount.TtlBLLonsAmtSllrNonCov;
+                    const namess =RecAccountDtl.data.getSMAccount.name;
+                    const TtlActvLonsTmsSllrNonCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsSllrNonCov;
+                    const TtlActvLonsAmtSllrNonCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtSllrNonCov;
                     
 
-                    const ftchCvdSMLn = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try {
-                          const RecAccountDtl:any = await API.graphql(
-                              graphqlOperation(getNonCovCreditSeller, {id: LnId}),
-                              );
-                              
-                              const lonBalas =RecAccountDtl.data.getCovCreditSeller.lonBala; 
-                              const amountrepaids =RecAccountDtl.data.getNonCovCreditSeller.amountRepaid; 
-                              
-                              const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
+                    
                                
                               const updtSMCvLnLnOver  = async () =>{
                                 if(isLoading){
@@ -168,7 +172,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateNonCovCreditSeller, {
                                         input:{
-                                          id:LnId,
+                                          id:route.params.id,
                                           amountRepaid: parseFloat(amounts) + parseFloat(amountrepaids),
                                           lonBala: lonBalas-parseFloat(amounts),
                                           status: "LoanCleared",
@@ -195,7 +199,9 @@ const RepayNonCovCredSlsLnsss = props => {
                                     graphqlOperation(createNonLoans, {
                                       input: {
                                         senderPhn: SendrPhn,
-                                        recPhn: RecPhn,                                  
+                                        recPhn: sellerContacts,  
+                                        RecName:sellerContacts,   
+                                        SenderName:buyerNames,                             
                                         amount: amounts,                              
                                         description: Desc,
                                         status: "CredSlNonCovLonRepayment",
@@ -260,7 +266,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          phonecontact:RecPhn,
+                                          phonecontact:sellerContacts,
                                           
                                           balance:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
                                           TtlBLLonsTmsSllrNonCov: parseFloat(TtlBLLonsTmsSllrNonCovs) - 1,
@@ -313,7 +319,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                 catch(error){
                                   
                                 }
-                                Alert.alert(names + " has repayed " + namess +" Ksh. "+ amounts);
+                                Alert.alert(names + " has fully repayed " + namess +" Ksh. "+ amounts);
                                 setIsLoading(false);
                               }                                                                                                            
                         
@@ -327,7 +333,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateNonCovCreditSeller, {
                                         input:{
-                                          id:LnId,
+                                          id:route.params.id,
                                           amountRepaid: parseFloat(amounts) + parseFloat(amountrepaids),
                                           lonBala: lonBalas - parseFloat(amounts),
                                         }
@@ -353,8 +359,10 @@ const RepayNonCovCredSlsLnsss = props => {
                                   await API.graphql(
                                     graphqlOperation(createNonLoans, {
                                       input: {
-                                        recPhn: RecPhn,
-                                        senderPhn: SendrPhn,                                  
+                                        recPhn: sellerContacts,
+                                        senderPhn: SendrPhn, 
+                                        RecName:sellerContacts,
+                                        SenderName:buyerNames ,                                
                                         amount: amounts,                              
                                         description: Desc,
                                         status: "CredSlNonCovLonRepayment",
@@ -416,7 +424,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          phonecontact:RecPhn,
+                                          phonecontact:sellerContacts,
                                                
                                           balance:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
                                           TtlActvLonsTmsSllrNonCov: parseFloat(TtlActvLonsTmsSllrNonCovs) - parseFloat(amounts),                                        
@@ -476,8 +484,7 @@ const RepayNonCovCredSlsLnsss = props => {
                               ) {Alert.alert('Requested amount is more than you have in your account');
                             return;
                           }
-                          else if(SenderNatId === RecNatId){Alert.alert('You cannot Repay Yourself');}
-                              
+                          
                               else if(usrPW !==SnderPW){Alert.alert('Wrong password');
                             return;
                           }
@@ -503,7 +510,7 @@ const RepayNonCovCredSlsLnsss = props => {
                         };
                       }
                     
-                      await ftchCvdSMLn();
+                      await fetchRecUsrDtls();
                                                                                          
                 }       
                 catch(e) {     
@@ -512,14 +519,14 @@ const RepayNonCovCredSlsLnsss = props => {
                 }
                 setIsLoading(false);
                 }                    
-                  await fetchRecUsrDtls();
+                  await ftchCvdSMLn ();
         } catch (e) {
           if (e){Alert.alert("Check your internet connection")
       return;}
         }
         setIsLoading(false);        
       };
-      await fetchCompDtls();
+      await fetchCompDtls  ();
     
       
     } catch (e) {
@@ -529,35 +536,14 @@ const RepayNonCovCredSlsLnsss = props => {
       setIsLoading(false);
       
       setAmount("");
-      setRecNatId('');
-      setLnId("");
+      
       setDesc("");
       setSnderPW("");
-      setRecPhn("");
+      
       
 }
 
-useEffect(() =>{
-  const RecPhns=RecPhn
-    if(!RecPhns && RecPhns!=="")
-    {
-      setRecPhn("");
-      return;
-    }
-    setRecPhn(RecPhns);
-    }, [RecPhn]
-     );
 
-useEffect(() =>{
-  const SnderNatIds=SenderNatId
-    if(!SnderNatIds && SnderNatIds!=="")
-    {
-      setSenderNatId("");
-      return;
-    }
-    setSenderNatId(SnderNatIds);
-    }, [SenderNatId]
-     );
 
      useEffect(() =>{
       const amt=amounts
@@ -570,20 +556,7 @@ useEffect(() =>{
         }, [amounts]
          );
 
-         useEffect(() =>{
-          const RecNatIds=RecNatId
-            if(!RecNatIds && RecNatIds!=="")
-            {
-              setRecNatId("");
-              return;
-            }
-            setRecNatId(RecNatIds);
-            }, [RecNatId]
-             );
-
-             
-             
-
+        
                      useEffect(() =>{
                       const descr=Desc
                         if(!descr && descr!=="")
@@ -606,21 +579,7 @@ useEffect(() =>{
                             }, [SnderPW]
                              );
 
-                             useEffect(() =>{
-                              const LnIds=LnId
-                                if(!LnIds && LnIds!=="")
-                                {
-                                  setLnId("");
-                                  return;
-                                }
-                                setLnId(LnIds);
-                                }, [LnId]
-                                 );
-    
-
-                             
-
-                                 
+                            
 
   return (
     <View>
@@ -632,28 +591,6 @@ useEffect(() =>{
           <View style={styles.amountTitleView}>
             <Text style={styles.title}>Fill account Details Below</Text>
           </View>
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-            placeholder="+2547xxxxxxxx"
-              value={RecPhn}
-              onChangeText={setRecPhn}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Credit Buyer Phone</Text>
-          </View>
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-            placeholder="+2547xxxxxxxx"
-              value={RecNatId}
-              onChangeText={setRecNatId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Credit Seller Phone</Text>
-          </View>
-
-          
 
           <View style={styles.sendAmtView}>
             <TextInput
@@ -677,20 +614,6 @@ useEffect(() =>{
             <Text style={styles.sendAmtText}>Loanee PassWord</Text>
           </View>
 
-          
-
-          
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              multiline={true}
-              value={LnId}
-              onChangeText={setLnId}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Loan Id</Text>
-          </View>
-          
           <View style={styles.sendAmtViewDesc}>
             <TextInput
               multiline={true}

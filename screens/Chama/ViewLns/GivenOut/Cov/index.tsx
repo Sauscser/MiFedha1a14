@@ -22,8 +22,8 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoanss, 
                 { filter: {
                     and: {
-                      grpContact: { eq: route.params.grpContact}
-                      
+                      grpContact: { eq: route.params.grpContact},
+                      lonBala:{gt:0}
                     }
                   }}
                   ));

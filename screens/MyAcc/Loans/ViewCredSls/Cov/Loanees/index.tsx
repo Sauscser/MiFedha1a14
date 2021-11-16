@@ -29,7 +29,8 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
                 { filter: {
                     and: {
-                      sellerContact: { eq: LnerPhn}
+                      sellerContact: { eq: LnerPhn},
+                      lonBala:{gt:0}
                       
                     }
                   }}

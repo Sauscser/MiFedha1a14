@@ -92,6 +92,7 @@ const NonCovCredSls = props => {
       const names =accountDtl.data.getSMAccount.name;
   
       const SenderSub =accountDtl.data.getSMAccount.owner;
+      const nationalids =accountDtl.data.getSMAccount.nationalid;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -145,6 +146,7 @@ const NonCovCredSls = props => {
                         const TtlActvLonsTmsByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsByrCov;
                         const TtlActvLonsAmtByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtByrCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
+                        const nationalidss =RecAccountDtl.data.getSMAccount.nationalid;
                       
                         const sendSMLn = async () => {
                           if(isLoading){
@@ -157,8 +159,8 @@ const NonCovCredSls = props => {
                                 input: {
                                   itemName:ItmNm,
                                   itemSerialNumber:ItmSrlNu,
-                                  buyerID: RecNatId,
-                                  sellerID: SenderNatId,
+                                  buyerID: nationalidss,
+                                  sellerID: nationalids,
                                   sellerContact:SendrPhn,
                                   buyerContact: RecPhn,                                  
                                   amountSold: amount,

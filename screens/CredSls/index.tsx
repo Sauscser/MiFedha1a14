@@ -22,20 +22,20 @@ const CredSalesAccount = props => {
     navigation.navigate('NonCovCredSlss');
   };
 
-  const RpayCredSlrCovss = () => {
-    navigation.navigate('RpayCredSlrCovs');
+  const Vw2RepyCredSlsCovLnss = () => {
+    navigation.navigate('Vw2RepyCredSlsCovLns');
   };
 
-  const BListCredByrNonCovss = () => {
-    navigation.navigate('BListCredByrNonCovs');
+  const Vw2RepyCredSlsNonCovLnss = () => {
+    navigation.navigate('Vw2RepyCredSlsNonCovLns');
   };
 
-  const RpayCredSlrNonCovss = () => {
-    navigation.navigate('RpayCredSlrNonCovs');
+  const Vw2BLCovCredSlsLnss = () => {
+    navigation.navigate('Vw2BLCovCredSlsLns');
   };
 
-  const BListCredByrCovss = () => {
-    navigation.navigate('BListCredByrCovs');
+  const Vw2BLCredSlsNonCovss = () => {
+    navigation.navigate('Vw2BLCredSlsNonCovs');
   };
 
   const CredSlsLneesss = () => {
@@ -138,13 +138,13 @@ const CredSalesAccount = props => {
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
-                onPress={BListCredByrCovss}
+                onPress={Vw2BLCovCredSlsLnss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Covered CredSls</Text>
               </Pressable>
 
               <Pressable
-                onPress={BListCredByrNonCovss}
+                onPress={Vw2BLCredSlsNonCovss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Non Covered CredSls</Text>
               </Pressable>
@@ -156,13 +156,13 @@ const CredSalesAccount = props => {
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
-                onPress={RpayCredSlrCovss}
+                onPress={Vw2RepyCredSlsCovLnss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Covered CredSls</Text>
               </Pressable>
 
               <Pressable
-                onPress={RpayCredSlrNonCovss}
+                onPress={Vw2RepyCredSlsNonCovLnss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Non Covered CredSls</Text>
               </Pressable>

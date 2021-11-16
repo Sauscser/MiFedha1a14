@@ -4,7 +4,7 @@ import {updateCompany, updateSMAccount, updateSMLoansCovered, } from '../../../.
 import {getCompany, getSMAccount, getSMLoansCovered } from '../../../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 
 import {
@@ -32,6 +32,7 @@ const BLSMCovLoanee = (props) => {
   const [LonId, setLonId] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
+  const route = useRoute()
   
 
   const fetchUser = async () => {
@@ -64,16 +65,17 @@ const BLSMCovLoanee = (props) => {
           setIsLoading(true);
           try{
             const compDtls :any= await API.graphql(
-              graphqlOperation(getSMLoansCovered,{id:LonId})
+              graphqlOperation(getSMLoansCovered,{id:route.params.id})
               );
               const loaneePhns = compDtls.data.getSMLoansCovered.loaneePhn
               const loanerPhns = compDtls.data.getSMLoansCovered.loanerPhn
               const amountexpecteds = compDtls.data.getSMLoansCovered.amountexpected
-              const amountgivens = compDtls.data.getCovCreditSeller.amountgiven
-              const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
+              const amountgivens = compDtls.data.getSMLoansCovered.amountgiven
+              const amountExpectedBackWthClrncs = compDtls.data.getSMLoansCovered.amountExpectedBackWthClrnc
               const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountgivens)+ parseFloat(amountExpectedBackWthClrncs)
               const amountrepaids = compDtls.data.getSMLoansCovered.amountrepaid
               const statusssss = compDtls.data.getSMLoansCovered.status
+              
               const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
@@ -91,6 +93,7 @@ const BLSMCovLoanee = (props) => {
                     const TtlBLLonsAmtLnrCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLnrCov
                     const names = compDtls.data.getSMAccount.name
                     const MaxTymsIHvBLs = compDtls.data.getSMAccount.MaxTymsIHvBL
+                    const pws = compDtls.data.getSMAccount.pw
                          
                     const gtLoaneeDtls = async () =>{
                       if(isLoading){
@@ -145,6 +148,10 @@ const BLSMCovLoanee = (props) => {
 
                           else if(owners !== ownr){
                             Alert.alert("You are not the one owed this loan")
+                          } 
+
+                          else if(pws !== LonId){
+                            Alert.alert("Wrong loaner PassWord")
                           } 
 
                           else if(statusssss === "LoanBL"){
@@ -230,9 +237,9 @@ const BLSMCovLoanee = (props) => {
                                     await API.graphql(
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
-                                          id:LonId,
+                                          id:route.params.id,
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
-                                          lonBala:amountExpectedBackWthClrncss- parseFloat (amountrepaids),
+                                          lonBala:LonBal.toFixed(2),
                                           status:"LoanBL",
                                         }
                                       })
@@ -327,7 +334,7 @@ const BLSMCovLoanee = (props) => {
                       onChangeText={setLonId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loan ID</Text>
+                    <Text style={styles.sendLoanText}>Loaner PassWord</Text>
                   </View>
         
                   

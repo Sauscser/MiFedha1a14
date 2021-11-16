@@ -4,7 +4,7 @@ import {updateCompany, updateSMAccount, updateSMLoansCovered, updateSMLoansNonCo
 import {getCompany, getSMAccount, getSMLoansCovered, getSMLoansNonCovered } from '../../../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 
 import {
@@ -32,6 +32,7 @@ const BLSMNonCovLoanee = (props) => {
   const [LonId, setLonId] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
+  const route = useRoute()
   
 
   const fetchUser = async () => {
@@ -64,16 +65,17 @@ const BLSMNonCovLoanee = (props) => {
           setIsLoading(true);
           try{
             const compDtls :any= await API.graphql(
-              graphqlOperation(getSMLoansNonCovered,{id:LonId})
+              graphqlOperation(getSMLoansNonCovered,{id:route.params.id})
               );
               const loaneePhns = compDtls.data.getSMLoansNonCovered.loaneePhn
               const loanerPhns = compDtls.data.getSMLoansNonCovered.loanerPhn
               const amountexpecteds = compDtls.data.getSMLoansNonCovered.amountexpected
-              const amountgivens = compDtls.data.getCovCreditSeller.amountgiven
-              const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
+              const amountgivens = compDtls.data.getSMLoansNonCovered.amountgiven
+              const amountExpectedBackWthClrncs = compDtls.data.getSMLoansNonCovered.amountExpectedBackWthClrnc
               const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountgivens) + amountExpectedBackWthClrncs
               const amountrepaids = compDtls.data.getSMLoansNonCovered.amountrepaid
               const statusssss = compDtls.data.getSMLoansNonCovered.status
+           
               const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
@@ -91,6 +93,7 @@ const BLSMNonCovLoanee = (props) => {
                     const TtlBLLonsAmtLnrNonCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLnrNonCov
                     const names = compDtls.data.getSMAccount.name
                     const MaxTymsIHvBLs = compDtls.data.getSMAccount.MaxTymsIHvBL
+                    const pws = compDtls.data.getSMAccount.pw
 
                     const gtLoaneeDtls = async () =>{
                       if(isLoading){
@@ -149,6 +152,10 @@ const BLSMNonCovLoanee = (props) => {
 
                           else if(statusssss === "LoanBL"){
                             Alert.alert("This Loan is already Black Listed")
+                          } 
+
+                          else if(pws !== LonId){
+                            Alert.alert("Wrong Loaner PassWord")
                           } 
 
                           else if(acStatuss === "AccountInactive"){
@@ -230,9 +237,9 @@ const BLSMNonCovLoanee = (props) => {
                                     await API.graphql(
                                       graphqlOperation(updateSMLoansNonCovered, {
                                         input:{
-                                          id:LonId,
+                                          id:route.params.id,
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
-                                          lonBala:amountExpectedBackWthClrncss- parseFloat (amountrepaids),
+                                          lonBala:LonBal.toFixed(2),
                                           status:"LoanBL",
                                         }
                                       })
@@ -327,7 +334,7 @@ const BLSMNonCovLoanee = (props) => {
                       onChangeText={setLonId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loan ID</Text>
+                    <Text style={styles.sendLoanText}>Loaner PassWord</Text>
                   </View>
         
                   

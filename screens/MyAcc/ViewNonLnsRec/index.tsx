@@ -30,7 +30,8 @@ const FetchSMNonLnsRec = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listNonLoanss, 
                 { filter: {
                     and: {
-                      recPhn: { eq: RecPhn}
+                      recPhn: { eq: RecPhn},
+                      status:{eq:"SMNonLons"}
                       
                     }
                   }}

@@ -15,13 +15,7 @@ const MyLoanAccount = props => {
   const navigation = useNavigation();
   
 
-  const RepayCovLnsss = () => {
-    navigation.navigate('RepayCovLnss');
-  };
-
-  const RepayNonCovLnsss = () => {
-    navigation.navigate('RepayNonCovLnss');
-  };
+ 
 
   const Vw2RpyCovss = () => {
     navigation.navigate('Vw2RpyCovs');
@@ -40,19 +34,6 @@ const MyLoanAccount = props => {
   };
 
   
-
-  const payNonCovLn = () => {
-    navigation.navigate('RepayNonCovLnss');
-  };
-
-  const BListSMLneeCovss = () => {
-    navigation.navigate('BListSMLneeCovs');
-  };
-
-  const BListSMLneeNonCovss = () => {
-    navigation.navigate('BListSMLneeNonCovs');
-  };
-
   const SMGivCovLons = () => {
     navigation.navigate('SMGivCovLon');
   };
@@ -76,6 +57,22 @@ const MyLoanAccount = props => {
     navigation.navigate('ViewMyNonCovLoanerss');
   };
 
+  const Vw2RepySMCovLnss = () => {
+    navigation.navigate('Vw2RepySMCovLns');
+  };
+
+  const Vw2RepySMNonCovLnss = () => {
+    navigation.navigate('Vw2RepySMNonCovLns');
+  };
+
+  const Vw2BLCovSMLnss = () => {
+    navigation.navigate('Vw2BLCovSMLns');
+  };
+
+  const Vw2BLSMNonCovss = () => {
+    navigation.navigate('Vw2BLSMNonCovs');
+  };
+
   
 
   return (
@@ -93,13 +90,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={RepayCovLnsss}
+                      onPress={Vw2RepySMCovLnss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Covered Loans</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={RepayNonCovLnsss}
+                      onPress={Vw2RepySMNonCovLnss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Non-Covered Loans
@@ -230,13 +227,13 @@ const MyLoanAccount = props => {
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
-                onPress={BListSMLneeCovss}
+                onPress={Vw2BLCovSMLnss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Covered Loans</Text>
               </Pressable>
 
               <Pressable
-                onPress={BListSMLneeNonCovss}
+                onPress={Vw2BLSMNonCovss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Non Covered</Text>
               </Pressable>

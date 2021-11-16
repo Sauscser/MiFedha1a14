@@ -13,7 +13,7 @@ export interface SMCvLnSttus {
         amountRepaid: number,
         lonBala: number,
         repaymentPeriod: number,
-        loanername:string,
+        loanerName:string,
         status: string,
         description: string,
         createdAt:string,
@@ -32,7 +32,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
     amountRepaid,
     lonBala,
     repaymentPeriod,
-    loanername,
+    loanerName,
     createdAt,
     updatedAt,
     status,
@@ -45,7 +45,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
             <View style = {{alignItems:"center"}}>
             <Text style = {styles.loanAdvert}>                       
                        {/*loaner details */}   
-                       {loanername}               
+                       {loanerName}               
                     </Text>
             </View>
                   

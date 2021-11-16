@@ -4,7 +4,7 @@ import {updateCompany, updateCovCreditSeller, updateSMAccount, updateSMLoansCove
 import {getCompany, getCovCreditSeller, getSMAccount, getSMLoansCovered } from '../../../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 
 import {
@@ -29,9 +29,10 @@ import styles from './styles';
 const BLCovCredByr = (props) => {
   const navigation = useNavigation();
 
-  const [LonId, setLonId] = useState("");
+  const route = useRoute();
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
+  const [LonId, setLonId] = useState("")
   
 
   const fetchUser = async () => {
@@ -64,7 +65,7 @@ const BLCovCredByr = (props) => {
           setIsLoading(true);
           try{
             const compDtls :any= await API.graphql(
-              graphqlOperation(getCovCreditSeller,{id:LonId})
+              graphqlOperation(getCovCreditSeller,{id:route.params.id})
               );
               const buyerContacts = compDtls.data.getCovCreditSeller.buyerContact
               const sellerContacts = compDtls.data.getCovCreditSeller.sellerContact
@@ -74,7 +75,8 @@ const BLCovCredByr = (props) => {
               const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
               const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountSolds) + parseFloat(amountExpectedBackWthClrncs)
               const statusssss = compDtls.data.getCovCreditSeller.status
-              const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
+              
+              const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
               
 
               const gtLoanerDtls = async () =>{
@@ -87,6 +89,7 @@ const BLCovCredByr = (props) => {
                     graphqlOperation(getSMAccount,{phonecontact:sellerContacts})
                     );
                     const owners = compDtls.data.getSMAccount.owner
+                    const pws = compDtls.data.getSMAccount.pw
                     const acStatuss = compDtls.data.getSMAccount.acStatus
                     const TtlBLLonsTmsSllrCovs = compDtls.data.getSMAccount.TtlBLLonsTmsSllrCov
                     const TtlBLLonsAmtSllrCovs = compDtls.data.getSMAccount.TtlBLLonsAmtSllrCov
@@ -146,6 +149,9 @@ const BLCovCredByr = (props) => {
 
                           else if(owners !== ownr){
                             Alert.alert("You are not the one owed this loan")
+                          } 
+                          else if(pws !== LonId){
+                            Alert.alert("Wrong User PassWord")
                           } 
 
                           else if(statusssss === "LoanBL"){
@@ -232,10 +238,10 @@ const BLCovCredByr = (props) => {
                                     await API.graphql(
                                       graphqlOperation(updateCovCreditSeller, {
                                         input:{
-                                          id:LonId,
+                                          id:route.params.id,
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
                                           status:"LoanBL",
-                                          lonBala:amountExpectedBackWthClrncss- parseFloat (amountrepaids)
+                                          lonBala:LonBal.toFixed(2)
                                         }
                                       })
                                     )
@@ -329,7 +335,7 @@ const BLCovCredByr = (props) => {
                       onChangeText={setLonId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loan ID</Text>
+                    <Text style={styles.sendLoanText}>User PassWord</Text>
                   </View>
         
                   

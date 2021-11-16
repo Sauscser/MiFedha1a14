@@ -32,8 +32,8 @@ const FetchSMNonCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoanss, 
                 { filter: {
                     and: {
-                      grpContact: { eq: route.params.grpContact}
-                      
+                      grpContact: { eq: route.params.grpContact},
+                      lonBala:{gt:0}
                     }
                   }}
                   ));

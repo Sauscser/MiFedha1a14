@@ -181,7 +181,7 @@ const SMASendLns = props => {
                                   loanerId: SenderNatId,
                                   loanerPhn:SendrPhn,
                                   loaneePhn: RecPhn,                                  
-                                  amountgiven: amount,
+                                  amountgiven: parseFloat(amount).toFixed(2),
                                   loaneename:namess,
                                   loanername:names,
                                   amountexpected: AmtExp,

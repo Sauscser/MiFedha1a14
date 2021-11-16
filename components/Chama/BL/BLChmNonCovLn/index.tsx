@@ -26,7 +26,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    const navigation = useNavigation();
     
    const SndChmMmbrMny = () => {
-      navigation.navigate("RepyChmNonCovLns", {id})
+      navigation.navigate("BLChmMmberNonCovs", {id})
    }
    
     return (

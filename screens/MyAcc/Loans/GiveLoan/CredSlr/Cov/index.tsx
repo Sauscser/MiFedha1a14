@@ -82,7 +82,7 @@ const CovCredSls = props => {
         graphqlOperation(getSMAccount, {phonecontact: SendrPhn}),
       );
 
-      const SenderUsrBal =accountDtl.data.getSMAccount.balance;
+      const nationalids =accountDtl.data.getSMAccount.nationalid;
       const usrPW =accountDtl.data.getSMAccount.pw;
       const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
       const usrLnLim =accountDtl.data.getSMAccount.loanLimit;
@@ -170,6 +170,7 @@ const CovCredSls = props => {
                         const TtlActvLonsTmsByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsByrCov;
                         const TtlActvLonsAmtByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtByrCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
+                        const nationalidss =RecAccountDtl.data.getSMAccount.nationalid;
                       
                         const sendSMLn = async () => {
                           if(isLoading){
@@ -182,8 +183,8 @@ const CovCredSls = props => {
                                 input: {
                                   itemName:ItmNm,
                                   itemSerialNumber:ItmSrlNu,
-                                  buyerID: RecNatId,
-                                  sellerID: SenderNatId,
+                                  buyerID: nationalidss,
+                                  sellerID: nationalids,
                                   sellerContact:SendrPhn,
                                   buyerContact: RecPhn,                                  
                                   amountSold: amount,

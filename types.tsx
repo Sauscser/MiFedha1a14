@@ -41,8 +41,7 @@ declare global {
       MFNdogoss:undefined;
       SendNonLnss:undefined;
       CreateSMAc:undefined;
-      RepayCovLnss:undefined;
-      RepayNonCovLnss:undefined;
+      
       BListLneess:undefined;
       
       CovCredSls:undefined;
@@ -54,20 +53,17 @@ declare global {
       ChmNonCovLons:{id:string};
       ChmContrs:{ContriToMmbrId:string};
       SndMbrsMnys:{id:string};
-      BLChmMmberCovs:undefined;
-      BLChmMmberNonCovs:undefined;
+      
+      BLChmMmberCovs:{id:string};
+      BLChmMmberNonCovs:{id:string};
 
       RepyChmCovLns:{id:string};
       RepyChmNonCovLns:{id:string};
 
-      RpayCredSlrCovs:undefined;
-      RpayCredSlrNonCovs:undefined;
-      BListCredByrCovs:undefined;
-      BListCredByrNonCovs:undefined;
+      
       SMGivCovLon:undefined;
       SMGivNonCovLon:undefined;
-      BListSMLneeCovs:undefined;
-      BListSMLneeNonCovs:undefined;
+      
       RemoveChmMbrs:undefined;
       DissolveChms:undefined;
       UpdateChms:undefined;
@@ -177,6 +173,30 @@ declare global {
       VwChmMbrs2NonCovLnss:{grpContact:string}
       Vw2RpyCovs:undefined;
       Vw2RpyNonCovs:undefined;
+      SgnIn2BLCovs:undefined;
+      SgnIn2BLNonCovs:undefined
+      Vw2BLCovs:{grpContact:string};
+      Vw2BLNonCovs:{grpContact:string};
+
+      Vw2RepySMCovLns:undefined;
+      Vw2RepySMNonCovLns:undefined
+      Vw2BLCovSMLns:undefined;
+      Vw2BLSMNonCovs:undefined;
+
+      RepayCovLnss:{id:string};
+      RepayNonCovLnss:{id:string};
+      BListSMLneeCovs:{id:string};
+      BListSMLneeNonCovs:{id:string};
+
+      RpayCredSlrCovs:{id:string};
+      RpayCredSlrNonCovs:{id:string};
+      BListCredByrCovs:{id:string};
+      BListCredByrNonCovs:{id:string};
+
+      Vw2RepyCredSlsCovLns:undefined;
+      Vw2RepyCredSlsNonCovLns:undefined
+      Vw2BLCovCredSlsLns:undefined;
+      Vw2BLCredSlsNonCovs:undefined;
 
     }
   }

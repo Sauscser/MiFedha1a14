@@ -29,7 +29,8 @@ const FetchSMNonCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
                 { filter: {
                     and: {
-                      loanerPhn: { eq: LnerPhn}
+                      loanerPhn: { eq: LnerPhn},
+                      lonBala:{gt:0}
                       
                     }
                   }}

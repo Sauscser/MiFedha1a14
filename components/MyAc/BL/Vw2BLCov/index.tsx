@@ -1,0 +1,78 @@
+import { useNavigation } from '@react-navigation/core';
+import React from 'react';
+import {View, Text, ImageBackground, Pressable, TextInput, ScrollView} from 'react-native';
+import styles from './styles';
+
+
+export interface SMCvLnSttus {
+    Loanee: {
+        id:string,
+        loaneePhn: string,
+        amountgiven: number,
+        amountexpected: number,
+        amountrepaid: number,
+        lonBala: number,
+        repaymentPeriod: number,
+        advregnu: string,
+        loaneename:string,
+        status: string,
+        description: string,
+        createdAt:string,
+        updatedAt:string,
+        
+    }}
+
+const SMCvLnStts = (props:SMCvLnSttus) => {
+   const {
+    Loanee: {
+    id,
+    loaneePhn,
+    amountgiven,
+    amountexpected,
+    amountrepaid,
+    lonBala,
+    repaymentPeriod,
+    advregnu,
+    loaneename,
+    status,
+    description,
+    createdAt,
+    updatedAt,
+   }} = props ;
+
+   const navigation = useNavigation()
+
+   
+   const SndChmMmbrMny = () => {
+      navigation.navigate("BListSMLneeCovs", {id})
+   }
+    return (
+        <Pressable 
+       onPress={SndChmMmbrMny}
+       style = {styles.container}>            
+            
+            <View style = {{alignItems:"center"}}>
+            <Text style = {styles.loanAdvert}>                       
+                       {/*loaner details */}   
+                       {loaneename}               
+                    </Text>
+            </View>
+           
+            <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Loan Id: {id}                 
+                    </Text>
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       LoaneePhone: {loaneePhn}                 
+                    </Text>
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                      Loan Balance (Ksh): {lonBala.toFixed(2)}                
+                    </Text>                     
+          
+        </Pressable>
+    );
+}; 
+
+export default SMCvLnStts

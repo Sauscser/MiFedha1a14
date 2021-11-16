@@ -4,7 +4,7 @@ import {updateCompany, updateSMAccount, updateCvrdGroupLoans, updateGroup, updat
 import {getCompany, getSMAccount, getCvrdGroupLoans, getGroup } from '../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 
 import {
@@ -34,6 +34,7 @@ const BLChmCovLoanee = (props) => {
   const [SigntryPW, setSigntryPW] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
+  const route = useRoute();
   
 
   const fetchUser = async () => {
@@ -66,17 +67,18 @@ const BLChmCovLoanee = (props) => {
           setIsLoading(true);
           try{
             const compDtls :any= await API.graphql(
-              graphqlOperation(getCvrdGroupLoans,{id:LonId})
+              graphqlOperation(getCvrdGroupLoans,{id:route.params.id})
               );
               const loaneePhns = compDtls.data.getCvrdGroupLoans.loaneePhn
               const loanerPhns = compDtls.data.getCvrdGroupLoans.grpContact
               const amountexpecteds = compDtls.data.getCvrdGroupLoans.amountExpectedBack
               const amountrepaids = compDtls.data.getCvrdGroupLoans.amountRepaid
-              const amountGivens = compDtls.data.getCovCreditSeller.amountGiven
-              const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
+              const amountGivens = compDtls.data.getCvrdGroupLoans.amountGiven
+              const amountExpectedBackWthClrncs = compDtls.data.getCvrdGroupLoans.amountExpectedBackWthClrnc
               const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountGivens) + amountExpectedBackWthClrncs
               const statusssss = compDtls.data.getCvrdGroupLoans.status
-              const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
+              const memberIds = compDtls.data.getCvrdGroupLoans.memberId
+              const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -236,9 +238,9 @@ const BLChmCovLoanee = (props) => {
                                     await API.graphql(
                                       graphqlOperation(updateCvrdGroupLoans, {
                                         input:{
-                                          id:LonId,
+                                          id:route.params.id,
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
-                                          lonBala:amountExpectedBackWthClrncss-parseFloat(amountrepaids),
+                                          lonBala:LonBal.toFixed(2),
                                           status:"LoanBL",
                                         }
                                       })
@@ -268,7 +270,7 @@ const BLChmCovLoanee = (props) => {
                                     await API.graphql(
                                       graphqlOperation(updateGrpMembers, {
                                         input:{
-                                          id:ChmMbrId,
+                                          id:memberIds,
                                           
                                           blStatus:"AccountBlackListed",
                                         }
@@ -383,23 +385,6 @@ const BLChmCovLoanee = (props) => {
                     <Text style={styles.title}>Fill User Details Below</Text>
                   </View>
         
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={LonId}
-                      onChangeText={setLonId}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loan ID</Text>
-                  </View>
-
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={ChmMbrId}
-                      onChangeText={setChmMbrId}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Group ID</Text>
-                  </View> 
                   <View style={styles.sendLoanView}>
                     <TextInput
                       value={SigntryPW}

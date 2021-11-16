@@ -24,7 +24,7 @@ import {
   
 } from '../../../../../../src/graphql/queries';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {
   View,
@@ -43,17 +43,18 @@ import styles from './styles';
 
 
 const RepayCovLnsss = props => {
-  const [SenderNatId, setSenderNatId] = useState('');
-  const [RecNatId, setRecNatId] = useState('');
+
+  
   const [SnderPW, setSnderPW] = useState("");
   
   const [amounts, setAmount] = useState("");
-  const[LnId, setLnId] = useState("")
+  
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
   const [SendrPhn, setSendrPhn] = useState(null);
-  const [RecPhn, setRecPhn] = useState("");
+  
+  const route = useRoute();
   
 
   const fetchUser = async () => {
@@ -87,9 +88,25 @@ const RepayCovLnsss = props => {
       const TtlBLLonsTmsLneeCovs =accountDtl.data.getSMAccount.TtlBLLonsTmsLneeCov;
       const TtlBLLonsAmtLneeCovs =accountDtl.data.getSMAccount.TtlBLLonsAmtLneeCov;
       const names =accountDtl.data.getSMAccount.name;
-      const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
+      
       const nonLonLimits =accountDtl.data.getSMAccount.nonLonLimit;
       const MaxTymsBLs =accountDtl.data.getSMAccount.MaxTymsBL;
+
+      const ftchCvdSMLn = async () => {
+        if(isLoading){
+          return;
+        }
+        setIsLoading(true);
+        try {
+            const RecAccountDtl:any = await API.graphql(
+                graphqlOperation(getSMLoansCovered, {id: route.params.id}),
+                );
+                
+                const lonBalasss =RecAccountDtl.data.getSMLoansCovered.lonBala; 
+                 
+                const amountrepaids =RecAccountDtl.data.getSMLoansCovered.amountrepaid; 
+                
+                const loanerPhns =RecAccountDtl.data.getSMLoansCovered.loanerPhn; 
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -113,6 +130,7 @@ const RepayCovLnsss = props => {
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
           const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
           const ttlNonLonssSentSMs = CompDtls.data.getCompany.ttlNonLonssSentSM; 
+          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
          
                     
           const fetchRecUsrDtls = async () => {
@@ -122,11 +140,11 @@ const RepayCovLnsss = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {phonecontact: RecPhn}),
+                    graphqlOperation(getSMAccount, {phonecontact: loanerPhns}),
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
-                    const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
+                  
                     const TtlActvLonsTmsLnrCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
                     const TtlActvLonsAmtLnrCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
                     const TtlClrdLonsTmsLnrCovssss =accountDtl.data.getSMAccount.TtlClrdLonsTmsLnrCov;
@@ -138,21 +156,7 @@ const RepayCovLnsss = props => {
                     
                     
 
-                    const ftchCvdSMLn = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try {
-                          const RecAccountDtl:any = await API.graphql(
-                              graphqlOperation(getSMLoansCovered, {id: LnId}),
-                              );
-                              
-                              const lonBalasss =RecAccountDtl.data.getSMLoansCovered.lonBala; 
-                               
-                              const amountrepaids =RecAccountDtl.data.getSMLoansCovered.amountrepaid; 
-                              
-                              const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
+                   
                                
                               const updtSMCvLnLnOver  = async () =>{
                                 if(isLoading){
@@ -163,9 +167,9 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
-                                          id:LnId,
+                                          id:route.params.id,
                                           amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
-                                          lonBal: lonBalasss+parseFloat(amounts),
+                                          lonBala: lonBalasss+parseFloat(amounts),
                                           status: "LoanCleared",
                                       }})
                                     )
@@ -173,6 +177,7 @@ const RepayCovLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -190,7 +195,9 @@ const RepayCovLnsss = props => {
                                     graphqlOperation(createNonLoans, {
                                       input: {
                                         senderPhn: SendrPhn,
-                                        recPhn: RecPhn,                                  
+                                        recPhn: loanerPhns,     
+                                        RecName:namess,
+                                        SenderName:names,                             
                                         amount: amounts,                              
                                         description: Desc,
                                         status: "SMCovLonRepayment",
@@ -201,6 +208,7 @@ const RepayCovLnsss = props => {
           
           
                                 } catch (error) {
+                                  console.log(error)
                                   if(!error){
                                     Alert.alert("Account deactivated successfully")
                                     
@@ -239,6 +247,7 @@ const RepayCovLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -255,7 +264,7 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          phonecontact:RecPhn,
+                                          phonecontact:loanerPhns,
                                           
                                           balance:parseFloat(RecUsrBal) + parseFloat(amounts), 
                                           MaxTymsIHvBL:parseFloat(MaxTymsIHvBLs) - 1,                                     
@@ -271,6 +280,7 @@ const RepayCovLnsss = props => {
                                     )                              
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -320,7 +330,7 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
-                                          id:LnId,
+                                          id:route.params.id,
                                           amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
                                           lonBala: lonBalasss - parseFloat(amounts),
                                         }
@@ -330,6 +340,7 @@ const RepayCovLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -346,8 +357,10 @@ const RepayCovLnsss = props => {
                                   await API.graphql(
                                     graphqlOperation(createNonLoans, {
                                       input: {
-                                        recPhn: RecPhn,
-                                        senderPhn: SendrPhn,                                  
+                                        recPhn: loanerPhns,
+                                        senderPhn: SendrPhn,    
+                                        RecName:namess,
+                                        SenderName:names,                                
                                         amount: amounts,                              
                                         description: Desc,
                                         status: "SMCovLonRepayment",
@@ -358,6 +371,7 @@ const RepayCovLnsss = props => {
           
           
                                 } catch (error) {
+                                  console.log(error)
                                   if(!error){
                                     Alert.alert("Account deactivated successfully")
                                     
@@ -393,6 +407,7 @@ const RepayCovLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -409,7 +424,7 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          phonecontact:RecPhn,
+                                          phonecontact:loanerPhns,
                                           
                                           balance:parseFloat(RecUsrBal) + parseFloat(amounts),
                                           
@@ -423,6 +438,7 @@ const RepayCovLnsss = props => {
                                     )                              
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -443,9 +459,6 @@ const RepayCovLnsss = props => {
                                          
                                           companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
                                           companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
-                                          
-                                          ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
-                                          ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
                                           
                                           
                                         }
@@ -476,7 +489,7 @@ const RepayCovLnsss = props => {
                               ) {Alert.alert('Requested amount is more than you have in your account');
                             return;
                           }
-                          else if(SenderNatId === RecNatId){Alert.alert('You cannot Repay Yourself');}
+                          else if(SendrPhn === loanerPhns){Alert.alert('You cannot Repay Yourself');}
                               
                               else if(usrPW !==SnderPW){Alert.alert('Wrong password');
                             return;
@@ -503,7 +516,7 @@ const RepayCovLnsss = props => {
                         };
                       }
                     
-                      await ftchCvdSMLn();
+                      await fetchRecUsrDtls();
                                                                                          
                 }       
                 catch(e) {     
@@ -512,14 +525,15 @@ const RepayCovLnsss = props => {
                 }
                 setIsLoading(false);
                 }                    
-                  await fetchRecUsrDtls();
+                  await fetchCompDtls();
         } catch (e) {
+          console.log(e)
           if (e){Alert.alert("Check your internet connection")
       return;}
         }
         setIsLoading(false);        
       };
-      await fetchCompDtls();
+      await ftchCvdSMLn();
     
       
     } catch (e) {
@@ -529,35 +543,14 @@ const RepayCovLnsss = props => {
       setIsLoading(false);
       
       setAmount("");
-      setRecNatId('');
-      setLnId("");
+     
+    
       setDesc("");
       setSnderPW("");
-      setRecPhn("");
-      
+    
 }
 
-useEffect(() =>{
-  const RecPhns=RecPhn
-    if(!RecPhns && RecPhns!=="")
-    {
-      setRecPhn("");
-      return;
-    }
-    setRecPhn(RecPhns);
-    }, [RecPhn]
-     );
 
-useEffect(() =>{
-  const SnderNatIds=SenderNatId
-    if(!SnderNatIds && SnderNatIds!=="")
-    {
-      setSenderNatId("");
-      return;
-    }
-    setSenderNatId(SnderNatIds);
-    }, [SenderNatId]
-     );
 
      useEffect(() =>{
       const amt=amounts
@@ -570,20 +563,7 @@ useEffect(() =>{
         }, [amounts]
          );
 
-         useEffect(() =>{
-          const RecNatIds=RecNatId
-            if(!RecNatIds && RecNatIds!=="")
-            {
-              setRecNatId("");
-              return;
-            }
-            setRecNatId(RecNatIds);
-            }, [RecNatId]
-             );
-
-             
-             
-
+         
                      useEffect(() =>{
                       const descr=Desc
                         if(!descr && descr!=="")
@@ -606,17 +586,7 @@ useEffect(() =>{
                             }, [SnderPW]
                              );
 
-                             useEffect(() =>{
-                              const LnIds=LnId
-                                if(!LnIds && LnIds!=="")
-                                {
-                                  setLnId("");
-                                  return;
-                                }
-                                setLnId(LnIds);
-                                }, [LnId]
-                                 );
-    
+                           
 
                              
 
@@ -632,28 +602,6 @@ useEffect(() =>{
           <View style={styles.amountTitleView}>
             <Text style={styles.title}>Fill account Details Below</Text>
           </View>
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-            placeholder="+2547xxxxxxxx"
-              value={RecPhn}
-              onChangeText={setRecPhn}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Loanee Phone</Text>
-          </View>
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-            placeholder="+2547xxxxxxxx"
-              value={RecNatId}
-              onChangeText={setRecNatId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Loaner Phone</Text>
-          </View>
-
-          
 
           <View style={styles.sendAmtView}>
             <TextInput
@@ -677,20 +625,7 @@ useEffect(() =>{
             <Text style={styles.sendAmtText}>Loanee PassWord</Text>
           </View>
 
-          
-
-          
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              multiline={true}
-              value={LnId}
-              onChangeText={setLnId}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Loan Id</Text>
-          </View>
-          
+         
           <View style={styles.sendAmtViewDesc}>
             <TextInput
               multiline={true}

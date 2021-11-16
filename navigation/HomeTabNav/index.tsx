@@ -148,6 +148,21 @@ import SgnIn2LnMmbrNonCov from "../../screens/Chama/SgnIn2LnMmbrNonCov";
 import VwChmMbrs2NonCovLns from "../../screens/Chama/VwChmMbrs2NonCovLn";
 import Vw2RpyCov from "../../screens/Chama/Vw2RpyChmLns/Cov";
 import Vw2RpyNonCov from "../../screens/Chama/Vw2RpyChmLns/NonCov";
+import SgnIn2BLCov from "../../screens/Chama/BL/SgnInToBL/MmbrCov";
+import SgnIn2BLNonCov from "../../screens/Chama/BL/SgnInToBL/MmbrNonCov";
+import Vw2BLCov from "../../screens/Chama/BL/View/Cov";
+import Vw2BLNonCov from "../../screens/Chama/BL/View/NonCov";
+
+import Vw2RepySMCovLn from "../../screens/MyAcc/Loans/Vw2Rpay/Cov";
+import Vw2RepySMNonCovLn from "../../screens/MyAcc/Loans/Vw2Rpay/NonCov";
+import Vw2BLCovSMLn from "../../screens/MyAcc/Loans/BList/View2BL/Cov";
+import Vw2BLSMNonCov from "../../screens/MyAcc/Loans/BList/View2BL/NonCov";
+
+import Vw2RepyCredSlsCovLn from "../../screens/MyAcc/VwCred/2Repay/Cov";
+import Vw2RepyCredSlsNonCovLn from "../../screens/MyAcc/VwCred/2Repay/NonCov";
+import Vw2BLCovCredSlsLn from "../../screens/MyAcc/VwCred/2BL/Cov";
+import Vw2BLCredSlsNonCov from "../../screens/MyAcc/VwCred/2Repay/NonCov";
+
 
 
 
@@ -160,6 +175,21 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'Vw2RepyCredSlsCovLns'} component={Vw2RepyCredSlsCovLn} />
+      <Stack.Screen name={'Vw2RepyCredSlsNonCovLns'} component={Vw2RepyCredSlsNonCovLn} />
+      <Stack.Screen name={'Vw2BLCovCredSlsLns'} component={Vw2BLCovCredSlsLn} />
+      <Stack.Screen name={'Vw2BLCredSlsNonCovs'} component={Vw2BLCredSlsNonCov} />
+      
+       <Stack.Screen name={'Vw2RepySMCovLns'} component={Vw2RepySMCovLn} />
+      <Stack.Screen name={'Vw2RepySMNonCovLns'} component={Vw2RepySMNonCovLn} />
+      <Stack.Screen name={'Vw2BLCovSMLns'} component={Vw2BLCovSMLn} />
+      <Stack.Screen name={'Vw2BLSMNonCovs'} component={Vw2BLSMNonCov} />
+      
+      <Stack.Screen name={'SgnIn2BLCovs'} component={SgnIn2BLCov} />
+      <Stack.Screen name={'SgnIn2BLNonCovs'} component={SgnIn2BLNonCov} />
+      <Stack.Screen name={'Vw2BLCovs'} component={Vw2BLCov} />
+      <Stack.Screen name={'Vw2BLNonCovs'} component={Vw2BLNonCov} />
+      
       <Stack.Screen name={'Vw2RpyNonCovs'} component={Vw2RpyNonCov} />
       <Stack.Screen name={'Vw2RpyCovs'} component={Vw2RpyCov} />
       <Stack.Screen name={'VwChmMbrs2NonCovLnss'} component={VwChmMbrs2NonCovLns} />
