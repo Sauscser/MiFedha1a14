@@ -93,17 +93,14 @@ const UpdtSMPW = (props) => {
                                         Alert.alert(names +", You have successfully updated your PassWord");
                                       } 
 
-                                      if(LnAcCod!==loanAcceptanceCodes)
-                                      {
-                                          Alert.alert("Wrong SM A/C Loan Acceptance Code; Prove authorship of Chama");
-                                      }
                                       
-                                      else if(ownr!==owners)
+                                      
+                                      if(ownr!==owners)
                                       {
                                           Alert.alert("You are not the author of the Chama");
                                       }
 
-                                      else if(acStatuss!=="AccountActive")
+                                      else if(acStatuss==="AccountInactive")
                                       {
                                           Alert.alert("This User Account is inactive");
                                       }
@@ -195,17 +192,7 @@ const UpdtSMPW = (props) => {
                     <Text style={styles.sendLoanText}>New SM Ac PW</Text>
                   </View>       
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={LnAcCod}
-                      onChangeText={setLnAcCod}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>SM Loan Acceptance Code</Text>
-                  </View>     
-
-                                   
-        
+                  
                   <TouchableOpacity
                     onPress={fetchSMDtls}
                     style={styles.sendLoanButton}>
