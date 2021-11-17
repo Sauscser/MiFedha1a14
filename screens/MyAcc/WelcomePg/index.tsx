@@ -50,19 +50,19 @@ const UpdtSMPW = (props) => {
   }, []);
 
   const moveToAbt = () => {
-    navigation.navigate("CompAbts");
+    navigation.navigate("VwCompAbts");
   };
 
   const moveToPolicy = () => {
-    navigation.navigate("CompPolicys");
+    navigation.navigate("VwCompPolicys");
   };
 
   const moveToPrivacy = () => {
-    navigation.navigate("CompPrivacys");
+    navigation.navigate("VwCompPrivacys");
   };
 
   const moveToTC = () => {
-    navigation.navigate("CompTCs");
+    navigation.navigate("VwCompTCs");
   };
 
   
@@ -86,11 +86,12 @@ const UpdtSMPW = (props) => {
                     Please go to "MyAc", "Account", "Update", 
                     "RequestLn" and enter the prospective Loaner's Phone Number.
 
-                    The Loaner is then allowed to Loan you.
-
+                    The Loaner can then Loan you.
                     Have a Healthy and Rich Friendship.
                     </Text>
-
+                    </View>
+                    
+                    <View style={styles.loanTitleView2}>
                     <Pressable onPress={moveToAbt}
                     style={styles.sendLoanButton}>
                         <Text style={styles.sendLoanButtonText}>
