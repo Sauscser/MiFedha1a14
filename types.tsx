@@ -200,7 +200,11 @@ declare global {
       DeactAdms:undefined;
 
       ViewAdvs:{town:string};
-      
+
+      CompAbts:undefined
+      CompPolicys:undefined;
+      CompPrivacys:undefined;
+      CompTCs:undefined;
       
     }
   }

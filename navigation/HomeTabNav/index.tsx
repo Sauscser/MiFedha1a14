@@ -164,6 +164,11 @@ import Vw2BLCovCredSlsLn from "../../screens/MyAcc/VwCred/2BL/Cov";
 import Vw2BLCredSlsNonCov from "../../screens/MyAcc/VwCred/2BL/NonCov";
 import DeactAdm from "../../screens/MFAdmin/DeactivateMFAdmin/DeactivateMFNdogo";
 
+import CompAbt from "../../screens/Settings/About";
+import CompPolicy from "../../screens/Settings/Policy";
+import CompPrivacy from "../../screens/Settings/Privacy";
+import CompTC from "../../screens/Settings/TC";
+
 import ViewAdv from "../../screens/Advocate/SearchAdvocate";
 
 
@@ -179,8 +184,12 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
-      <Stack.Screen name={'ViewAdvs'} component={ViewAdv} />
-    
+      <Stack.Screen name={'CompAbts'} component={CompAbt} />
+      <Stack.Screen name={'CompPolicys'} component={CompPolicy} />
+      <Stack.Screen name={'CompPrivacys'} component={CompPrivacy} />
+      <Stack.Screen name={'CompTCs'} component={CompTC} />
+      
+      <Stack.Screen name={'ViewAdvs'} component={ViewAdv} />  
       
       <Stack.Screen name={'DeactAdms'} component={DeactAdm} />
       <Stack.Screen name={'Vw2RepyCredSlsCovLns'} component={Vw2RepyCredSlsCovLn} />

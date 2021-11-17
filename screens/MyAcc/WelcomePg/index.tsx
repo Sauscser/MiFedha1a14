@@ -49,6 +49,22 @@ const UpdtSMPW = (props) => {
     fetchUser();
   }, []);
 
+  const moveToAbt = () => {
+    navigation.navigate("CompAbts");
+  };
+
+  const moveToPolicy = () => {
+    navigation.navigate("CompPolicys");
+  };
+
+  const moveToPrivacy = () => {
+    navigation.navigate("CompPrivacys");
+  };
+
+  const moveToTC = () => {
+    navigation.navigate("CompTCs");
+  };
+
   
       
  return (
@@ -74,6 +90,39 @@ const UpdtSMPW = (props) => {
 
                     Have a Healthy and Rich Friendship.
                     </Text>
+
+                    <Pressable onPress={moveToAbt}
+                    style={styles.sendLoanButton}>
+                        <Text style={styles.sendLoanButtonText}>
+                            About
+                        </Text>
+                    </Pressable>
+
+
+
+                    <Pressable onPress={moveToPolicy}
+                    style={styles.sendLoanButton}>
+                        <Text style={styles.sendLoanButtonText}>
+                            Policy
+                        </Text>
+                    </Pressable>
+
+
+
+                    <Pressable onPress={moveToPrivacy}
+                    style={styles.sendLoanButton}>
+                        <Text style={styles.sendLoanButtonText}>
+                            Privacy
+                        </Text>
+                    </Pressable>
+
+
+                    <Pressable onPress={moveToTC}
+                    style={styles.sendLoanButton}>
+                        <Text style={styles.sendLoanButtonText}>
+                            Terms and Conditions
+                        </Text>
+                    </Pressable>
                   </View>
         
                   
