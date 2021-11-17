@@ -59,11 +59,12 @@ const UpdtSMPW = (props) => {
            
                   <View style={styles.loanTitleView}>
                     <Text style={styles.title}>Congratulations {names}, 
-                    You have successfully created your Single Member Account. 
+                    You have successfully created your Mifedha Single Member Account. 
 
                     Please click on the map icon on the bottom tab 
-                    to search the nearest or most convinient MFNdogo
-                    outlet and deposit money to enjoy our products. 
+                    to search the nearest or most convenient MFNdogo
+                    outlet and Load money to your account so that you
+                     can enjoy our products. 
 
                     To request a Loan from a Friend or Chama or Seller, 
                     Please go to "MyAc", "Account", "Update", 

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
 import {createSMAccount, updateCompany} from '../../../src/graphql/mutations';
-import { getCompany, getSMAccount, listSMAccounts, } from '../../../src/graphql/queries';
-import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
+import { getCompany, listSMAccounts, } from '../../../src/graphql/queries';
+import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -10,30 +10,23 @@ import {useNavigation} from '@react-navigation/native';
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+  
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+  
   TouchableOpacity,
   Alert,
   ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
 
-export type UserReg = {
-  usr:String;
-  
-}
-
-const CreateAcForm = (props:UserReg) => {
-
-  const{usr} = props;
 
   
 
 
+const CreateAcForm = (props) => {
+
+  
   const navigation = useNavigation();
 
   const [nationalId, setNationalid] = useState('');
@@ -303,7 +296,7 @@ useEffect(() =>{
                 <ScrollView>
            
                   <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Your Account Details Below</Text>
+                    <Text style={styles.title}>Enter Your Account Details Below</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>
