@@ -291,7 +291,7 @@ const SMASendNonLns = props => {
                         if (error){Alert.alert("Check your internet connection")
                     return;}
                       }
-                      Alert.alert(grpNames + " has sent "+ namess + " has sent Ksh. " + amounts);
+                      Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(2)  + "Transaction fee: Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                       setIsLoading(false);
                     }                                
                                           

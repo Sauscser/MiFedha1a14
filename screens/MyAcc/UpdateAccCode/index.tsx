@@ -92,7 +92,7 @@ const UpdtSMPW = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +", You have updated your LoanAcceptanceCode");
+                                        Alert.alert(names +", You have requested Loan from " +LnAcCod);
                                       } 
 
                                       if(SMPW!==pwss)
@@ -104,6 +104,11 @@ const UpdtSMPW = (props) => {
                                       {
                                           Alert.alert("You are not the Owner of the Account");
                                       }
+
+                                      else if (LnAcCod.length < 13)
+                                        {Alert.alert("Please enter Number in the hinted format: include +254");
+                                        return;
+                                            } 
 
                                       else if(acStatuss!=="AccountActive")
                                       {
@@ -185,16 +190,17 @@ const UpdtSMPW = (props) => {
                 <ScrollView>
            
                   <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Chama Details Below</Text>
+                    <Text style={styles.title}>Fill Details Below</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder="+2547xxxxxxxx"
                       value={LnAcCod}
                       onChangeText={setLnAcCod}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>New Loan Acceptance Code</Text>
+                    <Text style={styles.sendLoanText}>Loaner Phone Number</Text>
                   </View>       
 
                   <View style={styles.sendLoanView}>
@@ -212,7 +218,7 @@ const UpdtSMPW = (props) => {
                     onPress={fetchSMDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
-                      Click to Update User Details
+                      Click to Request Loan
                     </Text>
                     {isLoading && <ActivityIndicator color={'Blue'} size="large"/>}
                   </TouchableOpacity>

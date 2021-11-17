@@ -26,8 +26,8 @@ const RegKFKubwa = props => {
     navigation.navigate('RegMFKbw');
   };
 
-  const goToMFNdogReg = () => {
-    navigation.navigate('RegMFNdgScrn');
+  const DActvteMFAds = () => {
+    navigation.navigate('DActvteMFAd');
   };
 
   const goToAdvReg = () => {
@@ -115,7 +115,7 @@ const RegKFKubwa = props => {
                     
 
                     <Pressable
-                      onPress={goToAdvReg}
+                      onPress={DActvteMFAds}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                       DeRegMFAdv

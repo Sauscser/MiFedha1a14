@@ -18,8 +18,8 @@ const SettinsHm = props => {
     navigation.navigate('CrtAdmin');
   };
 
-  const goRegKFNdogoFm = () => {
-    navigation.navigate('RegMFNdgScrn');
+  const DeactAdmss = () => {
+    navigation.navigate('DeactAdms');
   };
 
   const Passwordssss = () => {
@@ -211,6 +211,37 @@ const SettinsHm = props => {
                 </View>
               </View>
             </View>
+
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Clients</Text>
+
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={DeactAdmss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>DeactiveAdm</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={VwCompDtlsss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        ViewComp
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                
+                
+              </View>
+            </View>
+
 
 
     </View> 

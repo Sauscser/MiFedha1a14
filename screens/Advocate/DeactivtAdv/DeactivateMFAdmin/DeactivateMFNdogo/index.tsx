@@ -143,7 +143,7 @@ const DeregMFAdvForm = (props) => {
                       onChangeText={setAdvRegNo}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>MFAdvocate National Id</Text>
+                    <Text style={styles.sendLoanText}>MFAdvocate Reg Number</Text>
                   </View>
         
                   

@@ -216,10 +216,10 @@ const CovCredSls = props => {
                           setIsLoading(false);
                           await updtSendrAc();
                         };
-                        if (parseFloat(usrNoBL) > maxBLss){Alert.alert('Receiver does not qualify');
+                        if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
                       return;
                     }
-                        else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');
+                        else if(recAcptncCode !== SendrPhn){Alert.alert('Let the Loanee first request Loan');
                       return;
                     }
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
@@ -285,7 +285,7 @@ const CovCredSls = props => {
                                     balance:parseFloat(RecUsrBal) - TotalTransacted,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
-                                                                      
+                                    loanAcceptanceCode:"None"                                 
                                     
                                   }
                                 })
@@ -359,7 +359,7 @@ const CovCredSls = props => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
-                          Alert.alert(names + " to " + namess +" goods worth Ksh." + amount +":"+ namesssssss+" Adv");
+                          Alert.alert("Loan:Ksh. "+parseFloat(AmtExp).toFixed(2) + " Coverage:Ksh. " +CoverageFees.toFixed(2) + "Transaction:Ksh. "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2));
                           setIsLoading(false);
                         }
                                               
@@ -637,15 +637,7 @@ useEffect(() =>{
          </View>
 
 
-         <View style={styles.sendAmtView}>
-           <TextInput
-             multiline={true}
-             value={RecAccCode}
-             onChangeText={setRecAccCode}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Reciever Acceptance Code</Text>
-         </View>
+        
 
          <View style={styles.sendAmtViewDesc}>
            <TextInput

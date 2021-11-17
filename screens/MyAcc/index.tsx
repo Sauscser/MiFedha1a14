@@ -118,7 +118,7 @@ const MyAccount = props => {
               <Text style={styles.acPressableText}>PWord</Text>
             </Pressable>
             <Pressable onPress={UpdateAccCodesss} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>AccCd</Text>
+              <Text style={styles.acPressableText}>RequestLn</Text>
             </Pressable>
             </View>
             </View>

@@ -35,7 +35,7 @@ const FetchSMNonLnsSnt = props => {
                 { filter: {
                     and: {
                       advregnu: { eq: route.params.AdvReNo},
-                      
+                      lonBala:{gt:0}
                       
                     }
                   }}

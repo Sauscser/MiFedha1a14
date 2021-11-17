@@ -226,6 +226,7 @@ const RepayCovChmLnsss = props => {
                                           id:route.params.id,
                                           amountRepaid: parseFloat(amounts) + parseFloat(amountRepaidss),
                                           lonBala: LonBalsss-parseFloat(amounts),
+                                          amountExpectedBackWthClrnc:parseFloat(amountExpectedBackWthClrncs) - ClranceAmt,
                                           status: "LoanCleared",
                                       }})
                                     )
@@ -320,7 +321,7 @@ const RepayCovChmLnsss = props => {
                                         input:{
                                           grpContact:grpContactssss,
                                           
-                                          grpBal:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
+                                          grpBal:parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt),                                     
                                           TtlBLLonsTmsLnrChmCov: parseFloat(TtlBLLonsTmsLnrChmCovs) - 1,
                                           TtlBLLonsAmtLnrChmCov: parseFloat(TtlBLLonsAmtLnrChmCovs) - parseFloat(amounts),
                                           TtlClrdLonsTmsLnrChmCov: parseFloat(TtlClrdLonsTmsLnrChmCovs) + 1,
@@ -352,8 +353,8 @@ const RepayCovChmLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                          
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
                                           
                                           ttlChmLnsInActvAmtCov: parseFloat(amounts) - parseFloat(ttlChmLnsInActvAmtCov),
                                           ttlChmLnsInActvTymsCov: parseFloat(amounts) - parseFloat(ttlChmLnsInActvTymsCov),
@@ -371,7 +372,7 @@ const RepayCovChmLnsss = props => {
                                 catch(error){
                                   
                                 }
-                                Alert.alert(names + " has fully repayed " + namess +" Ksh. "+ amounts);
+                                Alert.alert("Loan:Ksh. "+amountExpectedBacks.toFixed(2) + " ClearanceFee:Ksh. " +ClranceAmt.toFixed(2) + "Transaction:Ksh. "+( parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2) );
                                 setIsLoading(false);
                               }    
                               
@@ -414,6 +415,7 @@ const RepayCovChmLnsss = props => {
                                           id:route.params.id,
                                           amountRepaid: parseFloat(amounts) + parseFloat(amountRepaidss),
                                           lonBala: LonBalsss-parseFloat(amounts),
+                                          amountExpectedBackWthClrnc:parseFloat(amountExpectedBackWthClrncs) - ClranceAmt,
                                         }
                                       })
                                     )
@@ -468,7 +470,7 @@ const RepayCovChmLnsss = props => {
                                         input:{
                                           grpContact:grpContactssss,
                                           
-                                          grpBal:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
+                                          grpBal:parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt),                                     
                                           
                                           TtlActvLonsAmtLnrChmCov: parseFloat(TtlActvLonsAmtLnrChmCovs) - parseFloat(amounts),                                        
                                          
@@ -495,8 +497,8 @@ const RepayCovChmLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                          
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
                                           ttlChmLnsInActvAmtCov: ttlChmLnsInActvAmtCov - parseFloat(amounts),
                                         }
                                       })
@@ -507,17 +509,17 @@ const RepayCovChmLnsss = props => {
                                 catch(error){
                                   
                                 }
-                                Alert.alert(names + " has repayed " + amounts + " to " + namess);
+                                Alert.alert("Loan: Ksh. "+amountExpectedBacks.toFixed(2) + " Clearance fee: Ksh. " +ClranceAmt.toFixed(2) + "Transaction fee: Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 setIsLoading(false);
                               }
 
                                                           
                                                     
                               
-                              if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');
+                              if(usrAcActvStts === "AccountInactive"){Alert.alert('Sender account is inactive');
                               return;
                             }
-                              else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');
+                              else if(usrAcActvSttss === "AccountInactive"){Alert.alert('Receiver account is inactive');
                               return;
                             }
                               
@@ -536,10 +538,10 @@ const RepayCovChmLnsss = props => {
                             return;
                           }
 
-                          else if(parseFloat(amounts) > lonBalas){Alert.alert("Your Loan Balance is lesser: Ksh. "+lonBalas)}
+                          else if(parseFloat(amounts) > LonBalsss){Alert.alert("Your Loan Balance is lesser: Ksh. "+LonBalsss)}
                           
 
-                          else if(parseFloat(amounts) === lonBalas){updtChmMbrTTlBlOvr();}                         
+                          else if(parseFloat(amounts) === LonBalsss){updtChmMbrTTlBlOvr();}                         
                           
                               
                                else {

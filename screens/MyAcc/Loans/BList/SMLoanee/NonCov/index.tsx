@@ -76,7 +76,7 @@ const BLSMNonCovLoanee = (props) => {
               const amountrepaids = compDtls.data.getSMLoansNonCovered.amountrepaid
               const statusssss = compDtls.data.getSMLoansNonCovered.status
            
-              const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
+              const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){

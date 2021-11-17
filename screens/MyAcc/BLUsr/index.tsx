@@ -145,7 +145,7 @@ const BLUsrForm = (props) => {
                     onPress={gtCompDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
-                      Click to DeRegister 
+                      Click to BlackList
                     </Text>
                     {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
                   </TouchableOpacity>

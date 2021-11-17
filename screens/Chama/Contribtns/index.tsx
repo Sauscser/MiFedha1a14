@@ -117,7 +117,7 @@ const SMASendChmNonLns = props => {
                       
                         
                       const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-                      const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
+                      const TotalTransacted = parseFloat(amounts) ;
                       const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
                       
                       const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
@@ -248,9 +248,6 @@ const SMASendChmNonLns = props => {
                                           input:{
                                             AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                            
-                                            companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
-                                            companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
-                                            
                                             ttlNonLonssRecChm: parseFloat(amounts) + parseFloat(ttlNonLonssRecChmss),
                                             
                                             
@@ -296,7 +293,7 @@ const SMASendChmNonLns = props => {
                                 return;
                               }
                                   }
-                                  Alert.alert(names + " has sent Ksh. " + amounts + " to " + grpNames+" Chama");
+                                  Alert.alert(names + " has sent Ksh. " + parseFloat(amounts).toFixed(2) + " to " + grpNames+" Chama");
                                   setIsLoading(false);
                                 }                                
                                                       

@@ -112,8 +112,10 @@ const RepayCovSellerLnsss = props => {
                 const sellerContacts =RecAccountDtl.data.getCovCreditSeller.sellerContact; 
                 const buyerNames =RecAccountDtl.data.getCovCreditSeller.buyerName; 
                 const SellerNames =RecAccountDtl.data.getCovCreditSeller.SellerName; 
-                
-                
+                const amountExpectedBacks =RecAccountDtl.data.getCovCreditSeller.amountexpectedBack;
+                const amountRepaidss =RecAccountDtl.data.getCovCreditSeller.amountRepaid; 
+                const LonBalsss = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountRepaidss); 
+              const ClranceAmt = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountExpectedBacks); 
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -139,7 +141,7 @@ const RepayCovSellerLnsss = props => {
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
           const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
           const ttlNonLonssSentSMs = CompDtls.data.getCompany.ttlNonLonssSentSM; 
-          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
+          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts) + ClranceAmt; 
          
                     
           const fetchRecUsrDtls = async () => {
@@ -178,7 +180,8 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           id:route.params.id,
                                           amountRepaid: parseFloat(amounts) + parseFloat(amountrepaids),
-                                          lonBala: lonBalas-parseFloat(amounts),
+                                          lonBala: LonBalsss-parseFloat(amounts),
+                                          amountExpectedBackWthClrnc:parseFloat(amountExpectedBackWthClrncs) - ClranceAmt,
                                           status: "LoanCleared",
                                       }})
                                     )
@@ -186,6 +189,7 @@ const RepayCovSellerLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -216,6 +220,7 @@ const RepayCovSellerLnsss = props => {
           
           
                                 } catch (error) {
+                                  console.log(error)
                                   if(!error){
                                     Alert.alert("Account deactivated successfully")
                                     
@@ -255,6 +260,7 @@ const RepayCovSellerLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -273,7 +279,7 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           phonecontact:sellerContacts,
                                           
-                                          balance:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
+                                          balance:parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt),                                     
                                           TtlBLLonsTmsSllrCov: parseFloat(TtlBLLonsTmsSllrCovs) - 1,
                                           TtlBLLonsAmtSllrCov: parseFloat(TtlBLLonsAmtSllrCovs) - parseFloat(amounts),
                                           TtlClrdLonsTmsSllrCov: parseFloat(TtlClrdLonsTmsSllrCovs) + 1,
@@ -288,6 +294,7 @@ const RepayCovSellerLnsss = props => {
                                     )                              
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -306,8 +313,8 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                          
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
                                           
                                           
                                           ttlSellerLnsInClrdAmtCov: parseFloat(ttlSellerLnsInClrdAmtCovs) + parseFloat(amounts) ,
@@ -324,7 +331,7 @@ const RepayCovSellerLnsss = props => {
                                 catch(error){
                                   
                                 }
-                                Alert.alert(names + " has fully repayed " + namess +" Ksh. "+ amounts);
+                                Alert.alert("Loan:Ksh. "+amountExpectedBacks.toFixed(2) + " ClearanceFee:Ksh. " +ClranceAmt.toFixed(2) + "Transaction:Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 setIsLoading(false);
                               }                                                                                                            
                         
@@ -340,7 +347,8 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           id:route.params.id,
                                           amountRepaid: parseFloat(amounts) + parseFloat(amountrepaids),
-                                          lonBala: lonBalas - parseFloat(amounts),
+                                          lonBala: LonBalsss - parseFloat(amounts),
+                                          amountExpectedBackWthClrnc:parseFloat(amountExpectedBackWthClrncs) - ClranceAmt,
                                         }
                                       })
                                     )
@@ -348,6 +356,7 @@ const RepayCovSellerLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -378,6 +387,7 @@ const RepayCovSellerLnsss = props => {
           
           
                                 } catch (error) {
+                                  console.log(error)
                                   if(!error){
                                     Alert.alert("Account deactivated successfully")
                                     
@@ -413,6 +423,7 @@ const RepayCovSellerLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -431,7 +442,7 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           phonecontact:sellerContacts,
                                           
-                                          balance:parseFloat(RecUsrBal) + parseFloat(amounts),                                     
+                                          balance:parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt),                                     
                                           TtlActvLonsTmsSllrCov: parseFloat(TtlActvLonsTmsSllrCovs) - parseFloat(amounts),                                         
                                           
                                         }
@@ -439,6 +450,7 @@ const RepayCovSellerLnsss = props => {
                                     )                              
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -457,8 +469,8 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                          
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
                                           
                                         }
                                       })
@@ -469,17 +481,17 @@ const RepayCovSellerLnsss = props => {
                                 catch(error){
                                   
                                 }
-                                Alert.alert(names + " has repayed " + amounts + " to " + namess);
+                                Alert.alert("Loan: Ksh. "+amountExpectedBacks + " Clearance fee: Ksh. " +ClranceAmt + "Transaction fee: Ksh. "+ parseFloat(UsrTransferFee)*parseFloat(amounts));
                                 setIsLoading(false);
                               }
 
                                                           
                                                     
                               
-                              if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');
+                              if(usrAcActvStts === "AccountInactive"){Alert.alert('Sender account is inactive');
                               return;
                             }
-                              else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');
+                              else if(usrAcActvSttss === "AccountInactive"){Alert.alert('Receiver account is inactive');
                               return;
                             }
                               
@@ -498,10 +510,10 @@ const RepayCovSellerLnsss = props => {
                             return;
                           }
 
-                          else if(parseFloat(amounts) > lonBalas){Alert.alert("Your Loan Balance is lesser: "+lonBalas)}
+                          else if(parseFloat(amounts) > LonBalsss){Alert.alert("Your Loan Balance is lesser: "+LonBalsss)}
                           
 
-                          else if(parseFloat(amounts) === lonBalas){updtSMCvLnLnOver();}                         
+                          else if(parseFloat(amounts) === LonBalsss){updtSMCvLnLnOver();}                         
                           
                               
                                else {
@@ -525,6 +537,7 @@ const RepayCovSellerLnsss = props => {
                 }                    
                   await fetchCompDtls ();
         } catch (e) {
+          console.log(e)
           if (e){Alert.alert("Check your internet connection")
       return;}
         }
@@ -559,11 +572,7 @@ const RepayCovSellerLnsss = props => {
         }, [amounts]
          );
 
-         
-
-             
-             
-
+        
                      useEffect(() =>{
                       const descr=Desc
                         if(!descr && descr!=="")

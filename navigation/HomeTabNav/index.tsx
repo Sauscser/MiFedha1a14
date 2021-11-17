@@ -161,7 +161,8 @@ import Vw2BLSMNonCov from "../../screens/MyAcc/Loans/BList/View2BL/NonCov";
 import Vw2RepyCredSlsCovLn from "../../screens/MyAcc/VwCred/2Repay/Cov";
 import Vw2RepyCredSlsNonCovLn from "../../screens/MyAcc/VwCred/2Repay/NonCov";
 import Vw2BLCovCredSlsLn from "../../screens/MyAcc/VwCred/2BL/Cov";
-import Vw2BLCredSlsNonCov from "../../screens/MyAcc/VwCred/2Repay/NonCov";
+import Vw2BLCredSlsNonCov from "../../screens/MyAcc/VwCred/2BL/NonCov";
+import DeactAdm from "../../screens/MFAdmin/DeactivateMFAdmin/DeactivateMFNdogo";
 
 
 
@@ -175,6 +176,7 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'DeactAdms'} component={DeactAdm} />
       <Stack.Screen name={'Vw2RepyCredSlsCovLns'} component={Vw2RepyCredSlsCovLn} />
       <Stack.Screen name={'Vw2RepyCredSlsNonCovLns'} component={Vw2RepyCredSlsNonCovLn} />
       <Stack.Screen name={'Vw2BLCovCredSlsLns'} component={Vw2BLCovCredSlsLn} />

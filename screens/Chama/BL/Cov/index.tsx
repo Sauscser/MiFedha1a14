@@ -78,7 +78,7 @@ const BLChmCovLoanee = (props) => {
               const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountGivens) + amountExpectedBackWthClrncs
               const statusssss = compDtls.data.getCvrdGroupLoans.status
               const memberIds = compDtls.data.getCvrdGroupLoans.memberId
-              const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
+              const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){

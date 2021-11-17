@@ -74,7 +74,7 @@ const BLNonCovCredByr = (props) => {
               const amountExpectedBackWthClrncs = compDtls.data.getNonCovCreditSeller.amountExpectedBackWthClrnc
               const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountSolds) + parseFloat(amountExpectedBackWthClrncs)
               const statusssss = compDtls.data.getNonCovCreditSeller.status
-              const LonBal = parseFloat(amountexpecteds) - parseFloat(amountrepaids)
+              const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){

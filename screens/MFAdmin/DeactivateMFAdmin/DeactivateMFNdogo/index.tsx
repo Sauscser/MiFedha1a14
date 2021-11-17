@@ -128,7 +128,7 @@ const DeregMFAdminForm = (props) => {
                 <ScrollView>
            
                   <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill MFNdogo Details Below</Text>
+                    <Text style={styles.title}>Fill MFAdmin Details Below</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>
@@ -137,7 +137,7 @@ const DeregMFAdminForm = (props) => {
                       onChangeText={setAdminId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>MFNdogo Phone</Text>
+                    <Text style={styles.sendLoanText}>MFAdmin ID</Text>
                   </View>
         
                   

@@ -197,6 +197,7 @@ declare global {
       Vw2RepyCredSlsNonCovLns:undefined
       Vw2BLCovCredSlsLns:undefined;
       Vw2BLCredSlsNonCovs:undefined;
+      DeactAdms:undefined;
 
     }
   }

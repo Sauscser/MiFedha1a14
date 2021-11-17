@@ -286,7 +286,7 @@ const fetchChmMbrDtls = async () => {
                                     balance:parseFloat(RecUsrBal) + parseFloat(amount)  ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
-                                                                      
+                                    loanAcceptanceCode:"None"                                
                                     
                                   }
                                 })
@@ -337,16 +337,16 @@ const fetchChmMbrDtls = async () => {
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
-                          Alert.alert(grpNames + " Chama loans " + namess +" Ksh. " + amount);
+                          Alert.alert("Loan:Ksh. "+parseFloat(AmtExp).toFixed(2) + "Transaction Fee:Ksh. "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2));
                           setIsLoading(false);
                           
                         }
                         
                                               
-                        if (parseFloat(usrNoBL) > maxBLss){Alert.alert('Receiver does not qualify');
+                        if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
                       return;
                     }
-                        else if(recAcptncCode !== RecAccCode){Alert.alert('Please first get the Loanee consent to loan');
+                        else if(recAcptncCode !== RecAccCode){Alert.alert('Let Loanee first request Loan');
                       return;
                     }
                     else if(ownr !==SenderSub){Alert.alert('You are not the creator/signitory of this Chama');}
@@ -591,17 +591,7 @@ useEffect(() =>{
            <Text style={styles.sendAmtText}>Repayment Period in days</Text>
          </View>
 
-         
-         <View style={styles.sendAmtView}>
-           <TextInput
-             multiline={true}
-             value={RecAccCode}
-             onChangeText={setRecAccCode}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Reciever Acceptance Code</Text>
-         </View>
-
+        
          <View style={styles.sendAmtViewDesc}>
            <TextInput
              multiline={true}

@@ -59,20 +59,19 @@ const UpdtSMPW = (props) => {
            
                   <View style={styles.loanTitleView}>
                     <Text style={styles.title}>Congratulations {names}, 
-                    You have successfully created your Account. 
-                    Your Loan Acceptance code is {email}. 
-                    Please go to "MyAc", "Account", "Update", 
-                    "AccCd" to 
-                    update this loan Acceptancecode
-                    as soon as possible 
-                    to a more convinient pass code.
-                    It serves as your authorisation to be 
-                    loaned. Share it with your prospective Loaner
-                    so as to avoid malicious loaners.
-                    Please visit the nearest MFNdogo outlet to deposit 
-                    money.
+                    You have successfully created your Single Member Account. 
 
-                    Thankyou.
+                    Please click on the map icon on the bottom tab 
+                    to search the nearest or most convinient MFNdogo
+                    outlet and deposit money to enjoy our products. 
+
+                    To request a Loan from a Friend or Chama or Seller, 
+                    Please go to "MyAc", "Account", "Update", 
+                    "RequestLn" and enter the prospective Loaner's Phone Number.
+
+                    The Loaner is then allowed to Loan you.
+
+                    Have a Healthy and Rich Friendship.
                     </Text>
                   </View>
         
