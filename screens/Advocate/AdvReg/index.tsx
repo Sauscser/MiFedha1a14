@@ -1,35 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import {Alert} from "react-native"
 
-import {createAdvocate, createAgent, updateCompany} from '../../../src/graphql/mutations';
+import {createAdvocate,  updateCompany} from '../../../src/graphql/mutations';
 
-import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
+import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
 
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+  
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+  
   TouchableOpacity,
   ActivityIndicator
 } from 'react-native';
 import styles from './styles';
-import Navigation from '../../../navigation';
 import { getCompany } from '../../../src/graphql/queries';
 
   const RegisterMFAdvAcForm = props => {
 
   const navigation = useNavigation();
 
-  const moveAftrSuc = () =>{
-      navigation.navigate("Home")
-  }
+  
   const [nationalId, setNationalid] = useState('');
   const [nam, setName] = useState("");
   const [phoneContact, setPhoneContact] = useState("");
@@ -37,7 +32,6 @@ import { getCompany } from '../../../src/graphql/queries';
   const [ownr, setOwnr] = useState(null);
   const [pword, setPW] = useState('');
   const [advRegNo, setAdvRegNo] = useState('');
-  const[lat, setLat] = useState('');
   const[officeLocs, setOfficeLoc] = useState("");
   const [isLoading, setIsLoading] =useState(false);
   

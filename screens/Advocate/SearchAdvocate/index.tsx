@@ -1,12 +1,12 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, FlatList} from 'react-native';
 
-import { API, graphqlOperation,  } from 'aws-amplify';
-import NonLnSent from "../../../components/Advocate/VwAdvWthdrwls";
+import { API, graphqlOperation, Auth } from 'aws-amplify';
+import NonLnSent from "../../../components/Advocate/SearchAdv";
 import styles from './styles';
 
 
-import { listAdvocateWithdrawalss,  } from '../../../src/graphql/queries';
+import { listAdvocates } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 
 const FetchSMNonLnsSnt = props => {
@@ -16,20 +16,19 @@ const FetchSMNonLnsSnt = props => {
     const route = useRoute();
 
     
-
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listAdvocateWithdrawalss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listAdvocates, 
                 { filter: {
                     and: {
-                      advregnu: { eq: route.params.AdvReNo},
+                      officeLoc: { contains: route.params.town},
                       
                       
                     }
                   }}
                   ));
-                  setRecvrs(Lonees.data.listAdvocateWithdrawalss.items);
+                  setRecvrs(Lonees.data.listAdvocates.items);
             } catch (e) {
               console.log(e);
             } finally {
@@ -55,7 +54,7 @@ const FetchSMNonLnsSnt = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Withdrawals</Text>
+            <Text style={styles.label}> Advocates</Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}

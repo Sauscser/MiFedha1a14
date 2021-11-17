@@ -1,32 +1,21 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../components/Advocate/VwChmCovLns";
 import styles from './styles';
 
 
-import { listCvrdGroupLoanss, listFloatReductions } from '../../../src/graphql/queries';
+import { listCvrdGroupLoanss } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 
 const FetchSMNonLnsSnt = props => {
 
-    const[SenderPhn, setSenderPhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
     const route = useRoute();
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setSenderPhn(userInfo.attributes.phone_number);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    
 
         const fetchLoanees = async () => {
             setLoading(true);

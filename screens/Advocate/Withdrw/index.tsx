@@ -2,18 +2,14 @@ import React, {useEffect, useState} from 'react';
 
 import {
   createAdvocateWithdrawals,
-  createBankAdmWithdrawals,
-  createFloatAdd,
-  createFloatReduction, 
-
-  updateAgent,
-  updateCompany,
-  updateSAgent,
+  
+  updateAdvocate,
+  
   updateSMAccount,
   
 } from '../../../src/graphql/mutations';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {getAdvocate, getAgent, getBankAdmin, getCompany, getSAgent, getSMAccount} from '../../../src/graphql/queries';
+import {getAdvocate,  getSMAccount} from '../../../src/graphql/queries';
 import {
   View,
   Text,
@@ -65,7 +61,6 @@ const AdvWthdwl = props => {
       
      
       const owners = accountDtl.data.getSMAccount.owner;
-      const names = accountDtl.data.getSMAccount.name;
          
       
       const fetchAdvDtls = async () => {
@@ -109,10 +104,37 @@ const AdvWthdwl = props => {
                     return;}
                     }
                     setIsLoading(false);
-                    await onUpdtUsrBal();
+                    await onUpdtAdvBal();
                     };  
         
-                    const onUpdtUsrBal = async () => {
+                    const onUpdtAdvBal = async () => {
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try {
+                        await API.graphql(
+                          graphqlOperation(updateAdvocate, {
+                            input: {
+                              advregnu: AdvReNo,
+                  
+                              advBal: (parseFloat(advBals) - parseFloat(amount)).toFixed(2) ,
+                              
+                            },
+                          }),
+                        );
+                      }
+        
+                      catch (error) {
+                        if (error){Alert.alert("Check internet Connection")
+                        return;}
+                      }
+                      
+                      setIsLoading(false);
+                      await onUpdtUsrBal();
+                      }; 
+                      
+                      const onUpdtUsrBal = async () => {
                       if(isLoading){
                         return;
                       }
@@ -123,7 +145,7 @@ const AdvWthdwl = props => {
                             input: {
                               phonecontact: WthDrwrPhn,
                   
-                              balance: parseFloat(usrBala) + parseFloat(amount) ,
+                              balance: (parseFloat(usrBala) + parseFloat(amount)).toFixed(2) ,
                               
                             },
                           }),
@@ -146,13 +168,13 @@ const AdvWthdwl = props => {
                       return;
                     } 
         
-                    else if (usrStts!=="AccountActive") {
+                    else if (usrStts==="AccountInactive") {
                       Alert.alert("User Account has been deactivated")
                       return;
                     } 
 
-                    else if (statussssss!=="AccountActive") {
-                      Alert.alert("Admin Account is inactive")
+                    else if (statussssss==="AccountInactive") {
+                      Alert.alert("Advocate Account is inactive")
                       return;
                     } 
 

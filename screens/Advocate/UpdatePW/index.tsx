@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {  updateAdvocate, updateCompany, updateGroup, updateGrpMembers, updateSMAccount} from '../../../src/graphql/mutations';
-import {  getAdvocate, getBankAdmin, getCompany, getGroup, getGrpMembers, getSMAccount } from '../../../src/graphql/queries';
+import {  updateAdvocate} from '../../../src/graphql/mutations';
+import {  getAdvocate} from '../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -10,26 +10,22 @@ import {useNavigation} from '@react-navigation/native';
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+ 
   TextInput,
   ScrollView,
   ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
+  
   TouchableOpacity,
   Alert,
 } from 'react-native';
 import styles from './styles';
-import { updateBankAdmin } from '../../../src/graphql/mutations';
 
 
   
 
 
 const UpdtMFAdvPW = (props) => {
-  const navigation = useNavigation();
-  const [SigntryPW, setSigntryPW] = useState("");
+  
   const [AdvRegNo, setAdvRegNo] = useState("");
   const [LnAcCod, setLnAcCod] = useState("");
   const [NewAdmnPW, setNewAdmnPW] = useState("");
@@ -125,7 +121,7 @@ const UpdtMFAdvPW = (props) => {
 
             setIsLoading(false);
               setNewAdmnPW("");
-              setSigntryPW("")
+              
               setOldAdmnPW("")
               setAdvRegNo("")
           

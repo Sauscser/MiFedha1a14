@@ -17,7 +17,7 @@ import MyAccount from '../../screens/MyAcc';
 import LoanScreen from '../../screens/Loans';
 import CredtSales from '../../screens/CredSls';
 import ChamaScreen from '../../screens/Chama';
-import Adverts from '../../screens/Adverts';
+import EntrAdvLoc from '../../screens/Advocate/EnterAdvLoc';
 import TabTwoScreen from '../../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
 import LinkingConfiguration from '../LinkingConfiguration';
@@ -98,8 +98,8 @@ const HomeTabNavigator = props => {
       />
 
 <BottomTab.Screen
-        name='Search'
-        component={Adverts}
+        name='SearchAdv'
+        component={EntrAdvLoc}
         options={{
           tabBarIcon: ({color: string}) => (
             <FontAwesome name="search" size={25} color={'blue'} />

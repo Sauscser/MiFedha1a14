@@ -2,11 +2,6 @@ import React, {useEffect, useState} from 'react';
 
 import {
   
-  createSMLoansCovered,
-  
-  createSMLoansNonCovered,
-  
-  createNonLoans,
   
   updateCompany,
   
@@ -32,12 +27,10 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+  
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+  
   TouchableOpacity,
   Alert,
   ActivityIndicator
@@ -49,7 +42,7 @@ const SMASendNonLns = props => {
   const [SenderNatId, setSenderNatId] = useState('');
   const [RecNatId, setRecNatId] = useState('');
   const [SnderPW, setSnderPW] = useState("");
-  const [SendrPhn, setSendrPhn] = useState("");  
+  
   const [amounts, setAmount] = useState("");
   const [MmbrId, setMmbrId] = useState('');
   const [Desc, setDesc] = useState("");
@@ -117,7 +110,7 @@ const SMASendNonLns = props => {
           
             
           const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
+          const TotalTransacted = (parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2);
                
           
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
@@ -189,8 +182,8 @@ const SMASendNonLns = props => {
                             graphqlOperation(updateGroup, {
                               input:{
                                 grpContact:groupContacts,
-                                ttlNonLonsSentChm: parseFloat(ttlNonLonsSentChms)+parseFloat(amounts),
-                                grpBal:parseFloat(grpBals)-TotalTransacted 
+                                ttlNonLonsSentChm: (parseFloat(ttlNonLonsSentChms)+parseFloat(amounts)).toFixed(2),
+                                grpBal:(parseFloat(grpBals)-parseFloat(TotalTransacted)).toFixed(2) 
                                
                                 
                               }
@@ -219,7 +212,7 @@ const SMASendNonLns = props => {
                               input:{
                                 phonecontact:memberContacts,
                                 
-                                balance:parseFloat(RecUsrBal) + parseFloat(amounts)                              
+                                balance:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(2)                              
                                 
                                                                   
                                 
@@ -278,7 +271,7 @@ const SMASendNonLns = props => {
                               input:{
                                 id:route.params.id,                                                      
                                
-                                NonLoanAcBal:parseFloat(NonLoanAcBals) - parseFloat(amounts),
+                                NonLoanAcBal:(parseFloat(NonLoanAcBals) - parseFloat(amounts)).toFixed(2),
                                 
                               }
                             })
@@ -301,7 +294,7 @@ const SMASendNonLns = props => {
                     else if((parseFloat(LnBal) + parseFloat(NonLoanAcBals))  < parseFloat(amounts)){Alert.alert('Member input is not as much');}
                     
                     else if (
-                      parseFloat(grpBals) < TotalTransacted 
+                      parseFloat(grpBals) < parseFloat(TotalTransacted) 
                     ) {Alert.alert('Requested amount is more than you have in your account');}
                     
                     else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');}

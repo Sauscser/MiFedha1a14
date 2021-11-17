@@ -2,12 +2,7 @@ import React, {useEffect, useState} from 'react';
 import  {useRoute} from '@react-navigation/native';;
 import {
   
-  createSMLoansCovered,
-  
-  createSMLoansNonCovered,
-  
-  createNonLoans,
-  
+    
   updateCompany,
   
   updateSMAccount,
@@ -32,12 +27,10 @@ import {useNavigation} from '@react-navigation/native';
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+  
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+ 
   TouchableOpacity,
   Alert,
   ActivityIndicator
@@ -49,7 +42,7 @@ const SMASendChmNonLns = props => {
   const [MmbrId, setMmbrId] = useState('');
   const [RecNatId, setRecNatId] = useState('');
   const [SnderPW, setSnderPW] = useState("");
-  const [SendrPhn, setSendrPhn] = useState(null);  
+  
   const [amounts, setAmount] = useState("");
   
   const [Desc, setDesc] = useState("");
@@ -63,7 +56,7 @@ const SMASendChmNonLns = props => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-    setSendrPhn(userInfo.attributes.phone_number);
+    
   }
 
   useEffect(() => {
@@ -99,7 +92,7 @@ const SMASendChmNonLns = props => {
                   const usrPW =accountDtl.data.getSMAccount.pw;
                   const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
                   const SenderSub =accountDtl.data.getSMAccount.owner;
-                  const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
+                  
                   const loanLimits =accountDtl.data.getSMAccount.loanLimit;
                   const names =accountDtl.data.getSMAccount.name;
                   
@@ -115,13 +108,9 @@ const SMASendChmNonLns = props => {
                         }),
                       );
                       
-                        
-                      const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
                       const TotalTransacted = parseFloat(amounts) ;
                       const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
                       
-                      const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
-                      const companyEarnings = CompDtls.data.getCompany.companyEarning;
                       const ttlNonLonssRecChmss = CompDtls.data.getCompany.ttlNonLonssRecChm;
                     
                      
@@ -155,7 +144,7 @@ const SMASendChmNonLns = props => {
                                           mmberNme:names,
                                           GrpName:grpNames,
                                           grpContact: groupContacts,
-                                          contriAmount: amounts,
+                                          contriAmount: parseFloat(amounts).toFixed(2),
                                           memberId:route.params.id,
                                           status: "AccountActive",
                                           owner: ownr
@@ -190,7 +179,7 @@ const SMASendChmNonLns = props => {
                                           input:{
                                             phonecontact:memberContacts,
                                             
-                                            balance:parseFloat(SenderUsrBal)-TotalTransacted 
+                                            balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2)
                                                                            
                                           }
                                         })
@@ -219,8 +208,8 @@ const SMASendChmNonLns = props => {
                                           input:{
                                             grpContact:groupContacts,
                                             
-                                            grpBal:parseFloat(grpBals) + parseFloat(amounts),                                     
-                                            ttlNonLonsRecChm: parseFloat(amounts) + parseFloat(ttlNonLonsRecChmsssssss)
+                                            grpBal:(parseFloat(grpBals) + parseFloat(amounts)).toFixed(2),                                     
+                                            ttlNonLonsRecChm: (parseFloat(amounts) + parseFloat(ttlNonLonsRecChmsssssss)).toFixed(2)
                                                                               
                                             
                                           }
@@ -248,7 +237,7 @@ const SMASendChmNonLns = props => {
                                           input:{
                                             AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                            
-                                            ttlNonLonssRecChm: parseFloat(amounts) + parseFloat(ttlNonLonssRecChmss),
+                                            ttlNonLonssRecChm: (parseFloat(amounts) + parseFloat(ttlNonLonssRecChmss)).toFixed(2),
                                             
                                             
                                           }
@@ -278,8 +267,8 @@ const SMASendChmNonLns = props => {
                                           input:{
                                             id: route.params.id,                                                      
                                            
-                                            NonLoanAcBal:parseFloat(NonLoanAcBals) + parseFloat(amounts)  ,
-                                            ttlNonLonAcBal:parseFloat(ttlNonLonAcBal) + parseFloat(amounts)                                                                                   
+                                            NonLoanAcBal:(parseFloat(NonLoanAcBals) + parseFloat(amounts)).toFixed(2)  ,
+                                            ttlNonLonAcBal:(parseFloat(ttlNonLonAcBal) + parseFloat(amounts)).toFixed(2)                                                                                   
                                             
                                           }
                                         })

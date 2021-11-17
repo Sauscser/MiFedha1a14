@@ -1,34 +1,29 @@
 import React, {useEffect, useState} from 'react';
 
-import {createSMAccount, updateAgent, updateCompany} from '../../../../../src/graphql/mutations';
-import { getAgent, getCompany, getSMAccount, } from '../../../../../src/graphql/queries';
-import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
+import {updateAdvocate, updateCompany} from '../../../../../src/graphql/mutations';
+import { getCompany} from '../../../../../src/graphql/queries';
+import {graphqlOperation, API} from 'aws-amplify';
 
-import {useNavigation} from '@react-navigation/native';
 
 
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+ 
   TextInput,
   ScrollView,
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
+  
   TouchableOpacity,
   Alert,
 } from 'react-native';
 import styles from './styles';
-import { updateBankAdmin } from '../../../../../src/graphql/mutations';
 
 
   
 
 
 const DeregMFAdvForm = (props) => {
-  const navigation = useNavigation();
+  
 
   const [AdvRegNo, setAdvRegNo] = useState("");
   const[isLoading, setIsLoading]= useState(false);
@@ -43,7 +38,7 @@ const DeregMFAdvForm = (props) => {
         graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
         );
         const ActvMFAdv = compDtls.data.getCompany.ttlKFAdvActv
-        const actvMFAdv = compDtls.data.getCompany.ttlKFAdvInActv
+        const ttlKFAdvInActvs = compDtls.data.getCompany.ttlKFAdvInActv
 
         const KFAdminDtls = async () => {
           if(isLoading){
@@ -52,7 +47,7 @@ const DeregMFAdvForm = (props) => {
           setIsLoading(false);
           try{
               await API.graphql(
-                graphqlOperation(updateBankAdmin,{
+                graphqlOperation(updateAdvocate,{
                   input:{
                     advregnu:AdvRegNo,
                     status:"AccountInactive"
@@ -84,7 +79,7 @@ const DeregMFAdvForm = (props) => {
                     input:{
                       AdminId:"BaruchHabaB'ShemAdonai2",
                       ttlKFAdvActv:parseFloat(ActvMFAdv) - 1,
-                      ttlKFAdvInActv:parseFloat(actvMFAdv) + 1,
+                      ttlKFAdvInActv:parseFloat(ttlKFAdvInActvs) + 1,
                     }
                   })
                 )

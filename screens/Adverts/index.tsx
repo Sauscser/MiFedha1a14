@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, ImageBackground, Pressable} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
-import {Auth} from 'aws-amplify';
+
 
 
 const HomeScreen = props => {

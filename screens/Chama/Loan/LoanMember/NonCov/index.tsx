@@ -1,28 +1,21 @@
 import React, {useEffect, useState} from 'react';
 
 import {
-    createCvrdGroupLoans,
-  createFloatAdd,
+  
   createNonCvrdGroupLoans,
-  createSMAccount,
-  createSMLoansCovered,
-  updateAdvocate,
-  updateAgent,
+ 
   updateCompany,
   updateGroup,
   updateGrpMembers,
-  updateSAgent,
+  
   updateSMAccount,
   
 } from '../../../../../src/graphql/mutations';
 
-import {API, Auth, graphqlOperation, DataStore} from 'aws-amplify';
+import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {
-  getAgent,
   getCompany,
   getSMAccount,
-  getSAgent,
-  getAdvocate,
   getGroup,
   getGrpMembers,
 } from '../../../../../src/graphql/queries';
@@ -32,12 +25,10 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+  
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+  
   TouchableOpacity,
   Alert,
   ActivityIndicator,
@@ -58,14 +49,14 @@ const ChmNonCovLns = props => {
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
-  const [SendrPhn, setSendrPhn] = useState(null);
+  
   const [MmbrId, setMmbrId] = useState('');
   const route = useRoute();
 
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-    setSendrPhn(userInfo.attributes.phone_number);
+    
   }
 
   useEffect(() => {
@@ -124,24 +115,16 @@ const fetchChmMbrDtls = async () => {
           );
           
           const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
-          const AdvComs = CompDtls.data.getCompany.AdvCom;
-          const CoverageFees = CompDtls.data.getCompany.CoverageFee;
-          const AdvCovFee =(parseFloat(CoverageFees)*parseFloat(AdvComs))
-          const CompCovFee =1 - (parseFloat(CoverageFees)*parseFloat(AdvComs))
-          const AdvCovAmt = AdvCovFee*parseFloat(amount)
-          const CompCovAmt = CompCovFee*parseFloat(amount)
-          const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)                
           
-          const TotalTransacted = parseFloat(amount) + ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount);             
-          const ttlCompCovEarningss = CompDtls.data.getCompany.ttlCompCovEarnings;
+          const TotalTransacted = (parseFloat(amount)  + parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2);             
+         
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
-          const AdvEarningBals = CompDtls.data.getCompany.AdvEarningBal;
-          const AdvEarnings = CompDtls.data.getCompany.AdvEarning;          
+             
           const ttlChmLnsInAmtNonCovs = CompDtls.data.getCompany.ttlChmLnsInAmtNonCov;          
           const ttlChmLnsInTymsNonCovs = CompDtls.data.getCompany.ttlChmLnsInTymsNonCov;            
           const maxInterestGrps = CompDtls.data.getCompany.maxInterestGrp;  
-          const Interest = ((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod));     
+          const Interest = (((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))).toFixed(2);     
           const maxBLss = CompDtls.data.getCompany.maxBLs;
 
           
@@ -176,9 +159,9 @@ const fetchChmMbrDtls = async () => {
                               graphqlOperation(updateGrpMembers, {
                                 input: {
                                   id: route.params.id,
-                                  LonAmtGven: parseFloat(LonAmtGvens) + parseFloat(amount),
-                                  GrossLnsGvn: parseFloat(GrossLnsGvns) + parseFloat(AmtExp),
-                                  LnBal: parseFloat(LnBals) + parseFloat(amount),                                  
+                                  LonAmtGven: (parseFloat(LonAmtGvens) + parseFloat(amount)).toFixed(2),
+                                  GrossLnsGvn: (parseFloat(GrossLnsGvns) + parseFloat(AmtExp)).toFixed(2),
+                                  LnBal: (parseFloat(LnBals) + parseFloat(amount)).toFixed(2),                                  
                                   loanStatus:"LoanActive",                                    
                                   blStatus: "AccountNotBL",
                                 
@@ -211,15 +194,15 @@ const fetchChmMbrDtls = async () => {
                                     grpContact: groupContacts,
                                     loaneePhn: memberContacts,
                                     repaymentPeriod: RepaymtPeriod,
-                                    amountGiven: amount,
-                                    amountExpectedBack: AmtExp,
-                                    amountExpectedBackWthClrnc:AmtExp,
+                                    amountGiven: parseFloat(amount).toFixed(2),
+                                    amountExpectedBack: parseFloat(AmtExp).toFixed(2),
+                                    amountExpectedBackWthClrnc:parseFloat(AmtExp).toFixed(2),
                                     amountRepaid: 0,
                                     description: Desc,
                                     loaneeName:namess,
                                     loanerName:grpNames,
                                     memberId:route.params.id,
-                                    lonBala:parseFloat(AmtExp),
+                                    lonBala:parseFloat(AmtExp).toFixed(2),
                                     
                                     
                                     
@@ -253,9 +236,9 @@ const fetchChmMbrDtls = async () => {
                                   input:{
                                     grpContact:groupContacts,
                                     TtlActvLonsTmsLnrChmNonCov: parseFloat(TtlActvLonsTmsLnrChmNonCovs)+1,
-                                    TtlActvLonsAmtLnrChmNonCov: parseFloat(TtlActvLonsAmtLnrChmNonCovs) + parseFloat(amount),
+                                    TtlActvLonsAmtLnrChmNonCov: (parseFloat(TtlActvLonsAmtLnrChmNonCovs) + parseFloat(amount)).toFixed(2),
                                                                               
-                                    grpBal:parseFloat(grpBals)-TotalTransacted 
+                                    grpBal:(parseFloat(grpBals)-parseFloat(TotalTransacted)).toFixed(2) 
                                    
                                     
                                   }
@@ -282,8 +265,8 @@ const fetchChmMbrDtls = async () => {
                                   input:{
                                     phonecontact:memberContacts,
                                     TtlActvLonsTmsLneeChmNonCov: parseFloat(TtlActvLonsTmsLneeChmNonCovs) +1 ,
-                                    TtlActvLonsAmtLneeChmNonCov: parseFloat(TtlActvLonsAmtLneeChmNonCovs)+ parseFloat(amount),
-                                    balance:parseFloat(RecUsrBal) + parseFloat(amount)  ,
+                                    TtlActvLonsAmtLneeChmNonCov: (parseFloat(TtlActvLonsAmtLneeChmNonCovs)+ parseFloat(amount)).toFixed(2),
+                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(2)  ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                
@@ -313,11 +296,9 @@ const fetchChmMbrDtls = async () => {
                                   input:{
                                     AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                         
-                                    ttlCompCovEarnings:CompCovAmt + parseFloat(ttlCompCovEarningss),
-                                    AdvEarningBal:AdvCovAmt + parseFloat(AdvEarningBals),                                                                                                                                                     
-                                    AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
-                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals),
-                                    companyEarning: CompCovAmt + parseFloat(companyEarnings),                                                    
+                                    
+                                    companyEarningBal:parseFloat(userLoanTransferFees)*parseFloat(amount),
+                                    companyEarning: parseFloat(userLoanTransferFees)*parseFloat(amount),                                                    
                                     
                                     ttlChmLnsInAmtNonCov: parseFloat(amount) + parseFloat(ttlChmLnsInAmtNonCovs),
                                     
@@ -353,10 +334,10 @@ const fetchChmMbrDtls = async () => {
                         else if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if(Interest > parseFloat(maxInterestGrps))
-                        {Alert.alert('Interest too high:' + Interest.toFixed(5) + "; Recom SI: " + maxInterestGrps+" per day");}
+                        else if(parseFloat(Interest) > parseFloat(maxInterestGrps))
+                        {Alert.alert('Interest too high:' + parseFloat(Interest).toFixed(2) + "; Recom SI: " + maxInterestGrps+" per day");}
                         else if (
-                          parseFloat(grpBals) < TotalTransacted 
+                          parseFloat(grpBals) < parseFloat(TotalTransacted) 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
                         
                         else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');}

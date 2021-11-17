@@ -164,6 +164,9 @@ import Vw2BLCovCredSlsLn from "../../screens/MyAcc/VwCred/2BL/Cov";
 import Vw2BLCredSlsNonCov from "../../screens/MyAcc/VwCred/2BL/NonCov";
 import DeactAdm from "../../screens/MFAdmin/DeactivateMFAdmin/DeactivateMFNdogo";
 
+import ViewAdv from "../../screens/Advocate/SearchAdvocate";
+
+
 
 
 
@@ -176,6 +179,9 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'ViewAdvs'} component={ViewAdv} />
+    
+      
       <Stack.Screen name={'DeactAdms'} component={DeactAdm} />
       <Stack.Screen name={'Vw2RepyCredSlsCovLns'} component={Vw2RepyCredSlsCovLn} />
       <Stack.Screen name={'Vw2RepyCredSlsNonCovLns'} component={Vw2RepyCredSlsNonCovLn} />

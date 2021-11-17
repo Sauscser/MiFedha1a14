@@ -3,23 +3,15 @@ import {useNavigation} from '@react-navigation/native';
 import {
   View,
   Text,
-  ImageBackground,
   Pressable,
-  FlatList,
   SafeAreaView,
-  Dimensions,
 } from 'react-native';
 import styles from './styles';
 
 const KFAdvHome = props => {
   const navigation = useNavigation();
 
-  const goToSalesAdsScreen = () => {
-    navigation.navigate('MFAdvocateHome');
-  };
-
-  
-
+ 
   const MFAdvocateRegs = () => {
     navigation.navigate('MFAdvocateReg');
   };
@@ -28,9 +20,7 @@ const KFAdvHome = props => {
     navigation.navigate('WithdwAdvs');
   };
 
-  const goToAdvrtsChamaLn = () => {
-    navigation.navigate('MFAdvocateHome');
-  }
+  
     const UpdtMFAdvPWss = () => {
       navigation.navigate('UpdtMFAdvPWs');
   

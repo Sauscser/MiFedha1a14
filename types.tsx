@@ -199,6 +199,9 @@ declare global {
       Vw2BLCredSlsNonCovs:undefined;
       DeactAdms:undefined;
 
+      ViewAdvs:{town:string};
+      
+      
     }
   }
 }
@@ -226,7 +229,7 @@ export type RootTabParamList = {
   Loans:undefined;
   CredSlsHms:undefined;
   Chama:undefined;
-  Search:undefined;
+  SearchAdv:undefined
   RegMFNdgScrn:undefined;
   
   

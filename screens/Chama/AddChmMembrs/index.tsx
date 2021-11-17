@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
-import {createGrpMembers, createSMAccount, updateCompany, updateGroup} from '../../../src/graphql/mutations';
-import { getCompany, getGroup, getSMAccount, listSMAccounts, } from '../../../src/graphql/queries';
-import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
+import {createGrpMembers, updateCompany, updateGroup} from '../../../src/graphql/mutations';
+import { getCompany, getGroup, getSMAccount, } from '../../../src/graphql/queries';
+import {Auth, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -10,12 +10,10 @@ import {useNavigation} from '@react-navigation/native';
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+  
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+  
   TouchableOpacity,
   Alert,
   ActivityIndicator,
@@ -39,7 +37,6 @@ const AddChmMmbrs = (props:UserReg) => {
   const [ChmPhn, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
   const [phoneContacts, setPhoneContacts] = useState("");
-  const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
   const [ChmNm, setChmNm] = useState('');
@@ -74,7 +71,6 @@ const AddChmMmbrs = (props:UserReg) => {
 
           const nationalidsss = UsrDtls.data.getSMAccount.nationalid;
           const namess = UsrDtls.data.getSMAccount.name;
-          const owners = UsrDtls.data.getSMAccount.owner;
         
           const gtCompDtls = async () =>{
             if(isLoading){
