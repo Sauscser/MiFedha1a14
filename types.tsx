@@ -201,10 +201,10 @@ declare global {
 
       ViewAdvs:{town:string};
 
-      CompAbts:undefined
-      CompPolicys:undefined;
-      CompPrivacys:undefined;
-      CompTCs:undefined;
+      VwCompAbts:undefined
+      VwCompPolicys:undefined;
+      VwCompPrivacys:undefined;
+      VwCompTCs:undefined;
       
     }
   }

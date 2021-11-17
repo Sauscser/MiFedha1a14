@@ -201,6 +201,7 @@ const UpdtSMPW = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    multiline={true}
                       value={CompPW1}
                       onChangeText={setCompPW1}
                       style={styles.sendLoanInput}

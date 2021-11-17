@@ -212,6 +212,7 @@ const UpdtSMPW = (props) => {
 
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    multiline={true}
                       value={LnAcCod}
                       onChangeText={setLnAcCod}
                       style={styles.sendLoanInput}

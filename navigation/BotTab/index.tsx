@@ -18,6 +18,7 @@ import LoanScreen from '../../screens/Loans';
 import CredtSales from '../../screens/CredSls';
 import ChamaScreen from '../../screens/Chama';
 import EntrAdvLoc from '../../screens/Advocate/EnterAdvLoc';
+import Welc from '../../screens/MyAcc/WelcomePg';
 import TabTwoScreen from '../../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
 import LinkingConfiguration from '../LinkingConfiguration';

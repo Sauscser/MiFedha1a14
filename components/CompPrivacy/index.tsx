@@ -21,7 +21,7 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
    
     return (
                 
-            <ScrollView style = {{alignItems:"center", justifyContent:"center"}}>
+            <ScrollView >
             <Text style = {styles.loanAdvert}>                       
                        {/*loaner details */}   
                        {privacy}               

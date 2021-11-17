@@ -55,7 +55,7 @@ const styles = StyleSheet.create ({
     }, 
 
     loanAdvert: {
-        fontSize:35,
+        fontSize:20,
         justifyContent: 'center',
         color: 'blue',
         

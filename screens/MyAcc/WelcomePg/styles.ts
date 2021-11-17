@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: 'bold',
     color: 'black',
   },
@@ -20,6 +20,22 @@ const styles = StyleSheet.create({
     height: "40%",
     borderRadius: 5,
     marginTop: "25%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    
+    
+    
+  
+  },
+
+  loanTitleView2: {
+    backgroundColor: 'skyblue',
+    marginHorizontal: 10,
+    width: Dimensions.get('screen').width - 20,
+    height: "40%",
+    borderRadius: 5,
+    marginTop: "5%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
@@ -52,17 +68,17 @@ const styles = StyleSheet.create({
   },
   sendLoanButton: {
     backgroundColor: '#fff',
-    height: 45,
+    height: 20,
     borderRadius: 30,
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30,
-    marginBottom: 400,
+    marginTop: 3,
+   
   },
   sendLoanButtonText: {
-    fontSize: 30,
+    fontSize: 15,
     fontWeight: 'bold',
     color: 'black',
   },
