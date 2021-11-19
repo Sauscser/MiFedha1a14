@@ -25,7 +25,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+        
+      },
+      "package": "com.MiFedhaLimited.MiFedha"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

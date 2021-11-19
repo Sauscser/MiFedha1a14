@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     height: "100%",
     resizeMode: 'cover',
   
-    backgroundColor: '#db11ec',
+    backgroundColor: '#e58d29',
   },
   
 
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
 
   kfkubwaView: {
-    backgroundColor: 'purple',
+    backgroundColor: '#e58d29',
     height:"80%",
     borderRadius: 20,
     flex:2,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 
   
   kfkubwaPressableText: {
-    color: 'white',
+    color: 'black',
     fontSize: 15,
     marginTop: 1,
   },
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   
 
   kfkubwaMainView: {
-    backgroundColor: 'skyblue',
+    backgroundColor: '#e58d29',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     height: "20%",

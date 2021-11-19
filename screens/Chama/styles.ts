@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
 
   clientsView: {
-    backgroundColor: 'brown',
+    backgroundColor: '#e58d29',
     marginHorizontal: 5,
     width: Dimensions.get('screen').width - 10,
     height: "18%",
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 
   acEarningsView: {
-    backgroundColor: 'brown',
+    backgroundColor: '#e58d29',
     marginHorizontal: 5,
     width: Dimensions.get('screen').width - 10,
     height: 95,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
 
   viewForClientsAndTitle: {
-    backgroundColor: 'brown',
+    backgroundColor: '#e58d29',
     width:"100%",
     height: "50%",
     borderRadius: 4,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
 
   viewForClientsCategories: {
-    backgroundColor: 'brown',
+    backgroundColor: '#e58d29',
     marginTop:"5%",
     marginBottom:"5%",
     height: "100%",
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   
 
   viewForClientsCategoriesChama2: {
-    backgroundColor: 'purple',
+    backgroundColor: '#72ebd8',
     marginTop:"5%",
   
     height: "30%",
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
 
   viewForClientsCategoriesChama4: {
-    backgroundColor: 'purple',
+    backgroundColor: '#72ebd8',
     
     marginBottom:"5%",
     height: "70%",
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
 
   viewForClientsCategoriesChama3: {
-    backgroundColor: 'green',
+    backgroundColor: 'blue',
     
     height: "100%",
     borderRadius: 4,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
 
   salesPressableText: {
-    color: 'white',
+    color: 'black',
     fontSize: 13,
     
   },
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
 
   ClientsPressables: {
-    backgroundColor: 'purple',
+    backgroundColor: '#72ebd8',
     width:"48%",
     marginLeft:"1%",
     marginRight:"1%",
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
 
   ClientsPressablesLnStts: {
-    backgroundColor: 'purple',
+    backgroundColor: '#72ebd8',
     width:"48%",
     marginLeft:"1%",
     marginRight:"1%",
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
 
 
   viewForAcEarningsPressables: {
-    backgroundColor: 'brown',
+    backgroundColor: '#e58d29',
     marginHorizontal: 15,
     width: Dimensions.get('screen').width - 30,
     height: "60%",
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   },
 
   myMoneyPressables: {
-    backgroundColor: 'purple',
+    backgroundColor: '#72ebd8',
     
     height: "90%",
     borderRadius: 20,
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   },
 
   clientsPressableText: {
-    color: 'white',
+    color: 'black',
     fontSize: 10,
     marginTop: 1,
   },
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
 
   
   acPressableText: {
-    color: 'white',
+    color: 'black',
     fontSize: 12,
     marginTop: 1,
   },

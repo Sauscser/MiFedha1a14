@@ -6,14 +6,14 @@ import HomeNavigator from '../HomeTabNav';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {View, Text} from 'react-native';
-import ads from '../../screens/Adverts';
+
 import KFKubwaScreen from '../../screens/MFKubwa';
 import KFNdogoScreen from '../../screens/MFNdogo';
 import KFAdminScreen from '../../screens/MFAdmin';
 import MFSetting from '../../screens/Settings/SignIn';
 import MFAdmSgnIn from "../../screens/MFAdmin/SignInAdm";
 import MFKw from "../../screens/MFKubwa";
-import MFNd from "../../screens/MFNdogo";
+import Ref from "../../screens/Settings/Reference";
 import AdvSgnIn from "../../screens/Advocate/AdvocateHm";
 
 
@@ -48,8 +48,10 @@ const RootNavigator = props => {
         <Drawer.Screen name="MFNdogos" component={KFNdogoScreen} />
         <Drawer.Screen name="MFKubwa" component={MFKw} />
         <Drawer.Screen name="MFAdvocate" component={AdvSgnIn} />
-        <Drawer.Screen name="MFSettings" component={MFSetting} />
+        
         <Drawer.Screen name="MFAdminstrators" component={MFAdmSgnIn} />
+        <Drawer.Screen name="MFSettings" component={MFSetting} />
+        <Drawer.Screen name="Reference" component={Ref} />
         
         
       </Drawer.Navigator>

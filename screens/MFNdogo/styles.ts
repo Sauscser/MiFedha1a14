@@ -6,12 +6,12 @@ const styles = StyleSheet.create({
     height: "100%",
     resizeMode: 'cover',
   
-    backgroundColor: '#db11ec',
+    backgroundColor: '#e58d29',
   },
   
 
   viewForFloatPressables: {
-    backgroundColor: 'skyblue',
+    backgroundColor: '#e58d29',
     
     flex:10,
     justifyContent: 'center',
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
 
   floatView: {
-    backgroundColor: 'purple',
+    backgroundColor: '#72ebd8',
     height:"80%",
     borderRadius: 20,
     flex:2,
@@ -35,13 +35,13 @@ const styles = StyleSheet.create({
 
   
   floatPressableText: {
-    color: 'white',
+    color: 'black',
     fontSize: 11,
     marginTop: 1,
   },
 
   floatPressableText2: {
-    color: 'white',
+    color: 'black',
     fontSize: 8,
     marginTop: 1,
   },
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   
 
   floatMainView: {
-    backgroundColor: 'skyblue',
+    backgroundColor: '#e58d29',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     height: "17%",
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   floatText: {
     fontSize: 25,
-    color: 'white',
+    color: 'black',
   },
 });
 export default styles;

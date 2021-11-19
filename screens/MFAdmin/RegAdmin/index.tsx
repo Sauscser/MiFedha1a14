@@ -35,7 +35,7 @@ const CreateAdminForm = () => {
     const userInfo = await Auth.currentAuthenticatedUser();
       
     setPhoneContact(userInfo.attributes.phone_number);
-
+    setOwner(userInfo.attributes.sub);
 
       };
       useEffect(() => {
@@ -200,11 +200,11 @@ const CreateAdminForm = () => {
 
                   <View style={styles.sendLoanView}>
                     <TextInput
-                      value={ownr}
-                      onChangeText={setOwner}
+                      value={nationalId}
+                      onChangeText={setNationalid}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>AdminSub</Text>
+                    <Text style={styles.sendLoanText}>National Id</Text>
                   </View>
         
                   <TouchableOpacity

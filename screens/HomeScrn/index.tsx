@@ -26,6 +26,8 @@ const HomeScreen = props => {
       <View
         
         style={styles.image}>
+        
+        
         <Pressable onPress={SMGivNonCovLons} style={styles.loanFriendButton}>
           <Text style={styles.loanAFriendText}>Okolea Beshte</Text>
         </Pressable>

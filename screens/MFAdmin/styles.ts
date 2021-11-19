@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
 
   SalesPressables: {
-    backgroundColor: 'purple',
+    backgroundColor: '#72ebd8',
     marginHorizontal: 20,
     width: Dimensions.get('screen').width - 40,
     height: 60,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
 
   viewForClientsCategories: {
-    backgroundColor: 'brown',
+    backgroundColor: '#e58d29',
     marginTop:"5%",
     marginBottom:"5%",
     height: "100%",
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   },
 
   viewForClientsAndTitle: {
-    backgroundColor: 'brown',
+    backgroundColor: '#e58d29',
     width:"100%",
     height: "50%",
     borderRadius: 4,
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   
 
   clientsView: {
-    backgroundColor: 'brown',
+    backgroundColor: '#e58d29',
     width:"100%",
     height: "21%",
     borderRadius: 4,
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   },
 
   ClientsPressables: {
-    backgroundColor: 'purple',
+    backgroundColor: '#72ebd8',
     width:"32%",
     marginLeft:"1%",
     marginRight:"1%",
@@ -185,13 +185,13 @@ const styles = StyleSheet.create({
   },
 
   clientsPressableText: {
-    color: 'white',
+    color: 'black',
     fontSize: 10,
     marginTop: 1,
   },
 
   acEarningsView: {
-    backgroundColor: 'brown',
+    backgroundColor: '#e58d29',
     marginHorizontal: 5,
     width: Dimensions.get('screen').width - 10,
     height: 95,
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
 
   viewForAcEarningsPressables: {
-    backgroundColor: 'brown',
+    backgroundColor: '#e58d29',
     marginHorizontal: 15,
     width: Dimensions.get('screen').width - 30,
     height: "60%",
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   },
 
   earningsAcPressables: {
-    backgroundColor: 'purple',
+    backgroundColor: '#72ebd8',
     
     height: 60,
     borderRadius: 20,
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
   },
 
   earningsAcPressablesSMNErn: {
-    backgroundColor: 'purple',
+    backgroundColor: '#72ebd8',
     
     height: 60,
     borderRadius: 20,
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
   },
 
   earningsAcPressableText: {
-    color: 'white',
+    color: 'black',
     fontSize: 15,
     marginTop: 1,
   },

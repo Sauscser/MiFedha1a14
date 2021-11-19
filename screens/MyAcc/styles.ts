@@ -6,11 +6,11 @@ const styles = StyleSheet.create({
     height: 650,
     resizeMode: 'cover',
 
-    backgroundColor: '#db11ec',
+    backgroundColor: '#e58d29',
   },
 
   accountView: {
-    backgroundColor: 'skyblue',
+    backgroundColor: '#e58d29',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     height: 150,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
 
   acPressables: {
-    backgroundColor: 'purple',
+    backgroundColor: '#e58d29',
     
     height: "60%",
     borderRadius: 5,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
 
   viewForSalesPressables: {
-    backgroundColor: 'green',
+    backgroundColor: '#72ebd8',
     marginHorizontal: 15,
     width: Dimensions.get('screen').width - 30,
     height: 100,

@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     height: "100%",
     resizeMode: 'cover',
 
-    backgroundColor: '#f5cd07',
+    backgroundColor: '#e58d29',
   },
   title: {
     fontSize: 25,
@@ -14,11 +14,11 @@ const styles = StyleSheet.create({
     color: 'green',
     width: '70%',
     marginLeft: "5%",
-    marginTop: "18%",
+    marginTop: "25%",
   },
 
   loanFriendButton: {
-    backgroundColor: '#355def',
+    backgroundColor: '#72ebd8',
     height: "12%",
     borderRadius: 30,
     marginHorizontal: 10,
@@ -51,12 +51,12 @@ const styles = StyleSheet.create({
   loanAFriendText: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
     
   },
 
   viewForPressables: {
-    backgroundColor: 'skyblue',
+    backgroundColor: '#72ebd8',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     height: "34%",
@@ -66,5 +66,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
   },
+
+  
 });
 export default styles;

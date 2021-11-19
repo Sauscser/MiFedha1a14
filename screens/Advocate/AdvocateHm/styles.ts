@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     height: "100%",
     resizeMode: 'cover',
   
-    backgroundColor: '#db11ec',
+    backgroundColor: '#e58d29',
   },
   
 
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
 
   floatView: {
-    backgroundColor: 'purple',
+    backgroundColor: '#e58d29',
     height:"80%",
     borderRadius: 20,
     flex:2,
@@ -37,13 +37,13 @@ const styles = StyleSheet.create({
 
   
   floatPressableText: {
-    color: 'white',
+    color: 'black',
     fontSize: 15,
     marginTop: 1,
   },
 
   floatPressableText2: {
-    color: 'white',
+    color: 'black',
     fontSize: 11,
     marginTop: 1,
   },
