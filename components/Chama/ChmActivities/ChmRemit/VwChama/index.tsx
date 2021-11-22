@@ -1,6 +1,5 @@
-import { useNavigation, NavigationHelpersContext, } from '@react-navigation/native';
 import React from 'react';
-import {View, Text, ImageBackground, Pressable, TextInput, ScrollView} from 'react-native';
+import {View, Text,    ScrollView} from 'react-native';
 
 import styles from './styles';
 
@@ -12,8 +11,7 @@ export interface ChamaRemitInfo {
       recipientPhn: string,
       receiverName:string,
       memberId:string,
-      amountSent: number,
-    
+      amountSent: number,    
       description: string,
       
       status: string,
@@ -25,7 +23,7 @@ const ChmRemitInfo = (props:ChamaRemitInfo) => {
    const {
       ChamaRemitDtls: {
          id,
-         grpContact,
+         
          memberId,
          recipientPhn,
          receiverName,

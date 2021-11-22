@@ -127,13 +127,16 @@ const CovCredSls = props => {
           
           const ttlSellerLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSellerLnsInActvTymsCov;
           const maxInterestCredSllrs = CompDtls.data.getCompany.maxInterestCredSllr;
-          const maxBLss = CompDtls.data.getCompany.maxBLs;  
+          const maxBLss = CompDtls.data.getCompany.maxBLs; 
+          
           const Interest = ((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))    
 
-          
+          const IntAmt = parseFloat(AmtExp) - parseFloat(amount)
 
-          
-
+          const vats = CompDtls.data.getCompany.vat;
+          const ttlvats = CompDtls.data.getCompany.ttlvat;
+          const vatFee = (parseFloat(vats)*IntAmt)
+            
           
           
           const fetchAdv = async () =>{
@@ -188,12 +191,12 @@ const CovCredSls = props => {
                                   sellerContact:SendrPhn,
                                   buyerContact: RecPhn,                                  
                                   amountSold: amount,
-                                  amountexpectedBack: AmtExp,
-                                  amountExpectedBackWthClrnc:AmtExp,
+                                  amountexpectedBack: (parseFloat(AmtExp) - vatFee).toFixed(2),
+                                  amountExpectedBackWthClrnc:(parseFloat(AmtExp) - vatFee).toFixed(2),
                                   amountRepaid: 0,
                                   buyerName:namess,
                                   SellerName:names,
-                                  lonBala:parseFloat(AmtExp),
+                                  lonBala:(parseFloat(AmtExp) - vatFee).toFixed(2),
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: AdvRegNo,
                                   description: Desc,
@@ -317,7 +320,7 @@ const CovCredSls = props => {
                                     AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
                                     companyEarningBal:CompCovAmt + parseFloat(companyEarningBals),
                                     companyEarning: CompCovAmt + parseFloat(companyEarnings),  
-                                    
+                                    ttlvat:parseFloat(ttlvats)+vatFee,
                                     ttlSellerLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSellerLnsInAmtCovs),
                                     ttlSellerLnsInActvAmtCov: parseFloat(amount) + parseFloat(ttlSellerLnsInActvAmtCovs),
                                     ttlSellerLnsInTymsCov: 1 + parseFloat(ttlSellerLnsInTymsCovs),

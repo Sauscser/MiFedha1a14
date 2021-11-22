@@ -32,7 +32,7 @@ const ViewSMDeposts = (props:SMAccount) => {
    const {
       SMAc: {
          id,
-         advRegNu,
+        
          grpContact,  
          loaneePhn,
          amountGiven,

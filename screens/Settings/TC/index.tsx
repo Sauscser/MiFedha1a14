@@ -102,13 +102,7 @@ const UpdtSMPW = (props) => {
                                         setIsLoading(false);
                                         Alert.alert("You have successfully updated Company TermsNConditions");
                                       } 
-
-                                      if(LnAcCod!==loanAcceptanceCodes)
-                                      {
-                                          Alert.alert("Wrong SM A/C Loan Acceptance Code; Prove authorship of Account");
-                                      }
-                                      
-                                      else if(ownr!==owners)
+if(ownr!==owners)
                                       {
                                           Alert.alert("You are not the author of this Account");
                                       }
@@ -210,17 +204,6 @@ const UpdtSMPW = (props) => {
                   </View>   
 
                 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={LnAcCod}
-                      onChangeText={setLnAcCod}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loan Acceptance Code</Text>
-                  </View>     
-
-                                   
-        
                   <TouchableOpacity
                     onPress={fetchSMDtls}
                     style={styles.sendLoanButton}>

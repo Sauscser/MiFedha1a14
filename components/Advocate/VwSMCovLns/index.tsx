@@ -1,7 +1,5 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList,ScrollView} from 'react-native';
-
-import { API, graphqlOperation, Auth } from 'aws-amplify';
+import React  from 'react';
+import {View, Text, ScrollView} from 'react-native';
 
 import styles from './styles';
 
@@ -39,7 +37,7 @@ const ViewSMDeposts = (props:SMAccount) => {
          amountrepaid,
          lonBala,
          repaymentPeriod,
-         advregnu,
+         
          description,
          createdAt,
          updatedAt,
@@ -98,8 +96,7 @@ const ViewSMDeposts = (props:SMAccount) => {
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
                        Loanee Contact: {loaneePhn}                 
-                    </Text>
-                                                               
+                    </Text>                                                               
                     
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 

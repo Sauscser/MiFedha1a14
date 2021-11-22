@@ -87,7 +87,7 @@ const RegisterMFKubwaAcForm = props => {
                       saBalance: 0,   
                       status: 'AccountActive',
                       owner:ownr,
-                      
+                      MFKWithdrwlFee:0
                     },
                   }),
                 );

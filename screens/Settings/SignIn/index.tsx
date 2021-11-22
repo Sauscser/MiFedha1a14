@@ -78,7 +78,8 @@ const AdminSignIn = (props) => {
             userTransferFee: 0.02,
             userClearanceFee: 0.02,
             CoverageFee:0.025,
-
+            vat:0,
+            ttlvat:0,
             enquiryFee: 0,
             UsrWthdrwlFees: 0.025,
 

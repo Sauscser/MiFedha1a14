@@ -33,6 +33,7 @@ const UpdtSMPW = (props) => {
   const [CompCom, setCompCom] = useState("");
   const [LnAcCod, setLnAcCod] = useState("");
   const [CompPW1, setCompPW1] = useState("");
+  const [VAT, setVAT] = useState("");
   const[isLoading, setIsLoading] = useState(false);
   const[ownr, setownr] = useState(null);
   const[AdvComs, setAdvComs] = useState("");
@@ -89,6 +90,7 @@ const UpdtSMPW = (props) => {
                                                   sagentCom:CompPW2,
                                                   companyCom:CompCom,
                                                   AdvCom:AdvComs,
+                                                  vat:VAT
                                                 }
                                               })
                                             )
@@ -104,13 +106,7 @@ const UpdtSMPW = (props) => {
                                         setIsLoading(false);
                                         Alert.alert("You have successfully updated Company Commissions");
                                       } 
-
-                                      if(LnAcCod!==loanAcceptanceCodes)
-                                      {
-                                          Alert.alert("Wrong SM A/C Loan Acceptance Code; Prove authorship of Account");
-                                      }
-                                      
-                                      else if(ownr!==owners)
+if(ownr!==owners)
                                       {
                                           Alert.alert("You are not the author of this Account");
                                       }
@@ -144,10 +140,22 @@ const UpdtSMPW = (props) => {
               setCompPW2("")
               setLnAcCod("")
               setAdvComs("");
+              setVAT("")
           
             }
         
-        useEffect(() =>{
+            useEffect(() =>{
+              const VATs=VAT
+                if(!VATs && VATs!=="")
+                {
+                  setVAT("");
+                  return;
+                }
+                setVAT(VATs);
+                }, [VAT]
+                 );
+                 
+                 useEffect(() =>{
           const CompComs=CompCom
             if(!CompComs && CompComs!=="")
             {
@@ -218,6 +226,17 @@ const UpdtSMPW = (props) => {
            <View style={styles.sendLoanView2}>
              <TextInput
              keyboardType={"decimal-pad"}
+               value={VAT}
+               onChangeText={setVAT}
+               style={styles.sendLoanInput2}
+               editable={true}
+               multiline={true}></TextInput>
+             <Text style={styles.sendLoanText}>GovVAT</Text>
+           </View>   
+           
+           <View style={styles.sendLoanView2}>
+             <TextInput
+             keyboardType={"decimal-pad"}
                value={CompPW1}
                onChangeText={setCompPW1}
                style={styles.sendLoanInput2}
@@ -225,6 +244,8 @@ const UpdtSMPW = (props) => {
                multiline={true}></TextInput>
              <Text style={styles.sendLoanText}>MFNdogo Com</Text>
            </View>   
+
+           
 
            <View style={styles.sendLoanView2}>
              <TextInput
@@ -259,20 +280,7 @@ const UpdtSMPW = (props) => {
                multiline={true}></TextInput>
              <Text style={styles.sendLoanText}>Company Com</Text>
            </View>   
-                 
-
-           <View style={styles.sendLoanView}>
-             <TextInput
-               value={LnAcCod}
-               onChangeText={setLnAcCod}
-               style={styles.sendLoanInput}
-               editable={true}
-               multiline={true}></TextInput>
-             <Text style={styles.sendLoanText}>Loan Acceptance Code</Text>
-           </View>     
-
-                            
- 
+            
            <TouchableOpacity
              onPress={fetchSMDtls}
              style={styles.sendLoanButton}>

@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: "100%",
     resizeMode: 'cover',
-    top:"2%"
+    top:"2%",
+    flexWrap:"wrap"
   },
   title: {
     fontSize: 45,

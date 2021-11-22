@@ -345,7 +345,7 @@ type Agent
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read] }
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
-      { allow: groups, groups: ["KFKubwa"], operations: [read, create, update] }
+      { allow: groups, groups: ["KFKubwa"], operations: [read, update] }
       { allow: groups, groups: ["KFNdogo"], operations: [read, create, update] }
       {
         allow: groups
@@ -372,6 +372,7 @@ type Agent
   status: Status!
   owner: String!
   town:String!
+  MFNWithdrwlFee:Float!
   
 }
 
@@ -613,6 +614,7 @@ type SAgent
   saBalance: Float!
   status: Status!
   owner: String!
+  MFKWithdrwlFee:Float!
 }
 
 type SAgentWithdrawals
@@ -896,6 +898,10 @@ type Company
   userTransferFee: Float!
   userClearanceFee: Float!
   CoverageFee: Float!
+
+  vat:Float!
+  ttlvat:Float!
+  
 
   enquiryFee: Float!
   UsrWthdrwlFees: Float!

@@ -37,9 +37,7 @@ const MmbrContriInfo = (props:MmbrContriInfo) => {
 
   const navigation = useNavigation;
 
-  const TryChmLn = () => {
-   navigation.navigate("ChmLnsGvnOuts", {grpContact});
-  }
+ 
    return (
        <View style = {styles.container}>              
            

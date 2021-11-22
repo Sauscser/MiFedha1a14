@@ -10,10 +10,8 @@ import styles from './styles';
 export interface SMAccount {
     SMAc: {
        id:string,
-      advregnu: string,
-      
-      amount: number,  
-      
+      advregnu: string,      
+      amount: number,       
       createdAt:string,
       updatedAt:string,
               
@@ -22,10 +20,8 @@ export interface SMAccount {
 const ViewSMDeposts = (props:SMAccount) => {
    const {
       SMAc: {
-         id,
-         advregnu,
-         amount,  
-         
+         id,         
+         amount,         
          createdAt,
          updatedAt,
                  

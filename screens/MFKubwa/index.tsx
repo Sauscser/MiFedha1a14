@@ -43,6 +43,10 @@ const KFKubwaScreen = props => {
     const MFKVwMFNSgnInsss = () => {
       navigation.navigate('MFKVwMFNSgnInss');
     };
+
+    const UpdateMFKComss = () => {
+      navigation.navigate('UpdateMFKComs');
+    };
   
     
 
@@ -110,6 +114,10 @@ const KFKubwaScreen = props => {
 
             <Pressable onPress={VwMFKWthdrwlsSgnInss} style={styles.kfkubwaView}>
               <Text style={styles.kfkubwaPressableText}>My Withdrawals</Text>
+            </Pressable>
+
+            <Pressable onPress={UpdateMFKComss} style={styles.kfkubwaView}>
+              <Text style={styles.kfkubwaPressableText}>UpdtCom</Text>
             </Pressable>
           </View>
         </View>

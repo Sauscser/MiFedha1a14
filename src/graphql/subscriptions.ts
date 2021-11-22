@@ -492,6 +492,7 @@ export const onCreateAgent = /* GraphQL */ `
       status
       owner
       town
+      MFNWithdrwlFee
       createdAt
       updatedAt
     }
@@ -516,6 +517,7 @@ export const onUpdateAgent = /* GraphQL */ `
       status
       owner
       town
+      MFNWithdrwlFee
       createdAt
       updatedAt
     }
@@ -540,6 +542,7 @@ export const onDeleteAgent = /* GraphQL */ `
       status
       owner
       town
+      MFNWithdrwlFee
       createdAt
       updatedAt
     }
@@ -751,6 +754,7 @@ export const onCreateSAgent = /* GraphQL */ `
       saBalance
       status
       owner
+      MFKWithdrwlFee
       createdAt
       updatedAt
     }
@@ -770,6 +774,7 @@ export const onUpdateSAgent = /* GraphQL */ `
       saBalance
       status
       owner
+      MFKWithdrwlFee
       createdAt
       updatedAt
     }
@@ -789,6 +794,7 @@ export const onDeleteSAgent = /* GraphQL */ `
       saBalance
       status
       owner
+      MFKWithdrwlFee
       createdAt
       updatedAt
     }
@@ -1052,6 +1058,8 @@ export const onCreateCompany = /* GraphQL */ `
       userTransferFee
       userClearanceFee
       CoverageFee
+      vat
+      ttlvat
       enquiryFee
       UsrWthdrwlFees
       ttlNonLonssRecSM
@@ -1185,6 +1193,8 @@ export const onUpdateCompany = /* GraphQL */ `
       userTransferFee
       userClearanceFee
       CoverageFee
+      vat
+      ttlvat
       enquiryFee
       UsrWthdrwlFees
       ttlNonLonssRecSM
@@ -1318,6 +1328,8 @@ export const onDeleteCompany = /* GraphQL */ `
       userTransferFee
       userClearanceFee
       CoverageFee
+      vat
+      ttlvat
       enquiryFee
       UsrWthdrwlFees
       ttlNonLonssRecSM

@@ -1,7 +1,6 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList,ScrollView} from 'react-native';
+import React from 'react';
+import {View, Text, ScrollView} from 'react-native';
 
-import { API, graphqlOperation, Auth } from 'aws-amplify';
 
 import styles from './styles';
 
@@ -22,7 +21,7 @@ export interface SMAccount {
 const ViewSMDeposts = (props:SMAccount) => {
    const {
       SMAc: {
-         advregnu,
+         
          TtlEarnings,  
          advBal,
          createdAt,
@@ -33,12 +32,7 @@ const ViewSMDeposts = (props:SMAccount) => {
  
     return (
         <View style = {styles.container}>              
-            
-            
-          
-          
-                
-                  
+              
             
             <ScrollView >              
                        

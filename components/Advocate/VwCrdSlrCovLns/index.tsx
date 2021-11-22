@@ -1,7 +1,5 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList,ScrollView} from 'react-native';
-
-import { API, graphqlOperation, Auth } from 'aws-amplify';
+import React from 'react';
+import {View, Text, ScrollView} from 'react-native';
 
 import styles from './styles';
 
@@ -48,7 +46,7 @@ const ViewSMDeposts = (props:SMAccount) => {
          amountSold,
          amountexpectedBack,
          amountRepaid,
-         advregnu,
+         
          repaymentPeriod,  
          lonBala,
          description,

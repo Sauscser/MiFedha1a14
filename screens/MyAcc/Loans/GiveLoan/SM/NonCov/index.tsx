@@ -120,7 +120,11 @@ const SMASendNonCovLns = props => {
           const maxBLss = CompDtls.data.getCompany.maxBLs;
           const Interest = ((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod));
           
-          
+          const IntAmt = parseFloat(AmtExp) - parseFloat(amount)
+
+          const vats = CompDtls.data.getCompany.vat;
+          const ttlvats = CompDtls.data.getCompany.ttlvat;
+          const vatFee = (parseFloat(vats)*IntAmt)
           
               
 
@@ -225,7 +229,7 @@ const SMASendNonCovLns = props => {
                                     phonecontact:RecPhn,
                                     TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
                                     TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(amount),
-                                    balance:parseFloat(RecUsrBal) + parseFloat(amount)  ,
+                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount) - vatFee).toFixed(2),
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                
@@ -259,7 +263,7 @@ const SMASendNonCovLns = props => {
                                     companyEarning: userLoanTransferFees * parseFloat(amount) + parseFloat(companyEarnings),                                                    
                                     
                                     ttlSMLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInAmtCovs),
-                                    
+                                    ttlvat:parseFloat(ttlvats)+vatFee,
                                     ttlSMLnsInTymsCov: 1 + parseFloat(ttlSMLnsInTymsCovs),
                                     
                                     

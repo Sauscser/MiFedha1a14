@@ -103,6 +103,7 @@ import { getCompany, getSAgent, getSMAccount, listSMAccounts } from '../../../sr
                     latitude: lat,
                     longitude: lon,              
                     agentEarningBal: 0,
+                    MFNWithdrwlFee:0,
                     town:twn,      
                     owner:ownr,
                     status: 'AccountActive',

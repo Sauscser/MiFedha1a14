@@ -68,6 +68,9 @@ const SettinsHm = props => {
     navigation.navigate('Commissionss');
   };
 
+  const UpdtVatComsss = () => {
+    navigation.navigate('UpdtVatComss');
+  };
   
 
   return (
@@ -230,6 +233,14 @@ const SettinsHm = props => {
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         ViewComp
+                      </Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={UpdtVatComsss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        WithdrwVAT
                       </Text>
                     </Pressable>
                   </View>

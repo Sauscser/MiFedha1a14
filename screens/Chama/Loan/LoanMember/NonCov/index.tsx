@@ -127,9 +127,11 @@ const fetchChmMbrDtls = async () => {
           const Interest = (((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))).toFixed(2);     
           const maxBLss = CompDtls.data.getCompany.maxBLs;
 
+          const IntAmt = parseFloat(AmtExp) - parseFloat(amount)
           
-          
-          
+          const vats = CompDtls.data.getCompany.vat;
+          const vatFee = (parseFloat(vats)*IntAmt)
+          const ttlvats = CompDtls.data.getCompany.ttlvat;
               
 
               const fetchRecUsrDtls = async () => {
@@ -266,7 +268,7 @@ const fetchChmMbrDtls = async () => {
                                     phonecontact:memberContacts,
                                     TtlActvLonsTmsLneeChmNonCov: parseFloat(TtlActvLonsTmsLneeChmNonCovs) +1 ,
                                     TtlActvLonsAmtLneeChmNonCov: (parseFloat(TtlActvLonsAmtLneeChmNonCovs)+ parseFloat(amount)).toFixed(2),
-                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(2)  ,
+                                    balance:(parseFloat(parseFloat(RecUsrBal) + parseFloat(amount).toFixed(2)) - vatFee).toFixed(2),
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                
@@ -301,7 +303,7 @@ const fetchChmMbrDtls = async () => {
                                     companyEarning: parseFloat(userLoanTransferFees)*parseFloat(amount),                                                    
                                     
                                     ttlChmLnsInAmtNonCov: parseFloat(amount) + parseFloat(ttlChmLnsInAmtNonCovs),
-                                    
+                                    ttlvat:parseFloat(ttlvats)+vatFee,
                                     ttlChmLnsInTymsNonCov: 1 + parseFloat(ttlChmLnsInTymsNonCovs),
                                           
                                     

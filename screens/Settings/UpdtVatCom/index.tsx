@@ -62,18 +62,9 @@ const UpdtSMPW = (props) => {
                 );
                   
                 const owners = compDtls.data.getCompany.owner 
+                const ttlvats = compDtls.data.getCompany.ttlvat 
                       
-                const fetchSMDtls = async () =>{
-                  if(isLoading){
-                    return;
-                  }
-                  setIsLoading(true);
-                  try{
-                    const compDtls :any= await API.graphql(
-                      graphqlOperation(getSMAccount,{phonecontact:PhoneContact})
-                      );
-                      const loanAcceptanceCodes = compDtls.data.getSMAccount.loanAcceptanceCode   
-                               
+                
                           
                                       const updtSMDtls = async () => {
                                         if(isLoading){
@@ -85,8 +76,7 @@ const UpdtSMPW = (props) => {
                                               graphqlOperation(updateCompany,{
                                                 input:{
                                                   AdminId:"BaruchHabaB'ShemAdonai2",
-                                                  pw1:CompPW1,
-                                                  pw2:CompPW2
+                                                  ttlvat:parseFloat(ttlvats) - parseFloat(CompPW2)
                                                 }
                                               })
                                             )
@@ -102,7 +92,13 @@ const UpdtSMPW = (props) => {
                                         setIsLoading(false);
                                         Alert.alert("You have successfully updated Company PassWords");
                                       } 
- if(ownr!==owners)
+
+                                      if(parseFloat(CompPW2) >ttlvats)
+                                      {
+                                          Alert.alert("Requested amount more than balance");
+                                      }
+                                      
+                                      else if(ownr!==owners)
                                       {
                                           Alert.alert("You are not the author of this Account");
                                       }
@@ -112,14 +108,7 @@ const UpdtSMPW = (props) => {
                                       
                                       else {updtSMDtls();}
 
-                                    } catch (error) {
-                                      if(error){
-                                        Alert.alert("Check internet; otherwise Usr doesnt exist")
-                                        return
-                                      }
-                                    }}
-                                    await fetchSMDtls();
-                                
+                                    
 
             } catch (error) {
                 if(error){
@@ -199,24 +188,25 @@ const UpdtSMPW = (props) => {
                       onChangeText={setCompPW1}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>New PW1</Text>
+                    <Text style={styles.sendLoanText}>PassWord</Text>
                   </View>   
 
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    keyboardType={"decimal-pad"}
                       value={CompPW2}
                       onChangeText={setCompPW2}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>New PW2</Text>
+                    <Text style={styles.sendLoanText}>Amount</Text>
                   </View>         
-    
-        
+
+                  
                   <TouchableOpacity
                     onPress={fetchSMDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
-                      Click to Update Comp Details
+                      Click to Withdraw
                     </Text>
                     {isLoading && <ActivityIndicator color={'Blue'} size="large"/>}
                   </TouchableOpacity>

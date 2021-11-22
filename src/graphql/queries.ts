@@ -375,6 +375,7 @@ export const getAgent = /* GraphQL */ `
       status
       owner
       town
+      MFNWithdrwlFee
       createdAt
       updatedAt
     }
@@ -412,6 +413,7 @@ export const listAgents = /* GraphQL */ `
         status
         owner
         town
+        MFNWithdrwlFee
         createdAt
         updatedAt
       }
@@ -593,6 +595,7 @@ export const getSAgent = /* GraphQL */ `
       saBalance
       status
       owner
+      MFKWithdrwlFee
       createdAt
       updatedAt
     }
@@ -625,6 +628,7 @@ export const listSAgents = /* GraphQL */ `
         saBalance
         status
         owner
+        MFKWithdrwlFee
         createdAt
         updatedAt
       }
@@ -876,6 +880,8 @@ export const getCompany = /* GraphQL */ `
       userTransferFee
       userClearanceFee
       CoverageFee
+      vat
+      ttlvat
       enquiryFee
       UsrWthdrwlFees
       ttlNonLonssRecSM
@@ -1022,6 +1028,8 @@ export const listCompanys = /* GraphQL */ `
         userTransferFee
         userClearanceFee
         CoverageFee
+        vat
+        ttlvat
         enquiryFee
         UsrWthdrwlFees
         ttlNonLonssRecSM

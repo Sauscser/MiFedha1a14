@@ -205,6 +205,11 @@ declare global {
       VwCompPolicys:undefined;
       VwCompPrivacys:undefined;
       VwCompTCs:undefined;
+     
+      UpdateMFKComs:undefined;
+      UpdateMFNComs:undefined;
+
+      UpdtVatComss:undefined;
       
     }
   }
@@ -235,6 +240,7 @@ export type RootTabParamList = {
   Chama:undefined;
   SearchAdv:undefined
   RegMFNdgScrn:undefined;
+  Homes:undefined
   
   
   

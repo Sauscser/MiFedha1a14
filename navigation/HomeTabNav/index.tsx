@@ -171,6 +171,10 @@ import VwCompTC from "../../screens/Settings/VwCompTC";
 
 import ViewAdv from "../../screens/Advocate/SearchAdvocate";
 
+import UpdateMFKCom from "../../screens/MFKubwa/UpdateMFKCom";
+import UpdateMFNCom from "../../screens/MFNdogo/UpdateMFNCom";
+
+import UpdtVatComs from "../../screens/Settings/UpdtVatCom";
 
 
 
@@ -184,6 +188,11 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'UpdtVatComss'} component={UpdtVatComs} />
+      
+      <Stack.Screen name={'UpdateMFKComs'} component={UpdateMFKCom} />
+      <Stack.Screen name={'UpdateMFNComs'} component={UpdateMFNCom} />
+      
       <Stack.Screen name={'VwCompAbts'} component={VwCompAbt} />
       <Stack.Screen name={'VwCompPolicys'} component={VwCompPolicy} />
       <Stack.Screen name={'VwCompPrivacys'} component={VwCompPrivacy} />

@@ -141,9 +141,12 @@ const fetchChmMbrDtls = async () => {
           const ttlChmLnsInAmtCovs = CompDtls.data.getCompany.ttlChmLnsInAmtCov;          
           const ttlChmLnsInTymsCovs = CompDtls.data.getCompany.ttlChmLnsInTymsCov;            
           const maxInterestGrps = CompDtls.data.getCompany.maxInterestGrp;  
+          const IntAmt = parseFloat(AmtExp) - parseFloat(amount)
           const Interest = (((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))).toFixed(2);     
           const maxBLss = CompDtls.data.getCompany.maxBLs;
-
+          const vats = CompDtls.data.getCompany.vat;
+          const vatFee = (parseFloat(vats)*IntAmt)
+          const ttlvats = CompDtls.data.getCompany.ttlvat;
           
           
           const fetchAdv = async () =>{
@@ -296,7 +299,7 @@ const fetchChmMbrDtls = async () => {
                                     phonecontact:memberContacts,
                                     TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
                                     TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ parseFloat(amount)).toFixed(2),
-                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(2)  ,
+                                    balance:(parseFloat(parseFloat(RecUsrBal) + parseFloat(amount).toFixed(2)) - vatFee).toFixed(2),
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                
@@ -333,7 +336,7 @@ const fetchChmMbrDtls = async () => {
                                     companyEarning: CompCovAmt + parseFloat(companyEarnings),                                                    
                                     
                                     ttlChmLnsInAmtCov: parseFloat(amount) + parseFloat(ttlChmLnsInAmtCovs),
-                                    
+                                    ttlvat:parseFloat(ttlvats)+vatFee,
                                     ttlChmLnsInTymsCov: 1 + parseFloat(ttlChmLnsInTymsCovs),
                                           
                                     

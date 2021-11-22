@@ -1,7 +1,6 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList,ScrollView} from 'react-native';
+import React from 'react';
+import {View, Text,ScrollView} from 'react-native';
 
-import { API, graphqlOperation, Auth } from 'aws-amplify';
 
 import styles from './styles';
 
