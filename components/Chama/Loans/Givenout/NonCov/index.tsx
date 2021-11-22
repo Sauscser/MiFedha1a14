@@ -1,6 +1,5 @@
-import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import {View, Text, ImageBackground, Pressable, TextInput, ScrollView} from 'react-native';
+import {View, Text,    ScrollView} from 'react-native';
 import styles from './styles';
 
 
@@ -34,7 +33,7 @@ const ChmNonCvLnSttsSent = (props:ChmNonCvLnSttusSent) => {
     amountRepaid,
     lonBala,
     repaymentPeriod,
-    grpContact,
+    
     status,
     loaneeName,
     memberId,
@@ -44,10 +43,7 @@ const ChmNonCvLnSttsSent = (props:ChmNonCvLnSttusSent) => {
     updatedAt,
    }} = props ;
 
-   const navigation = useNavigation();
-
-   const TryChmLn = () => {
-      navigation.navigate("ChmLnsGvnOutNonCovs", {grpContact});}
+   
     return (
         <View style = {styles.container}>              
             <View style = {{alignItems:"center"}}>

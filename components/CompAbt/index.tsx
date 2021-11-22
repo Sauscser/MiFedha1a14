@@ -1,6 +1,5 @@
-import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import {View, Text, ImageBackground, Pressable, TextInput, ScrollView} from 'react-native';
+import { Text,    ScrollView} from 'react-native';
 import styles from './styles';
 
 
@@ -16,7 +15,7 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
       about,
       
    }} = props ;
-   const navigation = useNavigation();
+  
 
    
     return (

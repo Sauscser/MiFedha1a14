@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create ({
     container: {
@@ -6,21 +6,7 @@ const styles = StyleSheet.create ({
         
     },
 
-    image: {
-        width:'100%',
-        aspectRatio: 3/2,
-        resizeMode: 'cover',
-        alignItems: 'center',
-        borderRadius: 20,   
-        
-
-    },
-    ownerName: {
-        fontSize: 13,
-        fontWeight: '900',
-        color: '#ad1c65'
-    },
-
+    
     ownerContact: {
         fontSize: 13,
         fontWeight: '900',
@@ -47,20 +33,5 @@ const styles = StyleSheet.create ({
     },
 
     
-
-    loanerotherdescriptions: {
-        fontSize: 13,
-        fontWeight: '900',
-        color: '#420423'
-    }, 
-
-    loanAdvert: {
-        fontSize:35,
-        justifyContent: 'center',
-        color: 'blue',
-        
-        top: 2
-    }
-
 });
 export default styles

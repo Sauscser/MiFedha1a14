@@ -1,6 +1,5 @@
-import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import {View, Text, ImageBackground, Pressable, TextInput, ScrollView} from 'react-native';
+import {View, Text,    ScrollView} from 'react-native';
 
 import styles from './styles';
 
@@ -46,11 +45,7 @@ const ChmCvLnSttsSent = (props:ChmCvLnSttusSent) => {
     updatedAt,
    }} = props ;
 
-   const navigation = useNavigation();
-
-   const TryChmLn = () => {
-      navigation.navigate("ChmLnsGvnOuts", {grpContact});
-   }
+   
     return (
         <View style = {styles.container}>              
             <View style = {{alignItems:"center"}}>
@@ -61,10 +56,7 @@ const ChmCvLnSttsSent = (props:ChmCvLnSttusSent) => {
             </View>
             
             <ScrollView >              
-                       
-                        
-
-                    
+                   
                      <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
                        Loan Id: {id}                 

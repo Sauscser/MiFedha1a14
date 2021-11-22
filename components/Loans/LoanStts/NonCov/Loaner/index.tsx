@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ImageBackground, Pressable, TextInput, ScrollView} from 'react-native';
+import {View, Text,    ScrollView} from 'react-native';
 import styles from './styles';
 
 
@@ -46,12 +46,9 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                        {loanername}               
                     </Text>
             </View>
-                  
-                  
-            
+             
             <ScrollView >              
-                       
-                        
+                     
                      <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
                        Loan Id: {id}                 

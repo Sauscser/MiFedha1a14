@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import {View, Text, ImageBackground, Pressable, TextInput, ScrollView} from 'react-native';
+import {View, Text,  ScrollView} from 'react-native';
 
 import styles from './styles';
 
@@ -72,20 +72,20 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                     </Text>   
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       NonLoans Ac Bal (Ksh): {NonLonAcBal.toFixed(2)}
+                       NonLoans Ac Bal (Ksh): {NonLoanAcBal.toFixed(2)}
                     </Text>   
                     
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Total Loans Ac Bal (Ksh): {ttlLoanAcBal.toFixed(2)}
+                       Total Loans Ac Bal (Ksh): {ttlNonLonAcBal.toFixed(2)}
                     </Text>   
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Loans Ac Bal (Ksh): {loanAcBal.toFixed(2)}
+                       Loans Ac Bal (Ksh): {LnBal.toFixed(2)}
                     </Text>   
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Loans Ac Bal (Ksh): {loanAcBal.toFixed(2)}
+                       Total Loans Ac Bal (Ksh): {LonAmtGven.toFixed(2)}
                     </Text>
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}

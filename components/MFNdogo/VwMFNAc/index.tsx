@@ -1,10 +1,8 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList,ScrollView} from 'react-native';
+import React from 'react';
+import {View, Text,   ScrollView} from 'react-native';
 
-import { API, graphqlOperation, Auth } from 'aws-amplify';
 
 import styles from './styles';
-import { getSMAccount } from '../../../src/graphql/queries';
 
 
 export interface SMAccount {
@@ -30,18 +28,14 @@ export interface SMAccount {
 const ViewSMDeposts = (props:SMAccount) => {
    const {
       SMAc: {
-         phonecontact,
-
-    
+         
          ttlEarnings,
    
-         email,
          sagentregno,
          TtlFltIn,
          TtlFltOut,
          floatBal,
-         latitude,
-         longitude,
+         
          agentEarningBal,
          createdAt,
          updatedAt,
@@ -51,12 +45,7 @@ const ViewSMDeposts = (props:SMAccount) => {
  
     return (
         <View style = {styles.container}>              
-            
-            
-         
-                  
-                  
-            
+          
             <ScrollView >              
                        
                         

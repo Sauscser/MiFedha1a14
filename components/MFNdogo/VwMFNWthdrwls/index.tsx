@@ -1,10 +1,8 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList,ScrollView} from 'react-native';
+import React from 'react';
+import {View, Text,   ScrollView} from 'react-native';
 
-import { API, graphqlOperation, Auth } from 'aws-amplify';
 
 import styles from './styles';
-import { getSMAccount } from '../../../src/graphql/queries';
 
 
 export interface SMAccount {
@@ -25,7 +23,6 @@ const ViewSMDeposts = (props:SMAccount) => {
       SMAc: {
          id,
          
-         agContact,
          Amount,
          
          createdAt,
@@ -44,14 +41,9 @@ const ViewSMDeposts = (props:SMAccount) => {
                        Transaction ID {id}             
                     </Text>
             </View>
-                  
-                  
-            
+              
             <ScrollView >              
-                       
-                        
-                     
-
+                
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
                        Amount (Ksh): {Amount.toFixed(2)}                 

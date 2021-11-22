@@ -1,6 +1,6 @@
-import { useNavigation } from '@react-navigation/core';
+
 import React from 'react';
-import {View, Text, ImageBackground, Pressable, TextInput, ScrollView} from 'react-native';
+import {View, Text,   ScrollView} from 'react-native';
 
 import styles from './styles';
 
@@ -74,11 +74,6 @@ const ChmInfo = (props:ChmaInfo) => {
       description,
    }} = props ;
 
-   const navigation = useNavigation();
-
-   const TryChmLn = () => {
-      navigation.navigate("ChmLnsGvnOuts", {grpContact});
-   }
     return (
         <View style = {styles.container}>              
             

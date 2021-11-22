@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create ({
     container: {
@@ -6,15 +6,7 @@ const styles = StyleSheet.create ({
         
     },
 
-    image: {
-        width:'100%',
-        aspectRatio: 3/2,
-        resizeMode: 'cover',
-        alignItems: 'center',
-        borderRadius: 20,   
-        
-
-    },
+    
     ownerName: {
         fontSize: 15,
         fontWeight: '900',
