@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View, Text, ImageBackground, Pressable} from 'react-native';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
@@ -6,7 +6,7 @@ import {Auth} from 'aws-amplify';
 
 const HomeScreen = props => {
   const navigation = useNavigation();
-
+const [id,setid] = useState("")
   
 
   const SMGivNonCovLons = () => {
@@ -14,7 +14,7 @@ const HomeScreen = props => {
   };
 
   const ChmNonCovLonss = () => {
-    navigation.navigate('ChmNonCovLons');
+    navigation.navigate('ChmNonCovLons', {id});
   };
 
   const NonCovCredSlsss = () => {

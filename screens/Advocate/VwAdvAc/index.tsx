@@ -1,7 +1,7 @@
-import React, {useState, useRef,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, FlatList} from 'react-native';
 
-import { API, graphqlOperation, Auth } from 'aws-amplify';
+import { API, graphqlOperation,  } from 'aws-amplify';
 import NonLnSent from "../../../components/Advocate/VwAc";
 import styles from './styles';
 

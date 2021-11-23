@@ -5,17 +5,21 @@ const styles = StyleSheet.create({
     width: '100%',
     height: "100%",
     resizeMode: 'cover',
-    top:"2%"
+    top:"2%",
+    
+    alignItems: 'center',
+    flexDirection: 'column',
   },
 
   clientsView: {
     backgroundColor: '#e58d29',
-    marginHorizontal: 5,
-    width: Dimensions.get('screen').width - 10,
+    marginHorizontal: "2%",
+    
     height: "18%",
     borderRadius: 4,
-    marginTop:4,
-    
+    marginTop:"2%",
+    marginLeft:"2%",
+    marginRight:"2%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
@@ -23,11 +27,12 @@ const styles = StyleSheet.create({
 
   acEarningsView: {
     backgroundColor: '#e58d29',
-    marginHorizontal: 5,
-    width: Dimensions.get('screen').width - 10,
-    height: 95,
+    marginHorizontal: "2%",
+    
+    height: "18%",
     borderRadius: 20,
-
+    marginLeft:"2%",
+    marginRight:"2%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
@@ -39,7 +44,8 @@ const styles = StyleSheet.create({
     width:"100%",
     height: "50%",
     borderRadius: 4,
-   
+    marginTop:"2%",
+    marginBottom:"2%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
@@ -51,13 +57,14 @@ const styles = StyleSheet.create({
     marginTop:"5%",
     marginBottom:"5%",
     height: "100%",
+    width:"32%",
     borderRadius: 4,
     marginLeft:"0.5%",
     marginRight:"0.5%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    width: "33%"
+    
   },
 
   
@@ -93,7 +100,7 @@ const styles = StyleSheet.create({
   viewForClientsCategoriesChama3: {
     backgroundColor: 'blue',
     
-    height: "100%",
+    height: "80%",
     borderRadius: 4,
     marginLeft:"2%",
     marginRight:"2%",
@@ -112,7 +119,7 @@ const styles = StyleSheet.create({
   viewForClientsPressables: {
     backgroundColor: 'pink',
     
-    height: "100%",
+    height: "95%",
     borderRadius: 4,
     
     justifyContent: 'center',
@@ -157,8 +164,7 @@ const styles = StyleSheet.create({
 
   viewForAcEarningsPressables: {
     backgroundColor: '#e58d29',
-    marginHorizontal: 15,
-    width: Dimensions.get('screen').width - 30,
+    marginHorizontal: "2%",
     height: "60%",
     borderRadius: 20,
     marginTop: "0.5%",
@@ -186,6 +192,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginTop: 1,
   },
+  
   clientsPressableTextStts: {
     color: 'white',
     fontSize: 7,
@@ -205,9 +212,6 @@ const styles = StyleSheet.create({
     marginTop: 1,
   },
 
-  accountText: {
-    fontSize: 25,
-    color: 'white',
-  },
+  
 });
 export default styles;

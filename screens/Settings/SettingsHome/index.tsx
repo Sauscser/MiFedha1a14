@@ -72,6 +72,8 @@ const SettinsHm = props => {
     navigation.navigate('UpdtVatComss');
   };
   
+  
+  
 
   return (
     <SafeAreaView>
@@ -243,6 +245,8 @@ const SettinsHm = props => {
                         WithdrwVAT
                       </Text>
                     </Pressable>
+
+                   
                   </View>
                 </View>
 

@@ -175,6 +175,7 @@ import UpdateMFKCom from "../../screens/MFKubwa/UpdateMFKCom";
 import UpdateMFNCom from "../../screens/MFNdogo/UpdateMFNCom";
 
 import UpdtVatComs from "../../screens/Settings/UpdtVatCom";
+import AdjustUsrLimits from "../../screens/MyAcc/AdjustUsrLimits";
 
 
 
@@ -188,8 +189,9 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
-      <Stack.Screen name={'UpdtVatComss'} component={UpdtVatComs} />
+      <Stack.Screen name={'AdjustUsrLimitss'} component={AdjustUsrLimits} />
       
+      <Stack.Screen name={'UpdtVatComss'} component={UpdtVatComs} />      
       <Stack.Screen name={'UpdateMFKComs'} component={UpdateMFKCom} />
       <Stack.Screen name={'UpdateMFNComs'} component={UpdateMFNCom} />
       

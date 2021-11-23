@@ -96,11 +96,11 @@ const AdvWthdwl = props => {
                               );
             
                     } catch (error) {
-                      if(!error){
-                        Alert.alert("Account deactivated successfully")
+                      if(error){
                         
-                    } 
-                    else{Alert.alert("Please check your internet connection")
+                        
+                    
+                    Alert.alert("Please check your entered info")
                     return;}
                     }
                     setIsLoading(false);
@@ -179,7 +179,7 @@ const AdvWthdwl = props => {
                     } 
 
                     else if (ownr!==owners) {
-                      Alert.alert("You cannot withdraw from another account")
+                      Alert.alert("This is not your Advocate Account")
                       return;
                     }  
 
@@ -199,7 +199,7 @@ const AdvWthdwl = props => {
       
     }     
     catch (e) {
-      if (e){Alert.alert("Check your internet connection")
+      if (e){Alert.alert("This Advocate does not exist")
       return;}
          
     }   
@@ -262,10 +262,10 @@ const AdvWthdwl = props => {
 
 
   return (
-    <View>
-      <View>
+    
         
-        <ScrollView>
+        <ScrollView
+        showsVerticalScrollIndicator={false}>
           <View style={styles.amountTitleView}>
             <Text style={styles.title}>Fill Account Details Below</Text>
           </View>
@@ -304,8 +304,7 @@ const AdvWthdwl = props => {
             {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
           </TouchableOpacity>
         </ScrollView>
-      </View>
-    </View>
+      
   );
 };
 

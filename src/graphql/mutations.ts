@@ -85,6 +85,7 @@ export const createSMAccount = /* GraphQL */ `
       MaxTymsIHvBL
       loanStatus
       acStatus
+      deActvtnReason
       blStatus
       loanLimit
       nonLonLimit
@@ -179,6 +180,7 @@ export const updateSMAccount = /* GraphQL */ `
       MaxTymsIHvBL
       loanStatus
       acStatus
+      deActvtnReason
       blStatus
       loanLimit
       nonLonLimit
@@ -273,6 +275,7 @@ export const deleteSMAccount = /* GraphQL */ `
       MaxTymsIHvBL
       loanStatus
       acStatus
+      deActvtnReason
       blStatus
       loanLimit
       nonLonLimit

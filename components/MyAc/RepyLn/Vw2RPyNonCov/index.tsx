@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import {View, Text, ImageBackground, Pressable, TextInput, ScrollView} from 'react-native';
+import {View, Text,  Pressable,  } from 'react-native';
 import styles from './styles';
 
 
@@ -25,17 +25,11 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
    const {
     Loanee: {
     id,
-    loaneePhn,
-    amountgiven,
-    amountexpected,
-    amountrepaid,
+    
     lonBala,
-    repaymentPeriod,
+   
     loanername,
-    createdAt,
-    updatedAt,
-    status,
-    description,
+    
    }} = props ;
 
    const navigation = useNavigation();

@@ -64,6 +64,7 @@ const AdminSignIn = (props) => {
             recom: "Be alert for any",
             pw1: "chrubaatainadoanuiheloechlemehalamo7nuviabasheyimmasha",
             pw2: "masheelraisinadoanuiheloeinadoachadechrubabahashembeinadoa7",
+            
           
             agentwithdrawalFee: 0.02,
             agentCom: 0.4,

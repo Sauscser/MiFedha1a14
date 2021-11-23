@@ -59,11 +59,7 @@ const DeregMFAdvForm = (props) => {
           }
       
           
-          catch(error){if(!error){
-            Alert.alert("Account deactivated successfully")
-            
-        } 
-        else{Alert.alert("Please check your internet connection")
+          catch(error){if(error){Alert.alert("Please enter Advocate Reg. Number correctly")
       return;} }
       setIsLoading(false);
           
@@ -84,11 +80,7 @@ const DeregMFAdvForm = (props) => {
                   })
                 )
             }
-            catch(error){if(!error){
-              Alert.alert("Account deactivated successfully")
-              
-          } 
-          else{Alert.alert("Please check your internet connection")
+            catch(error){if(error){Alert.alert("Please check your internet connection")
         return;}}
         setIsLoading(false);
           }
@@ -98,11 +90,7 @@ const DeregMFAdvForm = (props) => {
         KFAdminDtls();         
                   
           } catch (error) {
-            if(!error){
-              Alert.alert("Account deactivated successfully")
-              
-          } 
-          else{Alert.alert("Please check your internet connection")
+            if(error){Alert.alert("Please check your internet connection")
         return;};
           }
           setIsLoading(false);
@@ -126,7 +114,7 @@ const DeregMFAdvForm = (props) => {
             <View>
               <View
                  style={styles.image}>
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
            
                   <View style={styles.loanTitleView}>
                     <Text style={styles.title}>Fill MFAdvocate Details Below</Text>

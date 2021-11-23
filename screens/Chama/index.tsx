@@ -3,11 +3,11 @@ import {useNavigation} from '@react-navigation/native';
 import {
   View,
   Text,
-  ImageBackground,
+  
   Pressable,
-  FlatList,
+  
   SafeAreaView,
-  Dimensions,
+  
 } from 'react-native';
 import styles from './styles';
 
@@ -18,10 +18,7 @@ const MyLoanAccount = props => {
     navigation.navigate('CreateChms');
   };
 
-  const ChmCovLonss = () => {
-    navigation.navigate('ChmCovLons');
-  };
-
+  
   const SgnIn2LnMmbrNonCovss = () => {
     navigation.navigate('SgnIn2LnMmbrNonCovs');
   };
@@ -49,15 +46,6 @@ const MyLoanAccount = props => {
   const SgnIn2BLNonCovss = () => {
     navigation.navigate('SgnIn2BLNonCovs');
   };
-
-  const BLChmMmberCovss = () => {
-    navigation.navigate('BLChmMmberCovs');
-  };
-  const BLChmMmberNonCovss = () => {
-    navigation.navigate('BLChmMmberNonCovs');
-  };
-
-  
 
   const DissolveChmss = () => {
     navigation.navigate('DissolveChms');
@@ -117,9 +105,7 @@ const MyLoanAccount = props => {
 
 
   return (
-    <SafeAreaView>
-     
-        
+    
           <View style={styles.adminImage}>
 
             <View style={styles.clientsView}>
@@ -335,7 +321,7 @@ const MyLoanAccount = props => {
                     <View style={styles.ClientsPressablesLnStts}>
 
                       <View style={styles.viewForClientsCategoriesChama2}>
-                      <Text style={styles.salesPressableText}>Member</Text>
+                      <Text style={styles.salesPressableText}>Memba</Text>
                       </View>
 
                     <View style={styles.viewForClientsCategoriesChama4}>
@@ -389,7 +375,7 @@ const MyLoanAccount = props => {
 
           
     </View> 
-    </SafeAreaView>
+    
   );
 };
 

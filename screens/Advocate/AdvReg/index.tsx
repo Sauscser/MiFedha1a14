@@ -84,11 +84,8 @@ import { getCompany } from '../../../src/graphql/queries';
           
           catch (error) {    
             console.log(error)   
-            if(!error){
-              Alert.alert("Account created successfully")
-              
-          } 
-          else{Alert.alert("Not authorised to register Advocate")
+            if(error)
+          {Alert.alert("Not authorised to register as Advocate")
         return;} 
          
       
@@ -227,11 +224,12 @@ useEffect(() =>{
                              );
 
   return (
-    <View>
+   
       <View
         
         style={styles.image}>
-        <ScrollView>
+        <ScrollView
+        showsVerticalScrollIndicator={false}>
           <View style={styles.loanTitleView}>
             <Text style={styles.title}>Fill Advocate Account Details Below</Text>
           </View>
@@ -310,7 +308,7 @@ useEffect(() =>{
           </TouchableOpacity>
         </ScrollView>
       </View>
-    </View>
+    
   );
 };
 

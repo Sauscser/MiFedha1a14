@@ -22,8 +22,8 @@ const RegKFKubwa = props => {
     navigation.navigate('WithdwAdmns');
   };
 
-  const goToKFKbwaRegFm = () => {
-    navigation.navigate('RegMFKbw');
+  const AdjustUsrLimitsss = () => {
+    navigation.navigate('AdjustUsrLimitss');
   };
 
   const DActvteMFAds = () => {
@@ -126,7 +126,38 @@ const RegKFKubwa = props => {
               </View>
             </View>
           
-            <View style={styles.acEarningsView}>
+            
+
+          <View style={styles.acEarningsView}>
+              <Text style={styles.salesText}>SM Users</Text>
+
+              
+
+                  <View style={styles.viewForAcEarningsPressables}>
+                    
+                    <Pressable
+                      onPress={DActivateMFUsr}
+                      style={styles.earningsAcPressables}>
+                      <Text style={styles.earningsAcPressableText}>DActivtUsr</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={BLUsrsss}
+                      style={styles.earningsAcPressables}>
+                      <Text style={styles.earningsAcPressableText}>
+                        BLUsr
+                      </Text>
+                    </Pressable>
+
+                    <Pressable
+                onPress={AdjustUsrLimitsss}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>AdjUsrLim</Text>
+              </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.acEarningsView}>
             <Text style={styles.salesText}>My Ac</Text>
 
             <View style={styles.viewForAcEarningsPressables}>
@@ -142,31 +173,10 @@ const RegKFKubwa = props => {
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Update</Text>
               </Pressable>
-            </View>
-          </View>
-
-          <View style={styles.acEarningsView}>
-              <Text style={styles.salesText}>SM Users</Text>
 
               
-
-                  <View style={styles.viewForAcEarningsPressables}>
-                    
-                    <Pressable
-                      onPress={DActivateMFUsr}
-                      style={styles.earningsAcPressablesSMNErn}>
-                      <Text style={styles.earningsAcPressableText}>DActivtUsr</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={BLUsrsss}
-                      style={styles.earningsAcPressablesSMNErn}>
-                      <Text style={styles.earningsAcPressableText}>
-                        BLUsr
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
+            </View>
+          </View>
 
          
 

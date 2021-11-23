@@ -60,7 +60,7 @@ const MFNSignIn = (props) => {
 
 
                 if(owners!==ownr){
-                  Alert.alert("You dont own this Advocay");
+                  Alert.alert("You dont own this Advocacy");
                 }
           else if(MFNPW !== pw1s ){
             Alert.alert("Wrong Advocate credentials");
@@ -113,10 +113,10 @@ const MFNSignIn = (props) => {
 
 
          return (
-            <View>
+           
               <View
                  style={styles.image}>
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                   <View style={styles.loanTitleView}>
                     <Text style={styles.title}>Fill Details Below</Text>
                   </View>
@@ -149,7 +149,7 @@ const MFNSignIn = (props) => {
                   </TouchableOpacity>
                 </ScrollView>
               </View>
-            </View>
+            
           );
         };
         

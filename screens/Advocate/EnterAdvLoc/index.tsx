@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import { getAdvocate} from '../../../src/graphql/queries';
-import {graphqlOperation, API, Auth} from 'aws-amplify';
+
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -12,7 +11,7 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
-  Alert,
+  
  
 } from 'react-native';
 import styles from './styles';
@@ -52,7 +51,7 @@ const MFNSignIn = (props) => {
             <View>
               <View
                  style={styles.image}>
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                   <View style={styles.loanTitleView}>
                     <Text style={styles.title}>Fill Details Below</Text>
                   </View>

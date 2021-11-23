@@ -133,6 +133,7 @@ type SMAccount
 
   loanStatus: Status!
   acStatus: Status!
+  deActvtnReason:String!
   blStatus: Status!
   loanLimit: Float!
   nonLonLimit:Float!

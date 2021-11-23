@@ -98,6 +98,7 @@ const CreateAdminForm = () => {
                   } catch (error) {
                     
                     if(error){
+                      console.log(error)
                       Alert.alert("This Admin already exists");
                       return;
                       

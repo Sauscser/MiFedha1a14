@@ -59,6 +59,7 @@ const BLChmCovLoanee = (props) => {
         const ttlChmLnsInBlTymsCovs = compDtls.data.getCompany.ttlChmLnsInBlTymsCov
         const ttlChmLnsInBlAmtCovs = compDtls.data.getCompany.ttlChmLnsInBlAmtCov
         const userClearanceFees = compDtls.data.getCompany.userClearanceFee
+        const ttlBLUsrss = compDtls.data.getCompany.ttlBLUsrs
 
         const gtLoanDtls = async () =>{
           if(isLoading){
@@ -124,7 +125,8 @@ const BLChmCovLoanee = (props) => {
                                       grpContact:loanerPhns,
                                       tymsChmHvBL: parseFloat(tymsChmHvBLs) + 1,
                                       TtlBLLonsTmsLnrChmCov: parseFloat(TtlBLLonsTmsLnrChmCovs) + 1,
-                                      TtlBLLonsAmtLnrChmCov: parseFloat(TtlBLLonsAmtLnrChmCovs) + amountExpectedBackWthClrncss
+                                      TtlBLLonsAmtLnrChmCov: parseFloat(TtlBLLonsAmtLnrChmCovs) + amountExpectedBackWthClrncss,
+                                      ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
                                     }
                                   })
                                 )

@@ -116,7 +116,7 @@ const MFNSignIn = (props) => {
             <View>
               <View
                  style={styles.image}>
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                   <View style={styles.loanTitleView}>
                     <Text style={styles.title}>Fill Details Below</Text>
                   </View>

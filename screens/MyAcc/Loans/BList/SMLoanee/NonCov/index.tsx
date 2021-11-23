@@ -57,7 +57,7 @@ const BLSMNonCovLoanee = (props) => {
         const ttlSMLnsInBlAmtNonCovs = compDtls.data.getCompany.ttlSMLnsInBlAmtNonCov
         const ttlSMLnsInBlTymsNonCovs = compDtls.data.getCompany.ttlSMLnsInBlTymsNonCov
         const userClearanceFees = compDtls.data.getCompany.userClearanceFee
-
+        const ttlBLUsrss = compDtls.data.getCompany.ttlBLUsrs
         const gtLoanDtls = async () =>{
           if(isLoading){
             return;
@@ -179,8 +179,8 @@ const BLSMNonCovLoanee = (props) => {
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
                                           ttlSMLnsInBlAmtNonCov: parseFloat(ttlSMLnsInBlAmtNonCovs) + amountExpectedBackWthClrncss,
-                                          ttlSMLnsInBlTymsNonCov: parseFloat(ttlSMLnsInBlTymsNonCovs) + 1
-
+                                          ttlSMLnsInBlTymsNonCov: parseFloat(ttlSMLnsInBlTymsNonCovs) + 1,
+                                          ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
                                         }
                                       })
                                     )

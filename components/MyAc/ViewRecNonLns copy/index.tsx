@@ -1,10 +1,8 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList,ScrollView} from 'react-native';
+import React from 'react';
+import {View, Text,   ScrollView} from 'react-native';
 
-import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../ViewAc";
+
 import styles from './styles';
-import { getSMAccount } from '../../../src/graphql/queries';
 
 
 export interface SMAccount {

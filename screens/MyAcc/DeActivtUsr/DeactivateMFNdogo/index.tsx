@@ -30,6 +30,7 @@ const DeregUsrForm = (props) => {
   const navigation = useNavigation();
 
   const [UsrId, setUsrId] = useState("");
+  const [DeactvtnRsn, setDeactvtnRsn] = useState("");
   const[isLoading, setIsLoading] = useState(false);
   
 
@@ -54,7 +55,8 @@ const DeregUsrForm = (props) => {
               const RecAccountDtl:any = await API.graphql(
                   graphqlOperation(listCvrdGroupLoanss, { filter: {
                   
-                    loaneePhn: { eq: UsrId}
+                    loaneePhn: { eq: UsrId},
+                    lonBala:{gt:0}
                               
                 }}
             )
@@ -70,7 +72,8 @@ const DeregUsrForm = (props) => {
                         const RecAccountDtl:any = await API.graphql(
                             graphqlOperation(listNonCvrdGroupLoanss, { filter: {
                   
-                              loaneePhn: { eq: UsrId}
+                              loaneePhn: { eq: UsrId},
+                              lonBala:{gt:0}
                                         
                           }}),
                             );
@@ -84,7 +87,8 @@ const DeregUsrForm = (props) => {
                                   const RecAccountDtl:any = await API.graphql(
                                       graphqlOperation(listCovCreditSellers, { filter: {
                   
-                                        buyerContact: { eq: UsrId}
+                                        buyerContact: { eq: UsrId},
+                                        lonBala:{gt:0}
                                                   
                                     }}),
                                       );
@@ -98,7 +102,8 @@ const DeregUsrForm = (props) => {
                                             const RecAccountDtl:any = await API.graphql(
                                                 graphqlOperation(listNonCovCreditSellers, { filter: {
                   
-                                                  buyerContact: { eq: UsrId}
+                                                  buyerContact: { eq: UsrId},
+                                                  lonBala:{gt:0}
                                                             
                                               }}),
                                                 ); 
@@ -112,7 +117,8 @@ const DeregUsrForm = (props) => {
                                                       const RecAccountDtl:any = await API.graphql(
                                                           graphqlOperation(listSMLoansCovereds, { filter: {
                   
-                                                            loaneePhn: { eq: UsrId}
+                                                            loaneePhn: { eq: UsrId},
+                                                            lonBala:{gt:0}
                                                                       
                                                         }}),
                                                           );  
@@ -126,7 +132,8 @@ const DeregUsrForm = (props) => {
                                                                 const RecAccountDtl:any = await API.graphql(
                                                                     graphqlOperation(listSMLoansNonCovereds, { filter: {
                   
-                                                                      loaneePhn: { eq: UsrId}
+                                                                      loaneePhn: { eq: UsrId},
+                                                                      lonBala:{gt:0}
                                                                                 
                                                                   }}),
                                                                     );
@@ -140,7 +147,8 @@ const DeregUsrForm = (props) => {
                 graphqlOperation(updateSMAccount,{
                   input:{
                     phonecontact:UsrId,
-                    status:"AccountInactive"
+                    status:"AccountInactive",
+                    deActvtnReason:""
                   }
                 })
               )
@@ -288,6 +296,7 @@ await ftchNonCvdChmLn();
           }
           setIsLoading(false);
           setUsrId("") 
+          setDeactvtnRsn("")
         };    
 
         useEffect(() =>{
@@ -300,6 +309,17 @@ await ftchNonCvdChmLn();
             setUsrId(usId);
             }, [UsrId]
              );
+
+             useEffect(() =>{
+              const DeactvtnRsns=DeactvtnRsn
+                if(!DeactvtnRsns && DeactvtnRsns!=="")
+                {
+                  setDeactvtnRsn("");
+                  return;
+                }
+                setDeactvtnRsn(DeactvtnRsns);
+                }, [DeactvtnRsn]
+                 );
         
  return (
             <View>
@@ -313,6 +333,7 @@ await ftchNonCvdChmLn();
         
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder="+2547xxxxxxxx"
                       value={UsrId}
                       onChangeText={setUsrId}
                       style={styles.sendLoanInput}
@@ -320,7 +341,15 @@ await ftchNonCvdChmLn();
                     <Text style={styles.sendLoanText}>User Phone Number</Text>
                   </View>
         
-                  
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                   
+                      value={DeactvtnRsn}
+                      onChangeText={setDeactvtnRsn}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Reason</Text>
+                  </View>                  
         
                   <TouchableOpacity
                     onPress={gtCompDtls}

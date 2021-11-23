@@ -210,6 +210,7 @@ declare global {
       UpdateMFNComs:undefined;
 
       UpdtVatComss:undefined;
+      AdjustUsrLimitss:undefined;
       
     }
   }

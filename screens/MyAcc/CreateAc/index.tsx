@@ -194,6 +194,7 @@ const CreateAcForm = (props) => {
           MaxTymsBL: 0,
           MaxTymsIHvBL: 0,
           acStatus: 'AccountActive',
+          deActvtnReason:"None",
           blStatus: 'AccountNotBL',
           loanStatus: "NoLoan",
           loanLimit: 100000,
@@ -208,7 +209,7 @@ const CreateAcForm = (props) => {
             } catch (error) {
               console.log(error)
               if(error){
-                Alert.alert("Please Sign up using as a different Phone number")
+                Alert.alert("Sign up using a different Phone Number")
                 return;
             } 
             

@@ -57,6 +57,7 @@ const BLCovCredByr = (props) => {
         const ttlSellerLnsInBlAmtCovs = compDtls.data.getCompany.ttlSellerLnsInBlAmtCov
         const ttlSellerLnsInBlTymsCovs = compDtls.data.getCompany.ttlSellerLnsInBlTymsCov
         const userClearanceFees = compDtls.data.getCompany.userClearanceFee
+        const ttlBLUsrss = compDtls.data.getCompany.ttlBLUsrs
 
         const gtLoanDtls = async () =>{
           if(isLoading){
@@ -179,7 +180,8 @@ const BLCovCredByr = (props) => {
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
                                           ttlSellerLnsInBlTymsCov: parseFloat(ttlSellerLnsInBlTymsCovs) + 1,
-                                          ttlSellerLnsInBlAmtCov: parseFloat(ttlSellerLnsInBlAmtCovs) + amountExpectedBackWthClrncss
+                                          ttlSellerLnsInBlAmtCov: parseFloat(ttlSellerLnsInBlAmtCovs) + amountExpectedBackWthClrncss,
+                                          ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
 
                                         }
                                       })

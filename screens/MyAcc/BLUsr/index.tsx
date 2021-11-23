@@ -4,18 +4,15 @@ import {updateCompany, updateSMAccount, } from '../../../src/graphql/mutations';
 import {getCompany } from '../../../src/graphql/queries';
 import {graphqlOperation, API} from 'aws-amplify';
 
-import {useNavigation} from '@react-navigation/native';
 
 
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+  
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+  
   TouchableOpacity,
   Alert,
   ActivityIndicator
@@ -27,7 +24,6 @@ import styles from './styles';
 
 
 const BLUsrForm = (props) => {
-  const navigation = useNavigation();
 
   const [UsrId, setUsrId] = useState("");
   const[isLoading, setIsLoading] = useState(false);
@@ -42,9 +38,8 @@ const BLUsrForm = (props) => {
       const compDtls :any= await API.graphql(
         graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
         );
-        const ActvMFUsrs = compDtls.data.getCompany.ttlActiveUsers
-        const inactMFUsrs = compDtls.data.getCompany.ttlInactvUsrs
-           
+        const ttlBLUsrss = compDtls.data.getCompany.ttlBLUsrs
+        
         const KFUsrDtls = async () => {
           if(isLoading){
             return;
@@ -62,11 +57,7 @@ const BLUsrForm = (props) => {
       
               
           }
-          catch(error){if(!error){
-            Alert.alert("Account BlackListed successfully")
-            
-        } 
-        else{Alert.alert("Please check your internet connection")
+          catch(error){if(error){Alert.alert("Please Enter User Contact correctlyas hinted")
         return;} }
           setIsLoading(false);          
           await updtActAdm ();
@@ -84,8 +75,8 @@ const BLUsrForm = (props) => {
                     graphqlOperation(updateCompany,{
                       input:{
                         AdminId:"BaruchHabaB'ShemAdonai2",
-                        ttlActiveUsers:parseFloat(ActvMFUsrs) - 1,
-                        ttlInactvUsrs:parseFloat(inactMFUsrs) + 1,
+                        ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
+                        
                       }
                     })
                   )
@@ -132,6 +123,7 @@ const BLUsrForm = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder="+2547xxxxxxxx"
                       value={UsrId}
                       onChangeText={setUsrId}
                       style={styles.sendLoanInput}

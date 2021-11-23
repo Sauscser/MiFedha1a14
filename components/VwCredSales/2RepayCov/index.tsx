@@ -32,22 +32,11 @@ import styles from './styles';
         const {
          Loanee: {
            id,
-           itemName,
-           itemSerialNumber,
-           buyerContact,
            
            SellerName,
         
-           amountSold,
-           amountexpectedBack,
-           amountRepaid,
-           repaymentPeriod,
            lonBala,
-           description,
-           status,
-           advregnu,
-           createdAt,
-           updatedAt,
+         
         }} = props ;
         const navigation = useNavigation();
      
