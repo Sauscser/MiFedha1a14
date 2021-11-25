@@ -1,24 +1,22 @@
 import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, Pressable, FlatList, Alert} from 'react-native';
+import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../components/Chama/BL/BLChmCovLn";
+import NonLnSent from "../../../components/MyAc/ViewSentNonLns";
 import styles from './styles';
-import { getCompany, getGroup, listCvrdGroupLoanss, vwChamaMemberss, vwChamaMembersss } from '../../../../../src/graphql/queries';
-import { useRoute } from '@react-navigation/core';
-import { updateCompany, updateGroup } from '../../../../../src/graphql/mutations';
+import { getCompany, getSMAccount, listNonLoanss, listSMAccounts, vwMySntMny } from '../../../src/graphql/queries';
+import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
-const FetchSMCovLns = props => {
+const FetchSMNonLnsSnt = props => {
 
-    const[LneePhn, setLneePhn] = useState(null);
+    const[SenderPhn, setSenderPhn] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [Loanees, setLoanees] = useState([]);
-    const route = useRoute()
+    const [Recvrs, setRecvrs] = useState([]);
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
               
-        setLneePhn(userInfo.attributes.phone_number);
+        setSenderPhn(userInfo.attributes.phone_number);
              
       };
       
@@ -30,31 +28,24 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwChamaMemberss, 
-               {
-                      grpContact: route.params.grpContact,
+              const Lonees:any = await API.graphql(graphqlOperation(vwMySntMny, 
+              {
+                      senderPhn: SenderPhn,
                       sortDirection: 'DESC',
                       limit: 100,
-                      filter: {
-                        and: {
-                          
-                          lonBala:{gt:0}
-                          
-                        }
-                      },
+                      filter:{status:{eq:"CredSlrLonRepayment"}}
                     }
-                 
+               
                   ));
-
-                  setLoanees(Lonees.data.VwChamaMemberss.items);
+                  setRecvrs(Lonees.data.VwMySntMny.items);
 
                   const fetchUsrDtls = async () => {
                     try {
                             const MFNDtls: any = await API.graphql(
-                                graphqlOperation(getGroup, {grpContact: route.params.grpContact}
+                                graphqlOperation(getSMAccount, {phonecontact: SenderPhn}
                             ),);
               
-                            const grpBals = MFNDtls.data.getGroup.grpBal;
+                            const balances = MFNDtls.data.getSMAccount.balance;
                             
                             const fetchCompDtls = async () => {
                               try {
@@ -94,10 +85,10 @@ const FetchSMCovLns = props => {
                                                     
                                                     try{
                                                         await API.graphql(
-                                                          graphqlOperation(updateGroup,{
+                                                          graphqlOperation(updateSMAccount,{
                                                             input:{
-                                                              grpContact: route.params.grpContact,
-                                                              grpBal:parseFloat(grpBals) - parseFloat(enquiryFees),
+                                                              phonecontact: SenderPhn,
+                                                              balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                             }
                                                           })
                                                         )
@@ -115,19 +106,20 @@ const FetchSMCovLns = props => {
               
                               
               
-                      if(parseFloat(grpBals) < parseFloat(enquiryFees) ){
+                      if(parseFloat(balances) < parseFloat(enquiryFees) ){
                           Alert.alert("Account Balance is very little");
+                          return;
                         }
                         else{
                             
-                          await updtActAdm();
+                          updtActAdm();
                             }
                             
                               }
                           catch (e)
                           {
                             if(e){
-                              Alert.alert("Chama does not exist does not exist; otherwise check internet connection");
+                              Alert.alert("User does not exist does not exist; otherwise check internet connection");
                               return;
                             }
                               console.log(e)
@@ -144,7 +136,7 @@ const FetchSMCovLns = props => {
                           catch (e)
                           {
                             if(e){
-                              Alert.alert("Chama does not exist; otherwise check internet connection");
+                              Alert.alert("User does not exist; otherwise check internet connection");
                               return;
                             }
                               console.log(e)
@@ -154,9 +146,8 @@ const FetchSMCovLns = props => {
               
                           
                            }
-
+    
                            await fetchUsrDtls();
-              
             } catch (e) {
               console.log(e);
             } finally {
@@ -164,14 +155,14 @@ const FetchSMCovLns = props => {
             }
           };
         
-          
+ 
 
   return (
     <View style={styles.root}>
       <FlatList
       style= {{width:"100%"}}
-        data={Loanees}
-        renderItem={({item}) => <LnerStts ChamaMmbrshpDtls={item} />}
+        data={Recvrs}
+        renderItem={({item}) => <NonLnSent SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={fetchLoanees}
         refreshing={loading}
@@ -180,7 +171,8 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Chama Covered Loans</Text>
+            <Text style={styles.label}> Sent Non Loans</Text>
+            <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}
       />
@@ -188,4 +180,4 @@ const FetchSMCovLns = props => {
   );
 };
 
-export default FetchSMCovLns;
+export default FetchSMNonLnsSnt;

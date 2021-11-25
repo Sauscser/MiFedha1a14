@@ -208,12 +208,22 @@ declare global {
      
       UpdateMFKComs:undefined;
       UpdateMFNComs:undefined;
-
       UpdtVatComss:undefined;
       AdjustUsrLimitss:undefined;
       AdvPy2VwChms:undefined;
       AdvPy2VwCredSlrs:undefined;
       AdvPy2VwSMs:undefined;
+
+      
+
+      ChamaSignIn2VwLnRpymnts:undefined;
+      ViewNonLnsRecChms:{grpContact:string};
+      ViewNonLnsRecCredSlrs:undefined;
+      ViewNonLnsRecSMs:undefined;
+      ViewNonLnsSntChms:undefined;
+      ViewNonLnsSntCredSlrs:undefined;
+      ViewNonLnsSntSMs:undefined;
+      
       
     }
   }

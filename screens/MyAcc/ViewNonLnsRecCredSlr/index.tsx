@@ -2,23 +2,21 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../components/Chama/ChmActivities/Membership/Chama";
+import RecNonLns from "../../../components/MyAc/ViewRecNonLns copy";
 import styles from './styles';
-import { getCompany, getGroup, listCvrdGroupLoanss, listGrpMemberss, vwChamaMembers } from '../../../../../src/graphql/queries';
-import { useRoute } from '@react-navigation/native';
-import { updateCompany, updateGroup } from '../../../../../src/graphql/mutations';
+import { getCompany, getSMAccount, listNonLoanss, listSMAccounts, vwMyRecMny } from '../../../src/graphql/queries';
+import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
-const FetchSMCovLns = props => {
+const FetchSMNonLnsRec = props => {
 
-    const[LneePhn, setLneePhn] = useState(null);
+    const[RecPhn, setRecPhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
-    const route = useRoute();
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
               
-        setLneePhn(userInfo.attributes.phone_number);
+        setRecPhn(userInfo.attributes.phone_number);
              
       };
       
@@ -30,23 +28,25 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwChamaMembers, 
-               {
-                      groupContact: route.params.grpContact,
+              const Lonees:any = await API.graphql(graphqlOperation(vwMyRecMny, 
+              {
+                      recPhn: RecPhn,
                       sortDirection: 'DESC',
                       limit: 100,
+                      filter:{status:{eq:"CredSlrLonRepayment"}}
+                      
                     }
-                 
+                  
                   ));
-              setLoanees(Lonees.data.VwChamaMembers.items);
+              setLoanees(Lonees.data.VwMyRecMny.items);
 
               const fetchUsrDtls = async () => {
                 try {
                         const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getGroup, {grpContact: route.params.grpContact}
+                            graphqlOperation(getSMAccount, {phonecontact: RecPhn}
                         ),);
           
-                        const grpBals = MFNDtls.data.getGroup.grpBal;
+                        const balances = MFNDtls.data.getSMAccount.balance;
                         
                         const fetchCompDtls = async () => {
                           try {
@@ -86,10 +86,10 @@ const FetchSMCovLns = props => {
                                                 
                                                 try{
                                                     await API.graphql(
-                                                      graphqlOperation(updateGroup,{
+                                                      graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          grpContact: route.params.grpContact,
-                                                          grpBal:parseFloat(grpBals) - parseFloat(enquiryFees),
+                                                          phonecontact: RecPhn,
+                                                          balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })
                                                     )
@@ -107,7 +107,7 @@ const FetchSMCovLns = props => {
           
                           
           
-                  if(parseFloat(grpBals) < parseFloat(enquiryFees) ){
+                  if(parseFloat(balances) < parseFloat(enquiryFees) ){
                       Alert.alert("Account Balance is very little");
                     }
                     else{
@@ -119,7 +119,7 @@ const FetchSMCovLns = props => {
                       catch (e)
                       {
                         if(e){
-                          Alert.alert("Chama does not exist does not exist; otherwise check internet connection");
+                          Alert.alert("User does not exist does not exist; otherwise check internet connection");
                           return;
                         }
                           console.log(e)
@@ -136,7 +136,7 @@ const FetchSMCovLns = props => {
                       catch (e)
                       {
                         if(e){
-                          Alert.alert("Chama does not exist; otherwise check internet connection");
+                          Alert.alert("User does not exist; otherwise check internet connection");
                           return;
                         }
                           console.log(e)
@@ -155,14 +155,14 @@ const FetchSMCovLns = props => {
             }
           };
         
-          
+         
 
   return (
     <View style={styles.root}>
       <FlatList
       style= {{width:"100%"}}
         data={Loanees}
-        renderItem={({item}) => <LnerStts ChamaMmbrshpDtls={item} />}
+        renderItem={({item}) => <RecNonLns SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={fetchLoanees}
         refreshing={loading}
@@ -171,7 +171,8 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Chama Members</Text>
+            <Text style={styles.label}>Received Non Loans</Text>
+            <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}
       />
@@ -179,4 +180,4 @@ const FetchSMCovLns = props => {
   );
 };
 
-export default FetchSMCovLns;
+export default FetchSMNonLnsRec;

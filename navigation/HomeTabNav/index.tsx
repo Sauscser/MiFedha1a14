@@ -173,13 +173,19 @@ import ViewAdv from "../../screens/Advocate/SearchAdvocate";
 
 import UpdateMFKCom from "../../screens/MFKubwa/UpdateMFKCom";
 import UpdateMFNCom from "../../screens/MFNdogo/UpdateMFNCom";
-
 import UpdtVatComs from "../../screens/Settings/UpdtVatCom";
 import AdjustUsrLimits from "../../screens/MyAcc/AdjustUsrLimits";
 import AdvPy2VwChm from "../../screens/AdvPy2VwChm";
 import AdvPy2VwCredSlr from "../../screens/AdvPy2VwCredSlr";
 import AdvPy2VwSM from "../../screens/AdvPy2VwSM";
 
+import ViewNonLnsRecChm from "../../screens/MyAcc/ViewNonLnsRecChm";
+import ViewNonLnsRecCredSlr from "../../screens/MyAcc/ViewNonLnsRecCredSlr";
+import ViewNonLnsRecSM from "../../screens/MyAcc/ViewNonLnsRecSM";
+import ViewNonLnsSntChm from "../../screens/MyAcc/ViewNonLnsSntChm";
+import ViewNonLnsSntCredSlr from "../../screens/MyAcc/ViewNonLnsSntCredSlr";
+import ViewNonLnsSntSM from "../../screens/MyAcc/ViewNonLnsSntSM";
+import ChamaSignIn2VwLnRpymnt from "../../screens/Chama/ChamaSignIn2VwLnRpymnt";
 
 
 const Stack = createNativeStackNavigator();
@@ -191,11 +197,19 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'ChamaSignIn2VwLnRpymnts'} component={ChamaSignIn2VwLnRpymnt} />
+      
+      <Stack.Screen name={'ViewNonLnsRecChms'} component={ViewNonLnsRecChm} />
+      <Stack.Screen name={'ViewNonLnsRecCredSlrs'} component={ViewNonLnsRecCredSlr} />
+      <Stack.Screen name={'ViewNonLnsRecSMs'} component={ViewNonLnsRecSM} />
+      <Stack.Screen name={'ViewNonLnsSntChms'} component={ViewNonLnsSntChm} />      
+      <Stack.Screen name={'ViewNonLnsSntCredSlrs'} component={ViewNonLnsSntCredSlr} />      
+      <Stack.Screen name={'ViewNonLnsSntSMs'} component={ViewNonLnsSntSM} />
+      
       <Stack.Screen name={'AdvPy2VwChms'} component={AdvPy2VwChm} />
       <Stack.Screen name={'AdvPy2VwCredSlrs'} component={AdvPy2VwCredSlr} />
       <Stack.Screen name={'AdvPy2VwSMs'} component={AdvPy2VwSM} />
-      <Stack.Screen name={'AdjustUsrLimitss'} component={AdjustUsrLimits} />
-      
+      <Stack.Screen name={'AdjustUsrLimitss'} component={AdjustUsrLimits} />      
       <Stack.Screen name={'UpdtVatComss'} component={UpdtVatComs} />      
       <Stack.Screen name={'UpdateMFKComs'} component={UpdateMFKCom} />
       <Stack.Screen name={'UpdateMFNComs'} component={UpdateMFNCom} />

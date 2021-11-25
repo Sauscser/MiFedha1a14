@@ -1530,11 +1530,11 @@ enum Status {
   SMNonLons
   ChmMbrGrpContri
   ChmSndMbr
-  SMCovLonRepayment
-  SMNonCovLonRepayment
-  ChmCovLonRepayment
-  ChmNonCovLonRepayment
-  CredSlCovLonRepayment
-  CredSlNonCovLonRepayment
+  SMLonRepayment
+  
+  ChmLonRepayment
+  
+  CredSlrLonRepayment
+  
   TransactionRev
 }

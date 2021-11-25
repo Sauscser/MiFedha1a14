@@ -259,7 +259,7 @@ const RepayNonCovChmLnsss = props => {
                                         SenderName:names,                                
                                         amount: amounts,                              
                                         description: Desc,
-                                        status: "ChmCovLonRepayment",
+                                        status: "ChmLonRepayment",
                                         owner: ownr
                                       },
                                     }),
@@ -521,8 +521,42 @@ const RepayNonCovChmLnsss = props => {
                                   
                                 }
                                 Alert.alert("Loan: Ksh. "+amountExpectedBacks.toFixed(2) + " Clearance fee: Ksh. " +ClranceAmt.toFixed(2) + "Transaction fee: Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
-                                setIsLoading(false);
+                                setIsLoading(false);await sendCovLn();
                               }
+
+                              const sendCovLn = async () => {
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true)
+                                try {
+                                  await API.graphql(
+                                    graphqlOperation(createNonLoans, {
+                                      input: {
+                                        recPhn: grpContactssss,
+                                        senderPhn: SendrPhn,  
+                                        RecName:namess,
+                                        SenderName:names,                                  
+                                        amount: amounts,                              
+                                        description: Desc,
+                                        status: "ChmLonRepayment",
+                                        owner: ownr
+                                      },
+                                    }),
+                                  );
+          
+          
+                                } catch (error) {
+                                  if(!error){
+                                    Alert.alert("Account deactivated successfully")
+                                    
+                                } 
+                                else{Alert.alert("Please check your internet connection")
+                                return;}
+                                }
+                                setIsLoading(false);
+                                
+                              };
 
                                                           
                                                     

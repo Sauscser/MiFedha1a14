@@ -206,7 +206,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                         SenderName:buyerNames,                             
                                         amount: amounts,                              
                                         description: Desc,
-                                        status: "CredSlNonCovLonRepayment",
+                                        status: "CredSlrLonRepayment",
                                         owner: ownr
                                       },
                                     }),
@@ -368,7 +368,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                         SenderName:buyerNames ,                                
                                         amount: amounts,                              
                                         description: Desc,
-                                        status: "CredSlNonCovLonRepayment",
+                                        status: "CredSlrLonRepayment",
                                         owner: ownr
                                       },
                                     }),

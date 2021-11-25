@@ -107,12 +107,7 @@ const UpdtChm = (props) => {
                                         Alert.alert(names +" has updated "+grpNames+"'s Chama password");
                                       } 
 
-                                      if(LnAcCod>loanAcceptanceCodes)
-                                      {
-                                          Alert.alert("Wrong SM A/C Loan Acceptance Code; Prove authorship of Chama");
-                                      }
-                                      
-                                      else if(SMPW!==pws)
+                                      if(SMPW!==pws)
                                       {
                                           Alert.alert("Wrong SM A/C PW; Prove authorship of Chama");
                                       }
@@ -230,14 +225,7 @@ const UpdtChm = (props) => {
                     <Text style={styles.sendLoanText}>SM Ac PW</Text>
                   </View>       
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={LnAcCod}
-                      onChangeText={setLnAcCod}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>SM Loan Acceptance Code</Text>
-                  </View>     
+                  
 
                   <View style={styles.sendLoanView}>
                     <TextInput

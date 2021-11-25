@@ -204,7 +204,7 @@ const RepayCovLnsss = props => {
                                         SenderName:names,                             
                                         amount: amounts,                              
                                         description: Desc,
-                                        status: "SMCovLonRepayment",
+                                        status: "SMLonRepayment",
                                         owner: ownr
                                       },
                                     }),
@@ -368,7 +368,7 @@ const RepayCovLnsss = props => {
                                         SenderName:names,                                
                                         amount: amounts,                              
                                         description: Desc,
-                                        status: "SMCovLonRepayment",
+                                        status: "SMLonRepayment",
                                         owner: ownr
                                       },
                                     }),

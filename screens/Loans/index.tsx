@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {
   View,
@@ -13,6 +13,7 @@ import styles from './styles';
 
 const MyLoanAccount = props => {
   const navigation = useNavigation();
+  const [id, setId] = useState("")
   
 
  
@@ -26,11 +27,11 @@ const MyLoanAccount = props => {
   };
 
   const RpayCredSlrCovss = () => {
-    navigation.navigate('RpayCredSlrCovs');
+    navigation.navigate('RpayCredSlrCovs', {id});
   };
 
   const RpayCredSlrNonCovss = () => {
-    navigation.navigate('RpayCredSlrNonCovs');
+    navigation.navigate('RpayCredSlrNonCovs', {id});
   };
 
   
@@ -71,6 +72,30 @@ const MyLoanAccount = props => {
 
   const Vw2BLSMNonCovss = () => {
     navigation.navigate('Vw2BLSMNonCovs');
+  };
+
+  const ViewNonLnsSntSMss = () => {
+    navigation.navigate('ViewNonLnsSntSMs');
+  };
+
+  const ViewNonLnsSntCredSlrss = () => {
+    navigation.navigate('ViewNonLnsSntCredSlrs');
+  };
+
+  const ViewNonLnsSntChmss = () => {
+    navigation.navigate('ViewNonLnsSntChms');
+  };
+
+  const ViewNonLnsRecSMss = () => {
+    navigation.navigate('ViewNonLnsRecSMs');
+  };
+
+  const ViewNonLnsRecCredSlrss = () => {
+    navigation.navigate('ViewNonLnsRecCredSlrs');
+  };
+
+  const ChamaSignIn2VwLnRpymntss = () => {
+    navigation.navigate('ChamaSignIn2VwLnRpymnts');
   };
 
   
@@ -150,11 +175,10 @@ const MyLoanAccount = props => {
             </View>
           
             <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Loan Status</Text>
-
-              <View style={styles.viewForClientsAndTitleLnSt}>
-              <View style={styles.viewForClientsCategoriesLnSt}>
-                  <Text style={styles.salesPressableText}>CoveredLoan</Text>
+              <Text style={styles.salesText}>Give and View Loans</Text>
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>View CovLoan</Text>
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
@@ -167,7 +191,7 @@ const MyLoanAccount = props => {
                       onPress={ViewMyCovLoanersss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
-                        My Loaners
+                      My Loaners
                       </Text>
                     </Pressable>
                   </View>
@@ -175,8 +199,8 @@ const MyLoanAccount = props => {
 
             
 
-                <View style={styles.viewForClientsCategoriesLnSt}>
-                  <Text style={styles.salesPressableText}>Non-Covered</Text>
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>View Non-Cov</Text>
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
@@ -189,38 +213,100 @@ const MyLoanAccount = props => {
                       onPress={ViewMyNonCovLoanersss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
-                        My Loaners
+                      My Loaners
                       </Text>
                     </Pressable>
                   </View>
                 </View>
 
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Give Loan</Text>
 
-              </View>
-            </View>
-
-          <View style={styles.acEarningsView}>
-              <Text style={styles.salesText}>Single Member Give Loan</Text>
-
-              
-
-                  <View style={styles.viewForAcEarningsPressables}>
-                    
+                  <View style={styles.viewForClientsPressables}>
                     <Pressable
                       onPress={SMGivCovLons}
-                      style={styles.earningsAcPressables}>
-                      <Text style={styles.earningsAcPressableText}>Covered Loans</Text>
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
                     </Pressable>
 
                     <Pressable
                       onPress={SMGivNonCovLons}
-                      style={styles.earningsAcPressables}>
-                      <Text style={styles.earningsAcPressableText}>
-                        Non-Covered
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      Non-Covered Loans
                       </Text>
                     </Pressable>
                   </View>
                 </View>
+              </View>
+            </View>
+
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>View Loan Repayments</Text>
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Single Member</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={ViewNonLnsSntSMss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Sent</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={ViewNonLnsRecSMss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                     Received
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Chama</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={ViewNonLnsSntChmss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Sent</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={ChamaSignIn2VwLnRpymntss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      Received
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>CredSeller</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={ViewNonLnsSntCredSlrss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Sent</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={ViewNonLnsRecCredSlrss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      Received
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            </View>
 
           <View style={styles.acEarningsView}>
             <Text style={styles.salesText}>Single Member Black-List</Text>

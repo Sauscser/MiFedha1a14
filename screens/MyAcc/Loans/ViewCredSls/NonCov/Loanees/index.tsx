@@ -1,9 +1,10 @@
 import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
-import { listNonCovCreditSellers } from '../../../../../../src/graphql/queries';
+import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
+import { getCompany, getSMAccount, listNonCovCreditSellers, vwMySaless } from '../../../../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../../components/VwCredSales/NonCov/Loanees";
 import styles from './styles';
+import { updateCompany, updateSMAccount } from '../../../../../../src/graphql/mutations';
 
 const FetchSMCovLns = props => {
 
@@ -26,16 +27,126 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
-                { filter: {
-                    and: {
-                      sellerContact: { eq: LnerPhn},
-                      lonBala:{gt:0}
+              const Lonees:any = await API.graphql(graphqlOperation(vwMySaless, 
+               {
+                      sellerContact: LnerPhn,
+                      sortDirection: 'DESC',
+                      limit: 100,
+                      filter:{lonBala:{gt:0}}
                       
                     }
-                  }}
+               
                   ));
-              setLoanees(Lonees.data.listNonCovCreditSellers.items);
+              setLoanees(Lonees.data.VwMySaless.items);
+
+              const fetchUsrDtls = async () => {
+                try {
+                        const MFNDtls: any = await API.graphql(
+                            graphqlOperation(getSMAccount, {phonecontact: LnerPhn}
+                        ),);
+          
+                        const balances = MFNDtls.data.getSMAccount.balance;
+                        
+                        const fetchCompDtls = async () => {
+                          try {
+                                  const MFNDtls: any = await API.graphql(
+                                      graphqlOperation(getCompany, {AdminId: "BaruchHabaB'ShemAdonai2"}
+                                  ),);
+                  
+                                  const companyEarningBals = MFNDtls.data.getCompany.companyEarningBal;
+                                  const companyEarnings = MFNDtls.data.getCompany.companyEarning;
+                                  const enquiryFees = MFNDtls.data.getCompany.enquiryFee;
+                                  
+                                  
+                                              const updtActAdm = async()=>{
+                                                
+                                                try{
+                                                    await API.graphql(
+                                                      graphqlOperation(updateCompany,{
+                                                        input:{
+                                                          AdminId:"BaruchHabaB'ShemAdonai2",
+                                                          companyEarningBal:parseFloat(companyEarningBals) + parseFloat(enquiryFees),
+                                                          companyEarning:parseFloat(companyEarnings) + parseFloat(enquiryFees),
+                                                        }
+                                                      })
+                                                    )
+                                                }
+                                                catch(error){
+                                                  if(error){
+                                                    Alert.alert("Check your internet connection")
+                                                    return;
+                                                }
+                                                }
+                                                updtUsrAc();
+                                                
+                                              }
+          
+                                              const updtUsrAc = async()=>{
+                                                
+                                                try{
+                                                    await API.graphql(
+                                                      graphqlOperation(updateSMAccount,{
+                                                        input:{
+                                                          phonecontact: LnerPhn,
+                                                          balance:parseFloat(balances) - parseFloat(enquiryFees),
+                                                        }
+                                                      })
+                                                    )
+                                                }
+                                                catch(error){
+                                                  if(error){
+                                                    Alert.alert("User does not exist")
+                                                    return;
+                                                }
+                                                }
+                                                                                                    
+                                              }
+                          
+          
+          
+                          
+          
+                  if(parseFloat(balances) < parseFloat(enquiryFees) ){
+                      Alert.alert("Account Balance is very little");
+                    }
+                    else{
+                        
+                      await updtActAdm();
+                        }
+                        
+                          }
+                      catch (e)
+                      {
+                        if(e){
+                          Alert.alert("User does not exist does not exist; otherwise check internet connection");
+                          return;
+                        }
+                          console.log(e)
+                         
+                          
+                      }    
+          
+              
+                       }
+                       await fetchCompDtls();
+          
+                      }
+          
+                      catch (e)
+                      {
+                        if(e){
+                          Alert.alert("User does not exist; otherwise check internet connection");
+                          return;
+                        }
+                          console.log(e)
+                         
+                          
+                      }    
+          
+                      
+                       }
+
+                       await fetchUsrDtls();
             } catch (e) {
               console.log(e);
             } finally {
@@ -43,9 +154,7 @@ const FetchSMCovLns = props => {
             }
           };
         
-          useEffect(() => {
-            fetchLoanees();
-          }, [])
+          
 
   return (
     <View style={styles.root}>

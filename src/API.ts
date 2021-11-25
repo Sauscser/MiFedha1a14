@@ -103,12 +103,9 @@ export enum Status {
   SMNonLons = "SMNonLons",
   ChmMbrGrpContri = "ChmMbrGrpContri",
   ChmSndMbr = "ChmSndMbr",
-  SMCovLonRepayment = "SMCovLonRepayment",
-  SMNonCovLonRepayment = "SMNonCovLonRepayment",
-  ChmCovLonRepayment = "ChmCovLonRepayment",
-  ChmNonCovLonRepayment = "ChmNonCovLonRepayment",
-  CredSlCovLonRepayment = "CredSlCovLonRepayment",
-  CredSlNonCovLonRepayment = "CredSlNonCovLonRepayment",
+  SMLonRepayment = "SMLonRepayment",
+  ChmLonRepayment = "ChmLonRepayment",
+  CredSlrLonRepayment = "CredSlrLonRepayment",
   TransactionRev = "TransactionRev",
 }
 

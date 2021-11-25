@@ -65,7 +65,7 @@ const MyAccount = props => {
           <View style={styles.viewForSalesPressables}>
             
             <View style={styles.acPressables}>
-            <View>
+            <View >
             <Text style={styles.acPressableText}>View NonLons</Text>
             </View>
             <View style = {{flexDirection:"row"}}>
@@ -80,7 +80,7 @@ const MyAccount = props => {
             
 
             <View style={styles.acPressables}>
-            <View>
+            <View >
             <Text style={styles.acPressableText}>Withdrawals</Text>
             </View>
             <View style = {{flexDirection:"row"}}>
@@ -110,7 +110,7 @@ const MyAccount = props => {
             </Pressable>
 
             <View style={styles.acPressables}>
-            <View>
+            <View >
             <Text style={styles.acPressableText}>Update</Text>
             </View>
             <View style = {{flexDirection:"row"}}>
@@ -118,13 +118,13 @@ const MyAccount = props => {
               <Text style={styles.acPressableText}>PWord</Text>
             </Pressable>
             <Pressable onPress={UpdateAccCodesss} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>RequestLn</Text>
+              <Text style={styles.acPressableText}>AskLn</Text>
             </Pressable>
             </View>
             </View>
 
             <View style={styles.acPressables}>
-            <View>
+            <View >
             <Text style={styles.acPressableText}>View</Text>
             </View>
             <View style = {{flexDirection:"row"}}>

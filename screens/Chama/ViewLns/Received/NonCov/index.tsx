@@ -108,7 +108,7 @@ const FetchSMNonCovLns = props => {
                           
           
                   if(parseFloat(balances) < parseFloat(enquiryFees) ){
-                      Alert.alert("Account Balance cannot facilitate the request");
+                      Alert.alert("Account Balance is very little");
                     }
                     else{
                         
@@ -155,9 +155,7 @@ const FetchSMNonCovLns = props => {
             }
           };
         
-          useEffect(() => {
-            fetchLoanees();
-          }, [])
+         
 
   return (
     <View style={styles.root}>

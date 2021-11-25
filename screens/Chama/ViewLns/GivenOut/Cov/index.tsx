@@ -105,7 +105,7 @@ const FetchSMCovLns = props => {
                           
           
                   if(parseFloat(grpBals) < parseFloat(enquiryFees) ){
-                      Alert.alert("Account Balance cannot facilitate the request");
+                      Alert.alert("Account Balance is very little");
                     }
                     else{
                         
