@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
 
   viewForClientsCategoriesChama3: {
-    backgroundColor: 'blue',
+    backgroundColor: 'skyblue',
     
     height: "80%",
     borderRadius: 4,
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   },
   
   clientsPressableTextStts: {
-    color: 'white',
+    color: 'black',
     fontSize: 7,
     marginTop: 1,
   },

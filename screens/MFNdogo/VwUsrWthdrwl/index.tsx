@@ -5,7 +5,7 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../components/MFNdogo/VwUsrWthdrwls";
 import styles from './styles';
 
-import { listFloatAdds } from '../../../src/graphql/queries';
+import { listFloatAdds, vwMFNFltAdds } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 
 const FetchSMNonLnsSnt = props => {
@@ -30,15 +30,15 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listFloatAdds, 
-                { filter: {
-                    and: {
-                      agentPhonecontact: { eq: route.params.MFNId}
-                      
+              const Lonees:any = await API.graphql(graphqlOperation(vwMFNFltAdds, 
+                {
+                      agentPhonecontact: route.params.MFNId,
+                      sortDirection: "DESC",
+                      limit: 100
                     }
-                  }}
+                  
                   ));
-                  setRecvrs(Lonees.data.listFloatAdds.items);
+                  setRecvrs(Lonees.data.VwMFNFltAdds.items);
             } catch (e) {
               console.log(e);
             } finally {

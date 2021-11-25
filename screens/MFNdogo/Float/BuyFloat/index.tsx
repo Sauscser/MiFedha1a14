@@ -2,19 +2,18 @@ import React, {useEffect, useState} from 'react';
 
 import {createFloatPurchase, updateAgent, updateCompany} from '../../../../src/graphql/mutations';
 
-import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
+import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
-import {useNavigation} from '@react-navigation/native';
 
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+  
+  
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+  
+  
   ActivityIndicator,
   TouchableOpacity,
   Alert,
@@ -189,7 +188,7 @@ const ftchAgInfo = async () => {
                                           Alert.alert("Please check your internet connection")
                                         };
                                       }  
-                                      Alert.alert(names + " has purchased Ksh. "+amt+" float"); 
+                                      Alert.alert(names + " has loaded Ksh. "+amt); 
                                       
                                      setIsLoading(false)
                                     };

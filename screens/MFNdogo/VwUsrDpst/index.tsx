@@ -6,7 +6,7 @@ import NonLnSent from "../../../components/MFNdogo/VwUsrDposit";
 import styles from './styles';
 
 
-import { listFloatReductions } from '../../../src/graphql/queries';
+import {  vwMFNFltDeductns } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 
 const FetchSMNonLnsSnt = props => {
@@ -31,16 +31,17 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listFloatReductions, 
-                { filter: {
-                    and: {
-                      agContact: { eq: route.params.MFNId},
+              const Lonees:any = await API.graphql(graphqlOperation(vwMFNFltDeductns, 
+                { 
+                      agContact: route.params.MFNId,
+                      sortDirection: "DESC",
                       
+                      limit:100
                       
                     }
-                  }}
+                  
                   ));
-                  setRecvrs(Lonees.data.listFloatReductions.items);
+                  setRecvrs(Lonees.data.VwMFNFltDeductns.items);
             } catch (e) {
               console.log(e);
             } finally {

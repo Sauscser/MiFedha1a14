@@ -20,7 +20,7 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
-import { getCompany, getSMAccount } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount, listSMAccounts } from '../../../src/graphql/queries';
 
 const RegisterMFKubwaAcForm = props => {
   const [nationalId, setNationalid] = useState("");
@@ -30,12 +30,14 @@ const RegisterMFKubwaAcForm = props => {
   const[ownr, setOwnr] = useState(null);
   const [pword, setPW] = useState("");
   const[isLoading, setIsLoading] = useState(false);
+  const [UsrPhn, setUsrPhn] = useState(null);
 
 
 
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();   
     setOwnr(userInfo.attributes.sub); 
+    setUsrPhn(userInfo.attributes.phone_number);
   };
 
   useEffect(() => {
@@ -54,17 +56,28 @@ const RegisterMFKubwaAcForm = props => {
         const actvAKbwa = compDtls.data.getCompany.ttlKFKbwActv
 
 
-        const ChckUsrExistence = async () => {
+        const ChckPhnUse = async () => {
           try {
-            const UsrDtls:any = await API.graphql(
-              graphqlOperation(getSMAccount,
+            const UsrDtlss:any = await API.graphql(
+              graphqlOperation(listSMAccounts,
                 { filter: {
                     
-                      nationalid: { eq: phoneContact}
+                  phonecontact: { eq: phoneContact}
                                 
                   }}
               )
             )
+
+            const ChckUsrExistence = async () => {
+              try {
+                const UsrDtls:any = await API.graphql(
+                  graphqlOperation(getSMAccount, 
+                    { 
+                      phonecontact:UsrPhn
+                    }
+                  )
+                )
+                const nationalidssss = UsrDtls.data.getSMAccount.nationalid
 
             const CreateNewSA = async () => {
               if(isLoading){
@@ -76,7 +89,7 @@ const RegisterMFKubwaAcForm = props => {
                   graphqlOperation(createSAgent, {
                     input: {
                       
-                      saNationalid: nationalId,
+                      saNationalid: nationalidssss,
                       name: nam,
                       saPhoneContact: phoneContact,
                       pw: pword,
@@ -95,10 +108,6 @@ const RegisterMFKubwaAcForm = props => {
                 
               } 
     
-              
-    
-              
-              
               catch (error) {
                 console.log(error)
                 if(error){
@@ -120,8 +129,11 @@ const RegisterMFKubwaAcForm = props => {
       return;
     }
 
-    else if(UsrDtls.data.getSMAccount.items.length > 0){Alert.alert("This number belongs to another user")}
-        else{CreateNewSA();}
+    
+
+   else {
+          CreateNewSA();
+        }
             
     
             const updtActAdm = async()=>{
@@ -152,8 +164,17 @@ const RegisterMFKubwaAcForm = props => {
             console.error(e);
           }
         }
+         if(UsrDtlss.data.listSMAccounts.items.length > 0){Alert.alert("This Phone number is in use in a Single Member Account")}
+         else{
+        await ChckUsrExistence();}
+      
+      } catch (e) {
+            if(e){Alert.alert("Please first sign up")}
+            console.error(e);
+          }
+        }
 
-        await ChckUsrExistence();
+        await ChckPhnUse();
 
         
 
@@ -237,7 +258,7 @@ const RegisterMFKubwaAcForm = props => {
         style={styles.image}>
         <ScrollView>
           <View style={styles.loanTitleView}>
-            <Text style={styles.title}>Fill MFKubwa Account Details Below</Text>
+            <Text style={styles.title}>Fill Details Below</Text>
           </View>
 
           
@@ -252,14 +273,7 @@ const RegisterMFKubwaAcForm = props => {
             <Text style={styles.sendLoanText}>MFKubwa Phone</Text>
           </View>
 
-          <View style={styles.sendLoanView}>
-            <TextInput
-              value={nationalId}
-              onChangeText={setNationalid}
-              style={styles.sendLoanInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFKubwa National Id</Text>
-          </View>
+         
 
           <View style={styles.sendLoanView}>
             <TextInput

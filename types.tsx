@@ -211,6 +211,9 @@ declare global {
 
       UpdtVatComss:undefined;
       AdjustUsrLimitss:undefined;
+      AdvPy2VwChms:undefined;
+      AdvPy2VwCredSlrs:undefined;
+      AdvPy2VwSMs:undefined;
       
     }
   }

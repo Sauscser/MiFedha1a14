@@ -35,7 +35,7 @@ const FetchSMNonLnsSnt = props => {
                 { filter: {
                     and: {
                       saPhoneContact: { eq: route.params.MFKPhn},
-                      
+                      status: { eq: "AccountActive"},
                       
                     }
                   }}

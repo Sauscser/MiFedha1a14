@@ -1612,3 +1612,1261 @@ export const listGrpMembersContributions = /* GraphQL */ `
     }
   }
 `;
+export const vwMyDebts = /* GraphQL */ `
+  query VwMyDebts(
+    $loaneePhn: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSMLoansCoveredFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyDebts(
+      loaneePhn: $loaneePhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        loaneeid
+        loaneePhn
+        loanerPhn
+        loanerId
+        amountgiven
+        amountexpected
+        amountExpectedBackWthClrnc
+        amountrepaid
+        lonBala
+        loaneename
+        loanername
+        repaymentPeriod
+        advregnu
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyDebtors = /* GraphQL */ `
+  query VwMyDebtors(
+    $loanerPhn: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSMLoansCoveredFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyDebtors(
+      loanerPhn: $loanerPhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        loaneeid
+        loaneePhn
+        loanerPhn
+        loanerId
+        amountgiven
+        amountexpected
+        amountExpectedBackWthClrnc
+        amountrepaid
+        lonBala
+        loaneename
+        loanername
+        repaymentPeriod
+        advregnu
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const advVwLnsClient = /* GraphQL */ `
+  query AdvVwLnsClient(
+    $advregnu: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSMLoansCoveredFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    AdvVwLnsClient(
+      advregnu: $advregnu
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        loaneeid
+        loaneePhn
+        loanerPhn
+        loanerId
+        amountgiven
+        amountexpected
+        amountExpectedBackWthClrnc
+        amountrepaid
+        lonBala
+        loaneename
+        loanername
+        repaymentPeriod
+        advregnu
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyDebtss = /* GraphQL */ `
+  query VwMyDebtss(
+    $loaneePhn: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSMLoansNonCoveredFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyDebtss(
+      loaneePhn: $loaneePhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        loaneePhn
+        loanerPhn
+        loaneeid
+        loanerId
+        amountgiven
+        amountexpected
+        amountExpectedBackWthClrnc
+        amountrepaid
+        lonBala
+        loaneename
+        loanername
+        repaymentPeriod
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyDebtorss = /* GraphQL */ `
+  query VwMyDebtorss(
+    $loanerPhn: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSMLoansNonCoveredFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyDebtorss(
+      loanerPhn: $loanerPhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        loaneePhn
+        loanerPhn
+        loaneeid
+        loanerId
+        amountgiven
+        amountexpected
+        amountExpectedBackWthClrnc
+        amountrepaid
+        lonBala
+        loaneename
+        loanername
+        repaymentPeriod
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyRecMny = /* GraphQL */ `
+  query VwMyRecMny(
+    $recPhn: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelNonLoansFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyRecMny(
+      recPhn: $recPhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        senderPhn
+        recPhn
+        RecName
+        SenderName
+        amount
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMySntMny = /* GraphQL */ `
+  query VwMySntMny(
+    $senderPhn: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelNonLoansFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMySntMny(
+      senderPhn: $senderPhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        senderPhn
+        recPhn
+        RecName
+        SenderName
+        amount
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const mFKVwMFN = /* GraphQL */ `
+  query MFKVwMFN(
+    $sagentregno: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelAgentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    MFKVwMFN(
+      sagentregno: $sagentregno
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        phonecontact
+        nationalid
+        name
+        ttlEarnings
+        pw
+        email
+        sagentregno
+        TtlFltIn
+        TtlFltOut
+        floatBal
+        latitude
+        longitude
+        agentEarningBal
+        status
+        owner
+        town
+        MFNWithdrwlFee
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyBghtFlt = /* GraphQL */ `
+  query VwMyBghtFlt(
+    $agentphone: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelFloatPurchaseFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyBghtFlt(
+      agentphone: $agentphone
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        agentphone
+        amount
+        transactId
+        bankAdminID
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyUsrWthdrwls = /* GraphQL */ `
+  query VwMyUsrWthdrwls(
+    $withdrawerid: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelFloatAddFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyUsrWthdrwls(
+      withdrawerid: $withdrawerid
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        withdrawerid
+        amount
+        agentPhonecontact
+        agentName
+        userName
+        saName
+        saPhone
+        sagentId
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMFNFltAdds = /* GraphQL */ `
+  query VwMFNFltAdds(
+    $agentPhonecontact: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelFloatAddFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMFNFltAdds(
+      agentPhonecontact: $agentPhonecontact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        withdrawerid
+        amount
+        agentPhonecontact
+        agentName
+        userName
+        saName
+        saPhone
+        sagentId
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMFKEarningsFrmWthdrwls = /* GraphQL */ `
+  query VwMFKEarningsFrmWthdrwls(
+    $saPhone: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelFloatAddFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMFKEarningsFrmWthdrwls(
+      saPhone: $saPhone
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        withdrawerid
+        amount
+        agentPhonecontact
+        agentName
+        userName
+        saName
+        saPhone
+        sagentId
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyUsrDposits = /* GraphQL */ `
+  query VwMyUsrDposits(
+    $depositerid: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelFloatReductionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyUsrDposits(
+      depositerid: $depositerid
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        amount
+        depositerid
+        agContact
+        agentName
+        userName
+        status
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMFNFltDeductns = /* GraphQL */ `
+  query VwMFNFltDeductns(
+    $agContact: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelFloatReductionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMFNFltDeductns(
+      agContact: $agContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        amount
+        depositerid
+        agContact
+        agentName
+        userName
+        status
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMFNWthdrwls = /* GraphQL */ `
+  query VwMFNWthdrwls(
+    $agentPhone: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelAgentWithdrawalsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMFNWthdrwls(
+      agentPhone: $agentPhone
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        agentPhone
+        bankAdminId
+        Amount
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMFKWthdrwls = /* GraphQL */ `
+  query VwMFKWthdrwls(
+    $saId: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSAgentWithdrawalsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMFKWthdrwls(
+      saId: $saId
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        saId
+        amount
+        bankAdmnId
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwAdvWthdrwls = /* GraphQL */ `
+  query VwAdvWthdrwls(
+    $advregnu: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelAdvocateWithdrawalsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwAdvWthdrwls(
+      advregnu: $advregnu
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        bankAdmnId
+        advregnu
+        amount
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMySales = /* GraphQL */ `
+  query VwMySales(
+    $sellerContact: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCovCreditSellerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMySales(
+      sellerContact: $sellerContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        itemName
+        itemSerialNumber
+        buyerContact
+        sellerContact
+        buyerID
+        buyerName
+        SellerName
+        sellerID
+        amountSold
+        amountexpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        repaymentPeriod
+        lonBala
+        description
+        status
+        advregnu
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyCrdBys = /* GraphQL */ `
+  query VwMyCrdBys(
+    $buyerContact: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCovCreditSellerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyCrdBys(
+      buyerContact: $buyerContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        itemName
+        itemSerialNumber
+        buyerContact
+        sellerContact
+        buyerID
+        buyerName
+        SellerName
+        sellerID
+        amountSold
+        amountexpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        repaymentPeriod
+        lonBala
+        description
+        status
+        advregnu
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwAdvCrdSls = /* GraphQL */ `
+  query VwAdvCrdSls(
+    $advregnu: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCovCreditSellerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwAdvCrdSls(
+      advregnu: $advregnu
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        itemName
+        itemSerialNumber
+        buyerContact
+        sellerContact
+        buyerID
+        buyerName
+        SellerName
+        sellerID
+        amountSold
+        amountexpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        repaymentPeriod
+        lonBala
+        description
+        status
+        advregnu
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMySaless = /* GraphQL */ `
+  query VwMySaless(
+    $sellerContact: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelNonCovCreditSellerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMySaless(
+      sellerContact: $sellerContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        itemName
+        itemSerialNumber
+        buyerContact
+        sellerContact
+        buyerID
+        buyerName
+        SellerName
+        sellerID
+        amountSold
+        amountexpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        lonBala
+        repaymentPeriod
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyCrdByss = /* GraphQL */ `
+  query VwMyCrdByss(
+    $buyerContact: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelNonCovCreditSellerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyCrdByss(
+      buyerContact: $buyerContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        itemName
+        itemSerialNumber
+        buyerContact
+        sellerContact
+        buyerID
+        buyerName
+        SellerName
+        sellerID
+        amountSold
+        amountexpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        lonBala
+        repaymentPeriod
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwChamaMembers = /* GraphQL */ `
+  query VwChamaMembers(
+    $groupContact: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGrpMembersFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwChamaMembers(
+      groupContact: $groupContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        groupContact
+        groupName
+        memberContact
+        memberName
+        memberNatId
+        GrossLnsGvn
+        LonAmtGven
+        AmtRepaid
+        LnBal
+        NonLoanAcBal
+        ttlNonLonAcBal
+        AcStatus
+        loanStatus
+        blStatus
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyChamas = /* GraphQL */ `
+  query VwMyChamas(
+    $memberContact: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGrpMembersFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyChamas(
+      memberContact: $memberContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        groupContact
+        groupName
+        memberContact
+        memberName
+        memberNatId
+        GrossLnsGvn
+        LonAmtGven
+        AmtRepaid
+        LnBal
+        NonLoanAcBal
+        ttlNonLonAcBal
+        AcStatus
+        loanStatus
+        blStatus
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwChamaMemberss = /* GraphQL */ `
+  query VwChamaMemberss(
+    $grpContact: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCvrdGroupLoansFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwChamaMemberss(
+      grpContact: $grpContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        grpContact
+        loaneePhn
+        repaymentPeriod
+        amountGiven
+        amountExpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        description
+        lonBala
+        memberId
+        advRegNu
+        loaneeName
+        LoanerName
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyChamass = /* GraphQL */ `
+  query VwMyChamass(
+    $loaneePhn: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCvrdGroupLoansFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyChamass(
+      loaneePhn: $loaneePhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        grpContact
+        loaneePhn
+        repaymentPeriod
+        amountGiven
+        amountExpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        description
+        lonBala
+        memberId
+        advRegNu
+        loaneeName
+        LoanerName
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwChmLnClients = /* GraphQL */ `
+  query VwChmLnClients(
+    $advRegNu: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCvrdGroupLoansFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwChmLnClients(
+      advRegNu: $advRegNu
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        grpContact
+        loaneePhn
+        repaymentPeriod
+        amountGiven
+        amountExpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        description
+        lonBala
+        memberId
+        advRegNu
+        loaneeName
+        LoanerName
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwChamaMembersss = /* GraphQL */ `
+  query VwChamaMembersss(
+    $grpContact: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelNonCvrdGroupLoansFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwChamaMembersss(
+      grpContact: $grpContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        grpContact
+        loaneePhn
+        repaymentPeriod
+        amountGiven
+        amountExpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        description
+        loaneeName
+        loanerName
+        memberId
+        lonBala
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyChamasss = /* GraphQL */ `
+  query VwMyChamasss(
+    $loaneePhn: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelNonCvrdGroupLoansFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyChamasss(
+      loaneePhn: $loaneePhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        grpContact
+        loaneePhn
+        repaymentPeriod
+        amountGiven
+        amountExpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        description
+        loaneeName
+        loanerName
+        memberId
+        lonBala
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwChamaMemberssss = /* GraphQL */ `
+  query VwChamaMemberssss(
+    $grpContact: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGroupNonLoansFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwChamaMemberssss(
+      grpContact: $grpContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        grpContact
+        recipientPhn
+        receiverName
+        SenderName
+        amountSent
+        memberId
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyChamassss = /* GraphQL */ `
+  query VwMyChamassss(
+    $recipientPhn: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGroupNonLoansFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyChamassss(
+      recipientPhn: $recipientPhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        grpContact
+        recipientPhn
+        receiverName
+        SenderName
+        amountSent
+        memberId
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwChamaMembersssss = /* GraphQL */ `
+  query VwChamaMembersssss(
+    $grpContact: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGrpMembersContributionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwChamaMembersssss(
+      grpContact: $grpContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        memberPhn
+        mmberNme
+        GrpName
+        grpContact
+        contriAmount
+        memberId
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyChamasssss = /* GraphQL */ `
+  query VwMyChamasssss(
+    $memberPhn: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGrpMembersContributionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyChamasssss(
+      memberPhn: $memberPhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        memberPhn
+        mmberNme
+        GrpName
+        grpContact
+        contriAmount
+        memberId
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

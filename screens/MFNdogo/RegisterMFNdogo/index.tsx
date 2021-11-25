@@ -3,24 +3,23 @@ import {Alert} from "react-native"
 
 import {createAgent, updateCompany, updateSAgent} from '../../../src/graphql/mutations';
 
-import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
+import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
-import {useNavigation} from '@react-navigation/native';
 
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+  
+  
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+  
+  
   TouchableOpacity,
   ActivityIndicator
 } from 'react-native';
 import styles from './styles';
-import { getCompany, getSAgent, getSMAccount, listSMAccounts } from '../../../src/graphql/queries';
+import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../src/graphql/queries';
 
   const RegisterKFNdgAcForm = props => {
   const [nationalId, setNationalid] = useState('');
@@ -28,6 +27,7 @@ import { getCompany, getSAgent, getSMAccount, listSMAccounts } from '../../../sr
   const [phoneContact, setPhoneContact] = useState("");
   const[eml, setEml] =useState("");
   const [ownr, setOwnr] = useState(null);
+  const [UsrPhn, setUsrPhn] = useState(null);
   const [pword, setPW] = useState('');
   const [saRegNo, setSARegNo] = useState('');
   const[lat, setLat] = useState('');
@@ -38,6 +38,7 @@ import { getCompany, getSAgent, getSMAccount, listSMAccounts } from '../../../sr
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();   
     setOwnr(userInfo.attributes.sub); 
+    setUsrPhn(userInfo.attributes.phone_number);
   };
 
     useEffect(() => {
@@ -69,9 +70,9 @@ import { getCompany, getSAgent, getSMAccount, listSMAccounts } from '../../../sr
           const actvNdg = compDtls.data.getCompany.ttlKFNdgActv
           const maxMFNdogoss = compDtls.data.getCompany.maxMFNdogos
 
-          const ChckUsrExistence = async () => {
+          const ChckPhnUse = async () => {
             try {
-              const UsrDtls:any = await API.graphql(
+              const UsrDtlss:any = await API.graphql(
                 graphqlOperation(listSMAccounts,
                   { filter: {
                       
@@ -80,6 +81,17 @@ import { getCompany, getSAgent, getSMAccount, listSMAccounts } from '../../../sr
                     }}
                 )
               )
+  
+              const ChckUsrExistence = async () => {
+                try {
+                  const UsrDtls:any = await API.graphql(
+                    graphqlOperation(getSMAccount, 
+                      { 
+                        phonecontact:UsrPhn
+                      }
+                    )
+                  )
+                  const nationalidssss = UsrDtls.data.getSMAccount.nationalid
 
           const createNewMFN = async () => {
             if(isLoading){
@@ -91,7 +103,7 @@ import { getCompany, getSAgent, getSMAccount, listSMAccounts } from '../../../sr
                 graphqlOperation(createAgent, {
                   input: {                    
                     phonecontact: phoneContact,
-                    nationalid: nationalId,
+                    nationalid: nationalidssss,
                     name: nam,
                     ttlEarnings:0,
                     pw: pword,
@@ -116,11 +128,10 @@ import { getCompany, getSAgent, getSMAccount, listSMAccounts } from '../../../sr
             
             catch (error) {
               console.log(error)
-              if(!error){
-                Alert.alert("Account deactivated successfully")
+              if(error){
+                Alert.alert("Not authorised or the details are incorrect")
                 
-            } 
-            else{Alert.alert("Please check your internet connection")
+            
             return;}
               
             }
@@ -136,7 +147,7 @@ import { getCompany, getSAgent, getSMAccount, listSMAccounts } from '../../../sr
         return;
       } 
 
-      else if(UsrDtls.data.listSMAccounts.items.length > 0){Alert.alert("This number belongs to another user")}
+      
       else if((actvMFNdogs+1)>maxMFNdogoss){
         Alert.alert("Exceeded MFNdogo slots; Open another MFKubwa account");
         return;
@@ -192,15 +203,22 @@ import { getCompany, getSAgent, getSMAccount, listSMAccounts } from '../../../sr
             setIsLoading(false)
           }   
           
+        } catch (e) {
+          if(e){Alert.alert("Please first sign up")}
+          console.error(e);
         }
-  
-        catch(e){
-          console.log(e)
-        
+      }
+       if(UsrDtlss.data.listSMAccounts.items.length > 0){Alert.alert("This Phone number is in use in a Single Member Account")}
+       else{
+      await ChckUsrExistence();}
+    
+    } catch (e) {
+          if(e){Alert.alert("Please first sign up")}
+          console.error(e);
         }
-        setIsLoading(false);
-        };
-        await ChckUsrExistence(); 
+      }
+
+      await ChckPhnUse();
 
       }
   
@@ -339,7 +357,7 @@ return;
         style={styles.image}>
         <ScrollView>
           <View style={styles.loanTitleView}>
-            <Text style={styles.title}>Fill MFNdogo Account Details Below</Text>
+            <Text style={styles.title}>Fill Details Below</Text>
           </View>
 
           <View style={styles.sendLoanView}>
@@ -360,15 +378,6 @@ return;
               style={styles.sendLoanInput}
               editable={true}></TextInput>
             <Text style={styles.sendLoanText}>MFNdogo Phone</Text>
-          </View>
-
-          <View style={styles.sendLoanView}>
-            <TextInput
-              value={nationalId}
-              onChangeText={setNationalid}
-              style={styles.sendLoanInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo National Id</Text>
           </View>
 
           <View style={styles.sendLoanView}>
@@ -400,6 +409,7 @@ return;
 
           <View style={styles.sendLoanView}>
             <TextInput
+            keyboardType={"decimal-pad"}
               value={lat}
               onChangeText={setLat}
               style={styles.sendLoanInput}
@@ -409,6 +419,7 @@ return;
 
           <View style={styles.sendLoanView}>
             <TextInput
+            keyboardType={"decimal-pad"}
               value={lon}
               onChangeText={setLon}
               style={styles.sendLoanInput}

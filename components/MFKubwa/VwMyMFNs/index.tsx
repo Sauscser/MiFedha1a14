@@ -19,7 +19,7 @@ export interface SMAccount {
       TtlFltOut: number,
       floatBal: number,
       
-      agentEarningBal: number,
+      
       status: string,
     
       town:string,
@@ -41,8 +41,7 @@ const ViewSMDeposts = (props:SMAccount) => {
         TtlFltOut,
         floatBal,
         
-        agentEarningBal,
-       
+        
         town,
          createdAt,
          updatedAt,
@@ -69,10 +68,7 @@ const ViewSMDeposts = (props:SMAccount) => {
                       Total Earnings (Ksh): {ttlEarnings.toFixed(2)}                 
                     </Text>
 
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                     Account Balance (Ksh): {agentEarningBal.toFixed(2)}                 
-                    </Text>
+                    
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   

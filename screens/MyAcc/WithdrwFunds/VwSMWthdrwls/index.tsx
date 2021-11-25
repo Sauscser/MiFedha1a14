@@ -5,7 +5,7 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../../components/MyAc/VwDeposits";
 import styles from './styles';
 
-import { listFloatReductions } from '../../../../src/graphql/queries';
+import { listFloatReductions, vwMyUsrDposits } from '../../../../src/graphql/queries';
 
 const FetchSMNonLnsSnt = props => {
 
@@ -28,15 +28,15 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listFloatReductions, 
-                { filter: {
-                    and: {
-                      depositerid: { eq: SenderPhn}
-                      
+              const Lonees:any = await API.graphql(graphqlOperation(vwMyUsrDposits, 
+                { 
+                      depositerid: SenderPhn,
+                      sortDirection: "DESC",
+                      limit:100
                     }
-                  }}
+                
                   ));
-                  setRecvrs(Lonees.data.listFloatReductions.items);
+                  setRecvrs(Lonees.data.VwMyUsrDposits.items);
             } catch (e) {
               console.log(e);
             } finally {

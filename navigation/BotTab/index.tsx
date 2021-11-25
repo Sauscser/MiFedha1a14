@@ -44,7 +44,7 @@ const HomeTabNavigator = props => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({color: string}) => (
-            <Fontisto name="home" size={25} color={'blue'} />
+            <Fontisto name="home" size={25} color={'skyblue'} />
           ),
         }}
       />
@@ -53,7 +53,7 @@ const HomeTabNavigator = props => {
         component={FindKFNdogoLoc}
         options={{
           tabBarIcon: ({color: string}) => (
-            <FontAwesome name="map-marker" size={25} color={'blue'} />
+            <FontAwesome name="map-marker" size={25} color={'skyblue'} />
           ),
         }}
       />
@@ -63,7 +63,7 @@ const HomeTabNavigator = props => {
         component={MyAccount}
         options={{
           tabBarIcon: ({color: string}) => (
-            <MaterialCommunityIcons name="account" size={25} color={'blue'} />
+            <MaterialCommunityIcons name="account" size={25} color={'skyblue'} />
           ),
         }}
       />
@@ -73,7 +73,7 @@ const HomeTabNavigator = props => {
         component={LoanScreen}
         options={{
           tabBarIcon: ({color: string}) => (
-            <FontAwesome name="bank" size={25} color={'blue'} />
+            <FontAwesome name="bank" size={25} color={'skyblue'} />
           ),
         }}
       />
@@ -83,7 +83,7 @@ const HomeTabNavigator = props => {
         component={CredtSales}
         options={{
           tabBarIcon: ({color: string}) => (
-            <Entypo name="shopping-cart" size={25} color={'blue'} />
+            <Entypo name="shopping-cart" size={25} color={'skyblue'} />
           ),
         }}
       />
@@ -93,7 +93,7 @@ const HomeTabNavigator = props => {
         component={ChamaScreen}
         options={{
           tabBarIcon: ({color: string}) => (
-            <MaterialIcons name="groups" size={25} color={'blue'} />
+            <MaterialIcons name="groups" size={25} color={'skyblue'} />
           ),
         }}
       />
@@ -103,7 +103,7 @@ const HomeTabNavigator = props => {
         component={EntrAdvLoc}
         options={{
           tabBarIcon: ({color: string}) => (
-            <FontAwesome name="search" size={25} color={'blue'} />
+            <FontAwesome name="search" size={25} color={'skyblue'} />
           ),
         }}
       />

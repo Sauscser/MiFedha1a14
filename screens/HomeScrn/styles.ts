@@ -5,16 +5,20 @@ const styles = StyleSheet.create({
     width: '100%',
     height: "100%",
     resizeMode: 'cover',
+    top:"2%",
+    
+    alignItems: 'center',
+    flexDirection: 'column',
 
     backgroundColor: '#e58d29',
   },
   title: {
     fontSize: 25,
     fontWeight: 'bold',
-    color: 'green',
+    color: 'skyblue',
     width: '70%',
     marginLeft: "5%",
-    marginTop: "25%",
+    
   },
 
   loanFriendButton: {
@@ -25,9 +29,9 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width - 20,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute',
+    
     top: "2%",
-    zIndex: 100,
+    
   },
 
   chamaLoanAndCreditSalesButton: {
@@ -55,11 +59,11 @@ const styles = StyleSheet.create({
     
   },
 
-  viewForPressables: {
+  viewForPressables1: {
     backgroundColor: '#72ebd8',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "34%",
+    height: "10%",
     borderRadius: 20,
     marginTop: "2%",
     justifyContent: 'center',
@@ -67,6 +71,29 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 
+  viewForPressables2: {
+    backgroundColor: '#e58d29',
+    marginHorizontal: 10,
+    width: Dimensions.get('screen').width - 20,
+    height: "12%",
+    borderRadius: 20,
+    marginTop: "8%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+
+  viewForPressables3: {
+    backgroundColor: '#72ebd8',
+    marginHorizontal: 10,
+    width: Dimensions.get('screen').width - 20,
+    height: "34%",
+    borderRadius: 20,
+    marginTop: "9%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
   
 });
 export default styles;

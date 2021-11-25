@@ -23,8 +23,8 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listGroups, 
                 { filter: {
                     and: {
-                      grpContact: { eq: route.params.grpContact}
-                      
+                      grpContact: { eq: route.params.grpContact},
+                      status: { eq: "AccountActive"},
                     }
                   }}
                   ));

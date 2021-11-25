@@ -18,7 +18,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import styles from './styles';
-import { getCompany } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount } from '../../../src/graphql/queries';
 
   const RegisterMFAdvAcForm = props => {
 
@@ -34,10 +34,12 @@ import { getCompany } from '../../../src/graphql/queries';
   const [advRegNo, setAdvRegNo] = useState('');
   const[officeLocs, setOfficeLoc] = useState("");
   const [isLoading, setIsLoading] =useState(false);
+  const [UsrPhn, setUsrPhn] = useState(null);
   
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();   
     setOwnr(userInfo.attributes.sub); 
+    setUsrPhn(userInfo.attributes.phone_number);
   };
 
     useEffect(() => {
@@ -54,6 +56,17 @@ import { getCompany } from '../../../src/graphql/queries';
           graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
         );
         const actvAdv = compDtls.data.getCompany.ttlKFAdvActv
+
+        const ChckUsrExistence = async () => {
+          try {
+            const UsrDtls:any = await API.graphql(
+              graphqlOperation(getSMAccount, 
+                { 
+                  phonecontact:UsrPhn
+                }
+              )
+            )
+            const nationalidssss = UsrDtls.data.getSMAccount.nationalid
         
         const onCreateNewMFN = async () => {
           if(isLoading){
@@ -65,7 +78,7 @@ import { getCompany } from '../../../src/graphql/queries';
               graphqlOperation(createAdvocate, {
                 input: {                    
                   advregnu: advRegNo,
-                  nationalid: nationalId,
+                  nationalid: nationalidssss,
                   pwd: pword,
                   name: nam,
                   phonecontact: phoneContact,
@@ -125,6 +138,16 @@ import { getCompany } from '../../../src/graphql/queries';
         setIsLoading(false);     
       
       }
+
+      
+  await ChckUsrExistence();
+
+    } catch (e) {
+      if(e){Alert.alert("Please first sign up")}
+      console.error(e);
+    }
+  }
+   
         }
 
 catch(e){
@@ -253,15 +276,7 @@ useEffect(() =>{
             <Text style={styles.sendLoanText}>Advocate Phone</Text>
           </View>
 
-          <View style={styles.sendLoanView}>
-            <TextInput
-              value={nationalId}
-              onChangeText={setNationalid}
-              style={styles.sendLoanInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>Advocate National Id</Text>
-          </View>
-
+          
           <View style={styles.sendLoanView}>
             <TextInput
               value={nam}

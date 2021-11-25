@@ -140,6 +140,7 @@ type SMAccount
   withdrawalLimit: Float!
   depositLimit: Float!
   owner: String!
+  createdAt: String!
 }
 
 type SMLoansCovered
@@ -184,6 +185,10 @@ type SMLoansCovered
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, create] }
     ]
   )
+  
+  @key(name: "byLneePhn", fields: ["loaneePhn", "createdAt"], queryField: "VwMyDebts")
+  @key(name: "byLnerPhn", fields: ["loanerPhn", "createdAt"], queryField: "VwMyDebtors")
+  @key(name: "byAdv", fields: ["advregnu", "createdAt"], queryField: "AdvVwLnsClient")
   {
   id: ID!
   loaneeid: String!
@@ -204,6 +209,7 @@ type SMLoansCovered
   description: String
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type SMLoansNonCovered
@@ -248,6 +254,8 @@ type SMLoansNonCovered
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, create] }
     ]
   )
+  @key(name: "byLneePhns", fields: ["loaneePhn", "createdAt"], queryField: "VwMyDebtss")
+  @key(name: "byLnerPhns", fields: ["loanerPhn", "createdAt"], queryField: "VwMyDebtorss")
   {
   id: ID!
   loaneePhn: String!
@@ -266,6 +274,7 @@ type SMLoansNonCovered
   description: String
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type NonLoans
@@ -309,7 +318,8 @@ type NonLoans
       }
     ]
   )
-  
+  @key(name: "byRecPhn", fields: ["recPhn", "createdAt"], queryField: "VwMyRecMny")
+  @key(name: "bySendrPhn", fields: ["senderPhn", "createdAt"], queryField: "VwMySntMny")
   {
   id: ID!
   senderPhn: String!
@@ -320,6 +330,7 @@ type NonLoans
   description: String
   status:Status!
   owner: String!
+  createdAt: String!
 }
 
 
@@ -356,6 +367,8 @@ type Agent
     ]
   )
   @key(fields: ["phonecontact"])
+  @key(name: "byCrtnTyms", fields: ["sagentregno", "createdAt"], queryField: "MFKVwMFN")
+  
   {
   phonecontact: String!
   nationalid: String!
@@ -374,6 +387,7 @@ type Agent
   owner: String!
   town:String!
   MFNWithdrwlFee:Float!
+  createdAt: String!
   
 }
 
@@ -415,14 +429,16 @@ type FloatPurchase
       }
     ]
   )
+  @key(name: "byMFNFlt", fields: ["agentphone", "createdAt"], queryField: "VwMyBghtFlt")
   {
-  id: ID
+  id: ID!
   agentphone: String!
   amount: Float!
   transactId: String!
   bankAdminID: String!
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type FloatAdd
@@ -459,6 +475,9 @@ type FloatAdd
       { allow: groups, groups: ["KFNdogo "], operations: [read] }
     ]
   )
+  @key(name: "byWthdrwrPhn", fields: ["withdrawerid", "createdAt"], queryField: "VwMyUsrWthdrwls")
+  @key(name: "byMFNPhn", fields: ["agentPhonecontact", "createdAt"], queryField: "VwMFNFltAdds")
+  @key(name: "byMFKPhn", fields: ["saPhone", "createdAt"], queryField: "VwMFKEarningsFrmWthdrwls")
   {
   id: ID!
   withdrawerid: String!
@@ -472,6 +491,7 @@ type FloatAdd
   sagentId: String!
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type FloatReduction
@@ -508,6 +528,9 @@ type FloatReduction
       }
     ]
   )
+  @key(name: "byDpsiterPhn", fields: ["depositerid", "createdAt"], queryField: "VwMyUsrDposits")
+  @key(name: "byMFNCntact", fields: ["agContact", "createdAt"], queryField: "VwMFNFltDeductns")
+  
   {
   id: ID!
   amount: Float!
@@ -516,6 +539,7 @@ type FloatReduction
   agentName:String!
   userName:String!
   status: Status!
+  createdAt: String!
 }
 
 type AgentWithdrawals
@@ -553,6 +577,7 @@ type AgentWithdrawals
       }
     ]
   )
+  @key(name: "byMFNContact", fields: ["agentPhone", "createdAt"], queryField: "VwMFNWthdrwls")
  {
   id: ID!
   agentPhone: String!
@@ -561,6 +586,7 @@ type AgentWithdrawals
   Amount: Float!
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type SAgent
@@ -616,6 +642,7 @@ type SAgent
   status: Status!
   owner: String!
   MFKWithdrwlFee:Float!
+  createdAt: String!
 }
 
 type SAgentWithdrawals
@@ -652,6 +679,7 @@ type SAgentWithdrawals
       }
     ]
   )
+  @key(name: "byMFKContacts", fields: ["saId", "createdAt"], queryField: "VwMFKWthdrwls")
   {
   id: ID!
 
@@ -660,6 +688,7 @@ type SAgentWithdrawals
   bankAdmnId: String!
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type BankAdmin
@@ -727,6 +756,7 @@ type BankAdmin
   email: String!
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type BankAdmWithdrawals
@@ -758,6 +788,7 @@ type BankAdmWithdrawals
       { allow: owner, operations: [read] }
     ]
   )
+  
   {
   id: ID!
 
@@ -765,6 +796,7 @@ type BankAdmWithdrawals
   amount: Float!
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type Advocate
@@ -817,6 +849,7 @@ type Advocate
   officeLoc: String!
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type AdvocateWithdrawals
@@ -850,6 +883,7 @@ type AdvocateWithdrawals
       { allow: groups, groups: ["Advocate"], operations: [read, create] }
     ]
   )
+   @key(name: "byAdvContacts", fields: ["advregnu", "createdAt"], queryField: "VwAdvWthdrwls")
   {
   id: ID!
   bankAdmnId: String!
@@ -858,6 +892,7 @@ type AdvocateWithdrawals
 
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type Company
@@ -1020,6 +1055,7 @@ type Company
 
   owner:String!
   totalLnsRecovered: Float!
+  createdAt: String!
 }
 
 type CovCreditSeller
@@ -1056,6 +1092,9 @@ type CovCreditSeller
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
+  @key(name: "bySlrPhn", fields: ["sellerContact", "createdAt"], queryField: "VwMySales")
+  @key(name: "byByrPhn", fields: ["buyerContact", "createdAt"], queryField: "VwMyCrdBys")
+  @key(name: "byAdvNo", fields: ["advregnu", "createdAt"], queryField: "VwAdvCrdSls")
   {
   id: ID!
   itemName: String!
@@ -1077,6 +1116,7 @@ type CovCreditSeller
   advregnu: String!
   
   owner: String!
+  createdAt: String!
 }
 
 type NonCovCreditSeller
@@ -1113,6 +1153,8 @@ type NonCovCreditSeller
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
+  @key(name: "bySlrPhns", fields: ["sellerContact", "createdAt"], queryField: "VwMySaless")
+  @key(name: "byByrPhns", fields: ["buyerContact", "createdAt"], queryField: "VwMyCrdByss")
   {
   id: ID!
   itemName: String!
@@ -1133,6 +1175,7 @@ type NonCovCreditSeller
 
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type Group
@@ -1205,6 +1248,7 @@ type Group
   
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type GrpMembers
@@ -1240,6 +1284,8 @@ type GrpMembers
       }
     ]
   )
+ @key(name: "byChmCntcts", fields: ["groupContact", "createdAt"], queryField: "VwChamaMembers")
+  @key(name: "byMemberCntcts", fields: ["memberContact", "createdAt"], queryField: "VwMyChamas")
   {
   id: ID!
   groupContact: String!
@@ -1258,6 +1304,7 @@ type GrpMembers
   loanStatus: Status!
   blStatus: Status!
   owner: String!
+  createdAt: String!
 }
 
 type CvrdGroupLoans
@@ -1294,6 +1341,9 @@ type CvrdGroupLoans
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
+  @key(name: "byChmCntctss", fields: ["grpContact", "createdAt"], queryField: "VwChamaMemberss")
+  @key(name: "byMemberCntctss", fields: ["loaneePhn", "createdAt"], queryField: "VwMyChamass")
+  @key(name: "byAdv", fields: ["advRegNu", "createdAt"], queryField: "VwChmLnClients")
   {
   id: ID!
   grpContact: String!
@@ -1311,6 +1361,7 @@ type CvrdGroupLoans
   LoanerName:String!
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type NonCvrdGroupLoans
@@ -1347,6 +1398,8 @@ type NonCvrdGroupLoans
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
+  @key(name: "byChmCntctsss", fields: ["grpContact", "createdAt"], queryField: "VwChamaMembersss")
+  @key(name: "byMemberCntctsss", fields: ["loaneePhn", "createdAt"], queryField: "VwMyChamasss")
   {
   id: ID!
   grpContact: String!
@@ -1363,6 +1416,7 @@ type NonCvrdGroupLoans
   lonBala:Float!
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type GroupNonLoans
@@ -1399,6 +1453,8 @@ type GroupNonLoans
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
+  @key(name: "byChmCntctssss", fields: ["grpContact", "createdAt"], queryField: "VwChamaMemberssss")
+  @key(name: "byMemberCntctssss", fields: ["recipientPhn", "createdAt"], queryField: "VwMyChamassss")
   {
   id: ID!
   grpContact: String!
@@ -1410,6 +1466,7 @@ type GroupNonLoans
   description: String
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 type GrpMembersContribution
@@ -1445,6 +1502,8 @@ type GrpMembersContribution
       }
     ]
   )
+  @key(name: "byChmCntctsssss", fields: ["grpContact", "createdAt"], queryField: "VwChamaMembersssss")
+  @key(name: "byMemberCntctsssss", fields: ["memberPhn", "createdAt"], queryField: "VwMyChamasssss")
   {
   id: ID!
   memberPhn: String!
@@ -1455,6 +1514,7 @@ type GrpMembersContribution
   memberId:String!
   status: Status!
   owner: String!
+  createdAt: String!
 }
 
 enum Status {

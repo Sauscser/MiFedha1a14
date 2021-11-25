@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   image: {
@@ -18,26 +18,26 @@ const styles = StyleSheet.create({
 
   loanTitleView: {
     backgroundColor: 'white',
-    marginHorizontal: 10,
-    width: Dimensions.get('screen').width - 20,
-    height: "2%",
+    marginHorizontal: "15%",    
+    height: "8%",
     borderRadius: 5,
     marginTop: "2%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    
   },
 
   sendLoanView: {
     backgroundColor: '#72ebd8',
-    marginHorizontal: 10,
-    width: Dimensions.get('screen').width - 20,
-    height: "7%",
-    borderRadius: 20,
+    marginHorizontal: "1%",
+    height: "15%",
+    borderRadius: 5,
     marginTop: "2%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    
   },
 
   sendLoanText: {
@@ -51,11 +51,10 @@ const styles = StyleSheet.create({
   },
   sendLoanButton: {
     backgroundColor: 'white',
-    height: "3%",
+    marginHorizontal: "15%",    
+    height: "8%",
     borderRadius: 5,
-    marginHorizontal: 10,
-    width: Dimensions.get('screen').width - 20,
-    marginTop: "5%",
+    marginTop: "2%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
@@ -72,9 +71,11 @@ const styles = StyleSheet.create({
     width:"95%",
     height: "60%",
     borderRadius: 5,
-    marginTop: "2%",
+    marginTop: "2%",   
+    
   },
 
   
+ 
 });
 export default styles;

@@ -176,7 +176,9 @@ import UpdateMFNCom from "../../screens/MFNdogo/UpdateMFNCom";
 
 import UpdtVatComs from "../../screens/Settings/UpdtVatCom";
 import AdjustUsrLimits from "../../screens/MyAcc/AdjustUsrLimits";
-
+import AdvPy2VwChm from "../../screens/AdvPy2VwChm";
+import AdvPy2VwCredSlr from "../../screens/AdvPy2VwCredSlr";
+import AdvPy2VwSM from "../../screens/AdvPy2VwSM";
 
 
 
@@ -189,6 +191,9 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'AdvPy2VwChms'} component={AdvPy2VwChm} />
+      <Stack.Screen name={'AdvPy2VwCredSlrs'} component={AdvPy2VwCredSlr} />
+      <Stack.Screen name={'AdvPy2VwSMs'} component={AdvPy2VwSM} />
       <Stack.Screen name={'AdjustUsrLimitss'} component={AdjustUsrLimits} />
       
       <Stack.Screen name={'UpdtVatComss'} component={UpdtVatComs} />      

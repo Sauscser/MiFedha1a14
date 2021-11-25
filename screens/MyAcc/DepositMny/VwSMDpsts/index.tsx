@@ -1,11 +1,11 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text,   FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../../components/MyAc/VwWithdrawals";
 import styles from './styles';
 
-import { listFloatAdds } from '../../../../src/graphql/queries';
+import {  vwMyUsrWthdrwls } from '../../../../src/graphql/queries';
 
 const FetchSMNonLnsSnt = props => {
 
@@ -28,15 +28,17 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listFloatAdds, 
-                { filter: {
-                    and: {
-                      withdrawerid: { eq: SenderPhn}
+              const Lonees:any = await API.graphql(graphqlOperation(vwMyUsrWthdrwls, 
+                { 
+                      withdrawerid: SenderPhn,
+                      sortDirection: "DESC",
+                      limit:100
                       
                     }
-                  }}
-                  ));
-                  setRecvrs(Lonees.data.listFloatAdds.items);
+               
+                  ))
+                  setRecvrs(Lonees.data.VwMyUsrWthdrwls.items);
+                  console.log(Lonees)
             } catch (e) {
               console.log(e);
             } finally {

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {
   createFloatAdd,
-  createFloatReduction, 
+   
 
   updateAgent,
   updateCompany,
@@ -232,7 +232,6 @@ const SMADepositForm = props => {
                                   input: {
                                     saPhoneContact: sagentregnos,
                         
-                                   
                                     TtlEarnings: parseFloat(TtlEarningss) + saCommission,
                                     saBalance: parseFloat(saBalances) + saCommission,
                                       
@@ -290,7 +289,7 @@ const SMADepositForm = props => {
                       return;
                     } 
         
-                    else if (usrStts!=="AccountActive") {
+                    else if (usrStts==="AccountInactive") {
                       Alert.alert("User Account has been deactivated")
                       return;
                     } 
@@ -304,7 +303,7 @@ const SMADepositForm = props => {
                       Alert.alert('Withdrawal limit exceeded');
                       return;
                     }
-                    if (AgAcAct!=="AccountActive") {
+                    if (AgAcAct==="AccountInactive") {
                       Alert.alert("MFNdogo Account has been deactivated")
                       return;
                     } 
@@ -404,12 +403,12 @@ const SMADepositForm = props => {
 
 
   return (
-    <View>
-      <View>
+   
+     
         
         <ScrollView>
           <View style={styles.amountTitleView}>
-            <Text style={styles.title}>Fill Account Details Below</Text>
+            <Text style={styles.title}>Fill Details Below</Text>
           </View>
       
 
@@ -447,8 +446,7 @@ const SMADepositForm = props => {
             {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
           </TouchableOpacity>
         </ScrollView>
-      </View>
-    </View>
+      
   );
 };
 

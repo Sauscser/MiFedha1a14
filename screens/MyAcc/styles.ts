@@ -3,53 +3,29 @@ import {StyleSheet, Dimensions} from 'react-native';
 const styles = StyleSheet.create({
   image: {
     width: '100%',
-    height: 650,
+    height: "100%",
     resizeMode: 'cover',
-
-    backgroundColor: '#e58d29',
+    
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginTop: 1,
+    flexWrap:"wrap"
   },
 
   accountView: {
     backgroundColor: '#e58d29',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: 150,
+    height: "32%",
     borderRadius: 20,
 
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop: 10,
-  },
-
-  viewForPressables: {
-    backgroundColor: 'green',
-    marginHorizontal: 10,
-    width: Dimensions.get('screen').width - 20,
-    height: 200,
-    borderRadius: 20,
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
+    marginTop: "5%",
   },
 
   
-
-  myMoneyPressables: {
-    backgroundColor: 'purple',
-    marginHorizontal: 1,
-    width: Dimensions.get('screen').width - 2,
-    height: 60,
-    borderRadius: 20,
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-
-    width: 80,
-  },
-
   acPressables: {
     backgroundColor: '#e58d29',
     
@@ -66,7 +42,7 @@ const styles = StyleSheet.create({
   },
 
   acNonLnsPressables: {
-    backgroundColor: 'blue',
+    backgroundColor: 'skyblue',
     
     height: "99%",
     borderRadius: 5,
@@ -84,7 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#72ebd8',
     marginHorizontal: 15,
     width: Dimensions.get('screen').width - 30,
-    height: 100,
+    height: "70%",
     borderRadius: 20,
     marginTop: 10,
     justifyContent: 'center',

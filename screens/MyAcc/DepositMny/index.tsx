@@ -206,8 +206,8 @@ const SMADepositForm = props => {
                   setIsLoading(false);
                   }; 
             
-            if (usrStts!=="AccountActive") {
-              Alert.alert("User Account has been deactivated")
+            if (usrStts==="AccountInactive") {
+              Alert.alert("User Account is inactive")
               return;
             } 
 
@@ -217,15 +217,15 @@ const SMADepositForm = props => {
             } 
             
             else if(parseFloat(amount)>parseFloat(depositLimits)) {
-              Alert.alert('Deposit limit exceeded');
+              Alert.alert('Limit exceeded; call customer care for adjusment');
               return;
             }
-           else if (AgAcAct!=="AccountActive") {
-              Alert.alert("MFNdogo Account has been deactivated")
+           else if (AgAcAct==="AccountInactive") {
+              Alert.alert("MFNdogo Account is Inactive")
               return;
             } 
            else if (parseFloat(agtFltBl)<parseFloat(amount)) {
-              Alert.alert("Insufficient MFNdogo Balance")
+              Alert.alert("Insufficient MFNdogo Balance: Ksh " +agtFltBl)
               return;
             } 
             else if (agPW!==agPWd) {

@@ -1,12 +1,12 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text,  FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../components/MFKubwa/VwMyMFNs";
 import styles from './styles';
 
 
-import { listAgents} from '../../../src/graphql/queries';
+import {  mFKVwMFN} from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 
 const FetchSMNonLnsSnt = props => {
@@ -31,16 +31,17 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listAgents, 
-                { filter: {
-                    and: {
-                      sagentregno: { eq: route.params.MFKPhn},
-                      
+              const Lonees:any = await API.graphql(graphqlOperation(mFKVwMFN, 
+                {
+                      sagentregno: route.params.MFKPhn,
+                      sortDirection: "DESC",
+                      limit:100,
+                      filter:{status: { eq: "AccountActive"}},
                       
                     }
-                  }}
+             
                   ));
-                  setRecvrs(Lonees.data.listAgents.items);
+                  setRecvrs(Lonees.data.MFKVwMFN.items);
             } catch (e) {
               console.log(e);
             } finally {

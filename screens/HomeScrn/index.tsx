@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {View, Text, ImageBackground, Pressable} from 'react-native';
+import {View, Text, ImageBackground, Pressable, SafeAreaView} from 'react-native';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {Auth} from 'aws-amplify';
@@ -22,21 +22,25 @@ const [id,setid] = useState("")
   };
 
   return (
-    <View>
+    <SafeAreaView>
       <View
         
         style={styles.image}>
         
-        
+        <View style={styles.viewForPressables1}>
         <Pressable onPress={SMGivNonCovLons} style={styles.loanFriendButton}>
           <Text style={styles.loanAFriendText}>Okolea Beshte</Text>
         </Pressable>
-
+        </View>
+        
+        <View style={styles.viewForPressables2}> 
         <Text style={styles.title}>
           Life ni kuokoleana na kudumisha urafiki
         </Text>
+        </View>
+        
 
-        <View style={styles.viewForPressables}>
+        <View style={styles.viewForPressables3}>
           <Pressable
             onPress={ChmNonCovLonss}
             style={styles.chamaLoanAndCreditSalesButton}>
@@ -53,7 +57,7 @@ const [id,setid] = useState("")
           </Pressable>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

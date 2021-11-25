@@ -87,6 +87,7 @@ export type CreateSMAccountInput = {
   withdrawalLimit: number,
   depositLimit: number,
   owner: string,
+  createdAt?: string | null,
 };
 
 export enum Status {
@@ -195,6 +196,7 @@ export type ModelSMAccountConditionInput = {
   nonLonLimit?: ModelFloatInput | null,
   withdrawalLimit?: ModelFloatInput | null,
   depositLimit?: ModelFloatInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelSMAccountConditionInput | null > | null,
   or?: Array< ModelSMAccountConditionInput | null > | null,
   not?: ModelSMAccountConditionInput | null,
@@ -448,6 +450,7 @@ export type UpdateSMAccountInput = {
   withdrawalLimit?: number | null,
   depositLimit?: number | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteSMAccountInput = {
@@ -472,6 +475,7 @@ export type CreateSMLoansCoveredInput = {
   description?: string | null,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelSMLoansCoveredConditionInput = {
@@ -490,6 +494,7 @@ export type ModelSMLoansCoveredConditionInput = {
   advregnu?: ModelStringInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelSMLoansCoveredConditionInput | null > | null,
   or?: Array< ModelSMLoansCoveredConditionInput | null > | null,
   not?: ModelSMLoansCoveredConditionInput | null,
@@ -548,6 +553,7 @@ export type UpdateSMLoansCoveredInput = {
   description?: string | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteSMLoansCoveredInput = {
@@ -571,6 +577,7 @@ export type CreateSMLoansNonCoveredInput = {
   description?: string | null,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelSMLoansNonCoveredConditionInput = {
@@ -588,6 +595,7 @@ export type ModelSMLoansNonCoveredConditionInput = {
   repaymentPeriod?: ModelIntInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelSMLoansNonCoveredConditionInput | null > | null,
   or?: Array< ModelSMLoansNonCoveredConditionInput | null > | null,
   not?: ModelSMLoansNonCoveredConditionInput | null,
@@ -632,6 +640,7 @@ export type UpdateSMLoansNonCoveredInput = {
   description?: string | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteSMLoansNonCoveredInput = {
@@ -648,6 +657,7 @@ export type CreateNonLoansInput = {
   description?: string | null,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelNonLoansConditionInput = {
@@ -658,6 +668,7 @@ export type ModelNonLoansConditionInput = {
   amount?: ModelFloatInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelNonLoansConditionInput | null > | null,
   or?: Array< ModelNonLoansConditionInput | null > | null,
   not?: ModelNonLoansConditionInput | null,
@@ -688,6 +699,7 @@ export type UpdateNonLoansInput = {
   description?: string | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteNonLoansInput = {
@@ -712,6 +724,7 @@ export type CreateAgentInput = {
   owner: string,
   town: string,
   MFNWithdrwlFee: number,
+  createdAt?: string | null,
 };
 
 export type ModelAgentConditionInput = {
@@ -730,6 +743,7 @@ export type ModelAgentConditionInput = {
   status?: ModelStatusInput | null,
   town?: ModelStringInput | null,
   MFNWithdrwlFee?: ModelFloatInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelAgentConditionInput | null > | null,
   or?: Array< ModelAgentConditionInput | null > | null,
   not?: ModelAgentConditionInput | null,
@@ -776,6 +790,7 @@ export type UpdateAgentInput = {
   owner?: string | null,
   town?: string | null,
   MFNWithdrwlFee?: number | null,
+  createdAt?: string | null,
 };
 
 export type DeleteAgentInput = {
@@ -790,6 +805,7 @@ export type CreateFloatPurchaseInput = {
   bankAdminID: string,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelFloatPurchaseConditionInput = {
@@ -798,6 +814,7 @@ export type ModelFloatPurchaseConditionInput = {
   transactId?: ModelStringInput | null,
   bankAdminID?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelFloatPurchaseConditionInput | null > | null,
   or?: Array< ModelFloatPurchaseConditionInput | null > | null,
   not?: ModelFloatPurchaseConditionInput | null,
@@ -805,7 +822,7 @@ export type ModelFloatPurchaseConditionInput = {
 
 export type FloatPurchase = {
   __typename: "FloatPurchase",
-  id?: string | null,
+  id: string,
   agentphone: string,
   amount: number,
   transactId: string,
@@ -824,6 +841,7 @@ export type UpdateFloatPurchaseInput = {
   bankAdminID?: string | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteFloatPurchaseInput = {
@@ -842,6 +860,7 @@ export type CreateFloatAddInput = {
   sagentId: string,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelFloatAddConditionInput = {
@@ -854,6 +873,7 @@ export type ModelFloatAddConditionInput = {
   saPhone?: ModelStringInput | null,
   sagentId?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelFloatAddConditionInput | null > | null,
   or?: Array< ModelFloatAddConditionInput | null > | null,
   not?: ModelFloatAddConditionInput | null,
@@ -888,6 +908,7 @@ export type UpdateFloatAddInput = {
   sagentId?: string | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteFloatAddInput = {
@@ -902,6 +923,7 @@ export type CreateFloatReductionInput = {
   agentName: string,
   userName: string,
   status: Status,
+  createdAt?: string | null,
 };
 
 export type ModelFloatReductionConditionInput = {
@@ -911,6 +933,7 @@ export type ModelFloatReductionConditionInput = {
   agentName?: ModelStringInput | null,
   userName?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelFloatReductionConditionInput | null > | null,
   or?: Array< ModelFloatReductionConditionInput | null > | null,
   not?: ModelFloatReductionConditionInput | null,
@@ -938,6 +961,7 @@ export type UpdateFloatReductionInput = {
   agentName?: string | null,
   userName?: string | null,
   status?: Status | null,
+  createdAt?: string | null,
 };
 
 export type DeleteFloatReductionInput = {
@@ -951,6 +975,7 @@ export type CreateAgentWithdrawalsInput = {
   Amount: number,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelAgentWithdrawalsConditionInput = {
@@ -958,6 +983,7 @@ export type ModelAgentWithdrawalsConditionInput = {
   bankAdminId?: ModelStringInput | null,
   Amount?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelAgentWithdrawalsConditionInput | null > | null,
   or?: Array< ModelAgentWithdrawalsConditionInput | null > | null,
   not?: ModelAgentWithdrawalsConditionInput | null,
@@ -982,6 +1008,7 @@ export type UpdateAgentWithdrawalsInput = {
   Amount?: number | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteAgentWithdrawalsInput = {
@@ -1001,6 +1028,7 @@ export type CreateSAgentInput = {
   status: Status,
   owner: string,
   MFKWithdrwlFee: number,
+  createdAt?: string | null,
 };
 
 export type ModelSAgentConditionInput = {
@@ -1014,6 +1042,7 @@ export type ModelSAgentConditionInput = {
   saBalance?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
   MFKWithdrwlFee?: ModelFloatInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelSAgentConditionInput | null > | null,
   or?: Array< ModelSAgentConditionInput | null > | null,
   not?: ModelSAgentConditionInput | null,
@@ -1050,6 +1079,7 @@ export type UpdateSAgentInput = {
   status?: Status | null,
   owner?: string | null,
   MFKWithdrwlFee?: number | null,
+  createdAt?: string | null,
 };
 
 export type DeleteSAgentInput = {
@@ -1063,6 +1093,7 @@ export type CreateSAgentWithdrawalsInput = {
   bankAdmnId: string,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelSAgentWithdrawalsConditionInput = {
@@ -1070,6 +1101,7 @@ export type ModelSAgentWithdrawalsConditionInput = {
   amount?: ModelFloatInput | null,
   bankAdmnId?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelSAgentWithdrawalsConditionInput | null > | null,
   or?: Array< ModelSAgentWithdrawalsConditionInput | null > | null,
   not?: ModelSAgentWithdrawalsConditionInput | null,
@@ -1094,6 +1126,7 @@ export type UpdateSAgentWithdrawalsInput = {
   bankAdmnId?: string | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteSAgentWithdrawalsInput = {
@@ -1110,6 +1143,7 @@ export type CreateBankAdminInput = {
   email: string,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelBankAdminConditionInput = {
@@ -1120,6 +1154,7 @@ export type ModelBankAdminConditionInput = {
   BankAdmBal?: ModelFloatInput | null,
   email?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelBankAdminConditionInput | null > | null,
   or?: Array< ModelBankAdminConditionInput | null > | null,
   not?: ModelBankAdminConditionInput | null,
@@ -1150,6 +1185,7 @@ export type UpdateBankAdminInput = {
   email?: string | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteBankAdminInput = {
@@ -1162,12 +1198,14 @@ export type CreateBankAdmWithdrawalsInput = {
   amount: number,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelBankAdmWithdrawalsConditionInput = {
   bankAdmNatId?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelBankAdmWithdrawalsConditionInput | null > | null,
   or?: Array< ModelBankAdmWithdrawalsConditionInput | null > | null,
   not?: ModelBankAdmWithdrawalsConditionInput | null,
@@ -1190,6 +1228,7 @@ export type UpdateBankAdmWithdrawalsInput = {
   amount?: number | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteBankAdmWithdrawalsInput = {
@@ -1208,6 +1247,7 @@ export type CreateAdvocateInput = {
   officeLoc: string,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelAdvocateConditionInput = {
@@ -1220,6 +1260,7 @@ export type ModelAdvocateConditionInput = {
   email?: ModelStringInput | null,
   officeLoc?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelAdvocateConditionInput | null > | null,
   or?: Array< ModelAdvocateConditionInput | null > | null,
   not?: ModelAdvocateConditionInput | null,
@@ -1254,6 +1295,7 @@ export type UpdateAdvocateInput = {
   officeLoc?: string | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteAdvocateInput = {
@@ -1267,6 +1309,7 @@ export type CreateAdvocateWithdrawalsInput = {
   amount: number,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelAdvocateWithdrawalsConditionInput = {
@@ -1274,6 +1317,7 @@ export type ModelAdvocateWithdrawalsConditionInput = {
   advregnu?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelAdvocateWithdrawalsConditionInput | null > | null,
   or?: Array< ModelAdvocateWithdrawalsConditionInput | null > | null,
   not?: ModelAdvocateWithdrawalsConditionInput | null,
@@ -1298,6 +1342,7 @@ export type UpdateAdvocateWithdrawalsInput = {
   amount?: number | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteAdvocateWithdrawalsInput = {
@@ -1432,6 +1477,7 @@ export type CreateCompanyInput = {
   maxBLs: number,
   owner: string,
   totalLnsRecovered: number,
+  createdAt?: string | null,
 };
 
 export type ModelCompanyConditionInput = {
@@ -1561,6 +1607,7 @@ export type ModelCompanyConditionInput = {
   maxBLs?: ModelFloatInput | null,
   owner?: ModelStringInput | null,
   totalLnsRecovered?: ModelFloatInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelCompanyConditionInput | null > | null,
   or?: Array< ModelCompanyConditionInput | null > | null,
   not?: ModelCompanyConditionInput | null,
@@ -1827,6 +1874,7 @@ export type UpdateCompanyInput = {
   maxBLs?: number | null,
   owner?: string | null,
   totalLnsRecovered?: number | null,
+  createdAt?: string | null,
 };
 
 export type DeleteCompanyInput = {
@@ -1853,6 +1901,7 @@ export type CreateCovCreditSellerInput = {
   status: Status,
   advregnu: string,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelCovCreditSellerConditionInput = {
@@ -1873,6 +1922,7 @@ export type ModelCovCreditSellerConditionInput = {
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   advregnu?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelCovCreditSellerConditionInput | null > | null,
   or?: Array< ModelCovCreditSellerConditionInput | null > | null,
   not?: ModelCovCreditSellerConditionInput | null,
@@ -1923,6 +1973,7 @@ export type UpdateCovCreditSellerInput = {
   status?: Status | null,
   advregnu?: string | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteCovCreditSellerInput = {
@@ -1948,6 +1999,7 @@ export type CreateNonCovCreditSellerInput = {
   description?: string | null,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelNonCovCreditSellerConditionInput = {
@@ -1967,6 +2019,7 @@ export type ModelNonCovCreditSellerConditionInput = {
   repaymentPeriod?: ModelIntInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelNonCovCreditSellerConditionInput | null > | null,
   or?: Array< ModelNonCovCreditSellerConditionInput | null > | null,
   not?: ModelNonCovCreditSellerConditionInput | null,
@@ -2015,6 +2068,7 @@ export type UpdateNonCovCreditSellerInput = {
   description?: string | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteNonCovCreditSellerInput = {
@@ -2051,6 +2105,7 @@ export type CreateGroupInput = {
   TtlClrdLonsAmtLnrChmNonCov: number,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelGroupConditionInput = {
@@ -2081,6 +2136,7 @@ export type ModelGroupConditionInput = {
   TtlClrdLonsTmsLnrChmNonCov?: ModelFloatInput | null,
   TtlClrdLonsAmtLnrChmNonCov?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelGroupConditionInput | null > | null,
   or?: Array< ModelGroupConditionInput | null > | null,
   not?: ModelGroupConditionInput | null,
@@ -2151,6 +2207,7 @@ export type UpdateGroupInput = {
   TtlClrdLonsAmtLnrChmNonCov?: number | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteGroupInput = {
@@ -2174,6 +2231,7 @@ export type CreateGrpMembersInput = {
   loanStatus: Status,
   blStatus: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelGrpMembersConditionInput = {
@@ -2191,6 +2249,7 @@ export type ModelGrpMembersConditionInput = {
   AcStatus?: ModelStatusInput | null,
   loanStatus?: ModelStatusInput | null,
   blStatus?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelGrpMembersConditionInput | null > | null,
   or?: Array< ModelGrpMembersConditionInput | null > | null,
   not?: ModelGrpMembersConditionInput | null,
@@ -2235,6 +2294,7 @@ export type UpdateGrpMembersInput = {
   loanStatus?: Status | null,
   blStatus?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteGrpMembersInput = {
@@ -2258,6 +2318,7 @@ export type CreateCvrdGroupLoansInput = {
   LoanerName: string,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelCvrdGroupLoansConditionInput = {
@@ -2275,6 +2336,7 @@ export type ModelCvrdGroupLoansConditionInput = {
   loaneeName?: ModelStringInput | null,
   LoanerName?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelCvrdGroupLoansConditionInput | null > | null,
   or?: Array< ModelCvrdGroupLoansConditionInput | null > | null,
   not?: ModelCvrdGroupLoansConditionInput | null,
@@ -2319,6 +2381,7 @@ export type UpdateCvrdGroupLoansInput = {
   LoanerName?: string | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteCvrdGroupLoansInput = {
@@ -2341,6 +2404,7 @@ export type CreateNonCvrdGroupLoansInput = {
   lonBala: number,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelNonCvrdGroupLoansConditionInput = {
@@ -2357,6 +2421,7 @@ export type ModelNonCvrdGroupLoansConditionInput = {
   memberId?: ModelStringInput | null,
   lonBala?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelNonCvrdGroupLoansConditionInput | null > | null,
   or?: Array< ModelNonCvrdGroupLoansConditionInput | null > | null,
   not?: ModelNonCvrdGroupLoansConditionInput | null,
@@ -2399,6 +2464,7 @@ export type UpdateNonCvrdGroupLoansInput = {
   lonBala?: number | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteNonCvrdGroupLoansInput = {
@@ -2416,6 +2482,7 @@ export type CreateGroupNonLoansInput = {
   description?: string | null,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelGroupNonLoansConditionInput = {
@@ -2427,6 +2494,7 @@ export type ModelGroupNonLoansConditionInput = {
   memberId?: ModelStringInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelGroupNonLoansConditionInput | null > | null,
   or?: Array< ModelGroupNonLoansConditionInput | null > | null,
   not?: ModelGroupNonLoansConditionInput | null,
@@ -2459,6 +2527,7 @@ export type UpdateGroupNonLoansInput = {
   description?: string | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteGroupNonLoansInput = {
@@ -2475,6 +2544,7 @@ export type CreateGrpMembersContributionInput = {
   memberId: string,
   status: Status,
   owner: string,
+  createdAt?: string | null,
 };
 
 export type ModelGrpMembersContributionConditionInput = {
@@ -2485,6 +2555,7 @@ export type ModelGrpMembersContributionConditionInput = {
   contriAmount?: ModelFloatInput | null,
   memberId?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelGrpMembersContributionConditionInput | null > | null,
   or?: Array< ModelGrpMembersContributionConditionInput | null > | null,
   not?: ModelGrpMembersContributionConditionInput | null,
@@ -2515,6 +2586,7 @@ export type UpdateGrpMembersContributionInput = {
   memberId?: string | null,
   status?: Status | null,
   owner?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeleteGrpMembersContributionInput = {
@@ -2606,6 +2678,7 @@ export type ModelSMAccountFilterInput = {
   withdrawalLimit?: ModelFloatInput | null,
   depositLimit?: ModelFloatInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelSMAccountFilterInput | null > | null,
   or?: Array< ModelSMAccountFilterInput | null > | null,
   not?: ModelSMAccountFilterInput | null,
@@ -2641,6 +2714,7 @@ export type ModelSMLoansCoveredFilterInput = {
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelSMLoansCoveredFilterInput | null > | null,
   or?: Array< ModelSMLoansCoveredFilterInput | null > | null,
   not?: ModelSMLoansCoveredFilterInput | null,
@@ -2669,6 +2743,7 @@ export type ModelSMLoansNonCoveredFilterInput = {
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelSMLoansNonCoveredFilterInput | null > | null,
   or?: Array< ModelSMLoansNonCoveredFilterInput | null > | null,
   not?: ModelSMLoansNonCoveredFilterInput | null,
@@ -2690,6 +2765,7 @@ export type ModelNonLoansFilterInput = {
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelNonLoansFilterInput | null > | null,
   or?: Array< ModelNonLoansFilterInput | null > | null,
   not?: ModelNonLoansFilterInput | null,
@@ -2719,6 +2795,7 @@ export type ModelAgentFilterInput = {
   owner?: ModelStringInput | null,
   town?: ModelStringInput | null,
   MFNWithdrwlFee?: ModelFloatInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelAgentFilterInput | null > | null,
   or?: Array< ModelAgentFilterInput | null > | null,
   not?: ModelAgentFilterInput | null,
@@ -2738,6 +2815,7 @@ export type ModelFloatPurchaseFilterInput = {
   bankAdminID?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelFloatPurchaseFilterInput | null > | null,
   or?: Array< ModelFloatPurchaseFilterInput | null > | null,
   not?: ModelFloatPurchaseFilterInput | null,
@@ -2761,6 +2839,7 @@ export type ModelFloatAddFilterInput = {
   sagentId?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelFloatAddFilterInput | null > | null,
   or?: Array< ModelFloatAddFilterInput | null > | null,
   not?: ModelFloatAddFilterInput | null,
@@ -2780,6 +2859,7 @@ export type ModelFloatReductionFilterInput = {
   agentName?: ModelStringInput | null,
   userName?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelFloatReductionFilterInput | null > | null,
   or?: Array< ModelFloatReductionFilterInput | null > | null,
   not?: ModelFloatReductionFilterInput | null,
@@ -2798,6 +2878,7 @@ export type ModelAgentWithdrawalsFilterInput = {
   Amount?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelAgentWithdrawalsFilterInput | null > | null,
   or?: Array< ModelAgentWithdrawalsFilterInput | null > | null,
   not?: ModelAgentWithdrawalsFilterInput | null,
@@ -2822,6 +2903,7 @@ export type ModelSAgentFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   MFKWithdrwlFee?: ModelFloatInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelSAgentFilterInput | null > | null,
   or?: Array< ModelSAgentFilterInput | null > | null,
   not?: ModelSAgentFilterInput | null,
@@ -2840,6 +2922,7 @@ export type ModelSAgentWithdrawalsFilterInput = {
   bankAdmnId?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelSAgentWithdrawalsFilterInput | null > | null,
   or?: Array< ModelSAgentWithdrawalsFilterInput | null > | null,
   not?: ModelSAgentWithdrawalsFilterInput | null,
@@ -2861,6 +2944,7 @@ export type ModelBankAdminFilterInput = {
   email?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelBankAdminFilterInput | null > | null,
   or?: Array< ModelBankAdminFilterInput | null > | null,
   not?: ModelBankAdminFilterInput | null,
@@ -2878,6 +2962,7 @@ export type ModelBankAdmWithdrawalsFilterInput = {
   amount?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelBankAdmWithdrawalsFilterInput | null > | null,
   or?: Array< ModelBankAdmWithdrawalsFilterInput | null > | null,
   not?: ModelBankAdmWithdrawalsFilterInput | null,
@@ -2901,6 +2986,7 @@ export type ModelAdvocateFilterInput = {
   officeLoc?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelAdvocateFilterInput | null > | null,
   or?: Array< ModelAdvocateFilterInput | null > | null,
   not?: ModelAdvocateFilterInput | null,
@@ -2919,6 +3005,7 @@ export type ModelAdvocateWithdrawalsFilterInput = {
   amount?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelAdvocateWithdrawalsFilterInput | null > | null,
   or?: Array< ModelAdvocateWithdrawalsFilterInput | null > | null,
   not?: ModelAdvocateWithdrawalsFilterInput | null,
@@ -3058,6 +3145,7 @@ export type ModelCompanyFilterInput = {
   maxBLs?: ModelFloatInput | null,
   owner?: ModelStringInput | null,
   totalLnsRecovered?: ModelFloatInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelCompanyFilterInput | null > | null,
   or?: Array< ModelCompanyFilterInput | null > | null,
   not?: ModelCompanyFilterInput | null,
@@ -3089,6 +3177,7 @@ export type ModelCovCreditSellerFilterInput = {
   status?: ModelStatusInput | null,
   advregnu?: ModelStringInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelCovCreditSellerFilterInput | null > | null,
   or?: Array< ModelCovCreditSellerFilterInput | null > | null,
   not?: ModelCovCreditSellerFilterInput | null,
@@ -3119,6 +3208,7 @@ export type ModelNonCovCreditSellerFilterInput = {
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelNonCovCreditSellerFilterInput | null > | null,
   or?: Array< ModelNonCovCreditSellerFilterInput | null > | null,
   not?: ModelNonCovCreditSellerFilterInput | null,
@@ -3160,6 +3250,7 @@ export type ModelGroupFilterInput = {
   TtlClrdLonsAmtLnrChmNonCov?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelGroupFilterInput | null > | null,
   or?: Array< ModelGroupFilterInput | null > | null,
   not?: ModelGroupFilterInput | null,
@@ -3188,6 +3279,7 @@ export type ModelGrpMembersFilterInput = {
   loanStatus?: ModelStatusInput | null,
   blStatus?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelGrpMembersFilterInput | null > | null,
   or?: Array< ModelGrpMembersFilterInput | null > | null,
   not?: ModelGrpMembersFilterInput | null,
@@ -3216,6 +3308,7 @@ export type ModelCvrdGroupLoansFilterInput = {
   LoanerName?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelCvrdGroupLoansFilterInput | null > | null,
   or?: Array< ModelCvrdGroupLoansFilterInput | null > | null,
   not?: ModelCvrdGroupLoansFilterInput | null,
@@ -3243,6 +3336,7 @@ export type ModelNonCvrdGroupLoansFilterInput = {
   lonBala?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelNonCvrdGroupLoansFilterInput | null > | null,
   or?: Array< ModelNonCvrdGroupLoansFilterInput | null > | null,
   not?: ModelNonCvrdGroupLoansFilterInput | null,
@@ -3265,6 +3359,7 @@ export type ModelGroupNonLoansFilterInput = {
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelGroupNonLoansFilterInput | null > | null,
   or?: Array< ModelGroupNonLoansFilterInput | null > | null,
   not?: ModelGroupNonLoansFilterInput | null,
@@ -3286,6 +3381,7 @@ export type ModelGrpMembersContributionFilterInput = {
   memberId?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelGrpMembersContributionFilterInput | null > | null,
   or?: Array< ModelGrpMembersContributionFilterInput | null > | null,
   not?: ModelGrpMembersContributionFilterInput | null,
@@ -3295,6 +3391,16 @@ export type ModelGrpMembersContributionConnection = {
   __typename: "ModelGrpMembersContributionConnection",
   items?:  Array<GrpMembersContribution | null > | null,
   nextToken?: string | null,
+};
+
+export type ModelStringKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
 };
 
 export type CreateSMAccountMutationVariables = {
@@ -3929,7 +4035,7 @@ export type CreateFloatPurchaseMutationVariables = {
 export type CreateFloatPurchaseMutation = {
   createFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id?: string | null,
+    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
@@ -3949,7 +4055,7 @@ export type UpdateFloatPurchaseMutationVariables = {
 export type UpdateFloatPurchaseMutation = {
   updateFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id?: string | null,
+    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
@@ -3969,7 +4075,7 @@ export type DeleteFloatPurchaseMutationVariables = {
 export type DeleteFloatPurchaseMutation = {
   deleteFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id?: string | null,
+    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
@@ -6129,7 +6235,7 @@ export type GetFloatPurchaseQueryVariables = {
 export type GetFloatPurchaseQuery = {
   getFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id?: string | null,
+    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
@@ -6152,7 +6258,7 @@ export type ListFloatPurchasesQuery = {
     __typename: "ModelFloatPurchaseConnection",
     items?:  Array< {
       __typename: "FloatPurchase",
-      id?: string | null,
+      id: string,
       agentphone: string,
       amount: number,
       transactId: string,
@@ -7382,6 +7488,1132 @@ export type ListGrpMembersContributionsQuery = {
   } | null,
 };
 
+export type VwMyDebtsQueryVariables = {
+  loaneePhn?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelSMLoansCoveredFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyDebtsQuery = {
+  VwMyDebts?:  {
+    __typename: "ModelSMLoansCoveredConnection",
+    items?:  Array< {
+      __typename: "SMLoansCovered",
+      id: string,
+      loaneeid: string,
+      loaneePhn: string,
+      loanerPhn: string,
+      loanerId: string,
+      amountgiven: number,
+      amountexpected: number,
+      amountExpectedBackWthClrnc: number,
+      amountrepaid: number,
+      lonBala: number,
+      loaneename: string,
+      loanername: string,
+      repaymentPeriod: number,
+      advregnu: string,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyDebtorsQueryVariables = {
+  loanerPhn?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelSMLoansCoveredFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyDebtorsQuery = {
+  VwMyDebtors?:  {
+    __typename: "ModelSMLoansCoveredConnection",
+    items?:  Array< {
+      __typename: "SMLoansCovered",
+      id: string,
+      loaneeid: string,
+      loaneePhn: string,
+      loanerPhn: string,
+      loanerId: string,
+      amountgiven: number,
+      amountexpected: number,
+      amountExpectedBackWthClrnc: number,
+      amountrepaid: number,
+      lonBala: number,
+      loaneename: string,
+      loanername: string,
+      repaymentPeriod: number,
+      advregnu: string,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type AdvVwLnsClientQueryVariables = {
+  advregnu?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelSMLoansCoveredFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type AdvVwLnsClientQuery = {
+  AdvVwLnsClient?:  {
+    __typename: "ModelSMLoansCoveredConnection",
+    items?:  Array< {
+      __typename: "SMLoansCovered",
+      id: string,
+      loaneeid: string,
+      loaneePhn: string,
+      loanerPhn: string,
+      loanerId: string,
+      amountgiven: number,
+      amountexpected: number,
+      amountExpectedBackWthClrnc: number,
+      amountrepaid: number,
+      lonBala: number,
+      loaneename: string,
+      loanername: string,
+      repaymentPeriod: number,
+      advregnu: string,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyDebtssQueryVariables = {
+  loaneePhn?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelSMLoansNonCoveredFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyDebtssQuery = {
+  VwMyDebtss?:  {
+    __typename: "ModelSMLoansNonCoveredConnection",
+    items?:  Array< {
+      __typename: "SMLoansNonCovered",
+      id: string,
+      loaneePhn: string,
+      loanerPhn: string,
+      loaneeid: string,
+      loanerId: string,
+      amountgiven: number,
+      amountexpected: number,
+      amountExpectedBackWthClrnc: number,
+      amountrepaid: number,
+      lonBala: number,
+      loaneename: string,
+      loanername: string,
+      repaymentPeriod: number,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyDebtorssQueryVariables = {
+  loanerPhn?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelSMLoansNonCoveredFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyDebtorssQuery = {
+  VwMyDebtorss?:  {
+    __typename: "ModelSMLoansNonCoveredConnection",
+    items?:  Array< {
+      __typename: "SMLoansNonCovered",
+      id: string,
+      loaneePhn: string,
+      loanerPhn: string,
+      loaneeid: string,
+      loanerId: string,
+      amountgiven: number,
+      amountexpected: number,
+      amountExpectedBackWthClrnc: number,
+      amountrepaid: number,
+      lonBala: number,
+      loaneename: string,
+      loanername: string,
+      repaymentPeriod: number,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyRecMnyQueryVariables = {
+  recPhn?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelNonLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyRecMnyQuery = {
+  VwMyRecMny?:  {
+    __typename: "ModelNonLoansConnection",
+    items?:  Array< {
+      __typename: "NonLoans",
+      id: string,
+      senderPhn: string,
+      recPhn: string,
+      RecName: string,
+      SenderName: string,
+      amount: number,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMySntMnyQueryVariables = {
+  senderPhn?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelNonLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMySntMnyQuery = {
+  VwMySntMny?:  {
+    __typename: "ModelNonLoansConnection",
+    items?:  Array< {
+      __typename: "NonLoans",
+      id: string,
+      senderPhn: string,
+      recPhn: string,
+      RecName: string,
+      SenderName: string,
+      amount: number,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type MFKVwMFNQueryVariables = {
+  sagentregno?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelAgentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type MFKVwMFNQuery = {
+  MFKVwMFN?:  {
+    __typename: "ModelAgentConnection",
+    items?:  Array< {
+      __typename: "Agent",
+      phonecontact: string,
+      nationalid: string,
+      name: string,
+      ttlEarnings: number,
+      pw: string,
+      email: string,
+      sagentregno: string,
+      TtlFltIn: number,
+      TtlFltOut: number,
+      floatBal: number,
+      latitude: number,
+      longitude: number,
+      agentEarningBal: number,
+      status: Status,
+      owner: string,
+      town: string,
+      MFNWithdrwlFee: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyBghtFltQueryVariables = {
+  agentphone?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelFloatPurchaseFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyBghtFltQuery = {
+  VwMyBghtFlt?:  {
+    __typename: "ModelFloatPurchaseConnection",
+    items?:  Array< {
+      __typename: "FloatPurchase",
+      id: string,
+      agentphone: string,
+      amount: number,
+      transactId: string,
+      bankAdminID: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyUsrWthdrwlsQueryVariables = {
+  withdrawerid?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelFloatAddFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyUsrWthdrwlsQuery = {
+  VwMyUsrWthdrwls?:  {
+    __typename: "ModelFloatAddConnection",
+    items?:  Array< {
+      __typename: "FloatAdd",
+      id: string,
+      withdrawerid: string,
+      amount: number,
+      agentPhonecontact: string,
+      agentName: string,
+      userName: string,
+      saName: string,
+      saPhone: string,
+      sagentId: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMFNFltAddsQueryVariables = {
+  agentPhonecontact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelFloatAddFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMFNFltAddsQuery = {
+  VwMFNFltAdds?:  {
+    __typename: "ModelFloatAddConnection",
+    items?:  Array< {
+      __typename: "FloatAdd",
+      id: string,
+      withdrawerid: string,
+      amount: number,
+      agentPhonecontact: string,
+      agentName: string,
+      userName: string,
+      saName: string,
+      saPhone: string,
+      sagentId: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMFKEarningsFrmWthdrwlsQueryVariables = {
+  saPhone?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelFloatAddFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMFKEarningsFrmWthdrwlsQuery = {
+  VwMFKEarningsFrmWthdrwls?:  {
+    __typename: "ModelFloatAddConnection",
+    items?:  Array< {
+      __typename: "FloatAdd",
+      id: string,
+      withdrawerid: string,
+      amount: number,
+      agentPhonecontact: string,
+      agentName: string,
+      userName: string,
+      saName: string,
+      saPhone: string,
+      sagentId: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyUsrDpositsQueryVariables = {
+  depositerid?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelFloatReductionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyUsrDpositsQuery = {
+  VwMyUsrDposits?:  {
+    __typename: "ModelFloatReductionConnection",
+    items?:  Array< {
+      __typename: "FloatReduction",
+      id: string,
+      amount: number,
+      depositerid: string,
+      agContact: string,
+      agentName: string,
+      userName: string,
+      status: Status,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMFNFltDeductnsQueryVariables = {
+  agContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelFloatReductionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMFNFltDeductnsQuery = {
+  VwMFNFltDeductns?:  {
+    __typename: "ModelFloatReductionConnection",
+    items?:  Array< {
+      __typename: "FloatReduction",
+      id: string,
+      amount: number,
+      depositerid: string,
+      agContact: string,
+      agentName: string,
+      userName: string,
+      status: Status,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMFNWthdrwlsQueryVariables = {
+  agentPhone?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelAgentWithdrawalsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMFNWthdrwlsQuery = {
+  VwMFNWthdrwls?:  {
+    __typename: "ModelAgentWithdrawalsConnection",
+    items?:  Array< {
+      __typename: "AgentWithdrawals",
+      id: string,
+      agentPhone: string,
+      bankAdminId: string,
+      Amount: number,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMFKWthdrwlsQueryVariables = {
+  saId?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelSAgentWithdrawalsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMFKWthdrwlsQuery = {
+  VwMFKWthdrwls?:  {
+    __typename: "ModelSAgentWithdrawalsConnection",
+    items?:  Array< {
+      __typename: "SAgentWithdrawals",
+      id: string,
+      saId: string,
+      amount: number,
+      bankAdmnId: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwAdvWthdrwlsQueryVariables = {
+  advregnu?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelAdvocateWithdrawalsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwAdvWthdrwlsQuery = {
+  VwAdvWthdrwls?:  {
+    __typename: "ModelAdvocateWithdrawalsConnection",
+    items?:  Array< {
+      __typename: "AdvocateWithdrawals",
+      id: string,
+      bankAdmnId: string,
+      advregnu: string,
+      amount: number,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMySalesQueryVariables = {
+  sellerContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCovCreditSellerFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMySalesQuery = {
+  VwMySales?:  {
+    __typename: "ModelCovCreditSellerConnection",
+    items?:  Array< {
+      __typename: "CovCreditSeller",
+      id: string,
+      itemName: string,
+      itemSerialNumber?: string | null,
+      buyerContact: string,
+      sellerContact: string,
+      buyerID: string,
+      buyerName: string,
+      SellerName: string,
+      sellerID: string,
+      amountSold: number,
+      amountexpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      repaymentPeriod: number,
+      lonBala: number,
+      description?: string | null,
+      status: Status,
+      advregnu: string,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyCrdBysQueryVariables = {
+  buyerContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCovCreditSellerFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyCrdBysQuery = {
+  VwMyCrdBys?:  {
+    __typename: "ModelCovCreditSellerConnection",
+    items?:  Array< {
+      __typename: "CovCreditSeller",
+      id: string,
+      itemName: string,
+      itemSerialNumber?: string | null,
+      buyerContact: string,
+      sellerContact: string,
+      buyerID: string,
+      buyerName: string,
+      SellerName: string,
+      sellerID: string,
+      amountSold: number,
+      amountexpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      repaymentPeriod: number,
+      lonBala: number,
+      description?: string | null,
+      status: Status,
+      advregnu: string,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwAdvCrdSlsQueryVariables = {
+  advregnu?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCovCreditSellerFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwAdvCrdSlsQuery = {
+  VwAdvCrdSls?:  {
+    __typename: "ModelCovCreditSellerConnection",
+    items?:  Array< {
+      __typename: "CovCreditSeller",
+      id: string,
+      itemName: string,
+      itemSerialNumber?: string | null,
+      buyerContact: string,
+      sellerContact: string,
+      buyerID: string,
+      buyerName: string,
+      SellerName: string,
+      sellerID: string,
+      amountSold: number,
+      amountexpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      repaymentPeriod: number,
+      lonBala: number,
+      description?: string | null,
+      status: Status,
+      advregnu: string,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMySalessQueryVariables = {
+  sellerContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelNonCovCreditSellerFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMySalessQuery = {
+  VwMySaless?:  {
+    __typename: "ModelNonCovCreditSellerConnection",
+    items?:  Array< {
+      __typename: "NonCovCreditSeller",
+      id: string,
+      itemName: string,
+      itemSerialNumber?: string | null,
+      buyerContact: string,
+      sellerContact: string,
+      buyerID: string,
+      buyerName: string,
+      SellerName: string,
+      sellerID: string,
+      amountSold: number,
+      amountexpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      lonBala: number,
+      repaymentPeriod: number,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyCrdByssQueryVariables = {
+  buyerContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelNonCovCreditSellerFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyCrdByssQuery = {
+  VwMyCrdByss?:  {
+    __typename: "ModelNonCovCreditSellerConnection",
+    items?:  Array< {
+      __typename: "NonCovCreditSeller",
+      id: string,
+      itemName: string,
+      itemSerialNumber?: string | null,
+      buyerContact: string,
+      sellerContact: string,
+      buyerID: string,
+      buyerName: string,
+      SellerName: string,
+      sellerID: string,
+      amountSold: number,
+      amountexpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      lonBala: number,
+      repaymentPeriod: number,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwChamaMembersQueryVariables = {
+  groupContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelGrpMembersFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwChamaMembersQuery = {
+  VwChamaMembers?:  {
+    __typename: "ModelGrpMembersConnection",
+    items?:  Array< {
+      __typename: "GrpMembers",
+      id: string,
+      groupContact: string,
+      groupName: string,
+      memberContact: string,
+      memberName: string,
+      memberNatId: string,
+      GrossLnsGvn: number,
+      LonAmtGven: number,
+      AmtRepaid: number,
+      LnBal: number,
+      NonLoanAcBal: number,
+      ttlNonLonAcBal: number,
+      AcStatus: Status,
+      loanStatus: Status,
+      blStatus: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyChamasQueryVariables = {
+  memberContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelGrpMembersFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyChamasQuery = {
+  VwMyChamas?:  {
+    __typename: "ModelGrpMembersConnection",
+    items?:  Array< {
+      __typename: "GrpMembers",
+      id: string,
+      groupContact: string,
+      groupName: string,
+      memberContact: string,
+      memberName: string,
+      memberNatId: string,
+      GrossLnsGvn: number,
+      LonAmtGven: number,
+      AmtRepaid: number,
+      LnBal: number,
+      NonLoanAcBal: number,
+      ttlNonLonAcBal: number,
+      AcStatus: Status,
+      loanStatus: Status,
+      blStatus: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwChamaMemberssQueryVariables = {
+  grpContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCvrdGroupLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwChamaMemberssQuery = {
+  VwChamaMemberss?:  {
+    __typename: "ModelCvrdGroupLoansConnection",
+    items?:  Array< {
+      __typename: "CvrdGroupLoans",
+      id: string,
+      grpContact: string,
+      loaneePhn: string,
+      repaymentPeriod: number,
+      amountGiven: number,
+      amountExpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      description?: string | null,
+      lonBala: number,
+      memberId: string,
+      advRegNu: string,
+      loaneeName: string,
+      LoanerName: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyChamassQueryVariables = {
+  loaneePhn?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCvrdGroupLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyChamassQuery = {
+  VwMyChamass?:  {
+    __typename: "ModelCvrdGroupLoansConnection",
+    items?:  Array< {
+      __typename: "CvrdGroupLoans",
+      id: string,
+      grpContact: string,
+      loaneePhn: string,
+      repaymentPeriod: number,
+      amountGiven: number,
+      amountExpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      description?: string | null,
+      lonBala: number,
+      memberId: string,
+      advRegNu: string,
+      loaneeName: string,
+      LoanerName: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwChmLnClientsQueryVariables = {
+  advRegNu?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCvrdGroupLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwChmLnClientsQuery = {
+  VwChmLnClients?:  {
+    __typename: "ModelCvrdGroupLoansConnection",
+    items?:  Array< {
+      __typename: "CvrdGroupLoans",
+      id: string,
+      grpContact: string,
+      loaneePhn: string,
+      repaymentPeriod: number,
+      amountGiven: number,
+      amountExpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      description?: string | null,
+      lonBala: number,
+      memberId: string,
+      advRegNu: string,
+      loaneeName: string,
+      LoanerName: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwChamaMembersssQueryVariables = {
+  grpContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelNonCvrdGroupLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwChamaMembersssQuery = {
+  VwChamaMembersss?:  {
+    __typename: "ModelNonCvrdGroupLoansConnection",
+    items?:  Array< {
+      __typename: "NonCvrdGroupLoans",
+      id: string,
+      grpContact: string,
+      loaneePhn: string,
+      repaymentPeriod: number,
+      amountGiven: number,
+      amountExpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      description?: string | null,
+      loaneeName: string,
+      loanerName: string,
+      memberId: string,
+      lonBala: number,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyChamasssQueryVariables = {
+  loaneePhn?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelNonCvrdGroupLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyChamasssQuery = {
+  VwMyChamasss?:  {
+    __typename: "ModelNonCvrdGroupLoansConnection",
+    items?:  Array< {
+      __typename: "NonCvrdGroupLoans",
+      id: string,
+      grpContact: string,
+      loaneePhn: string,
+      repaymentPeriod: number,
+      amountGiven: number,
+      amountExpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      description?: string | null,
+      loaneeName: string,
+      loanerName: string,
+      memberId: string,
+      lonBala: number,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwChamaMemberssssQueryVariables = {
+  grpContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelGroupNonLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwChamaMemberssssQuery = {
+  VwChamaMemberssss?:  {
+    __typename: "ModelGroupNonLoansConnection",
+    items?:  Array< {
+      __typename: "GroupNonLoans",
+      id: string,
+      grpContact: string,
+      recipientPhn: string,
+      receiverName: string,
+      SenderName: string,
+      amountSent: number,
+      memberId: string,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyChamassssQueryVariables = {
+  recipientPhn?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelGroupNonLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyChamassssQuery = {
+  VwMyChamassss?:  {
+    __typename: "ModelGroupNonLoansConnection",
+    items?:  Array< {
+      __typename: "GroupNonLoans",
+      id: string,
+      grpContact: string,
+      recipientPhn: string,
+      receiverName: string,
+      SenderName: string,
+      amountSent: number,
+      memberId: string,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwChamaMembersssssQueryVariables = {
+  grpContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelGrpMembersContributionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwChamaMembersssssQuery = {
+  VwChamaMembersssss?:  {
+    __typename: "ModelGrpMembersContributionConnection",
+    items?:  Array< {
+      __typename: "GrpMembersContribution",
+      id: string,
+      memberPhn: string,
+      mmberNme: string,
+      GrpName: string,
+      grpContact: string,
+      contriAmount: number,
+      memberId: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyChamasssssQueryVariables = {
+  memberPhn?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelGrpMembersContributionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyChamasssssQuery = {
+  VwMyChamasssss?:  {
+    __typename: "ModelGrpMembersContributionConnection",
+    items?:  Array< {
+      __typename: "GrpMembersContribution",
+      id: string,
+      memberPhn: string,
+      mmberNme: string,
+      GrpName: string,
+      grpContact: string,
+      contriAmount: number,
+      memberId: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type OnCreateSMAccountSubscription = {
   onCreateSMAccount?:  {
     __typename: "SMAccount",
@@ -7934,7 +9166,7 @@ export type OnDeleteAgentSubscription = {
 export type OnCreateFloatPurchaseSubscription = {
   onCreateFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id?: string | null,
+    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
@@ -7949,7 +9181,7 @@ export type OnCreateFloatPurchaseSubscription = {
 export type OnUpdateFloatPurchaseSubscription = {
   onUpdateFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id?: string | null,
+    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
@@ -7964,7 +9196,7 @@ export type OnUpdateFloatPurchaseSubscription = {
 export type OnDeleteFloatPurchaseSubscription = {
   onDeleteFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id?: string | null,
+    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
