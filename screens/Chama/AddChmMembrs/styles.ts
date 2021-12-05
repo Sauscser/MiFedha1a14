@@ -3,9 +3,13 @@ import {StyleSheet, Dimensions} from 'react-native';
 const styles = StyleSheet.create({
   image: {
     width: '100%',
-    height: 670,
+    height: "100%",
     resizeMode: 'cover',
     justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginTop: 1,
+    flexWrap:"wrap"
   },
   title: {
     fontSize: 20,
@@ -28,7 +32,7 @@ const styles = StyleSheet.create({
   },
 
   sendAmtViewDesc: {
-    backgroundColor: 'skyblue',
+    backgroundColor: '#72ebd8',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     height: "12%",
@@ -54,7 +58,7 @@ const styles = StyleSheet.create({
   },
 
   sendLoanView: {
-    backgroundColor: 'skyblue',
+    backgroundColor: '#72ebd8',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     height: 90,
@@ -112,7 +116,7 @@ const styles = StyleSheet.create({
   },
 
   loanSpecificationView: {
-    backgroundColor: 'skyblue',
+    backgroundColor: '#72ebd8',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     height: 250,

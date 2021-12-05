@@ -8,6 +8,7 @@ import {
   createSMLoansCovered,
   updateAdvocate,
   updateAgent,
+  updateChamaMembers,
   updateCompany,
   updateGroup,
   updateGrpMembers,
@@ -25,6 +26,7 @@ import {
   getAdvocate,
   getGroup,
   getGrpMembers,
+  getChamaMembers,
 } from '../../../../../src/graphql/queries';
 
 import {useNavigation} from '@react-navigation/native';
@@ -80,7 +82,7 @@ const fetchChmMbrDtls = async () => {
       setIsLoading(true);
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getGrpMembers, {id: route.params.id}),
+              graphqlOperation(getChamaMembers, {id: route.params.id}),
               );
 
               const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
@@ -191,7 +193,7 @@ const fetchChmMbrDtls = async () => {
                           setIsLoading(true);
                           try {
                             await API.graphql(
-                              graphqlOperation(updateGrpMembers, {
+                              graphqlOperation(updateChamaMembers, {
                                 input: {
                                   id: route.params.id,
                                   LonAmtGven: (parseFloat(LonAmtGvens) + parseFloat(amount)).toFixed(2),
@@ -228,6 +230,8 @@ const fetchChmMbrDtls = async () => {
                                 input: {
                                     grpContact: groupContacts,
                                     loaneePhn: memberContacts,
+                                    loanerLoanee:groupContacts+memberContacts,
+                                    loanerLoaneeAdv:  groupContacts+memberContacts+ AdvRegNo ,  
                                     repaymentPeriod: RepaymtPeriod,
                                     amountGiven: parseFloat(amount).toFixed(2),
                                     amountExpectedBack: parseFloat(AmtExp).toFixed(2),
@@ -247,12 +251,7 @@ const fetchChmMbrDtls = async () => {
 
 
                           } catch (error) {
-                            if(!error){
-                              Alert.alert("Account deactivated successfully")
-                              
-                          } 
-                          else{Alert.alert("Please check your internet connection")
-                          return;}
+                            
                           }
                           setIsLoading(false);
                           await updtSendrAc();
@@ -329,11 +328,11 @@ const fetchChmMbrDtls = async () => {
                                   input:{
                                     AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                         
-                                    ttlCompCovEarnings:CompCovAmt + parseFloat(ttlCompCovEarningss),
-                                    AdvEarningBal:AdvCovAmt + parseFloat(AdvEarningBals),                                                                                                                                                     
-                                    AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
-                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals),
-                                    companyEarning: CompCovAmt + parseFloat(companyEarnings),                                                    
+                                    ttlCompCovEarnings:parseFloat(CompCovAmt) + parseFloat(ttlCompCovEarningss),
+                                    AdvEarningBal:parseFloat(AdvCovAmt) + parseFloat(AdvEarningBals),                                                                                                                                                     
+                                    AdvEarning:parseFloat(AdvCovAmt) + parseFloat(AdvEarnings),
+                                    companyEarningBal:parseFloat(CompCovAmt) + parseFloat(companyEarningBals),
+                                    companyEarning: parseFloat(CompCovAmt) + parseFloat(companyEarnings),                                                    
                                     
                                     ttlChmLnsInAmtCov: parseFloat(amount) + parseFloat(ttlChmLnsInAmtCovs),
                                     ttlvat:parseFloat(ttlvats)+vatFee,
@@ -366,8 +365,8 @@ const fetchChmMbrDtls = async () => {
                                 graphqlOperation(updateAdvocate, {
                                   input:{
                                     advregnu: AdvRegNo,
-                                    advBal: AdvCovAmt + parseFloat(advBl) ,
-                                    TtlEarnings:AdvCovAmt + parseFloat(advTtlAern),                                 
+                                    advBal: parseFloat(AdvCovAmt) + parseFloat(advBl) ,
+                                    TtlEarnings:parseFloat(AdvCovAmt) + parseFloat(advTtlAern),                                 
                                     
                                   }
                                 })

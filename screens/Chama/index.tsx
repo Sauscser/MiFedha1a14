@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {
   View,
@@ -7,12 +7,14 @@ import {
   Pressable,
   
   SafeAreaView,
+  ScrollView,
   
 } from 'react-native';
 import styles from './styles';
 
 const MyLoanAccount = props => {
   const navigation = useNavigation();
+  const[id, setID] =useState("")
 
   const CreateChmss = () => {
     navigation.navigate('CreateChms');
@@ -35,8 +37,8 @@ const MyLoanAccount = props => {
     navigation.navigate('MmbrSndChmss');
   };
 
-  const RemoveChmMbrss = () => {
-    navigation.navigate('RemoveChmMbrs');
+  const SgnIn2RemoveMmbrss = () => {
+  navigation.navigate('RemoveChmMbrs', {id});
   };
 
   const SgnIn2BLCovss = () => {
@@ -103,9 +105,14 @@ const MyLoanAccount = props => {
     navigation.navigate('Vw2RpyNonCovs');
   };
 
+  const ChamaMmbrRemtss = () => {
+    navigation.navigate('ChamaMmbrRemts', {id});
+  };
+
 
   return (
-    
+    <SafeAreaView>
+      <ScrollView>
           <View style={styles.adminImage}>
 
             <View style={styles.clientsView}>
@@ -213,7 +220,7 @@ const MyLoanAccount = props => {
                     </Pressable>
 
                     <Pressable
-                      onPress={ChamaSndMbrMneyss}
+                      onPress={ChamaMmbrRemtss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Member
@@ -259,7 +266,7 @@ const MyLoanAccount = props => {
                     </Pressable>
 
                     <Pressable
-                      onPress={RemoveChmMbrss}
+                      onPress={SgnIn2RemoveMmbrss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         De-Reg
@@ -348,7 +355,7 @@ const MyLoanAccount = props => {
               </View>
             </View>
 
-      <View style={styles.acEarningsView}>
+      <View style={styles.acEarningsView2}>
           <Text style={styles.salesText}>Chama Account</Text>
 
           <View style={styles.viewForAcEarningsPressables}>
@@ -375,6 +382,8 @@ const MyLoanAccount = props => {
 
           
     </View> 
+    </ScrollView>
+    </SafeAreaView> 
     
   );
 };

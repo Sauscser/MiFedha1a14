@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../components/VwCompAc";
 import styles from './styles';
-import { getCompany, listCompanys } from '../../../src/graphql/queries';
+import { getCompany, listCompanies, listCompanys } from '../../../src/graphql/queries';
 
 const FetchSMNonCovLns = props => {
 
@@ -37,7 +37,7 @@ const FetchSMNonCovLns = props => {
               const fetchLoanees = async () => {
                 setLoading(true);
                 try {
-                  const Lonees:any = await API.graphql(graphqlOperation(listCompanys, 
+                  const Lonees:any = await API.graphql(graphqlOperation(listCompanies, 
                     { filter: {
                       and: {
                           AdminId: {eq:"BaruchHabaB'ShemAdonai2"}
@@ -47,7 +47,7 @@ const FetchSMNonCovLns = props => {
                       
                       ));
     
-               setLoanees(Lonees.data.listCompanys.items)
+               setLoanees(Lonees.data.listCompanies.items)
                 } catch (e) {
                   console.log(e);
                 }  {

@@ -49,7 +49,7 @@ const ChmRemitInfo = (props:ChamaRemitInfo) => {
         onPress={go2Contri2Mbr}
         style = {styles.container}>       </Pressable>       
             */
-            <View>
+            <View style = {styles.wholeVw}>
             <ScrollView >       
                
 

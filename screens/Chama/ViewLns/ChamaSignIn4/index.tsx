@@ -42,8 +42,9 @@ const ChmSignIn = (props) => {
   const [pword, setPW] = useState('');
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
+  const [memberPhn, setmemberPhn] = useState(''); 
   const[ownr, setownr] = useState(null);
-
+  const ChmNMmbrPhns = grpContact+memberPhn
   const FetchGrpLonsSts = () => {
     navigation.navigate("ChamaRemts", {grpContact});
   };

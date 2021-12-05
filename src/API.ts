@@ -111,7 +111,7 @@ export enum Status {
 
 
 export type ModelSMAccountConditionInput = {
-  nationalid?: ModelIDInput | null,
+  nationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
   awsemail?: ModelStringInput | null,
   balance?: ModelFloatInput | null,
@@ -193,13 +193,14 @@ export type ModelSMAccountConditionInput = {
   nonLonLimit?: ModelFloatInput | null,
   withdrawalLimit?: ModelFloatInput | null,
   depositLimit?: ModelFloatInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelSMAccountConditionInput | null > | null,
   or?: Array< ModelSMAccountConditionInput | null > | null,
   not?: ModelSMAccountConditionInput | null,
 };
 
-export type ModelIDInput = {
+export type ModelStringInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -237,22 +238,6 @@ export type ModelSizeInput = {
   ge?: number | null,
   gt?: number | null,
   between?: Array< number | null > | null,
-};
-
-export type ModelStringInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
 };
 
 export type ModelFloatInput = {
@@ -458,7 +443,10 @@ export type CreateSMLoansCoveredInput = {
   id?: string | null,
   loaneeid: string,
   loaneePhn: string,
+  loanerLoanee: string,
+  loanerLoaneeAdv: string,
   loanerPhn: string,
+  advregnu: string,
   loanerId: string,
   amountgiven: number,
   amountexpected: number,
@@ -468,7 +456,6 @@ export type CreateSMLoansCoveredInput = {
   loaneename: string,
   loanername: string,
   repaymentPeriod: number,
-  advregnu: string,
   description?: string | null,
   status: Status,
   owner: string,
@@ -478,7 +465,10 @@ export type CreateSMLoansCoveredInput = {
 export type ModelSMLoansCoveredConditionInput = {
   loaneeid?: ModelStringInput | null,
   loaneePhn?: ModelStringInput | null,
+  loanerLoanee?: ModelStringInput | null,
+  loanerLoaneeAdv?: ModelStringInput | null,
   loanerPhn?: ModelStringInput | null,
+  advregnu?: ModelStringInput | null,
   loanerId?: ModelStringInput | null,
   amountgiven?: ModelFloatInput | null,
   amountexpected?: ModelFloatInput | null,
@@ -488,9 +478,9 @@ export type ModelSMLoansCoveredConditionInput = {
   loaneename?: ModelStringInput | null,
   loanername?: ModelStringInput | null,
   repaymentPeriod?: ModelIntInput | null,
-  advregnu?: ModelStringInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelSMLoansCoveredConditionInput | null > | null,
   or?: Array< ModelSMLoansCoveredConditionInput | null > | null,
@@ -514,7 +504,10 @@ export type SMLoansCovered = {
   id: string,
   loaneeid: string,
   loaneePhn: string,
+  loanerLoanee: string,
+  loanerLoaneeAdv: string,
   loanerPhn: string,
+  advregnu: string,
   loanerId: string,
   amountgiven: number,
   amountexpected: number,
@@ -524,7 +517,6 @@ export type SMLoansCovered = {
   loaneename: string,
   loanername: string,
   repaymentPeriod: number,
-  advregnu: string,
   description?: string | null,
   status: Status,
   owner: string,
@@ -536,7 +528,10 @@ export type UpdateSMLoansCoveredInput = {
   id: string,
   loaneeid?: string | null,
   loaneePhn?: string | null,
+  loanerLoanee?: string | null,
+  loanerLoaneeAdv?: string | null,
   loanerPhn?: string | null,
+  advregnu?: string | null,
   loanerId?: string | null,
   amountgiven?: number | null,
   amountexpected?: number | null,
@@ -546,7 +541,6 @@ export type UpdateSMLoansCoveredInput = {
   loaneename?: string | null,
   loanername?: string | null,
   repaymentPeriod?: number | null,
-  advregnu?: string | null,
   description?: string | null,
   status?: Status | null,
   owner?: string | null,
@@ -561,6 +555,7 @@ export type CreateSMLoansNonCoveredInput = {
   id?: string | null,
   loaneePhn: string,
   loanerPhn: string,
+  loanerLoanee: string,
   loaneeid: string,
   loanerId: string,
   amountgiven: number,
@@ -580,6 +575,7 @@ export type CreateSMLoansNonCoveredInput = {
 export type ModelSMLoansNonCoveredConditionInput = {
   loaneePhn?: ModelStringInput | null,
   loanerPhn?: ModelStringInput | null,
+  loanerLoanee?: ModelStringInput | null,
   loaneeid?: ModelIDInput | null,
   loanerId?: ModelStringInput | null,
   amountgiven?: ModelFloatInput | null,
@@ -592,10 +588,27 @@ export type ModelSMLoansNonCoveredConditionInput = {
   repaymentPeriod?: ModelIntInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelSMLoansNonCoveredConditionInput | null > | null,
   or?: Array< ModelSMLoansNonCoveredConditionInput | null > | null,
   not?: ModelSMLoansNonCoveredConditionInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
 };
 
 export type SMLoansNonCovered = {
@@ -603,6 +616,7 @@ export type SMLoansNonCovered = {
   id: string,
   loaneePhn: string,
   loanerPhn: string,
+  loanerLoanee: string,
   loaneeid: string,
   loanerId: string,
   amountgiven: number,
@@ -624,6 +638,7 @@ export type UpdateSMLoansNonCoveredInput = {
   id: string,
   loaneePhn?: string | null,
   loanerPhn?: string | null,
+  loanerLoanee?: string | null,
   loaneeid?: string | null,
   loanerId?: string | null,
   amountgiven?: number | null,
@@ -665,6 +680,7 @@ export type ModelNonLoansConditionInput = {
   amount?: ModelFloatInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelNonLoansConditionInput | null > | null,
   or?: Array< ModelNonLoansConditionInput | null > | null,
@@ -705,12 +721,12 @@ export type DeleteNonLoansInput = {
 
 export type CreateAgentInput = {
   phonecontact: string,
+  sagentregno: string,
   nationalid: string,
   name: string,
   ttlEarnings: number,
   pw: string,
   email: string,
-  sagentregno: string,
   TtlFltIn: number,
   TtlFltOut: number,
   floatBal: number,
@@ -725,12 +741,12 @@ export type CreateAgentInput = {
 };
 
 export type ModelAgentConditionInput = {
+  sagentregno?: ModelStringInput | null,
   nationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
   ttlEarnings?: ModelFloatInput | null,
   pw?: ModelStringInput | null,
   email?: ModelStringInput | null,
-  sagentregno?: ModelStringInput | null,
   TtlFltIn?: ModelFloatInput | null,
   TtlFltOut?: ModelFloatInput | null,
   floatBal?: ModelFloatInput | null,
@@ -738,6 +754,7 @@ export type ModelAgentConditionInput = {
   longitude?: ModelFloatInput | null,
   agentEarningBal?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   town?: ModelStringInput | null,
   MFNWithdrwlFee?: ModelFloatInput | null,
   createdAt?: ModelStringInput | null,
@@ -749,12 +766,12 @@ export type ModelAgentConditionInput = {
 export type Agent = {
   __typename: "Agent",
   phonecontact: string,
+  sagentregno: string,
   nationalid: string,
   name: string,
   ttlEarnings: number,
   pw: string,
   email: string,
-  sagentregno: string,
   TtlFltIn: number,
   TtlFltOut: number,
   floatBal: number,
@@ -771,12 +788,12 @@ export type Agent = {
 
 export type UpdateAgentInput = {
   phonecontact: string,
+  sagentregno?: string | null,
   nationalid?: string | null,
   name?: string | null,
   ttlEarnings?: number | null,
   pw?: string | null,
   email?: string | null,
-  sagentregno?: string | null,
   TtlFltIn?: number | null,
   TtlFltOut?: number | null,
   floatBal?: number | null,
@@ -795,7 +812,6 @@ export type DeleteAgentInput = {
 };
 
 export type CreateFloatPurchaseInput = {
-  id?: string | null,
   agentphone: string,
   amount: number,
   transactId: string,
@@ -808,9 +824,9 @@ export type CreateFloatPurchaseInput = {
 export type ModelFloatPurchaseConditionInput = {
   agentphone?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
-  transactId?: ModelStringInput | null,
   bankAdminID?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelFloatPurchaseConditionInput | null > | null,
   or?: Array< ModelFloatPurchaseConditionInput | null > | null,
@@ -819,7 +835,6 @@ export type ModelFloatPurchaseConditionInput = {
 
 export type FloatPurchase = {
   __typename: "FloatPurchase",
-  id: string,
   agentphone: string,
   amount: number,
   transactId: string,
@@ -831,10 +846,9 @@ export type FloatPurchase = {
 };
 
 export type UpdateFloatPurchaseInput = {
-  id: string,
   agentphone?: string | null,
   amount?: number | null,
-  transactId?: string | null,
+  transactId: string,
   bankAdminID?: string | null,
   status?: Status | null,
   owner?: string | null,
@@ -842,7 +856,7 @@ export type UpdateFloatPurchaseInput = {
 };
 
 export type DeleteFloatPurchaseInput = {
-  id: string,
+  transactId: string,
 };
 
 export type CreateFloatAddInput = {
@@ -870,6 +884,7 @@ export type ModelFloatAddConditionInput = {
   saPhone?: ModelStringInput | null,
   sagentId?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelFloatAddConditionInput | null > | null,
   or?: Array< ModelFloatAddConditionInput | null > | null,
@@ -980,6 +995,7 @@ export type ModelAgentWithdrawalsConditionInput = {
   bankAdminId?: ModelStringInput | null,
   Amount?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelAgentWithdrawalsConditionInput | null > | null,
   or?: Array< ModelAgentWithdrawalsConditionInput | null > | null,
@@ -1038,6 +1054,7 @@ export type ModelSAgentConditionInput = {
   email?: ModelStringInput | null,
   saBalance?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   MFKWithdrwlFee?: ModelFloatInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelSAgentConditionInput | null > | null,
@@ -1098,6 +1115,7 @@ export type ModelSAgentWithdrawalsConditionInput = {
   amount?: ModelFloatInput | null,
   bankAdmnId?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelSAgentWithdrawalsConditionInput | null > | null,
   or?: Array< ModelSAgentWithdrawalsConditionInput | null > | null,
@@ -1151,6 +1169,7 @@ export type ModelBankAdminConditionInput = {
   BankAdmBal?: ModelFloatInput | null,
   email?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelBankAdminConditionInput | null > | null,
   or?: Array< ModelBankAdminConditionInput | null > | null,
@@ -1202,6 +1221,7 @@ export type ModelBankAdmWithdrawalsConditionInput = {
   bankAdmNatId?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelBankAdmWithdrawalsConditionInput | null > | null,
   or?: Array< ModelBankAdmWithdrawalsConditionInput | null > | null,
@@ -1257,6 +1277,7 @@ export type ModelAdvocateConditionInput = {
   email?: ModelStringInput | null,
   officeLoc?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelAdvocateConditionInput | null > | null,
   or?: Array< ModelAdvocateConditionInput | null > | null,
@@ -1314,6 +1335,7 @@ export type ModelAdvocateWithdrawalsConditionInput = {
   advregnu?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelAdvocateWithdrawalsConditionInput | null > | null,
   or?: Array< ModelAdvocateWithdrawalsConditionInput | null > | null,
@@ -1468,6 +1490,7 @@ export type CreateCompanyInput = {
   ttlCompBLClrncEarningsNonCov: number,
   ttlCompCovEarnings: number,
   maxInterestSM: number,
+  maxInterestPwnBrkr: number,
   maxInterestCredSllr: number,
   maxInterestGrp: number,
   maxMFNdogos: number,
@@ -1598,6 +1621,7 @@ export type ModelCompanyConditionInput = {
   ttlCompBLClrncEarningsNonCov?: ModelFloatInput | null,
   ttlCompCovEarnings?: ModelFloatInput | null,
   maxInterestSM?: ModelFloatInput | null,
+  maxInterestPwnBrkr?: ModelFloatInput | null,
   maxInterestCredSllr?: ModelFloatInput | null,
   maxInterestGrp?: ModelFloatInput | null,
   maxMFNdogos?: ModelFloatInput | null,
@@ -1733,6 +1757,7 @@ export type Company = {
   ttlCompBLClrncEarningsNonCov: number,
   ttlCompCovEarnings: number,
   maxInterestSM: number,
+  maxInterestPwnBrkr: number,
   maxInterestCredSllr: number,
   maxInterestGrp: number,
   maxMFNdogos: number,
@@ -1865,6 +1890,7 @@ export type UpdateCompanyInput = {
   ttlCompBLClrncEarningsNonCov?: number | null,
   ttlCompCovEarnings?: number | null,
   maxInterestSM?: number | null,
+  maxInterestPwnBrkr?: number | null,
   maxInterestCredSllr?: number | null,
   maxInterestGrp?: number | null,
   maxMFNdogos?: number | null,
@@ -1882,6 +1908,8 @@ export type CreateCovCreditSellerInput = {
   id?: string | null,
   itemName: string,
   itemSerialNumber?: string | null,
+  loanerLoanee: string,
+  loanerLoaneeAdv: string,
   buyerContact: string,
   sellerContact: string,
   buyerID: string,
@@ -1904,6 +1932,8 @@ export type CreateCovCreditSellerInput = {
 export type ModelCovCreditSellerConditionInput = {
   itemName?: ModelStringInput | null,
   itemSerialNumber?: ModelStringInput | null,
+  loanerLoanee?: ModelStringInput | null,
+  loanerLoaneeAdv?: ModelStringInput | null,
   buyerContact?: ModelStringInput | null,
   sellerContact?: ModelStringInput | null,
   buyerID?: ModelStringInput | null,
@@ -1919,6 +1949,7 @@ export type ModelCovCreditSellerConditionInput = {
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   advregnu?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelCovCreditSellerConditionInput | null > | null,
   or?: Array< ModelCovCreditSellerConditionInput | null > | null,
@@ -1930,6 +1961,8 @@ export type CovCreditSeller = {
   id: string,
   itemName: string,
   itemSerialNumber?: string | null,
+  loanerLoanee: string,
+  loanerLoaneeAdv: string,
   buyerContact: string,
   sellerContact: string,
   buyerID: string,
@@ -1954,6 +1987,8 @@ export type UpdateCovCreditSellerInput = {
   id: string,
   itemName?: string | null,
   itemSerialNumber?: string | null,
+  loanerLoanee?: string | null,
+  loanerLoaneeAdv?: string | null,
   buyerContact?: string | null,
   sellerContact?: string | null,
   buyerID?: string | null,
@@ -1981,6 +2016,7 @@ export type CreateNonCovCreditSellerInput = {
   id?: string | null,
   itemName: string,
   itemSerialNumber?: string | null,
+  loanerLoanee: string,
   buyerContact: string,
   sellerContact: string,
   buyerID: string,
@@ -2002,6 +2038,7 @@ export type CreateNonCovCreditSellerInput = {
 export type ModelNonCovCreditSellerConditionInput = {
   itemName?: ModelStringInput | null,
   itemSerialNumber?: ModelStringInput | null,
+  loanerLoanee?: ModelStringInput | null,
   buyerContact?: ModelStringInput | null,
   sellerContact?: ModelStringInput | null,
   buyerID?: ModelStringInput | null,
@@ -2016,6 +2053,7 @@ export type ModelNonCovCreditSellerConditionInput = {
   repaymentPeriod?: ModelIntInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelNonCovCreditSellerConditionInput | null > | null,
   or?: Array< ModelNonCovCreditSellerConditionInput | null > | null,
@@ -2027,6 +2065,7 @@ export type NonCovCreditSeller = {
   id: string,
   itemName: string,
   itemSerialNumber?: string | null,
+  loanerLoanee: string,
   buyerContact: string,
   sellerContact: string,
   buyerID: string,
@@ -2050,6 +2089,7 @@ export type UpdateNonCovCreditSellerInput = {
   id: string,
   itemName?: string | null,
   itemSerialNumber?: string | null,
+  loanerLoanee?: string | null,
   buyerContact?: string | null,
   sellerContact?: string | null,
   buyerID?: string | null,
@@ -2074,6 +2114,7 @@ export type DeleteNonCovCreditSellerInput = {
 
 export type CreateGroupInput = {
   grpContact: string,
+  regNo: string,
   signitoryContact: string,
   SignitoryNatid: string,
   signitoryName: string,
@@ -2106,6 +2147,7 @@ export type CreateGroupInput = {
 };
 
 export type ModelGroupConditionInput = {
+  regNo?: ModelStringInput | null,
   signitoryContact?: ModelStringInput | null,
   SignitoryNatid?: ModelStringInput | null,
   signitoryName?: ModelStringInput | null,
@@ -2133,6 +2175,7 @@ export type ModelGroupConditionInput = {
   TtlClrdLonsTmsLnrChmNonCov?: ModelFloatInput | null,
   TtlClrdLonsAmtLnrChmNonCov?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelGroupConditionInput | null > | null,
   or?: Array< ModelGroupConditionInput | null > | null,
@@ -2142,6 +2185,7 @@ export type ModelGroupConditionInput = {
 export type Group = {
   __typename: "Group",
   grpContact: string,
+  regNo: string,
   signitoryContact: string,
   SignitoryNatid: string,
   signitoryName: string,
@@ -2176,6 +2220,7 @@ export type Group = {
 
 export type UpdateGroupInput = {
   grpContact: string,
+  regNo?: string | null,
   signitoryContact?: string | null,
   SignitoryNatid?: string | null,
   signitoryName?: string | null,
@@ -2211,9 +2256,11 @@ export type DeleteGroupInput = {
   grpContact: string,
 };
 
-export type CreateGrpMembersInput = {
-  id?: string | null,
+export type CreateChamaMembersInput = {
+  MembaId: string,
   groupContact: string,
+  regNo: string,
+  ChamaNMember: string,
   groupName: string,
   memberContact: string,
   memberName: string,
@@ -2231,8 +2278,10 @@ export type CreateGrpMembersInput = {
   createdAt?: string | null,
 };
 
-export type ModelGrpMembersConditionInput = {
+export type ModelChamaMembersConditionInput = {
+  MembaId?: ModelStringInput | null,
   groupContact?: ModelStringInput | null,
+  regNo?: ModelStringInput | null,
   groupName?: ModelStringInput | null,
   memberContact?: ModelStringInput | null,
   memberName?: ModelStringInput | null,
@@ -2246,16 +2295,19 @@ export type ModelGrpMembersConditionInput = {
   AcStatus?: ModelStatusInput | null,
   loanStatus?: ModelStatusInput | null,
   blStatus?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
-  and?: Array< ModelGrpMembersConditionInput | null > | null,
-  or?: Array< ModelGrpMembersConditionInput | null > | null,
-  not?: ModelGrpMembersConditionInput | null,
+  and?: Array< ModelChamaMembersConditionInput | null > | null,
+  or?: Array< ModelChamaMembersConditionInput | null > | null,
+  not?: ModelChamaMembersConditionInput | null,
 };
 
-export type GrpMembers = {
-  __typename: "GrpMembers",
-  id: string,
+export type ChamaMembers = {
+  __typename: "ChamaMembers",
+  MembaId: string,
   groupContact: string,
+  regNo: string,
+  ChamaNMember: string,
   groupName: string,
   memberContact: string,
   memberName: string,
@@ -2274,9 +2326,11 @@ export type GrpMembers = {
   updatedAt: string,
 };
 
-export type UpdateGrpMembersInput = {
-  id: string,
+export type UpdateChamaMembersInput = {
+  MembaId?: string | null,
   groupContact?: string | null,
+  regNo?: string | null,
+  ChamaNMember: string,
   groupName?: string | null,
   memberContact?: string | null,
   memberName?: string | null,
@@ -2294,7 +2348,95 @@ export type UpdateGrpMembersInput = {
   createdAt?: string | null,
 };
 
-export type DeleteGrpMembersInput = {
+export type DeleteChamaMembersInput = {
+  ChamaNMember: string,
+};
+
+export type CreateChamasNPwnBrkrsInput = {
+  id?: string | null,
+  contact: string,
+  regNo: string,
+  AcStatus: Status,
+  owner: string,
+  createdAt?: string | null,
+};
+
+export type ModelChamasNPwnBrkrsConditionInput = {
+  contact?: ModelStringInput | null,
+  regNo?: ModelStringInput | null,
+  AcStatus?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChamasNPwnBrkrsConditionInput | null > | null,
+  or?: Array< ModelChamasNPwnBrkrsConditionInput | null > | null,
+  not?: ModelChamasNPwnBrkrsConditionInput | null,
+};
+
+export type ChamasNPwnBrkrs = {
+  __typename: "ChamasNPwnBrkrs",
+  id: string,
+  contact: string,
+  regNo: string,
+  AcStatus: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateChamasNPwnBrkrsInput = {
+  id: string,
+  contact?: string | null,
+  regNo?: string | null,
+  AcStatus?: Status | null,
+  owner?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteChamasNPwnBrkrsInput = {
+  id: string,
+};
+
+export type CreateChamasRegConfirmInput = {
+  id?: string | null,
+  contact: string,
+  regNo: string,
+  AcStatus: Status,
+  owner: string,
+  createdAt?: string | null,
+};
+
+export type ModelChamasRegConfirmConditionInput = {
+  contact?: ModelStringInput | null,
+  regNo?: ModelStringInput | null,
+  AcStatus?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChamasRegConfirmConditionInput | null > | null,
+  or?: Array< ModelChamasRegConfirmConditionInput | null > | null,
+  not?: ModelChamasRegConfirmConditionInput | null,
+};
+
+export type ChamasRegConfirm = {
+  __typename: "ChamasRegConfirm",
+  id: string,
+  contact: string,
+  regNo: string,
+  AcStatus: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateChamasRegConfirmInput = {
+  id: string,
+  contact?: string | null,
+  regNo?: string | null,
+  AcStatus?: Status | null,
+  owner?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteChamasRegConfirmInput = {
   id: string,
 };
 
@@ -2303,6 +2445,8 @@ export type CreateCvrdGroupLoansInput = {
   grpContact: string,
   loaneePhn: string,
   repaymentPeriod: number,
+  loanerLoanee: string,
+  loanerLoaneeAdv: string,
   amountGiven: number,
   amountExpectedBack: number,
   amountExpectedBackWthClrnc: number,
@@ -2321,7 +2465,9 @@ export type CreateCvrdGroupLoansInput = {
 export type ModelCvrdGroupLoansConditionInput = {
   grpContact?: ModelStringInput | null,
   loaneePhn?: ModelStringInput | null,
-  repaymentPeriod?: ModelIntInput | null,
+  repaymentPeriod?: ModelFloatInput | null,
+  loanerLoanee?: ModelStringInput | null,
+  loanerLoaneeAdv?: ModelStringInput | null,
   amountGiven?: ModelFloatInput | null,
   amountExpectedBack?: ModelFloatInput | null,
   amountExpectedBackWthClrnc?: ModelFloatInput | null,
@@ -2333,6 +2479,7 @@ export type ModelCvrdGroupLoansConditionInput = {
   loaneeName?: ModelStringInput | null,
   LoanerName?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelCvrdGroupLoansConditionInput | null > | null,
   or?: Array< ModelCvrdGroupLoansConditionInput | null > | null,
@@ -2345,6 +2492,8 @@ export type CvrdGroupLoans = {
   grpContact: string,
   loaneePhn: string,
   repaymentPeriod: number,
+  loanerLoanee: string,
+  loanerLoaneeAdv: string,
   amountGiven: number,
   amountExpectedBack: number,
   amountExpectedBackWthClrnc: number,
@@ -2366,6 +2515,8 @@ export type UpdateCvrdGroupLoansInput = {
   grpContact?: string | null,
   loaneePhn?: string | null,
   repaymentPeriod?: number | null,
+  loanerLoanee?: string | null,
+  loanerLoaneeAdv?: string | null,
   amountGiven?: number | null,
   amountExpectedBack?: number | null,
   amountExpectedBackWthClrnc?: number | null,
@@ -2389,6 +2540,7 @@ export type CreateNonCvrdGroupLoansInput = {
   id?: string | null,
   grpContact: string,
   loaneePhn: string,
+  loanerLoanee: string,
   repaymentPeriod: number,
   amountGiven: number,
   amountExpectedBack: number,
@@ -2407,6 +2559,7 @@ export type CreateNonCvrdGroupLoansInput = {
 export type ModelNonCvrdGroupLoansConditionInput = {
   grpContact?: ModelStringInput | null,
   loaneePhn?: ModelStringInput | null,
+  loanerLoanee?: ModelStringInput | null,
   repaymentPeriod?: ModelIntInput | null,
   amountGiven?: ModelFloatInput | null,
   amountExpectedBack?: ModelFloatInput | null,
@@ -2418,6 +2571,7 @@ export type ModelNonCvrdGroupLoansConditionInput = {
   memberId?: ModelStringInput | null,
   lonBala?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelNonCvrdGroupLoansConditionInput | null > | null,
   or?: Array< ModelNonCvrdGroupLoansConditionInput | null > | null,
@@ -2429,6 +2583,7 @@ export type NonCvrdGroupLoans = {
   id: string,
   grpContact: string,
   loaneePhn: string,
+  loanerLoanee: string,
   repaymentPeriod: number,
   amountGiven: number,
   amountExpectedBack: number,
@@ -2449,6 +2604,7 @@ export type UpdateNonCvrdGroupLoansInput = {
   id: string,
   grpContact?: string | null,
   loaneePhn?: string | null,
+  loanerLoanee?: string | null,
   repaymentPeriod?: number | null,
   amountGiven?: number | null,
   amountExpectedBack?: number | null,
@@ -2491,6 +2647,7 @@ export type ModelGroupNonLoansConditionInput = {
   memberId?: ModelStringInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelGroupNonLoansConditionInput | null > | null,
   or?: Array< ModelGroupNonLoansConditionInput | null > | null,
@@ -2552,6 +2709,7 @@ export type ModelGrpMembersContributionConditionInput = {
   contriAmount?: ModelFloatInput | null,
   memberId?: ModelStringInput | null,
   status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelGrpMembersContributionConditionInput | null > | null,
   or?: Array< ModelGrpMembersContributionConditionInput | null > | null,
@@ -2591,7 +2749,7 @@ export type DeleteGrpMembersContributionInput = {
 };
 
 export type ModelSMAccountFilterInput = {
-  nationalid?: ModelIDInput | null,
+  nationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
   phonecontact?: ModelStringInput | null,
   awsemail?: ModelStringInput | null,
@@ -2689,7 +2847,7 @@ export enum ModelSortDirection {
 
 export type ModelSMAccountConnection = {
   __typename: "ModelSMAccountConnection",
-  items?:  Array<SMAccount | null > | null,
+  items:  Array<SMAccount >,
   nextToken?: string | null,
 };
 
@@ -2697,7 +2855,10 @@ export type ModelSMLoansCoveredFilterInput = {
   id?: ModelIDInput | null,
   loaneeid?: ModelStringInput | null,
   loaneePhn?: ModelStringInput | null,
+  loanerLoanee?: ModelStringInput | null,
+  loanerLoaneeAdv?: ModelStringInput | null,
   loanerPhn?: ModelStringInput | null,
+  advregnu?: ModelStringInput | null,
   loanerId?: ModelStringInput | null,
   amountgiven?: ModelFloatInput | null,
   amountexpected?: ModelFloatInput | null,
@@ -2707,7 +2868,6 @@ export type ModelSMLoansCoveredFilterInput = {
   loaneename?: ModelStringInput | null,
   loanername?: ModelStringInput | null,
   repaymentPeriod?: ModelIntInput | null,
-  advregnu?: ModelStringInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
@@ -2719,7 +2879,7 @@ export type ModelSMLoansCoveredFilterInput = {
 
 export type ModelSMLoansCoveredConnection = {
   __typename: "ModelSMLoansCoveredConnection",
-  items?:  Array<SMLoansCovered | null > | null,
+  items:  Array<SMLoansCovered >,
   nextToken?: string | null,
 };
 
@@ -2727,6 +2887,7 @@ export type ModelSMLoansNonCoveredFilterInput = {
   id?: ModelIDInput | null,
   loaneePhn?: ModelStringInput | null,
   loanerPhn?: ModelStringInput | null,
+  loanerLoanee?: ModelStringInput | null,
   loaneeid?: ModelIDInput | null,
   loanerId?: ModelStringInput | null,
   amountgiven?: ModelFloatInput | null,
@@ -2748,7 +2909,7 @@ export type ModelSMLoansNonCoveredFilterInput = {
 
 export type ModelSMLoansNonCoveredConnection = {
   __typename: "ModelSMLoansNonCoveredConnection",
-  items?:  Array<SMLoansNonCovered | null > | null,
+  items:  Array<SMLoansNonCovered >,
   nextToken?: string | null,
 };
 
@@ -2770,18 +2931,18 @@ export type ModelNonLoansFilterInput = {
 
 export type ModelNonLoansConnection = {
   __typename: "ModelNonLoansConnection",
-  items?:  Array<NonLoans | null > | null,
+  items:  Array<NonLoans >,
   nextToken?: string | null,
 };
 
 export type ModelAgentFilterInput = {
   phonecontact?: ModelStringInput | null,
+  sagentregno?: ModelStringInput | null,
   nationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
   ttlEarnings?: ModelFloatInput | null,
   pw?: ModelStringInput | null,
   email?: ModelStringInput | null,
-  sagentregno?: ModelStringInput | null,
   TtlFltIn?: ModelFloatInput | null,
   TtlFltOut?: ModelFloatInput | null,
   floatBal?: ModelFloatInput | null,
@@ -2800,12 +2961,11 @@ export type ModelAgentFilterInput = {
 
 export type ModelAgentConnection = {
   __typename: "ModelAgentConnection",
-  items?:  Array<Agent | null > | null,
+  items:  Array<Agent >,
   nextToken?: string | null,
 };
 
 export type ModelFloatPurchaseFilterInput = {
-  id?: ModelIDInput | null,
   agentphone?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
   transactId?: ModelStringInput | null,
@@ -2820,7 +2980,7 @@ export type ModelFloatPurchaseFilterInput = {
 
 export type ModelFloatPurchaseConnection = {
   __typename: "ModelFloatPurchaseConnection",
-  items?:  Array<FloatPurchase | null > | null,
+  items:  Array<FloatPurchase >,
   nextToken?: string | null,
 };
 
@@ -2844,7 +3004,7 @@ export type ModelFloatAddFilterInput = {
 
 export type ModelFloatAddConnection = {
   __typename: "ModelFloatAddConnection",
-  items?:  Array<FloatAdd | null > | null,
+  items:  Array<FloatAdd >,
   nextToken?: string | null,
 };
 
@@ -2864,7 +3024,7 @@ export type ModelFloatReductionFilterInput = {
 
 export type ModelFloatReductionConnection = {
   __typename: "ModelFloatReductionConnection",
-  items?:  Array<FloatReduction | null > | null,
+  items:  Array<FloatReduction >,
   nextToken?: string | null,
 };
 
@@ -2883,7 +3043,7 @@ export type ModelAgentWithdrawalsFilterInput = {
 
 export type ModelAgentWithdrawalsConnection = {
   __typename: "ModelAgentWithdrawalsConnection",
-  items?:  Array<AgentWithdrawals | null > | null,
+  items:  Array<AgentWithdrawals >,
   nextToken?: string | null,
 };
 
@@ -2908,7 +3068,7 @@ export type ModelSAgentFilterInput = {
 
 export type ModelSAgentConnection = {
   __typename: "ModelSAgentConnection",
-  items?:  Array<SAgent | null > | null,
+  items:  Array<SAgent >,
   nextToken?: string | null,
 };
 
@@ -2927,12 +3087,12 @@ export type ModelSAgentWithdrawalsFilterInput = {
 
 export type ModelSAgentWithdrawalsConnection = {
   __typename: "ModelSAgentWithdrawalsConnection",
-  items?:  Array<SAgentWithdrawals | null > | null,
+  items:  Array<SAgentWithdrawals >,
   nextToken?: string | null,
 };
 
 export type ModelBankAdminFilterInput = {
-  nationalid?: ModelIDInput | null,
+  nationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
   phonecontact?: ModelStringInput | null,
   TtlEarnings?: ModelFloatInput | null,
@@ -2949,7 +3109,7 @@ export type ModelBankAdminFilterInput = {
 
 export type ModelBankAdminConnection = {
   __typename: "ModelBankAdminConnection",
-  items?:  Array<BankAdmin | null > | null,
+  items:  Array<BankAdmin >,
   nextToken?: string | null,
 };
 
@@ -2967,12 +3127,12 @@ export type ModelBankAdmWithdrawalsFilterInput = {
 
 export type ModelBankAdmWithdrawalsConnection = {
   __typename: "ModelBankAdmWithdrawalsConnection",
-  items?:  Array<BankAdmWithdrawals | null > | null,
+  items:  Array<BankAdmWithdrawals >,
   nextToken?: string | null,
 };
 
 export type ModelAdvocateFilterInput = {
-  advregnu?: ModelIDInput | null,
+  advregnu?: ModelStringInput | null,
   nationalid?: ModelStringInput | null,
   pwd?: ModelStringInput | null,
   name?: ModelStringInput | null,
@@ -2991,7 +3151,7 @@ export type ModelAdvocateFilterInput = {
 
 export type ModelAdvocateConnection = {
   __typename: "ModelAdvocateConnection",
-  items?:  Array<Advocate | null > | null,
+  items:  Array<Advocate >,
   nextToken?: string | null,
 };
 
@@ -3010,7 +3170,7 @@ export type ModelAdvocateWithdrawalsFilterInput = {
 
 export type ModelAdvocateWithdrawalsConnection = {
   __typename: "ModelAdvocateWithdrawalsConnection",
-  items?:  Array<AdvocateWithdrawals | null > | null,
+  items:  Array<AdvocateWithdrawals >,
   nextToken?: string | null,
 };
 
@@ -3136,6 +3296,7 @@ export type ModelCompanyFilterInput = {
   ttlCompBLClrncEarningsNonCov?: ModelFloatInput | null,
   ttlCompCovEarnings?: ModelFloatInput | null,
   maxInterestSM?: ModelFloatInput | null,
+  maxInterestPwnBrkr?: ModelFloatInput | null,
   maxInterestCredSllr?: ModelFloatInput | null,
   maxInterestGrp?: ModelFloatInput | null,
   maxMFNdogos?: ModelFloatInput | null,
@@ -3150,7 +3311,7 @@ export type ModelCompanyFilterInput = {
 
 export type ModelCompanyConnection = {
   __typename: "ModelCompanyConnection",
-  items?:  Array<Company | null > | null,
+  items:  Array<Company >,
   nextToken?: string | null,
 };
 
@@ -3158,6 +3319,8 @@ export type ModelCovCreditSellerFilterInput = {
   id?: ModelIDInput | null,
   itemName?: ModelStringInput | null,
   itemSerialNumber?: ModelStringInput | null,
+  loanerLoanee?: ModelStringInput | null,
+  loanerLoaneeAdv?: ModelStringInput | null,
   buyerContact?: ModelStringInput | null,
   sellerContact?: ModelStringInput | null,
   buyerID?: ModelStringInput | null,
@@ -3182,7 +3345,7 @@ export type ModelCovCreditSellerFilterInput = {
 
 export type ModelCovCreditSellerConnection = {
   __typename: "ModelCovCreditSellerConnection",
-  items?:  Array<CovCreditSeller | null > | null,
+  items:  Array<CovCreditSeller >,
   nextToken?: string | null,
 };
 
@@ -3190,6 +3353,7 @@ export type ModelNonCovCreditSellerFilterInput = {
   id?: ModelIDInput | null,
   itemName?: ModelStringInput | null,
   itemSerialNumber?: ModelStringInput | null,
+  loanerLoanee?: ModelStringInput | null,
   buyerContact?: ModelStringInput | null,
   sellerContact?: ModelStringInput | null,
   buyerID?: ModelStringInput | null,
@@ -3213,12 +3377,13 @@ export type ModelNonCovCreditSellerFilterInput = {
 
 export type ModelNonCovCreditSellerConnection = {
   __typename: "ModelNonCovCreditSellerConnection",
-  items?:  Array<NonCovCreditSeller | null > | null,
+  items:  Array<NonCovCreditSeller >,
   nextToken?: string | null,
 };
 
 export type ModelGroupFilterInput = {
-  grpContact?: ModelIDInput | null,
+  grpContact?: ModelStringInput | null,
+  regNo?: ModelStringInput | null,
   signitoryContact?: ModelStringInput | null,
   SignitoryNatid?: ModelStringInput | null,
   signitoryName?: ModelStringInput | null,
@@ -3255,13 +3420,15 @@ export type ModelGroupFilterInput = {
 
 export type ModelGroupConnection = {
   __typename: "ModelGroupConnection",
-  items?:  Array<Group | null > | null,
+  items:  Array<Group >,
   nextToken?: string | null,
 };
 
-export type ModelGrpMembersFilterInput = {
-  id?: ModelIDInput | null,
+export type ModelChamaMembersFilterInput = {
+  MembaId?: ModelStringInput | null,
   groupContact?: ModelStringInput | null,
+  regNo?: ModelStringInput | null,
+  ChamaNMember?: ModelStringInput | null,
   groupName?: ModelStringInput | null,
   memberContact?: ModelStringInput | null,
   memberName?: ModelStringInput | null,
@@ -3277,14 +3444,50 @@ export type ModelGrpMembersFilterInput = {
   blStatus?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
-  and?: Array< ModelGrpMembersFilterInput | null > | null,
-  or?: Array< ModelGrpMembersFilterInput | null > | null,
-  not?: ModelGrpMembersFilterInput | null,
+  and?: Array< ModelChamaMembersFilterInput | null > | null,
+  or?: Array< ModelChamaMembersFilterInput | null > | null,
+  not?: ModelChamaMembersFilterInput | null,
 };
 
-export type ModelGrpMembersConnection = {
-  __typename: "ModelGrpMembersConnection",
-  items?:  Array<GrpMembers | null > | null,
+export type ModelChamaMembersConnection = {
+  __typename: "ModelChamaMembersConnection",
+  items:  Array<ChamaMembers >,
+  nextToken?: string | null,
+};
+
+export type ModelChamasNPwnBrkrsFilterInput = {
+  id?: ModelIDInput | null,
+  contact?: ModelStringInput | null,
+  regNo?: ModelStringInput | null,
+  AcStatus?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChamasNPwnBrkrsFilterInput | null > | null,
+  or?: Array< ModelChamasNPwnBrkrsFilterInput | null > | null,
+  not?: ModelChamasNPwnBrkrsFilterInput | null,
+};
+
+export type ModelChamasNPwnBrkrsConnection = {
+  __typename: "ModelChamasNPwnBrkrsConnection",
+  items:  Array<ChamasNPwnBrkrs >,
+  nextToken?: string | null,
+};
+
+export type ModelChamasRegConfirmFilterInput = {
+  id?: ModelIDInput | null,
+  contact?: ModelStringInput | null,
+  regNo?: ModelStringInput | null,
+  AcStatus?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChamasRegConfirmFilterInput | null > | null,
+  or?: Array< ModelChamasRegConfirmFilterInput | null > | null,
+  not?: ModelChamasRegConfirmFilterInput | null,
+};
+
+export type ModelChamasRegConfirmConnection = {
+  __typename: "ModelChamasRegConfirmConnection",
+  items:  Array<ChamasRegConfirm >,
   nextToken?: string | null,
 };
 
@@ -3292,7 +3495,9 @@ export type ModelCvrdGroupLoansFilterInput = {
   id?: ModelIDInput | null,
   grpContact?: ModelStringInput | null,
   loaneePhn?: ModelStringInput | null,
-  repaymentPeriod?: ModelIntInput | null,
+  repaymentPeriod?: ModelFloatInput | null,
+  loanerLoanee?: ModelStringInput | null,
+  loanerLoaneeAdv?: ModelStringInput | null,
   amountGiven?: ModelFloatInput | null,
   amountExpectedBack?: ModelFloatInput | null,
   amountExpectedBackWthClrnc?: ModelFloatInput | null,
@@ -3313,7 +3518,7 @@ export type ModelCvrdGroupLoansFilterInput = {
 
 export type ModelCvrdGroupLoansConnection = {
   __typename: "ModelCvrdGroupLoansConnection",
-  items?:  Array<CvrdGroupLoans | null > | null,
+  items:  Array<CvrdGroupLoans >,
   nextToken?: string | null,
 };
 
@@ -3321,6 +3526,7 @@ export type ModelNonCvrdGroupLoansFilterInput = {
   id?: ModelIDInput | null,
   grpContact?: ModelStringInput | null,
   loaneePhn?: ModelStringInput | null,
+  loanerLoanee?: ModelStringInput | null,
   repaymentPeriod?: ModelIntInput | null,
   amountGiven?: ModelFloatInput | null,
   amountExpectedBack?: ModelFloatInput | null,
@@ -3341,7 +3547,7 @@ export type ModelNonCvrdGroupLoansFilterInput = {
 
 export type ModelNonCvrdGroupLoansConnection = {
   __typename: "ModelNonCvrdGroupLoansConnection",
-  items?:  Array<NonCvrdGroupLoans | null > | null,
+  items:  Array<NonCvrdGroupLoans >,
   nextToken?: string | null,
 };
 
@@ -3364,7 +3570,7 @@ export type ModelGroupNonLoansFilterInput = {
 
 export type ModelGroupNonLoansConnection = {
   __typename: "ModelGroupNonLoansConnection",
-  items?:  Array<GroupNonLoans | null > | null,
+  items:  Array<GroupNonLoans >,
   nextToken?: string | null,
 };
 
@@ -3386,7 +3592,7 @@ export type ModelGrpMembersContributionFilterInput = {
 
 export type ModelGrpMembersContributionConnection = {
   __typename: "ModelGrpMembersContributionConnection",
-  items?:  Array<GrpMembersContribution | null > | null,
+  items:  Array<GrpMembersContribution >,
   nextToken?: string | null,
 };
 
@@ -3702,7 +3908,10 @@ export type CreateSMLoansCoveredMutation = {
     id: string,
     loaneeid: string,
     loaneePhn: string,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     loanerPhn: string,
+    advregnu: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -3712,7 +3921,6 @@ export type CreateSMLoansCoveredMutation = {
     loaneename: string,
     loanername: string,
     repaymentPeriod: number,
-    advregnu: string,
     description?: string | null,
     status: Status,
     owner: string,
@@ -3732,7 +3940,10 @@ export type UpdateSMLoansCoveredMutation = {
     id: string,
     loaneeid: string,
     loaneePhn: string,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     loanerPhn: string,
+    advregnu: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -3742,7 +3953,6 @@ export type UpdateSMLoansCoveredMutation = {
     loaneename: string,
     loanername: string,
     repaymentPeriod: number,
-    advregnu: string,
     description?: string | null,
     status: Status,
     owner: string,
@@ -3762,7 +3972,10 @@ export type DeleteSMLoansCoveredMutation = {
     id: string,
     loaneeid: string,
     loaneePhn: string,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     loanerPhn: string,
+    advregnu: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -3772,7 +3985,6 @@ export type DeleteSMLoansCoveredMutation = {
     loaneename: string,
     loanername: string,
     repaymentPeriod: number,
-    advregnu: string,
     description?: string | null,
     status: Status,
     owner: string,
@@ -3792,6 +4004,7 @@ export type CreateSMLoansNonCoveredMutation = {
     id: string,
     loaneePhn: string,
     loanerPhn: string,
+    loanerLoanee: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -3821,6 +4034,7 @@ export type UpdateSMLoansNonCoveredMutation = {
     id: string,
     loaneePhn: string,
     loanerPhn: string,
+    loanerLoanee: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -3850,6 +4064,7 @@ export type DeleteSMLoansNonCoveredMutation = {
     id: string,
     loaneePhn: string,
     loanerPhn: string,
+    loanerLoanee: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -3943,12 +4158,12 @@ export type CreateAgentMutation = {
   createAgent?:  {
     __typename: "Agent",
     phonecontact: string,
+    sagentregno: string,
     nationalid: string,
     name: string,
     ttlEarnings: number,
     pw: string,
     email: string,
-    sagentregno: string,
     TtlFltIn: number,
     TtlFltOut: number,
     floatBal: number,
@@ -3973,12 +4188,12 @@ export type UpdateAgentMutation = {
   updateAgent?:  {
     __typename: "Agent",
     phonecontact: string,
+    sagentregno: string,
     nationalid: string,
     name: string,
     ttlEarnings: number,
     pw: string,
     email: string,
-    sagentregno: string,
     TtlFltIn: number,
     TtlFltOut: number,
     floatBal: number,
@@ -4003,12 +4218,12 @@ export type DeleteAgentMutation = {
   deleteAgent?:  {
     __typename: "Agent",
     phonecontact: string,
+    sagentregno: string,
     nationalid: string,
     name: string,
     ttlEarnings: number,
     pw: string,
     email: string,
-    sagentregno: string,
     TtlFltIn: number,
     TtlFltOut: number,
     floatBal: number,
@@ -4032,7 +4247,6 @@ export type CreateFloatPurchaseMutationVariables = {
 export type CreateFloatPurchaseMutation = {
   createFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
@@ -4052,7 +4266,6 @@ export type UpdateFloatPurchaseMutationVariables = {
 export type UpdateFloatPurchaseMutation = {
   updateFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
@@ -4072,7 +4285,6 @@ export type DeleteFloatPurchaseMutationVariables = {
 export type DeleteFloatPurchaseMutation = {
   deleteFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
@@ -4786,6 +4998,7 @@ export type CreateCompanyMutation = {
     ttlCompBLClrncEarningsNonCov: number,
     ttlCompCovEarnings: number,
     maxInterestSM: number,
+    maxInterestPwnBrkr: number,
     maxInterestCredSllr: number,
     maxInterestGrp: number,
     maxMFNdogos: number,
@@ -4926,6 +5139,7 @@ export type UpdateCompanyMutation = {
     ttlCompBLClrncEarningsNonCov: number,
     ttlCompCovEarnings: number,
     maxInterestSM: number,
+    maxInterestPwnBrkr: number,
     maxInterestCredSllr: number,
     maxInterestGrp: number,
     maxMFNdogos: number,
@@ -5066,6 +5280,7 @@ export type DeleteCompanyMutation = {
     ttlCompBLClrncEarningsNonCov: number,
     ttlCompCovEarnings: number,
     maxInterestSM: number,
+    maxInterestPwnBrkr: number,
     maxInterestCredSllr: number,
     maxInterestGrp: number,
     maxMFNdogos: number,
@@ -5088,6 +5303,8 @@ export type CreateCovCreditSellerMutation = {
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -5120,6 +5337,8 @@ export type UpdateCovCreditSellerMutation = {
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -5152,6 +5371,8 @@ export type DeleteCovCreditSellerMutation = {
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -5184,6 +5405,7 @@ export type CreateNonCovCreditSellerMutation = {
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -5215,6 +5437,7 @@ export type UpdateNonCovCreditSellerMutation = {
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -5246,6 +5469,7 @@ export type DeleteNonCovCreditSellerMutation = {
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -5275,6 +5499,7 @@ export type CreateGroupMutation = {
   createGroup?:  {
     __typename: "Group",
     grpContact: string,
+    regNo: string,
     signitoryContact: string,
     SignitoryNatid: string,
     signitoryName: string,
@@ -5317,6 +5542,7 @@ export type UpdateGroupMutation = {
   updateGroup?:  {
     __typename: "Group",
     grpContact: string,
+    regNo: string,
     signitoryContact: string,
     SignitoryNatid: string,
     signitoryName: string,
@@ -5359,6 +5585,7 @@ export type DeleteGroupMutation = {
   deleteGroup?:  {
     __typename: "Group",
     grpContact: string,
+    regNo: string,
     signitoryContact: string,
     SignitoryNatid: string,
     signitoryName: string,
@@ -5392,16 +5619,18 @@ export type DeleteGroupMutation = {
   } | null,
 };
 
-export type CreateGrpMembersMutationVariables = {
-  input: CreateGrpMembersInput,
-  condition?: ModelGrpMembersConditionInput | null,
+export type CreateChamaMembersMutationVariables = {
+  input: CreateChamaMembersInput,
+  condition?: ModelChamaMembersConditionInput | null,
 };
 
-export type CreateGrpMembersMutation = {
-  createGrpMembers?:  {
-    __typename: "GrpMembers",
-    id: string,
+export type CreateChamaMembersMutation = {
+  createChamaMembers?:  {
+    __typename: "ChamaMembers",
+    MembaId: string,
     groupContact: string,
+    regNo: string,
+    ChamaNMember: string,
     groupName: string,
     memberContact: string,
     memberName: string,
@@ -5421,16 +5650,18 @@ export type CreateGrpMembersMutation = {
   } | null,
 };
 
-export type UpdateGrpMembersMutationVariables = {
-  input: UpdateGrpMembersInput,
-  condition?: ModelGrpMembersConditionInput | null,
+export type UpdateChamaMembersMutationVariables = {
+  input: UpdateChamaMembersInput,
+  condition?: ModelChamaMembersConditionInput | null,
 };
 
-export type UpdateGrpMembersMutation = {
-  updateGrpMembers?:  {
-    __typename: "GrpMembers",
-    id: string,
+export type UpdateChamaMembersMutation = {
+  updateChamaMembers?:  {
+    __typename: "ChamaMembers",
+    MembaId: string,
     groupContact: string,
+    regNo: string,
+    ChamaNMember: string,
     groupName: string,
     memberContact: string,
     memberName: string,
@@ -5450,16 +5681,18 @@ export type UpdateGrpMembersMutation = {
   } | null,
 };
 
-export type DeleteGrpMembersMutationVariables = {
-  input: DeleteGrpMembersInput,
-  condition?: ModelGrpMembersConditionInput | null,
+export type DeleteChamaMembersMutationVariables = {
+  input: DeleteChamaMembersInput,
+  condition?: ModelChamaMembersConditionInput | null,
 };
 
-export type DeleteGrpMembersMutation = {
-  deleteGrpMembers?:  {
-    __typename: "GrpMembers",
-    id: string,
+export type DeleteChamaMembersMutation = {
+  deleteChamaMembers?:  {
+    __typename: "ChamaMembers",
+    MembaId: string,
     groupContact: string,
+    regNo: string,
+    ChamaNMember: string,
     groupName: string,
     memberContact: string,
     memberName: string,
@@ -5473,6 +5706,114 @@ export type DeleteGrpMembersMutation = {
     AcStatus: Status,
     loanStatus: Status,
     blStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateChamasNPwnBrkrsMutationVariables = {
+  input: CreateChamasNPwnBrkrsInput,
+  condition?: ModelChamasNPwnBrkrsConditionInput | null,
+};
+
+export type CreateChamasNPwnBrkrsMutation = {
+  createChamasNPwnBrkrs?:  {
+    __typename: "ChamasNPwnBrkrs",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateChamasNPwnBrkrsMutationVariables = {
+  input: UpdateChamasNPwnBrkrsInput,
+  condition?: ModelChamasNPwnBrkrsConditionInput | null,
+};
+
+export type UpdateChamasNPwnBrkrsMutation = {
+  updateChamasNPwnBrkrs?:  {
+    __typename: "ChamasNPwnBrkrs",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteChamasNPwnBrkrsMutationVariables = {
+  input: DeleteChamasNPwnBrkrsInput,
+  condition?: ModelChamasNPwnBrkrsConditionInput | null,
+};
+
+export type DeleteChamasNPwnBrkrsMutation = {
+  deleteChamasNPwnBrkrs?:  {
+    __typename: "ChamasNPwnBrkrs",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateChamasRegConfirmMutationVariables = {
+  input: CreateChamasRegConfirmInput,
+  condition?: ModelChamasRegConfirmConditionInput | null,
+};
+
+export type CreateChamasRegConfirmMutation = {
+  createChamasRegConfirm?:  {
+    __typename: "ChamasRegConfirm",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateChamasRegConfirmMutationVariables = {
+  input: UpdateChamasRegConfirmInput,
+  condition?: ModelChamasRegConfirmConditionInput | null,
+};
+
+export type UpdateChamasRegConfirmMutation = {
+  updateChamasRegConfirm?:  {
+    __typename: "ChamasRegConfirm",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteChamasRegConfirmMutationVariables = {
+  input: DeleteChamasRegConfirmInput,
+  condition?: ModelChamasRegConfirmConditionInput | null,
+};
+
+export type DeleteChamasRegConfirmMutation = {
+  deleteChamasRegConfirm?:  {
+    __typename: "ChamasRegConfirm",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
     owner: string,
     createdAt: string,
     updatedAt: string,
@@ -5491,6 +5832,8 @@ export type CreateCvrdGroupLoansMutation = {
     grpContact: string,
     loaneePhn: string,
     repaymentPeriod: number,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     amountGiven: number,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -5520,6 +5863,8 @@ export type UpdateCvrdGroupLoansMutation = {
     grpContact: string,
     loaneePhn: string,
     repaymentPeriod: number,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     amountGiven: number,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -5549,6 +5894,8 @@ export type DeleteCvrdGroupLoansMutation = {
     grpContact: string,
     loaneePhn: string,
     repaymentPeriod: number,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     amountGiven: number,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -5577,6 +5924,7 @@ export type CreateNonCvrdGroupLoansMutation = {
     id: string,
     grpContact: string,
     loaneePhn: string,
+    loanerLoanee: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -5605,6 +5953,7 @@ export type UpdateNonCvrdGroupLoansMutation = {
     id: string,
     grpContact: string,
     loaneePhn: string,
+    loanerLoanee: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -5633,6 +5982,7 @@ export type DeleteNonCvrdGroupLoansMutation = {
     id: string,
     grpContact: string,
     loaneePhn: string,
+    loanerLoanee: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -5892,7 +6242,7 @@ export type ListSMAccountsQueryVariables = {
 export type ListSMAccountsQuery = {
   listSMAccounts?:  {
     __typename: "ModelSMAccountConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "SMAccount",
       nationalid: string,
       name: string,
@@ -5980,7 +6330,7 @@ export type ListSMAccountsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -5995,7 +6345,10 @@ export type GetSMLoansCoveredQuery = {
     id: string,
     loaneeid: string,
     loaneePhn: string,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     loanerPhn: string,
+    advregnu: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -6005,7 +6358,6 @@ export type GetSMLoansCoveredQuery = {
     loaneename: string,
     loanername: string,
     repaymentPeriod: number,
-    advregnu: string,
     description?: string | null,
     status: Status,
     owner: string,
@@ -6023,12 +6375,15 @@ export type ListSMLoansCoveredsQueryVariables = {
 export type ListSMLoansCoveredsQuery = {
   listSMLoansCovereds?:  {
     __typename: "ModelSMLoansCoveredConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "SMLoansCovered",
       id: string,
       loaneeid: string,
       loaneePhn: string,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
       loanerPhn: string,
+      advregnu: string,
       loanerId: string,
       amountgiven: number,
       amountexpected: number,
@@ -6038,13 +6393,12 @@ export type ListSMLoansCoveredsQuery = {
       loaneename: string,
       loanername: string,
       repaymentPeriod: number,
-      advregnu: string,
       description?: string | null,
       status: Status,
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6059,6 +6413,7 @@ export type GetSMLoansNonCoveredQuery = {
     id: string,
     loaneePhn: string,
     loanerPhn: string,
+    loanerLoanee: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -6086,11 +6441,12 @@ export type ListSMLoansNonCoveredsQueryVariables = {
 export type ListSMLoansNonCoveredsQuery = {
   listSMLoansNonCovereds?:  {
     __typename: "ModelSMLoansNonCoveredConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "SMLoansNonCovered",
       id: string,
       loaneePhn: string,
       loanerPhn: string,
+      loanerLoanee: string,
       loaneeid: string,
       loanerId: string,
       amountgiven: number,
@@ -6106,7 +6462,7 @@ export type ListSMLoansNonCoveredsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6132,16 +6488,16 @@ export type GetNonLoansQuery = {
   } | null,
 };
 
-export type ListNonLoanssQueryVariables = {
+export type ListNonLoansQueryVariables = {
   filter?: ModelNonLoansFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListNonLoanssQuery = {
-  listNonLoanss?:  {
+export type ListNonLoansQuery = {
+  listNonLoans?:  {
     __typename: "ModelNonLoansConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "NonLoans",
       id: string,
       senderPhn: string,
@@ -6154,7 +6510,7 @@ export type ListNonLoanssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6167,12 +6523,12 @@ export type GetAgentQuery = {
   getAgent?:  {
     __typename: "Agent",
     phonecontact: string,
+    sagentregno: string,
     nationalid: string,
     name: string,
     ttlEarnings: number,
     pw: string,
     email: string,
-    sagentregno: string,
     TtlFltIn: number,
     TtlFltOut: number,
     floatBal: number,
@@ -6199,15 +6555,15 @@ export type ListAgentsQueryVariables = {
 export type ListAgentsQuery = {
   listAgents?:  {
     __typename: "ModelAgentConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "Agent",
       phonecontact: string,
+      sagentregno: string,
       nationalid: string,
       name: string,
       ttlEarnings: number,
       pw: string,
       email: string,
-      sagentregno: string,
       TtlFltIn: number,
       TtlFltOut: number,
       floatBal: number,
@@ -6220,19 +6576,18 @@ export type ListAgentsQuery = {
       MFNWithdrwlFee: number,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
 
 export type GetFloatPurchaseQueryVariables = {
-  id: string,
+  transactId: string,
 };
 
 export type GetFloatPurchaseQuery = {
   getFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
@@ -6245,17 +6600,18 @@ export type GetFloatPurchaseQuery = {
 };
 
 export type ListFloatPurchasesQueryVariables = {
+  transactId?: string | null,
   filter?: ModelFloatPurchaseFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
 };
 
 export type ListFloatPurchasesQuery = {
   listFloatPurchases?:  {
     __typename: "ModelFloatPurchaseConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "FloatPurchase",
-      id: string,
       agentphone: string,
       amount: number,
       transactId: string,
@@ -6264,7 +6620,7 @@ export type ListFloatPurchasesQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6301,7 +6657,7 @@ export type ListFloatAddsQueryVariables = {
 export type ListFloatAddsQuery = {
   listFloatAdds?:  {
     __typename: "ModelFloatAddConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "FloatAdd",
       id: string,
       withdrawerid: string,
@@ -6316,7 +6672,7 @@ export type ListFloatAddsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6350,7 +6706,7 @@ export type ListFloatReductionsQueryVariables = {
 export type ListFloatReductionsQuery = {
   listFloatReductions?:  {
     __typename: "ModelFloatReductionConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "FloatReduction",
       id: string,
       amount: number,
@@ -6362,7 +6718,7 @@ export type ListFloatReductionsQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6385,16 +6741,16 @@ export type GetAgentWithdrawalsQuery = {
   } | null,
 };
 
-export type ListAgentWithdrawalssQueryVariables = {
+export type ListAgentWithdrawalsQueryVariables = {
   filter?: ModelAgentWithdrawalsFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListAgentWithdrawalssQuery = {
-  listAgentWithdrawalss?:  {
+export type ListAgentWithdrawalsQuery = {
+  listAgentWithdrawals?:  {
     __typename: "ModelAgentWithdrawalsConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "AgentWithdrawals",
       id: string,
       agentPhone: string,
@@ -6404,7 +6760,7 @@ export type ListAgentWithdrawalssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6444,7 +6800,7 @@ export type ListSAgentsQueryVariables = {
 export type ListSAgentsQuery = {
   listSAgents?:  {
     __typename: "ModelSAgentConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "SAgent",
       saPhoneContact: string,
       saNationalid: string,
@@ -6460,7 +6816,7 @@ export type ListSAgentsQuery = {
       MFKWithdrwlFee: number,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6483,16 +6839,16 @@ export type GetSAgentWithdrawalsQuery = {
   } | null,
 };
 
-export type ListSAgentWithdrawalssQueryVariables = {
+export type ListSAgentWithdrawalsQueryVariables = {
   filter?: ModelSAgentWithdrawalsFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListSAgentWithdrawalssQuery = {
-  listSAgentWithdrawalss?:  {
+export type ListSAgentWithdrawalsQuery = {
+  listSAgentWithdrawals?:  {
     __typename: "ModelSAgentWithdrawalsConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "SAgentWithdrawals",
       id: string,
       saId: string,
@@ -6502,7 +6858,7 @@ export type ListSAgentWithdrawalssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6539,7 +6895,7 @@ export type ListBankAdminsQueryVariables = {
 export type ListBankAdminsQuery = {
   listBankAdmins?:  {
     __typename: "ModelBankAdminConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "BankAdmin",
       nationalid: string,
       name: string,
@@ -6552,7 +6908,7 @@ export type ListBankAdminsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6574,16 +6930,16 @@ export type GetBankAdmWithdrawalsQuery = {
   } | null,
 };
 
-export type ListBankAdmWithdrawalssQueryVariables = {
+export type ListBankAdmWithdrawalsQueryVariables = {
   filter?: ModelBankAdmWithdrawalsFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListBankAdmWithdrawalssQuery = {
-  listBankAdmWithdrawalss?:  {
+export type ListBankAdmWithdrawalsQuery = {
+  listBankAdmWithdrawals?:  {
     __typename: "ModelBankAdmWithdrawalsConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "BankAdmWithdrawals",
       id: string,
       bankAdmNatId: string,
@@ -6592,7 +6948,7 @@ export type ListBankAdmWithdrawalssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6631,7 +6987,7 @@ export type ListAdvocatesQueryVariables = {
 export type ListAdvocatesQuery = {
   listAdvocates?:  {
     __typename: "ModelAdvocateConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "Advocate",
       advregnu: string,
       nationalid: string,
@@ -6646,7 +7002,7 @@ export type ListAdvocatesQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6669,16 +7025,16 @@ export type GetAdvocateWithdrawalsQuery = {
   } | null,
 };
 
-export type ListAdvocateWithdrawalssQueryVariables = {
+export type ListAdvocateWithdrawalsQueryVariables = {
   filter?: ModelAdvocateWithdrawalsFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListAdvocateWithdrawalssQuery = {
-  listAdvocateWithdrawalss?:  {
+export type ListAdvocateWithdrawalsQuery = {
+  listAdvocateWithdrawals?:  {
     __typename: "ModelAdvocateWithdrawalsConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "AdvocateWithdrawals",
       id: string,
       bankAdmnId: string,
@@ -6688,7 +7044,7 @@ export type ListAdvocateWithdrawalssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6821,6 +7177,7 @@ export type GetCompanyQuery = {
     ttlCompBLClrncEarningsNonCov: number,
     ttlCompCovEarnings: number,
     maxInterestSM: number,
+    maxInterestPwnBrkr: number,
     maxInterestCredSllr: number,
     maxInterestGrp: number,
     maxMFNdogos: number,
@@ -6832,7 +7189,7 @@ export type GetCompanyQuery = {
   } | null,
 };
 
-export type ListCompanysQueryVariables = {
+export type ListCompaniesQueryVariables = {
   AdminId?: string | null,
   filter?: ModelCompanyFilterInput | null,
   limit?: number | null,
@@ -6840,10 +7197,10 @@ export type ListCompanysQueryVariables = {
   sortDirection?: ModelSortDirection | null,
 };
 
-export type ListCompanysQuery = {
-  listCompanys?:  {
+export type ListCompaniesQuery = {
+  listCompanies?:  {
     __typename: "ModelCompanyConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "Company",
       AdminId: string,
       phoneContact: string,
@@ -6966,6 +7323,7 @@ export type ListCompanysQuery = {
       ttlCompBLClrncEarningsNonCov: number,
       ttlCompCovEarnings: number,
       maxInterestSM: number,
+      maxInterestPwnBrkr: number,
       maxInterestCredSllr: number,
       maxInterestGrp: number,
       maxMFNdogos: number,
@@ -6974,7 +7332,7 @@ export type ListCompanysQuery = {
       totalLnsRecovered: number,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -6989,6 +7347,8 @@ export type GetCovCreditSellerQuery = {
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -7019,11 +7379,13 @@ export type ListCovCreditSellersQueryVariables = {
 export type ListCovCreditSellersQuery = {
   listCovCreditSellers?:  {
     __typename: "ModelCovCreditSellerConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
       itemSerialNumber?: string | null,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
       buyerContact: string,
       sellerContact: string,
       buyerID: string,
@@ -7042,7 +7404,7 @@ export type ListCovCreditSellersQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7057,6 +7419,7 @@ export type GetNonCovCreditSellerQuery = {
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -7086,11 +7449,12 @@ export type ListNonCovCreditSellersQueryVariables = {
 export type ListNonCovCreditSellersQuery = {
   listNonCovCreditSellers?:  {
     __typename: "ModelNonCovCreditSellerConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "NonCovCreditSeller",
       id: string,
       itemName: string,
       itemSerialNumber?: string | null,
+      loanerLoanee: string,
       buyerContact: string,
       sellerContact: string,
       buyerID: string,
@@ -7108,7 +7472,7 @@ export type ListNonCovCreditSellersQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7121,6 +7485,7 @@ export type GetGroupQuery = {
   getGroup?:  {
     __typename: "Group",
     grpContact: string,
+    regNo: string,
     signitoryContact: string,
     SignitoryNatid: string,
     signitoryName: string,
@@ -7165,9 +7530,10 @@ export type ListGroupsQueryVariables = {
 export type ListGroupsQuery = {
   listGroups?:  {
     __typename: "ModelGroupConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "Group",
       grpContact: string,
+      regNo: string,
       signitoryContact: string,
       SignitoryNatid: string,
       signitoryName: string,
@@ -7198,20 +7564,22 @@ export type ListGroupsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
 
-export type GetGrpMembersQueryVariables = {
-  id: string,
+export type GetChamaMembersQueryVariables = {
+  ChamaNMember: string,
 };
 
-export type GetGrpMembersQuery = {
-  getGrpMembers?:  {
-    __typename: "GrpMembers",
-    id: string,
+export type GetChamaMembersQuery = {
+  getChamaMembers?:  {
+    __typename: "ChamaMembers",
+    MembaId: string,
     groupContact: string,
+    regNo: string,
+    ChamaNMember: string,
     groupName: string,
     memberContact: string,
     memberName: string,
@@ -7231,19 +7599,23 @@ export type GetGrpMembersQuery = {
   } | null,
 };
 
-export type ListGrpMemberssQueryVariables = {
-  filter?: ModelGrpMembersFilterInput | null,
+export type ListChamaMembersQueryVariables = {
+  ChamaNMember?: string | null,
+  filter?: ModelChamaMembersFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
 };
 
-export type ListGrpMemberssQuery = {
-  listGrpMemberss?:  {
-    __typename: "ModelGrpMembersConnection",
-    items?:  Array< {
-      __typename: "GrpMembers",
-      id: string,
+export type ListChamaMembersQuery = {
+  listChamaMembers?:  {
+    __typename: "ModelChamaMembersConnection",
+    items:  Array< {
+      __typename: "ChamaMembers",
+      MembaId: string,
       groupContact: string,
+      regNo: string,
+      ChamaNMember: string,
       groupName: string,
       memberContact: string,
       memberName: string,
@@ -7260,7 +7632,87 @@ export type ListGrpMemberssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetChamasNPwnBrkrsQueryVariables = {
+  id: string,
+};
+
+export type GetChamasNPwnBrkrsQuery = {
+  getChamasNPwnBrkrs?:  {
+    __typename: "ChamasNPwnBrkrs",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListChamasNPwnBrkrsQueryVariables = {
+  filter?: ModelChamasNPwnBrkrsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListChamasNPwnBrkrsQuery = {
+  listChamasNPwnBrkrs?:  {
+    __typename: "ModelChamasNPwnBrkrsConnection",
+    items:  Array< {
+      __typename: "ChamasNPwnBrkrs",
+      id: string,
+      contact: string,
+      regNo: string,
+      AcStatus: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetChamasRegConfirmQueryVariables = {
+  id: string,
+};
+
+export type GetChamasRegConfirmQuery = {
+  getChamasRegConfirm?:  {
+    __typename: "ChamasRegConfirm",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListChamasRegConfirmsQueryVariables = {
+  filter?: ModelChamasRegConfirmFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListChamasRegConfirmsQuery = {
+  listChamasRegConfirms?:  {
+    __typename: "ModelChamasRegConfirmConnection",
+    items:  Array< {
+      __typename: "ChamasRegConfirm",
+      id: string,
+      contact: string,
+      regNo: string,
+      AcStatus: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7276,6 +7728,8 @@ export type GetCvrdGroupLoansQuery = {
     grpContact: string,
     loaneePhn: string,
     repaymentPeriod: number,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     amountGiven: number,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -7293,21 +7747,23 @@ export type GetCvrdGroupLoansQuery = {
   } | null,
 };
 
-export type ListCvrdGroupLoanssQueryVariables = {
+export type ListCvrdGroupLoansQueryVariables = {
   filter?: ModelCvrdGroupLoansFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListCvrdGroupLoanssQuery = {
-  listCvrdGroupLoanss?:  {
+export type ListCvrdGroupLoansQuery = {
+  listCvrdGroupLoans?:  {
     __typename: "ModelCvrdGroupLoansConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "CvrdGroupLoans",
       id: string,
       grpContact: string,
       loaneePhn: string,
       repaymentPeriod: number,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
       amountGiven: number,
       amountExpectedBack: number,
       amountExpectedBackWthClrnc: number,
@@ -7322,7 +7778,7 @@ export type ListCvrdGroupLoanssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7337,6 +7793,7 @@ export type GetNonCvrdGroupLoansQuery = {
     id: string,
     grpContact: string,
     loaneePhn: string,
+    loanerLoanee: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -7354,20 +7811,21 @@ export type GetNonCvrdGroupLoansQuery = {
   } | null,
 };
 
-export type ListNonCvrdGroupLoanssQueryVariables = {
+export type ListNonCvrdGroupLoansQueryVariables = {
   filter?: ModelNonCvrdGroupLoansFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListNonCvrdGroupLoanssQuery = {
-  listNonCvrdGroupLoanss?:  {
+export type ListNonCvrdGroupLoansQuery = {
+  listNonCvrdGroupLoans?:  {
     __typename: "ModelNonCvrdGroupLoansConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "NonCvrdGroupLoans",
       id: string,
       grpContact: string,
       loaneePhn: string,
+      loanerLoanee: string,
       repaymentPeriod: number,
       amountGiven: number,
       amountExpectedBack: number,
@@ -7382,7 +7840,7 @@ export type ListNonCvrdGroupLoanssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7409,16 +7867,16 @@ export type GetGroupNonLoansQuery = {
   } | null,
 };
 
-export type ListGroupNonLoanssQueryVariables = {
+export type ListGroupNonLoansQueryVariables = {
   filter?: ModelGroupNonLoansFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListGroupNonLoanssQuery = {
-  listGroupNonLoanss?:  {
+export type ListGroupNonLoansQuery = {
+  listGroupNonLoans?:  {
     __typename: "ModelGroupNonLoansConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "GroupNonLoans",
       id: string,
       grpContact: string,
@@ -7432,7 +7890,7 @@ export type ListGroupNonLoanssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7467,7 +7925,7 @@ export type ListGrpMembersContributionsQueryVariables = {
 export type ListGrpMembersContributionsQuery = {
   listGrpMembersContributions?:  {
     __typename: "ModelGrpMembersContributionConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "GrpMembersContribution",
       id: string,
       memberPhn: string,
@@ -7480,7 +7938,7 @@ export type ListGrpMembersContributionsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7497,12 +7955,15 @@ export type VwMyDebtsQueryVariables = {
 export type VwMyDebtsQuery = {
   VwMyDebts?:  {
     __typename: "ModelSMLoansCoveredConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "SMLoansCovered",
       id: string,
       loaneeid: string,
       loaneePhn: string,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
       loanerPhn: string,
+      advregnu: string,
       loanerId: string,
       amountgiven: number,
       amountexpected: number,
@@ -7512,13 +7973,92 @@ export type VwMyDebtsQuery = {
       loaneename: string,
       loanername: string,
       repaymentPeriod: number,
-      advregnu: string,
       description?: string | null,
       status: Status,
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwLnrNLneesssssQueryVariables = {
+  loanerLoanee?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelSMLoansCoveredFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwLnrNLneesssssQuery = {
+  VwLnrNLneesssss?:  {
+    __typename: "ModelSMLoansCoveredConnection",
+    items:  Array< {
+      __typename: "SMLoansCovered",
+      id: string,
+      loaneeid: string,
+      loaneePhn: string,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
+      loanerPhn: string,
+      advregnu: string,
+      loanerId: string,
+      amountgiven: number,
+      amountexpected: number,
+      amountExpectedBackWthClrnc: number,
+      amountrepaid: number,
+      lonBala: number,
+      loaneename: string,
+      loanername: string,
+      repaymentPeriod: number,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwAdvNLnrNLneesssssQueryVariables = {
+  loanerLoaneeAdv?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelSMLoansCoveredFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwAdvNLnrNLneesssssQuery = {
+  VwAdvNLnrNLneesssss?:  {
+    __typename: "ModelSMLoansCoveredConnection",
+    items:  Array< {
+      __typename: "SMLoansCovered",
+      id: string,
+      loaneeid: string,
+      loaneePhn: string,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
+      loanerPhn: string,
+      advregnu: string,
+      loanerId: string,
+      amountgiven: number,
+      amountexpected: number,
+      amountExpectedBackWthClrnc: number,
+      amountrepaid: number,
+      lonBala: number,
+      loaneename: string,
+      loanername: string,
+      repaymentPeriod: number,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7535,12 +8075,15 @@ export type VwMyDebtorsQueryVariables = {
 export type VwMyDebtorsQuery = {
   VwMyDebtors?:  {
     __typename: "ModelSMLoansCoveredConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "SMLoansCovered",
       id: string,
       loaneeid: string,
       loaneePhn: string,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
       loanerPhn: string,
+      advregnu: string,
       loanerId: string,
       amountgiven: number,
       amountexpected: number,
@@ -7550,13 +8093,12 @@ export type VwMyDebtorsQuery = {
       loaneename: string,
       loanername: string,
       repaymentPeriod: number,
-      advregnu: string,
       description?: string | null,
       status: Status,
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7573,12 +8115,15 @@ export type AdvVwLnsClientQueryVariables = {
 export type AdvVwLnsClientQuery = {
   AdvVwLnsClient?:  {
     __typename: "ModelSMLoansCoveredConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "SMLoansCovered",
       id: string,
       loaneeid: string,
       loaneePhn: string,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
       loanerPhn: string,
+      advregnu: string,
       loanerId: string,
       amountgiven: number,
       amountexpected: number,
@@ -7588,13 +8133,12 @@ export type AdvVwLnsClientQuery = {
       loaneename: string,
       loanername: string,
       repaymentPeriod: number,
-      advregnu: string,
       description?: string | null,
       status: Status,
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7611,11 +8155,12 @@ export type VwMyDebtssQueryVariables = {
 export type VwMyDebtssQuery = {
   VwMyDebtss?:  {
     __typename: "ModelSMLoansNonCoveredConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "SMLoansNonCovered",
       id: string,
       loaneePhn: string,
       loanerPhn: string,
+      loanerLoanee: string,
       loaneeid: string,
       loanerId: string,
       amountgiven: number,
@@ -7631,7 +8176,7 @@ export type VwMyDebtssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7648,11 +8193,12 @@ export type VwMyDebtorssQueryVariables = {
 export type VwMyDebtorssQuery = {
   VwMyDebtorss?:  {
     __typename: "ModelSMLoansNonCoveredConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "SMLoansNonCovered",
       id: string,
       loaneePhn: string,
       loanerPhn: string,
+      loanerLoanee: string,
       loaneeid: string,
       loanerId: string,
       amountgiven: number,
@@ -7668,37 +8214,45 @@ export type VwMyDebtorssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
 
-export type VwMyRecMnyQueryVariables = {
-  recPhn?: string | null,
+export type VwLnrNLneessssQueryVariables = {
+  loanerLoanee?: string | null,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonLoansFilterInput | null,
+  filter?: ModelSMLoansNonCoveredFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type VwMyRecMnyQuery = {
-  VwMyRecMny?:  {
-    __typename: "ModelNonLoansConnection",
-    items?:  Array< {
-      __typename: "NonLoans",
+export type VwLnrNLneessssQuery = {
+  VwLnrNLneessss?:  {
+    __typename: "ModelSMLoansNonCoveredConnection",
+    items:  Array< {
+      __typename: "SMLoansNonCovered",
       id: string,
-      senderPhn: string,
-      recPhn: string,
-      RecName: string,
-      SenderName: string,
-      amount: number,
+      loaneePhn: string,
+      loanerPhn: string,
+      loanerLoanee: string,
+      loaneeid: string,
+      loanerId: string,
+      amountgiven: number,
+      amountexpected: number,
+      amountExpectedBackWthClrnc: number,
+      amountrepaid: number,
+      lonBala: number,
+      loaneename: string,
+      loanername: string,
+      repaymentPeriod: number,
       description?: string | null,
       status: Status,
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7715,7 +8269,7 @@ export type VwMySntMnyQueryVariables = {
 export type VwMySntMnyQuery = {
   VwMySntMny?:  {
     __typename: "ModelNonLoansConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "NonLoans",
       id: string,
       senderPhn: string,
@@ -7728,7 +8282,37 @@ export type VwMySntMnyQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyRecMnyQueryVariables = {
+  recPhn?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelNonLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyRecMnyQuery = {
+  VwMyRecMny?:  {
+    __typename: "ModelNonLoansConnection",
+    items:  Array< {
+      __typename: "NonLoans",
+      id: string,
+      senderPhn: string,
+      recPhn: string,
+      RecName: string,
+      SenderName: string,
+      amount: number,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7745,15 +8329,15 @@ export type MFKVwMFNQueryVariables = {
 export type MFKVwMFNQuery = {
   MFKVwMFN?:  {
     __typename: "ModelAgentConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "Agent",
       phonecontact: string,
+      sagentregno: string,
       nationalid: string,
       name: string,
       ttlEarnings: number,
       pw: string,
       email: string,
-      sagentregno: string,
       TtlFltIn: number,
       TtlFltOut: number,
       floatBal: number,
@@ -7766,7 +8350,7 @@ export type MFKVwMFNQuery = {
       MFNWithdrwlFee: number,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7783,9 +8367,8 @@ export type VwMyBghtFltQueryVariables = {
 export type VwMyBghtFltQuery = {
   VwMyBghtFlt?:  {
     __typename: "ModelFloatPurchaseConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "FloatPurchase",
-      id: string,
       agentphone: string,
       amount: number,
       transactId: string,
@@ -7794,7 +8377,7 @@ export type VwMyBghtFltQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7811,7 +8394,7 @@ export type VwMyUsrWthdrwlsQueryVariables = {
 export type VwMyUsrWthdrwlsQuery = {
   VwMyUsrWthdrwls?:  {
     __typename: "ModelFloatAddConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "FloatAdd",
       id: string,
       withdrawerid: string,
@@ -7826,7 +8409,7 @@ export type VwMyUsrWthdrwlsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7843,7 +8426,7 @@ export type VwMFNFltAddsQueryVariables = {
 export type VwMFNFltAddsQuery = {
   VwMFNFltAdds?:  {
     __typename: "ModelFloatAddConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "FloatAdd",
       id: string,
       withdrawerid: string,
@@ -7858,7 +8441,7 @@ export type VwMFNFltAddsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7875,7 +8458,7 @@ export type VwMFKEarningsFrmWthdrwlsQueryVariables = {
 export type VwMFKEarningsFrmWthdrwlsQuery = {
   VwMFKEarningsFrmWthdrwls?:  {
     __typename: "ModelFloatAddConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "FloatAdd",
       id: string,
       withdrawerid: string,
@@ -7890,7 +8473,7 @@ export type VwMFKEarningsFrmWthdrwlsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7907,7 +8490,7 @@ export type VwMyUsrDpositsQueryVariables = {
 export type VwMyUsrDpositsQuery = {
   VwMyUsrDposits?:  {
     __typename: "ModelFloatReductionConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "FloatReduction",
       id: string,
       amount: number,
@@ -7919,7 +8502,7 @@ export type VwMyUsrDpositsQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7936,7 +8519,7 @@ export type VwMFNFltDeductnsQueryVariables = {
 export type VwMFNFltDeductnsQuery = {
   VwMFNFltDeductns?:  {
     __typename: "ModelFloatReductionConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "FloatReduction",
       id: string,
       amount: number,
@@ -7948,7 +8531,7 @@ export type VwMFNFltDeductnsQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7965,7 +8548,7 @@ export type VwMFNWthdrwlsQueryVariables = {
 export type VwMFNWthdrwlsQuery = {
   VwMFNWthdrwls?:  {
     __typename: "ModelAgentWithdrawalsConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "AgentWithdrawals",
       id: string,
       agentPhone: string,
@@ -7975,7 +8558,7 @@ export type VwMFNWthdrwlsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -7992,7 +8575,7 @@ export type VwMFKWthdrwlsQueryVariables = {
 export type VwMFKWthdrwlsQuery = {
   VwMFKWthdrwls?:  {
     __typename: "ModelSAgentWithdrawalsConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "SAgentWithdrawals",
       id: string,
       saId: string,
@@ -8002,7 +8585,7 @@ export type VwMFKWthdrwlsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8019,7 +8602,7 @@ export type VwAdvWthdrwlsQueryVariables = {
 export type VwAdvWthdrwlsQuery = {
   VwAdvWthdrwls?:  {
     __typename: "ModelAdvocateWithdrawalsConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "AdvocateWithdrawals",
       id: string,
       bankAdmnId: string,
@@ -8029,13 +8612,13 @@ export type VwAdvWthdrwlsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
 
-export type VwMySalesQueryVariables = {
-  sellerContact?: string | null,
+export type VwLnrNLneesssQueryVariables = {
+  loanerLoanee?: string | null,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelCovCreditSellerFilterInput | null,
@@ -8043,14 +8626,16 @@ export type VwMySalesQueryVariables = {
   nextToken?: string | null,
 };
 
-export type VwMySalesQuery = {
-  VwMySales?:  {
+export type VwLnrNLneesssQuery = {
+  VwLnrNLneesss?:  {
     __typename: "ModelCovCreditSellerConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
       itemSerialNumber?: string | null,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
       buyerContact: string,
       sellerContact: string,
       buyerID: string,
@@ -8069,7 +8654,49 @@ export type VwMySalesQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwAdvNLnrNLneesssQueryVariables = {
+  loanerLoaneeAdv?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCovCreditSellerFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwAdvNLnrNLneesssQuery = {
+  VwAdvNLnrNLneesss?:  {
+    __typename: "ModelCovCreditSellerConnection",
+    items:  Array< {
+      __typename: "CovCreditSeller",
+      id: string,
+      itemName: string,
+      itemSerialNumber?: string | null,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
+      buyerContact: string,
+      sellerContact: string,
+      buyerID: string,
+      buyerName: string,
+      SellerName: string,
+      sellerID: string,
+      amountSold: number,
+      amountexpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      repaymentPeriod: number,
+      lonBala: number,
+      description?: string | null,
+      status: Status,
+      advregnu: string,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8086,11 +8713,13 @@ export type VwMyCrdBysQueryVariables = {
 export type VwMyCrdBysQuery = {
   VwMyCrdBys?:  {
     __typename: "ModelCovCreditSellerConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
       itemSerialNumber?: string | null,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
       buyerContact: string,
       sellerContact: string,
       buyerID: string,
@@ -8109,7 +8738,49 @@ export type VwMyCrdBysQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMySalesQueryVariables = {
+  sellerContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCovCreditSellerFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMySalesQuery = {
+  VwMySales?:  {
+    __typename: "ModelCovCreditSellerConnection",
+    items:  Array< {
+      __typename: "CovCreditSeller",
+      id: string,
+      itemName: string,
+      itemSerialNumber?: string | null,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
+      buyerContact: string,
+      sellerContact: string,
+      buyerID: string,
+      buyerName: string,
+      SellerName: string,
+      sellerID: string,
+      amountSold: number,
+      amountexpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      repaymentPeriod: number,
+      lonBala: number,
+      description?: string | null,
+      status: Status,
+      advregnu: string,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8126,11 +8797,13 @@ export type VwAdvCrdSlsQueryVariables = {
 export type VwAdvCrdSlsQuery = {
   VwAdvCrdSls?:  {
     __typename: "ModelCovCreditSellerConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
       itemSerialNumber?: string | null,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
       buyerContact: string,
       sellerContact: string,
       buyerID: string,
@@ -8149,13 +8822,13 @@ export type VwAdvCrdSlsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
 
-export type VwMySalessQueryVariables = {
-  sellerContact?: string | null,
+export type VwLnrNLneessQueryVariables = {
+  loanerLoanee?: string | null,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelNonCovCreditSellerFilterInput | null,
@@ -8163,14 +8836,15 @@ export type VwMySalessQueryVariables = {
   nextToken?: string | null,
 };
 
-export type VwMySalessQuery = {
-  VwMySaless?:  {
+export type VwLnrNLneessQuery = {
+  VwLnrNLneess?:  {
     __typename: "ModelNonCovCreditSellerConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "NonCovCreditSeller",
       id: string,
       itemName: string,
       itemSerialNumber?: string | null,
+      loanerLoanee: string,
       buyerContact: string,
       sellerContact: string,
       buyerID: string,
@@ -8188,7 +8862,7 @@ export type VwMySalessQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8205,11 +8879,12 @@ export type VwMyCrdByssQueryVariables = {
 export type VwMyCrdByssQuery = {
   VwMyCrdByss?:  {
     __typename: "ModelNonCovCreditSellerConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "NonCovCreditSeller",
       id: string,
       itemName: string,
       itemSerialNumber?: string | null,
+      loanerLoanee: string,
       buyerContact: string,
       sellerContact: string,
       buyerID: string,
@@ -8227,7 +8902,86 @@ export type VwMyCrdByssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMySalessQueryVariables = {
+  sellerContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelNonCovCreditSellerFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMySalessQuery = {
+  VwMySaless?:  {
+    __typename: "ModelNonCovCreditSellerConnection",
+    items:  Array< {
+      __typename: "NonCovCreditSeller",
+      id: string,
+      itemName: string,
+      itemSerialNumber?: string | null,
+      loanerLoanee: string,
+      buyerContact: string,
+      sellerContact: string,
+      buyerID: string,
+      buyerName: string,
+      SellerName: string,
+      sellerID: string,
+      amountSold: number,
+      amountexpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      lonBala: number,
+      repaymentPeriod: number,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ViaChmNMmbrQueryVariables = {
+  MembaId?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelChamaMembersFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ViaChmNMmbrQuery = {
+  ViaChmNMmbr?:  {
+    __typename: "ModelChamaMembersConnection",
+    items:  Array< {
+      __typename: "ChamaMembers",
+      MembaId: string,
+      groupContact: string,
+      regNo: string,
+      ChamaNMember: string,
+      groupName: string,
+      memberContact: string,
+      memberName: string,
+      memberNatId: string,
+      GrossLnsGvn: number,
+      LonAmtGven: number,
+      AmtRepaid: number,
+      LnBal: number,
+      NonLoanAcBal: number,
+      ttlNonLonAcBal: number,
+      AcStatus: Status,
+      loanStatus: Status,
+      blStatus: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8236,18 +8990,20 @@ export type VwChamaMembersQueryVariables = {
   groupContact?: string | null,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
-  filter?: ModelGrpMembersFilterInput | null,
+  filter?: ModelChamaMembersFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
 export type VwChamaMembersQuery = {
   VwChamaMembers?:  {
-    __typename: "ModelGrpMembersConnection",
-    items?:  Array< {
-      __typename: "GrpMembers",
-      id: string,
+    __typename: "ModelChamaMembersConnection",
+    items:  Array< {
+      __typename: "ChamaMembers",
+      MembaId: string,
       groupContact: string,
+      regNo: string,
+      ChamaNMember: string,
       groupName: string,
       memberContact: string,
       memberName: string,
@@ -8264,7 +9020,7 @@ export type VwChamaMembersQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8273,18 +9029,20 @@ export type VwMyChamasQueryVariables = {
   memberContact?: string | null,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
-  filter?: ModelGrpMembersFilterInput | null,
+  filter?: ModelChamaMembersFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
 export type VwMyChamasQuery = {
   VwMyChamas?:  {
-    __typename: "ModelGrpMembersConnection",
-    items?:  Array< {
-      __typename: "GrpMembers",
-      id: string,
+    __typename: "ModelChamaMembersConnection",
+    items:  Array< {
+      __typename: "ChamaMembers",
+      MembaId: string,
       groupContact: string,
+      regNo: string,
+      ChamaNMember: string,
       groupName: string,
       memberContact: string,
       memberName: string,
@@ -8301,7 +9059,111 @@ export type VwMyChamasQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwViaPhonsQueryVariables = {
+  contact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelChamasNPwnBrkrsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwViaPhonsQuery = {
+  VwViaPhons?:  {
+    __typename: "ModelChamasNPwnBrkrsConnection",
+    items:  Array< {
+      __typename: "ChamasNPwnBrkrs",
+      id: string,
+      contact: string,
+      regNo: string,
+      AcStatus: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwViaRegNoQueryVariables = {
+  regNo?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelChamasNPwnBrkrsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwViaRegNoQuery = {
+  VwViaRegNo?:  {
+    __typename: "ModelChamasNPwnBrkrsConnection",
+    items:  Array< {
+      __typename: "ChamasNPwnBrkrs",
+      id: string,
+      contact: string,
+      regNo: string,
+      AcStatus: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwViaPhonssQueryVariables = {
+  contact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelChamasRegConfirmFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwViaPhonssQuery = {
+  VwViaPhonss?:  {
+    __typename: "ModelChamasRegConfirmConnection",
+    items:  Array< {
+      __typename: "ChamasRegConfirm",
+      id: string,
+      contact: string,
+      regNo: string,
+      AcStatus: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwViaRegNossQueryVariables = {
+  regNo?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelChamasRegConfirmFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwViaRegNossQuery = {
+  VwViaRegNoss?:  {
+    __typename: "ModelChamasRegConfirmConnection",
+    items:  Array< {
+      __typename: "ChamasRegConfirm",
+      id: string,
+      contact: string,
+      regNo: string,
+      AcStatus: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8318,12 +9180,14 @@ export type VwChamaMemberssQueryVariables = {
 export type VwChamaMemberssQuery = {
   VwChamaMemberss?:  {
     __typename: "ModelCvrdGroupLoansConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "CvrdGroupLoans",
       id: string,
       grpContact: string,
       loaneePhn: string,
       repaymentPeriod: number,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
       amountGiven: number,
       amountExpectedBack: number,
       amountExpectedBackWthClrnc: number,
@@ -8338,7 +9202,7 @@ export type VwChamaMemberssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8355,12 +9219,14 @@ export type VwMyChamassQueryVariables = {
 export type VwMyChamassQuery = {
   VwMyChamass?:  {
     __typename: "ModelCvrdGroupLoansConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "CvrdGroupLoans",
       id: string,
       grpContact: string,
       loaneePhn: string,
       repaymentPeriod: number,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
       amountGiven: number,
       amountExpectedBack: number,
       amountExpectedBackWthClrnc: number,
@@ -8375,7 +9241,85 @@ export type VwMyChamassQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwLnrNLneeQueryVariables = {
+  loanerLoanee?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCvrdGroupLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwLnrNLneeQuery = {
+  VwLnrNLnee?:  {
+    __typename: "ModelCvrdGroupLoansConnection",
+    items:  Array< {
+      __typename: "CvrdGroupLoans",
+      id: string,
+      grpContact: string,
+      loaneePhn: string,
+      repaymentPeriod: number,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
+      amountGiven: number,
+      amountExpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      description?: string | null,
+      lonBala: number,
+      memberId: string,
+      advRegNu: string,
+      loaneeName: string,
+      LoanerName: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwAdvNLnrNLneeQueryVariables = {
+  loanerLoaneeAdv?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCvrdGroupLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwAdvNLnrNLneeQuery = {
+  VwAdvNLnrNLnee?:  {
+    __typename: "ModelCvrdGroupLoansConnection",
+    items:  Array< {
+      __typename: "CvrdGroupLoans",
+      id: string,
+      grpContact: string,
+      loaneePhn: string,
+      repaymentPeriod: number,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
+      amountGiven: number,
+      amountExpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      description?: string | null,
+      lonBala: number,
+      memberId: string,
+      advRegNu: string,
+      loaneeName: string,
+      LoanerName: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8392,12 +9336,14 @@ export type VwChmLnClientsQueryVariables = {
 export type VwChmLnClientsQuery = {
   VwChmLnClients?:  {
     __typename: "ModelCvrdGroupLoansConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "CvrdGroupLoans",
       id: string,
       grpContact: string,
       loaneePhn: string,
       repaymentPeriod: number,
+      loanerLoanee: string,
+      loanerLoaneeAdv: string,
       amountGiven: number,
       amountExpectedBack: number,
       amountExpectedBackWthClrnc: number,
@@ -8412,7 +9358,7 @@ export type VwChmLnClientsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8429,11 +9375,12 @@ export type VwChamaMembersssQueryVariables = {
 export type VwChamaMembersssQuery = {
   VwChamaMembersss?:  {
     __typename: "ModelNonCvrdGroupLoansConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "NonCvrdGroupLoans",
       id: string,
       grpContact: string,
       loaneePhn: string,
+      loanerLoanee: string,
       repaymentPeriod: number,
       amountGiven: number,
       amountExpectedBack: number,
@@ -8448,7 +9395,7 @@ export type VwChamaMembersssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8465,11 +9412,12 @@ export type VwMyChamasssQueryVariables = {
 export type VwMyChamasssQuery = {
   VwMyChamasss?:  {
     __typename: "ModelNonCvrdGroupLoansConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "NonCvrdGroupLoans",
       id: string,
       grpContact: string,
       loaneePhn: string,
+      loanerLoanee: string,
       repaymentPeriod: number,
       amountGiven: number,
       amountExpectedBack: number,
@@ -8484,7 +9432,44 @@ export type VwMyChamasssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwLnrNLneesQueryVariables = {
+  loanerLoanee?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelNonCvrdGroupLoansFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwLnrNLneesQuery = {
+  VwLnrNLnees?:  {
+    __typename: "ModelNonCvrdGroupLoansConnection",
+    items:  Array< {
+      __typename: "NonCvrdGroupLoans",
+      id: string,
+      grpContact: string,
+      loaneePhn: string,
+      loanerLoanee: string,
+      repaymentPeriod: number,
+      amountGiven: number,
+      amountExpectedBack: number,
+      amountExpectedBackWthClrnc: number,
+      amountRepaid: number,
+      description?: string | null,
+      loaneeName: string,
+      loanerName: string,
+      memberId: string,
+      lonBala: number,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8501,7 +9486,7 @@ export type VwChamaMemberssssQueryVariables = {
 export type VwChamaMemberssssQuery = {
   VwChamaMemberssss?:  {
     __typename: "ModelGroupNonLoansConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "GroupNonLoans",
       id: string,
       grpContact: string,
@@ -8515,7 +9500,7 @@ export type VwChamaMemberssssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8532,7 +9517,7 @@ export type VwMyChamassssQueryVariables = {
 export type VwMyChamassssQuery = {
   VwMyChamassss?:  {
     __typename: "ModelGroupNonLoansConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "GroupNonLoans",
       id: string,
       grpContact: string,
@@ -8546,37 +9531,7 @@ export type VwMyChamassssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type VwChamaMembersssssQueryVariables = {
-  grpContact?: string | null,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelGrpMembersContributionFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type VwChamaMembersssssQuery = {
-  VwChamaMembersssss?:  {
-    __typename: "ModelGrpMembersContributionConnection",
-    items?:  Array< {
-      __typename: "GrpMembersContribution",
-      id: string,
-      memberPhn: string,
-      mmberNme: string,
-      GrpName: string,
-      grpContact: string,
-      contriAmount: number,
-      memberId: string,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -8593,7 +9548,7 @@ export type VwMyChamasssssQueryVariables = {
 export type VwMyChamasssssQuery = {
   VwMyChamasssss?:  {
     __typename: "ModelGrpMembersContributionConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "GrpMembersContribution",
       id: string,
       memberPhn: string,
@@ -8606,9 +9561,43 @@ export type VwMyChamasssssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
+};
+
+export type VwChamaMembersssssQueryVariables = {
+  grpContact?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelGrpMembersContributionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwChamaMembersssssQuery = {
+  VwChamaMembersssss?:  {
+    __typename: "ModelGrpMembersContributionConnection",
+    items:  Array< {
+      __typename: "GrpMembersContribution",
+      id: string,
+      memberPhn: string,
+      mmberNme: string,
+      GrpName: string,
+      grpContact: string,
+      contriAmount: number,
+      memberId: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type OnCreateSMAccountSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateSMAccountSubscription = {
@@ -8703,6 +9692,10 @@ export type OnCreateSMAccountSubscription = {
   } | null,
 };
 
+export type OnUpdateSMAccountSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnUpdateSMAccountSubscription = {
   onUpdateSMAccount?:  {
     __typename: "SMAccount",
@@ -8793,6 +9786,10 @@ export type OnUpdateSMAccountSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteSMAccountSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteSMAccountSubscription = {
@@ -8887,13 +9884,20 @@ export type OnDeleteSMAccountSubscription = {
   } | null,
 };
 
+export type OnCreateSMLoansCoveredSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateSMLoansCoveredSubscription = {
   onCreateSMLoansCovered?:  {
     __typename: "SMLoansCovered",
     id: string,
     loaneeid: string,
     loaneePhn: string,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     loanerPhn: string,
+    advregnu: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -8903,13 +9907,16 @@ export type OnCreateSMLoansCoveredSubscription = {
     loaneename: string,
     loanername: string,
     repaymentPeriod: number,
-    advregnu: string,
     description?: string | null,
     status: Status,
     owner: string,
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateSMLoansCoveredSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateSMLoansCoveredSubscription = {
@@ -8918,7 +9925,10 @@ export type OnUpdateSMLoansCoveredSubscription = {
     id: string,
     loaneeid: string,
     loaneePhn: string,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     loanerPhn: string,
+    advregnu: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -8928,13 +9938,16 @@ export type OnUpdateSMLoansCoveredSubscription = {
     loaneename: string,
     loanername: string,
     repaymentPeriod: number,
-    advregnu: string,
     description?: string | null,
     status: Status,
     owner: string,
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteSMLoansCoveredSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteSMLoansCoveredSubscription = {
@@ -8943,7 +9956,10 @@ export type OnDeleteSMLoansCoveredSubscription = {
     id: string,
     loaneeid: string,
     loaneePhn: string,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     loanerPhn: string,
+    advregnu: string,
     loanerId: string,
     amountgiven: number,
     amountexpected: number,
@@ -8953,13 +9969,16 @@ export type OnDeleteSMLoansCoveredSubscription = {
     loaneename: string,
     loanername: string,
     repaymentPeriod: number,
-    advregnu: string,
     description?: string | null,
     status: Status,
     owner: string,
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateSMLoansNonCoveredSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateSMLoansNonCoveredSubscription = {
@@ -8968,6 +9987,7 @@ export type OnCreateSMLoansNonCoveredSubscription = {
     id: string,
     loaneePhn: string,
     loanerPhn: string,
+    loanerLoanee: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -8984,6 +10004,10 @@ export type OnCreateSMLoansNonCoveredSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateSMLoansNonCoveredSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateSMLoansNonCoveredSubscription = {
@@ -8992,6 +10016,7 @@ export type OnUpdateSMLoansNonCoveredSubscription = {
     id: string,
     loaneePhn: string,
     loanerPhn: string,
+    loanerLoanee: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -9010,12 +10035,17 @@ export type OnUpdateSMLoansNonCoveredSubscription = {
   } | null,
 };
 
+export type OnDeleteSMLoansNonCoveredSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnDeleteSMLoansNonCoveredSubscription = {
   onDeleteSMLoansNonCovered?:  {
     __typename: "SMLoansNonCovered",
     id: string,
     loaneePhn: string,
     loanerPhn: string,
+    loanerLoanee: string,
     loaneeid: string,
     loanerId: string,
     amountgiven: number,
@@ -9032,6 +10062,10 @@ export type OnDeleteSMLoansNonCoveredSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateNonLoansSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateNonLoansSubscription = {
@@ -9051,6 +10085,10 @@ export type OnCreateNonLoansSubscription = {
   } | null,
 };
 
+export type OnUpdateNonLoansSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnUpdateNonLoansSubscription = {
   onUpdateNonLoans?:  {
     __typename: "NonLoans",
@@ -9066,6 +10104,10 @@ export type OnUpdateNonLoansSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteNonLoansSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteNonLoansSubscription = {
@@ -9085,16 +10127,20 @@ export type OnDeleteNonLoansSubscription = {
   } | null,
 };
 
+export type OnCreateAgentSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateAgentSubscription = {
   onCreateAgent?:  {
     __typename: "Agent",
     phonecontact: string,
+    sagentregno: string,
     nationalid: string,
     name: string,
     ttlEarnings: number,
     pw: string,
     email: string,
-    sagentregno: string,
     TtlFltIn: number,
     TtlFltOut: number,
     floatBal: number,
@@ -9108,18 +10154,22 @@ export type OnCreateAgentSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateAgentSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateAgentSubscription = {
   onUpdateAgent?:  {
     __typename: "Agent",
     phonecontact: string,
+    sagentregno: string,
     nationalid: string,
     name: string,
     ttlEarnings: number,
     pw: string,
     email: string,
-    sagentregno: string,
     TtlFltIn: number,
     TtlFltOut: number,
     floatBal: number,
@@ -9133,18 +10183,22 @@ export type OnUpdateAgentSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteAgentSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteAgentSubscription = {
   onDeleteAgent?:  {
     __typename: "Agent",
     phonecontact: string,
+    sagentregno: string,
     nationalid: string,
     name: string,
     ttlEarnings: number,
     pw: string,
     email: string,
-    sagentregno: string,
     TtlFltIn: number,
     TtlFltOut: number,
     floatBal: number,
@@ -9160,10 +10214,13 @@ export type OnDeleteAgentSubscription = {
   } | null,
 };
 
+export type OnCreateFloatPurchaseSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateFloatPurchaseSubscription = {
   onCreateFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
@@ -9173,12 +10230,15 @@ export type OnCreateFloatPurchaseSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateFloatPurchaseSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateFloatPurchaseSubscription = {
   onUpdateFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
@@ -9190,10 +10250,13 @@ export type OnUpdateFloatPurchaseSubscription = {
   } | null,
 };
 
+export type OnDeleteFloatPurchaseSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnDeleteFloatPurchaseSubscription = {
   onDeleteFloatPurchase?:  {
     __typename: "FloatPurchase",
-    id: string,
     agentphone: string,
     amount: number,
     transactId: string,
@@ -9203,6 +10266,10 @@ export type OnDeleteFloatPurchaseSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateFloatAddSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateFloatAddSubscription = {
@@ -9224,6 +10291,10 @@ export type OnCreateFloatAddSubscription = {
   } | null,
 };
 
+export type OnUpdateFloatAddSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnUpdateFloatAddSubscription = {
   onUpdateFloatAdd?:  {
     __typename: "FloatAdd",
@@ -9241,6 +10312,10 @@ export type OnUpdateFloatAddSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteFloatAddSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteFloatAddSubscription = {
@@ -9262,6 +10337,10 @@ export type OnDeleteFloatAddSubscription = {
   } | null,
 };
 
+export type OnCreateFloatReductionSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateFloatReductionSubscription = {
   onCreateFloatReduction?:  {
     __typename: "FloatReduction",
@@ -9276,6 +10355,10 @@ export type OnCreateFloatReductionSubscription = {
     updatedAt: string,
     owner?: string | null,
   } | null,
+};
+
+export type OnUpdateFloatReductionSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateFloatReductionSubscription = {
@@ -9294,6 +10377,10 @@ export type OnUpdateFloatReductionSubscription = {
   } | null,
 };
 
+export type OnDeleteFloatReductionSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnDeleteFloatReductionSubscription = {
   onDeleteFloatReduction?:  {
     __typename: "FloatReduction",
@@ -9310,6 +10397,10 @@ export type OnDeleteFloatReductionSubscription = {
   } | null,
 };
 
+export type OnCreateAgentWithdrawalsSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateAgentWithdrawalsSubscription = {
   onCreateAgentWithdrawals?:  {
     __typename: "AgentWithdrawals",
@@ -9322,6 +10413,10 @@ export type OnCreateAgentWithdrawalsSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateAgentWithdrawalsSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateAgentWithdrawalsSubscription = {
@@ -9338,6 +10433,10 @@ export type OnUpdateAgentWithdrawalsSubscription = {
   } | null,
 };
 
+export type OnDeleteAgentWithdrawalsSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnDeleteAgentWithdrawalsSubscription = {
   onDeleteAgentWithdrawals?:  {
     __typename: "AgentWithdrawals",
@@ -9350,6 +10449,10 @@ export type OnDeleteAgentWithdrawalsSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateSAgentSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateSAgentSubscription = {
@@ -9372,6 +10475,10 @@ export type OnCreateSAgentSubscription = {
   } | null,
 };
 
+export type OnUpdateSAgentSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnUpdateSAgentSubscription = {
   onUpdateSAgent?:  {
     __typename: "SAgent",
@@ -9390,6 +10497,10 @@ export type OnUpdateSAgentSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteSAgentSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteSAgentSubscription = {
@@ -9466,6 +10577,10 @@ export type OnDeleteSAgentWithdrawalsSubscription = {
   } | null,
 };
 
+export type OnCreateBankAdminSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateBankAdminSubscription = {
   onCreateBankAdmin?:  {
     __typename: "BankAdmin",
@@ -9483,6 +10598,10 @@ export type OnCreateBankAdminSubscription = {
   } | null,
 };
 
+export type OnUpdateBankAdminSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnUpdateBankAdminSubscription = {
   onUpdateBankAdmin?:  {
     __typename: "BankAdmin",
@@ -9498,6 +10617,10 @@ export type OnUpdateBankAdminSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteBankAdminSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteBankAdminSubscription = {
@@ -9568,6 +10691,10 @@ export type OnDeleteBankAdmWithdrawalsSubscription = {
   } | null,
 };
 
+export type OnCreateAdvocateSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateAdvocateSubscription = {
   onCreateAdvocate?:  {
     __typename: "Advocate",
@@ -9587,6 +10714,10 @@ export type OnCreateAdvocateSubscription = {
   } | null,
 };
 
+export type OnUpdateAdvocateSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnUpdateAdvocateSubscription = {
   onUpdateAdvocate?:  {
     __typename: "Advocate",
@@ -9604,6 +10735,10 @@ export type OnUpdateAdvocateSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteAdvocateSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteAdvocateSubscription = {
@@ -9803,6 +10938,7 @@ export type OnCreateCompanySubscription = {
     ttlCompBLClrncEarningsNonCov: number,
     ttlCompCovEarnings: number,
     maxInterestSM: number,
+    maxInterestPwnBrkr: number,
     maxInterestCredSllr: number,
     maxInterestGrp: number,
     maxMFNdogos: number,
@@ -9938,6 +11074,7 @@ export type OnUpdateCompanySubscription = {
     ttlCompBLClrncEarningsNonCov: number,
     ttlCompCovEarnings: number,
     maxInterestSM: number,
+    maxInterestPwnBrkr: number,
     maxInterestCredSllr: number,
     maxInterestGrp: number,
     maxMFNdogos: number,
@@ -10073,6 +11210,7 @@ export type OnDeleteCompanySubscription = {
     ttlCompBLClrncEarningsNonCov: number,
     ttlCompCovEarnings: number,
     maxInterestSM: number,
+    maxInterestPwnBrkr: number,
     maxInterestCredSllr: number,
     maxInterestGrp: number,
     maxMFNdogos: number,
@@ -10084,12 +11222,18 @@ export type OnDeleteCompanySubscription = {
   } | null,
 };
 
+export type OnCreateCovCreditSellerSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateCovCreditSellerSubscription = {
   onCreateCovCreditSeller?:  {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -10109,6 +11253,10 @@ export type OnCreateCovCreditSellerSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateCovCreditSellerSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateCovCreditSellerSubscription = {
@@ -10117,6 +11265,8 @@ export type OnUpdateCovCreditSellerSubscription = {
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -10136,6 +11286,10 @@ export type OnUpdateCovCreditSellerSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteCovCreditSellerSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteCovCreditSellerSubscription = {
@@ -10144,6 +11298,8 @@ export type OnDeleteCovCreditSellerSubscription = {
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -10165,12 +11321,17 @@ export type OnDeleteCovCreditSellerSubscription = {
   } | null,
 };
 
+export type OnCreateNonCovCreditSellerSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateNonCovCreditSellerSubscription = {
   onCreateNonCovCreditSeller?:  {
     __typename: "NonCovCreditSeller",
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -10189,6 +11350,10 @@ export type OnCreateNonCovCreditSellerSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateNonCovCreditSellerSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateNonCovCreditSellerSubscription = {
@@ -10197,6 +11362,7 @@ export type OnUpdateNonCovCreditSellerSubscription = {
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -10215,6 +11381,10 @@ export type OnUpdateNonCovCreditSellerSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteNonCovCreditSellerSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteNonCovCreditSellerSubscription = {
@@ -10223,6 +11393,7 @@ export type OnDeleteNonCovCreditSellerSubscription = {
     id: string,
     itemName: string,
     itemSerialNumber?: string | null,
+    loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
     buyerID: string,
@@ -10243,10 +11414,15 @@ export type OnDeleteNonCovCreditSellerSubscription = {
   } | null,
 };
 
+export type OnCreateGroupSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateGroupSubscription = {
   onCreateGroup?:  {
     __typename: "Group",
     grpContact: string,
+    regNo: string,
     signitoryContact: string,
     SignitoryNatid: string,
     signitoryName: string,
@@ -10278,12 +11454,17 @@ export type OnCreateGroupSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateGroupSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateGroupSubscription = {
   onUpdateGroup?:  {
     __typename: "Group",
     grpContact: string,
+    regNo: string,
     signitoryContact: string,
     SignitoryNatid: string,
     signitoryName: string,
@@ -10315,12 +11496,17 @@ export type OnUpdateGroupSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteGroupSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteGroupSubscription = {
   onDeleteGroup?:  {
     __typename: "Group",
     grpContact: string,
+    regNo: string,
     signitoryContact: string,
     SignitoryNatid: string,
     signitoryName: string,
@@ -10354,11 +11540,17 @@ export type OnDeleteGroupSubscription = {
   } | null,
 };
 
-export type OnCreateGrpMembersSubscription = {
-  onCreateGrpMembers?:  {
-    __typename: "GrpMembers",
-    id: string,
+export type OnCreateChamaMembersSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateChamaMembersSubscription = {
+  onCreateChamaMembers?:  {
+    __typename: "ChamaMembers",
+    MembaId: string,
     groupContact: string,
+    regNo: string,
+    ChamaNMember: string,
     groupName: string,
     memberContact: string,
     memberName: string,
@@ -10378,11 +11570,17 @@ export type OnCreateGrpMembersSubscription = {
   } | null,
 };
 
-export type OnUpdateGrpMembersSubscription = {
-  onUpdateGrpMembers?:  {
-    __typename: "GrpMembers",
-    id: string,
+export type OnUpdateChamaMembersSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateChamaMembersSubscription = {
+  onUpdateChamaMembers?:  {
+    __typename: "ChamaMembers",
+    MembaId: string,
     groupContact: string,
+    regNo: string,
+    ChamaNMember: string,
     groupName: string,
     memberContact: string,
     memberName: string,
@@ -10402,11 +11600,17 @@ export type OnUpdateGrpMembersSubscription = {
   } | null,
 };
 
-export type OnDeleteGrpMembersSubscription = {
-  onDeleteGrpMembers?:  {
-    __typename: "GrpMembers",
-    id: string,
+export type OnDeleteChamaMembersSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteChamaMembersSubscription = {
+  onDeleteChamaMembers?:  {
+    __typename: "ChamaMembers",
+    MembaId: string,
     groupContact: string,
+    regNo: string,
+    ChamaNMember: string,
     groupName: string,
     memberContact: string,
     memberName: string,
@@ -10424,6 +11628,112 @@ export type OnDeleteGrpMembersSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateChamasNPwnBrkrsSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateChamasNPwnBrkrsSubscription = {
+  onCreateChamasNPwnBrkrs?:  {
+    __typename: "ChamasNPwnBrkrs",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateChamasNPwnBrkrsSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateChamasNPwnBrkrsSubscription = {
+  onUpdateChamasNPwnBrkrs?:  {
+    __typename: "ChamasNPwnBrkrs",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteChamasNPwnBrkrsSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteChamasNPwnBrkrsSubscription = {
+  onDeleteChamasNPwnBrkrs?:  {
+    __typename: "ChamasNPwnBrkrs",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateChamasRegConfirmSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateChamasRegConfirmSubscription = {
+  onCreateChamasRegConfirm?:  {
+    __typename: "ChamasRegConfirm",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateChamasRegConfirmSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateChamasRegConfirmSubscription = {
+  onUpdateChamasRegConfirm?:  {
+    __typename: "ChamasRegConfirm",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteChamasRegConfirmSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteChamasRegConfirmSubscription = {
+  onDeleteChamasRegConfirm?:  {
+    __typename: "ChamasRegConfirm",
+    id: string,
+    contact: string,
+    regNo: string,
+    AcStatus: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateCvrdGroupLoansSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateCvrdGroupLoansSubscription = {
@@ -10433,6 +11743,8 @@ export type OnCreateCvrdGroupLoansSubscription = {
     grpContact: string,
     loaneePhn: string,
     repaymentPeriod: number,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     amountGiven: number,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -10448,6 +11760,10 @@ export type OnCreateCvrdGroupLoansSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateCvrdGroupLoansSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateCvrdGroupLoansSubscription = {
@@ -10457,6 +11773,8 @@ export type OnUpdateCvrdGroupLoansSubscription = {
     grpContact: string,
     loaneePhn: string,
     repaymentPeriod: number,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     amountGiven: number,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -10472,6 +11790,10 @@ export type OnUpdateCvrdGroupLoansSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteCvrdGroupLoansSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteCvrdGroupLoansSubscription = {
@@ -10481,6 +11803,8 @@ export type OnDeleteCvrdGroupLoansSubscription = {
     grpContact: string,
     loaneePhn: string,
     repaymentPeriod: number,
+    loanerLoanee: string,
+    loanerLoaneeAdv: string,
     amountGiven: number,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -10498,12 +11822,17 @@ export type OnDeleteCvrdGroupLoansSubscription = {
   } | null,
 };
 
+export type OnCreateNonCvrdGroupLoansSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateNonCvrdGroupLoansSubscription = {
   onCreateNonCvrdGroupLoans?:  {
     __typename: "NonCvrdGroupLoans",
     id: string,
     grpContact: string,
     loaneePhn: string,
+    loanerLoanee: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -10519,6 +11848,10 @@ export type OnCreateNonCvrdGroupLoansSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateNonCvrdGroupLoansSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateNonCvrdGroupLoansSubscription = {
@@ -10527,6 +11860,7 @@ export type OnUpdateNonCvrdGroupLoansSubscription = {
     id: string,
     grpContact: string,
     loaneePhn: string,
+    loanerLoanee: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -10544,12 +11878,17 @@ export type OnUpdateNonCvrdGroupLoansSubscription = {
   } | null,
 };
 
+export type OnDeleteNonCvrdGroupLoansSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnDeleteNonCvrdGroupLoansSubscription = {
   onDeleteNonCvrdGroupLoans?:  {
     __typename: "NonCvrdGroupLoans",
     id: string,
     grpContact: string,
     loaneePhn: string,
+    loanerLoanee: string,
     repaymentPeriod: number,
     amountGiven: number,
     amountExpectedBack: number,
@@ -10565,6 +11904,10 @@ export type OnDeleteNonCvrdGroupLoansSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateGroupNonLoansSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateGroupNonLoansSubscription = {
@@ -10585,6 +11928,10 @@ export type OnCreateGroupNonLoansSubscription = {
   } | null,
 };
 
+export type OnUpdateGroupNonLoansSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnUpdateGroupNonLoansSubscription = {
   onUpdateGroupNonLoans?:  {
     __typename: "GroupNonLoans",
@@ -10601,6 +11948,10 @@ export type OnUpdateGroupNonLoansSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteGroupNonLoansSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteGroupNonLoansSubscription = {
@@ -10621,6 +11972,10 @@ export type OnDeleteGroupNonLoansSubscription = {
   } | null,
 };
 
+export type OnCreateGrpMembersContributionSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateGrpMembersContributionSubscription = {
   onCreateGrpMembersContribution?:  {
     __typename: "GrpMembersContribution",
@@ -10638,6 +11993,10 @@ export type OnCreateGrpMembersContributionSubscription = {
   } | null,
 };
 
+export type OnUpdateGrpMembersContributionSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnUpdateGrpMembersContributionSubscription = {
   onUpdateGrpMembersContribution?:  {
     __typename: "GrpMembersContribution",
@@ -10653,6 +12012,10 @@ export type OnUpdateGrpMembersContributionSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteGrpMembersContributionSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteGrpMembersContributionSubscription = {

@@ -158,14 +158,14 @@ const CreateAdminForm = () => {
     };
 
     useEffect(() =>{
-      const ownrs=ownr
+      const ownrs=nationalId
         if(!ownrs && ownrs!=="")
         {
-          setOwner("");
+          setNationalid("");
           return;
         }
-        setOwner(ownrs);
-        }, [ownr]
+        setNationalid(ownrs);
+        }, [nationalId]
          );
 
          useEffect(() =>{
@@ -199,15 +199,7 @@ const CreateAdminForm = () => {
                     <Text style={styles.sendLoanText}>Pass Word</Text>
                   </View>
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={nationalId}
-                      onChangeText={setNationalid}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>National Id</Text>
-                  </View>
-        
+                  
                   <TouchableOpacity
                     onPress={gtCompDtls}
                     style={styles.sendLoanButton}>

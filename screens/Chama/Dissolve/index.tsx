@@ -75,6 +75,7 @@ const DissolveChm = (props) => {
                         const ttlNonLonsRecChms = compDtls.data.getGroup.ttlNonLonsRecChm
                         const ttlNonLonsSentChms = compDtls.data.getGroup.ttlNonLonsSentChm
                         const grpBals = compDtls.data.getGroup.grpBal
+                        const ttlGrpMemberss = compDtls.data.getGroup.ttlGrpMembers
                         
 
                         const updateComp = async()=>{
@@ -116,6 +117,11 @@ const DissolveChm = (props) => {
                                       else if(ownr!==owners)
                                       {
                                           Alert.alert("You are not the author of the Chama");
+                                      }
+
+                                      else if(ttlGrpMemberss<1)
+                                      {
+                                          Alert.alert("Please first deregister all members");
                                       }
 
                                       else if(grpBals>0)

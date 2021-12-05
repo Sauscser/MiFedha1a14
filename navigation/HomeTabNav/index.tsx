@@ -187,6 +187,16 @@ import ViewNonLnsSntCredSlr from "../../screens/MyAcc/ViewNonLnsSntCredSlr";
 import ViewNonLnsSntSM from "../../screens/MyAcc/ViewNonLnsSntSM";
 import ChamaSignIn2VwLnRpymnt from "../../screens/Chama/ChamaSignIn2VwLnRpymnt";
 
+import ChmVwMmbr2Remove from "../../screens/Chama/RmvChmMbr/ChmVwMmbr2Remove";
+import SgnIn2RemoveMmbr from "../../screens/Chama/RmvChmMbr/SgnIn2RemoveMmbr";
+import ChmVwMmbrs from "../../screens/Chama/ViewChamaActivities/Membership/Chama";
+import Vw2BLChmCov from "../../screens/Chama/BL/Vw2BLChmCov";
+import Vw2BLChmNonCov from "../../screens/Chama/BL/Vw2BLChmNonCov";
+
+import PwnBrkrRegs from "../../screens/PwnBrkrReg";
+import ChamaRegs from "../../screens/ChamaReg";
+
+
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
@@ -196,7 +206,18 @@ const HomeNavigator = props => {
         headerShown: false,
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
-
+    
+      <Stack.Screen name={'PwnBrkrRegss'} component={PwnBrkrRegs} />      
+      <Stack.Screen name={'ChamaRegss'} component={ChamaRegs} />
+      
+      <Stack.Screen name={'Vw2BLChmCovs'} component={Vw2BLChmCov} />      
+      <Stack.Screen name={'Vw2BLChmNonCovs'} component={Vw2BLChmNonCov} />
+      
+      <Stack.Screen name={'ChmVwMmbrss'} component={ChmVwMmbrs} />
+      
+      <Stack.Screen name={'ChmVwMmbr2Removes'} component={ChmVwMmbr2Remove} />
+      <Stack.Screen name={'SgnIn2RemoveMmbrs'} component={SgnIn2RemoveMmbr} />
+      
       <Stack.Screen name={'ChamaSignIn2VwLnRpymnts'} component={ChamaSignIn2VwLnRpymnt} />
       
       <Stack.Screen name={'ViewNonLnsRecChms'} component={ViewNonLnsRecChm} />

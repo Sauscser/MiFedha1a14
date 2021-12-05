@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     marginTop: 1,
+    
   },
   title: {
     fontSize: 14,

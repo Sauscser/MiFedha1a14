@@ -10,6 +10,7 @@ export interface ChmaInfo {
 
       grpName: string,
       grpBal: number,
+      regNo: string,
       ttlGrpMembers: number
       ttlDpst: number,
       ttlWthdrwn: number,
@@ -48,7 +49,7 @@ const ChmInfo = (props:ChmaInfo) => {
       ttlGrpMembers,
       ttlDpst,
       ttlWthdrwn,
-    
+      regNo,
       tymsChmHvBL,
      
       
@@ -89,6 +90,10 @@ const ChmInfo = (props:ChmaInfo) => {
                      <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
                        Chama Name: {grpName}                
+                    </Text>    
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                       Registration Number : {regNo}                
                     </Text>                                               
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  

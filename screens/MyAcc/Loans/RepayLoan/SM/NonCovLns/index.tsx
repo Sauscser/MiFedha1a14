@@ -173,7 +173,7 @@ const RepayNonCovLnsss = props => {
                                         input:{
                                           id:route.params.id,
                                           amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
-                                          lonBala:LonBalsss-parseFloat(amounts),
+                                          lonBala:(parseFloat(LonBal)-parseFloat(amounts)).toFixed(2),
                                           amountExpectedBackWthClrnc:parseFloat(amountExpectedBackWthClrncs) - ClranceAmt,
                                           status: "LoanCleared",
                                       }})
@@ -319,7 +319,7 @@ const RepayNonCovLnsss = props => {
                                 catch(error){
                                   
                                 }
-                                Alert.alert("Loan: Ksh. "+amountExpectedBacks + " Clearance fee: Ksh. " +ClranceAmt + "Transaction fee: Ksh. "+ parseFloat(UsrTransferFee)*parseFloat(amounts));
+                                Alert.alert("Fully paid. Clearance:Ksh. " +ClranceAmt + ". Transaction fee: Ksh. "+ parseFloat(UsrTransferFee)*parseFloat(amounts));
                                 setIsLoading(false);
                               }                                                                                                            
                         
@@ -335,7 +335,7 @@ const RepayNonCovLnsss = props => {
                                         input:{
                                           id:route.params.id,
                                           amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
-                                          lonBala: LonBalsss - parseFloat(amounts),
+                                          lonBala: (parseFloat(LonBal) - parseFloat(amounts)).toFixed(2),
                                           amountExpectedBackWthClrnc:parseFloat(amountExpectedBackWthClrncs) - ClranceAmt,
                                         }
                                       })
@@ -472,7 +472,7 @@ const RepayNonCovLnsss = props => {
                                 catch(error){
                                   
                                 }
-                                Alert.alert("Loan:Ksh. "+amountExpectedBacks.toFixed(2) + " ClearanceFee:Ksh. " +ClranceAmt.toFixed(2) + "Transaction:Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
+                                Alert.alert("Partially paid. Clearance:Ksh. " +ClranceAmt.toFixed(2) + ". Transaction:Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 setIsLoading(false);
                               }
 
@@ -502,10 +502,10 @@ const RepayNonCovLnsss = props => {
                             return;
                           }
 
-                          else if(parseFloat(amounts) > LonBalsss){Alert.alert("Your Loan Balance is lesser: "+LonBalsss)}
+                          else if(parseFloat(amounts) > parseFloat(LonBal)){Alert.alert("Your Loan Balance is lesser: "+LonBal)}
                           
 
-                          else if(parseFloat(amounts) === LonBalsss){updtSMCvLnLnOver();}                         
+                          else if(parseFloat(amounts) === parseFloat(LonBal)){updtSMCvLnLnOver();}                         
                           
                               
                                else {

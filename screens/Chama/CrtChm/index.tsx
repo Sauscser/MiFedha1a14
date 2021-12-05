@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
-import {createGroup, createGrpMembers, createSMAccount, updateCompany} from '../../../src/graphql/mutations';
-import { getCompany, getSMAccount, listSMAccounts, } from '../../../src/graphql/queries';
-import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
+import {createChamaMembers, createGroup,   updateCompany} from '../../../src/graphql/mutations';
+import { getCompany, getSMAccount, listChamasRegConfirms, vwViaPhonss,  } from '../../../src/graphql/queries';
+import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -10,12 +10,12 @@ import {useNavigation} from '@react-navigation/native';
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+  
+  
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+  
+  
   TouchableOpacity,
   Alert,
   ActivityIndicator,
@@ -44,7 +44,11 @@ const CreateChama = (props:UserReg) => {
   const [pword, setPW] = useState('');
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
+  const [ChmRegNo, setChmRegNo] = useState('');
+  const [MmbaID, setMmbaID] = useState('');
   const[ownr, setownr] = useState(null);
+
+  const ChmPhnNphoneContact = MmbaID+ChmPhn
 
 
   
@@ -85,6 +89,21 @@ const CreateChama = (props:UserReg) => {
                 graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
                 );
                 const ttlActiveChms = compDtls.data.getCompany.ttlActiveChm;
+                const phoneContacts = compDtls.data.getCompany.phoneContact;
+                const ttlActiveChmUserss = compDtls.data.getCompany.ttlActiveChmUsers;
+
+                const confrmReg = async () =>{
+                  if(isLoading){
+                    return;
+                  }
+                  setIsLoading(true);
+                  try{
+                    const compDtls :any= await API.graphql(
+                      graphqlOperation(vwViaPhonss,{contact:ChmPhn}
+                    
+                        
+                                      
+                        ))
               
             const onCreateNewSMAc = async () => {
               if(isLoading){
@@ -96,6 +115,7 @@ const CreateChama = (props:UserReg) => {
                 graphqlOperation(createGroup, {
                 input: {
                   grpContact: ChmPhn,
+                  regNo:ChmRegNo,
                   signitoryContact: phoneContact,
                   SignitoryNatid: nationalidsss,
                   signitoryName: namess,
@@ -134,7 +154,7 @@ const CreateChama = (props:UserReg) => {
                   } catch (error) {
                     console.log(error)
                     if(error){
-                      Alert.alert("Please Sign up using as a different Phone number")
+                      Alert.alert("Not authorised to create Chama. Call: "+phoneContacts)
                       return;
                   } 
                   
@@ -148,7 +168,9 @@ const CreateChama = (props:UserReg) => {
               
             } 
             else if(phoneContact===ChmPhn)
-            {Alert.alert("This Phone number is for an individual user")}
+            {Alert.alert("This Phone number has been used in a single member Account")}
+
+            
             
             else {
               onCreateNewSMAc();
@@ -162,11 +184,16 @@ const CreateChama = (props:UserReg) => {
               setIsLoading(true);
               try {
                 await API.graphql(
-                graphqlOperation(createGrpMembers, {
+                graphqlOperation(createChamaMembers, {
                 input: {
+                  MembaId:MmbaID,
                   groupContact: ChmPhn,
+                  regNo:ChmRegNo,
+                  ChamaNMember:ChmPhnNphoneContact,
                   memberContact: phoneContact,
                   memberNatId: nationalidsss,
+                  
+                  
                   GrossLnsGvn:0,
                   LonAmtGven: 0,
                   AmtRepaid:0,
@@ -187,7 +214,7 @@ const CreateChama = (props:UserReg) => {
                   } catch (error) {
                     console.log(error)
                     if(error){
-                      Alert.alert("Please Sign up using as a different Phone number")
+                      Alert.alert("Enter details correctly; NB: Chama Phone should be brand new")
                       return;
                   } 
                   
@@ -209,6 +236,7 @@ const CreateChama = (props:UserReg) => {
                           input:{
                             AdminId:"BaruchHabaB'ShemAdonai2",
                             ttlActiveChm:parseFloat(ttlActiveChms) + 1,
+                            ttlActiveChmUsers:parseFloat(ttlActiveChmUserss) + 1,
                           }
                         })
                       )
@@ -223,7 +251,20 @@ const CreateChama = (props:UserReg) => {
                   setIsLoading(false);
                 }
                 
-              
+           
+              }
+      
+              catch(e){
+                console.log(e)
+                if(e){
+                  Alert.alert("Check your internet")
+                  return;
+              }
+              }
+                          
+              };
+              await confrmReg();
+
       }
       
       catch(e){
@@ -239,6 +280,8 @@ const CreateChama = (props:UserReg) => {
                   setAWSEmail("")
                   setChmDesc("")
                   setChmNm("")
+                  setChmRegNo("")
+                  setMmbaID("")
       };
         
          await gtCompDtls();
@@ -249,6 +292,28 @@ const CreateChama = (props:UserReg) => {
       }
     
       useEffect(() =>{
+        const MmbaIDs=MmbaID
+          if(!MmbaIDs && MmbaIDs!=="")
+          {
+            setMmbaID("");
+            return;
+          }
+          setMmbaID(MmbaIDs);
+          }, [MmbaID]
+           );
+           
+           useEffect(() =>{
+        const ChmRegNos=ChmRegNo
+          if(!ChmRegNos && ChmRegNos!=="")
+          {
+            setChmRegNo("");
+            return;
+          }
+          setChmRegNo(ChmRegNos);
+          }, [ChmRegNo]
+           );
+           
+           useEffect(() =>{
         const awsEmails=awsEmail
           if(!awsEmails && awsEmails!=="")
           {
@@ -322,6 +387,26 @@ useEffect(() =>{
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Chama Phone Number</Text>
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                     
+                      value={MmbaID}
+                      onChangeText={setMmbaID}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Signitory Chama Number</Text>
+                  </View>
+                  
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                     
+                      value={ChmRegNo}
+                      onChangeText={setChmRegNo}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Chama Registration Number</Text>
                   </View>
 
                   

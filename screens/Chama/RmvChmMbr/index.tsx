@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 
-import {  updateCompany, updateGroup, updateGrpMembers} from '../../../src/graphql/mutations';
-import {  getCompany, getGroup, getGrpMembers, getSMAccount } from '../../../src/graphql/queries';
+import {  deleteChamaMembers, updateChamaMembers, updateCompany, updateGroup, updateGrpMembers} from '../../../src/graphql/mutations';
+import {  getChamaMembers, getCompany, getGroup, getGrpMembers, getSMAccount } from '../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 
 import {
@@ -31,9 +31,20 @@ const DeregChmMmbr = (props) => {
   const navigation = useNavigation();
   const [SigntryPW, setSigntryPW] = useState("");
   const [ChmMmbrId, setChmMmbrId] = useState("");
-  const[isLoading, setIsLoading] = useState(false);
+  
+  
+  const [grpContact, setChmPhn] = useState('');
+  const [nam, setName] = useState(null);
+  const [phoneContacts, setPhoneContacts] = useState("");
+  const [awsEmail, setAWSEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [pword, setPW] = useState('');
+  const [MmberId, setMmberId] = useState('');
+  const [ChmDesc, setChmDesc] = useState('');
+  const [memberPhn, setmemberPhn] = useState(''); 
   const[ownr, setownr] = useState(null);
-  const[names, setName] = useState(null);
+  const ChmNMmbrPhns = MmberId+grpContact
+  const route = useRoute()
   
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
@@ -54,12 +65,16 @@ const DeregChmMmbr = (props) => {
             setIsLoading(true);
             try{
               const compDtls :any= await API.graphql(
-                graphqlOperation(getGrpMembers,{id:ChmMmbrId})
+                graphqlOperation(getChamaMembers,{ChamaNMember:ChmNMmbrPhns})
                 );
-                const groupContacts = compDtls.data.getGrpMembers.groupContact                
-                const loanStatuss = compDtls.data.getGrpMembers.loanStatus
-                const blStatuss = compDtls.data.getGrpMembers.blStatus
-                const acBals = compDtls.data.getGrpMembers.acBal
+                const groupContacts = compDtls.data.getChamaMembers.groupContact                
+                const NonLoanAcBals = compDtls.data.getChamaMembers.NonLoanAcBal
+                const blStatuss = compDtls.data.getChamaMembers.blStatus
+                const LnBals = compDtls.data.getChamaMembers.LnBal
+                const memberNames = compDtls.data.getChamaMembers.memberName
+                const AcStatuss = compDtls.data.getChamaMembers.AcStatus
+
+                console.log(compDtls.data.getChamaMembers)
 
                 const ftchChmDtls = async () =>{
                     if(isLoading){
@@ -82,16 +97,16 @@ const DeregChmMmbr = (props) => {
                                     setIsLoading(true);
                                         try{
                                             await API.graphql(
-                                              graphqlOperation(updateGrpMembers,{
+                                              graphqlOperation(deleteChamaMembers,{
                                                 input:{
-                                                  id:ChmMmbrId,
-                                                  AcStatus:"AccountInactive",
-                                                  
+                                                  ChamaNMember:ChmNMmbrPhns
+                                                                                                    
                                                 }
                                               })
                                             )
                                         }
                                         catch(error){
+                                          console.log(error)
                                           if(error){
                                             Alert.alert("Check your internet")
                                             return;
@@ -100,29 +115,16 @@ const DeregChmMmbr = (props) => {
                                           setIsLoading(false)
                                         await updtChmDtls();
                                       }
-                                      if(blStatuss==="AccountBlackListed")
+                                      if(signitoryPWs!==pword)
                                       {
-                                          Alert.alert("Member has been blacklisted by the Chama");
+                                          Alert.alert("Wrong Signitory password");
                                       }
-                                      else if(loanStatuss==="LoanActive")
+                                      
+                                      else if(owners !== ownr)
                                       {
-                                          Alert.alert("Member has an Chama loan");
+                                          Alert.alert("Not authorised to deactive member");
                                       }
-
-                                      else if(signitoryPWs!==SigntryPW)
-                                      {
-                                          Alert.alert("Wrong signitory password");
-                                      }
-
-                                      else if(ownr!==owners)
-                                      {
-                                          Alert.alert("You are not the author of the Chama");
-                                      }
-
-                                      else if(acBals!==0)
-                                      {
-                                          Alert.alert("Member has money in this Chama account");
-                                      }
+                                     
                                       else {updateChmMmbrAc();}
                           
                                       const updtChmDtls = async () => {
@@ -142,19 +144,15 @@ const DeregChmMmbr = (props) => {
                                     
                                             
                                         }
-                                        catch(error){if(!error){
-                                          Alert.alert("Member deregistered successfully")
-                                          
-                                      } 
-                                      else{Alert.alert("Please check your internet connection")
-                                    return;} }
+                                        catch(error){ }
                                         setIsLoading(false);
-                                        Alert.alert(grpNames+" has deregistered "+names);
+                                        Alert.alert(grpNames+" has deregistered "+memberNames);
                                       } 
 
         
                     } catch (error) {
                         if(error){
+                          console.log(error)
                           Alert.alert("Check your internet")
                           return
                         }
@@ -162,6 +160,7 @@ const DeregChmMmbr = (props) => {
                       await ftchChmDtls();
 
             } catch (error) {
+              console.log(error)
                 if(error){
                   Alert.alert("Check your internet")
                   return
@@ -172,20 +171,27 @@ const DeregChmMmbr = (props) => {
            
 
             setIsLoading(false);
-              setChmMmbrId("");
+              setMmberId("");
               setSigntryPW("")
+              setChmPhn('');
+            setPW('');
+            setPhoneContacts("")
+            setChmDesc("")
+            
+            setmemberPhn("")
           
             }
-        
+
+            
         useEffect(() =>{
-          const ChmMmbrIds=ChmMmbrId
+          const ChmMmbrIds=MmberId
             if(!ChmMmbrIds && ChmMmbrIds!=="")
             {
-              setChmMmbrId("");
+              setMmberId("");
               return;
             }
-            setChmMmbrId(ChmMmbrIds);
-            }, [ChmMmbrId]
+            setMmberId(ChmMmbrIds);
+            }, [MmberId]
              );
 
              useEffect(() =>{
@@ -198,50 +204,120 @@ const DeregChmMmbr = (props) => {
                   setSigntryPW(SigntryPWs);
                   }, [SigntryPW]
                    );
-  
-  
- return (
-            <View>
-              <View
-                 style={styles.image}>
-                <ScrollView>
-           
-                  <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Details Below</Text>
-                  </View>
-        
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    
-                      value={ChmMmbrId}
-                      onChangeText={setChmMmbrId}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Member Registration Number</Text>
-                  </View>
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={SigntryPW}
-                      onChangeText={setSigntryPW}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Signitory PassWord</Text>
-                  </View>       
                   
+
+                  useEffect(() =>{
+                    const memberPhns=memberPhn
+                      if(!memberPhns && memberPhns!=="")
+                      {
+                        setmemberPhn("");
+                        return;
+                      }
+                      setmemberPhn(memberPhns);
+                      }, [memberPhn]
+                       );
         
-                  <TouchableOpacity
-                    onPress={fetchChmMmbrDtls}
-                    style={styles.sendLoanButton}>
-                    <Text style={styles.sendLoanButtonText}>
-                      Click to DeRegister Chama Member
-                    </Text>
-                    {isLoading && <ActivityIndicator color={'Blue'} size="large"/>}
-                  </TouchableOpacity>
-                </ScrollView>
-              </View>
-            </View>
-          );
-        };
+                       useEffect(() =>{
+              const phoneContactss=phoneContacts
+                if(!phoneContactss && phoneContactss!=="")
+                {
+                  setPhoneContacts("");
+                  return;
+                }
+                setPhoneContacts(phoneContactss);
+                }, [phoneContacts]
+                 );
+      
+            
+      
+                 useEffect(() =>{
+                  const ChmDescs=ChmDesc
+                    if(!ChmDescs && ChmDescs!=="")
+                    {
+                      setChmDesc("");
+                      return;
+                    }
+                    setChmDesc(ChmDescs);
+                    }, [ChmDesc]
+                     );
+      
+      useEffect(() =>{
+        const ChmPhns=grpContact
+          if(!ChmPhns && ChmPhns!=="")
+          {
+            setChmPhn("");
+            return;
+          }
+          setChmPhn(ChmPhns);
+          }, [grpContact]
+           );
+      
+           useEffect(() =>{
+            const pws=pword
+              if(!pws && pws!=="")
+              {
+                setPW("");
+                return;
+              }
+              setPW(pws);
+              }, [pword]
+               );
+  
+  
+                  return (
+                    <View>
+                      <View
+                         style={styles.image}>
+                        <ScrollView>
+                   
+                          <View style={styles.loanTitleView}>
+                            <Text style={styles.title}>Fill Chama Details Below</Text>
+                          </View>
+                
+                          <View style={styles.sendLoanView}>
+                            <TextInput
+                            placeholder="+2547xxxxxxxx"
+                              value={grpContact}
+                              onChangeText={setChmPhn}
+                              style={styles.sendLoanInput}
+                              editable={true}></TextInput>
+                            <Text style={styles.sendLoanText}>Chama Phone Number</Text>
+                          </View>
+        
+                          <View style={styles.sendLoanView}>
+                            <TextInput
+                            
+                              value={MmberId}
+                              onChangeText={setMmberId}
+                              style={styles.sendLoanInput}
+                              editable={true}></TextInput>
+                            <Text style={styles.sendLoanText}>Chama Member Number</Text>
+                          </View>
+        
+                          <View style={styles.sendLoanView}>
+                            <TextInput
+                            
+                              value={pword}
+                              onChangeText={setPW}
+                              style={styles.sendLoanInput}
+                              editable={true}></TextInput>
+                            <Text style={styles.sendLoanText}>Signitory PW</Text>
+                          </View>
+        
+                         
+                
+                          <TouchableOpacity
+                            onPress={fetchChmMmbrDtls}
+                            style={styles.sendLoanButton}>
+                            <Text style={styles.sendLoanButtonText}>
+                              Click to View
+                            </Text>
+                            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
+                          </TouchableOpacity>
+                        </ScrollView>
+                      </View>
+                    </View>
+                  );}
         
         export default DeregChmMmbr;

@@ -97,6 +97,7 @@ const CreateAcForm = (props) => {
           graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
           );
           const actvSMUsrs = compDtls.data.getCompany.ttlActiveUsers;
+          
         
       const onCreateNewSMAc = async () => {
         if(isLoading){
@@ -238,11 +239,13 @@ const CreateAcForm = (props) => {
                     input:{
                       AdminId:"BaruchHabaB'ShemAdonai2",
                       ttlActiveUsers:parseFloat(actvSMUsrs) + 1,
+                     
                     }
                   })
                 )
             }
             catch(error){
+              console.log(error)
               if(error){
                 Alert.alert("Check your internet connection")
                 return;

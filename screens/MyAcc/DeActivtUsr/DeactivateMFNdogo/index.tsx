@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {updateCompany, updateSMAccount, } from '../../../../src/graphql/mutations';
-import {getCompany, listCovCreditSellers, listCvrdGroupLoanss, listNonCovCreditSellers, listNonCvrdGroupLoanss, listSMLoansCovereds, listSMLoansNonCovereds } from '../../../../src/graphql/queries';
+import {deleteSMAccount, updateCompany,  } from '../../../../src/graphql/mutations';
+import {getCompany, getSMAccount, listCovCreditSellers, listCvrdGroupLoans,  listNonCovCreditSellers, listNonCvrdGroupLoans,  listSMLoansCovereds, listSMLoansNonCovereds } from '../../../../src/graphql/queries';
 import {graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -45,6 +45,18 @@ const DeregUsrForm = (props) => {
         );
         const ActvMFUsrs = compDtls.data.getCompany.ttlActiveUsers
         const inactMFUsrs = compDtls.data.getCompany.ttlInactvUsrs
+
+        const gtUsr = async () =>{
+          if(isLoading){
+            return;
+          }
+          setIsLoading(true);
+          try{
+            const compDtls :any= await API.graphql(
+              graphqlOperation(getSMAccount,{phonecontact:UsrId})
+              );
+              
+              console.log(compDtls);
            
         const ftchCvdChmLn = async () => {
           if(isLoading){
@@ -53,7 +65,7 @@ const DeregUsrForm = (props) => {
           setIsLoading(true);
           try {
               const RecAccountDtl:any = await API.graphql(
-                  graphqlOperation(listCvrdGroupLoanss, { filter: {
+                  graphqlOperation(listCvrdGroupLoans, { filter: {
                   
                     loaneePhn: { eq: UsrId},
                     lonBala:{gt:0}
@@ -70,7 +82,7 @@ const DeregUsrForm = (props) => {
                     setIsLoading(true);
                     try {
                         const RecAccountDtl:any = await API.graphql(
-                            graphqlOperation(listNonCvrdGroupLoanss, { filter: {
+                            graphqlOperation(listNonCvrdGroupLoans, { filter: {
                   
                               loaneePhn: { eq: UsrId},
                               lonBala:{gt:0}
@@ -137,33 +149,7 @@ const DeregUsrForm = (props) => {
                                                                                 
                                                                   }}),
                                                                     );
-        const KFUsrDtls = async () => {
-          if(isLoading){
-            return;
-          }
-          setIsLoading(true);
-          try{
-              await API.graphql(
-                graphqlOperation(updateSMAccount,{
-                  input:{
-                    phonecontact:UsrId,
-                    status:"AccountInactive",
-                    deActvtnReason:""
-                  }
-                })
-              )
-      
-              
-          }
-          catch(error){if(!error){
-            Alert.alert("Account deactivated successfully")
-            
-        } 
-        else{Alert.alert("Please check your internet connection")
-        return;} }
-          setIsLoading(false);          
-          await updtActAdm ();
-        } 
+        
 
         
         const updtActAdm = async()=>{
@@ -182,115 +168,179 @@ const DeregUsrForm = (props) => {
                     })
                   )
               }
-              catch(error){if(error){
+              catch(error){
+                console.log(error)
+                if(error){
+                
                 Alert.alert("Check your internet")
                 return;
             }}
 
-            if (RecAccountDtl.data.listSMLoansNonCovereds.items.length > 0) {
+            
+            
+            setIsLoading(false);
+            }
+
+            const KFUsrDtls = async () => {
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
+              try{
+                  await API.graphql(
+                    graphqlOperation(deleteSMAccount,{
+                      input:{
+                        phonecontact:UsrId,
+                        
+                      }
+                    })
+                  )
+          
+                  
+              }
+              catch(error){
+                console.log(error)
+                if(error){Alert.alert("User does not exist");
+              return;}
+                }
+            Alert.alert("User deactivated successfully")
+              setIsLoading(false);          
+              await updtActAdm ();
+            } 
+    
+            if (RecAccountDtl.data.listSMLoansNonCovereds.items.length >=1 ) {
               Alert.alert("This User has a Noncovered Single Member Loan");
-              return;
+              
               
             }
             else{
-              await KFUsrDtls();
-            }
-            Alert.alert("User has been deactivated")
-            setIsLoading(false);
+               KFUsrDtls();
             }
             
           
           } catch (error) {
+            console.log(error)
             if(error){
               Alert.alert("Check your internet")
               return;
           };
           }
 
-          if (RecAccountDtl.data.listSMLoansCovereds.items.length > 0) {
+          if (RecAccountDtl.data.listSMLoansCovereds.items.length >=1) {
             Alert.alert("This User has a covered Single Member Loan");
             return;
             
           }
-          else{
-          await ftchNonCvdSMLn();}
+          
+          
         };   
+        await ftchNonCvdSMLn();
 
       } catch (error) {
+        console.log(error)
         if(error){
+          
           Alert.alert("Check your internet")
           return;
       };
       }
-      if (RecAccountDtl.data.listNonCovCreditSellers.items.length > 0) {
+      if (RecAccountDtl.data.listNonCovCreditSellers.items.length >=1) {
         Alert.alert("This User has a Noncovered Credit Sale Loan");
         return;
         
       }
-      else{
-      await ftchCvdSMLn();}
-    };   
+      
+      
+    };  
+    await ftchCvdSMLn(); 
 
   } catch (error) {
+    console.log(error)
     if(error){
       Alert.alert("Check your internet")
       return;
   };
   }
-  if (RecAccountDtl.data.listCovCreditSellers.items.length > 0) {
+  if (RecAccountDtl.data.listCovCreditSellers.items.length >=1) {
     Alert.alert("This User has a covered Credit Sale Loan");
     return;
     
   }
-  else{
-  await ftchNonCovCredSlrLn();}
+  
+  
 };   
+await ftchNonCovCredSlrLn();
 
 } catch (error) {
+  console.log(error)
   if(error){
+    
     Alert.alert("Check your internet")
     return;
 };
 }
 
-if (RecAccountDtl.data.listNonCvrdGroupLoanss.items.length > 0) {
+if (RecAccountDtl.data.listNonCvrdGroupLoans.items.length >=1) {
   Alert.alert("This User has a Noncovered Chama Loan");
   return;
   
 }
-else{
-await ftchCvdCredSlrLn();}
+
+
 };   
+await ftchCvdCredSlrLn();
 
 } catch (error) {
+  console.log(error)
   if(error){
+    
     Alert.alert("Check your internet")
     return;
 };
 }
-if (RecAccountDtl.data.listCvrdGroupLoanss.items.length > 0) {
+if (RecAccountDtl.data.listCvrdGroupLoans.items.length >=1) {
   Alert.alert("This User has a covered Chama Loan");
   return;
   
 }
-else{
-await ftchNonCvdChmLn();
-}
+
+
+
 };   
 
+await ftchNonCvdChmLn();
+
           } catch (error) {
+            console.log(error)
             if(error){
               Alert.alert("Check your internet")
               return;
           };
-          }
-          await ftchCvdChmLn();
-        };   
+          
+          }}
+
+          if(compDtls.data.getSMAccount===null){
+            Alert.alert("User does not exist")
+            return;
+        }
+        
+          else{await ftchCvdChmLn();}
+          
+        } catch (error) {
+          console.log(compDtls)
+          
+        
+        }}
+
+        
+      
+        await gtUsr();
         
         
           } catch (error) {
+            console.log(error)
             if(error){
-              Alert.alert("Check your internet")
+              Alert.alert("Check internet")
               return;
           };
           }
@@ -341,15 +391,7 @@ await ftchNonCvdChmLn();
                     <Text style={styles.sendLoanText}>User Phone Number</Text>
                   </View>
         
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                   
-                      value={DeactvtnRsn}
-                      onChangeText={setDeactvtnRsn}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Reason</Text>
-                  </View>                  
+                      
         
                   <TouchableOpacity
                     onPress={gtCompDtls}

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#e58d29',
     marginHorizontal: "2%",
     
-    height: "18%",
+    height: "15%",
     borderRadius: 4,
     marginTop:"2%",
     marginLeft:"2%",
@@ -37,6 +37,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     marginTop: "2%",
+  },
+
+  acEarningsView2: {
+    backgroundColor: '#e58d29',
+    marginHorizontal: "2%",
+    
+    height: "10%",
+    borderRadius: 20,
+    marginLeft:"2%",
+    marginRight:"2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginBottom: "99%",
   },
 
   viewForClientsAndTitle: {

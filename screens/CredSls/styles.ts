@@ -5,7 +5,10 @@ const styles = StyleSheet.create({
     width: '100%',
     height: "100%",
     resizeMode: 'cover',
-    top:"2%"
+    top:"2%",
+    
+    alignItems: 'center',
+    flexDirection: 'column',
   },
   title: {
     fontSize: 45,
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
 
-    width: 80,
+    
   },
 
   salesPressableText: {

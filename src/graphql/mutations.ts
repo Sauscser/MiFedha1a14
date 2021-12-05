@@ -296,7 +296,10 @@ export const createSMLoansCovered = /* GraphQL */ `
       id
       loaneeid
       loaneePhn
+      loanerLoanee
+      loanerLoaneeAdv
       loanerPhn
+      advregnu
       loanerId
       amountgiven
       amountexpected
@@ -306,7 +309,6 @@ export const createSMLoansCovered = /* GraphQL */ `
       loaneename
       loanername
       repaymentPeriod
-      advregnu
       description
       status
       owner
@@ -324,7 +326,10 @@ export const updateSMLoansCovered = /* GraphQL */ `
       id
       loaneeid
       loaneePhn
+      loanerLoanee
+      loanerLoaneeAdv
       loanerPhn
+      advregnu
       loanerId
       amountgiven
       amountexpected
@@ -334,7 +339,6 @@ export const updateSMLoansCovered = /* GraphQL */ `
       loaneename
       loanername
       repaymentPeriod
-      advregnu
       description
       status
       owner
@@ -352,7 +356,10 @@ export const deleteSMLoansCovered = /* GraphQL */ `
       id
       loaneeid
       loaneePhn
+      loanerLoanee
+      loanerLoaneeAdv
       loanerPhn
+      advregnu
       loanerId
       amountgiven
       amountexpected
@@ -362,7 +369,6 @@ export const deleteSMLoansCovered = /* GraphQL */ `
       loaneename
       loanername
       repaymentPeriod
-      advregnu
       description
       status
       owner
@@ -380,6 +386,7 @@ export const createSMLoansNonCovered = /* GraphQL */ `
       id
       loaneePhn
       loanerPhn
+      loanerLoanee
       loaneeid
       loanerId
       amountgiven
@@ -407,6 +414,7 @@ export const updateSMLoansNonCovered = /* GraphQL */ `
       id
       loaneePhn
       loanerPhn
+      loanerLoanee
       loaneeid
       loanerId
       amountgiven
@@ -434,6 +442,7 @@ export const deleteSMLoansNonCovered = /* GraphQL */ `
       id
       loaneePhn
       loanerPhn
+      loanerLoanee
       loaneeid
       loanerId
       amountgiven
@@ -519,12 +528,12 @@ export const createAgent = /* GraphQL */ `
   ) {
     createAgent(input: $input, condition: $condition) {
       phonecontact
+      sagentregno
       nationalid
       name
       ttlEarnings
       pw
       email
-      sagentregno
       TtlFltIn
       TtlFltOut
       floatBal
@@ -547,12 +556,12 @@ export const updateAgent = /* GraphQL */ `
   ) {
     updateAgent(input: $input, condition: $condition) {
       phonecontact
+      sagentregno
       nationalid
       name
       ttlEarnings
       pw
       email
-      sagentregno
       TtlFltIn
       TtlFltOut
       floatBal
@@ -575,12 +584,12 @@ export const deleteAgent = /* GraphQL */ `
   ) {
     deleteAgent(input: $input, condition: $condition) {
       phonecontact
+      sagentregno
       nationalid
       name
       ttlEarnings
       pw
       email
-      sagentregno
       TtlFltIn
       TtlFltOut
       floatBal
@@ -602,7 +611,6 @@ export const createFloatPurchase = /* GraphQL */ `
     $condition: ModelFloatPurchaseConditionInput
   ) {
     createFloatPurchase(input: $input, condition: $condition) {
-      id
       agentphone
       amount
       transactId
@@ -620,7 +628,6 @@ export const updateFloatPurchase = /* GraphQL */ `
     $condition: ModelFloatPurchaseConditionInput
   ) {
     updateFloatPurchase(input: $input, condition: $condition) {
-      id
       agentphone
       amount
       transactId
@@ -638,7 +645,6 @@ export const deleteFloatPurchase = /* GraphQL */ `
     $condition: ModelFloatPurchaseConditionInput
   ) {
     deleteFloatPurchase(input: $input, condition: $condition) {
-      id
       agentphone
       amount
       transactId
@@ -1296,6 +1302,7 @@ export const createCompany = /* GraphQL */ `
       ttlCompBLClrncEarningsNonCov
       ttlCompCovEarnings
       maxInterestSM
+      maxInterestPwnBrkr
       maxInterestCredSllr
       maxInterestGrp
       maxMFNdogos
@@ -1434,6 +1441,7 @@ export const updateCompany = /* GraphQL */ `
       ttlCompBLClrncEarningsNonCov
       ttlCompCovEarnings
       maxInterestSM
+      maxInterestPwnBrkr
       maxInterestCredSllr
       maxInterestGrp
       maxMFNdogos
@@ -1572,6 +1580,7 @@ export const deleteCompany = /* GraphQL */ `
       ttlCompBLClrncEarningsNonCov
       ttlCompCovEarnings
       maxInterestSM
+      maxInterestPwnBrkr
       maxInterestCredSllr
       maxInterestGrp
       maxMFNdogos
@@ -1592,6 +1601,8 @@ export const createCovCreditSeller = /* GraphQL */ `
       id
       itemName
       itemSerialNumber
+      loanerLoanee
+      loanerLoaneeAdv
       buyerContact
       sellerContact
       buyerID
@@ -1622,6 +1633,8 @@ export const updateCovCreditSeller = /* GraphQL */ `
       id
       itemName
       itemSerialNumber
+      loanerLoanee
+      loanerLoaneeAdv
       buyerContact
       sellerContact
       buyerID
@@ -1652,6 +1665,8 @@ export const deleteCovCreditSeller = /* GraphQL */ `
       id
       itemName
       itemSerialNumber
+      loanerLoanee
+      loanerLoaneeAdv
       buyerContact
       sellerContact
       buyerID
@@ -1682,6 +1697,7 @@ export const createNonCovCreditSeller = /* GraphQL */ `
       id
       itemName
       itemSerialNumber
+      loanerLoanee
       buyerContact
       sellerContact
       buyerID
@@ -1711,6 +1727,7 @@ export const updateNonCovCreditSeller = /* GraphQL */ `
       id
       itemName
       itemSerialNumber
+      loanerLoanee
       buyerContact
       sellerContact
       buyerID
@@ -1740,6 +1757,7 @@ export const deleteNonCovCreditSeller = /* GraphQL */ `
       id
       itemName
       itemSerialNumber
+      loanerLoanee
       buyerContact
       sellerContact
       buyerID
@@ -1767,6 +1785,7 @@ export const createGroup = /* GraphQL */ `
   ) {
     createGroup(input: $input, condition: $condition) {
       grpContact
+      regNo
       signitoryContact
       SignitoryNatid
       signitoryName
@@ -1807,6 +1826,7 @@ export const updateGroup = /* GraphQL */ `
   ) {
     updateGroup(input: $input, condition: $condition) {
       grpContact
+      regNo
       signitoryContact
       SignitoryNatid
       signitoryName
@@ -1847,6 +1867,7 @@ export const deleteGroup = /* GraphQL */ `
   ) {
     deleteGroup(input: $input, condition: $condition) {
       grpContact
+      regNo
       signitoryContact
       SignitoryNatid
       signitoryName
@@ -1880,14 +1901,16 @@ export const deleteGroup = /* GraphQL */ `
     }
   }
 `;
-export const createGrpMembers = /* GraphQL */ `
-  mutation CreateGrpMembers(
-    $input: CreateGrpMembersInput!
-    $condition: ModelGrpMembersConditionInput
+export const createChamaMembers = /* GraphQL */ `
+  mutation CreateChamaMembers(
+    $input: CreateChamaMembersInput!
+    $condition: ModelChamaMembersConditionInput
   ) {
-    createGrpMembers(input: $input, condition: $condition) {
-      id
+    createChamaMembers(input: $input, condition: $condition) {
+      MembaId
       groupContact
+      regNo
+      ChamaNMember
       groupName
       memberContact
       memberName
@@ -1907,14 +1930,16 @@ export const createGrpMembers = /* GraphQL */ `
     }
   }
 `;
-export const updateGrpMembers = /* GraphQL */ `
-  mutation UpdateGrpMembers(
-    $input: UpdateGrpMembersInput!
-    $condition: ModelGrpMembersConditionInput
+export const updateChamaMembers = /* GraphQL */ `
+  mutation UpdateChamaMembers(
+    $input: UpdateChamaMembersInput!
+    $condition: ModelChamaMembersConditionInput
   ) {
-    updateGrpMembers(input: $input, condition: $condition) {
-      id
+    updateChamaMembers(input: $input, condition: $condition) {
+      MembaId
       groupContact
+      regNo
+      ChamaNMember
       groupName
       memberContact
       memberName
@@ -1934,14 +1959,16 @@ export const updateGrpMembers = /* GraphQL */ `
     }
   }
 `;
-export const deleteGrpMembers = /* GraphQL */ `
-  mutation DeleteGrpMembers(
-    $input: DeleteGrpMembersInput!
-    $condition: ModelGrpMembersConditionInput
+export const deleteChamaMembers = /* GraphQL */ `
+  mutation DeleteChamaMembers(
+    $input: DeleteChamaMembersInput!
+    $condition: ModelChamaMembersConditionInput
   ) {
-    deleteGrpMembers(input: $input, condition: $condition) {
-      id
+    deleteChamaMembers(input: $input, condition: $condition) {
+      MembaId
       groupContact
+      regNo
+      ChamaNMember
       groupName
       memberContact
       memberName
@@ -1955,6 +1982,102 @@ export const deleteGrpMembers = /* GraphQL */ `
       AcStatus
       loanStatus
       blStatus
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createChamasNPwnBrkrs = /* GraphQL */ `
+  mutation CreateChamasNPwnBrkrs(
+    $input: CreateChamasNPwnBrkrsInput!
+    $condition: ModelChamasNPwnBrkrsConditionInput
+  ) {
+    createChamasNPwnBrkrs(input: $input, condition: $condition) {
+      id
+      contact
+      regNo
+      AcStatus
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateChamasNPwnBrkrs = /* GraphQL */ `
+  mutation UpdateChamasNPwnBrkrs(
+    $input: UpdateChamasNPwnBrkrsInput!
+    $condition: ModelChamasNPwnBrkrsConditionInput
+  ) {
+    updateChamasNPwnBrkrs(input: $input, condition: $condition) {
+      id
+      contact
+      regNo
+      AcStatus
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteChamasNPwnBrkrs = /* GraphQL */ `
+  mutation DeleteChamasNPwnBrkrs(
+    $input: DeleteChamasNPwnBrkrsInput!
+    $condition: ModelChamasNPwnBrkrsConditionInput
+  ) {
+    deleteChamasNPwnBrkrs(input: $input, condition: $condition) {
+      id
+      contact
+      regNo
+      AcStatus
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createChamasRegConfirm = /* GraphQL */ `
+  mutation CreateChamasRegConfirm(
+    $input: CreateChamasRegConfirmInput!
+    $condition: ModelChamasRegConfirmConditionInput
+  ) {
+    createChamasRegConfirm(input: $input, condition: $condition) {
+      id
+      contact
+      regNo
+      AcStatus
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateChamasRegConfirm = /* GraphQL */ `
+  mutation UpdateChamasRegConfirm(
+    $input: UpdateChamasRegConfirmInput!
+    $condition: ModelChamasRegConfirmConditionInput
+  ) {
+    updateChamasRegConfirm(input: $input, condition: $condition) {
+      id
+      contact
+      regNo
+      AcStatus
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteChamasRegConfirm = /* GraphQL */ `
+  mutation DeleteChamasRegConfirm(
+    $input: DeleteChamasRegConfirmInput!
+    $condition: ModelChamasRegConfirmConditionInput
+  ) {
+    deleteChamasRegConfirm(input: $input, condition: $condition) {
+      id
+      contact
+      regNo
+      AcStatus
       owner
       createdAt
       updatedAt
@@ -1971,6 +2094,8 @@ export const createCvrdGroupLoans = /* GraphQL */ `
       grpContact
       loaneePhn
       repaymentPeriod
+      loanerLoanee
+      loanerLoaneeAdv
       amountGiven
       amountExpectedBack
       amountExpectedBackWthClrnc
@@ -1998,6 +2123,8 @@ export const updateCvrdGroupLoans = /* GraphQL */ `
       grpContact
       loaneePhn
       repaymentPeriod
+      loanerLoanee
+      loanerLoaneeAdv
       amountGiven
       amountExpectedBack
       amountExpectedBackWthClrnc
@@ -2025,6 +2152,8 @@ export const deleteCvrdGroupLoans = /* GraphQL */ `
       grpContact
       loaneePhn
       repaymentPeriod
+      loanerLoanee
+      loanerLoaneeAdv
       amountGiven
       amountExpectedBack
       amountExpectedBackWthClrnc
@@ -2051,6 +2180,7 @@ export const createNonCvrdGroupLoans = /* GraphQL */ `
       id
       grpContact
       loaneePhn
+      loanerLoanee
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -2077,6 +2207,7 @@ export const updateNonCvrdGroupLoans = /* GraphQL */ `
       id
       grpContact
       loaneePhn
+      loanerLoanee
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -2103,6 +2234,7 @@ export const deleteNonCvrdGroupLoans = /* GraphQL */ `
       id
       grpContact
       loaneePhn
+      loanerLoanee
       repaymentPeriod
       amountGiven
       amountExpectedBack

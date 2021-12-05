@@ -39,11 +39,11 @@ type SMAccount
       }
     ]
   )
-  @key(fields: ["phonecontact"])
+  
   {
-  nationalid: ID!
+  nationalid: String!
   name: String!
-  phonecontact: String!
+  phonecontact: String! @primaryKey
   awsemail: String!
   balance: Float!
   pw: String!
@@ -186,14 +186,19 @@ type SMLoansCovered
     ]
   )
   
-  @key(name: "byLneePhn", fields: ["loaneePhn", "createdAt"], queryField: "VwMyDebts")
-  @key(name: "byLnerPhn", fields: ["loanerPhn", "createdAt"], queryField: "VwMyDebtors")
-  @key(name: "byAdv", fields: ["advregnu", "createdAt"], queryField: "AdvVwLnsClient")
+  
+  
+  
+  
+ 
   {
-  id: ID!
-  loaneeid: String!
-  loaneePhn: String!
-  loanerPhn:String!
+  id:ID!
+  loaneeid: String! 
+  loaneePhn: String!  @index(name: "byLneePhn", sortKeyFields: ["createdAt"], queryField: "VwMyDebts")
+  loanerLoanee:String! @index(name: "byLnrNLneesssss", sortKeyFields: ["createdAt"], queryField: "VwLnrNLneesssss")
+  loanerLoaneeAdv:String!  @index(name: "byAdvNLnrNLneesssss", sortKeyFields: ["createdAt"], queryField: "VwAdvNLnrNLneesssss")
+  loanerPhn:String! @index(name: "byLnerPhn", sortKeyFields: ["createdAt"], queryField: "VwMyDebtors")
+  advregnu: String! @index(name: "byAdv", sortKeyFields: ["createdAt"], queryField: "AdvVwLnsClient")
   loanerId: String!
   
   amountgiven: Float!
@@ -204,7 +209,7 @@ type SMLoansCovered
   loaneename:String!
   loanername:String!
   repaymentPeriod: Int!
-  advregnu: String!
+  
 
   description: String
   status: Status!
@@ -254,12 +259,15 @@ type SMLoansNonCovered
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, create] }
     ]
   )
-  @key(name: "byLneePhns", fields: ["loaneePhn", "createdAt"], queryField: "VwMyDebtss")
-  @key(name: "byLnerPhns", fields: ["loanerPhn", "createdAt"], queryField: "VwMyDebtorss")
+  
+  
+  
+ 
   {
-  id: ID!
-  loaneePhn: String!
-  loanerPhn:String!
+  id:ID!
+  loaneePhn: String! @index(name: "byLneePhns", sortKeyFields: ["createdAt"], queryField: "VwMyDebtss")
+  loanerPhn:String! @index(name: "byLnerPhns", sortKeyFields: ["createdAt"], queryField: "VwMyDebtorss")
+  loanerLoanee:String! @index(name: "byLnrNLneessss", sortKeyFields: ["createdAt"], queryField: "VwLnrNLneessss")
   loaneeid: ID!
   loanerId: String!
   amountgiven: Float!
@@ -318,12 +326,12 @@ type NonLoans
       }
     ]
   )
-  @key(name: "byRecPhn", fields: ["recPhn", "createdAt"], queryField: "VwMyRecMny")
-  @key(name: "bySendrPhn", fields: ["senderPhn", "createdAt"], queryField: "VwMySntMny")
+  
+  
   {
-  id: ID!
-  senderPhn: String!
-  recPhn: String!
+  id:ID!
+  senderPhn: String! @index(name: "bySendrPhn", sortKeyFields: ["createdAt"], queryField: "VwMySntMny")
+  recPhn: String! @index(name: "byRecPhn", sortKeyFields: ["createdAt"], queryField: "VwMyRecMny")
   RecName:String!
   SenderName:String!
   amount: Float!
@@ -366,17 +374,18 @@ type Agent
       }
     ]
   )
-  @key(fields: ["phonecontact"])
-  @key(name: "byCrtnTyms", fields: ["sagentregno", "createdAt"], queryField: "MFKVwMFN")
+  
+  
   
   {
-  phonecontact: String!
+  phonecontact: String! @primaryKey
+  sagentregno: String! @index(name: "byCrtnTyms", sortKeyFields: ["createdAt"], queryField: "MFKVwMFN")
   nationalid: String!
   name: String!
   ttlEarnings: Float!
   pw: String!
   email: String!
-  sagentregno: String!
+  
   TtlFltIn: Float!
   TtlFltOut: Float!
   floatBal: Float!
@@ -400,7 +409,7 @@ type FloatPurchase
       { allow: groups, groups: ["BankAdmin"], operations: [create, read] }
       { allow: groups, groups: ["KFNdogo "], operations: [create, update, read] }
       { allow: owner, operations: [read, update] }
-      { allow: private, operations: [read, update] }
+     
       {
         allow: groups
         groups: ["AdminOne"]
@@ -429,12 +438,12 @@ type FloatPurchase
       }
     ]
   )
-  @key(name: "byMFNFlt", fields: ["agentphone", "createdAt"], queryField: "VwMyBghtFlt")
+  
   {
-  id: ID!
-  agentphone: String!
+
+  agentphone: String! @index(name: "byMFNFlt", sortKeyFields: ["createdAt"], queryField: "VwMyBghtFlt")
   amount: Float!
-  transactId: String!
+  transactId: String! @primaryKey
   bankAdminID: String!
   status: Status!
   owner: String!
@@ -475,19 +484,19 @@ type FloatAdd
       { allow: groups, groups: ["KFNdogo "], operations: [read] }
     ]
   )
-  @key(name: "byWthdrwrPhn", fields: ["withdrawerid", "createdAt"], queryField: "VwMyUsrWthdrwls")
-  @key(name: "byMFNPhn", fields: ["agentPhonecontact", "createdAt"], queryField: "VwMFNFltAdds")
-  @key(name: "byMFKPhn", fields: ["saPhone", "createdAt"], queryField: "VwMFKEarningsFrmWthdrwls")
+  
+ 
+  
   {
-  id: ID!
-  withdrawerid: String!
+    id:ID!
+  withdrawerid: String! @index(name: "byWthdrwrPhn", sortKeyFields: ["createdAt"], queryField: "VwMyUsrWthdrwls")
  
   amount: Float!
-  agentPhonecontact: String!
+  agentPhonecontact: String!  @index(name: "byMFNPhn", sortKeyFields: ["createdAt"], queryField: "VwMFNFltAdds")
   agentName:String!
   userName:String!
   saName:String!
-  saPhone:String!
+  saPhone:String! @index(name: "byMFKPhn", sortKeyFields: ["createdAt"], queryField: "VwMFKEarningsFrmWthdrwls")
   sagentId: String!
   status: Status!
   owner: String!
@@ -528,14 +537,14 @@ type FloatReduction
       }
     ]
   )
-  @key(name: "byDpsiterPhn", fields: ["depositerid", "createdAt"], queryField: "VwMyUsrDposits")
-  @key(name: "byMFNCntact", fields: ["agContact", "createdAt"], queryField: "VwMFNFltDeductns")
+  
+ 
   
   {
-  id: ID!
+  id:ID!
   amount: Float!
-  depositerid: String!
-  agContact: String!
+  depositerid: String! @index(name: "byDpsiterPhn", sortKeyFields: ["createdAt"], queryField: "VwMyUsrDposits")
+  agContact: String!  @index(name: "byMFNCntact", sortKeyFields: ["createdAt"], queryField: "VwMFNFltDeductns")
   agentName:String!
   userName:String!
   status: Status!
@@ -577,10 +586,10 @@ type AgentWithdrawals
       }
     ]
   )
-  @key(name: "byMFNContact", fields: ["agentPhone", "createdAt"], queryField: "VwMFNWthdrwls")
+  
  {
-  id: ID!
-  agentPhone: String!
+ id:ID!
+  agentPhone: String! @index(name: "byMFNContact", sortKeyFields: ["createdAt"], queryField: "VwMFNWthdrwls")
   
   bankAdminId: String!
   Amount: Float!
@@ -617,8 +626,7 @@ type SAgent
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
       { allow: groups, groups: ["KFNdogo "], operations: [read, update] }
       { allow: groups, groups: ["KFKubwa "], operations: [read, create, update] }
-      { allow: private, operations: [read, update] }
-      { allow: owner, operations: [read, update] }
+     
       {
         allow: groups
         groups: ["Executive"]
@@ -627,9 +635,9 @@ type SAgent
       ]
   )
 
-  @key(fields: ["saPhoneContact"])
+  
    {
-  saPhoneContact: String!
+  saPhoneContact: String! @primaryKey
   saNationalid: String!
   name: String!
   
@@ -679,11 +687,11 @@ type SAgentWithdrawals
       }
     ]
   )
-  @key(name: "byMFKContacts", fields: ["saId", "createdAt"], queryField: "VwMFKWthdrwls")
+  
   {
-  id: ID!
-
-  saId: String!
+ 
+  id:ID!
+  saId: String! @index(name: "byMFKContacts", sortKeyFields: ["createdAt"], queryField: "VwMFKWthdrwls")
   amount: Float!
   bankAdmnId: String!
   status: Status!
@@ -746,8 +754,8 @@ type BankAdmin
       }
     ]
   )
-  @key(fields: ["nationalid"]) {
-  nationalid: ID!
+   {
+  nationalid: String! @primaryKey
   name: String!
   phonecontact: String!
   TtlEarnings: Float!
@@ -790,8 +798,7 @@ type BankAdmWithdrawals
   )
   
   {
-  id: ID!
-
+id:ID!
   bankAdmNatId: String!
   amount: Float!
   status: Status!
@@ -837,8 +844,8 @@ type Advocate
       }
     ]
   )
-  @key(fields: ["advregnu"]) {
-  advregnu: ID!
+  {
+  advregnu: String! @primaryKey
   nationalid: String!
   pwd: String!
   name: String!
@@ -883,11 +890,11 @@ type AdvocateWithdrawals
       { allow: groups, groups: ["Advocate"], operations: [read, create] }
     ]
   )
-   @key(name: "byAdvContacts", fields: ["advregnu", "createdAt"], queryField: "VwAdvWthdrwls")
+  
   {
-  id: ID!
+  id:ID!
   bankAdmnId: String!
-  advregnu: String!
+  advregnu: String!  @index(name: "byAdvContacts", sortKeyFields: ["createdAt"], queryField: "VwAdvWthdrwls")
   amount: Float!
 
   status: Status!
@@ -907,9 +914,9 @@ type Company
       { allow: private, operations: [read, update] }
     ]
   )
-  @key(fields: ["AdminId"])
+  
   {
-  AdminId: String!
+  AdminId: String! @primaryKey
   phoneContact: String!
   companyEmail: String!
   termsNconditions: String!
@@ -1047,6 +1054,8 @@ type Company
   ttlCompCovEarnings: Float!
 
   maxInterestSM: Float!
+
+  maxInterestPwnBrkr: Float!
   maxInterestCredSllr: Float!
   maxInterestGrp: Float!
 
@@ -1092,15 +1101,19 @@ type CovCreditSeller
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
-  @key(name: "bySlrPhn", fields: ["sellerContact", "createdAt"], queryField: "VwMySales")
-  @key(name: "byByrPhn", fields: ["buyerContact", "createdAt"], queryField: "VwMyCrdBys")
-  @key(name: "byAdvNo", fields: ["advregnu", "createdAt"], queryField: "VwAdvCrdSls")
+  
+ 
+ 
+  
+  
   {
-  id: ID!
+  id:ID!
   itemName: String!
   itemSerialNumber: String
-  buyerContact: String!
-  sellerContact: String!
+  loanerLoanee:String! @index(name: "byLnrNLneesss", sortKeyFields: ["createdAt"], queryField: "VwLnrNLneesss")
+  loanerLoaneeAdv:String! @index(name: "byAdvNLnrNLneesss", sortKeyFields: ["createdAt"], queryField: "VwAdvNLnrNLneesss")
+  buyerContact: String!  @index(name: "byByrPhn", sortKeyFields: ["createdAt"], queryField: "VwMyCrdBys")
+  sellerContact: String! @index(name: "bySlrPhn", sortKeyFields: ["createdAt"], queryField: "VwMySales")
   buyerID: String!
   buyerName:String!
   SellerName:String!
@@ -1113,7 +1126,7 @@ type CovCreditSeller
   lonBala:Float!
   description: String
   status: Status!
-  advregnu: String!
+  advregnu: String!  @index(name: "byAdvNo", sortKeyFields: ["createdAt"], queryField: "VwAdvCrdSls")
   
   owner: String!
   createdAt: String!
@@ -1153,14 +1166,18 @@ type NonCovCreditSeller
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
-  @key(name: "bySlrPhns", fields: ["sellerContact", "createdAt"], queryField: "VwMySaless")
-  @key(name: "byByrPhns", fields: ["buyerContact", "createdAt"], queryField: "VwMyCrdByss")
+ 
+  
+  
+
   {
-  id: ID!
+id:ID!
   itemName: String!
   itemSerialNumber: String
-  buyerContact: String!
-  sellerContact: String!
+  loanerLoanee:String! @index(name: "byLnrNLneess", sortKeyFields: ["createdAt"], queryField: "VwLnrNLneess")
+  
+  buyerContact: String! @index(name: "byByrPhns", sortKeyFields: ["createdAt"], queryField: "VwMyCrdByss")
+  sellerContact: String!  @index(name: "bySlrPhns", sortKeyFields: ["createdAt"], queryField: "VwMySaless")
   buyerID: String!
   buyerName:String!
   SellerName:String!
@@ -1182,8 +1199,8 @@ type Group
   @model
   @auth(
     rules: [
-      { allow: owner, operations: [create, read, update] }
-      { allow: private, operations: [read, create, update] }
+      { allow: owner, operations: [read, update] }
+      { allow: private, operations: [read, update] }
       {
         allow: groups
         groups: ["AdminOne"]
@@ -1204,6 +1221,7 @@ type Group
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      { allow: groups, groups: ["ChamaSignitories"], operations: [read, create, update ] }
       {
         allow: groups
         groups: ["Executive"]
@@ -1211,9 +1229,11 @@ type Group
       }
     ]
   )
-  @key(fields: ["grpContact"])
+  
+  
   {
-  grpContact: ID!
+  grpContact: String! @primaryKey
+  regNo:String!
   signitoryContact: String!
   SignitoryNatid: String!
   signitoryName: String!
@@ -1251,7 +1271,7 @@ type Group
   createdAt: String!
 }
 
-type GrpMembers
+type ChamaMembers
   @model
   @auth(
     rules: [
@@ -1284,13 +1304,18 @@ type GrpMembers
       }
     ]
   )
- @key(name: "byChmCntcts", fields: ["groupContact", "createdAt"], queryField: "VwChamaMembers")
-  @key(name: "byMemberCntcts", fields: ["memberContact", "createdAt"], queryField: "VwMyChamas")
+  
+ 
+
+ 
   {
-  id: ID!
-  groupContact: String!
+
+  MembaId:String! @index(name: "byChmNMmbr", sortKeyFields: ["createdAt"], queryField: "ViaChmNMmbr")
+  groupContact: String! @index(name: "byChmCntcts", sortKeyFields: ["createdAt"], queryField: "VwChamaMembers")
+  regNo:String!
+  ChamaNMember:String!  @primaryKey
   groupName: String!
-  memberContact: String!
+  memberContact: String!   @index(name: "byMemberCntcts", sortKeyFields: ["createdAt"], queryField: "VwMyChamas")
   memberName:String!
   memberNatId: String!
 
@@ -1306,6 +1331,99 @@ type GrpMembers
   owner: String!
   createdAt: String!
 }
+
+type ChamasNPwnBrkrs
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read, update] }
+      { allow: private, operations: [create, read] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+ 
+ 
+  {
+ id:ID!
+  contact: String! @index(name: "viaphones", sortKeyFields: ["createdAt"], queryField: "VwViaPhons")
+  regNo: String!  @index(name: "viaRegNo", sortKeyFields: ["createdAt"], queryField: "VwViaRegNo")
+  
+  AcStatus: Status!
+  
+  owner: String!
+  createdAt: String!
+}
+
+type ChamasRegConfirm
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read, update] }
+      { allow: private, operations: [create, read] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+ 
+  
+  {
+id:ID!
+  contact: String! @index(name: "viaphoness", sortKeyFields: ["createdAt"], queryField: "VwViaPhonss")
+  regNo: String! @index(name: "viaRegNoss", sortKeyFields: ["createdAt"], queryField: "VwViaRegNoss")
+  
+  AcStatus: Status!
+  
+  owner: String!
+  createdAt: String!
+}
+
 
 type CvrdGroupLoans
   @model
@@ -1341,14 +1459,19 @@ type CvrdGroupLoans
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
-  @key(name: "byChmCntctss", fields: ["grpContact", "createdAt"], queryField: "VwChamaMemberss")
-  @key(name: "byMemberCntctss", fields: ["loaneePhn", "createdAt"], queryField: "VwMyChamass")
-  @key(name: "byAdv", fields: ["advRegNu", "createdAt"], queryField: "VwChmLnClients")
+  
+  
+ 
+ 
+  
+  
   {
-  id: ID!
-  grpContact: String!
-  loaneePhn: String!
-  repaymentPeriod: Int!
+  id:ID!
+  grpContact: String! @index(name: "byChmCntctss", sortKeyFields: ["createdAt"], queryField: "VwChamaMemberss")
+  loaneePhn: String! @index(name: "byMemberCntctss", sortKeyFields: ["createdAt"], queryField: "VwMyChamass")
+  repaymentPeriod: Float!
+  loanerLoanee:String!  @index(name: "byLnrNLnee", sortKeyFields: ["createdAt"], queryField: "VwLnrNLnee")
+  loanerLoaneeAdv:String!  @index(name: "byAdvNLnrNLnee", sortKeyFields: ["createdAt"], queryField: "VwAdvNLnrNLnee")
   amountGiven: Float!
   amountExpectedBack: Float!
   amountExpectedBackWthClrnc: Float!
@@ -1356,7 +1479,7 @@ type CvrdGroupLoans
   description: String
   lonBala:Float!
   memberId:String!
-  advRegNu: String!
+  advRegNu: String! @index(name: "byAdv", sortKeyFields: ["createdAt"], queryField: "VwChmLnClients")
   loaneeName:String!
   LoanerName:String!
   status: Status!
@@ -1398,12 +1521,16 @@ type NonCvrdGroupLoans
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
-  @key(name: "byChmCntctsss", fields: ["grpContact", "createdAt"], queryField: "VwChamaMembersss")
-  @key(name: "byMemberCntctsss", fields: ["loaneePhn", "createdAt"], queryField: "VwMyChamasss")
+ 
+ 
+ 
+  
   {
-  id: ID!
-  grpContact: String!
-  loaneePhn: String!
+id:ID!
+  grpContact: String!  @index(name: "byChmCntctsss", sortKeyFields: ["createdAt"], queryField: "VwChamaMembersss")
+  loaneePhn: String!  @index(name: "byMemberCntctsss", sortKeyFields: ["createdAt"], queryField: "VwMyChamasss")
+  loanerLoanee:String!  @index(name: "byLnrNLnees", sortKeyFields: ["createdAt"], queryField: "VwLnrNLnees")
+  
   repaymentPeriod: Int!
   amountGiven: Float!
   amountExpectedBack: Float!
@@ -1453,12 +1580,12 @@ type GroupNonLoans
       { allow: groups, groups: ["Advocate"], operations: [read] }
     ]
   )
-  @key(name: "byChmCntctssss", fields: ["grpContact", "createdAt"], queryField: "VwChamaMemberssss")
-  @key(name: "byMemberCntctssss", fields: ["recipientPhn", "createdAt"], queryField: "VwMyChamassss")
+  
+  
   {
-  id: ID!
-  grpContact: String!
-  recipientPhn: String!
+ id:ID!
+  grpContact: String! @index(name: "byChmCntctssss", sortKeyFields: ["createdAt"], queryField: "VwChamaMemberssss")
+  recipientPhn: String! @index(name: "byMemberCntctssss", sortKeyFields: ["createdAt"], queryField: "VwMyChamassss")
   receiverName:String!
   SenderName:String!
   amountSent: Float!
@@ -1502,14 +1629,14 @@ type GrpMembersContribution
       }
     ]
   )
-  @key(name: "byChmCntctsssss", fields: ["grpContact", "createdAt"], queryField: "VwChamaMembersssss")
-  @key(name: "byMemberCntctsssss", fields: ["memberPhn", "createdAt"], queryField: "VwMyChamasssss")
+  
+
   {
-  id: ID!
-  memberPhn: String!
+  id:ID!
+  memberPhn: String!   @index(name: "byMemberCntctsssss", sortKeyFields: ["createdAt"], queryField: "VwMyChamasssss")
   mmberNme:String!
   GrpName:String!
-  grpContact: String!
+  grpContact: String! @index(name: "byChmCntctsssss", sortKeyFields: ["createdAt"], queryField: "VwChamaMembersssss")
   contriAmount: Float!
   memberId:String!
   status: Status!

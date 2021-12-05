@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {updateCompany, updateSMAccount, updateCvrdGroupLoans, updateGroup, updateGrpMembers, } from '../../../../src/graphql/mutations';
+import {updateCompany, updateSMAccount, updateCvrdGroupLoans, updateGroup,  updateChamaMembers, } from '../../../../src/graphql/mutations';
 import {getCompany, getSMAccount, getCvrdGroupLoans, getGroup } from '../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
@@ -126,19 +126,14 @@ const BLChmCovLoanee = (props) => {
                                       tymsChmHvBL: parseFloat(tymsChmHvBLs) + 1,
                                       TtlBLLonsTmsLnrChmCov: parseFloat(TtlBLLonsTmsLnrChmCovs) + 1,
                                       TtlBLLonsAmtLnrChmCov: parseFloat(TtlBLLonsAmtLnrChmCovs) + amountExpectedBackWthClrncss,
-                                      ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
+                                      
                                     }
                                   })
                                 )
                         
                                 
                             }
-                            catch(error){if(!error){
-                              Alert.alert("Account deactivated successfully")
-                              
-                          } 
-                          else{Alert.alert("Please check your internet connection")
-                          return;} 
+                            catch(error){ 
                         console.log(error)
                       }
 
@@ -182,8 +177,8 @@ const BLChmCovLoanee = (props) => {
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
                                           ttlChmLnsInBlTymsCov: parseFloat(ttlChmLnsInBlTymsCovs) + 1,
-                                          ttlChmLnsInBlAmtCov: parseFloat(ttlChmLnsInBlAmtCovs) + amountExpectedBackWthClrncss
-
+                                          ttlChmLnsInBlAmtCov: parseFloat(ttlChmLnsInBlAmtCovs) + amountExpectedBackWthClrncss,
+                                          ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
                                         }
                                       })
                                     )
@@ -221,12 +216,7 @@ const BLChmCovLoanee = (props) => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if(!error){
-                                  Alert.alert("Account deactivated successfully")
-                                  
-                              } 
-                              else{Alert.alert("Please check your internet connection")
-                              return;} }
+                                  }
                               await updateLoanDtls();
                                 setIsLoading(false);          
                               } 
@@ -270,7 +260,7 @@ const BLChmCovLoanee = (props) => {
                                 setIsLoading(true);
                                 try{
                                     await API.graphql(
-                                      graphqlOperation(updateGrpMembers, {
+                                      graphqlOperation(updateChamaMembers, {
                                         input:{
                                           id:memberIds,
                                           
@@ -283,12 +273,7 @@ const BLChmCovLoanee = (props) => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if(!error){
-                                  Alert.alert("Account deactivated successfully")
-                                  
-                              } 
-                              else{Alert.alert("Please check your internet connection")
-                              return;} }
+                                   }
                               Alert.alert(grpNames +", you have blacklisted "+ namess)
                                 setIsLoading(false);          
                               } 

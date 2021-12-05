@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {updateCompany, updateGroup, updateGrpMembers, updateNonCvrdGroupLoans, updateSMAccount, updateSMLoansCovered, updateSMLoansNonCovered, } from '../../../../src/graphql/mutations';
+import {updateChamaMembers, updateCompany, updateGroup,  updateNonCvrdGroupLoans, updateSMAccount, updateSMLoansCovered, updateSMLoansNonCovered, } from '../../../../src/graphql/mutations';
 import {getCompany, getGroup, getNonCvrdGroupLoans, getSMAccount, getSMLoansCovered, getSMLoansNonCovered } from '../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
@@ -126,19 +126,14 @@ const BLChmNonCovLoanee = (props) => {
                                       tymsChmHvBL: parseFloat(tymsChmHvBLs) + 1,
                                       TtlBLLonsTmsLnrChmNonCov: parseFloat(TtlBLLonsTmsLnrChmNonCovs) + 1,
                                       TtlBLLonsAmtLnrChmNonCov: parseFloat(TtlBLLonsAmtLnrChmNonCovs) + amountExpectedBackWthClrncss,
-                                      ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
+                                    
                                     }
                                   })
                                 )
                         
                                 
                             }
-                            catch(error){if(!error){
-                              Alert.alert("Account deactivated successfully")
-                              
-                          } 
-                          else{Alert.alert("Please check your internet connection")
-                          return;} 
+                            catch(error){ 
                         console.log(error)
                       }
 
@@ -179,8 +174,8 @@ const BLChmNonCovLoanee = (props) => {
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
                                           ttlChmLnsInBlAmtNonCov: parseFloat(ttlChmLnsInBlAmtNonCovs) + amountExpectedBackWthClrncss,
-                                          ttlChmLnsInBlTymsNonCov: parseFloat(ttlChmLnsInBlTymsNonCovs) + 1
-
+                                          ttlChmLnsInBlTymsNonCov: parseFloat(ttlChmLnsInBlTymsNonCovs) + 1,
+                                          ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
                                         }
                                       })
                                     )
@@ -218,12 +213,7 @@ const BLChmNonCovLoanee = (props) => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if(!error){
-                                  Alert.alert("Account deactivated successfully")
-                                  
-                              } 
-                              else{Alert.alert("Please check your internet connection")
-                              return;} }
+                                   }
                               await updateLoanDtls();
                                 setIsLoading(false);          
                               } 
@@ -249,12 +239,7 @@ const BLChmNonCovLoanee = (props) => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if(!error){
-                                  Alert.alert("Account deactivated successfully")
-                                  
-                              } 
-                              else{Alert.alert("Please check your internet connection")
-                              return;} }
+                                  }
 
                               await updateMbrDtls();
                                 setIsLoading(false);          
@@ -267,7 +252,7 @@ const BLChmNonCovLoanee = (props) => {
                                 setIsLoading(true);
                                 try{
                                     await API.graphql(
-                                      graphqlOperation(updateGrpMembers, {
+                                      graphqlOperation(updateChamaMembers, {
                                         input:{
                                           id:memberIds,
                                           
@@ -280,12 +265,7 @@ const BLChmNonCovLoanee = (props) => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if(!error){
-                                  Alert.alert("Account deactivated successfully")
-                                  
-                              } 
-                              else{Alert.alert("Please check your internet connection")
-                              return;} }
+                                  }
                               Alert.alert(grpNames +", you have blacklisted "+ namess)
                                 setIsLoading(false);          
                               } 
@@ -295,12 +275,7 @@ const BLChmNonCovLoanee = (props) => {
                         
                         catch(error){
                           console.log(error)
-                          if(!error){
-                          Alert.alert("Account deactivated successfully")
-                          
-                      } 
-                      else{Alert.alert("Please check your internet connection")
-                      return;} }
+                           }
                         setIsLoading(false);         
                         
                       }

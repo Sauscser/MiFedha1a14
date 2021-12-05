@@ -38,7 +38,7 @@ const FetchSMCovLns = props => {
                   
                 }
                   ));
-              setLoanees(Lonees.data.vwChamaMembersssss.items);
+              setLoanees(Lonees.data.VwChamaMembersssss.items);
 
               const fetchUsrDtls = async () => {
                 try {
@@ -171,7 +171,7 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Loaners</Text>
+            <Text style={styles.label}> Member Contributions</Text>
           </>
         )}
       />

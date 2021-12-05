@@ -19,6 +19,7 @@ import {
   getSMAccount,
   getSAgent,
   getAdvocate,
+  listChamasNPwnBrkrss,
 } from '../../../../../../src/graphql/queries';
 
 import {useNavigation} from '@react-navigation/native';
@@ -52,6 +53,7 @@ const SMASendLns = props => {
   const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
   const [SendrPhn, setSendrPhn] = useState(null);
+  const [PwnBrkr, setPwnBrkr] = useState('');
   
 
   const fetchUser = async () => {
@@ -132,6 +134,8 @@ const SMASendLns = props => {
           const vats = CompDtls.data.getCompany.vat;
           const ttlvats = CompDtls.data.getCompany.ttlvat;
           const vatFee = (parseFloat(vats)*IntAmt)
+          const phoneContacts = CompDtls.data.getCompany.phoneContact;
+          const maxInterestPwnBrkrs = CompDtls.data.getCompany.maxInterestPwnBrkr;
           
 
           
@@ -171,6 +175,19 @@ const SMASendLns = props => {
                         const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
                         const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
+
+                        const confrmReg = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
+                          try{
+                            const compDtls :any= await API.graphql(
+                              graphqlOperation(listChamasNPwnBrkrss,{ filter: {
+                            
+                                contact: { eq: SendrPhn}
+                                              
+                                }}))
                       
                         const sendSMLn = async () => {
                           if(isLoading){
@@ -184,14 +201,16 @@ const SMASendLns = props => {
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,
                                   loanerPhn:SendrPhn,
-                                  loaneePhn: RecPhn,                                  
+                                  loaneePhn: RecPhn,  
+                                  loanerLoanee:SendrPhn+RecPhn,
+                                  loanerLoaneeAdv:  SendrPhn+RecPhn+ AdvRegNo ,                          
                                   amountgiven: parseFloat(amount).toFixed(2),
                                   loaneename:namess,
                                   loanername:names,
                                   amountexpected: AmtExp,
                                   amountExpectedBackWthClrnc:AmtExp,
                                   amountrepaid: 0,
-                                  lonBala:AmtExp,
+                                  lonBala:parseFloat(AmtExp).toFixed(2),
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: AdvRegNo,
                                   description: Desc,
@@ -341,7 +360,8 @@ const SMASendLns = props => {
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if(Interest > maxInterestSMs)
+                        else if(CompDtls.data.listChamasNPwnBrkrss.items.length < 1 && Interest > maxInterestSMs){Alert.alert("Not Registered to earn this Interest: " + phoneContacts)}
+                        else if(Interest > maxInterestPwnBrkrs)
                         {Alert.alert('Interest too high:' + Interest.toFixed(5) + "; Recom SI: " + maxInterestSMs+" per day");}
                         else if (
                           parseFloat(SenderUsrBal) < TotalTransacted 
@@ -355,7 +375,18 @@ const SMASendLns = props => {
                          else {
                           sendSMLn();
                         }                                                
-                    }       
+                   
+                   
+                      }       
+                      catch(e) {     
+                        if (e){Alert.alert("Check your internet connection")
+        return;}                 
+                      }
+                      setIsLoading(false);
+                      }                    
+                        await confrmReg();        
+                    
+                      }       
                     catch(e) {     
                       if (e){Alert.alert("Check your internet connection")
       return;}                 

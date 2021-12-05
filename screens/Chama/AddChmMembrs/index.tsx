@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {createGrpMembers, updateCompany, updateGroup} from '../../../src/graphql/mutations';
+import {createChamaMembers, createGrpMembers, updateCompany, updateGroup} from '../../../src/graphql/mutations';
 import { getCompany, getGroup, getSMAccount, } from '../../../src/graphql/queries';
 import {Auth, graphqlOperation, API} from 'aws-amplify';
 
@@ -42,6 +42,8 @@ const AddChmMmbrs = (props:UserReg) => {
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
   const[ownr, setownr] = useState(null);
+  const [MmbaID, setMmbaID] = useState('');
+  const ChmPhnNphoneContacts = MmbaID+ChmPhn
 
 
   
@@ -94,7 +96,9 @@ const AddChmMmbrs = (props:UserReg) => {
                       );
                       const ttlGrpMemberss = compDtls.data.getGroup.ttlGrpMembers;  
                       const grpNames = compDtls.data.getGroup.grpName; 
-                      const owners = compDtls.data.getGroup.owner;              
+                      const owners = compDtls.data.getGroup.owner;   
+                      const regNos = compDtls.data.getGroup.regNo;   
+                      const signitoryPWs = compDtls.data.getGroup.signitoryPW;          
                     
                       const CrtChm = async () => {
                         if(isLoading){
@@ -103,10 +107,13 @@ const AddChmMmbrs = (props:UserReg) => {
                         setIsLoading(true);
                         try {
                           await API.graphql(
-                          graphqlOperation(createGrpMembers, {
+                          graphqlOperation(createChamaMembers, {
                           input: {
+                            MembaId:MmbaID,
                             groupContact: ChmPhn,
                             memberContact: phoneContacts,
+                            regNo:regNos,
+                            ChamaNMember:ChmPhnNphoneContacts,
                             memberNatId: nationalidsss,
                             GrossLnsGvn:0,
                             LonAmtGven: 0,
@@ -128,7 +135,7 @@ const AddChmMmbrs = (props:UserReg) => {
                             } catch (error) {
                               console.log(error)
                               if(error){
-                                Alert.alert("Please Sign up using as a different Phone number")
+                                Alert.alert("This member is already registered or your details are wrong")
                                 return;
                             } 
                             
@@ -146,6 +153,11 @@ const AddChmMmbrs = (props:UserReg) => {
 
                       else  if (phoneContacts.length < 13)
                           {Alert.alert("Please enter phone number as hinted");
+                        return;
+                      } 
+
+                      else  if (pword !== signitoryPWs)
+                          {Alert.alert("Wrong Signitory password");
                         return;
                       } 
 
@@ -243,17 +255,29 @@ const AddChmMmbrs = (props:UserReg) => {
                   setPhoneContacts("")
                   setChmDesc("")
                   setChmNm("")
+                  setMmbaID("")
       };
         
          await gtCompDtls();
         
         } catch (e) {
           console.error(e);
-          if (e){Alert.alert("User contact does not exist")}
+          if (e){Alert.alert("User does not exist")}
         }
       }
     
       useEffect(() =>{
+        const MmbaIDs=MmbaID
+          if(!MmbaIDs && MmbaIDs!=="")
+          {
+            setMmbaID("");
+            return;
+          }
+          setMmbaID(MmbaIDs);
+          }, [MmbaID]
+           );
+           
+           useEffect(() =>{
         const phoneContactss=phoneContacts
           if(!phoneContactss && phoneContactss!=="")
           {
@@ -337,6 +361,27 @@ useEffect(() =>{
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Member Phone</Text>
                   </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                     
+                      value={MmbaID}
+                      onChangeText={setMmbaID}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Member Chama Number</Text>
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                      value={pword}
+                      onChangeText={setPW}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Signitory Pass Word</Text>
+                  </View>
+
+                  
 
                  
         

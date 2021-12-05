@@ -103,7 +103,7 @@ const RepayCovLnsss = props => {
                 );
                 const amountExpectedBackWthClrncs =RecAccountDtl.data.getSMLoansCovered.amountExpectedBackWthClrnc; 
                 
-                const loaneename =RecAccountDtl.data.getSMLoansCovered.loaneename; 
+                const lonBalas =RecAccountDtl.data.getSMLoansCovered.lonBala; 
                 const SellerNames =RecAccountDtl.data.getSMLoansCovered.loanername; 
                 const amountrepaids =RecAccountDtl.data.getSMLoansCovered.amountrepaid; 
                 const amountExpectedBacks =RecAccountDtl.data.getSMLoansCovered.amountexpected;
@@ -172,7 +172,7 @@ const RepayCovLnsss = props => {
                                         input:{
                                           id:route.params.id,
                                           amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
-                                          lonBala: LonBalsss+parseFloat(amounts),
+                                          lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(2),
                                           amountExpectedBackWthClrnc:parseFloat(amountExpectedBackWthClrncs) - ClranceAmt,
                                           status: "LoanCleared",
                                       }})
@@ -320,7 +320,7 @@ const RepayCovLnsss = props => {
                                 catch(error){
                                   
                                 }
-                                Alert.alert("Loan: Ksh. "+amountExpectedBacks.toFixed(2) + " Clearance fee: Ksh. " +ClranceAmt.toFixed(2) + "Transaction fee: Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
+                                Alert.alert("Fully paid. Clearance fee: Ksh. " +ClranceAmt.toFixed(2) + ". Transaction fee: Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 setIsLoading(false);
                               }                                                                                                            
                         
@@ -336,7 +336,7 @@ const RepayCovLnsss = props => {
                                         input:{
                                           id:route.params.id,
                                           amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
-                                          lonBala: LonBalsss - parseFloat(amounts),
+                                          lonBala: (parseFloat(lonBalas) - parseFloat(amounts)).toFixed(2),
                                           amountExpectedBackWthClrnc:parseFloat(amountExpectedBackWthClrncs) - ClranceAmt,
                                         }
                                       })
@@ -476,7 +476,7 @@ const RepayCovLnsss = props => {
                                   console.log(error)
                                   
                                 }
-                                Alert.alert("Loan:Ksh. "+amountExpectedBacks.toFixed(2) + " ClearanceFee:Ksh. " +ClranceAmt.toFixed(2) + "Transaction:Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
+                                Alert.alert("Partially paid. ClearanceFee:Ksh. " +ClranceAmt.toFixed(2) + ". Transaction:Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 setIsLoading(false);
                               }
 
@@ -506,10 +506,10 @@ const RepayCovLnsss = props => {
                             return;
                           }
 
-                          else if(parseFloat(amounts) > LonBalsss){Alert.alert("Your Loan Balance is lesser: "+LonBalsss)}
+                          else if(parseFloat(amounts) > parseFloat(lonBalas)){Alert.alert("Your Loan Balance is lesser: "+lonBalas)}
                           
 
-                          else if(parseFloat(amounts) === LonBalsss){updtSMCvLnLnOver();}                         
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)){updtSMCvLnLnOver();}                         
                           
                               
                                else {

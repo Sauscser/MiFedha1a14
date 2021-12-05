@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../components/Chama/ChmActivities/Membership/MbrSndTChm";
 import styles from './styles';
-import { listCvrdGroupLoanss, listGrpMemberss } from '../../../src/graphql/queries';
+import { listChamaMemberss, listCvrdGroupLoanss, listGrpMemberss } from '../../../src/graphql/queries';
 
 const FetchSMCovLns = props => {
 
@@ -27,7 +27,7 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listGrpMemberss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listChamaMemberss, 
                 { filter: {
                     and: {
                       memberContact: { eq: LneePhn}
@@ -35,7 +35,7 @@ const FetchSMCovLns = props => {
                     }
                   }}
                   ));
-              setLoanees(Lonees.data.listGrpMemberss.items);
+              setLoanees(Lonees.data.listChamaMemberss.items);
             } catch (e) {
               console.log(e);
             } finally {

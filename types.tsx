@@ -64,7 +64,7 @@ declare global {
       SMGivCovLon:undefined;
       SMGivNonCovLon:undefined;
       
-      RemoveChmMbrs:undefined;
+      RemoveChmMbrs:{id:string};
       DissolveChms:undefined;
       UpdateChms:undefined;
       UpdateSMPWs:undefined;
@@ -164,19 +164,19 @@ declare global {
       Commissionss:undefined;
       SndChmMbrMnys:{grpContact:string};
       ChamaSndMbrMneys:undefined;
-      SndToChmMbrss:{grpContact:string};
+      SndToChmMbrss:{ChmNMmbrPhns:string};
       MmbrSndChmss:undefined;
       Contributionssss:{id:string}
       SgnIn2LnMmbrs:undefined;
-      VwChmMbrs2Ln:{grpContact:string};
+      VwChmMbrs2Ln:{ChmNMmbrPhns:string};
       SgnIn2LnMmbrNonCovs:undefined;
-      VwChmMbrs2NonCovLnss:{grpContact:string}
+      VwChmMbrs2NonCovLnss:{ChmNMmbrPhns:string}
       Vw2RpyCovs:undefined;
       Vw2RpyNonCovs:undefined;
       SgnIn2BLCovs:undefined;
       SgnIn2BLNonCovs:undefined
-      Vw2BLCovs:{grpContact:string};
-      Vw2BLNonCovs:{grpContact:string};
+      Vw2BLCovs:{ChmNMmbrPhns:string};
+      Vw2BLNonCovs:{ChmNMmbrPhns:string};
 
       Vw2RepySMCovLns:undefined;
       Vw2RepySMNonCovLns:undefined
@@ -223,6 +223,22 @@ declare global {
       ViewNonLnsSntChms:undefined;
       ViewNonLnsSntCredSlrs:undefined;
       ViewNonLnsSntSMs:undefined;
+
+      PwnBrkrRegss:undefined;
+      ChamaRegss:undefined;
+
+      ChmVwMmbr2Removes:{ChmNMmbrPhns:string};
+
+      Vw2BLChmCovs:{grpContact:string};
+      Vw2BLChmNonCovs:{grpContact:string};
+    
+      SgnIn2RemoveMmbrs:undefined;
+
+      ChmVwMmbrss:{grpContact:string};
+      
+      
+      
+      
       
       
     }

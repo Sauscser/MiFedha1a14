@@ -42,10 +42,14 @@ const ChmSignIn = (props) => {
   const [pword, setPW] = useState('');
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
+  const [memberPhn, setmemberPhn] = useState(''); 
   const[ownr, setownr] = useState(null);
+  const ChmNMmbrPhns = grpContact+memberPhn
+
+  
 
   const FetchGrpLonsSts = () => {
-    navigation.navigate("SndToChmMbrss", {grpContact});
+    navigation.navigate("SndToChmMbrss", {ChmNMmbrPhns});
   };
   
 
@@ -97,6 +101,7 @@ const ChmSignIn = (props) => {
             setPhoneContacts("")
             setChmDesc("")
             setChmNm("")
+            setmemberPhn("")
                         setIsLoading(false)
                         
             };
@@ -118,6 +123,17 @@ const ChmSignIn = (props) => {
           setPhoneContacts(phoneContactss);
           }, [phoneContacts]
            );
+
+           useEffect(() =>{
+            const memberPhns=memberPhn
+              if(!memberPhns && memberPhns!=="")
+              {
+                setmemberPhn("");
+                return;
+              }
+              setmemberPhn(memberPhns);
+              }, [memberPhn]
+               );
 
       useEffect(() =>{
         const ChmNms=ChmNm
@@ -181,6 +197,16 @@ useEffect(() =>{
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Chama Phone Number</Text>
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder="+2547xxxxxxxx"
+                      value={memberPhn}
+                      onChangeText={setmemberPhn}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Member Phone Number</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>

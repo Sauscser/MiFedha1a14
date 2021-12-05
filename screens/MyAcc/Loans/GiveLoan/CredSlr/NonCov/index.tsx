@@ -167,7 +167,9 @@ const NonCovCredSls = props => {
                                   buyerID: nationalidss,
                                   sellerID: nationalids,
                                   sellerContact:SendrPhn,
-                                  buyerContact: RecPhn,                                  
+                                  buyerContact: RecPhn, 
+                                  loanerLoanee:SendrPhn+RecPhn,
+                                                                  
                                   amountSold: amount,
                                   amountexpectedBack: (parseFloat(AmtExp) - vatFee).toFixed(2),
                                   amountExpectedBackWthClrnc:(parseFloat(AmtExp) - vatFee).toFixed(2),

@@ -50,5 +50,9 @@
   {
     "groupName": "Advocate",
     "precedence": 13
+  },
+  {
+    "groupName": "ChamaSignitories",
+    "precedence": 14
   }
 ]

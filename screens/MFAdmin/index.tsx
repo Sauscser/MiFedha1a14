@@ -30,8 +30,12 @@ const RegKFKubwa = props => {
     navigation.navigate('DActvteMFAd');
   };
 
-  const goToAdvReg = () => {
-    navigation.navigate('MFAdvocateReg');
+  const PwnBrkrRegss = () => {
+    navigation.navigate('PwnBrkrRegss');
+  };
+
+  const ChamaRegss = () => {
+    navigation.navigate('ChamaRegss');
   };
 
   const DActivateMFN = () => {
@@ -102,7 +106,15 @@ const RegKFKubwa = props => {
                       onPress={DActivateMFK}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
-                        DeReg
+                        DeRegMFK
+                      </Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={ChamaRegss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        RegChm
                       </Text>
                     </Pressable>
                   </View>
@@ -120,6 +132,16 @@ const RegKFKubwa = props => {
                       <Text style={styles.clientsPressableText}>
                       DeRegMFAdv
                       </Text>
+                      
+                    </Pressable>
+
+                    <Pressable
+                      onPress={PwnBrkrRegss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      RegPwnBrkr
+                      </Text>
+                      
                     </Pressable>
                   </View>
                 </View>
@@ -162,11 +184,7 @@ const RegKFKubwa = props => {
 
             <View style={styles.viewForAcEarningsPressables}>
               
-              <Pressable
-                onPress={CrtAdmins}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>CreateAc</Text>
-              </Pressable>
+              
 
               <Pressable
                 onPress={UpdateMFAdminPWss}

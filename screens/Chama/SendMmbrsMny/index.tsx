@@ -9,12 +9,14 @@ import {
   updateGroup,
   updateGrpMembers,
   createGroupNonLoans,
+  updateChamaMembers,
   
 } from '../../.././src/graphql/mutations';
 
 import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {
   
+  getChamaMembers,
   getCompany,
   getGroup,
   getGrpMembers,
@@ -69,7 +71,7 @@ const SMASendNonLns = props => {
       setIsLoading(true);
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getGrpMembers, {id: route.params.id}),
+              graphqlOperation(getChamaMembers, {id: route.params.id}),
               );
 
               const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
@@ -267,7 +269,7 @@ const SMASendNonLns = props => {
                       setIsLoading(true);
                       try{
                           await API.graphql(
-                            graphqlOperation(updateGrpMembers, {
+                            graphqlOperation(updateChamaMembers, {
                               input:{
                                 id:route.params.id,                                                      
                                

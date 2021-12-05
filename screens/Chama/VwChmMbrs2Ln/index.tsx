@@ -32,7 +32,7 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listGrpMemberss, 
                 { filter: {
                     and: {
-                      groupContact: { eq: route.params.grpContact}
+                      ChamaNMember: { eq: route.params.ChmNMmbrPhns}
                       
                     }
                   }}

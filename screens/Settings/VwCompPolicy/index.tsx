@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../components/CompPolicy";
 import styles from './styles';
-import { listCompanys, listNonLoanss, listSMAccounts } from '../../../src/graphql/queries';
+import { listCompanies,    } from '../../../src/graphql/queries';
 
 const FetchSMNonLnsSnt = props => {
 
@@ -27,10 +27,10 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listCompanys, 
+              const Lonees:any = await API.graphql(graphqlOperation(listCompanies, 
                 
                   ));
-                  setRecvrs(Lonees.data.listCompanys.items);
+                  setRecvrs(Lonees.data.listCompanies.items);
             } catch (e) {
               console.log(e);
             } finally {

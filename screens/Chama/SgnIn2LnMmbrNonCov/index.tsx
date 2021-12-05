@@ -43,9 +43,13 @@ const ChmSignIn = (props) => {
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
   const[ownr, setownr] = useState(null);
+  const [memberPhn, setmemberPhn] = useState(''); 
+
+  const ChmNMmbrPhns = grpContact+memberPhn
+
 
   const FetchGrpLonsSts = () => {
-    navigation.navigate("VwChmMbrs2NonCovLnss", {grpContact});
+    navigation.navigate("VwChmMbrs2NonCovLnss", {ChmNMmbrPhns});
   };
   
 
@@ -97,6 +101,7 @@ const ChmSignIn = (props) => {
             setPhoneContacts("")
             setChmDesc("")
             setChmNm("")
+            setmemberPhn("")
                         setIsLoading(false)
                         
             };
@@ -108,7 +113,18 @@ const ChmSignIn = (props) => {
       
                   
     
-      useEffect(() =>{
+            useEffect(() =>{
+              const memberPhns=memberPhn
+                if(!memberPhns && memberPhns!=="")
+                {
+                  setmemberPhn("");
+                  return;
+                }
+                setmemberPhn(memberPhns);
+                }, [memberPhn]
+                 );
+                 
+                 useEffect(() =>{
         const phoneContactss=phoneContacts
           if(!phoneContactss && phoneContactss!=="")
           {
@@ -181,6 +197,16 @@ useEffect(() =>{
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Chama Phone Number</Text>
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder="+2547xxxxxxxx"
+                      value={memberPhn}
+                      onChangeText={setmemberPhn}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Member Phone Number</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>

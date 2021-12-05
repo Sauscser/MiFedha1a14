@@ -190,6 +190,8 @@ const AdminSignIn = (props) => {
             maxBLs:0,
 
             maxInterestSM: 0.00033,
+
+            maxInterestPwnBrkr:0.006,
             maxInterestCredSllr: 0.00033,
             maxInterestGrp: 0.00033,
             

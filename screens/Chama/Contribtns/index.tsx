@@ -7,22 +7,23 @@ import {
   
   updateSMAccount,
   updateGroup,
-  updateGrpMembers,
+  
   createGrpMembersContribution,
+  updateChamaMembers,
   
 } from '../../.././src/graphql/mutations';
 
 import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {
   
+  getChamaMembers,
   getCompany,
   getGroup,
-  getGrpMembers,
+  
   getSMAccount,
   
 } from '../../.././src/graphql/queries';
 
-import {useNavigation} from '@react-navigation/native';
 
 import {
   View,
@@ -49,6 +50,8 @@ const SMASendChmNonLns = props => {
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
   const route = useRoute();
+
+  const MembaId = route.params.id
   
   
   
@@ -70,13 +73,17 @@ const SMASendChmNonLns = props => {
       setIsLoading(true);
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getGrpMembers, {id: route.params.id}),
+              graphqlOperation(getChamaMembers, {id: route.params.id}),
               );
 
-              const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
-              const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
-              const NonLoanAcBals =ChmMbrtDtl.data.getGrpMembers.NonLoanAcBal;
-              const ttlNonLonAcBal =ChmMbrtDtl.data.getGrpMembers.ttlNonLonAcBal;
+              const groupContacts =ChmMbrtDtl.data.getChamaMembers.groupContact;
+              const memberContacts =ChmMbrtDtl.data.getChamaMembers.memberContact;
+              const NonLoanAcBals =ChmMbrtDtl.data.getChamaMembers.NonLoanAcBal;
+              const ttlNonLonAcBal =ChmMbrtDtl.data.getChamaMembers.ttlNonLonAcBal;
+
+
+              console.log(ChmMbrtDtl)
+
 
               const fetchSenderUsrDtls = async () => {
                 if(isLoading){
@@ -154,13 +161,7 @@ const SMASendChmNonLns = props => {
             
             
                                   } catch (error) {
-                                    if(!error){
-                                      Alert.alert("Account deactivated successfully")
-                                      
-                                  } 
-                                  else{Alert.alert("Please check your internet connection")
-                                  return;
-                                }
+                                    console.log(error)
                                   }
                                   setIsLoading(false);
                                   await updtSendrAc();
@@ -263,12 +264,11 @@ const SMASendChmNonLns = props => {
                                   setIsLoading(true);
                                   try{
                                       await API.graphql(
-                                        graphqlOperation(updateGrpMembers, {
+                                        graphqlOperation(updateChamaMembers, {
                                           input:{
-                                            id: route.params.id,                                                      
-                                           
-                                            NonLoanAcBal:(parseFloat(NonLoanAcBals) + parseFloat(amounts)).toFixed(2)  ,
-                                            ttlNonLonAcBal:(parseFloat(ttlNonLonAcBal) + parseFloat(amounts)).toFixed(2)                                                                                   
+                                            id: MembaId,   
+                                            NonLoanAcBal:parseFloat(NonLoanAcBals) + parseFloat(amounts)  ,
+                                            ttlNonLonAcBal:parseFloat(ttlNonLonAcBal) + parseFloat(amounts)                                                                                   
                                             
                                           }
                                         })
@@ -277,6 +277,7 @@ const SMASendChmNonLns = props => {
                                       
                                   }
                                   catch(error){
+                                    console.log(MembaId)
                                     console.log(error)
                                     if (error){Alert.alert("Check your internet connection")
                                 return;
@@ -314,6 +315,7 @@ const SMASendChmNonLns = props => {
                             }                    
                               await fetchRecUsrDtls();
                     } catch (e) {
+                      console.log(e)
                       if (e){Alert.alert("Check your internet connection")
                   return;
                 }
@@ -334,6 +336,7 @@ const SMASendChmNonLns = props => {
             await fetchSenderUsrDtls();
 
             } catch (e) {
+              console.log(e)
               if (e){Alert.alert("Check your internet connection");
           return;
         }

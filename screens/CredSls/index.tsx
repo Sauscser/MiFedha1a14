@@ -8,6 +8,7 @@ import {
   FlatList,
   SafeAreaView,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import styles from './styles';
 
@@ -58,7 +59,7 @@ const CredSalesAccount = props => {
   return (
     <SafeAreaView>
      
-        
+        <ScrollView>
           <View style={styles.adminImage}>
 
 
@@ -173,6 +174,7 @@ const CredSalesAccount = props => {
 
     
     </View>
+    </ScrollView>
     </SafeAreaView>
   );
 };

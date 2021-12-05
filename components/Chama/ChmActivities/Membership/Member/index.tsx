@@ -8,7 +8,7 @@ import styles from './styles';
 export interface ChamaMmbrshpInfo {
     ChamaMmbrshpDtls: {
       id: string,
-      grpContact: string,
+      groupContact: string,
       
       groupName:string,
       GrossLnsGvn:number,
@@ -28,7 +28,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    const {
       ChamaMmbrshpDtls: {
          id,
-         grpContact,
+         groupContact,
        
          groupName,
          loanStatus,
@@ -92,7 +92,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                       
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
-                      Chama Phone: {grpContact}                  
+                      Chama Phone: {groupContact}                  
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}

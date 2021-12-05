@@ -27,6 +27,16 @@ const styles = StyleSheet.create ({
         fontWeight: '900',
         color: '#69093a'
     },
+
+    wholeVw: {
+        marginTop:50
+    },
+
+    loanerotherdescriptions: {
+        fontSize: 13,
+        fontWeight: '900',
+        color: 'black'
+    },
  
 });
 export default styles
