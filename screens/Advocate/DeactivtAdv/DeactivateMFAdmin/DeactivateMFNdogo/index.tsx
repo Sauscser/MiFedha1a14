@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {updateAdvocate, updateCompany} from '../../../../../src/graphql/mutations';
+import {deleteAdvocate, updateAdvocate, updateCompany} from '../../../../../src/graphql/mutations';
 import { getCompany} from '../../../../../src/graphql/queries';
 import {graphqlOperation, API} from 'aws-amplify';
 
@@ -47,10 +47,10 @@ const DeregMFAdvForm = (props) => {
           setIsLoading(false);
           try{
               await API.graphql(
-                graphqlOperation(updateAdvocate,{
+                graphqlOperation(deleteAdvocate,{
                   input:{
                     advregnu:AdvRegNo,
-                    status:"AccountInactive"
+                    
                   }
                 })
               )

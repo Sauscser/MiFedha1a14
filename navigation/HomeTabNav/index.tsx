@@ -196,6 +196,13 @@ import Vw2BLChmNonCov from "../../screens/Chama/BL/Vw2BLChmNonCov";
 import PwnBrkrRegs from "../../screens/PwnBrkrReg";
 import ChamaRegs from "../../screens/ChamaReg";
 
+import SgnIn2BLSMCov from "../../screens/MyAcc/Loans/BList/SMLoanee/SgnInToBL/SMCov";
+import SgnIn2BLSMNonCov from "../../screens/MyAcc/Loans/BList/SMLoanee/SgnInToBL/SMNonCov";
+import SgnIn2BLCredSlCov from "../../screens/MyAcc/Loans/BList/CredLoanee/SgnInToBL/CredSlCov";
+import SgnIn2BLCredSlNonCov from "../../screens/MyAcc/Loans/BList/CredLoanee/SgnInToBL/CredSlNonCov";
+import BuyFloatFrmUsrAc from "../../screens/MFNdogo/Float/BuyFloatFrmUsrAc";
+import RegPwnBrkr from "../../screens/MyAcc/RegPwnBrkr"
+
 
 
 const Stack = createNativeStackNavigator();
@@ -207,6 +214,16 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
     
+      <Stack.Screen name={'RegPwnBrkrs'} component={RegPwnBrkr} /> 
+      
+      <Stack.Screen name={'BuyFloatFrmUsrAcs'} component={BuyFloatFrmUsrAc} /> 
+      
+      <Stack.Screen name={'SgnIn2BLCredSlCovs'} component={SgnIn2BLCredSlCov} />      
+      <Stack.Screen name={'SgnIn2BLCredSlNonCovs'} component={SgnIn2BLCredSlNonCov} />
+      
+      <Stack.Screen name={'SgnIn2BLSMCovs'} component={SgnIn2BLSMCov} />      
+      <Stack.Screen name={'SgnIn2BLSMNonCovs'} component={SgnIn2BLSMNonCov} />
+      
       <Stack.Screen name={'PwnBrkrRegss'} component={PwnBrkrRegs} />      
       <Stack.Screen name={'ChamaRegss'} component={ChamaRegs} />
       

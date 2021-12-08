@@ -15,12 +15,14 @@ import {
   updateCvrdGroupLoans,
   updateGroup,
   updateGrpMembers,
+  updateChamaMembers,
   
 } from '../../../../../../src/graphql/mutations';
 
 import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {
   
+  getChamaMembers,
   getCompany,
   getCvrdGroupLoans,
   getGroup,
@@ -179,11 +181,11 @@ const RepayCovChmLnsss = props => {
                                 setIsLoading(true);
                                 try {
                                     const RecAccountDtl:any = await API.graphql(
-                                        graphqlOperation(getGrpMembers, {id: memberIds}),
+                                        graphqlOperation(getChamaMembers, {ChamaNMember: memberIds}),
                                         );
                                         
-                                        const AmtRepaids =RecAccountDtl.data.getGrpMembers.AmtRepaid;
-                                        const LnBals =RecAccountDtl.data.getGrpMembers.LnBal;
+                                        const AmtRepaids =RecAccountDtl.data.getChamaMembers.AmtRepaid;
+                                        const LnBals =RecAccountDtl.data.getChamaMembers.LnBal;
                                          
                                         
                                         const updtChmMbrTTlBlOvr  = async () =>{
@@ -193,11 +195,11 @@ const RepayCovChmLnsss = props => {
                                           setIsLoading(true);
                                           try{
                                               await API.graphql(
-                                                graphqlOperation(updateGrpMembers, {
+                                                graphqlOperation(updateChamaMembers, {
                                                   input:{
-                                                    id:memberIds,
-                                                    AmtRepaid: parseFloat(AmtRepaids)+parseFloat(amounts) ,
-                                                    LnBal: parseFloat(LnBals)-parseFloat(amounts) ,
+                                                    ChamaNMember:memberIds,
+                                                    AmtRepaid: (parseFloat(AmtRepaids)+parseFloat(amounts)).toFixed(2) ,
+                                                    LnBal: (parseFloat(LnBals)-parseFloat(amounts)).toFixed(2)  ,
                                                     
                                                     
                                                 }})
@@ -224,9 +226,9 @@ const RepayCovChmLnsss = props => {
                                       graphqlOperation(updateCvrdGroupLoans, {
                                         input:{
                                           id:route.params.id,
-                                          amountRepaid: parseFloat(amounts) + parseFloat(amountRepaidss),
+                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(2),
                                           lonBala: (LonBalsss-parseFloat(amounts)).toFixed(2),
-                                          amountExpectedBackWthClrnc:parseFloat(amountExpectedBackWthClrncs) - ClranceAmt,
+                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
                                           status: "LoanCleared",
                                       }})
                                     )
@@ -234,6 +236,7 @@ const RepayCovChmLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -264,11 +267,9 @@ const RepayCovChmLnsss = props => {
           
           
                                 } catch (error) {
-                                  if(!error){
-                                    Alert.alert("Account deactivated successfully")
-                                    
-                                } 
-                                else{Alert.alert("Please check your internet connection")
+                                  console.log(error)
+                                  if(error){
+                                    Alert.alert("Please check your internet connection")
                                 return;}
                                 }
                                 setIsLoading(false);
@@ -285,14 +286,14 @@ const RepayCovChmLnsss = props => {
                                       graphqlOperation(updateSMAccount, {
                                         input:{
                                           phonecontact:SendrPhn,
-                                          balance:parseFloat(SenderUsrBal)-TotalTransacted ,
+                                          balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
                                           MaxTymsBL:parseFloat(MaxTymsBLss)-1 ,
                                           TtlClrdLonsTmsLneeChmCov:parseFloat(TtlClrdLonsTmsLneeChmCovs)+1,                                          
-                                          TtlClrdLonsAmtLneeChmCov: parseFloat(TtlClrdLonsAmtLneeChmCovs) + parseFloat(amounts), 
+                                          TtlClrdLonsAmtLneeChmCov: (parseFloat(TtlClrdLonsAmtLneeChmCovs) + parseFloat(amounts)).toFixed(2), 
                                           TtlActvLonsTmsLneeChmCov:parseFloat(TtlActvLonsTmsLneeChmCovs)-1,                                          
-                                          TtlActvLonsAmtLneeChmCov: parseFloat(TtlActvLonsAmtLneeChmCovs) - parseFloat(amounts),
+                                          TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs) - parseFloat(amounts)).toFixed(2),
                                           TtlBLLonsTmsLneeChmCov:  parseFloat(TtlBLLonsTmsLneeChmCovs) - 1,
-                                          TtlBLLonsAmtLneeChmCov: parseFloat(TtlBLLonsAmtLneeChmCovs) - parseFloat(amounts),
+                                          TtlBLLonsAmtLneeChmCov: (parseFloat(TtlBLLonsAmtLneeChmCovs) - parseFloat(amounts)).toFixed(2),
                                           
                                         }
                                       })
@@ -301,6 +302,7 @@ const RepayCovChmLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -321,20 +323,21 @@ const RepayCovChmLnsss = props => {
                                         input:{
                                           grpContact:grpContactssss,
                                           
-                                          grpBal:parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt),                                     
+                                          grpBal:(parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(2),                                     
                                           TtlBLLonsTmsLnrChmCov: parseFloat(TtlBLLonsTmsLnrChmCovs) - 1,
-                                          TtlBLLonsAmtLnrChmCov: parseFloat(TtlBLLonsAmtLnrChmCovs) - parseFloat(amounts),
+                                          TtlBLLonsAmtLnrChmCov: (parseFloat(TtlBLLonsAmtLnrChmCovs) - parseFloat(amounts)).toFixed(2),
                                           TtlClrdLonsTmsLnrChmCov: parseFloat(TtlClrdLonsTmsLnrChmCovs) + 1,
                                           tymsChmHvBL: parseFloat(tymsChmHvBLs) - 1,
-                                          TtlClrdLonsAmtLnrChmCov: parseFloat(TtlClrdLonsAmtLnrChmCovs) + parseFloat(amounts),
+                                          TtlClrdLonsAmtLnrChmCov: (parseFloat(TtlClrdLonsAmtLnrChmCovs) + parseFloat(amounts)).toFixed(2),
                                           TtlActvLonsTmsLnrChmCov:parseFloat(TtlActvLonsTmsLnrChmCovs)-1,                                          
-                                          TtlActvLonsAmtLnrChmCov: parseFloat(TtlActvLonsAmtLnrChmCovs) - parseFloat(amounts),                                                                            
+                                          TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) - parseFloat(amounts)).toFixed(2),                                                                            
                                           
                                         }
                                       })
                                     )                              
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -370,9 +373,10 @@ const RepayCovChmLnsss = props => {
                                     
                                 }
                                 catch(error){
+                                  console.log(error)
                                   
                                 }
-                                Alert.alert("Fully repaid. ClearanceFee:Ksh. " +ClranceAmt.toFixed(2) + ". Transaction:Ksh. "+( parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2) );
+                                Alert.alert("Fully repaid. Clearance: " +ClranceAmt.toFixed(2) + ". Transaction: "+( parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2) );
                                 setIsLoading(false);
                               }    
                               
@@ -383,11 +387,11 @@ const RepayCovChmLnsss = props => {
                                 setIsLoading(true);
                                 try{
                                     await API.graphql(
-                                      graphqlOperation(updateGrpMembers, {
+                                      graphqlOperation(updateChamaMembers, {
                                         input:{
-                                          id:memberIds,
-                                          AmtRepaid: parseFloat(AmtRepaids)+parseFloat(amounts) ,
-                                          LnBal: parseFloat(LnBals)-parseFloat(amounts) ,
+                                          ChamaNMember:memberIds,
+                                          AmtRepaid: (parseFloat(AmtRepaids)+parseFloat(amounts)).toFixed(2) ,
+                                          LnBal: (parseFloat(LnBals)-parseFloat(amounts)).toFixed(2) ,
                                           
                                       }})
                                     )
@@ -395,6 +399,7 @@ const RepayCovChmLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -413,9 +418,9 @@ const RepayCovChmLnsss = props => {
                                       graphqlOperation(updateCvrdGroupLoans, {
                                         input:{
                                           id:route.params.id,
-                                          amountRepaid: parseFloat(amounts) + parseFloat(amountRepaidss),
+                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(2),
                                           lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(2),
-                                          amountExpectedBackWthClrnc:parseFloat(amountExpectedBackWthClrncs) - ClranceAmt,
+                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
                                         }
                                       })
                                     )
@@ -423,6 +428,7 @@ const RepayCovChmLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -442,9 +448,9 @@ const RepayCovChmLnsss = props => {
                                         input:{
                                           phonecontact:SendrPhn,
                                           
-                                          balance:parseFloat(SenderUsrBal)-TotalTransacted,
+                                          balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2),
                                                                  
-                                          TtlActvLonsAmtLneeChmCov: parseFloat(TtlActvLonsAmtLneeChmCovs) - parseFloat(amounts),
+                                          TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs) - parseFloat(amounts)).toFixed(2),
                                         }
                                       })
                                     )
@@ -452,6 +458,7 @@ const RepayCovChmLnsss = props => {
           
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -470,15 +477,16 @@ const RepayCovChmLnsss = props => {
                                         input:{
                                           grpContact:grpContactssss,
                                           
-                                          grpBal:parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt),                                     
+                                          grpBal:(parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(2),                                     
                                           
-                                          TtlActvLonsAmtLnrChmCov: parseFloat(TtlActvLonsAmtLnrChmCovs) - parseFloat(amounts),                                        
+                                          TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) - parseFloat(amounts)).toFixed(2),                                        
                                          
                                         }
                                       })
                                     )                              
                                 }
                                 catch(error){
+                                  console.log(error)
                                   if (error){Alert.alert("Check your internet connection")
                                   return;}
                                 }
@@ -507,9 +515,10 @@ const RepayCovChmLnsss = props => {
                                     
                                 }
                                 catch(error){
+                                  console.log(error)
                                   
                                 }
-                                Alert.alert("Partially repaid. Clearance:Ksh. " +ClranceAmt.toFixed(2) + ". TransactionFee:Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
+                                Alert.alert("Partially repaid. Clearance: " +ClranceAmt.toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 setIsLoading(false);
 
                                 await sendCovLn();
@@ -538,11 +547,8 @@ const RepayCovChmLnsss = props => {
           
           
                                 } catch (error) {
-                                  if(!error){
-                                    Alert.alert("Account deactivated successfully")
-                                    
-                                } 
-                                else{Alert.alert("Please check your internet connection")
+                                  console.log(error)
+                                  if(error){Alert.alert("Please check your internet connection")
                                 return;}
                                 }
                                 setIsLoading(false);
@@ -613,6 +619,7 @@ const RepayCovChmLnsss = props => {
                 }                    
                   await fetchCompDtls();
         } catch (e) {
+          console.log(e)
           if (e){Alert.alert("Check your internet connection")
       return;}
         }
@@ -622,6 +629,7 @@ const RepayCovChmLnsss = props => {
     
       
     } catch (e) {
+      console.log(e)
       if (e){Alert.alert("Sender does not exist")
       return;}
   };

@@ -63,27 +63,7 @@ const ViewSMDeposts = (props:SMAccount) => {
                        {/* amount*/} 
                       Phone: {phonecontact}
                     </Text>  
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Total Earnings (Ksh): {ttlEarnings.toFixed(2)}                 
-                    </Text>
-
-                    
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Total Float In (Ksh): {TtlFltIn.toFixed(2)}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Total Float Out (Ksh): {TtlFltOut.toFixed(2)}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                     Float Balance (Ksh): {floatBal.toFixed(2)}                 
-                    </Text>
+                     
 
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 

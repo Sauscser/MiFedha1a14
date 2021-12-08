@@ -29,7 +29,7 @@ const [id,setid] = useState("")
         
         <View style={styles.viewForPressables1}>
         <Pressable onPress={SMGivNonCovLons} style={styles.loanFriendButton}>
-          <Text style={styles.loanAFriendText}>Okolea Beshte</Text>
+          <Text style={styles.loanAFriendText}>Loan a Friend</Text>
         </Pressable>
         </View>
         

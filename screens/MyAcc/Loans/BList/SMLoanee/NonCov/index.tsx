@@ -122,7 +122,7 @@ const BLSMNonCovLoanee = (props) => {
                                       phonecontact:loanerPhns,
                                       MaxTymsIHvBL: parseFloat(MaxTymsIHvBLs) + 1,
                                       TtlBLLonsTmsLnrNonCov: parseFloat(TtlBLLonsTmsLnrNonCovs) + 1,
-                                      TtlBLLonsAmtLnrNonCov: parseFloat(TtlBLLonsAmtLnrNonCovs) + amountExpectedBackWthClrncss
+                                      TtlBLLonsAmtLnrNonCov: (parseFloat(TtlBLLonsAmtLnrNonCovs) + amountExpectedBackWthClrncss).toFixed(2)
                                     }
                                   })
                                 )
@@ -207,7 +207,7 @@ const BLSMNonCovLoanee = (props) => {
                                           phonecontact:loaneePhns,
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsLneeNonCov: parseFloat(TtlBLLonsTmsLneeNonCovs) + 1,
-                                          TtlBLLonsAmtLneeNonCov: parseFloat(TtlBLLonsAmtLneeNonCovs) +amountExpectedBackWthClrncss,
+                                          TtlBLLonsAmtLneeNonCov: (parseFloat(TtlBLLonsAmtLneeNonCovs) +amountExpectedBackWthClrncss).toFixed(2),
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
@@ -238,7 +238,7 @@ const BLSMNonCovLoanee = (props) => {
                                       graphqlOperation(updateSMLoansNonCovered, {
                                         input:{
                                           id:route.params.id,
-                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
+                                          amountExpectedBackWthClrnc:(amountExpectedBackWthClrncss).toFixed(2),
                                           lonBala:LonBal.toFixed(2),
                                           status:"LoanBL",
                                         }

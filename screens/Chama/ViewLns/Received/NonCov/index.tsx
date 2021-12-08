@@ -171,7 +171,7 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Loaners</Text>
+            <Text style={styles.label}> My NonCovered Loaners</Text>
           </>
         )}
       />

@@ -31,13 +31,7 @@ const CredSalesAccount = props => {
     navigation.navigate('Vw2RepyCredSlsNonCovLns');
   };
 
-  const Vw2BLCovCredSlsLnss = () => {
-    navigation.navigate('Vw2BLCovCredSlsLns');
-  };
-
-  const Vw2BLCredSlsNonCovss = () => {
-    navigation.navigate('Vw2BLCredSlsNonCovs');
-  };
+  
 
   const CredSlsLneesss = () => {
     navigation.navigate('CredSlsLneess');
@@ -52,6 +46,14 @@ const CredSalesAccount = props => {
   };
   const CredByrLnersss = () => {
     navigation.navigate('CredByrLnerss');
+  };
+
+  const SgnIn2BLCredSlCovss = () => {
+    navigation.navigate('SgnIn2BLCredSlCovs');
+  };
+
+  const SgnIn2BLCredSlNonCovss = () => {
+    navigation.navigate('SgnIn2BLCredSlNonCovs');
   };
 
   
@@ -139,13 +141,13 @@ const CredSalesAccount = props => {
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable
-                onPress={Vw2BLCovCredSlsLnss}
+                onPress={SgnIn2BLCredSlCovss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Covered CredSls</Text>
               </Pressable>
 
               <Pressable
-                onPress={Vw2BLCredSlsNonCovss}
+                onPress={SgnIn2BLCredSlNonCovss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>Non Covered CredSls</Text>
               </Pressable>

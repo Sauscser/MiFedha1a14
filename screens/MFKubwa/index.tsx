@@ -67,11 +67,7 @@ const KFKubwaScreen = props => {
 
             
 
-            <Pressable
-              onPress={VwMFKWthdrwlsSgnInss}
-              style={styles.kfkubwaView}>
-              <Text style={styles.kfkubwaPressableText}>DeRegister</Text>
-            </Pressable>
+            
           </View>
         </View>
 

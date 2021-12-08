@@ -9,7 +9,8 @@ export interface ChamaMmbrshpInfo {
     ChamaMmbrshpDtls: {
       id: string,
       lonBala:number,
-      loanerName:string,
+      loaneeName:string,
+      loanerLoanee:string
       
       
     }}
@@ -19,7 +20,8 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
       ChamaMmbrshpDtls: {
          id,
          lonBala,
-         loanerName,
+         loaneeName,
+         loanerLoanee
          
    }} = props ;
 
@@ -40,7 +42,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                     </Text>                                               
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
-                     Chama Name: {loanerName}                
+                     Member Name: {loaneeName}                
                     </Text>  
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  

@@ -7,7 +7,8 @@ import styles from './styles';
 
 export interface ChamaMmbrshpInfo {
     ChamaMmbrshpDtls: {
-      id: string,
+      MembaId: string,
+      ChamaNMember: string,
       groupContact: string,
       
       groupName:string,
@@ -27,7 +28,8 @@ export interface ChamaMmbrshpInfo {
 const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    const {
       ChamaMmbrshpDtls: {
-         id,
+         MembaId,
+         ChamaNMember,
          groupContact,
        
          groupName,
@@ -55,10 +57,15 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
             <ScrollView >       
                
 
-                     <Text style = {styles.ownerContact}>                       
+            <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
-                       Member Chama ID: {id}                
-                    </Text>                                               
+                       Member Chama Number: {MembaId}                
+                    </Text>    
+
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                       Member Chama ID: {ChamaNMember}                
+                    </Text>                                                 
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
                      Chama Name: {groupName}                

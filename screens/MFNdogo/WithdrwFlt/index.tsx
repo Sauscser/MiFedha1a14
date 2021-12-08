@@ -137,7 +137,7 @@ const MFNWthdwFlt = props => {
                         if (error){Alert.alert("Check internet Connection")
                         return;}
                       }
-                      Alert.alert(names + ", You have transfered Ksh. "+ amount +" float to your SM account")
+                      Alert.alert(names + ", You have transfered Ksh. "+ parseFloat(amount).toFixed(2) +" float to your SM account")
                       setIsLoading(false);
                       await onUpdtMFNBal();
                       }; 

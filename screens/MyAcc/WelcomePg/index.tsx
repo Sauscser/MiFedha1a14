@@ -84,7 +84,7 @@ const UpdtSMPW = (props) => {
 
                     To request a Loan from a Friend or Chama or Seller, 
                     Please go to "MyAc", "Account", "Update", 
-                    "RequestLn" and enter the prospective Loaner's Phone Number.
+                    "AskLn" and enter the prospective Loaner's Phone Number.
 
                     The Loaner can then Loan you.
                     Have a Healthy and Rich Friendship.

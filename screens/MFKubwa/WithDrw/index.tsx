@@ -93,7 +93,7 @@ const AdminWthdwl = props => {
                                   input: {
                                   
                                     bankAdmnId: "BnkkAdmNatId",                    
-                                    
+                                    saId:MFKPhn,
                                     owner: ownr,
                                     amount: amount,
                                     status: 'AccountActive',
@@ -102,58 +102,27 @@ const AdminWthdwl = props => {
                               );
             
                     } catch (error) {
-                      if(!error){
-                        Alert.alert("Account deactivated successfully")
-                        
-                    } 
-                    else{Alert.alert("Please check your internet connection")
+                      console.log(error)
+                      if(error){Alert.alert("Please check your internet connection")
                     return;}
                     }
                     setIsLoading(false);
-                    await onUpdtUsrBal();
+                    Alert.alert(names + ", You have Withdrawn Ksh. "+ amount)
+                    
                     };  
         
-                    const onUpdtUsrBal = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try {
-                        await API.graphql(
-                          graphqlOperation(updateSMAccount, {
-                            input: {
-                              phonecontact: WthDrwrPhn,
-                  
-                              balance: parseFloat(usrBala) + parseFloat(amount) ,
-                              
-                            },
-                          }),
-                        );
-                      }
-        
-                      catch (error) {
-                        if (error){Alert.alert("Check internet Connection")
-                        return;}
-                      }
-                      Alert.alert(names + ", You have transfered Ksh. "+ amount +" to your SM account")
-                      setIsLoading(false);
-                      
-                      }; 
-        
+                    
                       
                     
                     if (parseFloat(amount) > parseFloat(saBalances)) {
-                      Alert.alert("Insufficient Admin Balance")
+                      Alert.alert("Insufficient MFKubwa Balance")
                       return;
                     } 
         
-                    else if (usrStts!=="AccountActive") {
-                      Alert.alert("User Account has been deactivated")
-                      return;
-                    } 
+                    
 
                     else if (statussssss!=="AccountActive") {
-                      Alert.alert("Admin Account is inactive")
+                      Alert.alert("MFKubwa Account is inactive")
                       return;
                     } 
 
@@ -166,7 +135,7 @@ const AdminWthdwl = props => {
                    
                     
                     if (UsrPWd!==pws) {
-                      Alert.alert("Admin credentials are wrong; access denied")
+                      Alert.alert("MFKubwa credentials are wrong; access denied")
                       return;
                     } 
         
@@ -178,6 +147,7 @@ const AdminWthdwl = props => {
       
     }     
     catch (e) {
+      console.log(e)
       if (e){Alert.alert("Check your internet connection")
       return;}
          
@@ -189,6 +159,7 @@ const AdminWthdwl = props => {
     }
 
     catch (e) {
+      console.log(e)
       if (e){Alert.alert("Check your internet connection")
       return;}
           
@@ -276,7 +247,7 @@ const AdminWthdwl = props => {
               onChangeText={setUsrPWd}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>User PW</Text>
+            <Text style={styles.sendAmtText}>MFKubwa PW</Text>
           </View>
 
           <TouchableOpacity onPress={fetchAcDtls} style={styles.sendAmtButton}>

@@ -19,7 +19,9 @@ import {
   getSMAccount,
   getSAgent,
   getAdvocate,
-  listChamasNPwnBrkrss,
+  
+  listChamasNPwnBrkrs,
+  listChamasRegConfirms,
 } from '../../../../../../src/graphql/queries';
 
 import {useNavigation} from '@react-navigation/native';
@@ -111,7 +113,7 @@ const SMASendLns = props => {
           const CompCovAmt = CompCovFee*parseFloat(amount)
           const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)
                    
-          
+          const CompanyTotalEarnings = CompCovFee*parseFloat(amount) + parseFloat(userLoanTransferFees)*parseFloat(amount)
           const TotalTransacted = parseFloat(amount) + ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount);
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
           const ttlCompCovEarningss = CompDtls.data.getCompany.ttlCompCovEarnings;
@@ -127,7 +129,7 @@ const SMASendLns = props => {
           const ttlSMLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSMLnsInActvTymsCov;       
           const maxInterestSMs = CompDtls.data.getCompany.maxInterestSM;
           const maxBLss = CompDtls.data.getCompany.maxBLs;
-          const Interest = ((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod));
+          
           
           const IntAmt = parseFloat(AmtExp) - parseFloat(amount)
 
@@ -136,7 +138,10 @@ const SMASendLns = props => {
           const vatFee = (parseFloat(vats)*IntAmt)
           const phoneContacts = CompDtls.data.getCompany.phoneContact;
           const maxInterestPwnBrkrs = CompDtls.data.getCompany.maxInterestPwnBrkr;
-          
+          const MaxSMInterest = parseFloat(amount)*parseFloat(maxInterestSMs)*parseFloat(RepaymtPeriod);
+          const MaxPwnBrkrInterest = parseFloat(amount)*parseFloat(maxInterestPwnBrkrs)*parseFloat(RepaymtPeriod);
+          const ActualMaxSMInterest = parseFloat(AmtExp) - parseFloat(amount);
+          const ActualMaxPwnBrkrInterest = parseFloat(AmtExp) - parseFloat(amount)
 
           
           
@@ -183,11 +188,13 @@ const SMASendLns = props => {
                           setIsLoading(true);
                           try{
                             const compDtls :any= await API.graphql(
-                              graphqlOperation(listChamasNPwnBrkrss,{ filter: {
+                              graphqlOperation(listChamasNPwnBrkrs,{ filter: {
                             
                                 contact: { eq: SendrPhn}
                                               
                                 }}))
+
+                                
                       
                         const sendSMLn = async () => {
                           if(isLoading){
@@ -222,11 +229,8 @@ const SMASendLns = props => {
 
 
                           } catch (error) {
-                            if(!error){
-                              Alert.alert("Account deactivated successfully")
-                              
-                          } 
-                          else{Alert.alert("Please check your internet connection")
+                            console.log(error)
+                            if(error){Alert.alert("Please check your internet connection")
                           return;}
                           }
                           setIsLoading(false);
@@ -244,9 +248,9 @@ const SMASendLns = props => {
                                   input:{
                                     phonecontact:SendrPhn,
                                     TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
-                                    TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(amount),
+                                    TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(amount)).toFixed(2),
                                                                               
-                                    balance:parseFloat(SenderUsrBal)-TotalTransacted 
+                                    balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) 
                                    
                                     
                                   }
@@ -256,6 +260,7 @@ const SMASendLns = props => {
 
                           }
                           catch(error){
+                            console.log(error)
                             if (error){Alert.alert("Check your internet connection")
                             return;}
                           }
@@ -273,7 +278,7 @@ const SMASendLns = props => {
                                   input:{
                                     phonecontact:RecPhn,
                                     TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
-                                    TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(amount),
+                                    TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(amount)).toFixed(2),
                                     balance:(parseFloat(RecUsrBal) + parseFloat(amount) - vatFee).toFixed(2) ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
@@ -284,6 +289,7 @@ const SMASendLns = props => {
                               )                              
                           }
                           catch(error){
+                            console.log(error)
                             if (error){Alert.alert("Check your internet connection")
                             return;}
                           }
@@ -306,8 +312,8 @@ const SMASendLns = props => {
                                     ttlCompCovEarnings:CompCovAmt + parseFloat(ttlCompCovEarningss),
                                     AdvEarningBal:AdvCovAmt + parseFloat(AdvEarningBals),                                                                                                                                                     
                                     AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
-                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals),
-                                    companyEarning: CompCovAmt + parseFloat(companyEarnings),                                                    
+                                    companyEarningBal:CompanyTotalEarnings + parseFloat(companyEarningBals),
+                                    companyEarning: CompanyTotalEarnings + parseFloat(companyEarnings),                                                    
                                     ttlvat:parseFloat(ttlvats)+vatFee,
                                     ttlSMLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInAmtCovs),
                                     
@@ -320,6 +326,7 @@ const SMASendLns = props => {
                               
                           }
                           catch(error){
+                            console.log(error)
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
@@ -336,14 +343,15 @@ const SMASendLns = props => {
                                 graphqlOperation(updateAdvocate, {
                                   input:{
                                     advregnu: AdvRegNo,
-                                    advBal: AdvCovAmt + parseFloat(advBl) ,
-                                    TtlEarnings:AdvCovAmt + parseFloat(advTtlAern),                                 
+                                    advBal: (AdvCovAmt + parseFloat(advBl)).toFixed(2) ,
+                                    TtlEarnings:(AdvCovAmt + parseFloat(advTtlAern)).toFixed(2),                                 
                                     
                                   }
                                 })
                               )
                           }
                           catch(error){
+                            console.log(error)
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
@@ -360,9 +368,10 @@ const SMASendLns = props => {
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if(CompDtls.data.listChamasNPwnBrkrss.items.length < 1 && Interest > maxInterestSMs){Alert.alert("Not Registered to earn this Interest: " + phoneContacts)}
-                        else if(Interest > maxInterestPwnBrkrs)
-                        {Alert.alert('Interest too high:' + Interest.toFixed(5) + "; Recom SI: " + maxInterestSMs+" per day");}
+                        else if(compDtls.data.listChamasNPwnBrkrs.items.length < 1 && ActualMaxSMInterest > MaxSMInterest)
+                        {Alert.alert("Unregistered for such Interest. Max Int: Ksh. "+MaxSMInterest);}
+                        else if(ActualMaxPwnBrkrInterest > MaxPwnBrkrInterest)
+                        {Alert.alert('Interest too high:' + ActualMaxPwnBrkrInterest.toFixed(6) + "; Recom SI: Ksh. " + MaxPwnBrkrInterest);}
                         else if (
                           parseFloat(SenderUsrBal) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
@@ -379,6 +388,7 @@ const SMASendLns = props => {
                    
                       }       
                       catch(e) {     
+                        console.log(e)
                         if (e){Alert.alert("Check your internet connection")
         return;}                 
                       }
@@ -388,6 +398,7 @@ const SMASendLns = props => {
                     
                       }       
                     catch(e) {     
+                      console.log(e)
                       if (e){Alert.alert("Check your internet connection")
       return;}                 
                     }
@@ -398,6 +409,7 @@ const SMASendLns = props => {
 
             }
             catch (e){
+              console.log(e)
               if (e){Alert.alert("Advocate not registered")
       return;}
             }
@@ -409,6 +421,7 @@ const SMASendLns = props => {
           
         
         } catch (e) {
+          console.log(e)
           if (e){Alert.alert("Check your internet connection")
       return;}
         } 

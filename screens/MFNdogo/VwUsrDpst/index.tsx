@@ -37,9 +37,10 @@ const FetchSMNonLnsSnt = props => {
                       agContact: route.params.MFNId,
                       sortDirection: "DESC",
                       
-                      limit:100
+                      limit:100,
+                      filter:{depositerid: { ne: "None"}},
                       
-                    }
+                    },
                   
                   ));
                   setRecvrs(Lonees.data.VwMFNFltDeductns.items);

@@ -49,9 +49,10 @@ const SMASendChmNonLns = props => {
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
+  const [ChamaNMember, setChamaNMember] = useState("")
   const route = useRoute();
 
-  const MembaId = route.params.id
+  const MembaId = route.params.ChamaNMember
   
   
   
@@ -73,7 +74,7 @@ const SMASendChmNonLns = props => {
       setIsLoading(true);
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getChamaMembers, {id: route.params.id}),
+              graphqlOperation(getChamaMembers, {ChamaNMember: MembaId}),
               );
 
               const groupContacts =ChmMbrtDtl.data.getChamaMembers.groupContact;
@@ -152,7 +153,7 @@ const SMASendChmNonLns = props => {
                                           GrpName:grpNames,
                                           grpContact: groupContacts,
                                           contriAmount: parseFloat(amounts).toFixed(2),
-                                          memberId:route.params.id,
+                                          memberId:MembaId,
                                           status: "AccountActive",
                                           owner: ownr
                                         },
@@ -266,7 +267,7 @@ const SMASendChmNonLns = props => {
                                       await API.graphql(
                                         graphqlOperation(updateChamaMembers, {
                                           input:{
-                                            id: MembaId,   
+                                            ChamaNMember: MembaId,   
                                             NonLoanAcBal:parseFloat(NonLoanAcBals) + parseFloat(amounts)  ,
                                             ttlNonLonAcBal:parseFloat(ttlNonLonAcBal) + parseFloat(amounts)                                                                                   
                                             
@@ -283,7 +284,7 @@ const SMASendChmNonLns = props => {
                                 return;
                               }
                                   }
-                                  Alert.alert(names + " has sent Ksh. " + parseFloat(amounts).toFixed(2) + " to " + grpNames+" Chama");
+                                  Alert.alert(names + ", you has sent Ksh. " + parseFloat(amounts).toFixed(2) + " to " + grpNames+" Chama");
                                   setIsLoading(false);
                                 }                                
                                                       

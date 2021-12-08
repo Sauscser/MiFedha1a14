@@ -123,7 +123,7 @@ const BLSMCovLoanee = (props) => {
                                       phonecontact:loanerPhns,
                                       TtlBLLonsTmsLnrCov: parseFloat(TtlBLLonsTmsLnrCovs) + 1,
                                       MaxTymsIHvBL: parseFloat(MaxTymsIHvBLs) + 1,
-                                      TtlBLLonsAmtLnrCov: parseFloat(TtlBLLonsAmtLnrCovs) + amountExpectedBackWthClrncss
+                                      TtlBLLonsAmtLnrCov: (parseFloat(TtlBLLonsAmtLnrCovs) + amountExpectedBackWthClrncss).toFixed(2)
                                     }
                                   })
                                 )
@@ -208,7 +208,7 @@ const BLSMCovLoanee = (props) => {
                                           phonecontact:loaneePhns,
                                           TtlBLLonsTmsLneeCov: parseFloat(TtlBLLonsTmsLneeCovs) + 1,
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
-                                          TtlBLLonsAmtLneeCov: parseFloat(TtlBLLonsAmtLneeCovs) + amountExpectedBackWthClrncss,
+                                          TtlBLLonsAmtLneeCov: (parseFloat(TtlBLLonsAmtLneeCovs) + amountExpectedBackWthClrncss).toFixed(2),
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
@@ -239,7 +239,7 @@ const BLSMCovLoanee = (props) => {
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
                                           id:route.params.id,
-                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
+                                          amountExpectedBackWthClrnc:(amountExpectedBackWthClrncss).toFixed(2),
                                           lonBala:LonBal.toFixed(2),
                                           status:"LoanBL",
                                         }

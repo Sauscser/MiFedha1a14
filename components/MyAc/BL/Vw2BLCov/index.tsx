@@ -8,17 +8,10 @@ export interface SMCvLnSttus {
     Loanee: {
         id:string,
         loaneePhn: string,
-        amountgiven: number,
-        amountexpected: number,
-        amountrepaid: number,
+        
         lonBala: number,
-        repaymentPeriod: number,
-        advregnu: string,
+        
         loaneename:string,
-        status: string,
-        description: string,
-        createdAt:string,
-        updatedAt:string,
         
     }}
 

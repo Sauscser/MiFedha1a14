@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   loanTitleView: {
     backgroundColor: 'white',
     marginHorizontal: "15%",    
-    height: "8%",
+    height: "4%",
     borderRadius: 5,
     marginTop: "2%",
     justifyContent: 'center',
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   sendLoanView: {
     backgroundColor: '#72ebd8',
     marginHorizontal: "1%",
-    height: "15%",
+    height: "10%",
     borderRadius: 5,
     marginTop: "2%",
     justifyContent: 'center',
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   sendLoanButton: {
     backgroundColor: 'white',
     marginHorizontal: "15%",    
-    height: "8%",
+    height: "4%",
     borderRadius: 5,
     marginTop: "2%",
     justifyContent: 'center',

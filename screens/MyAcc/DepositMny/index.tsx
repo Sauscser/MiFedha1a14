@@ -135,8 +135,8 @@ const SMADepositForm = props => {
                     input: {
                       phonecontact: nationalId,
           
-                      balance: parseFloat(usrBala) + parseFloat(amount),
-                      ttlDpstSM: parseFloat(usrTlDpst) + parseFloat(amount),
+                      balance: (parseFloat(usrBala) + parseFloat(amount)).toFixed(2),
+                      ttlDpstSM: (parseFloat(usrTlDpst) + parseFloat(amount)).toFixed(2),
                     },
                   }),
                 );
@@ -163,8 +163,8 @@ const SMADepositForm = props => {
                         phonecontact: AgentPhn,
             
                        
-                        TtlFltOut: parseFloat(agtTtlFtOut) + parseFloat(amount),
-                        floatBal: parseFloat(agtFltBl) - parseFloat(amount),
+                        TtlFltOut: (parseFloat(agtTtlFtOut) + parseFloat(amount)).toFixed(2),
+                        floatBal: (parseFloat(agtFltBl) - parseFloat(amount)).toFixed(2),
                       },
                     }),
                   );

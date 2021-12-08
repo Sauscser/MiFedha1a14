@@ -5,7 +5,7 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../../components/MFNdogo/VwMFNWthdrwls";
 import styles from './styles';
 
-import { listAgentWithdrawalss} from '../../../../src/graphql/queries';
+import { listAgentWithdrawals, listAgentWithdrawalss} from '../../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 
 const FetchSMNonLnsSnt = props => {
@@ -30,7 +30,7 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listAgentWithdrawalss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listAgentWithdrawals, 
                 { filter: {
                     and: {
                       agentPhone: { eq: route.params.MFNId}
@@ -38,7 +38,7 @@ const FetchSMNonLnsSnt = props => {
                     }
                   }}
                   ));
-                  setRecvrs(Lonees.data.listAgentWithdrawalss.items);
+                  setRecvrs(Lonees.data.listAgentWithdrawals.items);
             } catch (e) {
               console.log(e);
             } finally {

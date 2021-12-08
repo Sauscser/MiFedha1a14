@@ -64,7 +64,7 @@ const DeregUsrForm = (props) => {
           }
           setIsLoading(true);
           try {
-              const RecAccountDtl:any = await API.graphql(
+              const RecAccountDtl1:any = await API.graphql(
                   graphqlOperation(listCvrdGroupLoans, { filter: {
                   
                     loaneePhn: { eq: UsrId},
@@ -81,7 +81,7 @@ const DeregUsrForm = (props) => {
                     }
                     setIsLoading(true);
                     try {
-                        const RecAccountDtl:any = await API.graphql(
+                        const RecAccountDtl2:any = await API.graphql(
                             graphqlOperation(listNonCvrdGroupLoans, { filter: {
                   
                               loaneePhn: { eq: UsrId},
@@ -96,7 +96,7 @@ const DeregUsrForm = (props) => {
                               }
                               setIsLoading(true);
                               try {
-                                  const RecAccountDtl:any = await API.graphql(
+                                  const RecAccountDtl3:any = await API.graphql(
                                       graphqlOperation(listCovCreditSellers, { filter: {
                   
                                         buyerContact: { eq: UsrId},
@@ -111,7 +111,7 @@ const DeregUsrForm = (props) => {
                                         }
                                         setIsLoading(true);
                                         try {
-                                            const RecAccountDtl:any = await API.graphql(
+                                            const RecAccountDtl4:any = await API.graphql(
                                                 graphqlOperation(listNonCovCreditSellers, { filter: {
                   
                                                   buyerContact: { eq: UsrId},
@@ -126,7 +126,7 @@ const DeregUsrForm = (props) => {
                                                   }
                                                   setIsLoading(true);
                                                   try {
-                                                      const RecAccountDtl:any = await API.graphql(
+                                                      const RecAccountDtl5:any = await API.graphql(
                                                           graphqlOperation(listSMLoansCovereds, { filter: {
                   
                                                             loaneePhn: { eq: UsrId},
@@ -141,7 +141,7 @@ const DeregUsrForm = (props) => {
                                                             }
                                                             setIsLoading(true);
                                                             try {
-                                                                const RecAccountDtl:any = await API.graphql(
+                                                                const RecAccountDtl6:any = await API.graphql(
                                                                     graphqlOperation(listSMLoansNonCovereds, { filter: {
                   
                                                                       loaneePhn: { eq: UsrId},
@@ -208,8 +208,14 @@ const DeregUsrForm = (props) => {
               await updtActAdm ();
             } 
     
-            if (RecAccountDtl.data.listSMLoansNonCovereds.items.length >=1 ) {
-              Alert.alert("This User has a Noncovered Single Member Loan");
+            if (RecAccountDtl6.data.listSMLoansNonCovereds.items.length >0 
+              || RecAccountDtl5.data.listSMLoansCovereds.items.length >0 
+              || RecAccountDtl4.data.listNonCovCreditSellers.items.length >0
+              || RecAccountDtl3.data.listCovCreditSellers.items.length >0
+              || RecAccountDtl2.data.listNonCvrdGroupLoans.items.length >0
+              || RecAccountDtl1.data.listCvrdGroupLoans.items.length >0
+              ) {
+              Alert.alert("This User has an uncleared Loan");
               
               
             }
@@ -226,11 +232,7 @@ const DeregUsrForm = (props) => {
           };
           }
 
-          if (RecAccountDtl.data.listSMLoansCovereds.items.length >=1) {
-            Alert.alert("This User has a covered Single Member Loan");
-            return;
-            
-          }
+          
           
           
         };   
@@ -244,11 +246,7 @@ const DeregUsrForm = (props) => {
           return;
       };
       }
-      if (RecAccountDtl.data.listNonCovCreditSellers.items.length >=1) {
-        Alert.alert("This User has a Noncovered Credit Sale Loan");
-        return;
-        
-      }
+      
       
       
     };  
@@ -261,12 +259,6 @@ const DeregUsrForm = (props) => {
       return;
   };
   }
-  if (RecAccountDtl.data.listCovCreditSellers.items.length >=1) {
-    Alert.alert("This User has a covered Credit Sale Loan");
-    return;
-    
-  }
-  
   
 };   
 await ftchNonCovCredSlrLn();
@@ -278,12 +270,6 @@ await ftchNonCovCredSlrLn();
     Alert.alert("Check your internet")
     return;
 };
-}
-
-if (RecAccountDtl.data.listNonCvrdGroupLoans.items.length >=1) {
-  Alert.alert("This User has a Noncovered Chama Loan");
-  return;
-  
 }
 
 
@@ -298,13 +284,6 @@ await ftchCvdCredSlrLn();
     return;
 };
 }
-if (RecAccountDtl.data.listCvrdGroupLoans.items.length >=1) {
-  Alert.alert("This User has a covered Chama Loan");
-  return;
-  
-}
-
-
 
 };   
 

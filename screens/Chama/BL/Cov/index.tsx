@@ -32,8 +32,12 @@ const BLChmCovLoanee = (props) => {
   const [LonId, setLonId] = useState("");
   const [ChmMbrId, setChmMbrId] = useState("");
   const [SigntryPW, setSigntryPW] = useState("");
+  
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
+  
+
+
   const route = useRoute();
   
 
@@ -262,7 +266,7 @@ const BLChmCovLoanee = (props) => {
                                     await API.graphql(
                                       graphqlOperation(updateChamaMembers, {
                                         input:{
-                                          id:memberIds,
+                                          ChamaNMember:memberIds,
                                           
                                           blStatus:"AccountBlackListed",
                                         }

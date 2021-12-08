@@ -4,12 +4,14 @@ import { listSMLoansCovereds } from '../../../../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../../components/MyAc/BL/Vw2BLCov";
 import styles from './styles';
+import { useRoute } from '@react-navigation/core';
 
 const FetchSMCovLns = props => {
 
     const[LnerPhn, setLnerPhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
+    const route = useRoute();
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
@@ -29,11 +31,15 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
                 { filter: {
                     and: {
-                        loanerPhn: { eq: LnerPhn},
-                        lonBala:{gt:0}
+                      loanerLoanee: { eq: route.params.ChmNMmbrPhns},
+                        lonBala:{gt:0},
+                        
+                        status:{ne:"LoanBL"}
                       
                     }
-                  }}
+                  },
+                  limit: 100
+                }
                   ));
               setLoanees(Lonees.data.listSMLoansCovereds.items);
             } catch (e) {

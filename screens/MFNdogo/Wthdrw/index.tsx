@@ -104,45 +104,16 @@ const MFNWthdwl = props => {
             
                     } catch (error) {
                       console.log(error)
-                      if(!error){
-                        Alert.alert("Account deactivated successfully")
-                        
-                    } 
-                    else{Alert.alert("Please check your internet connection")
+                      if(error){Alert.alert("Please check your internet connection")
                     return;}
                     }
                     setIsLoading(false);
-                    await onUpdtUsrBal();
+
+                    Alert.alert(names + ", You have Withdrawn Ksh. "+ amount)
+                    
                     };  
         
-                    const onUpdtUsrBal = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try {
-                        await API.graphql(
-                          graphqlOperation(updateSMAccount, {
-                            input: {
-                              phonecontact: WthDrwrPhn,
-                  
-                              balance: parseFloat(usrBala) + parseFloat(amount) ,
-                              
-                            },
-                          }),
-                        );
-                      }
-        
-                      catch (error) {
-                        console.log(error)
-                        if (error){Alert.alert("Check internet Connection")
-                        return;}
-                      }
-                      Alert.alert(names + ", You have transfered Ksh. "+ amount +" to your SM account")
-                      setIsLoading(false);
-                      
-                      }; 
-        
+                    
                       
                     
                     if (parseFloat(amount) > parseFloat(agentEarningBals)) {
@@ -150,13 +121,10 @@ const MFNWthdwl = props => {
                       return;
                     } 
         
-                    else if (usrStts!=="AccountActive") {
-                      Alert.alert("User Account has been deactivated")
-                      return;
-                    } 
+                    
 
                     else if (statussssss!=="AccountActive") {
-                      Alert.alert("Admin Account is inactive")
+                      Alert.alert("MFNdogo Account is inactive")
                       return;
                     } 
 
@@ -169,7 +137,7 @@ const MFNWthdwl = props => {
                    
                     
                     if (UsrPWd!==pws) {
-                      Alert.alert("Admin credentials are wrong; access denied")
+                      Alert.alert("MFNdogo credentials are wrong; access denied")
                       return;
                     } 
         

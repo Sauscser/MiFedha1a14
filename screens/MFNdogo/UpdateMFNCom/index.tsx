@@ -97,17 +97,17 @@ const UpdtMFNPW = (props) => {
                                         }
                                         catch(error){if(error){
                                           console.log(error)
-                                          Alert.alert("Please check internet; otherwise Admin doesnt exist")
+                                          Alert.alert("Please check internet; otherwise MFNdogo doesnt exist")
                                           
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +", You have successfully updated your PassWord");
+                                        Alert.alert(names +", You have successfully updated your Commission");
                                       } 
 
                                       if(pws!==OldAdmnPW)
                                       {
-                                          Alert.alert("Wrong Old Password; call HR");
+                                          Alert.alert("Wrong Password; call HR");
                                       }
                                       
                                       else if(ownr!==owners)
@@ -131,7 +131,7 @@ const UpdtMFNPW = (props) => {
         
                                     } catch (error) {
                                       if(error){
-                                        Alert.alert("Check internet; otherwise Chama doesnt exist")
+                                        Alert.alert("Check internet; otherwise MFNdogo doesnt exist")
                                         return
                                       }
                                     } }        
@@ -140,7 +140,7 @@ const UpdtMFNPW = (props) => {
 
             } catch (error) {
                 if(error){
-                  Alert.alert("Check internet; otherwise Chama doesnt exist")
+                  Alert.alert("Check internet; otherwise MFNdogo doesnt exist")
                   return
                 }
               }

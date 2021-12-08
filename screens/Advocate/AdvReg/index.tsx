@@ -68,7 +68,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
             )
             const nationalidssss = UsrDtls.data.getSMAccount.nationalid
         
-        const onCreateNewMFN = async () => {
+        const CreateNewMFN = async () => {
           if(isLoading){
             return;
           }
@@ -111,7 +111,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
         {Alert.alert("Ensure right format of the phone number");
       return;
     }
-    else{onCreateNewMFN();}
+    else{CreateNewMFN();}
         
       
       
@@ -131,6 +131,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
               )
           }
           catch(error){if(error){
+            console.log(error)  
             Alert.alert("Check your internet")
             return;}
         }
@@ -140,18 +141,23 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
       }
 
       
-  await ChckUsrExistence();
+ 
 
     } catch (e) {
-      if(e){Alert.alert("Please first sign up")}
       console.error(e);
+      
+      if(e){Alert.alert("Please first sign up")}
+      
     }
   }
+
+  await ChckUsrExistence();
    
         }
 
 catch(e){
   if(e){
+    console.log(e)  
     Alert.alert("Check your internet")
     return;
   }

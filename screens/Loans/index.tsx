@@ -67,11 +67,11 @@ const MyLoanAccount = props => {
   };
 
   const Vw2BLCovSMLnss = () => {
-    navigation.navigate('Vw2BLCovSMLns');
+    navigation.navigate('SgnIn2BLSMCovs');
   };
 
   const Vw2BLSMNonCovss = () => {
-    navigation.navigate('Vw2BLSMNonCovs');
+    navigation.navigate('SgnIn2BLSMNonCovs');
   };
 
   const ViewNonLnsSntSMss = () => {
@@ -97,6 +97,8 @@ const MyLoanAccount = props => {
   const ChamaSignIn2VwLnRpymntss = () => {
     navigation.navigate('ChamaSignIn2VwLnRpymnts');
   };
+
+  
 
   
 

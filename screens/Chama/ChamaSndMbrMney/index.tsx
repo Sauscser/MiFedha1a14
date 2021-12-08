@@ -206,7 +206,7 @@ useEffect(() =>{
                       onChangeText={setmemberPhn}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Member Phone Number</Text>
+                    <Text style={styles.sendLoanText}>Chama Member Number</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>

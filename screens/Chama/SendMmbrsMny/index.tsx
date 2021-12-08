@@ -7,7 +7,7 @@ import {
   
   updateSMAccount,
   updateGroup,
-  updateGrpMembers,
+  
   createGroupNonLoans,
   updateChamaMembers,
   
@@ -19,7 +19,7 @@ import {
   getChamaMembers,
   getCompany,
   getGroup,
-  getGrpMembers,
+  
   getSMAccount,
   
 } from '../../.././src/graphql/queries';
@@ -50,6 +50,7 @@ const SMASendNonLns = props => {
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
+  const  MemberID = MmbrId+RecNatId
   const route = useRoute();
   
   
@@ -71,14 +72,14 @@ const SMASendNonLns = props => {
       setIsLoading(true);
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getChamaMembers, {id: route.params.id}),
+              graphqlOperation(getChamaMembers, {ChamaNMember: MemberID}),
               );
 
-              const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
-              const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
-              const NonLoanAcBals =ChmMbrtDtl.data.getGrpMembers.NonLoanAcBal;
+              const groupContacts =ChmMbrtDtl.data.getChamaMembers.groupContact;
+              const memberContacts =ChmMbrtDtl.data.getChamaMembers.memberContact;
+              const NonLoanAcBals =ChmMbrtDtl.data.getChamaMembers.NonLoanAcBal;
               
-              const LnBal =ChmMbrtDtl.data.getGrpMembers.LnBal;
+              const LnBal =ChmMbrtDtl.data.getChamaMembers.LnBal;
               
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
@@ -97,6 +98,7 @@ const SMASendNonLns = props => {
       const ttlNonLonsSentChms =accountDtl.data.getGroup.ttlNonLonsSentChm;
       
       const grpNames =accountDtl.data.getGroup.grpName;
+      
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -151,7 +153,7 @@ const SMASendNonLns = props => {
                               amountSent: amounts,
 
                               description: Desc,
-                              memberId:route.params.id,
+                              memberId:MemberID,
                               status: "AccountActive",
                               owner: ownr,
                             },
@@ -161,11 +163,7 @@ const SMASendNonLns = props => {
 
                       } catch (error) {
                         console.log(error)
-                        if(!error){
-                          Alert.alert("Account deactivated successfully")
-                          
-                      } 
-                      else{Alert.alert("Please check your internet connection")
+                        if(error){Alert.alert("Please check your internet connection")
                       return;}
                       }
                       setIsLoading(false);
@@ -271,7 +269,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateChamaMembers, {
                               input:{
-                                id:route.params.id,                                                      
+                                ChamaNMember: MemberID,                                                      
                                
                                 NonLoanAcBal:(parseFloat(NonLoanAcBals) - parseFloat(amounts)).toFixed(2),
                                 
@@ -293,7 +291,6 @@ const SMASendNonLns = props => {
                     
                     if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                    else if((parseFloat(LnBal) + parseFloat(NonLoanAcBals))  < parseFloat(amounts)){Alert.alert('Member input is not as much');}
                     
                     else if (
                       parseFloat(grpBals) < parseFloat(TotalTransacted) 
@@ -309,6 +306,7 @@ const SMASendNonLns = props => {
                     }                                                
                 }       
                 catch(e) {     
+                  console.log(e) 
                   if (e){Alert.alert("Reciever does not exist")
   return;}                 
                 }
@@ -326,7 +324,8 @@ const SMASendNonLns = props => {
     
       
     } catch (e) {
-      if (e){Alert.alert("Sender does not exist")
+      console.log(e)
+      if (e){Alert.alert("Chama does not exist")
       return;}
   };
       setIsLoading(false);
@@ -335,7 +334,7 @@ const SMASendNonLns = props => {
 
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Check your internet connection")
+      if (e){Alert.alert("Chama Member doesnt exist")
   return;}
     }
           setMmbrId('');
@@ -432,6 +431,32 @@ useEffect(() =>{
             <Text style={styles.title}>Fill account Details Below</Text>
           </View>
 
+          <View style={styles.sendAmtView}>
+            <TextInput
+            placeholder="+2547xxxxxxxx"
+              value={RecNatId}
+              onChangeText={setRecNatId}
+              style={styles.sendAmtInput}
+              editable={true}
+              ></TextInput>
+              
+            <Text style={styles.sendAmtText}>Chama Phone</Text>
+          </View>
+
+
+          <View style={styles.sendAmtView}>
+            <TextInput
+            
+              value={MmbrId}
+              onChangeText={setMmbrId}
+              style={styles.sendAmtInput}
+              editable={true}
+              ></TextInput>
+              
+            <Text style={styles.sendAmtText}>Chama member Number</Text>
+          </View>
+          
+          
           <View style={styles.sendAmtView}>
             <TextInput
             keyboardType={"decimal-pad"}

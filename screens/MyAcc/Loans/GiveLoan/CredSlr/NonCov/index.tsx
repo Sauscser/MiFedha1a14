@@ -115,12 +115,12 @@ const NonCovCredSls = props => {
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
           
-          const ttlSellerLnsInAmtCovs = CompDtls.data.getCompany.ttlSellerLnsInAmtCov;
+          const ttlSellerLnsInAmtCovs = CompDtls.data.getCompany.ttlSellerLnsInAmtNonCov;
           
-          const ttlSellerLnsInTymsCovs = CompDtls.data.getCompany.ttlSellerLnsInTymsCov;
-          const ttlSellerLnsInActvAmtCovs = CompDtls.data.getCompany.ttlSellerLnsInActvAmtCov;
+          const ttlSellerLnsInTymsCovs = CompDtls.data.getCompany.ttlSellerLnsInTymsNonCov;
+          const ttlSellerLnsInActvAmtCovs = CompDtls.data.getCompany.ttlSellerLnsInActvAmtNonCov;
           
-          const ttlSellerLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSellerLnsInActvTymsCov;
+          const ttlSellerLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSellerLnsInActvTymsNonCov;
           const maxBLss = CompDtls.data.getCompany.maxBLs;
           const maxInterestCredSllrs = CompDtls.data.getCompany.maxInterestCredSllr;       
         
@@ -148,8 +148,8 @@ const NonCovCredSls = props => {
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
                         const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
-                        const TtlActvLonsTmsByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsByrCov;
-                        const TtlActvLonsAmtByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtByrCov;
+                        const TtlActvLonsTmsByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsByrNonCov;
+                        const TtlActvLonsAmtByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtByrNonCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
                         const nationalidss =RecAccountDtl.data.getSMAccount.nationalid;
                       
@@ -262,8 +262,8 @@ const NonCovCredSls = props => {
                                 graphqlOperation(updateSMAccount, {
                                   input:{
                                     phonecontact:RecPhn,
-                                    TtlActvLonsTmsByrCov: parseFloat(TtlActvLonsTmsByrCovs) +1 ,
-                                    TtlActvLonsAmtByrCov: parseFloat(TtlActvLonsAmtByrCovs)+ parseFloat(amount),
+                                    TtlActvLonsTmsByrNonCov: parseFloat(TtlActvLonsTmsByrCovs) +1 ,
+                                    TtlActvLonsAmtByrNonCov: parseFloat(TtlActvLonsAmtByrCovs)+ parseFloat(amount),
                                     balance:parseFloat(RecUsrBal) - parseFloat(userLoanTransferFees)*parseFloat(amount)  ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
@@ -296,10 +296,10 @@ const NonCovCredSls = props => {
                                     companyEarningBal:userLoanTransferFees * parseFloat(amount) + parseFloat(companyEarningBals),
                                     companyEarning: userLoanTransferFees * parseFloat(amount) + parseFloat(companyEarnings),                                           
                                     
-                                    ttlSellerLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSellerLnsInAmtCovs),
-                                    ttlSellerLnsInActvAmtCov: parseFloat(amount) + parseFloat(ttlSellerLnsInActvAmtCovs),
-                                    ttlSellerLnsInTymsCov: 1 + parseFloat(ttlSellerLnsInTymsCovs),
-                                    ttlSellerLnsInActvTymsCov: 1 + parseFloat(ttlSellerLnsInActvTymsCovs),      
+                                    ttlSellerLnsInAmtNonCov: parseFloat(amount) + parseFloat(ttlSellerLnsInAmtCovs),
+                                    ttlSellerLnsInActvAmtNonCov: parseFloat(amount) + parseFloat(ttlSellerLnsInActvAmtCovs),
+                                    ttlSellerLnsInTymsNonCov: 1 + parseFloat(ttlSellerLnsInTymsCovs),
+                                    ttlSellerLnsInActvTymsNonCov: 1 + parseFloat(ttlSellerLnsInActvTymsCovs),      
                                     ttlvat:parseFloat(ttlvats)+vatFee,
                                      
                                     

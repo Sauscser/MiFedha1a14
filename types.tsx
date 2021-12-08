@@ -50,7 +50,7 @@ declare global {
       CreateChms:undefined;
       AddChmMembrsss:undefined;
       ChmCovLons:{id:string};
-      ChmNonCovLons:{id:string};
+      ChmNonCovLons:{ChamaNMember:string};
       ChmContrs:{ContriToMmbrId:string};
       SndMbrsMnys:{id:string};
       
@@ -129,9 +129,9 @@ declare global {
       SearchMFNsssss:{town:string};
 
       VwAdvAcs:{AdvReNo:string};
-      VwAdvChamaCovLnss:{AdvReNo:string};
-      VwAdvCrdSlrCovLnss:{AdvReNo:string};
-      VwAdvSMCovLnss:{AdvReNo:string};
+      VwAdvChamaCovLnss:{AdvChmMmbr:string};
+      VwAdvCrdSlrCovLnss:{AdvChmMmbr:string};
+      VwAdvSMCovLnss:{AdvChmMmbr:string};
       VwAdvWthdrwlss:{AdvReNo:string};
       VwMFKAcs:{MFKPhn:string};
       VwMFKWthdrwlss:{MFKPhn:string};
@@ -164,9 +164,9 @@ declare global {
       Commissionss:undefined;
       SndChmMbrMnys:{grpContact:string};
       ChamaSndMbrMneys:undefined;
-      SndToChmMbrss:{ChmNMmbrPhns:string};
+      SndToChmMbrss:undefined;
       MmbrSndChmss:undefined;
-      Contributionssss:{id:string}
+      Contributionssss:{ChamaNMember:string}
       SgnIn2LnMmbrs:undefined;
       VwChmMbrs2Ln:{ChmNMmbrPhns:string};
       SgnIn2LnMmbrNonCovs:undefined;
@@ -180,8 +180,8 @@ declare global {
 
       Vw2RepySMCovLns:undefined;
       Vw2RepySMNonCovLns:undefined
-      Vw2BLCovSMLns:undefined;
-      Vw2BLSMNonCovs:undefined;
+      Vw2BLCovSMLns:{ChmNMmbrPhns:string};
+      Vw2BLSMNonCovs:{ChmNMmbrPhnss:string};
 
       RepayCovLnss:{id:string};
       RepayNonCovLnss:{id:string};
@@ -195,8 +195,8 @@ declare global {
 
       Vw2RepyCredSlsCovLns:undefined;
       Vw2RepyCredSlsNonCovLns:undefined
-      Vw2BLCovCredSlsLns:undefined;
-      Vw2BLCredSlsNonCovs:undefined;
+      Vw2BLCovCredSlsLns:{ChmNMmbrPhns:string};
+      Vw2BLCredSlsNonCovs:{ChmNMmbrPhns:string};
       DeactAdms:undefined;
 
       ViewAdvs:{town:string};
@@ -235,11 +235,13 @@ declare global {
       SgnIn2RemoveMmbrs:undefined;
 
       ChmVwMmbrss:{grpContact:string};
+      SgnIn2BLSMCovs:undefined;
+      SgnIn2BLSMNonCovs:undefined;
       
-      
-      
-      
-      
+      SgnIn2BLCredSlCovs:undefined;
+      SgnIn2BLCredSlNonCovs:undefined;
+      BuyFloatFrmUsrAcs:undefined;
+      RegPwnBrkrs:undefined;
       
     }
   }

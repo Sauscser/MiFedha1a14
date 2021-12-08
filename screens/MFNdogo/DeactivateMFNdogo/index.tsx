@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {createSMAccount, updateAgent, updateCompany} from '../../../src/graphql/mutations';
+import {createSMAccount, deleteAgent, updateAgent, updateCompany} from '../../../src/graphql/mutations';
 import { getAgent, getCompany, getSMAccount, } from '../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
@@ -81,10 +81,10 @@ const DeregMFNForm = (props) => {
           setIsLoading(true);
           try{
               await API.graphql(
-                graphqlOperation(updateAgent,{
+                graphqlOperation(deleteAgent,{
                   input:{
                     phonecontact:phoneContact,
-                    status:"AccountInactive"
+                    
                   }
                 })
               )        

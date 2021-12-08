@@ -10,7 +10,7 @@ export interface ChamaMmbrshpInfo {
       id: string,
       lonBala:number,
       loanerName:string,
-      
+      memberId:string,
       
     }}
 
@@ -20,7 +20,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
          id,
          lonBala,
          loanerName,
-         
+         memberId
    }} = props ;
 
    const navigation = useNavigation();
@@ -37,7 +37,11 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                      <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
                        Loan ID: {id}                
-                    </Text>                                               
+                    </Text>  
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                       Member Chama ID: {memberId}                
+                    </Text>                                                     
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
                      Chama Name: {loanerName}                

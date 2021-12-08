@@ -1,15 +1,17 @@
 import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
-import { listSMLoansCovereds, listSMLoansNonCovereds } from '../../../../../../src/graphql/queries';
+import {  vwLnrNLneessss } from '../../../../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../../components/MyAc/BL/Vw2BLNonCov";
 import styles from './styles';
+import { useRoute } from '@react-navigation/core';
 
 const FetchSMNonCovLns = props => {
 
     const[LnerPhn, setLneePhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
+    const route = useRoute();
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
@@ -26,16 +28,24 @@ const FetchSMNonCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
-                { filter: {
-                    and: {
-                      loanerPhn: { eq: LnerPhn},
-                      lonBala:{gt:0}
+              const Lonees:any = await API.graphql(graphqlOperation(vwLnrNLneessss, 
+                { 
+                  loanerLoanee: route.params.ChmNMmbrPhnss,
+                  sortDirection: 'DESC',
+                  limit: 100,                
+                  filter: {
+                    
                       
-                    }
-                  }}
+                      lonBala:{gt:0},
+                      
+                      status:{ne:"LoanBL"}                      
+                    
+                  },
+                
+                  
+                }
                   ));
-              setLoanees(Lonees.data.listSMLoansNonCovereds.items);
+              setLoanees(Lonees.data.VwLnrNLneessss.items);
             } catch (e) {
               console.log(e);
             } finally {

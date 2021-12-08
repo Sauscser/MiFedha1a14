@@ -167,7 +167,7 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Chama Loanees</Text>
+            <Text style={styles.label}> Chama Covered Loanees</Text>
           </>
         )}
       />

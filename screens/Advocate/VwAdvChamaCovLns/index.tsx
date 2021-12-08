@@ -6,7 +6,7 @@ import NonLnSent from "../../../components/Advocate/VwChmCovLns";
 import styles from './styles';
 
 
-import {  getCompany, getSMAccount, vwChmLnClients } from '../../../src/graphql/queries';
+import {  getCompany, getSMAccount, vwAdvNLnrNLnee, vwChmLnClients } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
@@ -31,11 +31,11 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwChmLnClients, 
+              const Lonees:any = await API.graphql(graphqlOperation(vwAdvNLnrNLnee, 
                 
 
                   {
-                    advRegNu:  route.params.AdvReNo,
+                    loanerLoaneeAdv:  route.params.AdvChmMmbr,
                     sortDirection: 'DESC',
                     limit: 100,
                     filter: {
@@ -49,7 +49,7 @@ const FetchSMNonLnsSnt = props => {
                 }
                 
                   ));
-                  setRecvrs(Lonees.data.VwChmLnClients.items);
+                  setRecvrs(Lonees.data.VwAdvNLnrNLnee.items);
                   const fetchUsrDtls = async () => {
                     try {
                             const MFNDtls: any = await API.graphql(

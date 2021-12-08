@@ -33,7 +33,9 @@ const UpdtSMPW = (props) => {
   const [maxIntCredSllr, setmaxIntCredSllr] = useState("");
   const [maxIntGrp, setmaxIntGrp] = useState("");
   const[maxMFNdogo, setmaxMFNdogo] = useState("");
+  const[maxPwnBrkr, setPwnBrkr] = useState("");
   const[maxBL, setmaxBL] = useState("");
+
   const[PhoneContact, setPhoneContact] = useState(null);
 
   const [LnAcCod, setLnAcCod] = useState("");
@@ -92,7 +94,8 @@ const UpdtSMPW = (props) => {
                                                   maxInterestSM:maxInttSM,
                                                   maxInterestCredSllr:maxIntCredSllr,
                                                   maxMFNdogos:maxMFNdogo,
-                                                  maxInterestGrp:maxIntGrp,                                                  
+                                                  maxInterestGrp:maxIntGrp,    
+                                                  maxInterestPwnBrkr: maxPwnBrkr,                                             
                                                   maxBLs:maxBL,
                                                 }
                                               })
@@ -144,11 +147,23 @@ const UpdtSMPW = (props) => {
               setmaxIntGrp("")
               setmaxMFNdogo("");
               setmaxBL("")
+              setPwnBrkr("")
               setLnAcCod("")
           
             }
         
-        useEffect(() =>{
+            useEffect(() =>{
+              const maxPwnBrkrs=maxPwnBrkr
+                if(!maxPwnBrkrs && maxPwnBrkrs!=="")
+                {
+                  setPwnBrkr("");
+                  return;
+                }
+                setPwnBrkr(maxPwnBrkrs);
+                }, [maxPwnBrkr]
+                 );
+                 
+                 useEffect(() =>{
           const maxInttSMs=maxInttSM
             if(!maxInttSMs && maxInttSMs!=="")
             {
@@ -235,7 +250,7 @@ const UpdtSMPW = (props) => {
                style={styles.sendLoanInput2}
                editable={true}
                multiline={true}></TextInput>
-             <Text style={styles.sendLoanText}>MFNdogo Int Max</Text>
+             <Text style={styles.sendLoanText}>SM Int Max</Text>
            </View>   
 
            <View style={styles.sendLoanView2}>
@@ -249,6 +264,8 @@ const UpdtSMPW = (props) => {
              <Text style={styles.sendLoanText}>CredSlr Int Max</Text>
            </View>   
 
+           
+
            <View style={styles.sendLoanView2}>
              <TextInput
              keyboardType={"decimal-pad"}
@@ -258,6 +275,17 @@ const UpdtSMPW = (props) => {
                editable={true}
                multiline={true}></TextInput>
              <Text style={styles.sendLoanText}>Grp Int Max</Text>
+           </View>   
+
+           <View style={styles.sendLoanView2}>
+             <TextInput
+             keyboardType={"decimal-pad"}
+               value={maxPwnBrkr}
+               onChangeText={setPwnBrkr}
+               style={styles.sendLoanInput2}
+               editable={true}
+               multiline={true}></TextInput>
+             <Text style={styles.sendLoanText}>PawnBroker Int Max</Text>
            </View>   
 
            <View style={styles.sendLoanView2}>

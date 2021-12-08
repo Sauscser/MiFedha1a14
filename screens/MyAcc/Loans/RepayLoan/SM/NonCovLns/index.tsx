@@ -172,9 +172,9 @@ const RepayNonCovLnsss = props => {
                                       graphqlOperation(updateSMLoansNonCovered, {
                                         input:{
                                           id:route.params.id,
-                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
+                                          amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(2),
                                           lonBala:(parseFloat(LonBal)-parseFloat(amounts)).toFixed(2),
-                                          amountExpectedBackWthClrnc:parseFloat(amountExpectedBackWthClrncs) - ClranceAmt,
+                                          amountExpectedBackWthClrnc: (parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
                                           status: "LoanCleared",
                                       }})
                                     )
@@ -234,14 +234,14 @@ const RepayNonCovLnsss = props => {
                                         input:{
                                           phonecontact:SendrPhn,
                                           
-                                          balance:parseFloat(SenderUsrBal)-TotalTransacted ,
+                                          balance: (parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
                                           MaxTymsBL:parseFloat(MaxTymsBLs)-1 ,
                                           TtlActvLonsTmsLneeCov:parseFloat(TtlActvLonsTmsLneeCovss)-1,                                          
-                                          TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts), 
+                                          TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts)).toFixed(2), 
                                           TtlClrdLonsTmsLneeCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
-                                          TtlClrdLonsAmtLneeCov: parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts),
+                                          TtlClrdLonsAmtLneeCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(2),
                                           TtlBLLonsTmsLneeNonCov:parseFloat(TtlBLLonsTmsLneeNonCovs)-1,                                          
-                                          TtlBLLonsAmtLneeNonCov: parseFloat(TtlBLLonsAmtLneeNonCovs) - parseFloat(amounts), 
+                                          TtlBLLonsAmtLneeNonCov: (parseFloat(TtlBLLonsAmtLneeNonCovs) - parseFloat(amounts)).toFixed(2), 
                                           
                                                                              
                                           
@@ -270,13 +270,13 @@ const RepayNonCovLnsss = props => {
                                         input:{
                                           phonecontact:loanerPhns,
                                           
-                                          balance:parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt),                                     
+                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(2),                                     
                                           TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovssss) - 1,
-                                          TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovssss) - parseFloat(amounts),
+                                          TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovssss) - parseFloat(amounts)).toFixed(2),
                                           TtlClrdLonsTmsLnrCov: parseFloat(TtlClrdLonsTmsLneeCovssss) + 1,
-                                          TtlClrdLonsAmtLnrCov: parseFloat(TtlClrdLonsAmtLneeCovssss) + parseFloat(amounts),
+                                          TtlClrdLonsAmtLnrCov: (parseFloat(TtlClrdLonsAmtLneeCovssss) + parseFloat(amounts)).toFixed(2),
                                           TtlBLLonsTmsLnrNonCov:parseFloat(TtlBLLonsTmsLnrNonCovssss)-1,                                          
-                                          TtlBLLonsAmtLnrNonCov: parseFloat(TtlBLLonsAmtLnrNonCovssss) - parseFloat(amounts),
+                                          TtlBLLonsAmtLnrNonCov: (parseFloat(TtlBLLonsAmtLnrNonCovssss) - parseFloat(amounts)).toFixed(2),
                                           MaxTymsIHvBL:parseFloat(MaxTymsIHvBLs) - 1,                                  
                                           
                                         }
@@ -319,7 +319,7 @@ const RepayNonCovLnsss = props => {
                                 catch(error){
                                   
                                 }
-                                Alert.alert("Fully paid. Clearance:Ksh. " +ClranceAmt + ". Transaction fee: Ksh. "+ parseFloat(UsrTransferFee)*parseFloat(amounts));
+                                Alert.alert("Fully paid. Clearance: " +(ClranceAmt).toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 setIsLoading(false);
                               }                                                                                                            
                         
@@ -334,9 +334,9 @@ const RepayNonCovLnsss = props => {
                                       graphqlOperation(updateSMLoansNonCovered, {
                                         input:{
                                           id:route.params.id,
-                                          amountrepaid: parseFloat(amounts) + parseFloat(amountrepaids),
+                                          amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(2),
                                           lonBala: (parseFloat(LonBal) - parseFloat(amounts)).toFixed(2),
-                                          amountExpectedBackWthClrnc:parseFloat(amountExpectedBackWthClrncs) - ClranceAmt,
+                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
                                         }
                                       })
                                     )
@@ -396,9 +396,9 @@ const RepayNonCovLnsss = props => {
                                         input:{
                                           phonecontact:SendrPhn,
                                           
-                                          balance:parseFloat(SenderUsrBal)-TotalTransacted,
+                                          balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2),
                                                                                    
-                                          TtlActvLonsAmtLneeCov: parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts), 
+                                          TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts)).toFixed(2), 
                                           
                                          
                                           
@@ -427,9 +427,9 @@ const RepayNonCovLnsss = props => {
                                         input:{
                                           phonecontact:loanerPhns,
                                           
-                                          balance:parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt),
+                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(2),
                                           
-                                          TtlActvLonsAmtLnrCov: parseFloat(TtlActvLonsAmtLnrCovssss) - parseFloat(amounts),
+                                          TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovssss) - parseFloat(amounts)).toFixed(2),
                                           
                                           
                                                                             
@@ -472,7 +472,7 @@ const RepayNonCovLnsss = props => {
                                 catch(error){
                                   
                                 }
-                                Alert.alert("Partially paid. Clearance:Ksh. " +ClranceAmt.toFixed(2) + ". Transaction:Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
+                                Alert.alert("Partially paid. Clearance: " +ClranceAmt.toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 setIsLoading(false);
                               }
 

@@ -18,8 +18,8 @@ const RegKFKubwa = props => {
     navigation.navigate('BuyFltFm');
   };
 
-  const WithdwAdmnss = () => {
-    navigation.navigate('WithdwAdmns');
+  const RegPwnBrkrss = () => {
+    navigation.navigate('RegPwnBrkrs');
   };
 
   const AdjustUsrLimitsss = () => {
@@ -180,7 +180,7 @@ const RegKFKubwa = props => {
                 </View>
 
                 <View style={styles.acEarningsView}>
-            <Text style={styles.salesText}>My Ac</Text>
+            <Text style={styles.salesText}>Others</Text>
 
             <View style={styles.viewForAcEarningsPressables}>
               
@@ -189,9 +189,13 @@ const RegKFKubwa = props => {
               <Pressable
                 onPress={UpdateMFAdminPWss}
                 style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Update</Text>
+                <Text style={styles.earningsAcPressableText}>UpdatePW</Text>
               </Pressable>
-
+              <Pressable
+                onPress={RegPwnBrkrss}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>RegLner</Text>
+              </Pressable>
               
             </View>
           </View>

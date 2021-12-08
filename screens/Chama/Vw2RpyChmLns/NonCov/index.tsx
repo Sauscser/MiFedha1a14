@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/Chama/RepayChmLn/RepyChmNonCovLn";
 import styles from './styles';
-import { listGroupNonLoanss, listNonCvrdGroupLoanss } from '../../../../src/graphql/queries';
+import {  listNonCvrdGroupLoans,  } from '../../../../src/graphql/queries';
 
 const FetchSMNonCovLns = props => {
 
@@ -27,7 +27,7 @@ const FetchSMNonCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoanss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoans, 
                 { filter: {
                     and: {
                       loaneePhn: { eq: LneePhn},
@@ -36,7 +36,7 @@ const FetchSMNonCovLns = props => {
                     }
                   }}
                   ));
-              setLoanees(Lonees.data.listNonCvrdGroupLoanss.items);
+              setLoanees(Lonees.data.listNonCvrdGroupLoans.items);
             } catch (e) {
               console.log(e);
             } finally {

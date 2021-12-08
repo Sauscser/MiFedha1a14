@@ -42,6 +42,10 @@ const KFNdogoScreen = props => {
   const VwMFNAccountSgnInss = () => {
     navigation.navigate('VwMFNAccountSgnIns');
   };
+
+  const BuyFloatFrmUsrAcss = () => {
+    navigation.navigate('BuyFloatFrmUsrAcs');
+  };
   const FltWthdrwlsSgnInss = () => {
     navigation.navigate('FltWthdrwlsSgnIns');
   };
@@ -134,9 +138,9 @@ const KFNdogoScreen = props => {
 
           <View style={styles.viewForFloatPressables}>
             <Pressable
-              onPress={VwMFNAccountSgnInss}
+              
               style={styles.floatView}>
-              <Text style={styles.floatPressableText}>Buy</Text>
+              <Text style={styles.floatPressableText}>Buy (Coming Soon)</Text>
             </Pressable>
 
             
@@ -144,6 +148,11 @@ const KFNdogoScreen = props => {
               onPress={WthdrwMFNFltss}
               style={styles.floatView}>
               <Text style={styles.floatPressableText}>MFN Withdraw</Text>
+            </Pressable>
+            <Pressable
+              onPress={DpstMneys}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>User Deposit</Text>
             </Pressable>
           </View>
         </View>
@@ -160,11 +169,7 @@ const KFNdogoScreen = props => {
               <Text style={styles.floatPressableText}>Withdraw</Text>
             </Pressable>
 
-            <Pressable
-              onPress={DpstMneys}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>User Deposit</Text>
-            </Pressable>
+            
 
             <Pressable
               onPress={UpdateMFNComss}

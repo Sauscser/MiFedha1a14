@@ -87,7 +87,7 @@ const MyAccount = props => {
             <Pressable onPress={goWithdrwMny} style={styles.acNonLnsPressables}>
               <Text style={styles.acPressableText}>Make</Text>
             </Pressable>
-            <Pressable onPress={SMDpsitsss} style={styles.acNonLnsPressables}>
+            <Pressable onPress={SMWthdrwlsss} style={styles.acNonLnsPressables}>
               <Text style={styles.acPressableText}>View</Text>
             </Pressable>
             </View>
@@ -131,7 +131,7 @@ const MyAccount = props => {
             <Pressable onPress={ViewSmAcss} style={styles.acNonLnsPressables}>
               <Text style={styles.acPressableText}>A/c</Text>
             </Pressable>
-            <Pressable onPress={SMWthdrwlsss} style={styles.acNonLnsPressables}>
+            <Pressable onPress={SMDpsitsss} style={styles.acNonLnsPressables}>
               <Text style={styles.acPressableText}>Dposit</Text>
             </Pressable>
             </View>

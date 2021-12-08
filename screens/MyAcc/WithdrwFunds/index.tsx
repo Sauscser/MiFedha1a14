@@ -83,6 +83,7 @@ const SMADepositForm = props => {
           const AgAcAct = AgentBal.data.getAgent.status;
           const sagentregnos = AgentBal.data.getAgent.sagentregno;
           const namess = AgentBal.data.getAgent.name;
+          const MFNWithdrwlFees = AgentBal.data.getAgent.MFNWithdrwlFee;
 
           const gtCompDtls = async () =>{
             if(isLoading){
@@ -128,6 +129,14 @@ const SMADepositForm = props => {
                           const TtlEarningss = compDtls.data.getSAgent.TtlEarnings;
                           const saBalances = compDtls.data.getSAgent.saBalance;
                           const namessssssss = compDtls.data.getSAgent.name;
+                          const MFKWithdrwlFees = compDtls.data.getSAgent.MFKWithdrwlFee;
+                          const AgentCommission = parseFloat(MFNWithdrwlFees)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)                                                
+                          const saCommission =    parseFloat(MFKWithdrwlFees)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+                          const compCommission = parseFloat(companyComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+
+                          const UsrWithdrawalFee = AgentCommission+saCommission+compCommission;
+
+                          const TTlAmtTrnsctd = parseFloat(amount) + UsrWithdrawalFee
                           
                           const CrtFltAdd = async () => {
                             try {
@@ -173,8 +182,8 @@ const SMADepositForm = props => {
                             input: {
                               phonecontact: WthDrwrPhn,
                   
-                              balance: parseFloat(usrBala) - TTlAmtTrnsctd ,
-                              TtlWthdrwnSM: parseFloat(TtlWthdrwnSMs) + parseFloat(amount),
+                              balance: (parseFloat(usrBala) - TTlAmtTrnsctd).toFixed(2) ,
+                              TtlWthdrwnSM: (parseFloat(TtlWthdrwnSMs) + parseFloat(amount)).toFixed(2),
                             },
                           }),
                         );
@@ -201,10 +210,10 @@ const SMADepositForm = props => {
                                 phonecontact: AgentPhn,
                     
                                
-                                ttlEarnings: parseFloat(ttlEarningssss) + AgentCommission,
-                                agentEarningBal: parseFloat(agentEarningBalsss) + AgentCommission,
-                                floatBal: parseFloat(floatBals) + parseFloat(amount),
-                                TtlFltIn: parseFloat(TtlFltInsss) + parseFloat(amount),
+                                ttlEarnings: (parseFloat(ttlEarningssss) + AgentCommission).toFixed(2),
+                                agentEarningBal: (parseFloat(agentEarningBalsss) + AgentCommission).toFixed(2),
+                                floatBal: (parseFloat(floatBals) + parseFloat(amount)).toFixed(2),
+                                TtlFltIn: (parseFloat(TtlFltInsss) + parseFloat(amount)).toFixed(2),
                               },
                             }),
                           );
@@ -232,8 +241,8 @@ const SMADepositForm = props => {
                                   input: {
                                     saPhoneContact: sagentregnos,
                         
-                                    TtlEarnings: parseFloat(TtlEarningss) + saCommission,
-                                    saBalance: parseFloat(saBalances) + saCommission,
+                                    TtlEarnings: (parseFloat(TtlEarningss) + saCommission).toFixed(2),
+                                    saBalance: (parseFloat(saBalances) + saCommission).toFixed(2),
                                       
                                   },
                                 }),
@@ -280,7 +289,7 @@ const SMADepositForm = props => {
                                 return;}
                               }
                               setIsLoading(false);
-                              Alert.alert(names + " has withdrawn Ksh. " + amount + " from " + namess + " MFNdogo");
+                              Alert.alert(names + " has withdrawn Ksh. " + parseFloat(amount).toFixed(2) + " from " + namess + " MFNdogo");
                               }; 
                     
                     

@@ -23,13 +23,16 @@ const MFNSignIn = (props) => {
   const navigation = useNavigation();
 
   const [AdvReNo, setMFNId] = useState("");
+  const [MembrPhn, setMembrPhn] = useState("");
+  const [ChamPhn, setChamPhn] = useState("");
   const [MFNPW, setMFNPW] = useState(""); 
   const [ownr, setownr] = useState(null); 
+  const AdvChmMmbr = ChamPhn+MembrPhn+AdvReNo
 
 
 
   const VwMFNAc = () => {
-    navigation.navigate("VwAdvChamaCovLnss", {AdvReNo});
+    navigation.navigate("VwAdvChamaCovLnss", {AdvChmMmbr});
   };
 
   const fetchUser = async () => {
@@ -84,11 +87,35 @@ const MFNSignIn = (props) => {
             }    
             setMFNId("");
             setMFNPW("");
+            setMembrPhn("");
+            setChamPhn("");
       
     
              }
 
              useEffect(() =>{
+              const MembrPhns=MembrPhn
+                if(!MembrPhns && MembrPhns!=="")
+                {
+                  setMembrPhn("");
+                  return;
+                }
+                setMembrPhn(MembrPhns);
+                }, [MembrPhn]
+                 );
+                 
+                 useEffect(() =>{
+                  const ChamPhns=ChamPhn
+                    if(!ChamPhns && ChamPhns!=="")
+                    {
+                      setChamPhn("");
+                      return;
+                    }
+                    setChamPhn(ChamPhns);
+                    }, [ChamPhn]
+                     );
+                     
+                     useEffect(() =>{
               const mfnID=AdvReNo
                 if(!mfnID && mfnID!=="")
                 {
@@ -121,6 +148,26 @@ const MFNSignIn = (props) => {
                     <Text style={styles.title}>Fill Details Below</Text>
                   </View>
         
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                   placeholder="+2547xxxxxxxx"
+                      value={ChamPhn}
+                      onChangeText={setChamPhn}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Chama Phone</Text>
+                  </View>
+                  
+                  <View style={styles.sendLoanView}>
+                    <TextInput  
+                    placeholder="+2547xxxxxxxx"                 
+                      value={MembrPhn}
+                      onChangeText={setMembrPhn}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Chama Member Phone</Text>
+                  </View>
+                  
                   <View style={styles.sendLoanView}>
                     <TextInput
                    

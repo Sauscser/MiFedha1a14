@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import ChmNonCvLns from "../../../../../components/Chama/Loans/Givenout/NonCov";
 import styles from './styles';
-import { getCompany, getGroup, listGroupNonLoanss, listNonCvrdGroupLoanss, vwChamaMembersss } from '../../../../../src/graphql/queries';
+import { getCompany, getGroup,   vwChamaMembersss } from '../../../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/native';
 import { updateCompany, updateGroup } from '../../../../../src/graphql/mutations';
 
@@ -174,7 +174,7 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Chama Loanees</Text>
+            <Text style={styles.label}> Chama NonCovered Loanees</Text>
           </>
         )}
       />

@@ -1276,7 +1276,7 @@ type ChamaMembers
   @auth(
     rules: [
       { allow: owner, operations: [read, update] }
-      { allow: private, operations: [create, read] }
+      { allow: private, operations: [update, read] }
       {
         allow: groups
         groups: ["AdminOne"]
@@ -1297,6 +1297,7 @@ type ChamaMembers
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      { allow: groups, groups: ["ChamaSignitories"], operations: [read, create, update ] }
       {
         allow: groups
         groups: ["Executive"]

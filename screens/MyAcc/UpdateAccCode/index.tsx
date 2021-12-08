@@ -92,7 +92,7 @@ const UpdtSMPW = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +", You have requested Loan from " +LnAcCod);
+                                        Alert.alert(names +", You have requested a Loan from " +LnAcCod);
                                       } 
 
                                       if(SMPW!==pwss)
@@ -103,6 +103,11 @@ const UpdtSMPW = (props) => {
                                       else if(ownr!==owners)
                                       {
                                           Alert.alert("You are not the Owner of the Account");
+                                      }
+
+                                      else if(PhoneContact===LnAcCod)
+                                      {
+                                          Alert.alert("You should not request a loan from yourself");
                                       }
 
                                       else if (LnAcCod.length < 13)

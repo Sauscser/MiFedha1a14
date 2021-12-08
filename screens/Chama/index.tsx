@@ -15,6 +15,8 @@ import styles from './styles';
 const MyLoanAccount = props => {
   const navigation = useNavigation();
   const[id, setID] =useState("")
+  const[ChamaNMember, setChamaNMember] =useState("")
+
 
   const CreateChmss = () => {
     navigation.navigate('CreateChms');
@@ -22,11 +24,11 @@ const MyLoanAccount = props => {
 
   
   const SgnIn2LnMmbrNonCovss = () => {
-    navigation.navigate('SgnIn2LnMmbrNonCovs');
+    navigation.navigate('ChmNonCovLons', {ChamaNMember});
   };
 
   const SgnIn2LnMmbrs = () => {
-    navigation.navigate('SgnIn2LnMmbrs');
+    navigation.navigate('ChmCovLons', {id});
   };
 
   const AddChmMembrssss = () => {
@@ -87,7 +89,7 @@ const MyLoanAccount = props => {
   };
 
   const ChamaSndMbrMneyss = () => {
-    navigation.navigate('ChamaSndMbrMneys');
+    navigation.navigate('SndMbrsMnys', {id});
   };
 
   const ChmMmbrContriss = () => {
@@ -305,7 +307,7 @@ const MyLoanAccount = props => {
                     <View style={styles.ClientsPressablesLnStts}>
 
                       <View style={styles.viewForClientsCategoriesChama2}>
-                      <Text style={styles.salesPressableText}>Chama</Text>
+                      <Text style={styles.salesPressableText}>Chm</Text>
                       </View>
 
                     <View style={styles.viewForClientsCategoriesChama4}>
@@ -328,7 +330,7 @@ const MyLoanAccount = props => {
                     <View style={styles.ClientsPressablesLnStts}>
 
                       <View style={styles.viewForClientsCategoriesChama2}>
-                      <Text style={styles.salesPressableText}>Memba</Text>
+                      <Text style={styles.salesPressableText}>Mine</Text>
                       </View>
 
                     <View style={styles.viewForClientsCategoriesChama4}>

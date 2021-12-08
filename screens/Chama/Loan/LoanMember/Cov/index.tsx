@@ -25,7 +25,7 @@ import {
   getSAgent,
   getAdvocate,
   getGroup,
-  getGrpMembers,
+  
   getChamaMembers,
 } from '../../../../../src/graphql/queries';
 
@@ -64,6 +64,8 @@ const ChmCovLns = props => {
   const [MmbrId, setMmbrId] = useState('');
   const route = useRoute();
 
+  const ChmNMmbrPhns = MmbrId+ChmPhn
+
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
@@ -82,14 +84,14 @@ const fetchChmMbrDtls = async () => {
       setIsLoading(true);
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getChamaMembers, {id: route.params.id}),
+              graphqlOperation(getChamaMembers, {ChamaNMember: MmbrId}),
               );
 
-              const groupContacts =ChmMbrtDtl.data.getGrpMembers.groupContact;
-              const memberContacts =ChmMbrtDtl.data.getGrpMembers.memberContact;
-              const GrossLnsGvns =ChmMbrtDtl.data.getGrpMembers.GrossLnsGvn;
-              const LonAmtGvens =ChmMbrtDtl.data.getGrpMembers.LonAmtGven;
-              const LnBals =ChmMbrtDtl.data.getGrpMembers.LnBal;
+              const groupContacts =ChmMbrtDtl.data.getChamaMembers.groupContact;
+              const memberContacts =ChmMbrtDtl.data.getChamaMembers.memberContact;
+              const GrossLnsGvns =ChmMbrtDtl.data.getChamaMembers.GrossLnsGvn;
+              const LonAmtGvens =ChmMbrtDtl.data.getChamaMembers.LonAmtGven;
+              const LnBals =ChmMbrtDtl.data.getChamaMembers.LnBal;
                          
 
 
@@ -195,7 +197,7 @@ const fetchChmMbrDtls = async () => {
                             await API.graphql(
                               graphqlOperation(updateChamaMembers, {
                                 input: {
-                                  id: route.params.id,
+                                  ChamaNMember: MmbrId,
                                   LonAmtGven: (parseFloat(LonAmtGvens) + parseFloat(amount)).toFixed(2),
                                   GrossLnsGvn: (parseFloat(GrossLnsGvns) + parseFloat(AmtExp)).toFixed(2),
                                   LnBal: (parseFloat(LnBals) + parseFloat(amount)).toFixed(2),                                  
@@ -242,7 +244,7 @@ const fetchChmMbrDtls = async () => {
                                     advRegNu: AdvRegNo,
                                     loaneeName:namess,
                                     LoanerName:grpNames,
-                                    memberId:route.params.id,
+                                    memberId:MmbrId,
                                     status: "LoanActive",
                                     owner: ownr,
                                 },
@@ -596,7 +598,19 @@ useEffect(() =>{
            <Text style={styles.title}>Fill Loan Details Below</Text>
          </View>
 
-         
+         <View style={styles.sendAmtView}>
+           <TextInput
+           placeholder="MemberNu+2547########"
+             value={MmbrId}
+             onChangeText={setMmbrId}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Chama member ID</Text>
+         </View>
+
+        
+
+
          <View style={styles.sendAmtView}>
            <TextInput
              value={SnderPW}

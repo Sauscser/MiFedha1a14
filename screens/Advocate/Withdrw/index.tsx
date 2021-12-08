@@ -129,37 +129,12 @@ const AdvWthdwl = props => {
                         if (error){Alert.alert("Check internet Connection")
                         return;}
                       }
-                      
-                      setIsLoading(false);
-                      await onUpdtUsrBal();
-                      }; 
-                      
-                      const onUpdtUsrBal = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try {
-                        await API.graphql(
-                          graphqlOperation(updateSMAccount, {
-                            input: {
-                              phonecontact: WthDrwrPhn,
-                  
-                              balance: (parseFloat(usrBala) + parseFloat(amount)).toFixed(2) ,
-                              
-                            },
-                          }),
-                        );
-                      }
-        
-                      catch (error) {
-                        if (error){Alert.alert("Check internet Connection")
-                        return;}
-                      }
-                      Alert.alert(names + ", You have transfered Ksh. "+ amount +" to your SM account")
+                      Alert.alert(names + ", You have Withdrawn Ksh. "+ amount )
                       setIsLoading(false);
                       
                       }; 
+                      
+
         
                       
                     
@@ -168,11 +143,7 @@ const AdvWthdwl = props => {
                       return;
                     } 
         
-                    else if (usrStts==="AccountInactive") {
-                      Alert.alert("User Account has been deactivated")
-                      return;
-                    } 
-
+                    
                     else if (statussssss==="AccountInactive") {
                       Alert.alert("Advocate Account is inactive")
                       return;

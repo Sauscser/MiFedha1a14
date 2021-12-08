@@ -5,7 +5,7 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../../components/MyAc/VwWithdrawals";
 import styles from './styles';
 
-import {  vwMyUsrWthdrwls } from '../../../../src/graphql/queries';
+import {  vwMyUsrDposits, vwMyUsrWthdrwls } from '../../../../src/graphql/queries';
 
 const FetchSMNonLnsSnt = props => {
 
@@ -28,16 +28,16 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyUsrWthdrwls, 
+              const Lonees:any = await API.graphql(graphqlOperation(vwMyUsrDposits, 
                 { 
-                      withdrawerid: SenderPhn,
+                      depositerid: SenderPhn,
                       sortDirection: "DESC",
                       limit:100
                       
                     }
                
                   ))
-                  setRecvrs(Lonees.data.VwMyUsrWthdrwls.items);
+                  setRecvrs(Lonees.data.VwMyUsrDposits.items);
                   console.log(Lonees)
             } catch (e) {
               console.log(e);
@@ -64,7 +64,7 @@ const FetchSMNonLnsSnt = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Withdrawals</Text>
+            <Text style={styles.label}> My Deposits</Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}

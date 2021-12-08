@@ -166,8 +166,8 @@ const SMASendNonLns = props => {
                             graphqlOperation(updateSMAccount, {
                               input:{
                                 phonecontact:SendrPhn,
-                                ttlNonLonsSentSM: parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts),
-                                balance:parseFloat(SenderUsrBal)-TotalTransacted 
+                                ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(2),
+                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) 
                                
                                 
                               }
@@ -195,8 +195,8 @@ const SMASendNonLns = props => {
                             graphqlOperation(updateSMAccount, {
                               input:{
                                 phonecontact:RecNatId,
-                                ttlNonLonsRecSM: parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts) ,
-                                balance:parseFloat(RecUsrBal) + parseFloat(amounts)                                     
+                                ttlNonLonsRecSM: (parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts)).toFixed(2) ,
+                                balance:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(2)                                     
                                 
                                                                   
                                 
@@ -224,8 +224,8 @@ const SMASendNonLns = props => {
                               input:{
                                 AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                
-                                companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
-                                companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
+                                companyEarningBal:parseFloat(UsrTransferFee) * parseFloat(amounts) + parseFloat(companyEarningBals),
+                                companyEarning: parseFloat(UsrTransferFee) * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
                                 
                                 ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
                                 ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),

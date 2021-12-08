@@ -4,12 +4,14 @@ import { listNonCovCreditSellers } from '../../../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/VwCredSales/2BLNonCovLns";
 import styles from './styles';
+import { useRoute } from '@react-navigation/core';
 
 const FetchSMCovLns = props => {
 
     const[LnerPhn, setLnerPhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
+    const route = useRoute();
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
@@ -29,11 +31,14 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
                 { filter: {
                     and: {
-                      sellerContact: { eq: LnerPhn},
-                      lonBala:{gt:0}
+                      loanerLoanee: { eq: route.params.ChmNMmbrPhns},
+                      lonBala:{gt:0},
+                      status:{ne:"LoanBL"}
                       
                     }
-                  }}
+                  },
+                limit:100
+              }
                   ));
               setLoanees(Lonees.data.listNonCovCreditSellers.items);
             } catch (e) {

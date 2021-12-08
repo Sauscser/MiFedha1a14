@@ -254,7 +254,7 @@ const BLChmNonCovLoanee = (props) => {
                                     await API.graphql(
                                       graphqlOperation(updateChamaMembers, {
                                         input:{
-                                          id:memberIds,
+                                          ChamaNMember:memberIds,
                                           
                                           blStatus:"AccountBlackListed",
                                         }

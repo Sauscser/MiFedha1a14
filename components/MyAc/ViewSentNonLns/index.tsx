@@ -60,7 +60,7 @@ const SMNonLnSnt = (props:SMAccount) => {
                     </Text>
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
-                       Sender Contact: {recPhn}                
+                       Receiver Contact: {recPhn}                
                     </Text>                     
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
