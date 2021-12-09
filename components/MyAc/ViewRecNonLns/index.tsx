@@ -63,10 +63,7 @@ const SMNonLnRec = (props:SMAccount) => {
                        {/*loaner details */}  
                        Sender Contact: {senderPhn}                
                     </Text>                     
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                      Status: {status}
-                    </Text>   
+                    
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
                        Created At: {createdAt}

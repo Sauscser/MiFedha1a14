@@ -7,7 +7,7 @@ import styles from './styles';
 export interface SMAccount {
     SMAc: {
       id: string,
-      
+      SenderName:string,
       recPhn: string,  
       RecName: string,
       amount: number,
@@ -24,6 +24,7 @@ const SMNonLnSnt = (props:SMAccount) => {
          id,
          recPhn,  
          RecName,
+         SenderName,
          amount,
          description, 
          status,
@@ -62,10 +63,7 @@ const SMNonLnSnt = (props:SMAccount) => {
                        {/*loaner details */}  
                        Receiver Contact: {recPhn}                
                     </Text>                     
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                      Status: {status}
-                    </Text> 
+                   
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
                       Created At: {createdAt}                    

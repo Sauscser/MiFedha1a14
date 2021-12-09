@@ -244,7 +244,7 @@ const MyLoanAccount = props => {
             </View>
 
             <View style={styles.clientsView}>
-              <Text style={styles.salesText}>View Loan Repayments</Text>
+              <Text style={styles.salesText}>View Loan Repayments (LP)</Text>
               <View style={styles.viewForClientsAndTitle}>
               <View style={styles.viewForClientsCategories}>
                   <Text style={styles.salesPressableText}>Single Member</Text>

@@ -21,7 +21,7 @@ export interface SMAccount {
       ttlNonLonsSentChm:number,
     
       MaxTymsBL: number,
-      MaxTymsIHvBL: number,
+      
       
     
 
@@ -32,9 +32,9 @@ export interface SMAccount {
       TtlActvLonsTmsLneeCov: number,
       TtlActvLonsAmtLnrCov: number,
       TtlActvLonsAmtLneeCov: number,
-      TtlBLLonsTmsLnrCov: number,
+      
       TtlBLLonsTmsLneeCov: number,
-      TtlBLLonsAmtLnrCov: number,
+      
       TtlBLLonsAmtLneeCov: number,
       TtlClrdLonsTmsLnrCov: number,
       TtlClrdLonsTmsLneeCov: number,
@@ -113,9 +113,9 @@ const SMCvLnStts = (props:SMAccount) => {
          TtlActvLonsTmsLneeCov,
          TtlActvLonsAmtLnrCov,
          TtlActvLonsAmtLneeCov,
-         TtlBLLonsTmsLnrCov,
+         
          TtlBLLonsTmsLneeCov,
-         TtlBLLonsAmtLnrCov,
+         
          TtlBLLonsAmtLneeCov,
          TtlClrdLonsTmsLnrCov,
          TtlClrdLonsTmsLneeCov,
@@ -183,8 +183,7 @@ const SMCvLnStts = (props:SMAccount) => {
          ttlNonLonsSentChm,
        
          MaxTymsBL,
-         MaxTymsIHvBL,
-         
+        
        
          loanStatus,
          acStatus,
@@ -199,7 +198,7 @@ const SMCvLnStts = (props:SMAccount) => {
             <View style = {{alignItems:"center"}}>
             <Text style = {styles.subTitle}>                       
                        {/*loaner details */}   
-                       General Info              
+                       General Information Summary             
                     </Text>
             </View>
                   
@@ -220,7 +219,7 @@ const SMCvLnStts = (props:SMAccount) => {
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current Covered Active Loanees (Ksh): {TtlActvLonsAmtLnrCov - TtlClrdLonsAmtLnrCov}                 
+                       Current Covered Active Loans (Ksh): {TtlActvLonsAmtLnrCov - TtlClrdLonsAmtLnrCov}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
@@ -230,7 +229,7 @@ const SMCvLnStts = (props:SMAccount) => {
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current Covered Active Loaners (Ksh): {TtlActvLonsAmtLnrCov - TtlClrdLonsAmtLnrCov}                 
+                       Current Covered Active Loanrs (Ksh): {TtlActvLonsAmtLnrCov - TtlClrdLonsAmtLnrCov}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
@@ -312,10 +311,7 @@ const SMCvLnStts = (props:SMAccount) => {
                        {/*loaner details */}   
                        Current NonCovered Active Chama Loans: {TtlActvLonsTmsLneeChmNonCov - TtlClrdLonsTmsLneeChmNonCov}                 
                     </Text>       
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Times I have Blacklisted: {MaxTymsIHvBL}                    
-                    </Text> 
+                   
 
                     <View style = {{alignItems:"center"}}>
                         <Text style = {styles.subTitle}>                       
@@ -351,12 +347,22 @@ const SMCvLnStts = (props:SMAccount) => {
                     </Text>
 
                     <View style = {{alignItems:"center"}}>
+            <Text style = {styles.subTitle}>                       
+                       {/*loaner details */}   
+                       General Information In Detail             
+                    </Text>
+            </View>
+
+                    <View style = {{alignItems:"center"}}>
                         <Text style = {styles.subTitle}>                       
                        {/*loaner details */}   
                        Covered Single Member Loans           
                         </Text>
                      </View>
-                    <Text style = {styles.ownerName}>                       
+
+                     
+                    
+                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
                        Times I have given Covered Loans: {TtlActvLonsTmsLnrCov}                 
                     </Text>
@@ -372,18 +378,12 @@ const SMCvLnStts = (props:SMAccount) => {
                        {/* repaymentPeriod*/}
                        Amount I have received as Covered Loans (Ksh): {TtlActvLonsAmtLneeCov.toFixed(2)}                  
                     </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Times I have BlackListed SingleMembers Covered Loans: {TtlBLLonsTmsLnrCov}                    
-                    </Text> 
+                   
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
                        Times I have been BlackListed by SingleMembers Covered Loans: {TtlBLLonsTmsLneeCov}                    
                     </Text>                     
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Amount I have BlackListed SingleMembers Covered Loans (Ksh): {TtlBLLonsAmtLnrCov.toFixed(2)}                    
-                    </Text> 
+                   
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
                        Amount I have been BlackListed by SingleMembers Covered Loans (Ksh): {TtlBLLonsAmtLneeCov.toFixed(2)}                    

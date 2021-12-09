@@ -2,9 +2,9 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import RecNonLns from "../../../components/MyAc/ViewRecNonLns copy";
+import RecNonLns from "../../../components/MyAc/ViewSentNonLns";
 import styles from './styles';
-import { getCompany, getSMAccount, listNonLoanss, listSMAccounts, vwMyRecMny } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount, listNonLoanss, listSMAccounts, vwMyRecMny, vwMySntMny } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
 const FetchSMNonLnsRec = props => {
@@ -28,9 +28,9 @@ const FetchSMNonLnsRec = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyRecMny, 
+              const Lonees:any = await API.graphql(graphqlOperation(vwMySntMny, 
               {
-                      recPhn: RecPhn,
+                      senderPhn: RecPhn,
                       sortDirection: 'DESC',
                       limit: 100,
                       filter:{status:{eq:"SMNonLons"}}
@@ -38,7 +38,7 @@ const FetchSMNonLnsRec = props => {
                     }
                   
                   ));
-              setLoanees(Lonees.data.VwMyRecMny.items);
+              setLoanees(Lonees.data.VwMySntMny.items);
 
               const fetchUsrDtls = async () => {
                 try {

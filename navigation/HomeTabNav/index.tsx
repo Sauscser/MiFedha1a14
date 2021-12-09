@@ -67,7 +67,7 @@ import ViewMyNonCovLoanees from "../../screens/MyAcc/Loans/ViewSMLns/NonCov/MyLo
 import ViewMyNonCovLoaners from "../../screens/MyAcc/Loans/ViewSMLns/NonCov/MyLoaners";
 import ViewSmAc from "../../screens/MyAcc/ViewMySMAcc";
 import ViewSmAcs from "../../components/MyAc/ViewAc";
-import VwNonLnsRec from "../../screens/MyAcc/ViewNonLnsRec";
+import VwNonLnsRec from "../../screens/MyAcc/ViewNonLnsSent";
 import VwNonLnsSnt from "../../screens/MyAcc/ViewNonLnsSnt";
 import ChmSignIns from "../../screens/Chama/ViewLns/ChamaSignIn";
 

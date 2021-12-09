@@ -63,6 +63,7 @@ const UpdtSMPW = (props) => {
                   
                 const owners = compDtls.data.getCompany.owner 
                 const ttlvats = compDtls.data.getCompany.ttlvat 
+                const pw1 = compDtls.data.getCompany.pw1
                       
                 
                           
@@ -90,7 +91,7 @@ const UpdtSMPW = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert("You have successfully updated Company PassWords");
+                                        Alert.alert("You have successfully withdrawn VAT");
                                       } 
 
                                       if(parseFloat(CompPW2) >ttlvats)
@@ -103,7 +104,11 @@ const UpdtSMPW = (props) => {
                                           Alert.alert("You are not the author of this Account");
                                       }
 
-                                      
+                                      else if(pw1!==CompPW1)
+                                      {
+                                          Alert.alert("Wrong Executive password");
+                                      }
+
 
                                       
                                       else {updtSMDtls();}

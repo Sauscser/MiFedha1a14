@@ -150,16 +150,78 @@ const RepayCovLnsss = props => {
                   
                     const TtlActvLonsTmsLnrCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
                     const TtlActvLonsAmtLnrCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
-                    const TtlClrdLonsTmsLnrCovssss =accountDtl.data.getSMAccount.TtlClrdLonsTmsLnrCov;
-                    const TtlClrdLonsAmtLnrCovssss =accountDtl.data.getSMAccount.TtlClrdLonsAmtLnrCov;
-                    const TtlBLLonsTmsLnrCovssss =accountDtl.data.getSMAccount.TtlBLLonsTmsLnrCov;
-                    const TtlBLLonsAmtLnrCovssss =accountDtl.data.getSMAccount.TtlBLLonsAmtLnrCov;
-                    const namess =accountDtl.data.getSMAccount.name;
-                    const MaxTymsIHvBLs =accountDtl.data.getSMAccount.MaxTymsIHvBL;
+                    const TtlClrdLonsTmsLnrCovssss =RecAccountDtl.data.getSMAccount.TtlClrdLonsTmsLnrCov;
+                    const TtlClrdLonsAmtLnrCovssss =RecAccountDtl.data.getSMAccount.TtlClrdLonsAmtLnrCov;
+                    const TtlBLLonsTmsLnrCovssss =RecAccountDtl.data.getSMAccount.TtlBLLonsTmsLnrCov;
+                    const TtlBLLonsAmtLnrCovssss =RecAccountDtl.data.getSMAccount.TtlBLLonsAmtLnrCov;
+                    const namess =RecAccountDtl.data.getSMAccount.name;
+                    const MaxTymsIHvBLs =RecAccountDtl.data.getSMAccount.MaxTymsIHvBL;
                     
-                    
+                    const updtSendrAcLonOvr1 = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateSMAccount, {
+                              input:{
+                                phonecontact:SendrPhn,
+                                
+                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
+                                
+                                
+                                TtlClrdLonsTmsLneeCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
+                                TtlClrdLonsAmtLneeCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(2),
+                                
+                                MaxTymsBL: 0,
+                              }
+                            })
+                          )
 
-                   
+
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Check your internet connection")
+                        return;}
+                      }
+                      setIsLoading(false);
+                      await updtSMCvLnLnOver();
+                    }
+
+                    const updtSendrAcLonOvr2 = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateSMAccount, {
+                              input:{
+                                phonecontact:SendrPhn,
+                                
+                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
+                                
+                                
+                                TtlClrdLonsTmsLneeCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
+                                TtlClrdLonsAmtLneeCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(2),
+                                
+                                MaxTymsBL: parseFloat(MaxTymsBLs) - 1,
+                              }
+                            })
+                          )
+
+
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Check your internet connection")
+                        return;}
+                      }
+                      setIsLoading(false);
+                      await updtSMCvLnLnOver();
+                    }
                                
                               const updtSMCvLnLnOver  = async () =>{
                                 if(isLoading){
@@ -221,44 +283,10 @@ const RepayCovLnsss = props => {
                                 return;}
                                 }
                                 setIsLoading(false);
-                                await updtSendrAcLonOvr();
+                                await updtRecAcLonOver();
                               };
           
-                              const updtSendrAcLonOvr = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateSMAccount, {
-                                        input:{
-                                          phonecontact:SendrPhn,
-                                          
-                                          balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
-                                          
-                                          TtlActvLonsTmsLneeCov:parseFloat(TtlActvLonsTmsLneeCovss)-1,                                          
-                                          TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts)).toFixed(2), 
-                                          TtlClrdLonsTmsLneeCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
-                                          TtlClrdLonsAmtLneeCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(2),
-                                          TtlBLLonsTmsLneeCov:parseFloat(TtlBLLonsTmsLneeCovs)-1,                                          
-                                          TtlBLLonsAmtLneeCov: (parseFloat(TtlBLLonsAmtLneeCovs) - parseFloat(amounts)).toFixed(2), 
-                                          MaxTymsBL: parseFloat(MaxTymsBLs) - 1,
-                                        }
-                                      })
-                                    )
-          
-          
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await updtRecAcLonOver();
-                              }
-          
+                              
                               const updtRecAcLonOver = async () =>{
                                 if(isLoading){
                                   return;
@@ -272,12 +300,9 @@ const RepayCovLnsss = props => {
                                           
                                           balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(2), 
                                           MaxTymsIHvBL:parseFloat(MaxTymsIHvBLs) - 1,                                     
-                                          TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovssss) - 1,
-                                          TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovssss) - parseFloat(amounts)).toFixed(2),
+                                          
                                           TtlClrdLonsTmsLnrCov: parseFloat(TtlClrdLonsTmsLnrCovssss) + 1,
                                           TtlClrdLonsAmtLnrCov: (parseFloat(TtlClrdLonsAmtLnrCovssss) + parseFloat(amounts)).toFixed(2),
-                                          TtlBLLonsTmsLnrCov:parseFloat(TtlBLLonsTmsLnrCovssss)-1,                                          
-                                          TtlBLLonsAmtLnrCov: (parseFloat(TtlBLLonsAmtLnrCovssss) - parseFloat(amounts)).toFixed,                                   
                                           
                                         }
                                       })
@@ -400,10 +425,6 @@ const RepayCovLnsss = props => {
                                           phonecontact:SendrPhn,
                                           
                                           balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2),
-                                                                                   
-                                          TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs) - parseFloat(amounts)).toFixed(2), 
-                                          
-                                         
                                           
                                         }
                                       })
@@ -432,11 +453,6 @@ const RepayCovLnsss = props => {
                                           phonecontact:loanerPhns,
                                           
                                           balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(2),
-                                          
-                                          TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovssss) - parseFloat(amounts)).toFixed(2),
-                                          
-                                          
-                                                                            
                                           
                                         }
                                       })
@@ -509,9 +525,11 @@ const RepayCovLnsss = props => {
                           else if(parseFloat(amounts) > parseFloat(lonBalas)){Alert.alert("Your Loan Balance is lesser: "+lonBalas)}
                           
 
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)){updtSMCvLnLnOver();}                         
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLs) < 1)
+                          {updtSendrAcLonOvr1();}          
                           
-                              
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLs) >=1)
+                          {updtSendrAcLonOvr2();}  
                                else {
                                 repyCovLn();
                               }

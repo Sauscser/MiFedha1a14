@@ -165,9 +165,71 @@ const RepayCovSellerLnsss = props => {
                     const TtlActvLonsAmtSllrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtSllrCov;
                     const namess =RecAccountDtl.data.getSMAccount.name;
                     
-                    
+                    const updtSendrAcLonOvr1 = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateSMAccount, {
+                              input:{
+                                phonecontact:SendrPhn,
+                                
+                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
+                                TtlClrdLonsTmsByrCov:parseFloat(TtlClrdLonsTmsByrCovs)+1,                                          
+                                TtlClrdLonsAmtByrCov: (parseFloat(TtlClrdLonsAmtByrCovs) + parseFloat(amounts)).toFixed(2), 
+                                
+                                MaxTymsBL: 0, 
+                                                                   
+                                
+                              }
+                            })
+                          )
 
-                    
+
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Check your internet connection")
+                        return;}
+                      }
+                      setIsLoading(false);
+                      await updtSMCvLnLnOver();
+                    }
+
+                    const updtSendrAcLonOvr2 = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateSMAccount, {
+                              input:{
+                                phonecontact:SendrPhn,
+                                
+                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
+                                TtlClrdLonsTmsByrCov:parseFloat(TtlClrdLonsTmsByrCovs)+1,                                          
+                                TtlClrdLonsAmtByrCov: (parseFloat(TtlClrdLonsAmtByrCovs) + parseFloat(amounts)).toFixed(2), 
+                                
+                                MaxTymsBL: parseFloat(MaxTymsBLss) - 1, 
+                                                                   
+                                
+                              }
+                            })
+                          )
+
+
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Check your internet connection")
+                        return;}
+                      }
+                      setIsLoading(false);
+                      await updtSMCvLnLnOver();
+                    }
                                
                               const updtSMCvLnLnOver  = async () =>{
                                 if(isLoading){
@@ -229,45 +291,10 @@ const RepayCovSellerLnsss = props => {
                                 return;}
                                 }
                                 setIsLoading(false);
-                                await updtSendrAcLonOvr();
+                                await updtRecAcLonOver();
                               };
           
-                              const updtSendrAcLonOvr = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateSMAccount, {
-                                        input:{
-                                          phonecontact:SendrPhn,
-                                          
-                                          balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
-                                          TtlClrdLonsTmsByrCov:parseFloat(TtlClrdLonsTmsByrCovs)+1,                                          
-                                          TtlClrdLonsAmtByrCov: (parseFloat(TtlClrdLonsAmtByrCovs) + parseFloat(amounts)).toFixed(2), 
-                                          TtlActvLonsTmsByrCov:parseFloat(TtlActvLonsTmsByrCovs)-1,
-                                          TtlActvLonsAmtByrCov:(parseFloat(TtlActvLonsAmtByrCovs)-parseFloat(amounts)).toFixed(2),
-                                          TtlBLLonsTmsByrCov:  parseFloat(TtlBLLonsTmsByrCovs) - 1,
-                                          TtlBLLonsAmtByrCov: (parseFloat(TtlBLLonsAmtByrCovs) - parseFloat(amounts)).toFixed(2),
-                                          MaxTymsBL: parseFloat(MaxTymsBLss) - 1, 
-                                                                             
-                                          
-                                        }
-                                      })
-                                    )
-          
-          
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await updtRecAcLonOver();
-                              }
-          
+                              
                               const updtRecAcLonOver = async () =>{
                                 if(isLoading){
                                   return;
@@ -280,11 +307,9 @@ const RepayCovSellerLnsss = props => {
                                           phonecontact:sellerContacts,
                                           
                                           balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(2),                                     
-                                          TtlBLLonsTmsSllrCov: parseFloat(TtlBLLonsTmsSllrCovs) - 1,
-                                          TtlBLLonsAmtSllrCov: (parseFloat(TtlBLLonsAmtSllrCovs) - parseFloat(amounts)).toFixed(2),
+                                          
                                           TtlClrdLonsTmsSllrCov: parseFloat(TtlClrdLonsTmsSllrCovs) + 1,
-                                          TtlActvLonsTmsSllrCov:parseFloat(TtlActvLonsTmsSllrCovs)-1,
-                                          TtlActvLonsAmtSllrCov:(parseFloat(TtlActvLonsAmtSllrCovs)-parseFloat(amounts)).toFixed(2),
+                                          
                                           MaxTymsIHvBL: parseFloat(MaxTymsIHvBLs) - 1,
                                           TtlClrdLonsAmtSllrCov: (parseFloat(TtlClrdLonsAmtSllrCovs) + parseFloat(amounts)).toFixed(2),
                                                                             
@@ -319,8 +344,6 @@ const RepayCovSellerLnsss = props => {
                                           
                                           ttlSellerLnsInClrdAmtCov: parseFloat(ttlSellerLnsInClrdAmtCovs) + parseFloat(amounts) ,
                                           ttlSellerLnsInClrdTymsCov: parseFloat(ttlSellerLnsInClrdTymsCovs) + 1 ,
-                                          ttlSellerLnsInBlTymsCov: parseFloat(ttlSellerLnsInBlTymsCovs) - 1, 
-                                          ttlSellerLnsInBlAmtCov: parseFloat(ttlSellerLnsInBlAmtCovs) + parseFloat(amounts), 
                                           
                                         }
                                       })
@@ -411,9 +434,6 @@ const RepayCovSellerLnsss = props => {
                                           phonecontact:SendrPhn,
                                           
                                           balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2),
-                                                                                 
-                                          TtlActvLonsTmsByrCov: (parseFloat(TtlActvLonsTmsByrCovs) - parseFloat(amounts)).toFixed(2), 
-                                          
                                          
                                           
                                         }
@@ -443,8 +463,7 @@ const RepayCovSellerLnsss = props => {
                                           phonecontact:sellerContacts,
                                           
                                           balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(2),                                     
-                                          TtlActvLonsTmsSllrCov: (parseFloat(TtlActvLonsTmsSllrCovs) - parseFloat(amounts)).toFixed(2),                                         
-                                          
+                                         
                                         }
                                       })
                                     )                              
@@ -513,8 +532,11 @@ const RepayCovSellerLnsss = props => {
                           else if(parseFloat(amounts) > LonBalsss){Alert.alert("Your Loan Balance is lesser: "+LonBalsss)}
                           
 
-                          else if(parseFloat(amounts) === LonBalsss){updtSMCvLnLnOver();}                         
+                          else if((parseFloat(amounts) === parseFloat(lonBalas))  && (parseFloat(MaxTymsBLss) < 1))
+                          {updtSendrAcLonOvr1();}          
                           
+                          else if((parseFloat(amounts) === parseFloat(lonBalas))  && (parseFloat(MaxTymsBLss) >=1))
+                          {updtSendrAcLonOvr2();}        
                               
                                else {
                                 repyCovLn();

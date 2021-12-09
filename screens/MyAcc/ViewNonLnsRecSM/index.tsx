@@ -2,7 +2,7 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import RecNonLns from "../../../components/MyAc/ViewRecNonLns copy";
+import RecNonLns from "../../../components/MyAc/ViewRecNonLns";
 import styles from './styles';
 import { getCompany, getSMAccount, listNonLoanss, listSMAccounts, vwMyRecMny } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
@@ -171,7 +171,7 @@ const FetchSMNonLnsRec = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}>Received Non Loans</Text>
+            <Text style={styles.label}>Received Single Member LP </Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}
