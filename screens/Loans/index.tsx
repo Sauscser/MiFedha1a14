@@ -98,6 +98,15 @@ const MyLoanAccount = props => {
     navigation.navigate('ChamaSignIn2VwLnRpymnts');
   };
 
+  const Vw2RepyCredSlsCovLnss = () => {
+    navigation.navigate('Vw2RepyCredSlsCovLns');
+  };
+
+  const Vw2RepyCredSlsNonCovLnss = () => {
+    navigation.navigate('Vw2RepyCredSlsNonCovLns');
+  };
+
+
   
 
   
@@ -139,13 +148,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={RpayCredSlrCovss}
+                      onPress={Vw2RepyCredSlsCovLnss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Covered</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={RpayCredSlrNonCovss}
+                      onPress={Vw2RepyCredSlsNonCovLnss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Non-Covered Loans

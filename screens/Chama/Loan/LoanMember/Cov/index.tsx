@@ -151,6 +151,10 @@ const fetchChmMbrDtls = async () => {
           const vats = CompDtls.data.getCompany.vat;
           const vatFee = (parseFloat(vats)*IntAmt)
           const ttlvats = CompDtls.data.getCompany.ttlvat;
+
+          const MaxSMInterest = parseFloat(amount)*parseFloat(maxInterestGrps)*parseFloat(RepaymtPeriod);
+          
+          const ActualMaxSMInterest = parseFloat(AmtExp) - parseFloat(amount);
           
           
           const fetchAdv = async () =>{
@@ -393,8 +397,8 @@ const fetchChmMbrDtls = async () => {
                         else if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if(parseFloat(Interest) > parseFloat(maxInterestGrps))
-                        {Alert.alert('Interest too high:' + Interest + "; Recom SI: " + maxInterestGrps+" per day");}
+                        else if(ActualMaxSMInterest>MaxSMInterest)
+                        {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(5) + "; Recom SI:" + MaxSMInterest +" per day");}
                         else if (
                           parseFloat(grpBals) < parseFloat(TotalTransacted) 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
