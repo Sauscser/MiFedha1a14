@@ -130,6 +130,7 @@ const RepayNonCovCredSlsLnsss = props => {
                     );
                     const amountExpectedBackWthClrncs =RecAccountDtl.data.getNonCovCreditSeller.amountExpectedBackWthClrnc; 
                     const lonBalas =RecAccountDtl.data.getNonCovCreditSeller.lonBala; 
+                    const statuss =RecAccountDtl.data.getNonCovCreditSeller.status;
                     const amountrepaids =RecAccountDtl.data.getNonCovCreditSeller.amountRepaid;
                     const sellerContacts =RecAccountDtl.data.getNonCovCreditSeller.sellerContact; 
                     const buyerNames =RecAccountDtl.data.getNonCovCreditSeller.buyerName; 
@@ -206,7 +207,8 @@ const RepayNonCovCredSlsLnsss = props => {
                                 balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
                                 TtlClrdLonsTmsByrNonCov:parseFloat(TtlClrdLonsTmsByrNonCovs)+1,                                          
                                 TtlClrdLonsAmtByrNonCov: (parseFloat(TtlClrdLonsAmtByrNonCovs) + parseFloat(amounts)).toFixed(2), 
-                                
+                                ttlSellerLnsInBlTymsNonCov: parseFloat(ttlSellerLnsInBlTymsNonCovs) - 1,
+                                ttlSellerLnsInBlAmtNonCov: (parseFloat(ttlSellerLnsInBlAmtNonCovs) - parseFloat(amounts)).toFixed(2),
                                 MaxTymsBL: parseFloat(MaxTymsBLss) - 1,                                                                         
                                 
                               }
@@ -518,8 +520,11 @@ const RepayNonCovCredSlsLnsss = props => {
                           else if(parseFloat(amounts) > parseFloat(lonBalas)){Alert.alert("Your Loan Balance is lesser: "+lonBalas)}
                           
 
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)){updtSMCvLnLnOver();}                         
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) < 1 && statuss !== "LoanBL")
+                          {updtSendrAcLonOvr1();}          
                           
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) >=1 && statuss === "LoanBL")
+                          {updtSendrAcLonOvr2();} 
                               
                                else {
                                 repyCovLn();

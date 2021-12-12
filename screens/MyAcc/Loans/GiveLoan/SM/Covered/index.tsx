@@ -248,7 +248,7 @@ const SMASendLns = props => {
                                   input:{
                                     phonecontact:SendrPhn,
                                     TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
-                                    TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(amount)).toFixed(2),
+                                    TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(AmtExp)).toFixed(2),
                                                                               
                                     balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) 
                                    
@@ -278,7 +278,7 @@ const SMASendLns = props => {
                                   input:{
                                     phonecontact:RecPhn,
                                     TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
-                                    TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(amount)).toFixed(2),
+                                    TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(AmtExp)).toFixed(2),
                                     balance:(parseFloat(RecUsrBal) + parseFloat(amount) - vatFee).toFixed(2) ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
@@ -316,7 +316,7 @@ const SMASendLns = props => {
                                     companyEarning: CompanyTotalEarnings + parseFloat(companyEarnings),                                                    
                                     ttlvat:parseFloat(ttlvats)+vatFee,
                                     
-                                    ttlSMLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSMLnsInAmtCovs),
+                                    ttlSMLnsInAmtCov: parseFloat(AmtExp) + parseFloat(ttlSMLnsInAmtCovs),
                                     
                                     ttlSMLnsInTymsCov: 1 + parseFloat(ttlSMLnsInTymsCovs),
                                     
@@ -372,7 +372,7 @@ const SMASendLns = props => {
                         else if(compDtls.data.listChamasNPwnBrkrs.items.length < 1 && ActualMaxSMInterest > MaxSMInterest)
                         {Alert.alert("Unregistered for such Interest. Max Int: Ksh. "+MaxSMInterest);}
                         else if(ActualMaxPwnBrkrInterest > MaxPwnBrkrInterest)
-                        {Alert.alert('Interest too high:' + ActualMaxPwnBrkrInterest.toFixed(6) + "; Recom SI: Ksh. " + MaxPwnBrkrInterest);}
+                        {Alert.alert('Interest too high:' + ActualMaxPwnBrkrInterest.toFixed(2) + "; Recom SI: Ksh. " + (MaxPwnBrkrInterest).toFixed(2));}
                         else if (
                           parseFloat(SenderUsrBal) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}

@@ -77,7 +77,7 @@ const BLChmNonCovLoanee = (props) => {
               const amountrepaids = compDtls.data.getNonCvrdGroupLoans.amountRepaid
               const amountGivens = compDtls.data.getNonCvrdGroupLoans.amountGiven
               const amountExpectedBackWthClrncs = compDtls.data.getNonCvrdGroupLoans.amountExpectedBackWthClrnc
-              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountGivens) + amountExpectedBackWthClrncs
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) + amountExpectedBackWthClrncs
               const statusssss = compDtls.data.getNonCvrdGroupLoans.status
               const memberIds = compDtls.data.getNonCvrdGroupLoans.memberId
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
@@ -202,7 +202,7 @@ const BLChmNonCovLoanee = (props) => {
                                           phonecontact:loaneePhns,
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsLneeChmNonCov: parseFloat(TtlBLLonsTmsLneeChmNonCovs) + 1,
-                                          TtlBLLonsAmtLneeChmNonCov: parseFloat(TtlBLLonsAmtLneeChmNonCovs) + amountExpectedBackWthClrncss,
+                                          TtlBLLonsAmtLneeChmNonCov: (parseFloat(TtlBLLonsAmtLneeChmNonCovs) + amountExpectedBackWthClrncss).toFixed(2),
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
@@ -239,6 +239,10 @@ const BLChmNonCovLoanee = (props) => {
                                 }
                                 catch(error){
                                   console.log(error)
+                                  if(error){
+                                    Alert.alert("Ensure Member Exists");
+                                    return;
+                                } 
                                   }
 
                               await updateMbrDtls();

@@ -119,9 +119,9 @@ const DissolveChm = (props) => {
                                           Alert.alert("You are not the author of the Chama");
                                       }
 
-                                      else if(ttlGrpMemberss<1)
+                                      else if(parseFloat(ttlGrpMemberss)>0)
                                       {
-                                          Alert.alert("Please first deregister all members");
+                                          Alert.alert("Pls first deregister all members");
                                       }
 
                                       else if(grpBals>0)

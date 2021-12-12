@@ -214,7 +214,7 @@ const CreateChama = (props:UserReg) => {
                   } catch (error) {
                     console.log(error)
                     if(error){
-                      Alert.alert("Enter details correctly; NB: Chama Phone should be brand new")
+                      Alert.alert("Enter details correctly; NB: Chama Phone should be new")
                       return;
                   } 
                   

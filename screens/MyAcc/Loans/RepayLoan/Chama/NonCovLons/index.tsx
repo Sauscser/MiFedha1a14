@@ -93,7 +93,7 @@ const RepayNonCovChmLnsss = props => {
 
               const grpContactssss =RecAccountDtl.data.getNonCvrdGroupLoans.grpContact; 
               const loaneePhnssss =RecAccountDtl.data.getNonCvrdGroupLoans.loaneePhn;
-               
+              const statuss =RecAccountDtl.data.getNonCvrdGroupLoans.status;
               const lonBalas =RecAccountDtl.data.getNonCvrdGroupLoans.lonBala;
               const amountExpectedBacks =RecAccountDtl.data.getNonCvrdGroupLoans.amountExpectedBack;
               const amountRepaidss =RecAccountDtl.data.getNonCvrdGroupLoans.amountRepaid; 
@@ -205,7 +205,7 @@ const RepayNonCovChmLnsss = props => {
                                                     TtlClrdLonsTmsLneeChmNonCov:parseFloat(TtlClrdLonsTmsLneeChmNonCovs)+1,                                          
                                                     TtlClrdLonsAmtLneeChmNonCov: (parseFloat(TtlClrdLonsAmtLneeChmNonCovs) + parseFloat(amounts)).toFixed(2), 
                                                     
-                                                    MaxTymsBL: parseFloat(MaxTymsBLss) - 1,
+                                                    MaxTymsBL: 0,
                                                     
                                                                                        
                                                     
@@ -238,7 +238,8 @@ const RepayNonCovChmLnsss = props => {
                                                     balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
                                                     TtlClrdLonsTmsLneeChmNonCov:parseFloat(TtlClrdLonsTmsLneeChmNonCovs)+1,                                          
                                                     TtlClrdLonsAmtLneeChmNonCov: (parseFloat(TtlClrdLonsAmtLneeChmNonCovs) + parseFloat(amounts)).toFixed(2), 
-                                                    
+                                                    TtlBLLonsTmsLneeChmNonCov: parseFloat(TtlBLLonsTmsLneeChmNonCovs) - 1,
+                                                    TtlBLLonsAmtLneeChmNonCov: (parseFloat(TtlBLLonsAmtLneeChmNonCovs) - parseFloat(amounts)).toFixed(2),
                                                     MaxTymsBL: parseFloat(MaxTymsBLss) - 1,
                                                     
                                                                                        
@@ -612,10 +613,10 @@ const RepayNonCovChmLnsss = props => {
                           else if(parseFloat(amounts) > lonBalas){Alert.alert("Your Loan Balance is lesser: Ksh. "+lonBalas )}
                           
 
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) <1)
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) <1 && statuss !== "LoanBL")
                           {updtSendrAcLonOvr1();}          
                           
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) >=1)
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) >=1 && statuss === "LoanBL")
                           {updtSendrAcLonOvr2();} 
                               
                                else {

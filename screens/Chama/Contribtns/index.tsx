@@ -284,7 +284,7 @@ const SMASendChmNonLns = props => {
                                 return;
                               }
                                   }
-                                  Alert.alert(names + ", you has sent Ksh. " + parseFloat(amounts).toFixed(2) + " to " + grpNames+" Chama");
+                                  Alert.alert(names + ", you have sent Ksh. " + parseFloat(amounts).toFixed(2) + " to " + grpNames+" Chama");
                                   setIsLoading(false);
                                 }                                
                                                       

@@ -73,7 +73,7 @@ const BLNonCovCredByr = (props) => {
               const amountrepaids = compDtls.data.getNonCovCreditSeller.amountRepaid
               const amountSolds = compDtls.data.getNonCovCreditSeller.amountSold
               const amountExpectedBackWthClrncs = compDtls.data.getNonCovCreditSeller.amountExpectedBackWthClrnc
-              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountSolds) + parseFloat(amountExpectedBackWthClrncs)
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) + parseFloat(amountExpectedBackWthClrncs)
               const statusssss = compDtls.data.getNonCovCreditSeller.status
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
 
@@ -245,12 +245,12 @@ const BLNonCovCredByr = (props) => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if(!error){
-                                  Alert.alert("Account deactivated successfully")
+                                  if(error){
+                                  Alert.alert("Ensure User Exists");
+                                  return;
                                   
                               } 
-                              else{Alert.alert("Please check your internet connection")
-                              return;} }
+                               }
                               Alert.alert(names +", you have blacklisted "+ namess)
                                 setIsLoading(false);          
                               } 

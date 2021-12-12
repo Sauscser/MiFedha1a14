@@ -222,7 +222,7 @@ const UpdtChm = (props) => {
                       onChangeText={setSMPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>SM Ac PW</Text>
+                    <Text style={styles.sendLoanText}>Signitory SM Ac PW</Text>
                   </View>       
 
                   

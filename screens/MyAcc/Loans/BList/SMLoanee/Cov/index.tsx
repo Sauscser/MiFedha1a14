@@ -73,7 +73,7 @@ const BLSMCovLoanee = (props) => {
               const amountexpecteds = compDtls.data.getSMLoansCovered.amountexpected
               const amountgivens = compDtls.data.getSMLoansCovered.amountgiven
               const amountExpectedBackWthClrncs = compDtls.data.getSMLoansCovered.amountExpectedBackWthClrnc
-              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountgivens)+ parseFloat(amountExpectedBackWthClrncs)
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)+ parseFloat(amountExpectedBackWthClrncs)
               const amountrepaids = compDtls.data.getSMLoansCovered.amountrepaid
               const statusssss = compDtls.data.getSMLoansCovered.status
               
@@ -250,12 +250,11 @@ const BLSMCovLoanee = (props) => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if(!error){
-                                  Alert.alert("Account deactivated successfully")
-                                  
+                                  if(error){
+                                  Alert.alert("Ensure User Exists")
+                                  return;
                               } 
-                              else{Alert.alert("Please check your internet connection")
-                              return;} }
+                               }
                               Alert.alert(names +", you have blacklisted "+ namess)
                                 setIsLoading(false);          
                               } 

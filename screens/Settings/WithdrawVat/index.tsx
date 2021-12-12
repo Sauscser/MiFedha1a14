@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {  updateCompany, updateGroup, updateGrpMembers, updateSMAccount} from '../../../src/graphql/mutations';
+import {  createChamasRegConfirm, updateCompany, updateGroup, updateGrpMembers, updateSMAccount} from '../../../src/graphql/mutations';
 import {  getCompany, getGroup, getGrpMembers, getSMAccount } from '../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 
@@ -90,9 +90,46 @@ const UpdtSMPW = (props) => {
                                           
                                       } 
                                     }
+                                    await onCreateNewMFN();
                                         setIsLoading(false);
                                         Alert.alert("You have successfully withdrawn VAT");
                                       } 
+
+                                      const onCreateNewMFN = async () => {
+                                        if(isLoading){
+                                          return;
+                                        }
+                                        setIsLoading(true);
+                                        try {
+                                          await API.graphql(
+                                            graphqlOperation(createChamasRegConfirm, {
+                                              input: {                    
+                                                contact: CompPW2,
+                                                
+                                                regNo: "Nothing",
+                                                
+                                                owner:ownr,
+                                                AcStatus: 'AccountActive',
+                                              },
+                                            }),
+                                          );
+                                          
+                                        } 
+                                        
+                                        
+                                        catch (error) {    
+                                          console.log(error)   
+                                          if(error)
+                                        {Alert.alert("Not authorised")
+                                      return;} 
+                                       
+                                    
+                                      } 
+                                      
+                                      setIsLoading(false);
+                                      
+                                      Alert.alert("Account successfully created") 
+                                      };
 
                                       if(parseFloat(CompPW2) >ttlvats)
                                       {

@@ -274,7 +274,7 @@ const fetchChmMbrDtls = async () => {
                                   input:{
                                     grpContact:groupContacts,
                                     TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs)+1,
-                                    TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + parseFloat(amount)).toFixed(2),
+                                    TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + parseFloat(AmtExp)).toFixed(2),
                                                                               
                                     grpBal:parseFloat(grpBals)-parseFloat(TotalTransacted) 
                                    
@@ -303,7 +303,7 @@ const fetchChmMbrDtls = async () => {
                                   input:{
                                     phonecontact:memberContacts,
                                     TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
-                                    TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ parseFloat(amount)).toFixed(2),
+                                    TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ parseFloat(AmtExp)).toFixed(2),
                                     balance:(parseFloat(parseFloat(RecUsrBal) + parseFloat(amount).toFixed(2)) - vatFee).toFixed(2),
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
@@ -340,7 +340,7 @@ const fetchChmMbrDtls = async () => {
                                     companyEarningBal:parseFloat(CompCovAmt) + parseFloat(companyEarningBals),
                                     companyEarning: parseFloat(CompCovAmt) + parseFloat(companyEarnings),                                                    
                                     
-                                    ttlChmLnsInAmtCov: parseFloat(amount) + parseFloat(ttlChmLnsInAmtCovs),
+                                    ttlChmLnsInAmtCov: parseFloat(AmtExp) + parseFloat(ttlChmLnsInAmtCovs),
                                     ttlvat:parseFloat(ttlvats)+vatFee,
                                     ttlChmLnsInTymsCov: 1 + parseFloat(ttlChmLnsInTymsCovs),
                                           
@@ -398,7 +398,7 @@ const fetchChmMbrDtls = async () => {
                         else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(ActualMaxSMInterest>MaxSMInterest)
-                        {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(5) + "; Recom SI:" + MaxSMInterest +" per day");}
+                        {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(2) + "; Recom SI:" + (MaxSMInterest).toFixed(2) );}
                         else if (
                           parseFloat(grpBals) < parseFloat(TotalTransacted) 
                         ) {Alert.alert('Requested amount is more than you have in your account');}

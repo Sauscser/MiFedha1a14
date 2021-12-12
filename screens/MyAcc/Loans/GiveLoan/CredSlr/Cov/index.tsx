@@ -235,7 +235,7 @@ const CovCredSls = props => {
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(ActualMaxSMInterest>MaxSMInterest)
-                        {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(5) + "; Recom SI:" + MaxSMInterest +" per day");}
+                        {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(2) + "; Recom SI:" + (MaxSMInterest).toFixed(2) );}
                         else if (
                           parseFloat(RecUsrBal) < TotalTransacted 
                         ) {Alert.alert('Buyer cannot facilitate; should recharge');}
@@ -260,7 +260,7 @@ const CovCredSls = props => {
                                   input:{
                                     phonecontact:SendrPhn,
                                     TtlActvLonsTmsSllrCov: parseFloat(TtlActvLonsTmsSllrCovs)+1,
-                                    TtlActvLonsAmtSllrCov: parseFloat(TtlActvLonsAmtSllrCovs) + parseFloat(amount),
+                                    TtlActvLonsAmtSllrCov: (parseFloat(TtlActvLonsAmtSllrCovs) + parseFloat(AmtExp)).toFixed(2),
                                                                               
                                     
                                    
@@ -290,7 +290,7 @@ const CovCredSls = props => {
                                   input:{
                                     phonecontact:RecPhn,
                                     TtlActvLonsTmsByrCov: parseFloat(TtlActvLonsTmsByrCovs) +1 ,
-                                    TtlActvLonsAmtByrCov: parseFloat(TtlActvLonsAmtByrCovs)+ parseFloat(amount),
+                                    TtlActvLonsAmtByrCov: parseFloat(TtlActvLonsAmtByrCovs)+ parseFloat(AmtExp),
                                     balance:parseFloat(RecUsrBal) - TotalTransacted,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
@@ -327,10 +327,10 @@ const CovCredSls = props => {
                                     companyEarningBal:CompCovAmt + parseFloat(companyEarningBals),
                                     companyEarning: CompCovAmt + parseFloat(companyEarnings),  
                                     ttlvat:parseFloat(ttlvats)+vatFee,
-                                    ttlSellerLnsInAmtCov: parseFloat(amount) + parseFloat(ttlSellerLnsInAmtCovs),
-                                    ttlSellerLnsInActvAmtCov: parseFloat(amount) + parseFloat(ttlSellerLnsInActvAmtCovs),
+                                    ttlSellerLnsInAmtCov: parseFloat(AmtExp) + parseFloat(ttlSellerLnsInAmtCovs),
+                                    
                                     ttlSellerLnsInTymsCov: 1 + parseFloat(ttlSellerLnsInTymsCovs),
-                                    ttlSellerLnsInActvTymsCov: 1 + parseFloat(ttlSellerLnsInActvTymsCovs),      
+                                       
                                     
                                      
                                     

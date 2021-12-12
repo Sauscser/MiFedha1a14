@@ -7,17 +7,13 @@ import styles from './styles';
 
 export interface ChmaInfo {
     ChmDtls: {
-
+      grpContact:string,
       grpName: string,
       grpBal: number,
       regNo: string,
       ttlGrpMembers: number
       ttlDpst: number,
       ttlWthdrwn: number,
-    
-      tymsChmHvBL:number,
-     
-      
     
       ttlNonLonsRecChm: number,
       ttlNonLonsSentChm:number,
@@ -44,13 +40,14 @@ export interface ChmaInfo {
 const ChmInfo = (props:ChmaInfo) => {
    const {
       ChmDtls: {
+         grpContact,
       grpName,
       grpBal,
       ttlGrpMembers,
       ttlDpst,
       ttlWthdrwn,
       regNo,
-      tymsChmHvBL,
+      
      
       
     
@@ -83,11 +80,16 @@ const ChmInfo = (props:ChmaInfo) => {
             <View style = {{alignItems:"center"}}>
             <Text style = {styles.subTitle}>                       
                        {/*loaner details */}   
-                       General Chama Info              
+                       General Chama Info  Summary            
                     </Text>
             </View>      
 
                      <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                       Chama Contact: {grpContact}                
+                    </Text> 
+                    
+                    <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
                        Chama Name: {grpName}                
                     </Text>    
@@ -111,13 +113,7 @@ const ChmInfo = (props:ChmaInfo) => {
                        {/* interest*/}
                        Chama Withdrawals(Ksh): {ttlWthdrwn.toFixed(2)}                    
                     </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Chama BlackListings: {tymsChmHvBL}                    
-                    </Text> 
-
-
-
+                    
                     <View style = {{alignItems:"center"}}>
                      <Text style = {styles.subTitle}>                       
                        {/*loaner details */}   
@@ -134,20 +130,17 @@ const ChmInfo = (props:ChmaInfo) => {
                     </Text> 
 
 
+                    
+                    
+                     
+                    
                     <View style = {{alignItems:"center"}}>
                      <Text style = {styles.subTitle}>                       
                        {/*loaner details */}   
-                       Covered Loans               
+                       Covered Loans History              
                     </Text>
-                     </View>
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Total Active Loans: {TtlActvLonsTmsLnrChmCov}                    
-                    </Text> 
-                    <Text style = {styles.loanerotherdescriptions} >                       
-                       {/* other description*/} 
-                       Amount of Total Active Loans: {TtlActvLonsAmtLnrChmCov.toFixed(2)}                 
-                    </Text>   
+                    </View>
+
                     <Text style = {styles.loanerotherdescriptions} >                       
                        {/* other description*/} 
                        Black Listed loans: {TtlBLLonsTmsLnrChmCov}                 
@@ -164,15 +157,18 @@ const ChmInfo = (props:ChmaInfo) => {
                        {/* other description*/} 
                        Amount of Cleared Loans (Ksh): {TtlClrdLonsAmtLnrChmCov.toFixed(2)}                 
                     </Text>   
+
                    
 
+                     
 
-                     <View style = {{alignItems:"center"}}>
+                    <View style = {{alignItems:"center"}}>
                      <Text style = {styles.subTitle}>                       
                        {/*loaner details */}   
-                       NonCovered Loans               
+                       NonCovered Loans History              
                     </Text>
-                     </View>
+                    </View>
+                     
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
                       Total Active Loans: {TtlActvLonsTmsLnrChmNonCov}                    

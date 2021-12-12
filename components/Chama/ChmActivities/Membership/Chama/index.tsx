@@ -53,7 +53,12 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
     return (
         <View style = {styles.container}>              
             
-            
+            <View style = {{alignItems:"center"}}>
+               <Text style = {styles.subTitle}>                       
+                       {/*loaner details */}   
+                       {memberName}             
+                    </Text>
+            </View>
             <ScrollView >       
                
 
@@ -67,11 +72,6 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                        Member Chama ID: {ChamaNMember}                
                     </Text>   
 
-
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                     Member Name: {memberName}                
-                    </Text>   
                                       
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 

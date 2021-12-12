@@ -37,6 +37,13 @@ const styles = StyleSheet.create ({
         fontWeight: '900',
         color: '#69093a'
     },
+    subTitle: {
+        fontSize: 25,
+        fontWeight: '900',
+        color: '#88124e',
+        marginTop:"5%",
+        textDecorationLine: "underline"
+    },
 
 });
 export default styles

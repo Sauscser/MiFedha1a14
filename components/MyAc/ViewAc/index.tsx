@@ -40,6 +40,11 @@ export interface SMAccount {
       TtlClrdLonsTmsLneeCov: number,
       TtlClrdLonsAmtLnrCov: number,
       TtlClrdLonsAmtLneeCov: number,
+
+      TtlBLLonsTmsLnrCov: number,
+      TtlBLLonsAmtLnrCov: number,
+      TtlBLLonsTmsLnrNonCov: number,
+      TtlBLLonsTmsLneeNonCov: number,
       
       TtlActvLonsTmsLneeChmCov: number,
       TtlActvLonsAmtLneeChmCov: number,
@@ -66,8 +71,7 @@ export interface SMAccount {
       TtlActvLonsTmsLneeNonCov: number,
       TtlActvLonsAmtLnrNonCov: number,
       TtlActvLonsAmtLneeNonCov: number,
-      TtlBLLonsTmsLnrNonCov: number,
-      TtlBLLonsTmsLneeNonCov: number,
+      
       TtlBLLonsAmtLnrNonCov: number,
       TtlBLLonsAmtLneeNonCov: number,
       TtlClrdLonsTmsLnrNonCov: number,
@@ -141,14 +145,18 @@ const SMCvLnStts = (props:SMAccount) => {
          TtlClrdLonsTmsByrCov,
          TtlClrdLonsAmtSllrCov,
          TtlClrdLonsAmtByrCov,
-         
+
+
+         TtlBLLonsTmsLnrCov,
+         TtlBLLonsAmtLnrCov,
+         TtlBLLonsTmsLnrNonCov,
+         TtlBLLonsTmsLneeNonCov,
        
          TtlActvLonsTmsLnrNonCov,
          TtlActvLonsTmsLneeNonCov,
          TtlActvLonsAmtLnrNonCov,
          TtlActvLonsAmtLneeNonCov,
-         TtlBLLonsTmsLnrNonCov,
-         TtlBLLonsTmsLneeNonCov,
+         
          TtlBLLonsAmtLnrNonCov,
          TtlBLLonsAmtLneeNonCov,
          TtlClrdLonsTmsLnrNonCov,
@@ -217,99 +225,100 @@ const SMCvLnStts = (props:SMAccount) => {
                       Times I am Black-Listed: {MaxTymsBL}                  
                     </Text> 
 
+
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current Covered Active Loans (Ksh): {TtlActvLonsAmtLnrCov - TtlClrdLonsAmtLnrCov}                 
+                       Current Covered Active Loans (Ksh): {(TtlActvLonsAmtLnrCov - TtlClrdLonsAmtLnrCov).toFixed(2)}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current Covered Active Loanees: {TtlActvLonsTmsLneeCov - TtlClrdLonsTmsLneeCov}                 
+                       Current Covered Active Loanees: {(TtlActvLonsTmsLneeCov - TtlClrdLonsTmsLneeCov).toFixed(2)}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current Covered Active Loanrs (Ksh): {TtlActvLonsAmtLnrCov - TtlClrdLonsAmtLnrCov}                 
+                       Current Covered Active Loaners (Ksh): {(TtlActvLonsAmtLnrCov - TtlClrdLonsAmtLnrCov).toFixed}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current Covered Active Loanees: {TtlActvLonsTmsLneeCov - TtlClrdLonsTmsLneeCov}                 
+                       Current Covered Active Loanees: {(TtlActvLonsTmsLneeCov - TtlClrdLonsTmsLneeCov).toFixed(2)}                 
                     </Text> 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current Covered Active Buyers (Ksh): {TtlActvLonsAmtByrCov - TtlClrdLonsAmtByrCov}                 
+                       Current Covered Active Buyers (Ksh): {(TtlActvLonsAmtByrCov - TtlClrdLonsAmtByrCov).toFixed(2)}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current Covered Active Buyers: {TtlActvLonsTmsByrCov - TtlClrdLonsTmsByrCov}                 
+                       Current Covered Active Buyers: {(TtlActvLonsTmsByrCov - TtlClrdLonsTmsByrCov).toFixed}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current Covered Active Sellers (Ksh): {TtlActvLonsAmtSllrCov - TtlClrdLonsAmtSllrCov}                 
+                       Current Covered Active Sellers (Ksh): {(TtlActvLonsAmtSllrCov - TtlClrdLonsAmtSllrCov).toFixed(2)}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current Covered Active Sellers: {TtlActvLonsTmsSllrCov - TtlClrdLonsTmsSllrCov}                 
+                       Current Covered Active Sellers: {(TtlActvLonsTmsSllrCov - TtlClrdLonsTmsSllrCov).toFixed(2)}                 
                     </Text>  
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current Covered Active Chama Loans (Ksh): {TtlActvLonsAmtLneeChmCov - TtlClrdLonsAmtLneeChmCov}                 
+                       Current Covered Active Chama Loans (Ksh): {(TtlActvLonsAmtLneeChmCov - TtlClrdLonsAmtLneeChmCov).toFixed(2)}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current Covered Active Chama Loans: {TtlActvLonsTmsLneeChmCov - TtlClrdLonsTmsLneeChmCov}                 
+                       Current Covered Active Chama Loans: {(TtlActvLonsTmsLneeChmCov - TtlClrdLonsTmsLneeChmCov).toFixed(2)}                 
                     </Text>
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current NonCovered Active Loanees (Ksh): {TtlActvLonsAmtLnrNonCov - TtlClrdLonsAmtLnrNonCov}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Current NonCovered Active Loanees: {TtlActvLonsTmsLneeNonCov - TtlClrdLonsTmsLneeNonCov}                 
+                       Current NonCovered Active Loanees (Ksh): {(TtlActvLonsAmtLnrNonCov - TtlClrdLonsAmtLnrNonCov).toFixed(2)}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current NonCovered Active Loaners (Ksh): {TtlActvLonsAmtLnrNonCov - TtlClrdLonsAmtLnrNonCov}                 
+                       Current NonCovered Active Loanees: {(TtlActvLonsTmsLneeNonCov - TtlClrdLonsTmsLneeNonCov).toFixed(2)}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current NonCovered Active Loanees: {TtlActvLonsTmsLneeNonCov - TtlClrdLonsTmsLneeNonCov}                 
+                       Current NonCovered Active Loaners (Ksh): {(TtlActvLonsAmtLnrNonCov - TtlClrdLonsAmtLnrNonCov).toFixed(2)}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Current NonCovered Active Loanees: {(TtlActvLonsTmsLneeNonCov - TtlClrdLonsTmsLneeNonCov).toFixed(2)}                 
                     </Text> 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current NonCovered Active Buyers (Ksh): {TtlActvLonsAmtByrNonCov - TtlClrdLonsAmtByrNonCov}                 
+                       Current NonCovered Active Buyers (Ksh): {(TtlActvLonsAmtByrNonCov - TtlClrdLonsAmtByrNonCov).toFixed(2)}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current NonCovered Active Buyers: {TtlActvLonsTmsByrNonCov - TtlClrdLonsTmsByrNonCov}                 
+                       Current NonCovered Active Buyers: {(TtlActvLonsTmsByrNonCov - TtlClrdLonsTmsByrNonCov).toFixed(2)}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current NonCovered Active Sellers (Ksh): {TtlActvLonsAmtSllrNonCov - TtlClrdLonsAmtSllrNonCov}                 
+                       Current NonCovered Active Sellers (Ksh): {(TtlActvLonsAmtSllrNonCov - TtlClrdLonsAmtSllrNonCov).toFixed(2)}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current NonCovered Active Sellers: {TtlActvLonsTmsSllrNonCov - TtlClrdLonsTmsSllrNonCov}                 
+                       Current NonCovered Active Sellers: {(TtlActvLonsTmsSllrNonCov - TtlClrdLonsTmsSllrNonCov).toFixed(2)}                 
                     </Text>  
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current NonCovered Active Chama Loans (Ksh): {TtlActvLonsAmtLneeChmNonCov - TtlClrdLonsAmtLneeChmNonCov}                 
+                       Current NonCovered Active Chama Loans (Ksh): {(TtlActvLonsAmtLneeChmNonCov - TtlClrdLonsAmtLneeChmNonCov).toFixed(2)}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Current NonCovered Active Chama Loans: {TtlActvLonsTmsLneeChmNonCov - TtlClrdLonsTmsLneeChmNonCov}                 
+                       Current NonCovered Active Chama Loans: {(TtlActvLonsTmsLneeChmNonCov - TtlClrdLonsTmsLneeChmNonCov)}                 
                     </Text>       
                    
 
@@ -416,11 +425,11 @@ const SMCvLnStts = (props:SMAccount) => {
                      </View>
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                     Active Chama Covered Loans: {TtlActvLonsTmsLneeChmCov}                    
+                     Active Chama Covered Loans: {TtlActvLonsTmsLneeChmCov - TtlClrdLonsTmsLneeChmCov}                    
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                       Amount of Active Chama Covered Loans (Ksh): {TtlActvLonsAmtLneeChmCov.toFixed(2)}                    
+                       Amount of Active Chama Covered Loans (Ksh): {(TtlActvLonsAmtLneeChmCov - TtlClrdLonsAmtLneeChmCov).toFixed(2)}                    
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
@@ -648,10 +657,6 @@ const SMCvLnStts = (props:SMAccount) => {
                        Amount I have been cleared as Credit Buyer's Non-Covered Loans (Ksh): {TtlClrdLonsAmtByrNonCov.toFixed(2)}                    
                     </Text>    
 
-                    
-                
-                
-            
         </ScrollView>
                 
         </View>
