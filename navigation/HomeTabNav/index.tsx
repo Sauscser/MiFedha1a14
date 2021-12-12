@@ -173,7 +173,7 @@ import ViewAdv from "../../screens/Advocate/SearchAdvocate";
 
 import UpdateMFKCom from "../../screens/MFKubwa/UpdateMFKCom";
 import UpdateMFNCom from "../../screens/MFNdogo/UpdateMFNCom";
-import UpdtVatComs from "../../screens/Settings/UpdtVatCom";
+import UpdtVatComs from "../../screens/Settings/WithdrawVat";
 import AdjustUsrLimits from "../../screens/MyAcc/AdjustUsrLimits";
 import AdvPy2VwChm from "../../screens/AdvPy2VwChm";
 import AdvPy2VwCredSlr from "../../screens/AdvPy2VwCredSlr";
