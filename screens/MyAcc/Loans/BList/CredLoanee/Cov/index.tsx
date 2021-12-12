@@ -94,6 +94,7 @@ const BLCovCredByr = (props) => {
                     const acStatuss = compDtls.data.getSMAccount.acStatus
                     const TtlBLLonsTmsSllrCovs = compDtls.data.getSMAccount.TtlBLLonsTmsSllrCov
                     const TtlBLLonsAmtSllrCovs = compDtls.data.getSMAccount.TtlBLLonsAmtSllrCov
+                    const TtlActvLonsAmtSllrCovs = compDtls.data.getSMAccount.TtlActvLonsAmtSllrCov
                     const names = compDtls.data.getSMAccount.name
                     const MaxTymsIHvBLs = compDtls.data.getSMAccount.MaxTymsIHvBL
                          
@@ -108,6 +109,7 @@ const BLCovCredByr = (props) => {
                           );
                           const TtlBLLonsTmsByrCovs = compDtls.data.getSMAccount.TtlBLLonsTmsByrCov
                           const TtlBLLonsAmtByrCovs = compDtls.data.getSMAccount.TtlBLLonsAmtByrCov
+                          const TtlActvLonsAmtByrCovs = compDtls.data.getSMAccount.TtlActvLonsAmtByrCov
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
                           const MaxTymsBLs =compDtls.data.getSMAccount.MaxTymsBL;
@@ -124,7 +126,8 @@ const BLCovCredByr = (props) => {
                                       phonecontact:sellerContacts,
                                       MaxTymsIHvBL: parseFloat(MaxTymsIHvBLs) + 1,
                                       TtlBLLonsTmsSllrCov: parseFloat(TtlBLLonsTmsSllrCovs) + 1,
-                                      TtlBLLonsAmtSllrCov: parseFloat(TtlBLLonsAmtSllrCovs) + amountExpectedBackWthClrncss
+                                      TtlBLLonsAmtSllrCov: parseFloat(TtlBLLonsAmtSllrCovs) + amountExpectedBackWthClrncss,
+                                      TtlActvLonsAmtSllrCov: (parseFloat(TtlActvLonsAmtSllrCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                     }
                                   })
                                 )
@@ -210,7 +213,7 @@ const BLCovCredByr = (props) => {
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsByrCov: parseFloat(TtlBLLonsTmsByrCovs) + 1,
                                           TtlBLLonsAmtByrCov: parseFloat(TtlBLLonsAmtByrCovs) + amountExpectedBackWthClrncss,
-                                          
+                                          TtlActvLonsAmtByrCov: (parseFloat(TtlActvLonsAmtByrCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }

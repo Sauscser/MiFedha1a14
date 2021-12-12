@@ -98,6 +98,8 @@ const BLChmCovLoanee = (props) => {
                     const acStatuss = compDtls.data.getGroup.status
                     const TtlBLLonsTmsLnrChmCovs = compDtls.data.getGroup.TtlBLLonsTmsLnrChmCov
                     const TtlBLLonsAmtLnrChmCovs = compDtls.data.getGroup.TtlBLLonsAmtLnrChmCov
+                    const TtlActvLonsTmsLnrChmCovs = compDtls.data.getGroup.TtlActvLonsTmsLnrChmCov
+                    const TtlActvLonsAmtLnrChmCovs = compDtls.data.getGroup.TtlActvLonsAmtLnrChmCov
                     const grpNames = compDtls.data.getGroup.grpName
                     const tymsChmHvBLs = compDtls.data.getGroup.tymsChmHvBL
                     const signitoryPWs = compDtls.data.getGroup.signitoryPW
@@ -113,6 +115,8 @@ const BLChmCovLoanee = (props) => {
                           );
                           const TtlBLLonsTmsLneeChmCovs = compDtls.data.getSMAccount.TtlBLLonsTmsLneeChmCov
                           const TtlBLLonsAmtLneeChmCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLneeChmCov
+                          const TtlActvLonsTmsLneeChmCovs = compDtls.data.getSMAccount.TtlActvLonsTmsLneeChmCov
+                          const TtlActvLonsAmtLneeChmCovs = compDtls.data.getSMAccount.TtlActvLonsAmtLneeChmCov
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
                           const MaxTymsBLs =compDtls.data.getSMAccount.MaxTymsBL;
@@ -129,7 +133,8 @@ const BLChmCovLoanee = (props) => {
                                       grpContact:loanerPhns,
                                       tymsChmHvBL: parseFloat(tymsChmHvBLs) + 1,
                                       TtlBLLonsTmsLnrChmCov: parseFloat(TtlBLLonsTmsLnrChmCovs) + 1,
-                                      TtlBLLonsAmtLnrChmCov: parseFloat(TtlBLLonsAmtLnrChmCovs) + amountExpectedBackWthClrncss,
+                                      TtlBLLonsAmtLnrChmCov: (parseFloat(TtlBLLonsAmtLnrChmCovs) + amountExpectedBackWthClrncss).toFixed(2),
+                                      TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                       
                                     }
                                   })
@@ -210,6 +215,8 @@ const BLChmCovLoanee = (props) => {
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsLneeChmCov: parseFloat(TtlBLLonsTmsLneeChmCovs) + 1,
                                           TtlBLLonsAmtLneeChmCov: (parseFloat(TtlBLLonsAmtLneeChmCovs) + amountExpectedBackWthClrncss).toFixed(2),
+                                          
+                                          TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }

@@ -171,11 +171,11 @@ const ChmInfo = (props:ChmaInfo) => {
                      
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                      Total Active Loans: {TtlActvLonsTmsLnrChmNonCov}                    
+                      Total Active Loans: {TtlActvLonsTmsLnrChmNonCov - TtlClrdLonsTmsLnrChmNonCov}                    
                     </Text> 
                     <Text style = {styles.loanerotherdescriptions} >                       
                        {/* other description*/} 
-                       Amount of Total Active Loans: {TtlActvLonsAmtLnrChmNonCov.toFixed(2)}                 
+                       Amount of Total Active Loans: {(TtlActvLonsAmtLnrChmNonCov - TtlClrdLonsAmtLnrChmNonCov).toFixed(2)}                 
                     </Text>   
                     <Text style = {styles.loanerotherdescriptions} >                       
                        {/* other description*/} 

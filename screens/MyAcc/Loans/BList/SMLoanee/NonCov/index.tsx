@@ -91,6 +91,7 @@ const BLSMNonCovLoanee = (props) => {
                     const acStatuss = compDtls.data.getSMAccount.acStatus
                     const TtlBLLonsTmsLnrNonCovs = compDtls.data.getSMAccount.TtlBLLonsTmsLnrNonCov
                     const TtlBLLonsAmtLnrNonCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLnrNonCov
+                    const TtlActvLonsAmtLnrNonCovs = compDtls.data.getSMAccount.TtlActvLonsAmtLnrNonCov
                     const names = compDtls.data.getSMAccount.name
                     const MaxTymsIHvBLs = compDtls.data.getSMAccount.MaxTymsIHvBL
                     const pws = compDtls.data.getSMAccount.pw
@@ -106,6 +107,7 @@ const BLSMNonCovLoanee = (props) => {
                           );
                           const TtlBLLonsTmsLneeNonCovs = compDtls.data.getSMAccount.TtlBLLonsTmsLneeNonCov
                           const TtlBLLonsAmtLneeNonCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLneeNonCov
+                          const TtlActvLonsAmtLneeNonCovs = compDtls.data.getSMAccount.TtlActvLonsAmtLneeNonCov
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
                           const MaxTymsBLs =compDtls.data.getSMAccount.MaxTymsBL;
@@ -122,7 +124,8 @@ const BLSMNonCovLoanee = (props) => {
                                       phonecontact:loanerPhns,
                                       MaxTymsIHvBL: parseFloat(MaxTymsIHvBLs) + 1,
                                       TtlBLLonsTmsLnrNonCov: parseFloat(TtlBLLonsTmsLnrNonCovs) + 1,
-                                      TtlBLLonsAmtLnrNonCov: (parseFloat(TtlBLLonsAmtLnrNonCovs) + amountExpectedBackWthClrncss).toFixed(2)
+                                      TtlBLLonsAmtLnrNonCov: (parseFloat(TtlBLLonsAmtLnrNonCovs) + amountExpectedBackWthClrncss).toFixed(2),
+                                      TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrNonCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                     }
                                   })
                                 )
@@ -208,6 +211,7 @@ const BLSMNonCovLoanee = (props) => {
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsLneeNonCov: parseFloat(TtlBLLonsTmsLneeNonCovs) + 1,
                                           TtlBLLonsAmtLneeNonCov: (parseFloat(TtlBLLonsAmtLneeNonCovs) +amountExpectedBackWthClrncss).toFixed(2),
+                                          TtlActvLonsAmtLneeNonCov: (parseFloat(TtlActvLonsAmtLneeNonCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }

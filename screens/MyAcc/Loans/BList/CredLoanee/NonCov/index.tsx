@@ -90,6 +90,7 @@ const BLNonCovCredByr = (props) => {
                     const acStatuss = compDtls.data.getSMAccount.acStatus
                     const TtlBLLonsTmsSllrNonCovs = compDtls.data.getSMAccount.TtlBLLonsTmsSllrNonCov
                     const TtlBLLonsAmtSllrNonCovs = compDtls.data.getSMAccount.TtlBLLonsAmtSllrNonCov
+                    const TtlActvLonsAmtSllrNonCovs = compDtls.data.getSMAccount.TtlActvLonsAmtSllrNonCov
                     const names = compDtls.data.getSMAccount.name
                     const pws = compDtls.data.getSMAccount.pw
                          
@@ -104,6 +105,7 @@ const BLNonCovCredByr = (props) => {
                           );
                           const TtlBLLonsTmsByrNonCovs = compDtls.data.getSMAccount.TtlBLLonsTmsByrNonCov
                           const TtlBLLonsAmtByrNonCovs = compDtls.data.getSMAccount.TtlBLLonsAmtByrNonCov
+                          const TtlActvLonsAmtByrNonCovs = compDtls.data.getSMAccount.TtlActvLonsAmtByrNonCov
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
                           
@@ -118,7 +120,8 @@ const BLNonCovCredByr = (props) => {
                                     input:{
                                       phonecontact:sellerContacts,
                                       TtlBLLonsTmsSllrNonCov: parseFloat(TtlBLLonsTmsSllrNonCovs) + 1,
-                                      TtlBLLonsAmtSllrNonCov: parseFloat(TtlBLLonsAmtSllrNonCovs) + amountExpectedBackWthClrncss
+                                      TtlBLLonsAmtSllrNonCov: (parseFloat(TtlBLLonsAmtSllrNonCovs) + amountExpectedBackWthClrncss).toFixed(2),
+                                      TtlActvLonsAmtSllrNonCov: (parseFloat(TtlActvLonsAmtSllrNonCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                     }
                                   })
                                 )
@@ -203,7 +206,8 @@ const BLNonCovCredByr = (props) => {
                                         input:{
                                           phonecontact:buyerContacts,
                                           TtlBLLonsTmsByrNonCov: parseFloat(TtlBLLonsTmsByrNonCovs) + 1,
-                                          TtlBLLonsAmtByrNonCov: parseFloat(TtlBLLonsAmtByrNonCovs) + amountExpectedBackWthClrncss,
+                                          TtlBLLonsAmtByrNonCov: (parseFloat(TtlBLLonsAmtByrNonCovs) + amountExpectedBackWthClrncss).toFixed(2),
+                                          TtlActvLonsAmtByrNonCov: (parseFloat(TtlActvLonsAmtByrNonCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }

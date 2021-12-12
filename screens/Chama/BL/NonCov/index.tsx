@@ -97,7 +97,7 @@ const BLChmNonCovLoanee = (props) => {
                     const TtlBLLonsAmtLnrChmNonCovs = compDtls.data.getGroup.TtlBLLonsAmtLnrChmNonCov
                     const grpNames = compDtls.data.getGroup.grpName
                     const tymsChmHvBLs = compDtls.data.getGroup.tymsChmHvBL
-                         
+                    const TtlActvLonsAmtLnrChmNonCovs = compDtls.data.getGroup.TtlActvLonsAmtLnrChmNonCov    
                     const gtLoaneeDtls = async () =>{
                       if(isLoading){
                         return;
@@ -112,7 +112,9 @@ const BLChmNonCovLoanee = (props) => {
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
                           const MaxTymsBLs =compDtls.data.getSMAccount.MaxTymsBL;
-                          
+                          const TtlActvLonsAmtLneeChmNonCovs = compDtls.data.getSMAccount.TtlActvLonsAmtLneeChmNonCov
+
+
                           const updateLoanerDtls = async () => {
                             if(isLoading){
                               return;
@@ -126,7 +128,7 @@ const BLChmNonCovLoanee = (props) => {
                                       tymsChmHvBL: parseFloat(tymsChmHvBLs) + 1,
                                       TtlBLLonsTmsLnrChmNonCov: parseFloat(TtlBLLonsTmsLnrChmNonCovs) + 1,
                                       TtlBLLonsAmtLnrChmNonCov: parseFloat(TtlBLLonsAmtLnrChmNonCovs) + amountExpectedBackWthClrncss,
-                                    
+                                      TtlActvLonsAmtLnrChmNonCov: (parseFloat(TtlActvLonsAmtLnrChmNonCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                     }
                                   })
                                 )
@@ -203,6 +205,7 @@ const BLChmNonCovLoanee = (props) => {
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsLneeChmNonCov: parseFloat(TtlBLLonsTmsLneeChmNonCovs) + 1,
                                           TtlBLLonsAmtLneeChmNonCov: (parseFloat(TtlBLLonsAmtLneeChmNonCovs) + amountExpectedBackWthClrncss).toFixed(2),
+                                          TtlActvLonsAmtLneeChmNonCov: (parseFloat(TtlActvLonsAmtLneeChmNonCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
