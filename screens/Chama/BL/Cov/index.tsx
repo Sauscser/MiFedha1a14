@@ -80,7 +80,7 @@ const BLChmCovLoanee = (props) => {
               const amountrepaids = compDtls.data.getCvrdGroupLoans.amountRepaid
               const amountGivens = compDtls.data.getCvrdGroupLoans.amountGiven
               const amountExpectedBackWthClrncs = compDtls.data.getCvrdGroupLoans.amountExpectedBackWthClrnc
-              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountGivens) + amountExpectedBackWthClrncs
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) + amountExpectedBackWthClrncs
               const statusssss = compDtls.data.getCvrdGroupLoans.status
               const memberIds = compDtls.data.getCvrdGroupLoans.memberId
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
@@ -209,7 +209,7 @@ const BLChmCovLoanee = (props) => {
                                           phonecontact:loaneePhns,
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsLneeChmCov: parseFloat(TtlBLLonsTmsLneeChmCovs) + 1,
-                                          TtlBLLonsAmtLneeChmCov: parseFloat(TtlBLLonsAmtLneeChmCovs) + amountExpectedBackWthClrncss,
+                                          TtlBLLonsAmtLneeChmCov: (parseFloat(TtlBLLonsAmtLneeChmCovs) + amountExpectedBackWthClrncss).toFixed(2),
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
@@ -246,12 +246,11 @@ const BLChmCovLoanee = (props) => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if(!error){
-                                  Alert.alert("Account deactivated successfully")
-                                  
+                                  if(error){
+                                  Alert.alert("Ensure Member Exists");
+                                  return;
                               } 
-                              else{Alert.alert("Please check your internet connection")
-                              return;} }
+                               }
                               await updateMbrDtls();
                               
                                 setIsLoading(false);          
