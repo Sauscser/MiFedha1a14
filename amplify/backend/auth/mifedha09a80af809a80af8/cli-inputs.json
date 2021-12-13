@@ -1,16 +1,16 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "mifedhabc075f0b_identitypool_bc075f0b",
+    "identityPoolName": "mifedha09a80af8_identitypool_09a80af8",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "mifedhbc075f0b",
-    "userPoolName": "mifedhabc075f0b_userpool_bc075f0b",
+    "resourceNameTruncated": "mifedh09a80af8",
+    "userPoolName": "mifedha09a80af8_userpool_09a80af8",
     "autoVerifiedAttributes": [
-      "email"
+      "phone_number"
     ],
-    "mfaConfiguration": "OFF",
+    "mfaConfiguration": "ON",
     "mfaTypes": [
-      "SMS Text Message"
+      "TOTP"
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
@@ -20,24 +20,29 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-      "email"
+      "phone_number"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
-    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientRefreshTokenValidity": "1",
     "userpoolClientWriteAttributes": [
       "email"
     ],
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "mifedhbc075f0b_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "mifedh09a80af8_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "bc075f0b",
-    "resourceName": "mifedhabc075f0b",
+    "sharedId": "09a80af8",
+    "resourceName": "mifedha09a80af809a80af8",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "useDefault": "manual",
+    "thirdPartyAuth": false,
+    "authProviders": [],
+    "userPoolGroups": true,
+    "adminQueries": false,
     "triggers": {},
+    "hostedUI": false,
     "userPoolGroupList": [
       "Executive",
       "AdminOne",

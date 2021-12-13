@@ -1,6 +1,6 @@
 {
   "auth": {
-    "mifedhabc075f0b": {
+    "mifedha09a80af809a80af8": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -9,18 +9,18 @@
         "socialProviders": [],
         "usernameAttributes": [],
         "signupAttributes": [
-          "EMAIL"
+          "PHONE_NUMBER"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
         },
-        "mfaConfiguration": "OFF",
+        "mfaConfiguration": "ON",
         "mfaTypes": [
-          "SMS"
+          "TOTP"
         ],
         "verificationMechanisms": [
-          "EMAIL"
+          "PHONE_NUMBER"
         ]
       }
     },
@@ -30,7 +30,7 @@
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "mifedhabc075f0b",
+          "resourceName": "mifedha09a80af809a80af8",
           "attributes": [
             "UserPoolId",
             "AppClientIDWeb",
@@ -50,7 +50,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authmifedhabc075f0b"
+              "userPoolId": "authmifedha09a80af809a80af8"
             }
           },
           "additionalAuthenticationProviders": []
