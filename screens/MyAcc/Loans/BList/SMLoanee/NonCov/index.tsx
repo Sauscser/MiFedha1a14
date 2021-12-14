@@ -181,7 +181,7 @@ const BLSMNonCovLoanee = (props) => {
                                       graphqlOperation(updateCompany,{
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
-                                          ttlSMLnsInBlAmtNonCov: parseFloat(ttlSMLnsInBlAmtNonCovs) + amountExpectedBackWthClrncss,
+                                          ttlSMLnsInBlAmtNonCov: (parseFloat(ttlSMLnsInBlAmtNonCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                           ttlSMLnsInBlTymsNonCov: parseFloat(ttlSMLnsInBlTymsNonCovs) + 1,
                                           ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
                                         }

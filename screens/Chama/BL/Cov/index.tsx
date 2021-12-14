@@ -186,7 +186,7 @@ const BLChmCovLoanee = (props) => {
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
                                           ttlChmLnsInBlTymsCov: parseFloat(ttlChmLnsInBlTymsCovs) + 1,
-                                          ttlChmLnsInBlAmtCov: parseFloat(ttlChmLnsInBlAmtCovs) + amountExpectedBackWthClrncss,
+                                          ttlChmLnsInBlAmtCov: (parseFloat(ttlChmLnsInBlAmtCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                           ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
                                         }
                                       })

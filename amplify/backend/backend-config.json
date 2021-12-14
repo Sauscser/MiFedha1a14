@@ -1,6 +1,6 @@
 {
   "auth": {
-    "mifedha09a80af809a80af8": {
+    "mifedhaa8cc0b5fa8cc0b5f": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -15,9 +15,9 @@
           "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
         },
-        "mfaConfiguration": "ON",
+        "mfaConfiguration": "OFF",
         "mfaTypes": [
-          "TOTP"
+          "SMS"
         ],
         "verificationMechanisms": [
           "PHONE_NUMBER"
@@ -30,7 +30,7 @@
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "mifedha09a80af809a80af8",
+          "resourceName": "mifedhaa8cc0b5fa8cc0b5f",
           "attributes": [
             "UserPoolId",
             "AppClientIDWeb",
@@ -50,7 +50,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authmifedha09a80af809a80af8"
+              "userPoolId": "authmifedhaa8cc0b5fa8cc0b5f"
             }
           },
           "additionalAuthenticationProviders": []

@@ -183,7 +183,7 @@ const BLSMCovLoanee = (props) => {
                                       graphqlOperation(updateCompany,{
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
-                                          ttlSMLnsInBlAmtCov: parseFloat(ttlSMLnsInBlAmtCovs) + amountExpectedBackWthClrncss,
+                                          ttlSMLnsInBlAmtCov: (parseFloat(ttlSMLnsInBlAmtCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                           ttlSMLnsInBlTymsCov: parseFloat(ttlSMLnsInBlTymsCovs) + 1,
                                           ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
                                         }

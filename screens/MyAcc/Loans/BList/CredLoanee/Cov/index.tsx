@@ -183,7 +183,7 @@ const BLCovCredByr = (props) => {
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
                                           ttlSellerLnsInBlTymsCov: parseFloat(ttlSellerLnsInBlTymsCovs) + 1,
-                                          ttlSellerLnsInBlAmtCov: parseFloat(ttlSellerLnsInBlAmtCovs) + amountExpectedBackWthClrncss,
+                                          ttlSellerLnsInBlAmtCov: (parseFloat(ttlSellerLnsInBlAmtCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
                                           ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
 
                                         }

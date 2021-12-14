@@ -105,8 +105,8 @@ const MyAccount = props => {
           <Text style={styles.accountText}>Account</Text>
 
           <View style={styles.viewForSalesPressables}>
-            <Pressable onPress={goToCreateSMAc} style={styles.acPressables}>
-              <Text style={styles.acPressableText}>Create</Text>
+            <Pressable onPress={SMDpsitsss} style={styles.acPressables}>
+              <Text style={styles.acPressableText}>View Deposits</Text>
             </Pressable>
 
             <View style={styles.acPressables}>
@@ -125,14 +125,14 @@ const MyAccount = props => {
 
             <View style={styles.acPressables}>
             <View >
-            <Text style={styles.acPressableText}>View</Text>
+            <Text style={styles.acPressableText}>AC</Text>
             </View>
             <View style = {{flexDirection:"row"}}>
-            <Pressable onPress={ViewSmAcss} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>A/c</Text>
+            <Pressable onPress={goToCreateSMAc} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>Create</Text>
             </Pressable>
-            <Pressable onPress={SMDpsitsss} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>Dposit</Text>
+            <Pressable onPress={ViewSmAcss} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>View</Text>
             </Pressable>
             </View>
             </View>

@@ -147,6 +147,7 @@ const RepayNonCovChmLnsss = props => {
           const ttlChmLnsInActvTymsNonCov = CompDtls.data.getCompany.ttlChmLnsInActvTymsNonCov;
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
+          const maxBLss = CompDtls.data.getCompany.maxBLs;
          
           const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts) + ClranceAmt; 
 
@@ -397,7 +398,7 @@ const RepayNonCovChmLnsss = props => {
                                           
                                           
                                           ttlChmLnsInClrdAmtNonCov: parseFloat(ttlChmLnsInClrdAmtNonCovs) + parseFloat(amounts) ,
-                                          ttlChmLnsInClrdTymsNonCov: parseFloat(ttlChmLnsInClrdTymsNonCovs) + parseFloat(amounts) ,
+                                          ttlChmLnsInClrdTymsNonCov: parseFloat(ttlChmLnsInClrdTymsNonCovs) + 1 ,
                                           
                                         }
                                       })
@@ -409,7 +410,7 @@ const RepayNonCovChmLnsss = props => {
                                   console.log(error)
                                   
                                 }
-                                Alert.alert("Fully Repaid. Clearance: " +ClranceAmt.toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
+                                Alert.alert("Cleared. Clearance charge: " +ClranceAmt.toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 setIsLoading(false);
                               }    
                               
@@ -479,7 +480,7 @@ const RepayNonCovChmLnsss = props => {
                                       graphqlOperation(updateSMAccount, {
                                         input:{
                                           phonecontact:SendrPhn,
-                                          
+                                          TtlClrdLonsAmtLneeChmNonCov: (parseFloat(TtlClrdLonsAmtLneeChmNonCovs) + parseFloat(amounts)).toFixed(2), 
                                           balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2),
                                           
                                         }
@@ -507,7 +508,7 @@ const RepayNonCovChmLnsss = props => {
                                       graphqlOperation(updateGroup, {
                                         input:{
                                           grpContact:grpContactssss,
-                                          
+                                          TtlClrdLonsAmtLnrChmNonCov: (parseFloat(TtlClrdLonsAmtLnrChmNonCovs) + parseFloat(amounts)).toFixed(2),
                                           grpBal:(parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(2),                                     
                                           
                                           
@@ -534,7 +535,7 @@ const RepayNonCovChmLnsss = props => {
                                       graphqlOperation(updateCompany, {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                         
+                                          ttlChmLnsInClrdAmtNonCov: parseFloat(ttlChmLnsInClrdAmtNonCovs) + parseFloat(amounts),
                                           companyEarningBal:parseFloat(UsrTransferFee) * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
                                           companyEarning: parseFloat(UsrTransferFee) * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
                                          
@@ -613,10 +614,10 @@ const RepayNonCovChmLnsss = props => {
                           else if(parseFloat(amounts) > lonBalas){Alert.alert("Your Loan Balance is lesser: Ksh. "+lonBalas )}
                           
 
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) <1 && statuss !== "LoanBL")
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) <= maxBLss && statuss !== "LoanBL")
                           {updtSendrAcLonOvr1();}          
                           
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) >=1 && statuss === "LoanBL")
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) > maxBLss && statuss === "LoanBL")
                           {updtSendrAcLonOvr2();} 
                               
                                else {

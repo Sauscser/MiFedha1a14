@@ -138,6 +138,7 @@ const RepayNonCovLnsss = props => {
           const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
           const ttlNonLonssSentSMs = CompDtls.data.getCompany.ttlNonLonssSentSM; 
           const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts) + ClranceAmt; 
+          const maxBLss = CompDtls.data.getCompany.maxBLs;
          
                     
           const fetchRecUsrDtls = async () => {
@@ -352,7 +353,7 @@ const RepayNonCovLnsss = props => {
                                 catch(error){
                                   
                                 }
-                                Alert.alert("Fully paid. Clearance: " +(ClranceAmt).toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
+                                Alert.alert("Cleared. Clearance charge: " +(ClranceAmt).toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 setIsLoading(false);
                               }                                                                                                            
                         
@@ -430,7 +431,8 @@ const RepayNonCovLnsss = props => {
                                           phonecontact:SendrPhn,
                                           
                                           balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2),
-                                         
+                                          TtlClrdLonsAmtLneeNonCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(2),
+                                
                                         }
                                       })
                                     )
@@ -457,6 +459,7 @@ const RepayNonCovLnsss = props => {
                                           phonecontact:loanerPhns,
                                           
                                           balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(2),
+                                          TtlClrdLonsAmtLnrNonCov: (parseFloat(TtlClrdLonsAmtLneeCovssss) + parseFloat(amounts)).toFixed(2),
                                           
                                                                                 }
                                       })
@@ -480,7 +483,7 @@ const RepayNonCovLnsss = props => {
                                       graphqlOperation(updateCompany, {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                         
+                                          ttlSMLnsInClrdAmtNonCov: parseFloat(ttlSMLnsInClrdAmtCovs) + parseFloat(amounts), 
                                           companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
                                           companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
                                           
@@ -529,10 +532,10 @@ const RepayNonCovLnsss = props => {
                           else if(parseFloat(amounts) > parseFloat(LonBal)){Alert.alert("Your Loan Balance is lesser: "+LonBal)}
                           
 
-                          else if((parseFloat(amounts) === parseFloat(LonBal))  && (parseFloat(MaxTymsBLs) < 1) && statusssss !== "LoanBL")
+                          else if((parseFloat(amounts) === parseFloat(LonBal))  && (parseFloat(MaxTymsBLs) <= maxBLss) && statusssss !== "LoanBL")
                           {updtSendrAcLonOvr1();}          
                           
-                          else if((parseFloat(amounts) === parseFloat(LonBal))  && (parseFloat(MaxTymsBLs) >=1) &&statusssss === "LoanBL")
+                          else if((parseFloat(amounts) === parseFloat(LonBal))  && (parseFloat(MaxTymsBLs) > maxBLss) &&statusssss === "LoanBL")
                           {updtSendrAcLonOvr2();}        
                           
                               

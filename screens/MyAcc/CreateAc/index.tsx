@@ -300,7 +300,7 @@ useEffect(() =>{
                 <ScrollView>
            
                   <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Enter Your Account Details Below</Text>
+                    <Text style={styles.title}>Enter Your Details Below</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>
@@ -325,7 +325,7 @@ useEffect(() =>{
                     onPress={ChckUsrExistence}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
-                      Click to Create Account
+                      Click to Create Single Member A/c
                     </Text>
                     {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
                   </TouchableOpacity>

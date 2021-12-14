@@ -148,7 +148,7 @@ const RepayCovChmLnsss = props => {
           const ttlSMLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSMLnsInActvTymsCov;
           const ttlSMLnsInActvAmtCovs = CompDtls.data.getCompany.ttlSMLnsInActvAmtCov;
           const totalLnsRecovereds = CompDtls.data.getCompany.totalLnsRecovered;
-          const ttlCompBLClrncEarningsCovs = CompDtls.data.getCompany.ttlCompBLClrncEarningsCov;
+          const maxBLss = CompDtls.data.getCompany.maxBLs;
          
           const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts) + ClranceAmt; 
 
@@ -394,7 +394,7 @@ const RepayCovChmLnsss = props => {
                                           
                                           
                                           ttlChmLnsInClrdAmtCov: parseFloat(ttlChmLnsInClrdAmtCovs) + parseFloat(amounts) ,
-                                          ttlChmLnsInClrdTymsCov: parseFloat(ttlChmLnsInClrdTymsCovs) + parseFloat(amounts) ,
+                                          ttlChmLnsInClrdTymsCov: parseFloat(ttlChmLnsInClrdTymsCovs) + 1 ,
                                           
                                         }
                                       })
@@ -406,7 +406,7 @@ const RepayCovChmLnsss = props => {
                                   console.log(error)
                                   
                                 }
-                                Alert.alert("Fully repaid. Clearance: " +ClranceAmt.toFixed(2) + ". Transaction: "+( parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2) );
+                                Alert.alert("Cleared. Clearance charge: " +ClranceAmt.toFixed(2) + ". Transaction: "+( parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2) );
                                 setIsLoading(false);
                               }    
                               
@@ -479,7 +479,8 @@ const RepayCovChmLnsss = props => {
                                           phonecontact:SendrPhn,
                                           
                                           balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2),
-                                                                 
+                                                                               
+                                          TtlClrdLonsAmtLneeChmCov: (parseFloat(TtlClrdLonsAmtLneeChmCovs) + parseFloat(amounts)).toFixed(2),                       
                                           
                                         }
                                       })
@@ -506,7 +507,9 @@ const RepayCovChmLnsss = props => {
                                       graphqlOperation(updateGroup, {
                                         input:{
                                           grpContact:grpContactssss,
-                                          
+                                         
+                                         
+                                          TtlClrdLonsAmtLnrChmCov: (parseFloat(TtlClrdLonsAmtLnrChmCovs) + parseFloat(amounts)).toFixed(2),
                                           grpBal:(parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(2),                                     
                                           
                                           
@@ -533,7 +536,8 @@ const RepayCovChmLnsss = props => {
                                       graphqlOperation(updateCompany, {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                         
+                                          ttlChmLnsInClrdAmtCov: parseFloat(ttlChmLnsInClrdAmtCovs) + parseFloat(amounts) ,
+                                        
                                           companyEarningBal:parseFloat(UsrTransferFee) * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
                                           companyEarning: parseFloat(UsrTransferFee) * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
                                           
@@ -612,10 +616,10 @@ const RepayCovChmLnsss = props => {
                           else if(parseFloat(amounts) > lonBalas){Alert.alert("Your Loan Balance is lesser: Ksh. "+lonBalas)}
                           
 
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) < 1 && statuss !== "LoanBL")
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) <= maxBLss && statuss !== "LoanBL")
                           {updtSendrAcLonOvr1();}          
                           
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) >=1 && statuss === "LoanBL")
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) > maxBLss && statuss === "LoanBL")
                           {updtSendrAcLonOvr2();} 
                               
                                else {

@@ -624,8 +624,8 @@ type SAgent
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
-      { allow: groups, groups: ["KFNdogo "], operations: [read, update] }
-      { allow: groups, groups: ["KFKubwa "], operations: [read, create, update] }
+      { allow: groups, groups: ["KFNdogo"], operations: [read, update] }
+      { allow: groups, groups: ["KFKubwa"], operations: [read, create, update] }
      
       {
         allow: groups

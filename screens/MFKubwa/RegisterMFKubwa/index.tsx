@@ -111,7 +111,7 @@ const RegisterMFKubwaAcForm = props => {
               catch (error) {
                 console.log(error)
                 if(error){
-                  Alert.alert("Account already registered ");
+                  Alert.alert("Account already registered or unauthorised ");
                   return;
                   
               } 
