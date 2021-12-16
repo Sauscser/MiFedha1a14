@@ -31,7 +31,7 @@ const CreateAcForm = (props) => {
 
   const [nationalId, setNationalid] = useState('');
   const [nam, setName] = useState(null);
-  const [phoneContact, setPhoneContact] = useState(null);
+  
   const [awsEmail, setAWSEmail] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
@@ -51,16 +51,9 @@ const CreateAcForm = (props) => {
       
       setName(userInfo.username);
       setownr(userInfo.attributes.sub);
-      setPhoneContact(userInfo.attributes.phone_number);
-      setAWSEmail(userInfo.attributes.email);      
-    };
-
-    
-
-    useEffect(() => {
-        fetchUser();
-      }, []);
-
+      const phoneContact = userInfo.attributes.phone_number;
+      setAWSEmail(userInfo.attributes.email);   
+      
       const ChckUsrExistence = async () => {
         try {
           const UsrDtls:any = await API.graphql(
@@ -72,204 +65,215 @@ const CreateAcForm = (props) => {
                 }}
             )
           )
+
+          const gtCompDtls = async () =>{
+            if(isLoading){
+              return;
+            }
+            setIsLoading(true);
+            try{
+              const compDtls :any= await API.graphql(
+                graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+                );
+                const actvSMUsrs = compDtls.data.getCompany.ttlActiveUsers;
+                
+              
+            const onCreateNewSMAc = async () => {
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
+              try {
+                await API.graphql(
+                graphqlOperation(createSMAccount, {
+                input: {
+                nationalid: nationalId,
+                name: nam,
+                phonecontact: phoneContact,
+                awsemail: awsEmail,
+                balance: 0,
+                                   
+                pw: pword,
+                loanAcceptanceCode:awsEmail,
+      
+                ttlDpstSM: 0,
+                TtlWthdrwnSM: 0,
+      
+                TtlActvLonsTmsLnrCov: 0,
+                TtlActvLonsTmsLneeCov: 0,
+                TtlActvLonsAmtLnrCov: 0,
+                TtlActvLonsAmtLneeCov: 0,
+                TtlBLLonsTmsLnrCov: 0,
+                TtlBLLonsTmsLneeCov: 0,
+                TtlBLLonsAmtLnrCov: 0,
+                TtlBLLonsAmtLneeCov: 0,
+                TtlClrdLonsTmsLnrCov: 0,
+                TtlClrdLonsTmsLneeCov: 0,
+                TtlClrdLonsAmtLnrCov: 0,
+                TtlClrdLonsAmtLneeCov: 0,
+                
+                TtlActvLonsTmsLneeChmCov: 0,
+                TtlActvLonsAmtLneeChmCov: 0,
+                TtlBLLonsTmsLneeChmCov: 0,
+                TtlBLLonsAmtLneeChmCov: 0,
+                TtlClrdLonsTmsLneeChmCov: 0,
+                TtlClrdLonsAmtLneeChmCov: 0,
+                   
+                TtlActvLonsTmsSllrCov: 0,
+                TtlActvLonsTmsByrCov: 0,
+                TtlActvLonsAmtSllrCov: 0,
+                TtlActvLonsAmtByrCov: 0,
+                TtlBLLonsTmsSllrCov: 0,
+                TtlBLLonsTmsByrCov: 0,
+                TtlBLLonsAmtSllrCov: 0,
+                TtlBLLonsAmtByrCov: 0,
+                TtlClrdLonsTmsSllrCov: 0,
+                TtlClrdLonsTmsByrCov: 0,
+                TtlClrdLonsAmtSllrCov: 0,
+                TtlClrdLonsAmtByrCov: 0,
+                
+              
+                TtlActvLonsTmsLnrNonCov: 0,
+                TtlActvLonsTmsLneeNonCov: 0,
+                TtlActvLonsAmtLnrNonCov: 0,
+                TtlActvLonsAmtLneeNonCov: 0,
+                TtlBLLonsTmsLnrNonCov: 0,
+                TtlBLLonsTmsLneeNonCov: 0,
+                TtlBLLonsAmtLnrNonCov: 0,
+                TtlBLLonsAmtLneeNonCov: 0,
+                TtlClrdLonsTmsLnrNonCov: 0,
+                TtlClrdLonsTmsLneeNonCov: 0,
+                TtlClrdLonsAmtLnrNonCov: 0,
+                TtlClrdLonsAmtLneeNonCov: 0,
+                
+                TtlActvLonsTmsLneeChmNonCov: 0,
+                TtlActvLonsAmtLneeChmNonCov: 0,
+                TtlBLLonsTmsLneeChmNonCov: 0,
+                TtlBLLonsAmtLneeChmNonCov: 0,
+                TtlClrdLonsTmsLneeChmNonCov: 0,
+                TtlClrdLonsAmtLneeChmNonCov: 0,
+                
+                TtlActvLonsTmsSllrNonCov: 0,
+                TtlActvLonsTmsByrNonCov: 0,
+                TtlActvLonsAmtSllrNonCov: 0,
+                TtlActvLonsAmtByrNonCov: 0,
+                TtlBLLonsTmsSllrNonCov: 0,
+                TtlBLLonsTmsByrNonCov: 0,
+                TtlBLLonsAmtSllrNonCov: 0,
+                TtlBLLonsAmtByrNonCov: 0,
+                TtlClrdLonsTmsSllrNonCov: 0,
+                TtlClrdLonsTmsByrNonCov: 0,
+                TtlClrdLonsAmtSllrNonCov: 0,
+                TtlClrdLonsAmtByrNonCov: 0,
+      
+                ttlNonLonsRecSM: 0,
+                ttlNonLonsSentSM:0,
+                ttlNonLonsRecChm: 0,
+                ttlNonLonsSentChm:0,
+              
+                MaxTymsBL: 0,
+                MaxTymsIHvBL: 0,
+                acStatus: 'AccountActive',
+                deActvtnReason:"None",
+                blStatus: 'AccountNotBL',
+                loanStatus: "NoLoan",
+                loanLimit: 100000,
+                nonLonLimit:100000,
+                withdrawalLimit: 100000,
+                depositLimit: 100000,
+                owner:ownr
+                        },
+                      }),
+                    );
+                    
+                  } catch (error) {
+                    console.log(error)
+                    if(error){
+                      Alert.alert("Sign up using a different Phone Number")
+                      return;
+                  } 
+                  
+                  }
+                  await updtActAdm();
+                  setIsLoading(false);
+                  
+                };
+                if (pword.length < 8)
+                {Alert.alert("password is too short; at least eight characters");
+             
+            } 
+      
+            else if (phoneContact.length !== 13)
+                {Alert.alert("Re-SignUp: Phone number format +2547########");
+             
+            } 
+
+            
+            else {
+              onCreateNewSMAc();
+            }
+      
+                const updtActAdm = async()=>{
+                  if(isLoading){
+                    return;
+                  }
+                  setIsLoading(true);
+                  try{
+                      await API.graphql(
+                        graphqlOperation(updateCompany,{
+                          input:{
+                            AdminId:"BaruchHabaB'ShemAdonai2",
+                            ttlActiveUsers:parseFloat(actvSMUsrs) + 1,
+                           
+                          }
+                        })
+                      )
+                  }
+                  catch(error){
+                    console.log(error)
+                    if(error){
+                      Alert.alert("Check your internet connection")
+                      return;
+                  }
+                  }
+                  moveToWelcomPg();
+                  setIsLoading(false);
+                }
+                
+              
+      }
+      
+      catch(e){
+        console.log(e)
+        if(e){
+          Alert.alert("Check your internet")
+          return;
+      }
+      }
+                  setIsLoading(false)
+                  setNationalid('');
+                  setPW('');
+      };
+
+          
           if (UsrDtls.data.listSMAccounts.items.length > 0) {
             Alert.alert("This National ID is already registered");
             return;
             
           }
           else{
-          gtCompDtls();
+          await gtCompDtls();
         }
         } catch (e) {
           if(e){Alert.alert("Please first sign up")}
           console.error(e);
         }
       }
+
+      await ChckUsrExistence();
+    };
+
     
-      
-    const gtCompDtls = async () =>{
-      if(isLoading){
-        return;
-      }
-      setIsLoading(true);
-      try{
-        const compDtls :any= await API.graphql(
-          graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
-          );
-          const actvSMUsrs = compDtls.data.getCompany.ttlActiveUsers;
-          
-        
-      const onCreateNewSMAc = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
-        try {
-          await API.graphql(
-          graphqlOperation(createSMAccount, {
-          input: {
-          nationalid: nationalId,
-          name: nam,
-          phonecontact: phoneContact,
-          awsemail: awsEmail,
-          balance: 0,
-                             
-          pw: pword,
-          loanAcceptanceCode:awsEmail,
-
-          ttlDpstSM: 0,
-          TtlWthdrwnSM: 0,
-
-          TtlActvLonsTmsLnrCov: 0,
-          TtlActvLonsTmsLneeCov: 0,
-          TtlActvLonsAmtLnrCov: 0,
-          TtlActvLonsAmtLneeCov: 0,
-          TtlBLLonsTmsLnrCov: 0,
-          TtlBLLonsTmsLneeCov: 0,
-          TtlBLLonsAmtLnrCov: 0,
-          TtlBLLonsAmtLneeCov: 0,
-          TtlClrdLonsTmsLnrCov: 0,
-          TtlClrdLonsTmsLneeCov: 0,
-          TtlClrdLonsAmtLnrCov: 0,
-          TtlClrdLonsAmtLneeCov: 0,
-          
-          TtlActvLonsTmsLneeChmCov: 0,
-          TtlActvLonsAmtLneeChmCov: 0,
-          TtlBLLonsTmsLneeChmCov: 0,
-          TtlBLLonsAmtLneeChmCov: 0,
-          TtlClrdLonsTmsLneeChmCov: 0,
-          TtlClrdLonsAmtLneeChmCov: 0,
-             
-          TtlActvLonsTmsSllrCov: 0,
-          TtlActvLonsTmsByrCov: 0,
-          TtlActvLonsAmtSllrCov: 0,
-          TtlActvLonsAmtByrCov: 0,
-          TtlBLLonsTmsSllrCov: 0,
-          TtlBLLonsTmsByrCov: 0,
-          TtlBLLonsAmtSllrCov: 0,
-          TtlBLLonsAmtByrCov: 0,
-          TtlClrdLonsTmsSllrCov: 0,
-          TtlClrdLonsTmsByrCov: 0,
-          TtlClrdLonsAmtSllrCov: 0,
-          TtlClrdLonsAmtByrCov: 0,
-          
-        
-          TtlActvLonsTmsLnrNonCov: 0,
-          TtlActvLonsTmsLneeNonCov: 0,
-          TtlActvLonsAmtLnrNonCov: 0,
-          TtlActvLonsAmtLneeNonCov: 0,
-          TtlBLLonsTmsLnrNonCov: 0,
-          TtlBLLonsTmsLneeNonCov: 0,
-          TtlBLLonsAmtLnrNonCov: 0,
-          TtlBLLonsAmtLneeNonCov: 0,
-          TtlClrdLonsTmsLnrNonCov: 0,
-          TtlClrdLonsTmsLneeNonCov: 0,
-          TtlClrdLonsAmtLnrNonCov: 0,
-          TtlClrdLonsAmtLneeNonCov: 0,
-          
-          TtlActvLonsTmsLneeChmNonCov: 0,
-          TtlActvLonsAmtLneeChmNonCov: 0,
-          TtlBLLonsTmsLneeChmNonCov: 0,
-          TtlBLLonsAmtLneeChmNonCov: 0,
-          TtlClrdLonsTmsLneeChmNonCov: 0,
-          TtlClrdLonsAmtLneeChmNonCov: 0,
-          
-          TtlActvLonsTmsSllrNonCov: 0,
-          TtlActvLonsTmsByrNonCov: 0,
-          TtlActvLonsAmtSllrNonCov: 0,
-          TtlActvLonsAmtByrNonCov: 0,
-          TtlBLLonsTmsSllrNonCov: 0,
-          TtlBLLonsTmsByrNonCov: 0,
-          TtlBLLonsAmtSllrNonCov: 0,
-          TtlBLLonsAmtByrNonCov: 0,
-          TtlClrdLonsTmsSllrNonCov: 0,
-          TtlClrdLonsTmsByrNonCov: 0,
-          TtlClrdLonsAmtSllrNonCov: 0,
-          TtlClrdLonsAmtByrNonCov: 0,
-
-          ttlNonLonsRecSM: 0,
-          ttlNonLonsSentSM:0,
-          ttlNonLonsRecChm: 0,
-          ttlNonLonsSentChm:0,
-        
-          MaxTymsBL: 0,
-          MaxTymsIHvBL: 0,
-          acStatus: 'AccountActive',
-          deActvtnReason:"None",
-          blStatus: 'AccountNotBL',
-          loanStatus: "NoLoan",
-          loanLimit: 100000,
-          nonLonLimit:100000,
-          withdrawalLimit: 100000,
-          depositLimit: 100000,
-          owner:ownr
-                  },
-                }),
-              );
-              
-            } catch (error) {
-              console.log(error)
-              if(error){
-                Alert.alert("Sign up using a different Phone Number")
-                return;
-            } 
-            
-            }
-            await updtActAdm();
-            setIsLoading(false);
-            
-          };
-          if (pword.length < 8)
-          {Alert.alert("password is too short; at least eight characters");
-        return;
-      } 
-      
-      else {
-        onCreateNewSMAc();
-      }
-
-          const updtActAdm = async()=>{
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
-            try{
-                await API.graphql(
-                  graphqlOperation(updateCompany,{
-                    input:{
-                      AdminId:"BaruchHabaB'ShemAdonai2",
-                      ttlActiveUsers:parseFloat(actvSMUsrs) + 1,
-                     
-                    }
-                  })
-                )
-            }
-            catch(error){
-              console.log(error)
-              if(error){
-                Alert.alert("Check your internet connection")
-                return;
-            }
-            }
-            moveToWelcomPg();
-            setIsLoading(false);
-          }
-          
-        
-}
-
-catch(e){
-  console.log(e)
-  if(e){
-    Alert.alert("Check your internet")
-    return;
-}
-}
-            setIsLoading(false)
-            setNationalid('');
-            setPW('');
-};
-
 
 useEffect(() =>{
   const natid=nationalId
@@ -322,7 +326,7 @@ useEffect(() =>{
                   </View>
         
                   <TouchableOpacity
-                    onPress={ChckUsrExistence}
+                    onPress={fetchUser}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Create Single Member A/c
