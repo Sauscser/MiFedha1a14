@@ -10,6 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import styles from './styles';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const MyLoanAccount = props => {
   const navigation = useNavigation();
@@ -19,11 +20,11 @@ const MyLoanAccount = props => {
  
 
   const Vw2RpyCovss = () => {
-    navigation.navigate('Vw2RpyCovs');
+    navigation.navigate('ElimRpyChmCvs');
   };
 
   const Vw2RpyNonCovss = () => {
-    navigation.navigate('Vw2RpyNonCovs');
+    navigation.navigate('ElimRpyChmNonCvs');
   };
 
   const RpayCredSlrCovss = () => {
@@ -43,27 +44,27 @@ const MyLoanAccount = props => {
     navigation.navigate('SMGivNonCovLon');
   };
   const ViewMyCovLoaneesss = () => {
-    navigation.navigate('ViewMyCovLoaneess');
+    navigation.navigate('ElimLnsCvLnees');
   };
 
   const ViewMyCovLoanersss = () => {
-    navigation.navigate('ViewMyCovLoanerss');
+    navigation.navigate('ElimLnsCvLnrs');
   };
 
   const ViewMyNonCovLoaneess = () => {
-    navigation.navigate('ViewMyNonCovLoaneess');
+    navigation.navigate('ElimLnsNonCvLnees');
   };
 
   const ViewMyNonCovLoanersss = () => {
-    navigation.navigate('ViewMyNonCovLoanerss');
+    navigation.navigate('ElimLnsNonCvLnrs');
   };
 
   const Vw2RepySMCovLnss = () => {
-    navigation.navigate('Vw2RepySMCovLns');
+    navigation.navigate('ElimRpySMCovs');
   };
 
   const Vw2RepySMNonCovLnss = () => {
-    navigation.navigate('Vw2RepySMNonCovLns');
+    navigation.navigate('ElimRpySMNonCovs');
   };
 
   const Vw2BLCovSMLnss = () => {
@@ -75,23 +76,24 @@ const MyLoanAccount = props => {
   };
 
   const ViewNonLnsSntSMss = () => {
-    navigation.navigate('ViewNonLnsSntSMs');
-  };
-
-  const ViewNonLnsSntCredSlrss = () => {
-    navigation.navigate('ViewNonLnsSntCredSlrs');
-  };
-
-  const ViewNonLnsSntChmss = () => {
-    navigation.navigate('ViewNonLnsSntChms');
+    navigation.navigate('ElimLPSMSents');
   };
 
   const ViewNonLnsRecSMss = () => {
-    navigation.navigate('ViewNonLnsRecSMs');
+    navigation.navigate('ElimLPSMRecs');
   };
 
   const ViewNonLnsRecCredSlrss = () => {
-    navigation.navigate('ViewNonLnsRecCredSlrs');
+    navigation.navigate('ElimLPCredRecs');
+  };
+
+
+  const ViewNonLnsSntCredSlrss = () => {
+    navigation.navigate('ElimLPCredSents');
+  };
+
+  const ViewNonLnsSntChmss = () => {
+    navigation.navigate('ElimLPChmSents');
   };
 
   const ChamaSignIn2VwLnRpymntss = () => {
@@ -99,11 +101,11 @@ const MyLoanAccount = props => {
   };
 
   const Vw2RepyCredSlsCovLnss = () => {
-    navigation.navigate('Vw2RepyCredSlsCovLns');
+    navigation.navigate('ElimRpyCredCovs');
   };
 
   const Vw2RepyCredSlsNonCovLnss = () => {
-    navigation.navigate('Vw2RepyCredSlsNonCovLns');
+    navigation.navigate('ElimRpyCredNonCovs');
   };
 
 
@@ -112,11 +114,13 @@ const MyLoanAccount = props => {
   
 
   return (
-    <SafeAreaView>
+   
+      
+      <SafeAreaView>
      
-        
-          <View style={styles.adminImage}>
-
+        <ScrollView>
+          
+        <View style={styles.adminImage}>
             <View style={styles.clientsView}>
               <Text style={styles.salesText}>Repay Loan</Text>
 
@@ -261,13 +265,13 @@ const MyLoanAccount = props => {
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
                       onPress={ViewNonLnsSntSMss}
-                      style={styles.ClientsPressables}>
+                      style={styles.ClientsPressables2}>
                       <Text style={styles.clientsPressableText}>Sent</Text>
                     </Pressable>
 
                     <Pressable
                       onPress={ViewNonLnsRecSMss}
-                      style={styles.ClientsPressables}>
+                      style={styles.ClientsPressables2}>
                       <Text style={styles.clientsPressableText}>
                      Received
                       </Text>
@@ -283,13 +287,13 @@ const MyLoanAccount = props => {
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
                       onPress={ViewNonLnsSntChmss}
-                      style={styles.ClientsPressables}>
+                      style={styles.ClientsPressables2}>
                       <Text style={styles.clientsPressableText}>Sent</Text>
                     </Pressable>
 
                     <Pressable
                       onPress={ChamaSignIn2VwLnRpymntss}
-                      style={styles.ClientsPressables}>
+                      style={styles.ClientsPressables2}>
                       <Text style={styles.clientsPressableText}>
                       Received
                       </Text>
@@ -303,13 +307,13 @@ const MyLoanAccount = props => {
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
                       onPress={ViewNonLnsSntCredSlrss}
-                      style={styles.ClientsPressables}>
+                      style={styles.ClientsPressables2}>
                       <Text style={styles.clientsPressableText}>Sent</Text>
                     </Pressable>
 
                     <Pressable
                       onPress={ViewNonLnsRecCredSlrss}
-                      style={styles.ClientsPressables}>
+                      style={styles.ClientsPressables2}>
                       <Text style={styles.clientsPressableText}>
                       Received
                       </Text>
@@ -319,7 +323,7 @@ const MyLoanAccount = props => {
               </View>
             </View>
 
-          <View style={styles.acEarningsView}>
+          <View style={styles.acEarningsView2}>
             <Text style={styles.salesText}>Single Member Black-List</Text>
 
             <View style={styles.viewForAcEarningsPressables}>
@@ -336,9 +340,11 @@ const MyLoanAccount = props => {
               </Pressable>
             </View>
           </View>        
-     
-    </View> 
+     </View>
+    </ScrollView>
     </SafeAreaView>
+
+   
   );
 };
 

@@ -243,6 +243,42 @@ declare global {
       BuyFloatFrmUsrAcs:undefined;
       RegPwnBrkrs:undefined;
       ElimAcs:undefined;
+
+      ElimNonLnsSents:undefined;
+      ElimNonLnsRecs:undefined;
+      ElimWthdrwlss:undefined;
+      ElimDpstss:undefined;
+
+      ElimLnsCvLnrs:undefined;      
+      ElimLnsCvLnees:undefined;
+      ElimLnsNonCvLnrs:undefined;
+      ElimLnsNonCvLnees:undefined;
+      ElimLPSMSents:undefined;
+      ElimLPSMRecs:undefined;
+      ElimLPChmSents:undefined;
+      ElimLPChmRecs:undefined;
+      ElimLPCredRecs:undefined;
+      ElimLPCredSents:undefined;
+
+      ElimRpyChmNonCvs:undefined;
+      ElimRpyChmCvs:undefined;
+      ElimRpySMNonCovs:undefined;
+      ElimRpySMCovs:undefined;
+      ElimRpyCredCovs:undefined;
+      ElimRpyCredNonCovs:undefined;
+
+      ElimCredCvLnees:undefined;
+      ElimCredCvLnrs:undefined;
+      ElimCredNonCvLnees:undefined;
+      ElimCredNonCvLnrs:undefined;
+
+      ElimChmVwMbrshpMembrs:undefined;
+      ElimChmVwNonCvLns:undefined;
+      ElimChmVwRmtncMembrs:undefined;
+      ElimChmVwCovLnss:undefined;
+      ElimChmVwCntrMembrs:undefined;
+
+    
       
     }
   }

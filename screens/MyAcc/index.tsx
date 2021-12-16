@@ -15,7 +15,7 @@ const MyAccount = props => {
   const navigation = useNavigation();
 
   const SMDpsitsss = () => {
-    navigation.navigate('SMDpsitss');
+    navigation.navigate('ElimDpstss');
   };
 
   const goToCreateSMAc = () => {
@@ -23,7 +23,7 @@ const MyAccount = props => {
   };
 
   const SMWthdrwlsss = () => {
-    navigation.navigate('SMWthdrwlss');
+    navigation.navigate('ElimWthdrwlss');
   };
 
   const goWithdrwMny = () => {
@@ -43,11 +43,11 @@ const MyAccount = props => {
   };
 
   const VwNonLnsRecss = () => {
-    navigation.navigate('VwNonLnsRecs');
+    navigation.navigate('ElimNonLnsRecs');
   };
 
   const VwNonLnsSntss = () => {
-    navigation.navigate('VwNonLnsSnts');
+    navigation.navigate('ElimNonLnsSents');
   };
 
   const UpdateAccCodesss = () => {

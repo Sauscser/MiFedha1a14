@@ -199,7 +199,7 @@ const CreateAcForm = (props) => {
                   
                 };
                 if (pword.length < 8)
-                {Alert.alert("password is too short; at least eight characters");
+                {Alert.alert("Short password; at least 8 mixed characters");
              
             } 
       

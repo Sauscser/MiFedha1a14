@@ -66,10 +66,10 @@ const MyLoanAccount = props => {
     navigation.navigate('ChamSignIn2s');
   };
   const ChmLnsRecCovss = () => {
-    navigation.navigate('ChmLnsRecCovs');
+    navigation.navigate('ElimChmVwCovLnss');
   };
   const ChmLnsRecNonCovss = () => {
-    navigation.navigate('ChmLnsRecNonCovs');
+    navigation.navigate('ElimChmVwNonCvLns');
   };
 
   const ChamSignIn3ss = () => {
@@ -93,22 +93,22 @@ const MyLoanAccount = props => {
   };
 
   const ChmMmbrContriss = () => {
-    navigation.navigate('ChmMmbrContris');
+    navigation.navigate('ElimChmVwCntrMembrs');
   };
 
   const ChmMmbrMmbrsss = () => {
-    navigation.navigate('ChmMmbrMmbrss');
+    navigation.navigate('ElimChmVwMbrshpMembrs');
   };
   const Vw2RpyCovss = () => {
-    navigation.navigate('Vw2RpyCovs');
+    navigation.navigate('ElimRpyChmCvs');
   };
 
   const Vw2RpyNonCovs = () => {
-    navigation.navigate('Vw2RpyNonCovs');
+    navigation.navigate('ElimRpyChmNonCvs');
   };
 
   const ChamaMmbrRemtss = () => {
-    navigation.navigate('ChamaMmbrRemts', {id});
+    navigation.navigate('ElimChmVwRmtncMembrs');
   };
 
 

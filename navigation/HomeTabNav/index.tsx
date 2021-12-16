@@ -203,6 +203,39 @@ import SgnIn2BLCredSlNonCov from "../../screens/MyAcc/Loans/BList/CredLoanee/Sgn
 import BuyFloatFrmUsrAc from "../../screens/MFNdogo/Float/BuyFloatFrmUsrAc";
 import RegPwnBrkr from "../../screens/MyAcc/RegPwnBrkr";
 import ElimAc from "../../screens/MyAcc/ElimAc";
+import ElimNonLnsSent from "../../screens/MyAcc/ElimNonLnsSent";
+import ElimNonLnsRec from "../../screens/MyAcc/ElimNonLnsRec";
+import ElimWthdrwls from "../../screens/MyAcc/ElimWthdrwls";
+import ElimDpsts from "../../screens/MyAcc/ElimDpsts";
+
+
+import ElimLnsCvLnr from "../../screens/MyAcc/ElimLnsCvLnr";
+import ElimLnsCvLnee from "../../screens/MyAcc/ElimLnsCvLnee";
+import ElimLnsNonCvLnr from "../../screens/MyAcc/ElimLnsNonCvLnr";
+import ElimLnsNonCvLnee from "../../screens/MyAcc/ElimLnsNonCvLnee";
+import ElimLPSMSent from "../../screens/MyAcc/ElimLPSMSent";
+import ElimLPSMRec from "../../screens/MyAcc/ElimLPSMRec";
+
+import ElimLPCredRec from "../../screens/MyAcc/ElimLPCredRec";
+import ElimLPCredSent from "../../screens/MyAcc/ElimLPCredSent";
+import ElimRpyChmNonCv from "../../screens/MyAcc/ElimRpyChmNonCv";
+import ElimRpyChmCv from "../../screens/MyAcc/ElimRpyChmCv";
+import ElimRpySMNonCov from "../../screens/MyAcc/ElimRpySMNonCov";
+import ElimRpySMCov from "../../screens/MyAcc/ElimRpySMCov";
+import ElimRpyCredCov from "../../screens/MyAcc/ElimRpyCredCov";
+import ElimRpyCredNonCov from "../../screens/MyAcc/ElimRpyCredNonCov";
+import ElimLPChmSent from "../../screens/MyAcc/ElimLPChmSent";
+
+import ElimCredCvLnee from "../../screens/CredSls/ElimCredCvLnee";
+import ElimCredCvLnr from "../../screens/CredSls/ElimCredCvLnr";
+import ElimCredNonCvLnee from "../../screens/CredSls/ElimCredNonCvLnee";
+import ElimCredNonCvLnr from "../../screens/CredSls/ElimCredNonCvLnr";
+
+import ElimChmVwMbrshpMembr from "../../screens/Chama/ElimChmVwMbrshpMembr";
+import ElimChmVwNonCvLn from "../../screens/Chama/ElimChmVwNonCvLn";
+import ElimChmVwRmtncMembr from "../../screens/Chama/ElimChmVwRmtncMembr";
+import ElimChmVwCovLns from "../../screens/Chama/ElimChmVwCovLns";
+import ElimChmVwCntrMembr from "../../screens/Chama/ElimChmVwCntrMembr";
 
 
 
@@ -215,6 +248,38 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
     
+      <Stack.Screen name={'ElimChmVwMbrshpMembrs'} component={ElimChmVwMbrshpMembr} />      
+      <Stack.Screen name={'ElimChmVwNonCvLns'} component={ElimChmVwNonCvLn} />
+      <Stack.Screen name={'ElimChmVwRmtncMembrs'} component={ElimChmVwRmtncMembr} />      
+      <Stack.Screen name={'ElimChmVwCovLnss'} component={ElimChmVwCovLns} />      
+      <Stack.Screen name={'ElimChmVwCntrMembrs'} component={ElimChmVwCntrMembr} />      
+      
+      <Stack.Screen name={'ElimCredCvLnees'} component={ElimCredCvLnee} />      
+      <Stack.Screen name={'ElimCredCvLnrs'} component={ElimCredCvLnr} />
+      <Stack.Screen name={'ElimCredNonCvLnees'} component={ElimCredNonCvLnee} />      
+      <Stack.Screen name={'ElimCredNonCvLnrs'} component={ElimCredNonCvLnr} />
+      
+      <Stack.Screen name={'ElimLPChmSents'} component={ElimLPChmSent} />      
+      <Stack.Screen name={'ElimRpyChmNonCvs'} component={ElimRpyChmNonCv} />
+      <Stack.Screen name={'ElimRpyChmCvs'} component={ElimRpyChmCv} />      
+      <Stack.Screen name={'ElimRpySMNonCovs'} component={ElimRpySMNonCov} />       
+      <Stack.Screen name={'ElimRpySMCovs'} component={ElimRpySMCov} />      
+      <Stack.Screen name={'ElimRpyCredCovs'} component={ElimRpyCredCov} />      
+      <Stack.Screen name={'ElimRpyCredNonCovs'} component={ElimRpyCredNonCov} /> 
+      <Stack.Screen name={'ElimLnsCvLnrs'} component={ElimLnsCvLnr} />
+      <Stack.Screen name={'ElimLnsCvLnees'} component={ElimLnsCvLnee} />      
+      <Stack.Screen name={'ElimLnsNonCvLnrs'} component={ElimLnsNonCvLnr} />       
+      <Stack.Screen name={'ElimLnsNonCvLnees'} component={ElimLnsNonCvLnee} />       
+      <Stack.Screen name={'ElimLPSMSents'} component={ElimLPSMSent} />
+      <Stack.Screen name={'ElimLPSMRecs'} component={ElimLPSMRec} />           
+      <Stack.Screen name={'ElimLPCredRecs'} component={ElimLPCredRec} />      
+      <Stack.Screen name={'ElimLPCredSents'} component={ElimLPCredSent} />    
+      
+      <Stack.Screen name={'ElimNonLnsSents'} component={ElimNonLnsSent} />
+      <Stack.Screen name={'ElimNonLnsRecs'} component={ElimNonLnsRec} />      
+      <Stack.Screen name={'ElimWthdrwlss'} component={ElimWthdrwls} />       
+      <Stack.Screen name={'ElimDpstss'} component={ElimDpsts} />  
+      
       <Stack.Screen name={'ElimAcs'} component={ElimAc} />
       <Stack.Screen name={'RegPwnBrkrs'} component={RegPwnBrkr} />      
       <Stack.Screen name={'BuyFloatFrmUsrAcs'} component={BuyFloatFrmUsrAc} /> 

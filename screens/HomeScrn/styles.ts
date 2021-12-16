@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 
   loanFriendButton: {
     backgroundColor: '#72ebd8',
-    height: "12%",
+    height: "7%",
     borderRadius: 30,
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 
   chamaLoanAndCreditSalesButton: {
     backgroundColor: 'white',
-    height: "40%",
+    height: "30%",
     borderRadius: 30,
     marginHorizontal: 30,
     width: Dimensions.get('screen').width - 60,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#e58d29',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "12%",
+    height: "8%",
     borderRadius: 20,
     marginTop: "8%",
     justifyContent: 'center',
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#72ebd8',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "34%",
+    height: "25%",
     borderRadius: 20,
     marginTop: "9%",
     justifyContent: 'center',

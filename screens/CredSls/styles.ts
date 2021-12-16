@@ -6,9 +6,7 @@ const styles = StyleSheet.create({
     height: "100%",
     resizeMode: 'cover',
     top:"2%",
-    
-    alignItems: 'center',
-    flexDirection: 'column',
+  
   },
   title: {
     fontSize: 45,
@@ -89,7 +87,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
 
-    
+    width: 80,
   },
 
   salesPressableText: {
@@ -125,9 +123,9 @@ const styles = StyleSheet.create({
   },
 
   viewForClientsCategories: {
-    backgroundColor: 'brown',
+    backgroundColor: '#e58d29',
     marginTop:"5%",
-    marginBottom:"5%",
+    
     height: "100%",
     borderRadius: 4,
     
@@ -136,6 +134,33 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: "33%"
   },
+
+  viewForClientsCategoriesLnSt: {
+    backgroundColor: '#e58d29',
+    marginTop:"4%",
+    
+    
+    borderRadius: 4,
+    marginLeft:"10%",
+    marginRight:"10%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    width: "33%"
+  },
+
+  viewForClientsAndTitleLnSt: {
+    backgroundColor: '#e58d29',
+    width:"100%",
+    height: "50%",
+    borderRadius: 4,
+   
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    
+  },
+  
 
   viewForClientsAndTitleMFNdogo: {
     backgroundColor: 'pink',
@@ -150,7 +175,7 @@ const styles = StyleSheet.create({
   },
 
   viewForClientsAndTitle: {
-    backgroundColor: 'brown',
+    backgroundColor: '#e58d29',
     width:"100%",
     height: "50%",
     borderRadius: 4,
@@ -165,11 +190,12 @@ const styles = StyleSheet.create({
   clientsView: {
     backgroundColor: '#e58d29',
     width:"100%",
-    height: "21%",
+    height: "29%",
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    
   },
 
   ClientsPressables: {
@@ -198,32 +224,21 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     width: Dimensions.get('screen').width - 10,
     height: "20%",
-    borderRadius: 20,
+    borderRadius: 2,
 
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
     marginTop: "2%",
+    marginBottom: "10%",
   },
 
   viewForAcEarningsPressables: {
     backgroundColor: '#e58d29',
-    marginHorizontal: 15,
-    width: Dimensions.get('screen').width - 30,
+    marginHorizontal: 5,
+    width: Dimensions.get('screen').width - 10,
     height: "60%",
-    borderRadius: 20,
-    marginTop: "0.5%",
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-
-  viewForAcEarningsPressables2: {
-    backgroundColor: '#e58d29',
-    marginHorizontal: 15,
-    width: Dimensions.get('screen').width - 30,
-    height: "60%",
-    borderRadius: 20,
+    borderRadius: 2,
     marginTop: "0.5%",
     justifyContent: 'center',
     alignItems: 'center',
@@ -233,81 +248,24 @@ const styles = StyleSheet.create({
   earningsAcPressables: {
     backgroundColor: '#72ebd8',
     
-    height: "90%",
-    borderRadius: 5,
-
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    width:"40%",
-    marginLeft:"3%",
-    marginRight:"3%"
-  
-    
-    
-  },
-
-  viewForAcEarningsPressables2Text: {
-    backgroundColor: '#e58d29',
-    marginHorizontal: 15,
-    width: Dimensions.get('screen').width - 30,
-    height: "60%",
+    height: "70%",
     borderRadius: 20,
-    marginTop: "0.5%",
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-
-  earningsAcPressables2: {
-    backgroundColor: 'blue',
-    
-    height: "60%",
-    borderRadius: 5,
 
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    width:"45%",
-    marginLeft:"3%",
-    marginRight:"3%"
-    
+    width:"41%",
+    marginLeft:"4%",
+    marginRight:"4%",
+    marginHorizontal: "10%"
     
     
   },
-
-
 
   earningsAcPressableText: {
     color: 'black',
-    fontSize: 11,
+    fontSize: 15,
     marginTop: 1,
-  },
-
-  viewForClientsCategoriesLnSt: {
-    backgroundColor: '#e58d29',
-    marginTop:"1%",
-    marginBottom:"4%",
-    height: "100%",
-    borderRadius: 4,
-    marginLeft:"10%",
-    marginRight:"10%",
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-    width: "33%"
-  },
-
-  viewForClientsAndTitleLnSt: {
-    backgroundColor: '#e58d29',
-    width:"90%",
-    height: "50%",
-    borderRadius: 4,
-   
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    
   },
 });
 export default styles;

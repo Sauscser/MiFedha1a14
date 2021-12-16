@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
 
-    width: 80,
+    
   },
 
   salesPressableText: {
@@ -212,6 +212,22 @@ const styles = StyleSheet.create({
     
   },
 
+  ClientsPressables2: {
+    backgroundColor: '#72ebd8',
+    width:"45%",
+    marginLeft:"1%",
+    marginRight:"1%",
+    height: "90%",
+    borderRadius: 4,
+  
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+
+    
+  },
+
+
   clientsPressableText: {
     color: 'black',
     fontSize: 10,
@@ -229,14 +245,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     marginTop: "2%",
+    marginBottom: "99%",
   },
+
+  acEarningsView2: {
+    backgroundColor: '#e58d29',
+    marginHorizontal: 5,
+    width: Dimensions.get('screen').width - 10,
+    height: "17%",
+    borderRadius: 2,
+
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginTop: "2%",
+  },
+
 
   viewForAcEarningsPressables: {
     backgroundColor: '#e58d29',
-    marginHorizontal: 15,
-    width: Dimensions.get('screen').width - 30,
+    marginHorizontal: 5,
+    width: Dimensions.get('screen').width - 10,
     height: "60%",
-    borderRadius: 20,
+    borderRadius: 2,
     marginTop: "0.5%",
     justifyContent: 'center',
     alignItems: 'center',
@@ -246,7 +277,7 @@ const styles = StyleSheet.create({
   earningsAcPressables: {
     backgroundColor: '#72ebd8',
     
-    height: 60,
+    height: "50%",
     borderRadius: 20,
 
     justifyContent: 'center',
