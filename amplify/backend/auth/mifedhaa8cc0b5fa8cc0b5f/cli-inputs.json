@@ -6,7 +6,7 @@
     "resourceNameTruncated": "mifedha8cc0b5f",
     "userPoolName": "mifedhaa8cc0b5f_userpool_a8cc0b5f",
     "autoVerifiedAttributes": [
-      "phone_number"
+      "email"
     ],
     "mfaConfiguration": "OFF",
     "mfaTypes": [
@@ -78,6 +78,7 @@
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "permissions": []
+    "permissions": [],
+    "authProviders": []
   }
 }

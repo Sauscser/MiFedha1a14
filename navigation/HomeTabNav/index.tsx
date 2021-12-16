@@ -201,7 +201,8 @@ import SgnIn2BLSMNonCov from "../../screens/MyAcc/Loans/BList/SMLoanee/SgnInToBL
 import SgnIn2BLCredSlCov from "../../screens/MyAcc/Loans/BList/CredLoanee/SgnInToBL/CredSlCov";
 import SgnIn2BLCredSlNonCov from "../../screens/MyAcc/Loans/BList/CredLoanee/SgnInToBL/CredSlNonCov";
 import BuyFloatFrmUsrAc from "../../screens/MFNdogo/Float/BuyFloatFrmUsrAc";
-import RegPwnBrkr from "../../screens/MyAcc/RegPwnBrkr"
+import RegPwnBrkr from "../../screens/MyAcc/RegPwnBrkr";
+import ElimAc from "../../screens/MyAcc/ElimAc";
 
 
 
@@ -214,8 +215,8 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
     
-      <Stack.Screen name={'RegPwnBrkrs'} component={RegPwnBrkr} /> 
-      
+      <Stack.Screen name={'ElimAcs'} component={ElimAc} />
+      <Stack.Screen name={'RegPwnBrkrs'} component={RegPwnBrkr} />      
       <Stack.Screen name={'BuyFloatFrmUsrAcs'} component={BuyFloatFrmUsrAc} /> 
       
       <Stack.Screen name={'SgnIn2BLCredSlCovs'} component={SgnIn2BLCredSlCov} />      

@@ -39,7 +39,7 @@ const MyAccount = props => {
   };
 
   const ViewSmAcss = () => {
-    navigation.navigate('ViewSmAcs');
+    navigation.navigate('ElimAcs');
   };
 
   const VwNonLnsRecss = () => {

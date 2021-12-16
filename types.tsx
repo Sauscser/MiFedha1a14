@@ -242,6 +242,7 @@ declare global {
       SgnIn2BLCredSlNonCovs:undefined;
       BuyFloatFrmUsrAcs:undefined;
       RegPwnBrkrs:undefined;
+      ElimAcs:undefined;
       
     }
   }
