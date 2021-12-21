@@ -68,9 +68,9 @@ const DeregMFAdminForm = (props) => {
                 }
               }
                 setIsLoading(false)
-              await KFAdminDtls();
+              
             }
-            updtActAdm();
+            
 
             const KFAdminDtls = async () => {
               if(isLoading){
@@ -95,8 +95,12 @@ const DeregMFAdminForm = (props) => {
             } 
             else{Alert.alert("Please check your internet connection")
           return;} }
+
+          await updtActAdm();
               setIsLoading(false);
             } 
+
+            KFAdminDtls();
             
           } catch (error) {
             if(error){

@@ -67,12 +67,9 @@ const DeregMFNForm = (props) => {
           }
         }
         setIsLoading(false);
-        await KFNDtls(); 
+        
       }
-      if(phoneContact.length!==13)
-      {Alert.alert("Ensure right format of the phone number");
-    return;}
-    else {updtActAdm();}
+      
 
         const KFNDtls = async () => {
           if(isLoading){
@@ -98,7 +95,11 @@ const DeregMFNForm = (props) => {
         } 
           Alert.alert("MFNdogo successfully deactivated")
           setIsLoading(false);
-      }}
+          await updtActAdm();
+      }
+    
+      KFNDtls();
+    }
            catch (error) {
             if(error){
               Alert.alert("Check your internet connection")

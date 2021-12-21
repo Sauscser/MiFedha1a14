@@ -65,11 +65,10 @@ const DeregMFKForm = (props) => {
                 return;
               }}
               setIsLoading(false);
-              await KFKDtls()
+              
               
             }
-            updtActAdm();
-
+           
             const KFKDtls = async () => {
               if(isLoading){
                 return;
@@ -90,8 +89,9 @@ const DeregMFKForm = (props) => {
             return;} }
             Alert.alert("Account deactivated successfully")
             setIsLoading(false);
-               
+            await updtActAdm()
             } 
+            KFKDtls();
           
             
           } catch (error) {
