@@ -50,7 +50,7 @@ const RootNavigator = props => {
         <Drawer.Screen name="MFAdvocate" component={AdvSgnIn} />
         
         <Drawer.Screen name="MFAdminstrators" component={MFAdmSgnIn} />
-        <Drawer.Screen name="MFSettings" component={MFSetting} />
+        <Drawer.Screen name="MFAdmin2" component={MFSetting} />
         <Drawer.Screen name="Reference" component={Ref} />
         
         

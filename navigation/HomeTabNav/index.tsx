@@ -68,7 +68,7 @@ import ViewMyNonCovLoaners from "../../screens/MyAcc/Loans/ViewSMLns/NonCov/MyLo
 import ViewSmAc from "../../screens/MyAcc/ViewMySMAcc";
 import ViewSmAcs from "../../components/MyAc/ViewAc";
 import VwNonLnsRec from "../../screens/MyAcc/ViewNonLnsSent";
-import VwNonLnsSnt from "../../screens/MyAcc/ViewNonLnsSnt";
+import VwNonLnsSnt from "../../screens/MyAcc/ViewNonLnsRec";
 import ChmSignIns from "../../screens/Chama/ViewLns/ChamaSignIn";
 
 import ChamSignIn2 from "../../screens/Chama/ViewLns/ChamaSignIn2";
@@ -236,6 +236,10 @@ import ElimChmVwNonCvLn from "../../screens/Chama/ElimChmVwNonCvLn";
 import ElimChmVwRmtncMembr from "../../screens/Chama/ElimChmVwRmtncMembr";
 import ElimChmVwCovLns from "../../screens/Chama/ElimChmVwCovLns";
 import ElimChmVwCntrMembr from "../../screens/Chama/ElimChmVwCntrMembr";
+import SendNonLonsRev from "../../screens/MyAcc/SendNonLonsRev";
+import SendNonLonsRevSgnIn from "../../screens/MyAcc/SendNonLonsRevSgnIn";
+import SendNonLonsRevVw from "../../screens/MyAcc/SendNonLonsRevVw";
+import ViewNonLnsRec from "../../screens/MyAcc/ViewNonLnsRec";
 
 
 
@@ -248,6 +252,12 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
     
+      <Stack.Screen name={'ViewNonLnsRecs'} component={ViewNonLnsRec} /> 
+      
+      <Stack.Screen name={'SendNonLonsRev'} component={SendNonLonsRev} />      
+      <Stack.Screen name={'SendNonLonsRevSgnIn'} component={SendNonLonsRevSgnIn} />
+      <Stack.Screen name={'SendNonLonsRevVw'} component={SendNonLonsRevVw} />
+      
       <Stack.Screen name={'ElimChmVwMbrshpMembrs'} component={ElimChmVwMbrshpMembr} />      
       <Stack.Screen name={'ElimChmVwNonCvLns'} component={ElimChmVwNonCvLn} />
       <Stack.Screen name={'ElimChmVwRmtncMembrs'} component={ElimChmVwRmtncMembr} />      

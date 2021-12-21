@@ -88,6 +88,9 @@ const SMASendLns = props => {
       const usrLnLim =accountDtl.data.getSMAccount.loanLimit;
       const TtlActvLonsTmsLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
       const TtlActvLonsAmtLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
+      const TtlActvLonsTmsLneeCovs2 =accountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;                        
+      const TtlActvLonsAmtLneeCovs2 =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
+
       const names =accountDtl.data.getSMAccount.name;
       const SenderNatId =accountDtl.data.getSMAccount.nationalid;
   
@@ -177,8 +180,11 @@ const SMASendLns = props => {
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
                         const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
-                        const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
+                        const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;                        
                         const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
+
+                        const TtlActvLonsTmsLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
+                        const TtlActvLonsAmtLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
 
                         const confrmReg = async () =>{
@@ -249,8 +255,10 @@ const SMASendLns = props => {
                                     phonecontact:SendrPhn,
                                     TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
                                     TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(AmtExp)).toFixed(2),
+                                    TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs2) +1 ,
+                                    TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ parseFloat(AmtExp)).toFixed(2),
                                                                               
-                                    balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) 
+                                    balance:(parseFloat(SenderUsrBal)-TotalTransacted - vatFee).toFixed(2) 
                                    
                                     
                                   }
@@ -279,7 +287,9 @@ const SMASendLns = props => {
                                     phonecontact:RecPhn,
                                     TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
                                     TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(AmtExp)).toFixed(2),
-                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount) - vatFee).toFixed(2) ,
+                                    TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs1)+1,
+                                    TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs1) + parseFloat(AmtExp)).toFixed(2),
+                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount) ).toFixed(2) ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                 
@@ -356,7 +366,9 @@ const SMASendLns = props => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
-                          Alert.alert("Loan:Ksh. "+parseFloat(AmtExp).toFixed(2) + " Coverage:Ksh. " +CoverageFees.toFixed(2) + "Transaction:Ksh. "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2));
+                          Alert.alert("Coverage:" +CoverageFees.toFixed(2) 
+                          + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2)
+                          +", I VAT:"+ vatFee.toFixed(2));
                           setIsLoading(false);
                         }
                                               

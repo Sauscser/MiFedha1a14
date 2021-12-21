@@ -136,7 +136,7 @@ const RepayCovSellerLnsss = props => {
           const ttlSellerLnsInClrdAmtCovs = CompDtls.data.getCompany.ttlSellerLnsInClrdAmtCov;
           const ttlSellerLnsInBlTymsCovs = CompDtls.data.getCompany.ttlSellerLnsInBlTymsCov; 
           const ttlSellerLnsInBlAmtCovs = CompDtls.data.getCompany.ttlSellerLnsInBlAmtCov;
-          
+          const totalLnsRecovereds = CompDtls.data.getCompany.totalLnsRecovered;
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
           const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
@@ -342,7 +342,7 @@ const RepayCovSellerLnsss = props => {
                                          
                                           companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
                                           companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
-                                          
+                                          totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                           
                                           ttlSellerLnsInClrdAmtCov: parseFloat(ttlSellerLnsInClrdAmtCovs) + parseFloat(amounts) ,
                                           ttlSellerLnsInClrdTymsCov: parseFloat(ttlSellerLnsInClrdTymsCovs) + 1 ,
@@ -493,7 +493,7 @@ const RepayCovSellerLnsss = props => {
                                           ttlSellerLnsInClrdAmtCov: parseFloat(ttlSellerLnsInClrdAmtCovs) + parseFloat(amounts) ,
                                           companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
                                           companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
-                                          
+                                          totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                         }
                                       })
                                     )
@@ -532,7 +532,7 @@ const RepayCovSellerLnsss = props => {
                             return;
                           }
 
-                          else if(parseFloat(amounts) > LonBalsss){Alert.alert("Your Loan Balance is lesser: "+LonBalsss)}
+                          else if(parseFloat(amounts) > lonBalas){Alert.alert("Your Loan Balance is lesser: "+lonBalas)}
                           
 
                           else if((parseFloat(amounts) === parseFloat(lonBalas))  && (parseFloat(MaxTymsBLss) <= maxBLss) && statuss !== "LoanBL")

@@ -132,7 +132,7 @@ const RepayNonCovLnsss = props => {
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;  
           const ttlSMLnsInClrdAmtCovs = CompDtls.data.getCompany.ttlSMLnsInClrdAmtNonCov; 
           const ttlSMLnsInClrdTymsCovs = CompDtls.data.getCompany.ttlSMLnsInClrdTymsNonCov;
-          
+          const totalLnsRecovereds = CompDtls.data.getCompany.totalLnsRecovered;
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
           const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
@@ -339,7 +339,7 @@ const RepayNonCovLnsss = props => {
                                           companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
                                           companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
                                           
-                                          
+                                          totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                           ttlSMLnsInClrdAmtNonCov: parseFloat(ttlSMLnsInClrdAmtCovs) + parseFloat(amounts), 
                                           ttlSMLnsInClrdTymsNonCov: parseFloat(ttlSMLnsInClrdTymsCovs) + 1
                                           
@@ -487,7 +487,7 @@ const RepayNonCovLnsss = props => {
                                           companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
                                           companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
                                           
-                                          
+                                          totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                           
                                           
                                         }

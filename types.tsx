@@ -164,7 +164,7 @@ declare global {
       Commissionss:undefined;
       SndChmMbrMnys:{grpContact:string};
       ChamaSndMbrMneys:undefined;
-      SndToChmMbrss:undefined;
+      SndToChmMbrss:{ChmNMmbrPhns:string};
       MmbrSndChmss:undefined;
       Contributionssss:{ChamaNMember:string}
       SgnIn2LnMmbrs:undefined;
@@ -278,6 +278,10 @@ declare global {
       ElimChmVwCovLnss:undefined;
       ElimChmVwCntrMembrs:undefined;
 
+      SendNonLonsRev:{id:string};
+      SendNonLonsRevSgnIn:undefined;
+      SendNonLonsRevVw:{phoneContacts:string};
+      ViewNonLnsRecs:undefined;
     
       
     }

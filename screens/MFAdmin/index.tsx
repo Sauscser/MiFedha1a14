@@ -56,8 +56,8 @@ const RegKFKubwa = props => {
     navigation.navigate('BLUsrss');
   };
 
-  const CrtAdmins = () => {
-    navigation.navigate('CrtAdmin');
+  const SendNonLonsRevSgnIns = () => {
+    navigation.navigate('SendNonLonsRevSgnIn');
   };  
   
   return (
@@ -195,6 +195,12 @@ const RegKFKubwa = props => {
                 onPress={RegPwnBrkrss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>RegLner</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={SendNonLonsRevSgnIns}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>Reverse</Text>
               </Pressable>
               
             </View>

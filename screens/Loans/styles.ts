@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
   earningsAcPressables: {
     backgroundColor: '#72ebd8',
     
-    height: "50%",
+    height: "70%",
     borderRadius: 20,
 
     justifyContent: 'center',

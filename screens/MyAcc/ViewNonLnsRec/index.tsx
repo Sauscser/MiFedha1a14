@@ -1,10 +1,10 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text,   FlatList, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import NonLnSent from "../../../components/MyAc/ViewSentNonLns";
+import NonLnSent from "../../../components/MyAc/ViewRecNonLns";
 import styles from './styles';
-import { getCompany, getSMAccount, listNonLoanss, listSMAccounts, vwMySntMny } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount,   vwMyRecMny } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
 const FetchSMNonLnsSnt = props => {
@@ -28,16 +28,16 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMySntMny, 
+              const Lonees:any = await API.graphql(graphqlOperation(vwMyRecMny, 
               {
-                      senderPhn: SenderPhn,
+                      recPhn: SenderPhn,
                       sortDirection: 'DESC',
                       limit: 100,
                       filter:{status:{eq:"SMNonLons"}}
                     }
                
                   ));
-                  setRecvrs(Lonees.data.VwMySntMny.items);
+                  setRecvrs(Lonees.data.VwMyRecMny.items);
 
                   const fetchUsrDtls = async () => {
                     try {
@@ -77,7 +77,7 @@ const FetchSMNonLnsSnt = props => {
                                                         return;
                                                     }
                                                     }
-                                                    updtUsrAc();
+                                                    await updtUsrAc();
                                                     
                                                   }
               
@@ -101,9 +101,6 @@ const FetchSMNonLnsSnt = props => {
                                                     }
                                                                                                         
                                                   }
-                              
-              
-              
                               
               
                       if(parseFloat(balances) < parseFloat(enquiryFees) ){

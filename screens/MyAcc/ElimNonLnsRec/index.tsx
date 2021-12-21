@@ -39,7 +39,7 @@ const CreateAcForm = (props) => {
   const[ownr, setownr] = useState(null);
 
   const moveToWelcomPg = () => {
-    navigation.navigate("VwNonLnsRecs");
+    navigation.navigate("ViewNonLnsRecs");
   };
 
 

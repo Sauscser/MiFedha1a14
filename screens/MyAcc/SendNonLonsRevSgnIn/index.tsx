@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
 
-import { getCompany, getGroup, getSMAccount, listSMAccounts, } from '../../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -21,6 +20,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
+import { getBankAdmin } from '../../../src/graphql/queries';
 
 
   
@@ -41,11 +41,11 @@ const ChmSignIn = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
   const [ChmNm, setChmNm] = useState('');
-  const [ChmDesc, setChmDesc] = useState('');
+  const [id, setid] = useState('');
   const[ownr, setownr] = useState(null);
 
   const FetchGrpLonsSts = () => {
-    navigation.navigate("ChmLnsGvnOutNonCovs", {grpContact});
+    navigation.navigate("SendNonLonsRevVw", {phoneContacts});
   };
   
 
@@ -61,45 +61,44 @@ const ChmSignIn = (props) => {
       fetchUser();
     }, []);
 
+    const gtAdmDtls = async () =>{
+      if(isLoading){
+        return;
+      }
+      setIsLoading(true);
+      try{
+        const compDtls :any= await API.graphql(
+          graphqlOperation(getBankAdmin,{nationalid:grpContact})
+          );
+          const signitoryPWs = compDtls.data.getBankAdmin.pw;  
+          const owners = compDtls.data.getBankAdmin.owner;  
 
-    
+          
 
-    
-                const gtChmDtls = async () =>{
-                  if(isLoading){
-                    return;
-                  }
-                  setIsLoading(true);
-                  try{
-                    const compDtls :any= await API.graphql(
-                      graphqlOperation(getGroup,{grpContact:grpContact})
-                      );
-                      const signitoryPWs = compDtls.data.getGroup.signitoryPW;  
-                      const owners = compDtls.data.getGroup.owner;  
+          if(signitoryPWs!==pword){Alert.alert("Wrong Admin credentials")}
+          else if(ownr!==owners){Alert.alert("This is not your Admin Account")}
+          else{FetchGrpLonsSts();}
+        }
 
-                      if(signitoryPWs!==pword){Alert.alert("Wrong author credentials")}
-                      else if(ownr!==owners){Alert.alert("You are not the author of the Chama")}
-                      else{FetchGrpLonsSts();}
-                    }
+        
 
-                    
-            
-            catch(e){
-              console.log(e)
-              if(e){
-                Alert.alert("Group does not exist; otherwise check inernet connection")
-                return;
-            }
-            }
+catch(e){
+  console.log(e)
+  if(e){
+    Alert.alert("Admin does not exist; otherwise check internet")
+    return;
+}
+}
+setIsLoading(false)
+setChmPhn('');
+setPW('');
+setPhoneContacts("")
+setid("")
+setChmNm("")
             setIsLoading(false)
-            setChmPhn('');
-            setPW('');
-            setPhoneContacts("")
-            setChmDesc("")
-            setChmNm("")
-                        setIsLoading(false)
-                        
-            };
+            
+};
+                
               
                
 
@@ -130,16 +129,7 @@ const ChmSignIn = (props) => {
           }, [ChmNm]
            );
 
-           useEffect(() =>{
-            const ChmDescs=ChmDesc
-              if(!ChmDescs && ChmDescs!=="")
-              {
-                setChmDesc("");
-                return;
-              }
-              setChmDesc(ChmDescs);
-              }, [ChmDesc]
-               );
+           
 
 useEffect(() =>{
   const ChmPhns=grpContact
@@ -175,13 +165,15 @@ useEffect(() =>{
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="+2547xxxxxxxx"
+                    
                       value={grpContact}
                       onChangeText={setChmPhn}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Phone Number</Text>
+                    <Text style={styles.sendLoanText}>Admin ID</Text>
                   </View>
+
+
 
                   <View style={styles.sendLoanView}>
                     <TextInput
@@ -190,13 +182,23 @@ useEffect(() =>{
                       onChangeText={setPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Signitory PW</Text>
+                    <Text style={styles.sendLoanText}>Admin PW</Text>
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder="+2547xxxxxxxx"
+                      value={phoneContacts}
+                      onChangeText={setPhoneContacts}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>User Phone Number</Text>
                   </View>
 
                  
         
                   <TouchableOpacity
-                    onPress={gtChmDtls}
+                    onPress={gtAdmDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to View

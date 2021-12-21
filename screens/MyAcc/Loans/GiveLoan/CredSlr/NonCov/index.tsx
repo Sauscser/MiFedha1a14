@@ -272,7 +272,7 @@ const NonCovCredSls = props => {
                                     phonecontact:RecPhn,
                                     TtlActvLonsTmsByrNonCov: parseFloat(TtlActvLonsTmsByrCovs) +1 ,
                                     TtlActvLonsAmtByrNonCov: parseFloat(TtlActvLonsAmtByrCovs)+ parseFloat(AmtExp),
-                                    balance:parseFloat(RecUsrBal) - parseFloat(userLoanTransferFees)*parseFloat(amount)  ,
+                                    balance:(parseFloat(RecUsrBal) - parseFloat(userLoanTransferFees)*parseFloat(amount) - vatFee).toFixed(2)  ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                               
@@ -322,7 +322,8 @@ const NonCovCredSls = props => {
                         return;}
                           }
                           setIsLoading(false);
-                          Alert.alert("Loan:Ksh. "+parseFloat(AmtExp).toFixed(2) + " Transaction Fee:Ksh. "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2));
+                          Alert.alert("Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
+                          + ", I VAT:"+ vatFee.toFixed(2));
                         }
                         
                                               

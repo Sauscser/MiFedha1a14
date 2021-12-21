@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import { deleteAgent, updateAgent, updateCompany, updateSAgent} from '../../../../src/graphql/mutations';
+import { deleteAgent, deleteSAgent, updateAgent, updateCompany, updateSAgent} from '../../../../src/graphql/mutations';
 import { getAgent, getCompany,  } from '../../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
@@ -77,7 +77,7 @@ const DeregMFKForm = (props) => {
                             setIsLoading(true);
               try{
                   await API.graphql(
-                    graphqlOperation(deleteAgent,{
+                    graphqlOperation(deleteSAgent,{
                       input:{
                         phonecontact:MFKID,
                         

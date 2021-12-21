@@ -19,15 +19,30 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.MiFedhaLimited.MiFedha",
+      "config":
+      {
+        "googleMapsApiKey":"AIzaSyBSxEmaAbLx6H5FIv1T7Mt1a_67vdWB7uw"
+    }
+  
+      
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.MiFedhaLimited.MiFedha"
+      "package": "com.MiFedhaLimited.MiFedha",
+      "config":
+      {
+        "googleMaps":{
+          "apiKey":"AIzaSyB2fOeslPneWkf2XJzD31p1w2wmVBmdSKs"
+    }
+  }
     },
+    
+
     "web": {
       "favicon": "./assets/images/favicon.png"
     },

@@ -45,7 +45,7 @@ const KFAdvHome = props => {
 
   return (
     
-      <View
+      <SafeAreaView
         
         style={styles.floatimage}>
         
@@ -114,7 +114,7 @@ const KFAdvHome = props => {
             
           </View>
         </View>
-      </View>
+      </SafeAreaView>
     
   );
 };

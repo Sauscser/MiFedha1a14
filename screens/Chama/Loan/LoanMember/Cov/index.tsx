@@ -11,7 +11,7 @@ import {
   updateChamaMembers,
   updateCompany,
   updateGroup,
-  updateGrpMembers,
+  
   updateSAgent,
   updateSMAccount,
   
@@ -132,11 +132,11 @@ const fetchChmMbrDtls = async () => {
           const CoverageFees = CompDtls.data.getCompany.CoverageFee;
           const AdvCovFee =(parseFloat(CoverageFees)*parseFloat(AdvComs))
           const CompCovFee =1 - (parseFloat(CoverageFees)*parseFloat(AdvComs))
-          const AdvCovAmt = (AdvCovFee*parseFloat(amount)).toFixed(2)
-          const CompCovAmt = (CompCovFee*parseFloat(amount)).toFixed(2)
-          const ttlCovFeeAmount = (parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2)                
+          const AdvCovAmt =AdvCovFee*parseFloat(amount)
+          const CompCovAmt = CompCovFee*parseFloat(amount)
+          const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)                
           
-          const TotalTransacted = parseFloat(parseFloat(amount) + ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2);             
+          const TotalTransacted = parseFloat(amount) + ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount);             
           const ttlCompCovEarningss = CompDtls.data.getCompany.ttlCompCovEarnings;
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
@@ -155,6 +155,7 @@ const fetchChmMbrDtls = async () => {
           const MaxSMInterest = parseFloat(amount)*parseFloat(maxInterestGrps)*parseFloat(RepaymtPeriod);
           
           const ActualMaxSMInterest = parseFloat(AmtExp) - parseFloat(amount);
+        console.log(TotalTransacted)
           
           
           const fetchAdv = async () =>{
@@ -276,7 +277,7 @@ const fetchChmMbrDtls = async () => {
                                     TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs)+1,
                                     TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + parseFloat(AmtExp)).toFixed(2),
                                                                               
-                                    grpBal:parseFloat(grpBals)-parseFloat(TotalTransacted) 
+                                    grpBal:(parseFloat(grpBals)-TotalTransacted + vatFee).toFixed(2) 
                                    
                                     
                                   }
@@ -304,7 +305,7 @@ const fetchChmMbrDtls = async () => {
                                     phonecontact:memberContacts,
                                     TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
                                     TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ parseFloat(AmtExp)).toFixed(2),
-                                    balance:(parseFloat(parseFloat(RecUsrBal) + parseFloat(amount).toFixed(2)) - vatFee).toFixed(2),
+                                    balance:(parseFloat(parseFloat(RecUsrBal) + parseFloat(amount).toFixed(2)) ).toFixed(2),
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                
@@ -334,11 +335,11 @@ const fetchChmMbrDtls = async () => {
                                   input:{
                                     AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                         
-                                    ttlCompCovEarnings:parseFloat(CompCovAmt) + parseFloat(ttlCompCovEarningss),
-                                    AdvEarningBal:parseFloat(AdvCovAmt) + parseFloat(AdvEarningBals),                                                                                                                                                     
-                                    AdvEarning:parseFloat(AdvCovAmt) + parseFloat(AdvEarnings),
-                                    companyEarningBal:parseFloat(CompCovAmt) + parseFloat(companyEarningBals),
-                                    companyEarning: parseFloat(CompCovAmt) + parseFloat(companyEarnings),                                                    
+                                    ttlCompCovEarnings:CompCovAmt + parseFloat(ttlCompCovEarningss),
+                                    AdvEarningBal:AdvCovAmt + parseFloat(AdvEarningBals),                                                                                                                                                     
+                                    AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
+                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals),
+                                    companyEarning: CompCovAmt + parseFloat(companyEarnings),                                                    
                                     
                                     ttlChmLnsInAmtCov: parseFloat(AmtExp) + parseFloat(ttlChmLnsInAmtCovs),
                                     ttlvat:parseFloat(ttlvats)+vatFee,
@@ -371,8 +372,8 @@ const fetchChmMbrDtls = async () => {
                                 graphqlOperation(updateAdvocate, {
                                   input:{
                                     advregnu: AdvRegNo,
-                                    advBal: parseFloat(AdvCovAmt) + parseFloat(advBl) ,
-                                    TtlEarnings:parseFloat(AdvCovAmt) + parseFloat(advTtlAern),                                 
+                                    advBal: AdvCovAmt + parseFloat(advBl) ,
+                                    TtlEarnings:AdvCovAmt + parseFloat(advTtlAern),                                 
                                     
                                   }
                                 })
@@ -383,7 +384,9 @@ const fetchChmMbrDtls = async () => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
-                          Alert.alert("Loan:Ksh. "+parseFloat(AmtExp).toFixed(2) + " Coverage:Ksh. " +parseFloat(CoverageFees).toFixed(2) + "Transaction:Ksh. "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2));
+                          Alert.alert("Coverage:" +parseFloat(CoverageFees).toFixed(2) 
+                          + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2)
+                          +", I VAT:"+ vatFee.toFixed(2));
                           setIsLoading(false);
                         }
                                               
@@ -400,7 +403,7 @@ const fetchChmMbrDtls = async () => {
                         else if(ActualMaxSMInterest>MaxSMInterest)
                         {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(2) + "; Recom SI:" + (MaxSMInterest).toFixed(2) );}
                         else if (
-                          parseFloat(grpBals) < parseFloat(TotalTransacted) 
+                          parseFloat(grpBals) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
                         else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
                         else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');}
@@ -618,6 +621,9 @@ useEffect(() =>{
          <View style={styles.sendAmtView}>
            <TextInput
              value={SnderPW}
+             multiline={false}
+             autoCompleteType ="off"
+             
              onChangeText={setSnderPW}
              style={styles.sendAmtInput}
              editable={true}></TextInput>

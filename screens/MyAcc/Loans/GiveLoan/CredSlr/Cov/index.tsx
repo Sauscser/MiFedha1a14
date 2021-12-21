@@ -291,7 +291,7 @@ const CovCredSls = props => {
                                     phonecontact:RecPhn,
                                     TtlActvLonsTmsByrCov: parseFloat(TtlActvLonsTmsByrCovs) +1 ,
                                     TtlActvLonsAmtByrCov: parseFloat(TtlActvLonsAmtByrCovs)+ parseFloat(AmtExp),
-                                    balance:parseFloat(RecUsrBal) - TotalTransacted,
+                                    balance:(parseFloat(RecUsrBal) - TotalTransacted - (vatFee)).toFixed(2),
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                 
@@ -368,7 +368,9 @@ const CovCredSls = props => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
-                          Alert.alert("Loan:Ksh. "+parseFloat(AmtExp).toFixed(2) + " Coverage:Ksh. " +CoverageFees.toFixed(2) + "Transaction:Ksh. "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2));
+                          Alert.alert("Coverage:" 
+                          +CoverageFees.toFixed(2) + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
+                          + ", I VAT:"+ vatFee.toFixed(2));
                           setIsLoading(false);
                         }
                                               

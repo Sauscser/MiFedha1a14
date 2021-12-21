@@ -137,12 +137,7 @@ const KFNdogoScreen = props => {
           <Text style={styles.floatText}>Float</Text>
 
           <View style={styles.viewForFloatPressables}>
-            <Pressable
-              
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>Buy (Coming Soon)</Text>
-            </Pressable>
-
+           
             
             <Pressable
               onPress={WthdrwMFNFltss}

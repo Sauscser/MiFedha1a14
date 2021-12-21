@@ -120,7 +120,7 @@ const fetchChmMbrDtls = async () => {
           
           const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
           
-          const TotalTransacted = (parseFloat(amount)  + parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2);             
+          const TotalTransacted = parseFloat(amount)  + parseFloat(userLoanTransferFees)*parseFloat(amount);             
          
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
@@ -128,13 +128,13 @@ const fetchChmMbrDtls = async () => {
           const ttlChmLnsInAmtNonCovs = CompDtls.data.getCompany.ttlChmLnsInAmtNonCov;          
           const ttlChmLnsInTymsNonCovs = CompDtls.data.getCompany.ttlChmLnsInTymsNonCov;            
           const maxInterestGrps = CompDtls.data.getCompany.maxInterestGrp;  
-          const Interest = (((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))).toFixed(2);     
+          const Interest = ((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod));     
           const maxBLss = CompDtls.data.getCompany.maxBLs;
 
           const IntAmt = parseFloat(AmtExp) - parseFloat(amount)
           
           const vats = CompDtls.data.getCompany.vat;
-          const vatFee = (parseFloat(vats)*IntAmt)
+          const vatFee = parseFloat(vats)*IntAmt
           const ttlvats = CompDtls.data.getCompany.ttlvat;
 
           const MaxSMInterest = parseFloat(amount)*parseFloat(maxInterestGrps)*parseFloat(RepaymtPeriod);
@@ -250,7 +250,7 @@ const fetchChmMbrDtls = async () => {
                                     TtlActvLonsTmsLnrChmNonCov: parseFloat(TtlActvLonsTmsLnrChmNonCovs)+1,
                                     TtlActvLonsAmtLnrChmNonCov: (parseFloat(TtlActvLonsAmtLnrChmNonCovs) + parseFloat(AmtExp)).toFixed(2),
                                                                               
-                                    grpBal:(parseFloat(grpBals)-parseFloat(TotalTransacted)).toFixed(2) 
+                                    grpBal:(parseFloat(grpBals)-TotalTransacted  - vatFee).toFixed(2) 
                                    
                                     
                                   }
@@ -278,7 +278,7 @@ const fetchChmMbrDtls = async () => {
                                     phonecontact:memberContacts,
                                     TtlActvLonsTmsLneeChmNonCov: parseFloat(TtlActvLonsTmsLneeChmNonCovs) +1 ,
                                     TtlActvLonsAmtLneeChmNonCov: (parseFloat(TtlActvLonsAmtLneeChmNonCovs)+ parseFloat(AmtExp)).toFixed(2),
-                                    balance:(parseFloat(parseFloat(RecUsrBal) + parseFloat(amount).toFixed(2)) - vatFee).toFixed(2),
+                                    balance:(parseFloat(parseFloat(RecUsrBal) + parseFloat(amount).toFixed(2)) ).toFixed(2),
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                
@@ -330,7 +330,9 @@ const fetchChmMbrDtls = async () => {
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
-                          Alert.alert("Loan:Ksh. "+parseFloat(AmtExp).toFixed(2) + "Transaction Fee:Ksh. "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2));
+                          Alert.alert("Transaction Fee:Ksh. "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2)
+                          +", I VAT:"+ vatFee.toFixed(2)
+                          );
                           setIsLoading(false);
                           
                         }
@@ -349,7 +351,7 @@ const fetchChmMbrDtls = async () => {
                         else if(ActualMaxSMInterest>MaxSMInterest)
                         {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(2) + "; Recom SI:" + (MaxSMInterest).toFixed(2) );}
                         else if (
-                          parseFloat(grpBals) < parseFloat(TotalTransacted) 
+                          parseFloat(grpBals) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
                         
                         else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');}

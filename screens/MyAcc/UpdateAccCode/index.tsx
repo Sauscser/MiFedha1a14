@@ -211,6 +211,7 @@ const UpdtSMPW = (props) => {
                   <View style={styles.sendLoanView}>
                     <TextInput
                       value={SMPW}
+                      autoCompleteType ={"off"}
                       onChangeText={setSMPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>

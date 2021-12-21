@@ -30,13 +30,12 @@ const CreateAcForm = (props) => {
   const navigation = useNavigation();
 
   const [nationalId, setNationalid] = useState('');
-  const [nam, setName] = useState(null);
   
   const [awsEmail, setAWSEmail] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
 
-  const[ownr, setownr] = useState(null);
+  
 
   const moveToWelcomPg = () => {
     navigation.navigate("WelcomePgss", {awsEmail});
@@ -48,11 +47,11 @@ const CreateAcForm = (props) => {
   
     const fetchUser = async () => {
       const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);
+      setAWSEmail(userInfo.attributes.email);
+      const name = userInfo.username;
+     const ownr = userInfo.attributes.sub;
       const phoneContact = userInfo.attributes.phone_number;
-      setAWSEmail(userInfo.attributes.email);   
+      const awsEmails = userInfo.attributes.email;   
       
       const ChckUsrExistence = async () => {
         try {
@@ -88,13 +87,13 @@ const CreateAcForm = (props) => {
                 graphqlOperation(createSMAccount, {
                 input: {
                 nationalid: nationalId,
-                name: nam,
+                name: name,
                 phonecontact: phoneContact,
-                awsemail: awsEmail,
+                awsemail: awsEmails,
                 balance: 0,
                                    
                 pw: pword,
-                loanAcceptanceCode:awsEmail,
+                loanAcceptanceCode:awsEmails,
       
                 ttlDpstSM: 0,
                 TtlWthdrwnSM: 0,

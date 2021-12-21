@@ -114,7 +114,7 @@ const SMASendNonLns = props => {
           
             
           const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-          const TotalTransacted = (parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2);
+          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
                
           
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;

@@ -78,7 +78,7 @@ const ChmSignIn = (props) => {
                       const owners = compDtls.data.getGroup.owner;  
 
                       if(signitoryPWs!==pword){Alert.alert("Wrong author credentials")}
-                      else if(ownr!==owners){Alert.alert("You are not the author of the group")}
+                      else if(ownr!==owners){Alert.alert("You are not the author of the Chama")}
                       else{FetchGrpLonsSts();}
                     }
 

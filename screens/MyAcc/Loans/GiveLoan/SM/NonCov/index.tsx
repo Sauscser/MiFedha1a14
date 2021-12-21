@@ -82,6 +82,8 @@ const SMASendNonCovLns = props => {
       const usrLnLim =accountDtl.data.getSMAccount.loanLimit;
       const TtlActvLonsTmsLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLnrNonCov;
       const TtlActvLonsAmtLnrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLnrNonCov;
+      const TtlActvLonsTmsLneeCovs2 =accountDtl.data.getSMAccount.TtlActvLonsTmsLneeNonCov;
+      const TtlActvLonsAmtLneeCovs2 =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeNonCov;
       const names =accountDtl.data.getSMAccount.name;
       const SenderNatId =accountDtl.data.getSMAccount.nationalid;
       const SenderSub =accountDtl.data.getSMAccount.owner;
@@ -146,6 +148,8 @@ const SMASendNonCovLns = props => {
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
                         const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeNonCov;
                         const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeNonCov;
+                        const TtlActvLonsTmsLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrNonCov;
+                        const TtlActvLonsAmtLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrNonCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
                         const RecNatId =RecAccountDtl.data.getSMAccount.nationalid;
 
@@ -218,8 +222,9 @@ const SMASendNonCovLns = props => {
                                     phonecontact:SendrPhn,
                                     TtlActvLonsTmsLnrNonCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
                                     TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(AmtExp)).toFixed(2),
-                                                                              
-                                    balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) 
+                                    TtlActvLonsTmsLneeNonCov: parseFloat(TtlActvLonsTmsLneeCovs2) +1 ,
+                                    TtlActvLonsAmtLneeNonCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ parseFloat(AmtExp)).toFixed(2),                                        
+                                    balance:(parseFloat(SenderUsrBal)-TotalTransacted - vatFee).toFixed(2) 
                                    
                                     
                                   }
@@ -247,7 +252,9 @@ const SMASendNonCovLns = props => {
                                     phonecontact:RecPhn,
                                     TtlActvLonsTmsLneeNonCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
                                     TtlActvLonsAmtLneeNonCov: (parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(AmtExp)).toFixed(2),
-                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount) - vatFee).toFixed(2),
+                                    TtlActvLonsTmsLnrNonCov: parseFloat(TtlActvLonsTmsLnrCovs1)+1,
+                                    TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrCovs1) + parseFloat(AmtExp)).toFixed(2),
+                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount) ).toFixed(2),
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                
@@ -295,7 +302,7 @@ const SMASendNonCovLns = props => {
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
-                          Alert.alert("Loan:Ksh. "+parseFloat(AmtExp).toFixed(2) + "Transaction Fee:Ksh. "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2));
+                          Alert.alert("Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) +", I VAT:"+ vatFee.toFixed(2));
                           setIsLoading(false);
                           
                         }

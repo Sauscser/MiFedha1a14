@@ -113,7 +113,7 @@ const RepayNonCovCredSlsLnsss = props => {
           const ttlSellerLnsInClrdAmtNonCovs = CompDtls.data.getCompany.ttlSellerLnsInClrdAmtNonCov;
           const ttlSellerLnsInBlTymsNonCovs = CompDtls.data.getCompany.ttlSellerLnsInBlTymsNonCov; 
           const ttlSellerLnsInBlAmtNonCovs = CompDtls.data.getCompany.ttlSellerLnsInBlAmtNonCov;
-          
+          const totalLnsRecovereds = CompDtls.data.getCompany.totalLnsRecovered;
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
           const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
@@ -334,7 +334,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                           companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
                                           companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
                                           
-                                        
+                                          totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                           ttlSellerLnsInClrdAmtNonCov: parseFloat(ttlSellerLnsInClrdAmtNonCovs) + parseFloat(amounts) ,
                                           ttlSellerLnsInClrdTymsNonCov: parseFloat(ttlSellerLnsInClrdTymsNonCovs) + 1 ,
                                           
@@ -481,7 +481,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                           ttlSellerLnsInClrdAmtNonCov: parseFloat(ttlSellerLnsInClrdAmtNonCovs) + parseFloat(amounts) ,
                                           companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
                                           companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
-                                          
+                                          totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                         }
                                       })
                                     )
