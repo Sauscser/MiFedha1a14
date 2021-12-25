@@ -111,7 +111,7 @@ const SMASendLns = props => {
           const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
           const AdvComs = CompDtls.data.getCompany.AdvCom;
           const CoverageFees = CompDtls.data.getCompany.CoverageFee;
-          const CompCovFee =1- (parseFloat(CoverageFees)*parseFloat(AdvComs))
+          const CompCovFee = parseFloat(CoverageFees)*(1 - parseFloat(AdvComs));
           const AdvCovAmt = parseFloat(AdvComs)*parseFloat(CoverageFees)*parseFloat(amount)
           const CompCovAmt = CompCovFee*parseFloat(amount)
           const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)
@@ -322,8 +322,8 @@ const SMASendLns = props => {
                                     ttlCompCovEarnings:CompCovAmt + parseFloat(ttlCompCovEarningss),
                                     AdvEarningBal:AdvCovAmt + parseFloat(AdvEarningBals),                                                                                                                                                     
                                     AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
-                                    companyEarningBal:CompanyTotalEarnings + parseFloat(companyEarningBals),
-                                    companyEarning: CompanyTotalEarnings + parseFloat(companyEarnings),                                                    
+                                    companyEarningBal:CompanyTotalEarnings + parseFloat(companyEarningBals) + parseFloat(userLoanTransferFees)*parseFloat(amount),
+                                    companyEarning: CompanyTotalEarnings + parseFloat(companyEarnings) + parseFloat(userLoanTransferFees)*parseFloat(amount),                                                    
                                     ttlvat:parseFloat(ttlvats)+vatFee,
                                     
                                     ttlSMLnsInAmtCov: parseFloat(AmtExp) + parseFloat(ttlSMLnsInAmtCovs),
@@ -366,7 +366,7 @@ const SMASendLns = props => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
-                          Alert.alert("Coverage:" +CoverageFees.toFixed(2) 
+                          Alert.alert("Coverage:" +(parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2) 
                           + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2)
                           +", I VAT:"+ vatFee.toFixed(2));
                           setIsLoading(false);
@@ -381,6 +381,8 @@ const SMASendLns = props => {
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
+                        else if(amount > AmtExp){Alert.alert('Amount expected Back must at least be greater');
+                      return;}
                         else if(compDtls.data.listChamasNPwnBrkrs.items.length < 1 && ActualMaxSMInterest > MaxSMInterest)
                         {Alert.alert("Unregistered for such Interest. Max Int: Ksh. "+MaxSMInterest);}
                         else if(ActualMaxPwnBrkrInterest > MaxPwnBrkrInterest)

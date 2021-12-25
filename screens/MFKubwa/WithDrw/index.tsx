@@ -106,12 +106,33 @@ const AdminWthdwl = props => {
                       if(error){Alert.alert("Please check your internet connection")
                     return;}
                     }
+                    await UpdateMFK();
                     setIsLoading(false);
                     Alert.alert(names + ", You have Withdrawn Ksh. "+ amount)
                     
                     };  
         
-                    
+                    const UpdateMFK = async () => {
+                      try {
+                        await API.graphql(
+                          graphqlOperation(updateSAgent, {
+                            input: {
+                            
+                              saPhoneContact: MFKPhn,                    
+                              saBalance:parseFloat(saBalances) - parseFloat(amount),
+                            },
+                          }),
+                        );
+      
+              } catch (error) {
+                console.log(error)
+                if(error){Alert.alert("Please check your internet connection")
+              return;}
+              }
+              setIsLoading(false);
+
+              
+              };  
                       
                     
                     if (parseFloat(amount) > parseFloat(saBalances)) {

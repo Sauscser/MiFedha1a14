@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
 
   loanFriendButton: {
     backgroundColor: '#72ebd8',
-    height: "7%",
+    height: "90%",
     borderRadius: 30,
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     justifyContent: 'center',
     alignItems: 'center',
     
-    top: "2%",
+    
     
   },
 
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     
   },
   loanAFriendText: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'black',
     
@@ -69,13 +69,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+   
   },
 
   viewForPressables2: {
     backgroundColor: '#e58d29',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "8%",
+    height: "15%",
     borderRadius: 20,
     marginTop: "8%",
     justifyContent: 'center',

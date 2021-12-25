@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   
   },
   title: {
-    fontSize: 45,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'green',
     width: '70%',
@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
   },
 
   ChamaLoanAndCreditSalesText: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'black',
   },
   loanAFriendText: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
   },

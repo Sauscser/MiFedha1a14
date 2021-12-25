@@ -223,6 +223,8 @@ const NonCovCredSls = props => {
                                                    {Alert.alert('Buyer cannot facilitate; should recharge');}
                        
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
+                        else if(amount > AmtExp){Alert.alert('Amount expected Back must at least be greater');
+                      return;}
                         else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
                         
                         else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}

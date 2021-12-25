@@ -282,6 +282,7 @@ declare global {
       SendNonLonsRevSgnIn:undefined;
       SendNonLonsRevVw:{phoneContacts:string};
       ViewNonLnsRecs:undefined;
+      ViewNonLnsSents:undefined;
     
       
     }

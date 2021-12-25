@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text,   FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import NonLnSent from "../../../../components/MyAc/VwWithdrawals";
+import NonLnSent from "../../../../components/MyAc/VwDeposits";
 import styles from './styles';
 
 import {  vwMyUsrDposits, vwMyUsrWthdrwls } from '../../../../src/graphql/queries';

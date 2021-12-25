@@ -86,7 +86,7 @@ const ChmCvLnSttsRec = (props:ChmCvLnSttusRec) => {
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                      Advocate Registration Number: {grpContact}                    
+                     Group Contact: {grpContact}                    
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}

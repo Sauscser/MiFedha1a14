@@ -107,7 +107,7 @@ const CovCredSls = props => {
           const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
           const AdvComs = CompDtls.data.getCompany.AdvCom;
           const CoverageFees = CompDtls.data.getCompany.CoverageFee;
-          const CompCovFee =1- (parseFloat(CoverageFees)*parseFloat(AdvComs))
+          const CompCovFee =parseFloat(CoverageFees)*(1 - parseFloat(AdvComs));
           const AdvCovAmt = parseFloat(AdvComs)*parseFloat(CoverageFees)*parseFloat(amount)
           const CompCovAmt = CompCovFee*parseFloat(amount)
           const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)
@@ -239,6 +239,8 @@ const CovCredSls = props => {
                         else if (
                           parseFloat(RecUsrBal) < TotalTransacted 
                         ) {Alert.alert('Buyer cannot facilitate; should recharge');}
+                        else if(amount > AmtExp){Alert.alert('Amount expected Back must at least be greater');
+                      return;}
                         else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                         else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
@@ -324,8 +326,8 @@ const CovCredSls = props => {
                                     ttlCompCovEarnings:CompCovAmt + parseFloat(ttlCompCovEarningss),
                                     AdvEarningBal:AdvCovAmt + parseFloat(AdvEarningBals),                                                                                                                                                     
                                     AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
-                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals),
-                                    companyEarning: CompCovAmt + parseFloat(companyEarnings),  
+                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals) + parseFloat(userLoanTransferFees)*parseFloat(amount),
+                                    companyEarning: CompCovAmt + parseFloat(companyEarnings) + parseFloat(userLoanTransferFees)*parseFloat(amount),  
                                     ttlvat:parseFloat(ttlvats)+vatFee,
                                     ttlSellerLnsInAmtCov: parseFloat(AmtExp) + parseFloat(ttlSellerLnsInAmtCovs),
                                     
@@ -369,7 +371,7 @@ const CovCredSls = props => {
       return;}
                           }
                           Alert.alert("Coverage:" 
-                          +CoverageFees.toFixed(2) + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
+                          +(parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2) + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
                           + ", I VAT:"+ vatFee.toFixed(2));
                           setIsLoading(false);
                         }

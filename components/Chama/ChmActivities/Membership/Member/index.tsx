@@ -74,30 +74,36 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                                    
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Total NonLoans Ac Bal (Ksh): {ttlNonLonAcBal.toFixed(2)}
-                    </Text>   
+                       Contribution to Chama (Ksh): {ttlNonLonAcBal.toFixed(2)}
+                    </Text>  
+
+                     <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Remittance from Chama (Ksh): {(ttlNonLonAcBal - NonLoanAcBal).toFixed(2)}
+                    </Text>    
+
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       NonLoans Ac Bal (Ksh): {GrossLnsGvn.toFixed(2)}
+                      Member Account Balance (Ksh): {NonLoanAcBal.toFixed(2)}
                     </Text>   
+
+
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Outstanding Loans (Ksh): {GrossLnsGvn.toFixed(2)}
+                    </Text>   
+                    
                     
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Total Loans Ac Bal (Ksh): {LonAmtGven.toFixed(2)}
-                    </Text>   
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Loans Ac Bal (Ksh): {AmtRepaid.toFixed(2)}
+                      Amount repaid (Ksh): {AmtRepaid.toFixed(2)}
                     </Text>     
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       NonLoans Ac Bal (Ksh): {LnBal.toFixed(2)}
+                       Loan Balance (Ksh): {LnBal.toFixed(2)}
                     </Text>   
                     
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Total Loans Ac Bal (Ksh): {NonLoanAcBal.toFixed(2)}
-                    </Text>   
+                   
                       
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}

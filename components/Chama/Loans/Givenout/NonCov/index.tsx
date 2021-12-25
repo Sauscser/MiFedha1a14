@@ -91,7 +91,7 @@ const ChmNonCvLnSttsSent = (props:ChmNonCvLnSttusSent) => {
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                      Loan Status: {loaneePhn}                    
+                      Member Contact: {loaneePhn}                    
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}

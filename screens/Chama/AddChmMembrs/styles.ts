@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
 
   sendLoanText: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: 'bold',
     color: 'white',
     justifyContent: 'center',

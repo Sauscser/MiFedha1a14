@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     marginBottom: 400,
   },
   sendLoanButtonText: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'black',
   },

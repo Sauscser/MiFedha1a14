@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {  deleteChamaMembers, updateChamaMembers, updateCompany, updateGroup, updateGrpMembers} from '../../../src/graphql/mutations';
-import {  getChamaMembers, getCompany, getGroup, getGrpMembers, getSMAccount } from '../../../src/graphql/queries';
+import {  deleteChamaMembers,   updateGroup} from '../../../src/graphql/mutations';
+import {  getChamaMembers,  getGroup, getSMAccount } from '../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -68,7 +68,7 @@ const DeregChmMmbr = (props) => {
                 graphqlOperation(getChamaMembers,{ChamaNMember:ChmNMmbrPhns})
                 );
                 const groupContacts = compDtls.data.getChamaMembers.groupContact                
-                const NonLoanAcBals = compDtls.data.getChamaMembers.NonLoanAcBal
+                const memberContacts = compDtls.data.getChamaMembers.memberContact
                 const blStatuss = compDtls.data.getChamaMembers.blStatus
                 const LnBals = compDtls.data.getChamaMembers.LnBal
                 const memberNames = compDtls.data.getChamaMembers.memberName
@@ -90,6 +90,18 @@ const DeregChmMmbr = (props) => {
                         const ttlGrpMemberss = compDtls.data.getGroup.ttlGrpMembers
                         const owners = compDtls.data.getGroup.owner
 
+                        const ftchUsrDtls = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
+                          try{
+                            const UsrDtls :any= await API.graphql(
+                              graphqlOperation(getSMAccount,{phonecontact:memberContacts})
+                              );
+                              
+                              const ownersss = UsrDtls.data.getSMAccount.owner
+
                         const updateChmMmbrAc = async()=>{
                                     if(isLoading){
                                       return;
@@ -98,10 +110,10 @@ const DeregChmMmbr = (props) => {
                                         try{
                                             await API.graphql(
                                               graphqlOperation(deleteChamaMembers,{
-                                                input:{
-                                                  ChamaNMember:ChmNMmbrPhns
+                                                
+                                                  input:{ChamaNMember:ChmNMmbrPhns}
                                                                                                     
-                                                }
+                                                
                                               })
                                             )
                                         }
@@ -123,6 +135,11 @@ const DeregChmMmbr = (props) => {
                                       else if(owners !== ownr)
                                       {
                                           Alert.alert("Not authorised to deactive member");
+                                      }
+
+                                      else if(owners === ownersss &&  parseFloat(ttlGrpMemberss) > 1)
+                                      {
+                                          Alert.alert("Deactivate yourself as the last one");
                                       }
                                      
                                       else {updateChmMmbrAc();}
@@ -150,7 +167,16 @@ const DeregChmMmbr = (props) => {
                                       } 
 
         
-                    } catch (error) {
+                                    } catch (error) {
+                                      if(error){
+                                        console.log(error)
+                                        Alert.alert("Check your internet")
+                                        return
+                                      }
+                                    }}
+                                    await ftchUsrDtls();
+                                  
+                                  } catch (error) {
                         if(error){
                           console.log(error)
                           Alert.alert("Check your internet")
@@ -272,7 +298,7 @@ const DeregChmMmbr = (props) => {
                         <ScrollView>
                    
                           <View style={styles.loanTitleView}>
-                            <Text style={styles.title}>Fill Chama Details Below</Text>
+                            <Text style={styles.title}>Fill Details Below</Text>
                           </View>
                 
                           <View style={styles.sendLoanView}>
@@ -311,7 +337,7 @@ const DeregChmMmbr = (props) => {
                             onPress={fetchChmMmbrDtls}
                             style={styles.sendLoanButton}>
                             <Text style={styles.sendLoanButtonText}>
-                              Click to View
+                              Click to DeRegister
                             </Text>
                             {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
                           </TouchableOpacity>

@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/Chama/Loans/Received/Cov";
 import styles from './styles';
-import { getCompany, getSMAccount, listCvrdGroupLoanss, vwMyChamasss } from '../../../../../src/graphql/queries';
+import { getCompany, getSMAccount,  vwMyChamass,  vwMyChamasss } from '../../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
 
 const FetchSMCovLns = props => {
@@ -28,7 +28,7 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyChamasss, 
+              const Lonees:any = await API.graphql(graphqlOperation(vwMyChamass, 
                 {
                       loaneePhn: LneePhn,
                       sortDirection: 'DESC',
@@ -38,7 +38,7 @@ const FetchSMCovLns = props => {
                     }
                  
                   ));
-              setLoanees(Lonees.data.VwMyChamasss.items);
+              setLoanees(Lonees.data.VwMyChamass.items);
 
               const fetchUsrDtls = async () => {
                 try {
@@ -171,7 +171,7 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Covered Loaners</Text>
+            <Text style={styles.label}> My Covered Chama Loans</Text>
           </>
         )}
       />

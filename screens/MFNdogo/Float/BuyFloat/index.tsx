@@ -115,7 +115,7 @@ const ftchAgInfo = async () => {
                                       } catch (error) {
                                         console.log(error)
                                         if(error){
-                                          Alert.alert("This MFNdogo does not exist");
+                                          Alert.alert("MFNdogo doesnt exist or Transaction already recorded");
                                     return;                                          
                                       } 
                                       

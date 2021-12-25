@@ -131,7 +131,7 @@ const fetchChmMbrDtls = async () => {
           const AdvComs = CompDtls.data.getCompany.AdvCom;
           const CoverageFees = CompDtls.data.getCompany.CoverageFee;
           const AdvCovFee =(parseFloat(CoverageFees)*parseFloat(AdvComs))
-          const CompCovFee =1 - (parseFloat(CoverageFees)*parseFloat(AdvComs))
+          const CompCovFee = parseFloat(CoverageFees)*(1 - parseFloat(AdvComs));
           const AdvCovAmt =AdvCovFee*parseFloat(amount)
           const CompCovAmt = CompCovFee*parseFloat(amount)
           const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)                
@@ -338,8 +338,8 @@ const fetchChmMbrDtls = async () => {
                                     ttlCompCovEarnings:CompCovAmt + parseFloat(ttlCompCovEarningss),
                                     AdvEarningBal:AdvCovAmt + parseFloat(AdvEarningBals),                                                                                                                                                     
                                     AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
-                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals),
-                                    companyEarning: CompCovAmt + parseFloat(companyEarnings),                                                    
+                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals) + parseFloat(userLoanTransferFees)*parseFloat(amount),
+                                    companyEarning: CompCovAmt + parseFloat(companyEarnings) + parseFloat(userLoanTransferFees)*parseFloat(amount),                                                    
                                     
                                     ttlChmLnsInAmtCov: parseFloat(AmtExp) + parseFloat(ttlChmLnsInAmtCovs),
                                     ttlvat:parseFloat(ttlvats)+vatFee,
@@ -384,7 +384,7 @@ const fetchChmMbrDtls = async () => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
-                          Alert.alert("Coverage:" +parseFloat(CoverageFees).toFixed(2) 
+                          Alert.alert("Coverage:" +(parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2) 
                           + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2)
                           +", I VAT:"+ vatFee.toFixed(2));
                           setIsLoading(false);
@@ -394,6 +394,10 @@ const fetchChmMbrDtls = async () => {
                       return;
                     }
                         else if(recAcptncCode !== groupContacts){Alert.alert('Let the Loanee first request Loan');
+                      return;
+                    }
+
+                    else if(amount > AmtExp){Alert.alert('Amount expected Back must at least be greater');
                       return;
                     }
                     else if(ownr !==SenderSub){Alert.alert('You are not the creator/signitory of this Chama');}

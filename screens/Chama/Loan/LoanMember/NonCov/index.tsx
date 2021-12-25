@@ -346,6 +346,8 @@ const fetchChmMbrDtls = async () => {
                     }
                     else if(ownr !==SenderSub){Alert.alert('You are not the creator/signitory of this Chama');}
                         else if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
+                        else if(amount > AmtExp){Alert.alert('Amount expected Back must at least be greater');
+                      return;}
                         else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(ActualMaxSMInterest>MaxSMInterest)

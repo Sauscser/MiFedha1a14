@@ -252,17 +252,7 @@ const SMCvLnStts = (props:SMAccount) => {
                       Total Non Loans Sent (Ksh): {ttlNonLonsSentSM.toFixed(2)}                    
                     </Text> 
                    
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Total Remittance from Chama: {ttlNonLonsRecChm.toFixed(2)}                    
-                    </Text> 
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Total Chama Contributions : {ttlNonLonsSentChm.toFixed(2)}                 
-                    </Text>
-
-                   
+                    
 
         </ScrollView>
                 

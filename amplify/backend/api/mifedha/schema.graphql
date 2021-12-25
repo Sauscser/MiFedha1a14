@@ -13,7 +13,7 @@ type SMAccount
       {
         allow: groups
         groups: ["RegionalAdmin"]
-        operations: [read, create, update]
+        operations: [read, delete, update]
       }
       {
         allow: groups
@@ -23,7 +23,7 @@ type SMAccount
       {
         allow: groups
         groups: ["CountyAdmin"]
-        operations: [read, create, update]
+        operations: [read, delete, update]
       }
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read, create] }
       {
@@ -164,7 +164,7 @@ type SMLoansCovered
       {
         allow: groups
         groups: ["RegionalAdmin"]
-        operations: [read, create, update]
+        operations: [read, delete, update]
       }
       {
         allow: groups
@@ -174,7 +174,7 @@ type SMLoansCovered
       {
         allow: groups
         groups: ["CountyAdmin"]
-        operations: [read, create, update]
+        operations: [read, delete, update]
       }
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read, create] }
       {
@@ -238,7 +238,7 @@ type SMLoansNonCovered
       {
         allow: groups
         groups: ["RegionalAdmin"]
-        operations: [read, create, update]
+        operations: [read, delete, update]
       }
       {
         allow: groups
@@ -248,7 +248,7 @@ type SMLoansNonCovered
       {
         allow: groups
         groups: ["CountyAdmin"]
-        operations: [read, create, update]
+        operations: [read, delete, update]
       }
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read, create] }
       {
@@ -358,10 +358,10 @@ type Agent
       {
         allow: groups
         groups: ["RegionalAdmin"]
-        operations: [read, create, update]
+        operations: [read, delete, update]
       }
       { allow: groups, groups: ["RegionalAdminTwo"], operations: [read] }
-      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read] }
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
@@ -407,7 +407,7 @@ type FloatPurchase
   @auth(
     rules: [
       { allow: groups, groups: ["BankAdmin"], operations: [create, read] }
-      { allow: groups, groups: ["KFNdogo "], operations: [create, update, read] }
+      { allow: groups, groups: ["KFNdogo"], operations: [create, update, read] }
       { allow: owner, operations: [read, update] }
      
       {
@@ -481,7 +481,7 @@ type FloatAdd
         groups: ["Executive"]
         operations: [read, create, update, delete]
       }
-      { allow: groups, groups: ["KFNdogo "], operations: [read] }
+      { allow: groups, groups: ["KFNdogo"], operations: [read] }
     ]
   )
   
@@ -613,14 +613,14 @@ type SAgent
       {
         allow: groups
         groups: ["RegionalAdmin"]
-        operations: [read, create, update]
+        operations: [read, delete, update]
       }
       {
         allow: groups
         groups: ["RegionalAdminTwo"]
         operations: [read, update]
       }
-      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
@@ -685,6 +685,11 @@ type SAgentWithdrawals
         groups: ["Executive"]
         operations: [read, create, update, delete]
       }
+      {
+        allow: groups
+        groups: ["KFKubwa"]
+        operations: [read, create, update]
+      }
     ]
   )
   
@@ -718,14 +723,14 @@ type BankAdmin
       {
         allow: groups
         groups: ["RegionalAdmin"]
-        operations: [read, create, update]
+        operations: [read, delete, update]
       }
       {
         allow: groups
         groups: ["RegionalAdminTwo"]
         operations: [read, update]
       }
-      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
@@ -828,7 +833,7 @@ type Advocate
         groups: ["RegionalAdminTwo"]
         operations: [read, update]
       }
-      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
@@ -1221,7 +1226,7 @@ type Group
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
-      { allow: groups, groups: ["ChamaSignitories"], operations: [read, create, update ] }
+      { allow: groups, groups: ["ChamaSignitories"], operations: [read, create, update, delete ] }
       {
         allow: groups
         groups: ["Executive"]
@@ -1297,7 +1302,7 @@ type ChamaMembers
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
-      { allow: groups, groups: ["ChamaSignitories"], operations: [read, create, update ] }
+      { allow: groups, groups: ["ChamaSignitories"], operations: [read, create, update, delete] }
       {
         allow: groups
         groups: ["Executive"]

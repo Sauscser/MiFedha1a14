@@ -324,6 +324,8 @@ const SMASendNonCovLns = props => {
                         else if (
                           parseFloat(SenderUsrBal) < TotalTransacted 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
+                        else if(amount > AmtExp){Alert.alert('Amount expected Back must at least be greater');
+                      return;}
                         
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                         else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
