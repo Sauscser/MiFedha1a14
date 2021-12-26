@@ -346,8 +346,6 @@ const fetchChmMbrDtls = async () => {
                                     ttlChmLnsInTymsCov: 1 + parseFloat(ttlChmLnsInTymsCovs),
                                           
                                     
-                                     
-                                    
                                   }
                                 })
                               )
