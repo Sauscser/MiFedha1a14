@@ -322,8 +322,9 @@ const SMASendLns = props => {
                                     ttlCompCovEarnings:CompCovAmt + parseFloat(ttlCompCovEarningss),
                                     AdvEarningBal:AdvCovAmt + parseFloat(AdvEarningBals),                                                                                                                                                     
                                     AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
-                                    companyEarningBal:CompanyTotalEarnings + parseFloat(companyEarningBals) + parseFloat(userLoanTransferFees)*parseFloat(amount),
-                                    companyEarning: CompanyTotalEarnings + parseFloat(companyEarnings) + parseFloat(userLoanTransferFees)*parseFloat(amount),                                                    
+                                    companyEarningBal:CompanyTotalEarnings + parseFloat(companyEarningBals), 
+                                    
+                                    companyEarning: CompanyTotalEarnings + parseFloat(companyEarnings),                    
                                     ttlvat:parseFloat(ttlvats)+vatFee,
                                     
                                     ttlSMLnsInAmtCov: parseFloat(AmtExp) + parseFloat(ttlSMLnsInAmtCovs),
