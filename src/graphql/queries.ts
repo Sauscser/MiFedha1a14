@@ -381,6 +381,8 @@ export const getAgent = /* GraphQL */ `
       longitude
       agentEarningBal
       status
+      bankName
+      bkAcNo
       owner
       town
       MFNWithdrwlFee
@@ -419,6 +421,8 @@ export const listAgents = /* GraphQL */ `
         longitude
         agentEarningBal
         status
+        bankName
+        bkAcNo
         owner
         town
         MFNWithdrwlFee
@@ -562,6 +566,8 @@ export const getAgentWithdrawals = /* GraphQL */ `
       id
       agentPhone
       bankAdminId
+      bankName
+      bkAcNo
       Amount
       status
       owner
@@ -585,6 +591,8 @@ export const listAgentWithdrawals = /* GraphQL */ `
         id
         agentPhone
         bankAdminId
+        bankName
+        bkAcNo
         Amount
         status
         owner
@@ -607,6 +615,8 @@ export const getSAgent = /* GraphQL */ `
       InctvMFNdog
       email
       saBalance
+      bankName
+      bkAcNo
       status
       owner
       MFKWithdrwlFee
@@ -640,6 +650,8 @@ export const listSAgents = /* GraphQL */ `
         InctvMFNdog
         email
         saBalance
+        bankName
+        bkAcNo
         status
         owner
         MFKWithdrwlFee
@@ -657,6 +669,8 @@ export const getSAgentWithdrawals = /* GraphQL */ `
       saId
       amount
       bankAdmnId
+      bankName
+      bkAcNo
       status
       owner
       createdAt
@@ -680,6 +694,8 @@ export const listSAgentWithdrawals = /* GraphQL */ `
         saId
         amount
         bankAdmnId
+        bankName
+        bkAcNo
         status
         owner
         createdAt
@@ -786,6 +802,8 @@ export const getAdvocate = /* GraphQL */ `
       TtlEarnings
       advBal
       email
+      bankName
+      bkAcNo
       officeLoc
       status
       owner
@@ -818,6 +836,8 @@ export const listAdvocates = /* GraphQL */ `
         TtlEarnings
         advBal
         email
+        bankName
+        bkAcNo
         officeLoc
         status
         owner
@@ -835,6 +855,8 @@ export const getAdvocateWithdrawals = /* GraphQL */ `
       bankAdmnId
       advregnu
       amount
+      bankName
+      bkAcNo
       status
       owner
       createdAt
@@ -858,6 +880,8 @@ export const listAdvocateWithdrawals = /* GraphQL */ `
         bankAdmnId
         advregnu
         amount
+        bankName
+        bkAcNo
         status
         owner
         createdAt
@@ -2168,6 +2192,8 @@ export const mFKVwMFN = /* GraphQL */ `
         longitude
         agentEarningBal
         status
+        bankName
+        bkAcNo
         owner
         town
         MFNWithdrwlFee
@@ -2404,6 +2430,8 @@ export const vwMFNWthdrwls = /* GraphQL */ `
         id
         agentPhone
         bankAdminId
+        bankName
+        bkAcNo
         Amount
         status
         owner
@@ -2436,6 +2464,8 @@ export const vwMFKWthdrwls = /* GraphQL */ `
         saId
         amount
         bankAdmnId
+        bankName
+        bkAcNo
         status
         owner
         createdAt
@@ -2467,6 +2497,8 @@ export const vwAdvWthdrwls = /* GraphQL */ `
         bankAdmnId
         advregnu
         amount
+        bankName
+        bkAcNo
         status
         owner
         createdAt

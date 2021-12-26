@@ -30,6 +30,8 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
   const [UsrPhn, setUsrPhn] = useState(null);
   const [pword, setPW] = useState('');
   const [saRegNo, setSARegNo] = useState('');
+  const [BkName, setBkName] = useState('');
+  const [BkAcNu, setBkAcNu] = useState('');
   const[lat, setLat] = useState('');
   const[twn, settwn] = useState("");
   const[lon, setLon] = useState("");
@@ -109,6 +111,8 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
                     pw: pword,
                     email: eml,
                     sagentregno: saRegNo,
+                    bankName:BkAcNu,
+                    bkAcNo:BkName,
                     TtlFltIn: 0,
                     TtlFltOut: 0,
                     floatBal: 0,   
@@ -243,21 +247,45 @@ return;
     setEml("");
     setLat("");
     setLon("");
+    setBkAcNu("");
+    setBkName("");
     setPhoneContact('');
     setSARegNo('');
     settwn("")
   };
 
   useEffect(() =>{
-    const natId=nationalId
-      if(!natId && natId!=="")
+    const BkNames=BkName
+      if(!BkNames && BkNames!=="")
       {
-        setNationalid("");
+        setBkName("");
         return;
       }
-      setNationalid(natId);
-      }, [nationalId]
+      setBkName(BkNames);
+      }, [BkName]
        );
+
+       useEffect(() =>{
+        const BkAcNus=BkAcNu
+          if(!BkAcNus && BkAcNus!=="")
+          {
+            setBkAcNu("");
+            return;
+          }
+          setBkAcNu(BkAcNus);
+          }, [BkAcNu]
+           );
+
+           useEffect(() =>{
+            const natId=nationalId
+              if(!natId && natId!=="")
+              {
+                setNationalid("");
+                return;
+              }
+              setNationalid(natId);
+              }, [nationalId]
+               );
 
        useEffect(() =>{
         const twns=twn
@@ -387,6 +415,24 @@ return;
               style={styles.sendLoanInput}
               editable={true}></TextInput>
             <Text style={styles.sendLoanText}>MFNdogo Name</Text>
+          </View>
+
+          <View style={styles.sendLoanView}>
+            <TextInput
+              value={BkAcNu}
+              onChangeText={setBkAcNu}
+              style={styles.sendLoanInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendLoanText}>Bank Ac Number</Text>
+          </View>
+
+          <View style={styles.sendLoanView}>
+            <TextInput
+              value={BkName}
+              onChangeText={setBkName}
+              style={styles.sendLoanInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendLoanText}>Bank Name</Text>
           </View>
 
           <View style={styles.sendLoanView}>

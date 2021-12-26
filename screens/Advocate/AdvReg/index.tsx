@@ -33,6 +33,8 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
   const [pword, setPW] = useState('');
   const [advRegNo, setAdvRegNo] = useState('');
   const[officeLocs, setOfficeLoc] = useState("");
+  const [BkName, setBkName] = useState('');
+  const [BkAcNu, setBkAcNu] = useState('');
   const [isLoading, setIsLoading] =useState(false);
   const [UsrPhn, setUsrPhn] = useState(null);
   
@@ -83,6 +85,8 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
                   name: nam,
                   phonecontact: phoneContact,
                   email: eml,
+                  bankName:BkAcNu,
+                  bkAcNo:BkName,
                   advBal: 0,
                   officeLoc: officeLocs,
                   TtlEarnings: 0,        
@@ -172,10 +176,34 @@ setEml("");
 setAdvRegNo("");
 setPhoneContact("");
 setOfficeLoc("");
+setBkAcNu("");
+    setBkName("");
 
    }
     
-useEffect(() =>{
+   useEffect(() =>{
+    const BkNames=BkName
+      if(!BkNames && BkNames!=="")
+      {
+        setBkName("");
+        return;
+      }
+      setBkName(BkNames);
+      }, [BkName]
+       );
+
+       useEffect(() =>{
+        const BkAcNus=BkAcNu
+          if(!BkAcNus && BkAcNus!=="")
+          {
+            setBkAcNu("");
+            return;
+          }
+          setBkAcNu(BkAcNus);
+          }, [BkAcNu]
+           );
+           
+           useEffect(() =>{
   const natid=nationalId
     if(!natid && natid!=="")
     {
@@ -291,6 +319,25 @@ useEffect(() =>{
               editable={true}></TextInput>
             <Text style={styles.sendLoanText}>Advocate Name</Text>
           </View>
+
+          <View style={styles.sendLoanView}>
+            <TextInput
+              value={BkAcNu}
+              onChangeText={setBkAcNu}
+              style={styles.sendLoanInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendLoanText}>Bank Ac Number</Text>
+          </View>
+
+          <View style={styles.sendLoanView}>
+            <TextInput
+              value={BkName}
+              onChangeText={setBkName}
+              style={styles.sendLoanInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendLoanText}>Bank Name</Text>
+          </View>
+
 
           <View style={styles.sendLoanView}>
             <TextInput

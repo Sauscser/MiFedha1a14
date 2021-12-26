@@ -84,6 +84,8 @@ const MFNWthdwl = props => {
           const pws = MFNDtl.data.getAgent.pw;
           const names = MFNDtl.data.getAgent.name;
           const statussssss = MFNDtl.data.getAgent.status;
+          const bankNames = MFNDtl.data.getAgent.bankName;
+          const bkAcNos = MFNDtl.data.getAgent.bkAcNo;
           
           
                           
@@ -97,6 +99,8 @@ const MFNWthdwl = props => {
                                     agentPhone:MFKPhn,
                                     owner: ownr,
                                     Amount: amount,
+                                    bankName: bankNames,
+                                    bkAcNo: bkAcNos,
                                     status: 'AccountActive',
                                   },
                                 }),

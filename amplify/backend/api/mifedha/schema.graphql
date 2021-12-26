@@ -393,6 +393,8 @@ type Agent
   longitude: Float!
   agentEarningBal: Float!
   status: Status!
+  bankName:String!
+  bkAcNo:String!
   owner: String!
   town:String!
   MFNWithdrwlFee:Float!
@@ -592,6 +594,8 @@ type AgentWithdrawals
   agentPhone: String! @index(name: "byMFNContact", sortKeyFields: ["createdAt"], queryField: "VwMFNWthdrwls")
   
   bankAdminId: String!
+  bankName:String!
+  bkAcNo:String!
   Amount: Float!
   status: Status!
   owner: String!
@@ -647,6 +651,8 @@ type SAgent
   InctvMFNdog: Float!
   email: String!
   saBalance: Float!
+  bankName:String!
+  bkAcNo:String!
   status: Status!
   owner: String!
   MFKWithdrwlFee:Float!
@@ -699,6 +705,8 @@ type SAgentWithdrawals
   saId: String! @index(name: "byMFKContacts", sortKeyFields: ["createdAt"], queryField: "VwMFKWthdrwls")
   amount: Float!
   bankAdmnId: String!
+  bankName:String!
+  bkAcNo:String!
   status: Status!
   owner: String!
   createdAt: String!
@@ -858,6 +866,8 @@ type Advocate
   TtlEarnings: Float!
   advBal: Float!
   email: String!
+  bankName:String!
+  bkAcNo:String!
   officeLoc: String!
   status: Status!
   owner: String!
@@ -901,7 +911,8 @@ type AdvocateWithdrawals
   bankAdmnId: String!
   advregnu: String!  @index(name: "byAdvContacts", sortKeyFields: ["createdAt"], queryField: "VwAdvWthdrwls")
   amount: Float!
-
+  bankName:String!
+  bkAcNo:String!
   status: Status!
   owner: String!
   createdAt: String!

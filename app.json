@@ -35,6 +35,7 @@
       },
       "package": "com.MiFedhaLimited.MiFedha",
       "versionCode":3,
+      "permissions":["LOCATION", "ACCESS_FOREGROUND_LOCATION"],
       "config":
       {
         "googleMaps":{

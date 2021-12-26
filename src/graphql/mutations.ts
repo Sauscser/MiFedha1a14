@@ -541,6 +541,8 @@ export const createAgent = /* GraphQL */ `
       longitude
       agentEarningBal
       status
+      bankName
+      bkAcNo
       owner
       town
       MFNWithdrwlFee
@@ -569,6 +571,8 @@ export const updateAgent = /* GraphQL */ `
       longitude
       agentEarningBal
       status
+      bankName
+      bkAcNo
       owner
       town
       MFNWithdrwlFee
@@ -597,6 +601,8 @@ export const deleteAgent = /* GraphQL */ `
       longitude
       agentEarningBal
       status
+      bankName
+      bkAcNo
       owner
       town
       MFNWithdrwlFee
@@ -788,6 +794,8 @@ export const createAgentWithdrawals = /* GraphQL */ `
       id
       agentPhone
       bankAdminId
+      bankName
+      bkAcNo
       Amount
       status
       owner
@@ -805,6 +813,8 @@ export const updateAgentWithdrawals = /* GraphQL */ `
       id
       agentPhone
       bankAdminId
+      bankName
+      bkAcNo
       Amount
       status
       owner
@@ -822,6 +832,8 @@ export const deleteAgentWithdrawals = /* GraphQL */ `
       id
       agentPhone
       bankAdminId
+      bankName
+      bkAcNo
       Amount
       status
       owner
@@ -845,6 +857,8 @@ export const createSAgent = /* GraphQL */ `
       InctvMFNdog
       email
       saBalance
+      bankName
+      bkAcNo
       status
       owner
       MFKWithdrwlFee
@@ -868,6 +882,8 @@ export const updateSAgent = /* GraphQL */ `
       InctvMFNdog
       email
       saBalance
+      bankName
+      bkAcNo
       status
       owner
       MFKWithdrwlFee
@@ -891,6 +907,8 @@ export const deleteSAgent = /* GraphQL */ `
       InctvMFNdog
       email
       saBalance
+      bankName
+      bkAcNo
       status
       owner
       MFKWithdrwlFee
@@ -909,6 +927,8 @@ export const createSAgentWithdrawals = /* GraphQL */ `
       saId
       amount
       bankAdmnId
+      bankName
+      bkAcNo
       status
       owner
       createdAt
@@ -926,6 +946,8 @@ export const updateSAgentWithdrawals = /* GraphQL */ `
       saId
       amount
       bankAdmnId
+      bankName
+      bkAcNo
       status
       owner
       createdAt
@@ -943,6 +965,8 @@ export const deleteSAgentWithdrawals = /* GraphQL */ `
       saId
       amount
       bankAdmnId
+      bankName
+      bkAcNo
       status
       owner
       createdAt
@@ -1072,6 +1096,8 @@ export const createAdvocate = /* GraphQL */ `
       TtlEarnings
       advBal
       email
+      bankName
+      bkAcNo
       officeLoc
       status
       owner
@@ -1094,6 +1120,8 @@ export const updateAdvocate = /* GraphQL */ `
       TtlEarnings
       advBal
       email
+      bankName
+      bkAcNo
       officeLoc
       status
       owner
@@ -1116,6 +1144,8 @@ export const deleteAdvocate = /* GraphQL */ `
       TtlEarnings
       advBal
       email
+      bankName
+      bkAcNo
       officeLoc
       status
       owner
@@ -1134,6 +1164,8 @@ export const createAdvocateWithdrawals = /* GraphQL */ `
       bankAdmnId
       advregnu
       amount
+      bankName
+      bkAcNo
       status
       owner
       createdAt
@@ -1151,6 +1183,8 @@ export const updateAdvocateWithdrawals = /* GraphQL */ `
       bankAdmnId
       advregnu
       amount
+      bankName
+      bkAcNo
       status
       owner
       createdAt
@@ -1168,6 +1202,8 @@ export const deleteAdvocateWithdrawals = /* GraphQL */ `
       bankAdmnId
       advregnu
       amount
+      bankName
+      bkAcNo
       status
       owner
       createdAt

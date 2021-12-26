@@ -77,6 +77,8 @@ const AdvWthdwl = props => {
           const pwds = AdvDtl.data.getAdvocate.pwd;
           const names = AdvDtl.data.getAdvocate.name;
           const statussssss = AdvDtl.data.getAdvocate.status;
+          const bankNames = AdvDtl.data.getAdvocate.bankName;
+          const bkAcNos = AdvDtl.data.getAdvocate.bkAcNo;
           
           
                           
@@ -90,6 +92,8 @@ const AdvWthdwl = props => {
                                     advregnu: AdvReNo,  
                                     owner: ownr,
                                     amount: amount,
+                                    bankName: bankNames,
+                                    bkAcNo: bkAcNos,
                                     status: 'AccountActive',
                                   },
                                 }),

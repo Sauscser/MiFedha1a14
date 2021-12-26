@@ -83,6 +83,8 @@ const AdminWthdwl = props => {
           const pws = MFKDtl.data.getSAgent.pw;
           const names = MFKDtl.data.getSAgent.name;
           const statussssss = MFKDtl.data.getSAgent.status;
+          const bankNames = MFKDtl.data.getSAgent.bankName;
+          const bkAcNos = MFKDtl.data.getSAgent.bkAcNo;
           
           
                           
@@ -96,6 +98,8 @@ const AdminWthdwl = props => {
                                     saId:MFKPhn,
                                     owner: ownr,
                                     amount: amount,
+                                    bankName: bankNames,
+                                    bkAcNo: bkAcNos,
                                     status: 'AccountActive',
                                   },
                                 }),

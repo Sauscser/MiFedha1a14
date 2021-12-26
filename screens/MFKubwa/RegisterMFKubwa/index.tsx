@@ -29,6 +29,8 @@ const RegisterMFKubwaAcForm = props => {
   const[eml, setEml] =useState("");
   const[ownr, setOwnr] = useState(null);
   const [pword, setPW] = useState("");
+  const [BkName, setBkName] = useState('');
+  const [BkAcNu, setBkAcNu] = useState('');
   const[isLoading, setIsLoading] = useState(false);
   const [UsrPhn, setUsrPhn] = useState(null);
 
@@ -94,6 +96,8 @@ const RegisterMFKubwaAcForm = props => {
                       saPhoneContact: phoneContact,
                       pw: pword,
                       TtlEarnings: 0,
+                      bankName:BkAcNu,
+                      bkAcNo:BkName,
                       actvMFNdog:0,
                       InctvMFNdog:0,
                       email: eml,
@@ -195,9 +199,33 @@ const RegisterMFKubwaAcForm = props => {
           setName("");
           setEml("");
           setPhoneContact("");
+          setBkAcNu("");
+          setBkName("");
 };
 
-  useEffect(() =>{
+useEffect(() =>{
+  const BkNames=BkName
+    if(!BkNames && BkNames!=="")
+    {
+      setBkName("");
+      return;
+    }
+    setBkName(BkNames);
+    }, [BkName]
+     );
+
+     useEffect(() =>{
+      const BkAcNus=BkAcNu
+        if(!BkAcNus && BkAcNus!=="")
+        {
+          setBkAcNu("");
+          return;
+        }
+        setBkAcNu(BkAcNus);
+        }, [BkAcNu]
+         );
+         
+         useEffect(() =>{
   const mfkID=nationalId
     if(!mfkID && mfkID!=="")
     {
@@ -284,7 +312,23 @@ const RegisterMFKubwaAcForm = props => {
             <Text style={styles.sendLoanText}>MFKubwa Name</Text>
           </View>
 
-         
+          <View style={styles.sendLoanView}>
+            <TextInput
+              value={BkAcNu}
+              onChangeText={setBkAcNu}
+              style={styles.sendLoanInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendLoanText}>Bank Ac Number</Text>
+          </View>
+
+          <View style={styles.sendLoanView}>
+            <TextInput
+              value={BkName}
+              onChangeText={setBkName}
+              style={styles.sendLoanInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendLoanText}>Bank Name</Text>
+          </View>
 
           <View style={styles.sendLoanView}>
             <TextInput
