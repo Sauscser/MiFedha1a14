@@ -117,7 +117,7 @@ const SMASendLns = props => {
           const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)
                    
           const CompanyTotalEarnings = CompCovFee*parseFloat(amount) + parseFloat(userLoanTransferFees)*parseFloat(amount)
-          const TotalTransacted = parseFloat(amount) + ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount);
+          
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
           const ttlCompCovEarningss = CompDtls.data.getCompany.ttlCompCovEarnings;
 
@@ -134,18 +134,26 @@ const SMASendLns = props => {
           const maxBLss = CompDtls.data.getCompany.maxBLs;
           
           
-          const IntAmt = parseFloat(AmtExp) - parseFloat(amount)
+          const IntAmt = parseFloat(AmtExp) - (parseFloat(amount) + 
+          parseFloat(userLoanTransferFees)*parseFloat(amount) + ttlCovFeeAmount)
 
           const vats = CompDtls.data.getCompany.vat;
           const ttlvats = CompDtls.data.getCompany.ttlvat;
           const vatFee = (parseFloat(vats)*IntAmt)
           const phoneContacts = CompDtls.data.getCompany.phoneContact;
           const maxInterestPwnBrkrs = CompDtls.data.getCompany.maxInterestPwnBrkr;
-          const MaxSMInterest = parseFloat(amount)*parseFloat(maxInterestSMs)*parseFloat(RepaymtPeriod);
-          const MaxPwnBrkrInterest = parseFloat(amount)*parseFloat(maxInterestPwnBrkrs)*parseFloat(RepaymtPeriod);
-          const ActualMaxSMInterest = parseFloat(AmtExp) - parseFloat(amount);
-          const ActualMaxPwnBrkrInterest = parseFloat(AmtExp) - parseFloat(amount)
-
+          const MaxSMInterest = (parseFloat(AmtExp) -  
+              (parseFloat(userLoanTransferFees)*parseFloat(amount) 
+              + ttlCovFeeAmount) )*parseFloat(maxInterestSMs)*parseFloat(RepaymtPeriod);
+          const MaxPwnBrkrInterest = (parseFloat(AmtExp) -  
+          (parseFloat(userLoanTransferFees)*parseFloat(amount) 
+          + ttlCovFeeAmount) )*parseFloat(maxInterestPwnBrkrs)*parseFloat(RepaymtPeriod);
+          const ActualMaxSMInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) + 
+          ttlCovFeeAmount);
+          const ActualMaxPwnBrkrInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) + 
+          ttlCovFeeAmount)
+          const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee
+          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee + parseFloat(amount)
           
           
           const fetchAdv = async () =>{
@@ -180,9 +188,8 @@ const SMASendLns = props => {
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
                         const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
-                        const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;                        
-                        const TtlActvLonsAmtLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeCov;
-
+                        const TtlActvLonsTmsLnrCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov; 
+                        const TtlActvLonsTmsLneeCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov; 
                         const TtlActvLonsTmsLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
                         const TtlActvLonsAmtLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
@@ -258,7 +265,7 @@ const SMASendLns = props => {
                                     TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs2) +1 ,
                                     TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ parseFloat(AmtExp)).toFixed(2),
                                                                               
-                                    balance:(parseFloat(SenderUsrBal)-TotalTransacted - vatFee).toFixed(2) 
+                                    balance:(parseFloat(SenderUsrBal)-TtlTransCost).toFixed(2) 
                                    
                                     
                                   }
@@ -285,8 +292,7 @@ const SMASendLns = props => {
                                 graphqlOperation(updateSMAccount, {
                                   input:{
                                     phonecontact:RecPhn,
-                                    TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs) +1 ,
-                                    TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs)+ parseFloat(AmtExp)).toFixed(2),
+                                    
                                     TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs1)+1,
                                     TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs1) + parseFloat(AmtExp)).toFixed(2),
                                     balance:(parseFloat(RecUsrBal) + parseFloat(amount) ).toFixed(2) ,
@@ -379,17 +385,31 @@ const SMASendLns = props => {
                         else if(recAcptncCode !== SendrPhn){Alert.alert('Let Loanee first request Loan');
                       return;
                     }
+
+                    else if(TtlActvLonsTmsLnrCovss !== amount){Alert.alert('Enter the agreed amount');
+                      return;
+                    }
+
+                    else if(TtlActvLonsTmsLneeCovss !== RepaymtPeriod){Alert.alert('Enter agreed repayment period');
+                      return;
+                    }
+
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if(amount > AmtExp){Alert.alert('Amount expected Back must at least be greater');
+                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Amount expected Back must at least be greater');
                       return;}
-                        else if(compDtls.data.listChamasNPwnBrkrs.items.length < 1 && ActualMaxSMInterest > MaxSMInterest)
-                        {Alert.alert("Unregistered for such Interest. Max Int: Ksh. "+MaxSMInterest);}
+
+                        else if(compDtls.data.listChamasNPwnBrkrs.items.length < 1 && parseFloat(AmtExp) > TtlTransCost)
+                        {Alert.alert("Friend-Friend Loans can't earn interest. Repayment: Ksh. "  + TtlTransCost);}
+
+                        else if(compDtls.data.listChamasNPwnBrkrs.items.length > 1 && parseFloat(RepaymtPeriod) < 60)
+                        {Alert.alert("Repayment period must be greater than 60 days");}
+
                         else if(ActualMaxPwnBrkrInterest > MaxPwnBrkrInterest)
                         {Alert.alert('Interest too high:' + ActualMaxPwnBrkrInterest.toFixed(2) + "; Recom SI: Ksh. " + (MaxPwnBrkrInterest).toFixed(2));}
                         else if (
-                          parseFloat(SenderUsrBal) < TotalTransacted 
+                          parseFloat(SenderUsrBal) < TtlTransCost 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
                         else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}

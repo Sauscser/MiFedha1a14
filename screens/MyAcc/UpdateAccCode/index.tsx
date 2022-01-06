@@ -33,6 +33,7 @@ const UpdtSMPW = (props) => {
   const [groupCnt, setgroupCnt] = useState("");
   const [LnAcCod, setLnAcCod] = useState("");
   const [SMPW, setSMPW] = useState("");
+  const [RpymtPrd, setRpymtPrd] = useState("");
   const[isLoading, setIsLoading] = useState(false);
   const[ownr, setownr] = useState(null);
   const[names, setName] = useState(null);
@@ -78,6 +79,8 @@ const UpdtSMPW = (props) => {
                                                   phonecontact:PhoneContact,
                                                   
                                                   loanAcceptanceCode:LnAcCod,
+                                                  TtlActvLonsTmsLnrCov:groupCnt,
+                                                  TtlActvLonsTmsLneeCov:RpymtPrd
                                                   
                                                 }
                                               })
@@ -92,7 +95,7 @@ const UpdtSMPW = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +", You have requested a Loan from " +LnAcCod);
+                                        Alert.alert(names +", You have requested a Loan from " + LnAcCod);
                                       } 
 
                                       if(SMPW!==pwss)
@@ -140,10 +143,22 @@ const UpdtSMPW = (props) => {
               setSigntryPW("")
               setSMPW("")
               setLnAcCod("")
+              setRpymtPrd("");
           
             }
         
-        useEffect(() =>{
+            useEffect(() =>{
+              const RpymtPrds=RpymtPrd
+                if(!RpymtPrds && RpymtPrds!=="")
+                {
+                  setRpymtPrd("");
+                  return;
+                }
+                setRpymtPrd(RpymtPrds);
+                }, [RpymtPrd]
+                 );
+                 
+                 useEffect(() =>{
           const groupCnts=groupCnt
             if(!groupCnts && groupCnts!=="")
             {
@@ -206,7 +221,27 @@ const UpdtSMPW = (props) => {
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Loaner Phone Number</Text>
-                  </View>       
+                  </View>  
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                      value={groupCnt}
+                      autoCompleteType ={"off"}
+                      onChangeText={setgroupCnt}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Amount</Text>
+                  </View>     
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                      value={RpymtPrd}
+                      autoCompleteType ={"off"}
+                      onChangeText={setRpymtPrd}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>(Repayment Period)</Text>
+                  </View>          
 
                   <View style={styles.sendLoanView}>
                     <TextInput

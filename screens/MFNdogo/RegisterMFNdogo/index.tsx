@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Alert} from "react-native"
 
-import {createAgent, updateCompany, updateSAgent} from '../../../src/graphql/mutations';
+import {createAgent, updateCompany, updateSAgent, updateSMAccount} from '../../../src/graphql/mutations';
 
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
@@ -94,6 +94,8 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
                     )
                   )
                   const nationalidssss = UsrDtls.data.getSMAccount.nationalid
+                  const TtlClrdLonsAmtByrCovs = UsrDtls.data.getSMAccount.TtlClrdLonsAmtByrCov
+                 
 
           const createNewMFN = async () => {
             if(isLoading){
@@ -150,6 +152,10 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
         Alert.alert("Please use the hinted format of the Phone number");
         return;
       } 
+      else if(0 >= TtlClrdLonsAmtByrCovs){
+        Alert.alert("Please first purchase this account");
+        return;
+      } 
 
       
       else if((actvMFNdogs+1)>maxMFNdogoss){
@@ -203,9 +209,36 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
               Alert.alert("Please check your internet connection")
               return;
             }}
+            
+            setIsLoading(false)
+            await updtSMAc();
+          }   
+
+          const updtSMAc = async()=>{
+            if(isLoading){
+              return;
+            }
+            setIsLoading(true);
+            try{
+                await API.graphql(
+                  graphqlOperation(updateSMAccount,{
+                    input:{
+                      phonecontact:UsrPhn,
+                      TtlClrdLonsAmtByrCov:parseFloat(TtlClrdLonsAmtByrCovs) - 1,
+                    }
+                  })
+                )
+            }
+            catch(error){if (error) {
+              console.log(error)
+              Alert.alert("Please check your internet connection")
+              return;
+            }}
             Alert.alert(" MFKubwa " +names+ " has registered MFNdogo "  +nam );
             setIsLoading(false)
           }   
+
+
           
         } catch (e) {
           if(e){Alert.alert("Please first sign up")}

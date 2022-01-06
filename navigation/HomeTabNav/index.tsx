@@ -241,6 +241,8 @@ import SendNonLonsRevSgnIn from "../../screens/MyAcc/SendNonLonsRevSgnIn";
 import SendNonLonsRevVw from "../../screens/MyAcc/SendNonLonsRevVw";
 import ViewNonLnsRec from "../../screens/MyAcc/ViewNonLnsRec";
 import ViewNonLnsSent from "../../screens/MyAcc/ViewNonLnsSent";
+import AddMFNdogo from "../../screens/MFNdogo/AddMFNdogo";
+import AddMFKubwa from "../../screens/MFKubwa/AddMFKubwa";
 
 
 
@@ -253,6 +255,10 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
     
+      <Stack.Screen name={'AddMFKubwas'} component={AddMFKubwa} />
+      
+      <Stack.Screen name={'AddMFNdogos'} component={AddMFNdogo} />
+      
       <Stack.Screen name={'ViewNonLnsSents'} component={ViewNonLnsSent} /> 
       <Stack.Screen name={'ViewNonLnsRecs'} component={ViewNonLnsRec} />
 

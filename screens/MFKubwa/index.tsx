@@ -65,9 +65,6 @@ const KFKubwaScreen = props => {
               <Text style={styles.kfkubwaPressableText}>View</Text>
             </Pressable>
 
-            
-
-            
           </View>
         </View>
 

@@ -59,6 +59,17 @@ const RegKFKubwa = props => {
   const SendNonLonsRevSgnIns = () => {
     navigation.navigate('SendNonLonsRevSgnIn');
   };  
+
+  const AddMFndogoss = () => {
+    navigation.navigate('AddMFNdogos');
+  };  
+
+  const AddMFKubwass = () => {
+    navigation.navigate('AddMFKubwas');
+  };  
+
+
+
   
   return (
     <SafeAreaView>
@@ -91,6 +102,13 @@ const RegKFKubwa = props => {
                         Buy Flt
                       </Text>
                     </Pressable>
+                    <Pressable
+                      onPress={AddMFndogoss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Add
+                      </Text>
+                    </Pressable>
                   </View>
                 </View>
 
@@ -115,6 +133,14 @@ const RegKFKubwa = props => {
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         RegChm
+                      </Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={AddMFKubwass}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                       Add
                       </Text>
                     </Pressable>
                   </View>

@@ -178,8 +178,7 @@ const RepayCovSellerLnsss = props => {
                                 phonecontact:SendrPhn,
                                 
                                 balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
-                                TtlClrdLonsTmsByrCov:parseFloat(TtlClrdLonsTmsByrCovs)+1,                                          
-                                TtlClrdLonsAmtByrCov: (parseFloat(TtlClrdLonsAmtByrCovs) + parseFloat(amounts)).toFixed(2), 
+                               
                                 
                                 MaxTymsBL: 0, 
                                                                    

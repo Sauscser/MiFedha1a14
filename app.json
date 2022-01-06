@@ -2,7 +2,7 @@
   "expo": {
     "name": "MiFedha",
     "slug": "mifedha",
-    "version": "1.0.2",
+    "version": "1.0.6",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -34,8 +34,13 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.MiFedhaLimited.MiFedha",
-      "versionCode":3,
-      "permissions":["LOCATION", "ACCESS_FOREGROUND_LOCATION"],
+      "versionCode":7,
+      "permissions":[
+       "LOCATION", "ACCESS_USER_LOCATION",
+       "LOCATION", "ACCESS_FINE_LOCATION",
+       "LOCATION", "ACCESS_FOREGROUND_LOCATION"
+      ],
+      
       "config":
       {
         "googleMaps":{

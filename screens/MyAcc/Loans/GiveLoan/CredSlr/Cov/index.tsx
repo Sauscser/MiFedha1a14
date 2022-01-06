@@ -111,7 +111,7 @@ const CovCredSls = props => {
           const AdvCovAmt = parseFloat(AdvComs)*parseFloat(CoverageFees)*parseFloat(amount)
           const CompCovAmt = CompCovFee*parseFloat(amount)
           const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)
-          const TotalTransacted = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount);
+         
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
           const ttlCompCovEarningss = CompDtls.data.getCompany.ttlCompCovEarnings;
 
@@ -131,16 +131,24 @@ const CovCredSls = props => {
           
           const Interest = ((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))    
 
-          const IntAmt = parseFloat(AmtExp) - parseFloat(amount)
+          const IntAmt = parseFloat(AmtExp) - (parseFloat(amount) + 
+          parseFloat(userLoanTransferFees)*parseFloat(amount) + ttlCovFeeAmount)
 
           const vats = CompDtls.data.getCompany.vat;
           const ttlvats = CompDtls.data.getCompany.ttlvat;
           const vatFee = (parseFloat(vats)*IntAmt)
-          const MaxSMInterest = parseFloat(amount)*parseFloat(maxInterestCredSllrs)*parseFloat(RepaymtPeriod);
           
-          const ActualMaxSMInterest = parseFloat(AmtExp) - parseFloat(amount);
           const ActualMaxPwnBrkrInterest = parseFloat(AmtExp) - parseFloat(amount)
           const phoneContacts = CompDtls.data.getCompany.phoneContact;  
+          const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee
+          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee + parseFloat(amount)
+          const MaxSMInterest = (parseFloat(AmtExp) - 
+          (parseFloat(userLoanTransferFees)*parseFloat(amount) + 
+              ttlCovFeeAmount))*parseFloat(maxInterestCredSllrs)*parseFloat(RepaymtPeriod);
+
+          const ActualMaxSMInterest = parseFloat(AmtExp) - 
+                  (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) + 
+                  ttlCovFeeAmount);
           
           
           const fetchAdv = async () =>{
@@ -174,6 +182,8 @@ const CovCredSls = props => {
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
                         const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
+                        const TtlActvLonsTmsLnrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov; 
+                        const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov; 
                         const TtlActvLonsTmsByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsByrCov;
                         const TtlActvLonsAmtByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtByrCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
@@ -195,14 +205,14 @@ const CovCredSls = props => {
                                   sellerContact:SendrPhn,
                                   buyerContact: RecPhn, 
                                   loanerLoanee:SendrPhn+RecPhn,
-                                  loanerLoaneeAdv:  SendrPhn+RecPhn+ AdvRegNo ,                                   
+                                  loanerLoaneeAdv:  SendrPhn+RecPhn+ AdvRegNo,                                   
                                   amountSold: amount,
-                                  amountexpectedBack: (parseFloat(AmtExp) - vatFee).toFixed(2),
-                                  amountExpectedBackWthClrnc:(parseFloat(AmtExp) - vatFee).toFixed(2),
+                                  amountexpectedBack: (parseFloat(AmtExp) - TransCost).toFixed(2),
+                                  amountExpectedBackWthClrnc:(parseFloat(AmtExp) - TransCost).toFixed(2),
                                   amountRepaid: 0,
                                   buyerName:namess,
                                   SellerName:names,
-                                  lonBala:(parseFloat(AmtExp) - vatFee).toFixed(2),
+                                  lonBala:(parseFloat(AmtExp) - TransCost).toFixed(2),
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: AdvRegNo,
                                   description: Desc,
@@ -231,16 +241,26 @@ const CovCredSls = props => {
                         else if(recAcptncCode !== SendrPhn){Alert.alert('Let the Loanee first request Loan');
                       return;
                     }
+
+                    else if(parseFloat(TtlActvLonsTmsLnrCovs) !== parseFloat(amount)){Alert.alert('Enter the agreed amount');
+                      return;
+                    }
+
+                    else if(parseFloat(TtlActvLonsTmsLneeCovs) !== parseFloat(RepaymtPeriod)){Alert.alert('Enter the agreed repayment period');
+                      return;
+                    }
+
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(ActualMaxSMInterest>MaxSMInterest)
                         {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(2) + "; Recom SI:" + (MaxSMInterest).toFixed(2) );}
                         else if (
-                          parseFloat(RecUsrBal) < TotalTransacted 
+                          parseFloat(RecUsrBal) < TransCost 
                         ) {Alert.alert('Buyer cannot facilitate; should recharge');}
-                        else if(amount > AmtExp){Alert.alert('Amount expected Back must at least be greater');
+                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Amount expected Back must at least be greater');
                       return;}
+                      
                         else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                         else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
@@ -293,7 +313,7 @@ const CovCredSls = props => {
                                     phonecontact:RecPhn,
                                     TtlActvLonsTmsByrCov: parseFloat(TtlActvLonsTmsByrCovs) +1 ,
                                     TtlActvLonsAmtByrCov: parseFloat(TtlActvLonsAmtByrCovs)+ parseFloat(AmtExp),
-                                    balance:(parseFloat(RecUsrBal) - TotalTransacted - (vatFee)).toFixed(2),
+                                    balance:(parseFloat(RecUsrBal) - TransCost).toFixed(2),
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                 

@@ -145,17 +145,28 @@ const fetchChmMbrDtls = async () => {
           const ttlChmLnsInAmtCovs = CompDtls.data.getCompany.ttlChmLnsInAmtCov;          
           const ttlChmLnsInTymsCovs = CompDtls.data.getCompany.ttlChmLnsInTymsCov;            
           const maxInterestGrps = CompDtls.data.getCompany.maxInterestGrp;  
-          const IntAmt = parseFloat(AmtExp) - parseFloat(amount)
+          const IntAmt = parseFloat(AmtExp) - (parseFloat(amount) + 
+                parseFloat(userLoanTransferFees)*parseFloat(amount) + ttlCovFeeAmount)
           const Interest = (((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))).toFixed(2);     
           const maxBLss = CompDtls.data.getCompany.maxBLs;
           const vats = CompDtls.data.getCompany.vat;
           const vatFee = (parseFloat(vats)*IntAmt)
           const ttlvats = CompDtls.data.getCompany.ttlvat;
 
-          const MaxSMInterest = parseFloat(amount)*parseFloat(maxInterestGrps)*parseFloat(RepaymtPeriod);
           
-          const ActualMaxSMInterest = parseFloat(AmtExp) - parseFloat(amount);
-        console.log(TotalTransacted)
+          const MaxSMInterest = (parseFloat(AmtExp) -  
+          (parseFloat(userLoanTransferFees)*parseFloat(amount) 
+          + ttlCovFeeAmount) )*parseFloat(maxInterestGrps)*parseFloat(RepaymtPeriod);
+          
+          
+          const ActualMaxSMInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) + 
+          ttlCovFeeAmount)
+
+          const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee
+          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee + parseFloat(amount)
+
+
+   
           
           
           const fetchAdv = async () =>{
@@ -189,6 +200,8 @@ const fetchChmMbrDtls = async () => {
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
                         const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
+                        const TtlActvLonsTmsLnrCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov; 
+                        const TtlActvLonsTmsLneeCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnee
                         const TtlActvLonsTmsLneeChmCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmCov;
                         const TtlActvLonsAmtLneeChmCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
@@ -277,7 +290,7 @@ const fetchChmMbrDtls = async () => {
                                     TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs)+1,
                                     TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + parseFloat(AmtExp)).toFixed(2),
                                                                               
-                                    grpBal:(parseFloat(grpBals)-TotalTransacted + vatFee).toFixed(2) 
+                                    grpBal:(parseFloat(grpBals)-TtlTransCost).toFixed(2) 
                                    
                                     
                                   }
@@ -395,7 +408,15 @@ const fetchChmMbrDtls = async () => {
                       return;
                     }
 
-                    else if(amount > AmtExp){Alert.alert('Amount expected Back must at least be greater');
+                    else if(TtlActvLonsTmsLnrCovss !== amount){Alert.alert('Enter agreed amount');
+                      return;
+                    }
+
+                    else if(TtlActvLonsTmsLneeCovss !== RepaymtPeriod){Alert.alert('Enter agreed amount');
+                      return;
+                    }
+
+                    else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Amount expected Back must at least be greater');
                       return;
                     }
                     else if(ownr !==SenderSub){Alert.alert('You are not the creator/signitory of this Chama');}
@@ -405,7 +426,7 @@ const fetchChmMbrDtls = async () => {
                         else if(ActualMaxSMInterest>MaxSMInterest)
                         {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(2) + "; Recom SI:" + (MaxSMInterest).toFixed(2) );}
                         else if (
-                          parseFloat(grpBals) < TotalTransacted 
+                          parseFloat(grpBals) < TtlTransCost 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
                         else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
                         else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');}

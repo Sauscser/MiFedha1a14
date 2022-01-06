@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {createSAgent, updateCompany} from '../../../src/graphql/mutations';
+import {createSAgent, updateCompany, updateSMAccount} from '../../../src/graphql/mutations';
 
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
@@ -80,6 +80,7 @@ const RegisterMFKubwaAcForm = props => {
                   )
                 )
                 const nationalidssss = UsrDtls.data.getSMAccount.nationalid
+                const TtlClrdLonsAmtSllrCovs = UsrDtls.data.getSMAccount.TtlClrdLonsAmtSllrCov
 
             const CreateNewSA = async () => {
               if(isLoading){
@@ -128,6 +129,10 @@ const RegisterMFKubwaAcForm = props => {
             {Alert.alert("Please use the hinted format of the Phone number");
           return;
         }
+        else if(0 >= TtlClrdLonsAmtSllrCovs){
+          Alert.alert("Please first purchase this account");
+          return;
+        } 
         else if (pword.length<8)
         {Alert.alert("Password is too short; at least eight characters");
       return;
@@ -159,7 +164,31 @@ const RegisterMFKubwaAcForm = props => {
                 Alert.alert("Check your internet")
                 return
               }}
-              Alert.alert("Account registered successfully")
+              await updtSMAc();
+              setIsLoading(false);
+            }
+
+            const updtSMAc = async()=>{
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
+              try{
+                  await API.graphql(
+                    graphqlOperation(updateSMAccount,{
+                      input:{
+                        phonecontact:UsrPhn,
+                        TtlClrdLonsAmtSllrCov:parseFloat(TtlClrdLonsAmtSllrCovs) - 1,
+                      }
+                    })
+                  )
+              }
+              catch(error){if (error) {
+                console.log(error)
+                Alert.alert("Please check your internet connection")
+                return;
+              }}
+              Alert.alert("MFKubwa Account registered successfully")
               setIsLoading(false);
             }
             

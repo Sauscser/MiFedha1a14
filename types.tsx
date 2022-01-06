@@ -283,7 +283,8 @@ declare global {
       SendNonLonsRevVw:{phoneContacts:string};
       ViewNonLnsRecs:undefined;
       ViewNonLnsSents:undefined;
-    
+      AddMFNdogos:undefined; 
+      AddMFKubwas:undefined;    
       
     }
   }

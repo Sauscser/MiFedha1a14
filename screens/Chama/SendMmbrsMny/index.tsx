@@ -113,13 +113,9 @@ const SMASendNonLns = props => {
           );
           
             
-          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
-               
           
-          const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
-          const companyEarnings = CompDtls.data.getCompany.companyEarning;
-         
+          const TotalTransacted = parseFloat(amounts);
+          
           const ttlNonLonssSentChms = CompDtls.data.getCompany.ttlNonLonssSentChm; 
          
                     
@@ -183,9 +179,7 @@ const SMASendNonLns = props => {
                               input:{
                                 grpContact:groupContacts,
                                 ttlNonLonsSentChm: (parseFloat(ttlNonLonsSentChms)+parseFloat(amounts)).toFixed(2),
-                                grpBal:(parseFloat(grpBals)-parseFloat(TotalTransacted)).toFixed(2) 
-                               
-                                
+                                grpBal:(parseFloat(grpBals)-TotalTransacted).toFixed(2) 
                               }
                             })
                           )
@@ -240,9 +234,6 @@ const SMASendNonLns = props => {
                               input:{
                                 AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                
-                                companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals),
-                                companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
-                                                  
                                 ttlNonLonssSentChm: parseFloat(amounts) + parseFloat(ttlNonLonssSentChms),
                                 
                               }
@@ -284,7 +275,7 @@ const SMASendNonLns = props => {
                         if (error){Alert.alert("Check your internet connection")
                     return;}
                       }
-                      Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(2)  + "Transaction fee: Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
+                      Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(2) );
                       setIsLoading(false);
                     }                                
                                           
@@ -293,7 +284,7 @@ const SMASendNonLns = props => {
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                     
                     else if (
-                      parseFloat(grpBals) < parseFloat(TotalTransacted) 
+                      parseFloat(grpBals) < TotalTransacted 
                     ) {Alert.alert('Requested amount is more than you have in your account');}
                     
                     else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');}

@@ -116,9 +116,12 @@ const SMASendChmNonLns = props => {
                         }),
                       );
                       
-                      const TotalTransacted = parseFloat(amounts) ;
+                      const userTransferFees = CompDtls.data.getCompany.userTransferFee;
+                      const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
+                      const companyEarnings = CompDtls.data.getCompany.companyEarning;
                       const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
-                      
+                      const TotalTransacted = parseFloat(amounts) +  parseFloat(userTransferFees)*parseFloat(amounts);
+                      const TransferFee = parseFloat(amounts) +  parseFloat(userTransferFees)*parseFloat(amounts);
                       const ttlNonLonssRecChmss = CompDtls.data.getCompany.ttlNonLonssRecChm;
                     
                      
@@ -238,7 +241,8 @@ const SMASendChmNonLns = props => {
                                         graphqlOperation(updateCompany, {
                                           input:{
                                             AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                           
+                                            companyEarningBal: parseFloat(companyEarningBals) + TransferFee,
+                                            companyEarning: parseFloat(companyEarnings) + TransferFee,
                                             ttlNonLonssRecChm: (parseFloat(amounts) + parseFloat(ttlNonLonssRecChmss)).toFixed(2),
                                             
                                             

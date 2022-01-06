@@ -48,17 +48,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 30,
   },
-
-  sendLoanText2: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 30,
-  },
-
-
   sendLoanButton: {
     backgroundColor: '#fff',
     height: 45,
