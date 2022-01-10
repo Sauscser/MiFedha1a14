@@ -81,7 +81,7 @@ const CreateAcForm = (props) => {
             onCreateNewSMAc();
         }
         } catch (e) {
-          if(e){Alert.alert("Please first sign up")}
+          if(e){Alert.alert("Unauthorised to register")}
           console.error(e);
         }
       }

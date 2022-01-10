@@ -219,13 +219,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#72ebd8',
     
     height: 60,
-    borderRadius: 20,
-    marginLeft:"3%",
-    marginRight:"3%",
+    borderRadius: 10,
+    marginLeft:"1%",
+    marginRight:"1%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    width:"26%",
+    width:"23%",
     
   },
 

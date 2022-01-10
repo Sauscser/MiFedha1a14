@@ -145,7 +145,7 @@ const SMASendLns = props => {
           const MaxSMInterest = (parseFloat(AmtExp) -  
               (parseFloat(userLoanTransferFees)*parseFloat(amount) 
               + ttlCovFeeAmount) )*parseFloat(maxInterestSMs)*parseFloat(RepaymtPeriod);
-          const MaxPwnBrkrInterest = (parseFloat(AmtExp) -  
+          const MaxPwnBrkrInterest = (parseFloat(amount) +  
           (parseFloat(userLoanTransferFees)*parseFloat(amount) 
           + ttlCovFeeAmount) )*parseFloat(maxInterestPwnBrkrs)*parseFloat(RepaymtPeriod);
           const ActualMaxSMInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) + 
@@ -386,11 +386,11 @@ const SMASendLns = props => {
                       return;
                     }
 
-                    else if(TtlActvLonsTmsLnrCovss !== amount){Alert.alert('Enter the agreed amount');
+                    else if(parseFloat(TtlActvLonsTmsLnrCovss) !== parseFloat(amount)){Alert.alert('Enter the agreed amount');
                       return;
                     }
 
-                    else if(TtlActvLonsTmsLneeCovss !== RepaymtPeriod){Alert.alert('Enter agreed repayment period');
+                    else if(parseFloat(TtlActvLonsTmsLneeCovss) !== parseFloat(RepaymtPeriod)){Alert.alert('Enter agreed repayment period');
                       return;
                     }
 
@@ -403,7 +403,7 @@ const SMASendLns = props => {
                         else if(compDtls.data.listChamasNPwnBrkrs.items.length < 1 && parseFloat(AmtExp) > TtlTransCost)
                         {Alert.alert("Friend-Friend Loans can't earn interest. Repayment: Ksh. "  + TtlTransCost);}
 
-                        else if(compDtls.data.listChamasNPwnBrkrs.items.length > 1 && parseFloat(RepaymtPeriod) < 60)
+                        else if(compDtls.data.listChamasNPwnBrkrs.items.length = 1 && parseFloat(RepaymtPeriod) < 60)
                         {Alert.alert("Repayment period must be greater than 60 days");}
 
                         else if(ActualMaxPwnBrkrInterest > MaxPwnBrkrInterest)

@@ -68,6 +68,10 @@ const RegKFKubwa = props => {
     navigation.navigate('AddMFKubwas');
   };  
 
+  const crtAdmin = () => {
+    navigation.navigate('CrtAdmin');
+  };
+
 
 
   
@@ -174,7 +178,39 @@ const RegKFKubwa = props => {
               </View>
             </View>
           
-            
+            <View style={styles.acEarningsView}>
+            <Text style={styles.salesText}>Others</Text>
+
+            <View style={styles.viewForAcEarningsPressables}>
+              
+              
+
+              <Pressable
+                onPress={UpdateMFAdminPWss}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>UpdatePW</Text>
+              </Pressable>
+              <Pressable
+                onPress={RegPwnBrkrss}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>RegLner</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={SendNonLonsRevSgnIns}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>Reverse</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={crtAdmin}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>Create Ac</Text>
+              </Pressable>
+              
+            </View>
+          </View>
+
 
           <View style={styles.acEarningsView}>
               <Text style={styles.salesText}>SM Users</Text>
@@ -205,33 +241,7 @@ const RegKFKubwa = props => {
                   </View>
                 </View>
 
-                <View style={styles.acEarningsView}>
-            <Text style={styles.salesText}>Others</Text>
-
-            <View style={styles.viewForAcEarningsPressables}>
-              
-              
-
-              <Pressable
-                onPress={UpdateMFAdminPWss}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>UpdatePW</Text>
-              </Pressable>
-              <Pressable
-                onPress={RegPwnBrkrss}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>RegLner</Text>
-              </Pressable>
-
-              <Pressable
-                onPress={SendNonLonsRevSgnIns}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Reverse</Text>
-              </Pressable>
-              
-            </View>
-          </View>
-
+          
          
 
          

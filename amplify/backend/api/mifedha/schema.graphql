@@ -722,7 +722,7 @@ type BankAdmin
         operations: [read, create, update, delete]
       }
       
-      { allow: private, operations: [read, update, create] }
+      { allow: private, operations: [read, update] }
       {
         allow: groups
         groups: ["AdminOneTwo"]
@@ -1354,7 +1354,7 @@ type ChamasNPwnBrkrs
   @auth(
     rules: [
       { allow: owner, operations: [read, update] }
-      { allow: private, operations: [create, read] }
+      { allow: private, operations: [read] }
       {
         allow: groups
         groups: ["AdminOne"]
@@ -1400,7 +1400,7 @@ type ChamasRegConfirm
   @auth(
     rules: [
       { allow: owner, operations: [read, update] }
-      { allow: private, operations: [create, read] }
+      { allow: private, operations: [read] }
       {
         allow: groups
         groups: ["AdminOne"]

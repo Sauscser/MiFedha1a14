@@ -127,9 +127,9 @@ const SMASendNonCovLns = props => {
           const ttlvats = CompDtls.data.getCompany.ttlvat;
           const vatFee = (parseFloat(vats)*IntAmt)
           const maxInterestPwnBrkrs = CompDtls.data.getCompany.maxInterestPwnBrkr;
-          const MaxSMInterest = (parseFloat(AmtExp) -  
+          const MaxSMInterest = (parseFloat(amount) +
           (parseFloat(userLoanTransferFees)*parseFloat(amount) ))*parseFloat(maxInterestSMs)*parseFloat(RepaymtPeriod);
-          const MaxPwnBrkrInterest = (parseFloat(AmtExp) -  
+          const MaxPwnBrkrInterest = (parseFloat(amount) + 
           (parseFloat(userLoanTransferFees)*parseFloat(amount) 
             ) )*parseFloat(maxInterestPwnBrkrs)*parseFloat(RepaymtPeriod);
           const ActualMaxSMInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) 
@@ -323,11 +323,20 @@ const SMASendNonCovLns = props => {
                       return;
                     }
 
-                    else if(TtlActvLonsTmsLnrCovss !== amount){Alert.alert('Enter the agreed amount');
+                    else if(compDtls.data.listChamasNPwnBrkrs.items.length <1 && parseFloat(AmtExp) > TtlTransCost)
+                        {Alert.alert("Friend-Friend Loans can't earn interest. Repay Ksh. "  + TtlTransCost);}
+
+                    else if(compDtls.data.listChamasNPwnBrkrs.items.length >= 1 && parseFloat(RepaymtPeriod) < 60)
+                        {Alert.alert("Repayment period must be greater than 60 days");}
+
+                    else if(ActualMaxPwnBrkrInterest > MaxPwnBrkrInterest)
+                        {Alert.alert('Interest too high:' + ActualMaxPwnBrkrInterest.toFixed(2) + "; Recom SI: Ksh. " + (MaxPwnBrkrInterest).toFixed(2));}
+
+                    else if(parseFloat(TtlActvLonsTmsLnrCovss) !== parseFloat(amount)){Alert.alert('Enter the agreed amount');
                       return;
                     }
 
-                    else if(TtlActvLonsTmsLneeCovss !== RepaymtPeriod){Alert.alert('Enter agreed repayment period');
+                    else if(parseFloat(TtlActvLonsTmsLneeCovss) !== parseFloat(RepaymtPeriod)){Alert.alert('Enter agreed repayment period');
                       return;
                     }
 
@@ -335,18 +344,15 @@ const SMASendNonCovLns = props => {
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if(compDtls.data.listChamasNPwnBrkrs.items.length <1 && parseFloat(AmtExp) > TtlTransCost)
-                        {Alert.alert("Friend-Friend Loans can't earn interest. Repayment: Ksh. "  + TtlTransCost);}
-                        else if(ActualMaxPwnBrkrInterest > MaxPwnBrkrInterest)
-                        {Alert.alert('Interest too high:' + ActualMaxPwnBrkrInterest.toFixed(2) + "; Recom SI: Ksh. " + (MaxPwnBrkrInterest).toFixed(2));}
+                        
+                        
                         else if (
                           parseFloat(SenderUsrBal) < TtlTransCost 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
                         else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Amount expected Back must at least be greater');
                       return;}
 
-                      else if(compDtls.data.listChamasNPwnBrkrs.items.length > 1 && parseFloat(RepaymtPeriod) < 60)
-                        {Alert.alert("Repayment period must be greater than 60 days");}
+                      
                         
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                         else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}

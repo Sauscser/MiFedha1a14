@@ -142,7 +142,7 @@ const CovCredSls = props => {
           const phoneContacts = CompDtls.data.getCompany.phoneContact;  
           const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee
           const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee + parseFloat(amount)
-          const MaxSMInterest = (parseFloat(AmtExp) - 
+          const MaxSMInterest = (parseFloat(amount) + 
           (parseFloat(userLoanTransferFees)*parseFloat(amount) + 
               ttlCovFeeAmount))*parseFloat(maxInterestCredSllrs)*parseFloat(RepaymtPeriod);
 

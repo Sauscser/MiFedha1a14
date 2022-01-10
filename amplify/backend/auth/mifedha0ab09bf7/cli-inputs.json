@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "mifedhaa8cc0b5f_identitypool_a8cc0b5f",
+    "identityPoolName": "mifedha0ab09bf7_identitypool_0ab09bf7",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "mifedha8cc0b5f",
-    "userPoolName": "mifedhaa8cc0b5f_userpool_a8cc0b5f",
+    "resourceNameTruncated": "mifedh0ab09bf7",
+    "userPoolName": "mifedha0ab09bf7_userpool_0ab09bf7",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -20,28 +20,23 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-      "phone_number"
+      "email"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
-    "userpoolClientRefreshTokenValidity": "1",
+    "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
       "email"
     ],
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "mifedha8cc0b5f_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "mifedh0ab09bf7_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "a8cc0b5f",
-    "resourceName": "mifedhaa8cc0b5fa8cc0b5f",
+    "sharedId": "0ab09bf7",
+    "resourceName": "mifedha0ab09bf7",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "manual",
-    "thirdPartyAuth": false,
-    "userPoolGroups": false,
-    "adminQueries": false,
-    "triggers": {},
-    "hostedUI": false,
+    "useDefault": "default",
     "userPoolGroupList": [
       "Executive",
       "AdminOne",
@@ -74,11 +69,6 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": [],
-    "parentStack": {
-      "Ref": "AWS::StackId"
-    },
-    "permissions": [],
-    "authProviders": []
+    "dependsOn": []
   }
 }

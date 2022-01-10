@@ -225,11 +225,12 @@ const AdminSignIn = (props) => {
 
                 const pw1s = ExDtls.data.getCompany.pw1;
                 const pw2s = ExDtls.data.getCompany.pw2;
+                const ownersss = ExDtls.data.getCompany.owner;
 
                 
 
 
-                if(PWOnes === pw1s && PWTwos ===pw2s)
+                if(PWOnes === pw1s && PWTwos ===pw2s && ownersss === ownr)
                 {
               
                 moveToRegAdmin();

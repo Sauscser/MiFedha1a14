@@ -240,7 +240,7 @@ const UpdtSMPW = (props) => {
                       onChangeText={setRpymtPrd}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>(Repayment Period)</Text>
+                    <Text style={styles.sendLoanText}>Repayment Period in days</Text>
                   </View>          
 
                   <View style={styles.sendLoanView}>

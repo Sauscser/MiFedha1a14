@@ -83,7 +83,7 @@ const UpdtMFNPW = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +", You have successfully authorised MFNdogo creation");
+                                        Alert.alert("MFKubwa creation successfully authorised");
                                       } 
 
                                       updtMFNDtls();
@@ -179,7 +179,7 @@ const UpdtMFNPW = (props) => {
                       onChangeText={setOldAdmnPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Number of MFNdogos</Text>
+                    <Text style={styles.sendLoanText}>Number of MFKubwas</Text>
                   </View>   
 
                        

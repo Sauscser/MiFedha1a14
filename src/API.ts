@@ -2895,7 +2895,7 @@ export enum ModelSortDirection {
 
 export type ModelSMAccountConnection = {
   __typename: "ModelSMAccountConnection",
-  items:  Array<SMAccount >,
+  items:  Array<SMAccount | null >,
   nextToken?: string | null,
 };
 
@@ -2927,7 +2927,7 @@ export type ModelSMLoansCoveredFilterInput = {
 
 export type ModelSMLoansCoveredConnection = {
   __typename: "ModelSMLoansCoveredConnection",
-  items:  Array<SMLoansCovered >,
+  items:  Array<SMLoansCovered | null >,
   nextToken?: string | null,
 };
 
@@ -2957,7 +2957,7 @@ export type ModelSMLoansNonCoveredFilterInput = {
 
 export type ModelSMLoansNonCoveredConnection = {
   __typename: "ModelSMLoansNonCoveredConnection",
-  items:  Array<SMLoansNonCovered >,
+  items:  Array<SMLoansNonCovered | null >,
   nextToken?: string | null,
 };
 
@@ -2979,7 +2979,7 @@ export type ModelNonLoansFilterInput = {
 
 export type ModelNonLoansConnection = {
   __typename: "ModelNonLoansConnection",
-  items:  Array<NonLoans >,
+  items:  Array<NonLoans | null >,
   nextToken?: string | null,
 };
 
@@ -3011,7 +3011,7 @@ export type ModelAgentFilterInput = {
 
 export type ModelAgentConnection = {
   __typename: "ModelAgentConnection",
-  items:  Array<Agent >,
+  items:  Array<Agent | null >,
   nextToken?: string | null,
 };
 
@@ -3030,7 +3030,7 @@ export type ModelFloatPurchaseFilterInput = {
 
 export type ModelFloatPurchaseConnection = {
   __typename: "ModelFloatPurchaseConnection",
-  items:  Array<FloatPurchase >,
+  items:  Array<FloatPurchase | null >,
   nextToken?: string | null,
 };
 
@@ -3054,7 +3054,7 @@ export type ModelFloatAddFilterInput = {
 
 export type ModelFloatAddConnection = {
   __typename: "ModelFloatAddConnection",
-  items:  Array<FloatAdd >,
+  items:  Array<FloatAdd | null >,
   nextToken?: string | null,
 };
 
@@ -3074,7 +3074,7 @@ export type ModelFloatReductionFilterInput = {
 
 export type ModelFloatReductionConnection = {
   __typename: "ModelFloatReductionConnection",
-  items:  Array<FloatReduction >,
+  items:  Array<FloatReduction | null >,
   nextToken?: string | null,
 };
 
@@ -3095,7 +3095,7 @@ export type ModelAgentWithdrawalsFilterInput = {
 
 export type ModelAgentWithdrawalsConnection = {
   __typename: "ModelAgentWithdrawalsConnection",
-  items:  Array<AgentWithdrawals >,
+  items:  Array<AgentWithdrawals | null >,
   nextToken?: string | null,
 };
 
@@ -3122,7 +3122,7 @@ export type ModelSAgentFilterInput = {
 
 export type ModelSAgentConnection = {
   __typename: "ModelSAgentConnection",
-  items:  Array<SAgent >,
+  items:  Array<SAgent | null >,
   nextToken?: string | null,
 };
 
@@ -3143,7 +3143,7 @@ export type ModelSAgentWithdrawalsFilterInput = {
 
 export type ModelSAgentWithdrawalsConnection = {
   __typename: "ModelSAgentWithdrawalsConnection",
-  items:  Array<SAgentWithdrawals >,
+  items:  Array<SAgentWithdrawals | null >,
   nextToken?: string | null,
 };
 
@@ -3165,7 +3165,7 @@ export type ModelBankAdminFilterInput = {
 
 export type ModelBankAdminConnection = {
   __typename: "ModelBankAdminConnection",
-  items:  Array<BankAdmin >,
+  items:  Array<BankAdmin | null >,
   nextToken?: string | null,
 };
 
@@ -3183,7 +3183,7 @@ export type ModelBankAdmWithdrawalsFilterInput = {
 
 export type ModelBankAdmWithdrawalsConnection = {
   __typename: "ModelBankAdmWithdrawalsConnection",
-  items:  Array<BankAdmWithdrawals >,
+  items:  Array<BankAdmWithdrawals | null >,
   nextToken?: string | null,
 };
 
@@ -3209,7 +3209,7 @@ export type ModelAdvocateFilterInput = {
 
 export type ModelAdvocateConnection = {
   __typename: "ModelAdvocateConnection",
-  items:  Array<Advocate >,
+  items:  Array<Advocate | null >,
   nextToken?: string | null,
 };
 
@@ -3230,7 +3230,7 @@ export type ModelAdvocateWithdrawalsFilterInput = {
 
 export type ModelAdvocateWithdrawalsConnection = {
   __typename: "ModelAdvocateWithdrawalsConnection",
-  items:  Array<AdvocateWithdrawals >,
+  items:  Array<AdvocateWithdrawals | null >,
   nextToken?: string | null,
 };
 
@@ -3371,7 +3371,7 @@ export type ModelCompanyFilterInput = {
 
 export type ModelCompanyConnection = {
   __typename: "ModelCompanyConnection",
-  items:  Array<Company >,
+  items:  Array<Company | null >,
   nextToken?: string | null,
 };
 
@@ -3405,7 +3405,7 @@ export type ModelCovCreditSellerFilterInput = {
 
 export type ModelCovCreditSellerConnection = {
   __typename: "ModelCovCreditSellerConnection",
-  items:  Array<CovCreditSeller >,
+  items:  Array<CovCreditSeller | null >,
   nextToken?: string | null,
 };
 
@@ -3437,7 +3437,7 @@ export type ModelNonCovCreditSellerFilterInput = {
 
 export type ModelNonCovCreditSellerConnection = {
   __typename: "ModelNonCovCreditSellerConnection",
-  items:  Array<NonCovCreditSeller >,
+  items:  Array<NonCovCreditSeller | null >,
   nextToken?: string | null,
 };
 
@@ -3480,7 +3480,7 @@ export type ModelGroupFilterInput = {
 
 export type ModelGroupConnection = {
   __typename: "ModelGroupConnection",
-  items:  Array<Group >,
+  items:  Array<Group | null >,
   nextToken?: string | null,
 };
 
@@ -3511,7 +3511,7 @@ export type ModelChamaMembersFilterInput = {
 
 export type ModelChamaMembersConnection = {
   __typename: "ModelChamaMembersConnection",
-  items:  Array<ChamaMembers >,
+  items:  Array<ChamaMembers | null >,
   nextToken?: string | null,
 };
 
@@ -3529,7 +3529,7 @@ export type ModelChamasNPwnBrkrsFilterInput = {
 
 export type ModelChamasNPwnBrkrsConnection = {
   __typename: "ModelChamasNPwnBrkrsConnection",
-  items:  Array<ChamasNPwnBrkrs >,
+  items:  Array<ChamasNPwnBrkrs | null >,
   nextToken?: string | null,
 };
 
@@ -3547,7 +3547,7 @@ export type ModelChamasRegConfirmFilterInput = {
 
 export type ModelChamasRegConfirmConnection = {
   __typename: "ModelChamasRegConfirmConnection",
-  items:  Array<ChamasRegConfirm >,
+  items:  Array<ChamasRegConfirm | null >,
   nextToken?: string | null,
 };
 
@@ -3578,7 +3578,7 @@ export type ModelCvrdGroupLoansFilterInput = {
 
 export type ModelCvrdGroupLoansConnection = {
   __typename: "ModelCvrdGroupLoansConnection",
-  items:  Array<CvrdGroupLoans >,
+  items:  Array<CvrdGroupLoans | null >,
   nextToken?: string | null,
 };
 
@@ -3607,7 +3607,7 @@ export type ModelNonCvrdGroupLoansFilterInput = {
 
 export type ModelNonCvrdGroupLoansConnection = {
   __typename: "ModelNonCvrdGroupLoansConnection",
-  items:  Array<NonCvrdGroupLoans >,
+  items:  Array<NonCvrdGroupLoans | null >,
   nextToken?: string | null,
 };
 
@@ -3630,7 +3630,7 @@ export type ModelGroupNonLoansFilterInput = {
 
 export type ModelGroupNonLoansConnection = {
   __typename: "ModelGroupNonLoansConnection",
-  items:  Array<GroupNonLoans >,
+  items:  Array<GroupNonLoans | null >,
   nextToken?: string | null,
 };
 
@@ -3652,7 +3652,7 @@ export type ModelGrpMembersContributionFilterInput = {
 
 export type ModelGrpMembersContributionConnection = {
   __typename: "ModelGrpMembersContributionConnection",
-  items:  Array<GrpMembersContribution >,
+  items:  Array<GrpMembersContribution | null >,
   nextToken?: string | null,
 };
 
@@ -6426,7 +6426,7 @@ export type ListSMAccountsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -6494,7 +6494,7 @@ export type ListSMLoansCoveredsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -6558,7 +6558,7 @@ export type ListSMLoansNonCoveredsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -6606,7 +6606,7 @@ export type ListNonLoansQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -6676,7 +6676,7 @@ export type ListAgentsQuery = {
       MFNWithdrwlFee: number,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -6720,7 +6720,7 @@ export type ListFloatPurchasesQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -6772,7 +6772,7 @@ export type ListFloatAddsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -6818,7 +6818,7 @@ export type ListFloatReductionsQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -6864,7 +6864,7 @@ export type ListAgentWithdrawalsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -6924,7 +6924,7 @@ export type ListSAgentsQuery = {
       MFKWithdrwlFee: number,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -6970,7 +6970,7 @@ export type ListSAgentWithdrawalsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -7020,7 +7020,7 @@ export type ListBankAdminsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -7060,7 +7060,7 @@ export type ListBankAdmWithdrawalsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -7118,7 +7118,7 @@ export type ListAdvocatesQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -7164,7 +7164,7 @@ export type ListAdvocateWithdrawalsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -7452,7 +7452,7 @@ export type ListCompaniesQuery = {
       totalLnsRecovered: number,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -7524,7 +7524,7 @@ export type ListCovCreditSellersQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -7592,7 +7592,7 @@ export type ListNonCovCreditSellersQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -7684,7 +7684,7 @@ export type ListGroupsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -7752,7 +7752,7 @@ export type ListChamaMembersQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -7792,7 +7792,7 @@ export type ListChamasNPwnBrkrsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -7832,7 +7832,7 @@ export type ListChamasRegConfirmsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -7898,7 +7898,7 @@ export type ListCvrdGroupLoansQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -7960,7 +7960,7 @@ export type ListNonCvrdGroupLoansQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8010,7 +8010,7 @@ export type ListGroupNonLoansQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8058,7 +8058,7 @@ export type ListGrpMembersContributionsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8098,7 +8098,7 @@ export type VwMyDebtsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8138,7 +8138,7 @@ export type VwLnrNLneesssssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8178,7 +8178,7 @@ export type VwAdvNLnrNLneesssssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8218,7 +8218,7 @@ export type VwMyDebtorsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8258,7 +8258,7 @@ export type AdvVwLnsClientQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8296,7 +8296,7 @@ export type VwMyDebtssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8334,7 +8334,7 @@ export type VwMyDebtorssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8372,7 +8372,7 @@ export type VwLnrNLneessssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8402,7 +8402,7 @@ export type VwMySntMnyQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8432,7 +8432,7 @@ export type VwMyRecMnyQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8472,7 +8472,7 @@ export type MFKVwMFNQuery = {
       MFNWithdrwlFee: number,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8499,7 +8499,7 @@ export type VwMyBghtFltQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8531,7 +8531,7 @@ export type VwMyUsrWthdrwlsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8563,7 +8563,7 @@ export type VwMFNFltAddsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8595,7 +8595,7 @@ export type VwMFKEarningsFrmWthdrwlsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8624,7 +8624,7 @@ export type VwMyUsrDpositsQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8653,7 +8653,7 @@ export type VwMFNFltDeductnsQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8682,7 +8682,7 @@ export type VwMFNWthdrwlsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8711,7 +8711,7 @@ export type VwMFKWthdrwlsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8740,7 +8740,7 @@ export type VwAdvWthdrwlsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8782,7 +8782,7 @@ export type VwLnrNLneesssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8824,7 +8824,7 @@ export type VwAdvNLnrNLneesssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8866,7 +8866,7 @@ export type VwMyCrdBysQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8908,7 +8908,7 @@ export type VwMySalesQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8950,7 +8950,7 @@ export type VwAdvCrdSlsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -8990,7 +8990,7 @@ export type VwLnrNLneessQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9030,7 +9030,7 @@ export type VwMyCrdByssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9070,7 +9070,7 @@ export type VwMySalessQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9109,7 +9109,7 @@ export type ViaChmNMmbrQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9148,7 +9148,7 @@ export type VwChamaMembersQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9187,7 +9187,7 @@ export type VwMyChamasQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9213,7 +9213,7 @@ export type VwViaPhonsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9239,7 +9239,7 @@ export type VwViaRegNoQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9265,7 +9265,7 @@ export type VwViaPhonssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9291,7 +9291,7 @@ export type VwViaRegNossQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9330,7 +9330,7 @@ export type VwChamaMemberssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9369,7 +9369,7 @@ export type VwMyChamassQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9408,7 +9408,7 @@ export type VwLnrNLneeQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9447,7 +9447,7 @@ export type VwAdvNLnrNLneeQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9486,7 +9486,7 @@ export type VwChmLnClientsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9523,7 +9523,7 @@ export type VwChamaMembersssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9560,7 +9560,7 @@ export type VwMyChamasssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9597,7 +9597,7 @@ export type VwLnrNLneesQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9628,7 +9628,7 @@ export type VwChamaMemberssssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9659,7 +9659,7 @@ export type VwMyChamassssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9689,7 +9689,7 @@ export type VwMyChamasssssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -9719,7 +9719,7 @@ export type VwChamaMembersssssQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };

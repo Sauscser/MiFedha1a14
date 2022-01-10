@@ -84,7 +84,7 @@ const UpdtMFNPW = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +", You have successfully authorised MFNdogo creation");
+                                        Alert.alert("MFNdogo creation successfully authorised");
                                       } 
 
                                       updtMFNDtls();

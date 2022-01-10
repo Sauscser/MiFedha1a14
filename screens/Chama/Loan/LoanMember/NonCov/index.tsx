@@ -138,7 +138,7 @@ const fetchChmMbrDtls = async () => {
           const vatFee = parseFloat(vats)*IntAmt
           const ttlvats = CompDtls.data.getCompany.ttlvat;
 
-          const MaxSMInterest = (parseFloat(AmtExp) -  
+          const MaxSMInterest = (parseFloat(amount) +
           (parseFloat(userLoanTransferFees)*parseFloat(amount) 
           ) )*parseFloat(maxInterestGrps)*parseFloat(RepaymtPeriod);
           
@@ -355,11 +355,11 @@ const fetchChmMbrDtls = async () => {
                       return;
                     }
 
-                    else if(TtlActvLonsTmsLnrCovss !== amount){Alert.alert('Enter agreed amount');
+                    else if(parseFloat(TtlActvLonsTmsLnrCovss) !== parseFloat(amount)){Alert.alert('Enter agreed amount');
                       return;
                     }
 
-                    else if(TtlActvLonsTmsLneeCovss !== RepaymtPeriod){Alert.alert('Enter agreed repayment period');
+                    else if(parseFloat(TtlActvLonsTmsLneeCovss) !== parseFloat(RepaymtPeriod)){Alert.alert('Enter agreed repayment period');
                       return;
                     }
 

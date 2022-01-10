@@ -1,38 +1,19 @@
 {
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-mifedha-dev-184556-authRole",
-      "UnauthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-dev-184556-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-dev-184556-authRole",
-      "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-mifedha-dev-184556-deployment",
-      "UnauthRoleName": "amplify-mifedha-dev-184556-unauthRole",
-      "StackName": "amplify-mifedha-dev-184556",
-      "StackId": "arn:aws:cloudformation:us-east-2:870395359033:stack/amplify-mifedha-dev-184556/c5d89f60-5c2b-11ec-8c23-02aa6689191a",
-      "AmplifyAppId": "d2bbjte717tjcy"
-    },
-    "categories": {
-      "auth": {
-        "mifedhaa8cc0b5fa8cc0b5f": {}
-      }
-    }
-  },
   "prod": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-mifedha-prod-163607-authRole",
-      "UnauthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-prod-163607-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-prod-163607-authRole",
+      "AuthRoleName": "amplify-mifedha-prod-182313-authRole",
+      "UnauthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-prod-182313-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-prod-182313-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-mifedha-prod-163607-deployment",
-      "UnauthRoleName": "amplify-mifedha-prod-163607-unauthRole",
-      "StackName": "amplify-mifedha-prod-163607",
-      "StackId": "arn:aws:cloudformation:us-east-2:870395359033:stack/amplify-mifedha-prod-163607/a1e5d1a0-60d0-11ec-87c8-0a9f0a0ac224",
-      "AmplifyAppId": "d2bbjte717tjcy"
+      "DeploymentBucketName": "amplify-mifedha-prod-182313-deployment",
+      "UnauthRoleName": "amplify-mifedha-prod-182313-unauthRole",
+      "StackName": "amplify-mifedha-prod-182313",
+      "StackId": "arn:aws:cloudformation:us-east-2:870395359033:stack/amplify-mifedha-prod-182313/93fa27c0-6f04-11ec-9a09-0a2a9bfe3b92",
+      "AmplifyAppId": "d2zpwg6jyyoxjq"
     },
     "categories": {
       "auth": {
-        "mifedhaa8cc0b5fa8cc0b5f": {},
-        "userPoolGroups": {}
+        "mifedha0ab09bf7": {}
       }
     }
   }

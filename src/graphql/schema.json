@@ -6278,13 +6278,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "SMAccount",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "SMAccount",
+                "ofType" : null
               }
             }
           },
@@ -7882,13 +7878,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "SMLoansCovered",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "SMLoansCovered",
+                "ofType" : null
               }
             }
           },
@@ -8663,13 +8655,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "SMLoansNonCovered",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "SMLoansNonCovered",
+                "ofType" : null
               }
             }
           },
@@ -9082,13 +9070,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "NonLoans",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "NonLoans",
+                "ofType" : null
               }
             }
           },
@@ -9583,13 +9567,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "Agent",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "Agent",
+                "ofType" : null
               }
             }
           },
@@ -9979,13 +9959,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "FloatPurchase",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "FloatPurchase",
+                "ofType" : null
               }
             }
           },
@@ -10333,13 +10309,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "FloatAdd",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "FloatAdd",
+                "ofType" : null
               }
             }
           },
@@ -10683,13 +10655,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "FloatReduction",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "FloatReduction",
+                "ofType" : null
               }
             }
           },
@@ -11001,13 +10969,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "AgentWithdrawals",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "AgentWithdrawals",
+                "ofType" : null
               }
             }
           },
@@ -11418,13 +11382,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "SAgent",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "SAgent",
+                "ofType" : null
               }
             }
           },
@@ -11799,13 +11759,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "SAgentWithdrawals",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "SAgentWithdrawals",
+                "ofType" : null
               }
             }
           },
@@ -12141,13 +12097,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "BankAdmin",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "BankAdmin",
+                "ofType" : null
               }
             }
           },
@@ -12432,13 +12384,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "BankAdmWithdrawals",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "BankAdmWithdrawals",
+                "ofType" : null
               }
             }
           },
@@ -12807,13 +12755,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "Advocate",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "Advocate",
+                "ofType" : null
               }
             }
           },
@@ -13179,13 +13123,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "AdvocateWithdrawals",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "AdvocateWithdrawals",
+                "ofType" : null
               }
             }
           },
@@ -15302,13 +15242,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "Company",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "Company",
+                "ofType" : null
               }
             }
           },
@@ -16896,13 +16832,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "CovCreditSeller",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "CovCreditSeller",
+                "ofType" : null
               }
             }
           },
@@ -17497,13 +17429,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "NonCovCreditSeller",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "NonCovCreditSeller",
+                "ofType" : null
               }
             }
           },
@@ -18249,13 +18177,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "Group",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "Group",
+                "ofType" : null
               }
             }
           },
@@ -18924,13 +18848,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "ChamaMembers",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "ChamaMembers",
+                "ofType" : null
               }
             }
           },
@@ -19296,13 +19216,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "ChamasNPwnBrkrs",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "ChamasNPwnBrkrs",
+                "ofType" : null
               }
             }
           },
@@ -19551,13 +19467,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "ChamasRegConfirm",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "ChamasRegConfirm",
+                "ofType" : null
               }
             }
           },
@@ -19997,13 +19909,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "CvrdGroupLoans",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "CvrdGroupLoans",
+                "ofType" : null
               }
             }
           },
@@ -20530,13 +20438,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "NonCvrdGroupLoans",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "NonCvrdGroupLoans",
+                "ofType" : null
               }
             }
           },
@@ -20955,13 +20859,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "GroupNonLoans",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "GroupNonLoans",
+                "ofType" : null
               }
             }
           },
@@ -21315,13 +21215,9 @@
               "kind" : "LIST",
               "name" : null,
               "ofType" : {
-                "kind" : "NON_NULL",
-                "name" : null,
-                "ofType" : {
-                  "kind" : "OBJECT",
-                  "name" : "GrpMembersContribution",
-                  "ofType" : null
-                }
+                "kind" : "OBJECT",
+                "name" : "GrpMembersContribution",
+                "ofType" : null
               }
             }
           },

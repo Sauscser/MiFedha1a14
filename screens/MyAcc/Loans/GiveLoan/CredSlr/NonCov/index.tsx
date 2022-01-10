@@ -135,8 +135,8 @@ const NonCovCredSls = props => {
 
           const TransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee
           const TtlTransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee + parseFloat(amount)
-          const MaxSMInterest = (parseFloat(AmtExp) 
-                - parseFloat(userLoanTransferFees)*parseFloat(amount))*parseFloat(maxInterestCredSllrs)*parseFloat(RepaymtPeriod);
+          const MaxSMInterest = (parseFloat(amount) 
+                + parseFloat(userLoanTransferFees)*parseFloat(amount))*parseFloat(maxInterestCredSllrs)*parseFloat(RepaymtPeriod);
           
           const ActualMaxSMInterest = parseFloat(AmtExp) - 
                 (parseFloat(amount) + parseFloat(userLoanTransferFees)*parseFloat(amount));
