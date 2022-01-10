@@ -165,7 +165,7 @@ const fetchChmMbrDtls = async () => {
                         const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
                         const TtlActvLonsTmsLnrCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov; 
-                        const TtlActvLonsTmsLneeCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnee
+                        const TtlActvLonsTmsLneeCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
                         const TtlActvLonsTmsLneeChmNonCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmNonCov;
                         const TtlActvLonsAmtLneeChmNonCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmNonCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;

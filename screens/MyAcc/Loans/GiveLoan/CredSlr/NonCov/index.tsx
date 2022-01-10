@@ -157,7 +157,7 @@ const NonCovCredSls = props => {
                         const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
                         const TtlActvLonsTmsLnrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov; 
-                        const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnee
+                        const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
                         const TtlActvLonsTmsByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsByrNonCov;
                         const TtlActvLonsAmtByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtByrNonCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
