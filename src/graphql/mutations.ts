@@ -974,6 +974,117 @@ export const deleteSAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
+export const createWorkers = /* GraphQL */ `
+  mutation CreateWorkers(
+    $input: CreateWorkersInput!
+    $condition: ModelWorkersConditionInput
+  ) {
+    createWorkers(input: $input, condition: $condition) {
+      phoneKontact
+      BusinessRegNo
+      nationalid
+      name
+      ownrsss
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateWorkers = /* GraphQL */ `
+  mutation UpdateWorkers(
+    $input: UpdateWorkersInput!
+    $condition: ModelWorkersConditionInput
+  ) {
+    updateWorkers(input: $input, condition: $condition) {
+      phoneKontact
+      BusinessRegNo
+      nationalid
+      name
+      ownrsss
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteWorkers = /* GraphQL */ `
+  mutation DeleteWorkers(
+    $input: DeleteWorkersInput!
+    $condition: ModelWorkersConditionInput
+  ) {
+    deleteWorkers(input: $input, condition: $condition) {
+      phoneKontact
+      BusinessRegNo
+      nationalid
+      name
+      ownrsss
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createBusiness = /* GraphQL */ `
+  mutation CreateBusiness(
+    $input: CreateBusinessInput!
+    $condition: ModelBusinessConditionInput
+  ) {
+    createBusiness(input: $input, condition: $condition) {
+      BusinessRegNo
+      BusKntct
+      busName
+      pw
+      TtlEarnings
+      earningsBal
+      email
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateBusiness = /* GraphQL */ `
+  mutation UpdateBusiness(
+    $input: UpdateBusinessInput!
+    $condition: ModelBusinessConditionInput
+  ) {
+    updateBusiness(input: $input, condition: $condition) {
+      BusinessRegNo
+      BusKntct
+      busName
+      pw
+      TtlEarnings
+      earningsBal
+      email
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteBusiness = /* GraphQL */ `
+  mutation DeleteBusiness(
+    $input: DeleteBusinessInput!
+    $condition: ModelBusinessConditionInput
+  ) {
+    deleteBusiness(input: $input, condition: $condition) {
+      BusinessRegNo
+      BusKntct
+      busName
+      pw
+      TtlEarnings
+      earningsBal
+      email
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createBankAdmin = /* GraphQL */ `
   mutation CreateBankAdmin(
     $input: CreateBankAdminInput!
@@ -1827,6 +1938,8 @@ export const createGroup = /* GraphQL */ `
       signitoryName
       grpName
       signitoryPW
+      signitory2Sub
+      WithdrawCnfrmtn
       grpEmail
       grpBal
       ttlGrpMembers
@@ -1868,6 +1981,8 @@ export const updateGroup = /* GraphQL */ `
       signitoryName
       grpName
       signitoryPW
+      signitory2Sub
+      WithdrawCnfrmtn
       grpEmail
       grpBal
       ttlGrpMembers
@@ -1909,6 +2024,8 @@ export const deleteGroup = /* GraphQL */ `
       signitoryName
       grpName
       signitoryPW
+      signitory2Sub
+      WithdrawCnfrmtn
       grpEmail
       grpBal
       ttlGrpMembers

@@ -875,6 +875,99 @@ export const onDeleteSAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
+export const onCreateWorkers = /* GraphQL */ `
+  subscription OnCreateWorkers($owner: String) {
+    onCreateWorkers(owner: $owner) {
+      phoneKontact
+      BusinessRegNo
+      nationalid
+      name
+      ownrsss
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateWorkers = /* GraphQL */ `
+  subscription OnUpdateWorkers($owner: String) {
+    onUpdateWorkers(owner: $owner) {
+      phoneKontact
+      BusinessRegNo
+      nationalid
+      name
+      ownrsss
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteWorkers = /* GraphQL */ `
+  subscription OnDeleteWorkers($owner: String) {
+    onDeleteWorkers(owner: $owner) {
+      phoneKontact
+      BusinessRegNo
+      nationalid
+      name
+      ownrsss
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateBusiness = /* GraphQL */ `
+  subscription OnCreateBusiness($owner: String) {
+    onCreateBusiness(owner: $owner) {
+      BusinessRegNo
+      BusKntct
+      busName
+      pw
+      TtlEarnings
+      earningsBal
+      email
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateBusiness = /* GraphQL */ `
+  subscription OnUpdateBusiness($owner: String) {
+    onUpdateBusiness(owner: $owner) {
+      BusinessRegNo
+      BusKntct
+      busName
+      pw
+      TtlEarnings
+      earningsBal
+      email
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteBusiness = /* GraphQL */ `
+  subscription OnDeleteBusiness($owner: String) {
+    onDeleteBusiness(owner: $owner) {
+      BusinessRegNo
+      BusKntct
+      busName
+      pw
+      TtlEarnings
+      earningsBal
+      email
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateBankAdmin = /* GraphQL */ `
   subscription OnCreateBankAdmin($owner: String) {
     onCreateBankAdmin(owner: $owner) {
@@ -1662,6 +1755,8 @@ export const onCreateGroup = /* GraphQL */ `
       signitoryName
       grpName
       signitoryPW
+      signitory2Sub
+      WithdrawCnfrmtn
       grpEmail
       grpBal
       ttlGrpMembers
@@ -1700,6 +1795,8 @@ export const onUpdateGroup = /* GraphQL */ `
       signitoryName
       grpName
       signitoryPW
+      signitory2Sub
+      WithdrawCnfrmtn
       grpEmail
       grpBal
       ttlGrpMembers
@@ -1738,6 +1835,8 @@ export const onDeleteGroup = /* GraphQL */ `
       signitoryName
       grpName
       signitoryPW
+      signitory2Sub
+      WithdrawCnfrmtn
       grpEmail
       grpBal
       ttlGrpMembers

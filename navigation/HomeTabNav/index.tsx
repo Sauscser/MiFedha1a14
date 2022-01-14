@@ -243,6 +243,10 @@ import ViewNonLnsRec from "../../screens/MyAcc/ViewNonLnsRec";
 import ViewNonLnsSent from "../../screens/MyAcc/ViewNonLnsSent";
 import AddMFNdogo from "../../screens/MFNdogo/AddMFNdogo";
 import AddMFKubwa from "../../screens/MFKubwa/AddMFKubwa";
+import SignitoryWthdrwFndss from "../../screens/Chama/SignitoryWthdrwFnds";
+import SignitoryDeposits from "../../screens/Chama/SignitoryDeposit";
+import Sgn2CnfrmWthdrwlss from "../../screens/Chama/Sgn2CnfrmWthdrwls";
+
 
 
 
@@ -255,10 +259,12 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
     
-      <Stack.Screen name={'AddMFKubwas'} component={AddMFKubwa} />
+      <Stack.Screen name={'SignitoryWthdrwFndsss'} component={SignitoryWthdrwFndss} />      
+      <Stack.Screen name={'SignitoryDepositss'} component={SignitoryDeposits} />      
+      <Stack.Screen name={'Sgn2CnfrmWthdrwlsss'} component={Sgn2CnfrmWthdrwlss} /> 
       
-      <Stack.Screen name={'AddMFNdogos'} component={AddMFNdogo} />
-      
+      <Stack.Screen name={'AddMFKubwas'} component={AddMFKubwa} />      
+      <Stack.Screen name={'AddMFNdogos'} component={AddMFNdogo} />      
       <Stack.Screen name={'ViewNonLnsSents'} component={ViewNonLnsSent} /> 
       <Stack.Screen name={'ViewNonLnsRecs'} component={ViewNonLnsRec} />
 

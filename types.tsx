@@ -285,6 +285,9 @@ declare global {
       ViewNonLnsSents:undefined;
       AddMFNdogos:undefined; 
       AddMFKubwas:undefined;    
+      SignitoryWthdrwFndsss:undefined;
+      SignitoryDepositss:undefined; 
+      Sgn2CnfrmWthdrwlsss:undefined;  
       
     }
   }

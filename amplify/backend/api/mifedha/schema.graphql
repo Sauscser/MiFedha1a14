@@ -659,6 +659,8 @@ type SAgent
   createdAt: String!
 }
 
+
+
 type SAgentWithdrawals
   @model
   @auth(
@@ -711,6 +713,106 @@ type SAgentWithdrawals
   owner: String!
   createdAt: String!
 }
+
+
+type Workers
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read, update, create] }
+      { allow: owner, operations: [read, update, create, delete] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, delete, update]
+      }
+      { allow: groups, groups: ["RegionalAdminTwo"], operations: [read] }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      { allow: groups, groups: ["KFKubwa"], operations: [read, update] }
+      { allow: groups, groups: ["BusinessOwner"], operations: [read, create, update, delete] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  
+  
+  
+  {
+  phoneKontact: String! @primaryKey
+  BusinessRegNo: String! @index(name: "byCrtnTymms", sortKeyFields: ["createdAt"], queryField: "BusOwnrVwWrkrs")
+  nationalid: String!
+  name: String!
+  ownrsss:String!
+  email: String!
+  
+  createdAt: String!
+  
+}
+
+type Business
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      { allow: owner, operations: [read, update, delete] }
+      { allow: private, operations: [read, update, create] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, delete, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      ]
+  )
+
+  
+   {
+  BusinessRegNo: String! @primaryKey
+  BusKntct: String!
+  busName: String!
+  
+  pw: String!
+  TtlEarnings: Float!
+  earningsBal:Float!
+  
+  email: String!
+  
+  owner: String!
+  
+  createdAt: String!
+}
+
 
 type BankAdmin
   @model
@@ -1255,6 +1357,10 @@ type Group
   signitoryName: String!
   grpName: String!
   signitoryPW: String!
+
+  signitory2Sub: String!
+  WithdrawCnfrmtn: String!
+  
   grpEmail: String!
   grpBal: Float!
   ttlGrpMembers: Float!

@@ -111,6 +111,18 @@ const MyLoanAccount = props => {
     navigation.navigate('ElimChmVwRmtncMembrs');
   };
 
+  const SignitoryWthdrwFndssss = () => {
+    navigation.navigate('SignitoryWthdrwFndsss');
+  };
+
+  const SignitoryDepositsss = () => {
+    navigation.navigate('SignitoryDepositss');
+  };
+
+  const Sgn2CnfrmWthdrwlssss = () => {
+    navigation.navigate('Sgn2CnfrmWthdrwlsss');
+  };
+
 
   return (
     <SafeAreaView>
@@ -357,29 +369,77 @@ const MyLoanAccount = props => {
               </View>
             </View>
 
-      <View style={styles.acEarningsView2}>
-          <Text style={styles.salesText}>Chama Account</Text>
+      
+        <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Chama Account</Text>
 
-          <View style={styles.viewForAcEarningsPressables}>
-            <Pressable onPress={CreateChmss} style={styles.myMoneyPressables}>
-              <Text style={styles.acPressableText}>Create</Text>
-            </Pressable>
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Account</Text>
 
-            <Pressable onPress={DissolveChmss} style={styles.myMoneyPressables}>
-              <Text style={styles.acPressableText}>Dissolve</Text>
-            </Pressable>
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={CreateChmss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Create</Text>
+                    </Pressable>
 
-            <Pressable onPress={UpdateChmss} style={styles.myMoneyPressables}>
-              <Text style={styles.acPressableText}>Update</Text>
-            </Pressable>
+                    <Pressable
+                      onPress={DissolveChmss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Dissolve
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
 
-            <Pressable
-              onPress={ChamSignIn3ss}
-              style={styles.myMoneyPressables}>
-              <Text style={styles.acPressableText}>View</Text>
-            </Pressable>
-          </View>
-        </View>
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Account</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={UpdateChmss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Update</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={ChamSignIn3ss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        View
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Withdraw Funds</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                  <Pressable
+                      onPress={Sgn2CnfrmWthdrwlssss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      Confirm
+                      </Text>
+                    </Pressable>
+
+
+                    <Pressable
+                      onPress={SignitoryWthdrwFndssss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      Execute
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            </View>
           
 
           

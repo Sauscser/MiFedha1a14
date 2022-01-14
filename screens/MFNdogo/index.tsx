@@ -69,6 +69,11 @@ const KFNdogoScreen = props => {
     navigation.navigate('UpdateMFNComs');
   };
 
+  const SignitoryDepositsss = () => {
+    navigation.navigate('SignitoryDepositss');
+  };
+
+
   return (
     <SafeAreaView>
       <View
@@ -147,7 +152,13 @@ const KFNdogoScreen = props => {
             <Pressable
               onPress={DpstMneys}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText}>User Deposit</Text>
+              <Text style={styles.floatPressableText}>SM Deposit</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={SignitoryDepositsss}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>Chama Deposit</Text>
             </Pressable>
           </View>
         </View>

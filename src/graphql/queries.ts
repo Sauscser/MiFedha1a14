@@ -705,6 +705,98 @@ export const listSAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
+export const getWorkers = /* GraphQL */ `
+  query GetWorkers($phoneKontact: String!) {
+    getWorkers(phoneKontact: $phoneKontact) {
+      phoneKontact
+      BusinessRegNo
+      nationalid
+      name
+      ownrsss
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listWorkers = /* GraphQL */ `
+  query ListWorkers(
+    $phoneKontact: String
+    $filter: ModelWorkersFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listWorkers(
+      phoneKontact: $phoneKontact
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        phoneKontact
+        BusinessRegNo
+        nationalid
+        name
+        ownrsss
+        email
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getBusiness = /* GraphQL */ `
+  query GetBusiness($BusinessRegNo: String!) {
+    getBusiness(BusinessRegNo: $BusinessRegNo) {
+      BusinessRegNo
+      BusKntct
+      busName
+      pw
+      TtlEarnings
+      earningsBal
+      email
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listBusinesses = /* GraphQL */ `
+  query ListBusinesses(
+    $BusinessRegNo: String
+    $filter: ModelBusinessFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listBusinesses(
+      BusinessRegNo: $BusinessRegNo
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        BusinessRegNo
+        BusKntct
+        busName
+        pw
+        TtlEarnings
+        earningsBal
+        email
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getBankAdmin = /* GraphQL */ `
   query GetBankAdmin($nationalid: String!) {
     getBankAdmin(nationalid: $nationalid) {
@@ -1322,6 +1414,8 @@ export const getGroup = /* GraphQL */ `
       signitoryName
       grpName
       signitoryPW
+      signitory2Sub
+      WithdrawCnfrmtn
       grpEmail
       grpBal
       ttlGrpMembers
@@ -1373,6 +1467,8 @@ export const listGroups = /* GraphQL */ `
         signitoryName
         grpName
         signitoryPW
+        signitory2Sub
+        WithdrawCnfrmtn
         grpEmail
         grpBal
         ttlGrpMembers
@@ -2470,6 +2566,38 @@ export const vwMFKWthdrwls = /* GraphQL */ `
         owner
         createdAt
         updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const busOwnrVwWrkrs = /* GraphQL */ `
+  query BusOwnrVwWrkrs(
+    $BusinessRegNo: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelWorkersFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    BusOwnrVwWrkrs(
+      BusinessRegNo: $BusinessRegNo
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        phoneKontact
+        BusinessRegNo
+        nationalid
+        name
+        ownrsss
+        email
+        createdAt
+        updatedAt
+        owner
       }
       nextToken
     }

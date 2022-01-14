@@ -1180,6 +1180,111 @@ export type DeleteSAgentWithdrawalsInput = {
   id: string,
 };
 
+export type CreateWorkersInput = {
+  phoneKontact: string,
+  BusinessRegNo: string,
+  nationalid: string,
+  name: string,
+  ownrsss: string,
+  email: string,
+  createdAt?: string | null,
+};
+
+export type ModelWorkersConditionInput = {
+  BusinessRegNo?: ModelStringInput | null,
+  nationalid?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  ownrsss?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelWorkersConditionInput | null > | null,
+  or?: Array< ModelWorkersConditionInput | null > | null,
+  not?: ModelWorkersConditionInput | null,
+};
+
+export type Workers = {
+  __typename: "Workers",
+  phoneKontact: string,
+  BusinessRegNo: string,
+  nationalid: string,
+  name: string,
+  ownrsss: string,
+  email: string,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateWorkersInput = {
+  phoneKontact: string,
+  BusinessRegNo?: string | null,
+  nationalid?: string | null,
+  name?: string | null,
+  ownrsss?: string | null,
+  email?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteWorkersInput = {
+  phoneKontact: string,
+};
+
+export type CreateBusinessInput = {
+  BusinessRegNo: string,
+  BusKntct: string,
+  busName: string,
+  pw: string,
+  TtlEarnings: number,
+  earningsBal: number,
+  email: string,
+  owner: string,
+  createdAt?: string | null,
+};
+
+export type ModelBusinessConditionInput = {
+  BusKntct?: ModelStringInput | null,
+  busName?: ModelStringInput | null,
+  pw?: ModelStringInput | null,
+  TtlEarnings?: ModelFloatInput | null,
+  earningsBal?: ModelFloatInput | null,
+  email?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelBusinessConditionInput | null > | null,
+  or?: Array< ModelBusinessConditionInput | null > | null,
+  not?: ModelBusinessConditionInput | null,
+};
+
+export type Business = {
+  __typename: "Business",
+  BusinessRegNo: string,
+  BusKntct: string,
+  busName: string,
+  pw: string,
+  TtlEarnings: number,
+  earningsBal: number,
+  email: string,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateBusinessInput = {
+  BusinessRegNo: string,
+  BusKntct?: string | null,
+  busName?: string | null,
+  pw?: string | null,
+  TtlEarnings?: number | null,
+  earningsBal?: number | null,
+  email?: string | null,
+  owner?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteBusinessInput = {
+  BusinessRegNo: string,
+};
+
 export type CreateBankAdminInput = {
   nationalid: string,
   name: string,
@@ -2168,6 +2273,8 @@ export type CreateGroupInput = {
   signitoryName: string,
   grpName: string,
   signitoryPW: string,
+  signitory2Sub: string,
+  WithdrawCnfrmtn: string,
   grpEmail: string,
   grpBal: number,
   ttlGrpMembers: number,
@@ -2201,6 +2308,8 @@ export type ModelGroupConditionInput = {
   signitoryName?: ModelStringInput | null,
   grpName?: ModelStringInput | null,
   signitoryPW?: ModelStringInput | null,
+  signitory2Sub?: ModelStringInput | null,
+  WithdrawCnfrmtn?: ModelStringInput | null,
   grpEmail?: ModelStringInput | null,
   grpBal?: ModelFloatInput | null,
   ttlGrpMembers?: ModelFloatInput | null,
@@ -2239,6 +2348,8 @@ export type Group = {
   signitoryName: string,
   grpName: string,
   signitoryPW: string,
+  signitory2Sub: string,
+  WithdrawCnfrmtn: string,
   grpEmail: string,
   grpBal: number,
   ttlGrpMembers: number,
@@ -2274,6 +2385,8 @@ export type UpdateGroupInput = {
   signitoryName?: string | null,
   grpName?: string | null,
   signitoryPW?: string | null,
+  signitory2Sub?: string | null,
+  WithdrawCnfrmtn?: string | null,
   grpEmail?: string | null,
   grpBal?: number | null,
   ttlGrpMembers?: number | null,
@@ -3147,6 +3260,46 @@ export type ModelSAgentWithdrawalsConnection = {
   nextToken?: string | null,
 };
 
+export type ModelWorkersFilterInput = {
+  phoneKontact?: ModelStringInput | null,
+  BusinessRegNo?: ModelStringInput | null,
+  nationalid?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  ownrsss?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelWorkersFilterInput | null > | null,
+  or?: Array< ModelWorkersFilterInput | null > | null,
+  not?: ModelWorkersFilterInput | null,
+};
+
+export type ModelWorkersConnection = {
+  __typename: "ModelWorkersConnection",
+  items:  Array<Workers | null >,
+  nextToken?: string | null,
+};
+
+export type ModelBusinessFilterInput = {
+  BusinessRegNo?: ModelStringInput | null,
+  BusKntct?: ModelStringInput | null,
+  busName?: ModelStringInput | null,
+  pw?: ModelStringInput | null,
+  TtlEarnings?: ModelFloatInput | null,
+  earningsBal?: ModelFloatInput | null,
+  email?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelBusinessFilterInput | null > | null,
+  or?: Array< ModelBusinessFilterInput | null > | null,
+  not?: ModelBusinessFilterInput | null,
+};
+
+export type ModelBusinessConnection = {
+  __typename: "ModelBusinessConnection",
+  items:  Array<Business | null >,
+  nextToken?: string | null,
+};
+
 export type ModelBankAdminFilterInput = {
   nationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
@@ -3449,6 +3602,8 @@ export type ModelGroupFilterInput = {
   signitoryName?: ModelStringInput | null,
   grpName?: ModelStringInput | null,
   signitoryPW?: ModelStringInput | null,
+  signitory2Sub?: ModelStringInput | null,
+  WithdrawCnfrmtn?: ModelStringInput | null,
   grpEmail?: ModelStringInput | null,
   grpBal?: ModelFloatInput | null,
   ttlGrpMembers?: ModelFloatInput | null,
@@ -4704,6 +4859,129 @@ export type DeleteSAgentWithdrawalsMutation = {
   } | null,
 };
 
+export type CreateWorkersMutationVariables = {
+  input: CreateWorkersInput,
+  condition?: ModelWorkersConditionInput | null,
+};
+
+export type CreateWorkersMutation = {
+  createWorkers?:  {
+    __typename: "Workers",
+    phoneKontact: string,
+    BusinessRegNo: string,
+    nationalid: string,
+    name: string,
+    ownrsss: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateWorkersMutationVariables = {
+  input: UpdateWorkersInput,
+  condition?: ModelWorkersConditionInput | null,
+};
+
+export type UpdateWorkersMutation = {
+  updateWorkers?:  {
+    __typename: "Workers",
+    phoneKontact: string,
+    BusinessRegNo: string,
+    nationalid: string,
+    name: string,
+    ownrsss: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteWorkersMutationVariables = {
+  input: DeleteWorkersInput,
+  condition?: ModelWorkersConditionInput | null,
+};
+
+export type DeleteWorkersMutation = {
+  deleteWorkers?:  {
+    __typename: "Workers",
+    phoneKontact: string,
+    BusinessRegNo: string,
+    nationalid: string,
+    name: string,
+    ownrsss: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateBusinessMutationVariables = {
+  input: CreateBusinessInput,
+  condition?: ModelBusinessConditionInput | null,
+};
+
+export type CreateBusinessMutation = {
+  createBusiness?:  {
+    __typename: "Business",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    pw: string,
+    TtlEarnings: number,
+    earningsBal: number,
+    email: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateBusinessMutationVariables = {
+  input: UpdateBusinessInput,
+  condition?: ModelBusinessConditionInput | null,
+};
+
+export type UpdateBusinessMutation = {
+  updateBusiness?:  {
+    __typename: "Business",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    pw: string,
+    TtlEarnings: number,
+    earningsBal: number,
+    email: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteBusinessMutationVariables = {
+  input: DeleteBusinessInput,
+  condition?: ModelBusinessConditionInput | null,
+};
+
+export type DeleteBusinessMutation = {
+  deleteBusiness?:  {
+    __typename: "Business",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    pw: string,
+    TtlEarnings: number,
+    earningsBal: number,
+    email: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type CreateBankAdminMutationVariables = {
   input: CreateBankAdminInput,
   condition?: ModelBankAdminConditionInput | null,
@@ -5601,6 +5879,8 @@ export type CreateGroupMutation = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    signitory2Sub: string,
+    WithdrawCnfrmtn: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -5644,6 +5924,8 @@ export type UpdateGroupMutation = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    signitory2Sub: string,
+    WithdrawCnfrmtn: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -5687,6 +5969,8 @@ export type DeleteGroupMutation = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    signitory2Sub: string,
+    WithdrawCnfrmtn: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -6975,6 +7259,100 @@ export type ListSAgentWithdrawalsQuery = {
   } | null,
 };
 
+export type GetWorkersQueryVariables = {
+  phoneKontact: string,
+};
+
+export type GetWorkersQuery = {
+  getWorkers?:  {
+    __typename: "Workers",
+    phoneKontact: string,
+    BusinessRegNo: string,
+    nationalid: string,
+    name: string,
+    ownrsss: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListWorkersQueryVariables = {
+  phoneKontact?: string | null,
+  filter?: ModelWorkersFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListWorkersQuery = {
+  listWorkers?:  {
+    __typename: "ModelWorkersConnection",
+    items:  Array< {
+      __typename: "Workers",
+      phoneKontact: string,
+      BusinessRegNo: string,
+      nationalid: string,
+      name: string,
+      ownrsss: string,
+      email: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetBusinessQueryVariables = {
+  BusinessRegNo: string,
+};
+
+export type GetBusinessQuery = {
+  getBusiness?:  {
+    __typename: "Business",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    pw: string,
+    TtlEarnings: number,
+    earningsBal: number,
+    email: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListBusinessesQueryVariables = {
+  BusinessRegNo?: string | null,
+  filter?: ModelBusinessFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListBusinessesQuery = {
+  listBusinesses?:  {
+    __typename: "ModelBusinessConnection",
+    items:  Array< {
+      __typename: "Business",
+      BusinessRegNo: string,
+      BusKntct: string,
+      busName: string,
+      pw: string,
+      TtlEarnings: number,
+      earningsBal: number,
+      email: string,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetBankAdminQueryVariables = {
   nationalid: string,
 };
@@ -7611,6 +7989,8 @@ export type GetGroupQuery = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    signitory2Sub: string,
+    WithdrawCnfrmtn: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -7659,6 +8039,8 @@ export type ListGroupsQuery = {
       signitoryName: string,
       grpName: string,
       signitoryPW: string,
+      signitory2Sub: string,
+      WithdrawCnfrmtn: string,
       grpEmail: string,
       grpBal: number,
       ttlGrpMembers: number,
@@ -8711,6 +9093,34 @@ export type VwMFKWthdrwlsQuery = {
       owner: string,
       createdAt: string,
       updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type BusOwnrVwWrkrsQueryVariables = {
+  BusinessRegNo?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelWorkersFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type BusOwnrVwWrkrsQuery = {
+  BusOwnrVwWrkrs?:  {
+    __typename: "ModelWorkersConnection",
+    items:  Array< {
+      __typename: "Workers",
+      phoneKontact: string,
+      BusinessRegNo: string,
+      nationalid: string,
+      name: string,
+      ownrsss: string,
+      email: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -10729,6 +11139,123 @@ export type OnDeleteSAgentWithdrawalsSubscription = {
   } | null,
 };
 
+export type OnCreateWorkersSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateWorkersSubscription = {
+  onCreateWorkers?:  {
+    __typename: "Workers",
+    phoneKontact: string,
+    BusinessRegNo: string,
+    nationalid: string,
+    name: string,
+    ownrsss: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateWorkersSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateWorkersSubscription = {
+  onUpdateWorkers?:  {
+    __typename: "Workers",
+    phoneKontact: string,
+    BusinessRegNo: string,
+    nationalid: string,
+    name: string,
+    ownrsss: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteWorkersSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteWorkersSubscription = {
+  onDeleteWorkers?:  {
+    __typename: "Workers",
+    phoneKontact: string,
+    BusinessRegNo: string,
+    nationalid: string,
+    name: string,
+    ownrsss: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateBusinessSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateBusinessSubscription = {
+  onCreateBusiness?:  {
+    __typename: "Business",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    pw: string,
+    TtlEarnings: number,
+    earningsBal: number,
+    email: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateBusinessSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateBusinessSubscription = {
+  onUpdateBusiness?:  {
+    __typename: "Business",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    pw: string,
+    TtlEarnings: number,
+    earningsBal: number,
+    email: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteBusinessSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteBusinessSubscription = {
+  onDeleteBusiness?:  {
+    __typename: "Business",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    pw: string,
+    TtlEarnings: number,
+    earningsBal: number,
+    email: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type OnCreateBankAdminSubscriptionVariables = {
   owner?: string | null,
 };
@@ -11592,6 +12119,8 @@ export type OnCreateGroupSubscription = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    signitory2Sub: string,
+    WithdrawCnfrmtn: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -11634,6 +12163,8 @@ export type OnUpdateGroupSubscription = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    signitory2Sub: string,
+    WithdrawCnfrmtn: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -11676,6 +12207,8 @@ export type OnDeleteGroupSubscription = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    signitory2Sub: string,
+    WithdrawCnfrmtn: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,

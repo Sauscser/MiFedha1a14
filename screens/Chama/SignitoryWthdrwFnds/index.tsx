@@ -6,12 +6,13 @@ import {
 
   updateAgent,
   updateCompany,
+  updateGroup,
   updateSAgent,
   updateSMAccount,
   
 } from '../../../src/graphql/mutations';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {getAgent, getCompany, getSAgent, getSMAccount} from '../../../src/graphql/queries';
+import {getAgent, getCompany, getGroup, getSAgent, getSMAccount} from '../../../src/graphql/queries';
 import {
   View,
   Text,
@@ -26,7 +27,7 @@ import styles from './styles';
 
 const SMADepositForm = props => {
   const [WthDrwrPhn, setWthDrwrPhn] = useState(null);
-
+  const[ChmKntct, setChmKntct] = useState("");
   const[UsrPWd, setUsrPWd] = useState("");
   const [AgentPhn, setAgentPhn] = useState("");
   const [amount, setAmount] = useState("");
@@ -47,23 +48,23 @@ const SMADepositForm = props => {
     }, []);  
 
 
-  const fetchAcDtls = async () => {
+  const fetchChmDtls = async () => {
     if(isLoading){
       return;
     }
     setIsLoading(true);
     try {
-      const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {phonecontact: WthDrwrPhn}),
+      const ChmDtl:any = await API.graphql(
+        graphqlOperation(getGroup, {grpContact: ChmKntct}),
       );
 
-      const usrBala = accountDtl.data.getSMAccount.balance;      
-      const TtlWthdrwnSMs = accountDtl.data.getSMAccount.TtlWthdrwnSM;
-      const usrStts = accountDtl.data.getSMAccount.acStatus; 
-      const withdrawalLimits = accountDtl.data.getSMAccount.withdrawalLimit;  
-      const pws = accountDtl.data.getSMAccount.pw;
-      const owners = accountDtl.data.getSMAccount.owner;
-      const names = accountDtl.data.getSMAccount.name;
+      const grpBals = ChmDtl.data.getGroup.grpBal;      
+      const ttlWthdrwns = ChmDtl.data.getGroup.ttlWthdrwn;
+      const usrStts = ChmDtl.data.getGroup.status; 
+      const WithdrawCnfrmtns = ChmDtl.data.getGroup.WithdrawCnfrmtn;  
+      const pws = ChmDtl.data.getGroup.signitoryPW;
+      const owners = ChmDtl.data.getGroup.owner;
+      const names = ChmDtl.data.getGroup.grpName;
          
       
       const fetchAgtBal = async () => {
@@ -95,20 +96,12 @@ const SMADepositForm = props => {
               graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
                 );
                   const ttlUserWthdrwls = compDtls.data.getCompany.ttlUserWthdrwl;
-                  const agentComs = compDtls.data.getCompany.agentCom;
-                  const sagentComs = compDtls.data.getCompany.sagentCom;
+                  
                   const companyComs = compDtls.data.getCompany.companyCom;
                   const UsrWthdrwlFeess = compDtls.data.getCompany.UsrWthdrwlFees;
                   
 
                   
-                  const compCommission = parseFloat(companyComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
-
-                  
-
-                 
-                  const companyEarningBals = compDtls.data.getCompany.companyEarningBal
-                  const companyEarnings = compDtls.data.getCompany.companyEarning
                   const agentEarningBals = compDtls.data.getCompany.agentEarningBal
                   const agentEarnings = compDtls.data.getCompany.agentEarning
                   const saEarningBals = compDtls.data.getCompany.saEarningBal
@@ -132,7 +125,7 @@ const SMADepositForm = props => {
                           const saCommission =    parseFloat(MFKWithdrwlFees)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
                           const compCommission = parseFloat(companyComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
 
-                          const UsrWithdrawalFee = AgentCommission+saCommission+compCommission;
+                          const UsrWithdrawalFee = AgentCommission+saCommission;
 
                           const TTlAmtTrnsctd = parseFloat(amount) + UsrWithdrawalFee
                           
@@ -142,7 +135,7 @@ const SMADepositForm = props => {
                                 graphqlOperation(createFloatAdd, {
                                   input: {
                                   
-                                    withdrawerid: WthDrwrPhn,                    
+                                    withdrawerid: ChmKntct,                    
                                     agentPhonecontact: AgentPhn,
                                     sagentId: sagentregnos,
                                     owner: ownr,
@@ -176,12 +169,13 @@ const SMADepositForm = props => {
                       setIsLoading(true);
                       try {
                         await API.graphql(
-                          graphqlOperation(updateSMAccount, {
+                          graphqlOperation(updateGroup, {
                             input: {
-                              phonecontact: WthDrwrPhn,
+                              grpContact: ChmKntct,
                   
-                              balance: (parseFloat(usrBala) - TTlAmtTrnsctd).toFixed(2) ,
-                              TtlWthdrwnSM: (parseFloat(TtlWthdrwnSMs) + parseFloat(amount)).toFixed(2),
+                              grpBal: (parseFloat(grpBals) - TTlAmtTrnsctd).toFixed(2) ,
+                              ttlWthdrwn: (parseFloat(ttlWthdrwns) + parseFloat(amount)).toFixed(2),
+                              WithdrawCnfrmtn: "NO"
                             },
                           }),
                         );
@@ -267,8 +261,6 @@ const SMADepositForm = props => {
                                     input: {
                                       AdminId:"BaruchHabaB'ShemAdonai2",                    
                                      
-                                      companyEarningBal: parseFloat(companyEarningBals) + compCommission,
-                                      companyEarning: parseFloat(companyEarnings) + compCommission,
                                       agentEarningBal: parseFloat(agentEarningBals) + AgentCommission,
                                       agentEarning: parseFloat(agentEarnings) + AgentCommission,
                                       saEarningBal: parseFloat(saEarningBals) + saCommission,
@@ -291,25 +283,27 @@ const SMADepositForm = props => {
                               }; 
                     
                     
-                    if (TTlAmtTrnsctd > parseFloat(usrBala)) {
-                      Alert.alert("Insufficient user Balance")
+                              if (WithdrawCnfrmtns==="NO") {
+                                Alert.alert("Let co-signitory confirm withdrawal first")
+                                return;
+                              } 
+                              
+                             else if (TTlAmtTrnsctd > parseFloat(grpBals)) {
+                      Alert.alert("Insufficient Chama Balance")
                       return;
                     } 
         
                     else if (usrStts==="AccountInactive") {
-                      Alert.alert("User Account has been deactivated")
+                      Alert.alert("Chama Account has been deactivated")
                       return;
                     } 
 
                     else if (ownr!==owners) {
-                      Alert.alert("You cannot withdraw from another account")
+                      Alert.alert("You are not the main signitory")
                       return;
                     }  
 
-                    else if(parseFloat(amount)>parseFloat(withdrawalLimits)) {
-                      Alert.alert('Withdrawal limit exceeded');
-                      return;
-                    }
+                    
                     if (AgAcAct==="AccountInactive") {
                       Alert.alert("MFNdogo Account has been deactivated")
                       return;
@@ -367,9 +361,21 @@ const SMADepositForm = props => {
     setAmount("");
     setUsrPWd("")
     setAgentPhn("");    
+    setChmKntct("")
   }; 
 
   
+
+  useEffect(() =>{
+    const ChmKntcts=ChmKntct
+      if(!ChmKntcts && ChmKntcts!=="")
+      {
+        setChmKntct("");
+        return;
+      }
+      setChmKntct(ChmKntcts);
+      }, [ChmKntct]
+       );
 
        useEffect(() =>{
         const amt=amount
@@ -431,6 +437,16 @@ const SMADepositForm = props => {
 
           <View style={styles.sendAmtView}>
             <TextInput
+            placeholder="+2547xxxxxxxx"
+              value={ChmKntct}
+              onChangeText={setChmKntct}
+              style={styles.sendAmtInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendAmtText}>Chama Phone</Text>
+          </View>
+
+          <View style={styles.sendAmtView}>
+            <TextInput
             keyboardType={"decimal-pad"}
               value={amount}
               onChangeText={setAmount}
@@ -445,10 +461,10 @@ const SMADepositForm = props => {
               onChangeText={setUsrPWd}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>User PW</Text>
+            <Text style={styles.sendAmtText}>Signitory PW</Text>
           </View>
 
-          <TouchableOpacity onPress={fetchAcDtls} style={styles.sendAmtButton}>
+          <TouchableOpacity onPress={fetchChmDtls} style={styles.sendAmtButton}>
             <Text style={styles.sendAmtButtonText}>Click to Withdraw</Text>
             {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
           </TouchableOpacity>
