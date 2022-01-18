@@ -6,113 +6,153 @@ const styles = StyleSheet.create({
     height: "100%",
     resizeMode: 'cover',
     top:"2%",
-  
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'green',
-    width: '70%',
-    marginLeft: 25,
-    top: 5,
-  },
-  loanFriendButton: {
-    backgroundColor: '#064bfb',
-    height: 60,
-    borderRadius: 30,
-    marginHorizontal: 10,
-    width: Dimensions.get('screen').width - 20,
-    justifyContent: 'center',
+    
     alignItems: 'center',
-    position: 'absolute',
-    top: 100,
-    zIndex: 10,
+    flexDirection: 'column',
   },
 
-  chamaLoanAndCreditSalesButton: {
-    backgroundColor: 'white',
-    height: 60,
-    borderRadius: 30,
-    marginHorizontal: 30,
-    width: Dimensions.get('screen').width - 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    marginTop: 10,
-  },
-
-  ChamaLoanAndCreditSalesText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black',
-  },
-  loanAFriendText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-
-  viewForPressables: {
-    backgroundColor: 'green',
-    marginHorizontal: 10,
-    width: Dimensions.get('screen').width - 20,
-    height: 200,
-    borderRadius: 20,
-    marginTop: 10,
+  clientsView: {
+    backgroundColor: '#e58d29',
+    marginHorizontal: "2%",
+    
+    height: "15%",
+    borderRadius: 4,
+    marginTop:"5%",
+    
+    marginLeft:"2%",
+    marginRight:"2%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
   },
 
-  viewForSalesPressables: {
-    backgroundColor: 'green',
-    marginHorizontal: 4,
-    width: Dimensions.get('screen').width - 8,
-    height: 170,
+  clientsView5: {
+    backgroundColor: '#e58d29',
+    marginHorizontal: "2%",
+    
+    height: "15%",
+    borderRadius: 4,
+    marginTop:"5%",
+    marginBottom:"99%",
+    marginLeft:"2%",
+    marginRight:"2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+
+  acEarningsView: {
+    backgroundColor: '#e58d29',
+    marginHorizontal: "2%",
+    
+    height: "18%",
     borderRadius: 20,
-    marginTop: 10,
+    marginLeft:"2%",
+    marginRight:"2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginTop: "2%",
+  },
+
+  acEarningsView2: {
+    backgroundColor: '#e58d29',
+    marginHorizontal: "2%",
+    
+    height: "10%",
+    borderRadius: 20,
+    marginLeft:"2%",
+    marginRight:"2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginBottom: "99%",
+  },
+
+  viewForClientsAndTitle: {
+    backgroundColor: '#e58d29',
+    width:"100%",
+    height: "50%",
+    borderRadius: 4,
+    marginTop:"2%",
+    marginBottom:"2%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-  },
-
-  SalesPressables: {
-    backgroundColor: '#72ebd8',
-    marginHorizontal: 20,
-    width: Dimensions.get('screen').width - 40,
-    height: 60,
-    borderRadius: 20,
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-
-    width: 80,
-  },
-
-  salesPressableText: {
-    color: 'white',
-    fontSize: 13,
     
   },
 
-  viewForSalesText: {
-    color: 'white',
-    fontSize: 20,
-    marginTop: 1,
-    height: 50,
+  viewForClientsCategories: {
+    backgroundColor: '#e58d29',
+    marginTop:"5%",
+    marginBottom:"5%",
+    height: "100%",
+    width:"32%",
+    borderRadius: 4,
+    marginLeft:"0.5%",
+    marginRight:"0.5%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    
   },
 
-  salesText: {
-    fontSize: 20,
-    color: "blue",
-    marginBottom:"1.5%"
+  
+
+
+  
+
+  viewForClientsCategoriesChama2: {
+    backgroundColor: '#72ebd8',
+    marginTop:"5%",
+  
+    height: "30%",
+    borderRadius: 4,
+    marginLeft:"2%",
+    marginRight:"2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    width: "90%"
+  },
+
+  viewForClientsCategoriesChama4: {
+    backgroundColor: '#72ebd8',
+    
+    marginBottom:"5%",
+    height: "70%",
+    borderRadius: 4,
+    marginLeft:"2%",
+    marginRight:"2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: "90%"
+  },
+
+  viewForClientsCategoriesChama3: {
+    backgroundColor: 'skyblue',
+    
+    height: "80%",
+    borderRadius: 4,
+    marginLeft:"2%",
+    marginRight:"2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: "55%"
+  },
+
+  salesPressableText: {
+    color: 'black',
+    fontSize: 13,
+    
   },
 
   viewForClientsPressables: {
     backgroundColor: 'pink',
     
-    height: "100%",
+    height: "95%",
     borderRadius: 4,
     
     justifyContent: 'center',
@@ -122,85 +162,9 @@ const styles = StyleSheet.create({
     
   },
 
-  viewForClientsCategories: {
-    backgroundColor: '#e58d29',
-    marginTop:"5%",
-    
-    height: "100%",
-    borderRadius: 4,
-    
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-    width: "33%"
-  },
-
-  viewForClientsCategoriesLnSt: {
-    backgroundColor: '#e58d29',
-    marginTop:"4%",
-    
-    
-    borderRadius: 4,
-    marginLeft:"10%",
-    marginRight:"10%",
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-    width: "33%"
-  },
-
-  viewForClientsAndTitleLnSt: {
-    backgroundColor: '#e58d29',
-    width:"100%",
-    height: "50%",
-    borderRadius: 4,
-   
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    
-  },
-  
-
-  viewForClientsAndTitleMFNdogo: {
-    backgroundColor: 'pink',
-    width:"100%",
-    height: "100%",
-    borderRadius: 4,
-  
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    
-  },
-
-  viewForClientsAndTitle: {
-    backgroundColor: '#e58d29',
-    width:"100%",
-    height: "50%",
-    borderRadius: 4,
-   
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    
-  },
-  
-
-  clientsView: {
-    backgroundColor: '#e58d29',
-    width:"100%",
-    height: "29%",
-    borderRadius: 4,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-    
-  },
-
   ClientsPressables: {
     backgroundColor: '#72ebd8',
-    width:"45%",
+    width:"48%",
     marginLeft:"1%",
     marginRight:"1%",
     height: "90%",
@@ -213,59 +177,104 @@ const styles = StyleSheet.create({
     
   },
 
-  clientsPressableText: {
-    color: 'black',
-    fontSize: 10,
-    marginTop: 1,
-  },
-
-  acEarningsView: {
-    backgroundColor: '#e58d29',
-    marginHorizontal: 5,
-    width: Dimensions.get('screen').width - 10,
-    height: "20%",
-    borderRadius: 2,
-
+  ClientsPressablesLnStts: {
+    backgroundColor: '#72ebd8',
+    width:"48%",
+    marginLeft:"1%",
+    marginRight:"1%",
+    height: "100%",
+    borderRadius: 4,
+  
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop: "2%",
-    marginBottom: "10%",
+
+    
   },
+
+  
+
 
   viewForAcEarningsPressables: {
     backgroundColor: '#e58d29',
-    marginHorizontal: 5,
-    width: Dimensions.get('screen').width - 10,
+    marginHorizontal: "2%",
     height: "60%",
-    borderRadius: 2,
+    borderRadius: 20,
     marginTop: "0.5%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
   },
 
-  earningsAcPressables: {
+  viewForClientsCategories2: {
+    backgroundColor: '#e58d29',
+    marginTop:"5%",
+    marginBottom:"99%",
+    height: "100%",
+    width:"32%",
+    borderRadius: 4,
+    marginLeft:"0.5%",
+    marginRight:"0.5%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    
+  },
+
+  myMoneyPressables: {
     backgroundColor: '#72ebd8',
     
-    height: "70%",
+    height: "90%",
     borderRadius: 20,
-
+    marginTop: 1,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    width:"41%",
-    marginLeft:"4%",
-    marginRight:"4%",
-    marginHorizontal: "10%"
-    
-    
+    marginLeft:"2%",
+    marginRight:"2%",
+    width: "20%",
   },
 
-  earningsAcPressableText: {
+  clientsPressableText: {
     color: 'black',
-    fontSize: 15,
+    fontSize: 10,
     marginTop: 1,
   },
+  
+  clientsPressableTextStts: {
+    color: 'black',
+    fontSize: 7,
+    marginTop: 1,
+  },
+
+  salesText: {
+    fontSize: 20,
+    color: "blue",
+    marginBottom:"1.5%"
+  },
+
+  
+  acPressableText: {
+    color: 'black',
+    fontSize: 12,
+    marginTop: 1,
+  },
+
+  clientsView2: {
+    backgroundColor: '#e58d29',
+    marginHorizontal: "2%",
+    
+    height: "15%",
+    borderRadius: 4,
+    marginTop:"2%",
+    marginBottom:"99%",
+    marginLeft:"2%",
+    marginRight:"2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+
+  
 });
 export default styles;

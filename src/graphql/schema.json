@@ -769,10 +769,10 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "getWorkers",
+          "name" : "getPersonel",
           "description" : null,
           "args" : [ {
-            "name" : "phoneKontact",
+            "name" : "workerId",
             "description" : null,
             "type" : {
               "kind" : "NON_NULL",
@@ -787,16 +787,16 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Workers",
+            "name" : "Personel",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listWorkers",
+          "name" : "listPersonels",
           "description" : null,
           "args" : [ {
-            "name" : "phoneKontact",
+            "name" : "workerId",
             "description" : null,
             "type" : {
               "kind" : "SCALAR",
@@ -809,7 +809,7 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelWorkersFilterInput",
+              "name" : "ModelPersonelFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -843,16 +843,16 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelWorkersConnection",
+            "name" : "ModelPersonelConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "getBusiness",
+          "name" : "getBizna",
           "description" : null,
           "args" : [ {
-            "name" : "BusinessRegNo",
+            "name" : "BusKntct",
             "description" : null,
             "type" : {
               "kind" : "NON_NULL",
@@ -867,16 +867,16 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Business",
+            "name" : "Bizna",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listBusinesses",
+          "name" : "listBiznas",
           "description" : null,
           "args" : [ {
-            "name" : "BusinessRegNo",
+            "name" : "BusKntct",
             "description" : null,
             "type" : {
               "kind" : "SCALAR",
@@ -889,7 +889,7 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBusinessFilterInput",
+              "name" : "ModelBiznaFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -923,7 +923,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelBusinessConnection",
+            "name" : "ModelBiznaConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -3184,7 +3184,72 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "BusOwnrVwWrkrs",
+          "name" : "WrkrsVww",
+          "description" : null,
+          "args" : [ {
+            "name" : "phoneKontact",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "createdAt",
+            "description" : null,
+            "type" : {
+              "kind" : "INPUT_OBJECT",
+              "name" : "ModelStringKeyConditionInput",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "sortDirection",
+            "description" : null,
+            "type" : {
+              "kind" : "ENUM",
+              "name" : "ModelSortDirection",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "filter",
+            "description" : null,
+            "type" : {
+              "kind" : "INPUT_OBJECT",
+              "name" : "ModelPersonelFilterInput",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "limit",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "Int",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "nextToken",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          } ],
+          "type" : {
+            "kind" : "OBJECT",
+            "name" : "ModelPersonelConnection",
+            "ofType" : null
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "BusOwnrVwWrkrss",
           "description" : null,
           "args" : [ {
             "name" : "BusinessRegNo",
@@ -3218,7 +3283,7 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelWorkersFilterInput",
+              "name" : "ModelPersonelFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -3243,7 +3308,72 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelWorkersConnection",
+            "name" : "ModelPersonelConnection",
+            "ofType" : null
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "BiznaVwws",
+          "description" : null,
+          "args" : [ {
+            "name" : "BusinessRegNo",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "createdAt",
+            "description" : null,
+            "type" : {
+              "kind" : "INPUT_OBJECT",
+              "name" : "ModelStringKeyConditionInput",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "sortDirection",
+            "description" : null,
+            "type" : {
+              "kind" : "ENUM",
+              "name" : "ModelSortDirection",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "filter",
+            "description" : null,
+            "type" : {
+              "kind" : "INPUT_OBJECT",
+              "name" : "ModelBiznaFilterInput",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "limit",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "Int",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "nextToken",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          } ],
+          "type" : {
+            "kind" : "OBJECT",
+            "name" : "ModelBiznaConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -12135,7 +12265,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "Workers",
+        "name" : "Personel",
         "description" : null,
         "fields" : [ {
           "name" : "phoneKontact",
@@ -12183,6 +12313,21 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+          "name" : "BiznaName",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
           "name" : "name",
           "description" : null,
           "args" : [ ],
@@ -12214,6 +12359,36 @@
           "deprecationReason" : null
         }, {
           "name" : "email",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "workerId",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "workId",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -12275,7 +12450,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "ModelWorkersConnection",
+        "name" : "ModelPersonelConnection",
         "description" : null,
         "fields" : [ {
           "name" : "items",
@@ -12289,7 +12464,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "OBJECT",
-                "name" : "Workers",
+                "name" : "Personel",
                 "ofType" : null
               }
             }
@@ -12314,7 +12489,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelWorkersFilterInput",
+        "name" : "ModelPersonelFilterInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -12337,6 +12512,15 @@
           "defaultValue" : null
         }, {
           "name" : "nationalid",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "BiznaName",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -12372,6 +12556,24 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "workerId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "workId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "createdAt",
           "description" : null,
           "type" : {
@@ -12388,7 +12590,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelWorkersFilterInput",
+              "name" : "ModelPersonelFilterInput",
               "ofType" : null
             }
           },
@@ -12401,7 +12603,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelWorkersFilterInput",
+              "name" : "ModelPersonelFilterInput",
               "ofType" : null
             }
           },
@@ -12411,7 +12613,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelWorkersFilterInput",
+            "name" : "ModelPersonelFilterInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -12421,7 +12623,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "Business",
+        "name" : "Bizna",
         "description" : null,
         "fields" : [ {
           "name" : "BusinessRegNo",
@@ -12514,6 +12716,21 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+          "name" : "netEarnings",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
           "name" : "email",
           "description" : null,
           "args" : [ ],
@@ -12529,7 +12746,37 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+          "name" : "status",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
           "name" : "owner",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "description",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -12580,7 +12827,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "ModelBusinessConnection",
+        "name" : "ModelBiznaConnection",
         "description" : null,
         "fields" : [ {
           "name" : "items",
@@ -12594,7 +12841,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "OBJECT",
-                "name" : "Business",
+                "name" : "Bizna",
                 "ofType" : null
               }
             }
@@ -12619,7 +12866,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelBusinessFilterInput",
+        "name" : "ModelBiznaFilterInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -12677,6 +12924,15 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "netEarnings",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "email",
           "description" : null,
           "type" : {
@@ -12686,7 +12942,25 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "status",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "owner",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "description",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -12711,7 +12985,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBusinessFilterInput",
+              "name" : "ModelBiznaFilterInput",
               "ofType" : null
             }
           },
@@ -12724,7 +12998,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBusinessFilterInput",
+              "name" : "ModelBiznaFilterInput",
               "ofType" : null
             }
           },
@@ -12734,7 +13008,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelBusinessFilterInput",
+            "name" : "ModelBiznaFilterInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -14337,6 +14611,21 @@
           "deprecationReason" : null
         }, {
           "name" : "AdvCom",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "AdvCompanyCom",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -16242,6 +16531,15 @@
           "defaultValue" : null
         }, {
           "name" : "AdvCom",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "AdvCompanyCom",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -23425,7 +23723,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "createWorkers",
+          "name" : "createPersonel",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -23435,7 +23733,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "CreateWorkersInput",
+                "name" : "CreatePersonelInput",
                 "ofType" : null
               }
             },
@@ -23445,20 +23743,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelWorkersConditionInput",
+              "name" : "ModelPersonelConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Workers",
+            "name" : "Personel",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "updateWorkers",
+          "name" : "updatePersonel",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -23468,7 +23766,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "UpdateWorkersInput",
+                "name" : "UpdatePersonelInput",
                 "ofType" : null
               }
             },
@@ -23478,20 +23776,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelWorkersConditionInput",
+              "name" : "ModelPersonelConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Workers",
+            "name" : "Personel",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "deleteWorkers",
+          "name" : "deletePersonel",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -23501,7 +23799,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "DeleteWorkersInput",
+                "name" : "DeletePersonelInput",
                 "ofType" : null
               }
             },
@@ -23511,20 +23809,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelWorkersConditionInput",
+              "name" : "ModelPersonelConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Workers",
+            "name" : "Personel",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "createBusiness",
+          "name" : "createBizna",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -23534,7 +23832,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "CreateBusinessInput",
+                "name" : "CreateBiznaInput",
                 "ofType" : null
               }
             },
@@ -23544,20 +23842,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBusinessConditionInput",
+              "name" : "ModelBiznaConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Business",
+            "name" : "Bizna",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "updateBusiness",
+          "name" : "updateBizna",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -23567,7 +23865,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "UpdateBusinessInput",
+                "name" : "UpdateBiznaInput",
                 "ofType" : null
               }
             },
@@ -23577,20 +23875,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBusinessConditionInput",
+              "name" : "ModelBiznaConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Business",
+            "name" : "Bizna",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "deleteBusiness",
+          "name" : "deleteBizna",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -23600,7 +23898,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "DeleteBusinessInput",
+                "name" : "DeleteBiznaInput",
                 "ofType" : null
               }
             },
@@ -23610,14 +23908,14 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBusinessConditionInput",
+              "name" : "ModelBiznaConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Business",
+            "name" : "Bizna",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -32502,7 +32800,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "CreateWorkersInput",
+        "name" : "CreatePersonelInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -32545,6 +32843,19 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "BiznaName",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
           "name" : "name",
           "description" : null,
           "type" : {
@@ -32572,6 +32883,32 @@
           "defaultValue" : null
         }, {
           "name" : "email",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "workerId",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "workId",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
@@ -32598,10 +32935,19 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelWorkersConditionInput",
+        "name" : "ModelPersonelConditionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
+          "name" : "phoneKontact",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "BusinessRegNo",
           "description" : null,
           "type" : {
@@ -32612,6 +32958,15 @@
           "defaultValue" : null
         }, {
           "name" : "nationalid",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "BiznaName",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -32639,6 +32994,15 @@
           "defaultValue" : null
         }, {
           "name" : "email",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "workId",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -32663,7 +33027,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelWorkersConditionInput",
+              "name" : "ModelPersonelConditionInput",
               "ofType" : null
             }
           },
@@ -32676,7 +33040,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelWorkersConditionInput",
+              "name" : "ModelPersonelConditionInput",
               "ofType" : null
             }
           },
@@ -32686,7 +33050,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelWorkersConditionInput",
+            "name" : "ModelPersonelConditionInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -32696,20 +33060,16 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "UpdateWorkersInput",
+        "name" : "UpdatePersonelInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
           "name" : "phoneKontact",
           "description" : null,
           "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            }
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
           },
           "defaultValue" : null
         }, {
@@ -32723,6 +33083,15 @@
           "defaultValue" : null
         }, {
           "name" : "nationalid",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "BiznaName",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -32758,6 +33127,28 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "workerId",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "workId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "createdAt",
           "description" : null,
           "type" : {
@@ -32772,11 +33163,11 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "DeleteWorkersInput",
+        "name" : "DeletePersonelInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "phoneKontact",
+          "name" : "workerId",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
@@ -32794,7 +33185,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "CreateBusinessInput",
+        "name" : "CreateBiznaInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -32876,6 +33267,19 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "netEarnings",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
           "name" : "email",
           "description" : null,
           "type" : {
@@ -32889,7 +33293,33 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "status",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
           "name" : "owner",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "description",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
@@ -32916,11 +33346,11 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelBusinessConditionInput",
+        "name" : "ModelBiznaConditionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "BusKntct",
+          "name" : "BusinessRegNo",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -32965,6 +33395,15 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "netEarnings",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "email",
           "description" : null,
           "type" : {
@@ -32974,7 +33413,25 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "status",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "owner",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "description",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -32999,7 +33456,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBusinessConditionInput",
+              "name" : "ModelBiznaConditionInput",
               "ofType" : null
             }
           },
@@ -33012,7 +33469,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBusinessConditionInput",
+              "name" : "ModelBiznaConditionInput",
               "ofType" : null
             }
           },
@@ -33022,7 +33479,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelBusinessConditionInput",
+            "name" : "ModelBiznaConditionInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -33032,11 +33489,20 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "UpdateBusinessInput",
+        "name" : "UpdateBiznaInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
           "name" : "BusinessRegNo",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "BusKntct",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
@@ -33046,15 +33512,6 @@
               "name" : "String",
               "ofType" : null
             }
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "BusKntct",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
           },
           "defaultValue" : null
         }, {
@@ -33094,6 +33551,15 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "netEarnings",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "email",
           "description" : null,
           "type" : {
@@ -33103,7 +33569,25 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "status",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "owner",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "description",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -33126,11 +33610,11 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "DeleteBusinessInput",
+        "name" : "DeleteBiznaInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "BusinessRegNo",
+          "name" : "BusKntct",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
@@ -34861,6 +35345,19 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "AdvCompanyCom",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Float",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
           "name" : "bankAdminCom",
           "description" : null,
           "type" : {
@@ -36466,6 +36963,15 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "AdvCompanyCom",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelFloatInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "bankAdminCom",
           "description" : null,
           "type" : {
@@ -37667,6 +38173,15 @@
           "defaultValue" : null
         }, {
           "name" : "AdvCom",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Float",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "AdvCompanyCom",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -45121,7 +45636,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onCreateWorkers",
+          "name" : "onCreatePersonel",
           "description" : null,
           "args" : [ {
             "name" : "owner",
@@ -45135,13 +45650,13 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Workers",
+            "name" : "Personel",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onUpdateWorkers",
+          "name" : "onUpdatePersonel",
           "description" : null,
           "args" : [ {
             "name" : "owner",
@@ -45155,13 +45670,13 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Workers",
+            "name" : "Personel",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onDeleteWorkers",
+          "name" : "onDeletePersonel",
           "description" : null,
           "args" : [ {
             "name" : "owner",
@@ -45175,13 +45690,13 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Workers",
+            "name" : "Personel",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onCreateBusiness",
+          "name" : "onCreateBizna",
           "description" : null,
           "args" : [ {
             "name" : "owner",
@@ -45195,13 +45710,13 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Business",
+            "name" : "Bizna",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onUpdateBusiness",
+          "name" : "onUpdateBizna",
           "description" : null,
           "args" : [ {
             "name" : "owner",
@@ -45215,13 +45730,13 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Business",
+            "name" : "Bizna",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onDeleteBusiness",
+          "name" : "onDeleteBizna",
           "description" : null,
           "args" : [ {
             "name" : "owner",
@@ -45235,7 +45750,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Business",
+            "name" : "Bizna",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -47005,22 +47520,6 @@
         "onFragment" : false,
         "onField" : false
       }, {
-        "name" : "aws_api_key",
-        "description" : "Tells the service this field/object has access authorized by an API key.",
-        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
-        "args" : [ ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
-        "name" : "aws_iam",
-        "description" : "Tells the service this field/object has access authorized by sigv4 signing.",
-        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
-        "args" : [ ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
         "name" : "deprecated",
         "description" : null,
         "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
@@ -47034,6 +47533,22 @@
           },
           "defaultValue" : "\"No longer supported\""
         } ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
+        "name" : "aws_api_key",
+        "description" : "Tells the service this field/object has access authorized by an API key.",
+        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
+        "args" : [ ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
+        "name" : "aws_iam",
+        "description" : "Tells the service this field/object has access authorized by sigv4 signing.",
+        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
+        "args" : [ ],
         "onOperation" : false,
         "onFragment" : false,
         "onField" : false

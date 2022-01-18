@@ -44,8 +44,8 @@ declare global {
       
       BListLneess:undefined;
       
-      CovCredSls:undefined;
-      NonCovCredSlss:undefined;
+      CovCredSls:{workerId:string};
+      NonCovCredSlss:{workerId:string};
       CredSlsHms:undefined;
       CreateChms:undefined;
       AddChmMembrsss:undefined;
@@ -106,9 +106,9 @@ declare global {
       ChamaMmbrRemts:{id:string};
       ChmMmbrContris:undefined;
       ChmMmbrMmbrss:undefined;
-      CredSlsLneess:undefined;
+      CredSlsLneess:{MFNId:string};
       CredSlsLnerss:undefined;
-      CredByrLneess:undefined;
+      CredByrLneess:{MFNId:string};
       CredByrLnerss:undefined;
       SMDpsitss:undefined;
       SMWthdrwlss:undefined;
@@ -221,7 +221,7 @@ declare global {
       ViewNonLnsRecCredSlrs:undefined;
       ViewNonLnsRecSMs:undefined;
       ViewNonLnsSntChms:undefined;
-      ViewNonLnsSntCredSlrs:undefined;
+      ViewNonLnsSntCredSlrs:{MFNId:string};
       ViewNonLnsSntSMs:undefined;
 
       PwnBrkrRegss:undefined;
@@ -287,7 +287,25 @@ declare global {
       AddMFKubwas:undefined;    
       SignitoryWthdrwFndsss:undefined;
       SignitoryDepositss:undefined; 
-      Sgn2CnfrmWthdrwlsss:undefined;  
+      Sgn2CnfrmWthdrwlsss:undefined; 
+      Vw2CredSellCovs:undefined; 
+      Vw2CredSellNonCovs:undefined; 
+
+      AddPersonels:undefined; 
+      CrtBusinesss:undefined; 
+
+      VwBusAcss:{BusinessRegNos:string}; 
+      DissolveBizss:undefined; 
+      RmvPersonnelss:undefined; 
+
+      SgnIn2VwBiznass:undefined; 
+      ShareCredSlsRevss:undefined; 
+
+      SgnIn2VwCovCrdSlsLneesss:undefined; 
+      SgnIn2VwNCCrdSlsLneess:undefined; 
+      SnIn2VwCrdSlLPs:undefined;
+      SignInAdms:undefined;
+      
       
     }
   }

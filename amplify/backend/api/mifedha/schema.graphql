@@ -715,7 +715,9 @@ type SAgentWithdrawals
 }
 
 
-type Workers
+
+
+type Personel
   @model
   @auth(
     rules: [
@@ -750,18 +752,20 @@ type Workers
   
   
   {
-  phoneKontact: String! @primaryKey
-  BusinessRegNo: String! @index(name: "byCrtnTymms", sortKeyFields: ["createdAt"], queryField: "BusOwnrVwWrkrs")
+  phoneKontact: String! @index(name: "byCrtnTymmmms", sortKeyFields: ["createdAt"], queryField: "WrkrsVww")
+  BusinessRegNo: String! @index(name: "byCrtnTymmms", sortKeyFields: ["createdAt"], queryField: "BusOwnrVwWrkrss")
   nationalid: String!
+  BiznaName:String!
   name: String!
   ownrsss:String!
   email: String!
-  
+  workerId:String! @primaryKey
+  workId:String!
   createdAt: String!
   
 }
 
-type Business
+type Bizna
   @model
   @auth(
     rules: [
@@ -798,18 +802,19 @@ type Business
 
   
    {
-  BusinessRegNo: String! @primaryKey
-  BusKntct: String!
+  BusinessRegNo: String! @index(name: "byCrtnTymmmmms", sortKeyFields: ["createdAt"], queryField: "BiznaVwws")
+  BusKntct: String! @primaryKey
   busName: String!
   
   pw: String!
   TtlEarnings: Float!
   earningsBal:Float!
+  netEarnings:Float!
   
   email: String!
-  
+  status:String!
   owner: String!
-  
+  description:String!
   createdAt: String!
 }
 
@@ -1051,6 +1056,7 @@ type Company
   sagentCom: Float!
   companyCom: Float!
   AdvCom: Float!
+  AdvCompanyCom: Float!
   bankAdminCom: Float!
   sawithdrawalFee: Float!
   advuserwithdrawalFee: Float!
@@ -1398,7 +1404,7 @@ type ChamaMembers
   @auth(
     rules: [
       { allow: owner, operations: [read, update] }
-      { allow: private, operations: [update, read] }
+      { allow: private, operations: [update, read, create] }
       {
         allow: groups
         groups: ["AdminOne"]

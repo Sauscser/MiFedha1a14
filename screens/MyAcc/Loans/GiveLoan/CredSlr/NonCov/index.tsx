@@ -8,6 +8,7 @@ import {
   createSMLoansCovered,
   updateAdvocate,
   updateAgent,
+  updateBizna,
   updateCompany,
   updateSAgent,
   updateSMAccount,
@@ -21,9 +22,11 @@ import {
   getSMAccount,
   getSAgent,
   getAdvocate,
+  getBizna,
+  getPersonel,
 } from '../../../../../../src/graphql/queries';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {
   View,
@@ -57,6 +60,7 @@ const NonCovCredSls = props => {
   const [SendrPhn, setSendrPhn] = useState(null);
   const [ItmNm, setItmNm] = useState("");
   const [ItmSrlNu, setItmSrlNu] = useState("");
+  const route = useRoute();
   
 
   const fetchUser = async () => {
@@ -79,20 +83,12 @@ const NonCovCredSls = props => {
     }
     setIsLoading(true);
     try {
-      const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {phonecontact: SendrPhn}),
+      const PersnlDtl:any = await API.graphql(
+        graphqlOperation(getPersonel, {workerId: route.params.workerId}),
       );
 
-      const SenderUsrBal =accountDtl.data.getSMAccount.balance;
-      const usrPW =accountDtl.data.getSMAccount.pw;
-      const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const usrLnLim =accountDtl.data.getSMAccount.loanLimit;
-      const TtlActvLonsTmsSllrNonCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsSllrNonCov;
-      const TtlActvLonsAmtSllrNonCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtSllrNonCov;
-      const names =accountDtl.data.getSMAccount.name;
-  
-      const SenderSub =accountDtl.data.getSMAccount.owner;
-      const nationalids =accountDtl.data.getSMAccount.nationalid;
+      const BusinessRegNos =PersnlDtl.data.getPersonel.BusinessRegNo;
+      
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -129,12 +125,12 @@ const NonCovCredSls = props => {
 
           const vats = CompDtls.data.getCompany.vat;
           const ttlvats = CompDtls.data.getCompany.ttlvat;
-          const vatFee = (parseFloat(vats)*IntAmt)
+         
 
           const maxInterestSMs = CompDtls.data.getCompany.maxInterestSM;
 
-          const TransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee
-          const TtlTransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee + parseFloat(amount)
+          const TransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) 
+          const TtlTransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount)  + parseFloat(amount)
           const MaxSMInterest = (parseFloat(amount) 
                 + parseFloat(userLoanTransferFees)*parseFloat(amount))*parseFloat(maxInterestCredSllrs)*parseFloat(RepaymtPeriod);
           
@@ -162,6 +158,33 @@ const NonCovCredSls = props => {
                         const TtlActvLonsAmtByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtByrNonCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
                         const nationalidss =RecAccountDtl.data.getSMAccount.nationalid;
+
+                        const FetchBiznaDtls = async () => {
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
+                          try {
+                              const BiznaDtl:any = await API.graphql(
+                                  graphqlOperation(getBizna, {BusKntct: BusinessRegNos}),
+                                  );
+                                  const TtlEarningsz =BiznaDtl.data.getBizna.TtlEarnings;
+                                  const earningsBalsz =BiznaDtl.data.getBizna.earningsBal;
+                                  const busNames =BiznaDtl.data.getBizna.busName;
+                                  
+
+                                  const FetchWrkrDtls = async () => {
+                                    if(isLoading){
+                                      return;
+                                    }
+                                    setIsLoading(true);
+                                    try {
+                                        const RecAccountDtl:any = await API.graphql(
+                                            graphqlOperation(getSMAccount, {phonecontact: SendrPhn}),
+                                            );
+                                            const pwz =RecAccountDtl.data.getSMAccount.pw;
+                                            const nationalids =RecAccountDtl.data.getSMAccount.nationalid;
+                                            
                       
                         const sendSMLn = async () => {
                           if(isLoading){
@@ -176,16 +199,16 @@ const NonCovCredSls = props => {
                                   itemSerialNumber:ItmSrlNu,
                                   buyerID: nationalidss,
                                   sellerID: nationalids,
-                                  sellerContact:SendrPhn,
+                                  sellerContact:BusinessRegNos,
                                   buyerContact: RecPhn, 
-                                  loanerLoanee:SendrPhn+RecPhn,
+                                  loanerLoanee:BusinessRegNos+RecPhn,
                                                                   
                                   amountSold: amount,
                                   amountexpectedBack: (parseFloat(AmtExp) - TransCost).toFixed(2),
                                   amountExpectedBackWthClrnc:(parseFloat(AmtExp) - TransCost).toFixed(2),
                                   amountRepaid: 0,
                                   buyerName:namess,
-                                  SellerName:names,
+                                  SellerName:busNames,
                                   lonBala:(parseFloat(AmtExp) - TransCost).toFixed(2),
                                   repaymentPeriod: RepaymtPeriod,
                                   
@@ -212,7 +235,7 @@ const NonCovCredSls = props => {
                         if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
                       return;
                     }
-                        else if(recAcptncCode !== SendrPhn){Alert.alert('let Loanee first request Loan');
+                        else if(recAcptncCode !== BusinessRegNos){Alert.alert('let Loanee first request Loan');
                       return;
                     }
 
@@ -225,8 +248,8 @@ const NonCovCredSls = props => {
                     }
 
 
-                        else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                        else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
+                        
+                        else if(BusinessRegNos === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(ActualMaxSMInterest>MaxSMInterest)
                         {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(2) + "; Recom SI:" + (MaxSMInterest).toFixed(2) );}
@@ -234,12 +257,9 @@ const NonCovCredSls = props => {
                           parseFloat(userLoanTransferFees)*parseFloat(amount) > parseFloat(RecUsrBal)) 
                                                    {Alert.alert('Buyer cannot facilitate; should recharge');}
                         
-                        else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
+                        else if(pwz !==SnderPW){Alert.alert('Wrong password');}
                         else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Amount expected Back must at least be greater');
                       return;}
-                        else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
-                        
-                        else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
                         
                          else {
                           sendSMLn();
@@ -252,15 +272,11 @@ const NonCovCredSls = props => {
                           setIsLoading(true);
                           try{
                               await API.graphql(
-                                graphqlOperation(updateSMAccount, {
+                                graphqlOperation(updateBizna, {
                                   input:{
-                                    phonecontact:SendrPhn,
-                                    TtlActvLonsTmsSllrNonCov: parseFloat(TtlActvLonsTmsSllrNonCovs)+1,
-                                    TtlActvLonsAmtSllrNonCov: (parseFloat(TtlActvLonsAmtSllrNonCovs) + parseFloat(AmtExp)).toFixed(2),
-                                                                              
-                                     
+                                    BusKntct:BusinessRegNos,
+                                    TtlEarnings: (parseFloat(TtlEarningsz)+parseFloat(AmtExp)).toFixed(2),
                                    
-                                    
                                   }
                                 })
                               )
@@ -284,9 +300,8 @@ const NonCovCredSls = props => {
                                 graphqlOperation(updateSMAccount, {
                                   input:{
                                     phonecontact:RecPhn,
-                                    TtlActvLonsTmsByrNonCov: parseFloat(TtlActvLonsTmsByrCovs) +1 ,
-                                    TtlActvLonsAmtByrNonCov: parseFloat(TtlActvLonsAmtByrCovs)+ parseFloat(AmtExp),
-                                    balance:(parseFloat(RecUsrBal) - parseFloat(userLoanTransferFees)*parseFloat(amount) - vatFee).toFixed(2)  ,
+                                    
+                                    balance:(parseFloat(RecUsrBal) - parseFloat(userLoanTransferFees)*parseFloat(amount) ).toFixed(2)  ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                               
@@ -322,8 +337,6 @@ const NonCovCredSls = props => {
                                    
                                     ttlSellerLnsInTymsNonCov: 1 + parseFloat(ttlSellerLnsInTymsCovs),
                                     
-                                    ttlvat:parseFloat(ttlvats)+vatFee,
-                                     
                                     
                                   }
                                 })
@@ -337,24 +350,38 @@ const NonCovCredSls = props => {
                           }
                           setIsLoading(false);
                           Alert.alert("Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
-                          + ", I VAT:"+ vatFee.toFixed(2));
+                          );
                         }
                         
-                                              
-                                                       
-                    }       
-                    catch(e) {     
-                      if (e){Alert.alert("Check internet or buyer does not exist")
-      return;}                 
+                      }       
+                      catch(e) {     
+                        if (e){Alert.alert("Check internet network or Buyer does not exist")
+        return;}                 
+                      }
+                      setIsLoading(false);
+                      }                    
+                        await FetchWrkrDtls();  
+                        
+                      }
+                      catch (e){
+                        if (e){Alert.alert("Advocate not registered")
+                return;}
+                      }
+                      setIsLoading(false);
                     }
-                    setIsLoading(false);
-                    }                    
-                      await fetchRecUsrDtls();        
+  
+                    await FetchBiznaDtls();  
+                        
                     
-
-            
-
-          
+                      }
+                      catch (e){
+                        if (e){Alert.alert("Advocate not registered")
+                return;}
+                      }
+                      setIsLoading(false);
+                    }
+  
+                    await fetchRecUsrDtls();
         
         } catch (e) {
           if (e){Alert.alert("Check internet network or Buyer does not exist")
@@ -534,7 +561,7 @@ useEffect(() =>{
              onChangeText={setSnderPW}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Seller PassWord</Text>
+           <Text style={styles.sendAmtText}>Personnel User PassWord</Text>
          </View>
 
          <View style={styles.sendAmtView}>

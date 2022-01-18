@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 
-import { getCompany, getGroup, getSMAccount, listSMAccounts, } from '../../../../../../../src/graphql/queries';
+import { getCompany, getGroup, getSMAccount, listPersonels, listSMAccounts, } from '../../../../../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -45,7 +45,7 @@ const ChmSignIn = (props) => {
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
   const[ownr, setownr] = useState(null);
-  const ChmNMmbrPhns = SendrPhn+memberPhn
+  const ChmNMmbrPhns = ChmDesc+memberPhn
 
 
   const FetchGrpLonsSts = () => {
@@ -70,21 +70,60 @@ const ChmSignIn = (props) => {
     
 
     
-                const gtChmDtls = async () =>{
-                  if(isLoading){
-                    return;
-                  }
-                  setIsLoading(true);
-                  try{
-                    const compDtls :any= await API.graphql(
-                      graphqlOperation(getSMAccount,{phonecontact:SendrPhn})
-                      );
-                      const signitoryPWs = compDtls.data.getSMAccount.pw;  
-                      const owners = compDtls.data.getSMAccount.owner;  
+                
+                      
+                      const ChckPersonelExistence = async () => {
+                        try {
+                          const UsrDtls:any = await API.graphql(
+                            graphqlOperation(listPersonels,
+                              { filter: {
+                                  
+                                phoneKontact: { eq: SendrPhn},
+                                BusinessRegNo:{eq: ChmDesc}
+                                              
+                                }}
+                            )
+                          )
 
-                      if(signitoryPWs!==pword){Alert.alert("Wrong User credentials")}
+                          const gtChmDtls = async () =>{
+                            if(isLoading){
+                              return;
+                            }
+                            setIsLoading(true);
+                            try{
+                              const compDtls :any= await API.graphql(
+                                graphqlOperation(getSMAccount,{phonecontact:SendrPhn})
+                                );
+                                const signitoryPWs = compDtls.data.getSMAccount.pw;  
+                                const owners = compDtls.data.getSMAccount.owner; 
+
+                                if(signitoryPWs!==pword){Alert.alert("Wrong User credentials")}
+                      else if (UsrDtls.data.listPersonels.items.length < 1) {
+                        Alert.alert("You do not work here");
+                        return;
+                        
+                      }
                       else if(ownr!==owners){Alert.alert("This is not your Account")}
                       else{FetchGrpLonsSts();}
+
+                        }
+
+                    
+            
+                        catch(e){
+                          console.log(e)
+                          if(e){
+                            Alert.alert("User does not exist; otherwise check inernet connection")
+                            return;
+                        }
+                        }
+                        
+                                    setIsLoading(false)
+                                    
+                        };
+
+                        await gtChmDtls();
+                
                     }
 
                     
@@ -92,7 +131,7 @@ const ChmSignIn = (props) => {
             catch(e){
               console.log(e)
               if(e){
-                Alert.alert("Group does not exist; otherwise check inernet connection")
+                Alert.alert("User does not exist; otherwise check inernet connection")
                 return;
             }
             }
@@ -193,6 +232,16 @@ useEffect(() =>{
                   <View style={styles.sendLoanView}>
                     <TextInput
                     placeholder="+2547xxxxxxxx"
+                      value={ChmDesc}
+                      onChangeText={setChmDesc}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Business Phone</Text>
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder="+2547xxxxxxxx"
                       value={memberPhn}
                       onChangeText={setmemberPhn}
                       style={styles.sendLoanInput}
@@ -210,10 +259,8 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Loaner PW</Text>
                   </View>
 
-                 
-        
                   <TouchableOpacity
-                    onPress={gtChmDtls}
+                    onPress={ChckPersonelExistence}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to View

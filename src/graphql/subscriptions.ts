@@ -875,94 +875,112 @@ export const onDeleteSAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const onCreateWorkers = /* GraphQL */ `
-  subscription OnCreateWorkers($owner: String) {
-    onCreateWorkers(owner: $owner) {
+export const onCreatePersonel = /* GraphQL */ `
+  subscription OnCreatePersonel($owner: String) {
+    onCreatePersonel(owner: $owner) {
       phoneKontact
       BusinessRegNo
       nationalid
+      BiznaName
       name
       ownrsss
       email
+      workerId
+      workId
       createdAt
       updatedAt
       owner
     }
   }
 `;
-export const onUpdateWorkers = /* GraphQL */ `
-  subscription OnUpdateWorkers($owner: String) {
-    onUpdateWorkers(owner: $owner) {
+export const onUpdatePersonel = /* GraphQL */ `
+  subscription OnUpdatePersonel($owner: String) {
+    onUpdatePersonel(owner: $owner) {
       phoneKontact
       BusinessRegNo
       nationalid
+      BiznaName
       name
       ownrsss
       email
+      workerId
+      workId
       createdAt
       updatedAt
       owner
     }
   }
 `;
-export const onDeleteWorkers = /* GraphQL */ `
-  subscription OnDeleteWorkers($owner: String) {
-    onDeleteWorkers(owner: $owner) {
+export const onDeletePersonel = /* GraphQL */ `
+  subscription OnDeletePersonel($owner: String) {
+    onDeletePersonel(owner: $owner) {
       phoneKontact
       BusinessRegNo
       nationalid
+      BiznaName
       name
       ownrsss
       email
+      workerId
+      workId
       createdAt
       updatedAt
       owner
     }
   }
 `;
-export const onCreateBusiness = /* GraphQL */ `
-  subscription OnCreateBusiness($owner: String) {
-    onCreateBusiness(owner: $owner) {
+export const onCreateBizna = /* GraphQL */ `
+  subscription OnCreateBizna($owner: String) {
+    onCreateBizna(owner: $owner) {
       BusinessRegNo
       BusKntct
       busName
       pw
       TtlEarnings
       earningsBal
+      netEarnings
       email
+      status
       owner
+      description
       createdAt
       updatedAt
     }
   }
 `;
-export const onUpdateBusiness = /* GraphQL */ `
-  subscription OnUpdateBusiness($owner: String) {
-    onUpdateBusiness(owner: $owner) {
+export const onUpdateBizna = /* GraphQL */ `
+  subscription OnUpdateBizna($owner: String) {
+    onUpdateBizna(owner: $owner) {
       BusinessRegNo
       BusKntct
       busName
       pw
       TtlEarnings
       earningsBal
+      netEarnings
       email
+      status
       owner
+      description
       createdAt
       updatedAt
     }
   }
 `;
-export const onDeleteBusiness = /* GraphQL */ `
-  subscription OnDeleteBusiness($owner: String) {
-    onDeleteBusiness(owner: $owner) {
+export const onDeleteBizna = /* GraphQL */ `
+  subscription OnDeleteBizna($owner: String) {
+    onDeleteBizna(owner: $owner) {
       BusinessRegNo
       BusKntct
       busName
       pw
       TtlEarnings
       earningsBal
+      netEarnings
       email
+      status
       owner
+      description
       createdAt
       updatedAt
     }
@@ -1188,6 +1206,7 @@ export const onCreateCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
       advuserwithdrawalFee
@@ -1324,6 +1343,7 @@ export const onUpdateCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
       advuserwithdrawalFee
@@ -1460,6 +1480,7 @@ export const onDeleteCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
       advuserwithdrawalFee

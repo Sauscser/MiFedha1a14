@@ -84,7 +84,7 @@ const MyLoanAccount = props => {
   };
 
   const ViewNonLnsRecCredSlrss = () => {
-    navigation.navigate('ElimLPCredRecs');
+    navigation.navigate('SnIn2VwCrdSlLPs');
   };
 
 

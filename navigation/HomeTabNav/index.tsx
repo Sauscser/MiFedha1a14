@@ -14,6 +14,9 @@ import DpstMny from "../../screens/MyAcc/DepositMny";
 import CrtAdmn from "../../screens/MFAdmin/RegAdmin";
 import SettnsHm from "../../screens/Settings/SettingsHome";
 import MFAdm from "../../screens/MFAdmin";
+
+
+
 import MFKbw from "../../screens/MFKubwa";
 import MFN from "../../screens/MFNdogo";
 import AdvcHm from "../../screens/Advocate/AdvocateHm";
@@ -246,9 +249,24 @@ import AddMFKubwa from "../../screens/MFKubwa/AddMFKubwa";
 import SignitoryWthdrwFndss from "../../screens/Chama/SignitoryWthdrwFnds";
 import SignitoryDeposits from "../../screens/Chama/SignitoryDeposit";
 import Sgn2CnfrmWthdrwlss from "../../screens/Chama/Sgn2CnfrmWthdrwls";
+import Vw2CredSellCov from "../../screens/CredSls/Vw2CredSellCov";
+import Vw2CredSellNonCov from "../../screens/CredSls/Vw2CredSellNonCov";
+import AddPersonel from "../../screens/CredSls/AddPersonel";
+import CrtBusiness from "../../screens/CredSls/CrtBusiness";
 
+import DissolveBizs from "../../screens/CredSls/DissolveBiz";
+import RmvPersonnels from "../../screens/CredSls/RmvPersonnel";
+import SgnIn2VwBiznas from "../../screens/CredSls/SgnIn2VwBizna";
+import ShareCredSlsRevs from "../../screens/CredSls/ShareCredSlsRev";
 
+import VwBusAcs from "../../screens/CredSls/VwBusAc";
 
+import SgnIn2VwCovCrdSlsLneess from "../../screens/CredSls/SgnIn2VwCovCrdSlsLnees";
+
+import SgnIn2VwNCCrdSlsLnees from "../../screens/CredSls/SgnIn2VwNCCrdSlsLnees";
+
+import SnIn2VwCrdSlLP from "../../screens/CredSls/SnIn2VwCrdSlLP";
+import SignInAdm from "../../screens/MFAdmin/SignInAdm";
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
@@ -258,7 +276,25 @@ const HomeNavigator = props => {
         headerShown: false,
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
+
+      <Stack.Screen name={'SignInAdms'} component={SignInAdm} />
+      <Stack.Screen name={'SnIn2VwCrdSlLPs'} component={SnIn2VwCrdSlLP} />
+
+      <Stack.Screen name={'SgnIn2VwCovCrdSlsLneesss'} component={SgnIn2VwCovCrdSlsLneess} />
+      <Stack.Screen name={'SgnIn2VwNCCrdSlsLneess'} component={SgnIn2VwNCCrdSlsLnees} />
+      
+       <Stack.Screen name={'VwBusAcss'} component={VwBusAcs} />
+      <Stack.Screen name={'DissolveBizss'} component={DissolveBizs} />      
+      <Stack.Screen name={'RmvPersonnelss'} component={RmvPersonnels} /> 
+      <Stack.Screen name={'SgnIn2VwBiznass'} component={SgnIn2VwBiznas} />      
+      <Stack.Screen name={'ShareCredSlsRevss'} component={ShareCredSlsRevs} />      
     
+      <Stack.Screen name={'AddPersonels'} component={AddPersonel} />      
+      <Stack.Screen name={'CrtBusinesss'} component={CrtBusiness} /> 
+
+      <Stack.Screen name={'Vw2CredSellCovs'} component={Vw2CredSellCov} />      
+      <Stack.Screen name={'Vw2CredSellNonCovs'} component={Vw2CredSellNonCov} />  
+
       <Stack.Screen name={'SignitoryWthdrwFndsss'} component={SignitoryWthdrwFndss} />      
       <Stack.Screen name={'SignitoryDepositss'} component={SignitoryDeposits} />      
       <Stack.Screen name={'Sgn2CnfrmWthdrwlsss'} component={Sgn2CnfrmWthdrwlss} /> 

@@ -83,6 +83,9 @@ const styles = StyleSheet.create({
 
   
 
+
+  
+
   viewForClientsCategoriesChama2: {
     backgroundColor: '#72ebd8',
     marginTop:"5%",
@@ -187,6 +190,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
+  viewForClientsCategories2: {
+    backgroundColor: '#e58d29',
+    marginTop:"5%",
+    marginBottom:"99%",
+    height: "100%",
+    width:"32%",
+    borderRadius: 4,
+    marginLeft:"0.5%",
+    marginRight:"0.5%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    
+  },
+
   myMoneyPressables: {
     backgroundColor: '#72ebd8',
     
@@ -224,6 +242,21 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 12,
     marginTop: 1,
+  },
+
+  clientsView2: {
+    backgroundColor: '#e58d29',
+    marginHorizontal: "2%",
+    
+    height: "15%",
+    borderRadius: 4,
+    marginTop:"2%",
+    marginBottom:"99%",
+    marginLeft:"2%",
+    marginRight:"2%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
 
   

@@ -130,8 +130,9 @@ const fetchChmMbrDtls = async () => {
           const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
           const AdvComs = CompDtls.data.getCompany.AdvCom;
           const CoverageFees = CompDtls.data.getCompany.CoverageFee;
+          const AdvCompanyComs = CompDtls.data.getCompany.AdvCompanyCom;
           const AdvCovFee =(parseFloat(CoverageFees)*parseFloat(AdvComs))
-          const CompCovFee = parseFloat(CoverageFees)*(1 - parseFloat(AdvComs));
+          const CompCovFee = parseFloat(CoverageFees)*parseFloat(AdvCompanyComs);
           const AdvCovAmt =AdvCovFee*parseFloat(amount)
           const CompCovAmt = CompCovFee*parseFloat(amount)
           const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)                
@@ -149,11 +150,7 @@ const fetchChmMbrDtls = async () => {
                 parseFloat(userLoanTransferFees)*parseFloat(amount) + ttlCovFeeAmount)
           const Interest = (((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))).toFixed(2);     
           const maxBLss = CompDtls.data.getCompany.maxBLs;
-          const vats = CompDtls.data.getCompany.vat;
-          const vatFee = (parseFloat(vats)*IntAmt)
-          const ttlvats = CompDtls.data.getCompany.ttlvat;
-
-          
+         
           const MaxSMInterest = (parseFloat(amount) +  
           (parseFloat(userLoanTransferFees)*parseFloat(amount) 
           + ttlCovFeeAmount) )*parseFloat(maxInterestGrps)*parseFloat(RepaymtPeriod);
@@ -162,8 +159,8 @@ const fetchChmMbrDtls = async () => {
           const ActualMaxSMInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) + 
           ttlCovFeeAmount)
 
-          const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee
-          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee + parseFloat(amount)
+          const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) 
+          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
 
 
    
@@ -355,7 +352,7 @@ const fetchChmMbrDtls = async () => {
                                     companyEarning: CompCovAmt + parseFloat(companyEarnings) + parseFloat(userLoanTransferFees)*parseFloat(amount),                                                    
                                     
                                     ttlChmLnsInAmtCov: parseFloat(AmtExp) + parseFloat(ttlChmLnsInAmtCovs),
-                                    ttlvat:parseFloat(ttlvats)+vatFee,
+                                   
                                     ttlChmLnsInTymsCov: 1 + parseFloat(ttlChmLnsInTymsCovs),
                                           
                                     
@@ -397,7 +394,7 @@ const fetchChmMbrDtls = async () => {
                           }
                           Alert.alert("Coverage:" +(parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2) 
                           + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2)
-                          +", I VAT:"+ vatFee.toFixed(2));
+                          );
                           setIsLoading(false);
                         }
                                               

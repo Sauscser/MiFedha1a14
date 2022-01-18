@@ -426,7 +426,7 @@ const SMADepositForm = props => {
               onChangeText={setAgentPhn}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Agent Phone</Text>
+            <Text style={styles.sendAmtText}>MFNdogo Phone</Text>
           </View>
 
           <View style={styles.sendAmtView}>

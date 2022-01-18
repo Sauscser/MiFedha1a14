@@ -123,9 +123,7 @@ const SMASendNonCovLns = props => {
           const IntAmt = parseFloat(AmtExp) - (parseFloat(amount) + 
           parseFloat(userLoanTransferFees)*parseFloat(amount) )
 
-          const vats = CompDtls.data.getCompany.vat;
-          const ttlvats = CompDtls.data.getCompany.ttlvat;
-          const vatFee = (parseFloat(vats)*IntAmt)
+          
           const maxInterestPwnBrkrs = CompDtls.data.getCompany.maxInterestPwnBrkr;
           const MaxSMInterest = (parseFloat(amount) +
           (parseFloat(userLoanTransferFees)*parseFloat(amount) ))*parseFloat(maxInterestSMs)*parseFloat(RepaymtPeriod);
@@ -136,8 +134,8 @@ const SMASendNonCovLns = props => {
           );
           const ActualMaxPwnBrkrInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) 
           )
-          const TransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee
-          const TtlTransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee + parseFloat(amount)
+          const TransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) 
+          const TtlTransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
           
               
 
@@ -296,7 +294,7 @@ const SMASendNonCovLns = props => {
                                     companyEarning: userLoanTransferFees * parseFloat(amount) + parseFloat(companyEarnings),                                                    
                                     
                                     ttlSMLnsInAmtNonCov: parseFloat(AmtExp) + parseFloat(ttlSMLnsInAmtCovs),
-                                    ttlvat:parseFloat(ttlvats)+vatFee,
+                                   
                                     ttlSMLnsInTymsNonCov: 1 + parseFloat(ttlSMLnsInTymsCovs),
                                     
                                     
@@ -310,7 +308,7 @@ const SMASendNonCovLns = props => {
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
-                          Alert.alert("Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) +", I VAT:"+ vatFee.toFixed(2));
+                          Alert.alert("Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) );
                           setIsLoading(false);
                           
                         }

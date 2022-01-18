@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {createChamaMembers, createGroup,   updateCompany} from '../../../src/graphql/mutations';
+import {createBizna, createChamaMembers, createGroup,   updateCompany} from '../../../src/graphql/mutations';
 import { getCompany, getSMAccount, listChamasRegConfirms, vwViaPhonss,  } from '../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
@@ -22,19 +22,11 @@ import {
 } from 'react-native';
 import styles from './styles';
 
-export type UserReg = {
-  usr:String;
-  
-}
 
-const CreateChama = (props:UserReg) => {
 
-  const{usr} = props;
+const CreateBiz = (props) => {
 
   
-
-
-  const navigation = useNavigation();
 
   const [ChmPhn, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
@@ -49,12 +41,6 @@ const CreateChama = (props:UserReg) => {
   const [Sign2Phn, setSign2Phn] = useState('');
   const[ownr, setownr] = useState(null);
 
-  const ChmPhnNphoneContact = MmbaID+ChmPhn
-
-
-  
-
-  
     const fetchUser = async () => {
       const userInfo = await Auth.currentAuthenticatedUser();
       
@@ -70,255 +56,68 @@ const CreateChama = (props:UserReg) => {
         fetchUser();
       }, []);
 
-      const ChckUsrExistence = async () => {
-        try {
-          const UsrDtls:any = await API.graphql(
-            graphqlOperation(getSMAccount, { phonecontact:phoneContact}),
-                        
-          )
-
-          const nationalidsss = UsrDtls.data.getSMAccount.nationalid;
-          const namess = UsrDtls.data.getSMAccount.name;
-
-          const FetchSign2 = async () => {
-            try {
-              const UsrDtlss:any = await API.graphql(
-                graphqlOperation(getSMAccount, { phonecontact:Sign2Phn}),
-                            
-              )
-    
-              const ownrsss = UsrDtlss.data.getSMAccount.owner;
-              
-          const gtCompDtls = async () =>{
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
-            try{
-              const compDtls :any= await API.graphql(
-                graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
-                );
-                const ttlActiveChms = compDtls.data.getCompany.ttlActiveChm;
-                const phoneContacts = compDtls.data.getCompany.phoneContact;
-                const ttlActiveChmUserss = compDtls.data.getCompany.ttlActiveChmUsers;
-
-                const confrmReg = async () =>{
-                  if(isLoading){
-                    return;
-                  }
-                  setIsLoading(true);
-                  try{
-                    const compDtls :any= await API.graphql(
-                      graphqlOperation(vwViaPhonss,{contact:ChmPhn}
-                    
-                        
-                                      
-                        ))
-              
-            const onCreateNewSMAc = async () => {
-              if(isLoading){
-                return;
-              }
-              setIsLoading(true);
-              try {
-                await API.graphql(
-                graphqlOperation(createGroup, {
-                input: {
-                  grpContact: ChmPhn,
-                  regNo:ChmRegNo,
-                  signitoryContact: phoneContact,
-                  SignitoryNatid: nationalidsss,
-                  signitoryName: namess,
-                  grpName: ChmNm,
-                  signitoryPW: pword,
-                  signitory2Sub: ownrsss,
-                  WithdrawCnfrmtn: "NO",
-                  grpEmail: awsEmail,
-                  grpBal: 0,
-                  ttlGrpMembers: 1,
-                  description: ChmDesc,
-                
-                  ttlNonLonsRecChm: 0,
-                  ttlNonLonsSentChm:0,
-                
-                  ttlDpst: 0,
-                  ttlWthdrwn: 0,
-                  tymsChmHvBL:0,
-                  TtlActvLonsTmsLnrChmCov: 0,
-                  TtlActvLonsAmtLnrChmCov: 0,
-                  TtlBLLonsTmsLnrChmCov: 0,
-                  TtlBLLonsAmtLnrChmCov: 0,
-                  TtlClrdLonsTmsLnrChmCov: 0,
-                  TtlClrdLonsAmtLnrChmCov: 0,                
-                  TtlActvLonsTmsLnrChmNonCov: 0,
-                  TtlActvLonsAmtLnrChmNonCov: 0,
-                  TtlBLLonsTmsLnrChmNonCov: 0,
-                  TtlBLLonsAmtLnrChmNonCov: 0,
-                  TtlClrdLonsTmsLnrChmNonCov: 0,
-                  TtlClrdLonsAmtLnrChmNonCov: 0,
-                  
-                  status: "AccountActive",
-                  owner: ownr,
-                        },
-                      }),
-                    );
-                    
-                  } catch (error) {
-                    console.log(error)
-                    if(error){
-                      Alert.alert("Not authorised to create Chama. Call: "+phoneContacts)
-                      return;
-                  } 
-                  
-                  }
-                  await CrtChm();
-                  setIsLoading(false);
-                  
-                };
-                if (pword.length < 8)
-                {Alert.alert("password is too short; at least eight characters");
-              
-            } 
-            else if(phoneContact===ChmPhn)
-            {Alert.alert("This Phone number has been used in a single member Account")}
-
-            
-            
-            else {
-              onCreateNewSMAc();
-            }
-
-
-            const CrtChm = async () => {
-              if(isLoading){
-                return;
-              }
-              setIsLoading(true);
-              try {
-                await API.graphql(
-                graphqlOperation(createChamaMembers, {
-                input: {
-                  MembaId:MmbaID,
-                  groupContact: ChmPhn,
-                  regNo:ChmRegNo,
-                  ChamaNMember:ChmPhnNphoneContact,
-                  memberContact: phoneContact,
-                  memberNatId: nationalidsss,
-                  
-                  
-                  GrossLnsGvn:0,
-                  LonAmtGven: 0,
-                  AmtRepaid:0,
-                  LnBal: 0,
-                  NonLoanAcBal: 0,
-                  ttlNonLonAcBal: 0,
-                  groupName:ChmNm,
-                  memberName:namess,
-                  AcStatus: "AccountActive",
-                  loanStatus: "NoLoan",
-                  blStatus: "AccountNotBL",
-                  owner: ownr,
-                  
-                        },
-                      }),
-                    );
-                    
-                  } catch (error) {
-                    console.log(error)
-                    if(error){
-                      Alert.alert("Enter details correctly; NB: Chama Phone should be new")
-                      return;
-                  } 
-                  
-                  }
-                  await updtActAdm();
-                  setIsLoading(false);
-                  
-                };
-                
-      
-                const updtActAdm = async()=>{
-                  if(isLoading){
-                    return;
-                  }
-                  setIsLoading(true);
-                  try{
-                      await API.graphql(
-                        graphqlOperation(updateCompany,{
-                          input:{
-                            AdminId:"BaruchHabaB'ShemAdonai2",
-                            ttlActiveChm:parseFloat(ttlActiveChms) + 1,
-                            ttlActiveChmUsers:parseFloat(ttlActiveChmUserss) + 1,
-                          }
-                        })
-                      )
-                  }
-                  catch(error){
-                    if(error){
-                      Alert.alert("Check your internet connection")
-                      return;
-                  }
-                  }
-                  Alert.alert("Congrats " + nam + ", You have created " + ChmNm+" Chama")
-                  setIsLoading(false);
-                }
-                
-           
-              }
-      
-              catch(e){
-                console.log(e)
-                if(e){
-                  Alert.alert("Check your internet")
-                  return;
-              }
-              }
-                          
-              };
-              await confrmReg();
-
-      }
-      
-      catch(e){
-        console.log(e)
-        if(e){
-          Alert.alert("Check your internet")
+      const CreateNewSMAc = async () => {
+        if(isLoading){
           return;
-      }
-      }
-                  
-      };
-        
-         await gtCompDtls();
-
-        } catch (e) {
-          console.log(e)
-          if (e){Alert.alert("Please fill details correctly or check your internet connection")
-          return;}
-      };
-         
-    }
-    await FetchSign2();
-
-
-         
-        
-        } catch (e) {
-          console.error(e);
         }
+        setIsLoading(true);
+        try {
+          await API.graphql(
+          graphqlOperation(createBizna, {
+          input: {
+            BusinessRegNo: ChmRegNo,
+            BusKntct:ChmPhn,
+            busName: ChmNm,
+            pw: pword,
+            email: awsEmail,
+            
+            TtlEarnings: 0,
+            earningsBal: 0,
+            netEarnings:0,
+            description: ChmDesc,
+          
+            status: "AccountActive",
+            owner: ownr,
+                  },
+                })
+                
+                ,
+              );
 
-        setIsLoading(false)
-                  setChmPhn('');
-                  setPW('');
-                  setAWSEmail("")
-                  setChmDesc("")
-                  setChmNm("")
-                  setChmRegNo("")
-                  setMmbaID("")
-                  setSign2Phn("");
-      }
+              if (pword.length < 8)
+          {Alert.alert("password is too short; at least eight characters");
+        
+      } 
+      else if(phoneContact===ChmPhn)
+      {Alert.alert("This Phone number has been used in a single member Account")}
 
       
+      
+      else {
+        Alert.alert("Business successfully registered")
+      }
+              
+            } catch (error) {
+              console.log(error)
+              if(error){
+                Alert.alert("Please enter details correctly")
+                return;
+            } 
+            
+            }
+            
+            setIsLoading(false);
+            setChmPhn('');
+            setPW('');
+            setAWSEmail("")
+            setChmDesc("")
+            setChmNm("")
+            setChmRegNo("")
+            setMmbaID("")
+            setSign2Phn("");
+            
+          };
+          
     
       useEffect(() =>{
         const MmbaIDs=MmbaID
@@ -416,7 +215,7 @@ useEffect(() =>{
                 <ScrollView>
            
                   <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Chama Details Below</Text>
+                    <Text style={styles.title}>Fill Business Details Below</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>
@@ -426,18 +225,10 @@ useEffect(() =>{
                       onChangeText={setChmPhn}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Phone Number</Text>
+                    <Text style={styles.sendLoanText}>Business Phone</Text>
                   </View>
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                     
-                      value={MmbaID}
-                      onChangeText={setMmbaID}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Signitory Chama Number</Text>
-                  </View>
+                  
                   
                   <View style={styles.sendLoanView}>
                     <TextInput
@@ -446,7 +237,7 @@ useEffect(() =>{
                       onChangeText={setChmRegNo}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Registration Number</Text>
+                    <Text style={styles.sendLoanText}>Business Registration Number</Text>
                   </View>
 
                   
@@ -456,7 +247,7 @@ useEffect(() =>{
                       onChangeText={setChmNm}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Name</Text>
+                    <Text style={styles.sendLoanText}>Business Name</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>
@@ -465,7 +256,7 @@ useEffect(() =>{
                       onChangeText={setAWSEmail}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama email</Text>
+                    <Text style={styles.sendLoanText}>Business email</Text>
                   </View>
 
                   
@@ -476,7 +267,7 @@ useEffect(() =>{
                       onChangeText={setPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Pass Word</Text>
+                    <Text style={styles.sendLoanText}>Business Pass Word</Text>
                   </View>
 
                   <View style={styles.sendAmtViewDesc}>
@@ -485,23 +276,15 @@ useEffect(() =>{
                       onChangeText={setChmDesc}
                       style={styles.sendAmtInputDesc}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Description</Text>
+                    <Text style={styles.sendLoanText}>Business Description</Text>
                   </View>
 
-                  <View style={styles.sendAmtViewDesc}>
-                    <TextInput
-                      value={Sign2Phn}
-                      onChangeText={setSign2Phn}
-                      style={styles.sendAmtInputDesc}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Signitory 2 Phone</Text>
-                  </View>
         
                   <TouchableOpacity
-                    onPress={ChckUsrExistence}
+                    onPress={CreateNewSMAc}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
-                      Click to Create Chama
+                      Click to Register Business
                     </Text>
                     {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
                   </TouchableOpacity>
@@ -511,4 +294,4 @@ useEffect(() =>{
           );
         };
         
-        export default CreateChama;
+        export default CreateBiz;

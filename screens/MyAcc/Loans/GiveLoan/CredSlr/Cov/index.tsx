@@ -7,6 +7,7 @@ import {
   createSMLoansCovered,
   updateAdvocate,
   updateAgent,
+  updateBizna,
   updateCompany,
   updateSAgent,
   updateSMAccount,
@@ -20,9 +21,11 @@ import {
   getSMAccount,
   getSAgent,
   getAdvocate,
+  getPersonel,
+  getBizna,
 } from '../../../../../../src/graphql/queries';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {
   View,
@@ -56,6 +59,7 @@ const CovCredSls = props => {
   const [SendrPhn, setSendrPhn] = useState(null);
   const [ItmNm, setItmNm] = useState("");
   const [ItmSrlNu, setItmSrlNu] = useState("");
+  const route = useRoute();
   
 
   const fetchUser = async () => {
@@ -78,19 +82,12 @@ const CovCredSls = props => {
     }
     setIsLoading(true);
     try {
-      const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {phonecontact: SendrPhn}),
+      const PersnlDtl:any = await API.graphql(
+        graphqlOperation(getPersonel, {workerId: route.params.workerId}),
       );
 
-      const nationalids =accountDtl.data.getSMAccount.nationalid;
-      const usrPW =accountDtl.data.getSMAccount.pw;
-      const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const usrLnLim =accountDtl.data.getSMAccount.loanLimit;
-      const TtlActvLonsTmsSllrCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsSllrCov;
-      const TtlActvLonsAmtSllrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtSllrCov;
-      const names =accountDtl.data.getSMAccount.name;
-  
-      const SenderSub =accountDtl.data.getSMAccount.owner;
+      const BusinessRegNos =PersnlDtl.data.getPersonel.BusinessRegNo;
+      
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -107,8 +104,10 @@ const CovCredSls = props => {
           const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
           const AdvComs = CompDtls.data.getCompany.AdvCom;
           const CoverageFees = CompDtls.data.getCompany.CoverageFee;
-          const CompCovFee =parseFloat(CoverageFees)*(1 - parseFloat(AdvComs));
-          const AdvCovAmt = parseFloat(AdvComs)*parseFloat(CoverageFees)*parseFloat(amount)
+          const AdvCompanyComs = CompDtls.data.getCompany.AdvCompanyCom;
+          const AdvCovFee =(parseFloat(CoverageFees)*parseFloat(AdvComs))
+          const CompCovFee = parseFloat(CoverageFees)*parseFloat(AdvCompanyComs);
+          const AdvCovAmt = AdvCovFee*parseFloat(amount)
           const CompCovAmt = CompCovFee*parseFloat(amount)
           const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)
          
@@ -134,14 +133,12 @@ const CovCredSls = props => {
           const IntAmt = parseFloat(AmtExp) - (parseFloat(amount) + 
           parseFloat(userLoanTransferFees)*parseFloat(amount) + ttlCovFeeAmount)
 
-          const vats = CompDtls.data.getCompany.vat;
-          const ttlvats = CompDtls.data.getCompany.ttlvat;
-          const vatFee = (parseFloat(vats)*IntAmt)
+          
           
           const ActualMaxPwnBrkrInterest = parseFloat(AmtExp) - parseFloat(amount)
           const phoneContacts = CompDtls.data.getCompany.phoneContact;  
-          const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee
-          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee + parseFloat(amount)
+          const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) 
+          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount)  + parseFloat(amount)
           const MaxSMInterest = (parseFloat(amount) + 
           (parseFloat(userLoanTransferFees)*parseFloat(amount) + 
               ttlCovFeeAmount))*parseFloat(maxInterestCredSllrs)*parseFloat(RepaymtPeriod);
@@ -188,6 +185,33 @@ const CovCredSls = props => {
                         const TtlActvLonsAmtByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtByrCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
                         const nationalidss =RecAccountDtl.data.getSMAccount.nationalid;
+
+                        const FetchBiznaDtls = async () => {
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
+                          try {
+                              const BiznaDtl:any = await API.graphql(
+                                  graphqlOperation(getBizna, {BusKntct: BusinessRegNos}),
+                                  );
+                                  const TtlEarningsz =BiznaDtl.data.getBizna.TtlEarnings;
+                                  const earningsBalsz =BiznaDtl.data.getBizna.earningsBal;
+                                  const busNames =BiznaDtl.data.getBizna.busName;
+                                  
+
+                                  const FetchWrkrDtls = async () => {
+                                    if(isLoading){
+                                      return;
+                                    }
+                                    setIsLoading(true);
+                                    try {
+                                        const RecAccountDtl:any = await API.graphql(
+                                            graphqlOperation(getSMAccount, {phonecontact: SendrPhn}),
+                                            );
+                                            const pwz =RecAccountDtl.data.getSMAccount.pw;
+                                            const nationalids =RecAccountDtl.data.getSMAccount.nationalid;
+                                            
                       
                         const sendSMLn = async () => {
                           if(isLoading){
@@ -202,16 +226,16 @@ const CovCredSls = props => {
                                   itemSerialNumber:ItmSrlNu,
                                   buyerID: nationalidss,
                                   sellerID: nationalids,
-                                  sellerContact:SendrPhn,
+                                  sellerContact:BusinessRegNos,
                                   buyerContact: RecPhn, 
-                                  loanerLoanee:SendrPhn+RecPhn,
-                                  loanerLoaneeAdv:  SendrPhn+RecPhn+ AdvRegNo,                                   
+                                  loanerLoanee:BusinessRegNos+RecPhn,
+                                  loanerLoaneeAdv:  BusinessRegNos+RecPhn+ AdvRegNo,                                   
                                   amountSold: amount,
                                   amountexpectedBack: (parseFloat(AmtExp) - TransCost).toFixed(2),
                                   amountExpectedBackWthClrnc:(parseFloat(AmtExp) - TransCost).toFixed(2),
                                   amountRepaid: 0,
                                   buyerName:namess,
-                                  SellerName:names,
+                                  SellerName:busNames,
                                   lonBala:(parseFloat(AmtExp) - TransCost).toFixed(2),
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: AdvRegNo,
@@ -238,7 +262,7 @@ const CovCredSls = props => {
                         if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
                       return;
                     }
-                        else if(recAcptncCode !== SendrPhn){Alert.alert('Let the Loanee first request Loan');
+                        else if(recAcptncCode !== BusinessRegNos){Alert.alert('Let the Loanee first request Loan');
                       return;
                     }
 
@@ -250,8 +274,8 @@ const CovCredSls = props => {
                       return;
                     }
 
-                        else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                        else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
+                        
+                        else if(BusinessRegNos === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(ActualMaxSMInterest>MaxSMInterest)
                         {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(2) + "; Recom SI:" + (MaxSMInterest).toFixed(2) );}
@@ -262,10 +286,8 @@ const CovCredSls = props => {
                       return;}
                       
                         else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
-                        else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                        else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
+                        else if(pwz !==SnderPW){Alert.alert('Wrong password');}
                         
-                        else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
                         
                          else {
                           sendSMLn();
@@ -278,14 +300,10 @@ const CovCredSls = props => {
                           setIsLoading(true);
                           try{
                               await API.graphql(
-                                graphqlOperation(updateSMAccount, {
+                                graphqlOperation(updateBizna, {
                                   input:{
-                                    phonecontact:SendrPhn,
-                                    TtlActvLonsTmsSllrCov: parseFloat(TtlActvLonsTmsSllrCovs)+1,
-                                    TtlActvLonsAmtSllrCov: (parseFloat(TtlActvLonsAmtSllrCovs) + parseFloat(AmtExp)).toFixed(2),
-                                                                              
-                                    
-                                   
+                                    BusKntct:BusinessRegNos,
+                                    TtlEarnings: (parseFloat(TtlEarningsz)+parseFloat(AmtExp)).toFixed(2),
                                     
                                   }
                                 })
@@ -311,8 +329,7 @@ const CovCredSls = props => {
                                 graphqlOperation(updateSMAccount, {
                                   input:{
                                     phonecontact:RecPhn,
-                                    TtlActvLonsTmsByrCov: parseFloat(TtlActvLonsTmsByrCovs) +1 ,
-                                    TtlActvLonsAmtByrCov: parseFloat(TtlActvLonsAmtByrCovs)+ parseFloat(AmtExp),
+                                    
                                     balance:(parseFloat(RecUsrBal) - TransCost).toFixed(2),
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
@@ -348,7 +365,7 @@ const CovCredSls = props => {
                                     AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
                                     companyEarningBal:CompCovAmt + parseFloat(companyEarningBals) + parseFloat(userLoanTransferFees)*parseFloat(amount),
                                     companyEarning: CompCovAmt + parseFloat(companyEarnings) + parseFloat(userLoanTransferFees)*parseFloat(amount),  
-                                    ttlvat:parseFloat(ttlvats)+vatFee,
+                                   
                                     ttlSellerLnsInAmtCov: parseFloat(AmtExp) + parseFloat(ttlSellerLnsInAmtCovs),
                                     
                                     ttlSellerLnsInTymsCov: 1 + parseFloat(ttlSellerLnsInTymsCovs),
@@ -392,7 +409,7 @@ const CovCredSls = props => {
                           }
                           Alert.alert("Coverage:" 
                           +(parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2) + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
-                          + ", I VAT:"+ vatFee.toFixed(2));
+                         );
                           setIsLoading(false);
                         }
                                               
@@ -404,8 +421,28 @@ const CovCredSls = props => {
                     }
                     setIsLoading(false);
                     }                    
-                      await fetchRecUsrDtls();        
-                    
+                      await FetchWrkrDtls();  
+                      
+                    }
+                    catch (e){
+                      if (e){Alert.alert("Advocate not registered")
+              return;}
+                    }
+                    setIsLoading(false);
+                  }
+
+                  await FetchBiznaDtls();  
+                      
+                  
+                    }
+                    catch (e){
+                      if (e){Alert.alert("Advocate not registered")
+              return;}
+                    }
+                    setIsLoading(false);
+                  }
+
+                  await fetchRecUsrDtls();
 
             }
             catch (e){
@@ -606,7 +643,7 @@ useEffect(() =>{
              onChangeText={setSnderPW}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Seller PassWord</Text>
+           <Text style={styles.sendAmtText}>Personnel User PassWord</Text>
          </View>
 
          <View style={styles.sendAmtView}>

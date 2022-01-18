@@ -71,6 +71,7 @@ const AdminSignIn = (props) => {
             sagentCom: 0.4,
             companyCom: 0.2,
             AdvCom: 0.6,
+            AdvCompanyCom:0.4,
             bankAdminCom: 0.02,
             sawithdrawalFee: 0.02,
             advuserwithdrawalFee: 0.02,

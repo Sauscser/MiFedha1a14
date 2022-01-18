@@ -6,12 +6,14 @@ import RecNonLns from "../../../components/MyAc/ViewRecNonLns";
 import styles from './styles';
 import { getCompany, getSMAccount, listNonLoanss, listSMAccounts, vwMyRecMny } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
+import { useRoute } from '@react-navigation/native';
 
 const FetchSMNonLnsRec = props => {
 
     const[RecPhn, setRecPhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
+    const route = useRoute();
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
@@ -30,7 +32,7 @@ const FetchSMNonLnsRec = props => {
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyRecMny, 
               {
-                      recPhn: RecPhn,
+                      recPhn: route.params.MFNID,
                       sortDirection: 'DESC',
                       limit: 100,
                       filter:{status:{eq:"CredSlrLonRepayment"}}

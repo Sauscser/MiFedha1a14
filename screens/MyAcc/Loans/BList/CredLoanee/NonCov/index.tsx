@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {updateCompany, updateNonCovCreditSeller, updateSMAccount, updateSMLoansCovered, } from '../../../../../../src/graphql/mutations';
-import {getCompany, getNonCovCreditSeller, getSMAccount, getSMLoansCovered, getSMLoansNonCovered } from '../../../../../../src/graphql/queries';
+import {getBizna, getCompany, getNonCovCreditSeller, getSMAccount, getSMLoansCovered, getSMLoansNonCovered } from '../../../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -84,15 +84,11 @@ const BLNonCovCredByr = (props) => {
                 setIsLoading(true);
                 try{
                   const compDtls :any= await API.graphql(
-                    graphqlOperation(getSMAccount,{phonecontact:sellerContacts})
+                    graphqlOperation(getBizna,{BusKntct:sellerContacts})
                     );
-                    const owners = compDtls.data.getSMAccount.owner
-                    const acStatuss = compDtls.data.getSMAccount.acStatus
-                    const TtlBLLonsTmsSllrNonCovs = compDtls.data.getSMAccount.TtlBLLonsTmsSllrNonCov
-                    const TtlBLLonsAmtSllrNonCovs = compDtls.data.getSMAccount.TtlBLLonsAmtSllrNonCov
-                    const TtlActvLonsAmtSllrNonCovs = compDtls.data.getSMAccount.TtlActvLonsAmtSllrNonCov
-                    const names = compDtls.data.getSMAccount.name
-                    const pws = compDtls.data.getSMAccount.pw
+                    
+                    const names = compDtls.data.getBizna.busName
+                    
                          
                     const gtLoaneeDtls = async () =>{
                       if(isLoading){
@@ -109,62 +105,7 @@ const BLNonCovCredByr = (props) => {
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
                           
-                          const updateLoanerDtls = async () => {
-                            if(isLoading){
-                              return;
-                            }
-                            setIsLoading(true);
-                            try{
-                                await API.graphql(
-                                  graphqlOperation(updateSMAccount,{
-                                    input:{
-                                      phonecontact:sellerContacts,
-                                      TtlBLLonsTmsSllrNonCov: parseFloat(TtlBLLonsTmsSllrNonCovs) + 1,
-                                      TtlBLLonsAmtSllrNonCov: (parseFloat(TtlBLLonsAmtSllrNonCovs) + amountExpectedBackWthClrncss).toFixed(2),
-                                      TtlActvLonsAmtSllrNonCov: (parseFloat(TtlActvLonsAmtSllrNonCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
-                                    }
-                                  })
-                                )
-                        
-                                
-                            }
-                            catch(error){if(!error){
-                              Alert.alert("Account deactivated successfully")
-                              
-                          } 
-                          else{Alert.alert("Please check your internet connection")
-                          return;} 
-                        console.log(error)
-                      }
 
-                            setIsLoading(false);          
-                            await updtActAdm ();
-                          } 
-                          
-                          if(LonBal === 0){
-                            Alert.alert("Loanee has cleared this loan")
-                          }
-
-                          else if(owners !== ownr){
-                            Alert.alert("You are not the one owed this loan")
-                          } 
-
-                          else if(pws !== LonId){
-                            Alert.alert("Wrong User PassWord")
-                          } 
-
-                          else if(statusssss === "LoanBL"){
-                            Alert.alert("This Loan is already Black Listed")
-                          } 
-
-                          else if(acStatuss === "AccountInactive"){
-                            Alert.alert("Loaner account has been deactivated")
-                          } 
-
-                          else if(acStatusss === "AccountInactive"){
-                            Alert.alert("Loanee account has been deactivated")
-                          } 
-                          else{updateLoanerDtls();}
                           
                   
                           const updtActAdm = async()=>{
@@ -194,6 +135,22 @@ const BLNonCovCredByr = (props) => {
                               await updateLoaneeDtls();
                               setIsLoading(false);
                               }
+
+                              if(LonBal === 0){
+                                Alert.alert("Loanee has cleared this loan")
+                              }
+    
+    
+                              else if(statusssss === "LoanBL"){
+                                Alert.alert("This Loan is already Black Listed")
+                              } 
+    
+    
+                              else if(acStatusss === "AccountInactive"){
+                                Alert.alert("Loanee account has been deactivated")
+                              } 
+
+                              else {updtActAdm();}
                               
                               const updateLoaneeDtls = async () => {
                                 if(isLoading){
@@ -205,9 +162,7 @@ const BLNonCovCredByr = (props) => {
                                       graphqlOperation(updateSMAccount,{
                                         input:{
                                           phonecontact:buyerContacts,
-                                          TtlBLLonsTmsByrNonCov: parseFloat(TtlBLLonsTmsByrNonCovs) + 1,
-                                          TtlBLLonsAmtByrNonCov: (parseFloat(TtlBLLonsAmtByrNonCovs) + amountExpectedBackWthClrncss).toFixed(2),
-                                          TtlActvLonsAmtByrNonCov: (parseFloat(TtlActvLonsAmtByrNonCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
+                                         
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
@@ -334,7 +289,7 @@ const BLNonCovCredByr = (props) => {
                       onChangeText={setLonId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>User PassWord</Text>
+                    <Text style={styles.sendLoanText}>Comment</Text>
                   </View>
         
                   

@@ -370,7 +370,7 @@ const MyLoanAccount = props => {
             </View>
 
       
-        <View style={styles.clientsView}>
+        <View style={styles.clientsView2}>
               <Text style={styles.salesText}>Chama Account</Text>
 
               <View style={styles.viewForClientsAndTitle}>

@@ -5,12 +5,14 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../../components/VwCredSales/Cov/Loaners";
 import styles from './styles';
 import { updateCompany, updateSMAccount } from '../../../../../../src/graphql/mutations';
+import { useRoute } from '@react-navigation/native';
 
 const FetchSMCovLns = props => {
 
     const[LnerPhn, setLnerPhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
+    const route = useRoute();
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();

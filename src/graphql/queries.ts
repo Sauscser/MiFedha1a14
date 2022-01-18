@@ -705,31 +705,34 @@ export const listSAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const getWorkers = /* GraphQL */ `
-  query GetWorkers($phoneKontact: String!) {
-    getWorkers(phoneKontact: $phoneKontact) {
+export const getPersonel = /* GraphQL */ `
+  query GetPersonel($workerId: String!) {
+    getPersonel(workerId: $workerId) {
       phoneKontact
       BusinessRegNo
       nationalid
+      BiznaName
       name
       ownrsss
       email
+      workerId
+      workId
       createdAt
       updatedAt
       owner
     }
   }
 `;
-export const listWorkers = /* GraphQL */ `
-  query ListWorkers(
-    $phoneKontact: String
-    $filter: ModelWorkersFilterInput
+export const listPersonels = /* GraphQL */ `
+  query ListPersonels(
+    $workerId: String
+    $filter: ModelPersonelFilterInput
     $limit: Int
     $nextToken: String
     $sortDirection: ModelSortDirection
   ) {
-    listWorkers(
-      phoneKontact: $phoneKontact
+    listPersonels(
+      workerId: $workerId
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -739,9 +742,12 @@ export const listWorkers = /* GraphQL */ `
         phoneKontact
         BusinessRegNo
         nationalid
+        BiznaName
         name
         ownrsss
         email
+        workerId
+        workId
         createdAt
         updatedAt
         owner
@@ -750,32 +756,35 @@ export const listWorkers = /* GraphQL */ `
     }
   }
 `;
-export const getBusiness = /* GraphQL */ `
-  query GetBusiness($BusinessRegNo: String!) {
-    getBusiness(BusinessRegNo: $BusinessRegNo) {
+export const getBizna = /* GraphQL */ `
+  query GetBizna($BusKntct: String!) {
+    getBizna(BusKntct: $BusKntct) {
       BusinessRegNo
       BusKntct
       busName
       pw
       TtlEarnings
       earningsBal
+      netEarnings
       email
+      status
       owner
+      description
       createdAt
       updatedAt
     }
   }
 `;
-export const listBusinesses = /* GraphQL */ `
-  query ListBusinesses(
-    $BusinessRegNo: String
-    $filter: ModelBusinessFilterInput
+export const listBiznas = /* GraphQL */ `
+  query ListBiznas(
+    $BusKntct: String
+    $filter: ModelBiznaFilterInput
     $limit: Int
     $nextToken: String
     $sortDirection: ModelSortDirection
   ) {
-    listBusinesses(
-      BusinessRegNo: $BusinessRegNo
+    listBiznas(
+      BusKntct: $BusKntct
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -788,8 +797,11 @@ export const listBusinesses = /* GraphQL */ `
         pw
         TtlEarnings
         earningsBal
+        netEarnings
         email
+        status
         owner
+        description
         createdAt
         updatedAt
       }
@@ -1002,6 +1014,7 @@ export const getCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
       advuserwithdrawalFee
@@ -1151,6 +1164,7 @@ export const listCompanies = /* GraphQL */ `
         sagentCom
         companyCom
         AdvCom
+        AdvCompanyCom
         bankAdminCom
         sawithdrawalFee
         advuserwithdrawalFee
@@ -2571,16 +2585,51 @@ export const vwMFKWthdrwls = /* GraphQL */ `
     }
   }
 `;
-export const busOwnrVwWrkrs = /* GraphQL */ `
-  query BusOwnrVwWrkrs(
-    $BusinessRegNo: String
+export const wrkrsVww = /* GraphQL */ `
+  query WrkrsVww(
+    $phoneKontact: String
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelWorkersFilterInput
+    $filter: ModelPersonelFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    BusOwnrVwWrkrs(
+    WrkrsVww(
+      phoneKontact: $phoneKontact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        phoneKontact
+        BusinessRegNo
+        nationalid
+        BiznaName
+        name
+        ownrsss
+        email
+        workerId
+        workId
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const busOwnrVwWrkrss = /* GraphQL */ `
+  query BusOwnrVwWrkrss(
+    $BusinessRegNo: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPersonelFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    BusOwnrVwWrkrss(
       BusinessRegNo: $BusinessRegNo
       createdAt: $createdAt
       sortDirection: $sortDirection
@@ -2592,12 +2641,51 @@ export const busOwnrVwWrkrs = /* GraphQL */ `
         phoneKontact
         BusinessRegNo
         nationalid
+        BiznaName
         name
         ownrsss
         email
+        workerId
+        workId
         createdAt
         updatedAt
         owner
+      }
+      nextToken
+    }
+  }
+`;
+export const biznaVwws = /* GraphQL */ `
+  query BiznaVwws(
+    $BusinessRegNo: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelBiznaFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    BiznaVwws(
+      BusinessRegNo: $BusinessRegNo
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        BusinessRegNo
+        BusKntct
+        busName
+        pw
+        TtlEarnings
+        earningsBal
+        netEarnings
+        email
+        status
+        owner
+        description
+        createdAt
+        updatedAt
       }
       nextToken
     }

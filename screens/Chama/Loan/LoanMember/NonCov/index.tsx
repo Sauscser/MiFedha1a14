@@ -134,10 +134,7 @@ const fetchChmMbrDtls = async () => {
           const IntAmt = parseFloat(AmtExp) - (parseFloat(amount) + 
           parseFloat(userLoanTransferFees)*parseFloat(amount) )
           
-          const vats = CompDtls.data.getCompany.vat;
-          const vatFee = parseFloat(vats)*IntAmt
-          const ttlvats = CompDtls.data.getCompany.ttlvat;
-
+         
           const MaxSMInterest = (parseFloat(amount) +
           (parseFloat(userLoanTransferFees)*parseFloat(amount) 
           ) )*parseFloat(maxInterestGrps)*parseFloat(RepaymtPeriod);
@@ -145,8 +142,8 @@ const fetchChmMbrDtls = async () => {
           const ActualMaxSMInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) 
           )
 
-          const TransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee
-          const TtlTransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee + parseFloat(amount)
+          const TransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) 
+          const TtlTransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
 
 
               
@@ -323,7 +320,7 @@ const fetchChmMbrDtls = async () => {
                                     companyEarning: parseFloat(userLoanTransferFees)*parseFloat(amount) +(companyEarnings),                                                    
                                     
                                     ttlChmLnsInAmtNonCov: parseFloat(AmtExp) + parseFloat(ttlChmLnsInAmtNonCovs),
-                                    ttlvat:parseFloat(ttlvats)+vatFee,
+                                   
                                     ttlChmLnsInTymsNonCov: 1 + parseFloat(ttlChmLnsInTymsNonCovs),
                                           
                                     
@@ -341,7 +338,7 @@ const fetchChmMbrDtls = async () => {
                         return;}
                           }
                           Alert.alert("Transaction Fee:Ksh. "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2)
-                          +", I VAT:"+ vatFee.toFixed(2)
+                         
                           );
                           setIsLoading(false);
                           

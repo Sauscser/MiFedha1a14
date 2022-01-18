@@ -974,112 +974,130 @@ export const deleteSAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const createWorkers = /* GraphQL */ `
-  mutation CreateWorkers(
-    $input: CreateWorkersInput!
-    $condition: ModelWorkersConditionInput
+export const createPersonel = /* GraphQL */ `
+  mutation CreatePersonel(
+    $input: CreatePersonelInput!
+    $condition: ModelPersonelConditionInput
   ) {
-    createWorkers(input: $input, condition: $condition) {
+    createPersonel(input: $input, condition: $condition) {
       phoneKontact
       BusinessRegNo
       nationalid
+      BiznaName
       name
       ownrsss
       email
+      workerId
+      workId
       createdAt
       updatedAt
       owner
     }
   }
 `;
-export const updateWorkers = /* GraphQL */ `
-  mutation UpdateWorkers(
-    $input: UpdateWorkersInput!
-    $condition: ModelWorkersConditionInput
+export const updatePersonel = /* GraphQL */ `
+  mutation UpdatePersonel(
+    $input: UpdatePersonelInput!
+    $condition: ModelPersonelConditionInput
   ) {
-    updateWorkers(input: $input, condition: $condition) {
+    updatePersonel(input: $input, condition: $condition) {
       phoneKontact
       BusinessRegNo
       nationalid
+      BiznaName
       name
       ownrsss
       email
+      workerId
+      workId
       createdAt
       updatedAt
       owner
     }
   }
 `;
-export const deleteWorkers = /* GraphQL */ `
-  mutation DeleteWorkers(
-    $input: DeleteWorkersInput!
-    $condition: ModelWorkersConditionInput
+export const deletePersonel = /* GraphQL */ `
+  mutation DeletePersonel(
+    $input: DeletePersonelInput!
+    $condition: ModelPersonelConditionInput
   ) {
-    deleteWorkers(input: $input, condition: $condition) {
+    deletePersonel(input: $input, condition: $condition) {
       phoneKontact
       BusinessRegNo
       nationalid
+      BiznaName
       name
       ownrsss
       email
+      workerId
+      workId
       createdAt
       updatedAt
       owner
     }
   }
 `;
-export const createBusiness = /* GraphQL */ `
-  mutation CreateBusiness(
-    $input: CreateBusinessInput!
-    $condition: ModelBusinessConditionInput
+export const createBizna = /* GraphQL */ `
+  mutation CreateBizna(
+    $input: CreateBiznaInput!
+    $condition: ModelBiznaConditionInput
   ) {
-    createBusiness(input: $input, condition: $condition) {
+    createBizna(input: $input, condition: $condition) {
       BusinessRegNo
       BusKntct
       busName
       pw
       TtlEarnings
       earningsBal
+      netEarnings
       email
+      status
       owner
+      description
       createdAt
       updatedAt
     }
   }
 `;
-export const updateBusiness = /* GraphQL */ `
-  mutation UpdateBusiness(
-    $input: UpdateBusinessInput!
-    $condition: ModelBusinessConditionInput
+export const updateBizna = /* GraphQL */ `
+  mutation UpdateBizna(
+    $input: UpdateBiznaInput!
+    $condition: ModelBiznaConditionInput
   ) {
-    updateBusiness(input: $input, condition: $condition) {
+    updateBizna(input: $input, condition: $condition) {
       BusinessRegNo
       BusKntct
       busName
       pw
       TtlEarnings
       earningsBal
+      netEarnings
       email
+      status
       owner
+      description
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteBusiness = /* GraphQL */ `
-  mutation DeleteBusiness(
-    $input: DeleteBusinessInput!
-    $condition: ModelBusinessConditionInput
+export const deleteBizna = /* GraphQL */ `
+  mutation DeleteBizna(
+    $input: DeleteBiznaInput!
+    $condition: ModelBiznaConditionInput
   ) {
-    deleteBusiness(input: $input, condition: $condition) {
+    deleteBizna(input: $input, condition: $condition) {
       BusinessRegNo
       BusKntct
       busName
       pw
       TtlEarnings
       earningsBal
+      netEarnings
       email
+      status
       owner
+      description
       createdAt
       updatedAt
     }
@@ -1344,6 +1362,7 @@ export const createCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
       advuserwithdrawalFee
@@ -1483,6 +1502,7 @@ export const updateCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
       advuserwithdrawalFee
@@ -1622,6 +1642,7 @@ export const deleteCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
       advuserwithdrawalFee

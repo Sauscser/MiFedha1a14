@@ -5,12 +5,15 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../../components/VwCredSales/Cov/Loanees";
 import styles from './styles';
 import { updateCompany, updateSMAccount } from '../../../../../../src/graphql/mutations';
+import { useRoute } from '@react-navigation/native';
 
 const FetchSMCovLns = props => {
 
     const[LnerPhn, setLnerPhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
+
+    const route = useRoute();
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
@@ -29,7 +32,7 @@ const FetchSMCovLns = props => {
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMySales, 
                 {
-                      sellerContact: LnerPhn,
+                      sellerContact: route.params.MFNId,
                       sortDirection: 'DESC',
                       limit: 100,
                       filter:{

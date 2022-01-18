@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {createChamaMembers, createGroup,   updateCompany} from '../../../src/graphql/mutations';
-import { getCompany, getSMAccount, listChamasRegConfirms, vwViaPhonss,  } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount, listChamasRegConfirms, vwViaPhons, vwViaPhonss,  } from '../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -102,18 +102,7 @@ const CreateChama = (props:UserReg) => {
                 const phoneContacts = compDtls.data.getCompany.phoneContact;
                 const ttlActiveChmUserss = compDtls.data.getCompany.ttlActiveChmUsers;
 
-                const confrmReg = async () =>{
-                  if(isLoading){
-                    return;
-                  }
-                  setIsLoading(true);
-                  try{
-                    const compDtls :any= await API.graphql(
-                      graphqlOperation(vwViaPhonss,{contact:ChmPhn}
-                    
-                        
-                                      
-                        ))
+                
               
             const onCreateNewSMAc = async () => {
               if(isLoading){
@@ -149,7 +138,8 @@ const CreateChama = (props:UserReg) => {
                   TtlBLLonsTmsLnrChmCov: 0,
                   TtlBLLonsAmtLnrChmCov: 0,
                   TtlClrdLonsTmsLnrChmCov: 0,
-                  TtlClrdLonsAmtLnrChmCov: 0,                
+                  TtlClrdLonsAmtLnrChmCov: 0,    
+
                   TtlActvLonsTmsLnrChmNonCov: 0,
                   TtlActvLonsAmtLnrChmNonCov: 0,
                   TtlBLLonsTmsLnrChmNonCov: 0,
@@ -165,10 +155,7 @@ const CreateChama = (props:UserReg) => {
                     
                   } catch (error) {
                     console.log(error)
-                    if(error){
-                      Alert.alert("Not authorised to create Chama. Call: "+phoneContacts)
-                      return;
-                  } 
+                    
                   
                   }
                   await CrtChm();
@@ -225,10 +212,7 @@ const CreateChama = (props:UserReg) => {
                     
                   } catch (error) {
                     console.log(error)
-                    if(error){
-                      Alert.alert("Enter details correctly; NB: Chama Phone should be new")
-                      return;
-                  } 
+                    
                   
                   }
                   await updtActAdm();
@@ -264,19 +248,7 @@ const CreateChama = (props:UserReg) => {
                 }
                 
            
-              }
-      
-              catch(e){
-                console.log(e)
-                if(e){
-                  Alert.alert("Check your internet")
-                  return;
-              }
-              }
-                          
-              };
-              await confrmReg();
-
+             
       }
       
       catch(e){
@@ -479,6 +451,16 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Chama Pass Word</Text>
                   </View>
 
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder="+2547xxxxxxxx"
+                      value={Sign2Phn}
+                      onChangeText={setSign2Phn}
+                      style={styles.sendAmtInputDesc}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Signitory 2 Phone</Text>
+                  </View>
+
                   <View style={styles.sendAmtViewDesc}>
                     <TextInput
                       value={ChmDesc}
@@ -488,14 +470,7 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Chama Description</Text>
                   </View>
 
-                  <View style={styles.sendAmtViewDesc}>
-                    <TextInput
-                      value={Sign2Phn}
-                      onChangeText={setSign2Phn}
-                      style={styles.sendAmtInputDesc}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Signitory 2 Phone</Text>
-                  </View>
+                  
         
                   <TouchableOpacity
                     onPress={ChckUsrExistence}

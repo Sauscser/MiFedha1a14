@@ -202,11 +202,7 @@ const RegKFKubwa = props => {
                 <Text style={styles.earningsAcPressableText}>Reverse</Text>
               </Pressable>
 
-              <Pressable
-                onPress={crtAdmin}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Create Ac</Text>
-              </Pressable>
+             
               
             </View>
           </View>

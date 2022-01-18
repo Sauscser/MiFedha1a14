@@ -34,7 +34,7 @@ const CreateAdminForm = () => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
       
-    setPhoneContact(userInfo.attributes.phone_number);
+    
     setOwner(userInfo.attributes.sub);
 
       };
@@ -63,11 +63,11 @@ const CreateAdminForm = () => {
               setISLoading(true);
               try {
                 const resp:any = await API.graphql(
-                  graphqlOperation(getSMAccount, { phonecontact: PhoneContact })
+                  graphqlOperation(getSMAccount, { phonecontact: nationalId })
                 );
                 const adminId = resp.data.getSMAccount.nationalid; 
                 const adminName = resp.data.getSMAccount.name; 
-                
+                const ownrsz = resp.data.getSMAccount.owner; 
                 const adminEml = resp.data.getSMAccount.awsemail;           
                                 
                 const CrtAdminAc = async () => {
@@ -87,7 +87,7 @@ const CreateAdminForm = () => {
                           BankAdmBal: 0,
                           email: adminEml,
                           status: "AccountActive",
-                          owner:ownr,
+                          owner:ownrsz,
                         },
                       }),
                     );
@@ -155,6 +155,7 @@ const CreateAdminForm = () => {
         }     setISLoading(false);
               setOwner("");
               setPW("");
+              setNationalid("")
     };
 
     useEffect(() =>{
@@ -190,6 +191,15 @@ const CreateAdminForm = () => {
                   </View>
         
         
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                      value={nationalId}
+                      onChangeText={setNationalid}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Admin Phone</Text>
+                  </View>
+
                   <View style={styles.sendLoanView}>
                     <TextInput
                       value={pword}

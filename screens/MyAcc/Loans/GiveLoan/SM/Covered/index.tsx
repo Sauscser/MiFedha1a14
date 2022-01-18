@@ -111,8 +111,10 @@ const SMASendLns = props => {
           const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
           const AdvComs = CompDtls.data.getCompany.AdvCom;
           const CoverageFees = CompDtls.data.getCompany.CoverageFee;
-          const CompCovFee = parseFloat(CoverageFees)*(1 - parseFloat(AdvComs));
-          const AdvCovAmt = parseFloat(AdvComs)*parseFloat(CoverageFees)*parseFloat(amount)
+          const AdvCompanyComs = CompDtls.data.getCompany.AdvCompanyCom;
+          const AdvCovFee =(parseFloat(CoverageFees)*parseFloat(AdvComs))
+          const CompCovFee = parseFloat(CoverageFees)*parseFloat(AdvCompanyComs);
+          const AdvCovAmt = AdvCovFee*parseFloat(amount)
           const CompCovAmt = CompCovFee*parseFloat(amount)
           const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)
                    
@@ -137,9 +139,7 @@ const SMASendLns = props => {
           const IntAmt = parseFloat(AmtExp) - (parseFloat(amount) + 
           parseFloat(userLoanTransferFees)*parseFloat(amount) + ttlCovFeeAmount)
 
-          const vats = CompDtls.data.getCompany.vat;
-          const ttlvats = CompDtls.data.getCompany.ttlvat;
-          const vatFee = (parseFloat(vats)*IntAmt)
+          
           const phoneContacts = CompDtls.data.getCompany.phoneContact;
           const maxInterestPwnBrkrs = CompDtls.data.getCompany.maxInterestPwnBrkr;
           const MaxSMInterest = (parseFloat(AmtExp) -  
@@ -331,8 +331,7 @@ const SMASendLns = props => {
                                     companyEarningBal:CompanyTotalEarnings + parseFloat(companyEarningBals), 
                                     
                                     companyEarning: CompanyTotalEarnings + parseFloat(companyEarnings),                    
-                                    ttlvat:parseFloat(ttlvats)+vatFee,
-                                    
+                                   
                                     ttlSMLnsInAmtCov: parseFloat(AmtExp) + parseFloat(ttlSMLnsInAmtCovs),
                                     
                                     ttlSMLnsInTymsCov: 1 + parseFloat(ttlSMLnsInTymsCovs),
@@ -375,7 +374,7 @@ const SMASendLns = props => {
                           }
                           Alert.alert("Coverage:" +(parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2) 
                           + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2)
-                          +", I VAT:"+ vatFee.toFixed(2));
+                          );
                           setIsLoading(false);
                         }
                                               

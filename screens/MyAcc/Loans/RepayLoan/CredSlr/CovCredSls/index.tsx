@@ -14,12 +14,14 @@ import {
   updateSMLoansCovered,
   updateCovCreditSeller,
   updateGroup,
+  updateBizna,
   
 } from '../../../../../../src/graphql/mutations';
 
 import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {
   
+  getBizna,
   getCompany,
   getCovCreditSeller,
   getGroup,
@@ -152,19 +154,13 @@ const RepayCovSellerLnsss = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {phonecontact: sellerContacts}),
+                    graphqlOperation(getBizna, {BusKntct: sellerContacts}),
                     );
-                    const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
-                    const usrAcActvSttss =RecAccountDtl.data.getSMAccount.status; 
+                    const netEarningss =RecAccountDtl.data.getBizna.netEarnings;                    
+                    const earningsBalszz =RecAccountDtl.data.getBizna.earningsBal; 
                     
-                    const MaxTymsIHvBLs =RecAccountDtl.data.getSMAccount.MaxTymsIHvBL;                    
-                    const TtlClrdLonsTmsSllrCovs =RecAccountDtl.data.getSMAccount.TtlClrdLonsTmsSllrCov;
-                    const TtlClrdLonsAmtSllrCovs =RecAccountDtl.data.getSMAccount.TtlClrdLonsAmtSllrCov;
-                    const TtlBLLonsTmsSllrCovs =RecAccountDtl.data.getSMAccount.TtlBLLonsTmsSllrCov;
-                    const TtlBLLonsAmtSllrCovs =RecAccountDtl.data.getSMAccount.TtlBLLonsAmtSllrCov;
-                    const TtlActvLonsTmsSllrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsSllrCov;
-                    const TtlActvLonsAmtSllrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtSllrCov;
-                    const namess =RecAccountDtl.data.getSMAccount.name;
+                    
+                    const busNamesz =RecAccountDtl.data.getBizna.busName;
                     
                     const updtSendrAcLonOvr1 = async () =>{
                       if(isLoading){
@@ -179,10 +175,8 @@ const RepayCovSellerLnsss = props => {
                                 
                                 balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
                                
-                                
                                 MaxTymsBL: 0, 
-                                                                   
-                                
+                                 
                               }
                             })
                           )
@@ -210,10 +204,7 @@ const RepayCovSellerLnsss = props => {
                                 phonecontact:SendrPhn,
                                 
                                 balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
-                                TtlClrdLonsTmsByrCov:parseFloat(TtlClrdLonsTmsByrCovs)+1,                                          
-                                TtlClrdLonsAmtByrCov: (parseFloat(TtlClrdLonsAmtByrCovs) + 1), 
-                                TtlBLLonsTmsByrCov: parseFloat(TtlBLLonsTmsByrCovs) - 1,
-                                TtlBLLonsAmtByrCov: (parseFloat(TtlBLLonsAmtByrCovs) - parseFloat(amounts)).toFixed(2),
+                                
                                 MaxTymsBL: parseFloat(MaxTymsBLss) - 1, 
                                                                    
                                 
@@ -303,18 +294,13 @@ const RepayCovSellerLnsss = props => {
                                 setIsLoading(true);
                                 try{
                                     await API.graphql(
-                                      graphqlOperation(updateSMAccount, {
+                                      graphqlOperation(updateBizna, {
                                         input:{
-                                          phonecontact:sellerContacts,
+                                          BusKntct:sellerContacts,
                                           
-                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(2),                                     
-                                          
-                                          TtlClrdLonsTmsSllrCov: parseFloat(TtlClrdLonsTmsSllrCovs) + 1,
-                                          
-                                          MaxTymsIHvBL: parseFloat(MaxTymsIHvBLs) - 1,
-                                          TtlClrdLonsAmtSllrCov: (parseFloat(TtlClrdLonsAmtSllrCovs) + parseFloat(amounts)).toFixed(2),
-                                                                            
-                                          
+                                          netEarnings: (parseFloat(netEarningss) + (parseFloat(amounts) + 0.5*(ClranceAmt))).toFixed(2),
+                                          earningsBal: (parseFloat(earningsBalszz) + (parseFloat(amounts) + 0.5*(ClranceAmt))).toFixed(2),
+                                         
                                         }
                                       })
                                     )                              
@@ -339,12 +325,10 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                          
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + 0.5*(ClranceAmt),
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + 0.5*(ClranceAmt),                                                    
                                           totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                           
-                                          ttlSellerLnsInClrdAmtCov: parseFloat(ttlSellerLnsInClrdAmtCovs) + parseFloat(amounts) ,
-                                          ttlSellerLnsInClrdTymsCov: parseFloat(ttlSellerLnsInClrdTymsCovs) + 1 ,
                                           
                                         }
                                       })
@@ -433,7 +417,7 @@ const RepayCovSellerLnsss = props => {
                                       graphqlOperation(updateSMAccount, {
                                         input:{
                                           phonecontact:SendrPhn,
-                                          TtlClrdLonsAmtByrCov: (parseFloat(TtlClrdLonsAmtByrCovs) + parseFloat(amounts)).toFixed(2), 
+                                          
                                           balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2),
                                          
                                           
@@ -459,12 +443,13 @@ const RepayCovSellerLnsss = props => {
                                 setIsLoading(true);
                                 try{
                                     await API.graphql(
-                                      graphqlOperation(updateSMAccount, {
+                                      graphqlOperation(updateBizna, {
                                         input:{
-                                          phonecontact:sellerContacts,
-                                          TtlClrdLonsAmtSllrCov: (parseFloat(TtlClrdLonsAmtSllrCovs) + parseFloat(amounts)).toFixed(2),
-                                            
-                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(2),                                     
+                                          BusKntct:sellerContacts,
+                                          
+                                          netEarnings: (parseFloat(netEarningss) + (parseFloat(amounts) + 0.5*(ClranceAmt))).toFixed(2),
+                                         
+                                          earningsBal: (parseFloat(earningsBalszz) + (parseFloat(amounts) + 0.5*(ClranceAmt))).toFixed(2),                                    
                                          
                                         }
                                       })
@@ -490,8 +475,8 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                           ttlSellerLnsInClrdAmtCov: parseFloat(ttlSellerLnsInClrdAmtCovs) + parseFloat(amounts) ,
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt,
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt,                                                    
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + 0.5*(ClranceAmt),
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + 0.5*(ClranceAmt),                                                    
                                           totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                         }
                                       })
@@ -512,9 +497,7 @@ const RepayCovSellerLnsss = props => {
                               if(usrAcActvStts === "AccountInactive"){Alert.alert('Sender account is inactive');
                               return;
                             }
-                              else if(usrAcActvSttss === "AccountInactive"){Alert.alert('Receiver account is inactive');
-                              return;
-                            }
+                             
                               
                               else if (
                                 parseFloat(SenderUsrBal) < TotalTransacted 
@@ -534,10 +517,10 @@ const RepayCovSellerLnsss = props => {
                           else if(parseFloat(amounts) > lonBalas){Alert.alert("Your Loan Balance is lesser: "+lonBalas)}
                           
 
-                          else if((parseFloat(amounts) === parseFloat(lonBalas))  && (parseFloat(MaxTymsBLss) <= maxBLss) && statuss !== "LoanBL")
+                          else if((parseFloat(amounts) === parseFloat(lonBalas))  && (parseFloat(MaxTymsBLss) === maxBLss) )
                           {updtSendrAcLonOvr1();}          
                           
-                          else if((parseFloat(amounts) === parseFloat(lonBalas))  && (parseFloat(MaxTymsBLss) > maxBLss) && statuss === "LoanBL")
+                          else if((parseFloat(amounts) === parseFloat(lonBalas))  && (parseFloat(MaxTymsBLss) > maxBLss))
                           {updtSendrAcLonOvr2();}        
                               
                                else {

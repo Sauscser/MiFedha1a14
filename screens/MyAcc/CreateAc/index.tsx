@@ -59,7 +59,7 @@ const CreateAcForm = (props) => {
             graphqlOperation(listSMAccounts,
               { filter: {
                   
-                    nationalid: { eq: nationalId}
+                    nationalid: { eq: nationalId},
                               
                 }}
             )
