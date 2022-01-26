@@ -305,6 +305,11 @@ declare global {
       SgnIn2VwNCCrdSlsLneess:undefined; 
       SnIn2VwCrdSlLPs:undefined;
       SignInAdms:undefined;
+
+      SgnIn2VwChmDpstss:undefined; 
+      VwChmDpstss:{grpContact:string}; 
+      SgnIn2VwChmWthdrwlss:undefined;
+      VwChmWthdrwlss:{grpContact:string};
       
       
     }

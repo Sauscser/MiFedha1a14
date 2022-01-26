@@ -80,6 +80,9 @@ export const getSMAccount = /* GraphQL */ `
       ttlNonLonsSentChm
       MaxTymsBL
       MaxTymsIHvBL
+      MaxAcBal
+      TymsIHvGivnLn
+      TymsMyLnClrd
       loanStatus
       acStatus
       deActvtnReason
@@ -185,6 +188,9 @@ export const listSMAccounts = /* GraphQL */ `
         ttlNonLonsSentChm
         MaxTymsBL
         MaxTymsIHvBL
+        MaxAcBal
+        TymsIHvGivnLn
+        TymsMyLnClrd
         loanStatus
         acStatus
         deActvtnReason

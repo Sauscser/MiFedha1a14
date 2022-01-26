@@ -35,6 +35,7 @@ const UpdtSMPW = (props) => {
   const[maxBL, setmaxBL] = useState("");
   const[WthdrwlLim, setWthdrwlLim] = useState("");
   const[DpstLim, setDpstLim] = useState("");
+  const[AcBal, setAcBal] = useState("");
   const[PhoneContact, setPhoneContact] = useState(null);
 
   const [LnAcCod, setLnAcCod] = useState("");
@@ -86,7 +87,7 @@ const UpdtSMPW = (props) => {
                                                   nonLonLimit:maxBL,
                                                   withdrawalLimit:WthdrwlLim,
                                                   depositLimit:DpstLim,                                                  
-                                                  
+                                                  MaxAcBal:AcBal, 
                                                 }
                                               })
                                             )
@@ -135,7 +136,7 @@ const UpdtSMPW = (props) => {
               setLnAcCod("")
               setDpstLim("")
               setWthdrwlLim("")
-          
+          setAcBal("")
             }
         
         useEffect(() =>{
@@ -148,6 +149,18 @@ const UpdtSMPW = (props) => {
             setDpstLim(DpstLims);
             }, [DpstLim]
              );
+
+             useEffect(() =>{
+              const AcBals=AcBal
+                if(!AcBals && AcBals!=="")
+                {
+                  setAcBal("");
+                  return;
+                }
+                setAcBal(AcBals);
+                }, [AcBal]
+                 );
+    
 
              useEffect(() =>{
               const WthdrwlLims=WthdrwlLim
@@ -281,6 +294,17 @@ const UpdtSMPW = (props) => {
                editable={true}
                multiline={true}></TextInput>
              <Text style={styles.sendLoanText}>Loan Limit</Text>
+           </View>   
+
+           <View style={styles.sendLoanView2}>
+             <TextInput
+             keyboardType={"decimal-pad"}
+               value={AcBal}
+               onChangeText={setAcBal}
+               style={styles.sendLoanInput2}
+               editable={true}
+               multiline={true}></TextInput>
+             <Text style={styles.sendLoanText}>AcBal Limit</Text>
            </View>   
 
            <View style={styles.sendLoanView2}>

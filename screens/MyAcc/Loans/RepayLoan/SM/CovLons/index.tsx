@@ -88,7 +88,7 @@ const RepayCovLnsss = props => {
       const TtlBLLonsTmsLneeCovs =accountDtl.data.getSMAccount.TtlBLLonsTmsLneeCov;
       const TtlBLLonsAmtLneeCovs =accountDtl.data.getSMAccount.TtlBLLonsAmtLneeCov;
       const names =accountDtl.data.getSMAccount.name;
-      
+    
       const nonLonLimits =accountDtl.data.getSMAccount.nonLonLimit;
       const MaxTymsBLs =accountDtl.data.getSMAccount.MaxTymsBL;
 
@@ -157,6 +157,7 @@ const RepayCovLnsss = props => {
                     const TtlBLLonsAmtLnrCovssss =RecAccountDtl.data.getSMAccount.TtlBLLonsAmtLnrCov;
                     const namess =RecAccountDtl.data.getSMAccount.name;
                     const MaxTymsIHvBLs =RecAccountDtl.data.getSMAccount.MaxTymsIHvBL;
+                    const TymsMyLnClrds =RecAccountDtl.data.getSMAccount.TymsMyLnClrd;
                     
                     const updtSendrAcLonOvr1 = async () =>{
                       if(isLoading){
@@ -302,7 +303,7 @@ const RepayCovLnsss = props => {
                                           
                                           balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + 0.5*(ClranceAmt))).toFixed(2), 
                                           MaxTymsIHvBL:parseFloat(MaxTymsIHvBLs) - 1,                                     
-                                          
+                                          TymsMyLnClrd: parseFloat(TymsMyLnClrds) + 1,
                                           TtlClrdLonsTmsLnrCov: parseFloat(TtlClrdLonsTmsLnrCovssss) + 1,
                                           TtlClrdLonsAmtLnrCov: (parseFloat(TtlClrdLonsAmtLnrCovssss) + parseFloat(amounts)).toFixed(2),
                                           

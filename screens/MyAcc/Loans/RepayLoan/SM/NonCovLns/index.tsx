@@ -160,6 +160,7 @@ const RepayNonCovLnsss = props => {
                     const TtlBLLonsTmsLnrNonCovssss =RecAccountDtl.data.getSMAccount.TtlBLLonsTmsLnrNonCov;
                     const TtlBLLonsAmtLnrNonCovssss =RecAccountDtl.data.getSMAccount.TtlBLLonsAmtLnrNonCov;
                     const namess =RecAccountDtl.data.getSMAccount.name;
+                    const TymsMyLnClrds =RecAccountDtl.data.getSMAccount.TymsMyLnClrd;
                     const MaxTymsIHvBLs =RecAccountDtl.data.getSMAccount.MaxTymsIHvBL;
                     
                     const updtSendrAcLonOvr1 = async () =>{
@@ -306,7 +307,7 @@ const RepayNonCovLnsss = props => {
                                           phonecontact:loanerPhns,
                                           
                                           balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + 0.5*(ClranceAmt))).toFixed(2),                                     
-                                          
+                                          TymsMyLnClrd: parseFloat(TymsMyLnClrds) + 1,
                                           TtlClrdLonsTmsLnrNonCov: parseFloat(TtlClrdLonsTmsLneeCovssss) + 1,
                                           TtlClrdLonsAmtLnrNonCov: (parseFloat(TtlClrdLonsAmtLneeCovssss) + parseFloat(amounts)).toFixed(2),
                                           

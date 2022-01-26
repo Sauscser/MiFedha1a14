@@ -119,8 +119,8 @@ const SMASendNonLns = props => {
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                     const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
                     const namess =RecAccountDtl.data.getSMAccount.name;
-                    
-                    
+                    const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
+                    const MaxAcBals = RecAccountDtl.data.getSMAccount.MaxAcBal; 
                   
                     const sendSMNonLn = async () => {
                       if(isLoading){
@@ -254,6 +254,12 @@ const SMASendNonLns = props => {
                       parseFloat(netEarningss) < TotalTransacted 
                     ) {Alert.alert('Requested amount is more than you have in your account');}
                     
+                    else if (parseFloat(RecUsrBal) + parseFloat(amounts) > parseFloat(MaxAcBals)) {
+                      Alert.alert("Receiver call customer care to have wallet capacity adjusted")
+                      return;
+                    } 
+                    
+                    else if(ttlDpstSMs === 0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
                     else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                     else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
                     

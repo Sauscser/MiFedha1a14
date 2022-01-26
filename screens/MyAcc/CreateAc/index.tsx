@@ -172,14 +172,20 @@ const CreateAcForm = (props) => {
               
                 MaxTymsBL: 0,
                 MaxTymsIHvBL: 0,
+
+                TymsIHvGivnLn: 0,
+                TymsMyLnClrd: 0,
+
+                MaxAcBal:5000000,
+
                 acStatus: 'AccountActive',
                 deActvtnReason:"None",
                 blStatus: 'AccountNotBL',
                 loanStatus: "NoLoan",
-                loanLimit: 1000000000,
-                nonLonLimit:300000,
-                withdrawalLimit: 1000000,
-                depositLimit: 10000000,
+                loanLimit: 250000,
+                nonLonLimit:250000,
+                withdrawalLimit: 250000,
+                depositLimit: 250000,
                 owner:ownr
                         },
                       }),

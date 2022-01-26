@@ -166,7 +166,10 @@ const fetchChmMbrDtls = async () => {
                         const TtlActvLonsTmsLneeChmNonCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmNonCov;
                         const TtlActvLonsAmtLneeChmNonCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmNonCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
-                      
+                        const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
+                        const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
+
+
                         const updatMmbr = async () => {
                           if(isLoading){
                             return;
@@ -352,6 +355,8 @@ const fetchChmMbrDtls = async () => {
                       return;
                     }
 
+                    else if(ttlDpstSMs === 0){Alert.alert('Loanee National ID be verified through deposit at MFNdogo');}
+
                     else if(parseFloat(TtlActvLonsTmsLnrCovss) !== parseFloat(amount)){Alert.alert('Enter agreed amount');
                       return;
                     }
@@ -365,6 +370,10 @@ const fetchChmMbrDtls = async () => {
                         else if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Amount expected Back must at least be greater');
                       return;}
+                      else if((parseFloat(RecUsrBal) + parseFloat(amount)) > parseFloat(MaxAcBals))
+                    {Alert.alert('Loanee call customer care to have wallet capacity adjusted');
+                      return;
+                    }
                         else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(ActualMaxSMInterest>MaxSMInterest)

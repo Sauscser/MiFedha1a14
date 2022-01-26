@@ -87,6 +87,8 @@ const SMASendNonCovLns = props => {
       const names =accountDtl.data.getSMAccount.name;
       const SenderNatId =accountDtl.data.getSMAccount.nationalid;
       const SenderSub =accountDtl.data.getSMAccount.owner;
+      const TymsIHvGivnLns =accountDtl.data.getSMAccount.TymsIHvGivnLn;
+      const TymsMyLnClrds =accountDtl.data.getSMAccount.TymsMyLnClrd;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -154,7 +156,7 @@ const SMASendNonCovLns = props => {
                         const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
                         const TtlActvLonsTmsLnrCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov; 
                         const TtlActvLonsTmsLneeCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov; 
-                        
+                        const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
                         const TtlActvLonsTmsLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrNonCov;
                         const TtlActvLonsAmtLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrNonCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
@@ -231,8 +233,8 @@ const SMASendNonCovLns = props => {
                                     TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(AmtExp)).toFixed(2),
                                     TtlActvLonsTmsLneeNonCov: parseFloat(TtlActvLonsTmsLneeCovs2) +1 ,
                                     TtlActvLonsAmtLneeNonCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ parseFloat(AmtExp)).toFixed(2),                                        
-                                    balance:(parseFloat(SenderUsrBal)-TtlTransCost).toFixed(2) 
-                                   
+                                    balance:(parseFloat(SenderUsrBal)-TtlTransCost).toFixed(2), 
+                                    TymsIHvGivnLn: parseFloat(TymsIHvGivnLns) + 1,   
                                     
                                   }
                                 })
@@ -321,11 +323,16 @@ const SMASendNonCovLns = props => {
                       return;
                     }
 
+                    else if(ttlDpstSMs === 0){Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
+
                     else if(compDtls.data.listChamasNPwnBrkrs.items.length <1 && parseFloat(AmtExp) > TtlTransCost)
                         {Alert.alert("Friend-Friend Loans can't earn interest. Repay Ksh. "  + TtlTransCost);}
 
                     else if(compDtls.data.listChamasNPwnBrkrs.items.length >= 1 && parseFloat(RepaymtPeriod) < 60)
                         {Alert.alert("Repayment period must be greater than 60 days");}
+
+                        else if((parseFloat(TymsIHvGivnLns) - parseFloat(TymsMyLnClrds)) > 4 
+                    && compDtls.data.listChamasNPwnBrkrs.items.length < 1){Alert.alert("Call customer care to have limit increased");}
 
                     else if(ActualMaxPwnBrkrInterest > MaxPwnBrkrInterest)
                         {Alert.alert('Interest too high:' + ActualMaxPwnBrkrInterest.toFixed(2) + "; Recom SI: Ksh. " + (MaxPwnBrkrInterest).toFixed(2));}

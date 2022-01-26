@@ -115,8 +115,12 @@ const MyLoanAccount = props => {
     navigation.navigate('SignitoryWthdrwFndsss');
   };
 
-  const SignitoryDepositsss = () => {
-    navigation.navigate('SignitoryDepositss');
+  const SgnIn2VwChmDpstsss = () => {
+    navigation.navigate('SgnIn2VwChmDpstss');
+  };
+
+  const SgnIn2VwChmWthdrwlsss = () => {
+    navigation.navigate('SgnIn2VwChmWthdrwlss');
   };
 
   const Sgn2CnfrmWthdrwlssss = () => {
@@ -416,28 +420,62 @@ const MyLoanAccount = props => {
                   </View>
                 </View>
 
+
                 <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Withdraw Funds</Text>
+                  <Text style={styles.salesPressableText}>Signatory Works</Text>
 
                   <View style={styles.viewForClientsPressables}>
-                  <Pressable
-                      onPress={Sgn2CnfrmWthdrwlssss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                      Confirm
-                      </Text>
-                    </Pressable>
 
+                    <View style={styles.ClientsPressablesLnStts}>
+
+                      <View style={styles.viewForClientsCategoriesChama2}>
+                      <Text style={styles.salesPressableText}>Withdrwls</Text>
+                      </View>
+
+                    <View style={styles.viewForClientsCategoriesChama4}>
+                    <Pressable
+                      onPress={Sgn2CnfrmWthdrwlssss}
+                      style={styles.viewForClientsCategoriesChama3}>
+                      <Text style={styles.clientsPressableTextStts}>Confirm</Text>
+                    </Pressable>
 
                     <Pressable
                       onPress={SignitoryWthdrwFndssss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
+                      style={styles.viewForClientsCategoriesChama3}>
+                      <Text style={styles.clientsPressableTextStts}>
                       Execute
                       </Text>
                     </Pressable>
+                    </View>
+                    </View>
+
+                    <View style={styles.ClientsPressablesLnStts}>
+
+                      <View style={styles.viewForClientsCategoriesChama2}>
+                      <Text style={styles.salesPressableText}>View</Text>
+                      </View>
+
+                    <View style={styles.viewForClientsCategoriesChama4}>
+                    <Pressable
+                      onPress={SgnIn2VwChmDpstsss}
+                      style={styles.viewForClientsCategoriesChama3}>
+                      <Text style={styles.clientsPressableTextStts}>Deposits</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={SgnIn2VwChmWthdrwlsss}
+                      style={styles.viewForClientsCategoriesChama3}>
+                      <Text style={styles.clientsPressableTextStts}>
+                      Wthdrwls
+                      </Text>
+                    </Pressable>
+                    </View>
+                    </View>
+                    
                   </View>
                 </View>
+
+                
               </View>
             </View>
           

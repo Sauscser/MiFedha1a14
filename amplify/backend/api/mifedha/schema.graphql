@@ -129,6 +129,11 @@ type SMAccount
 
   MaxTymsBL: Float!
   MaxTymsIHvBL: Float!
+
+  MaxAcBal: Float!
+
+  TymsIHvGivnLn: Float!
+  TymsMyLnClrd: Float!
   
 
   loanStatus: Status!

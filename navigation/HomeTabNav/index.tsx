@@ -268,6 +268,13 @@ import SgnIn2VwNCCrdSlsLnees from "../../screens/CredSls/SgnIn2VwNCCrdSlsLnees";
 import SnIn2VwCrdSlLP from "../../screens/CredSls/SnIn2VwCrdSlLP";
 import SignInAdm from "../../screens/MFAdmin/SignInAdm";
 
+import SgnIn2VwChmDpsts from "../../screens/Chama/SignitoryDeposit/SgnIn2VwDpsts";
+
+import VwChmDpsts from "../../screens/Chama/SignitoryDeposit/VwChmDpsts";
+
+import VwChmWthdrwls from "../../screens/Chama/SignitoryWthdrwFnds/VwChmWthdrwls";
+import SgnIn2VwChmWthdrwls from "../../screens/Chama/SignitoryWthdrwFnds/SgnIn2VwChmWthdrwls";
+
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
   return (
@@ -277,9 +284,13 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'SgnIn2VwChmDpstss'} component={SgnIn2VwChmDpsts} />
+      <Stack.Screen name={'VwChmDpstss'} component={VwChmDpsts} />
+      <Stack.Screen name={'VwChmWthdrwlss'} component={VwChmWthdrwls} />
+      <Stack.Screen name={'SgnIn2VwChmWthdrwlss'} component={SgnIn2VwChmWthdrwls} />
+      
       <Stack.Screen name={'SignInAdms'} component={SignInAdm} />
       <Stack.Screen name={'SnIn2VwCrdSlLPs'} component={SnIn2VwCrdSlLP} />
-
       <Stack.Screen name={'SgnIn2VwCovCrdSlsLneesss'} component={SgnIn2VwCovCrdSlsLneess} />
       <Stack.Screen name={'SgnIn2VwNCCrdSlsLneess'} component={SgnIn2VwNCCrdSlsLnees} />
       

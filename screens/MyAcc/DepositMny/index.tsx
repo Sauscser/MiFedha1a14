@@ -60,7 +60,8 @@ const SMADepositForm = props => {
       const usrStts = accountDtl.data.getSMAccount.acStatus; 
       const depositLimits = accountDtl.data.getSMAccount.depositLimit;
       const names = accountDtl.data.getSMAccount.name;  
-      const nationalids = accountDtl.data.getSMAccount.nationalid;  
+      const nationalids = accountDtl.data.getSMAccount.nationalid; 
+      const MaxAcBals = accountDtl.data.getSMAccount.MaxAcBal; 
          
       
       const fetchAgtBal = async () => {
@@ -224,6 +225,12 @@ const SMADepositForm = props => {
               Alert.alert("MFNdogo Account is Inactive")
               return;
             } 
+
+            else if (parseFloat(usrBala) + parseFloat(amount) > parseFloat(MaxAcBals)) {
+              Alert.alert("Depositor call customer care to have wallet capacity adjusted")
+              return;
+            } 
+
            else if (parseFloat(agtFltBl)<parseFloat(amount)) {
               Alert.alert("Insufficient MFNdogo Balance: Ksh " +agtFltBl)
               return;
@@ -353,7 +360,7 @@ const SMADepositForm = props => {
               onChangeText={setNationalid}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Depositer Phone Number</Text>
+            <Text style={styles.sendAmtText}>Depositor Phone Number</Text>
           </View>
 
           <View style={styles.sendAmtView}>
@@ -362,7 +369,7 @@ const SMADepositForm = props => {
               onChangeText={setUsrId}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Depositer ID</Text>
+            <Text style={styles.sendAmtText}>Depositor ID</Text>
           </View>
 
          

@@ -202,6 +202,8 @@ const fetchChmMbrDtls = async () => {
                         const TtlActvLonsTmsLneeChmCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmCov;
                         const TtlActvLonsAmtLneeChmCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
+                        const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
+                        const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
                       
                         const updatMmbr = async () => {
                           if(isLoading){
@@ -405,11 +407,18 @@ const fetchChmMbrDtls = async () => {
                       return;
                     }
 
+                    else if(ttlDpstSMs === 0){Alert.alert('Loanee National ID be verified through deposit at MFNdogo');}
+
                     else if(parseFloat(TtlActvLonsTmsLnrCovss) !== parseFloat(amount)){Alert.alert('Enter agreed amount');
                       return;
                     }
 
                     else if(parseFloat(TtlActvLonsTmsLneeCovss) !== parseFloat(RepaymtPeriod)){Alert.alert('Enter agreed amount');
+                      return;
+                    }
+
+                    else if((parseFloat(RecUsrBal) + parseFloat(amount)) > parseFloat(MaxAcBals))
+                    {Alert.alert('Loanee call customer care to have wallet capacity adjusted');
                       return;
                     }
 

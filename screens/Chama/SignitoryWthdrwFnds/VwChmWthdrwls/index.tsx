@@ -2,17 +2,19 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import NonLnSent from "../../../../components/MyAc/VwWithdrawals";
+import NonLnSent from "../../../../components/Chama/VwWithdrawalsChm";
 import styles from './styles';
 
 import { getCompany, getSMAccount, listFloatReductions, vwMyUsrDposits, vwMyUsrWthdrwls } from '../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../src/graphql/mutations';
+import { useRoute } from '@react-navigation/native';
 
 const FetchSMNonLnsSnt = props => {
 
     const[SenderPhn, setSenderPhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
+    const route = useRoute();
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
@@ -31,7 +33,7 @@ const FetchSMNonLnsSnt = props => {
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyUsrWthdrwls, 
                 { 
-                      withdrawerid: SenderPhn,
+                      withdrawerid: route.params.grpContact,
                       sortDirection: "DESC",
                       limit:100
                     }
@@ -171,7 +173,7 @@ const FetchSMNonLnsSnt = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Withdrawals</Text>
+            <Text style={styles.label}> Chama Withdrawals</Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}

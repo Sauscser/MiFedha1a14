@@ -93,8 +93,9 @@ const SMASendLns = props => {
 
       const names =accountDtl.data.getSMAccount.name;
       const SenderNatId =accountDtl.data.getSMAccount.nationalid;
-  
       const SenderSub =accountDtl.data.getSMAccount.owner;
+      const TymsIHvGivnLns =accountDtl.data.getSMAccount.TymsIHvGivnLn;
+      const TymsMyLnClrds =accountDtl.data.getSMAccount.TymsMyLnClrd;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -193,6 +194,8 @@ const SMASendLns = props => {
                         const TtlActvLonsTmsLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
                         const TtlActvLonsAmtLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
+                        const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
+
 
                         const confrmReg = async () =>{
                           if(isLoading){
@@ -264,7 +267,7 @@ const SMASendLns = props => {
                                     TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(AmtExp)).toFixed(2),
                                     TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs2) +1 ,
                                     TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ parseFloat(AmtExp)).toFixed(2),
-                                                                              
+                                    TymsIHvGivnLn: parseFloat(TymsIHvGivnLns) + 1,                                       
                                     balance:(parseFloat(SenderUsrBal)-TtlTransCost).toFixed(2) 
                                    
                                     
@@ -388,6 +391,11 @@ const SMASendLns = props => {
                     else if(parseFloat(TtlActvLonsTmsLnrCovss) !== parseFloat(amount)){Alert.alert('Enter the agreed amount');
                       return;
                     }
+
+                    else if(ttlDpstSMs === 0){Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
+
+                    else if((parseFloat(TymsIHvGivnLns) - parseFloat(TymsMyLnClrds)) > 4 
+                    && compDtls.data.listChamasNPwnBrkrs.items.length < 1){Alert.alert("Call customer care to have limit increased");}
 
                     else if(parseFloat(TtlActvLonsTmsLneeCovss) !== parseFloat(RepaymtPeriod)){Alert.alert('Enter agreed repayment period');
                       return;

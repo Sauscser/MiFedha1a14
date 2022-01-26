@@ -80,6 +80,7 @@ const SMASendNonLns = props => {
       const SenderSub =accountDtl.data.getSMAccount.owner;
       const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
       const loanLimits =accountDtl.data.getSMAccount.loanLimit;
+      
       const names =accountDtl.data.getSMAccount.name;
       
       const fetchCompDtls = async () => {
@@ -119,7 +120,8 @@ const SMASendNonLns = props => {
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                     const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
                     const namess =RecAccountDtl.data.getSMAccount.name;
-                    
+                    const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
+                    const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
                     
                   
                     const sendSMNonLn = async () => {
@@ -251,9 +253,14 @@ const SMASendNonLns = props => {
                     if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                     else if(SenderNatId === RecNatId){Alert.alert('You cannot Send money to yourself Yourself');}
+                    else if(ttlDpstSMs === 0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
                     else if (
                       parseFloat(SenderUsrBal) < TotalTransacted 
                     ) {Alert.alert('Requested amount is more than you have in your account');}
+                    
+                    else if (
+                      (parseFloat(RecUsrBal) + parseFloat(amounts)) > parseFloat(MaxAcBals) 
+                    ) {Alert.alert('Receiver Call customer care to have wallet capacity adjusted');}
                     
                     else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                     else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
