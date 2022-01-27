@@ -72,10 +72,12 @@ const BLSMNonCovLoanee = (props) => {
               const amountexpecteds = compDtls.data.getSMLoansNonCovered.amountexpected
               const amountgivens = compDtls.data.getSMLoansNonCovered.amountgiven
               const amountExpectedBackWthClrncs = compDtls.data.getSMLoansNonCovered.amountExpectedBackWthClrnc
-              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) + amountExpectedBackWthClrncs
+              
               const amountrepaids = compDtls.data.getSMLoansNonCovered.amountrepaid
               const statusssss = compDtls.data.getSMLoansNonCovered.status
-           
+              const DefaultPenaltySMs = compDtls.data.getSMLoansNonCovered.DefaultPenaltySM
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) 
+              + parseFloat(amountExpectedBackWthClrncs) + parseFloat(DefaultPenaltySMs)
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
@@ -244,6 +246,7 @@ const BLSMNonCovLoanee = (props) => {
                                           id:route.params.id,
                                           amountExpectedBackWthClrnc:(amountExpectedBackWthClrncss).toFixed(2),
                                           lonBala:LonBal.toFixed(2),
+                                          DefaultPenaltySM2:DefaultPenaltySMs.toFixed(2),
                                           status:"LoanBL",
                                         }
                                       })

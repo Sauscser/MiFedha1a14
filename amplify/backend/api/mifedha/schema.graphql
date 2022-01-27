@@ -135,7 +135,7 @@ type SMAccount
   TymsIHvGivnLn: Float!
   TymsMyLnClrd: Float!
   
-
+  DefaultPenaltySM: Float!
   loanStatus: Status!
   acStatus: Status!
   deActvtnReason:String!
@@ -214,7 +214,8 @@ type SMLoansCovered
   loaneename:String!
   loanername:String!
   repaymentPeriod: Int!
-  
+  DefaultPenaltySM: Float!
+  DefaultPenaltySM2: Float!
 
   description: String
   status: Status!
@@ -283,7 +284,8 @@ type SMLoansNonCovered
   loaneename:String!
   loanername:String!
   repaymentPeriod: Int!
-
+  DefaultPenaltySM: Float!
+  DefaultPenaltySM2: Float!
   description: String
   status: Status!
   owner: String!
@@ -1256,7 +1258,8 @@ type CovCreditSeller
   description: String
   status: Status!
   advregnu: String!  @index(name: "byAdvNo", sortKeyFields: ["createdAt"], queryField: "VwAdvCrdSls")
-  
+  DefaultPenaltyCredSl: Float!
+  DefaultPenaltyCredSl2: Float!
   owner: String!
   createdAt: String!
 }
@@ -1318,7 +1321,8 @@ id:ID!
   lonBala:Float!
   repaymentPeriod: Int!
   description: String
-
+  DefaultPenaltyCredSl: Float!
+  DefaultPenaltyCredSl2: Float!
   status: Status!
   owner: String!
   createdAt: String!
@@ -1384,6 +1388,7 @@ type Group
   ttlWthdrwn: Float!
 
   tymsChmHvBL:Float!
+  
 
   TtlActvLonsTmsLnrChmCov: Float!
   TtlActvLonsAmtLnrChmCov: Float!
@@ -1618,6 +1623,8 @@ type CvrdGroupLoans
   LoanerName:String!
   status: Status!
   owner: String!
+  DefaultPenaltyChm: Float!
+  DefaultPenaltyChm2: Float!
   createdAt: String!
 }
 
@@ -1664,7 +1671,8 @@ id:ID!
   grpContact: String!  @index(name: "byChmCntctsss", sortKeyFields: ["createdAt"], queryField: "VwChamaMembersss")
   loaneePhn: String!  @index(name: "byMemberCntctsss", sortKeyFields: ["createdAt"], queryField: "VwMyChamasss")
   loanerLoanee:String!  @index(name: "byLnrNLnees", sortKeyFields: ["createdAt"], queryField: "VwLnrNLnees")
-  
+  DefaultPenaltyChm: Float!
+  DefaultPenaltyChm2: Float!
   repaymentPeriod: Int!
   amountGiven: Float!
   amountExpectedBack: Float!

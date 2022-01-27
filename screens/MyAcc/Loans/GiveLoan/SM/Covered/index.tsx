@@ -195,6 +195,7 @@ const SMASendLns = props => {
                         const TtlActvLonsAmtLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
                         const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
+                        const DefaultPenaltySMs =RecAccountDtl.data.getSMAccount.DefaultPenaltySM;
 
 
                         const confrmReg = async () =>{
@@ -232,6 +233,8 @@ const SMASendLns = props => {
                                   loanername:names,
                                   amountexpected: AmtExp,
                                   amountExpectedBackWthClrnc:AmtExp,
+                                  DefaultPenaltySM:PwnBrkr,
+                                  DefaultPenaltySM2:0,
                                   amountrepaid: 0,
                                   lonBala:parseFloat(AmtExp).toFixed(2),
                                   repaymentPeriod: RepaymtPeriod,
@@ -392,7 +395,7 @@ const SMASendLns = props => {
                       return;
                     }
 
-                    else if(ttlDpstSMs === 0){Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
+                    else if(parseFloat(ttlDpstSMs) === 0){Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
 
                     else if((parseFloat(TymsIHvGivnLns) - parseFloat(TymsMyLnClrds)) > 4 
                     && compDtls.data.listChamasNPwnBrkrs.items.length < 1){Alert.alert("Call customer care to have limit increased");}
@@ -405,6 +408,9 @@ const SMASendLns = props => {
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Amount expected Back must at least be greater');
+                      return;}
+
+                      else if(parseFloat(DefaultPenaltySMs) !== parseFloat(PwnBrkr)){Alert.alert('Enter the agreed default penalty');
                       return;}
 
                         else if(compDtls.data.listChamasNPwnBrkrs.items.length < 1 && parseFloat(AmtExp) > TtlTransCost)
@@ -644,6 +650,18 @@ useEffect(() =>{
              style={styles.sendAmtInput}
              editable={true}></TextInput>
            <Text style={styles.sendAmtText}>Repayment Period in days</Text>
+         </View>
+
+         <View style={styles.sendAmtView}>
+           <TextInput
+           keyboardType={"decimal-pad"}
+             value={PwnBrkr}
+             onChangeText={setPwnBrkr}
+             style={styles.sendAmtInput}
+             editable={true}
+             ></TextInput>
+             
+           <Text style={styles.sendAmtText}>Default Penalty</Text>
          </View>
 
          <View style={styles.sendAmtView}>

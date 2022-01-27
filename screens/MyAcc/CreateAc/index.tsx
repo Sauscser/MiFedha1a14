@@ -176,6 +176,8 @@ const CreateAcForm = (props) => {
                 TymsIHvGivnLn: 0,
                 TymsMyLnClrd: 0,
 
+                DefaultPenaltySM:0,
+
                 MaxAcBal:5000000,
 
                 acStatus: 'AccountActive',

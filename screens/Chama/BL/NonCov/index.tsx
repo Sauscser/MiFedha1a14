@@ -77,10 +77,14 @@ const BLChmNonCovLoanee = (props) => {
               const amountrepaids = compDtls.data.getNonCvrdGroupLoans.amountRepaid
               const amountGivens = compDtls.data.getNonCvrdGroupLoans.amountGiven
               const amountExpectedBackWthClrncs = compDtls.data.getNonCvrdGroupLoans.amountExpectedBackWthClrnc
-              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) + amountExpectedBackWthClrncs
+              
               const statusssss = compDtls.data.getNonCvrdGroupLoans.status
               const memberIds = compDtls.data.getNonCvrdGroupLoans.memberId
+              const DefaultPenaltyChms = compDtls.data.getNonCvrdGroupLoans.DefaultPenaltyChm
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) 
+              + parseFloat(amountExpectedBackWthClrncs) + parseFloat(DefaultPenaltyChms)
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
+
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -234,6 +238,7 @@ const BLChmNonCovLoanee = (props) => {
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
                                           lonBala:LonBal.toFixed(2),
                                           status:"LoanBL",
+                                          DefaultPenaltyChm2:DefaultPenaltyChms,
                                         }
                                       })
                                     )

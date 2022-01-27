@@ -50,6 +50,7 @@ const SMASendNonCovLns = props => {
   const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
   const [SendrPhn, setSendrPhn] = useState(null);
+  const [PwnBrkr, setPwnBrkr] = useState('');
   
 
   const fetchUser = async () => {
@@ -160,6 +161,7 @@ const SMASendNonCovLns = props => {
                         const TtlActvLonsTmsLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrNonCov;
                         const TtlActvLonsAmtLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrNonCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
+                        const DefaultPenaltySMs =RecAccountDtl.data.getSMAccount.DefaultPenaltySM;
                         const RecNatId =RecAccountDtl.data.getSMAccount.nationalid;
 
                         const confrmReg = async () =>{
@@ -188,7 +190,8 @@ const SMASendNonCovLns = props => {
                                   loanerId: SenderNatId,
                                   loanerPhn:SendrPhn,
                                   loanerLoanee:SendrPhn+RecPhn,
-                                  
+                                  DefaultPenaltySM:DefaultPenaltySMs,
+                                  DefaultPenaltySM2:0,
                                   loaneePhn: RecPhn,                                  
                                   amountgiven: amount,
                                   amountexpected: AmtExp,
@@ -322,8 +325,9 @@ const SMASendNonCovLns = props => {
                         else if(recAcptncCode !== SendrPhn){Alert.alert('Let Loanee first request Loan');
                       return;
                     }
+                    
 
-                    else if(ttlDpstSMs === 0){Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
+                    else if(parseFloat(ttlDpstSMs) === 0){Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
 
                     else if(compDtls.data.listChamasNPwnBrkrs.items.length <1 && parseFloat(AmtExp) > TtlTransCost)
                         {Alert.alert("Friend-Friend Loans can't earn interest. Repay Ksh. "  + TtlTransCost);}
@@ -342,6 +346,10 @@ const SMASendNonCovLns = props => {
                     }
 
                     else if(parseFloat(TtlActvLonsTmsLneeCovss) !== parseFloat(RepaymtPeriod)){Alert.alert('Enter agreed repayment period');
+                      return;
+                    }
+
+                    else if(parseFloat(PwnBrkr) !== parseFloat(DefaultPenaltySMs)){Alert.alert('Enter the agreed default Penalty');
                       return;
                     }
 
@@ -414,19 +422,30 @@ const SMASendNonCovLns = props => {
       setRepaymtPeriod("");
       setRecAccCode("");
       setRecPhn("");
+      setPwnBrkr("")
 }
 
 useEffect(() =>{
-  const RecPhns=RecPhn
-    if(!RecPhns && RecPhns!=="")
+  const PwnBrkrs=PwnBrkr
+    if(!PwnBrkrs && PwnBrkrs!=="")
     {
-      setRecPhn("");
+      setPwnBrkr("");
       return;
     }
-    setRecPhn(RecPhns);
-    }, [RecPhn]
+    setPwnBrkr(PwnBrkrs);
+    }, [PwnBrkr]
      );
-     
+
+     useEffect(() =>{
+      const RecPhns=RecPhn
+        if(!RecPhns && RecPhns!=="")
+        {
+          setRecPhn("");
+          return;
+        }
+        setRecPhn(RecPhns);
+        }, [RecPhn]
+         );     
     
 
      useEffect(() =>{
@@ -569,6 +588,16 @@ useEffect(() =>{
              style={styles.sendAmtInput}
              editable={true}></TextInput>
            <Text style={styles.sendAmtText}>Repayment Period in days</Text>
+         </View>
+
+         <View style={styles.sendAmtView}>
+           <TextInput
+           keyboardType={"decimal-pad"}
+             value={PwnBrkr}
+             onChangeText={setPwnBrkr}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Default Penalty</Text>
          </View>
 
 

@@ -74,10 +74,13 @@ const BLCovCredByr = (props) => {
               const amountrepaids = compDtls.data.getCovCreditSeller.amountRepaid
               const amountSolds = compDtls.data.getCovCreditSeller.amountSold
               const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
-              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) + parseFloat(amountExpectedBackWthClrncs)
-              const statusssss = compDtls.data.getCovCreditSeller.status
               
+              const statusssss = compDtls.data.getCovCreditSeller.status
+              const DefaultPenaltyCredSls = compDtls.data.getCovCreditSeller.DefaultPenaltyCredSl
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) 
+              + parseFloat(amountExpectedBackWthClrncs) + parseFloat(DefaultPenaltyCredSls)
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
+
               
 
               const gtLoanerDtls = async () =>{
@@ -200,6 +203,7 @@ const BLCovCredByr = (props) => {
                                           id:route.params.id,
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
                                           status:"LoanBL",
+                                          DefaultPenaltyCredSl2:DefaultPenaltyCredSls,
                                           lonBala:LonBal.toFixed(2)
                                         }
                                       })

@@ -60,6 +60,7 @@ const NonCovCredSls = props => {
   const [SendrPhn, setSendrPhn] = useState(null);
   const [ItmNm, setItmNm] = useState("");
   const [ItmSrlNu, setItmSrlNu] = useState("");
+  const [DfltPnlty, setDfltPnlty] = useState('');
   const route = useRoute();
   
 
@@ -155,7 +156,7 @@ const NonCovCredSls = props => {
                         const TtlActvLonsTmsLnrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov; 
                         const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
                         const TtlActvLonsTmsByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsByrNonCov;
-                        const TtlActvLonsAmtByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtByrNonCov;
+                        const DefaultPenaltySMs =RecAccountDtl.data.getSMAccount.DefaultPenaltySM;
                         const namess =RecAccountDtl.data.getSMAccount.name;
                         const nationalidss =RecAccountDtl.data.getSMAccount.nationalid;
 
@@ -202,7 +203,8 @@ const NonCovCredSls = props => {
                                   sellerContact:BusinessRegNos,
                                   buyerContact: RecPhn, 
                                   loanerLoanee:BusinessRegNos+RecPhn,
-                                                                  
+                                  DefaultPenaltyCredSl:DfltPnlty,    
+                                  DefaultPenaltyCredSl2:0,                     
                                   amountSold: amount,
                                   amountexpectedBack: (parseFloat(AmtExp) - TransCost).toFixed(2),
                                   amountExpectedBackWthClrnc:(parseFloat(AmtExp) - TransCost).toFixed(2),
@@ -247,6 +249,9 @@ const NonCovCredSls = props => {
                       return;
                     }
 
+                    else if(parseFloat(DfltPnlty) !== parseFloat(DefaultPenaltySMs)){Alert.alert('Enter the agreed Default Penalty');
+                    return;
+                  }
 
                         
                         else if(BusinessRegNos === RecPhn){Alert.alert('You cannot Loan Yourself');}
@@ -401,7 +406,7 @@ const NonCovCredSls = props => {
       setSenderNatId('');
       setAmount("");
       setRecNatId('');
-      
+      setDfltPnlty('');
       setAmtExp("");
       setDesc("");
       setSnderPW("");
@@ -413,15 +418,26 @@ const NonCovCredSls = props => {
 }
 
 useEffect(() =>{
-  const ItmSrlNus=ItmSrlNu
-    if(!ItmSrlNus && ItmSrlNus!=="")
+  const DfltPnltys=DfltPnlty
+    if(!DfltPnltys && DfltPnltys!=="")
     {
-      setItmSrlNu("");
+      setDfltPnlty("");
       return;
     }
-    setItmSrlNu(ItmSrlNus);
-    }, [ItmSrlNu]
+    setDfltPnlty(DfltPnltys);
+    }, [DfltPnlty]
      );
+
+     useEffect(() =>{
+      const ItmSrlNus=ItmSrlNu
+        if(!ItmSrlNus && ItmSrlNus!=="")
+        {
+          setItmSrlNu("");
+          return;
+        }
+        setItmSrlNu(ItmSrlNus);
+        }, [ItmSrlNu]
+         );
 
      useEffect(() =>{
       const ItmNms=ItmNm
@@ -615,6 +631,15 @@ useEffect(() =>{
            <Text style={styles.sendAmtText}>Repayment Period in days</Text>
          </View>
 
+         <View style={styles.sendAmtView}>
+           <TextInput
+           keyboardType={"decimal-pad"}
+             value={DfltPnlty}
+             onChangeText={setDfltPnlty}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Default Penalty</Text>
+         </View>
 
          <View style={styles.sendAmtViewDesc}>
            <TextInput

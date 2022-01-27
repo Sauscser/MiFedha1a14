@@ -73,8 +73,11 @@ const BLNonCovCredByr = (props) => {
               const amountrepaids = compDtls.data.getNonCovCreditSeller.amountRepaid
               const amountSolds = compDtls.data.getNonCovCreditSeller.amountSold
               const amountExpectedBackWthClrncs = compDtls.data.getNonCovCreditSeller.amountExpectedBackWthClrnc
-              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) + parseFloat(amountExpectedBackWthClrncs)
+              
               const statusssss = compDtls.data.getNonCovCreditSeller.status
+              const DefaultPenaltyCredSls = compDtls.data.getNonCovCreditSeller.DefaultPenaltyCredSl
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) 
+              + parseFloat(amountExpectedBackWthClrncs) + parseFloat(DefaultPenaltyCredSls)
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
@@ -195,6 +198,7 @@ const BLNonCovCredByr = (props) => {
                                           id:route.params.id,
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
                                           lonBala:LonBal.toFixed(2),
+                                          DefaultPenaltyCredSl2:DefaultPenaltyCredSls,
                                           status:"LoanBL",
                                         }
                                       })

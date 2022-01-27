@@ -34,9 +34,11 @@ const UpdtSMPW = (props) => {
   const [LnAcCod, setLnAcCod] = useState("");
   const [SMPW, setSMPW] = useState("");
   const [RpymtPrd, setRpymtPrd] = useState("");
+  const [DfltPnlty, setDfltPnlty] = useState("");
   const[isLoading, setIsLoading] = useState(false);
   const[ownr, setownr] = useState(null);
   const[names, setName] = useState(null);
+
   const[PhoneContact, setPhoneContact] = useState(null);
   
   const fetchUser = async () => {
@@ -61,7 +63,7 @@ const UpdtSMPW = (props) => {
               const compDtls :any= await API.graphql(
                 graphqlOperation(getSMAccount,{phonecontact:PhoneContact})
                 );
-                const loanAcceptanceCodes = compDtls.data.getSMAccount.loanAcceptanceCode   
+                
                 const owners = compDtls.data.getSMAccount.owner 
                 const acStatuss = compDtls.data.getSMAccount.acStatus  
                 const pwss = compDtls.data.getSMAccount.pw                
@@ -77,7 +79,7 @@ const UpdtSMPW = (props) => {
                                               graphqlOperation(updateSMAccount,{
                                                 input:{
                                                   phonecontact:PhoneContact,
-                                                  
+                                                  DefaultPenaltySM:DfltPnlty,
                                                   loanAcceptanceCode:LnAcCod,
                                                   TtlActvLonsTmsLnrCov:groupCnt,
                                                   TtlActvLonsTmsLneeCov:RpymtPrd
@@ -144,19 +146,31 @@ const UpdtSMPW = (props) => {
               setSMPW("")
               setLnAcCod("")
               setRpymtPrd("");
+              setDfltPnlty("")
           
             }
         
             useEffect(() =>{
-              const RpymtPrds=RpymtPrd
-                if(!RpymtPrds && RpymtPrds!=="")
+              const DfltPnltys=DfltPnlty
+                if(!DfltPnltys && DfltPnltys!=="")
                 {
-                  setRpymtPrd("");
+                  setDfltPnlty("");
                   return;
                 }
-                setRpymtPrd(RpymtPrds);
-                }, [RpymtPrd]
+                setDfltPnlty(DfltPnltys);
+                }, [DfltPnlty]
                  );
+
+                 useEffect(() =>{
+                  const RpymtPrds=RpymtPrd
+                    if(!RpymtPrds && RpymtPrds!=="")
+                    {
+                      setRpymtPrd("");
+                      return;
+                    }
+                    setRpymtPrd(RpymtPrds);
+                    }, [RpymtPrd]
+                     );
                  
                  useEffect(() =>{
           const groupCnts=groupCnt
@@ -225,6 +239,7 @@ const UpdtSMPW = (props) => {
 
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    keyboardType={"decimal-pad"}
                       value={groupCnt}
                       autoCompleteType ={"off"}
                       onChangeText={setgroupCnt}
@@ -235,6 +250,7 @@ const UpdtSMPW = (props) => {
 
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    keyboardType={"decimal-pad"}
                       value={RpymtPrd}
                       autoCompleteType ={"off"}
                       onChangeText={setRpymtPrd}
@@ -242,6 +258,17 @@ const UpdtSMPW = (props) => {
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Repayment Period in days</Text>
                   </View>          
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    keyboardType={"decimal-pad"}
+                      value={DfltPnlty}
+                      autoCompleteType ={"off"}
+                      onChangeText={setDfltPnlty}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Default Penalty</Text>
+                  </View>       
 
                   <View style={styles.sendLoanView}>
                     <TextInput

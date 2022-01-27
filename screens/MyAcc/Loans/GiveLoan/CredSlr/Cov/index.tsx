@@ -59,6 +59,8 @@ const CovCredSls = props => {
   const [SendrPhn, setSendrPhn] = useState(null);
   const [ItmNm, setItmNm] = useState("");
   const [ItmSrlNu, setItmSrlNu] = useState("");
+  const [DfltPnlty, setDfltPnlty] = useState('');
+
   const route = useRoute();
   
 
@@ -182,7 +184,7 @@ const CovCredSls = props => {
                         const TtlActvLonsTmsLnrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov; 
                         const TtlActvLonsTmsLneeCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov; 
                         const TtlActvLonsTmsByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsByrCov;
-                        const TtlActvLonsAmtByrCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtByrCov;
+                        const DefaultPenaltySMs =RecAccountDtl.data.getSMAccount.DefaultPenaltySM;
                         const namess =RecAccountDtl.data.getSMAccount.name;
                         const nationalidss =RecAccountDtl.data.getSMAccount.nationalid;
 
@@ -240,6 +242,8 @@ const CovCredSls = props => {
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: AdvRegNo,
                                   description: Desc,
+                                  DefaultPenaltyCredSl:DfltPnlty,
+                                  DefaultPenaltyCredSl2:0,
                                   status: "LoanActive",
                                   owner: ownr
                                 },
@@ -271,6 +275,10 @@ const CovCredSls = props => {
                     }
 
                     else if(parseFloat(TtlActvLonsTmsLneeCovs) !== parseFloat(RepaymtPeriod)){Alert.alert('Enter the agreed repayment period');
+                      return;
+                    }
+
+                    else if(parseFloat(DfltPnlty) !== parseFloat(DefaultPenaltySMs)){Alert.alert('Enter the agreed Default penalty');
                       return;
                     }
 
@@ -483,18 +491,30 @@ const CovCredSls = props => {
       setRecPhn("");
       setItmNm("");
       setItmSrlNu("");
+      setDfltPnlty
 }
 
 useEffect(() =>{
-  const ItmSrlNus=ItmSrlNu
-    if(!ItmSrlNus && ItmSrlNus!=="")
+  const DfltPnltys=DfltPnlty
+    if(!DfltPnltys && DfltPnltys!=="")
     {
-      setItmSrlNu("");
+      setDfltPnlty("");
       return;
     }
-    setItmSrlNu(ItmSrlNus);
-    }, [ItmSrlNu]
+    setDfltPnlty(DfltPnltys);
+    }, [DfltPnlty]
      );
+
+     useEffect(() =>{
+      const ItmSrlNus=ItmSrlNu
+        if(!ItmSrlNus && ItmSrlNus!=="")
+        {
+          setItmSrlNu("");
+          return;
+        }
+        setItmSrlNu(ItmSrlNus);
+        }, [ItmSrlNu]
+         );
 
      useEffect(() =>{
       const ItmNms=ItmNm
@@ -695,6 +715,16 @@ useEffect(() =>{
              style={styles.sendAmtInput}
              editable={true}></TextInput>
            <Text style={styles.sendAmtText}>Repayment Period in days</Text>
+         </View>
+
+         <View style={styles.sendAmtView}>
+           <TextInput
+           keyboardType={"decimal-pad"}
+             value={DfltPnlty}
+             onChangeText={setDfltPnlty}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Default Penalty</Text>
          </View>
 
          <View style={styles.sendAmtView}>

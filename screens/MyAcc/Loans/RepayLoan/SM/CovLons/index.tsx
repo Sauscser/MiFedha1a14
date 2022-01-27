@@ -110,6 +110,7 @@ const RepayCovLnsss = props => {
                 const ClranceAmt = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountExpectedBacks); 
                 const LonBalsss = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountrepaids);     
                 const loanerPhns =RecAccountDtl.data.getSMLoansCovered.loanerPhn; 
+                const DefaultPenaltySM2s =RecAccountDtl.data.getSMLoansCovered.DefaultPenaltySM2;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -240,6 +241,7 @@ const RepayCovLnsss = props => {
                                           lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(2),
                                           amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
                                           status: "LoanCleared",
+                                          DefaultPenaltySM2s:0
                                       }})
                                     )
           
@@ -301,7 +303,7 @@ const RepayCovLnsss = props => {
                                         input:{
                                           phonecontact:loanerPhns,
                                           
-                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + 0.5*(ClranceAmt))).toFixed(2), 
+                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + parseFloat(DefaultPenaltySM2s))).toFixed(2), 
                                           MaxTymsIHvBL:parseFloat(MaxTymsIHvBLs) - 1,                                     
                                           TymsMyLnClrd: parseFloat(TymsMyLnClrds) + 1,
                                           TtlClrdLonsTmsLnrCov: parseFloat(TtlClrdLonsTmsLnrCovssss) + 1,
@@ -331,8 +333,8 @@ const RepayCovLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                          
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + 0.5*(ClranceAmt),
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + 0.5*(ClranceAmt),                                                    
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt - parseFloat(DefaultPenaltySM2s),
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt - parseFloat(DefaultPenaltySM2s),                                                    
                                           totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                           
                                           ttlSMLnsInClrdAmtCov: parseFloat(ttlSMLnsInClrdAmtCovs) + parseFloat(amounts), 
@@ -365,6 +367,7 @@ const RepayCovLnsss = props => {
                                           id:route.params.id,
                                           amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(2),
                                           lonBala: (parseFloat(lonBalas) - parseFloat(amounts)).toFixed(2),
+                                          DefaultPenaltySM2:0,
                                           amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
                                         }
                                       })
@@ -456,7 +459,7 @@ const RepayCovLnsss = props => {
                                           phonecontact:loanerPhns,
                                           TtlClrdLonsAmtLnrCov: (parseFloat(TtlClrdLonsAmtLnrCovssss) + parseFloat(amounts)).toFixed(2),
                                           
-                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + 0.5*(ClranceAmt))).toFixed(2),
+                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + parseFloat(DefaultPenaltySM2s))).toFixed(2),
                                           
                                         }
                                       })
@@ -482,8 +485,8 @@ const RepayCovLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                           ttlSMLnsInClrdAmtCov: parseFloat(ttlSMLnsInClrdAmtCovs) + parseFloat(amounts), 
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + 0.5*(ClranceAmt),
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + 0.5*(ClranceAmt),                                                    
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt - parseFloat(DefaultPenaltySM2s),
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt - parseFloat(DefaultPenaltySM2s),                                                    
                                           
                                           totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                         }
@@ -516,6 +519,10 @@ const RepayCovLnsss = props => {
                             return;
                           }
                           else if(SendrPhn === loanerPhns){Alert.alert('You cannot Repay Yourself');}
+
+                          else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Too little repayment: at least "+ClranceAmt);
+                            return;
+                          }
                               
                               else if(usrPW !==SnderPW){Alert.alert('Wrong password');
                             return;
@@ -529,10 +536,10 @@ const RepayCovLnsss = props => {
                           else if(parseFloat(amounts) > parseFloat(lonBalas)){Alert.alert("Your Loan Balance is lesser: "+lonBalas)}
                           
 
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLs) === maxBLss )
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLs) === parseFloat(maxBLss) )
                           {updtSendrAcLonOvr1();}          
                           
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLs) > maxBLss )
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLs) > parseFloat(maxBLss) )
                           {updtSendrAcLonOvr2();}  
                                else {
                                 repyCovLn();

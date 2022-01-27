@@ -72,11 +72,15 @@ const BLSMCovLoanee = (props) => {
               const loanerPhns = compDtls.data.getSMLoansCovered.loanerPhn
               const amountexpecteds = compDtls.data.getSMLoansCovered.amountexpected
               const amountgivens = compDtls.data.getSMLoansCovered.amountgiven
-              const amountExpectedBackWthClrncs = compDtls.data.getSMLoansCovered.amountExpectedBackWthClrnc
-              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)+ parseFloat(amountExpectedBackWthClrncs)
-              const amountrepaids = compDtls.data.getSMLoansCovered.amountrepaid
-              const statusssss = compDtls.data.getSMLoansCovered.status
               
+              const amountrepaids = compDtls.data.getSMLoansCovered.amountrepaid
+              
+              const amountExpectedBackWthClrncs = compDtls.data.getSMLoansCovered.amountExpectedBackWthClrnc
+              
+              const statusssss = compDtls.data.getSMLoansCovered.status
+              const DefaultPenaltySMs = compDtls.data.getSMLoansCovered.DefaultPenaltySM
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) 
+              + parseFloat(amountExpectedBackWthClrncs) + parseFloat(DefaultPenaltySMs)
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
@@ -246,6 +250,7 @@ const BLSMCovLoanee = (props) => {
                                           id:route.params.id,
                                           amountExpectedBackWthClrnc:(amountExpectedBackWthClrncss).toFixed(2),
                                           lonBala:LonBal.toFixed(2),
+                                          DefaultPenaltySM2:DefaultPenaltySMs.toFixed(2),
                                           status:"LoanBL",
                                         }
                                       })

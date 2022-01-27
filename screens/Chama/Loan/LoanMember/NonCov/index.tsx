@@ -52,6 +52,7 @@ const ChmNonCovLns = props => {
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
+  const [DfltPnlty, setDfltPnlty] = useState('');
   
   const [MmbrId, setMmbrId] = useState('');
   const ChmNMmbrPhns = MmbrId+ChmPhn
@@ -168,6 +169,7 @@ const fetchChmMbrDtls = async () => {
                         const namess =RecAccountDtl.data.getSMAccount.name;
                         const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
                         const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
+                        const DefaultPenaltySMs =RecAccountDtl.data.getSMAccount.DefaultPenaltySM;
 
 
                         const updatMmbr = async () => {
@@ -225,8 +227,8 @@ const fetchChmMbrDtls = async () => {
                                     loanerName:grpNames,
                                     memberId:MmbrId,
                                     lonBala:parseFloat(AmtExp).toFixed(2),
-                                    
-                                    
+                                    DefaultPenaltyChm:DfltPnlty,
+                                    DefaultPenaltyChm2:0,
                                     
                                     status: "LoanActive",
                                     owner: ownr,
@@ -355,13 +357,17 @@ const fetchChmMbrDtls = async () => {
                       return;
                     }
 
-                    else if(ttlDpstSMs === 0){Alert.alert('Loanee National ID be verified through deposit at MFNdogo');}
+                    else if(parseFloat(ttlDpstSMs) === 0){Alert.alert('Loanee National ID be verified through deposit at MFNdogo');}
 
                     else if(parseFloat(TtlActvLonsTmsLnrCovss) !== parseFloat(amount)){Alert.alert('Enter agreed amount');
                       return;
                     }
 
                     else if(parseFloat(TtlActvLonsTmsLneeCovss) !== parseFloat(RepaymtPeriod)){Alert.alert('Enter agreed repayment period');
+                      return;
+                    }
+
+                    else if(parseFloat(DfltPnlty) !== parseFloat(DefaultPenaltySMs)){Alert.alert('Enter agreed Default Penalty');
                       return;
                     }
 
@@ -436,21 +442,32 @@ setDesc("");
 setSnderPW("");
 setRepaymtPeriod("");
 setRecAccCode("");
-
+setDfltPnlty("");
 setMmbrId("")
 setIsLoading(false);        
 };
 
 useEffect(() =>{
-  const SnderNatIds=MmbrId
-    if(!SnderNatIds && SnderNatIds!=="")
+  const DfltPnltys=DfltPnlty
+    if(!DfltPnltys && DfltPnltys!=="")
     {
-      setMmbrId("");
+      setDfltPnlty("");
       return;
     }
-    setMmbrId(SnderNatIds);
-    }, [MmbrId]
+    setDfltPnlty(DfltPnltys);
+    }, [DfltPnlty]
      );
+
+     useEffect(() =>{
+      const SnderNatIds=MmbrId
+        if(!SnderNatIds && SnderNatIds!=="")
+        {
+          setMmbrId("");
+          return;
+        }
+        setMmbrId(SnderNatIds);
+        }, [MmbrId]
+         );
 
 useEffect(() =>{
   const RecPhns=RecPhn
@@ -622,6 +639,16 @@ useEffect(() =>{
              style={styles.sendAmtInput}
              editable={true}></TextInput>
            <Text style={styles.sendAmtText}>Repayment Period in days</Text>
+         </View>
+
+         <View style={styles.sendAmtView}>
+           <TextInput
+           keyboardType={"decimal-pad"}
+             value={DfltPnlty}
+             onChangeText={setDfltPnlty}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Default Penalty</Text>
          </View>
 
         

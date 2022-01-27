@@ -80,9 +80,13 @@ const BLChmCovLoanee = (props) => {
               const amountrepaids = compDtls.data.getCvrdGroupLoans.amountRepaid
               const amountGivens = compDtls.data.getCvrdGroupLoans.amountGiven
               const amountExpectedBackWthClrncs = compDtls.data.getCvrdGroupLoans.amountExpectedBackWthClrnc
-              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) + amountExpectedBackWthClrncs
+              
               const statusssss = compDtls.data.getCvrdGroupLoans.status
               const memberIds = compDtls.data.getCvrdGroupLoans.memberId
+              
+              const DefaultPenaltyChms = compDtls.data.getCvrdGroupLoans.DefaultPenaltyChm
+              const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) 
+              + parseFloat(amountExpectedBackWthClrncs) + parseFloat(DefaultPenaltyChms)
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
@@ -245,6 +249,7 @@ const BLChmCovLoanee = (props) => {
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
                                           lonBala:LonBal.toFixed(2),
                                           status:"LoanBL",
+                                          DefaultPenaltyChm2:DefaultPenaltyChms,
                                         }
                                       })
                                     )

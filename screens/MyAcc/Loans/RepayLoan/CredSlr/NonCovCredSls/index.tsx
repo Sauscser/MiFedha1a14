@@ -141,6 +141,7 @@ const RepayNonCovCredSlsLnsss = props => {
                     const LonBalsss = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountrepaids); 
                     const amountExpectedBacks =RecAccountDtl.data.getNonCovCreditSeller.amountexpectedBack;
                     const ClranceAmt = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountExpectedBacks); 
+                    const DefaultPenaltyCredSl2s =RecAccountDtl.data.getNonCovCreditSeller.DefaultPenaltyCredSl2;
                     const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts) + ClranceAmt; 
          
                     
@@ -231,6 +232,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                           lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(2),
                                           amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
                                           status: "LoanCleared",
+                                          DefaultPenaltyCredSl2:0
                                       }})
                                     )
           
@@ -290,8 +292,8 @@ const RepayNonCovCredSlsLnsss = props => {
                                       graphqlOperation(updateBizna, {
                                         input:{
                                           BusKntct:sellerContacts,
-                                          netEarnings: (parseFloat(netEarningss) + (parseFloat(amounts) + 0.5*(ClranceAmt))).toFixed(2),
-                                          earningsBal: (parseFloat(earningsBalszz) + (parseFloat(amounts) + 0.5*(ClranceAmt))).toFixed(2),
+                                          netEarnings: (parseFloat(netEarningss) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(2),
+                                          earningsBal: (parseFloat(earningsBalszz) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(2),
                                          
                                         }
                                       })
@@ -316,8 +318,8 @@ const RepayNonCovCredSlsLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                          
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + 0.5*(ClranceAmt),
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + 0.5*(ClranceAmt),                                                    
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt - parseFloat(DefaultPenaltyCredSl2s),
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt - parseFloat(DefaultPenaltyCredSl2s),                                                    
                                           
                                           totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                           ttlSellerLnsInClrdAmtNonCov: parseFloat(ttlSellerLnsInClrdAmtNonCovs) + parseFloat(amounts) ,
@@ -347,6 +349,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                       graphqlOperation(updateNonCovCreditSeller, {
                                         input:{
                                           id:route.params.id,
+                                          DefaultPenaltyCredSl2:0,
                                           amountRepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(2),
                                           lonBala: (parseFloat(lonBalas) - parseFloat(amounts)).toFixed(2),
                                           amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
@@ -435,8 +438,8 @@ const RepayNonCovCredSlsLnsss = props => {
                                       graphqlOperation(updateBizna, {
                                         input:{
                                           BusKntct:sellerContacts,
-                                          netEarnings: (parseFloat(netEarningss) + (parseFloat(amounts) + 0.5*(ClranceAmt))).toFixed(2),
-                                          earningsBal: (parseFloat(earningsBalszz) + (parseFloat(amounts) + 0.5*(ClranceAmt))).toFixed(2),
+                                          netEarnings: (parseFloat(netEarningss) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(2),
+                                          earningsBal: (parseFloat(earningsBalszz) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(2),
                                          
                                         }
                                       })
@@ -461,8 +464,8 @@ const RepayNonCovCredSlsLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                           ttlSellerLnsInClrdAmtNonCov: parseFloat(ttlSellerLnsInClrdAmtNonCovs) + parseFloat(amounts) ,
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + 0.5*(ClranceAmt),
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + 0.5*(ClranceAmt),                                                    
+                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt - parseFloat(DefaultPenaltyCredSl2s),
+                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt - parseFloat(DefaultPenaltyCredSl2s),                                                    
                                           totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                         }
                                       })
@@ -502,10 +505,14 @@ const RepayNonCovCredSlsLnsss = props => {
                           else if(parseFloat(amounts) > parseFloat(lonBalas)){Alert.alert("Your Loan Balance is lesser: "+lonBalas)}
                           
 
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) === maxBLss )
+                          else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Too little repayment: at least "+ClranceAmt);
+                            return;
+                          }
+                          
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) === parseFloat(maxBLss) )
                           {updtSendrAcLonOvr1();}          
                           
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) > maxBLss )
+                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) > parseFloat(maxBLss) )
                           {updtSendrAcLonOvr2();} 
                               
                                else {

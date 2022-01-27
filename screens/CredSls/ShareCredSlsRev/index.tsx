@@ -259,7 +259,7 @@ const SMASendNonLns = props => {
                       return;
                     } 
                     
-                    else if(ttlDpstSMs === 0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
+                    else if(parseFloat(ttlDpstSMs) === 0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
                     else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                     else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
                     

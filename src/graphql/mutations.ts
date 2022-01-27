@@ -86,6 +86,7 @@ export const createSMAccount = /* GraphQL */ `
       MaxAcBal
       TymsIHvGivnLn
       TymsMyLnClrd
+      DefaultPenaltySM
       loanStatus
       acStatus
       deActvtnReason
@@ -184,6 +185,7 @@ export const updateSMAccount = /* GraphQL */ `
       MaxAcBal
       TymsIHvGivnLn
       TymsMyLnClrd
+      DefaultPenaltySM
       loanStatus
       acStatus
       deActvtnReason
@@ -282,6 +284,7 @@ export const deleteSMAccount = /* GraphQL */ `
       MaxAcBal
       TymsIHvGivnLn
       TymsMyLnClrd
+      DefaultPenaltySM
       loanStatus
       acStatus
       deActvtnReason
@@ -318,6 +321,8 @@ export const createSMLoansCovered = /* GraphQL */ `
       loaneename
       loanername
       repaymentPeriod
+      DefaultPenaltySM
+      DefaultPenaltySM2
       description
       status
       owner
@@ -348,6 +353,8 @@ export const updateSMLoansCovered = /* GraphQL */ `
       loaneename
       loanername
       repaymentPeriod
+      DefaultPenaltySM
+      DefaultPenaltySM2
       description
       status
       owner
@@ -378,6 +385,8 @@ export const deleteSMLoansCovered = /* GraphQL */ `
       loaneename
       loanername
       repaymentPeriod
+      DefaultPenaltySM
+      DefaultPenaltySM2
       description
       status
       owner
@@ -406,6 +415,8 @@ export const createSMLoansNonCovered = /* GraphQL */ `
       loaneename
       loanername
       repaymentPeriod
+      DefaultPenaltySM
+      DefaultPenaltySM2
       description
       status
       owner
@@ -434,6 +445,8 @@ export const updateSMLoansNonCovered = /* GraphQL */ `
       loaneename
       loanername
       repaymentPeriod
+      DefaultPenaltySM
+      DefaultPenaltySM2
       description
       status
       owner
@@ -462,6 +475,8 @@ export const deleteSMLoansNonCovered = /* GraphQL */ `
       loaneename
       loanername
       repaymentPeriod
+      DefaultPenaltySM
+      DefaultPenaltySM2
       description
       status
       owner
@@ -1795,6 +1810,8 @@ export const createCovCreditSeller = /* GraphQL */ `
       description
       status
       advregnu
+      DefaultPenaltyCredSl
+      DefaultPenaltyCredSl2
       owner
       createdAt
       updatedAt
@@ -1827,6 +1844,8 @@ export const updateCovCreditSeller = /* GraphQL */ `
       description
       status
       advregnu
+      DefaultPenaltyCredSl
+      DefaultPenaltyCredSl2
       owner
       createdAt
       updatedAt
@@ -1859,6 +1878,8 @@ export const deleteCovCreditSeller = /* GraphQL */ `
       description
       status
       advregnu
+      DefaultPenaltyCredSl
+      DefaultPenaltyCredSl2
       owner
       createdAt
       updatedAt
@@ -1888,6 +1909,8 @@ export const createNonCovCreditSeller = /* GraphQL */ `
       lonBala
       repaymentPeriod
       description
+      DefaultPenaltyCredSl
+      DefaultPenaltyCredSl2
       status
       owner
       createdAt
@@ -1918,6 +1941,8 @@ export const updateNonCovCreditSeller = /* GraphQL */ `
       lonBala
       repaymentPeriod
       description
+      DefaultPenaltyCredSl
+      DefaultPenaltyCredSl2
       status
       owner
       createdAt
@@ -1948,6 +1973,8 @@ export const deleteNonCovCreditSeller = /* GraphQL */ `
       lonBala
       repaymentPeriod
       description
+      DefaultPenaltyCredSl
+      DefaultPenaltyCredSl2
       status
       owner
       createdAt
@@ -2291,6 +2318,8 @@ export const createCvrdGroupLoans = /* GraphQL */ `
       LoanerName
       status
       owner
+      DefaultPenaltyChm
+      DefaultPenaltyChm2
       createdAt
       updatedAt
     }
@@ -2320,6 +2349,8 @@ export const updateCvrdGroupLoans = /* GraphQL */ `
       LoanerName
       status
       owner
+      DefaultPenaltyChm
+      DefaultPenaltyChm2
       createdAt
       updatedAt
     }
@@ -2349,6 +2380,8 @@ export const deleteCvrdGroupLoans = /* GraphQL */ `
       LoanerName
       status
       owner
+      DefaultPenaltyChm
+      DefaultPenaltyChm2
       createdAt
       updatedAt
     }
@@ -2364,6 +2397,8 @@ export const createNonCvrdGroupLoans = /* GraphQL */ `
       grpContact
       loaneePhn
       loanerLoanee
+      DefaultPenaltyChm
+      DefaultPenaltyChm2
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -2391,6 +2426,8 @@ export const updateNonCvrdGroupLoans = /* GraphQL */ `
       grpContact
       loaneePhn
       loanerLoanee
+      DefaultPenaltyChm
+      DefaultPenaltyChm2
       repaymentPeriod
       amountGiven
       amountExpectedBack
@@ -2418,6 +2455,8 @@ export const deleteNonCvrdGroupLoans = /* GraphQL */ `
       grpContact
       loaneePhn
       loanerLoanee
+      DefaultPenaltyChm
+      DefaultPenaltyChm2
       repaymentPeriod
       amountGiven
       amountExpectedBack
