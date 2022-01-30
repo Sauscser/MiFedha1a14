@@ -198,7 +198,7 @@ const BLNonCovCredByr = (props) => {
                                           id:route.params.id,
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
                                           lonBala:LonBal.toFixed(2),
-                                          DefaultPenaltyCredSl2:DefaultPenaltyCredSls,
+                                          DefaultPenaltyCredSl2:DefaultPenaltyCredSls.toFixed(2),
                                           status:"LoanBL",
                                         }
                                       })

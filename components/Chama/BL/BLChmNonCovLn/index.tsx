@@ -10,7 +10,7 @@ export interface ChamaMmbrshpInfo {
       id: string,
       lonBala:number,
       loaneeName:string,
-      loanerLoanee:string
+      createdAt:string
       
       
     }}
@@ -21,7 +21,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
          id,
          lonBala,
          loaneeName,
-         loanerLoanee
+         createdAt
          
    }} = props ;
 
@@ -47,6 +47,11 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
                      Loan Balance: (Ksh) {lonBala.toFixed(2)}                
+                    </Text>  
+
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                     Time given: {createdAt}                
                     </Text>   
                                 
                

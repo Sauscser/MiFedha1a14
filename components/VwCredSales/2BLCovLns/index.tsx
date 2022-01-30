@@ -31,7 +31,7 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
     Loanee: {
       id,
      
-      
+      createdAt,
       buyerName,
    
       lonBala,
@@ -62,6 +62,11 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
                        Loan Balance(Ksh): {lonBala.toFixed(2)}                    
+                    </Text> 
+
+                    <Text style = {styles.interest}>                       
+                       {/* interest*/}
+                       Time given: {createdAt}                    
                     </Text> 
                     
         

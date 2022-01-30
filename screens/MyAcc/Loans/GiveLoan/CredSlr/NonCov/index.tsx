@@ -257,14 +257,14 @@ const NonCovCredSls = props => {
                         else if(BusinessRegNos === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(ActualMaxSMInterest>MaxSMInterest)
-                        {Alert.alert('High Interest: Enter Repayment amount between ' 
-                        + TtlTransCost.toFixed(2) + "and " + (AllTtlTrnsCst).toFixed(2));}
+                        {Alert.alert('High S.I: enter repayment btw Ksh ' 
+                        + TtlTransCost.toFixed(2) + " and " + (AllTtlTrnsCst).toFixed(2));}
                         else if (
                           parseFloat(userLoanTransferFees)*parseFloat(amount) > parseFloat(RecUsrBal)) 
                                                    {Alert.alert('Buyer cannot facilitate; should recharge');}
                         
                         else if(pwz !==SnderPW){Alert.alert('Wrong password');}
-                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Amount expected Back must at least be greater');
+                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Little repayment: enter btw Ksh ' + TtlTransCost.toFixed(2) + " and " + (AllTtlTrnsCst).toFixed(2) );
                       return;}
                         
                          else {
@@ -578,7 +578,7 @@ useEffect(() =>{
              onChangeText={setSnderPW}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Personnel User PassWord</Text>
+           <Text style={styles.sendAmtText}>Sales Officer User PassWord</Text>
          </View>
 
          <View style={styles.sendAmtView}>

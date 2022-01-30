@@ -94,7 +94,7 @@ const ChmSignIn = (props) => {
 
               if(signitoryPWs!==pword){Alert.alert("Wrong User credentials")}
     else if (UsrDtls.data.listPersonels.items.length < 1) {
-      Alert.alert("You do not work here not work here");
+      Alert.alert("You do not work here");
       return;
       
     }
@@ -247,7 +247,7 @@ useEffect(() =>{
                       onChangeText={setPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loaner PW</Text>
+                    <Text style={styles.sendLoanText}>Sales Officer User PW</Text>
                   </View>
         
                   <TouchableOpacity

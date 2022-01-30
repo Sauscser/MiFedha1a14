@@ -130,7 +130,7 @@ const MyLoanAccount = props => {
                 </View>
 
                 <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Personnel</Text>
+                  <Text style={styles.salesPressableText}>Sales Officer</Text>
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable

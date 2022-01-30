@@ -35,6 +35,7 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
       buyerName,
    
       lonBala,
+      createdAt
      
    }} = props ;
    const navigation = useNavigation();
@@ -62,6 +63,11 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
                        Loan Balance(Ksh): {lonBala.toFixed(2)}                    
+                    </Text> 
+
+                    <Text style = {styles.interest}>                       
+                       {/* interest*/}
+                       Time given: {createdAt}                    
                     </Text> 
                     
         

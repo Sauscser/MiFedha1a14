@@ -79,7 +79,7 @@ const UpdtSMPW = (props) => {
                                               graphqlOperation(updateSMAccount,{
                                                 input:{
                                                   phonecontact:PhoneContact,
-                                                  DefaultPenaltySM:DfltPnlty,
+                                                  DefaultPenaltySM:parseFloat(DfltPnlty).toFixed(2),
                                                   loanAcceptanceCode:LnAcCod,
                                                   TtlActvLonsTmsLnrCov:groupCnt,
                                                   TtlActvLonsTmsLneeCov:RpymtPrd
@@ -113,6 +113,11 @@ const UpdtSMPW = (props) => {
                                       else if(PhoneContact===LnAcCod)
                                       {
                                           Alert.alert("You should not request a loan from yourself");
+                                      }
+
+                                      else if(parseFloat(groupCnt)<parseFloat(DfltPnlty))
+                                      {
+                                          Alert.alert("Exploitative penalty! please enter a lesser penalty");
                                       }
 
                                       else if (LnAcCod.length < 13)

@@ -64,7 +64,7 @@ const ChmInfo = (props:ChmaInfo) => {
 
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       UnRepayed Sales : {(TtlEarnings - earningsBal).toFixed(2)}
+                       Earnings from sales : {(earningsBal - TtlEarnings).toFixed(2)}
                     </Text>    
 
                     <Text style ={styles.amountoffered}>                       

@@ -728,7 +728,7 @@ type Personel
   @model
   @auth(
     rules: [
-      { allow: private, operations: [read, update, create] }
+      { allow: private, operations: [read, update, create, delete] }
       { allow: owner, operations: [read, update, create, delete] }
       {
         allow: groups
@@ -783,7 +783,7 @@ type Bizna
       }
       { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
       { allow: owner, operations: [read, update, delete] }
-      { allow: private, operations: [read, update, create] }
+      { allow: private, operations: [read, update, create, delete] }
       {
         allow: groups
         groups: ["RegionalAdmin"]
@@ -1333,7 +1333,7 @@ type Group
   @auth(
     rules: [
       { allow: owner, operations: [read, update] }
-      { allow: private, operations: [read, update, create] }
+      { allow: private, operations: [read, update, create, delete] }
       {
         allow: groups
         groups: ["AdminOne"]
@@ -1414,7 +1414,7 @@ type ChamaMembers
   @auth(
     rules: [
       { allow: owner, operations: [read, update] }
-      { allow: private, operations: [update, read, create] }
+      { allow: private, operations: [update, read, create, delete] }
       {
         allow: groups
         groups: ["AdminOne"]

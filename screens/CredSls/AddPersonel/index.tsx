@@ -128,12 +128,12 @@ const CreateChama = (props:UserReg) => {
             } catch (error) {
               console.log(error)
               if(error){
-                Alert.alert("Please enter details correctly")
+                Alert.alert("Enter details correctly")
                 return;
             } 
             
             }
-            Alert.alert("Personnel added successfully")
+            Alert.alert("Sales Officer added successfully")
             
             setIsLoading(false);
             
@@ -152,7 +152,7 @@ const CreateChama = (props:UserReg) => {
           }
       } catch (e) {
         console.error(e);
-        if (e){Alert.alert("Enter details correctly")}
+        if (e){Alert.alert("Ensure officer has a Personal account")}
       }
   
       setIsLoading(false)
@@ -165,7 +165,7 @@ const CreateChama = (props:UserReg) => {
     } catch (e) {
       console.error(e);
 
-      if (e){Alert.alert("Enter details correctly")}
+      if (e){Alert.alert("Ensure officer has a Personal account")}
     }
 
     setIsLoading(false)
@@ -277,7 +277,7 @@ useEffect(() =>{
                       onChangeText={setChmPhn}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>User Phone</Text>
+                    <Text style={styles.sendLoanText}>Sales Officer Phone</Text>
                   </View>
 
                   
@@ -309,7 +309,7 @@ useEffect(() =>{
                       onChangeText={setChmDesc}
                       style={styles.sendAmtInputDesc}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Personnel Work ID</Text>
+                    <Text style={styles.sendLoanText}>Sales Officer Work ID</Text>
                   </View>
 
         
@@ -317,7 +317,7 @@ useEffect(() =>{
                     onPress={ChckUsrExistence}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
-                      Click to Register Personnel
+                      Click to Register Sales Officer
                     </Text>
                     {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
                   </TouchableOpacity>

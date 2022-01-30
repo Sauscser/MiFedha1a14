@@ -203,7 +203,7 @@ const BLCovCredByr = (props) => {
                                           id:route.params.id,
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
                                           status:"LoanBL",
-                                          DefaultPenaltyCredSl2:DefaultPenaltyCredSls,
+                                          DefaultPenaltyCredSl2:DefaultPenaltyCredSls.toFixed(2),
                                           lonBala:LonBal.toFixed(2)
                                         }
                                       })

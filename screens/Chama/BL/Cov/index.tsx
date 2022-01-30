@@ -249,7 +249,7 @@ const BLChmCovLoanee = (props) => {
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
                                           lonBala:LonBal.toFixed(2),
                                           status:"LoanBL",
-                                          DefaultPenaltyChm2:DefaultPenaltyChms,
+                                          DefaultPenaltyChm2:DefaultPenaltyChms.toFixed(2),
                                         }
                                       })
                                     )

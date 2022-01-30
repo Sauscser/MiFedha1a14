@@ -133,6 +133,7 @@ const SMASendNonLns = props => {
                     const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
                     const namess =RecAccountDtl.data.getSMAccount.name;
                     const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
+                    const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                     
                     const GrpNonLns = async () => {
                       if(isLoading){
@@ -284,7 +285,7 @@ const SMASendNonLns = props => {
                     if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                     
-                    else if(ttlDpstSMs === 0){Alert.alert('Member National ID be verified through deposit at MFNdogo');}
+                    else if(ttlDpstSMs === 0 && parseFloat(TtlWthdrwnSMs)){Alert.alert('Member National ID be verified through deposit at MFNdogo');}
                     else if (
                       (parseFloat(RecUsrBal) + parseFloat(amounts)) > parseFloat(MaxAcBals) 
                     ) {Alert.alert('Receiver Call customer care to have wallet capacity adjusted');}

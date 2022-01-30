@@ -256,7 +256,7 @@ useEffect(() =>{
                       onChangeText={setPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loaner PW</Text>
+                    <Text style={styles.sendLoanText}>Sales Officer User PW</Text>
                   </View>
 
                   <TouchableOpacity

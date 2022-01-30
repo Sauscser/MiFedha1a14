@@ -170,6 +170,7 @@ const fetchChmMbrDtls = async () => {
                         const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
                         const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
                         const DefaultPenaltySMs =RecAccountDtl.data.getSMAccount.DefaultPenaltySM;
+                        const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
 
 
                         const updatMmbr = async () => {
@@ -357,7 +358,7 @@ const fetchChmMbrDtls = async () => {
                       return;
                     }
 
-                    else if(parseFloat(ttlDpstSMs) === 0){Alert.alert('Loanee National ID be verified through deposit at MFNdogo');}
+                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs)){Alert.alert('Loanee National ID be verified through deposit at MFNdogo');}
 
                     else if(parseFloat(TtlActvLonsTmsLnrCovss) !== parseFloat(amount)){Alert.alert('Enter agreed amount');
                       return;
@@ -374,7 +375,7 @@ const fetchChmMbrDtls = async () => {
                     
                     else if(ownr !==SenderSub){Alert.alert('You are not the creator/signitory of this Chama');}
                         else if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Amount expected Back must at least be greater');
+                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Little repayment: enter btw Ksh ' + TtlTransCost.toFixed(2) + " and " + (AllTtlTrnsCst).toFixed(2));
                       return;}
                       else if((parseFloat(RecUsrBal) + parseFloat(amount)) > parseFloat(MaxAcBals))
                     {Alert.alert('Loanee call customer care to have wallet capacity adjusted');
@@ -383,8 +384,8 @@ const fetchChmMbrDtls = async () => {
                         else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(ActualMaxSMInterest>MaxSMInterest)
-                        {Alert.alert('High Interest: Enter Repayment amount between ' 
-                        + TtlTransCost.toFixed(2) + "and " + (AllTtlTrnsCst).toFixed(2) );}
+                        {Alert.alert('High S.I: enter repayment btw Ksh ' 
+                        + TtlTransCost.toFixed(2) + " and " + (AllTtlTrnsCst).toFixed(2) );}
                         else if (
                           parseFloat(grpBals) < TtlTransCost 
                         ) {Alert.alert('Requested amount is more than you have in your account');}

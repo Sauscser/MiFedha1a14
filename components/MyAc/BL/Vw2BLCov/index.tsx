@@ -10,7 +10,7 @@ export interface SMCvLnSttus {
         loaneePhn: string,
         
         lonBala: number,
-        
+        createdAt:string
         loaneename:string,
         
     }}
@@ -22,7 +22,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
     loaneePhn,
     
     lonBala,
-   
+    createdAt,
     loaneename,
    
    }} = props ;
@@ -56,6 +56,11 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
                       Loan Balance (Ksh): {lonBala.toFixed(2)}                
+                    </Text>   
+
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                     Time given: {createdAt}                
                     </Text>                     
           
         </Pressable>

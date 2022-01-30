@@ -517,7 +517,7 @@ const RepayCovSellerLnsss = props => {
                             return;
                           }
 
-                          else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Too little repayment: at least "+ClranceAmt);
+                          else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Too little repayment: at least "+ClranceAmt.toFixed(2));
                             return;
                           }
 

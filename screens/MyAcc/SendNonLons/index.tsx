@@ -121,6 +121,7 @@ const SMASendNonLns = props => {
                     const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
                     const namess =RecAccountDtl.data.getSMAccount.name;
                     const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
+                    const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                     const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
                     
                   
@@ -253,7 +254,7 @@ const SMASendNonLns = props => {
                     if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                     else if(SenderNatId === RecNatId){Alert.alert('You cannot Send money to yourself Yourself');}
-                    else if(parseFloat(ttlDpstSMs) === 0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
+                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
                     else if (
                       parseFloat(SenderUsrBal) < TotalTransacted 
                     ) {Alert.alert('Requested amount is more than you have in your account');}

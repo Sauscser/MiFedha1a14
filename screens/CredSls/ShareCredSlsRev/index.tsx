@@ -120,6 +120,7 @@ const SMASendNonLns = props => {
                     const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
                     const namess =RecAccountDtl.data.getSMAccount.name;
                     const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
+                    const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                     const MaxAcBals = RecAccountDtl.data.getSMAccount.MaxAcBal; 
                   
                     const sendSMNonLn = async () => {
@@ -259,9 +260,9 @@ const SMASendNonLns = props => {
                       return;
                     } 
                     
-                    else if(parseFloat(ttlDpstSMs) === 0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
+                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs)===0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
                     else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                    else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
+                    else if(ownr !==SenderSub){Alert.alert('You do not own this business');}
                     
                     
                      else {
@@ -414,7 +415,7 @@ useEffect(() =>{
               onChangeText={setSnderPW}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Sender PassWord</Text>
+            <Text style={styles.sendAmtText}>Business PassWord</Text>
           </View>
 
           

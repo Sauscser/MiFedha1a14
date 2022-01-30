@@ -152,9 +152,10 @@ const SMASendLns = props => {
           const ActualMaxSMInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) + 
           ttlCovFeeAmount);
           const ActualMaxPwnBrkrInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) + 
-          ttlCovFeeAmount)
+          ttlCovFeeAmount);
           
-          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount)  + parseFloat(amount)
+          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount)  + parseFloat(amount);
+          const AllTtlCost = TtlTransCost + MaxPwnBrkrInterest
           
           
           const fetchAdv = async () =>{
@@ -195,6 +196,7 @@ const SMASendLns = props => {
                         const TtlActvLonsAmtLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
                         const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
+                        const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                         const DefaultPenaltySMs =RecAccountDtl.data.getSMAccount.DefaultPenaltySM;
 
 
@@ -395,7 +397,7 @@ const SMASendLns = props => {
                       return;
                     }
 
-                    else if(parseFloat(ttlDpstSMs) === 0){Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
+                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
 
                     else if((parseFloat(TymsIHvGivnLns) - parseFloat(TymsMyLnClrds)) > 4 
                     && compDtls.data.listChamasNPwnBrkrs.items.length < 1){Alert.alert("Call customer care to have limit increased");}
@@ -407,7 +409,7 @@ const SMASendLns = props => {
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Amount expected Back must at least be greater');
+                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Little repayment: enter btw Ksh ' + TtlTransCost.toFixed(2) + " and " + (AllTtlCost).toFixed(2) );
                       return;}
 
                       else if(parseFloat(DefaultPenaltySMs) !== parseFloat(PwnBrkr)){Alert.alert('Enter the agreed default penalty');
@@ -420,7 +422,7 @@ const SMASendLns = props => {
                         {Alert.alert("Repayment period must be greater than 60 days");}
 
                         else if(ActualMaxPwnBrkrInterest > MaxPwnBrkrInterest)
-                        {Alert.alert('Interest too high:' + ActualMaxPwnBrkrInterest.toFixed(2) + "; Recom SI: Ksh. " + (MaxPwnBrkrInterest).toFixed(2));}
+                        {Alert.alert('High S.I: enter repayment btw Ksh ' + AllTtlCost.toFixed(2) + " and " + (TtlTransCost).toFixed(2));}
                         else if (
                           parseFloat(SenderUsrBal) < TtlTransCost 
                         ) {Alert.alert('Requested amount is more than you have in your account');}

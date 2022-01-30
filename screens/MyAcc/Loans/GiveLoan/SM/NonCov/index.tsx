@@ -136,9 +136,10 @@ const SMASendNonCovLns = props => {
           const ActualMaxSMInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) 
           );
           const ActualMaxPwnBrkrInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) 
-          )
-          const TransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) 
-          const TtlTransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
+          );
+          const TransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) ;
+          const TtlTransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount);
+          const AllTtlCost = TtlTransCost + MaxPwnBrkrInterest
           
               
 
@@ -158,6 +159,7 @@ const SMASendNonCovLns = props => {
                         const TtlActvLonsTmsLnrCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov; 
                         const TtlActvLonsTmsLneeCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov; 
                         const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
+                        const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                         const TtlActvLonsTmsLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrNonCov;
                         const TtlActvLonsAmtLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrNonCov;
                         const namess =RecAccountDtl.data.getSMAccount.name;
@@ -327,7 +329,7 @@ const SMASendNonCovLns = props => {
                     }
                     
 
-                    else if(parseFloat(ttlDpstSMs) === 0){Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
+                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
 
                     else if(compDtls.data.listChamasNPwnBrkrs.items.length <1 && parseFloat(AmtExp) > TtlTransCost)
                         {Alert.alert("Friend-Friend Loans can't earn interest. Repay Ksh. "  + TtlTransCost);}
@@ -339,7 +341,8 @@ const SMASendNonCovLns = props => {
                     && compDtls.data.listChamasNPwnBrkrs.items.length < 1){Alert.alert("Call customer care to have limit increased");}
 
                     else if(ActualMaxPwnBrkrInterest > MaxPwnBrkrInterest)
-                        {Alert.alert('Interest too high:' + ActualMaxPwnBrkrInterest.toFixed(2) + "; Recom SI: Ksh. " + (MaxPwnBrkrInterest).toFixed(2));}
+                        {Alert.alert('High S.I: enter repayment btw Ksh ' + AllTtlCost +" and " + MaxPwnBrkrInterest.toFixed(2) 
+                        );}
 
                     else if(parseFloat(TtlActvLonsTmsLnrCovss) !== parseFloat(amount)){Alert.alert('Enter the agreed amount');
                       return;
@@ -362,7 +365,7 @@ const SMASendNonCovLns = props => {
                         else if (
                           parseFloat(SenderUsrBal) < TtlTransCost 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
-                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Amount expected Back must at least be greater');
+                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Little repayment: enter btw Ksh ' + TtlTransCost.toFixed(2) + " and " + (AllTtlCost).toFixed(2));
                       return;}
 
                       
