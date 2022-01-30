@@ -163,6 +163,7 @@ const fetchChmMbrDtls = async () => {
           const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) 
           const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
 
+          const AllTtlTrnsCst = TtlTransCost + MaxSMInterest;
 
    
           
@@ -438,7 +439,8 @@ const fetchChmMbrDtls = async () => {
                         else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(ActualMaxSMInterest>MaxSMInterest)
-                        {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(2) + "; Recom SI:" + (MaxSMInterest).toFixed(2) );}
+                        {Alert.alert('High Interest: Enter Repayment amount between ' 
+                        + TtlTransCost.toFixed(2) + "and " + (AllTtlTrnsCst).toFixed(2) );}
                         else if (
                           parseFloat(grpBals) < TtlTransCost 
                         ) {Alert.alert('Requested amount is more than you have in your account');}

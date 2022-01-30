@@ -76,9 +76,11 @@ const ChmSignIn = (props) => {
                       );
                       const signitoryPWs = compDtls.data.getGroup.signitoryPW;  
                       const owners = compDtls.data.getGroup.owner;  
+                      const signitory2Subs = compDtls.data.getGroup.signitory2Sub; 
+                      
 
                       if(signitoryPWs!==pword){Alert.alert("Wrong author credentials")}
-                      else if(ownr!==owners){Alert.alert("You are not the author of the Chama")}
+                      else if((ownr!==owners) && (signitory2Subs !== ownr)){Alert.alert("You are neither the author nor signatory of this Chama")}
                       else{FetchGrpLonsSts();}
                     }
 
@@ -87,7 +89,7 @@ const ChmSignIn = (props) => {
             catch(e){
               console.log(e)
               if(e){
-                Alert.alert("Group does not exist; otherwise check inernet connection")
+                Alert.alert("Chama does not exist; otherwise check inernet connection")
                 return;
             }
             }

@@ -59,7 +59,7 @@ const CovCredSls = props => {
   const [SendrPhn, setSendrPhn] = useState(null);
   const [ItmNm, setItmNm] = useState("");
   const [ItmSrlNu, setItmSrlNu] = useState("");
-  const [DfltPnlty, setDfltPnlty] = useState('');
+  const [DfltPnlty, setDfltPnlty] = useState("");
 
   const route = useRoute();
   
@@ -148,6 +148,8 @@ const CovCredSls = props => {
           const ActualMaxSMInterest = parseFloat(AmtExp) - 
                   (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) + 
                   ttlCovFeeAmount);
+
+          const AllTtlTrnsCst = TtlTransCost + MaxSMInterest;
           
           
           const fetchAdv = async () =>{
@@ -286,7 +288,7 @@ const CovCredSls = props => {
                         else if(BusinessRegNos === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(ActualMaxSMInterest>MaxSMInterest)
-                        {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(2) + "; Recom SI:" + (MaxSMInterest).toFixed(2) );}
+                        {Alert.alert('High Interest: Enter Repayment amount between ' + TtlTransCost.toFixed(2) + "and " + (AllTtlTrnsCst).toFixed(2) );}
                         else if (
                           parseFloat(RecUsrBal) < TransCost 
                         ) {Alert.alert('Buyer cannot facilitate; should recharge');}
@@ -491,7 +493,7 @@ const CovCredSls = props => {
       setRecPhn("");
       setItmNm("");
       setItmSrlNu("");
-      setDfltPnlty
+      setDfltPnlty("")
 }
 
 useEffect(() =>{

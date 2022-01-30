@@ -154,7 +154,6 @@ const CreateChama = (props:UserReg) => {
                     );
                     
                   } catch (error) {
-                    console.log(error)
                     
                   
                   }
@@ -211,7 +210,7 @@ const CreateChama = (props:UserReg) => {
                     );
                     
                   } catch (error) {
-                    console.log(error)
+                    
                     
                   
                   }

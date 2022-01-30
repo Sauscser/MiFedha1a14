@@ -132,6 +132,7 @@ const UpdtSMPW = (props) => {
                                 
 
             } catch (error) {
+              console.log(error)
                 if(error){
                   Alert.alert("Check internet; otherwise User doesnt exist")
                   return
@@ -267,7 +268,7 @@ const UpdtSMPW = (props) => {
                       onChangeText={setDfltPnlty}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Default Penalty</Text>
+                    <Text style={styles.sendLoanText}>Default Penalty (Ksh)</Text>
                   </View>       
 
                   <View style={styles.sendLoanView}>

@@ -98,7 +98,8 @@ const AddChmMmbrs = (props:UserReg) => {
                       const grpNames = compDtls.data.getGroup.grpName; 
                       const owners = compDtls.data.getGroup.owner;   
                       const regNos = compDtls.data.getGroup.regNo;   
-                      const signitoryPWs = compDtls.data.getGroup.signitoryPW;          
+                      const signitoryPWs = compDtls.data.getGroup.signitoryPW;    
+                      const signitory2Subs = compDtls.data.getGroup.signitory2Sub;       
                     
                       const CrtChm = async () => {
                         if(isLoading){
@@ -133,11 +134,7 @@ const AddChmMmbrs = (props:UserReg) => {
                               );
                               
                             } catch (error) {
-                              console.log(error)
-                              if(error){
-                                Alert.alert("This member is already registered or your details are wrong")
-                                return;
-                            } 
+                             
                             
                             }
                             await updtActAdm();
@@ -161,10 +158,7 @@ const AddChmMmbrs = (props:UserReg) => {
                         return;
                       } 
 
-                      else  if (ownr !== owners)
-                          {Alert.alert("You are not the author of this Chama");
-                        return;
-                      } 
+                      else  if (ownr !== owners && signitory2Subs !== ownr){Alert.alert("You are neither the author nor signatory of this Chama")}
                       
                       else {
                         CrtChm();

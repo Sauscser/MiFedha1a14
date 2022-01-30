@@ -153,8 +153,8 @@ const SMASendLns = props => {
           ttlCovFeeAmount);
           const ActualMaxPwnBrkrInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) + 
           ttlCovFeeAmount)
-          const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee
-          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + vatFee + parseFloat(amount)
+          
+          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount)  + parseFloat(amount)
           
           
           const fetchAdv = async () =>{
@@ -495,9 +495,21 @@ const SMASendLns = props => {
       setRepaymtPeriod("");
       setRecAccCode("");
       setRecPhn("");
+      setPwnBrkr("")
 }
 
 useEffect(() =>{
+  const PwnBrkrs=PwnBrkr
+    if(!PwnBrkrs && PwnBrkrs!=="")
+    {
+      setPwnBrkr("");
+      return;
+    }
+    setPwnBrkr(PwnBrkrs);
+    }, [PwnBrkr]
+     );
+     
+     useEffect(() =>{
   const RecPhns=RecPhn
     if(!RecPhns && RecPhns!=="")
     {
