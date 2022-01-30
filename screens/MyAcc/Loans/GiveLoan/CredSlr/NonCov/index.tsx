@@ -124,9 +124,7 @@ const NonCovCredSls = props => {
           const Interest = ((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))
           const IntAmt = parseFloat(AmtExp) - (parseFloat(amount) + parseFloat(userLoanTransferFees)*parseFloat(amount));
 
-          const vats = CompDtls.data.getCompany.vat;
-          const ttlvats = CompDtls.data.getCompany.ttlvat;
-         
+          
 
           const maxInterestSMs = CompDtls.data.getCompany.maxInterestSM;
 
@@ -135,6 +133,8 @@ const NonCovCredSls = props => {
           const MaxSMInterest = (parseFloat(amount) 
                 + parseFloat(userLoanTransferFees)*parseFloat(amount))*parseFloat(maxInterestCredSllrs)*parseFloat(RepaymtPeriod);
           
+          const AllTtlTrnsCst = TtlTransCost + MaxSMInterest;
+                
           const ActualMaxSMInterest = parseFloat(AmtExp) - 
                 (parseFloat(amount) + parseFloat(userLoanTransferFees)*parseFloat(amount));
           
@@ -257,7 +257,8 @@ const NonCovCredSls = props => {
                         else if(BusinessRegNos === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(ActualMaxSMInterest>MaxSMInterest)
-                        {Alert.alert('Interest too high:' + ActualMaxSMInterest.toFixed(2) + "; Recom SI:" + (MaxSMInterest).toFixed(2) );}
+                        {Alert.alert('High Interest: Enter Repayment amount between ' 
+                        + TtlTransCost.toFixed(2) + "and " + (AllTtlTrnsCst).toFixed(2));}
                         else if (
                           parseFloat(userLoanTransferFees)*parseFloat(amount) > parseFloat(RecUsrBal)) 
                                                    {Alert.alert('Buyer cannot facilitate; should recharge');}
