@@ -6,12 +6,14 @@ import NonLnSent from "../../../components/MyAc/ViewSentNonLns";
 import styles from './styles';
 import { getCompany, getSMAccount, listNonLoanss, listSMAccounts, vwMySntMny } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
+import { useRoute } from '@react-navigation/native';
 
 const FetchSMNonLnsSnt = props => {
 
     const[SenderPhn, setSenderPhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
+    const route = useRoute()
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();

@@ -27,6 +27,10 @@ const MFNSignIn = (props) => {
   const [MFNPW, setMFNPW] = useState(""); 
   const [ownr, setownr] = useState(null); 
 
+  const VwMFNAc = () => {
+    navigation.navigate("ViewNonLnsRecCredSlrs", {MFNId});
+  };
+
 
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
@@ -53,9 +57,7 @@ const MFNSignIn = (props) => {
                 const owners = MFNDtls.data.getBizna.owner;
                 const BusinessRegNos = MFNDtls.data.getBizna.BusinessRegNo;
 
-                const VwMFNAc = () => {
-                  navigation.navigate("ViewNonLnsSntCredSlrs", {MFNId});
-                };
+                
 
 
                 if(owners!==ownr){

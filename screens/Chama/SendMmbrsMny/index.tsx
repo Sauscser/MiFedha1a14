@@ -285,7 +285,7 @@ const SMASendNonLns = props => {
                     if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                     
-                    else if(ttlDpstSMs === 0 && parseFloat(TtlWthdrwnSMs)){Alert.alert('Member National ID be verified through deposit at MFNdogo');}
+                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Member National ID be verified through deposit at MFNdogo');}
                     else if (
                       (parseFloat(RecUsrBal) + parseFloat(amounts)) > parseFloat(MaxAcBals) 
                     ) {Alert.alert('Receiver Call customer care to have wallet capacity adjusted');}

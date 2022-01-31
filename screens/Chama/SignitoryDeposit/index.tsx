@@ -359,7 +359,7 @@ const SMADepositForm = props => {
               onChangeText={setUsrId}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Depositer ID</Text>
+            <Text style={styles.sendAmtText}>Signatory ID</Text>
           </View>
 
          

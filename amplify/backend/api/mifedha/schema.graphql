@@ -1435,7 +1435,7 @@ type ChamaMembers
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
-      { allow: groups, groups: ["ChamaSignitories"], operations: [read, create, update, delete] }
+     
       {
         allow: groups
         groups: ["Executive"]

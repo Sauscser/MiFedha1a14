@@ -85,7 +85,7 @@ const fetchChmMbrDtls = async () => {
       setIsLoading(true);
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getChamaMembers, {ChamaNMember: MmbrId}),
+              graphqlOperation(getChamaMembers, {ChamaNMember: ChmNMmbrPhns}),
               );
 
               const groupContacts =ChmMbrtDtl.data.getChamaMembers.groupContact;
@@ -659,16 +659,23 @@ useEffect(() =>{
 
          <View style={styles.sendAmtView}>
            <TextInput
-           placeholder="MemberNu+2547########"
+           
              value={MmbrId}
              onChangeText={setMmbrId}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Chama member ID</Text>
+           <Text style={styles.sendAmtText}>Member Number</Text>
          </View>
 
-        
-
+         <View style={styles.sendAmtView}>
+           <TextInput
+           placeholder="+2547########"
+             value={ChmPhn}
+             onChangeText={setChmPhn}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           <Text style={styles.sendAmtText}>Chama Phone</Text>
+         </View>
 
          <View style={styles.sendAmtView}>
            <TextInput

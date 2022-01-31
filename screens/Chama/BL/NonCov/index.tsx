@@ -377,7 +377,7 @@ const BLChmNonCovLoanee = (props) => {
                       onChangeText={setSigntryPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Signitory PassWprd</Text>
+                    <Text style={styles.sendLoanText}>Comment</Text>
                   </View>    
         
                   

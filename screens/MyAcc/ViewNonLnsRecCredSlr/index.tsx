@@ -10,7 +10,7 @@ import { useRoute } from '@react-navigation/native';
 
 const FetchSMNonLnsRec = props => {
 
-    const[RecPhn, setRecPhn] = useState(null);
+    const[RecPhns, setRecPhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
     const route = useRoute();
@@ -32,7 +32,7 @@ const FetchSMNonLnsRec = props => {
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyRecMny, 
               {
-                      recPhn: route.params.MFNID,
+                      recPhn: route.params.MFNId,
                       sortDirection: 'DESC',
                       limit: 100,
                       filter:{status:{eq:"CredSlrLonRepayment"}}
@@ -45,7 +45,7 @@ const FetchSMNonLnsRec = props => {
               const fetchUsrDtls = async () => {
                 try {
                         const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {phonecontact: RecPhn}
+                            graphqlOperation(getSMAccount, {phonecontact: RecPhns}
                         ),);
           
                         const balances = MFNDtls.data.getSMAccount.balance;
@@ -90,7 +90,7 @@ const FetchSMNonLnsRec = props => {
                                                     await API.graphql(
                                                       graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          phonecontact: RecPhn,
+                                                          phonecontact: RecPhns,
                                                           balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })

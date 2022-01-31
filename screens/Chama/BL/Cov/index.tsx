@@ -161,9 +161,7 @@ const BLChmCovLoanee = (props) => {
                           else if(owners !== ownr){
                             Alert.alert("You are not the one owed this loan")
                           } 
-                          else if(signitoryPWs !== SigntryPW){
-                            Alert.alert("Wrong Signitory Password")
-                          } 
+                          
 
                           else if(statusssss === "LoanBL"){
                             Alert.alert("This Loan is already Black Listed")
@@ -393,7 +391,7 @@ const BLChmCovLoanee = (props) => {
                       onChangeText={setSigntryPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Signitory PassWprd</Text>
+                    <Text style={styles.sendLoanText}>Comment</Text>
                   </View>       
                   
         

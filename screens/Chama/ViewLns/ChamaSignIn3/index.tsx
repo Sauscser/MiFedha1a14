@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 
-import { getCompany, getGroup, getSMAccount, listSMAccounts, } from '../../../../src/graphql/queries';
+import { getCompany, getGroup, getSMAccount, listChamaMembers, listSMAccounts, } from '../../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -53,17 +53,19 @@ const ChmSignIn = (props) => {
     const fetchUser = async () => {
       const userInfo = await Auth.currentAuthenticatedUser();
       
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);     
-          
-    };
-    useEffect(() => {
-      fetchUser();
-    }, []);
-
-
-    
-
+         
+      const phoneContacts = userInfo.attributes.phone_number; 
+     
+    const gtMemberUsrDetails = async () =>{
+      if(isLoading){
+        return;
+      }
+      setIsLoading(true);
+      try{
+        const UsrDtls :any= await API.graphql(
+          graphqlOperation(getSMAccount,{phonecontact:phoneContacts})
+          );
+          const pwss = UsrDtls.data.getSMAccount.pw;
     
                 const gtChmDtls = async () =>{
                   if(isLoading){
@@ -72,15 +74,17 @@ const ChmSignIn = (props) => {
                   setIsLoading(true);
                   try{
                     const compDtls :any= await API.graphql(
-                      graphqlOperation(getGroup,{grpContact:grpContact})
+                      graphqlOperation(listChamaMembers,
+                        {filter: {
+                          groupContact:{eq: grpContact},
+                          memberContact:{eq:phoneContacts}
+                         }})
                       );
-                      const signitoryPWs = compDtls.data.getGroup.signitoryPW;  
-                      const owners = compDtls.data.getGroup.owner;  
-                      const signitory2Subs = compDtls.data.getGroup.signitory2Sub; 
+                      
                       
 
-                      if(signitoryPWs!==pword){Alert.alert("Wrong author credentials")}
-                      else if((ownr!==owners) && (signitory2Subs !== ownr)){Alert.alert("You are neither the author nor signatory of this Chama")}
+                      if(compDtls.data.listChamaMembers.items.length < 1){Alert.alert("You dont belong to this Chama")}
+                      else if(pwss!==pword){Alert.alert("Wrong User Credentials")}
                       else{FetchGrpLonsSts();}
                     }
 
@@ -94,21 +98,31 @@ const ChmSignIn = (props) => {
             }
             }
             setIsLoading(false)
-            setChmPhn('');
-            setPW('');
-            setPhoneContacts("")
-            setChmDesc("")
-            setChmNm("")
-                        setIsLoading(false)
+            
                         
             };
-              
-               
 
-            
-              
+            await gtChmDtls();
+
+          }
       
-                  
+          catch(e){
+            console.log(e)
+            if(e){
+              Alert.alert("Check your internet")
+              return;
+          }
+          }
+          setChmPhn('');
+          setPW('');
+          setPhoneContacts("")
+          setChmDesc("")
+          setChmNm("")
+                      setIsLoading(false)
+          };
+          await gtMemberUsrDetails();
+        }
+
     
       useEffect(() =>{
         const phoneContactss=phoneContacts
@@ -192,13 +206,13 @@ useEffect(() =>{
                       onChangeText={setPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Signitory PW</Text>
+                    <Text style={styles.sendLoanText}>User PassWord</Text>
                   </View>
 
                  
         
                   <TouchableOpacity
-                    onPress={gtChmDtls}
+                    onPress={fetchUser}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to View

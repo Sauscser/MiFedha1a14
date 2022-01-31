@@ -299,7 +299,7 @@ const SMADepositForm = props => {
                     } 
 
                     else if (ownr!==owners) {
-                      Alert.alert("You are not the main signitory")
+                      Alert.alert("You are not the main chama signitory")
                       return;
                     }  
 
@@ -461,7 +461,7 @@ const SMADepositForm = props => {
               onChangeText={setUsrPWd}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Signitory PW</Text>
+            <Text style={styles.sendAmtText}>Chama PW</Text>
           </View>
 
           <TouchableOpacity onPress={fetchChmDtls} style={styles.sendAmtButton}>

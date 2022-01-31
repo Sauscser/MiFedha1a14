@@ -70,11 +70,11 @@ const SMADepositForm = props => {
         setIsLoading(true);
         try {
           const ChmAcDtl:any = await API.graphql(
-            graphqlOperation(getGroup, {grpContact: WthDrwrPhn}),
+            graphqlOperation(getGroup, {grpContact: grpKntct}),
           );
     
           
-          const owners = ChmAcDtl.data.getGroup.owner;
+          const owners = ChmAcDtl.data.getGroup.signitory2Sub;
           
       
                     const onChamaAc = async () => {
@@ -101,17 +101,18 @@ const SMADepositForm = props => {
                         return;}
                       }
                       setIsLoading(false);
+                      Alert.alert("Chama Withdrawal confirmed")
                     }
 
                     if (ownr!==owners) {
-                      Alert.alert("You are not a signitory of this Chama")
+                      Alert.alert("Not authorised to confirm chama withdrawal")
                       return;
                     }  
 
                     
                     
                     else if (UsrPWd!==pws) {
-                      Alert.alert("Signitory credentials are wrong; access denied")
+                      Alert.alert("User credentials are wrong; access denied")
                       return;
                     } 
         

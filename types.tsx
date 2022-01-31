@@ -218,7 +218,7 @@ declare global {
 
       ChamaSignIn2VwLnRpymnts:undefined;
       ViewNonLnsRecChms:{grpContact:string};
-      ViewNonLnsRecCredSlrs:undefined;
+      ViewNonLnsRecCredSlrs:{MFNId:string};
       ViewNonLnsRecSMs:undefined;
       ViewNonLnsSntChms:undefined;
       ViewNonLnsSntCredSlrs:{MFNId:string};
@@ -310,6 +310,7 @@ declare global {
       VwChmDpstss:{grpContact:string}; 
       SgnIn2VwChmWthdrwlss:undefined;
       VwChmWthdrwlss:{grpContact:string};
+      
       
       
     }
