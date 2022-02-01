@@ -397,7 +397,8 @@ const SMASendLns = props => {
                       return;
                     }
 
-                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
+                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0)
+                    {Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
 
                     else if((parseFloat(TymsIHvGivnLns) - parseFloat(TymsMyLnClrds)) > 4 
                     && compDtls.data.listChamasNPwnBrkrs.items.length < 1){Alert.alert("Call customer care to have limit increased");}
@@ -418,7 +419,7 @@ const SMASendLns = props => {
                         else if(compDtls.data.listChamasNPwnBrkrs.items.length < 1 && parseFloat(AmtExp) > TtlTransCost)
                         {Alert.alert("Friend-Friend Loans can't earn interest. Repayment: Ksh. "  + TtlTransCost);}
 
-                        else if(compDtls.data.listChamasNPwnBrkrs.items.length = 1 && parseFloat(RepaymtPeriod) < 60)
+                        else if((compDtls.data.listChamasNPwnBrkrs.items.length > 0) && (parseFloat(RepaymtPeriod) < 60))
                         {Alert.alert("Repayment period must be greater than 60 days");}
 
                         else if(ActualMaxPwnBrkrInterest > MaxPwnBrkrInterest)

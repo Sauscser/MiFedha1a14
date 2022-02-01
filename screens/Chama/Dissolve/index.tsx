@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {  updateCompany, updateGroup, updateGrpMembers} from '../../../src/graphql/mutations';
+import {  deleteGroup, updateCompany, updateGroup, updateGrpMembers} from '../../../src/graphql/mutations';
 import {  getCompany, getGroup, getGrpMembers, getSMAccount } from '../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 
@@ -124,7 +124,7 @@ const DissolveChm = (props) => {
                                           Alert.alert("Pls first deregister all members");
                                       }
 
-                                      else if(grpBals>0)
+                                      else if(grpBals>1)
                                       {
                                           Alert.alert("Chama has money in its account");
                                       }
@@ -137,10 +137,10 @@ const DissolveChm = (props) => {
                                         setIsLoading(true);
                                         try{
                                             await API.graphql(
-                                              graphqlOperation(updateGroup,{
+                                              graphqlOperation(deleteGroup,{
                                                 input:{
-                                                  grpContact:groupCnt,
-                                                  status:"AccountInactive"
+                                                  grpContact:groupCnt
+                                                  
                                                 }
                                               })
                                             )

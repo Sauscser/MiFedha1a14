@@ -154,8 +154,8 @@ const RepayCovLnsss = props => {
                     const TtlActvLonsAmtLnrCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrCov;
                     const TtlClrdLonsTmsLnrCovssss =RecAccountDtl.data.getSMAccount.TtlClrdLonsTmsLnrCov;
                     const TtlClrdLonsAmtLnrCovssss =RecAccountDtl.data.getSMAccount.TtlClrdLonsAmtLnrCov;
-                    const TtlBLLonsTmsLnrCovssss =RecAccountDtl.data.getSMAccount.TtlBLLonsTmsLnrCov;
-                    const TtlBLLonsAmtLnrCovssss =RecAccountDtl.data.getSMAccount.TtlBLLonsAmtLnrCov;
+                    const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
+                    const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                     const namess =RecAccountDtl.data.getSMAccount.name;
                     const MaxTymsIHvBLs =RecAccountDtl.data.getSMAccount.MaxTymsIHvBL;
                     const TymsMyLnClrds =RecAccountDtl.data.getSMAccount.TymsMyLnClrd;
@@ -241,7 +241,7 @@ const RepayCovLnsss = props => {
                                           lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(2),
                                           amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
                                           status: "LoanCleared",
-                                          DefaultPenaltySM2s:0
+                                          DefaultPenaltySM2:0
                                       }})
                                     )
           
@@ -512,6 +512,9 @@ const RepayCovLnsss = props => {
                               else if(usrAcActvSttss === "AccountInactive"){Alert.alert('Receiver account is inactive');
                               return;
                             }
+
+                            else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0)
+                    {Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
                               
                               else if (
                                 parseFloat(SenderUsrBal) < TotalTransacted 
@@ -520,7 +523,7 @@ const RepayCovLnsss = props => {
                           }
                           else if(SendrPhn === loanerPhns){Alert.alert('You cannot Repay Yourself');}
 
-                          else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Too little repayment: at least "+ClranceAmt);
+                          else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Too little repayment: at least "+ClranceAmt.toFixed(2));
                             return;
                           }
                               

@@ -159,9 +159,7 @@ const BLSMCovLoanee = (props) => {
                             Alert.alert("You are not the one owed this loan")
                           } 
 
-                          else if(pws !== LonId){
-                            Alert.alert("Wrong loaner PassWord")
-                          } 
+                          
 
                           else if(statusssss === "LoanBL"){
                             Alert.alert("This Loan is already Black Listed")

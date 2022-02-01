@@ -79,7 +79,7 @@ const SMASendNonLns = props => {
               const memberContacts =ChmMbrtDtl.data.getChamaMembers.memberContact;
               const NonLoanAcBals =ChmMbrtDtl.data.getChamaMembers.NonLoanAcBal;
               
-              const LnBal =ChmMbrtDtl.data.getChamaMembers.LnBal;
+              const ttlNonLonAcBals =ChmMbrtDtl.data.getChamaMembers.ttlNonLonAcBal;
               
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
@@ -263,8 +263,8 @@ const SMASendNonLns = props => {
                             graphqlOperation(updateChamaMembers, {
                               input:{
                                 ChamaNMember: MemberID,                                                      
-                               
-                                NonLoanAcBal:(parseFloat(NonLoanAcBals) - parseFloat(amounts)).toFixed(2),
+                                ttlNonLonAcBal: (parseFloat(ttlNonLonAcBals) + parseFloat(amounts)).toFixed(2),
+                                
                                 
                               }
                             })

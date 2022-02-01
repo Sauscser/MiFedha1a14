@@ -273,7 +273,7 @@ const SMASendChmNonLns = props => {
                                           input:{
                                             ChamaNMember: MembaId,   
                                             NonLoanAcBal:parseFloat(NonLoanAcBals) + parseFloat(amounts)  ,
-                                            ttlNonLonAcBal:parseFloat(ttlNonLonAcBal) + parseFloat(amounts)                                                                                   
+                                                                                                                          
                                             
                                           }
                                         })

@@ -71,44 +71,49 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                        {/*loaner details */}  
                        Member Chama ID: {ChamaNMember}                
                     </Text>   
-
-                                      
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                      Member Phone: {memberContact}                  
+                    </Text>                                       
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Total NonLoans Ac Bal (Ksh): {ttlNonLonAcBal.toFixed(2)}
+                       Remittance to members (Ksh): {ttlNonLonAcBal.toFixed(2)}
                     </Text>   
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       NonLoans Ac Bal (Ksh): {NonLoanAcBal.toFixed(2)}
+                      Contributions from members (Ksh): {NonLoanAcBal.toFixed(2)}
                     </Text>   
                     
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Total Loans Ac Bal (Ksh): {ttlNonLonAcBal.toFixed(2)}
-                    </Text>   
+                       Gross Loans (Ksh): {GrossLnsGvn.toFixed(2)}
+                    </Text>  
+
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Loans Ac Bal (Ksh): {LnBal.toFixed(2)}
-                    </Text>   
+                       Actual Loans (Ksh): {LonAmtGven.toFixed(2)}
+                    </Text>                      
+                    
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Total Loans Ac Bal (Ksh): {LonAmtGven.toFixed(2)}
-                    </Text>
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Member Phone: {memberContact}                  
-                    </Text> 
+                      Amount repaid (Ksh): {AmtRepaid.toFixed(2)}
+                    </Text>     
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Loan Balance (Ksh): {LnBal.toFixed(2)}
+                    </Text>   
+                    
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
                        Time Created: {createdAt}                    
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                      Available Loans: {loanStatus}                    
+                     Loan Status: {loanStatus}                    
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                      Black-Listing Loans: {blStatus}                    
+                      Black-Listing Status: {blStatus}                    
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}

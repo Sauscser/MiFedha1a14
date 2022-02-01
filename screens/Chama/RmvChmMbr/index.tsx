@@ -33,7 +33,7 @@ const DeregChmMmbr = (props) => {
   const [ChmMmbrId, setChmMmbrId] = useState("");
   
   
-  const [grpContact, setChmPhn] = useState('');
+  const [grpContactz, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
   const [phoneContacts, setPhoneContacts] = useState("");
   const [awsEmail, setAWSEmail] = useState("");
@@ -43,7 +43,7 @@ const DeregChmMmbr = (props) => {
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
   const[ownr, setownr] = useState(null);
-  const ChmNMmbrPhns = MmberId+grpContact
+  const ChmNMmbrPhns = MmberId+grpContactz
   const route = useRoute()
   
   const fetchUser = async () => {
@@ -83,7 +83,7 @@ const DeregChmMmbr = (props) => {
                     setIsLoading(true);
                     try{
                       const compDtls :any= await API.graphql(
-                        graphqlOperation(getGroup,{grpContact:groupContacts})
+                        graphqlOperation(getGroup,{grpContact:grpContactz})
                         );
                         const signitoryPWs = compDtls.data.getGroup.signitoryPW
                         const grpNames = compDtls.data.getGroup.grpName
@@ -139,7 +139,7 @@ const DeregChmMmbr = (props) => {
 
                                       else if(owners === ownersss &&  parseFloat(ttlGrpMemberss) > 1)
                                       {
-                                          Alert.alert("Deactivate yourself as the last one");
+                                          Alert.alert("Deactivate yourself, the Chama author, as the last one");
                                       }
                                      
                                       else {updateChmMmbrAc();}
@@ -153,7 +153,7 @@ const DeregChmMmbr = (props) => {
                                             await API.graphql(
                                               graphqlOperation(updateGroup,{
                                                 input:{
-                                                  groupContact:groupContacts,
+                                                  grpContact:grpContactz,
                                                   ttlGrpMembers:parseFloat(ttlGrpMemberss)-1
                                                 }
                                               })
@@ -269,14 +269,14 @@ const DeregChmMmbr = (props) => {
                      );
       
       useEffect(() =>{
-        const ChmPhns=grpContact
+        const ChmPhns=grpContactz
           if(!ChmPhns && ChmPhns!=="")
           {
             setChmPhn("");
             return;
           }
           setChmPhn(ChmPhns);
-          }, [grpContact]
+          }, [grpContactz]
            );
       
            useEffect(() =>{
@@ -304,7 +304,7 @@ const DeregChmMmbr = (props) => {
                           <View style={styles.sendLoanView}>
                             <TextInput
                             placeholder="+2547xxxxxxxx"
-                              value={grpContact}
+                              value={grpContactz}
                               onChangeText={setChmPhn}
                               style={styles.sendLoanInput}
                               editable={true}></TextInput>

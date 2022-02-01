@@ -218,7 +218,7 @@ const fetchChmMbrDtls = async () => {
                             await API.graphql(
                               graphqlOperation(updateChamaMembers, {
                                 input: {
-                                  ChamaNMember: MmbrId,
+                                  ChamaNMember: ChmNMmbrPhns,
                                   LonAmtGven: (parseFloat(LonAmtGvens) + parseFloat(amount)).toFixed(2),
                                   GrossLnsGvn: (parseFloat(GrossLnsGvns) + parseFloat(AmtExp)).toFixed(2),
                                   LnBal: (parseFloat(LnBals) + parseFloat(amount)).toFixed(2),                                  
@@ -267,7 +267,7 @@ const fetchChmMbrDtls = async () => {
                                     advRegNu: AdvRegNo,
                                     loaneeName:namess,
                                     LoanerName:grpNames,
-                                    memberId:MmbrId,
+                                    memberId:ChmNMmbrPhns,
                                     status: "LoanActive",
                                     owner: ownr,
                                 },
@@ -323,7 +323,7 @@ const fetchChmMbrDtls = async () => {
                                     phonecontact:memberContacts,
                                     TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
                                     TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ parseFloat(AmtExp)).toFixed(2),
-                                    balance:(parseFloat(parseFloat(RecUsrBal) + parseFloat(amount).toFixed(2)) ).toFixed(2),
+                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(2) ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                
@@ -511,7 +511,7 @@ setSnderPW("");
 setRepaymtPeriod("");
 setRecAccCode("");
 setDfltPnlty("");
-
+setChmPhn("")
 setMmbrId("")
 setIsLoading(false);        
 };
@@ -664,7 +664,7 @@ useEffect(() =>{
              onChangeText={setMmbrId}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Member Number</Text>
+           <Text style={styles.sendAmtText}>Member Chama Number</Text>
          </View>
 
          <View style={styles.sendAmtView}>

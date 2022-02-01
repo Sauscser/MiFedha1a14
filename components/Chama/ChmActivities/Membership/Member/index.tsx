@@ -74,23 +74,23 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                                    
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Contribution to Chama (Ksh): {ttlNonLonAcBal.toFixed(2)}
+                       Contribution to Chama (Ksh): {NonLoanAcBal.toFixed(2)}
                     </Text>  
 
                      <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Remittance from Chama (Ksh): {(ttlNonLonAcBal - NonLoanAcBal).toFixed(2)}
+                       Remittance from Chama (Ksh): {(ttlNonLonAcBal).toFixed(2)}
                     </Text>    
 
+                    
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                      Member Account Balance (Ksh): {NonLoanAcBal.toFixed(2)}
-                    </Text>   
-
+                       Gross Loans (Ksh): {GrossLnsGvn.toFixed(2)}
+                    </Text>  
 
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Outstanding Loans (Ksh): {GrossLnsGvn.toFixed(2)}
+                       Actual Loans (Ksh): {LonAmtGven.toFixed(2)}
                     </Text>   
                     
                     
@@ -115,11 +115,11 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                      Available Loans: {loanStatus}                    
+                      Loan Status: {loanStatus}                    
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
-                      Black-Listing of Loans: {blStatus}                    
+                      Black-Listing status: {blStatus}                    
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}

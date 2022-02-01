@@ -62,7 +62,7 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My NonCov Loans</Text>
+            <Text style={styles.label}> My Chama NonCov Loans</Text>
           </>
         )}
       />

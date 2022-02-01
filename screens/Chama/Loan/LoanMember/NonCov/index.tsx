@@ -182,7 +182,7 @@ const fetchChmMbrDtls = async () => {
                             await API.graphql(
                               graphqlOperation(updateChamaMembers, {
                                 input: {
-                                  ChamaNMember: MmbrId,
+                                  ChamaNMember: ChmNMmbrPhns,
                                   LonAmtGven: (parseFloat(LonAmtGvens) + parseFloat(amount)).toFixed(2),
                                   GrossLnsGvn: (parseFloat(GrossLnsGvns) + parseFloat(AmtExp)).toFixed(2),
                                   LnBal: (parseFloat(LnBals) + parseFloat(amount)).toFixed(2),                                  
@@ -195,12 +195,12 @@ const fetchChmMbrDtls = async () => {
 
 
                           } catch (error) {
-                            if(!error){
-                              Alert.alert("Account deactivated successfully")
+                            console.log(error)
+                            if(error){
+                              Alert.alert("Member doesnt exist")
                               
                           } 
-                          else{Alert.alert("Check internet")
-                          return;}
+                          
                           }
                           setIsLoading(false);
                           await sendSMLn();
@@ -226,7 +226,7 @@ const fetchChmMbrDtls = async () => {
                                     description: Desc,
                                     loaneeName:namess,
                                     loanerName:grpNames,
-                                    memberId:MmbrId,
+                                    memberId:ChmNMmbrPhns,
                                     lonBala:parseFloat(AmtExp).toFixed(2),
                                     DefaultPenaltyChm:DfltPnlty,
                                     DefaultPenaltyChm2:0,
@@ -291,7 +291,7 @@ const fetchChmMbrDtls = async () => {
                                     phonecontact:memberContacts,
                                     TtlActvLonsTmsLneeChmNonCov: parseFloat(TtlActvLonsTmsLneeChmNonCovs) +1 ,
                                     TtlActvLonsAmtLneeChmNonCov: (parseFloat(TtlActvLonsAmtLneeChmNonCovs)+ parseFloat(AmtExp)).toFixed(2),
-                                    balance:(parseFloat(parseFloat(RecUsrBal) + parseFloat(amount).toFixed(2)) ).toFixed(2),
+                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(2),
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                
@@ -358,7 +358,7 @@ const fetchChmMbrDtls = async () => {
                       return;
                     }
 
-                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs)){Alert.alert('Loanee National ID be verified through deposit at MFNdogo');}
+                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) === 0){Alert.alert('Loanee National ID be verified through deposit at MFNdogo');}
 
                     else if(parseFloat(TtlActvLonsTmsLnrCovss) !== parseFloat(amount)){Alert.alert('Enter agreed amount');
                       return;
@@ -437,7 +437,7 @@ await fetchSenderUsrDtls();
 return;}
 }
 setAmount("");
-      
+   setChmPhn("")   
 setAdvRegNo("");
 setAmtExp("");
 setDesc("");
@@ -597,7 +597,7 @@ useEffect(() =>{
              onChangeText={setMmbrId}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Chama Number</Text>
+           <Text style={styles.sendAmtText}>Member Chama Number</Text>
          </View>
 
          <View style={styles.sendAmtView}>

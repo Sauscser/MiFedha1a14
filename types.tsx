@@ -101,7 +101,7 @@ declare global {
       ChmSignIn5s:undefined;
       ChmSignIn6s:undefined;
       ChamaRemts:{grpContact:string};
-      ChmContris:{id:string};
+      ChmContris:{grpContact:string};
       ChmMmbrss:{grpContact:string};
       ChamaMmbrRemts:{id:string};
       ChmMmbrContris:undefined;

@@ -133,13 +133,17 @@ const SMASendNonCovLns = props => {
           const MaxPwnBrkrInterest = (parseFloat(amount) + 
           (parseFloat(userLoanTransferFees)*parseFloat(amount) 
             ) )*parseFloat(maxInterestPwnBrkrs)*parseFloat(RepaymtPeriod);
+
           const ActualMaxSMInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) 
           );
           const ActualMaxPwnBrkrInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) 
           );
           const TransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) ;
-          const TtlTransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount);
+          const TtlTransCost =  TransCost +  parseFloat(amount);
           const AllTtlCost = TtlTransCost + MaxPwnBrkrInterest
+
+          console.log(MaxPwnBrkrInterest);
+          console.log(ActualMaxPwnBrkrInterest)
           
               
 
@@ -334,14 +338,14 @@ const SMASendNonCovLns = props => {
                     else if(compDtls.data.listChamasNPwnBrkrs.items.length <1 && parseFloat(AmtExp) > TtlTransCost)
                         {Alert.alert("Friend-Friend Loans can't earn interest. Repay Ksh. "  + TtlTransCost);}
 
-                    else if(compDtls.data.listChamasNPwnBrkrs.items.length >= 1 && parseFloat(RepaymtPeriod) < 60)
+                    else if(compDtls.data.listChamasNPwnBrkrs.items.length > 0 && parseFloat(RepaymtPeriod) < 60)
                         {Alert.alert("Repayment period must be greater than 60 days");}
 
                         else if((parseFloat(TymsIHvGivnLns) - parseFloat(TymsMyLnClrds)) > 4 
                     && compDtls.data.listChamasNPwnBrkrs.items.length < 1){Alert.alert("Call customer care to have limit increased");}
 
                     else if(ActualMaxPwnBrkrInterest > MaxPwnBrkrInterest)
-                        {Alert.alert('High S.I: enter repayment btw Ksh ' + AllTtlCost +" and " + MaxPwnBrkrInterest.toFixed(2) 
+                        {Alert.alert('High S.I: enter repayment btw Ksh ' + AllTtlCost +" and " + TtlTransCost.toFixed(2) 
                         );}
 
                     else if(parseFloat(TtlActvLonsTmsLnrCovss) !== parseFloat(amount)){Alert.alert('Enter the agreed amount');
@@ -365,7 +369,8 @@ const SMASendNonCovLns = props => {
                         else if (
                           parseFloat(SenderUsrBal) < TtlTransCost 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
-                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Little repayment: enter btw Ksh ' + TtlTransCost.toFixed(2) + " and " + (AllTtlCost).toFixed(2));
+                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Little repayment: enter btw Ksh ' + TtlTransCost.toFixed(2) 
+                        + " and " + (AllTtlCost).toFixed(2));
                       return;}
 
                       
@@ -373,7 +378,8 @@ const SMASendNonCovLns = props => {
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                         else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
                         
-                        else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
+                        else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact 
+                        + ' to have your Loan limit adjusted');}
                         
                          else {
                           sendSMLn();

@@ -159,8 +159,8 @@ const RepayNonCovLnsss = props => {
                     const TtlActvLonsAmtLnrCovssss =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLnrNonCov;
                     const TtlClrdLonsTmsLneeCovssss =RecAccountDtl.data.getSMAccount.TtlClrdLonsTmsLnrNonCov;
                     const TtlClrdLonsAmtLneeCovssss =RecAccountDtl.data.getSMAccount.TtlClrdLonsAmtLnrNonCov;
-                    const TtlBLLonsTmsLnrNonCovssss =RecAccountDtl.data.getSMAccount.TtlBLLonsTmsLnrNonCov;
-                    const TtlBLLonsAmtLnrNonCovssss =RecAccountDtl.data.getSMAccount.TtlBLLonsAmtLnrNonCov;
+                    const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
+                    const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                     const namess =RecAccountDtl.data.getSMAccount.name;
                     const TymsMyLnClrds =RecAccountDtl.data.getSMAccount.TymsMyLnClrd;
                     const MaxTymsIHvBLs =RecAccountDtl.data.getSMAccount.MaxTymsIHvBL;
@@ -245,7 +245,7 @@ const RepayNonCovLnsss = props => {
                                           lonBala:(parseFloat(LonBal)-parseFloat(amounts)).toFixed(2),
                                           amountExpectedBackWthClrnc: (parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
                                           status: "LoanCleared",
-                                          DefaultPenaltySM2s:0
+                                          DefaultPenaltySM2:0
                                       }})
                                     )
           
@@ -374,7 +374,7 @@ const RepayNonCovLnsss = props => {
                                           id:route.params.id,
                                           amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(2),
                                           lonBala: (parseFloat(LonBal) - parseFloat(amounts)).toFixed(2),
-                                          DefaultPenaltySM2s:0,
+                                          DefaultPenaltySM2:0,
                                           amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
                                         }
                                       })
@@ -518,7 +518,7 @@ const RepayNonCovLnsss = props => {
                               return;
                             }
                               
-                            else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Too little repayment: at least "+ClranceAmt);
+                            else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Too little repayment: at least "+ClranceAmt.toFixed(2));
                             return;
                           }
 
@@ -527,13 +527,16 @@ const RepayNonCovLnsss = props => {
                               ) {Alert.alert('Requested amount is more than you have in your account');
                             return;
                           }
+                          
                           else if(SendrPhn === loanerPhns){Alert.alert('You cannot Repay Yourself');}
                               
                               else if(usrPW !==SnderPW){Alert.alert('Wrong password');
                             return;
                           }
                               
-                              
+                          else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0)
+                          {Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
+
                               else if(parseFloat(nonLonLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');
                             return;
                           }

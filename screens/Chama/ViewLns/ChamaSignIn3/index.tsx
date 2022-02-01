@@ -55,6 +55,7 @@ const ChmSignIn = (props) => {
       
          
       const phoneContacts = userInfo.attributes.phone_number; 
+      const ownr = userInfo.attributes.sub;
      
     const gtMemberUsrDetails = async () =>{
       if(isLoading){
@@ -66,6 +67,18 @@ const ChmSignIn = (props) => {
           graphqlOperation(getSMAccount,{phonecontact:phoneContacts})
           );
           const pwss = UsrDtls.data.getSMAccount.pw;
+
+          const gtChamaDetails = async () =>{
+            if(isLoading){
+              return;
+            }
+            setIsLoading(true);
+            try{
+              const UsrDtlsz :any= await API.graphql(
+                graphqlOperation(getGroup,{grpContact:grpContact})
+                );
+                const owners = UsrDtlsz.data.getGroup.owner;
+                const signitory2Subs = UsrDtlsz.data.getGroup.signitory2Sub;
     
                 const gtChmDtls = async () =>{
                   if(isLoading){
@@ -83,13 +96,12 @@ const ChmSignIn = (props) => {
                       
                       
 
-                      if(compDtls.data.listChamaMembers.items.length < 1){Alert.alert("You dont belong to this Chama")}
+                      if(compDtls.data.listChamaMembers.items.length < 1 && owners !== ownr 
+                        && signitory2Subs !== ownr){Alert.alert("You dont belong to this Chama")}
                       else if(pwss!==pword){Alert.alert("Wrong User Credentials")}
                       else{FetchGrpLonsSts();}
                     }
 
-                    
-            
             catch(e){
               console.log(e)
               if(e){
@@ -103,6 +115,23 @@ const ChmSignIn = (props) => {
             };
 
             await gtChmDtls();
+
+          }
+
+          catch(e){
+            console.log(e)
+            if(e){
+              Alert.alert("Chama does not exist; otherwise check inernet connection")
+              return;
+          }
+          }
+          setIsLoading(false)
+          
+                      
+          };
+
+          await gtChamaDetails();
+
 
           }
       

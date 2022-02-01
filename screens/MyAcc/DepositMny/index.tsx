@@ -62,6 +62,9 @@ const SMADepositForm = props => {
       const names = accountDtl.data.getSMAccount.name;  
       const nationalids = accountDtl.data.getSMAccount.nationalid; 
       const MaxAcBals = accountDtl.data.getSMAccount.MaxAcBal; 
+
+      const WalCap = parseFloat(usrBala) + parseFloat(amount);
+      console.log(WalCap)
          
       
       const fetchAgtBal = async () => {
@@ -226,7 +229,7 @@ const SMADepositForm = props => {
               return;
             } 
 
-            else if (parseFloat(usrBala) + parseFloat(amount) > parseFloat(MaxAcBals)) {
+            else if ((WalCap) > parseFloat(MaxAcBals)) {
               Alert.alert("Depositor call customer care to have wallet capacity adjusted")
               return;
             } 
