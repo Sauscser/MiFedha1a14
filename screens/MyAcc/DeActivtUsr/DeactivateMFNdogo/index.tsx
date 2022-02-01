@@ -52,9 +52,11 @@ const DeregUsrForm = (props) => {
           }
           setIsLoading(true);
           try{
-            const compDtls :any= await API.graphql(
+            const compDtlsz :any= await API.graphql(
               graphqlOperation(getSMAccount,{phonecontact:UsrId})
               );
+
+              const UsrBal = compDtlsz.data.getSMAccount.balance;
               
               console.log(compDtls);
            
@@ -217,7 +219,11 @@ const DeregUsrForm = (props) => {
               ) {
               Alert.alert("This User has an uncleared Loan");
               
-              
+            }
+
+            else if (parseFloat(UsrBal) > 1)
+            {
+              Alert.alert("User has money in the Account")
             }
             else{
                KFUsrDtls();

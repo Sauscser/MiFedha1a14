@@ -159,9 +159,7 @@ const BLSMNonCovLoanee = (props) => {
                             Alert.alert("This Loan is already Black Listed")
                           } 
 
-                          else if(pws !== LonId){
-                            Alert.alert("Wrong Loaner PassWord")
-                          } 
+                          
 
                           else if(acStatuss === "AccountInactive"){
                             Alert.alert("Loaner account has been deactivated")
@@ -340,10 +338,9 @@ const BLSMNonCovLoanee = (props) => {
                       onChangeText={setLonId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loaner PassWord</Text>
+                    <Text style={styles.sendLoanText}>Comment</Text>
                   </View>
         
-                  
         
                   <TouchableOpacity
                     onPress={gtCompDtls}
