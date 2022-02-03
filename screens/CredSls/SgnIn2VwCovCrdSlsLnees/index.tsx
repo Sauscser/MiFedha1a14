@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {createCompany} from '../../../src/graphql/mutations';
-import { getAgent, getBankAdmin, getBizna, getCompany, getSAgent} from '../../../src/graphql/queries';
+import { getAgent, getBankAdmin, getBizna, getCompany, getSAgent, listPersonels} from '../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -26,7 +26,7 @@ const MFNSignIn = (props) => {
   const [MFNId, setMFNId] = useState("");
   const [MFNPW, setMFNPW] = useState(""); 
   const [ownr, setownr] = useState(null); 
-
+  const [PhoneContact, setPhoneContact] = useState(null); 
   
   
 
@@ -35,6 +35,7 @@ const MFNSignIn = (props) => {
     
     
     setownr(userInfo.attributes.sub);
+    setPhoneContact(userInfo.attributes.phone_number);
      
   };
 
@@ -47,25 +48,27 @@ const MFNSignIn = (props) => {
     
       const fetchMFNDts = async () => {
         try {
-                const MFNDtls: any = await API.graphql(
-                    graphqlOperation(getBizna, {BusKntct: MFNId}
-                ),);
+          const Lonees:any = await API.graphql(graphqlOperation(listPersonels, 
+            { filter: {
+                and: {
+                  phoneKontact: { eq: PhoneContact},
+                  BusinessRegNo:{ eq: MFNId}
+                  
+                }
+              }}
+              ));
 
-                const pw1s = MFNDtls.data.getBizna.pw;
-                const owners = MFNDtls.data.getBizna.owner;
-                const BusinessRegNos = MFNDtls.data.getBizna.BusinessRegNo;
+                
 
                 const VwMFNAc = () => {
                   navigation.navigate("CredSlsLneess", {MFNId});
                 };
 
                 
-                if(owners!==ownr){
-                  Alert.alert("You dont own this Business");
+                if(Lonees.data.listPersonels.items.length < 1){
+                  Alert.alert("You are not a Credit Sales Officer here");
                 }
-          else if(MFNPW !== pw1s ){
-            Alert.alert("Wrong Admin password");
-          }
+          
           else{
               
                   VwMFNAc();
