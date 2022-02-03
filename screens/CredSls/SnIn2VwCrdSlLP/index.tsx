@@ -63,10 +63,7 @@ const MFNSignIn = (props) => {
 
                 
 
-                const VwMFNAc = () => {
-                  navigation.navigate("CredSlsLneess", {MFNId});
-                };
-
+                
                 
                 if(Lonees.data.listPersonels.items.length < 1){
                   Alert.alert("You are not a Credit Sales Officer here");
