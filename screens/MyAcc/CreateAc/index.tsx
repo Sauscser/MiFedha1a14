@@ -319,6 +319,7 @@ useEffect(() =>{
                     <TextInput
                       value={nationalId}
                       onChangeText={setNationalid}
+                      
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>National Id</Text>
@@ -328,6 +329,8 @@ useEffect(() =>{
                     <TextInput
                       value={pword}
                       onChangeText={setPW}
+                      secureTextEntry = {true}
+                                       
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Pass Word</Text>
