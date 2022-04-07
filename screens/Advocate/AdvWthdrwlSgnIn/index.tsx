@@ -136,6 +136,7 @@ const MFNSignIn = (props) => {
                       value={MFNPW}
                       onChangeText={setMFNPW}
                       style={styles.sendLoanInput}
+                      secureTextEntry = {true}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Pass Word</Text>
                   </View>

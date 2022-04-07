@@ -682,7 +682,7 @@ useEffect(() =>{
              value={SnderPW}
              multiline={false}
              autoCompleteType ="off"
-             
+             secureTextEntry = {true}
              onChangeText={setSnderPW}
              style={styles.sendAmtInput}
              editable={true}></TextInput>

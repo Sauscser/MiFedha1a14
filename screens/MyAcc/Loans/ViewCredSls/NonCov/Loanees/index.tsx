@@ -74,6 +74,8 @@ const FetchSMCovLns = props => {
                                                     )
                                                 }
                                                 catch(error){
+
+                                                  console.log(error);
                                                   if(error){
                                                     Alert.alert("Check your internet connection")
                                                     return;
@@ -96,6 +98,7 @@ const FetchSMCovLns = props => {
                                                     )
                                                 }
                                                 catch(error){
+                                                  console.log(error);
                                                   if(error){
                                                     Alert.alert("User does not exist")
                                                     return;

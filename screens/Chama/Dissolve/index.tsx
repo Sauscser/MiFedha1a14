@@ -229,6 +229,7 @@ const DissolveChm = (props) => {
                     <TextInput
                       value={SigntryPW}
                       onChangeText={setSigntryPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Chama Signitory PassWord</Text>

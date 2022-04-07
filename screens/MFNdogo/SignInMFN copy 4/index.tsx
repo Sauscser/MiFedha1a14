@@ -137,6 +137,7 @@ navigation.navigate("VwUsrWthdrwlss", {MFNId});
                     <TextInput
                       value={MFNPW}
                       onChangeText={setMFNPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Pass Word</Text>

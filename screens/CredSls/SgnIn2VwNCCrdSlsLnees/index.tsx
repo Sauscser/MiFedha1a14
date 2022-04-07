@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {createCompany} from '../../../src/graphql/mutations';
-import { getAgent, getBankAdmin, getBizna, getCompany, getSAgent, listPersonels} from '../../../src/graphql/queries';
+import { getAgent, getBankAdmin, getBizna, getCompany, getSAgent, getSMAccount, listPersonels} from '../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -25,11 +25,25 @@ const MFNSignIn = (props) => {
 
   const [MFNId, setMFNId] = useState("");
   const [MFNPW, setMFNPW] = useState(""); 
-  const [ownr, setownr] = useState(null);
+  
   const [PhoneContact, setPhoneContact] = useState(null);  
+  
+  const [grpContact, setChmPhn] = useState('');
+  const [nam, setName] = useState(null);
+  const [phoneContacts, setPhoneContacts] = useState("");
+  const [awsEmail, setAWSEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [SendrPhn, setSendrPhn] = useState(null);
+  const [pword, setPW] = useState('');
+  const [ChmNm, setChmNm] = useState('');
+  const [ChmDesc, setChmDesc] = useState('');
+  const [memberPhn, setmemberPhn] = useState(''); 
+  const[ownr, setownr] = useState(null);
+  const ChmNMmbrPhns = ChmDesc+memberPhn
 
-
-
+  const VwMFNAc = () => {
+    navigation.navigate("CredByrLneess", {MFNId});
+  };
   
 
   const fetchUser = async () => {
@@ -48,71 +62,111 @@ const MFNSignIn = (props) => {
     }, []);
     
     
-      const fetchMFNDts = async () => {
-        try {
-          const Lonees:any = await API.graphql(graphqlOperation(listPersonels, 
+    const ChckPersonelExistence = async () => {
+      try {
+        const UsrDtls:any = await API.graphql(
+          graphqlOperation(listPersonels,
             { filter: {
-                and: {
-                  phoneKontact: { eq: PhoneContact},
-                  BusinessRegNo:{ eq: MFNId}
-                  
-                }
+                
+              phoneKontact: { eq: PhoneContact},
+              BusinessRegNo:{eq: MFNId}
+                            
               }}
-              ));
+          )
+        )
 
-                
+        const gtChmDtls = async () =>{
+          if(isLoading){
+            return;
+          }
+          setIsLoading(true);
+          try{
+            const compDtls :any= await API.graphql(
+              graphqlOperation(getSMAccount,{phonecontact:PhoneContact})
+              );
+              const signitoryPWs = compDtls.data.getSMAccount.pw;  
+              const owners = compDtls.data.getSMAccount.owner; 
 
-                const VwMFNAc = () => {
-                  navigation.navigate("CredSlsLneess", {MFNId});
-                };
-
-                
-                if(Lonees.data.listPersonels.items.length < 1){
-                  Alert.alert("You are not a Credit Sales Officer here");
-                }
-          else{
-              
-                  VwMFNAc();
-              }
-              
-            }
-
-            catch (e)
-            {
-              
-                console.log(e)
-                if(e){
-                  Alert.alert("Business does not exist; ");
-                  return;
-                }
-               
-                
-            }    
-            setMFNId("");
-            setMFNPW("");
+              if(signitoryPWs!==pword){Alert.alert("Wrong User credentials")}
+    else if (UsrDtls.data.listPersonels.items.length < 1) {
+      Alert.alert("You do not work here");
+      return;
       
-    
-             }
+    }
+    else if(ownr!==owners){Alert.alert("This is not your Account")}
+    else{VwMFNAc();}
+
+      }
+
+  
+
+      catch(e){
+        console.log(e)
+        if(e){
+          Alert.alert("User does not exist; otherwise check inernet connection")
+          return;
+      }
+      }
+      
+                  setIsLoading(false)
+                  
+      };
+
+      await gtChmDtls();
+
+  }
+
+  
+
+catch(e){
+console.log(e)
+if(e){
+Alert.alert("User does not exist; otherwise check inernet connection")
+return;
+}
+}
+setIsLoading(false)
+setChmPhn('');
+setPW('');
+setPhoneContacts("")
+setChmDesc("")
+setChmNm("")
+setmemberPhn("")
+setMFNId("")
+      setIsLoading(false)
+      
+};
+
+useEffect(() =>{
+  const pws=pword
+    if(!pws && pws!=="")
+    {
+      setPW("");
+      return;
+    }
+    setPW(pws);
+    }, [pword]
+     );
 
              useEffect(() =>{
-              const mfnID=MFNId
-                if(!mfnID && mfnID!=="")
+              const mfnIDs=MFNId
+                if(!mfnIDs && mfnIDs!=="")
                 {
                   setMFNId("");
                   return;
                 }
-                setMFNId(mfnID);
+                setMFNId(mfnIDs);
                 }, [MFNId]
                  );
   
                  useEffect(() =>{
-                  const mfnPW=MFNPW
-                    if(!mfnPW && mfnPW!=="")
+                  const mfnPWs=MFNPW
+                    if(!mfnPWs && mfnPWs!=="")
                     {
                       setMFNPW("");
                       return;
                     }
-                    setMFNPW(mfnPW);
+                    setMFNPW(mfnPWs);
                     }, [MFNPW]
                      );
 
@@ -139,15 +193,17 @@ const MFNSignIn = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                      value={MFNPW}
-                      onChangeText={setMFNPW}
+                    
+                      value={pword}
+                      onChangeText={setPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Business PassWord</Text>
+                    <Text style={styles.sendLoanText}>Sales Officer User PW</Text>
                   </View>
         
                   <TouchableOpacity
-                    onPress={fetchMFNDts}
+                    onPress={ChckPersonelExistence}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to View

@@ -270,6 +270,7 @@ const AdminWthdwl = props => {
             <TextInput
               value={UsrPWd}
               onChangeText={setUsrPWd}
+              secureTextEntry = {true}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
             <Text style={styles.sendAmtText}>MFKubwa PW</Text>

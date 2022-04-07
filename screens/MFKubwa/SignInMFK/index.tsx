@@ -129,6 +129,7 @@ const MFKSignIn = (props) => {
                     <TextInput
                       value={MFKPW}
                       onChangeText={setMFKPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Pass Word</Text>

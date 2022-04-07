@@ -196,12 +196,12 @@ const UpdtSMPW = (props) => {
                     <Text style={styles.title}>Fill Ac Details Below</Text>
                   </View>
         
-                  <View style={styles.sendLoanView2}>
+                  <View style={styles.sendLoanView}>
                     <TextInput
                     multiline={true}
                       value={CompPW1}
                       onChangeText={setCompPW1}
-                      style={styles.sendLoanInput2}
+                      style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>About</Text>
                   </View>   

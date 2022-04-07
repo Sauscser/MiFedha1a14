@@ -200,6 +200,7 @@ const UpdtMFKPW = (props) => {
                     <TextInput
                       value={OldAdmnPW}
                       onChangeText={setOldAdmnPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Old Admin PW</Text>
@@ -211,6 +212,7 @@ const UpdtMFKPW = (props) => {
                     <TextInput
                       value={NewAdmnPW}
                       onChangeText={setNewAdmnPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>New Admin PW</Text>

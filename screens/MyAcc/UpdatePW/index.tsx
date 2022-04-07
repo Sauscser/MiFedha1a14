@@ -187,6 +187,7 @@ const UpdtSMPW = (props) => {
                     <TextInput
                       value={SMPW}
                       onChangeText={setSMPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>New SM Ac PW</Text>

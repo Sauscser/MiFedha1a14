@@ -576,6 +576,7 @@ useEffect(() =>{
            <TextInput
              value={SnderPW}
              onChangeText={setSnderPW}
+             secureTextEntry = {true}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
            <Text style={styles.sendAmtText}>Sales Officer User PassWord</Text>

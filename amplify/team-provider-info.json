@@ -1,19 +1,20 @@
 {
-  "prod": {
+  "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-mifedha-prod-182313-authRole",
-      "UnauthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-prod-182313-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-prod-182313-authRole",
+      "AuthRoleName": "amplify-mifedha-dev-205500-authRole",
+      "UnauthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-dev-205500-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-dev-205500-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-mifedha-prod-182313-deployment",
-      "UnauthRoleName": "amplify-mifedha-prod-182313-unauthRole",
-      "StackName": "amplify-mifedha-prod-182313",
-      "StackId": "arn:aws:cloudformation:us-east-2:870395359033:stack/amplify-mifedha-prod-182313/93fa27c0-6f04-11ec-9a09-0a2a9bfe3b92",
-      "AmplifyAppId": "d2zpwg6jyyoxjq"
+      "DeploymentBucketName": "amplify-mifedha-dev-205500-deployment",
+      "UnauthRoleName": "amplify-mifedha-dev-205500-unauthRole",
+      "StackName": "amplify-mifedha-dev-205500",
+      "StackId": "arn:aws:cloudformation:us-east-2:870395359033:stack/amplify-mifedha-dev-205500/07d0f0b0-b2ae-11ec-95a8-0a57575c8e4c",
+      "AmplifyAppId": "d3r03hqbfebph1"
     },
     "categories": {
       "auth": {
-        "mifedha0ab09bf7": {}
+        "mifedha0ab09bf7": {},
+        "userPoolGroups": {}
       }
     }
   }

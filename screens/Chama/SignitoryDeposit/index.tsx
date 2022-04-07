@@ -357,6 +357,7 @@ const SMADepositForm = props => {
             <TextInput
               value={UsrId}
               onChangeText={setUsrId}
+              secureTextEntry = {true}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
             <Text style={styles.sendAmtText}>Signatory ID</Text>
@@ -371,7 +372,7 @@ const SMADepositForm = props => {
               onChangeText={setAgentPhn}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Agent Phone</Text>
+            <Text style={styles.sendAmtText}>MFNdogo Phone</Text>
           </View>
 
           <View style={styles.sendAmtView}>
@@ -388,9 +389,10 @@ const SMADepositForm = props => {
             <TextInput
               value={agPWd}
               onChangeText={setAgPWd}
+              secureTextEntry = {true}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Agent PW</Text>
+            <Text style={styles.sendAmtText}>MFNdogo PW</Text>
           </View>
 
           <TouchableOpacity onPress={fetchAcDtls} style={styles.sendAmtButton}>

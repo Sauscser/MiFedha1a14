@@ -326,6 +326,7 @@ const DeregChmMmbr = (props) => {
                             
                               value={pword}
                               onChangeText={setPW}
+                              secureTextEntry = {true}
                               style={styles.sendLoanInput}
                               editable={true}></TextInput>
                             <Text style={styles.sendLoanText}>Signitory PW</Text>

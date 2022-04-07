@@ -289,6 +289,7 @@ const AdminSignIn = (props) => {
                     <TextInput
                       value={PWOnes}
                       onChangeText={setPWOne}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Pass Word1</Text>
@@ -298,6 +299,7 @@ const AdminSignIn = (props) => {
                     <TextInput
                       value={PWTwos}
                       onChangeText={setPWTwo}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Pass Word2</Text>

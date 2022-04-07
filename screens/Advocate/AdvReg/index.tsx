@@ -353,6 +353,7 @@ setBkAcNu("");
               value={pword}
               onChangeText={setPW}
               style={styles.sendLoanInput}
+              secureTextEntry = {true}
               editable={true}></TextInput>
             <Text style={styles.sendLoanText}>Advocate Pass Word</Text>
           </View>

@@ -224,6 +224,7 @@ const UpdtMFNPW = (props) => {
                     <TextInput
                       value={OldAdmnPW}
                       onChangeText={setOldAdmnPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>MFNdogo PassWord</Text>

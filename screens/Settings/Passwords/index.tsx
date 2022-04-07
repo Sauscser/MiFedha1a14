@@ -114,7 +114,7 @@ const UpdtSMPW = (props) => {
 
                                     } catch (error) {
                                       if(error){
-                                        Alert.alert("Check internet; otherwise Usr doesnt exist")
+                                        Alert.alert("Check internet; otherwise User doesnt exist")
                                         return
                                       }
                                     }}
@@ -123,7 +123,7 @@ const UpdtSMPW = (props) => {
 
             } catch (error) {
                 if(error){
-                  Alert.alert("Check internet; otherwise Chama doesnt exist")
+                  Alert.alert("Check internet; otherwise User doesnt exist")
                   return
                 }
               }
@@ -197,6 +197,7 @@ const UpdtSMPW = (props) => {
                     <TextInput
                       value={CompPW1}
                       onChangeText={setCompPW1}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>New PW1</Text>
@@ -206,6 +207,7 @@ const UpdtSMPW = (props) => {
                     <TextInput
                       value={CompPW2}
                       onChangeText={setCompPW2}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>New PW2</Text>

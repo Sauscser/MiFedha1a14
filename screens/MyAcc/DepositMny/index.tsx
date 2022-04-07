@@ -401,6 +401,7 @@ const SMADepositForm = props => {
             <TextInput
               value={agPWd}
               onChangeText={setAgPWd}
+              secureTextEntry = {true}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
             <Text style={styles.sendAmtText}>MFNdogo PW</Text>

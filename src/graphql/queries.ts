@@ -1890,7 +1890,7 @@ export const listGrpMembersContributions = /* GraphQL */ `
 `;
 export const vwMyDebts = /* GraphQL */ `
   query VwMyDebts(
-    $loaneePhn: String
+    $loaneePhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelSMLoansCoveredFilterInput
@@ -1936,7 +1936,7 @@ export const vwMyDebts = /* GraphQL */ `
 `;
 export const vwLnrNLneesssss = /* GraphQL */ `
   query VwLnrNLneesssss(
-    $loanerLoanee: String
+    $loanerLoanee: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelSMLoansCoveredFilterInput
@@ -1982,7 +1982,7 @@ export const vwLnrNLneesssss = /* GraphQL */ `
 `;
 export const vwAdvNLnrNLneesssss = /* GraphQL */ `
   query VwAdvNLnrNLneesssss(
-    $loanerLoaneeAdv: String
+    $loanerLoaneeAdv: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelSMLoansCoveredFilterInput
@@ -2028,7 +2028,7 @@ export const vwAdvNLnrNLneesssss = /* GraphQL */ `
 `;
 export const vwMyDebtors = /* GraphQL */ `
   query VwMyDebtors(
-    $loanerPhn: String
+    $loanerPhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelSMLoansCoveredFilterInput
@@ -2074,7 +2074,7 @@ export const vwMyDebtors = /* GraphQL */ `
 `;
 export const advVwLnsClient = /* GraphQL */ `
   query AdvVwLnsClient(
-    $advregnu: String
+    $advregnu: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelSMLoansCoveredFilterInput
@@ -2120,7 +2120,7 @@ export const advVwLnsClient = /* GraphQL */ `
 `;
 export const vwMyDebtss = /* GraphQL */ `
   query VwMyDebtss(
-    $loaneePhn: String
+    $loaneePhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelSMLoansNonCoveredFilterInput
@@ -2164,7 +2164,7 @@ export const vwMyDebtss = /* GraphQL */ `
 `;
 export const vwMyDebtorss = /* GraphQL */ `
   query VwMyDebtorss(
-    $loanerPhn: String
+    $loanerPhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelSMLoansNonCoveredFilterInput
@@ -2208,7 +2208,7 @@ export const vwMyDebtorss = /* GraphQL */ `
 `;
 export const vwLnrNLneessss = /* GraphQL */ `
   query VwLnrNLneessss(
-    $loanerLoanee: String
+    $loanerLoanee: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelSMLoansNonCoveredFilterInput
@@ -2252,7 +2252,7 @@ export const vwLnrNLneessss = /* GraphQL */ `
 `;
 export const vwMySntMny = /* GraphQL */ `
   query VwMySntMny(
-    $senderPhn: String
+    $senderPhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelNonLoansFilterInput
@@ -2286,7 +2286,7 @@ export const vwMySntMny = /* GraphQL */ `
 `;
 export const vwMyRecMny = /* GraphQL */ `
   query VwMyRecMny(
-    $recPhn: String
+    $recPhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelNonLoansFilterInput
@@ -2320,7 +2320,7 @@ export const vwMyRecMny = /* GraphQL */ `
 `;
 export const mFKVwMFN = /* GraphQL */ `
   query MFKVwMFN(
-    $sagentregno: String
+    $sagentregno: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelAgentFilterInput
@@ -2364,7 +2364,7 @@ export const mFKVwMFN = /* GraphQL */ `
 `;
 export const vwMyBghtFlt = /* GraphQL */ `
   query VwMyBghtFlt(
-    $agentphone: String
+    $agentphone: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelFloatPurchaseFilterInput
@@ -2395,7 +2395,7 @@ export const vwMyBghtFlt = /* GraphQL */ `
 `;
 export const vwMyUsrWthdrwls = /* GraphQL */ `
   query VwMyUsrWthdrwls(
-    $withdrawerid: String
+    $withdrawerid: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelFloatAddFilterInput
@@ -2431,7 +2431,7 @@ export const vwMyUsrWthdrwls = /* GraphQL */ `
 `;
 export const vwMFNFltAdds = /* GraphQL */ `
   query VwMFNFltAdds(
-    $agentPhonecontact: String
+    $agentPhonecontact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelFloatAddFilterInput
@@ -2467,7 +2467,7 @@ export const vwMFNFltAdds = /* GraphQL */ `
 `;
 export const vwMFKEarningsFrmWthdrwls = /* GraphQL */ `
   query VwMFKEarningsFrmWthdrwls(
-    $saPhone: String
+    $saPhone: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelFloatAddFilterInput
@@ -2503,7 +2503,7 @@ export const vwMFKEarningsFrmWthdrwls = /* GraphQL */ `
 `;
 export const vwMyUsrDposits = /* GraphQL */ `
   query VwMyUsrDposits(
-    $depositerid: String
+    $depositerid: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelFloatReductionFilterInput
@@ -2536,7 +2536,7 @@ export const vwMyUsrDposits = /* GraphQL */ `
 `;
 export const vwMFNFltDeductns = /* GraphQL */ `
   query VwMFNFltDeductns(
-    $agContact: String
+    $agContact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelFloatReductionFilterInput
@@ -2569,7 +2569,7 @@ export const vwMFNFltDeductns = /* GraphQL */ `
 `;
 export const vwMFNWthdrwls = /* GraphQL */ `
   query VwMFNWthdrwls(
-    $agentPhone: String
+    $agentPhone: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelAgentWithdrawalsFilterInput
@@ -2602,7 +2602,7 @@ export const vwMFNWthdrwls = /* GraphQL */ `
 `;
 export const vwMFKWthdrwls = /* GraphQL */ `
   query VwMFKWthdrwls(
-    $saId: String
+    $saId: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelSAgentWithdrawalsFilterInput
@@ -2635,7 +2635,7 @@ export const vwMFKWthdrwls = /* GraphQL */ `
 `;
 export const wrkrsVww = /* GraphQL */ `
   query WrkrsVww(
-    $phoneKontact: String
+    $phoneKontact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelPersonelFilterInput
@@ -2670,7 +2670,7 @@ export const wrkrsVww = /* GraphQL */ `
 `;
 export const busOwnrVwWrkrss = /* GraphQL */ `
   query BusOwnrVwWrkrss(
-    $BusinessRegNo: String
+    $BusinessRegNo: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelPersonelFilterInput
@@ -2705,7 +2705,7 @@ export const busOwnrVwWrkrss = /* GraphQL */ `
 `;
 export const biznaVwws = /* GraphQL */ `
   query BiznaVwws(
-    $BusinessRegNo: String
+    $BusinessRegNo: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelBiznaFilterInput
@@ -2741,7 +2741,7 @@ export const biznaVwws = /* GraphQL */ `
 `;
 export const vwAdvWthdrwls = /* GraphQL */ `
   query VwAdvWthdrwls(
-    $advregnu: String
+    $advregnu: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelAdvocateWithdrawalsFilterInput
@@ -2774,7 +2774,7 @@ export const vwAdvWthdrwls = /* GraphQL */ `
 `;
 export const vwLnrNLneesss = /* GraphQL */ `
   query VwLnrNLneesss(
-    $loanerLoanee: String
+    $loanerLoanee: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelCovCreditSellerFilterInput
@@ -2822,7 +2822,7 @@ export const vwLnrNLneesss = /* GraphQL */ `
 `;
 export const vwAdvNLnrNLneesss = /* GraphQL */ `
   query VwAdvNLnrNLneesss(
-    $loanerLoaneeAdv: String
+    $loanerLoaneeAdv: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelCovCreditSellerFilterInput
@@ -2870,7 +2870,7 @@ export const vwAdvNLnrNLneesss = /* GraphQL */ `
 `;
 export const vwMyCrdBys = /* GraphQL */ `
   query VwMyCrdBys(
-    $buyerContact: String
+    $buyerContact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelCovCreditSellerFilterInput
@@ -2918,7 +2918,7 @@ export const vwMyCrdBys = /* GraphQL */ `
 `;
 export const vwMySales = /* GraphQL */ `
   query VwMySales(
-    $sellerContact: String
+    $sellerContact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelCovCreditSellerFilterInput
@@ -2966,7 +2966,7 @@ export const vwMySales = /* GraphQL */ `
 `;
 export const vwAdvCrdSls = /* GraphQL */ `
   query VwAdvCrdSls(
-    $advregnu: String
+    $advregnu: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelCovCreditSellerFilterInput
@@ -3014,7 +3014,7 @@ export const vwAdvCrdSls = /* GraphQL */ `
 `;
 export const vwLnrNLneess = /* GraphQL */ `
   query VwLnrNLneess(
-    $loanerLoanee: String
+    $loanerLoanee: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelNonCovCreditSellerFilterInput
@@ -3060,7 +3060,7 @@ export const vwLnrNLneess = /* GraphQL */ `
 `;
 export const vwMyCrdByss = /* GraphQL */ `
   query VwMyCrdByss(
-    $buyerContact: String
+    $buyerContact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelNonCovCreditSellerFilterInput
@@ -3106,7 +3106,7 @@ export const vwMyCrdByss = /* GraphQL */ `
 `;
 export const vwMySaless = /* GraphQL */ `
   query VwMySaless(
-    $sellerContact: String
+    $sellerContact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelNonCovCreditSellerFilterInput
@@ -3152,7 +3152,7 @@ export const vwMySaless = /* GraphQL */ `
 `;
 export const viaChmNMmbr = /* GraphQL */ `
   query ViaChmNMmbr(
-    $MembaId: String
+    $MembaId: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelChamaMembersFilterInput
@@ -3195,7 +3195,7 @@ export const viaChmNMmbr = /* GraphQL */ `
 `;
 export const vwChamaMembers = /* GraphQL */ `
   query VwChamaMembers(
-    $groupContact: String
+    $groupContact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelChamaMembersFilterInput
@@ -3238,7 +3238,7 @@ export const vwChamaMembers = /* GraphQL */ `
 `;
 export const vwMyChamas = /* GraphQL */ `
   query VwMyChamas(
-    $memberContact: String
+    $memberContact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelChamaMembersFilterInput
@@ -3281,7 +3281,7 @@ export const vwMyChamas = /* GraphQL */ `
 `;
 export const vwViaPhons = /* GraphQL */ `
   query VwViaPhons(
-    $contact: String
+    $contact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelChamasNPwnBrkrsFilterInput
@@ -3311,7 +3311,7 @@ export const vwViaPhons = /* GraphQL */ `
 `;
 export const vwViaRegNo = /* GraphQL */ `
   query VwViaRegNo(
-    $regNo: String
+    $regNo: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelChamasNPwnBrkrsFilterInput
@@ -3341,7 +3341,7 @@ export const vwViaRegNo = /* GraphQL */ `
 `;
 export const vwViaPhonss = /* GraphQL */ `
   query VwViaPhonss(
-    $contact: String
+    $contact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelChamasRegConfirmFilterInput
@@ -3371,7 +3371,7 @@ export const vwViaPhonss = /* GraphQL */ `
 `;
 export const vwViaRegNoss = /* GraphQL */ `
   query VwViaRegNoss(
-    $regNo: String
+    $regNo: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelChamasRegConfirmFilterInput
@@ -3401,7 +3401,7 @@ export const vwViaRegNoss = /* GraphQL */ `
 `;
 export const vwChamaMemberss = /* GraphQL */ `
   query VwChamaMemberss(
-    $grpContact: String
+    $grpContact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelCvrdGroupLoansFilterInput
@@ -3446,7 +3446,7 @@ export const vwChamaMemberss = /* GraphQL */ `
 `;
 export const vwMyChamass = /* GraphQL */ `
   query VwMyChamass(
-    $loaneePhn: String
+    $loaneePhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelCvrdGroupLoansFilterInput
@@ -3491,7 +3491,7 @@ export const vwMyChamass = /* GraphQL */ `
 `;
 export const vwLnrNLnee = /* GraphQL */ `
   query VwLnrNLnee(
-    $loanerLoanee: String
+    $loanerLoanee: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelCvrdGroupLoansFilterInput
@@ -3536,7 +3536,7 @@ export const vwLnrNLnee = /* GraphQL */ `
 `;
 export const vwAdvNLnrNLnee = /* GraphQL */ `
   query VwAdvNLnrNLnee(
-    $loanerLoaneeAdv: String
+    $loanerLoaneeAdv: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelCvrdGroupLoansFilterInput
@@ -3581,7 +3581,7 @@ export const vwAdvNLnrNLnee = /* GraphQL */ `
 `;
 export const vwChmLnClients = /* GraphQL */ `
   query VwChmLnClients(
-    $advRegNu: String
+    $advRegNu: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelCvrdGroupLoansFilterInput
@@ -3626,7 +3626,7 @@ export const vwChmLnClients = /* GraphQL */ `
 `;
 export const vwChamaMembersss = /* GraphQL */ `
   query VwChamaMembersss(
-    $grpContact: String
+    $grpContact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelNonCvrdGroupLoansFilterInput
@@ -3669,7 +3669,7 @@ export const vwChamaMembersss = /* GraphQL */ `
 `;
 export const vwMyChamasss = /* GraphQL */ `
   query VwMyChamasss(
-    $loaneePhn: String
+    $loaneePhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelNonCvrdGroupLoansFilterInput
@@ -3712,7 +3712,7 @@ export const vwMyChamasss = /* GraphQL */ `
 `;
 export const vwLnrNLnees = /* GraphQL */ `
   query VwLnrNLnees(
-    $loanerLoanee: String
+    $loanerLoanee: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelNonCvrdGroupLoansFilterInput
@@ -3755,7 +3755,7 @@ export const vwLnrNLnees = /* GraphQL */ `
 `;
 export const vwChamaMemberssss = /* GraphQL */ `
   query VwChamaMemberssss(
-    $grpContact: String
+    $grpContact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelGroupNonLoansFilterInput
@@ -3790,7 +3790,7 @@ export const vwChamaMemberssss = /* GraphQL */ `
 `;
 export const vwMyChamassss = /* GraphQL */ `
   query VwMyChamassss(
-    $recipientPhn: String
+    $recipientPhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelGroupNonLoansFilterInput
@@ -3825,7 +3825,7 @@ export const vwMyChamassss = /* GraphQL */ `
 `;
 export const vwMyChamasssss = /* GraphQL */ `
   query VwMyChamasssss(
-    $memberPhn: String
+    $memberPhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelGrpMembersContributionFilterInput
@@ -3859,7 +3859,7 @@ export const vwMyChamasssss = /* GraphQL */ `
 `;
 export const vwChamaMembersssss = /* GraphQL */ `
   query VwChamaMembersssss(
-    $grpContact: String
+    $grpContact: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelGrpMembersContributionFilterInput

@@ -61,6 +61,7 @@ const DissolveChm = (props) => {
                         const signitoryPWs = compDtls.data.getBizna.pw
                         const grpNames = compDtls.data.getBizna.busName
                         const owners = compDtls.data.getBizna.owner
+                        const earningsBals = compDtls.data.getBizna.earningsBal
                         
                                       const updtChmDtls = async () => {
                                         if(isLoading){
@@ -97,6 +98,11 @@ const DissolveChm = (props) => {
                                       else if(ownr!==owners)
                                       {
                                           Alert.alert("You do not own this business");
+                                      }
+
+                                      else if(earningsBals > 1)
+                                      {
+                                          Alert.alert("Business account has funds; please share it");
                                       }
 
                                       
@@ -164,6 +170,7 @@ const DissolveChm = (props) => {
                     <TextInput
                       value={SigntryPW}
                       onChangeText={setSigntryPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Business PassWord</Text>

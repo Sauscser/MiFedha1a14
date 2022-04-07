@@ -281,6 +281,7 @@ const UpdtSMPW = (props) => {
                       value={SMPW}
                       autoCompleteType ={"off"}
                       onChangeText={setSMPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>User Pass Word</Text>

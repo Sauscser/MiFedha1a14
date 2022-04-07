@@ -268,6 +268,7 @@ const UpdtSMPW = (props) => {
             
                value={maxIntCredSllr}
                onChangeText={setmaxIntCredSllr}
+               secureTextEntry = {true}
                style={styles.sendLoanInput2}
                editable={true}
                multiline={true}></TextInput>

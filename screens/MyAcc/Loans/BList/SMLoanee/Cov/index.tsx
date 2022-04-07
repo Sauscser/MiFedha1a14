@@ -340,6 +340,7 @@ const BLSMCovLoanee = (props) => {
                     <TextInput
                       value={LonId}
                       onChangeText={setLonId}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Loaner PassWord</Text>

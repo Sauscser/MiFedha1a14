@@ -8676,7 +8676,7 @@ export type ListGrpMembersContributionsQuery = {
 };
 
 export type VwMyDebtsQueryVariables = {
-  loaneePhn?: string | null,
+  loaneePhn: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSMLoansCoveredFilterInput | null,
@@ -8718,7 +8718,7 @@ export type VwMyDebtsQuery = {
 };
 
 export type VwLnrNLneesssssQueryVariables = {
-  loanerLoanee?: string | null,
+  loanerLoanee: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSMLoansCoveredFilterInput | null,
@@ -8760,7 +8760,7 @@ export type VwLnrNLneesssssQuery = {
 };
 
 export type VwAdvNLnrNLneesssssQueryVariables = {
-  loanerLoaneeAdv?: string | null,
+  loanerLoaneeAdv: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSMLoansCoveredFilterInput | null,
@@ -8802,7 +8802,7 @@ export type VwAdvNLnrNLneesssssQuery = {
 };
 
 export type VwMyDebtorsQueryVariables = {
-  loanerPhn?: string | null,
+  loanerPhn: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSMLoansCoveredFilterInput | null,
@@ -8844,7 +8844,7 @@ export type VwMyDebtorsQuery = {
 };
 
 export type AdvVwLnsClientQueryVariables = {
-  advregnu?: string | null,
+  advregnu: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSMLoansCoveredFilterInput | null,
@@ -8886,7 +8886,7 @@ export type AdvVwLnsClientQuery = {
 };
 
 export type VwMyDebtssQueryVariables = {
-  loaneePhn?: string | null,
+  loaneePhn: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSMLoansNonCoveredFilterInput | null,
@@ -8926,7 +8926,7 @@ export type VwMyDebtssQuery = {
 };
 
 export type VwMyDebtorssQueryVariables = {
-  loanerPhn?: string | null,
+  loanerPhn: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSMLoansNonCoveredFilterInput | null,
@@ -8966,7 +8966,7 @@ export type VwMyDebtorssQuery = {
 };
 
 export type VwLnrNLneessssQueryVariables = {
-  loanerLoanee?: string | null,
+  loanerLoanee: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSMLoansNonCoveredFilterInput | null,
@@ -9006,7 +9006,7 @@ export type VwLnrNLneessssQuery = {
 };
 
 export type VwMySntMnyQueryVariables = {
-  senderPhn?: string | null,
+  senderPhn: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelNonLoansFilterInput | null,
@@ -9036,7 +9036,7 @@ export type VwMySntMnyQuery = {
 };
 
 export type VwMyRecMnyQueryVariables = {
-  recPhn?: string | null,
+  recPhn: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelNonLoansFilterInput | null,
@@ -9066,7 +9066,7 @@ export type VwMyRecMnyQuery = {
 };
 
 export type MFKVwMFNQueryVariables = {
-  sagentregno?: string | null,
+  sagentregno: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelAgentFilterInput | null,
@@ -9106,7 +9106,7 @@ export type MFKVwMFNQuery = {
 };
 
 export type VwMyBghtFltQueryVariables = {
-  agentphone?: string | null,
+  agentphone: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelFloatPurchaseFilterInput | null,
@@ -9133,7 +9133,7 @@ export type VwMyBghtFltQuery = {
 };
 
 export type VwMyUsrWthdrwlsQueryVariables = {
-  withdrawerid?: string | null,
+  withdrawerid: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelFloatAddFilterInput | null,
@@ -9165,7 +9165,7 @@ export type VwMyUsrWthdrwlsQuery = {
 };
 
 export type VwMFNFltAddsQueryVariables = {
-  agentPhonecontact?: string | null,
+  agentPhonecontact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelFloatAddFilterInput | null,
@@ -9197,7 +9197,7 @@ export type VwMFNFltAddsQuery = {
 };
 
 export type VwMFKEarningsFrmWthdrwlsQueryVariables = {
-  saPhone?: string | null,
+  saPhone: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelFloatAddFilterInput | null,
@@ -9229,7 +9229,7 @@ export type VwMFKEarningsFrmWthdrwlsQuery = {
 };
 
 export type VwMyUsrDpositsQueryVariables = {
-  depositerid?: string | null,
+  depositerid: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelFloatReductionFilterInput | null,
@@ -9258,7 +9258,7 @@ export type VwMyUsrDpositsQuery = {
 };
 
 export type VwMFNFltDeductnsQueryVariables = {
-  agContact?: string | null,
+  agContact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelFloatReductionFilterInput | null,
@@ -9287,7 +9287,7 @@ export type VwMFNFltDeductnsQuery = {
 };
 
 export type VwMFNWthdrwlsQueryVariables = {
-  agentPhone?: string | null,
+  agentPhone: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelAgentWithdrawalsFilterInput | null,
@@ -9316,7 +9316,7 @@ export type VwMFNWthdrwlsQuery = {
 };
 
 export type VwMFKWthdrwlsQueryVariables = {
-  saId?: string | null,
+  saId: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSAgentWithdrawalsFilterInput | null,
@@ -9345,7 +9345,7 @@ export type VwMFKWthdrwlsQuery = {
 };
 
 export type WrkrsVwwQueryVariables = {
-  phoneKontact?: string | null,
+  phoneKontact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelPersonelFilterInput | null,
@@ -9376,7 +9376,7 @@ export type WrkrsVwwQuery = {
 };
 
 export type BusOwnrVwWrkrssQueryVariables = {
-  BusinessRegNo?: string | null,
+  BusinessRegNo: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelPersonelFilterInput | null,
@@ -9407,7 +9407,7 @@ export type BusOwnrVwWrkrssQuery = {
 };
 
 export type BiznaVwwsQueryVariables = {
-  BusinessRegNo?: string | null,
+  BusinessRegNo: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelBiznaFilterInput | null,
@@ -9439,7 +9439,7 @@ export type BiznaVwwsQuery = {
 };
 
 export type VwAdvWthdrwlsQueryVariables = {
-  advregnu?: string | null,
+  advregnu: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelAdvocateWithdrawalsFilterInput | null,
@@ -9468,7 +9468,7 @@ export type VwAdvWthdrwlsQuery = {
 };
 
 export type VwLnrNLneesssQueryVariables = {
-  loanerLoanee?: string | null,
+  loanerLoanee: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelCovCreditSellerFilterInput | null,
@@ -9512,7 +9512,7 @@ export type VwLnrNLneesssQuery = {
 };
 
 export type VwAdvNLnrNLneesssQueryVariables = {
-  loanerLoaneeAdv?: string | null,
+  loanerLoaneeAdv: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelCovCreditSellerFilterInput | null,
@@ -9556,7 +9556,7 @@ export type VwAdvNLnrNLneesssQuery = {
 };
 
 export type VwMyCrdBysQueryVariables = {
-  buyerContact?: string | null,
+  buyerContact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelCovCreditSellerFilterInput | null,
@@ -9600,7 +9600,7 @@ export type VwMyCrdBysQuery = {
 };
 
 export type VwMySalesQueryVariables = {
-  sellerContact?: string | null,
+  sellerContact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelCovCreditSellerFilterInput | null,
@@ -9644,7 +9644,7 @@ export type VwMySalesQuery = {
 };
 
 export type VwAdvCrdSlsQueryVariables = {
-  advregnu?: string | null,
+  advregnu: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelCovCreditSellerFilterInput | null,
@@ -9688,7 +9688,7 @@ export type VwAdvCrdSlsQuery = {
 };
 
 export type VwLnrNLneessQueryVariables = {
-  loanerLoanee?: string | null,
+  loanerLoanee: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelNonCovCreditSellerFilterInput | null,
@@ -9730,7 +9730,7 @@ export type VwLnrNLneessQuery = {
 };
 
 export type VwMyCrdByssQueryVariables = {
-  buyerContact?: string | null,
+  buyerContact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelNonCovCreditSellerFilterInput | null,
@@ -9772,7 +9772,7 @@ export type VwMyCrdByssQuery = {
 };
 
 export type VwMySalessQueryVariables = {
-  sellerContact?: string | null,
+  sellerContact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelNonCovCreditSellerFilterInput | null,
@@ -9814,7 +9814,7 @@ export type VwMySalessQuery = {
 };
 
 export type ViaChmNMmbrQueryVariables = {
-  MembaId?: string | null,
+  MembaId: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelChamaMembersFilterInput | null,
@@ -9853,7 +9853,7 @@ export type ViaChmNMmbrQuery = {
 };
 
 export type VwChamaMembersQueryVariables = {
-  groupContact?: string | null,
+  groupContact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelChamaMembersFilterInput | null,
@@ -9892,7 +9892,7 @@ export type VwChamaMembersQuery = {
 };
 
 export type VwMyChamasQueryVariables = {
-  memberContact?: string | null,
+  memberContact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelChamaMembersFilterInput | null,
@@ -9931,7 +9931,7 @@ export type VwMyChamasQuery = {
 };
 
 export type VwViaPhonsQueryVariables = {
-  contact?: string | null,
+  contact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelChamasNPwnBrkrsFilterInput | null,
@@ -9957,7 +9957,7 @@ export type VwViaPhonsQuery = {
 };
 
 export type VwViaRegNoQueryVariables = {
-  regNo?: string | null,
+  regNo: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelChamasNPwnBrkrsFilterInput | null,
@@ -9983,7 +9983,7 @@ export type VwViaRegNoQuery = {
 };
 
 export type VwViaPhonssQueryVariables = {
-  contact?: string | null,
+  contact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelChamasRegConfirmFilterInput | null,
@@ -10009,7 +10009,7 @@ export type VwViaPhonssQuery = {
 };
 
 export type VwViaRegNossQueryVariables = {
-  regNo?: string | null,
+  regNo: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelChamasRegConfirmFilterInput | null,
@@ -10035,7 +10035,7 @@ export type VwViaRegNossQuery = {
 };
 
 export type VwChamaMemberssQueryVariables = {
-  grpContact?: string | null,
+  grpContact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelCvrdGroupLoansFilterInput | null,
@@ -10076,7 +10076,7 @@ export type VwChamaMemberssQuery = {
 };
 
 export type VwMyChamassQueryVariables = {
-  loaneePhn?: string | null,
+  loaneePhn: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelCvrdGroupLoansFilterInput | null,
@@ -10117,7 +10117,7 @@ export type VwMyChamassQuery = {
 };
 
 export type VwLnrNLneeQueryVariables = {
-  loanerLoanee?: string | null,
+  loanerLoanee: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelCvrdGroupLoansFilterInput | null,
@@ -10158,7 +10158,7 @@ export type VwLnrNLneeQuery = {
 };
 
 export type VwAdvNLnrNLneeQueryVariables = {
-  loanerLoaneeAdv?: string | null,
+  loanerLoaneeAdv: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelCvrdGroupLoansFilterInput | null,
@@ -10199,7 +10199,7 @@ export type VwAdvNLnrNLneeQuery = {
 };
 
 export type VwChmLnClientsQueryVariables = {
-  advRegNu?: string | null,
+  advRegNu: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelCvrdGroupLoansFilterInput | null,
@@ -10240,7 +10240,7 @@ export type VwChmLnClientsQuery = {
 };
 
 export type VwChamaMembersssQueryVariables = {
-  grpContact?: string | null,
+  grpContact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelNonCvrdGroupLoansFilterInput | null,
@@ -10279,7 +10279,7 @@ export type VwChamaMembersssQuery = {
 };
 
 export type VwMyChamasssQueryVariables = {
-  loaneePhn?: string | null,
+  loaneePhn: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelNonCvrdGroupLoansFilterInput | null,
@@ -10318,7 +10318,7 @@ export type VwMyChamasssQuery = {
 };
 
 export type VwLnrNLneesQueryVariables = {
-  loanerLoanee?: string | null,
+  loanerLoanee: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelNonCvrdGroupLoansFilterInput | null,
@@ -10357,7 +10357,7 @@ export type VwLnrNLneesQuery = {
 };
 
 export type VwChamaMemberssssQueryVariables = {
-  grpContact?: string | null,
+  grpContact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelGroupNonLoansFilterInput | null,
@@ -10388,7 +10388,7 @@ export type VwChamaMemberssssQuery = {
 };
 
 export type VwMyChamassssQueryVariables = {
-  recipientPhn?: string | null,
+  recipientPhn: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelGroupNonLoansFilterInput | null,
@@ -10419,7 +10419,7 @@ export type VwMyChamassssQuery = {
 };
 
 export type VwMyChamasssssQueryVariables = {
-  memberPhn?: string | null,
+  memberPhn: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelGrpMembersContributionFilterInput | null,
@@ -10449,7 +10449,7 @@ export type VwMyChamasssssQuery = {
 };
 
 export type VwChamaMembersssssQueryVariables = {
-  grpContact?: string | null,
+  grpContact: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelGrpMembersContributionFilterInput | null,

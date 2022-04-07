@@ -156,6 +156,7 @@ const ChmSignIn = (props) => {
                     
                       value={pword}
                       onChangeText={setPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Loaner PW</Text>

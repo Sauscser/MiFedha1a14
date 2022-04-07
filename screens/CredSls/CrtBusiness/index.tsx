@@ -265,6 +265,7 @@ useEffect(() =>{
                     <TextInput
                       value={pword}
                       onChangeText={setPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Business Pass Word</Text>

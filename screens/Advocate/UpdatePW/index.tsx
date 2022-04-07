@@ -206,7 +206,9 @@ const UpdtMFAdvPW = (props) => {
                       value={NewAdmnPW}
                       onChangeText={setNewAdmnPW}
                       style={styles.sendLoanInput}
+                      secureTextEntry = {true}
                       editable={true}></TextInput>
+                      
                     <Text style={styles.sendLoanText}>New Advocate PW</Text>
                   </View>     
 

@@ -220,6 +220,7 @@ const UpdtChm = (props) => {
                     <TextInput
                       value={SMPW}
                       onChangeText={setSMPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Signitory SM Ac PW</Text>
@@ -231,6 +232,7 @@ const UpdtChm = (props) => {
                     <TextInput
                       value={SigntryPW}
                       onChangeText={setSigntryPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>New Chama PassWord</Text>

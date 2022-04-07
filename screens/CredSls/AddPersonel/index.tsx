@@ -275,6 +275,7 @@ useEffect(() =>{
                      placeholder="+2547xxxxxxxx"
                       value={ChmPhn}
                       onChangeText={setChmPhn}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Sales Officer Phone</Text>
@@ -298,6 +299,7 @@ useEffect(() =>{
                     <TextInput
                       value={pword}
                       onChangeText={setPW}
+                      secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Business PassWord</Text>
