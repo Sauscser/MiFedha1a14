@@ -275,6 +275,10 @@ import VwChmDpsts from "../../screens/Chama/SignitoryDeposit/VwChmDpsts";
 import VwChmWthdrwls from "../../screens/Chama/SignitoryWthdrwFnds/VwChmWthdrwls";
 import SgnIn2VwChmWthdrwls from "../../screens/Chama/SignitoryWthdrwFnds/SgnIn2VwChmWthdrwls";
 
+import LnsScreen from "../../screens/Loans";
+import CredSlsScreen from "../../screens/CredSls";
+import ChamaScreen from "../../screens/Chama";
+
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
   return (
@@ -284,6 +288,10 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'LnsScreen'} component={LnsScreen} />
+      <Stack.Screen name={'CredSlsScreen'} component={CredSlsScreen} />
+      <Stack.Screen name={'ChamaScreen'} component={ChamaScreen} />
+      
       <Stack.Screen name={'SgnIn2VwChmDpstss'} component={SgnIn2VwChmDpsts} />
       <Stack.Screen name={'VwChmDpstss'} component={VwChmDpsts} />
       <Stack.Screen name={'VwChmWthdrwlss'} component={VwChmWthdrwls} />

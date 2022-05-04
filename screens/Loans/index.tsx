@@ -126,7 +126,7 @@ const MyLoanAccount = props => {
 
               <View style={styles.viewForClientsAndTitle}>
               <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Single Member</Text>
+                  <Text style={styles.salesPressableText}>Pal-Pal</Text>
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
@@ -260,7 +260,7 @@ const MyLoanAccount = props => {
               <Text style={styles.salesText}>View Loan Repayments (LP)</Text>
               <View style={styles.viewForClientsAndTitle}>
               <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Single Member</Text>
+                  <Text style={styles.salesPressableText}>Pal-Pal</Text>
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
@@ -324,7 +324,7 @@ const MyLoanAccount = props => {
             </View>
 
           <View style={styles.acEarningsView2}>
-            <Text style={styles.salesText}>Single Member Black-List</Text>
+            <Text style={styles.salesText}>Pal-Pal Black-List</Text>
 
             <View style={styles.viewForAcEarningsPressables}>
               <Pressable

@@ -75,19 +75,14 @@ const UpdtSMPW = (props) => {
            
                   <View style={styles.loanTitleView}>
                     <Text style={styles.title}>Congratulations {names}, 
-                    You have successfully created your Mifedha Single Member Account. 
+                    You have successfully created your Main Account. 
 
                     Please click on the map icon on the bottom tab 
                     to search the nearest or most convenient MFNdogo
                     outlet and Load money to your account so that you
                      can enjoy our products. 
 
-                    To request a Loan from a Friend or Chama or Seller, 
-                    Please go to "MyAc", "Account", "Update", 
-                    "AskLn" and enter the prospective Loaner's Phone Number.
-
-                    The Loaner can then Loan you.
-                    Have a Healthy and Rich Friendship.
+                    
                     </Text>
                     </View>
                     

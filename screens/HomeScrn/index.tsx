@@ -9,8 +9,20 @@ const HomeScreen = props => {
 const [id,setid] = useState("")
   
 
-  const SMGivNonCovLons = () => {
-    navigation.navigate('SMGivNonCovLon');
+  const LnsScreen = () => {
+    navigation.navigate('LnsScreen');
+  };
+
+  const ChamaScreen = () => {
+    navigation.navigate('ChamaScreen');
+  };
+
+  const CredSlsScreen = () => {
+    navigation.navigate('CredSlsScreen');
+  };
+
+  const CreateSMAcs = () => {
+    navigation.navigate('CreateSMAc');
   };
 
   const ChmNonCovLonss = () => {
@@ -21,6 +33,14 @@ const [id,setid] = useState("")
     navigation.navigate('NonCovCredSlss');
   };
 
+  const ViewMySMAcss = () => {
+    navigation.navigate('ViewSmAcs');
+  };
+
+  const UpdateAccCodess = () => {
+    navigation.navigate('UpdateAccCodess');
+  };
+
   return (
     <SafeAreaView>
       <View
@@ -28,9 +48,18 @@ const [id,setid] = useState("")
         style={styles.image}>
         
         <View style={styles.viewForPressables1}>
-        <Pressable onPress={SMGivNonCovLons} style={styles.loanFriendButton}>
-          <Text style={styles.loanAFriendText}>Loan a Friend</Text>
-        </Pressable>
+        
+
+        <Pressable
+            onPress={CreateSMAcs}
+            style={styles.loanFriendButton}>
+            <Text style={styles.loanAFriendText}>Create Main Account</Text>
+          </Pressable>
+          <Pressable
+            onPress={ViewMySMAcss}
+            style={styles.loanFriendButton}>
+            <Text style={styles.loanAFriendText}>View Main Account</Text>
+          </Pressable>
         </View>
         
         <View style={styles.viewForPressables2}> 
@@ -41,18 +70,38 @@ const [id,setid] = useState("")
         
 
         <View style={styles.viewForPressables3}>
-          <Pressable
-            onPress={ChmNonCovLonss}
-            style={styles.chamaLoanAndCreditSalesButton}>
-            <Text style={styles.ChamaLoanAndCreditSalesText}>
-              Loan Chama Member
+          <View style={styles.viewForPressables4}>
+            <Pressable
+            onPress={LnsScreen}
+            style={styles.chamaLoanAndCreditSalesButton4}>
+            <Text style={styles.ChamaLoanAndCreditSalesText4}>
+              Pal-Pal Products
             </Text>
           </Pressable>
+
           <Pressable
-            onPress={NonCovCredSlsss}
+            onPress={ChamaScreen}
+            style={styles.chamaLoanAndCreditSalesButton4}>
+            <Text style={styles.ChamaLoanAndCreditSalesText4}>
+              Chama Products
+            </Text>
+          </Pressable>
+
+          <Pressable
+            onPress={CredSlsScreen}
+            style={styles.chamaLoanAndCreditSalesButton4}>
+            <Text style={styles.ChamaLoanAndCreditSalesText4}>
+              CredSales Products
+            </Text>
+          </Pressable>
+
+          </View>
+          
+          <Pressable
+            onPress={UpdateAccCodess}
             style={styles.chamaLoanAndCreditSalesButton}>
             <Text style={styles.ChamaLoanAndCreditSalesText}>
-              Sell on Credit
+              Request Loan
             </Text>
           </Pressable>
         </View>

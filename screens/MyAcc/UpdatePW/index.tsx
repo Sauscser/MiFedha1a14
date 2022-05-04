@@ -180,7 +180,7 @@ const UpdtSMPW = (props) => {
                 <ScrollView>
            
                   <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Chama Details Below</Text>
+                    <Text style={styles.title}>Fill Details Below</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>
@@ -190,7 +190,7 @@ const UpdtSMPW = (props) => {
                       secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>New SM Ac PW</Text>
+                    <Text style={styles.sendLoanText}>New Main Ac PW</Text>
                   </View>       
 
                   

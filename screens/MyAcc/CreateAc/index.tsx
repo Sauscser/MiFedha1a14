@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import {createSMAccount, updateCompany} from '../../../src/graphql/mutations';
 import { getCompany, listSMAccounts, } from '../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
@@ -340,7 +340,7 @@ useEffect(() =>{
                     onPress={fetchUser}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
-                      Click to Create Single Member A/c
+                      Click to Create Main Account
                     </Text>
                     {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
                   </TouchableOpacity>

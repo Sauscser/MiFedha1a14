@@ -23,12 +23,16 @@ const styles = StyleSheet.create({
 
   loanFriendButton: {
     backgroundColor: '#72ebd8',
+    
     height: "90%",
     borderRadius: 30,
-    marginHorizontal: 10,
-    width: Dimensions.get('screen').width - 20,
+    
+    width: "40%",
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight:"1%",
+    marginLeft:"1%",
+    marginTop: "1%",
     
     
     
@@ -46,14 +50,33 @@ const styles = StyleSheet.create({
     marginTop: "1%",
   },
 
+  chamaLoanAndCreditSalesButton4: {
+    backgroundColor: 'white',
+    height: "90%",
+    borderRadius: 30,
+    width:"30%",
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    marginTop: "1%",
+  },
+
   ChamaLoanAndCreditSalesText: {
     fontSize: 24,
     fontWeight: 'bold',
     color: 'black',
     
   },
+
+  ChamaLoanAndCreditSalesText4: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: 'black',
+    
+  },
+
   loanAFriendText: {
-    fontSize: 20,
+    fontSize: 12,
     fontWeight: 'bold',
     color: 'black',
     
@@ -68,7 +91,7 @@ const styles = StyleSheet.create({
     marginTop: "2%",
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column',
+    flexDirection: 'row',
    
   },
 
@@ -94,6 +117,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+  },
+
+  viewForPressables4: {
+    backgroundColor: 'white',
+    height: "30%",
+    borderRadius: 30,
+    marginHorizontal: 30,
+    width: Dimensions.get('screen').width - 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: "1%",
   },
   
 });
