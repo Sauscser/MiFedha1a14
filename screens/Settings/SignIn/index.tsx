@@ -25,7 +25,7 @@ const AdminSignIn = (props) => {
 
   const [PWOnes, setPWOne] = useState("");
   const [PWTwos, setPWTwo] = useState(""); 
-  const [ownr, setownr] = useState("");  
+  const [ownr, setownr] = useState(null);  
  
 
   const fetchUser = async () => {
@@ -62,9 +62,8 @@ const AdminSignIn = (props) => {
             policy: "We are here to serve you",
             privacy: "Our transactions with you are secure",
             recom: "Be alert for any",
-            pw1: "chrubaatainadoanuiheloechlemehalamo7nuviabasheyimmasha",
-            pw2: "masheelraisinadoanuiheloeinadoachadechrubabahashembeinadoa7",
-            
+            pw1: PWOnes,
+            pw2: PWTwos,            
           
             agentwithdrawalFee: 0.02,
             agentCom: 0.4,
@@ -84,6 +83,8 @@ const AdminSignIn = (props) => {
             palpalLnRpymntFee: 0.02,
             chmLnRpymntFee: 0.02,
             crdSllrLnRpymntFee: 0.02,
+            userClearanceFee: 0.02,
+            
             CoverageFee:0.025,
             vat:0,
             ttlvat:0,
@@ -204,7 +205,7 @@ const AdminSignIn = (props) => {
             maxMFNdogos:100,
 
             totalLnsRecovered: 0,
-            owner:ownr,
+            owner:ownr
           },
         }),
       );
@@ -257,6 +258,8 @@ const AdminSignIn = (props) => {
       
     
              }
+
+
 
              useEffect(() =>{
               const pw1=PWOnes

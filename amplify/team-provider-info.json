@@ -1,39 +1,19 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-mifedha-dev-205500-authRole",
-      "UnauthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-dev-205500-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-dev-205500-authRole",
+      "AuthRoleName": "amplify-myfedha-dev-172524-authRole",
+      "UnauthRoleArn": "arn:aws:iam::870395359033:role/amplify-myfedha-dev-172524-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::870395359033:role/amplify-myfedha-dev-172524-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-mifedha-dev-205500-deployment",
-      "UnauthRoleName": "amplify-mifedha-dev-205500-unauthRole",
-      "StackName": "amplify-mifedha-dev-205500",
-      "StackId": "arn:aws:cloudformation:us-east-2:870395359033:stack/amplify-mifedha-dev-205500/07d0f0b0-b2ae-11ec-95a8-0a57575c8e4c",
-      "AmplifyAppId": "d3r03hqbfebph1"
+      "DeploymentBucketName": "amplify-myfedha-dev-172524-deployment",
+      "UnauthRoleName": "amplify-myfedha-dev-172524-unauthRole",
+      "StackName": "amplify-myfedha-dev-172524",
+      "StackId": "arn:aws:cloudformation:us-east-2:870395359033:stack/amplify-myfedha-dev-172524/082d8970-d9db-11ec-9b7e-06fdc097148a",
+      "AmplifyAppId": "d3tk0omuk2q4ue"
     },
     "categories": {
       "auth": {
-        "mifedha0ab09bf7": {},
-        "userPoolGroups": {}
-      }
-    }
-  },
-  "prod": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-mifedha-prod-151804-authRole",
-      "UnauthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-prod-151804-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::870395359033:role/amplify-mifedha-prod-151804-authRole",
-      "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-mifedha-prod-151804-deployment",
-      "UnauthRoleName": "amplify-mifedha-prod-151804-unauthRole",
-      "StackName": "amplify-mifedha-prod-151804",
-      "StackId": "arn:aws:cloudformation:us-east-2:870395359033:stack/amplify-mifedha-prod-151804/3ed03890-d9c9-11ec-a719-02e30488a96e",
-      "AmplifyAppId": "d2dqu7ed0p7z0c"
-    },
-    "categories": {
-      "auth": {
-        "mifedha0ab09bf7": {},
-        "userPoolGroups": {}
+        "myfedha18d786e9": {}
       }
     }
   }

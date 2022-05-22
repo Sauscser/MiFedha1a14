@@ -117,7 +117,7 @@ export enum Status {
 export type ModelSMAccountConditionInput = {
   nationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
-  awsemail?: ModelStringInput | null,
+  phonecontact?: ModelStringInput | null,
   balance?: ModelFloatInput | null,
   pw?: ModelStringInput | null,
   loanAcceptanceCode?: ModelStringInput | null,
@@ -362,8 +362,8 @@ export type SMAccount = {
 export type UpdateSMAccountInput = {
   nationalid?: string | null,
   name?: string | null,
-  phonecontact: string,
-  awsemail?: string | null,
+  phonecontact?: string | null,
+  awsemail: string,
   balance?: number | null,
   pw?: string | null,
   loanAcceptanceCode?: string | null,
@@ -452,7 +452,7 @@ export type UpdateSMAccountInput = {
 };
 
 export type DeleteSMAccountInput = {
-  phonecontact: string,
+  awsemail: string,
 };
 
 export type CreateSMLoansCoveredInput = {
@@ -1601,6 +1601,12 @@ export type CreateCompanyInput = {
   bankAdmuserwithdrawalFee: number,
   userLoanTransferFee: number,
   userTransferFee: number,
+  chmMmbrTransferFee: number,
+  chmTransferFee: number,
+  biznaTransferFee: number,
+  palpalLnRpymntFee: number,
+  chmLnRpymntFee: number,
+  crdSllrLnRpymntFee: number,
   userClearanceFee: number,
   CoverageFee: number,
   vat: number,
@@ -1733,6 +1739,12 @@ export type ModelCompanyConditionInput = {
   bankAdmuserwithdrawalFee?: ModelFloatInput | null,
   userLoanTransferFee?: ModelFloatInput | null,
   userTransferFee?: ModelFloatInput | null,
+  chmMmbrTransferFee?: ModelFloatInput | null,
+  chmTransferFee?: ModelFloatInput | null,
+  biznaTransferFee?: ModelFloatInput | null,
+  palpalLnRpymntFee?: ModelFloatInput | null,
+  chmLnRpymntFee?: ModelFloatInput | null,
+  crdSllrLnRpymntFee?: ModelFloatInput | null,
   userClearanceFee?: ModelFloatInput | null,
   CoverageFee?: ModelFloatInput | null,
   vat?: ModelFloatInput | null,
@@ -1870,6 +1882,12 @@ export type Company = {
   bankAdmuserwithdrawalFee: number,
   userLoanTransferFee: number,
   userTransferFee: number,
+  chmMmbrTransferFee: number,
+  chmTransferFee: number,
+  biznaTransferFee: number,
+  palpalLnRpymntFee: number,
+  chmLnRpymntFee: number,
+  crdSllrLnRpymntFee: number,
   userClearanceFee: number,
   CoverageFee: number,
   vat: number,
@@ -2004,6 +2022,12 @@ export type UpdateCompanyInput = {
   bankAdmuserwithdrawalFee?: number | null,
   userLoanTransferFee?: number | null,
   userTransferFee?: number | null,
+  chmMmbrTransferFee?: number | null,
+  chmTransferFee?: number | null,
+  biznaTransferFee?: number | null,
+  palpalLnRpymntFee?: number | null,
+  chmLnRpymntFee?: number | null,
+  crdSllrLnRpymntFee?: number | null,
   userClearanceFee?: number | null,
   CoverageFee?: number | null,
   vat?: number | null,
@@ -2349,6 +2373,8 @@ export type CreateGroupInput = {
   signitoryName: string,
   grpName: string,
   signitoryPW: string,
+  oprtnArea: string,
+  venture: string,
   signitory2Sub: string,
   WithdrawCnfrmtn: string,
   grpEmail: string,
@@ -2384,6 +2410,8 @@ export type ModelGroupConditionInput = {
   signitoryName?: ModelStringInput | null,
   grpName?: ModelStringInput | null,
   signitoryPW?: ModelStringInput | null,
+  oprtnArea?: ModelStringInput | null,
+  venture?: ModelStringInput | null,
   signitory2Sub?: ModelStringInput | null,
   WithdrawCnfrmtn?: ModelStringInput | null,
   grpEmail?: ModelStringInput | null,
@@ -2424,6 +2452,8 @@ export type Group = {
   signitoryName: string,
   grpName: string,
   signitoryPW: string,
+  oprtnArea: string,
+  venture: string,
   signitory2Sub: string,
   WithdrawCnfrmtn: string,
   grpEmail: string,
@@ -2461,6 +2491,8 @@ export type UpdateGroupInput = {
   signitoryName?: string | null,
   grpName?: string | null,
   signitoryPW?: string | null,
+  oprtnArea?: string | null,
+  venture?: string | null,
   signitory2Sub?: string | null,
   WithdrawCnfrmtn?: string | null,
   grpEmail?: string | null,
@@ -3001,6 +3033,126 @@ export type DeleteGrpMembersContributionInput = {
   id: string,
 };
 
+export type CreateItemInput = {
+  BusinessRegNo: string,
+  BusKntct: string,
+  busName: string,
+  itemName: string,
+  itemPrice: string,
+  itemTown: string,
+  lnPrcntg: number,
+  rpymntPeriod: number,
+  itemDesc: string,
+  owner: string,
+  createdAt?: string | null,
+};
+
+export type ModelItemConditionInput = {
+  BusinessRegNo?: ModelStringInput | null,
+  busName?: ModelStringInput | null,
+  itemName?: ModelStringInput | null,
+  itemPrice?: ModelStringInput | null,
+  itemTown?: ModelStringInput | null,
+  lnPrcntg?: ModelFloatInput | null,
+  rpymntPeriod?: ModelFloatInput | null,
+  itemDesc?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelItemConditionInput | null > | null,
+  or?: Array< ModelItemConditionInput | null > | null,
+  not?: ModelItemConditionInput | null,
+};
+
+export type Item = {
+  __typename: "Item",
+  BusinessRegNo: string,
+  BusKntct: string,
+  busName: string,
+  itemName: string,
+  itemPrice: string,
+  itemTown: string,
+  lnPrcntg: number,
+  rpymntPeriod: number,
+  itemDesc: string,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateItemInput = {
+  BusinessRegNo?: string | null,
+  BusKntct: string,
+  busName?: string | null,
+  itemName?: string | null,
+  itemPrice?: string | null,
+  itemTown?: string | null,
+  lnPrcntg?: number | null,
+  rpymntPeriod?: number | null,
+  itemDesc?: string | null,
+  owner?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteItemInput = {
+  BusKntct: string,
+};
+
+export type CreatePalPalLnInput = {
+  lnrName: string,
+  LnerCntct: string,
+  lnrEmail: string,
+  lnAmnt: string,
+  lnDesc: string,
+  lnPrcntg: number,
+  rpymntPeriod: number,
+  owner: string,
+  createdAt?: string | null,
+};
+
+export type ModelPalPalLnConditionInput = {
+  lnrName?: ModelStringInput | null,
+  LnerCntct?: ModelStringInput | null,
+  lnAmnt?: ModelStringInput | null,
+  lnDesc?: ModelStringInput | null,
+  lnPrcntg?: ModelFloatInput | null,
+  rpymntPeriod?: ModelFloatInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelPalPalLnConditionInput | null > | null,
+  or?: Array< ModelPalPalLnConditionInput | null > | null,
+  not?: ModelPalPalLnConditionInput | null,
+};
+
+export type PalPalLn = {
+  __typename: "PalPalLn",
+  lnrName: string,
+  LnerCntct: string,
+  lnrEmail: string,
+  lnAmnt: string,
+  lnDesc: string,
+  lnPrcntg: number,
+  rpymntPeriod: number,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdatePalPalLnInput = {
+  lnrName?: string | null,
+  LnerCntct?: string | null,
+  lnrEmail: string,
+  lnAmnt?: string | null,
+  lnDesc?: string | null,
+  lnPrcntg?: number | null,
+  rpymntPeriod?: number | null,
+  owner?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeletePalPalLnInput = {
+  lnrEmail: string,
+};
+
 export type ModelSMAccountFilterInput = {
   nationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
@@ -3517,6 +3669,12 @@ export type ModelCompanyFilterInput = {
   bankAdmuserwithdrawalFee?: ModelFloatInput | null,
   userLoanTransferFee?: ModelFloatInput | null,
   userTransferFee?: ModelFloatInput | null,
+  chmMmbrTransferFee?: ModelFloatInput | null,
+  chmTransferFee?: ModelFloatInput | null,
+  biznaTransferFee?: ModelFloatInput | null,
+  palpalLnRpymntFee?: ModelFloatInput | null,
+  chmLnRpymntFee?: ModelFloatInput | null,
+  crdSllrLnRpymntFee?: ModelFloatInput | null,
   userClearanceFee?: ModelFloatInput | null,
   CoverageFee?: ModelFloatInput | null,
   vat?: ModelFloatInput | null,
@@ -3713,6 +3871,8 @@ export type ModelGroupFilterInput = {
   signitoryName?: ModelStringInput | null,
   grpName?: ModelStringInput | null,
   signitoryPW?: ModelStringInput | null,
+  oprtnArea?: ModelStringInput | null,
+  venture?: ModelStringInput | null,
   signitory2Sub?: ModelStringInput | null,
   WithdrawCnfrmtn?: ModelStringInput | null,
   grpEmail?: ModelStringInput | null,
@@ -3923,6 +4083,50 @@ export type ModelGrpMembersContributionFilterInput = {
 export type ModelGrpMembersContributionConnection = {
   __typename: "ModelGrpMembersContributionConnection",
   items:  Array<GrpMembersContribution | null >,
+  nextToken?: string | null,
+};
+
+export type ModelItemFilterInput = {
+  BusinessRegNo?: ModelStringInput | null,
+  BusKntct?: ModelStringInput | null,
+  busName?: ModelStringInput | null,
+  itemName?: ModelStringInput | null,
+  itemPrice?: ModelStringInput | null,
+  itemTown?: ModelStringInput | null,
+  lnPrcntg?: ModelFloatInput | null,
+  rpymntPeriod?: ModelFloatInput | null,
+  itemDesc?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelItemFilterInput | null > | null,
+  or?: Array< ModelItemFilterInput | null > | null,
+  not?: ModelItemFilterInput | null,
+};
+
+export type ModelItemConnection = {
+  __typename: "ModelItemConnection",
+  items:  Array<Item | null >,
+  nextToken?: string | null,
+};
+
+export type ModelPalPalLnFilterInput = {
+  lnrName?: ModelStringInput | null,
+  LnerCntct?: ModelStringInput | null,
+  lnrEmail?: ModelStringInput | null,
+  lnAmnt?: ModelStringInput | null,
+  lnDesc?: ModelStringInput | null,
+  lnPrcntg?: ModelFloatInput | null,
+  rpymntPeriod?: ModelFloatInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelPalPalLnFilterInput | null > | null,
+  or?: Array< ModelPalPalLnFilterInput | null > | null,
+  not?: ModelPalPalLnFilterInput | null,
+};
+
+export type ModelPalPalLnConnection = {
+  __typename: "ModelPalPalLnConnection",
+  items:  Array<PalPalLn | null >,
   nextToken?: string | null,
 };
 
@@ -5431,6 +5635,12 @@ export type CreateCompanyMutation = {
     bankAdmuserwithdrawalFee: number,
     userLoanTransferFee: number,
     userTransferFee: number,
+    chmMmbrTransferFee: number,
+    chmTransferFee: number,
+    biznaTransferFee: number,
+    palpalLnRpymntFee: number,
+    chmLnRpymntFee: number,
+    crdSllrLnRpymntFee: number,
     userClearanceFee: number,
     CoverageFee: number,
     vat: number,
@@ -5573,6 +5783,12 @@ export type UpdateCompanyMutation = {
     bankAdmuserwithdrawalFee: number,
     userLoanTransferFee: number,
     userTransferFee: number,
+    chmMmbrTransferFee: number,
+    chmTransferFee: number,
+    biznaTransferFee: number,
+    palpalLnRpymntFee: number,
+    chmLnRpymntFee: number,
+    crdSllrLnRpymntFee: number,
     userClearanceFee: number,
     CoverageFee: number,
     vat: number,
@@ -5715,6 +5931,12 @@ export type DeleteCompanyMutation = {
     bankAdmuserwithdrawalFee: number,
     userLoanTransferFee: number,
     userTransferFee: number,
+    chmMmbrTransferFee: number,
+    chmTransferFee: number,
+    biznaTransferFee: number,
+    palpalLnRpymntFee: number,
+    chmLnRpymntFee: number,
+    crdSllrLnRpymntFee: number,
     userClearanceFee: number,
     CoverageFee: number,
     vat: number,
@@ -6051,6 +6273,8 @@ export type CreateGroupMutation = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    oprtnArea: string,
+    venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     grpEmail: string,
@@ -6096,6 +6320,8 @@ export type UpdateGroupMutation = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    oprtnArea: string,
+    venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     grpEmail: string,
@@ -6141,6 +6367,8 @@ export type DeleteGroupMutation = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    oprtnArea: string,
+    venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     grpEmail: string,
@@ -6699,8 +6927,140 @@ export type DeleteGrpMembersContributionMutation = {
   } | null,
 };
 
+export type CreateItemMutationVariables = {
+  input: CreateItemInput,
+  condition?: ModelItemConditionInput | null,
+};
+
+export type CreateItemMutation = {
+  createItem?:  {
+    __typename: "Item",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    itemName: string,
+    itemPrice: string,
+    itemTown: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
+    itemDesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateItemMutationVariables = {
+  input: UpdateItemInput,
+  condition?: ModelItemConditionInput | null,
+};
+
+export type UpdateItemMutation = {
+  updateItem?:  {
+    __typename: "Item",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    itemName: string,
+    itemPrice: string,
+    itemTown: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
+    itemDesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteItemMutationVariables = {
+  input: DeleteItemInput,
+  condition?: ModelItemConditionInput | null,
+};
+
+export type DeleteItemMutation = {
+  deleteItem?:  {
+    __typename: "Item",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    itemName: string,
+    itemPrice: string,
+    itemTown: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
+    itemDesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreatePalPalLnMutationVariables = {
+  input: CreatePalPalLnInput,
+  condition?: ModelPalPalLnConditionInput | null,
+};
+
+export type CreatePalPalLnMutation = {
+  createPalPalLn?:  {
+    __typename: "PalPalLn",
+    lnrName: string,
+    LnerCntct: string,
+    lnrEmail: string,
+    lnAmnt: string,
+    lnDesc: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdatePalPalLnMutationVariables = {
+  input: UpdatePalPalLnInput,
+  condition?: ModelPalPalLnConditionInput | null,
+};
+
+export type UpdatePalPalLnMutation = {
+  updatePalPalLn?:  {
+    __typename: "PalPalLn",
+    lnrName: string,
+    LnerCntct: string,
+    lnrEmail: string,
+    lnAmnt: string,
+    lnDesc: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeletePalPalLnMutationVariables = {
+  input: DeletePalPalLnInput,
+  condition?: ModelPalPalLnConditionInput | null,
+};
+
+export type DeletePalPalLnMutation = {
+  deletePalPalLn?:  {
+    __typename: "PalPalLn",
+    lnrName: string,
+    LnerCntct: string,
+    lnrEmail: string,
+    lnAmnt: string,
+    lnDesc: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetSMAccountQueryVariables = {
-  phonecontact: string,
+  awsemail: string,
 };
 
 export type GetSMAccountQuery = {
@@ -6800,7 +7160,7 @@ export type GetSMAccountQuery = {
 };
 
 export type ListSMAccountsQueryVariables = {
-  phonecontact?: string | null,
+  awsemail?: string | null,
   filter?: ModelSMAccountFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
@@ -7789,6 +8149,12 @@ export type GetCompanyQuery = {
     bankAdmuserwithdrawalFee: number,
     userLoanTransferFee: number,
     userTransferFee: number,
+    chmMmbrTransferFee: number,
+    chmTransferFee: number,
+    biznaTransferFee: number,
+    palpalLnRpymntFee: number,
+    chmLnRpymntFee: number,
+    crdSllrLnRpymntFee: number,
     userClearanceFee: number,
     CoverageFee: number,
     vat: number,
@@ -7936,6 +8302,12 @@ export type ListCompaniesQuery = {
       bankAdmuserwithdrawalFee: number,
       userLoanTransferFee: number,
       userTransferFee: number,
+      chmMmbrTransferFee: number,
+      chmTransferFee: number,
+      biznaTransferFee: number,
+      palpalLnRpymntFee: number,
+      chmLnRpymntFee: number,
+      crdSllrLnRpymntFee: number,
       userClearanceFee: number,
       CoverageFee: number,
       vat: number,
@@ -8211,6 +8583,8 @@ export type GetGroupQuery = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    oprtnArea: string,
+    venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     grpEmail: string,
@@ -8261,6 +8635,8 @@ export type ListGroupsQuery = {
       signitoryName: string,
       grpName: string,
       signitoryPW: string,
+      oprtnArea: string,
+      venture: string,
       signitory2Sub: string,
       WithdrawCnfrmtn: string,
       grpEmail: string,
@@ -8667,6 +9043,106 @@ export type ListGrpMembersContributionsQuery = {
       contriAmount: number,
       memberId: string,
       status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetItemQueryVariables = {
+  BusKntct: string,
+};
+
+export type GetItemQuery = {
+  getItem?:  {
+    __typename: "Item",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    itemName: string,
+    itemPrice: string,
+    itemTown: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
+    itemDesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListItemsQueryVariables = {
+  BusKntct?: string | null,
+  filter?: ModelItemFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListItemsQuery = {
+  listItems?:  {
+    __typename: "ModelItemConnection",
+    items:  Array< {
+      __typename: "Item",
+      BusinessRegNo: string,
+      BusKntct: string,
+      busName: string,
+      itemName: string,
+      itemPrice: string,
+      itemTown: string,
+      lnPrcntg: number,
+      rpymntPeriod: number,
+      itemDesc: string,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetPalPalLnQueryVariables = {
+  lnrEmail: string,
+};
+
+export type GetPalPalLnQuery = {
+  getPalPalLn?:  {
+    __typename: "PalPalLn",
+    lnrName: string,
+    LnerCntct: string,
+    lnrEmail: string,
+    lnAmnt: string,
+    lnDesc: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListPalPalLnsQueryVariables = {
+  lnrEmail?: string | null,
+  filter?: ModelPalPalLnFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListPalPalLnsQuery = {
+  listPalPalLns?:  {
+    __typename: "ModelPalPalLnConnection",
+    items:  Array< {
+      __typename: "PalPalLn",
+      lnrName: string,
+      LnerCntct: string,
+      lnrEmail: string,
+      lnAmnt: string,
+      lnDesc: string,
+      lnPrcntg: number,
+      rpymntPeriod: number,
       owner: string,
       createdAt: string,
       updatedAt: string,
@@ -9813,6 +10289,116 @@ export type VwMySalessQuery = {
   } | null,
 };
 
+export type ViaChmAreaQueryVariables = {
+  oprtnArea: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelGroupFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ViaChmAreaQuery = {
+  ViaChmArea?:  {
+    __typename: "ModelGroupConnection",
+    items:  Array< {
+      __typename: "Group",
+      grpContact: string,
+      regNo: string,
+      signitoryContact: string,
+      SignitoryNatid: string,
+      signitoryName: string,
+      grpName: string,
+      signitoryPW: string,
+      oprtnArea: string,
+      venture: string,
+      signitory2Sub: string,
+      WithdrawCnfrmtn: string,
+      grpEmail: string,
+      grpBal: number,
+      ttlGrpMembers: number,
+      description?: string | null,
+      ttlNonLonsRecChm: number,
+      ttlNonLonsSentChm: number,
+      ttlDpst: number,
+      ttlWthdrwn: number,
+      tymsChmHvBL: number,
+      TtlActvLonsTmsLnrChmCov: number,
+      TtlActvLonsAmtLnrChmCov: number,
+      TtlBLLonsTmsLnrChmCov: number,
+      TtlBLLonsAmtLnrChmCov: number,
+      TtlClrdLonsTmsLnrChmCov: number,
+      TtlClrdLonsAmtLnrChmCov: number,
+      TtlActvLonsTmsLnrChmNonCov: number,
+      TtlActvLonsAmtLnrChmNonCov: number,
+      TtlBLLonsTmsLnrChmNonCov: number,
+      TtlBLLonsAmtLnrChmNonCov: number,
+      TtlClrdLonsTmsLnrChmNonCov: number,
+      TtlClrdLonsAmtLnrChmNonCov: number,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ViaChmVentureQueryVariables = {
+  venture: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelGroupFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ViaChmVentureQuery = {
+  ViaChmVenture?:  {
+    __typename: "ModelGroupConnection",
+    items:  Array< {
+      __typename: "Group",
+      grpContact: string,
+      regNo: string,
+      signitoryContact: string,
+      SignitoryNatid: string,
+      signitoryName: string,
+      grpName: string,
+      signitoryPW: string,
+      oprtnArea: string,
+      venture: string,
+      signitory2Sub: string,
+      WithdrawCnfrmtn: string,
+      grpEmail: string,
+      grpBal: number,
+      ttlGrpMembers: number,
+      description?: string | null,
+      ttlNonLonsRecChm: number,
+      ttlNonLonsSentChm: number,
+      ttlDpst: number,
+      ttlWthdrwn: number,
+      tymsChmHvBL: number,
+      TtlActvLonsTmsLnrChmCov: number,
+      TtlActvLonsAmtLnrChmCov: number,
+      TtlBLLonsTmsLnrChmCov: number,
+      TtlBLLonsAmtLnrChmCov: number,
+      TtlClrdLonsTmsLnrChmCov: number,
+      TtlClrdLonsAmtLnrChmCov: number,
+      TtlActvLonsTmsLnrChmNonCov: number,
+      TtlActvLonsAmtLnrChmNonCov: number,
+      TtlBLLonsTmsLnrChmNonCov: number,
+      TtlBLLonsAmtLnrChmNonCov: number,
+      TtlClrdLonsTmsLnrChmNonCov: number,
+      TtlClrdLonsAmtLnrChmNonCov: number,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type ViaChmNMmbrQueryVariables = {
   MembaId: string,
   createdAt?: ModelStringKeyConditionInput | null,
@@ -10470,6 +11056,124 @@ export type VwChamaMembersssssQuery = {
       contriAmount: number,
       memberId: string,
       status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type BiznaVwwssQueryVariables = {
+  BusinessRegNo: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelItemFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type BiznaVwwssQuery = {
+  BiznaVwwss?:  {
+    __typename: "ModelItemConnection",
+    items:  Array< {
+      __typename: "Item",
+      BusinessRegNo: string,
+      BusKntct: string,
+      busName: string,
+      itemName: string,
+      itemPrice: string,
+      itemTown: string,
+      lnPrcntg: number,
+      rpymntPeriod: number,
+      itemDesc: string,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type BiznaVwwsssQueryVariables = {
+  lnrName: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelPalPalLnFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type BiznaVwwsssQuery = {
+  BiznaVwwsss?:  {
+    __typename: "ModelPalPalLnConnection",
+    items:  Array< {
+      __typename: "PalPalLn",
+      lnrName: string,
+      LnerCntct: string,
+      lnrEmail: string,
+      lnAmnt: string,
+      lnDesc: string,
+      lnPrcntg: number,
+      rpymntPeriod: number,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VialnAmtQueryVariables = {
+  lnAmnt: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelPalPalLnFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VialnAmtQuery = {
+  VialnAmt?:  {
+    __typename: "ModelPalPalLnConnection",
+    items:  Array< {
+      __typename: "PalPalLn",
+      lnrName: string,
+      LnerCntct: string,
+      lnrEmail: string,
+      lnAmnt: string,
+      lnDesc: string,
+      lnPrcntg: number,
+      rpymntPeriod: number,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VialnPcntgQueryVariables = {
+  lnPrcntg: number,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelPalPalLnFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VialnPcntgQuery = {
+  VialnPcntg?:  {
+    __typename: "ModelPalPalLnConnection",
+    items:  Array< {
+      __typename: "PalPalLn",
+      lnrName: string,
+      LnerCntct: string,
+      lnrEmail: string,
+      lnAmnt: string,
+      lnDesc: string,
+      lnPrcntg: number,
+      rpymntPeriod: number,
       owner: string,
       createdAt: string,
       updatedAt: string,
@@ -11917,6 +12621,12 @@ export type OnCreateCompanySubscription = {
     bankAdmuserwithdrawalFee: number,
     userLoanTransferFee: number,
     userTransferFee: number,
+    chmMmbrTransferFee: number,
+    chmTransferFee: number,
+    biznaTransferFee: number,
+    palpalLnRpymntFee: number,
+    chmLnRpymntFee: number,
+    crdSllrLnRpymntFee: number,
     userClearanceFee: number,
     CoverageFee: number,
     vat: number,
@@ -12054,6 +12764,12 @@ export type OnUpdateCompanySubscription = {
     bankAdmuserwithdrawalFee: number,
     userLoanTransferFee: number,
     userTransferFee: number,
+    chmMmbrTransferFee: number,
+    chmTransferFee: number,
+    biznaTransferFee: number,
+    palpalLnRpymntFee: number,
+    chmLnRpymntFee: number,
+    crdSllrLnRpymntFee: number,
     userClearanceFee: number,
     CoverageFee: number,
     vat: number,
@@ -12191,6 +12907,12 @@ export type OnDeleteCompanySubscription = {
     bankAdmuserwithdrawalFee: number,
     userLoanTransferFee: number,
     userTransferFee: number,
+    chmMmbrTransferFee: number,
+    chmTransferFee: number,
+    biznaTransferFee: number,
+    palpalLnRpymntFee: number,
+    chmLnRpymntFee: number,
+    crdSllrLnRpymntFee: number,
     userClearanceFee: number,
     CoverageFee: number,
     vat: number,
@@ -12520,6 +13242,8 @@ export type OnCreateGroupSubscription = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    oprtnArea: string,
+    venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     grpEmail: string,
@@ -12564,6 +13288,8 @@ export type OnUpdateGroupSubscription = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    oprtnArea: string,
+    venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     grpEmail: string,
@@ -12608,6 +13334,8 @@ export type OnDeleteGroupSubscription = {
     signitoryName: string,
     grpName: string,
     signitoryPW: string,
+    oprtnArea: string,
+    venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     grpEmail: string,
@@ -13139,6 +13867,132 @@ export type OnDeleteGrpMembersContributionSubscription = {
     contriAmount: number,
     memberId: string,
     status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateItemSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateItemSubscription = {
+  onCreateItem?:  {
+    __typename: "Item",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    itemName: string,
+    itemPrice: string,
+    itemTown: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
+    itemDesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateItemSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateItemSubscription = {
+  onUpdateItem?:  {
+    __typename: "Item",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    itemName: string,
+    itemPrice: string,
+    itemTown: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
+    itemDesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteItemSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteItemSubscription = {
+  onDeleteItem?:  {
+    __typename: "Item",
+    BusinessRegNo: string,
+    BusKntct: string,
+    busName: string,
+    itemName: string,
+    itemPrice: string,
+    itemTown: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
+    itemDesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreatePalPalLnSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreatePalPalLnSubscription = {
+  onCreatePalPalLn?:  {
+    __typename: "PalPalLn",
+    lnrName: string,
+    LnerCntct: string,
+    lnrEmail: string,
+    lnAmnt: string,
+    lnDesc: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdatePalPalLnSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdatePalPalLnSubscription = {
+  onUpdatePalPalLn?:  {
+    __typename: "PalPalLn",
+    lnrName: string,
+    LnerCntct: string,
+    lnrEmail: string,
+    lnAmnt: string,
+    lnDesc: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeletePalPalLnSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeletePalPalLnSubscription = {
+  onDeletePalPalLn?:  {
+    __typename: "PalPalLn",
+    lnrName: string,
+    LnerCntct: string,
+    lnrEmail: string,
+    lnAmnt: string,
+    lnDesc: string,
+    lnPrcntg: number,
+    rpymntPeriod: number,
     owner: string,
     createdAt: string,
     updatedAt: string,

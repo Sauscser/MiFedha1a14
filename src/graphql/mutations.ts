@@ -1393,6 +1393,12 @@ export const createCompany = /* GraphQL */ `
       bankAdmuserwithdrawalFee
       userLoanTransferFee
       userTransferFee
+      chmMmbrTransferFee
+      chmTransferFee
+      biznaTransferFee
+      palpalLnRpymntFee
+      chmLnRpymntFee
+      crdSllrLnRpymntFee
       userClearanceFee
       CoverageFee
       vat
@@ -1533,6 +1539,12 @@ export const updateCompany = /* GraphQL */ `
       bankAdmuserwithdrawalFee
       userLoanTransferFee
       userTransferFee
+      chmMmbrTransferFee
+      chmTransferFee
+      biznaTransferFee
+      palpalLnRpymntFee
+      chmLnRpymntFee
+      crdSllrLnRpymntFee
       userClearanceFee
       CoverageFee
       vat
@@ -1673,6 +1685,12 @@ export const deleteCompany = /* GraphQL */ `
       bankAdmuserwithdrawalFee
       userLoanTransferFee
       userTransferFee
+      chmMmbrTransferFee
+      chmTransferFee
+      biznaTransferFee
+      palpalLnRpymntFee
+      chmLnRpymntFee
+      crdSllrLnRpymntFee
       userClearanceFee
       CoverageFee
       vat
@@ -1995,6 +2013,8 @@ export const createGroup = /* GraphQL */ `
       signitoryName
       grpName
       signitoryPW
+      oprtnArea
+      venture
       signitory2Sub
       WithdrawCnfrmtn
       grpEmail
@@ -2038,6 +2058,8 @@ export const updateGroup = /* GraphQL */ `
       signitoryName
       grpName
       signitoryPW
+      oprtnArea
+      venture
       signitory2Sub
       WithdrawCnfrmtn
       grpEmail
@@ -2081,6 +2103,8 @@ export const deleteGroup = /* GraphQL */ `
       signitoryName
       grpName
       signitoryPW
+      oprtnArea
+      venture
       signitory2Sub
       WithdrawCnfrmtn
       grpEmail
@@ -2591,6 +2615,126 @@ export const deleteGrpMembersContribution = /* GraphQL */ `
       contriAmount
       memberId
       status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createItem = /* GraphQL */ `
+  mutation CreateItem(
+    $input: CreateItemInput!
+    $condition: ModelItemConditionInput
+  ) {
+    createItem(input: $input, condition: $condition) {
+      BusinessRegNo
+      BusKntct
+      busName
+      itemName
+      itemPrice
+      itemTown
+      lnPrcntg
+      rpymntPeriod
+      itemDesc
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateItem = /* GraphQL */ `
+  mutation UpdateItem(
+    $input: UpdateItemInput!
+    $condition: ModelItemConditionInput
+  ) {
+    updateItem(input: $input, condition: $condition) {
+      BusinessRegNo
+      BusKntct
+      busName
+      itemName
+      itemPrice
+      itemTown
+      lnPrcntg
+      rpymntPeriod
+      itemDesc
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteItem = /* GraphQL */ `
+  mutation DeleteItem(
+    $input: DeleteItemInput!
+    $condition: ModelItemConditionInput
+  ) {
+    deleteItem(input: $input, condition: $condition) {
+      BusinessRegNo
+      BusKntct
+      busName
+      itemName
+      itemPrice
+      itemTown
+      lnPrcntg
+      rpymntPeriod
+      itemDesc
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createPalPalLn = /* GraphQL */ `
+  mutation CreatePalPalLn(
+    $input: CreatePalPalLnInput!
+    $condition: ModelPalPalLnConditionInput
+  ) {
+    createPalPalLn(input: $input, condition: $condition) {
+      lnrName
+      LnerCntct
+      lnrEmail
+      lnAmnt
+      lnDesc
+      lnPrcntg
+      rpymntPeriod
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updatePalPalLn = /* GraphQL */ `
+  mutation UpdatePalPalLn(
+    $input: UpdatePalPalLnInput!
+    $condition: ModelPalPalLnConditionInput
+  ) {
+    updatePalPalLn(input: $input, condition: $condition) {
+      lnrName
+      LnerCntct
+      lnrEmail
+      lnAmnt
+      lnDesc
+      lnPrcntg
+      rpymntPeriod
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deletePalPalLn = /* GraphQL */ `
+  mutation DeletePalPalLn(
+    $input: DeletePalPalLnInput!
+    $condition: ModelPalPalLnConditionInput
+  ) {
+    deletePalPalLn(input: $input, condition: $condition) {
+      lnrName
+      LnerCntct
+      lnrEmail
+      lnAmnt
+      lnDesc
+      lnPrcntg
+      rpymntPeriod
       owner
       createdAt
       updatedAt

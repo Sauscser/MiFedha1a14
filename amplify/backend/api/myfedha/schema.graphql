@@ -1380,8 +1380,8 @@ type Group
   signitoryName: String!
   grpName: String!
   signitoryPW: String!
-  oprtnArea:String!
-  venture: String!
+  oprtnArea:String! @index(name: "byChmArea", sortKeyFields: ["createdAt"], queryField: "ViaChmArea")
+  venture: String! @index(name: "byChmVenture", sortKeyFields: ["createdAt"], queryField: "ViaChmVenture")
   signitory2Sub: String!
   WithdrawCnfrmtn: String!
   
@@ -1886,12 +1886,13 @@ type PalPalLn
   
    {
   lnrName: String! @index(name: "byCrtnTymmmmmsss", sortKeyFields: ["createdAt"], queryField: "BiznaVwwsss")
-  LnerCntct: String! @primaryKey
+  LnerCntct: String! 
+  lnrEmail: String! @primaryKey
   
-  lnAmnt:String!
-  lnTown: String!
+  lnAmnt:String! @index(name: "bylnAmt", sortKeyFields: ["createdAt"], queryField: "VialnAmt")
+ 
   lnDesc:String!
-  lnPrcntg: Float!
+  lnPrcntg: Float! @index(name: "bylnPrcntg", sortKeyFields: ["createdAt"], queryField: "VialnPcntg")
   rpymntPeriod: Float!
   
   owner: String!

@@ -1,10 +1,12 @@
-/* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateSMAccount = /* GraphQL */ `
-  subscription OnCreateSMAccount($owner: String) {
-    onCreateSMAccount(owner: $owner) {
+export const createSMAccount = /* GraphQL */ `
+  mutation CreateSMAccount(
+    $input: CreateSMAccountInput!
+    $condition: ModelSMAccountConditionInput
+  ) {
+    createSMAccount(input: $input, condition: $condition) {
       nationalid
       name
       phonecontact
@@ -98,9 +100,12 @@ export const onCreateSMAccount = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateSMAccount = /* GraphQL */ `
-  subscription OnUpdateSMAccount($owner: String) {
-    onUpdateSMAccount(owner: $owner) {
+export const updateSMAccount = /* GraphQL */ `
+  mutation UpdateSMAccount(
+    $input: UpdateSMAccountInput!
+    $condition: ModelSMAccountConditionInput
+  ) {
+    updateSMAccount(input: $input, condition: $condition) {
       nationalid
       name
       phonecontact
@@ -194,9 +199,12 @@ export const onUpdateSMAccount = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteSMAccount = /* GraphQL */ `
-  subscription OnDeleteSMAccount($owner: String) {
-    onDeleteSMAccount(owner: $owner) {
+export const deleteSMAccount = /* GraphQL */ `
+  mutation DeleteSMAccount(
+    $input: DeleteSMAccountInput!
+    $condition: ModelSMAccountConditionInput
+  ) {
+    deleteSMAccount(input: $input, condition: $condition) {
       nationalid
       name
       phonecontact
@@ -290,9 +298,12 @@ export const onDeleteSMAccount = /* GraphQL */ `
     }
   }
 `;
-export const onCreateSMLoansCovered = /* GraphQL */ `
-  subscription OnCreateSMLoansCovered($owner: String) {
-    onCreateSMLoansCovered(owner: $owner) {
+export const createSMLoansCovered = /* GraphQL */ `
+  mutation CreateSMLoansCovered(
+    $input: CreateSMLoansCoveredInput!
+    $condition: ModelSMLoansCoveredConditionInput
+  ) {
+    createSMLoansCovered(input: $input, condition: $condition) {
       id
       loaneeid
       loaneePhn
@@ -319,9 +330,12 @@ export const onCreateSMLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateSMLoansCovered = /* GraphQL */ `
-  subscription OnUpdateSMLoansCovered($owner: String) {
-    onUpdateSMLoansCovered(owner: $owner) {
+export const updateSMLoansCovered = /* GraphQL */ `
+  mutation UpdateSMLoansCovered(
+    $input: UpdateSMLoansCoveredInput!
+    $condition: ModelSMLoansCoveredConditionInput
+  ) {
+    updateSMLoansCovered(input: $input, condition: $condition) {
       id
       loaneeid
       loaneePhn
@@ -348,9 +362,12 @@ export const onUpdateSMLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteSMLoansCovered = /* GraphQL */ `
-  subscription OnDeleteSMLoansCovered($owner: String) {
-    onDeleteSMLoansCovered(owner: $owner) {
+export const deleteSMLoansCovered = /* GraphQL */ `
+  mutation DeleteSMLoansCovered(
+    $input: DeleteSMLoansCoveredInput!
+    $condition: ModelSMLoansCoveredConditionInput
+  ) {
+    deleteSMLoansCovered(input: $input, condition: $condition) {
       id
       loaneeid
       loaneePhn
@@ -377,9 +394,12 @@ export const onDeleteSMLoansCovered = /* GraphQL */ `
     }
   }
 `;
-export const onCreateSMLoansNonCovered = /* GraphQL */ `
-  subscription OnCreateSMLoansNonCovered($owner: String) {
-    onCreateSMLoansNonCovered(owner: $owner) {
+export const createSMLoansNonCovered = /* GraphQL */ `
+  mutation CreateSMLoansNonCovered(
+    $input: CreateSMLoansNonCoveredInput!
+    $condition: ModelSMLoansNonCoveredConditionInput
+  ) {
+    createSMLoansNonCovered(input: $input, condition: $condition) {
       id
       loaneePhn
       loanerPhn
@@ -404,9 +424,12 @@ export const onCreateSMLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateSMLoansNonCovered = /* GraphQL */ `
-  subscription OnUpdateSMLoansNonCovered($owner: String) {
-    onUpdateSMLoansNonCovered(owner: $owner) {
+export const updateSMLoansNonCovered = /* GraphQL */ `
+  mutation UpdateSMLoansNonCovered(
+    $input: UpdateSMLoansNonCoveredInput!
+    $condition: ModelSMLoansNonCoveredConditionInput
+  ) {
+    updateSMLoansNonCovered(input: $input, condition: $condition) {
       id
       loaneePhn
       loanerPhn
@@ -431,9 +454,12 @@ export const onUpdateSMLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteSMLoansNonCovered = /* GraphQL */ `
-  subscription OnDeleteSMLoansNonCovered($owner: String) {
-    onDeleteSMLoansNonCovered(owner: $owner) {
+export const deleteSMLoansNonCovered = /* GraphQL */ `
+  mutation DeleteSMLoansNonCovered(
+    $input: DeleteSMLoansNonCoveredInput!
+    $condition: ModelSMLoansNonCoveredConditionInput
+  ) {
+    deleteSMLoansNonCovered(input: $input, condition: $condition) {
       id
       loaneePhn
       loanerPhn
@@ -458,9 +484,12 @@ export const onDeleteSMLoansNonCovered = /* GraphQL */ `
     }
   }
 `;
-export const onCreateNonLoans = /* GraphQL */ `
-  subscription OnCreateNonLoans($owner: String) {
-    onCreateNonLoans(owner: $owner) {
+export const createNonLoans = /* GraphQL */ `
+  mutation CreateNonLoans(
+    $input: CreateNonLoansInput!
+    $condition: ModelNonLoansConditionInput
+  ) {
+    createNonLoans(input: $input, condition: $condition) {
       id
       senderPhn
       recPhn
@@ -475,9 +504,12 @@ export const onCreateNonLoans = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateNonLoans = /* GraphQL */ `
-  subscription OnUpdateNonLoans($owner: String) {
-    onUpdateNonLoans(owner: $owner) {
+export const updateNonLoans = /* GraphQL */ `
+  mutation UpdateNonLoans(
+    $input: UpdateNonLoansInput!
+    $condition: ModelNonLoansConditionInput
+  ) {
+    updateNonLoans(input: $input, condition: $condition) {
       id
       senderPhn
       recPhn
@@ -492,9 +524,12 @@ export const onUpdateNonLoans = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteNonLoans = /* GraphQL */ `
-  subscription OnDeleteNonLoans($owner: String) {
-    onDeleteNonLoans(owner: $owner) {
+export const deleteNonLoans = /* GraphQL */ `
+  mutation DeleteNonLoans(
+    $input: DeleteNonLoansInput!
+    $condition: ModelNonLoansConditionInput
+  ) {
+    deleteNonLoans(input: $input, condition: $condition) {
       id
       senderPhn
       recPhn
@@ -509,9 +544,12 @@ export const onDeleteNonLoans = /* GraphQL */ `
     }
   }
 `;
-export const onCreateAgent = /* GraphQL */ `
-  subscription OnCreateAgent($owner: String) {
-    onCreateAgent(owner: $owner) {
+export const createAgent = /* GraphQL */ `
+  mutation CreateAgent(
+    $input: CreateAgentInput!
+    $condition: ModelAgentConditionInput
+  ) {
+    createAgent(input: $input, condition: $condition) {
       phonecontact
       sagentregno
       nationalid
@@ -536,9 +574,12 @@ export const onCreateAgent = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateAgent = /* GraphQL */ `
-  subscription OnUpdateAgent($owner: String) {
-    onUpdateAgent(owner: $owner) {
+export const updateAgent = /* GraphQL */ `
+  mutation UpdateAgent(
+    $input: UpdateAgentInput!
+    $condition: ModelAgentConditionInput
+  ) {
+    updateAgent(input: $input, condition: $condition) {
       phonecontact
       sagentregno
       nationalid
@@ -563,9 +604,12 @@ export const onUpdateAgent = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteAgent = /* GraphQL */ `
-  subscription OnDeleteAgent($owner: String) {
-    onDeleteAgent(owner: $owner) {
+export const deleteAgent = /* GraphQL */ `
+  mutation DeleteAgent(
+    $input: DeleteAgentInput!
+    $condition: ModelAgentConditionInput
+  ) {
+    deleteAgent(input: $input, condition: $condition) {
       phonecontact
       sagentregno
       nationalid
@@ -590,9 +634,12 @@ export const onDeleteAgent = /* GraphQL */ `
     }
   }
 `;
-export const onCreateFloatPurchase = /* GraphQL */ `
-  subscription OnCreateFloatPurchase($owner: String) {
-    onCreateFloatPurchase(owner: $owner) {
+export const createFloatPurchase = /* GraphQL */ `
+  mutation CreateFloatPurchase(
+    $input: CreateFloatPurchaseInput!
+    $condition: ModelFloatPurchaseConditionInput
+  ) {
+    createFloatPurchase(input: $input, condition: $condition) {
       agentphone
       amount
       transactId
@@ -604,9 +651,12 @@ export const onCreateFloatPurchase = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateFloatPurchase = /* GraphQL */ `
-  subscription OnUpdateFloatPurchase($owner: String) {
-    onUpdateFloatPurchase(owner: $owner) {
+export const updateFloatPurchase = /* GraphQL */ `
+  mutation UpdateFloatPurchase(
+    $input: UpdateFloatPurchaseInput!
+    $condition: ModelFloatPurchaseConditionInput
+  ) {
+    updateFloatPurchase(input: $input, condition: $condition) {
       agentphone
       amount
       transactId
@@ -618,9 +668,12 @@ export const onUpdateFloatPurchase = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteFloatPurchase = /* GraphQL */ `
-  subscription OnDeleteFloatPurchase($owner: String) {
-    onDeleteFloatPurchase(owner: $owner) {
+export const deleteFloatPurchase = /* GraphQL */ `
+  mutation DeleteFloatPurchase(
+    $input: DeleteFloatPurchaseInput!
+    $condition: ModelFloatPurchaseConditionInput
+  ) {
+    deleteFloatPurchase(input: $input, condition: $condition) {
       agentphone
       amount
       transactId
@@ -632,9 +685,12 @@ export const onDeleteFloatPurchase = /* GraphQL */ `
     }
   }
 `;
-export const onCreateFloatAdd = /* GraphQL */ `
-  subscription OnCreateFloatAdd($owner: String) {
-    onCreateFloatAdd(owner: $owner) {
+export const createFloatAdd = /* GraphQL */ `
+  mutation CreateFloatAdd(
+    $input: CreateFloatAddInput!
+    $condition: ModelFloatAddConditionInput
+  ) {
+    createFloatAdd(input: $input, condition: $condition) {
       id
       withdrawerid
       amount
@@ -651,9 +707,12 @@ export const onCreateFloatAdd = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateFloatAdd = /* GraphQL */ `
-  subscription OnUpdateFloatAdd($owner: String) {
-    onUpdateFloatAdd(owner: $owner) {
+export const updateFloatAdd = /* GraphQL */ `
+  mutation UpdateFloatAdd(
+    $input: UpdateFloatAddInput!
+    $condition: ModelFloatAddConditionInput
+  ) {
+    updateFloatAdd(input: $input, condition: $condition) {
       id
       withdrawerid
       amount
@@ -670,9 +729,12 @@ export const onUpdateFloatAdd = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteFloatAdd = /* GraphQL */ `
-  subscription OnDeleteFloatAdd($owner: String) {
-    onDeleteFloatAdd(owner: $owner) {
+export const deleteFloatAdd = /* GraphQL */ `
+  mutation DeleteFloatAdd(
+    $input: DeleteFloatAddInput!
+    $condition: ModelFloatAddConditionInput
+  ) {
+    deleteFloatAdd(input: $input, condition: $condition) {
       id
       withdrawerid
       amount
@@ -689,9 +751,12 @@ export const onDeleteFloatAdd = /* GraphQL */ `
     }
   }
 `;
-export const onCreateFloatReduction = /* GraphQL */ `
-  subscription OnCreateFloatReduction($owner: String) {
-    onCreateFloatReduction(owner: $owner) {
+export const createFloatReduction = /* GraphQL */ `
+  mutation CreateFloatReduction(
+    $input: CreateFloatReductionInput!
+    $condition: ModelFloatReductionConditionInput
+  ) {
+    createFloatReduction(input: $input, condition: $condition) {
       id
       amount
       depositerid
@@ -705,9 +770,12 @@ export const onCreateFloatReduction = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateFloatReduction = /* GraphQL */ `
-  subscription OnUpdateFloatReduction($owner: String) {
-    onUpdateFloatReduction(owner: $owner) {
+export const updateFloatReduction = /* GraphQL */ `
+  mutation UpdateFloatReduction(
+    $input: UpdateFloatReductionInput!
+    $condition: ModelFloatReductionConditionInput
+  ) {
+    updateFloatReduction(input: $input, condition: $condition) {
       id
       amount
       depositerid
@@ -721,9 +789,12 @@ export const onUpdateFloatReduction = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteFloatReduction = /* GraphQL */ `
-  subscription OnDeleteFloatReduction($owner: String) {
-    onDeleteFloatReduction(owner: $owner) {
+export const deleteFloatReduction = /* GraphQL */ `
+  mutation DeleteFloatReduction(
+    $input: DeleteFloatReductionInput!
+    $condition: ModelFloatReductionConditionInput
+  ) {
+    deleteFloatReduction(input: $input, condition: $condition) {
       id
       amount
       depositerid
@@ -737,9 +808,12 @@ export const onDeleteFloatReduction = /* GraphQL */ `
     }
   }
 `;
-export const onCreateAgentWithdrawals = /* GraphQL */ `
-  subscription OnCreateAgentWithdrawals($owner: String) {
-    onCreateAgentWithdrawals(owner: $owner) {
+export const createAgentWithdrawals = /* GraphQL */ `
+  mutation CreateAgentWithdrawals(
+    $input: CreateAgentWithdrawalsInput!
+    $condition: ModelAgentWithdrawalsConditionInput
+  ) {
+    createAgentWithdrawals(input: $input, condition: $condition) {
       id
       agentPhone
       bankAdminId
@@ -753,9 +827,12 @@ export const onCreateAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateAgentWithdrawals = /* GraphQL */ `
-  subscription OnUpdateAgentWithdrawals($owner: String) {
-    onUpdateAgentWithdrawals(owner: $owner) {
+export const updateAgentWithdrawals = /* GraphQL */ `
+  mutation UpdateAgentWithdrawals(
+    $input: UpdateAgentWithdrawalsInput!
+    $condition: ModelAgentWithdrawalsConditionInput
+  ) {
+    updateAgentWithdrawals(input: $input, condition: $condition) {
       id
       agentPhone
       bankAdminId
@@ -769,9 +846,12 @@ export const onUpdateAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteAgentWithdrawals = /* GraphQL */ `
-  subscription OnDeleteAgentWithdrawals($owner: String) {
-    onDeleteAgentWithdrawals(owner: $owner) {
+export const deleteAgentWithdrawals = /* GraphQL */ `
+  mutation DeleteAgentWithdrawals(
+    $input: DeleteAgentWithdrawalsInput!
+    $condition: ModelAgentWithdrawalsConditionInput
+  ) {
+    deleteAgentWithdrawals(input: $input, condition: $condition) {
       id
       agentPhone
       bankAdminId
@@ -785,9 +865,12 @@ export const onDeleteAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const onCreateSAgent = /* GraphQL */ `
-  subscription OnCreateSAgent($owner: String) {
-    onCreateSAgent(owner: $owner) {
+export const createSAgent = /* GraphQL */ `
+  mutation CreateSAgent(
+    $input: CreateSAgentInput!
+    $condition: ModelSAgentConditionInput
+  ) {
+    createSAgent(input: $input, condition: $condition) {
       saPhoneContact
       saNationalid
       name
@@ -807,9 +890,12 @@ export const onCreateSAgent = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateSAgent = /* GraphQL */ `
-  subscription OnUpdateSAgent($owner: String) {
-    onUpdateSAgent(owner: $owner) {
+export const updateSAgent = /* GraphQL */ `
+  mutation UpdateSAgent(
+    $input: UpdateSAgentInput!
+    $condition: ModelSAgentConditionInput
+  ) {
+    updateSAgent(input: $input, condition: $condition) {
       saPhoneContact
       saNationalid
       name
@@ -829,9 +915,12 @@ export const onUpdateSAgent = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteSAgent = /* GraphQL */ `
-  subscription OnDeleteSAgent($owner: String) {
-    onDeleteSAgent(owner: $owner) {
+export const deleteSAgent = /* GraphQL */ `
+  mutation DeleteSAgent(
+    $input: DeleteSAgentInput!
+    $condition: ModelSAgentConditionInput
+  ) {
+    deleteSAgent(input: $input, condition: $condition) {
       saPhoneContact
       saNationalid
       name
@@ -851,9 +940,12 @@ export const onDeleteSAgent = /* GraphQL */ `
     }
   }
 `;
-export const onCreateSAgentWithdrawals = /* GraphQL */ `
-  subscription OnCreateSAgentWithdrawals($owner: String) {
-    onCreateSAgentWithdrawals(owner: $owner) {
+export const createSAgentWithdrawals = /* GraphQL */ `
+  mutation CreateSAgentWithdrawals(
+    $input: CreateSAgentWithdrawalsInput!
+    $condition: ModelSAgentWithdrawalsConditionInput
+  ) {
+    createSAgentWithdrawals(input: $input, condition: $condition) {
       id
       saId
       amount
@@ -867,9 +959,12 @@ export const onCreateSAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateSAgentWithdrawals = /* GraphQL */ `
-  subscription OnUpdateSAgentWithdrawals($owner: String) {
-    onUpdateSAgentWithdrawals(owner: $owner) {
+export const updateSAgentWithdrawals = /* GraphQL */ `
+  mutation UpdateSAgentWithdrawals(
+    $input: UpdateSAgentWithdrawalsInput!
+    $condition: ModelSAgentWithdrawalsConditionInput
+  ) {
+    updateSAgentWithdrawals(input: $input, condition: $condition) {
       id
       saId
       amount
@@ -883,9 +978,12 @@ export const onUpdateSAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteSAgentWithdrawals = /* GraphQL */ `
-  subscription OnDeleteSAgentWithdrawals($owner: String) {
-    onDeleteSAgentWithdrawals(owner: $owner) {
+export const deleteSAgentWithdrawals = /* GraphQL */ `
+  mutation DeleteSAgentWithdrawals(
+    $input: DeleteSAgentWithdrawalsInput!
+    $condition: ModelSAgentWithdrawalsConditionInput
+  ) {
+    deleteSAgentWithdrawals(input: $input, condition: $condition) {
       id
       saId
       amount
@@ -899,9 +997,12 @@ export const onDeleteSAgentWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const onCreatePersonel = /* GraphQL */ `
-  subscription OnCreatePersonel($owner: String) {
-    onCreatePersonel(owner: $owner) {
+export const createPersonel = /* GraphQL */ `
+  mutation CreatePersonel(
+    $input: CreatePersonelInput!
+    $condition: ModelPersonelConditionInput
+  ) {
+    createPersonel(input: $input, condition: $condition) {
       phoneKontact
       BusinessRegNo
       nationalid
@@ -917,9 +1018,12 @@ export const onCreatePersonel = /* GraphQL */ `
     }
   }
 `;
-export const onUpdatePersonel = /* GraphQL */ `
-  subscription OnUpdatePersonel($owner: String) {
-    onUpdatePersonel(owner: $owner) {
+export const updatePersonel = /* GraphQL */ `
+  mutation UpdatePersonel(
+    $input: UpdatePersonelInput!
+    $condition: ModelPersonelConditionInput
+  ) {
+    updatePersonel(input: $input, condition: $condition) {
       phoneKontact
       BusinessRegNo
       nationalid
@@ -935,9 +1039,12 @@ export const onUpdatePersonel = /* GraphQL */ `
     }
   }
 `;
-export const onDeletePersonel = /* GraphQL */ `
-  subscription OnDeletePersonel($owner: String) {
-    onDeletePersonel(owner: $owner) {
+export const deletePersonel = /* GraphQL */ `
+  mutation DeletePersonel(
+    $input: DeletePersonelInput!
+    $condition: ModelPersonelConditionInput
+  ) {
+    deletePersonel(input: $input, condition: $condition) {
       phoneKontact
       BusinessRegNo
       nationalid
@@ -953,9 +1060,12 @@ export const onDeletePersonel = /* GraphQL */ `
     }
   }
 `;
-export const onCreateBizna = /* GraphQL */ `
-  subscription OnCreateBizna($owner: String) {
-    onCreateBizna(owner: $owner) {
+export const createBizna = /* GraphQL */ `
+  mutation CreateBizna(
+    $input: CreateBiznaInput!
+    $condition: ModelBiznaConditionInput
+  ) {
+    createBizna(input: $input, condition: $condition) {
       BusinessRegNo
       BusKntct
       busName
@@ -972,9 +1082,12 @@ export const onCreateBizna = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateBizna = /* GraphQL */ `
-  subscription OnUpdateBizna($owner: String) {
-    onUpdateBizna(owner: $owner) {
+export const updateBizna = /* GraphQL */ `
+  mutation UpdateBizna(
+    $input: UpdateBiznaInput!
+    $condition: ModelBiznaConditionInput
+  ) {
+    updateBizna(input: $input, condition: $condition) {
       BusinessRegNo
       BusKntct
       busName
@@ -991,9 +1104,12 @@ export const onUpdateBizna = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteBizna = /* GraphQL */ `
-  subscription OnDeleteBizna($owner: String) {
-    onDeleteBizna(owner: $owner) {
+export const deleteBizna = /* GraphQL */ `
+  mutation DeleteBizna(
+    $input: DeleteBiznaInput!
+    $condition: ModelBiznaConditionInput
+  ) {
+    deleteBizna(input: $input, condition: $condition) {
       BusinessRegNo
       BusKntct
       busName
@@ -1010,9 +1126,12 @@ export const onDeleteBizna = /* GraphQL */ `
     }
   }
 `;
-export const onCreateBankAdmin = /* GraphQL */ `
-  subscription OnCreateBankAdmin($owner: String) {
-    onCreateBankAdmin(owner: $owner) {
+export const createBankAdmin = /* GraphQL */ `
+  mutation CreateBankAdmin(
+    $input: CreateBankAdminInput!
+    $condition: ModelBankAdminConditionInput
+  ) {
+    createBankAdmin(input: $input, condition: $condition) {
       nationalid
       name
       phonecontact
@@ -1027,9 +1146,12 @@ export const onCreateBankAdmin = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateBankAdmin = /* GraphQL */ `
-  subscription OnUpdateBankAdmin($owner: String) {
-    onUpdateBankAdmin(owner: $owner) {
+export const updateBankAdmin = /* GraphQL */ `
+  mutation UpdateBankAdmin(
+    $input: UpdateBankAdminInput!
+    $condition: ModelBankAdminConditionInput
+  ) {
+    updateBankAdmin(input: $input, condition: $condition) {
       nationalid
       name
       phonecontact
@@ -1044,9 +1166,12 @@ export const onUpdateBankAdmin = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteBankAdmin = /* GraphQL */ `
-  subscription OnDeleteBankAdmin($owner: String) {
-    onDeleteBankAdmin(owner: $owner) {
+export const deleteBankAdmin = /* GraphQL */ `
+  mutation DeleteBankAdmin(
+    $input: DeleteBankAdminInput!
+    $condition: ModelBankAdminConditionInput
+  ) {
+    deleteBankAdmin(input: $input, condition: $condition) {
       nationalid
       name
       phonecontact
@@ -1061,9 +1186,12 @@ export const onDeleteBankAdmin = /* GraphQL */ `
     }
   }
 `;
-export const onCreateBankAdmWithdrawals = /* GraphQL */ `
-  subscription OnCreateBankAdmWithdrawals($owner: String) {
-    onCreateBankAdmWithdrawals(owner: $owner) {
+export const createBankAdmWithdrawals = /* GraphQL */ `
+  mutation CreateBankAdmWithdrawals(
+    $input: CreateBankAdmWithdrawalsInput!
+    $condition: ModelBankAdmWithdrawalsConditionInput
+  ) {
+    createBankAdmWithdrawals(input: $input, condition: $condition) {
       id
       bankAdmNatId
       amount
@@ -1074,9 +1202,12 @@ export const onCreateBankAdmWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateBankAdmWithdrawals = /* GraphQL */ `
-  subscription OnUpdateBankAdmWithdrawals($owner: String) {
-    onUpdateBankAdmWithdrawals(owner: $owner) {
+export const updateBankAdmWithdrawals = /* GraphQL */ `
+  mutation UpdateBankAdmWithdrawals(
+    $input: UpdateBankAdmWithdrawalsInput!
+    $condition: ModelBankAdmWithdrawalsConditionInput
+  ) {
+    updateBankAdmWithdrawals(input: $input, condition: $condition) {
       id
       bankAdmNatId
       amount
@@ -1087,9 +1218,12 @@ export const onUpdateBankAdmWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteBankAdmWithdrawals = /* GraphQL */ `
-  subscription OnDeleteBankAdmWithdrawals($owner: String) {
-    onDeleteBankAdmWithdrawals(owner: $owner) {
+export const deleteBankAdmWithdrawals = /* GraphQL */ `
+  mutation DeleteBankAdmWithdrawals(
+    $input: DeleteBankAdmWithdrawalsInput!
+    $condition: ModelBankAdmWithdrawalsConditionInput
+  ) {
+    deleteBankAdmWithdrawals(input: $input, condition: $condition) {
       id
       bankAdmNatId
       amount
@@ -1100,9 +1234,12 @@ export const onDeleteBankAdmWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const onCreateAdvocate = /* GraphQL */ `
-  subscription OnCreateAdvocate($owner: String) {
-    onCreateAdvocate(owner: $owner) {
+export const createAdvocate = /* GraphQL */ `
+  mutation CreateAdvocate(
+    $input: CreateAdvocateInput!
+    $condition: ModelAdvocateConditionInput
+  ) {
+    createAdvocate(input: $input, condition: $condition) {
       advregnu
       nationalid
       pwd
@@ -1121,9 +1258,12 @@ export const onCreateAdvocate = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateAdvocate = /* GraphQL */ `
-  subscription OnUpdateAdvocate($owner: String) {
-    onUpdateAdvocate(owner: $owner) {
+export const updateAdvocate = /* GraphQL */ `
+  mutation UpdateAdvocate(
+    $input: UpdateAdvocateInput!
+    $condition: ModelAdvocateConditionInput
+  ) {
+    updateAdvocate(input: $input, condition: $condition) {
       advregnu
       nationalid
       pwd
@@ -1142,9 +1282,12 @@ export const onUpdateAdvocate = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteAdvocate = /* GraphQL */ `
-  subscription OnDeleteAdvocate($owner: String) {
-    onDeleteAdvocate(owner: $owner) {
+export const deleteAdvocate = /* GraphQL */ `
+  mutation DeleteAdvocate(
+    $input: DeleteAdvocateInput!
+    $condition: ModelAdvocateConditionInput
+  ) {
+    deleteAdvocate(input: $input, condition: $condition) {
       advregnu
       nationalid
       pwd
@@ -1163,9 +1306,12 @@ export const onDeleteAdvocate = /* GraphQL */ `
     }
   }
 `;
-export const onCreateAdvocateWithdrawals = /* GraphQL */ `
-  subscription OnCreateAdvocateWithdrawals($owner: String) {
-    onCreateAdvocateWithdrawals(owner: $owner) {
+export const createAdvocateWithdrawals = /* GraphQL */ `
+  mutation CreateAdvocateWithdrawals(
+    $input: CreateAdvocateWithdrawalsInput!
+    $condition: ModelAdvocateWithdrawalsConditionInput
+  ) {
+    createAdvocateWithdrawals(input: $input, condition: $condition) {
       id
       bankAdmnId
       advregnu
@@ -1179,9 +1325,12 @@ export const onCreateAdvocateWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateAdvocateWithdrawals = /* GraphQL */ `
-  subscription OnUpdateAdvocateWithdrawals($owner: String) {
-    onUpdateAdvocateWithdrawals(owner: $owner) {
+export const updateAdvocateWithdrawals = /* GraphQL */ `
+  mutation UpdateAdvocateWithdrawals(
+    $input: UpdateAdvocateWithdrawalsInput!
+    $condition: ModelAdvocateWithdrawalsConditionInput
+  ) {
+    updateAdvocateWithdrawals(input: $input, condition: $condition) {
       id
       bankAdmnId
       advregnu
@@ -1195,9 +1344,12 @@ export const onUpdateAdvocateWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteAdvocateWithdrawals = /* GraphQL */ `
-  subscription OnDeleteAdvocateWithdrawals($owner: String) {
-    onDeleteAdvocateWithdrawals(owner: $owner) {
+export const deleteAdvocateWithdrawals = /* GraphQL */ `
+  mutation DeleteAdvocateWithdrawals(
+    $input: DeleteAdvocateWithdrawalsInput!
+    $condition: ModelAdvocateWithdrawalsConditionInput
+  ) {
+    deleteAdvocateWithdrawals(input: $input, condition: $condition) {
       id
       bankAdmnId
       advregnu
@@ -1211,9 +1363,12 @@ export const onDeleteAdvocateWithdrawals = /* GraphQL */ `
     }
   }
 `;
-export const onCreateCompany = /* GraphQL */ `
-  subscription OnCreateCompany {
-    onCreateCompany {
+export const createCompany = /* GraphQL */ `
+  mutation CreateCompany(
+    $input: CreateCompanyInput!
+    $condition: ModelCompanyConditionInput
+  ) {
+    createCompany(input: $input, condition: $condition) {
       AdminId
       phoneContact
       companyEmail
@@ -1354,9 +1509,12 @@ export const onCreateCompany = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateCompany = /* GraphQL */ `
-  subscription OnUpdateCompany {
-    onUpdateCompany {
+export const updateCompany = /* GraphQL */ `
+  mutation UpdateCompany(
+    $input: UpdateCompanyInput!
+    $condition: ModelCompanyConditionInput
+  ) {
+    updateCompany(input: $input, condition: $condition) {
       AdminId
       phoneContact
       companyEmail
@@ -1497,9 +1655,12 @@ export const onUpdateCompany = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteCompany = /* GraphQL */ `
-  subscription OnDeleteCompany {
-    onDeleteCompany {
+export const deleteCompany = /* GraphQL */ `
+  mutation DeleteCompany(
+    $input: DeleteCompanyInput!
+    $condition: ModelCompanyConditionInput
+  ) {
+    deleteCompany(input: $input, condition: $condition) {
       AdminId
       phoneContact
       companyEmail
@@ -1640,9 +1801,12 @@ export const onDeleteCompany = /* GraphQL */ `
     }
   }
 `;
-export const onCreateCovCreditSeller = /* GraphQL */ `
-  subscription OnCreateCovCreditSeller($owner: String) {
-    onCreateCovCreditSeller(owner: $owner) {
+export const createCovCreditSeller = /* GraphQL */ `
+  mutation CreateCovCreditSeller(
+    $input: CreateCovCreditSellerInput!
+    $condition: ModelCovCreditSellerConditionInput
+  ) {
+    createCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
       itemSerialNumber
@@ -1671,9 +1835,12 @@ export const onCreateCovCreditSeller = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateCovCreditSeller = /* GraphQL */ `
-  subscription OnUpdateCovCreditSeller($owner: String) {
-    onUpdateCovCreditSeller(owner: $owner) {
+export const updateCovCreditSeller = /* GraphQL */ `
+  mutation UpdateCovCreditSeller(
+    $input: UpdateCovCreditSellerInput!
+    $condition: ModelCovCreditSellerConditionInput
+  ) {
+    updateCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
       itemSerialNumber
@@ -1702,9 +1869,12 @@ export const onUpdateCovCreditSeller = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteCovCreditSeller = /* GraphQL */ `
-  subscription OnDeleteCovCreditSeller($owner: String) {
-    onDeleteCovCreditSeller(owner: $owner) {
+export const deleteCovCreditSeller = /* GraphQL */ `
+  mutation DeleteCovCreditSeller(
+    $input: DeleteCovCreditSellerInput!
+    $condition: ModelCovCreditSellerConditionInput
+  ) {
+    deleteCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
       itemSerialNumber
@@ -1733,9 +1903,12 @@ export const onDeleteCovCreditSeller = /* GraphQL */ `
     }
   }
 `;
-export const onCreateNonCovCreditSeller = /* GraphQL */ `
-  subscription OnCreateNonCovCreditSeller($owner: String) {
-    onCreateNonCovCreditSeller(owner: $owner) {
+export const createNonCovCreditSeller = /* GraphQL */ `
+  mutation CreateNonCovCreditSeller(
+    $input: CreateNonCovCreditSellerInput!
+    $condition: ModelNonCovCreditSellerConditionInput
+  ) {
+    createNonCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
       itemSerialNumber
@@ -1762,9 +1935,12 @@ export const onCreateNonCovCreditSeller = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateNonCovCreditSeller = /* GraphQL */ `
-  subscription OnUpdateNonCovCreditSeller($owner: String) {
-    onUpdateNonCovCreditSeller(owner: $owner) {
+export const updateNonCovCreditSeller = /* GraphQL */ `
+  mutation UpdateNonCovCreditSeller(
+    $input: UpdateNonCovCreditSellerInput!
+    $condition: ModelNonCovCreditSellerConditionInput
+  ) {
+    updateNonCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
       itemSerialNumber
@@ -1791,9 +1967,12 @@ export const onUpdateNonCovCreditSeller = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteNonCovCreditSeller = /* GraphQL */ `
-  subscription OnDeleteNonCovCreditSeller($owner: String) {
-    onDeleteNonCovCreditSeller(owner: $owner) {
+export const deleteNonCovCreditSeller = /* GraphQL */ `
+  mutation DeleteNonCovCreditSeller(
+    $input: DeleteNonCovCreditSellerInput!
+    $condition: ModelNonCovCreditSellerConditionInput
+  ) {
+    deleteNonCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
       itemSerialNumber
@@ -1820,9 +1999,12 @@ export const onDeleteNonCovCreditSeller = /* GraphQL */ `
     }
   }
 `;
-export const onCreateGroup = /* GraphQL */ `
-  subscription OnCreateGroup($owner: String) {
-    onCreateGroup(owner: $owner) {
+export const createGroup = /* GraphQL */ `
+  mutation CreateGroup(
+    $input: CreateGroupInput!
+    $condition: ModelGroupConditionInput
+  ) {
+    createGroup(input: $input, condition: $condition) {
       grpContact
       regNo
       signitoryContact
@@ -1862,9 +2044,12 @@ export const onCreateGroup = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateGroup = /* GraphQL */ `
-  subscription OnUpdateGroup($owner: String) {
-    onUpdateGroup(owner: $owner) {
+export const updateGroup = /* GraphQL */ `
+  mutation UpdateGroup(
+    $input: UpdateGroupInput!
+    $condition: ModelGroupConditionInput
+  ) {
+    updateGroup(input: $input, condition: $condition) {
       grpContact
       regNo
       signitoryContact
@@ -1904,9 +2089,12 @@ export const onUpdateGroup = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteGroup = /* GraphQL */ `
-  subscription OnDeleteGroup($owner: String) {
-    onDeleteGroup(owner: $owner) {
+export const deleteGroup = /* GraphQL */ `
+  mutation DeleteGroup(
+    $input: DeleteGroupInput!
+    $condition: ModelGroupConditionInput
+  ) {
+    deleteGroup(input: $input, condition: $condition) {
       grpContact
       regNo
       signitoryContact
@@ -1946,9 +2134,12 @@ export const onDeleteGroup = /* GraphQL */ `
     }
   }
 `;
-export const onCreateChamaMembers = /* GraphQL */ `
-  subscription OnCreateChamaMembers($owner: String) {
-    onCreateChamaMembers(owner: $owner) {
+export const createChamaMembers = /* GraphQL */ `
+  mutation CreateChamaMembers(
+    $input: CreateChamaMembersInput!
+    $condition: ModelChamaMembersConditionInput
+  ) {
+    createChamaMembers(input: $input, condition: $condition) {
       MembaId
       groupContact
       regNo
@@ -1972,9 +2163,12 @@ export const onCreateChamaMembers = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateChamaMembers = /* GraphQL */ `
-  subscription OnUpdateChamaMembers($owner: String) {
-    onUpdateChamaMembers(owner: $owner) {
+export const updateChamaMembers = /* GraphQL */ `
+  mutation UpdateChamaMembers(
+    $input: UpdateChamaMembersInput!
+    $condition: ModelChamaMembersConditionInput
+  ) {
+    updateChamaMembers(input: $input, condition: $condition) {
       MembaId
       groupContact
       regNo
@@ -1998,9 +2192,12 @@ export const onUpdateChamaMembers = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteChamaMembers = /* GraphQL */ `
-  subscription OnDeleteChamaMembers($owner: String) {
-    onDeleteChamaMembers(owner: $owner) {
+export const deleteChamaMembers = /* GraphQL */ `
+  mutation DeleteChamaMembers(
+    $input: DeleteChamaMembersInput!
+    $condition: ModelChamaMembersConditionInput
+  ) {
+    deleteChamaMembers(input: $input, condition: $condition) {
       MembaId
       groupContact
       regNo
@@ -2024,9 +2221,12 @@ export const onDeleteChamaMembers = /* GraphQL */ `
     }
   }
 `;
-export const onCreateChamasNPwnBrkrs = /* GraphQL */ `
-  subscription OnCreateChamasNPwnBrkrs($owner: String) {
-    onCreateChamasNPwnBrkrs(owner: $owner) {
+export const createChamasNPwnBrkrs = /* GraphQL */ `
+  mutation CreateChamasNPwnBrkrs(
+    $input: CreateChamasNPwnBrkrsInput!
+    $condition: ModelChamasNPwnBrkrsConditionInput
+  ) {
+    createChamasNPwnBrkrs(input: $input, condition: $condition) {
       id
       contact
       regNo
@@ -2037,9 +2237,12 @@ export const onCreateChamasNPwnBrkrs = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateChamasNPwnBrkrs = /* GraphQL */ `
-  subscription OnUpdateChamasNPwnBrkrs($owner: String) {
-    onUpdateChamasNPwnBrkrs(owner: $owner) {
+export const updateChamasNPwnBrkrs = /* GraphQL */ `
+  mutation UpdateChamasNPwnBrkrs(
+    $input: UpdateChamasNPwnBrkrsInput!
+    $condition: ModelChamasNPwnBrkrsConditionInput
+  ) {
+    updateChamasNPwnBrkrs(input: $input, condition: $condition) {
       id
       contact
       regNo
@@ -2050,9 +2253,12 @@ export const onUpdateChamasNPwnBrkrs = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteChamasNPwnBrkrs = /* GraphQL */ `
-  subscription OnDeleteChamasNPwnBrkrs($owner: String) {
-    onDeleteChamasNPwnBrkrs(owner: $owner) {
+export const deleteChamasNPwnBrkrs = /* GraphQL */ `
+  mutation DeleteChamasNPwnBrkrs(
+    $input: DeleteChamasNPwnBrkrsInput!
+    $condition: ModelChamasNPwnBrkrsConditionInput
+  ) {
+    deleteChamasNPwnBrkrs(input: $input, condition: $condition) {
       id
       contact
       regNo
@@ -2063,9 +2269,12 @@ export const onDeleteChamasNPwnBrkrs = /* GraphQL */ `
     }
   }
 `;
-export const onCreateChamasRegConfirm = /* GraphQL */ `
-  subscription OnCreateChamasRegConfirm($owner: String) {
-    onCreateChamasRegConfirm(owner: $owner) {
+export const createChamasRegConfirm = /* GraphQL */ `
+  mutation CreateChamasRegConfirm(
+    $input: CreateChamasRegConfirmInput!
+    $condition: ModelChamasRegConfirmConditionInput
+  ) {
+    createChamasRegConfirm(input: $input, condition: $condition) {
       id
       contact
       regNo
@@ -2076,9 +2285,12 @@ export const onCreateChamasRegConfirm = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateChamasRegConfirm = /* GraphQL */ `
-  subscription OnUpdateChamasRegConfirm($owner: String) {
-    onUpdateChamasRegConfirm(owner: $owner) {
+export const updateChamasRegConfirm = /* GraphQL */ `
+  mutation UpdateChamasRegConfirm(
+    $input: UpdateChamasRegConfirmInput!
+    $condition: ModelChamasRegConfirmConditionInput
+  ) {
+    updateChamasRegConfirm(input: $input, condition: $condition) {
       id
       contact
       regNo
@@ -2089,9 +2301,12 @@ export const onUpdateChamasRegConfirm = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteChamasRegConfirm = /* GraphQL */ `
-  subscription OnDeleteChamasRegConfirm($owner: String) {
-    onDeleteChamasRegConfirm(owner: $owner) {
+export const deleteChamasRegConfirm = /* GraphQL */ `
+  mutation DeleteChamasRegConfirm(
+    $input: DeleteChamasRegConfirmInput!
+    $condition: ModelChamasRegConfirmConditionInput
+  ) {
+    deleteChamasRegConfirm(input: $input, condition: $condition) {
       id
       contact
       regNo
@@ -2102,9 +2317,12 @@ export const onDeleteChamasRegConfirm = /* GraphQL */ `
     }
   }
 `;
-export const onCreateCvrdGroupLoans = /* GraphQL */ `
-  subscription OnCreateCvrdGroupLoans($owner: String) {
-    onCreateCvrdGroupLoans(owner: $owner) {
+export const createCvrdGroupLoans = /* GraphQL */ `
+  mutation CreateCvrdGroupLoans(
+    $input: CreateCvrdGroupLoansInput!
+    $condition: ModelCvrdGroupLoansConditionInput
+  ) {
+    createCvrdGroupLoans(input: $input, condition: $condition) {
       id
       grpContact
       loaneePhn
@@ -2130,9 +2348,12 @@ export const onCreateCvrdGroupLoans = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateCvrdGroupLoans = /* GraphQL */ `
-  subscription OnUpdateCvrdGroupLoans($owner: String) {
-    onUpdateCvrdGroupLoans(owner: $owner) {
+export const updateCvrdGroupLoans = /* GraphQL */ `
+  mutation UpdateCvrdGroupLoans(
+    $input: UpdateCvrdGroupLoansInput!
+    $condition: ModelCvrdGroupLoansConditionInput
+  ) {
+    updateCvrdGroupLoans(input: $input, condition: $condition) {
       id
       grpContact
       loaneePhn
@@ -2158,9 +2379,12 @@ export const onUpdateCvrdGroupLoans = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteCvrdGroupLoans = /* GraphQL */ `
-  subscription OnDeleteCvrdGroupLoans($owner: String) {
-    onDeleteCvrdGroupLoans(owner: $owner) {
+export const deleteCvrdGroupLoans = /* GraphQL */ `
+  mutation DeleteCvrdGroupLoans(
+    $input: DeleteCvrdGroupLoansInput!
+    $condition: ModelCvrdGroupLoansConditionInput
+  ) {
+    deleteCvrdGroupLoans(input: $input, condition: $condition) {
       id
       grpContact
       loaneePhn
@@ -2186,9 +2410,12 @@ export const onDeleteCvrdGroupLoans = /* GraphQL */ `
     }
   }
 `;
-export const onCreateNonCvrdGroupLoans = /* GraphQL */ `
-  subscription OnCreateNonCvrdGroupLoans($owner: String) {
-    onCreateNonCvrdGroupLoans(owner: $owner) {
+export const createNonCvrdGroupLoans = /* GraphQL */ `
+  mutation CreateNonCvrdGroupLoans(
+    $input: CreateNonCvrdGroupLoansInput!
+    $condition: ModelNonCvrdGroupLoansConditionInput
+  ) {
+    createNonCvrdGroupLoans(input: $input, condition: $condition) {
       id
       grpContact
       loaneePhn
@@ -2212,9 +2439,12 @@ export const onCreateNonCvrdGroupLoans = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateNonCvrdGroupLoans = /* GraphQL */ `
-  subscription OnUpdateNonCvrdGroupLoans($owner: String) {
-    onUpdateNonCvrdGroupLoans(owner: $owner) {
+export const updateNonCvrdGroupLoans = /* GraphQL */ `
+  mutation UpdateNonCvrdGroupLoans(
+    $input: UpdateNonCvrdGroupLoansInput!
+    $condition: ModelNonCvrdGroupLoansConditionInput
+  ) {
+    updateNonCvrdGroupLoans(input: $input, condition: $condition) {
       id
       grpContact
       loaneePhn
@@ -2238,9 +2468,12 @@ export const onUpdateNonCvrdGroupLoans = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteNonCvrdGroupLoans = /* GraphQL */ `
-  subscription OnDeleteNonCvrdGroupLoans($owner: String) {
-    onDeleteNonCvrdGroupLoans(owner: $owner) {
+export const deleteNonCvrdGroupLoans = /* GraphQL */ `
+  mutation DeleteNonCvrdGroupLoans(
+    $input: DeleteNonCvrdGroupLoansInput!
+    $condition: ModelNonCvrdGroupLoansConditionInput
+  ) {
+    deleteNonCvrdGroupLoans(input: $input, condition: $condition) {
       id
       grpContact
       loaneePhn
@@ -2264,9 +2497,12 @@ export const onDeleteNonCvrdGroupLoans = /* GraphQL */ `
     }
   }
 `;
-export const onCreateGroupNonLoans = /* GraphQL */ `
-  subscription OnCreateGroupNonLoans($owner: String) {
-    onCreateGroupNonLoans(owner: $owner) {
+export const createGroupNonLoans = /* GraphQL */ `
+  mutation CreateGroupNonLoans(
+    $input: CreateGroupNonLoansInput!
+    $condition: ModelGroupNonLoansConditionInput
+  ) {
+    createGroupNonLoans(input: $input, condition: $condition) {
       id
       grpContact
       recipientPhn
@@ -2282,9 +2518,12 @@ export const onCreateGroupNonLoans = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateGroupNonLoans = /* GraphQL */ `
-  subscription OnUpdateGroupNonLoans($owner: String) {
-    onUpdateGroupNonLoans(owner: $owner) {
+export const updateGroupNonLoans = /* GraphQL */ `
+  mutation UpdateGroupNonLoans(
+    $input: UpdateGroupNonLoansInput!
+    $condition: ModelGroupNonLoansConditionInput
+  ) {
+    updateGroupNonLoans(input: $input, condition: $condition) {
       id
       grpContact
       recipientPhn
@@ -2300,9 +2539,12 @@ export const onUpdateGroupNonLoans = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteGroupNonLoans = /* GraphQL */ `
-  subscription OnDeleteGroupNonLoans($owner: String) {
-    onDeleteGroupNonLoans(owner: $owner) {
+export const deleteGroupNonLoans = /* GraphQL */ `
+  mutation DeleteGroupNonLoans(
+    $input: DeleteGroupNonLoansInput!
+    $condition: ModelGroupNonLoansConditionInput
+  ) {
+    deleteGroupNonLoans(input: $input, condition: $condition) {
       id
       grpContact
       recipientPhn
@@ -2318,9 +2560,12 @@ export const onDeleteGroupNonLoans = /* GraphQL */ `
     }
   }
 `;
-export const onCreateGrpMembersContribution = /* GraphQL */ `
-  subscription OnCreateGrpMembersContribution($owner: String) {
-    onCreateGrpMembersContribution(owner: $owner) {
+export const createGrpMembersContribution = /* GraphQL */ `
+  mutation CreateGrpMembersContribution(
+    $input: CreateGrpMembersContributionInput!
+    $condition: ModelGrpMembersContributionConditionInput
+  ) {
+    createGrpMembersContribution(input: $input, condition: $condition) {
       id
       memberPhn
       mmberNme
@@ -2335,9 +2580,12 @@ export const onCreateGrpMembersContribution = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateGrpMembersContribution = /* GraphQL */ `
-  subscription OnUpdateGrpMembersContribution($owner: String) {
-    onUpdateGrpMembersContribution(owner: $owner) {
+export const updateGrpMembersContribution = /* GraphQL */ `
+  mutation UpdateGrpMembersContribution(
+    $input: UpdateGrpMembersContributionInput!
+    $condition: ModelGrpMembersContributionConditionInput
+  ) {
+    updateGrpMembersContribution(input: $input, condition: $condition) {
       id
       memberPhn
       mmberNme
@@ -2352,9 +2600,12 @@ export const onUpdateGrpMembersContribution = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteGrpMembersContribution = /* GraphQL */ `
-  subscription OnDeleteGrpMembersContribution($owner: String) {
-    onDeleteGrpMembersContribution(owner: $owner) {
+export const deleteGrpMembersContribution = /* GraphQL */ `
+  mutation DeleteGrpMembersContribution(
+    $input: DeleteGrpMembersContributionInput!
+    $condition: ModelGrpMembersContributionConditionInput
+  ) {
+    deleteGrpMembersContribution(input: $input, condition: $condition) {
       id
       memberPhn
       mmberNme
@@ -2369,9 +2620,12 @@ export const onDeleteGrpMembersContribution = /* GraphQL */ `
     }
   }
 `;
-export const onCreateItem = /* GraphQL */ `
-  subscription OnCreateItem($owner: String) {
-    onCreateItem(owner: $owner) {
+export const createItem = /* GraphQL */ `
+  mutation CreateItem(
+    $input: CreateItemInput!
+    $condition: ModelItemConditionInput
+  ) {
+    createItem(input: $input, condition: $condition) {
       BusinessRegNo
       BusKntct
       busName
@@ -2387,9 +2641,12 @@ export const onCreateItem = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateItem = /* GraphQL */ `
-  subscription OnUpdateItem($owner: String) {
-    onUpdateItem(owner: $owner) {
+export const updateItem = /* GraphQL */ `
+  mutation UpdateItem(
+    $input: UpdateItemInput!
+    $condition: ModelItemConditionInput
+  ) {
+    updateItem(input: $input, condition: $condition) {
       BusinessRegNo
       BusKntct
       busName
@@ -2405,9 +2662,12 @@ export const onUpdateItem = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteItem = /* GraphQL */ `
-  subscription OnDeleteItem($owner: String) {
-    onDeleteItem(owner: $owner) {
+export const deleteItem = /* GraphQL */ `
+  mutation DeleteItem(
+    $input: DeleteItemInput!
+    $condition: ModelItemConditionInput
+  ) {
+    deleteItem(input: $input, condition: $condition) {
       BusinessRegNo
       BusKntct
       busName
@@ -2423,9 +2683,12 @@ export const onDeleteItem = /* GraphQL */ `
     }
   }
 `;
-export const onCreatePalPalLn = /* GraphQL */ `
-  subscription OnCreatePalPalLn($owner: String) {
-    onCreatePalPalLn(owner: $owner) {
+export const createPalPalLn = /* GraphQL */ `
+  mutation CreatePalPalLn(
+    $input: CreatePalPalLnInput!
+    $condition: ModelPalPalLnConditionInput
+  ) {
+    createPalPalLn(input: $input, condition: $condition) {
       lnrName
       LnerCntct
       lnrEmail
@@ -2439,9 +2702,12 @@ export const onCreatePalPalLn = /* GraphQL */ `
     }
   }
 `;
-export const onUpdatePalPalLn = /* GraphQL */ `
-  subscription OnUpdatePalPalLn($owner: String) {
-    onUpdatePalPalLn(owner: $owner) {
+export const updatePalPalLn = /* GraphQL */ `
+  mutation UpdatePalPalLn(
+    $input: UpdatePalPalLnInput!
+    $condition: ModelPalPalLnConditionInput
+  ) {
+    updatePalPalLn(input: $input, condition: $condition) {
       lnrName
       LnerCntct
       lnrEmail
@@ -2455,9 +2721,12 @@ export const onUpdatePalPalLn = /* GraphQL */ `
     }
   }
 `;
-export const onDeletePalPalLn = /* GraphQL */ `
-  subscription OnDeletePalPalLn($owner: String) {
-    onDeletePalPalLn(owner: $owner) {
+export const deletePalPalLn = /* GraphQL */ `
+  mutation DeletePalPalLn(
+    $input: DeletePalPalLnInput!
+    $condition: ModelPalPalLnConditionInput
+  ) {
+    deletePalPalLn(input: $input, condition: $condition) {
       lnrName
       LnerCntct
       lnrEmail

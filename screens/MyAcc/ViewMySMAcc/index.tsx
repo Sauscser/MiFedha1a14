@@ -30,7 +30,7 @@ const FetchSMNonCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listSMAccounts, 
                 { filter: {
                     and: {
-                      phonecontact: { eq: LneePhn},
+                      awsemail: { eq: LneePhn},
                       acStatus: { eq: "AccountActive"},
                     }
                   }}
