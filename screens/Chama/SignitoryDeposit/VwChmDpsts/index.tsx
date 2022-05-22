@@ -18,7 +18,7 @@ const FetchSMNonLnsSnt = props => {
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
               
-        setSenderPhn(userInfo.attributes.phone_number);
+        setSenderPhn(userInfo.attributes.email);
              
       };
       

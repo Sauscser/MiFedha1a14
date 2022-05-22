@@ -38,7 +38,7 @@ const CreateChama = (props:UserReg) => {
 
   const [ChmPhn, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
-  const [phoneContact, setPhoneContact] = useState(null);
+  const [UsrEmail, setUsrEmail] = useState(null);
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
@@ -47,6 +47,9 @@ const CreateChama = (props:UserReg) => {
   const [ChmRegNo, setChmRegNo] = useState('');
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState('');
+  const [oprtnAreas, setoprtnAreas] = useState('');
+  const [ventures, setventures] = useState('');
+
   const[ownr, setownr] = useState(null);
 
   const ChmPhnNphoneContact = MmbaID+ChmPhn
@@ -60,7 +63,7 @@ const CreateChama = (props:UserReg) => {
       
       setName(userInfo.username);
       setownr(userInfo.attributes.sub);
-      setPhoneContact(userInfo.attributes.phone_number);
+      setUsrEmail(userInfo.attributes.email);
           
     };
 
@@ -73,7 +76,7 @@ const CreateChama = (props:UserReg) => {
       const ChckUsrExistence = async () => {
         try {
           const UsrDtls:any = await API.graphql(
-            graphqlOperation(getSMAccount, { phonecontact:phoneContact}),
+            graphqlOperation(getSMAccount, { awsemail:UsrEmail}),
                         
           )
 
@@ -83,7 +86,7 @@ const CreateChama = (props:UserReg) => {
           const FetchSign2 = async () => {
             try {
               const UsrDtlss:any = await API.graphql(
-                graphqlOperation(getSMAccount, { phonecontact:Sign2Phn}),
+                graphqlOperation(getSMAccount, { awsemail:Sign2Phn}),
                             
               )
     
@@ -115,7 +118,7 @@ const CreateChama = (props:UserReg) => {
                 input: {
                   grpContact: ChmPhn,
                   regNo:ChmRegNo,
-                  signitoryContact: phoneContact,
+                  signitoryContact: UsrEmail,
                   SignitoryNatid: nationalidsss,
                   signitoryName: namess,
                   grpName: ChmNm,
@@ -123,6 +126,8 @@ const CreateChama = (props:UserReg) => {
                   signitory2Sub: ownrsss,
                   WithdrawCnfrmtn: "NO",
                   grpEmail: awsEmail,
+                  oprtnArea:oprtnAreas,
+                  venture: ventures,
                   grpBal: 0,
                   ttlGrpMembers: 1,
                   description: ChmDesc,
@@ -165,9 +170,6 @@ const CreateChama = (props:UserReg) => {
                 {Alert.alert("password is too short; at least eight characters");
               
             } 
-            else if(phoneContact===ChmPhn)
-            {Alert.alert("This Phone number has been used in a single member Account")}
-
             
             
             else {
@@ -188,7 +190,7 @@ const CreateChama = (props:UserReg) => {
                   groupContact: ChmPhn,
                   regNo:ChmRegNo,
                   ChamaNMember:ChmPhnNphoneContact,
-                  memberContact: phoneContact,
+                  memberContact: UsrEmail,
                   memberNatId: nationalidsss,
                   
                   
@@ -287,6 +289,8 @@ const CreateChama = (props:UserReg) => {
                   setChmRegNo("")
                   setMmbaID("")
                   setSign2Phn("");
+                  setventures("");
+                  setoprtnAreas("");
       }
 
       
@@ -379,6 +383,28 @@ useEffect(() =>{
             }, [Sign2Phn]
              );
 
+             useEffect(() =>{
+              const oprtnAreass=oprtnAreas
+                if(!oprtnAreass && oprtnAreass!=="")
+                {
+                  setoprtnAreas("");
+                  return;
+                }
+                setoprtnAreas(oprtnAreass);
+                }, [oprtnAreas]
+                 );
+
+                 useEffect(() =>{
+                  const venturess=ventures
+                    if(!venturess && venturess!=="")
+                    {
+                      setventures("");
+                      return;
+                    }
+                    setventures(venturess);
+                    }, [ventures]
+                     );
+
         
           return (
             <View>
@@ -453,12 +479,30 @@ useEffect(() =>{
 
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="+2547xxxxxxxx"
+                    placeholder="Email"
                       value={Sign2Phn}
                       onChangeText={setSign2Phn}
                       style={styles.sendAmtInputDesc}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Signitory 2 Phone</Text>
+                    <Text style={styles.sendLoanText}>Signitory 2 Email</Text>
+                  </View>
+
+                  <View style={styles.sendAmtViewDesc}>
+                    <TextInput
+                      value={oprtnAreas}
+                      onChangeText={setoprtnAreas}
+                      style={styles.sendAmtInputDesc}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Region of Operation</Text>
+                  </View>
+
+                  <View style={styles.sendAmtViewDesc}>
+                    <TextInput
+                      value={ventures}
+                      onChangeText={setventures}
+                      style={styles.sendAmtInputDesc}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Chama Venture</Text>
                   </View>
 
                   <View style={styles.sendAmtViewDesc}>

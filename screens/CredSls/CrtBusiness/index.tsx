@@ -30,7 +30,7 @@ const CreateBiz = (props) => {
 
   const [ChmPhn, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
-  const [phoneContact, setPhoneContact] = useState(null);
+  const [UsrEmail, setUsrEmail] = useState(null);
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
@@ -46,7 +46,7 @@ const CreateBiz = (props) => {
       
       setName(userInfo.username);
       setownr(userInfo.attributes.sub);
-      setPhoneContact(userInfo.attributes.phone_number);
+      setUsrEmail(userInfo.attributes.email);
           
     };
 
@@ -88,9 +88,6 @@ const CreateBiz = (props) => {
           {Alert.alert("password is too short; at least eight characters");
         
       } 
-      else if(phoneContact===ChmPhn)
-      {Alert.alert("This Phone number has been used in a single member Account")}
-
       
       
       else {

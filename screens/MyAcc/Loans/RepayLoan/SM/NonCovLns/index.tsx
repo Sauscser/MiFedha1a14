@@ -54,7 +54,7 @@ const RepayNonCovLnsss = props => {
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
-  const [SendrPhn, setSendrPhn] = useState(null);
+  const [SendrEmail, setSendrEmail] = useState(null);
   const route = useRoute();
   
   
@@ -62,7 +62,7 @@ const RepayNonCovLnsss = props => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-    setSendrPhn(userInfo.attributes.phone_number);
+    setSendrEmail(userInfo.attributes.email);
   }
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const RepayNonCovLnsss = props => {
     setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {phonecontact: SendrPhn}),
+        graphqlOperation(getSMAccount, {awsemail: SendrEmail}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -150,7 +150,7 @@ const RepayNonCovLnsss = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {phonecontact: loanerPhns}),
+                    graphqlOperation(getSMAccount, {awsemail: loanerPhns}),
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
@@ -176,7 +176,7 @@ const RepayNonCovLnsss = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                phonecontact:SendrPhn,
+                                awsemail:SendrEmail,
                                 
                                 balance: (parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
                                 MaxTymsBL: 0 ,
@@ -209,7 +209,7 @@ const RepayNonCovLnsss = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                phonecontact:SendrPhn,
+                                awsemail:SendrEmail,
                                 
                                 balance: (parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
                                 MaxTymsBL: parseFloat(MaxTymsBLs) - 1 ,
@@ -268,7 +268,7 @@ const RepayNonCovLnsss = props => {
                                   await API.graphql(
                                     graphqlOperation(createNonLoans, {
                                       input: {
-                                        senderPhn: SendrPhn,
+                                        senderPhn: SendrEmail,
                                         recPhn: loanerPhns,  
                                         RecName:namess,
                                         SenderName:names,                                  
@@ -307,7 +307,7 @@ const RepayNonCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          phonecontact:loanerPhns,
+                                          awsemail:loanerPhns,
                                           
                                           balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + parseFloat(DefaultPenaltySM2s))).toFixed(2),                                     
                                           TymsMyLnClrd: parseFloat(TymsMyLnClrds) + 1,
@@ -400,7 +400,7 @@ const RepayNonCovLnsss = props => {
                                     graphqlOperation(createNonLoans, {
                                       input: {
                                         recPhn: loanerPhns,
-                                        senderPhn: SendrPhn,  
+                                        senderPhn: SendrEmail,  
                                         RecName:namess,
                                         SenderName:names,                                  
                                         amount: amounts,                              
@@ -433,7 +433,7 @@ const RepayNonCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          phonecontact:SendrPhn,
+                                          awsemail:SendrEmail,
                                           
                                           balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2),
                                           TtlClrdLonsAmtLneeNonCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(2),
@@ -461,7 +461,7 @@ const RepayNonCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          phonecontact:loanerPhns,
+                                          awsemail:loanerPhns,
                                           
                                           balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + DefaultPenaltySM2s)).toFixed(2),
                                           TtlClrdLonsAmtLnrNonCov: (parseFloat(TtlClrdLonsAmtLneeCovssss) + parseFloat(amounts)).toFixed(2),
@@ -528,7 +528,7 @@ const RepayNonCovLnsss = props => {
                             return;
                           }
                           
-                          else if(SendrPhn === loanerPhns){Alert.alert('You cannot Repay Yourself');}
+                          else if(SendrEmail === loanerPhns){Alert.alert('You cannot Repay Yourself');}
                               
                               else if(usrPW !==SnderPW){Alert.alert('Wrong password');
                             return;

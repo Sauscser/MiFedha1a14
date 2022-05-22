@@ -32,14 +32,14 @@ const RegisterMFKubwaAcForm = props => {
   const [BkName, setBkName] = useState('');
   const [BkAcNu, setBkAcNu] = useState('');
   const[isLoading, setIsLoading] = useState(false);
-  const [UsrPhn, setUsrPhn] = useState(null);
+  const [UsrEmail, setUsrEmail] = useState(null);
 
 
 
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();   
     setOwnr(userInfo.attributes.sub); 
-    setUsrPhn(userInfo.attributes.phone_number);
+    setUsrEmail(userInfo.attributes.email);
   };
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const RegisterMFKubwaAcForm = props => {
               graphqlOperation(listSMAccounts,
                 { filter: {
                     
-                  phonecontact: { eq: phoneContact}
+                  awsemail: { eq: phoneContact}
                                 
                   }}
               )
@@ -75,7 +75,7 @@ const RegisterMFKubwaAcForm = props => {
                 const UsrDtls:any = await API.graphql(
                   graphqlOperation(getSMAccount, 
                     { 
-                      phonecontact:UsrPhn
+                      awsemail:UsrEmail
                     }
                   )
                 )
@@ -125,11 +125,7 @@ const RegisterMFKubwaAcForm = props => {
               setIsLoading(false); 
               await  updtActAdm();              
             };
-            if(phoneContact.length!==13)
-            {Alert.alert("Please use the hinted format of the Phone number");
-          return;
-        }
-        else if(0 >= TtlClrdLonsAmtSllrCovs){
+            if(0 >= TtlClrdLonsAmtSllrCovs){
           Alert.alert("Please first purchase this account");
           return;
         } 
@@ -177,7 +173,7 @@ const RegisterMFKubwaAcForm = props => {
                   await API.graphql(
                     graphqlOperation(updateSMAccount,{
                       input:{
-                        phonecontact:UsrPhn,
+                        awsemail:UsrEmail,
                         TtlClrdLonsAmtSllrCov:parseFloat(TtlClrdLonsAmtSllrCovs) - 1,
                       }
                     })
@@ -197,7 +193,7 @@ const RegisterMFKubwaAcForm = props => {
             console.error(e);
           }
         }
-         if(UsrDtlss.data.listSMAccounts.items.length > 0){Alert.alert("This Phone number is in use in a Single Member Account")}
+         if(UsrDtlss.data.listSMAccounts.items.length > 0){Alert.alert("This Contact is in use in a Single Member Account")}
          else{
         await ChckUsrExistence();}
       

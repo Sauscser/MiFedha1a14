@@ -18,7 +18,7 @@ const FetchSMCovLns = props => {
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
               
-        setLneePhn(userInfo.attributes.phone_number);
+        setLneePhn(userInfo.attributes.email);
              
       };
       

@@ -49,7 +49,7 @@ const BLUsrForm = (props) => {
               await API.graphql(
                 graphqlOperation(updateSMAccount,{
                   input:{
-                    phonecontact:UsrId,
+                    awsemail:UsrId,
                     acStatus:"AccountBlackListed"
                   }
                 })
@@ -123,12 +123,12 @@ const BLUsrForm = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="+2547xxxxxxxx"
+                    placeholder="User Email"
                       value={UsrId}
                       onChangeText={setUsrId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>User Phone Number</Text>
+                    <Text style={styles.sendLoanText}>User Email</Text>
                   </View>
         
                   

@@ -131,10 +131,7 @@ const ftchAgInfo = async () => {
                                               {Alert.alert("Admin password is wrong");
                                             }
 
-                                           else if(phoneContact.length!==13)
-                                  {Alert.alert("Ensure right format of the phone number");
-                                return;
-                                          }
+                                           
                                             else if(bankAdminId !==nationalids )
                                               {Alert.alert("Admin does not exist");
                                             }

@@ -121,7 +121,7 @@ const MyLoanAccount = props => {
         <ScrollView>
           
         <View style={styles.adminImage}>
-            <View style={styles.clientsView}>
+            <View style={styles.clientsView1}>
               <Text style={styles.salesText}>Repay Loan</Text>
 
               <View style={styles.viewForClientsAndTitle}>

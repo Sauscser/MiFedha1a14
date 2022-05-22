@@ -10,14 +10,14 @@ import { updateCompany, updateSMAccount } from '../../../../src/graphql/mutation
 
 const FetchSMNonLnsSnt = props => {
 
-    const[SenderPhn, setSenderPhn] = useState(null);
+    const[SenderEmail, setSenderEmail] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
               
-        setSenderPhn(userInfo.attributes.phone_number);
+        setSenderEmail(userInfo.attributes.email);
              
       };
       
@@ -31,7 +31,7 @@ const FetchSMNonLnsSnt = props => {
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyUsrWthdrwls, 
                 { 
-                      withdrawerid: SenderPhn,
+                      withdrawerid: SenderEmail,
                       sortDirection: "DESC",
                       limit:100
                     }
@@ -42,7 +42,7 @@ const FetchSMNonLnsSnt = props => {
                   const fetchUsrDtls = async () => {
                     try {
                             const MFNDtls: any = await API.graphql(
-                                graphqlOperation(getSMAccount, {phonecontact: SenderPhn}
+                                graphqlOperation(getSMAccount, {awsemail: SenderEmail}
                             ),);
               
                             const balances = MFNDtls.data.getSMAccount.balance;
@@ -87,7 +87,7 @@ const FetchSMNonLnsSnt = props => {
                                                         await API.graphql(
                                                           graphqlOperation(updateSMAccount,{
                                                             input:{
-                                                              phonecontact: SenderPhn,
+                                                              awsemail: SenderEmail,
                                                               balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                             }
                                                           })

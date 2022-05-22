@@ -82,7 +82,7 @@ const UpdtSMPW = (props) => {
                                             await API.graphql(
                                               graphqlOperation(updateSMAccount,{
                                                 input:{
-                                                  phonecontact:maxIntGrp,
+                                                  awsemail:maxIntGrp,
                                                   loanLimit:maxMFNdogo,
                                                   nonLonLimit:maxBL,
                                                   withdrawalLimit:WthdrwlLim,
@@ -277,13 +277,13 @@ const UpdtSMPW = (props) => {
 
            <View style={styles.sendLoanView2}>
              <TextInput
-             placeholder="+2547xxxxxxxx"
+             placeholder="User Email"
                value={maxIntGrp}
                onChangeText={setmaxIntGrp}
                style={styles.sendLoanInput2}
                editable={true}
                multiline={true}></TextInput>
-             <Text style={styles.sendLoanText}>User Phone Number</Text>
+             <Text style={styles.sendLoanText}>User Email</Text>
            </View>   
 
            <View style={styles.sendLoanView2}>

@@ -40,7 +40,7 @@ const SMADepositForm = props => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-    setWthDrwrPhn(userInfo.attributes.phone_number); 
+    setWthDrwrPhn(userInfo.attributes.email); 
   }
 
   useEffect(() => {

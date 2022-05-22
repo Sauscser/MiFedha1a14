@@ -73,7 +73,7 @@ const SMASendNonLns = props => {
     setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {phonecontact: recPhns}),
+        graphqlOperation(getSMAccount, {awsemail: recPhns}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -117,7 +117,7 @@ const SMASendNonLns = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {phonecontact: senderPhns}),
+                    graphqlOperation(getSMAccount, {awsemail: senderPhns}),
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
@@ -163,7 +163,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                phonecontact:recPhns,
+                                awsemail:recPhns,
                                 ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(2),
                                 balance:(parseFloat(SenderUsrBal)-amounts).toFixed(2) 
                                
@@ -192,7 +192,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                phonecontact:senderPhns,
+                                awsemail:senderPhns,
                                 ttlNonLonsRecSM: (parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts)).toFixed(2) ,
                                 balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) - (parseFloat(UsrTransferFee)*parseFloat(amounts)))).toFixed(2)                                     
                                 

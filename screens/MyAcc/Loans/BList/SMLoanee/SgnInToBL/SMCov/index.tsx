@@ -37,7 +37,7 @@ const ChmSignIn = (props) => {
   const [grpContact, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
   const [phoneContacts, setPhoneContacts] = useState("");
-  const [SendrPhn, setSendrPhn] = useState(null);
+  const [SendrEmail, setSendrEmail] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
   const [ChmNm, setChmNm] = useState('');
@@ -58,7 +58,7 @@ const ChmSignIn = (props) => {
       
       setName(userInfo.username);
       setownr(userInfo.attributes.sub);     
-      setSendrPhn(userInfo.attributes.phone_number);
+      setSendrEmail(userInfo.attributes.email);
           
     };
     useEffect(() => {
@@ -76,7 +76,7 @@ const ChmSignIn = (props) => {
                   setIsLoading(true);
                   try{
                     const compDtls :any= await API.graphql(
-                      graphqlOperation(getSMAccount,{phonecontact:SendrPhn})
+                      graphqlOperation(getSMAccount,{awsemail:SendrEmail})
                       );
                       const signitoryPWs = compDtls.data.getSMAccount.pw;  
                       const owners = compDtls.data.getSMAccount.owner;  
@@ -143,12 +143,12 @@ const ChmSignIn = (props) => {
                   
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="+2547xxxxxxxx"
+                    placeholder="Loanee Email"
                       value={memberPhn}
                       onChangeText={setmemberPhn}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loanee Phone</Text>
+                    <Text style={styles.sendLoanText}>Loanee Email</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>

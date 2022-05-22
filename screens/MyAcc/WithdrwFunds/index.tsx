@@ -39,7 +39,7 @@ const SMADepositForm = props => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-    setWthDrwrPhn(userInfo.attributes.phone_number); 
+    setWthDrwrPhn(userInfo.attributes.email); 
   }
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const SMADepositForm = props => {
     setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {phonecontact: WthDrwrPhn}),
+        graphqlOperation(getSMAccount, {awsemail: WthDrwrPhn}),
       );
 
       const usrBala = accountDtl.data.getSMAccount.balance;      
@@ -178,7 +178,7 @@ const SMADepositForm = props => {
                         await API.graphql(
                           graphqlOperation(updateSMAccount, {
                             input: {
-                              phonecontact: WthDrwrPhn,
+                              awsemail: WthDrwrPhn,
                   
                               balance: (parseFloat(usrBala) - TTlAmtTrnsctd).toFixed(2) ,
                               TtlWthdrwnSM: (parseFloat(TtlWthdrwnSMs) + parseFloat(amount)).toFixed(2),

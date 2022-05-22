@@ -113,7 +113,7 @@ const SMASendNonLns = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {phonecontact: RecNatId}),
+                    graphqlOperation(getSMAccount, {awsemail: RecNatId}),
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
@@ -196,7 +196,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                phonecontact:RecNatId,
+                                awsemail:RecNatId,
                                 ttlNonLonsRecSM: (parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts)).toFixed(2) ,
                                 balance:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(2)                                     
                                 
@@ -388,12 +388,12 @@ useEffect(() =>{
 
           <View style={styles.sendAmtView}>
             <TextInput
-            placeholder="+2547xxxxxxxx"
+            placeholder="Receiver Email"
               value={RecNatId}
               onChangeText={setRecNatId}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Receiver Phone</Text>
+            <Text style={styles.sendAmtText}>Receiver Email</Text>
           </View>
 
           <View style={styles.sendAmtView}>

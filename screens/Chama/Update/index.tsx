@@ -36,14 +36,14 @@ const UpdtChm = (props) => {
   const[isLoading, setIsLoading] = useState(false);
   const[ownr, setownr] = useState(null);
   const[names, setName] = useState(null);
-  const[PhoneContact, setPhoneContact] = useState(null);
+  const[Email, setEmail] = useState(null);
   
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     
     setName(userInfo.username);
     setownr(userInfo.attributes.sub);
-    setPhoneContact(userInfo.attributes.phone_number);
+    setEmail(userInfo.attributes.email);
     
   };
   useEffect(() => {
@@ -58,7 +58,7 @@ const UpdtChm = (props) => {
             setIsLoading(true);
             try{
               const compDtls :any= await API.graphql(
-                graphqlOperation(getSMAccount,{phonecontact:PhoneContact})
+                graphqlOperation(getSMAccount,{awsemail:Email})
                 );
                 const loanAcceptanceCodes = compDtls.data.getSMAccount.loanAcceptanceCode                
                 const pws = compDtls.data.getSMAccount.pw

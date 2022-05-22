@@ -9,14 +9,14 @@ import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutat
 
 const FetchSMCovLns = props => {
 
-    const[LneePhn, setLneePhn] = useState(null);
+    const[LneeEmail, setLneeEmail] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
               
-        setLneePhn(userInfo.attributes.phone_number);
+        setLneeEmail(userInfo.attributes.email);
              
       };
       
@@ -30,7 +30,7 @@ const FetchSMCovLns = props => {
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyChamass, 
                 {
-                      loaneePhn: LneePhn,
+                      loaneePhn: LneeEmail,
                       sortDirection: 'DESC',
                       limit: 100,
                       filter:{lonBala:{gt:0}}
@@ -43,7 +43,7 @@ const FetchSMCovLns = props => {
               const fetchUsrDtls = async () => {
                 try {
                         const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {phonecontact: LneePhn}
+                            graphqlOperation(getSMAccount, {awsemail: LneeEmail}
                         ),);
           
                         const balances = MFNDtls.data.getSMAccount.balance;
@@ -88,7 +88,7 @@ const FetchSMCovLns = props => {
                                                     await API.graphql(
                                                       graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          phonecontact: LneePhn,
+                                                          awsemail: LneeEmail,
                                                           balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })

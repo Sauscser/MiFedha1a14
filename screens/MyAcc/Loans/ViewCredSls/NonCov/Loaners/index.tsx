@@ -15,7 +15,7 @@ const FetchSMCovLns = props => {
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
               
-        setLnerPhn(userInfo.attributes.phone_number);
+        setLnerPhn(userInfo.attributes.email);
              
       };
       
@@ -41,7 +41,7 @@ const FetchSMCovLns = props => {
               const fetchUsrDtls = async () => {
                 try {
                         const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {phonecontact: LnerPhn}
+                            graphqlOperation(getSMAccount, {awsemail: LnerPhn}
                         ),);
           
                         const balances = MFNDtls.data.getSMAccount.balance;
@@ -86,7 +86,7 @@ const FetchSMCovLns = props => {
                                                     await API.graphql(
                                                       graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          phonecontact: LnerPhn,
+                                                          awsemail: LnerPhn,
                                                           balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })

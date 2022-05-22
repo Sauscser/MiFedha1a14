@@ -23,7 +23,7 @@ import {
 import styles from './styles';
 
 const AdvWthdwl = props => {
-  const [WthDrwrPhn, setWthDrwrPhn] = useState(null);
+  const [Email, setEmail] = useState(null);
 
   const[UsrPWd, setUsrPWd] = useState("");
   const [AdvReNo, setAdvReNo] = useState("");
@@ -37,7 +37,7 @@ const AdvWthdwl = props => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-    setWthDrwrPhn(userInfo.attributes.phone_number); 
+    setEmail(userInfo.attributes.email); 
   }
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const AdvWthdwl = props => {
     setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {phonecontact: WthDrwrPhn}),
+        graphqlOperation(getSMAccount, {awsemail: Email}),
       );
 
       const usrBala = accountDtl.data.getSMAccount.balance;      

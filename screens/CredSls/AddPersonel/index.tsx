@@ -78,7 +78,7 @@ const CreateChama = (props:UserReg) => {
         setIsLoading(true);
         try {
           const UsrDtls:any = await API.graphql(
-            graphqlOperation(getSMAccount, { phonecontact:ChmPhn}),
+            graphqlOperation(getSMAccount, { awsemail:ChmPhn}),
                         
           )
 
@@ -272,13 +272,13 @@ useEffect(() =>{
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                     placeholder="+2547xxxxxxxx"
+                     placeholder="Email"
                       value={ChmPhn}
                       onChangeText={setChmPhn}
                       secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Sales Officer Phone</Text>
+                    <Text style={styles.sendLoanText}>Sales Officer Email</Text>
                   </View>
 
                   

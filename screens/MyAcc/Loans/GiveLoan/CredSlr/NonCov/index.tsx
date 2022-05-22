@@ -57,7 +57,7 @@ const NonCovCredSls = props => {
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
-  const [SendrPhn, setSendrPhn] = useState(null);
+  const [SendrEmail, setSendrEmail] = useState(null);
   const [ItmNm, setItmNm] = useState("");
   const [ItmSrlNu, setItmSrlNu] = useState("");
   const [DfltPnlty, setDfltPnlty] = useState('');
@@ -67,7 +67,7 @@ const NonCovCredSls = props => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-    setSendrPhn(userInfo.attributes.phone_number);
+    setSendrEmail(userInfo.attributes.email);
   }
 
   useEffect(() => {
@@ -147,7 +147,7 @@ const NonCovCredSls = props => {
                 setIsLoading(true);
                 try {
                     const RecAccountDtl:any = await API.graphql(
-                        graphqlOperation(getSMAccount, {phonecontact: RecPhn}),
+                        graphqlOperation(getSMAccount, {awsemail: RecPhn}),
                         );
                         const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
@@ -181,7 +181,7 @@ const NonCovCredSls = props => {
                                     setIsLoading(true);
                                     try {
                                         const RecAccountDtl:any = await API.graphql(
-                                            graphqlOperation(getSMAccount, {phonecontact: SendrPhn}),
+                                            graphqlOperation(getSMAccount, {awsemail: SendrEmail}),
                                             );
                                             const pwz =RecAccountDtl.data.getSMAccount.pw;
                                             const nationalids =RecAccountDtl.data.getSMAccount.nationalid;
@@ -305,7 +305,7 @@ const NonCovCredSls = props => {
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    phonecontact:RecPhn,
+                                    awsemail:RecPhn,
                                     
                                     balance:(parseFloat(RecUsrBal) - parseFloat(userLoanTransferFees)*parseFloat(amount) ).toFixed(2)  ,
                                     loanStatus:"LoanActive",                                    
@@ -564,12 +564,12 @@ useEffect(() =>{
          
          <View style={styles.sendAmtView}>
            <TextInput
-           placeholder="+2547xxxxxxxx"
+           placeholder="Buyer Email"
              value={RecPhn}
              onChangeText={setRecPhn}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Buyer Phone</Text>
+           <Text style={styles.sendAmtText}>Buyer Email</Text>
          </View>
 
          <View style={styles.sendAmtView}>

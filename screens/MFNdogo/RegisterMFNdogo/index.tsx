@@ -27,7 +27,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
   const [phoneContact, setPhoneContact] = useState("");
   const[eml, setEml] =useState("");
   const [ownr, setOwnr] = useState(null);
-  const [UsrPhn, setUsrPhn] = useState(null);
+  const [UsrEmail, setUsrEmail] = useState(null);
   const [pword, setPW] = useState('');
   const [saRegNo, setSARegNo] = useState('');
   const [BkName, setBkName] = useState('');
@@ -40,7 +40,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();   
     setOwnr(userInfo.attributes.sub); 
-    setUsrPhn(userInfo.attributes.phone_number);
+    setUsrEmail(userInfo.attributes.email);
   };
 
     useEffect(() => {
@@ -89,7 +89,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
                   const UsrDtls:any = await API.graphql(
                     graphqlOperation(getSMAccount, 
                       { 
-                        phonecontact:UsrPhn
+                        awsemail:UsrEmail
                       }
                     )
                   )
@@ -148,10 +148,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
           if(pword.length<8) {Alert.alert("Password is too short; at least eight characters");
         return;
       } 
-      else if(phoneContact.length !==13){
-        Alert.alert("Please use the hinted format of the Phone number");
-        return;
-      } 
+      
       else if(0 >= TtlClrdLonsAmtByrCovs){
         Alert.alert("Please first purchase this account");
         return;
@@ -223,7 +220,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
                 await API.graphql(
                   graphqlOperation(updateSMAccount,{
                     input:{
-                      phonecontact:UsrPhn,
+                      awsemail:UsrEmail,
                       TtlClrdLonsAmtByrCov:parseFloat(TtlClrdLonsAmtByrCovs) - 1,
                     }
                   })

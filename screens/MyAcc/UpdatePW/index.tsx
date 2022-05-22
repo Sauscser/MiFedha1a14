@@ -43,7 +43,7 @@ const UpdtSMPW = (props) => {
     
     setName(userInfo.username);
     setownr(userInfo.attributes.sub);
-    setPhoneContact(userInfo.attributes.phone_number);
+    setPhoneContact(userInfo.attributes.email);
     
   };
   useEffect(() => {
@@ -58,7 +58,7 @@ const UpdtSMPW = (props) => {
             setIsLoading(true);
             try{
               const compDtls :any= await API.graphql(
-                graphqlOperation(getSMAccount,{phonecontact:PhoneContact})
+                graphqlOperation(getSMAccount,{awsemail:PhoneContact})
                 );
                 const loanAcceptanceCodes = compDtls.data.getSMAccount.loanAcceptanceCode   
                 const owners = compDtls.data.getSMAccount.owner 
@@ -74,7 +74,7 @@ const UpdtSMPW = (props) => {
                                             await API.graphql(
                                               graphqlOperation(updateSMAccount,{
                                                 input:{
-                                                  phonecontact:PhoneContact,
+                                                  awsemail:PhoneContact,
                                                   pw:SMPW
                                                   
                                                 }

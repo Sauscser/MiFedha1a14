@@ -52,7 +52,7 @@ const SMADepositForm = props => {
     setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {phonecontact: nationalId}),
+        graphqlOperation(getSMAccount, {awsemail: nationalId}),
       );
 
       const usrBala = accountDtl.data.getSMAccount.balance;      
@@ -137,7 +137,7 @@ const SMADepositForm = props => {
                 await API.graphql(
                   graphqlOperation(updateSMAccount, {
                     input: {
-                      phonecontact: nationalId,
+                      awsemail: nationalId,
           
                       balance: (parseFloat(usrBala) + parseFloat(amount)).toFixed(2),
                       ttlDpstSM: (parseFloat(usrTlDpst) + parseFloat(amount)).toFixed(2),
@@ -358,12 +358,12 @@ const SMADepositForm = props => {
 
           <View style={styles.sendAmtView}>
             <TextInput
-            placeholder="+2547xxxxxxxx"
+            placeholder="User Email"
               value={nationalId}
               onChangeText={setNationalid}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Depositor Phone Number</Text>
+            <Text style={styles.sendAmtText}>Depositor Email</Text>
           </View>
 
           <View style={styles.sendAmtView}>

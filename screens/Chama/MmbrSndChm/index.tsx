@@ -8,14 +8,14 @@ import { listChamaMembers,    } from '../../../src/graphql/queries';
 
 const FetchSMCovLns = props => {
 
-    const[LneePhn, setLneePhn] = useState(null);
+    const[LneeEmail, setLneeEmail] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
               
-        setLneePhn(userInfo.attributes.phone_number);
+        setLneeEmail(userInfo.attributes.email);
              
       };
       
@@ -30,7 +30,7 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listChamaMembers, 
                 { filter: {
                     and: {
-                      memberContact: { eq: LneePhn}
+                      memberContact: { eq: LneeEmail}
                       
                     }
                   }}

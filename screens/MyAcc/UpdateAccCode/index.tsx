@@ -46,7 +46,7 @@ const UpdtSMPW = (props) => {
     
     setName(userInfo.username);
     setownr(userInfo.attributes.sub);
-    setPhoneContact(userInfo.attributes.phone_number);
+    setPhoneContact(userInfo.attributes.email);
     
   };
   useEffect(() => {
@@ -61,7 +61,7 @@ const UpdtSMPW = (props) => {
             setIsLoading(true);
             try{
               const compDtls :any= await API.graphql(
-                graphqlOperation(getSMAccount,{phonecontact:PhoneContact})
+                graphqlOperation(getSMAccount,{awsemail:PhoneContact})
                 );
                 
                 const owners = compDtls.data.getSMAccount.owner 
@@ -78,7 +78,7 @@ const UpdtSMPW = (props) => {
                                             await API.graphql(
                                               graphqlOperation(updateSMAccount,{
                                                 input:{
-                                                  phonecontact:PhoneContact,
+                                                  awsemail:PhoneContact,
                                                   DefaultPenaltySM:parseFloat(DfltPnlty).toFixed(2),
                                                   loanAcceptanceCode:LnAcCod,
                                                   TtlActvLonsTmsLnrCov:groupCnt,
@@ -120,10 +120,7 @@ const UpdtSMPW = (props) => {
                                           Alert.alert("Exploitative penalty! please enter a lesser penalty");
                                       }
 
-                                      else if (LnAcCod.length < 13)
-                                        {Alert.alert("Please enter Number in the hinted format: include +254");
-                                        return;
-                                            } 
+                                      
 
                                       else if(acStatuss!=="AccountActive")
                                       {
@@ -235,12 +232,12 @@ const UpdtSMPW = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="+2547xxxxxxxx"
+                    placeholder="Loaner Email"
                       value={LnAcCod}
                       onChangeText={setLnAcCod}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loaner Phone Number</Text>
+                    <Text style={styles.sendLoanText}>Loaner Email</Text>
                   </View>  
 
                   <View style={styles.sendLoanView}>

@@ -60,7 +60,7 @@ const RepayCovChmLnsss = props => {
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
-  const [SendrPhn, setSendrPhn] = useState(null);
+  const [SendrEmail, setSendrEmail] = useState(null);
   const route = useRoute();
   
   
@@ -68,7 +68,7 @@ const RepayCovChmLnsss = props => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-    setSendrPhn(userInfo.attributes.phone_number);
+    setSendrEmail(userInfo.attributes.email);
   }
 
   useEffect(() => {
@@ -104,7 +104,7 @@ const RepayCovChmLnsss = props => {
     setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {phonecontact: loaneePhnssss}),
+        graphqlOperation(getSMAccount, {awsemail: loaneePhnssss}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -202,7 +202,7 @@ const RepayCovChmLnsss = props => {
                                               await API.graphql(
                                                 graphqlOperation(updateSMAccount, {
                                                   input:{
-                                                    phonecontact:SendrPhn,
+                                                    awsemail:SendrEmail,
                                                     balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
                                                     MaxTymsBL:0 ,
                                                     TtlClrdLonsTmsLneeChmCov:parseFloat(TtlClrdLonsTmsLneeChmCovs)+1,                                          
@@ -233,7 +233,7 @@ const RepayCovChmLnsss = props => {
                                               await API.graphql(
                                                 graphqlOperation(updateSMAccount, {
                                                   input:{
-                                                    phonecontact:SendrPhn,
+                                                    awsemail:SendrEmail,
                                                     balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
                                                     MaxTymsBL:parseFloat(MaxTymsBLss)-1 ,
                                                     TtlClrdLonsTmsLneeChmCov:parseFloat(TtlClrdLonsTmsLneeChmCovs)+1,                                          
@@ -479,7 +479,7 @@ const RepayCovChmLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          phonecontact:SendrPhn,
+                                          awsemail:SendrEmail,
                                           
                                           balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2),
                                                                                
@@ -570,7 +570,7 @@ const RepayCovChmLnsss = props => {
                                     graphqlOperation(createNonLoans, {
                                       input: {
                                         recPhn: grpContactssss,
-                                        senderPhn: SendrPhn,  
+                                        senderPhn: SendrEmail,  
                                         RecName:namess,
                                         SenderName:names,                                  
                                         amount: amounts,                              

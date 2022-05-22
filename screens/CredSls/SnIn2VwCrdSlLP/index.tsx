@@ -26,7 +26,7 @@ const MFNSignIn = (props) => {
   const [MFNId, setMFNId] = useState("");
   const [MFNPW, setMFNPW] = useState(""); 
   
-  const [PhoneContact, setPhoneContact] = useState(null);  
+  const [UsrEmail, setUsrEmail] = useState(null);  
   
   const [grpContact, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
@@ -51,7 +51,7 @@ const MFNSignIn = (props) => {
     
     
     setownr(userInfo.attributes.sub);
-    setPhoneContact(userInfo.attributes.phone_number);
+    setUsrEmail(userInfo.attributes.email);
      
   };
 
@@ -68,7 +68,7 @@ const MFNSignIn = (props) => {
           graphqlOperation(listPersonels,
             { filter: {
                 
-              phoneKontact: { eq: PhoneContact},
+              phoneKontact: { eq: UsrEmail},
               BusinessRegNo:{eq: MFNId}
                             
               }}
@@ -82,7 +82,7 @@ const MFNSignIn = (props) => {
           setIsLoading(true);
           try{
             const compDtls :any= await API.graphql(
-              graphqlOperation(getSMAccount,{phonecontact:PhoneContact})
+              graphqlOperation(getSMAccount,{awsemail:UsrEmail})
               );
               const signitoryPWs = compDtls.data.getSMAccount.pw;  
               const owners = compDtls.data.getSMAccount.owner; 

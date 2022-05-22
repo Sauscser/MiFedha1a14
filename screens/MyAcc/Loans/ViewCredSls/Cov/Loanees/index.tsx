@@ -9,7 +9,7 @@ import { useRoute } from '@react-navigation/native';
 
 const FetchSMCovLns = props => {
 
-    const[LnerPhn, setLnerPhn] = useState(null);
+    const[LnerEmail, setLnerEmail] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
@@ -18,7 +18,7 @@ const FetchSMCovLns = props => {
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
               
-        setLnerPhn(userInfo.attributes.phone_number);
+        setLnerEmail(userInfo.attributes.email);
              
       };
       
@@ -46,7 +46,7 @@ const FetchSMCovLns = props => {
               const fetchUsrDtls = async () => {
                 try {
                         const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {phonecontact: LnerPhn}
+                            graphqlOperation(getSMAccount, {awsemail: LnerEmail}
                         ),);
           
                         const balances = MFNDtls.data.getSMAccount.balance;
@@ -91,7 +91,7 @@ const FetchSMCovLns = props => {
                                                     await API.graphql(
                                                       graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          phonecontact: LnerPhn,
+                                                          awsemail: LnerEmail,
                                                           balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })

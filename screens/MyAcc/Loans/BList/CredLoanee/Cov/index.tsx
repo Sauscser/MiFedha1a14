@@ -102,7 +102,7 @@ const BLCovCredByr = (props) => {
                       setIsLoading(true);
                       try{
                         const compDtls :any= await API.graphql(
-                          graphqlOperation(getSMAccount,{phonecontact:buyerContacts})
+                          graphqlOperation(getSMAccount,{awsemail:buyerContacts})
                           );
                           const TtlBLLonsTmsByrCovs = compDtls.data.getSMAccount.TtlBLLonsTmsByrCov
                           const TtlBLLonsAmtByrCovs = compDtls.data.getSMAccount.TtlBLLonsAmtByrCov
@@ -168,7 +168,7 @@ const BLCovCredByr = (props) => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount,{
                                         input:{
-                                          phonecontact:buyerContacts,
+                                          awsemail:buyerContacts,
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           
                                           blStatus:"AccountBlackListed",

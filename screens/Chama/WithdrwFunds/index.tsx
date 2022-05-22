@@ -25,7 +25,7 @@ import {
 import styles from './styles';
 
 const SMADepositForm = props => {
-  const [WthDrwrPhn, setWthDrwrPhn] = useState(null);
+  const [WthDrwrEmail, setWthDrwrEmail] = useState(null);
 
   const[UsrPWd, setUsrPWd] = useState("");
   const [AgentPhn, setAgentPhn] = useState("");
@@ -39,7 +39,7 @@ const SMADepositForm = props => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-    setWthDrwrPhn(userInfo.attributes.phone_number); 
+    setWthDrwrEmail(userInfo.attributes.email); 
   }
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const SMADepositForm = props => {
     setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {phonecontact: WthDrwrPhn}),
+        graphqlOperation(getSMAccount, {awsemail: WthDrwrEmail}),
       );
 
       const usrBala = accountDtl.data.getSMAccount.balance;      
@@ -144,7 +144,7 @@ const SMADepositForm = props => {
                                 graphqlOperation(createFloatAdd, {
                                   input: {
                                   
-                                    withdrawerid: WthDrwrPhn,                    
+                                    withdrawerid: WthDrwrEmail,                    
                                     agentPhonecontact: AgentPhn,
                                     sagentId: sagentregnos,
                                     owner: ownr,
@@ -180,7 +180,7 @@ const SMADepositForm = props => {
                         await API.graphql(
                           graphqlOperation(updateSMAccount, {
                             input: {
-                              phonecontact: WthDrwrPhn,
+                              awsemail: WthDrwrEmail,
                   
                               balance: (parseFloat(usrBala) - TTlAmtTrnsctd).toFixed(2) ,
                               TtlWthdrwnSM: (parseFloat(TtlWthdrwnSMs) + parseFloat(amount)).toFixed(2),

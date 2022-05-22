@@ -211,11 +211,7 @@ const CreateAcForm = (props) => {
              
             } 
       
-            else if (phoneContact.length !== 13)
-                {Alert.alert("Re-SignUp: Phone number format +2547########");
-             
-            } 
-
+            
             
             else {
               onCreateNewSMAc();

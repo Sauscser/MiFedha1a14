@@ -37,11 +37,13 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
   const [BkAcNu, setBkAcNu] = useState('');
   const [isLoading, setIsLoading] =useState(false);
   const [UsrPhn, setUsrPhn] = useState(null);
+  const [UsrEmail, setUsrEmail] = useState(null);
   
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();   
     setOwnr(userInfo.attributes.sub); 
     setUsrPhn(userInfo.attributes.phone_number);
+    setUsrEmail(userInfo.attributes.email);
   };
 
     useEffect(() => {
@@ -64,7 +66,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
             const UsrDtls:any = await API.graphql(
               graphqlOperation(getSMAccount, 
                 { 
-                  phonecontact:UsrPhn
+                  awsemail:UsrEmail
                 }
               )
             )

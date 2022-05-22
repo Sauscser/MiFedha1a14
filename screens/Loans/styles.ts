@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: "100%",
     resizeMode: 'cover',
-    top:"2%",
-    flexWrap:"wrap"
+    top:"1%",
+   
   },
   title: {
     fontSize: 20,
@@ -186,7 +186,16 @@ const styles = StyleSheet.create({
     
   },
   
-
+  clientsView1: {
+    backgroundColor: '#e58d29',
+    width:"100%",
+    height: "21%",
+    borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginTop:2
+  },
   clientsView: {
     backgroundColor: '#e58d29',
     width:"100%",
@@ -195,7 +204,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop:15
+    marginTop:12
   },
 
   ClientsPressables: {
@@ -259,7 +268,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop: "2%",
+    marginTop: "4%",
   },
 
 

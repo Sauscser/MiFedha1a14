@@ -63,7 +63,7 @@ const CreateAdminForm = () => {
               setISLoading(true);
               try {
                 const resp:any = await API.graphql(
-                  graphqlOperation(getSMAccount, { phonecontact: nationalId })
+                  graphqlOperation(getSMAccount, { awsemail: nationalId })
                 );
                 const adminId = resp.data.getSMAccount.nationalid; 
                 const adminName = resp.data.getSMAccount.name; 
@@ -197,7 +197,7 @@ const CreateAdminForm = () => {
                       onChangeText={setNationalid}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Admin Phone</Text>
+                    <Text style={styles.sendLoanText}>Admin Email</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>

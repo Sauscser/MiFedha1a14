@@ -67,7 +67,7 @@ const AddChmMmbrs = (props:UserReg) => {
       const ChckUsrExistence = async () => {
         try {
           const UsrDtls:any = await API.graphql(
-            graphqlOperation(getSMAccount, { phonecontact:phoneContacts}),
+            graphqlOperation(getSMAccount, { awsemail:phoneContacts}),
                         
           )
 
@@ -143,17 +143,7 @@ const AddChmMmbrs = (props:UserReg) => {
                           };
                           
           
-                     if (ChmPhn.length < 13)
-                          {Alert.alert("Please enter phone number as hinted");
-                        return;
-                      } 
-
-                      else  if (phoneContacts.length < 13)
-                          {Alert.alert("Please enter phone number as hinted");
-                        return;
-                      } 
-
-                      else  if (pword !== signitoryPWs)
+                     if (pword !== signitoryPWs)
                           {Alert.alert("Wrong Signitory password");
                         return;
                       } 
@@ -348,12 +338,12 @@ useEffect(() =>{
 
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="+2547xxxxxxxx"
+                    placeholder="Member Email"
                       value={phoneContacts}
                       onChangeText={setPhoneContacts}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Member Phone</Text>
+                    <Text style={styles.sendLoanText}>Member Email</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>

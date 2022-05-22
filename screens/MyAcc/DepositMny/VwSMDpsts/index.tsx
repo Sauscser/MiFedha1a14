@@ -9,14 +9,14 @@ import {  vwMyUsrDposits, vwMyUsrWthdrwls } from '../../../../src/graphql/querie
 
 const FetchSMNonLnsSnt = props => {
 
-    const[SenderPhn, setSenderPhn] = useState(null);
+    const[SenderEmail, setSenderEmail] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
               
-        setSenderPhn(userInfo.attributes.phone_number);
+        setSenderEmail(userInfo.attributes.email);
              
       };
       
@@ -30,7 +30,7 @@ const FetchSMNonLnsSnt = props => {
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyUsrDposits, 
                 { 
-                      depositerid: SenderPhn,
+                      depositerid: SenderEmail,
                       sortDirection: "DESC",
                       limit:100
                       

@@ -37,13 +37,13 @@ const BuyFlt = (props:buyAgntFlts) => {
   const[transId, setTransId] =useState("");
   const[pwss, setpwss] =useState("");
   const [isLoading, setIsLoading] = useState(false)
-  const [UsrPhn, setUsrPhn] = useState(null);
+  const [UsrEmail, setUsrEmail] = useState(null);
 
 const fetchUser = async () => {
   const userInfo = await Auth.currentAuthenticatedUser();  
   
   setownr(userInfo.attributes.sub);
-  setUsrPhn(userInfo.attributes.phone_number);
+  setUsrEmail(userInfo.attributes.email);
   
 };
 
@@ -86,7 +86,7 @@ const ftchAgInfo = async () => {
                                   
                                   try{
                                       const CompFltBal:any = await API.graphql(
-                                          graphqlOperation(getSMAccount, {phonecontact:UsrPhn}),
+                                          graphqlOperation(getSMAccount, {awsemail:UsrEmail}),
                                       );
                                 
                                           const balances = CompFltBal.data.getBankAdmin.balance;
@@ -135,10 +135,7 @@ const ftchAgInfo = async () => {
                                               {Alert.alert("User password is wrong");
                                             }
 
-                                           else if(phoneContact.length!==13)
-                                  {Alert.alert("Ensure right format of the phone number");
-                                return;
-                                          }
+                                           
                                             else if(ownr !==owners )
                                               {Alert.alert("Please load from your account");
                                             }
@@ -212,7 +209,7 @@ const ftchAgInfo = async () => {
                                                 await API.graphql(
                                                   graphqlOperation(updateSMAccount, {
                                                     input: {
-                                                      phonecontact: UsrPhn,    
+                                                      awsemail: UsrEmail,    
                                                       balance: parseFloat(balances) - parseFloat(amt),                                      
                                                    },
                                                   }),

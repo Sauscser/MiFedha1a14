@@ -44,7 +44,7 @@ const SMASendNonLns = props => {
   const [SenderNatId, setSenderNatId] = useState('');
   const [RecNatId, setRecNatId] = useState('');
   const [SnderPW, setSnderPW] = useState("");
-  const [SendrPhn, setSendrPhn] = useState(null);  
+  const [SendrEmail, setSendrEmail] = useState(null);  
   const [amounts, setAmount] = useState("");
   
   const [Desc, setDesc] = useState("");
@@ -56,7 +56,7 @@ const SMASendNonLns = props => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-    setSendrPhn(userInfo.attributes.phone_number);
+    setSendrEmail(userInfo.attributes.email);
   }
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const SMASendNonLns = props => {
     setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {phonecontact: SendrPhn}),
+        graphqlOperation(getSMAccount, {awsemail: SendrEmail}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -114,7 +114,7 @@ const SMASendNonLns = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {phonecontact: RecNatId}),
+                    graphqlOperation(getSMAccount, {awsemail: RecNatId}),
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
@@ -135,7 +135,7 @@ const SMASendNonLns = props => {
                           graphqlOperation(createNonLoans, {
                             input: {
                               recPhn: RecNatId,
-                              senderPhn: SendrPhn,                                  
+                              senderPhn: SendrEmail,                                  
                               amount: amounts,                              
                               description: Desc,
                               RecName:namess,
@@ -169,7 +169,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                phonecontact:SendrPhn,
+                                awsemail:SendrEmail,
                                 ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(2),
                                 balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) 
                                
@@ -198,7 +198,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                phonecontact:RecNatId,
+                                awsemail:RecNatId,
                                 ttlNonLonsRecSM: (parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts)).toFixed(2) ,
                                 balance:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(2)                                     
                                 
@@ -383,12 +383,12 @@ useEffect(() =>{
 
           <View style={styles.sendAmtView}>
             <TextInput
-            placeholder="+2547xxxxxxxx"
+            placeholder="Receiver Email"
               value={RecNatId}
               onChangeText={setRecNatId}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Receiver Phone</Text>
+            <Text style={styles.sendAmtText}>Receiver Email</Text>
           </View>
 
           <View style={styles.sendAmtView}>

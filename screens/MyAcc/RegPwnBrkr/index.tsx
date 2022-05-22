@@ -67,7 +67,7 @@ const CreateAcForm = (props) => {
             graphqlOperation(listSMAccounts,
               { filter: {
                   
-                phonecontact: { eq: nationalId}
+                awsemail: { eq: nationalId}
                               
                 }}
             )
@@ -156,12 +156,12 @@ useEffect(() =>{
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder={"+2547xxxxxxxx"}
+                    placeholder={"Loaner Email"}
                       value={nationalId}
                       onChangeText={setNationalid}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loaner Phone </Text>
+                    <Text style={styles.sendLoanText}>Loaner Email </Text>
                   </View>
         
                   <View style={styles.sendLoanView}>

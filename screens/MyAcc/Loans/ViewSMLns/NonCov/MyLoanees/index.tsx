@@ -15,7 +15,7 @@ const FetchSMNonCovLns = props => {
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
               
-        setLneePhn(userInfo.attributes.phone_number);
+        setLneePhn(userInfo.attributes.email);
              
       };
       
@@ -44,7 +44,7 @@ const FetchSMNonCovLns = props => {
               const fetchUsrDtls = async () => {
                 try {
                         const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {phonecontact: LnerPhn}
+                            graphqlOperation(getSMAccount, {awsemail: LnerPhn}
                         ),);
           
                         const balances = MFNDtls.data.getSMAccount.balance;
@@ -89,7 +89,7 @@ const FetchSMNonCovLns = props => {
                                                     await API.graphql(
                                                       graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          phonecontact: LnerPhn,
+                                                          awsemail: LnerPhn,
                                                           balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })

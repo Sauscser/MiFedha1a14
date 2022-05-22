@@ -53,7 +53,7 @@ const DeregUsrForm = (props) => {
           setIsLoading(true);
           try{
             const compDtlsz :any= await API.graphql(
-              graphqlOperation(getSMAccount,{phonecontact:UsrId})
+              graphqlOperation(getSMAccount,{awsemail:UsrId})
               );
 
               const UsrBal = compDtlsz.data.getSMAccount.balance;
@@ -192,7 +192,7 @@ const DeregUsrForm = (props) => {
                   await API.graphql(
                     graphqlOperation(deleteSMAccount,{
                       input:{
-                        phonecontact:UsrId,
+                        awsemail:UsrId,
                         
                       }
                     })
@@ -368,12 +368,12 @@ await ftchNonCvdChmLn();
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="+2547xxxxxxxx"
+                    placeholder="User Email"
                       value={UsrId}
                       onChangeText={setUsrId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>User Phone Number</Text>
+                    <Text style={styles.sendLoanText}>User Email</Text>
                   </View>
         
                       

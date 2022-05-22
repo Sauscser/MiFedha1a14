@@ -39,7 +39,7 @@ const ChmSignIn = (props) => {
   const [phoneContacts, setPhoneContacts] = useState("");
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [SendrPhn, setSendrPhn] = useState(null);
+  const [SendrEmail, setSendrEmail] = useState(null);
   const [pword, setPW] = useState('');
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
@@ -59,7 +59,7 @@ const ChmSignIn = (props) => {
       
       setName(userInfo.username);
       setownr(userInfo.attributes.sub); 
-      setSendrPhn(userInfo.attributes.phone_number);    
+      setSendrEmail(userInfo.attributes.email);    
           
     };
     useEffect(() => {
@@ -78,7 +78,7 @@ const ChmSignIn = (props) => {
                             graphqlOperation(listPersonels,
                               { filter: {
                                   
-                                phoneKontact: { eq: SendrPhn},
+                                phoneKontact: { eq: SendrEmail},
                                 BusinessRegNo:{eq: ChmDesc}
                                               
                                 }}
@@ -92,7 +92,7 @@ const ChmSignIn = (props) => {
                             setIsLoading(true);
                             try{
                               const compDtls :any= await API.graphql(
-                                graphqlOperation(getSMAccount,{phonecontact:SendrPhn})
+                                graphqlOperation(getSMAccount,{awsemail:SendrEmail})
                                 );
                                 const signitoryPWs = compDtls.data.getSMAccount.pw;  
                                 const owners = compDtls.data.getSMAccount.owner; 
@@ -241,12 +241,12 @@ useEffect(() =>{
 
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="+2547xxxxxxxx"
+                    placeholder="Buyer Email"
                       value={memberPhn}
                       onChangeText={setmemberPhn}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Buyer Phone</Text>
+                    <Text style={styles.sendLoanText}>Buyer Email</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>

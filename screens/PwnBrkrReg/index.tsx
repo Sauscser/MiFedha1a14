@@ -38,7 +38,7 @@ import { createChamasNPwnBrkrs, createChamasRegConfirm } from '../../src/graphql
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();   
     setOwnr(userInfo.attributes.sub); 
-    setUsrPhn(userInfo.attributes.phone_number);
+    setUsrPhn(userInfo.attributes.email);
   };
 
     useEffect(() => {
@@ -193,12 +193,12 @@ useEffect(() =>{
           
           <View style={styles.sendLoanView}>
             <TextInput
-            placeholder={"+2547xxxxxxxx"}
+            placeholder={"Email"}
               value={pword}
               onChangeText={setPW}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}> Phone Number</Text>
+            <Text style={styles.sendLoanText}> Email</Text>
           </View>
 
           

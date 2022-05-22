@@ -53,7 +53,7 @@ const UpdtMFNPW = (props) => {
             setIsLoading(true);
             try{
               const MFNDtls :any= await API.graphql(
-                graphqlOperation(getSMAccount,{phonecontact:AdminID})
+                graphqlOperation(getSMAccount,{awsemail:AdminID})
                 );
                 const TtlClrdLonsAmtByrCovs = MFNDtls.data.getSMAccount.TtlClrdLonsAmtByrCov   
                 
@@ -69,7 +69,7 @@ const UpdtMFNPW = (props) => {
                                             await API.graphql(
                                               graphqlOperation(updateSMAccount,{
                                                 input:{
-                                                  phonecontact:AdminID,
+                                                  awsemail:AdminID,
                                                   TtlClrdLonsAmtByrCov:parseFloat(TtlClrdLonsAmtByrCovs) + parseFloat(OldAdmnPW)
                                                 }
                                               })
@@ -166,12 +166,12 @@ const UpdtMFNPW = (props) => {
 
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="+2547xxxxxxxx"
+                    placeholder="User Email"
                       value={AdminID}
                       onChangeText={setAdminId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>User Phone</Text>
+                    <Text style={styles.sendLoanText}>User Email</Text>
                   </View> 
         
                   <View style={styles.sendLoanView}>

@@ -3,6 +3,7 @@ import {View, Text, ImageBackground, Pressable, SafeAreaView} from 'react-native
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {Auth} from 'aws-amplify';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const HomeScreen = props => {
   const navigation = useNavigation();
@@ -50,16 +51,16 @@ const [id,setid] = useState("")
         <View style={styles.viewForPressables1}>
         
 
-        <Pressable
+        <TouchableOpacity
             onPress={CreateSMAcs}
             style={styles.loanFriendButton}>
             <Text style={styles.loanAFriendText}>Create Main Account</Text>
-          </Pressable>
-          <Pressable
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={ViewMySMAcss}
             style={styles.loanFriendButton}>
             <Text style={styles.loanAFriendText}>View Main Account</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
         
         <View style={styles.viewForPressables2}> 
@@ -71,39 +72,39 @@ const [id,setid] = useState("")
 
         <View style={styles.viewForPressables3}>
           <View style={styles.viewForPressables4}>
-            <Pressable
+            <TouchableOpacity
             onPress={LnsScreen}
             style={styles.chamaLoanAndCreditSalesButton4}>
             <Text style={styles.ChamaLoanAndCreditSalesText4}>
               Pal-Pal Products
             </Text>
-          </Pressable>
+          </TouchableOpacity>
 
-          <Pressable
+          <TouchableOpacity
             onPress={ChamaScreen}
             style={styles.chamaLoanAndCreditSalesButton4}>
             <Text style={styles.ChamaLoanAndCreditSalesText4}>
               Chama Products
             </Text>
-          </Pressable>
+          </TouchableOpacity>
 
-          <Pressable
+          <TouchableOpacity
             onPress={CredSlsScreen}
             style={styles.chamaLoanAndCreditSalesButton4}>
             <Text style={styles.ChamaLoanAndCreditSalesText4}>
               CredSales Products
             </Text>
-          </Pressable>
+          </TouchableOpacity>
 
           </View>
           
-          <Pressable
+          <TouchableOpacity
             onPress={UpdateAccCodess}
             style={styles.chamaLoanAndCreditSalesButton}>
             <Text style={styles.ChamaLoanAndCreditSalesText}>
               Request Loan
             </Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>

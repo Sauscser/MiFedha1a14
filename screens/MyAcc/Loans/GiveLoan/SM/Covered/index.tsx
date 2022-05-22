@@ -54,14 +54,14 @@ const SMASendLns = props => {
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
-  const [SendrPhn, setSendrPhn] = useState(null);
+  const [SendrEmail, setSendrEmail] = useState(null);
   const [PwnBrkr, setPwnBrkr] = useState('');
   
 
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
-    setSendrPhn(userInfo.attributes.phone_number);
+    setSendrEmail(userInfo.attributes.email);
   }
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const SMASendLns = props => {
     setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {phonecontact: SendrPhn}),
+        graphqlOperation(getSMAccount, {awsemail: SendrEmail}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -183,7 +183,7 @@ const SMASendLns = props => {
                 setIsLoading(true);
                 try {
                     const RecAccountDtl:any = await API.graphql(
-                        graphqlOperation(getSMAccount, {phonecontact: RecPhn}),
+                        graphqlOperation(getSMAccount, {awsemail: RecPhn}),
                         );
                         const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
                         const RecNatId =RecAccountDtl.data.getSMAccount.nationalid;
@@ -209,7 +209,7 @@ const SMASendLns = props => {
                             const compDtls :any= await API.graphql(
                               graphqlOperation(listChamasNPwnBrkrs,{ filter: {
                             
-                                contact: { eq: SendrPhn}
+                                contact: { eq: SendrEmail}
                                               
                                 }}))
 
@@ -226,10 +226,10 @@ const SMASendLns = props => {
                                 input: {
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,
-                                  loanerPhn:SendrPhn,
+                                  loanerPhn:SendrEmail,
                                   loaneePhn: RecPhn,  
-                                  loanerLoanee:SendrPhn+RecPhn,
-                                  loanerLoaneeAdv:  SendrPhn+RecPhn+ AdvRegNo ,                          
+                                  loanerLoanee:SendrEmail+RecPhn,
+                                  loanerLoaneeAdv:  SendrEmail+RecPhn+ AdvRegNo ,                          
                                   amountgiven: parseFloat(amount).toFixed(2),
                                   loaneename:namess,
                                   loanername:names,
@@ -267,7 +267,7 @@ const SMASendLns = props => {
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    phonecontact:SendrPhn,
+                                    awsemail:SendrEmail,
                                     TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
                                     TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(AmtExp)).toFixed(2),
                                     TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs2) +1 ,
@@ -299,7 +299,7 @@ const SMASendLns = props => {
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    phonecontact:RecPhn,
+                                    awsemail:RecPhn,
                                     
                                     TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs1)+1,
                                     TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs1) + parseFloat(AmtExp)).toFixed(2),
@@ -389,7 +389,7 @@ const SMASendLns = props => {
                         if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
                       return;
                     }
-                        else if(recAcptncCode !== SendrPhn){Alert.alert('Let Loanee first request Loan');
+                        else if(recAcptncCode !== SendrEmail){Alert.alert('Let Loanee first request Loan');
                       return;
                     }
 
@@ -408,7 +408,7 @@ const SMASendLns = props => {
                     }
 
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                        else if(SendrPhn === RecPhn){Alert.alert('You cannot Loan Yourself');}
+                        else if(SendrEmail === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Little repayment: enter btw Ksh ' + TtlTransCost.toFixed(2) + " and " + (AllTtlCost).toFixed(2) );
                       return;}
@@ -616,12 +616,12 @@ useEffect(() =>{
          
          <View style={styles.sendAmtView}>
            <TextInput
-           placeholder="+2547xxxxxxxx"
+           placeholder="Receiver Email"
              value={RecPhn}
              onChangeText={setRecPhn}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Receiver Phone</Text>
+           <Text style={styles.sendAmtText}>Receiver Email</Text>
          </View>
 
          <View style={styles.sendAmtView}>

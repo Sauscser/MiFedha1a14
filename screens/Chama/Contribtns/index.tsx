@@ -93,7 +93,7 @@ const SMASendChmNonLns = props => {
                 setIsLoading(false);
                 try {
                   const accountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {phonecontact: memberContacts}),
+                    graphqlOperation(getSMAccount, {awsemail: memberContacts}),
                   );
             
                   const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -182,7 +182,7 @@ const SMASendChmNonLns = props => {
                                       await API.graphql(
                                         graphqlOperation(updateSMAccount, {
                                           input:{
-                                            phonecontact:memberContacts,
+                                            awsemail:memberContacts,
                                             
                                             balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2)
                                                                            

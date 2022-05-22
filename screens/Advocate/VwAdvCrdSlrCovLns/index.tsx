@@ -14,13 +14,13 @@ const FetchSMNonLnsSnt = props => {
 
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
-    const [SendrPhn, setSendrPhn] = useState(null); 
+    const [Email, setEmail] = useState(null); 
     const route = useRoute();
 
     const fetchUser = async () => {
       const userInfo = await Auth.currentAuthenticatedUser();
       
-      setSendrPhn(userInfo.attributes.phone_number);
+      setEmail(userInfo.attributes.email);
        
     };
   
@@ -51,7 +51,7 @@ const FetchSMNonLnsSnt = props => {
                   const fetchUsrDtls = async () => {
                     try {
                             const MFNDtls: any = await API.graphql(
-                                graphqlOperation(getSMAccount, {phonecontact: SendrPhn}
+                                graphqlOperation(getSMAccount, {awsemail: Email}
                             ),);
               
                             const balances = MFNDtls.data.getSMAccount.balance;
@@ -96,7 +96,7 @@ const FetchSMNonLnsSnt = props => {
                                                         await API.graphql(
                                                           graphqlOperation(updateSMAccount,{
                                                             input:{
-                                                              phonecontact:SendrPhn,
+                                                              awsemail:Email,
                                                               balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                             }
                                                           })

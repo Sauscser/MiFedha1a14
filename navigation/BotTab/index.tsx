@@ -69,21 +69,21 @@ const HomeTabNavigator = props => {
       />
 
 <BottomTab.Screen
-        name='Loans'
+        name='PalLoan'
         component={LoanScreen}
         options={{
           tabBarIcon: ({color: string}) => (
-            <FontAwesome name="bank" size={25} color={'skyblue'} />
+            <FontAwesome name="search" size={25} color={'skyblue'} />
           ),
         }}
       />
 
 <BottomTab.Screen
-        name='CredSlsHms'
+        name='CredSale'
         component={CredtSales}
         options={{
           tabBarIcon: ({color: string}) => (
-            <Entypo name="shopping-cart" size={25} color={'skyblue'} />
+            <FontAwesome name="search" size={25} color={'skyblue'} />
           ),
         }}
       />
@@ -93,13 +93,13 @@ const HomeTabNavigator = props => {
         component={ChamaScreen}
         options={{
           tabBarIcon: ({color: string}) => (
-            <MaterialIcons name="groups" size={25} color={'skyblue'} />
+            <FontAwesome name="search" size={25} color={'skyblue'} />
           ),
         }}
       />
 
 <BottomTab.Screen
-        name='SearchAdv'
+        name='Advocate'
         component={EntrAdvLoc}
         options={{
           tabBarIcon: ({color: string}) => (

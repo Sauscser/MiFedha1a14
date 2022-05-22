@@ -342,10 +342,10 @@ export type RootTabParamList = {
   Home:undefined;
   MFNdogo:undefined;
   MyAc:undefined;
-  Loans:undefined;
-  CredSlsHms:undefined;
+  PalLoan:undefined;
+  CredSale:undefined;
   Chama:undefined;
-  SearchAdv:undefined
+  Advocate:undefined
   RegMFNdgScrn:undefined;
   Homes:undefined
   

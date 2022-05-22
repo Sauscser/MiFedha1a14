@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     height: "90%",
     borderRadius: 30,
     
-    width: "40%",
+    width: "60%",
     justifyContent: 'center',
     alignItems: 'center',
     marginRight:"1%",
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 
   chamaLoanAndCreditSalesButton: {
     backgroundColor: 'white',
-    height: "30%",
+    height: "50%",
     borderRadius: 30,
     marginHorizontal: 30,
     width: Dimensions.get('screen').width - 60,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: "90%",
     borderRadius: 30,
-    width:"30%",
+    width:"90%",
     justifyContent: 'center',
     alignItems: 'center',
 

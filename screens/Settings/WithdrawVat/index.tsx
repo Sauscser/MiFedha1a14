@@ -43,7 +43,7 @@ const UpdtSMPW = (props) => {
     
     setName(userInfo.username);
     setownr(userInfo.attributes.sub);
-    setPhoneContact(userInfo.attributes.phone_number);
+    setPhoneContact(userInfo.attributes.email);
     
   };
   useEffect(() => {

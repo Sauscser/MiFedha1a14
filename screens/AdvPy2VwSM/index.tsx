@@ -26,7 +26,7 @@ const AdvPayToVwChm = (props) => {
   const [AdvReNo, setMFNId] = useState("");
   const [MFNPW, setMFNPW] = useState(""); 
   const [ownr, setownr] = useState(null); 
-  const [SendrPhn, setSendrPhn] = useState(null); 
+  const [Email, setEmail] = useState(null); 
 
 
   const VwMFNAc = () => {
@@ -38,7 +38,7 @@ const AdvPayToVwChm = (props) => {
     
     
     setownr(userInfo.attributes.sub);
-    setSendrPhn(userInfo.attributes.phone_number);
+    setEmail(userInfo.attributes.email);
      
   };
 
@@ -52,7 +52,7 @@ const AdvPayToVwChm = (props) => {
     const fetchUsrDtls = async () => {
       try {
               const MFNDtls: any = await API.graphql(
-                  graphqlOperation(getSMAccount, {phonecontact: SendrPhn}
+                  graphqlOperation(getSMAccount, {awsemail: Email}
               ),);
 
               const balances = MFNDtls.data.getSMAccount.balance;
@@ -97,7 +97,7 @@ const AdvPayToVwChm = (props) => {
                                           await API.graphql(
                                             graphqlOperation(updateSMAccount,{
                                               input:{
-                                                phonecontact:SendrPhn,
+                                                awsemail:Email,
                                                 balance:parseFloat(balances) - parseFloat(enquiryFees),
                                               }
                                             })
