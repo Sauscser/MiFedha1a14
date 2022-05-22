@@ -43,8 +43,8 @@ type SMAccount
   {
   nationalid: String!
   name: String!
-  phonecontact: String! @primaryKey
-  awsemail: String!
+  phonecontact: String! 
+  awsemail: String! @primaryKey
   balance: Float!
   pw: String!
 
@@ -826,6 +826,7 @@ type Bizna
 }
 
 
+
 type BankAdmin
   @model
   @auth(
@@ -1070,6 +1071,13 @@ type Company
   bankAdmuserwithdrawalFee: Float!
   userLoanTransferFee: Float!
   userTransferFee: Float!
+  chmMmbrTransferFee: Float!
+  chmTransferFee: Float!
+  biznaTransferFee: Float!
+  palpalLnRpymntFee: Float!
+  chmLnRpymntFee: Float!
+  crdSllrLnRpymntFee: Float!
+  
   userClearanceFee: Float!
   CoverageFee: Float!
 
@@ -1372,7 +1380,8 @@ type Group
   signitoryName: String!
   grpName: String!
   signitoryPW: String!
-
+  oprtnArea:String!
+  venture: String!
   signitory2Sub: String!
   WithdrawCnfrmtn: String!
   
@@ -1785,6 +1794,111 @@ type GrpMembersContribution
   owner: String!
   createdAt: String!
 }
+
+type Item
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      { allow: owner, operations: [read, update, delete] }
+      { allow: private, operations: [read, update, create, delete] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, delete, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      ]
+  )
+
+  
+   {
+  BusinessRegNo: String! @index(name: "byCrtnTymmmmmss", sortKeyFields: ["createdAt"], queryField: "BiznaVwwss")
+  BusKntct: String! @primaryKey
+  busName: String!
+  itemName: String!
+  itemPrice:String!
+  itemTown: String!
+  lnPrcntg: Float!
+  rpymntPeriod: Float!
+  itemDesc:String!
+  
+  owner: String!
+  
+  createdAt: String!
+}
+
+
+type PalPalLn
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      { allow: owner, operations: [read, update, delete] }
+      { allow: private, operations: [read, update, create, delete] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, delete, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      ]
+  )
+
+  
+   {
+  lnrName: String! @index(name: "byCrtnTymmmmmsss", sortKeyFields: ["createdAt"], queryField: "BiznaVwwsss")
+  LnerCntct: String! @primaryKey
+  
+  lnAmnt:String!
+  lnTown: String!
+  lnDesc:String!
+  lnPrcntg: Float!
+  rpymntPeriod: Float!
+  
+  owner: String!
+  
+  createdAt: String!
+}
+
 
 enum Status {
   NoLoan
