@@ -509,6 +509,111 @@ export const onDeleteNonLoans = /* GraphQL */ `
     }
   }
 `;
+export const onCreateSokoAd = /* GraphQL */ `
+  subscription OnCreateSokoAd($owner: String) {
+    onCreateSokoAd(owner: $owner) {
+      id
+      sokoregno
+      sokokntct
+      sokoname
+      sokoprice
+      sokotown
+      sokolnprcntg
+      sokolpymntperiod
+      sokodesc
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSokoAd = /* GraphQL */ `
+  subscription OnUpdateSokoAd($owner: String) {
+    onUpdateSokoAd(owner: $owner) {
+      id
+      sokoregno
+      sokokntct
+      sokoname
+      sokoprice
+      sokotown
+      sokolnprcntg
+      sokolpymntperiod
+      sokodesc
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSokoAd = /* GraphQL */ `
+  subscription OnDeleteSokoAd($owner: String) {
+    onDeleteSokoAd(owner: $owner) {
+      id
+      sokoregno
+      sokokntct
+      sokoname
+      sokoprice
+      sokotown
+      sokolnprcntg
+      sokolpymntperiod
+      sokodesc
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateRafikiLnAd = /* GraphQL */ `
+  subscription OnCreateRafikiLnAd($owner: String) {
+    onCreateRafikiLnAd(owner: $owner) {
+      id
+      rafikiName
+      rafikicntct
+      rafikiEmail
+      rafikiamnt
+      rafikidesc
+      rafikiprcntg
+      rafikirpymntperiod
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateRafikiLnAd = /* GraphQL */ `
+  subscription OnUpdateRafikiLnAd($owner: String) {
+    onUpdateRafikiLnAd(owner: $owner) {
+      id
+      rafikiName
+      rafikicntct
+      rafikiEmail
+      rafikiamnt
+      rafikidesc
+      rafikiprcntg
+      rafikirpymntperiod
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteRafikiLnAd = /* GraphQL */ `
+  subscription OnDeleteRafikiLnAd($owner: String) {
+    onDeleteRafikiLnAd(owner: $owner) {
+      id
+      rafikiName
+      rafikicntct
+      rafikiEmail
+      rafikiamnt
+      rafikidesc
+      rafikiprcntg
+      rafikirpymntperiod
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateAgent = /* GraphQL */ `
   subscription OnCreateAgent($owner: String) {
     onCreateAgent(owner: $owner) {
@@ -2363,108 +2468,6 @@ export const onDeleteGrpMembersContribution = /* GraphQL */ `
       contriAmount
       memberId
       status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateItem = /* GraphQL */ `
-  subscription OnCreateItem($owner: String) {
-    onCreateItem(owner: $owner) {
-      BusinessRegNo
-      BusKntct
-      busName
-      itemName
-      itemPrice
-      itemTown
-      lnPrcntg
-      rpymntPeriod
-      itemDesc
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateItem = /* GraphQL */ `
-  subscription OnUpdateItem($owner: String) {
-    onUpdateItem(owner: $owner) {
-      BusinessRegNo
-      BusKntct
-      busName
-      itemName
-      itemPrice
-      itemTown
-      lnPrcntg
-      rpymntPeriod
-      itemDesc
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteItem = /* GraphQL */ `
-  subscription OnDeleteItem($owner: String) {
-    onDeleteItem(owner: $owner) {
-      BusinessRegNo
-      BusKntct
-      busName
-      itemName
-      itemPrice
-      itemTown
-      lnPrcntg
-      rpymntPeriod
-      itemDesc
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreatePalPalLn = /* GraphQL */ `
-  subscription OnCreatePalPalLn($owner: String) {
-    onCreatePalPalLn(owner: $owner) {
-      lnrName
-      LnerCntct
-      lnrEmail
-      lnAmnt
-      lnDesc
-      lnPrcntg
-      rpymntPeriod
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdatePalPalLn = /* GraphQL */ `
-  subscription OnUpdatePalPalLn($owner: String) {
-    onUpdatePalPalLn(owner: $owner) {
-      lnrName
-      LnerCntct
-      lnrEmail
-      lnAmnt
-      lnDesc
-      lnPrcntg
-      rpymntPeriod
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeletePalPalLn = /* GraphQL */ `
-  subscription OnDeletePalPalLn($owner: String) {
-    onDeletePalPalLn(owner: $owner) {
-      lnrName
-      LnerCntct
-      lnrEmail
-      lnAmnt
-      lnDesc
-      lnPrcntg
-      rpymntPeriod
       owner
       createdAt
       updatedAt

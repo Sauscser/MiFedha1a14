@@ -316,6 +316,16 @@ declare global {
       SgnIn2VwChmWthdrwlss:undefined;
       VwChmWthdrwlss:{grpContact:string};
       Loans:undefined;
+
+      ItemAds:undefined;
+      LoanAds:undefined;
+      DetailedChmPrfl: {grpContact:String};
+      DtldPalLnInfo: {id:String};
+      DtldSalesInfo: {id:String};
+
+      SgnIn2RemoveSlAd: undefined;
+      VwSlsAds2Remove: {BiznaContact:String};
+      VwPlLn2Remove:undefined;
       
       
     }
@@ -347,7 +357,10 @@ export type RootTabParamList = {
   Chama:undefined;
   Advocate:undefined
   RegMFNdgScrn:undefined;
-  Homes:undefined
+  Homes:undefined;
+  LoanChmz:undefined; 
+      SrchItemAdz:undefined; 
+      SrchLoanAdz:undefined;
   
   
   

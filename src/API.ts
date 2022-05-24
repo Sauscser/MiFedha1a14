@@ -751,6 +751,130 @@ export type DeleteNonLoansInput = {
   id: string,
 };
 
+export type CreateSokoAdInput = {
+  id?: string | null,
+  sokoregno: string,
+  sokokntct: string,
+  sokoname: string,
+  sokoprice: number,
+  sokotown: string,
+  sokolnprcntg: number,
+  sokolpymntperiod: number,
+  sokodesc: string,
+  owner: string,
+  createdAt?: string | null,
+};
+
+export type ModelSokoAdConditionInput = {
+  sokoregno?: ModelStringInput | null,
+  sokokntct?: ModelStringInput | null,
+  sokoname?: ModelStringInput | null,
+  sokoprice?: ModelFloatInput | null,
+  sokotown?: ModelStringInput | null,
+  sokolnprcntg?: ModelFloatInput | null,
+  sokolpymntperiod?: ModelFloatInput | null,
+  sokodesc?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelSokoAdConditionInput | null > | null,
+  or?: Array< ModelSokoAdConditionInput | null > | null,
+  not?: ModelSokoAdConditionInput | null,
+};
+
+export type SokoAd = {
+  __typename: "SokoAd",
+  id: string,
+  sokoregno: string,
+  sokokntct: string,
+  sokoname: string,
+  sokoprice: number,
+  sokotown: string,
+  sokolnprcntg: number,
+  sokolpymntperiod: number,
+  sokodesc: string,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateSokoAdInput = {
+  id: string,
+  sokoregno?: string | null,
+  sokokntct?: string | null,
+  sokoname?: string | null,
+  sokoprice?: number | null,
+  sokotown?: string | null,
+  sokolnprcntg?: number | null,
+  sokolpymntperiod?: number | null,
+  sokodesc?: string | null,
+  owner?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteSokoAdInput = {
+  id: string,
+};
+
+export type CreateRafikiLnAdInput = {
+  id?: string | null,
+  rafikiName: string,
+  rafikicntct: string,
+  rafikiEmail: string,
+  rafikiamnt: number,
+  rafikidesc: string,
+  rafikiprcntg: number,
+  rafikirpymntperiod: number,
+  owner: string,
+  createdAt?: string | null,
+};
+
+export type ModelRafikiLnAdConditionInput = {
+  rafikiName?: ModelStringInput | null,
+  rafikicntct?: ModelStringInput | null,
+  rafikiEmail?: ModelStringInput | null,
+  rafikiamnt?: ModelFloatInput | null,
+  rafikidesc?: ModelStringInput | null,
+  rafikiprcntg?: ModelFloatInput | null,
+  rafikirpymntperiod?: ModelFloatInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelRafikiLnAdConditionInput | null > | null,
+  or?: Array< ModelRafikiLnAdConditionInput | null > | null,
+  not?: ModelRafikiLnAdConditionInput | null,
+};
+
+export type RafikiLnAd = {
+  __typename: "RafikiLnAd",
+  id: string,
+  rafikiName: string,
+  rafikicntct: string,
+  rafikiEmail: string,
+  rafikiamnt: number,
+  rafikidesc: string,
+  rafikiprcntg: number,
+  rafikirpymntperiod: number,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateRafikiLnAdInput = {
+  id: string,
+  rafikiName?: string | null,
+  rafikicntct?: string | null,
+  rafikiEmail?: string | null,
+  rafikiamnt?: number | null,
+  rafikidesc?: string | null,
+  rafikiprcntg?: number | null,
+  rafikirpymntperiod?: number | null,
+  owner?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteRafikiLnAdInput = {
+  id: string,
+};
+
 export type CreateAgentInput = {
   phonecontact: string,
   sagentregno: string,
@@ -3033,126 +3157,6 @@ export type DeleteGrpMembersContributionInput = {
   id: string,
 };
 
-export type CreateItemInput = {
-  BusinessRegNo: string,
-  BusKntct: string,
-  busName: string,
-  itemName: string,
-  itemPrice: string,
-  itemTown: string,
-  lnPrcntg: number,
-  rpymntPeriod: number,
-  itemDesc: string,
-  owner: string,
-  createdAt?: string | null,
-};
-
-export type ModelItemConditionInput = {
-  BusinessRegNo?: ModelStringInput | null,
-  busName?: ModelStringInput | null,
-  itemName?: ModelStringInput | null,
-  itemPrice?: ModelStringInput | null,
-  itemTown?: ModelStringInput | null,
-  lnPrcntg?: ModelFloatInput | null,
-  rpymntPeriod?: ModelFloatInput | null,
-  itemDesc?: ModelStringInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelItemConditionInput | null > | null,
-  or?: Array< ModelItemConditionInput | null > | null,
-  not?: ModelItemConditionInput | null,
-};
-
-export type Item = {
-  __typename: "Item",
-  BusinessRegNo: string,
-  BusKntct: string,
-  busName: string,
-  itemName: string,
-  itemPrice: string,
-  itemTown: string,
-  lnPrcntg: number,
-  rpymntPeriod: number,
-  itemDesc: string,
-  owner: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateItemInput = {
-  BusinessRegNo?: string | null,
-  BusKntct: string,
-  busName?: string | null,
-  itemName?: string | null,
-  itemPrice?: string | null,
-  itemTown?: string | null,
-  lnPrcntg?: number | null,
-  rpymntPeriod?: number | null,
-  itemDesc?: string | null,
-  owner?: string | null,
-  createdAt?: string | null,
-};
-
-export type DeleteItemInput = {
-  BusKntct: string,
-};
-
-export type CreatePalPalLnInput = {
-  lnrName: string,
-  LnerCntct: string,
-  lnrEmail: string,
-  lnAmnt: string,
-  lnDesc: string,
-  lnPrcntg: number,
-  rpymntPeriod: number,
-  owner: string,
-  createdAt?: string | null,
-};
-
-export type ModelPalPalLnConditionInput = {
-  lnrName?: ModelStringInput | null,
-  LnerCntct?: ModelStringInput | null,
-  lnAmnt?: ModelStringInput | null,
-  lnDesc?: ModelStringInput | null,
-  lnPrcntg?: ModelFloatInput | null,
-  rpymntPeriod?: ModelFloatInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelPalPalLnConditionInput | null > | null,
-  or?: Array< ModelPalPalLnConditionInput | null > | null,
-  not?: ModelPalPalLnConditionInput | null,
-};
-
-export type PalPalLn = {
-  __typename: "PalPalLn",
-  lnrName: string,
-  LnerCntct: string,
-  lnrEmail: string,
-  lnAmnt: string,
-  lnDesc: string,
-  lnPrcntg: number,
-  rpymntPeriod: number,
-  owner: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdatePalPalLnInput = {
-  lnrName?: string | null,
-  LnerCntct?: string | null,
-  lnrEmail: string,
-  lnAmnt?: string | null,
-  lnDesc?: string | null,
-  lnPrcntg?: number | null,
-  rpymntPeriod?: number | null,
-  owner?: string | null,
-  createdAt?: string | null,
-};
-
-export type DeletePalPalLnInput = {
-  lnrEmail: string,
-};
-
 export type ModelSMAccountFilterInput = {
   nationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
@@ -3345,6 +3349,51 @@ export type ModelNonLoansFilterInput = {
 export type ModelNonLoansConnection = {
   __typename: "ModelNonLoansConnection",
   items:  Array<NonLoans | null >,
+  nextToken?: string | null,
+};
+
+export type ModelSokoAdFilterInput = {
+  id?: ModelIDInput | null,
+  sokoregno?: ModelStringInput | null,
+  sokokntct?: ModelStringInput | null,
+  sokoname?: ModelStringInput | null,
+  sokoprice?: ModelFloatInput | null,
+  sokotown?: ModelStringInput | null,
+  sokolnprcntg?: ModelFloatInput | null,
+  sokolpymntperiod?: ModelFloatInput | null,
+  sokodesc?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelSokoAdFilterInput | null > | null,
+  or?: Array< ModelSokoAdFilterInput | null > | null,
+  not?: ModelSokoAdFilterInput | null,
+};
+
+export type ModelSokoAdConnection = {
+  __typename: "ModelSokoAdConnection",
+  items:  Array<SokoAd | null >,
+  nextToken?: string | null,
+};
+
+export type ModelRafikiLnAdFilterInput = {
+  id?: ModelIDInput | null,
+  rafikiName?: ModelStringInput | null,
+  rafikicntct?: ModelStringInput | null,
+  rafikiEmail?: ModelStringInput | null,
+  rafikiamnt?: ModelFloatInput | null,
+  rafikidesc?: ModelStringInput | null,
+  rafikiprcntg?: ModelFloatInput | null,
+  rafikirpymntperiod?: ModelFloatInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelRafikiLnAdFilterInput | null > | null,
+  or?: Array< ModelRafikiLnAdFilterInput | null > | null,
+  not?: ModelRafikiLnAdFilterInput | null,
+};
+
+export type ModelRafikiLnAdConnection = {
+  __typename: "ModelRafikiLnAdConnection",
+  items:  Array<RafikiLnAd | null >,
   nextToken?: string | null,
 };
 
@@ -4086,50 +4135,6 @@ export type ModelGrpMembersContributionConnection = {
   nextToken?: string | null,
 };
 
-export type ModelItemFilterInput = {
-  BusinessRegNo?: ModelStringInput | null,
-  BusKntct?: ModelStringInput | null,
-  busName?: ModelStringInput | null,
-  itemName?: ModelStringInput | null,
-  itemPrice?: ModelStringInput | null,
-  itemTown?: ModelStringInput | null,
-  lnPrcntg?: ModelFloatInput | null,
-  rpymntPeriod?: ModelFloatInput | null,
-  itemDesc?: ModelStringInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelItemFilterInput | null > | null,
-  or?: Array< ModelItemFilterInput | null > | null,
-  not?: ModelItemFilterInput | null,
-};
-
-export type ModelItemConnection = {
-  __typename: "ModelItemConnection",
-  items:  Array<Item | null >,
-  nextToken?: string | null,
-};
-
-export type ModelPalPalLnFilterInput = {
-  lnrName?: ModelStringInput | null,
-  LnerCntct?: ModelStringInput | null,
-  lnrEmail?: ModelStringInput | null,
-  lnAmnt?: ModelStringInput | null,
-  lnDesc?: ModelStringInput | null,
-  lnPrcntg?: ModelFloatInput | null,
-  rpymntPeriod?: ModelFloatInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelPalPalLnFilterInput | null > | null,
-  or?: Array< ModelPalPalLnFilterInput | null > | null,
-  not?: ModelPalPalLnFilterInput | null,
-};
-
-export type ModelPalPalLnConnection = {
-  __typename: "ModelPalPalLnConnection",
-  items:  Array<PalPalLn | null >,
-  nextToken?: string | null,
-};
-
 export type ModelStringKeyConditionInput = {
   eq?: string | null,
   le?: string | null,
@@ -4701,6 +4706,141 @@ export type DeleteNonLoansMutation = {
     amount: number,
     description?: string | null,
     status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateSokoAdMutationVariables = {
+  input: CreateSokoAdInput,
+  condition?: ModelSokoAdConditionInput | null,
+};
+
+export type CreateSokoAdMutation = {
+  createSokoAd?:  {
+    __typename: "SokoAd",
+    id: string,
+    sokoregno: string,
+    sokokntct: string,
+    sokoname: string,
+    sokoprice: number,
+    sokotown: string,
+    sokolnprcntg: number,
+    sokolpymntperiod: number,
+    sokodesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateSokoAdMutationVariables = {
+  input: UpdateSokoAdInput,
+  condition?: ModelSokoAdConditionInput | null,
+};
+
+export type UpdateSokoAdMutation = {
+  updateSokoAd?:  {
+    __typename: "SokoAd",
+    id: string,
+    sokoregno: string,
+    sokokntct: string,
+    sokoname: string,
+    sokoprice: number,
+    sokotown: string,
+    sokolnprcntg: number,
+    sokolpymntperiod: number,
+    sokodesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteSokoAdMutationVariables = {
+  input: DeleteSokoAdInput,
+  condition?: ModelSokoAdConditionInput | null,
+};
+
+export type DeleteSokoAdMutation = {
+  deleteSokoAd?:  {
+    __typename: "SokoAd",
+    id: string,
+    sokoregno: string,
+    sokokntct: string,
+    sokoname: string,
+    sokoprice: number,
+    sokotown: string,
+    sokolnprcntg: number,
+    sokolpymntperiod: number,
+    sokodesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateRafikiLnAdMutationVariables = {
+  input: CreateRafikiLnAdInput,
+  condition?: ModelRafikiLnAdConditionInput | null,
+};
+
+export type CreateRafikiLnAdMutation = {
+  createRafikiLnAd?:  {
+    __typename: "RafikiLnAd",
+    id: string,
+    rafikiName: string,
+    rafikicntct: string,
+    rafikiEmail: string,
+    rafikiamnt: number,
+    rafikidesc: string,
+    rafikiprcntg: number,
+    rafikirpymntperiod: number,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateRafikiLnAdMutationVariables = {
+  input: UpdateRafikiLnAdInput,
+  condition?: ModelRafikiLnAdConditionInput | null,
+};
+
+export type UpdateRafikiLnAdMutation = {
+  updateRafikiLnAd?:  {
+    __typename: "RafikiLnAd",
+    id: string,
+    rafikiName: string,
+    rafikicntct: string,
+    rafikiEmail: string,
+    rafikiamnt: number,
+    rafikidesc: string,
+    rafikiprcntg: number,
+    rafikirpymntperiod: number,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteRafikiLnAdMutationVariables = {
+  input: DeleteRafikiLnAdInput,
+  condition?: ModelRafikiLnAdConditionInput | null,
+};
+
+export type DeleteRafikiLnAdMutation = {
+  deleteRafikiLnAd?:  {
+    __typename: "RafikiLnAd",
+    id: string,
+    rafikiName: string,
+    rafikicntct: string,
+    rafikiEmail: string,
+    rafikiamnt: number,
+    rafikidesc: string,
+    rafikiprcntg: number,
+    rafikirpymntperiod: number,
     owner: string,
     createdAt: string,
     updatedAt: string,
@@ -6927,138 +7067,6 @@ export type DeleteGrpMembersContributionMutation = {
   } | null,
 };
 
-export type CreateItemMutationVariables = {
-  input: CreateItemInput,
-  condition?: ModelItemConditionInput | null,
-};
-
-export type CreateItemMutation = {
-  createItem?:  {
-    __typename: "Item",
-    BusinessRegNo: string,
-    BusKntct: string,
-    busName: string,
-    itemName: string,
-    itemPrice: string,
-    itemTown: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
-    itemDesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateItemMutationVariables = {
-  input: UpdateItemInput,
-  condition?: ModelItemConditionInput | null,
-};
-
-export type UpdateItemMutation = {
-  updateItem?:  {
-    __typename: "Item",
-    BusinessRegNo: string,
-    BusKntct: string,
-    busName: string,
-    itemName: string,
-    itemPrice: string,
-    itemTown: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
-    itemDesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteItemMutationVariables = {
-  input: DeleteItemInput,
-  condition?: ModelItemConditionInput | null,
-};
-
-export type DeleteItemMutation = {
-  deleteItem?:  {
-    __typename: "Item",
-    BusinessRegNo: string,
-    BusKntct: string,
-    busName: string,
-    itemName: string,
-    itemPrice: string,
-    itemTown: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
-    itemDesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreatePalPalLnMutationVariables = {
-  input: CreatePalPalLnInput,
-  condition?: ModelPalPalLnConditionInput | null,
-};
-
-export type CreatePalPalLnMutation = {
-  createPalPalLn?:  {
-    __typename: "PalPalLn",
-    lnrName: string,
-    LnerCntct: string,
-    lnrEmail: string,
-    lnAmnt: string,
-    lnDesc: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdatePalPalLnMutationVariables = {
-  input: UpdatePalPalLnInput,
-  condition?: ModelPalPalLnConditionInput | null,
-};
-
-export type UpdatePalPalLnMutation = {
-  updatePalPalLn?:  {
-    __typename: "PalPalLn",
-    lnrName: string,
-    LnerCntct: string,
-    lnrEmail: string,
-    lnAmnt: string,
-    lnDesc: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeletePalPalLnMutationVariables = {
-  input: DeletePalPalLnInput,
-  condition?: ModelPalPalLnConditionInput | null,
-};
-
-export type DeletePalPalLnMutation = {
-  deletePalPalLn?:  {
-    __typename: "PalPalLn",
-    lnrName: string,
-    LnerCntct: string,
-    lnrEmail: string,
-    lnAmnt: string,
-    lnDesc: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
 export type GetSMAccountQueryVariables = {
   awsemail: string,
 };
@@ -7447,6 +7455,104 @@ export type ListNonLoansQuery = {
       amount: number,
       description?: string | null,
       status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetSokoAdQueryVariables = {
+  id: string,
+};
+
+export type GetSokoAdQuery = {
+  getSokoAd?:  {
+    __typename: "SokoAd",
+    id: string,
+    sokoregno: string,
+    sokokntct: string,
+    sokoname: string,
+    sokoprice: number,
+    sokotown: string,
+    sokolnprcntg: number,
+    sokolpymntperiod: number,
+    sokodesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListSokoAdsQueryVariables = {
+  filter?: ModelSokoAdFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListSokoAdsQuery = {
+  listSokoAds?:  {
+    __typename: "ModelSokoAdConnection",
+    items:  Array< {
+      __typename: "SokoAd",
+      id: string,
+      sokoregno: string,
+      sokokntct: string,
+      sokoname: string,
+      sokoprice: number,
+      sokotown: string,
+      sokolnprcntg: number,
+      sokolpymntperiod: number,
+      sokodesc: string,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetRafikiLnAdQueryVariables = {
+  id: string,
+};
+
+export type GetRafikiLnAdQuery = {
+  getRafikiLnAd?:  {
+    __typename: "RafikiLnAd",
+    id: string,
+    rafikiName: string,
+    rafikicntct: string,
+    rafikiEmail: string,
+    rafikiamnt: number,
+    rafikidesc: string,
+    rafikiprcntg: number,
+    rafikirpymntperiod: number,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListRafikiLnAdsQueryVariables = {
+  filter?: ModelRafikiLnAdFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListRafikiLnAdsQuery = {
+  listRafikiLnAds?:  {
+    __typename: "ModelRafikiLnAdConnection",
+    items:  Array< {
+      __typename: "RafikiLnAd",
+      id: string,
+      rafikiName: string,
+      rafikicntct: string,
+      rafikiEmail: string,
+      rafikiamnt: number,
+      rafikidesc: string,
+      rafikiprcntg: number,
+      rafikirpymntperiod: number,
       owner: string,
       createdAt: string,
       updatedAt: string,
@@ -9051,106 +9157,6 @@ export type ListGrpMembersContributionsQuery = {
   } | null,
 };
 
-export type GetItemQueryVariables = {
-  BusKntct: string,
-};
-
-export type GetItemQuery = {
-  getItem?:  {
-    __typename: "Item",
-    BusinessRegNo: string,
-    BusKntct: string,
-    busName: string,
-    itemName: string,
-    itemPrice: string,
-    itemTown: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
-    itemDesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListItemsQueryVariables = {
-  BusKntct?: string | null,
-  filter?: ModelItemFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  sortDirection?: ModelSortDirection | null,
-};
-
-export type ListItemsQuery = {
-  listItems?:  {
-    __typename: "ModelItemConnection",
-    items:  Array< {
-      __typename: "Item",
-      BusinessRegNo: string,
-      BusKntct: string,
-      busName: string,
-      itemName: string,
-      itemPrice: string,
-      itemTown: string,
-      lnPrcntg: number,
-      rpymntPeriod: number,
-      itemDesc: string,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetPalPalLnQueryVariables = {
-  lnrEmail: string,
-};
-
-export type GetPalPalLnQuery = {
-  getPalPalLn?:  {
-    __typename: "PalPalLn",
-    lnrName: string,
-    LnerCntct: string,
-    lnrEmail: string,
-    lnAmnt: string,
-    lnDesc: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListPalPalLnsQueryVariables = {
-  lnrEmail?: string | null,
-  filter?: ModelPalPalLnFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  sortDirection?: ModelSortDirection | null,
-};
-
-export type ListPalPalLnsQuery = {
-  listPalPalLns?:  {
-    __typename: "ModelPalPalLnConnection",
-    items:  Array< {
-      __typename: "PalPalLn",
-      lnrName: string,
-      LnerCntct: string,
-      lnrEmail: string,
-      lnAmnt: string,
-      lnDesc: string,
-      lnPrcntg: number,
-      rpymntPeriod: number,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type VwMyDebtsQueryVariables = {
   loaneePhn: string,
   createdAt?: ModelStringKeyConditionInput | null,
@@ -9533,6 +9539,67 @@ export type VwMyRecMnyQuery = {
       amount: number,
       description?: string | null,
       status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type DakaByDescQueryVariables = {
+  sokodesc: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelSokoAdFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type DakaByDescQuery = {
+  DakaByDesc?:  {
+    __typename: "ModelSokoAdConnection",
+    items:  Array< {
+      __typename: "SokoAd",
+      id: string,
+      sokoregno: string,
+      sokokntct: string,
+      sokoname: string,
+      sokoprice: number,
+      sokotown: string,
+      sokolnprcntg: number,
+      sokolpymntperiod: number,
+      sokodesc: string,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type PataByDescQueryVariables = {
+  rafikidesc: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelRafikiLnAdFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type PataByDescQuery = {
+  PataByDesc?:  {
+    __typename: "ModelRafikiLnAdConnection",
+    items:  Array< {
+      __typename: "RafikiLnAd",
+      id: string,
+      rafikiName: string,
+      rafikicntct: string,
+      rafikiEmail: string,
+      rafikiamnt: number,
+      rafikidesc: string,
+      rafikiprcntg: number,
+      rafikirpymntperiod: number,
       owner: string,
       createdAt: string,
       updatedAt: string,
@@ -11064,124 +11131,6 @@ export type VwChamaMembersssssQuery = {
   } | null,
 };
 
-export type BiznaVwwssQueryVariables = {
-  BusinessRegNo: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelItemFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type BiznaVwwssQuery = {
-  BiznaVwwss?:  {
-    __typename: "ModelItemConnection",
-    items:  Array< {
-      __typename: "Item",
-      BusinessRegNo: string,
-      BusKntct: string,
-      busName: string,
-      itemName: string,
-      itemPrice: string,
-      itemTown: string,
-      lnPrcntg: number,
-      rpymntPeriod: number,
-      itemDesc: string,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type BiznaVwwsssQueryVariables = {
-  lnrName: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelPalPalLnFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type BiznaVwwsssQuery = {
-  BiznaVwwsss?:  {
-    __typename: "ModelPalPalLnConnection",
-    items:  Array< {
-      __typename: "PalPalLn",
-      lnrName: string,
-      LnerCntct: string,
-      lnrEmail: string,
-      lnAmnt: string,
-      lnDesc: string,
-      lnPrcntg: number,
-      rpymntPeriod: number,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type VialnAmtQueryVariables = {
-  lnAmnt: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelPalPalLnFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type VialnAmtQuery = {
-  VialnAmt?:  {
-    __typename: "ModelPalPalLnConnection",
-    items:  Array< {
-      __typename: "PalPalLn",
-      lnrName: string,
-      LnerCntct: string,
-      lnrEmail: string,
-      lnAmnt: string,
-      lnDesc: string,
-      lnPrcntg: number,
-      rpymntPeriod: number,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type VialnPcntgQueryVariables = {
-  lnPrcntg: number,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelPalPalLnFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type VialnPcntgQuery = {
-  VialnPcntg?:  {
-    __typename: "ModelPalPalLnConnection",
-    items:  Array< {
-      __typename: "PalPalLn",
-      lnrName: string,
-      LnerCntct: string,
-      lnrEmail: string,
-      lnAmnt: string,
-      lnDesc: string,
-      lnPrcntg: number,
-      rpymntPeriod: number,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type OnCreateSMAccountSubscriptionVariables = {
   owner?: string | null,
 };
@@ -11731,6 +11680,135 @@ export type OnDeleteNonLoansSubscription = {
     amount: number,
     description?: string | null,
     status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateSokoAdSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateSokoAdSubscription = {
+  onCreateSokoAd?:  {
+    __typename: "SokoAd",
+    id: string,
+    sokoregno: string,
+    sokokntct: string,
+    sokoname: string,
+    sokoprice: number,
+    sokotown: string,
+    sokolnprcntg: number,
+    sokolpymntperiod: number,
+    sokodesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateSokoAdSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateSokoAdSubscription = {
+  onUpdateSokoAd?:  {
+    __typename: "SokoAd",
+    id: string,
+    sokoregno: string,
+    sokokntct: string,
+    sokoname: string,
+    sokoprice: number,
+    sokotown: string,
+    sokolnprcntg: number,
+    sokolpymntperiod: number,
+    sokodesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteSokoAdSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteSokoAdSubscription = {
+  onDeleteSokoAd?:  {
+    __typename: "SokoAd",
+    id: string,
+    sokoregno: string,
+    sokokntct: string,
+    sokoname: string,
+    sokoprice: number,
+    sokotown: string,
+    sokolnprcntg: number,
+    sokolpymntperiod: number,
+    sokodesc: string,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateRafikiLnAdSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateRafikiLnAdSubscription = {
+  onCreateRafikiLnAd?:  {
+    __typename: "RafikiLnAd",
+    id: string,
+    rafikiName: string,
+    rafikicntct: string,
+    rafikiEmail: string,
+    rafikiamnt: number,
+    rafikidesc: string,
+    rafikiprcntg: number,
+    rafikirpymntperiod: number,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateRafikiLnAdSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateRafikiLnAdSubscription = {
+  onUpdateRafikiLnAd?:  {
+    __typename: "RafikiLnAd",
+    id: string,
+    rafikiName: string,
+    rafikicntct: string,
+    rafikiEmail: string,
+    rafikiamnt: number,
+    rafikidesc: string,
+    rafikiprcntg: number,
+    rafikirpymntperiod: number,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteRafikiLnAdSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteRafikiLnAdSubscription = {
+  onDeleteRafikiLnAd?:  {
+    __typename: "RafikiLnAd",
+    id: string,
+    rafikiName: string,
+    rafikicntct: string,
+    rafikiEmail: string,
+    rafikiamnt: number,
+    rafikidesc: string,
+    rafikiprcntg: number,
+    rafikirpymntperiod: number,
     owner: string,
     createdAt: string,
     updatedAt: string,
@@ -13867,132 +13945,6 @@ export type OnDeleteGrpMembersContributionSubscription = {
     contriAmount: number,
     memberId: string,
     status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateItemSubscriptionVariables = {
-  owner?: string | null,
-};
-
-export type OnCreateItemSubscription = {
-  onCreateItem?:  {
-    __typename: "Item",
-    BusinessRegNo: string,
-    BusKntct: string,
-    busName: string,
-    itemName: string,
-    itemPrice: string,
-    itemTown: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
-    itemDesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateItemSubscriptionVariables = {
-  owner?: string | null,
-};
-
-export type OnUpdateItemSubscription = {
-  onUpdateItem?:  {
-    __typename: "Item",
-    BusinessRegNo: string,
-    BusKntct: string,
-    busName: string,
-    itemName: string,
-    itemPrice: string,
-    itemTown: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
-    itemDesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteItemSubscriptionVariables = {
-  owner?: string | null,
-};
-
-export type OnDeleteItemSubscription = {
-  onDeleteItem?:  {
-    __typename: "Item",
-    BusinessRegNo: string,
-    BusKntct: string,
-    busName: string,
-    itemName: string,
-    itemPrice: string,
-    itemTown: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
-    itemDesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreatePalPalLnSubscriptionVariables = {
-  owner?: string | null,
-};
-
-export type OnCreatePalPalLnSubscription = {
-  onCreatePalPalLn?:  {
-    __typename: "PalPalLn",
-    lnrName: string,
-    LnerCntct: string,
-    lnrEmail: string,
-    lnAmnt: string,
-    lnDesc: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdatePalPalLnSubscriptionVariables = {
-  owner?: string | null,
-};
-
-export type OnUpdatePalPalLnSubscription = {
-  onUpdatePalPalLn?:  {
-    __typename: "PalPalLn",
-    lnrName: string,
-    LnerCntct: string,
-    lnrEmail: string,
-    lnAmnt: string,
-    lnDesc: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeletePalPalLnSubscriptionVariables = {
-  owner?: string | null,
-};
-
-export type OnDeletePalPalLnSubscription = {
-  onDeletePalPalLn?:  {
-    __typename: "PalPalLn",
-    lnrName: string,
-    LnerCntct: string,
-    lnrEmail: string,
-    lnAmnt: string,
-    lnDesc: string,
-    lnPrcntg: number,
-    rpymntPeriod: number,
     owner: string,
     createdAt: string,
     updatedAt: string,

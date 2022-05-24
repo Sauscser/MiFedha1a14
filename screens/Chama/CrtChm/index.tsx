@@ -418,100 +418,107 @@ useEffect(() =>{
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                     placeholder="+2547xxxxxxxx"
+                     placeholder="Enter Chama Phone"
                       value={ChmPhn}
                       onChangeText={setChmPhn}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Phone Number</Text>
+                    
                   </View>
 
                   <View style={styles.sendLoanView}>
                     <TextInput
-                     
+                     placeholder="Signitory Chama Number"
                       value={MmbaID}
                       onChangeText={setMmbaID}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Signitory Chama Number</Text>
+                    
                   </View>
                   
                   <View style={styles.sendLoanView}>
                     <TextInput
-                     
+                     placeholder="Chama Registration Number"
                       value={ChmRegNo}
                       onChangeText={setChmRegNo}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Registration Number</Text>
+                    
                   </View>
 
                   
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder="Enter Chama Name"
                       value={ChmNm}
                       onChangeText={setChmNm}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Name</Text>
+                    
                   </View>
 
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder="Enter Chama Email"
                       value={awsEmail}
                       onChangeText={setAWSEmail}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama email</Text>
+                    
                   </View>
 
                   
         
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder="Enter Chama PassWord"
                       value={pword}
                       onChangeText={setPW}
                       secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Pass Word</Text>
+                   
                   </View>
 
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="Email"
+                    placeholder="Enter Signatory 2 Email"
                       value={Sign2Phn}
                       onChangeText={setSign2Phn}
                       style={styles.sendAmtInputDesc}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Signitory 2 Email</Text>
+                    
                   </View>
 
-                  <View style={styles.sendAmtViewDesc}>
+                  <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder="Chama Region"
                       value={oprtnAreas}
                       onChangeText={setoprtnAreas}
                       style={styles.sendAmtInputDesc}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Region of Operation</Text>
+                    
                   </View>
 
-                  <View style={styles.sendAmtViewDesc}>
+                  <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder="Enter Chama Venture"
                       value={ventures}
                       onChangeText={setventures}
                       style={styles.sendAmtInputDesc}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Venture</Text>
+                    
                   </View>
 
-                  <View style={styles.sendAmtViewDesc}>
+                  <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder="Enter Chama Description"
+                    multiline={true}
                       value={ChmDesc}
                       onChangeText={setChmDesc}
                       style={styles.sendAmtInputDesc}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Description</Text>
+                    
                   </View>
 
                   

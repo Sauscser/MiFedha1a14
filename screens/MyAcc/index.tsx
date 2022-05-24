@@ -10,6 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import styles from './styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const MyAccount = props => {
   const navigation = useNavigation();
@@ -42,8 +43,8 @@ const MyAccount = props => {
     navigation.navigate('ElimAcs');
   };
 
-  const VwNonLnsRecss = () => {
-    navigation.navigate('ElimNonLnsRecs');
+  const LoanAds = () => {
+    navigation.navigate('LoanAds');
   };
 
   const VwNonLnsSntss = () => {
@@ -52,6 +53,10 @@ const MyAccount = props => {
 
   const UpdateAccCodesss = () => {
     navigation.navigate('UpdateAccCodess');
+  };
+
+  const VwPlLn2Remove = () => {
+    navigation.navigate('VwPlLn2Remove');
   };
 
   return (
@@ -118,6 +123,20 @@ const MyAccount = props => {
             </View>
             </View>
 
+
+            <View style={styles.acPressables}>
+            <View >
+            <Text style={styles.acPressableText}>Loan Adverts</Text>
+            </View>
+            <View style = {{flexDirection:"row"}}>
+            <Pressable onPress={LoanAds} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>Make</Text>
+            </Pressable>
+            <Pressable onPress={VwPlLn2Remove} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>Delete</Text>
+            </Pressable>
+            </View>
+            </View>
            
           </View>
         </View>

@@ -23,6 +23,10 @@ import TabTwoScreen from '../../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
 import LinkingConfiguration from '../LinkingConfiguration';
 
+import LoanChmz from "../../screens/Ads/Search/LoanChm";
+import SrchItemAdz from "../../screens/Ads/Search/SrchItemAd";
+import SrchLoanAdz from "../../screens/Ads/Search/SrchLoanAd";
+
 
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
@@ -70,7 +74,7 @@ const HomeTabNavigator = props => {
 
 <BottomTab.Screen
         name='PalLoan'
-        component={LoanScreen}
+        component={SrchLoanAdz}
         options={{
           tabBarIcon: ({color: string}) => (
             <FontAwesome name="search" size={25} color={'skyblue'} />
@@ -80,7 +84,7 @@ const HomeTabNavigator = props => {
 
 <BottomTab.Screen
         name='CredSale'
-        component={CredtSales}
+        component={SrchItemAdz}
         options={{
           tabBarIcon: ({color: string}) => (
             <FontAwesome name="search" size={25} color={'skyblue'} />
@@ -90,7 +94,7 @@ const HomeTabNavigator = props => {
 
 <BottomTab.Screen
         name='Chama'
-        component={ChamaScreen}
+        component={LoanChmz}
         options={{
           tabBarIcon: ({color: string}) => (
             <FontAwesome name="search" size={25} color={'skyblue'} />
@@ -98,15 +102,7 @@ const HomeTabNavigator = props => {
         }}
       />
 
-<BottomTab.Screen
-        name='Advocate'
-        component={EntrAdvLoc}
-        options={{
-          tabBarIcon: ({color: string}) => (
-            <FontAwesome name="search" size={25} color={'skyblue'} />
-          ),
-        }}
-      />
+
     </BottomTab.Navigator>
   );
 }

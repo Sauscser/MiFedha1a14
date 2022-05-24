@@ -271,6 +271,7 @@ useEffect(() =>{
                   <View style={styles.sendAmtViewDesc}>
                     <TextInput
                       value={ChmDesc}
+                      multiline={true}
                       onChangeText={setChmDesc}
                       style={styles.sendAmtInputDesc}
                       editable={true}></TextInput>

@@ -23,6 +23,10 @@ const MyLoanAccount = props => {
     const CovCredSlss = () => {
       navigation.navigate('Vw2CredSellCovs');
     };
+
+    const ItemAds = () => {
+      navigation.navigate('ItemAds');
+    };
   
     const NonCovCredSlsss = () => {
       navigation.navigate('Vw2CredSellNonCovs');
@@ -75,6 +79,10 @@ const MyLoanAccount = props => {
 
     const RmvPersonnelsss = () => {
       navigation.navigate('RmvPersonnelss');
+    };
+
+    const SgnIn2RemoveSlAd = () => {
+      navigation.navigate('SgnIn2RemoveSlAd');
     };
   
 
@@ -192,6 +200,26 @@ const MyLoanAccount = props => {
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         NonCov
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Adverts</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={ItemAds}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Make</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={SgnIn2RemoveSlAd}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Delete
                       </Text>
                     </Pressable>
                   </View>

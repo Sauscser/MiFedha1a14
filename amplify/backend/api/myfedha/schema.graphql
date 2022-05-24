@@ -1,3 +1,5 @@
+
+
 type SMAccount
   @model
   @auth(
@@ -223,6 +225,8 @@ type SMLoansCovered
   createdAt: String!
 }
 
+
+
 type SMLoansNonCovered
   @model
   @auth(
@@ -348,7 +352,78 @@ type NonLoans
   createdAt: String!
 }
 
+type SokoAd
+  @model
+  @auth(
+    rules: [
+      
+      { allow: owner, operations: [read, update, delete] }
+      { allow: private, operations: [read, create] }
+      
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      ]
+  )
 
+  
+   {
+  
+  id:ID!
+  sokoregno: String! 
+  sokokntct: String! 
+  sokoname: String!
+ 
+  sokoprice: Float!
+  sokotown: String!
+  sokolnprcntg: Float!
+  sokolpymntperiod: Float!
+  sokodesc: String! @index(name: "DakaDesc", sortKeyFields: ["createdAt"], queryField: "DakaByDesc")
+  
+  owner: String!
+  
+  createdAt: String!
+}
+
+
+type RafikiLnAd
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read, update, delete] }
+      { allow: private, operations: [read, create] }
+      
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      ]
+  )
+
+  
+   {
+  id: ID!
+  rafikiName: String! 
+  rafikicntct: String! 
+  rafikiEmail: String! 
+  
+  rafikiamnt: Float! 
+ 
+  rafikidesc: String! @index(name: "ShikaDesc", sortKeyFields: ["createdAt"], queryField: "PataByDesc")
+  rafikiprcntg: Float! 
+  rafikirpymntperiod: Float!
+  
+  owner: String!
+  
+  createdAt: String!
+}
 
 type Agent
   @model
@@ -1795,110 +1870,10 @@ type GrpMembersContribution
   createdAt: String!
 }
 
-type Item
-  @model
-  @auth(
-    rules: [
-      {
-        allow: groups
-        groups: ["AdminOne"]
-        operations: [read, create, update, delete]
-      }
-      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
-      { allow: owner, operations: [read, update, delete] }
-      { allow: private, operations: [read, update, create, delete] }
-      {
-        allow: groups
-        groups: ["RegionalAdmin"]
-        operations: [read, delete, update]
-      }
-      {
-        allow: groups
-        groups: ["RegionalAdminTwo"]
-        operations: [read, update]
-      }
-      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
-      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
-      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
-      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
-      
-      {
-        allow: groups
-        groups: ["Executive"]
-        operations: [read, create, update, delete]
-      }
-      ]
-  )
-
-  
-   {
-  BusinessRegNo: String! @index(name: "byCrtnTymmmmmss", sortKeyFields: ["createdAt"], queryField: "BiznaVwwss")
-  BusKntct: String! @primaryKey
-  busName: String!
-  itemName: String!
-  itemPrice:String!
-  itemTown: String!
-  lnPrcntg: Float!
-  rpymntPeriod: Float!
-  itemDesc:String!
-  
-  owner: String!
-  
-  createdAt: String!
-}
 
 
-type PalPalLn
-  @model
-  @auth(
-    rules: [
-      {
-        allow: groups
-        groups: ["AdminOne"]
-        operations: [read, create, update, delete]
-      }
-      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
-      { allow: owner, operations: [read, update, delete] }
-      { allow: private, operations: [read, update, create, delete] }
-      {
-        allow: groups
-        groups: ["RegionalAdmin"]
-        operations: [read, delete, update]
-      }
-      {
-        allow: groups
-        groups: ["RegionalAdminTwo"]
-        operations: [read, update]
-      }
-      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
-      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
-      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
-      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
-      
-      {
-        allow: groups
-        groups: ["Executive"]
-        operations: [read, create, update, delete]
-      }
-      ]
-  )
 
-  
-   {
-  lnrName: String! @index(name: "byCrtnTymmmmmsss", sortKeyFields: ["createdAt"], queryField: "BiznaVwwsss")
-  LnerCntct: String! 
-  lnrEmail: String! @primaryKey
-  
-  lnAmnt:String! @index(name: "bylnAmt", sortKeyFields: ["createdAt"], queryField: "VialnAmt")
- 
-  lnDesc:String!
-  lnPrcntg: Float! @index(name: "bylnPrcntg", sortKeyFields: ["createdAt"], queryField: "VialnPcntg")
-  rpymntPeriod: Float!
-  
-  owner: String!
-  
-  createdAt: String!
-}
+
 
 
 enum Status {
@@ -1921,4 +1896,4 @@ enum Status {
   CredSlrLonRepayment
   
   TransactionRev
-} 
+}

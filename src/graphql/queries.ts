@@ -380,6 +380,90 @@ export const listNonLoans = /* GraphQL */ `
     }
   }
 `;
+export const getSokoAd = /* GraphQL */ `
+  query GetSokoAd($id: ID!) {
+    getSokoAd(id: $id) {
+      id
+      sokoregno
+      sokokntct
+      sokoname
+      sokoprice
+      sokotown
+      sokolnprcntg
+      sokolpymntperiod
+      sokodesc
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listSokoAds = /* GraphQL */ `
+  query ListSokoAds(
+    $filter: ModelSokoAdFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSokoAds(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        sokoregno
+        sokokntct
+        sokoname
+        sokoprice
+        sokotown
+        sokolnprcntg
+        sokolpymntperiod
+        sokodesc
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getRafikiLnAd = /* GraphQL */ `
+  query GetRafikiLnAd($id: ID!) {
+    getRafikiLnAd(id: $id) {
+      id
+      rafikiName
+      rafikicntct
+      rafikiEmail
+      rafikiamnt
+      rafikidesc
+      rafikiprcntg
+      rafikirpymntperiod
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listRafikiLnAds = /* GraphQL */ `
+  query ListRafikiLnAds(
+    $filter: ModelRafikiLnAdFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listRafikiLnAds(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        rafikiName
+        rafikicntct
+        rafikiEmail
+        rafikiamnt
+        rafikidesc
+        rafikiprcntg
+        rafikirpymntperiod
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getAgent = /* GraphQL */ `
   query GetAgent($phonecontact: String!) {
     getAgent(phonecontact: $phonecontact) {
@@ -1904,104 +1988,6 @@ export const listGrpMembersContributions = /* GraphQL */ `
     }
   }
 `;
-export const getItem = /* GraphQL */ `
-  query GetItem($BusKntct: String!) {
-    getItem(BusKntct: $BusKntct) {
-      BusinessRegNo
-      BusKntct
-      busName
-      itemName
-      itemPrice
-      itemTown
-      lnPrcntg
-      rpymntPeriod
-      itemDesc
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listItems = /* GraphQL */ `
-  query ListItems(
-    $BusKntct: String
-    $filter: ModelItemFilterInput
-    $limit: Int
-    $nextToken: String
-    $sortDirection: ModelSortDirection
-  ) {
-    listItems(
-      BusKntct: $BusKntct
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
-      items {
-        BusinessRegNo
-        BusKntct
-        busName
-        itemName
-        itemPrice
-        itemTown
-        lnPrcntg
-        rpymntPeriod
-        itemDesc
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getPalPalLn = /* GraphQL */ `
-  query GetPalPalLn($lnrEmail: String!) {
-    getPalPalLn(lnrEmail: $lnrEmail) {
-      lnrName
-      LnerCntct
-      lnrEmail
-      lnAmnt
-      lnDesc
-      lnPrcntg
-      rpymntPeriod
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listPalPalLns = /* GraphQL */ `
-  query ListPalPalLns(
-    $lnrEmail: String
-    $filter: ModelPalPalLnFilterInput
-    $limit: Int
-    $nextToken: String
-    $sortDirection: ModelSortDirection
-  ) {
-    listPalPalLns(
-      lnrEmail: $lnrEmail
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
-      items {
-        lnrName
-        LnerCntct
-        lnrEmail
-        lnAmnt
-        lnDesc
-        lnPrcntg
-        rpymntPeriod
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
 export const vwMyDebts = /* GraphQL */ `
   query VwMyDebts(
     $loaneePhn: String!
@@ -2424,6 +2410,75 @@ export const vwMyRecMny = /* GraphQL */ `
         amount
         description
         status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const dakaByDesc = /* GraphQL */ `
+  query DakaByDesc(
+    $sokodesc: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSokoAdFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    DakaByDesc(
+      sokodesc: $sokodesc
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        sokoregno
+        sokokntct
+        sokoname
+        sokoprice
+        sokotown
+        sokolnprcntg
+        sokolpymntperiod
+        sokodesc
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const pataByDesc = /* GraphQL */ `
+  query PataByDesc(
+    $rafikidesc: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelRafikiLnAdFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    PataByDesc(
+      rafikidesc: $rafikidesc
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        rafikiName
+        rafikicntct
+        rafikiEmail
+        rafikiamnt
+        rafikidesc
+        rafikiprcntg
+        rafikirpymntperiod
         owner
         createdAt
         updatedAt
@@ -4115,140 +4170,6 @@ export const vwChamaMembersssss = /* GraphQL */ `
         contriAmount
         memberId
         status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const biznaVwwss = /* GraphQL */ `
-  query BiznaVwwss(
-    $BusinessRegNo: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelItemFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    BiznaVwwss(
-      BusinessRegNo: $BusinessRegNo
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        BusinessRegNo
-        BusKntct
-        busName
-        itemName
-        itemPrice
-        itemTown
-        lnPrcntg
-        rpymntPeriod
-        itemDesc
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const biznaVwwsss = /* GraphQL */ `
-  query BiznaVwwsss(
-    $lnrName: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelPalPalLnFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    BiznaVwwsss(
-      lnrName: $lnrName
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        lnrName
-        LnerCntct
-        lnrEmail
-        lnAmnt
-        lnDesc
-        lnPrcntg
-        rpymntPeriod
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vialnAmt = /* GraphQL */ `
-  query VialnAmt(
-    $lnAmnt: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelPalPalLnFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VialnAmt(
-      lnAmnt: $lnAmnt
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        lnrName
-        LnerCntct
-        lnrEmail
-        lnAmnt
-        lnDesc
-        lnPrcntg
-        rpymntPeriod
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vialnPcntg = /* GraphQL */ `
-  query VialnPcntg(
-    $lnPrcntg: Float!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelPalPalLnFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VialnPcntg(
-      lnPrcntg: $lnPrcntg
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        lnrName
-        LnerCntct
-        lnrEmail
-        lnAmnt
-        lnDesc
-        lnPrcntg
-        rpymntPeriod
         owner
         createdAt
         updatedAt

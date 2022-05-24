@@ -279,6 +279,19 @@ import LnsScreen from "../../screens/Loans";
 import CredSlsScreen from "../../screens/CredSls";
 import ChamaScreen from "../../screens/Chama";
 
+import DetailedChmPrfl from "../../screens/Ads/VwDtldInfo/DtldChmInfo";
+import DtldPalLnInfo from "../../screens/Ads/VwDtldInfo/DtldPalLnInfo";
+import DtldSalesInfo from "../../screens/Ads/VwDtldInfo/DtldSalesInfo";
+import LoanAd from "../../screens/Ads/LoanAd";
+import ItemAd from "../../screens/Ads/ItemAd";
+import LoanChm from "../../screens/Ads/Search/LoanChm";
+import SrchItemAd from "../../screens/Ads/Search/SrchItemAd";
+import SrchLoanAd from "../../screens/Ads/Search/SrchLoanAd";
+
+import SgnIn2RemoveSlAd from "../../screens/Ads/RemoveAd/SalesLn/SgnIn2RemoveSlAd";
+import VwSlsAds2Remove from "../../screens/Ads/RemoveAd/SalesLn/VwSlsAds2Remove";
+import VwPlLn2Remove from "../../screens/Ads/RemoveAd/PalLn/VwPlLn2Remove";
+
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
   return (
@@ -288,6 +301,20 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'VwPlLn2Remove'} component={VwPlLn2Remove} />
+      <Stack.Screen name={'SgnIn2RemoveSlAd'} component={SgnIn2RemoveSlAd} />
+      <Stack.Screen name={'VwSlsAds2Remove'} component={VwSlsAds2Remove} />
+
+      <Stack.Screen name={'DetailedChmPrfl'} component={DetailedChmPrfl} />
+      <Stack.Screen name={'DtldPalLnInfo'} component={DtldPalLnInfo} />
+      <Stack.Screen name={'DtldSalesInfo'} component={DtldSalesInfo} />
+      <Stack.Screen name={'LoanAds'} component={LoanAd} />
+      <Stack.Screen name={'ItemAds'} component={ItemAd} />
+      
+      <Stack.Screen name={'LoanChms'} component={LoanChm} />
+      <Stack.Screen name={'SrchItemAds'} component={SrchItemAd} />
+      <Stack.Screen name={'SrchLoanAds'} component={SrchLoanAd} />
+      
       <Stack.Screen name={'LnsScreen'} component={LnsScreen} />
       <Stack.Screen name={'CredSlsScreen'} component={CredSlsScreen} />
       <Stack.Screen name={'ChamaScreen'} component={ChamaScreen} />

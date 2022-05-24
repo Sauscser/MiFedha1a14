@@ -545,6 +545,129 @@ export const deleteNonLoans = /* GraphQL */ `
     }
   }
 `;
+export const createSokoAd = /* GraphQL */ `
+  mutation CreateSokoAd(
+    $input: CreateSokoAdInput!
+    $condition: ModelSokoAdConditionInput
+  ) {
+    createSokoAd(input: $input, condition: $condition) {
+      id
+      sokoregno
+      sokokntct
+      sokoname
+      sokoprice
+      sokotown
+      sokolnprcntg
+      sokolpymntperiod
+      sokodesc
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateSokoAd = /* GraphQL */ `
+  mutation UpdateSokoAd(
+    $input: UpdateSokoAdInput!
+    $condition: ModelSokoAdConditionInput
+  ) {
+    updateSokoAd(input: $input, condition: $condition) {
+      id
+      sokoregno
+      sokokntct
+      sokoname
+      sokoprice
+      sokotown
+      sokolnprcntg
+      sokolpymntperiod
+      sokodesc
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteSokoAd = /* GraphQL */ `
+  mutation DeleteSokoAd(
+    $input: DeleteSokoAdInput!
+    $condition: ModelSokoAdConditionInput
+  ) {
+    deleteSokoAd(input: $input, condition: $condition) {
+      id
+      sokoregno
+      sokokntct
+      sokoname
+      sokoprice
+      sokotown
+      sokolnprcntg
+      sokolpymntperiod
+      sokodesc
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createRafikiLnAd = /* GraphQL */ `
+  mutation CreateRafikiLnAd(
+    $input: CreateRafikiLnAdInput!
+    $condition: ModelRafikiLnAdConditionInput
+  ) {
+    createRafikiLnAd(input: $input, condition: $condition) {
+      id
+      rafikiName
+      rafikicntct
+      rafikiEmail
+      rafikiamnt
+      rafikidesc
+      rafikiprcntg
+      rafikirpymntperiod
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateRafikiLnAd = /* GraphQL */ `
+  mutation UpdateRafikiLnAd(
+    $input: UpdateRafikiLnAdInput!
+    $condition: ModelRafikiLnAdConditionInput
+  ) {
+    updateRafikiLnAd(input: $input, condition: $condition) {
+      id
+      rafikiName
+      rafikicntct
+      rafikiEmail
+      rafikiamnt
+      rafikidesc
+      rafikiprcntg
+      rafikirpymntperiod
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteRafikiLnAd = /* GraphQL */ `
+  mutation DeleteRafikiLnAd(
+    $input: DeleteRafikiLnAdInput!
+    $condition: ModelRafikiLnAdConditionInput
+  ) {
+    deleteRafikiLnAd(input: $input, condition: $condition) {
+      id
+      rafikiName
+      rafikicntct
+      rafikiEmail
+      rafikiamnt
+      rafikidesc
+      rafikiprcntg
+      rafikirpymntperiod
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createAgent = /* GraphQL */ `
   mutation CreateAgent(
     $input: CreateAgentInput!
@@ -2615,126 +2738,6 @@ export const deleteGrpMembersContribution = /* GraphQL */ `
       contriAmount
       memberId
       status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createItem = /* GraphQL */ `
-  mutation CreateItem(
-    $input: CreateItemInput!
-    $condition: ModelItemConditionInput
-  ) {
-    createItem(input: $input, condition: $condition) {
-      BusinessRegNo
-      BusKntct
-      busName
-      itemName
-      itemPrice
-      itemTown
-      lnPrcntg
-      rpymntPeriod
-      itemDesc
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateItem = /* GraphQL */ `
-  mutation UpdateItem(
-    $input: UpdateItemInput!
-    $condition: ModelItemConditionInput
-  ) {
-    updateItem(input: $input, condition: $condition) {
-      BusinessRegNo
-      BusKntct
-      busName
-      itemName
-      itemPrice
-      itemTown
-      lnPrcntg
-      rpymntPeriod
-      itemDesc
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteItem = /* GraphQL */ `
-  mutation DeleteItem(
-    $input: DeleteItemInput!
-    $condition: ModelItemConditionInput
-  ) {
-    deleteItem(input: $input, condition: $condition) {
-      BusinessRegNo
-      BusKntct
-      busName
-      itemName
-      itemPrice
-      itemTown
-      lnPrcntg
-      rpymntPeriod
-      itemDesc
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createPalPalLn = /* GraphQL */ `
-  mutation CreatePalPalLn(
-    $input: CreatePalPalLnInput!
-    $condition: ModelPalPalLnConditionInput
-  ) {
-    createPalPalLn(input: $input, condition: $condition) {
-      lnrName
-      LnerCntct
-      lnrEmail
-      lnAmnt
-      lnDesc
-      lnPrcntg
-      rpymntPeriod
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updatePalPalLn = /* GraphQL */ `
-  mutation UpdatePalPalLn(
-    $input: UpdatePalPalLnInput!
-    $condition: ModelPalPalLnConditionInput
-  ) {
-    updatePalPalLn(input: $input, condition: $condition) {
-      lnrName
-      LnerCntct
-      lnrEmail
-      lnAmnt
-      lnDesc
-      lnPrcntg
-      rpymntPeriod
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deletePalPalLn = /* GraphQL */ `
-  mutation DeletePalPalLn(
-    $input: DeletePalPalLnInput!
-    $condition: ModelPalPalLnConditionInput
-  ) {
-    deletePalPalLn(input: $input, condition: $condition) {
-      lnrName
-      LnerCntct
-      lnrEmail
-      lnAmnt
-      lnDesc
-      lnPrcntg
-      rpymntPeriod
       owner
       createdAt
       updatedAt
