@@ -153,7 +153,7 @@ declare global {
       MFKVwMFNss:{MFKPhn:string};
 
       UpdateAccCodess:undefined;
-      WelcomePgss:{awsEmail:null};
+      WelcomePgss:undefined;
 
       Aboutss:undefined;
       Alertss:undefined;
@@ -331,7 +331,8 @@ declare global {
       PlaceLnReq:undefined;
       Vw2GrantLnReq:undefined;
       Vw2DelLnReqs:undefined;
-      
+      Vw2GrantLnReq2:undefined;
+    
       
     }
   }

@@ -19,6 +19,14 @@ const MyAccount = props => {
     navigation.navigate('ElimDpstss');
   };
 
+  const ViewNonLnsRecs = () => {
+    navigation.navigate('ViewNonLnsRecs');
+  };
+
+  const ViewNonLnsSents = () => {
+    navigation.navigate('ViewNonLnsSents');
+  };
+
   const Vw2DelLnReqs = () => {
     navigation.navigate('Vw2DelLnReqs');
   };
@@ -83,28 +91,28 @@ const MyAccount = props => {
 
             <View style={styles.acPressables}>
             <View >
-            <Text style={styles.acPressableText}>Update</Text>
+            <Text style={styles.acPressableText}></Text>
             </View>
             <View style = {{flexDirection:"row"}}>
             <Pressable onPress={UpdateSMPWss} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>PWord</Text>
+              <Text style={styles.acPressableText}>UpdtPW</Text>
             </Pressable>
-            <Pressable onPress={UpdateAccCodesss} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>AskLn</Text>
+            <Pressable onPress={goToSMASndnonln} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>Send NonLoan</Text>
             </Pressable>
             </View>
             </View>
 
             <View style={styles.acPressables}>
             <View >
-            <Text style={styles.acPressableText}>AC</Text>
+            <Text style={styles.acPressableText}>ViewNonLoans</Text>
             </View>
             <View style = {{flexDirection:"row"}}>
-            <Pressable onPress={goToCreateSMAc} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>Create</Text>
+            <Pressable onPress={ViewNonLnsSents} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>Sent</Text>
             </Pressable>
-            <Pressable onPress={ViewSmAcss} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>View</Text>
+            <Pressable onPress={ViewNonLnsRecs} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>Rec</Text>
             </Pressable>
             </View>
             </View>
@@ -141,7 +149,7 @@ const MyAccount = props => {
             </Pressable>
 
             <Pressable onPress={Vw2DelLnReqs} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>DelReq</Text>
+              <Text style={styles.acPressableText}>View</Text>
             </Pressable>
             
             </View>

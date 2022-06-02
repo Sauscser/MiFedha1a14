@@ -97,7 +97,7 @@ const CreateBiz = (props) => {
             amount: parseFloat(itemPrys).toFixed(2),
             repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
             repaymentPeriod:rpymntPrd,
-            status: "AccountActive",
+            status: "AwaitingResponse",
             owner: ownr,
                   },
                 })

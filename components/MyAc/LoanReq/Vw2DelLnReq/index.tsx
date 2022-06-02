@@ -12,7 +12,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 export interface SMAccount {
     SMAc: {
       id:string,
-      loaneeEmail:string,
+      status:string,
       loaneePhone:string,
       amount:number,
       repaymentAmt:number,
@@ -23,7 +23,7 @@ export interface SMAccount {
 const SMCvLnStts = (props:SMAccount) => {
    const {
       SMAc: {
-        loaneeEmail,
+        status,
         loaneePhone,
         amount,
         repaymentAmt,
@@ -74,7 +74,7 @@ const SMCvLnStts = (props:SMAccount) => {
                        {/*loaner details */}   
                       Hi! it's {loaneeName}. Kindly Loan me Ksh. {amount}. I 
                       commit to repay a Total of Ksh. {repaymentAmt} within {repaymentPeriod} days. 
-                      You can reach me through {loaneePhone}.       
+                      You can reach me through {loaneePhone}. {status}    
                     </Text>
                     </Pressable>  
                      

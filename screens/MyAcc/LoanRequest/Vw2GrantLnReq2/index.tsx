@@ -2,7 +2,7 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../components/MyAc/LoanReq/Vw2DelLnReq";
+import LnerStts from "../../../../components/MyAc/LoanReq/Vw2GrantLnReq2";
 import styles from './styles';
 import { listReqLoans } from '../../../../src/graphql/queries';
 
@@ -57,8 +57,8 @@ const FetchSMNonCovLns = props => {
                     
                   filter: {
                   
-                    loaneeEmail: { eq: LneePhn},
-                    
+                    loanerEmail: { eq: LneePhn},
+                    status:{eq:"AwaitingResponse"}
                                
                 }
                 }
@@ -103,8 +103,8 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Swipe to View My Loan Requests</Text>
-            <Text style={styles.label2}> (Select to Delete)</Text>
+            <Text style={styles.label}> Swipe to filter</Text>
+            <Text style={styles.label2}> (Select to Loan)</Text>
           </>
         )}
       />

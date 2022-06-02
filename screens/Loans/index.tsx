@@ -39,6 +39,10 @@ const MyLoanAccount = props => {
   const Vw2GrantLnReq = () => {
     navigation.navigate('Vw2GrantLnReq');
   };
+
+  const Vw2GrantLnReq2 = () => {
+    navigation.navigate('Vw2GrantLnReq2');
+  };
   
 
   const SMGivNonCovLon2 = () => {
@@ -350,7 +354,7 @@ const MyLoanAccount = props => {
                     </Pressable>
 
                     <Pressable
-                      onPress={Vw2GrantLnReq}
+                      onPress={Vw2GrantLnReq2}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Non Cov

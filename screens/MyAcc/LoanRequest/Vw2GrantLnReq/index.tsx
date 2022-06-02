@@ -58,7 +58,7 @@ const FetchSMNonCovLns = props => {
                   filter: {
                   
                     loanerEmail: { eq: LneePhn},
-                    status:{eq:"AccountActive"}
+                    status:{eq:"AwaitingResponse"}
                                
                 }
                 }

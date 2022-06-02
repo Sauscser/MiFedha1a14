@@ -19,6 +19,12 @@ import {
   
   getCompany,
   getSMAccount,
+  listCovCreditSellers,
+  listCvrdGroupLoans,
+  listNonCovCreditSellers,
+  listNonCvrdGroupLoans,
+  listSMLoansCovereds,
+  listSMLoansNonCovereds,
   
 } from '../../.././src/graphql/queries';
 
@@ -50,6 +56,11 @@ const SMASendNonLns = props => {
   const [Desc, setDesc] = useState("");
   const [ownr, setownr] = useState(null);
   const[isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation()
+  const SndChmMmbrMny = () => {
+    navigation.navigate("AutomaticRepayAllTyps")
+ }
+  
   
   
 
@@ -64,7 +75,83 @@ const SMASendNonLns = props => {
     }, []);  
 
 
-  const fetchSenderUsrDtls = async () => {
+    const fetchCvLnSM = async () => {
+      setIsLoading(true);
+      try {
+        const Lonees1:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
+          { filter: {
+              and: {
+                status: { eq: "LoanBL"},
+                lonBala: { gt: 0},
+                loaneePhn: { eq: SendrEmail},
+              }
+            }}
+            ));
+
+            const fetchNCLSM = async () => {
+              setIsLoading(true);
+              try {
+                const Lonees2:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
+                  { filter: {
+                      and: {
+                        status: { eq: "LoanBL"},
+                lonBala: { gt: 0},
+                loaneePhn: { eq: SendrEmail},
+                      }
+                    }}
+                    ));
+        
+                    const fetchCLCrdSl = async () => {
+                      setIsLoading(true);
+                      try {
+                        const Lonees3:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
+                          { filter: {
+                              and: {
+                                status: { eq: "LoanBL"},
+                        lonBala: { gt: 0},
+                        buyerContact: { eq: SendrEmail},
+                              }
+                            }}
+                            ));
+
+                            const fetchNCLCrdSl = async () => {
+                              setIsLoading(true);
+                              try {
+                                const Lonees4:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
+                                  { filter: {
+                                      and: {
+                                        status: { eq: "LoanBL"},
+                                lonBala: { gt: 0},
+                                buyerContact: { eq: SendrEmail},
+                                      }
+                                    }}
+                                    ));
+
+                                    const fetchCLChm = async () => {
+                                      setIsLoading(true);
+                                      try {
+                                        const Lonees5:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
+                                          { filter: {
+                                              and: {
+                                                status: { eq: "LoanBL"},
+                                        lonBala: { gt: 0},
+                                        loaneePhn: { eq: SendrEmail},
+                                              }
+                                            }}
+                                            ));
+
+                                            const fetchNCLChm = async () => {
+                                              setIsLoading(true);
+                                              try {
+                                                const Lonees6:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoans, 
+                                                  { filter: {
+                                                      and: {
+                                                        status: { eq: "LoanBL"},
+                                                lonBala: { gt: 0},
+                                                loaneePhn: { eq: SendrEmail},
+                                                      }
+                                                    }}
+                                                    ));const fetchSenderUsrDtls = async () => {
     if(isLoading){
       return;
     }
@@ -268,6 +355,24 @@ const SMASendNonLns = props => {
                     
                     else if(parseFloat(loanLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');}
                     
+                    else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
+                      ||
+                      Lonees2.data.listSMLoansNonCovereds.items.length > 0 
+                      ||
+                      Lonees3.data.listCovCreditSellers.items.length > 0 
+                      ||
+                      Lonees4.data.listNonCovCreditSellers.items.length > 0 
+                      ||
+                      Lonees5.data.listCvrdGroupLoans.items.length > 0 
+                      ||
+                      Lonees6.data.listNonCvrdGroupLoans.items.length > 0 
+                      
+
+                    
+                      ) {
+                        SndChmMmbrMny();
+                    } 
+
                      else {
                       sendSMNonLn();
                     }                                                
@@ -290,11 +395,84 @@ const SMASendNonLns = props => {
       await fetchCompDtls();
     
       
-    } catch (e) {
+    }     
+    catch (e) {
       console.log(e)
-      if (e){Alert.alert("Sender does not exist")
+      if (e){Alert.alert("Check your internet connection")
       return;}
+         
+    }   
+    setIsLoading(false);
+    };
+    
+    await fetchSenderUsrDtls();
+
+  }     
+  catch (e) {
+    console.log(e)
+    if (e){Alert.alert("Check your internet connection")
+    return;}
+       
+  }   
+  setIsLoading(false);
   };
+  
+  await fetchNCLChm();
+    
+    }     
+    catch (e) {
+      console.log(e)
+      if (e){Alert.alert("Check your internet connection")
+      return;}
+         
+    }   
+    setIsLoading(false);
+    };
+    
+    await fetchCLChm();
+    
+    }     
+    catch (e) {
+      console.log(e)
+      if (e){Alert.alert("Check your internet connection")
+      return;}
+         
+    }   
+    setIsLoading(false);
+    };
+    
+    await fetchNCLCrdSl();
+    
+    }     
+    catch (e) {
+      console.log(e)
+      if (e){Alert.alert("Check your internet connection")
+      return;}
+         
+    }   
+    setIsLoading(false);
+    };
+    
+    await fetchCLCrdSl();
+    
+    }     
+    catch (e) {
+      console.log(e)
+      if (e){Alert.alert("Check your internet connection")
+      return;}
+         
+    }   
+    setIsLoading(false);
+    };
+    
+    await fetchNCLSM();
+          
+        } catch (e) {
+          console.log(e)
+          if (e){Alert.alert("Please fill details correctly or check your internet connection")
+          return;}
+      };
+  
       setIsLoading(false);
       setSenderNatId('');
       setAmount("");
@@ -427,7 +605,7 @@ useEffect(() =>{
           </View>
 
           <TouchableOpacity
-            onPress={fetchSenderUsrDtls}
+            onPress={fetchCvLnSM}
             style={styles.sendAmtButton}>
             <Text style={styles.sendAmtButtonText}>Send</Text>
             {isLoading && <ActivityIndicator size = "large" color = "blue"/>}

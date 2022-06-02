@@ -110,6 +110,9 @@ export enum Status {
   SMLonRepayment = "SMLonRepayment",
   ChmLonRepayment = "ChmLonRepayment",
   CredSlrLonRepayment = "CredSlrLonRepayment",
+  AwaitingResponse = "AwaitingResponse",
+  Approved = "Approved",
+  Declined = "Declined",
   TransactionRev = "TransactionRev",
 }
 

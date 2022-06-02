@@ -6,6 +6,8 @@ import {
   
   updateCompany,
   
+  updateReqLoan,
+  
   updateSMAccount,
   
 } from '../../../../../../src/graphql/mutations';
@@ -66,6 +68,7 @@ const SMASendNonCovLns = props => {
  }
   
 const route = useRoute();
+
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
@@ -425,6 +428,30 @@ const route = useRoute();
                         return;}
                           }
                           Alert.alert("U'v Loaned "+ namess +" "+amount+ ": TransactionFee:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) );
+                          setIsLoading(false);
+                          await updtRecAc3();
+                        }
+
+                        const updtRecAc3 = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateReqLoan, {
+                                  input:{
+                                    id:route.params.id,
+                                    status:"Approved"                  
+                                    
+                                  }
+                                })
+                              )                              
+                          }
+                          catch(error){
+                            console.log(error)
+                            
+                          }
                           setIsLoading(false);
                           
                         }

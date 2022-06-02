@@ -23,7 +23,7 @@ const [id,setid] = useState("")
   };
 
   const CreateSMAcs = () => {
-    navigation.navigate('CreateSMAc');
+    navigation.navigate('WelcomePgss');
   };
 
   const ChmNonCovLonss = () => {

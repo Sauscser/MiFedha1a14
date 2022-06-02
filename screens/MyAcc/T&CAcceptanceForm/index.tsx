@@ -2,9 +2,10 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../components/MyAc/LoanReq/Vw2DelLnReq";
+import LnerStts from "../../../components/CompTC";
 import styles from './styles';
 import { listReqLoans } from '../../../../src/graphql/queries';
+import { listCompanies } from '../../../src/graphql/queries';
 
 
 
@@ -52,18 +53,10 @@ const FetchSMNonCovLns = props => {
 
             
 
-              const Lonees:any = await API.graphql(graphqlOperation(listReqLoans, 
-                { 
-                    
-                  filter: {
-                  
-                    loaneeEmail: { eq: LneePhn},
-                    
-                               
-                }
-                }
+              const Lonees:any = await API.graphql(graphqlOperation(listCompanies, 
+               
                   ));
-              setLoanees(Lonees.data.listReqLoans.items);
+              setLoanees(Lonees.data.listCompanies.items);
             } catch (e) {
               console.log(e);
             } finally {
@@ -103,8 +96,8 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Swipe to View My Loan Requests</Text>
-            <Text style={styles.label2}> (Select to Delete)</Text>
+            <Text style={styles.label}> Swipe down to load</Text>
+            <Text style={styles.label2}> (Accept/Decline at the End of the Read)</Text>
           </>
         )}
       />

@@ -14,7 +14,7 @@ export interface SMAccount {
       id:string,
       loaneeEmail:string,
       loaneePhone:string,
-      amount:number,
+      amount:number
       repaymentAmt:number,
       repaymentPeriod:number
       loaneeName:string,
@@ -37,7 +37,7 @@ const SMCvLnStts = (props:SMAccount) => {
    
 
    const SndChmMmbrMny = () => {
-       navigation.navigate("SMGivCovLon", {id})
+       navigation.navigate("SMGivNonCovLon", {id})
 
        
       
@@ -53,7 +53,7 @@ const SMCvLnStts = (props:SMAccount) => {
           graphqlOperation(updateReqLoan, {
             input:{
               id:id,
-              status:"Declined"                  
+              status:"AccountInactive"                  
               
             }
           })

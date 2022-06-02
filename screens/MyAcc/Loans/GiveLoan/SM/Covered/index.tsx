@@ -507,7 +507,7 @@ const SMASendLns = props => {
                                 graphqlOperation(updateReqLoan, {
                                   input:{
                                     id:route.params.id,
-                                    status:"AccountInactive"                  
+                                    status:"Approved"                  
                                     
                                   }
                                 })
