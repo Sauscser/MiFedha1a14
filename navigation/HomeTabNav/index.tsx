@@ -127,7 +127,7 @@ import VwMFKWthdrwls from "../../screens/MFKubwa/VwMFKWthdrwls";
 import MFKVwMFNSgnIns from "../../screens/MFKubwa/MFKVwMFNSgnIn";
 import MFKVwMFNs from "../../screens/MFKubwa/MFKVwMFN";
 import UpdateAccCodes from "../../screens/MyAcc/UpdateAccCode";
-import WelcomePgs from "../../screens/MyAcc/WelcomePg";
+import WelcomePgs from "../../screens/MyAcc/T&CAcceptanceForm";
 
 import Abouts from "../../screens/Settings/About";
 import Alerts from "../../screens/Settings/Alert";
@@ -297,6 +297,8 @@ import VwMakeLnReq from "../../screens/MyAcc/LoanRequest/VwMakeLnReq";
 import PlaceLnReq from "../../screens/MyAcc/LoanRequest/PlaceLnReq";
 import Vw2GrantLnReq from "../../screens/MyAcc/LoanRequest/Vw2GrantLnReq";
 import Vw2DelLnReqs from "../../screens/MyAcc/LoanRequest/Vw2DelLnReqs";
+import Vw2GrantLnReq2 from "../../screens/MyAcc/LoanRequest/Vw2GrantLnReq2";
+
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
@@ -307,6 +309,8 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'Vw2GrantLnReq2'} component={Vw2GrantLnReq2} />
+      
       <Stack.Screen name={'Vw2GrantLnReq'} component={Vw2GrantLnReq} />
       <Stack.Screen name={'Vw2DelLnReqs'} component={Vw2DelLnReqs} />
       <Stack.Screen name={'AutomaticRepayAllTyps'} component={AutomaticRepayAllTyps} />
