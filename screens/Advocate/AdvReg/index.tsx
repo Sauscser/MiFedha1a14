@@ -113,11 +113,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
            await updtActAdm();
         setIsLoading(false);
         };
-        if(phoneContact.length!==13)
-        {Alert.alert("Ensure right format of the phone number");
-      return;
-    }
-    else{CreateNewMFN();}
+        CreateNewMFN();
         
       
       

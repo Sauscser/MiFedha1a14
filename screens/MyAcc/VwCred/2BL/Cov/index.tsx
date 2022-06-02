@@ -1,6 +1,6 @@
 import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
-import { listCovCreditSellers } from '../../../../../src/graphql/queries';
+import { listCovCreditSellers, vwMySales } from '../../../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/VwCredSales/2BLCovLns";
 import styles from './styles';
@@ -28,20 +28,20 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
-                { filter: {
-                    and: {
-                      loanerLoanee: { eq: route.params.ChmNMmbrPhns},
+              const Lonees:any = await API.graphql(graphqlOperation(vwMySales, 
+                { 
+                      sellerContact: { eq: route.params.ChmNMmbrPhns},
                       lonBala:{gt:0},
                       
-                      status:{ne:"LoanBL"}
+                      status:{ne:"LoanBL"},
+
                       
-                    }
-                  },
+                  
+                  sortDirection:"ASC",
                 limit:100
               }
                   ));
-              setLoanees(Lonees.data.listCovCreditSellers.items);
+              setLoanees(Lonees.data.VwMySales.items);
             } catch (e) {
               console.log(e);
             } finally {

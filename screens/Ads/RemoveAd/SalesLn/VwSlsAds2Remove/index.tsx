@@ -2,7 +2,7 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../components/Ads/VwLnItms";
+import LnerStts from "../../../../../components/Ads/VwLnItms2Dlt";
 import styles from './styles';
 
 import { useRoute } from '@react-navigation/native';

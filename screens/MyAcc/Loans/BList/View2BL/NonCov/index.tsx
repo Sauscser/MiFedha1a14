@@ -1,6 +1,6 @@
 import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
-import {  vwLnrNLneessss } from '../../../../../../src/graphql/queries';
+import {  listSMLoansNonCovereds, vwLnrNLneessss } from '../../../../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../../components/MyAc/BL/Vw2BLNonCov";
 import styles from './styles';
@@ -16,7 +16,7 @@ const FetchSMNonCovLns = props => {
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
               
-        setLneePhn(userInfo.attributes.phone_number);
+        setLneePhn(userInfo.attributes.email);
              
       };
       
@@ -28,9 +28,9 @@ const FetchSMNonCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwLnrNLneessss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
                 { 
-                  loanerLoanee: route.params.ChmNMmbrPhnss,
+                  loanerPhn: LnerPhn,
                   sortDirection: 'DESC',
                   limit: 100,                
                   filter: {
@@ -45,7 +45,7 @@ const FetchSMNonCovLns = props => {
                   
                 }
                   ));
-              setLoanees(Lonees.data.VwLnrNLneessss.items);
+              setLoanees(Lonees.data.listSMLoansNonCovereds.items);
             } catch (e) {
               console.log(e);
             } finally {

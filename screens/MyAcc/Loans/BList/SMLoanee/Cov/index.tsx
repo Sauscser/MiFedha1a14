@@ -90,7 +90,7 @@ const BLSMCovLoanee = (props) => {
                 setIsLoading(true);
                 try{
                   const compDtls :any= await API.graphql(
-                    graphqlOperation(getSMAccount,{phonecontact:loanerPhns})
+                    graphqlOperation(getSMAccount,{awsemail:loanerPhns})
                     );
                     const owners = compDtls.data.getSMAccount.owner
                     const acStatuss = compDtls.data.getSMAccount.acStatus
@@ -109,7 +109,7 @@ const BLSMCovLoanee = (props) => {
                       setIsLoading(true);
                       try{
                         const compDtls :any= await API.graphql(
-                          graphqlOperation(getSMAccount,{phonecontact:loaneePhns})
+                          graphqlOperation(getSMAccount,{awsemail:loaneePhns})
                           );
                           const TtlBLLonsTmsLneeCovs = compDtls.data.getSMAccount.TtlBLLonsTmsLneeCov
                           const TtlBLLonsAmtLneeCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLneeCov
@@ -127,7 +127,7 @@ const BLSMCovLoanee = (props) => {
                                 await API.graphql(
                                   graphqlOperation(updateSMAccount,{
                                     input:{
-                                      phonecontact:loanerPhns,
+                                      awsemail:loanerPhns,
                                       TtlBLLonsTmsLnrCov: parseFloat(TtlBLLonsTmsLnrCovs) + 1,
                                       MaxTymsIHvBL: parseFloat(MaxTymsIHvBLs) + 1,
                                       TtlBLLonsAmtLnrCov: (parseFloat(TtlBLLonsAmtLnrCovs) + amountExpectedBackWthClrncss).toFixed(2),
@@ -211,7 +211,7 @@ const BLSMCovLoanee = (props) => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount,{
                                         input:{
-                                          phonecontact:loaneePhns,
+                                          awsemail:loaneePhns,
                                           TtlBLLonsTmsLneeCov: parseFloat(TtlBLLonsTmsLneeCovs) + 1,
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsAmtLneeCov: (parseFloat(TtlBLLonsAmtLneeCovs) + amountExpectedBackWthClrncss).toFixed(2),

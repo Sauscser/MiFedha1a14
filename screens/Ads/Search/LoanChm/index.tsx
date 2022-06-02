@@ -110,7 +110,7 @@ const FetchSMNonCovLns = props => {
                       editable={true}></TextInput>
                     
                     <TextInput
-                    placeholder='Enter type Venture'
+                    placeholder='Enter Venture type'
                       value={lnPrsntg}
                       onChangeText={setlnPrsntg}
                       style={styles.sendLoanInput}

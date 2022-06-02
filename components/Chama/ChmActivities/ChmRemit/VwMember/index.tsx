@@ -75,7 +75,7 @@ const MmbrContriInfo = (props:MmbrContriInfo) => {
                    
                    <ScrollView>
                    
-                   <Text style = {styles.loanerotherdescriptions} >                       
+                   <Text style = {styles.interest} >                       
                       {/* other description*/} 
                       More about Remittance: {description}                 
                    </Text>   

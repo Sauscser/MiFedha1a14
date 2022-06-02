@@ -21,7 +21,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
-import { getBizna } from '../../../../../src/graphql/queries';
+import { getBizna, listPersonels } from '../../../../../src/graphql/queries';
 
 
   
@@ -45,6 +45,7 @@ const ChmSignIn = (props) => {
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
   const[ownr, setownr] = useState(null);
+  const [UsrEmail, setUsrEmail] = useState(null);
 
 
 
@@ -59,15 +60,25 @@ const ChmSignIn = (props) => {
       
       setName(userInfo.username);
       setownr(userInfo.attributes.sub);     
+      setUsrEmail(userInfo.attributes.email);
           
     };
     useEffect(() => {
       fetchUser();
     }, []);
 
-
-    
-
+    const ChckPersonelExistence = async () => {
+      try {
+        const UsrDtls:any = await API.graphql(
+          graphqlOperation(listPersonels,
+            { filter: {
+                
+              phoneKontact: { eq: UsrEmail},
+              BusinessRegNo:{eq: BiznaContact}
+                            
+              }}
+          )
+        )
     
                 const gtChmDtls = async () =>{
                   if(isLoading){
@@ -83,6 +94,11 @@ const ChmSignIn = (props) => {
                       const signitory2Subs = compDtls.data.getBizna.signitory2Sub; 
 
                       if(signitoryPWs!==pword){Alert.alert("Wrong Business PassWord")}
+                      else if (UsrDtls.data.listPersonels.items.length < 1) {
+                        Alert.alert("You do not work here");
+                        return;
+                        
+                      }
                       
                       else{FetchGrpLonsSts();}
                     }
@@ -96,6 +112,18 @@ const ChmSignIn = (props) => {
                 return;
             }
             }
+
+          }
+        await gtChmDtls();
+      }
+
+          catch(e){
+          console.log(e)
+          if(e){
+          Alert.alert("User does not exist; otherwise check inernet connection")
+          return;
+          }
+          }
             setIsLoading(false)
             setChmPhn('');
             setPW('');
@@ -106,13 +134,7 @@ const ChmSignIn = (props) => {
                         
                         
             };
-              
-               
-
-            
-              
-      
-                  
+             
     
             useEffect(() =>{
               const memberPhns=memberPhn
@@ -215,7 +237,7 @@ useEffect(() =>{
                  
         
                   <TouchableOpacity
-                    onPress={gtChmDtls}
+                    onPress={ChckPersonelExistence}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       View Sales Ads

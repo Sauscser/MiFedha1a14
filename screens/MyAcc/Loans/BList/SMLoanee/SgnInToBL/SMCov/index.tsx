@@ -44,7 +44,7 @@ const ChmSignIn = (props) => {
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
   const[ownr, setownr] = useState(null);
-  const ChmNMmbrPhns = SendrPhn+memberPhn;
+  const ChmNMmbrPhns = SendrEmail+memberPhn;
 
 
   const FetchGrpLonsSts = () => {

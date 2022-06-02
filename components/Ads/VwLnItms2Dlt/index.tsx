@@ -42,10 +42,7 @@ const ViewSMDeposts = (props:SMAccount) => {
 
    const [isLoading, setIsLoading] = useState(false);
    const navigation = useNavigation();
-   const SndChmMmbrMny = () => {
-      navigation.navigate ("DtldSalesInfo", {id})
-   }
-
+   
    const DeleteSlsAd = async()=>{
       if(isLoading){
         return;
@@ -94,18 +91,6 @@ const ViewSMDeposts = (props:SMAccount) => {
                        
                     </Text>
 
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Discount Percentage: {sokolnprcntg.toFixed(2)}
-                       
-                    </Text>
-               
-
-                    <Text style ={styles.amountoffered} numberOfLines={2}>                         
-                       {/* amount*/} 
-                     Chama Description: {sokodesc}
-                     
-                    </Text>
                     
                     </TouchableOpacity>
     );

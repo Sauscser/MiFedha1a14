@@ -1988,6 +1988,49 @@ export const listGrpMembersContributions = /* GraphQL */ `
     }
   }
 `;
+export const getReqLoan = /* GraphQL */ `
+  query GetReqLoan($id: ID!) {
+    getReqLoan(id: $id) {
+      id
+      loaneeEmail
+      loanerEmail
+      loaneePhone
+      loaneeName
+      amount
+      repaymentAmt
+      repaymentPeriod
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listReqLoans = /* GraphQL */ `
+  query ListReqLoans(
+    $filter: ModelReqLoanFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listReqLoans(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        loaneeEmail
+        loanerEmail
+        loaneePhone
+        loaneeName
+        amount
+        repaymentAmt
+        repaymentPeriod
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const vwMyDebts = /* GraphQL */ `
   query VwMyDebts(
     $loaneePhn: String!

@@ -71,7 +71,7 @@ const ChmRemitInfo = (props:ChamaRemitInfo) => {
                     </Text>   
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
-                      Member Phone: {recipientPhn}                  
+                      Member Contact: {recipientPhn}                  
                     </Text> 
                     <Text style = {styles.interest}>                       
                        {/* interest*/}

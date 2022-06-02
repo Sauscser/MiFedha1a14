@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   sendAmtButton: {
     backgroundColor: '#fff',
-    height: "3%",
+    height: "5%",
     borderRadius: 30,
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
@@ -70,9 +70,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginHorizontal: 15,
     width: Dimensions.get('screen').width - 30,
-    height: "60%",
+    height: "99%",
     borderRadius: 10,
-    marginTop: "2%",
+    
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -20,7 +20,17 @@ const styles = StyleSheet.create ({
         fontWeight: '900',
         color: '#88124e',
         
+        
     },
+
+    amountoffered2: {
+        fontSize: 15,
+        fontWeight: '900',
+        color: '#88124e',
+        textDecorationLine: 'line-through'
+        
+    },
+
 
     
 

@@ -109,7 +109,7 @@ const BLChmNonCovLoanee = (props) => {
                       setIsLoading(true);
                       try{
                         const compDtls :any= await API.graphql(
-                          graphqlOperation(getSMAccount,{phonecontact:loaneePhns})
+                          graphqlOperation(getSMAccount,{awsemail:loaneePhns})
                           );
                           const TtlBLLonsTmsLneeChmNonCovs = compDtls.data.getSMAccount.TtlBLLonsTmsLneeChmNonCov
                           const TtlBLLonsAmtLneeChmNonCovs = compDtls.data.getSMAccount.TtlBLLonsAmtLneeChmNonCov
@@ -205,7 +205,7 @@ const BLChmNonCovLoanee = (props) => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount,{
                                         input:{
-                                          phonecontact:loaneePhns,
+                                          awsemail:loaneePhns,
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsLneeChmNonCov: parseFloat(TtlBLLonsTmsLneeChmNonCovs) + 1,
                                           TtlBLLonsAmtLneeChmNonCov: (parseFloat(TtlBLLonsAmtLneeChmNonCovs) + amountExpectedBackWthClrncss).toFixed(2),

@@ -30,8 +30,8 @@ const [id,setid] = useState("")
     navigation.navigate('ChmNonCovLons', {id});
   };
 
-  const NonCovCredSlsss = () => {
-    navigation.navigate('NonCovCredSlss');
+  const VwMakeLnReq = () => {
+    navigation.navigate('PlaceLnReq');
   };
 
   const ViewMySMAcss = () => {
@@ -98,13 +98,24 @@ const [id,setid] = useState("")
 
           </View>
           
+          <View style={styles.viewForPressables4}>
           <TouchableOpacity
-            onPress={UpdateAccCodess}
-            style={styles.chamaLoanAndCreditSalesButton}>
+            onPress={VwMakeLnReq}
+            style={styles.chamaLoanAndCreditSalesButton4}>
             <Text style={styles.ChamaLoanAndCreditSalesText}>
-              Request Loan
+              Request PalLoan
             </Text>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={UpdateAccCodess}
+            style={styles.chamaLoanAndCreditSalesButton4}>
+            <Text style={styles.ChamaLoanAndCreditSalesText}>
+              Request Chama or Sale Loan
+            </Text>
+          </TouchableOpacity>
+          </View>
+          
         </View>
       </View>
     </SafeAreaView>

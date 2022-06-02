@@ -53,11 +53,11 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                     </Text>
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       LoaneePhone: {loaneePhn}                 
+                       Loanee Contact: {loaneePhn}                 
                     </Text>
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Loan Balance (Ksh): {lonBala.toFixed(2)}
+                       Loan Balance (Ksh): {lonBala}
                     </Text>   
 
                     <Text style = {styles.amountoffered}>                       

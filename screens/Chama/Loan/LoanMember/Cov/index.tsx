@@ -193,7 +193,7 @@ const fetchChmMbrDtls = async () => {
                 setIsLoading(true);
                 try {
                     const RecAccountDtl:any = await API.graphql(
-                        graphqlOperation(getSMAccount, {phonecontact: memberContacts}),
+                        graphqlOperation(getSMAccount, {awsemail: memberContacts}),
                         );
                         const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
@@ -320,7 +320,7 @@ const fetchChmMbrDtls = async () => {
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    phonecontact:memberContacts,
+                                    awsemail:memberContacts,
                                     TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
                                     TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ parseFloat(AmtExp)).toFixed(2),
                                     balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(2) ,

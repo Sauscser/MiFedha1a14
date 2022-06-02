@@ -73,7 +73,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                     </Text>   
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
-                      Member Phone: {memberContact}                  
+                      Member Contact: {memberContact}                  
                     </Text>                                       
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 

@@ -66,8 +66,8 @@ declare global {
       RepyChmNonCovLns:{id:string};
 
       
-      SMGivCovLon:undefined;
-      SMGivNonCovLon:undefined;
+      SMGivCovLon:{id:string};
+      SMGivNonCovLon:{id:string};
       
       RemoveChmMbrs:{id:string};
       DissolveChms:undefined;
@@ -319,13 +319,18 @@ declare global {
 
       ItemAds:undefined;
       LoanAds:undefined;
-      DetailedChmPrfl: {grpContact:String};
-      DtldPalLnInfo: {id:String};
-      DtldSalesInfo: {id:String};
+      DetailedChmPrfl: {grpContact:string};
+      DtldPalLnInfo: {id:string};
+      DtldSalesInfo: {id:string};
 
       SgnIn2RemoveSlAd: undefined;
-      VwSlsAds2Remove: {BiznaContact:String};
+      VwSlsAds2Remove: {BiznaContact:string};
       VwPlLn2Remove:undefined;
+      AutomaticRepayAllTyps:undefined;
+      VwMakeLnReq:undefined;
+      PlaceLnReq:undefined;
+      Vw2GrantLnReq:undefined;
+      Vw2DelLnReqs:undefined;
       
       
     }

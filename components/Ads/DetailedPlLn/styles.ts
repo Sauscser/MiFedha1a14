@@ -16,6 +16,7 @@ const styles = StyleSheet.create ({
    
 
     amountoffered: {
+        marginBottom:5,
         fontSize: 15,
         fontWeight: '900',
         color: '#88124e',

@@ -126,7 +126,7 @@ const SMASendNonLns = props => {
             setIsLoading(true);
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {phonecontact: memberContacts}),
+                    graphqlOperation(getSMAccount, {awsemail: memberContacts}),
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
@@ -206,7 +206,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                phonecontact:memberContacts,
+                                awsemail:memberContacts,
                                 
                                 balance:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(2)                              
                                 

@@ -11,7 +11,7 @@ import {
   
 } from '../../../src/graphql/mutations';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {getAgent, getCompany, getSAgent, getSMAccount} from '../../../src/graphql/queries';
+import {getAgent, getCompany, getSAgent, getSMAccount, listCovCreditSellers, listCvrdGroupLoans, listGroupNonLoans, listNonCovCreditSellers, listNonCvrdGroupLoans, listSMLoansCovereds, listSMLoansNonCovereds} from '../../../src/graphql/queries';
 import {
   View,
   Text,
@@ -23,6 +23,8 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
+import Navigation from '../../../navigation';
+import { useNavigation } from '@react-navigation/native';
 
 const SMADepositForm = props => {
   const [WthDrwrPhn, setWthDrwrPhn] = useState(null);
@@ -32,8 +34,12 @@ const SMADepositForm = props => {
   const [amount, setAmount] = useState("");
   const[isLoading, setIsLoading] = useState(false);
   const [ownr, setownr] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigation = useNavigation()
 
-  
+  const SndChmMmbrMny = () => {
+    navigation.navigate("AutomaticRepayAllTyps")
+ }
   
 
   const fetchUser = async () => {
@@ -47,7 +53,88 @@ const SMADepositForm = props => {
     }, []);  
 
 
-  const fetchAcDtls = async () => {
+    const fetchCvLnSM = async () => {
+      setLoading(true);
+      try {
+        const Lonees1:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
+          { filter: {
+              and: {
+                status: { eq: "LoanBL"},
+                lonBala: { gt: 0},
+                loaneePhn: { eq: WthDrwrPhn},
+              }
+            }}
+            ));
+
+            const fetchNCLSM = async () => {
+              setLoading(true);
+              try {
+                const Lonees2:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
+                  { filter: {
+                      and: {
+                        status: { eq: "LoanBL"},
+                lonBala: { gt: 0},
+                loaneePhn: { eq: WthDrwrPhn},
+                      }
+                    }}
+                    ));
+        
+                    const fetchCLCrdSl = async () => {
+                      setLoading(true);
+                      try {
+                        const Lonees3:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
+                          { filter: {
+                              and: {
+                                status: { eq: "LoanBL"},
+                        lonBala: { gt: 0},
+                        buyerContact: { eq: WthDrwrPhn},
+                              }
+                            }}
+                            ));
+
+                            const fetchNCLCrdSl = async () => {
+                              setLoading(true);
+                              try {
+                                const Lonees4:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
+                                  { filter: {
+                                      and: {
+                                        status: { eq: "LoanBL"},
+                                lonBala: { gt: 0},
+                                buyerContact: { eq: WthDrwrPhn},
+                                      }
+                                    }}
+                                    ));
+
+                                    const fetchCLChm = async () => {
+                                      setLoading(true);
+                                      try {
+                                        const Lonees5:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
+                                          { filter: {
+                                              and: {
+                                                status: { eq: "LoanBL"},
+                                        lonBala: { gt: 0},
+                                        loaneePhn: { eq: WthDrwrPhn},
+                                              }
+                                            }}
+                                            ));
+
+                                            const fetchNCLChm = async () => {
+                                              setLoading(true);
+                                              try {
+                                                const Lonees6:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoans, 
+                                                  { filter: {
+                                                      and: {
+                                                        status: { eq: "LoanBL"},
+                                                lonBala: { gt: 0},
+                                                loaneePhn: { eq: WthDrwrPhn},
+                                                      }
+                                                    }}
+                                                    ));
+
+
+        
+        
+        const fetchAcDtls = async () => {
     if(isLoading){
       return;
     }
@@ -310,14 +397,32 @@ const SMADepositForm = props => {
                       Alert.alert('Withdrawal limit exceeded');
                       return;
                     }
-                    if (AgAcAct==="AccountInactive") {
+                    else if (AgAcAct==="AccountInactive") {
                       Alert.alert("MFNdogo Account has been deactivated")
                       return;
                     } 
                     
-                    if (UsrPWd!==pws) {
+                    else if (UsrPWd!==pws) {
                       Alert.alert("User credentials are wrong; access denied")
                       return;
+                    } 
+
+                    else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
+                      ||
+                      Lonees2.data.listSMLoansNonCovereds.items.length > 0 
+                      ||
+                      Lonees3.data.listCovCreditSellers.items.length > 0 
+                      ||
+                      Lonees4.data.listNonCovCreditSellers.items.length > 0 
+                      ||
+                      Lonees5.data.listCvrdGroupLoans.items.length > 0 
+                      ||
+                      Lonees6.data.listNonCvrdGroupLoans.items.length > 0 
+                      
+
+                    
+                      ) {
+                        SndChmMmbrMny();
                     } 
         
                     else{await CrtFltAdd()}   
@@ -354,6 +459,78 @@ const SMADepositForm = props => {
 };
 
     await fetchAgtBal();
+
+  }     
+  catch (e) {
+    console.log(e)
+    if (e){Alert.alert("Check your internet connection")
+    return;}
+       
+  }   
+setIsLoading(false);
+};
+
+  await fetchAcDtls();
+
+}     
+  catch (e) {
+    console.log(e)
+    if (e){Alert.alert("Check your internet connection")
+    return;}
+       
+  }   
+setIsLoading(false);
+};
+
+  await fetchNCLChm();
+
+}     
+  catch (e) {
+    console.log(e)
+    if (e){Alert.alert("Check your internet connection")
+    return;}
+       
+  }   
+setIsLoading(false);
+};
+
+  await fetchCLChm();
+
+}     
+  catch (e) {
+    console.log(e)
+    if (e){Alert.alert("Check your internet connection")
+    return;}
+       
+  }   
+setIsLoading(false);
+};
+
+  await fetchNCLCrdSl();
+
+}     
+  catch (e) {
+    console.log(e)
+    if (e){Alert.alert("Check your internet connection")
+    return;}
+       
+  }   
+setIsLoading(false);
+};
+
+  await fetchCLCrdSl();
+
+}     
+  catch (e) {
+    console.log(e)
+    if (e){Alert.alert("Check your internet connection")
+    return;}
+       
+  }   
+setIsLoading(false);
+};
+
+  await fetchNCLSM();
     }
 
     catch (e) {
@@ -449,7 +626,7 @@ const SMADepositForm = props => {
             <Text style={styles.sendAmtText}>User PW</Text>
           </View>
 
-          <TouchableOpacity onPress={fetchAcDtls} style={styles.sendAmtButton}>
+          <TouchableOpacity onPress={fetchCvLnSM} style={styles.sendAmtButton}>
             <Text style={styles.sendAmtButtonText}>Click to Withdraw</Text>
             {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
           </TouchableOpacity>

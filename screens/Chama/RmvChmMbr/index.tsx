@@ -97,7 +97,7 @@ const DeregChmMmbr = (props) => {
                           setIsLoading(true);
                           try{
                             const UsrDtls :any= await API.graphql(
-                              graphqlOperation(getSMAccount,{phonecontact:memberContacts})
+                              graphqlOperation(getSMAccount,{awsemail:memberContacts})
                               );
                               
                               const ownersss = UsrDtls.data.getSMAccount.owner

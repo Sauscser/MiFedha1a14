@@ -116,7 +116,7 @@ const FetchSMNonCovLns = props => {
 
 <View style={styles.sendLoanView}>
                     <TextInput
-                     placeholder='Enter Minimum Amount'
+                     placeholder='Enter Minimum Amount in Ksh.'
                      keyboardType='decimal-pad'
                       value={itemPrys}
                       onChangeText={setitemPrys}
@@ -132,7 +132,7 @@ const FetchSMNonCovLns = props => {
                       editable={true}></TextInput>
 
 <TextInput
-                    placeholder='Minimum Repayment Period'
+                    placeholder='Minimum Repayment Period in days'
                     keyboardType='decimal-pad'
                       value={rpymntPrd}
                       onChangeText={setrpymntPrd}

@@ -3157,6 +3157,70 @@ export type DeleteGrpMembersContributionInput = {
   id: string,
 };
 
+export type CreateReqLoanInput = {
+  id?: string | null,
+  loaneeEmail: string,
+  loanerEmail: string,
+  loaneePhone: string,
+  loaneeName: string,
+  amount: number,
+  repaymentAmt: number,
+  repaymentPeriod: number,
+  status: Status,
+  owner: string,
+  createdAt?: string | null,
+};
+
+export type ModelReqLoanConditionInput = {
+  loaneeEmail?: ModelStringInput | null,
+  loanerEmail?: ModelStringInput | null,
+  loaneePhone?: ModelStringInput | null,
+  loaneeName?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  repaymentAmt?: ModelFloatInput | null,
+  repaymentPeriod?: ModelFloatInput | null,
+  status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelReqLoanConditionInput | null > | null,
+  or?: Array< ModelReqLoanConditionInput | null > | null,
+  not?: ModelReqLoanConditionInput | null,
+};
+
+export type ReqLoan = {
+  __typename: "ReqLoan",
+  id: string,
+  loaneeEmail: string,
+  loanerEmail: string,
+  loaneePhone: string,
+  loaneeName: string,
+  amount: number,
+  repaymentAmt: number,
+  repaymentPeriod: number,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateReqLoanInput = {
+  id: string,
+  loaneeEmail?: string | null,
+  loanerEmail?: string | null,
+  loaneePhone?: string | null,
+  loaneeName?: string | null,
+  amount?: number | null,
+  repaymentAmt?: number | null,
+  repaymentPeriod?: number | null,
+  status?: Status | null,
+  owner?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteReqLoanInput = {
+  id: string,
+};
+
 export type ModelSMAccountFilterInput = {
   nationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
@@ -4132,6 +4196,29 @@ export type ModelGrpMembersContributionFilterInput = {
 export type ModelGrpMembersContributionConnection = {
   __typename: "ModelGrpMembersContributionConnection",
   items:  Array<GrpMembersContribution | null >,
+  nextToken?: string | null,
+};
+
+export type ModelReqLoanFilterInput = {
+  id?: ModelIDInput | null,
+  loaneeEmail?: ModelStringInput | null,
+  loanerEmail?: ModelStringInput | null,
+  loaneePhone?: ModelStringInput | null,
+  loaneeName?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  repaymentAmt?: ModelFloatInput | null,
+  repaymentPeriod?: ModelFloatInput | null,
+  status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelReqLoanFilterInput | null > | null,
+  or?: Array< ModelReqLoanFilterInput | null > | null,
+  not?: ModelReqLoanFilterInput | null,
+};
+
+export type ModelReqLoanConnection = {
+  __typename: "ModelReqLoanConnection",
+  items:  Array<ReqLoan | null >,
   nextToken?: string | null,
 };
 
@@ -7067,6 +7154,75 @@ export type DeleteGrpMembersContributionMutation = {
   } | null,
 };
 
+export type CreateReqLoanMutationVariables = {
+  input: CreateReqLoanInput,
+  condition?: ModelReqLoanConditionInput | null,
+};
+
+export type CreateReqLoanMutation = {
+  createReqLoan?:  {
+    __typename: "ReqLoan",
+    id: string,
+    loaneeEmail: string,
+    loanerEmail: string,
+    loaneePhone: string,
+    loaneeName: string,
+    amount: number,
+    repaymentAmt: number,
+    repaymentPeriod: number,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateReqLoanMutationVariables = {
+  input: UpdateReqLoanInput,
+  condition?: ModelReqLoanConditionInput | null,
+};
+
+export type UpdateReqLoanMutation = {
+  updateReqLoan?:  {
+    __typename: "ReqLoan",
+    id: string,
+    loaneeEmail: string,
+    loanerEmail: string,
+    loaneePhone: string,
+    loaneeName: string,
+    amount: number,
+    repaymentAmt: number,
+    repaymentPeriod: number,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteReqLoanMutationVariables = {
+  input: DeleteReqLoanInput,
+  condition?: ModelReqLoanConditionInput | null,
+};
+
+export type DeleteReqLoanMutation = {
+  deleteReqLoan?:  {
+    __typename: "ReqLoan",
+    id: string,
+    loaneeEmail: string,
+    loanerEmail: string,
+    loaneePhone: string,
+    loaneeName: string,
+    amount: number,
+    repaymentAmt: number,
+    repaymentPeriod: number,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetSMAccountQueryVariables = {
   awsemail: string,
 };
@@ -9148,6 +9304,56 @@ export type ListGrpMembersContributionsQuery = {
       grpContact: string,
       contriAmount: number,
       memberId: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetReqLoanQueryVariables = {
+  id: string,
+};
+
+export type GetReqLoanQuery = {
+  getReqLoan?:  {
+    __typename: "ReqLoan",
+    id: string,
+    loaneeEmail: string,
+    loanerEmail: string,
+    loaneePhone: string,
+    loaneeName: string,
+    amount: number,
+    repaymentAmt: number,
+    repaymentPeriod: number,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListReqLoansQueryVariables = {
+  filter?: ModelReqLoanFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListReqLoansQuery = {
+  listReqLoans?:  {
+    __typename: "ModelReqLoanConnection",
+    items:  Array< {
+      __typename: "ReqLoan",
+      id: string,
+      loaneeEmail: string,
+      loanerEmail: string,
+      loaneePhone: string,
+      loaneeName: string,
+      amount: number,
+      repaymentAmt: number,
+      repaymentPeriod: number,
       status: Status,
       owner: string,
       createdAt: string,
@@ -13944,6 +14150,72 @@ export type OnDeleteGrpMembersContributionSubscription = {
     grpContact: string,
     contriAmount: number,
     memberId: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateReqLoanSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateReqLoanSubscription = {
+  onCreateReqLoan?:  {
+    __typename: "ReqLoan",
+    id: string,
+    loaneeEmail: string,
+    loanerEmail: string,
+    loaneePhone: string,
+    loaneeName: string,
+    amount: number,
+    repaymentAmt: number,
+    repaymentPeriod: number,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateReqLoanSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateReqLoanSubscription = {
+  onUpdateReqLoan?:  {
+    __typename: "ReqLoan",
+    id: string,
+    loaneeEmail: string,
+    loanerEmail: string,
+    loaneePhone: string,
+    loaneeName: string,
+    amount: number,
+    repaymentAmt: number,
+    repaymentPeriod: number,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteReqLoanSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteReqLoanSubscription = {
+  onDeleteReqLoan?:  {
+    __typename: "ReqLoan",
+    id: string,
+    loaneeEmail: string,
+    loanerEmail: string,
+    loaneePhone: string,
+    loaneeName: string,
+    amount: number,
+    repaymentAmt: number,
+    repaymentPeriod: number,
     status: Status,
     owner: string,
     createdAt: string,

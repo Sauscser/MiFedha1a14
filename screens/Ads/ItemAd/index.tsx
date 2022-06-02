@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {createBizna, createChamaMembers, createGoodsAds, createGroup,   createItem,   createSokoAd,   updateCompany} from '../../../src/graphql/mutations';
-import { getBizna, getCompany, getSMAccount, listChamasRegConfirms, vwViaPhonss,  } from '../../../src/graphql/queries';
+import { getBizna, getCompany, getSMAccount, listChamasRegConfirms, listPersonels, vwViaPhonss,  } from '../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -63,7 +63,20 @@ const CreateBiz = (props) => {
         fetchUser();
       }, []);
 
-      const gtBizna = async () =>{
+      const ChckPersonelExistence = async () => {
+        try {
+          const UsrDtls:any = await API.graphql(
+            graphqlOperation(listPersonels,
+              { filter: {
+                  
+                phoneKontact: { eq: UsrEmail},
+                BusinessRegNo:{eq: ChmPhn}
+                              
+                }}
+            )
+          )
+          
+          const gtBizna = async () =>{
         if(isLoading){
           return;
         }
@@ -106,7 +119,11 @@ const CreateBiz = (props) => {
           {Alert.alert("Wrong Business password");
         
       } 
-      
+      else if (UsrDtls.data.listPersonels.items.length < 1) {
+        Alert.alert("You do not work here");
+        return;
+        
+      }
       
       else {
         Alert.alert("Advert successfully Published")
@@ -132,6 +149,19 @@ const CreateBiz = (props) => {
           if(e){Alert.alert("Please first sign up")}
           console.error(e);
         }
+
+          }
+        
+        await gtBizna();
+      }
+
+      catch(e){
+      console.log(e)
+      if(e){
+      Alert.alert("User does not exist; otherwise check inernet connection")
+      return;
+      }
+      }
         setIsLoading(false);
             setChmPhn('');
             setPW('');
@@ -146,6 +176,7 @@ const CreateBiz = (props) => {
             setitemTwn("");
             setitemPrys("");
       }
+    
           
     
           useEffect(() =>{
@@ -306,7 +337,7 @@ useEffect(() =>{
                   
                   <View style={styles.sendLoanView}>
                     <TextInput
-                     
+                     keyboardType='decimal-pad'
                       value={itemPrys}
                       onChangeText={setitemPrys}
                       style={styles.sendLoanInput}
@@ -317,12 +348,13 @@ useEffect(() =>{
                   
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    keyboardType='decimal-pad'
                     placeholder='Ex for 10% discount enter 10'
                       value={lnPrsntg}
                       onChangeText={setlnPrsntg}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Discount Price</Text>
+                    <Text style={styles.sendLoanText}>Discount Percentage</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>
@@ -336,6 +368,7 @@ useEffect(() =>{
 
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    keyboardType='decimal-pad'
                     placeholder='Enter number of Days'
                       value={rpymntPrd}
                       onChangeText={setrpymntPrd}
@@ -370,7 +403,7 @@ useEffect(() =>{
 
 
                   <TouchableOpacity
-                    onPress={gtBizna}
+                    onPress={ChckPersonelExistence}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Advertise

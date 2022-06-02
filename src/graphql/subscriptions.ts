@@ -2474,3 +2474,57 @@ export const onDeleteGrpMembersContribution = /* GraphQL */ `
     }
   }
 `;
+export const onCreateReqLoan = /* GraphQL */ `
+  subscription OnCreateReqLoan($owner: String) {
+    onCreateReqLoan(owner: $owner) {
+      id
+      loaneeEmail
+      loanerEmail
+      loaneePhone
+      loaneeName
+      amount
+      repaymentAmt
+      repaymentPeriod
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateReqLoan = /* GraphQL */ `
+  subscription OnUpdateReqLoan($owner: String) {
+    onUpdateReqLoan(owner: $owner) {
+      id
+      loaneeEmail
+      loanerEmail
+      loaneePhone
+      loaneeName
+      amount
+      repaymentAmt
+      repaymentPeriod
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteReqLoan = /* GraphQL */ `
+  subscription OnDeleteReqLoan($owner: String) {
+    onDeleteReqLoan(owner: $owner) {
+      id
+      loaneeEmail
+      loanerEmail
+      loaneePhone
+      loaneeName
+      amount
+      repaymentAmt
+      repaymentPeriod
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;

@@ -45,23 +45,25 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                     </Text>
             </View>
            
-            <Text style = {styles.ownerName}>                       
+                   <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
                        Loan Id: {id}                 
                     </Text>
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       LoaneePhone: {loaneePhn}                 
+                       Loanee Contact: {loaneePhn}                 
                     </Text>
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
-                      Loan Balance (Ksh): {lonBala.toFixed(2)}                
+                      Loan Balance (Ksh): {lonBala}                
                     </Text>   
 
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
                      Time given: {createdAt}                
-                    </Text>                     
+                    </Text>                    
+                    
+                     
           
         </Pressable>
     );

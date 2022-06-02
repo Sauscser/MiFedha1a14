@@ -51,7 +51,7 @@ const MFNSignIn = (props) => {
     
     
     setownr(userInfo.attributes.sub);
-    setPhoneContact(userInfo.attributes.phone_number);
+    setPhoneContact(userInfo.attributes.email);
      
   };
 
@@ -82,7 +82,7 @@ const MFNSignIn = (props) => {
           setIsLoading(true);
           try{
             const compDtls :any= await API.graphql(
-              graphqlOperation(getSMAccount,{phonecontact:PhoneContact})
+              graphqlOperation(getSMAccount,{awsemail:PhoneContact})
               );
               const signitoryPWs = compDtls.data.getSMAccount.pw;  
               const owners = compDtls.data.getSMAccount.owner; 

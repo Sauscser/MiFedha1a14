@@ -2744,3 +2744,66 @@ export const deleteGrpMembersContribution = /* GraphQL */ `
     }
   }
 `;
+export const createReqLoan = /* GraphQL */ `
+  mutation CreateReqLoan(
+    $input: CreateReqLoanInput!
+    $condition: ModelReqLoanConditionInput
+  ) {
+    createReqLoan(input: $input, condition: $condition) {
+      id
+      loaneeEmail
+      loanerEmail
+      loaneePhone
+      loaneeName
+      amount
+      repaymentAmt
+      repaymentPeriod
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateReqLoan = /* GraphQL */ `
+  mutation UpdateReqLoan(
+    $input: UpdateReqLoanInput!
+    $condition: ModelReqLoanConditionInput
+  ) {
+    updateReqLoan(input: $input, condition: $condition) {
+      id
+      loaneeEmail
+      loanerEmail
+      loaneePhone
+      loaneeName
+      amount
+      repaymentAmt
+      repaymentPeriod
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteReqLoan = /* GraphQL */ `
+  mutation DeleteReqLoan(
+    $input: DeleteReqLoanInput!
+    $condition: ModelReqLoanConditionInput
+  ) {
+    deleteReqLoan(input: $input, condition: $condition) {
+      id
+      loaneeEmail
+      loanerEmail
+      loaneePhone
+      loaneeName
+      amount
+      repaymentAmt
+      repaymentPeriod
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;

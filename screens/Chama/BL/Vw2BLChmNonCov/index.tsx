@@ -30,9 +30,9 @@ const FetchSMNonCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwLnrNLnees, 
+              const Lonees:any = await API.graphql(graphqlOperation(vwChamaMembersss, 
                {
-                      loanerLoanee: route.params.ChmNMmbrPhns,
+                grpContact: route.params.ChmNMmbrPhns,
                       sortDirection: 'DESC',
                       limit: 100,
                       filter: {
@@ -46,7 +46,7 @@ const FetchSMNonCovLns = props => {
                     }
                   
                   ));
-              setLoanees(Lonees.data.VwLnrNLnees.items);
+              setLoanees(Lonees.data.vwChamaMembersss.items);
               
             } catch (e) {
               console.log(e);

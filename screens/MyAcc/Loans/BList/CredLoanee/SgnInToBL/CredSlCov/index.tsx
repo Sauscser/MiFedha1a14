@@ -45,7 +45,7 @@ const ChmSignIn = (props) => {
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
   const[ownr, setownr] = useState(null);
-  const ChmNMmbrPhns = ChmDesc+memberPhn
+  const ChmNMmbrPhns = ChmDesc
 
 
   const FetchGrpLonsSts = () => {
@@ -239,16 +239,7 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Business Phone</Text>
                   </View>
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    placeholder="Buyer Email"
-                      value={memberPhn}
-                      onChangeText={setmemberPhn}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Buyer Email</Text>
-                  </View>
-
+                  
                   <View style={styles.sendLoanView}>
                     <TextInput
                     

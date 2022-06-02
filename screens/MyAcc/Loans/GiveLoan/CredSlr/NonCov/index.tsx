@@ -256,9 +256,7 @@ const NonCovCredSls = props => {
                         
                         else if(BusinessRegNos === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if(ActualMaxSMInterest>MaxSMInterest)
-                        {Alert.alert('High S.I: enter repayment btw Ksh ' 
-                        + TtlTransCost.toFixed(2) + " and " + (AllTtlTrnsCst).toFixed(2));}
+                        
                         else if (
                           parseFloat(userLoanTransferFees)*parseFloat(amount) > parseFloat(RecUsrBal)) 
                                                    {Alert.alert('Buyer cannot facilitate; should recharge');}

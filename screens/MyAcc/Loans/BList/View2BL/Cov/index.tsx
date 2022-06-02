@@ -1,6 +1,6 @@
 import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
-import { listSMLoansCovereds } from '../../../../../../src/graphql/queries';
+import { listSMLoansCovereds, listSMLoansNonCovereds } from '../../../../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../../components/MyAc/BL/Vw2BLCov";
 import styles from './styles';
@@ -11,12 +11,14 @@ const FetchSMCovLns = props => {
     const[LnerPhn, setLnerPhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
+    const [Loaneess, setLoaneess] = useState([]);
+    const combined = (Loanees[0] + Loaneess[0]);
     const route = useRoute();
 
     const fetchUser = async () => {
         const userInfo = await Auth.currentAuthenticatedUser();
               
-        setLnerPhn(userInfo.attributes.phone_number);
+        setLnerPhn(userInfo.attributes.email);
              
       };
       
@@ -31,7 +33,7 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
                 { filter: {
                     and: {
-                      loanerLoanee: { eq: route.params.ChmNMmbrPhns},
+                      loanerPhn: { eq: LnerPhn},
                         lonBala:{gt:0},
                         
                         status:{ne:"LoanBL"}
@@ -41,6 +43,40 @@ const FetchSMCovLns = props => {
                   limit: 100
                 }
                   ));
+
+                  const fetchLoanees = async () => {
+                    setLoading(true);
+                    try {
+                      const Loneesz:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
+                        { 
+                          loanerPhn: LnerPhn,
+                          sortDirection: 'DESC',
+                          limit: 100,                
+                          filter: {
+                            
+                              
+                              lonBala:{gt:0},
+                              
+                              status:{ne:"LoanBL"}                      
+                            
+                          },
+                        
+                          
+                        }
+                          ));
+                          const combine3 = Loneesz.data.listSMLoansNonCovereds.items
+                          const combine4 = Lonees.data.listSMLoansCovereds.items
+
+                      setLoaneess(combine3 + combine4);
+                    } catch (e) {
+                      console.log(e);
+                    } finally {
+                      setLoading(false);
+                    }
+                  };
+
+                  await fetchLoanees();
+
               setLoanees(Lonees.data.listSMLoansCovereds.items);
             } catch (e) {
               console.log(e);
@@ -49,9 +85,7 @@ const FetchSMCovLns = props => {
             }
           };
         
-          useEffect(() => {
-            fetchLoanees();
-          }, [])
+          
 
   return (
     <View style={styles.root}>

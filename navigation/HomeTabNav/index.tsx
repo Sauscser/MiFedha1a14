@@ -291,6 +291,12 @@ import SrchLoanAd from "../../screens/Ads/Search/SrchLoanAd";
 import SgnIn2RemoveSlAd from "../../screens/Ads/RemoveAd/SalesLn/SgnIn2RemoveSlAd";
 import VwSlsAds2Remove from "../../screens/Ads/RemoveAd/SalesLn/VwSlsAds2Remove";
 import VwPlLn2Remove from "../../screens/Ads/RemoveAd/PalLn/VwPlLn2Remove";
+import AutomaticRepayAllTyps from "../../screens/MyAcc/Loans/RepayLoan/AutomaticRepay/AllTyps";
+
+import VwMakeLnReq from "../../screens/MyAcc/LoanRequest/VwMakeLnReq";
+import PlaceLnReq from "../../screens/MyAcc/LoanRequest/PlaceLnReq";
+import Vw2GrantLnReq from "../../screens/MyAcc/LoanRequest/Vw2GrantLnReq";
+import Vw2DelLnReqs from "../../screens/MyAcc/LoanRequest/Vw2DelLnReqs";
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
@@ -301,7 +307,14 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
-      <Stack.Screen name={'VwPlLn2Remove'} component={VwPlLn2Remove} />
+      <Stack.Screen name={'Vw2GrantLnReq'} component={Vw2GrantLnReq} />
+      <Stack.Screen name={'Vw2DelLnReqs'} component={Vw2DelLnReqs} />
+      <Stack.Screen name={'AutomaticRepayAllTyps'} component={AutomaticRepayAllTyps} />
+      
+      <Stack.Screen name={'VwMakeLnReq'} component={VwMakeLnReq} />
+      <Stack.Screen name={'PlaceLnReq'} component={PlaceLnReq} />
+      
+       <Stack.Screen name={'VwPlLn2Remove'} component={VwPlLn2Remove} />
       <Stack.Screen name={'SgnIn2RemoveSlAd'} component={SgnIn2RemoveSlAd} />
       <Stack.Screen name={'VwSlsAds2Remove'} component={VwSlsAds2Remove} />
 

@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   sendAmtButton: {
     backgroundColor: '#fff',
-    height: "3%",
+    height: "5%",
     borderRadius: 30,
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,

@@ -30,9 +30,9 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwLnrNLnee, 
+              const Lonees:any = await API.graphql(graphqlOperation(vwChamaMemberss, 
                {
-                      loanerLoanee: route.params.ChmNMmbrPhns,
+                grpContact: route.params.ChmNMmbrPhns,
                       sortDirection: 'DESC',
                       limit: 100,
                       filter: {
@@ -47,7 +47,7 @@ const FetchSMCovLns = props => {
                  
                   ));
 
-                  setLoanees(Lonees.data.VwLnrNLnee.items);
+                  setLoanees(Lonees.data.vwChamaMemberss.items);
 
 
               

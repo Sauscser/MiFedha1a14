@@ -14,9 +14,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 const MyLoanAccount = props => {
   const navigation = useNavigation();
-  const [id, setId] = useState("")
+  const [id, setId] = useState("");
   
-
+  const ChmNMmbrPhns = id;
+  const ChmNMmbrPhnss = id;
  
 
   const Vw2RpyCovss = () => {
@@ -35,13 +36,17 @@ const MyLoanAccount = props => {
     navigation.navigate('RpayCredSlrNonCovs', {id});
   };
 
+  const Vw2GrantLnReq = () => {
+    navigation.navigate('Vw2GrantLnReq');
+  };
   
-  const SMGivCovLons = () => {
-    navigation.navigate('SMGivCovLon');
+
+  const SMGivNonCovLon2 = () => {
+    navigation.navigate('Vw2GrantLnReq');
   };
 
   const SMGivNonCovLons = () => {
-    navigation.navigate('SMGivNonCovLon');
+    navigation.navigate('SMGivNonCovLon', {id});
   };
   const ViewMyCovLoaneesss = () => {
     navigation.navigate('ElimLnsCvLnees');
@@ -68,11 +73,11 @@ const MyLoanAccount = props => {
   };
 
   const Vw2BLCovSMLnss = () => {
-    navigation.navigate('SgnIn2BLSMCovs');
+    navigation.navigate("Vw2BLCovSMLns", {ChmNMmbrPhns});
   };
 
   const Vw2BLSMNonCovss = () => {
-    navigation.navigate('SgnIn2BLSMNonCovs');
+    navigation.navigate("Vw2BLSMNonCovs", {ChmNMmbrPhnss});
   };
 
   const ViewNonLnsSntSMss = () => {
@@ -189,73 +194,7 @@ const MyLoanAccount = props => {
               </View>
             </View>
           
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Give and View Loans</Text>
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>View CovLoan</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={ViewMyCovLoaneesss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>My Loanees</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={ViewMyCovLoanersss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                      My Loaners
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-            
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>View Non-Cov</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={ViewMyNonCovLoaneess}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>My Loanees</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={ViewMyNonCovLoanersss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                      My Loaners
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Give Loan</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={SMGivCovLons}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={SMGivNonCovLons}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                      Non-Covered Loans
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-            </View>
-
+ 
             <View style={styles.clientsView}>
               <Text style={styles.salesText}>View Loan Repayments (LP)</Text>
               <View style={styles.viewForClientsAndTitle}>
@@ -323,23 +262,108 @@ const MyLoanAccount = props => {
               </View>
             </View>
 
-          <View style={styles.acEarningsView2}>
-            <Text style={styles.salesText}>Pal-Pal Black-List</Text>
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Give and View Loans</Text>
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>View CovLoan</Text>
 
-            <View style={styles.viewForAcEarningsPressables}>
-              <Pressable
-                onPress={Vw2BLCovSMLnss}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Covered Loans</Text>
-              </Pressable>
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={ViewMyCovLoaneesss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>My Loanees</Text>
+                    </Pressable>
 
-              <Pressable
-                onPress={Vw2BLSMNonCovss}
-                style={styles.earningsAcPressables}>
-                <Text style={styles.earningsAcPressableText}>Non Covered</Text>
-              </Pressable>
+                    <Pressable
+                      onPress={ViewMyCovLoanersss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      My Loaners
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>View Non-Cov</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={ViewMyNonCovLoaneess}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>My Loanees</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={ViewMyNonCovLoanersss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      My Loaners
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+
+              </View>
             </View>
-          </View>        
+
+
+
+            <View style={styles.clientsView1}>
+              <Text style={styles.salesText}>View Loan Requests and BlackList</Text>
+
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>BlackList</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={Vw2BLCovSMLnss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={Vw2BLSMNonCovss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Non-Covered Loans
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>ViewLoanReq</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={Vw2GrantLnReq}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}> Covered</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={Vw2GrantLnReq}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Non Cov
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+
+              </View>
+            </View>
+
+     
      </View>
     </ScrollView>
     </SafeAreaView>

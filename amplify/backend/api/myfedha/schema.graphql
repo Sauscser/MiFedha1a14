@@ -1870,6 +1870,56 @@ type GrpMembersContribution
   createdAt: String!
 }
 
+type ReqLoan
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [delete, read, update] }
+      { allow: private, operations: [read, create, update] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  
+
+  {
+  id:ID!
+  loaneeEmail: String!   
+  loanerEmail: String!
+  loaneePhone:String!
+  loaneeName: String!
+  amount:Float!
+  repaymentAmt: Float! 
+  repaymentPeriod: Float!
+  status: Status!
+  owner: String!
+  createdAt: String!
+}
+
+
 
 
 

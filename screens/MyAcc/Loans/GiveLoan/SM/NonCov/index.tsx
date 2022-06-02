@@ -14,12 +14,19 @@ import {API, Auth, graphqlOperation, DataStore} from 'aws-amplify';
 import {
   
   getCompany,
+  getReqLoan,
   getSMAccount,
   
   listChamasNPwnBrkrs,
+  listCovCreditSellers,
+  listCvrdGroupLoans,
+  listNonCovCreditSellers,
+  listNonCvrdGroupLoans,
+  listSMLoansCovereds,
+  listSMLoansNonCovereds,
 } from '../../../../../../src/graphql/queries';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {
   View,
@@ -51,8 +58,14 @@ const SMASendNonCovLns = props => {
   const [RecAccCode, setRecAccCode] = useState("");
   const [SendrEmail, setSendrEmail] = useState(null);
   const [PwnBrkr, setPwnBrkr] = useState('');
-  
 
+  const navigation = useNavigation()
+
+  const SndChmMmbrMny = () => {
+    navigation.navigate("AutomaticRepayAllTyps")
+ }
+  
+const route = useRoute();
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
@@ -65,7 +78,100 @@ const SMASendNonCovLns = props => {
 
   
 
+    const fetchCvLnSM = async () => {
+      setIsLoading(true);
+      try {
+        const Lonees1:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
+          { filter: {
+              and: {
+                status: { eq: "LoanBL"},
+                lonBala: { gt: 0},
+                loaneePhn: { eq: SendrEmail},
+              }
+            }}
+            ));
 
+            const fetchNCLSM = async () => {
+              setIsLoading(true);
+              try {
+                const Lonees2:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
+                  { filter: {
+                      and: {
+                        status: { eq: "LoanBL"},
+                lonBala: { gt: 0},
+                loaneePhn: { eq: SendrEmail},
+                      }
+                    }}
+                    ));
+        
+                    const fetchCLCrdSl = async () => {
+                      setIsLoading(true);
+                      try {
+                        const Lonees3:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
+                          { filter: {
+                              and: {
+                                status: { eq: "LoanBL"},
+                        lonBala: { gt: 0},
+                        buyerContact: { eq: SendrEmail},
+                              }
+                            }}
+                            ));
+
+                            const fetchNCLCrdSl = async () => {
+                              setIsLoading(true);
+                              try {
+                                const Lonees4:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
+                                  { filter: {
+                                      and: {
+                                        status: { eq: "LoanBL"},
+                                lonBala: { gt: 0},
+                                buyerContact: { eq: SendrEmail},
+                                      }
+                                    }}
+                                    ));
+
+                                    const fetchCLChm = async () => {
+                                      setIsLoading(true);
+                                      try {
+                                        const Lonees5:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
+                                          { filter: {
+                                              and: {
+                                                status: { eq: "LoanBL"},
+                                        lonBala: { gt: 0},
+                                        loaneePhn: { eq: SendrEmail},
+                                              }
+                                            }}
+                                            ));
+
+                                            const fetchNCLChm = async () => {
+                                              setIsLoading(true);
+                                              try {
+                                                const Lonees6:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoans, 
+                                                  { filter: {
+                                                      and: {
+                                                        status: { eq: "LoanBL"},
+                                                lonBala: { gt: 0},
+                                                loaneePhn: { eq: SendrEmail},
+                                                      }
+                                                    }}
+                                                    ));
+
+
+                                                    const fetchLnReq = async () => {
+      if(isLoading){
+        return;
+      }
+      setIsLoading(true);
+      try {
+        const accountDtlszs:any = await API.graphql(
+          graphqlOperation(getReqLoan, {id: route.params.id}),
+        );
+
+        const loaneeEmail =accountDtlszs.data.getReqLoan.loaneeEmail;
+        const loanerEml =accountDtlszs.data.getReqLoan.owner;
+        const amount =accountDtlszs.data.getReqLoan.amount;
+        const AmtExp =accountDtlszs.data.getReqLoan.repaymentAmt;
+        const RepaymtPeriod =accountDtlszs.data.getReqLoan.repaymentPeriod;
 
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
@@ -142,8 +248,7 @@ const SMASendNonCovLns = props => {
           const TtlTransCost =  TransCost +  parseFloat(amount);
           const AllTtlCost = TtlTransCost + MaxPwnBrkrInterest
 
-          console.log(MaxPwnBrkrInterest);
-          console.log(ActualMaxPwnBrkrInterest)
+          
           
               
 
@@ -154,7 +259,7 @@ const SMASendNonCovLns = props => {
                 setIsLoading(true);
                 try {
                     const RecAccountDtl:any = await API.graphql(
-                        graphqlOperation(getSMAccount, {awsemail: RecPhn}),
+                        graphqlOperation(getSMAccount, {awsemail: loaneeEmail}),
                         );
                         const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
@@ -198,7 +303,7 @@ const SMASendNonCovLns = props => {
                                   loanerLoanee:SendrEmail+RecPhn,
                                   DefaultPenaltySM:DefaultPenaltySMs,
                                   DefaultPenaltySM2:0,
-                                  loaneePhn: RecPhn,                                  
+                                  loaneePhn: loaneeEmail,                                  
                                   amountgiven: amount,
                                   amountexpected: AmtExp,
                                   amountExpectedBackWthClrnc:AmtExp,
@@ -267,7 +372,7 @@ const SMASendNonCovLns = props => {
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    awsemail:RecPhn,
+                                    awsemail:loaneeEmail,
                                     
                                     TtlActvLonsTmsLnrNonCov: parseFloat(TtlActvLonsTmsLnrCovs1)+1,
                                     TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrCovs1) + parseFloat(AmtExp)).toFixed(2),
@@ -319,7 +424,7 @@ const SMASendNonCovLns = props => {
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
-                          Alert.alert("Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) );
+                          Alert.alert("U'v Loaned "+ namess +" "+amount+ ": TransactionFee:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) );
                           setIsLoading(false);
                           
                         }
@@ -328,37 +433,16 @@ const SMASendNonCovLns = props => {
                         if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
                       return;
                     }
-                        else if(recAcptncCode !== SendrEmail){Alert.alert('Let Loanee first request Loan');
-                      return;
-                    }
+                        
                     
 
                     else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
 
-                    else if(compDtls.data.listChamasNPwnBrkrs.items.length <1 && parseFloat(AmtExp) > TtlTransCost)
-                        {Alert.alert("Friend-Friend Loans can't earn interest. Repay Ksh. "  + TtlTransCost);}
-
-                    else if(compDtls.data.listChamasNPwnBrkrs.items.length > 0 && parseFloat(RepaymtPeriod) < 60)
-                        {Alert.alert("Repayment period must be greater than 60 days");}
-
+                    
                         else if((parseFloat(TymsIHvGivnLns) - parseFloat(TymsMyLnClrds)) > 4 
                     && compDtls.data.listChamasNPwnBrkrs.items.length < 1){Alert.alert("Call customer care to have limit increased");}
 
-                    else if(ActualMaxPwnBrkrInterest > MaxPwnBrkrInterest)
-                        {Alert.alert('High S.I: enter repayment btw Ksh ' + AllTtlCost +" and " + TtlTransCost.toFixed(2) 
-                        );}
-
-                    else if(parseFloat(TtlActvLonsTmsLnrCovss) !== parseFloat(amount)){Alert.alert('Enter the agreed amount');
-                      return;
-                    }
-
-                    else if(parseFloat(TtlActvLonsTmsLneeCovss) !== parseFloat(RepaymtPeriod)){Alert.alert('Enter agreed repayment period');
-                      return;
-                    }
-
-                    else if(parseFloat(PwnBrkr) !== parseFloat(DefaultPenaltySMs)){Alert.alert('Enter the agreed default Penalty');
-                      return;
-                    }
+                    
 
 
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
@@ -369,11 +453,6 @@ const SMASendNonCovLns = props => {
                         else if (
                           parseFloat(SenderUsrBal) < TtlTransCost 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
-                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Little repayment: enter btw Ksh ' + TtlTransCost.toFixed(2) 
-                        + " and " + (AllTtlCost).toFixed(2));
-                      return;}
-
-                      
                         
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                         else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
@@ -381,6 +460,24 @@ const SMASendNonCovLns = props => {
                         else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact 
                         + ' to have your Loan limit adjusted');}
                         
+                        else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
+                          ||
+                          Lonees2.data.listSMLoansNonCovereds.items.length > 0 
+                          ||
+                          Lonees3.data.listCovCreditSellers.items.length > 0 
+                          ||
+                          Lonees4.data.listNonCovCreditSellers.items.length > 0 
+                          ||
+                          Lonees5.data.listCvrdGroupLoans.items.length > 0 
+                          ||
+                          Lonees6.data.listNonCvrdGroupLoans.items.length > 0 
+                          
+    
+                        
+                          ) {
+                            SndChmMmbrMny();
+                        } 
+            
                          else {
                           sendSMLn();
                         }                                                
@@ -414,6 +511,82 @@ const SMASendNonCovLns = props => {
       };
       await fetchCompDtls();
     
+    } catch (e) {
+      if (e){Alert.alert("Check your internet connection")
+  return;}
+    } 
+    setIsLoading(false);       
+  };
+  await fetchSenderUsrDtls();
+
+
+} catch (e) {
+  console.log(e)
+  if (e){Alert.alert("Check your internet connection")
+return;}
+} 
+setIsLoading(false);       
+};
+await fetchLnReq();
+}     
+catch (e) {
+  console.log(e)
+  if (e){Alert.alert("Check your internet connection")
+  return;}
+     
+}   
+setIsLoading(false);
+};
+
+await fetchNCLChm();
+
+}     
+catch (e) {
+  console.log(e)
+  if (e){Alert.alert("Check your internet connection")
+  return;}
+     
+}   
+setIsLoading(false);
+};
+
+await fetchCLChm();
+
+}     
+catch (e) {
+  console.log(e)
+  if (e){Alert.alert("Check your internet connection")
+  return;}
+     
+}   
+setIsLoading(false);
+};
+
+await fetchNCLCrdSl();
+
+}     
+catch (e) {
+  console.log(e)
+  if (e){Alert.alert("Check your internet connection")
+  return;}
+     
+}   
+setIsLoading(false);
+};
+
+await fetchCLCrdSl();
+
+}     
+catch (e) {
+  console.log(e)
+  if (e){Alert.alert("Check your internet connection")
+  return;}
+     
+}   
+setIsLoading(false);
+};
+
+await fetchNCLSM();
       
     } catch (e) {
       console.log(e)
@@ -545,87 +718,45 @@ useEffect(() =>{
            <Text style={styles.title}>Fill Loan Details Below</Text>
          </View>
 
-         
          <View style={styles.sendAmtView}>
            <TextInput
-           placeholder="Receiver Email"
-             value={RecPhn}
-             onChangeText={setRecPhn}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Receiver Email</Text>
-         </View>
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-             value={SnderPW}
-             onChangeText={setSnderPW}
-             secureTextEntry = {true}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Sender PassWord</Text>
-         </View>
-
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-           keyboardType={"decimal-pad"}
-             value={amount}
-             onChangeText={setAmount}
-             style={styles.sendAmtInput}
-             editable={true}
-             ></TextInput>
-             
-           <Text style={styles.sendAmtText}>Amount Loaned</Text>
-         </View>
-
-                  
-         <View style={styles.sendAmtView}>
-           <TextInput
-           keyboardType={"decimal-pad"}
-             value={AmtExp}
-             onChangeText={setAmtExp}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Amount Expected Back</Text>
-         </View>
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-           keyboardType={"decimal-pad"}
-             value={RepaymtPeriod}
-             onChangeText={setRepaymtPeriod}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Repayment Period in days</Text>
-         </View>
-
-         <View style={styles.sendAmtView}>
-           <TextInput
+           placeholder='Penalty if Defaulted'
            keyboardType={"decimal-pad"}
              value={PwnBrkr}
              onChangeText={setPwnBrkr}
              style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Default Penalty</Text>
+             editable={true}
+             ></TextInput>
+          
          </View>
 
-
+         
          <View style={styles.sendAmtViewDesc}>
            <TextInput
+           placeholder='Loan Description'
              multiline={true}
              value={Desc}
              onChangeText={setDesc}
              style={styles.sendAmtInputDesc}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Description</Text>
+           
          </View>
 
          
-         
+         <View style={styles.sendAmtView}>
+           <TextInput
+           placeholder='Sender PassWord'
+             value={SnderPW}
+             onChangeText={setSnderPW}
+             secureTextEntry = {true}
+             style={styles.sendAmtInput}
+             editable={true}></TextInput>
+           
+         </View>
+
 
          <TouchableOpacity
-           onPress={fetchSenderUsrDtls}
+           onPress={fetchCvLnSM}
            style={styles.sendAmtButton}>
            <Text style={styles.sendAmtButtonText}>Loan without Advocate Coverage</Text>
            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}

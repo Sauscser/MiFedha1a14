@@ -114,9 +114,7 @@ const MFNSignIn = (props) => {
 
       await gtChmDtls();
 
-  }
-
-  
+  } 
 
 catch(e){
 console.log(e)

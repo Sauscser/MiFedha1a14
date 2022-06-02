@@ -67,7 +67,7 @@ const ChmContriInfo = (props:ChamaContriInfo) => {
                    </Text>   
                    <Text style = {styles.repaymentPeriod}>                       
                       {/* repaymentPeriod*/}
-                     Member Phone: {memberPhn}                  
+                     Member Contact: {memberPhn}                  
                    </Text> 
                    <Text style = {styles.interest}>                       
                       {/* interest*/}

@@ -232,12 +232,12 @@ const UpdtSMPW = (props) => {
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="Loaner Email"
+                    placeholder="Chama/Bizna Phone"
                       value={LnAcCod}
                       onChangeText={setLnAcCod}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loaner Email</Text>
+                    <Text style={styles.sendLoanText}>Chama/Bizna Phone</Text>
                   </View>  
 
                   <View style={styles.sendLoanView}>

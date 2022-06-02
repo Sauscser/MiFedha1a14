@@ -66,17 +66,17 @@ const ViewSMDeposts = (props:SMAccount) => {
 
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Percentage Discount: {sokolnprcntg.toFixed(2)}
+                       Percentage Discount: {sokolnprcntg.toFixed(2)} %
                        
                     </Text>
 
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Repayment Period: {sokolpymntperiod.toFixed(2)}
+                       Repayment Period: {sokolpymntperiod.toFixed(2)} days
                        
                     </Text>                    
 
-                    <Text style ={styles.amountoffered} numberOfLines={2}>                         
+                    <Text style ={styles.amountoffered} >                         
                        {/* amount*/} 
                      Sales Description: {sokodesc}
                      

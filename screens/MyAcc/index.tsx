@@ -19,6 +19,14 @@ const MyAccount = props => {
     navigation.navigate('ElimDpstss');
   };
 
+  const Vw2DelLnReqs = () => {
+    navigation.navigate('Vw2DelLnReqs');
+  };
+
+  const SearchUser = () => {
+    navigation.navigate('VwMakeLnReq');
+  };
+
   const goToCreateSMAc = () => {
     navigation.navigate('CreateSMAc');
   };
@@ -122,6 +130,23 @@ const MyAccount = props => {
             </Pressable>
             </View>
             </View>
+
+            <View style={styles.acPressables}>
+            <View >
+            <Text style={styles.acPressableText}>Loan Requests</Text>
+            </View>
+            <View style = {{flexDirection:"row"}}>
+            <Pressable onPress={SearchUser} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>GetUser</Text>
+            </Pressable>
+
+            <Pressable onPress={Vw2DelLnReqs} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>DelReq</Text>
+            </Pressable>
+            
+            </View>
+            </View>
+
 
 
             <View style={styles.acPressables}>

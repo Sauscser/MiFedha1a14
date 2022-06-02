@@ -54,7 +54,7 @@ const ChmSignIn = (props) => {
       const userInfo = await Auth.currentAuthenticatedUser();
       
          
-      const phoneContacts = userInfo.attributes.phone_number; 
+      const phoneContacts = userInfo.attributes.email; 
       const ownr = userInfo.attributes.sub;
      
     const gtMemberUsrDetails = async () =>{
@@ -64,7 +64,7 @@ const ChmSignIn = (props) => {
       setIsLoading(true);
       try{
         const UsrDtls :any= await API.graphql(
-          graphqlOperation(getSMAccount,{phonecontact:phoneContacts})
+          graphqlOperation(getSMAccount,{awsemail:phoneContacts})
           );
           const pwss = UsrDtls.data.getSMAccount.pw;
 

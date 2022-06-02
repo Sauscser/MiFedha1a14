@@ -78,7 +78,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
                 graphqlOperation(listSMAccounts,
                   { filter: {
                       
-                    phonecontact: { eq: phoneContact}
+                    awsemail: { eq: phoneContact}
                                   
                     }}
                 )
@@ -486,7 +486,7 @@ return;
 
           <View style={styles.sendLoanView}>
             <TextInput
-            keyboardType={"decimal-pad"}
+            
               value={lat}
               onChangeText={setLat}
               style={styles.sendLoanInput}
@@ -496,7 +496,7 @@ return;
 
           <View style={styles.sendLoanView}>
             <TextInput
-            keyboardType={"decimal-pad"}
+            
               value={lon}
               onChangeText={setLon}
               style={styles.sendLoanInput}

@@ -61,8 +61,19 @@ const styles = StyleSheet.create({
     marginTop: "1%",
   },
 
+  chamaLoanAndCreditSalesButton5: {
+    backgroundColor: 'white',
+    height: "90%",
+    borderRadius: 30,
+    width:"90%",
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    marginTop: "1%",
+  },
+
   ChamaLoanAndCreditSalesText: {
-    fontSize: 24,
+    fontSize: 10,
     fontWeight: 'bold',
     color: 'black',
     

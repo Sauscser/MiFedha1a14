@@ -87,7 +87,7 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
                    </Text> 
                    <Text style = {styles.interest}>                       
                       {/* interest*/}
-                    Seller Phone: {sellerContact}                    
+                    Seller Contact: {sellerContact}                    
                    </Text> 
                 
                    <Text style = {styles.interest}>                       
