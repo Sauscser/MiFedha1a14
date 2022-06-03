@@ -332,7 +332,7 @@ declare global {
       Vw2GrantLnReq:undefined;
       Vw2DelLnReqs:undefined;
       Vw2GrantLnReq2:undefined;
-    
+      EntrAdvLoc:undefined;
       
     }
   }

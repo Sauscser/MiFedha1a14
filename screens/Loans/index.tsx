@@ -267,7 +267,7 @@ const MyLoanAccount = props => {
             </View>
 
             <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Give and View Loans</Text>
+              <Text style={styles.salesText}>View and Black List </Text>
               <View style={styles.viewForClientsAndTitle}>
               <View style={styles.viewForClientsCategories}>
                   <Text style={styles.salesPressableText}>View CovLoan</Text>
@@ -311,17 +311,7 @@ const MyLoanAccount = props => {
                   </View>
                 </View>
 
-
-              </View>
-            </View>
-
-
-
-            <View style={styles.clientsView1}>
-              <Text style={styles.salesText}>View Loan Requests and BlackList</Text>
-
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories}>
+                <View style={styles.viewForClientsCategories}>
                   <Text style={styles.salesPressableText}>BlackList</Text>
 
                   <View style={styles.viewForClientsPressables}>
@@ -340,6 +330,18 @@ const MyLoanAccount = props => {
                     </Pressable>
                   </View>
                 </View>
+
+
+              </View>
+            </View>
+
+
+
+            <View style={styles.clientsView1}>
+              <Text style={styles.salesText}>View to Grant Loan Requests </Text>
+
+              <View style={styles.viewForClientsAndTitle}>
+              
 
             
 

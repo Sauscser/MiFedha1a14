@@ -298,7 +298,7 @@ import PlaceLnReq from "../../screens/MyAcc/LoanRequest/PlaceLnReq";
 import Vw2GrantLnReq from "../../screens/MyAcc/LoanRequest/Vw2GrantLnReq";
 import Vw2DelLnReqs from "../../screens/MyAcc/LoanRequest/Vw2DelLnReqs";
 import Vw2GrantLnReq2 from "../../screens/MyAcc/LoanRequest/Vw2GrantLnReq2";
-
+import EntrAdvLoc from '../../screens/Advocate/EnterAdvLoc';
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
@@ -310,7 +310,7 @@ const HomeNavigator = props => {
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
       <Stack.Screen name={'Vw2GrantLnReq2'} component={Vw2GrantLnReq2} />
-      
+      <Stack.Screen name={'EntrAdvLoc'} component={EntrAdvLoc} />
       <Stack.Screen name={'Vw2GrantLnReq'} component={Vw2GrantLnReq} />
       <Stack.Screen name={'Vw2DelLnReqs'} component={Vw2DelLnReqs} />
       <Stack.Screen name={'AutomaticRepayAllTyps'} component={AutomaticRepayAllTyps} />

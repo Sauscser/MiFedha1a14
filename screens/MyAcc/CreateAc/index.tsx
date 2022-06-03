@@ -240,7 +240,7 @@ const CreateAcForm = (props) => {
                       return;
                   }
                   }
-                  moveToWelcomPg();
+                  
                   setIsLoading(false);
                 }
                 

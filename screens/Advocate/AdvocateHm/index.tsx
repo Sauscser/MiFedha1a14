@@ -24,8 +24,14 @@ const KFAdvHome = props => {
     const UpdtMFAdvPWss = () => {
       navigation.navigate('UpdtMFAdvPWs');
   
-    
   };
+
+  const EntrAdvLoc = () => {
+    navigation.navigate('EntrAdvLoc');
+
+};
+
+
 
   const AdvVwCrdSlsSgnInss = () => {
     navigation.navigate('AdvVwCrdSlsSgnIns');
@@ -98,6 +104,12 @@ const KFAdvHome = props => {
               onPress={MFAdvocateRegs}
               style={styles.floatView}>
               <Text style={styles.floatPressableText}>CreateAc</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={EntrAdvLoc}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>SearchAdvocate</Text>
             </Pressable>
           </View>
         </View>
