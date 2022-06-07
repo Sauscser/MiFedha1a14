@@ -56,10 +56,7 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
            </View>
            
            <ScrollView >              
-                      
-                       
-
-                   
+                
                     <Text style = {styles.ownerName}>                       
                       {/*loaner details */}   
                       Loan Id: {id}                 
@@ -117,8 +114,6 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
                    </Text>   
                    </ScrollView>              
            
-               
-               
            
        </ScrollView>
                

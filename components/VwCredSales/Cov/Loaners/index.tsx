@@ -120,9 +120,6 @@ const CredByrCvLnStts = (props:ChmCvLnSttusRec) => {
                    </Text>   
                    </ScrollView>              
            
-               
-               
-           
        </ScrollView>
                
        </View>
