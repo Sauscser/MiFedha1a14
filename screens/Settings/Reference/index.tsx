@@ -23,10 +23,6 @@ import {
 import styles from './styles';
 import { updateBankAdmin } from '../../../src/graphql/mutations';
 
-
-  
-
-
 const UpdtSMPW = (props) => {
   const navigation = useNavigation();
   
@@ -61,10 +57,6 @@ const UpdtSMPW = (props) => {
     navigation.navigate("VwCompPrivacys");
   };
 
-  const moveToTC = () => {
-    navigation.navigate("VwCompTCs");
-  };
-
   
       
  return (
@@ -73,10 +65,6 @@ const UpdtSMPW = (props) => {
                  style={styles.image}>
                 <ScrollView>    
                   
-
-
-
-
                     <View style={styles.loanTitleView2}>
                     <Pressable onPress={moveToAbt}
                     style={styles.sendLoanButton}>
@@ -85,16 +73,12 @@ const UpdtSMPW = (props) => {
                         </Text>
                     </Pressable>
 
-
-
                     <Pressable onPress={moveToPolicy}
                     style={styles.sendLoanButton}>
                         <Text style={styles.sendLoanButtonText}>
                             Policy
                         </Text>
                     </Pressable>
-
-
 
                     <Pressable onPress={moveToPrivacy}
                     style={styles.sendLoanButton}>
@@ -103,17 +87,8 @@ const UpdtSMPW = (props) => {
                         </Text>
                     </Pressable>
 
-
-                    <Pressable onPress={moveToTC}
-                    style={styles.sendLoanButton}>
-                        <Text style={styles.sendLoanButtonText}>
-                            Terms and Conditions
-                        </Text>
-                    </Pressable>
+                    
                   </View>
-        
-                  
-                                   
         
                   
                 </ScrollView>

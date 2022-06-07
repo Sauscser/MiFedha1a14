@@ -73,7 +73,7 @@ const ViewSMDeposts = (props:SMAccount) => {
 
                     <Text style ={styles.amountoffered} numberOfLines={2}>                         
                        {/* amount*/} 
-                     Chama Description: {sokodesc}
+                     Item Description: {sokodesc}
                      
                     </Text>
                     

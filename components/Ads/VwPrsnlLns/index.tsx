@@ -75,9 +75,6 @@ const ViewSMDeposts = (props:SMAccount) => {
                        
                     </Text>                    
 
-                    
-        
-                
         </TouchableOpacity>
     );
 }; 
