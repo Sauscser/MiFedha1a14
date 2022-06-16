@@ -223,7 +223,7 @@ const SMASendNonLns = props => {
                             input: {
                               recPhn: RecNatId,
                               senderPhn: SendrEmail,                                  
-                              amount: amounts,                              
+                              amount: parseFloat(amounts).toFixed(0),                              
                               description: Desc,
                               RecName:namess,
                               SenderName:names,
@@ -257,8 +257,8 @@ const SMASendNonLns = props => {
                             graphqlOperation(updateSMAccount, {
                               input:{
                                 awsemail:SendrEmail,
-                                ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(2),
-                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) 
+                                ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(0),
+                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) 
                                
                                 
                               }
@@ -286,10 +286,9 @@ const SMASendNonLns = props => {
                             graphqlOperation(updateSMAccount, {
                               input:{
                                 awsemail:RecNatId,
-                                ttlNonLonsRecSM: (parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts)).toFixed(2) ,
-                                balance:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(2)                                     
-                                
-                                                                  
+                                ttlNonLonsRecSM: (parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts)).toFixed(0) ,
+                                balance:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(0)                                     
+                                                                
                                 
                               }
                             })

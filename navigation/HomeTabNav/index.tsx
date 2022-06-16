@@ -300,6 +300,16 @@ import Vw2DelLnReqs from "../../screens/MyAcc/LoanRequest/Vw2DelLnReqs";
 import Vw2GrantLnReq2 from "../../screens/MyAcc/LoanRequest/Vw2GrantLnReq2";
 import EntrAdvLoc from '../../screens/Advocate/EnterAdvLoc';
 
+
+import ChamaPlaceLnReq from "../../screens/Chama/ReqLoan/PlaceLnReq";
+import ChamaVw2DelLnReqs from "../../screens/Chama/ReqLoan//Vw2DelLnReqs";
+import ChamaVw2GrantLnReqCov from "../../screens/Chama/ReqLoan/Vw2GrantLnReqCov";
+import ChamaVw2GrantLnReqNonCov from "../../screens/Chama/ReqLoan/Vw2GrantLnReqNonCov";
+import CrdSlPlaceLnReq from "../../screens/CredSls/SlsLnReq/PlaceLnReq";
+import CrdSlVw2DelLnReqs from "../../screens/CredSls/SlsLnReq/Vw2DelLnReqs";
+import CrdSlVw2GrantLnReqCov from "../../screens/CredSls/SlsLnReq/Vw2GrantLnReqCov";
+import CrdSlVw2GrantLnReqNonCov from "../../screens/CredSls/SlsLnReq/Vw2GrantLnReqNonCov";
+
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
   return (
@@ -309,6 +319,15 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'ChamaPlaceLnReq'} component={ChamaPlaceLnReq} />
+      <Stack.Screen name={'ChamaVw2DelLnReqs'} component={ChamaVw2DelLnReqs} />
+      <Stack.Screen name={'ChamaVw2GrantLnReqCov'} component={ChamaVw2GrantLnReqCov} />
+      <Stack.Screen name={'ChamaVw2GrantLnReqNonCov'} component={ChamaVw2GrantLnReqNonCov} />
+      <Stack.Screen name={'CrdSlPlaceLnReq'} component={CrdSlPlaceLnReq} />
+      <Stack.Screen name={'CrdSlVw2DelLnReqs'} component={CrdSlVw2DelLnReqs} />
+      <Stack.Screen name={'CrdSlVw2GrantLnReqCov'} component={CrdSlVw2GrantLnReqCov} />
+      <Stack.Screen name={'CrdSlVw2GrantLnReqNonCov'} component={CrdSlVw2GrantLnReqNonCov} />
+      
       <Stack.Screen name={'Vw2GrantLnReq2'} component={Vw2GrantLnReq2} />
       <Stack.Screen name={'EntrAdvLoc'} component={EntrAdvLoc} />
       <Stack.Screen name={'Vw2GrantLnReq'} component={Vw2GrantLnReq} />

@@ -134,7 +134,7 @@ const SMASendNonLns = props => {
                             input: {
                               recPhn: RecNatId,
                               senderPhn: SenderNatId,                                  
-                              amount: amounts,                              
+                              amount: parseFloat(amounts).toFixed(2),                              
                               description: Desc,
                               RecName:namess,
                               SenderName:busNames,

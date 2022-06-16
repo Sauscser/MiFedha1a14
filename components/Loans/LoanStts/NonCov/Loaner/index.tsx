@@ -13,6 +13,8 @@ export interface SMCvLnSttus {
         lonBala: number,
         repaymentPeriod: number,
         loanername:string,
+        amountExpectedBackWthClrnc: number,
+        DefaultPenaltySM2:number,
         status: string,
         description: string,
         createdAt:string,
@@ -32,6 +34,8 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
     repaymentPeriod,
     loanername,
     status,
+    amountExpectedBackWthClrnc,
+    DefaultPenaltySM2,
     description,
     createdAt,
     updatedAt,
@@ -65,11 +69,20 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
                        Amount Expected Back(Ksh): {amountexpected.toFixed(2)}
+                    </Text>  
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                      Balance if Blacklisted(Ksh): {amountExpectedBackWthClrnc.toFixed(2)}
                     </Text>   
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Loaner Blacklisting Penalty(Ksh): {DefaultPenaltySM2.toFixed(2)}
+                    </Text>    
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
                        Amount Repaid(Ksh): {amountrepaid.toFixed(2)}                  
                     </Text> 
+                    
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
                        Loan Balance(Ksh): {lonBala.toFixed(2)}                    

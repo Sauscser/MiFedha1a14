@@ -202,9 +202,9 @@ const RepayNonCovChmLnsss = props => {
                                                   input:{
                                                     awsemail:SendrEmail,
                                                     
-                                                    balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
+                                                    balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                                     TtlClrdLonsTmsLneeChmNonCov:parseFloat(TtlClrdLonsTmsLneeChmNonCovs)+1,                                          
-                                                    TtlClrdLonsAmtLneeChmNonCov: (parseFloat(TtlClrdLonsAmtLneeChmNonCovs) + parseFloat(amounts)).toFixed(2), 
+                                                    TtlClrdLonsAmtLneeChmNonCov: (parseFloat(TtlClrdLonsAmtLneeChmNonCovs) + parseFloat(amounts)).toFixed(0), 
                                                     
                                                     MaxTymsBL: 0,
                                                     
@@ -236,11 +236,11 @@ const RepayNonCovChmLnsss = props => {
                                                   input:{
                                                     awsemail:SendrEmail,
                                                     
-                                                    balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
+                                                    balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                                     TtlClrdLonsTmsLneeChmNonCov:parseFloat(TtlClrdLonsTmsLneeChmNonCovs)+1,                                          
-                                                    TtlClrdLonsAmtLneeChmNonCov: (parseFloat(TtlClrdLonsAmtLneeChmNonCovs) + parseFloat(amounts)).toFixed(2), 
+                                                    TtlClrdLonsAmtLneeChmNonCov: (parseFloat(TtlClrdLonsAmtLneeChmNonCovs) + parseFloat(amounts)).toFixed(0), 
                                                     TtlBLLonsTmsLneeChmNonCov: parseFloat(TtlBLLonsTmsLneeChmNonCovs) - 1,
-                                                    TtlBLLonsAmtLneeChmNonCov: (parseFloat(TtlBLLonsAmtLneeChmNonCovs) - parseFloat(amounts)).toFixed(2),
+                                                    TtlBLLonsAmtLneeChmNonCov: (parseFloat(TtlBLLonsAmtLneeChmNonCovs) - parseFloat(amounts)).toFixed(0),
                                                     MaxTymsBL: parseFloat(MaxTymsBLss) - 1,
                                                     
                                                                                        
@@ -270,8 +270,8 @@ const RepayNonCovChmLnsss = props => {
                                                 graphqlOperation(updateChamaMembers, {
                                                   input:{
                                                     ChamaNMember:memberIds,
-                                                    AmtRepaid: (parseFloat(AmtRepaids)+parseFloat(amounts)).toFixed(2) ,
-                                                    LnBal: (parseFloat(LnBals)-parseFloat(amounts)).toFixed(2) ,
+                                                    AmtRepaid: (parseFloat(AmtRepaids)+parseFloat(amounts)).toFixed(0) ,
+                                                    LnBal: (parseFloat(LnBals)-parseFloat(amounts)).toFixed(0) ,
                                                     
                                                 }})
                                               )
@@ -297,9 +297,9 @@ const RepayNonCovChmLnsss = props => {
                                       graphqlOperation(updateNonCvrdGroupLoans, {
                                         input:{
                                           id:route.params.id,
-                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(2),
-                                          lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(2),
-                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
+                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(0),
+                                          lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(0),
+                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
                                           DefaultPenaltyChm2:0,
                                           status: "LoanCleared",
                                       }})
@@ -329,7 +329,7 @@ const RepayNonCovChmLnsss = props => {
                                         recPhn: grpContactssss,  
                                         RecName:namess,
                                         SenderName:names,                                
-                                        amount: amounts,                              
+                                        amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "ChmLonRepayment",
                                         owner: ownr
@@ -364,11 +364,11 @@ const RepayNonCovChmLnsss = props => {
                                         input:{
                                           grpContact:grpContactssss,
                                           
-                                          grpBal:(parseFloat(RecUsrBal) + (parseFloat(amounts) + parseFloat(DefaultPenaltyChm2s))).toFixed(2),                                     
+                                          grpBal:(parseFloat(RecUsrBal) + (parseFloat(amounts) + parseFloat(DefaultPenaltyChm2s))).toFixed(0),                                     
                                          
                                           TtlClrdLonsTmsLnrChmNonCov: parseFloat(TtlClrdLonsTmsLnrChmNonCovs) + 1,
                                           tymsChmHvBL: parseFloat(tymsChmHvBLs) - 1,
-                                          TtlClrdLonsAmtLnrChmNonCov: (parseFloat(TtlClrdLonsAmtLnrChmNonCovs) + parseFloat(amounts)).toFixed(2),
+                                          TtlClrdLonsAmtLnrChmNonCov: (parseFloat(TtlClrdLonsAmtLnrChmNonCovs) + parseFloat(amounts)).toFixed(0),
                                          
                                         }
                                       })
@@ -425,8 +425,8 @@ const RepayNonCovChmLnsss = props => {
                                       graphqlOperation(updateChamaMembers, {
                                         input:{
                                           ChamaNMember:memberIds,
-                                          AmtRepaid: (parseFloat(AmtRepaids)+parseFloat(amounts)).toFixed(2) ,
-                                          LnBal: (parseFloat(LnBals)-parseFloat(amounts)).toFixed(2) ,
+                                          AmtRepaid: (parseFloat(AmtRepaids)+parseFloat(amounts)).toFixed(0) ,
+                                          LnBal: (parseFloat(LnBals)-parseFloat(amounts)).toFixed(0) ,
                                       }})
                                     )
           
@@ -453,9 +453,9 @@ const RepayNonCovChmLnsss = props => {
                                         input:{
                                           id:route.params.id,
                                           DefaultPenaltyChm2:0,
-                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(2),
-                                          lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(2),
-                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
+                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(0),
+                                          lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(0),
+                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
                                         }
                                       })
                                     )
@@ -482,8 +482,8 @@ const RepayNonCovChmLnsss = props => {
                                       graphqlOperation(updateSMAccount, {
                                         input:{
                                           awsemail:SendrEmail,
-                                          TtlClrdLonsAmtLneeChmNonCov: (parseFloat(TtlClrdLonsAmtLneeChmNonCovs) + parseFloat(amounts)).toFixed(2), 
-                                          balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2),
+                                          TtlClrdLonsAmtLneeChmNonCov: (parseFloat(TtlClrdLonsAmtLneeChmNonCovs) + parseFloat(amounts)).toFixed(0), 
+                                          balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0),
                                           
                                         }
                                       })
@@ -510,8 +510,8 @@ const RepayNonCovChmLnsss = props => {
                                       graphqlOperation(updateGroup, {
                                         input:{
                                           grpContact:grpContactssss,
-                                          TtlClrdLonsAmtLnrChmNonCov: (parseFloat(TtlClrdLonsAmtLnrChmNonCovs) + parseFloat(amounts)).toFixed(2),
-                                          grpBal:(parseFloat(RecUsrBal) + (parseFloat(amounts) + parseFloat(DefaultPenaltyChm2s))).toFixed(2),                                     
+                                          TtlClrdLonsAmtLnrChmNonCov: (parseFloat(TtlClrdLonsAmtLnrChmNonCovs) + parseFloat(amounts)).toFixed(0),
+                                          grpBal:(parseFloat(RecUsrBal) + (parseFloat(amounts) + parseFloat(DefaultPenaltyChm2s))).toFixed(0),                                     
                                           
                                           
                                         }
@@ -567,7 +567,7 @@ const RepayNonCovChmLnsss = props => {
                                         senderPhn: SendrEmail,  
                                         RecName:namess,
                                         SenderName:names,                                  
-                                        amount: amounts,                              
+                                        amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "ChmLonRepayment",
                                         owner: ownr

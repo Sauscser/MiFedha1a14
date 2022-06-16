@@ -130,8 +130,8 @@ const BLSMCovLoanee = (props) => {
                                       awsemail:loanerPhns,
                                       TtlBLLonsTmsLnrCov: parseFloat(TtlBLLonsTmsLnrCovs) + 1,
                                       MaxTymsIHvBL: parseFloat(MaxTymsIHvBLs) + 1,
-                                      TtlBLLonsAmtLnrCov: (parseFloat(TtlBLLonsAmtLnrCovs) + amountExpectedBackWthClrncss).toFixed(2),
-                                      TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
+                                      TtlBLLonsAmtLnrCov: (parseFloat(TtlBLLonsAmtLnrCovs) + amountExpectedBackWthClrncss).toFixed(0),
+                                      TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(0),
                                     }
                                   })
                                 )
@@ -214,8 +214,8 @@ const BLSMCovLoanee = (props) => {
                                           awsemail:loaneePhns,
                                           TtlBLLonsTmsLneeCov: parseFloat(TtlBLLonsTmsLneeCovs) + 1,
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
-                                          TtlBLLonsAmtLneeCov: (parseFloat(TtlBLLonsAmtLneeCovs) + amountExpectedBackWthClrncss).toFixed(2),
-                                          TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
+                                          TtlBLLonsAmtLneeCov: (parseFloat(TtlBLLonsAmtLneeCovs) + amountExpectedBackWthClrncss).toFixed(0),
+                                          TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(0),
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
@@ -246,9 +246,9 @@ const BLSMCovLoanee = (props) => {
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
                                           id:route.params.id,
-                                          amountExpectedBackWthClrnc:(amountExpectedBackWthClrncss).toFixed(2),
-                                          lonBala:LonBal.toFixed(2),
-                                          DefaultPenaltySM2:DefaultPenaltySMs.toFixed(2),
+                                          amountExpectedBackWthClrnc:(amountExpectedBackWthClrncss).toFixed(0),
+                                          lonBala:LonBal.toFixed(0),
+                                          DefaultPenaltySM2:DefaultPenaltySMs.toFixed(0),
                                           status:"LoanBL",
                                         }
                                       })

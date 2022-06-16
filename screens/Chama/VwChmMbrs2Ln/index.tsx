@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../components/Chama/ChmActivities/Membership/ChamaLnMmbrCov";
 import styles from './styles';
-import { listCvrdGroupLoanss, listGrpMemberss } from '../../../src/graphql/queries';
+import { listCvrdGroupLoanss, listChamaMembers } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/native';
 
 const FetchSMCovLns = props => {
@@ -29,7 +29,7 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listGrpMemberss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listChamaMembers, 
                 { filter: {
                     and: {
                       ChamaNMember: { eq: route.params.ChmNMmbrPhns}
@@ -37,7 +37,7 @@ const FetchSMCovLns = props => {
                     }
                   }}
                   ));
-              setLoanees(Lonees.data.listGrpMemberss.items);
+              setLoanees(Lonees.data.listChamaMembers.items);
             } catch (e) {
               console.log(e);
             } finally {

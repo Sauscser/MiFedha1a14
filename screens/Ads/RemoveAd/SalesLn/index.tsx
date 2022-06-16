@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {  deleteChamaMembers,   updateGroup} from '../../../src/graphql/mutations';
-import {  getChamaMembers,  getGroup, getSMAccount } from '../../../src/graphql/queries';
+import {  deleteChamaMembers,   updateGroup} from '../../../../src/graphql/mutations';
+
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -21,7 +21,7 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
-import { updateBankAdmin } from '../../../src/graphql/mutations';
+import { updateBankAdmin } from '../../../../src/graphql/mutations';
 
 
   

@@ -338,15 +338,15 @@ const SMASendLns = props => {
                                   loaneePhn: loaneeEmail,  
                                   loanerLoanee:SendrEmail+RecPhn,
                                   loanerLoaneeAdv:  SendrEmail+RecPhn+ AdvRegNo ,                          
-                                  amountgiven: parseFloat(amount).toFixed(2),
+                                  amountgiven: parseFloat(amount).toFixed(0),
                                   loaneename:namess,
                                   loanername:names,
-                                  amountexpected: AmtExp,
-                                  amountExpectedBackWthClrnc:AmtExp,
+                                  amountexpected: parseFloat(AmtExp).toFixed(0),
+                                  amountExpectedBackWthClrnc:parseFloat(AmtExp).toFixed(2),
                                   DefaultPenaltySM:PwnBrkr,
                                   DefaultPenaltySM2:0,
                                   amountrepaid: 0,
-                                  lonBala:parseFloat(AmtExp).toFixed(2),
+                                  lonBala:parseFloat(AmtExp).toFixed(0),
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: AdvRegNo,
                                   description: Desc,
@@ -377,11 +377,11 @@ const SMASendLns = props => {
                                   input:{
                                     awsemail:SendrEmail,
                                     TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
-                                    TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(AmtExp)).toFixed(2),
+                                    TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(AmtExp)).toFixed(0),
                                     TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs2) +1 ,
-                                    TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ parseFloat(AmtExp)).toFixed(2),
+                                    TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ parseFloat(AmtExp)).toFixed(0),
                                     TymsIHvGivnLn: parseFloat(TymsIHvGivnLns) + 1,                                       
-                                    balance:(parseFloat(SenderUsrBal)-TtlTransCost).toFixed(2) 
+                                    balance:(parseFloat(SenderUsrBal)-TtlTransCost).toFixed(0) 
                                    
                                     
                                   }
@@ -410,8 +410,8 @@ const SMASendLns = props => {
                                     awsemail:loaneeEmail,
                                     
                                     TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs1)+1,
-                                    TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs1) + parseFloat(AmtExp)).toFixed(2),
-                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount) ).toFixed(2) ,
+                                    TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs1) + parseFloat(AmtExp)).toFixed(0),
+                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount) ).toFixed(0) ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                 

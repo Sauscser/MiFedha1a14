@@ -103,7 +103,7 @@ const SMADepositForm = props => {
                             agContact: AgentPhn,
                             agentName:agentNames,
                             userName:grpNames,
-                            amount: amount,
+                            amount: parseFloat(amount).toFixed(0),
                             status: 'AccountActive',
                           },
                           
@@ -135,8 +135,8 @@ const SMADepositForm = props => {
                     input: {
                       grpContact: nationalId,
           
-                      grpBal: (parseFloat(grpBals) + parseFloat(amount)).toFixed(2),
-                      ttlDpst: (parseFloat(ttlDpsts) + parseFloat(amount)).toFixed(2),
+                      grpBal: (parseFloat(grpBals) + parseFloat(amount)).toFixed(0),
+                      ttlDpst: (parseFloat(ttlDpsts) + parseFloat(amount)).toFixed(0),
                     },
                   }),
                 );
@@ -163,8 +163,8 @@ const SMADepositForm = props => {
                         phonecontact: AgentPhn,
             
                        
-                        TtlFltOut: (parseFloat(agtTtlFtOut) + parseFloat(amount)).toFixed(2),
-                        floatBal: (parseFloat(agtFltBl) - parseFloat(amount)).toFixed(2),
+                        TtlFltOut: (parseFloat(agtTtlFtOut) + parseFloat(amount)).toFixed(0),
+                        floatBal: (parseFloat(agtFltBl) - parseFloat(amount)).toFixed(0),
                       },
                     }),
                   );

@@ -155,7 +155,7 @@ const SMASendChmNonLns = props => {
                                           mmberNme:names,
                                           GrpName:grpNames,
                                           grpContact: groupContacts,
-                                          contriAmount: parseFloat(amounts).toFixed(2),
+                                          contriAmount: parseFloat(amounts).toFixed(0),
                                           memberId:MembaId,
                                           status: "AccountActive",
                                           owner: ownr
@@ -184,7 +184,7 @@ const SMASendChmNonLns = props => {
                                           input:{
                                             awsemail:memberContacts,
                                             
-                                            balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2)
+                                            balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0)
                                                                            
                                           }
                                         })
@@ -213,8 +213,8 @@ const SMASendChmNonLns = props => {
                                           input:{
                                             grpContact:groupContacts,
                                             
-                                            grpBal:(parseFloat(grpBals) + parseFloat(amounts)).toFixed(2),                                     
-                                            ttlNonLonsRecChm: (parseFloat(amounts) + parseFloat(ttlNonLonsRecChmsssssss)).toFixed(2)
+                                            grpBal:(parseFloat(grpBals) + parseFloat(amounts)).toFixed(0),                                     
+                                            ttlNonLonsRecChm: (parseFloat(amounts) + parseFloat(ttlNonLonsRecChmsssssss)).toFixed(0)
                                                                               
                                             
                                           }
@@ -272,7 +272,7 @@ const SMASendChmNonLns = props => {
                                         graphqlOperation(updateChamaMembers, {
                                           input:{
                                             ChamaNMember: MembaId,   
-                                            NonLoanAcBal:parseFloat(NonLoanAcBals) + parseFloat(amounts)  ,
+                                            NonLoanAcBal:(parseFloat(NonLoanAcBals) + parseFloat(amounts)).toFixed(0)  ,
                                                                                                                           
                                             
                                           }

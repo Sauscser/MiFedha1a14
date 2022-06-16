@@ -148,7 +148,7 @@ const SMASendNonLns = props => {
                               recipientPhn: memberContacts,
                               receiverName:namess,
                               SenderName:grpNames,
-                              amountSent: amounts,
+                              amountSent: parseFloat(amounts).toFixed(0),
 
                               description: Desc,
                               memberId:MemberID,
@@ -180,8 +180,8 @@ const SMASendNonLns = props => {
                             graphqlOperation(updateGroup, {
                               input:{
                                 grpContact:groupContacts,
-                                ttlNonLonsSentChm: (parseFloat(ttlNonLonsSentChms)+parseFloat(amounts)).toFixed(2),
-                                grpBal:(parseFloat(grpBals)-TotalTransacted).toFixed(2) 
+                                ttlNonLonsSentChm: (parseFloat(ttlNonLonsSentChms)+parseFloat(amounts)).toFixed(0),
+                                grpBal:(parseFloat(grpBals)-TotalTransacted).toFixed(0) 
                               }
                             })
                           )
@@ -208,7 +208,7 @@ const SMASendNonLns = props => {
                               input:{
                                 awsemail:memberContacts,
                                 
-                                balance:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(2)                              
+                                balance:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(0)                              
                                 
                                                                   
                                 
@@ -263,7 +263,7 @@ const SMASendNonLns = props => {
                             graphqlOperation(updateChamaMembers, {
                               input:{
                                 ChamaNMember: MemberID,                                                      
-                                ttlNonLonAcBal: (parseFloat(ttlNonLonAcBals) + parseFloat(amounts)).toFixed(2),
+                                ttlNonLonAcBal: (parseFloat(ttlNonLonAcBals) + parseFloat(amounts)).toFixed(0),
                                 
                                 
                               }

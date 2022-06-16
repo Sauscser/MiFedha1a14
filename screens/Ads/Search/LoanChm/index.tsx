@@ -23,9 +23,9 @@ const FetchSMNonCovLns = props => {
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState('');
 
-  const [itemPrys, setitemPrys] = useState('');
+  const [itemPrys, setitemPrys] = useState('a');
   const [itemTwn, setitemTwn] = useState('');
-  const [lnPrsntg, setlnPrsntg] = useState('');
+  const [lnPrsntg, setlnPrsntg] = useState('a');
   const [rpymntPrd, setrpymntPrd] = useState('');
 
 

@@ -24,6 +24,7 @@ import {
   getAdvocate,
   getBizna,
   getPersonel,
+  getReqLoanCredSl,
 } from '../../../../../../src/graphql/queries';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -78,18 +79,23 @@ const NonCovCredSls = props => {
 
 
 
-  const fetchSenderUsrDtls = async () => {
+  const fetchCredSlLnReq = async () => {
     if(isLoading){
       return;
     }
     setIsLoading(true);
     try {
       const PersnlDtl:any = await API.graphql(
-        graphqlOperation(getPersonel, {workerId: route.params.workerId}),
+        graphqlOperation(getReqLoanCredSl, {id: route.params.id}),
       );
+      const RecPhn =PersnlDtl.data.getReqLoanCredSl.loaneeEmail;
+      const BusinessRegNos =PersnlDtl.data.getReqLoanCredSl.businessNo;
+      const loaneePhone =PersnlDtl.data.getReqLoanCredSl.loaneePhone;
+      const loaneeName =PersnlDtl.data.getReqLoanCredSl.loaneeName;
+      const amount =PersnlDtl.data.getReqLoanCredSl.amount;
+      const AmtExp =PersnlDtl.data.getReqLoanCredSl.repaymentAmt;
+      const RepaymtPeriod =PersnlDtl.data.getReqLoanCredSl.repaymentPeriod;
 
-      const BusinessRegNos =PersnlDtl.data.getPersonel.BusinessRegNo;
-      
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -205,13 +211,13 @@ const NonCovCredSls = props => {
                                   loanerLoanee:BusinessRegNos+RecPhn,
                                   DefaultPenaltyCredSl:DfltPnlty,    
                                   DefaultPenaltyCredSl2:0,                     
-                                  amountSold: amount,
-                                  amountexpectedBack: (parseFloat(AmtExp) - TransCost).toFixed(2),
-                                  amountExpectedBackWthClrnc:(parseFloat(AmtExp) - TransCost).toFixed(2),
+                                  amountSold: parseFloat(amount).toFixed(0),
+                                  amountexpectedBack: (parseFloat(AmtExp) - TransCost).toFixed(0),
+                                  amountExpectedBackWthClrnc:(parseFloat(AmtExp) - TransCost).toFixed(0),
                                   amountRepaid: 0,
                                   buyerName:namess,
                                   SellerName:busNames,
-                                  lonBala:(parseFloat(AmtExp) - TransCost).toFixed(2),
+                                  lonBala:(parseFloat(AmtExp) - TransCost).toFixed(0),
                                   repaymentPeriod: RepaymtPeriod,
                                   
                                   description: Desc,
@@ -237,22 +243,6 @@ const NonCovCredSls = props => {
                         if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
                       return;
                     }
-                        else if(recAcptncCode !== BusinessRegNos){Alert.alert('let Loanee first request Loan');
-                      return;
-                    }
-
-                    else if(parseFloat(TtlActvLonsTmsLnrCovs) !== parseFloat(amount)){Alert.alert('Enter the agreed amount');
-                      return;
-                    }
-
-                    else if(parseFloat(TtlActvLonsTmsLneeCovs) !== parseFloat(RepaymtPeriod)){Alert.alert('Enter the agreed repayment period');
-                      return;
-                    }
-
-                    else if(parseFloat(DfltPnlty) !== parseFloat(DefaultPenaltySMs)){Alert.alert('Enter the agreed Default Penalty');
-                    return;
-                  }
-
                         
                         else if(BusinessRegNos === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
@@ -262,8 +252,7 @@ const NonCovCredSls = props => {
                                                    {Alert.alert('Buyer cannot facilitate; should recharge');}
                         
                         else if(pwz !==SnderPW){Alert.alert('Wrong password');}
-                        else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Little repayment: enter btw Ksh ' + TtlTransCost.toFixed(2) + " and " + (AllTtlTrnsCst).toFixed(2) );
-                      return;}
+                        
                         
                          else {
                           sendSMLn();
@@ -279,7 +268,7 @@ const NonCovCredSls = props => {
                                 graphqlOperation(updateBizna, {
                                   input:{
                                     BusKntct:BusinessRegNos,
-                                    TtlEarnings: (parseFloat(TtlEarningsz)+parseFloat(AmtExp)).toFixed(2),
+                                    TtlEarnings: (parseFloat(TtlEarningsz)+parseFloat(AmtExp)).toFixed(0),
                                    
                                   }
                                 })
@@ -305,7 +294,7 @@ const NonCovCredSls = props => {
                                   input:{
                                     awsemail:RecPhn,
                                     
-                                    balance:(parseFloat(RecUsrBal) - parseFloat(userLoanTransferFees)*parseFloat(amount) ).toFixed(2)  ,
+                                    balance:(parseFloat(RecUsrBal) - parseFloat(userLoanTransferFees)*parseFloat(amount) ).toFixed(0)  ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                               
@@ -559,17 +548,6 @@ useEffect(() =>{
            <Text style={styles.title}>Fill Loan Details Below</Text>
          </View>
 
-         
-         <View style={styles.sendAmtView}>
-           <TextInput
-           placeholder="Buyer Email"
-             value={RecPhn}
-             onChangeText={setRecPhn}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Buyer Email</Text>
-         </View>
-
          <View style={styles.sendAmtView}>
            <TextInput
              value={SnderPW}
@@ -598,38 +576,6 @@ useEffect(() =>{
            <Text style={styles.sendAmtText}>Item Serial Number</Text>
          </View>
 
-         <View style={styles.sendAmtView}>
-           <TextInput
-           keyboardType={"decimal-pad"}
-             value={amount}
-             onChangeText={setAmount}
-             style={styles.sendAmtInput}
-             editable={true}
-             ></TextInput>
-             
-           <Text style={styles.sendAmtText}>Amount Loaned</Text>
-         </View>
-
-                  
-         <View style={styles.sendAmtView}>
-           <TextInput
-           keyboardType={"decimal-pad"}
-             value={AmtExp}
-             onChangeText={setAmtExp}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Amount Expected Back</Text>
-         </View>
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-           keyboardType={"decimal-pad"}
-             value={RepaymtPeriod}
-             onChangeText={setRepaymtPeriod}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Repayment Period in days</Text>
-         </View>
 
          <View style={styles.sendAmtView}>
            <TextInput
@@ -655,7 +601,7 @@ useEffect(() =>{
          
 
          <TouchableOpacity
-           onPress={fetchSenderUsrDtls}
+           onPress={fetchCredSlLnReq}
            style={styles.sendAmtButton}>
            <Text style={styles.sendAmtButtonText}>Credit Sell without Advocate Coverage</Text>
            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}

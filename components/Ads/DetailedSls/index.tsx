@@ -72,7 +72,7 @@ const ViewSMDeposts = (props:SMAccount) => {
 
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       Repayment Period: {sokolpymntperiod.toFixed(2)} days
+                       Repayment Period: {sokolpymntperiod} days
                        
                     </Text>                    
 

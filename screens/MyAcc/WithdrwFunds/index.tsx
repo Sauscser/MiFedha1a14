@@ -233,7 +233,7 @@ const SMADepositForm = props => {
                                     agentPhonecontact: AgentPhn,
                                     sagentId: sagentregnos,
                                     owner: ownr,
-                                    amount: amount,
+                                    amount: parseFloat(amount).toFixed(0),
                                     agentName:namess,
                                     userName:names,
                                     saName:namessssssss,
@@ -267,8 +267,8 @@ const SMADepositForm = props => {
                             input: {
                               awsemail: WthDrwrPhn,
                   
-                              balance: (parseFloat(usrBala) - TTlAmtTrnsctd).toFixed(2) ,
-                              TtlWthdrwnSM: (parseFloat(TtlWthdrwnSMs) + parseFloat(amount)).toFixed(2),
+                              balance: (parseFloat(usrBala) - TTlAmtTrnsctd).toFixed(0) ,
+                              TtlWthdrwnSM: (parseFloat(TtlWthdrwnSMs) + parseFloat(amount)).toFixed(0),
                             },
                           }),
                         );
@@ -295,10 +295,10 @@ const SMADepositForm = props => {
                                 phonecontact: AgentPhn,
                     
                                
-                                ttlEarnings: (parseFloat(ttlEarningssss) + AgentCommission).toFixed(2),
-                                agentEarningBal: (parseFloat(agentEarningBalsss) + AgentCommission).toFixed(2),
-                                floatBal: (parseFloat(floatBals) + parseFloat(amount)).toFixed(2),
-                                TtlFltIn: (parseFloat(TtlFltInsss) + parseFloat(amount)).toFixed(2),
+                                ttlEarnings: (parseFloat(ttlEarningssss) + AgentCommission).toFixed(0),
+                                agentEarningBal: (parseFloat(agentEarningBalsss) + AgentCommission).toFixed(0),
+                                floatBal: (parseFloat(floatBals) + parseFloat(amount)).toFixed(0),
+                                TtlFltIn: (parseFloat(TtlFltInsss) + parseFloat(amount)).toFixed(0),
                               },
                             }),
                           );
@@ -326,8 +326,8 @@ const SMADepositForm = props => {
                                   input: {
                                     saPhoneContact: sagentregnos,
                         
-                                    TtlEarnings: (parseFloat(TtlEarningss) + saCommission).toFixed(2),
-                                    saBalance: (parseFloat(saBalances) + saCommission).toFixed(2),
+                                    TtlEarnings: (parseFloat(TtlEarningss) + saCommission).toFixed(0),
+                                    saBalance: (parseFloat(saBalances) + saCommission).toFixed(0),
                                       
                                   },
                                 }),

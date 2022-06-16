@@ -91,7 +91,11 @@ const ViewSMDeposts = (props:SMAccount) => {
                        
                     </Text>
 
-                    
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Repayment Period: {sokolpymntperiod} days
+                       
+                    </Text>    
                     </TouchableOpacity>
     );
 }; 

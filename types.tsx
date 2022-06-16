@@ -10,6 +10,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {
+      
       LnsScreen:undefined;
       CredSlsScreen:undefined;
       ChamaScreen:undefined;
@@ -49,13 +50,13 @@ declare global {
       
       BListLneess:undefined;
       
-      CovCredSls:{workerId:string};
-      NonCovCredSlss:{workerId:string};
+      CovCredSls:{BusinessRegNo:string};
+      NonCovCredSlss:{BusinessRegNo:string};
       CredSlsHms:undefined;
       CreateChms:undefined;
       AddChmMembrsss:undefined;
       ChmCovLons:{id:string};
-      ChmNonCovLons:{ChamaNMember:string};
+      ChmNonCovLons:{id:string};
       ChmContrs:{ContriToMmbrId:string};
       SndMbrsMnys:{id:string};
       
@@ -293,8 +294,7 @@ declare global {
       SignitoryWthdrwFndsss:undefined;
       SignitoryDepositss:undefined; 
       Sgn2CnfrmWthdrwlsss:undefined; 
-      Vw2CredSellCovs:undefined; 
-      Vw2CredSellNonCovs:undefined; 
+      
 
       AddPersonels:undefined; 
       CrtBusinesss:undefined; 
@@ -302,7 +302,8 @@ declare global {
       VwBusAcss:{BusinessRegNos:string}; 
       DissolveBizss:undefined; 
       RmvPersonnelss:undefined; 
-
+      Vw2CredSellCovs:undefined;
+      Vw2CredSellNonCovs:undefined;
       SgnIn2VwBiznass:undefined; 
       ShareCredSlsRevss:undefined; 
 
@@ -310,8 +311,9 @@ declare global {
       SgnIn2VwNCCrdSlsLneess:undefined; 
       SnIn2VwCrdSlLPs:undefined;
       SignInAdms:undefined;
+      
+      SgnIn2VwChmDpstss:undefined;
 
-      SgnIn2VwChmDpstss:undefined; 
       VwChmDpstss:{grpContact:string}; 
       SgnIn2VwChmWthdrwlss:undefined;
       VwChmWthdrwlss:{grpContact:string};
@@ -333,6 +335,14 @@ declare global {
       Vw2DelLnReqs:undefined;
       Vw2GrantLnReq2:undefined;
       EntrAdvLoc:undefined;
+      ChamaPlaceLnReq:undefined;
+      ChamaVw2DelLnReqs:undefined;
+      ChamaVw2GrantLnReqCov:undefined;
+      ChamaVw2GrantLnReqNonCov:undefined;
+      CrdSlPlaceLnReq:undefined;
+      CrdSlVw2DelLnReqs:undefined;
+      CrdSlVw2GrantLnReqCov:{BusinessRegNo:string};
+      CrdSlVw2GrantLnReqNonCov:{BusinessRegNo:string};
       
     }
   }

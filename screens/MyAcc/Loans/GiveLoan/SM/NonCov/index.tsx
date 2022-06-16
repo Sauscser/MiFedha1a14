@@ -307,13 +307,13 @@ const route = useRoute();
                                   DefaultPenaltySM:DefaultPenaltySMs,
                                   DefaultPenaltySM2:0,
                                   loaneePhn: loaneeEmail,                                  
-                                  amountgiven: amount,
+                                  amountgiven: parseFloat(amount).toFixed(0),
                                   amountexpected: AmtExp,
                                   amountExpectedBackWthClrnc:AmtExp,
                                   amountrepaid: 0,
                                   loaneename:namess,
                                   loanername:names,
-                                  lonBala:parseFloat(AmtExp).toFixed(2),
+                                  lonBala:parseFloat(AmtExp).toFixed(0),
                                   repaymentPeriod: RepaymtPeriod,
                                   
                                   description: Desc,
@@ -347,10 +347,10 @@ const route = useRoute();
                                   input:{
                                     awsemail:SendrEmail,
                                     TtlActvLonsTmsLnrNonCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
-                                    TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(AmtExp)).toFixed(2),
+                                    TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(AmtExp)).toFixed(0),
                                     TtlActvLonsTmsLneeNonCov: parseFloat(TtlActvLonsTmsLneeCovs2) +1 ,
-                                    TtlActvLonsAmtLneeNonCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ parseFloat(AmtExp)).toFixed(2),                                        
-                                    balance:(parseFloat(SenderUsrBal)-TtlTransCost).toFixed(2), 
+                                    TtlActvLonsAmtLneeNonCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ parseFloat(AmtExp)).toFixed(0),                                        
+                                    balance:(parseFloat(SenderUsrBal)-TtlTransCost).toFixed(0), 
                                     TymsIHvGivnLn: parseFloat(TymsIHvGivnLns) + 1,   
                                     
                                   }
@@ -378,8 +378,8 @@ const route = useRoute();
                                     awsemail:loaneeEmail,
                                     
                                     TtlActvLonsTmsLnrNonCov: parseFloat(TtlActvLonsTmsLnrCovs1)+1,
-                                    TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrCovs1) + parseFloat(AmtExp)).toFixed(2),
-                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount) ).toFixed(2),
+                                    TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrCovs1) + parseFloat(AmtExp)).toFixed(0),
+                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount) ).toFixed(0),
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                

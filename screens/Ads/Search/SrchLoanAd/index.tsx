@@ -25,7 +25,7 @@ const FetchSMNonCovLns = props => {
 
   const [itemPrys, setitemPrys] = useState('0');
   const [itemTwn, setitemTwn] = useState('0');
-  const [lnPrsntg, setlnPrsntg] = useState('0');
+  const [lnPrsntg, setlnPrsntg] = useState('100');
   const [rpymntPrd, setrpymntPrd] = useState('0');
 
   

@@ -23,10 +23,10 @@ const FetchSMNonCovLns = props => {
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState('');
 
-  const [itemPrys, setitemPrys] = useState('');
-  const [itemTwn, setitemTwn] = useState('');
-  const [lnPrsntg, setlnPrsntg] = useState('');
-  const [rpymntPrd, setrpymntPrd] = useState('');
+  const [itemPrys, setitemPrys] = useState('a');
+  const [itemTwn, setitemTwn] = useState('a');
+  const [lnPrsntg, setlnPrsntg] = useState('1000000000');
+  const [rpymntPrd, setrpymntPrd] = useState('0');
 
 
     const fetchUser = async () => {

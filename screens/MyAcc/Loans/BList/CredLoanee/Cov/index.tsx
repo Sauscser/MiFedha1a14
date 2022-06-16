@@ -201,10 +201,10 @@ const BLCovCredByr = (props) => {
                                       graphqlOperation(updateCovCreditSeller, {
                                         input:{
                                           id:route.params.id,
-                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
+                                          amountExpectedBackWthClrnc:(amountExpectedBackWthClrncss).toFixed(0),
                                           status:"LoanBL",
-                                          DefaultPenaltyCredSl2:DefaultPenaltyCredSls.toFixed(2),
-                                          lonBala:LonBal.toFixed(2)
+                                          DefaultPenaltyCredSl2:DefaultPenaltyCredSls.toFixed(0),
+                                          lonBala:LonBal.toFixed(0)
                                         }
                                       })
                                     )

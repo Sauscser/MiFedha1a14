@@ -27,6 +27,7 @@ import {
   getGroup,
   
   getChamaMembers,
+  getReqLoanChama,
 } from '../../../../../src/graphql/queries';
 
 import {useNavigation} from '@react-navigation/native';
@@ -77,7 +78,27 @@ const ChmCovLns = props => {
     fetchUser();
     }, []);  
 
+
     
+    const fetchChmLoanReq = async () => {
+      if(isLoading){
+        return;
+      }
+      setIsLoading(true);
+      try {
+          const ChmMbrtDtl:any = await API.graphql(
+              graphqlOperation(getReqLoanChama, {id: route.params.id}),
+              );
+
+              const groupContacts =ChmMbrtDtl.data.getChamaMembers.chamaPhone;
+              const memberContacts =ChmMbrtDtl.data.getChamaMembers.loaneePhone;
+              const amount =ChmMbrtDtl.data.getChamaMembers.amount;
+              const AmtExp =ChmMbrtDtl.data.getChamaMembers.repaymentAmt;
+              const RepaymtPeriod =ChmMbrtDtl.data.getChamaMembers.repaymentPeriod;
+              const loaneeMemberId =ChmMbrtDtl.data.getChamaMembers.loaneeMemberId;
+
+              const ChmNMmbrPhns = loaneeMemberId+groupContacts
+                         
 const fetchChmMbrDtls = async () => {
       if(isLoading){
         return;
@@ -88,8 +109,7 @@ const fetchChmMbrDtls = async () => {
               graphqlOperation(getChamaMembers, {ChamaNMember: ChmNMmbrPhns}),
               );
 
-              const groupContacts =ChmMbrtDtl.data.getChamaMembers.groupContact;
-              const memberContacts =ChmMbrtDtl.data.getChamaMembers.memberContact;
+              
               const GrossLnsGvns =ChmMbrtDtl.data.getChamaMembers.GrossLnsGvn;
               const LonAmtGvens =ChmMbrtDtl.data.getChamaMembers.LonAmtGven;
               const LnBals =ChmMbrtDtl.data.getChamaMembers.LnBal;
@@ -219,9 +239,9 @@ const fetchChmMbrDtls = async () => {
                               graphqlOperation(updateChamaMembers, {
                                 input: {
                                   ChamaNMember: ChmNMmbrPhns,
-                                  LonAmtGven: (parseFloat(LonAmtGvens) + parseFloat(amount)).toFixed(2),
-                                  GrossLnsGvn: (parseFloat(GrossLnsGvns) + parseFloat(AmtExp)).toFixed(2),
-                                  LnBal: (parseFloat(LnBals) + parseFloat(amount)).toFixed(2),                                  
+                                  LonAmtGven: (parseFloat(LonAmtGvens) + parseFloat(amount)).toFixed(0),
+                                  GrossLnsGvn: (parseFloat(GrossLnsGvns) + parseFloat(AmtExp)).toFixed(0),
+                                  LnBal: (parseFloat(LnBals) + parseFloat(amount)).toFixed(0),                                  
                                   loanStatus:"LoanActive",                                    
                                   blStatus: "AccountNotBL",
                                 
@@ -256,14 +276,14 @@ const fetchChmMbrDtls = async () => {
                                     loanerLoanee:groupContacts+memberContacts,
                                     loanerLoaneeAdv:  groupContacts+memberContacts+ AdvRegNo ,  
                                     repaymentPeriod: RepaymtPeriod,
-                                    amountGiven: parseFloat(amount).toFixed(2),
-                                    amountExpectedBack: parseFloat(AmtExp).toFixed(2),
-                                    amountExpectedBackWthClrnc: parseFloat(AmtExp).toFixed(2),
+                                    amountGiven: parseFloat(amount).toFixed(0),
+                                    amountExpectedBack: parseFloat(AmtExp).toFixed(0),
+                                    amountExpectedBackWthClrnc: parseFloat(AmtExp).toFixed(0),
                                     amountRepaid: 0,
                                     DefaultPenaltyChm:DfltPnlty,
                                     DefaultPenaltyChm2:0,
                                     description: Desc,
-                                    lonBala:parseFloat(AmtExp).toFixed(2),
+                                    lonBala:parseFloat(AmtExp).toFixed(0),
                                     advRegNu: AdvRegNo,
                                     loaneeName:namess,
                                     LoanerName:grpNames,
@@ -293,9 +313,9 @@ const fetchChmMbrDtls = async () => {
                                   input:{
                                     grpContact:groupContacts,
                                     TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs)+1,
-                                    TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + parseFloat(AmtExp)).toFixed(2),
+                                    TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + parseFloat(AmtExp)).toFixed(0),
                                                                               
-                                    grpBal:(parseFloat(grpBals)-TtlTransCost).toFixed(2) 
+                                    grpBal:(parseFloat(grpBals)-TtlTransCost).toFixed(0) 
                                    
                                     
                                   }
@@ -322,8 +342,8 @@ const fetchChmMbrDtls = async () => {
                                   input:{
                                     awsemail:memberContacts,
                                     TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
-                                    TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ parseFloat(AmtExp)).toFixed(2),
-                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(2) ,
+                                    TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ parseFloat(AmtExp)).toFixed(0),
+                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0) ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
                                     loanAcceptanceCode:"None"                                
@@ -409,39 +429,22 @@ const fetchChmMbrDtls = async () => {
                         if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
                       return;
                     }
-                        else if(recAcptncCode !== groupContacts){Alert.alert('Let the Loanee first request Loan');
-                      return;
-                    }
-
+                        
                     else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs)===0){Alert.alert('Loanee National ID be verified through deposit at MFNdogo');}
 
-                    else if(parseFloat(TtlActvLonsTmsLnrCovss) !== parseFloat(amount)){Alert.alert('Enter agreed amount');
-                      return;
-                    }
-
-                    else if(parseFloat(TtlActvLonsTmsLneeCovss) !== parseFloat(RepaymtPeriod)){Alert.alert('Enter agreed amount');
-                      return;
-                    }
-
-                    else if(parseFloat(DfltPnlty) !== parseFloat(DefaultPenaltySMs)){Alert.alert('Enter agreed Default Penalty');
-                      return;
-                    }
+                    
 
                     else if((parseFloat(RecUsrBal) + parseFloat(amount)) > parseFloat(MaxAcBals))
                     {Alert.alert('Loanee call customer care to have wallet capacity adjusted');
                       return;
                     }
 
-                    else if(TtlTransCost > parseFloat(AmtExp)){Alert.alert('Little repayment: enter btw Ksh ' + TtlTransCost.toFixed(2) + " and " + (AllTtlTrnsCst).toFixed(2));
-                      return;
-                    }
+                    
                     else if(ownr !==SenderSub){Alert.alert('You are not the creator/signitory of this Chama');}
                         else if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                        else if(ActualMaxSMInterest>MaxSMInterest)
-                        {Alert.alert('High S.I: enter repayment btw Ksh ' 
-                        + TtlTransCost.toFixed(2) + " and " + (AllTtlTrnsCst).toFixed(2) );}
+                        
                         else if (
                           parseFloat(grpBals) < TtlTransCost 
                         ) {Alert.alert('Requested amount is more than you have in your account');}
@@ -496,6 +499,17 @@ const fetchChmMbrDtls = async () => {
       
 }
 await fetchSenderUsrDtls();
+
+} catch (e) {
+  console.log(e)
+  if (e){Alert.alert("Please fill details correctly or check your internet connection")
+  return;}
+};
+  setIsLoading(false);
+  
+  
+}
+await fetchChmMbrDtls();
 
 } catch (e) {
   console.log(e);
@@ -657,25 +671,6 @@ useEffect(() =>{
            <Text style={styles.title}>Fill Loan Details Below</Text>
          </View>
 
-         <View style={styles.sendAmtView}>
-           <TextInput
-           
-             value={MmbrId}
-             onChangeText={setMmbrId}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Member Chama Number</Text>
-         </View>
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-           placeholder="+2547########"
-             value={ChmPhn}
-             onChangeText={setChmPhn}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Chama Phone</Text>
-         </View>
 
          <View style={styles.sendAmtView}>
            <TextInput
@@ -689,39 +684,6 @@ useEffect(() =>{
            <Text style={styles.sendAmtText}>Signitory PassWord</Text>
          </View>
 
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-           keyboardType={"decimal-pad"}
-             value={amount}
-             onChangeText={setAmount}
-             style={styles.sendAmtInput}
-             editable={true}
-             ></TextInput>
-             
-           <Text style={styles.sendAmtText}>Amount Loaned</Text>
-         </View>
-
-                  
-         <View style={styles.sendAmtView}>
-           <TextInput
-           keyboardType={"decimal-pad"}
-             value={AmtExp}
-             onChangeText={setAmtExp}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Amount Expected Back</Text>
-         </View>
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-           keyboardType={"decimal-pad"}
-             value={RepaymtPeriod}
-             onChangeText={setRepaymtPeriod}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Repayment Period in days</Text>
-         </View>
 
          <View style={styles.sendAmtView}>
            <TextInput
@@ -758,7 +720,7 @@ useEffect(() =>{
          
 
          <TouchableOpacity
-           onPress={fetchChmMbrDtls}
+           onPress={fetchChmLoanReq}
            style={styles.sendAmtButton}>
            <Text style={styles.sendAmtButtonText}>Loan with Advocate Coverage</Text>
            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}

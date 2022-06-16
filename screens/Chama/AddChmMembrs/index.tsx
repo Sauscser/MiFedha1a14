@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {createChamaMembers, createGrpMembers, updateCompany, updateGroup} from '../../../src/graphql/mutations';
+import {createChamaMembers,  updateCompany, updateGroup} from '../../../src/graphql/mutations';
 import { getCompany, getGroup, getSMAccount, } from '../../../src/graphql/queries';
 import {Auth, graphqlOperation, API} from 'aws-amplify';
 

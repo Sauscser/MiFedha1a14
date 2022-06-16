@@ -137,8 +137,8 @@ const BLChmCovLoanee = (props) => {
                                       grpContact:loanerPhns,
                                       tymsChmHvBL: parseFloat(tymsChmHvBLs) + 1,
                                       TtlBLLonsTmsLnrChmCov: parseFloat(TtlBLLonsTmsLnrChmCovs) + 1,
-                                      TtlBLLonsAmtLnrChmCov: (parseFloat(TtlBLLonsAmtLnrChmCovs) + amountExpectedBackWthClrncss).toFixed(2),
-                                      TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
+                                      TtlBLLonsAmtLnrChmCov: (parseFloat(TtlBLLonsAmtLnrChmCovs) + amountExpectedBackWthClrncss).toFixed(0),
+                                      TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(0),
                                       
                                     }
                                   })
@@ -188,7 +188,7 @@ const BLChmCovLoanee = (props) => {
                                         input:{
                                           AdminId:"BaruchHabaB'ShemAdonai2",
                                           ttlChmLnsInBlTymsCov: parseFloat(ttlChmLnsInBlTymsCovs) + 1,
-                                          ttlChmLnsInBlAmtCov: (parseFloat(ttlChmLnsInBlAmtCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
+                                          ttlChmLnsInBlAmtCov: (parseFloat(ttlChmLnsInBlAmtCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(0),
                                           ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
                                         }
                                       })
@@ -216,9 +216,9 @@ const BLChmCovLoanee = (props) => {
                                           awsemail:loaneePhns,
                                           MaxTymsBL: parseFloat(MaxTymsBLs) + 1,
                                           TtlBLLonsTmsLneeChmCov: parseFloat(TtlBLLonsTmsLneeChmCovs) + 1,
-                                          TtlBLLonsAmtLneeChmCov: (parseFloat(TtlBLLonsAmtLneeChmCovs) + amountExpectedBackWthClrncss).toFixed(2),
+                                          TtlBLLonsAmtLneeChmCov: (parseFloat(TtlBLLonsAmtLneeChmCovs) + amountExpectedBackWthClrncss).toFixed(0),
                                           
-                                          TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
+                                          TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(0),
                                           blStatus:"AccountBlackListed",
                                           loanStatus: "LoanActive"
                                         }
@@ -245,9 +245,9 @@ const BLChmCovLoanee = (props) => {
                                         input:{
                                           id:route.params.id,
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
-                                          lonBala:LonBal.toFixed(2),
+                                          lonBala:LonBal.toFixed(0),
                                           status:"LoanBL",
-                                          DefaultPenaltyChm2:DefaultPenaltyChms.toFixed(2),
+                                          DefaultPenaltyChm2:DefaultPenaltyChms.toFixed(0),
                                         }
                                       })
                                     )

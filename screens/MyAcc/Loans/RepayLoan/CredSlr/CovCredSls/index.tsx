@@ -174,7 +174,7 @@ const RepayCovSellerLnsss = props => {
                               input:{
                                 awsemail:SendrEmail,
                                 
-                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
+                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                
                                 MaxTymsBL: 0, 
                                  
@@ -204,7 +204,7 @@ const RepayCovSellerLnsss = props => {
                               input:{
                                 awsemail:SendrEmail,
                                 
-                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
+                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                 
                                 MaxTymsBL: parseFloat(MaxTymsBLss) - 1, 
                                                                    
@@ -234,9 +234,9 @@ const RepayCovSellerLnsss = props => {
                                       graphqlOperation(updateCovCreditSeller, {
                                         input:{
                                           id:route.params.id,
-                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(2),
-                                          lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(2),
-                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
+                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
+                                          lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(0),
+                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
                                           status: "LoanCleared",
                                           DefaultPenaltyCredSl2:0
                                       }})
@@ -266,7 +266,7 @@ const RepayCovSellerLnsss = props => {
                                         recPhn: sellerContacts,    
                                         RecName:SellerNames,
                                         SenderName:buyerNames,                             
-                                        amount: amounts,                              
+                                        amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "CredSlrLonRepayment",
                                         owner: ownr
@@ -300,8 +300,8 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           BusKntct:sellerContacts,
                                           
-                                          netEarnings: (parseFloat(netEarningss) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(2),
-                                          earningsBal: (parseFloat(earningsBalszz) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(2),
+                                          netEarnings: (parseFloat(netEarningss) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(0),
+                                          earningsBal: (parseFloat(earningsBalszz) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(0),
                                          
                                         }
                                       })
@@ -356,10 +356,10 @@ const RepayCovSellerLnsss = props => {
                                       graphqlOperation(updateCovCreditSeller, {
                                         input:{
                                           id:route.params.id,
-                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(2),
-                                          lonBala: (parseFloat(lonBalas) - parseFloat(amounts)).toFixed(2),
+                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
+                                          lonBala: (parseFloat(lonBalas) - parseFloat(amounts)).toFixed(0),
                                           DefaultPenaltyCredSl2:0,
-                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
+                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
                                         }
                                       })
                                     )
@@ -388,7 +388,7 @@ const RepayCovSellerLnsss = props => {
                                         senderPhn: SendrEmail, 
                                         RecName:SellerNames,
                                         SenderName:buyerNames,                                    
-                                        amount: amounts,                              
+                                        amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "CredSlrLonRepayment",
                                         owner: ownr
@@ -421,7 +421,7 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           awsemail:SendrEmail,
                                           
-                                          balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2),
+                                          balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0),
                                          
                                           
                                         }
@@ -450,9 +450,9 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           BusKntct:sellerContacts,
                                           
-                                          netEarnings: (parseFloat(netEarningss) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(2),
+                                          netEarnings: (parseFloat(netEarningss) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(0),
                                          
-                                          earningsBal: (parseFloat(earningsBalszz) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(2),                                    
+                                          earningsBal: (parseFloat(earningsBalszz) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(0),                                    
                                          
                                         }
                                       })

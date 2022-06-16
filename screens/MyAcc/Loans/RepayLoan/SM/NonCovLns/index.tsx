@@ -178,11 +178,11 @@ const RepayNonCovLnsss = props => {
                               input:{
                                 awsemail:SendrEmail,
                                 
-                                balance: (parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
+                                balance: (parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                 MaxTymsBL: 0 ,
                                 
                                 TtlClrdLonsTmsLneeNonCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
-                                TtlClrdLonsAmtLneeNonCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(2),
+                                TtlClrdLonsAmtLneeNonCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(0),
                                 
                                
                               }
@@ -211,12 +211,12 @@ const RepayNonCovLnsss = props => {
                               input:{
                                 awsemail:SendrEmail,
                                 
-                                balance: (parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2) ,
+                                balance: (parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                 MaxTymsBL: parseFloat(MaxTymsBLs) - 1 ,
                                 TtlBLLonsTmsLneeNonCov: parseFloat(TtlBLLonsTmsLneeNonCovs) - 1,
-                                TtlBLLonsAmtLneeNonCov: (parseFloat(TtlBLLonsAmtLneeNonCovs) - parseFloat(amounts)).toFixed(2),
+                                TtlBLLonsAmtLneeNonCov: (parseFloat(TtlBLLonsAmtLneeNonCovs) - parseFloat(amounts)).toFixed(0),
                                 TtlClrdLonsTmsLneeNonCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
-                                TtlClrdLonsAmtLneeNonCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(2),
+                                TtlClrdLonsAmtLneeNonCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(0),
                                 
                               }
                             })
@@ -241,9 +241,9 @@ const RepayNonCovLnsss = props => {
                                       graphqlOperation(updateSMLoansNonCovered, {
                                         input:{
                                           id:route.params.id,
-                                          amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(2),
-                                          lonBala:(parseFloat(LonBal)-parseFloat(amounts)).toFixed(2),
-                                          amountExpectedBackWthClrnc: (parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
+                                          amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
+                                          lonBala:(parseFloat(LonBal)-parseFloat(amounts)).toFixed(0),
+                                          amountExpectedBackWthClrnc: (parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
                                           status: "LoanCleared",
                                           DefaultPenaltySM2:0
                                       }})
@@ -272,7 +272,7 @@ const RepayNonCovLnsss = props => {
                                         recPhn: loanerPhns,  
                                         RecName:namess,
                                         SenderName:names,                                  
-                                        amount: amounts,                              
+                                        amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "SMLonRepayment",
                                         owner: ownr
@@ -309,10 +309,10 @@ const RepayNonCovLnsss = props => {
                                         input:{
                                           awsemail:loanerPhns,
                                           
-                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + parseFloat(DefaultPenaltySM2s))).toFixed(2),                                     
+                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + parseFloat(DefaultPenaltySM2s))).toFixed(0),                                     
                                           TymsMyLnClrd: parseFloat(TymsMyLnClrds) + 1,
                                           TtlClrdLonsTmsLnrNonCov: parseFloat(TtlClrdLonsTmsLneeCovssss) + 1,
-                                          TtlClrdLonsAmtLnrNonCov: (parseFloat(TtlClrdLonsAmtLneeCovssss) + parseFloat(amounts)).toFixed(2),
+                                          TtlClrdLonsAmtLnrNonCov: (parseFloat(TtlClrdLonsAmtLneeCovssss) + parseFloat(amounts)).toFixed(0),
                                           
                                           MaxTymsIHvBL:parseFloat(MaxTymsIHvBLs)-1 ,                                  
                                           
@@ -372,10 +372,10 @@ const RepayNonCovLnsss = props => {
                                       graphqlOperation(updateSMLoansNonCovered, {
                                         input:{
                                           id:route.params.id,
-                                          amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(2),
-                                          lonBala: (parseFloat(LonBal) - parseFloat(amounts)).toFixed(2),
+                                          amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
+                                          lonBala: (parseFloat(LonBal) - parseFloat(amounts)).toFixed(0),
                                           DefaultPenaltySM2:0,
-                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(2),
+                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
                                         }
                                       })
                                     )
@@ -403,7 +403,7 @@ const RepayNonCovLnsss = props => {
                                         senderPhn: SendrEmail,  
                                         RecName:namess,
                                         SenderName:names,                                  
-                                        amount: amounts,                              
+                                        amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "SMLonRepayment",
                                         owner: ownr
@@ -435,8 +435,8 @@ const RepayNonCovLnsss = props => {
                                         input:{
                                           awsemail:SendrEmail,
                                           
-                                          balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(2),
-                                          TtlClrdLonsAmtLneeNonCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(2),
+                                          balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0),
+                                          TtlClrdLonsAmtLneeNonCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(0),
                                 
                                         }
                                       })
@@ -463,8 +463,8 @@ const RepayNonCovLnsss = props => {
                                         input:{
                                           awsemail:loanerPhns,
                                           
-                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + DefaultPenaltySM2s)).toFixed(2),
-                                          TtlClrdLonsAmtLnrNonCov: (parseFloat(TtlClrdLonsAmtLneeCovssss) + parseFloat(amounts)).toFixed(2),
+                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + DefaultPenaltySM2s)).toFixed(0),
+                                          TtlClrdLonsAmtLnrNonCov: (parseFloat(TtlClrdLonsAmtLneeCovssss) + parseFloat(amounts)).toFixed(0),
                                           
                                                                                 }
                                       })

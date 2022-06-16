@@ -25,7 +25,7 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
    const navigation = useNavigation();
 
    const SndChmMmbrMny = () => {
-      navigation.navigate("NonCovCredSlss", {workerId})
+      navigation.navigate("CrdSlVw2GrantLnReqNonCov", {BusinessRegNo})
    }
     return (
       <Pressable 
