@@ -32,12 +32,11 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
                 {
                       
-                      sortDirection: 'DESC',
-                      limit: 100,
+                      
                       filter:{
                       lonBala:{gt:0},
-                      buyerContact: LnerPhn
-                      }
+                      buyerContact: {eq:LnerPhn}
+                      },
                       
                     }
                  
@@ -54,13 +53,13 @@ const FetchSMCovLns = props => {
                         
                         const fetchCompDtls = async () => {
                           try {
-                                  const MFNDtls: any = await API.graphql(
+                                  const MFNDtls1: any = await API.graphql(
                                       graphqlOperation(getCompany, {AdminId: "BaruchHabaB'ShemAdonai2"}
                                   ),);
                   
-                                  const companyEarningBals = MFNDtls.data.getCompany.companyEarningBal;
-                                  const companyEarnings = MFNDtls.data.getCompany.companyEarning;
-                                  const enquiryFees = MFNDtls.data.getCompany.enquiryFee;
+                                  const companyEarningBals = MFNDtls1.data.getCompany.companyEarningBal;
+                                  const companyEarnings = MFNDtls1.data.getCompany.companyEarning;
+                                  const enquiryFees = MFNDtls1.data.getCompany.enquiryFee;
                                   
                                   
                                               const updtActAdm = async()=>{

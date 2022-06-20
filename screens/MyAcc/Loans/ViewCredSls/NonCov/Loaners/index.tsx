@@ -30,12 +30,15 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
                  {
                       
-                      sortDirection: 'DESC',
+                      
+                      filter:
+                      {
+                        lonBala:{gt:0},
+                      buyerContact:{eq:LnerPhn}
+                    },
+                    sortDirection: 'DESC',
                       limit: 100,
-                      filter:{lonBala:{gt:0}},
-                      buyerContact:LnerPhn,
-                    }
-               
+                  }
                   ));
               setLoanees(Lonees.data.listNonCovCreditSellers.items);
 

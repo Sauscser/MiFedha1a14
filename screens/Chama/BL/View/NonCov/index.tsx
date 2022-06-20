@@ -39,7 +39,7 @@ const FetchSMNonCovLns = props => {
                         and: {
                           
                           lonBala:{gt:0},
-                          grpContact: route.params.ChmNMmbrPhns,
+                          grpContact: {eq:route.params.ChmNMmbrPhns},
                           
                         }
                       },

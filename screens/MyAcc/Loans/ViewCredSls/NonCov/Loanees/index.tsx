@@ -32,11 +32,13 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
                {
                       
+                      
+                      filter:{
+                        lonBala:{gt:0},
+                      sellerContact: {eq:route.params.MFNId},
+                      },
                       sortDirection: 'DESC',
                       limit: 100,
-                      filter:{lonBala:{gt:0}},
-                      sellerContact: route.params.MFNId,
-                      
                     }
                
                   ));

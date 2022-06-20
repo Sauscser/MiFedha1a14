@@ -40,7 +40,7 @@ const FetchSMNonCovLns = props => {
                           
                           lonBala:{gt:0},
                           status:{ne:"LoanBL"},
-                          grpContact: route.params.ChmNMmbrPhns,
+                          grpContact: {eq:route.params.ChmNMmbrPhns},
                           
                         }
                       },

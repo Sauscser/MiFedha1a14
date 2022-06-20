@@ -295,7 +295,7 @@ setBkAcNu("");
               onChangeText={setAdvRegNo}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>Advocate RegNumber</Text>
+            <Text style={styles.sendLoanText}>Advocate Licence Number</Text>
           </View>
           
           <View style={styles.sendLoanView}>

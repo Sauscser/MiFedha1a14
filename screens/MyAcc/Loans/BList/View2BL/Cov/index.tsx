@@ -40,42 +40,12 @@ const FetchSMCovLns = props => {
                       
                     }
                   },
-                  limit: 100
+                  limit: 100,
+                  sortDirection: 'DESC',
                 }
                   ));
 
-                  const fetchLoanees = async () => {
-                    setLoading(true);
-                    try {
-                      const Loneesz:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
-                        { 
-                          
-                          sortDirection: 'DESC',
-                          limit: 100,                
-                          filter: {
-                            
-                            loanerPhn: LnerPhn,
-                              lonBala:{gt:0},
-                              
-                              status:{ne:"LoanBL"}                      
-                            
-                          },
-                        
-                          
-                        }
-                          ));
-                          const combine3 = Loneesz.data.listSMLoansNonCovereds.items
-                          const combine4 = Lonees.data.listSMLoansCovereds.items
-
-                      setLoaneess(combine3 + combine4);
-                    } catch (e) {
-                      console.log(e);
-                    } finally {
-                      setLoading(false);
-                    }
-                  };
-
-                  await fetchLoanees();
+                  
 
               setLoanees(Lonees.data.listSMLoansCovereds.items);
             } catch (e) {

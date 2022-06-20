@@ -35,7 +35,7 @@ const FetchSMNonCovLns = props => {
                   limit: 100,                
                   filter: {
                     
-                    loanerPhn: LnerPhn,
+                    loanerPhn: {eq:LnerPhn},
                       lonBala:{gt:0},
                       
                       status:{ne:"LoanBL"}                      

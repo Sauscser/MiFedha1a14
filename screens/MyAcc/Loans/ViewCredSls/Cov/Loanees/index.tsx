@@ -36,7 +36,7 @@ const FetchSMCovLns = props => {
                       
                       filter:{
                       lonBala:{gt:0},
-                      sellerContact: route.params.MFNId,
+                      sellerContact: {eq:route.params.MFNId},
                       },
                       sortDirection: 'DESC',
                       limit: 100,

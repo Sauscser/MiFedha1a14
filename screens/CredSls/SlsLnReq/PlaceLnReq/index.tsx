@@ -306,7 +306,7 @@ useEffect(() =>{
                   <View style={styles.sendLoanView}>
                     <TextInput
                     
-                    placeholder='Group Phone'
+                    placeholder='Business Phone'
                       value={awsEmail}
                       onChangeText={setAWSEmail}
                       style={styles.sendLoanInput}
