@@ -99,10 +99,7 @@ const FetchSMCovLns = props => {
                                                 }
                                                                                                     
                                               }
-                          
-          
-          
-                          
+                                        
           
                   if(parseFloat(grpBals) < parseFloat(enquiryFees) ){
                       Alert.alert("Account Balance is very little");

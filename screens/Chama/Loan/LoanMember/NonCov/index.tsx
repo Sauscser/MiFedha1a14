@@ -10,6 +10,9 @@ import {
   updateGroup,
   
   
+  updateReqLoanChama,
+  
+  
   updateSMAccount,
   
 } from '../../../../../src/graphql/mutations';
@@ -76,17 +79,18 @@ const fetchChmLnReqDtls = async () => {
       }
       setIsLoading(true);
       try {
-          const ChmMbrtDtl:any = await API.graphql(
+          const ChmMbrtDtlz:any = await API.graphql(
               graphqlOperation(getReqLoanChama, {id: route.params.id}),
               );
 
-              const groupContacts =ChmMbrtDtl.data.getChamaMembers.chamaPhone;
-              const memberContacts =ChmMbrtDtl.data.getChamaMembers.loaneePhone;
-              const amount =ChmMbrtDtl.data.getChamaMembers.amount;
-              const AmtExp =ChmMbrtDtl.data.getChamaMembers.repaymentAmt;
-              const RepaymtPeriod =ChmMbrtDtl.data.getChamaMembers.repaymentPeriod;
-              const loaneeMemberId =ChmMbrtDtl.data.getChamaMembers.loaneeMemberId;
-              const ChmNMmbrPhns = loaneeMemberId+ChmPhn
+              const groupContacts =ChmMbrtDtlz.data.getReqLoanChama.chamaPhone;
+              const memberContacts =ChmMbrtDtlz.data.getReqLoanChama.loaneePhone;
+              const loaneeEmail =ChmMbrtDtlz.data.getReqLoanChama.loaneeEmail;
+              const amount =ChmMbrtDtlz.data.getReqLoanChama.amount;
+              const AmtExp =ChmMbrtDtlz.data.getReqLoanChama.repaymentAmt;
+              const RepaymtPeriod =ChmMbrtDtlz.data.getReqLoanChama.repaymentPeriod;
+              const loaneeMemberId =ChmMbrtDtlz.data.getReqLoanChama.loaneeMemberId;
+              const ChmNMmbrPhns = loaneeMemberId+groupContacts
 
               const fetchChmMbrDtls = async () => {
                 if(isLoading){
@@ -174,7 +178,7 @@ const fetchChmLnReqDtls = async () => {
                 setIsLoading(true);
                 try {
                     const RecAccountDtl:any = await API.graphql(
-                        graphqlOperation(getSMAccount, {awsemail: memberContacts}),
+                        graphqlOperation(getSMAccount, {awsemail: loaneeEmail}),
                         );
                         const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
@@ -234,7 +238,7 @@ const fetchChmLnReqDtls = async () => {
                               graphqlOperation(createNonCvrdGroupLoans, {
                                 input: {
                                     grpContact: groupContacts,
-                                    loaneePhn: memberContacts,
+                                    loaneePhn: loaneeEmail,
                                     loanerLoanee:groupContacts+memberContacts,
                                     repaymentPeriod: RepaymtPeriod,
                                     amountGiven: parseFloat(amount).toFixed(0),
@@ -306,7 +310,7 @@ const fetchChmLnReqDtls = async () => {
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    awsemail:memberContacts,
+                                    awsemail:loaneeEmail,
                                     TtlActvLonsTmsLneeChmNonCov: parseFloat(TtlActvLonsTmsLneeChmNonCovs) +1 ,
                                     TtlActvLonsAmtLneeChmNonCov: (parseFloat(TtlActvLonsAmtLneeChmNonCovs)+ parseFloat(AmtExp)).toFixed(0),
                                     balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),
@@ -350,6 +354,36 @@ const fetchChmLnReqDtls = async () => {
                                     
                                      
                                     
+                                  }
+                                })
+                              )
+                              
+                              
+                          }
+                          catch(error){
+                            console.log(error);
+                            if (error){Alert.alert("Check your internet connection")
+                        return;}
+                          }
+                          Alert.alert("Transaction Fee:Ksh. "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2)
+                         
+                          );
+                          setIsLoading(false);
+                          await updtLnReq();
+                        }
+
+                        const updtLnReq = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(false);
+                          
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateReqLoanChama, {
+                                  input:{
+                                    id:route.params.id,                                                      
+                                    status:"Approved"
                                   }
                                 })
                               )
@@ -607,33 +641,36 @@ useEffect(() =>{
 
          <View style={styles.sendAmtView}>
            <TextInput
+           placeholder='Signitory PassWord'
              value={SnderPW}
              onChangeText={setSnderPW}
              secureTextEntry = {true}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Signitory PassWord</Text>
+           
          </View>
 
          <View style={styles.sendAmtView}>
            <TextInput
            keyboardType={"decimal-pad"}
+           placeholder="Default Penalty"
              value={DfltPnlty}
              onChangeText={setDfltPnlty}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Default Penalty</Text>
+           
          </View>
 
         
          <View style={styles.sendAmtViewDesc}>
            <TextInput
              multiline={true}
+             placeholder="Description"
              value={Desc}
              onChangeText={setDesc}
              style={styles.sendAmtInputDesc}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Description</Text>
+          
          </View>
 
          

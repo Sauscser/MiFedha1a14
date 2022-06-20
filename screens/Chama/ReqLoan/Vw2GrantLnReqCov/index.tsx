@@ -100,8 +100,8 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Fill below and swipe here to filter</Text>
-            <Text style={styles.label2}> (If nothing appears try different numbers)</Text>
+            <Text style={styles.label}> Enter group phone number below</Text>
+            <Text style={styles.label2}> (Swipe down to load and refresh)</Text>
           </>
         )}
       />
@@ -110,20 +110,14 @@ const FetchSMNonCovLns = props => {
 
 <View style={styles.sendLoanView}>
                     <TextInput
-                     placeholder="Phone contact"
+                     placeholder="Group Phone contact"
                      
                       value={awsEmail}
                       onChangeText={setAWSEmail}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
 
-<TextInput
-                     secureTextEntry={true}
-                     
-                      value={itemPrys}
-                      onChangeText={setitemPrys}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
+
                     
                     
     </View>

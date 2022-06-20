@@ -201,17 +201,6 @@ useEffect(() =>{
 
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="Member Email"
-                      value={memberPhn}
-                      onChangeText={setmemberPhn}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Member Email</Text>
-                  </View>
-
-
-                  <View style={styles.sendLoanView}>
-                    <TextInput
                     
                       value={pword}
                       onChangeText={setPW}

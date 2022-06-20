@@ -4,7 +4,7 @@ import {View, Text, Pressable, FlatList, Alert} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/Chama/BL/BLChmCovLn";
 import styles from './styles';
-import { getCompany, getGroup,  vwChamaMemberss, vwChamaMembersss, vwLnrNLnee } from '../../../../src/graphql/queries';
+import { getCompany, getGroup,  listCvrdGroupLoans,  vwChamaMemberss, vwChamaMembersss, vwLnrNLnee } from '../../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 import { updateCompany, updateGroup } from '../../../../src/graphql/mutations';
 
@@ -30,16 +30,17 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwChamaMemberss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
                {
-                grpContact: route.params.ChmNMmbrPhns,
+                
                       sortDirection: 'DESC',
                       limit: 100,
                       filter: {
                         and: {
                           
                           lonBala:{gt:0},
-                          status:{ne:"LoanBL"}
+                          status:{ne:"LoanBL"},
+                          grpContact: route.params.ChmNMmbrPhns,
                           
                         }
                       },
@@ -47,7 +48,7 @@ const FetchSMCovLns = props => {
                  
                   ));
 
-                  setLoanees(Lonees.data.vwChamaMemberss.items);
+                  setLoanees(Lonees.data.listCvrdGroupLoans.items);
 
 
               
@@ -74,7 +75,8 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Chama Covered Loans</Text>
+            <Text style={styles.label}> Swipe down to refresh</Text>
+            <Text style={styles.label}> Select to Blacklist</Text>
           </>
         )}
       />

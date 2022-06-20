@@ -4,7 +4,7 @@ import {View, Text, Pressable, FlatList, Alert} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/Chama/BL/BLChmCovLn";
 import styles from './styles';
-import { getCompany, getGroup,  vwLnrNLnee } from '../../../../../src/graphql/queries';
+import { getCompany, getGroup,  listCvrdGroupLoans,  vwLnrNLnee } from '../../../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 import { updateCompany, updateGroup } from '../../../../../src/graphql/mutations';
 
@@ -30,15 +30,16 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwLnrNLnee, 
+              const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
                {
-                      loanerLoanee: route.params.ChmNMmbrPhns,
+                      
                       sortDirection: 'DESC',
                       limit: 100,
                       filter: {
                         and: {
                           
-                          lonBala:{gt:0}
+                          lonBala:{gt:0},
+                          grpContact: route.params.ChmNMmbrPhns,
                           
                         }
                       },
@@ -46,7 +47,7 @@ const FetchSMCovLns = props => {
                  
                   ));
 
-                  setLoanees(Lonees.data.VwLnrNLnee.items);
+                  setLoanees(Lonees.data.listCvrdGroupLoans.items);
 
               
             } catch (e) {
@@ -72,7 +73,9 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Chama Covered Loans</Text>
+            <Text style={styles.label}> Swipe down to refresh</Text>
+            <Text style={styles.label}> Select to Blacklist</Text>
+
           </>
         )}
       />

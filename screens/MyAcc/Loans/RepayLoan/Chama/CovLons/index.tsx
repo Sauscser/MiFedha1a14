@@ -134,7 +134,7 @@ const RepayCovChmLnsss = props => {
           );
           
             
-          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
+          const UsrTransferFee = CompDtls.data.getCompany.chmLnRpymntFee;
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;  
           const ttlChmLnsInClrdTymsCovs = CompDtls.data.getCompany.ttlChmLnsInClrdTymsCov; 
           const ttlChmLnsInClrdAmtCovs = CompDtls.data.getCompany.ttlChmLnsInClrdAmtCov;

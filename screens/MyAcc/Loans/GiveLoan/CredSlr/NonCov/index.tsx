@@ -10,6 +10,7 @@ import {
   updateAgent,
   updateBizna,
   updateCompany,
+  updateReqLoanCredSl,
   updateSAgent,
   updateSMAccount,
   
@@ -341,10 +342,40 @@ const NonCovCredSls = props => {
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
+                          await updtLnReq();
                           setIsLoading(false);
                           Alert.alert("Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
                           );
                         }
+
+                        const updtLnReq = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(false);
+                          
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateReqLoanCredSl, {
+                                  input:{
+                                    id:route.params.id,                                                      
+                                    status:"Approved"
+                                  }
+                                })
+                              )
+                              
+                              
+                          }
+                          catch(error){
+                            console.log(error);
+                            if (error){Alert.alert("Check your internet connection")
+                        return;}
+                          }
+                          Alert.alert("Transaction: "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
+                          );
+                          setIsLoading(false);
+                          
+                        }                    
                         
                       }       
                       catch(e) {     

@@ -28,18 +28,18 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMySaless, 
+              const Lonees:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
                 { 
-                      sellerContact: { eq: route.params.ChmNMmbrPhns},
+                      filter:{sellerContact: { eq: route.params.ChmNMmbrPhns},
                       lonBala:{gt:0},
                       status:{ne:"LoanBL"},
-                      sortDirection:"ASC",
                       
-                    
+                      },
+                      sortDirection:"DESC",
                 limit:100
               }
                   ));
-              setLoanees(Lonees.data.vwMySaless.items);
+              setLoanees(Lonees.data.listNonCovCreditSellers.items);
             } catch (e) {
               console.log(e);
             } finally {
@@ -65,8 +65,10 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Loanees</Text>
-            <Text style={styles.label2}> (Please swipe down to load)</Text>
+            
+            <Text style={styles.label2}> (Please swipe down to refresh)</Text>
+            <Text style={styles.label2}> (Select to Blacklist)</Text>
+
           </>
         )}
       />

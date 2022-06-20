@@ -309,6 +309,7 @@ import CrdSlPlaceLnReq from "../../screens/CredSls/SlsLnReq/PlaceLnReq";
 import CrdSlVw2DelLnReqs from "../../screens/CredSls/SlsLnReq/Vw2DelLnReqs";
 import CrdSlVw2GrantLnReqCov from "../../screens/CredSls/SlsLnReq/Vw2GrantLnReqCov";
 import CrdSlVw2GrantLnReqNonCov from "../../screens/CredSls/SlsLnReq/Vw2GrantLnReqNonCov";
+import RequestLoansPage from "../../screens/RequestLoansPage";
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
@@ -319,6 +320,7 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'MyHome'} component={BtmTbNav} />
 
+      <Stack.Screen name={'RequestLoansPage'} component={RequestLoansPage} />
       <Stack.Screen name={'ChamaPlaceLnReq'} component={ChamaPlaceLnReq} />
       <Stack.Screen name={'ChamaVw2DelLnReqs'} component={ChamaVw2DelLnReqs} />
       <Stack.Screen name={'ChamaVw2GrantLnReqCov'} component={ChamaVw2GrantLnReqCov} />

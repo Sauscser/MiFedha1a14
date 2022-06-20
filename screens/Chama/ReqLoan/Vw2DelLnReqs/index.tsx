@@ -2,7 +2,7 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../components/MyAc/LoanReq/Vw2DelLnReq";
+import LnerStts from "../../../../components/Chama/LnReq/Vw2DelLnReq";
 import styles from './styles';
 import { listReqLoanChamas, listReqLoans } from '../../../../src/graphql/queries';
 

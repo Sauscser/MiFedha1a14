@@ -127,6 +127,14 @@ const MyLoanAccount = props => {
     navigation.navigate('Sgn2CnfrmWthdrwlsss');
   };
 
+  const ChamaVw2GrantLnReqCov = () => {
+    navigation.navigate('ChamaVw2GrantLnReqCov');
+  };
+
+  const ChamaVw2GrantLnReqNonCov = () => {
+    navigation.navigate('ChamaVw2GrantLnReqNonCov');
+  };
+
 
   return (
     <SafeAreaView>
@@ -142,13 +150,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={SgnIn2LnMmbrs}
+                      onPress={ChamaVw2GrantLnReqCov}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Covered Loans</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={SgnIn2LnMmbrNonCovss}
+                      onPress={ChamaVw2GrantLnReqNonCov}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Non-Covered Loans

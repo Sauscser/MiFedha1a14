@@ -61,10 +61,7 @@ const MFNSignIn = (props) => {
                 
 
 
-                if(owners!==ownr){
-                  Alert.alert("You dont own this MFNdogo");
-                }
-          else if(MFNPW !== pw1s ){
+                 if(MFNPW !== pw1s ){
             Alert.alert("Wrong MFNdogo credentials");
           }
           else{
@@ -80,9 +77,9 @@ const MFNSignIn = (props) => {
                 Alert.alert("MFNdogo does not exist; otherwise check internet connection");
                 return;
               }
+              
                 console.log(e)
                
-                
             }    
             setMFNId("");
             setMFNPW("");

@@ -49,12 +49,12 @@ const FetchSMCovLns = props => {
                     try {
                       const Loneesz:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
                         { 
-                          loanerPhn: LnerPhn,
+                          
                           sortDirection: 'DESC',
                           limit: 100,                
                           filter: {
                             
-                              
+                            loanerPhn: LnerPhn,
                               lonBala:{gt:0},
                               
                               status:{ne:"LoanBL"}                      

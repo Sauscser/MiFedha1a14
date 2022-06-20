@@ -19,6 +19,7 @@ export interface SMAccount {
       repaymentAmt:number,
       repaymentPeriod:number
       loaneeName:string,
+      status:string
     }}
 
 const SMCvLnStts = (props:SMAccount) => {
@@ -30,7 +31,8 @@ const SMCvLnStts = (props:SMAccount) => {
         repaymentAmt,
         repaymentPeriod,
         loaneeName,
-        id
+        id,
+        status
    }} = props ;
 
    const[isLoading, setIsLoading] = useState(false);
@@ -38,7 +40,7 @@ const SMCvLnStts = (props:SMAccount) => {
    
 
    const SndChmMmbrMny = () => {
-       navigation.navigate("Vw2CredSellCovs", {id})
+       navigation.navigate("CovCredSls", {id})
 
        
       
@@ -81,9 +83,9 @@ const SMCvLnStts = (props:SMAccount) => {
                       <View >
                       <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                      Hi! it's {loaneeName}. Kindly Loan me Ksh. {amount}. I 
+                      Hi! it's {loaneeName}. Kindly Loan me goods worth Ksh. {amount}. I 
                       commit to repay a Total of Ksh. {repaymentAmt} within {repaymentPeriod} days. 
-                      You can reach me through {loaneePhone}.       
+                      You can reach me through {loaneePhone}. {status}  
                     </Text>
                     </View>  
                      

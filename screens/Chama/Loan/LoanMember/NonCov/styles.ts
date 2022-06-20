@@ -28,16 +28,16 @@ const styles = StyleSheet.create({
   },
 
   sendAmtView: {
-    backgroundColor: 'skyblue',
+    backgroundColor: 'white',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "6%",
+    height: "8%",
     borderRadius: 20,
-    marginTop: "5%",
+    marginTop: "1%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    padding:"1%",
+    
    
   },
 
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   sendAmtButton: {
     backgroundColor: '#fff',
-    height: "3%",
+    height: "6%",
     borderRadius: 30,
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sendAmtViewDesc: {
-    backgroundColor: 'skyblue',
+    backgroundColor: 'white',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     height: "12%",

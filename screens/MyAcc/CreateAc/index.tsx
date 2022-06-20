@@ -197,7 +197,7 @@ const CreateAcForm = (props) => {
                   } catch (error) {
                     console.log(error)
                     if(error){
-                      Alert.alert("Sign up using a different Phone Number")
+                      
                       return;
                   } 
                   
@@ -206,6 +206,7 @@ const CreateAcForm = (props) => {
                   setIsLoading(false);
                   
                 };
+                Alert.alert("Account successfully created")
                 if (pword.length < 8)
                 {Alert.alert("Short password; at least 8 mixed characters");
              
@@ -244,7 +245,7 @@ const CreateAcForm = (props) => {
                   setIsLoading(false);
                 }
                 
-              
+                Alert.alert("Sign up using a different Phone Number")
       }
       
       catch(e){

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 
-import { getCompany, getGroup, getSMAccount, listSMAccounts, } from '../../../../src/graphql/queries';
+import { getCompany, getGroup, getSMAccount, listChamaMembers, listSMAccounts, } from '../../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -54,7 +54,7 @@ const ChmSignIn = (props) => {
       const userInfo = await Auth.currentAuthenticatedUser();
       
       setName(userInfo.username);
-      setownr(userInfo.attributes.sub);     
+      setownr(userInfo.attributes.email);     
           
     };
     useEffect(() => {
@@ -72,14 +72,17 @@ const ChmSignIn = (props) => {
                   setIsLoading(true);
                   try{
                     const compDtls :any= await API.graphql(
-                      graphqlOperation(getGroup,{grpContact:grpContact})
+                      graphqlOperation(listChamaMembers,
+                        {filter: {
+                          groupContact:{eq: grpContact},
+                          memberContact:{eq:ownr}
+                         }})
                       );
-                      const signitoryPWs = compDtls.data.getGroup.signitoryPW;  
-                      const owners = compDtls.data.getGroup.owner;  
+                      
+                      
 
-                      if(signitoryPWs!==pword){Alert.alert("Wrong author credentials")}
-                      else if(ownr!==owners){Alert.alert("You are not the author of the Chama")}
-                      else{FetchGrpLonsSts();}
+                      if(compDtls.data.listChamaMembers.items.length < 1 ){Alert.alert("You dont belong to this Chama")}
+                       else{FetchGrpLonsSts();}
                     }
 
                     
@@ -183,18 +186,6 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Chama Phone Number</Text>
                   </View>
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    
-                      value={pword}
-                      onChangeText={setPW}
-                      secureTextEntry = {true}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Signitory PW</Text>
-                  </View>
-
-                 
         
                   <TouchableOpacity
                     onPress={gtChmDtls}

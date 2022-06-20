@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {createReqLoanChama, updateCompany} from '../../../../src/graphql/mutations';
-import { getBizna, getCompany, getSMAccount  } from '../../../../src/graphql/queries';
+import { getBizna, getCompany, getSMAccount, listChamaMembers  } from '../../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -66,7 +66,26 @@ const CreateBiz = (props) => {
         fetchUser();
       }, []);
 
-      const gtBizna = async () =>{
+      const gtChmDtls = async () =>{
+        if(isLoading){
+          return;
+        }
+        setIsLoading(true);
+        try{
+          const compDtlsz :any= await API.graphql(
+            graphqlOperation(listChamaMembers,
+              {filter: {
+                groupContact:{eq: awsEmail},
+                memberContact:{eq:UsrEmail},
+                MembaId:{eq:MmbaID}
+               }})
+            );
+            
+            
+
+            
+             
+        const gtBizna = async () =>{
         if(isLoading){
           return;
         }
@@ -78,6 +97,7 @@ const CreateBiz = (props) => {
             const pws = compDtls.data.getSMAccount.pw;
             const phonecontacts = compDtls.data.getSMAccount.phonecontact;
             const name = compDtls.data.getSMAccount.name;
+
             
 
       const CreateNewSMAc = async () => {
@@ -103,19 +123,10 @@ const CreateBiz = (props) => {
                   },
                 })
                 
-                ,
+                
               );
 
-              if (pword !== pws)
-          {Alert.alert("Wrong User password");
-        
-      } 
-      
-      else if (parseFloat(itemPrys) > parseFloat(lnPrsntg))
-      {Alert.alert("Repayment Amount cant be lesser tha Loan")}
-      else {
-        Alert.alert("Loan Request Successful")
-      }
+              
 
               
             } catch (error) {
@@ -126,12 +137,37 @@ const CreateBiz = (props) => {
             } 
             
             }
-            
-            
-            
+            Alert.alert("Loan Request Successful")
           };
 
-          CreateNewSMAc();
+          if (pword !== pws)
+          {Alert.alert("Wrong User password");
+        
+      } 
+      else if(compDtlsz.data.listChamaMembers.items.length < 1 )
+      {Alert.alert("Such a member doesn't exist")}
+      else if (parseFloat(itemPrys) > parseFloat(lnPrsntg))
+      {Alert.alert("Repayment Amount cant be lesser tha Loan")}
+      else {
+        
+      
+            
+
+          CreateNewSMAc();}
+          
+
+        } catch (error) {
+          console.log(error)
+          if(error){
+            Alert.alert("Please enter details correctly")
+            return;
+        } 
+        
+        }
+       
+      };
+
+      await gtBizna();
 
         } catch (e) {
           if(e){Alert.alert("Please first sign up")}
@@ -366,7 +402,7 @@ useEffect(() =>{
                   </View>
 
                   <TouchableOpacity
-                    onPress={gtBizna}
+                    onPress={gtChmDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Request 

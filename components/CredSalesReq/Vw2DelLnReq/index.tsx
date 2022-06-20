@@ -73,7 +73,7 @@ const SMCvLnStts = (props:SMAccount) => {
                       style = {styles.container}>
                       <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                      Hi! it's {loaneeName}. Kindly Loan me Ksh. {amount}. I 
+                      Hi! it's {loaneeName}. Kindly Loan me goods worth Ksh. {amount}. I 
                       commit to repay a Total of Ksh. {repaymentAmt} within {repaymentPeriod} days. 
                       You can reach me through {loaneePhone}. {status}    
                     </Text>

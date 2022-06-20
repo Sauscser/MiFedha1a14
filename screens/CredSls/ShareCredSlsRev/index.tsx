@@ -95,7 +95,7 @@ const SMASendNonLns = props => {
           );
           
             
-          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
+          const UsrTransferFee = CompDtls.data.getCompany.biznaTransferFee;
           const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
           

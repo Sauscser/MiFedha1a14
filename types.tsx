@@ -10,7 +10,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {
-      
+      RequestLoansPage:undefined;
       LnsScreen:undefined;
       CredSlsScreen:undefined;
       ChamaScreen:undefined;
@@ -50,8 +50,8 @@ declare global {
       
       BListLneess:undefined;
       
-      CovCredSls:{BusinessRegNo:string};
-      NonCovCredSlss:{BusinessRegNo:string};
+      CovCredSls:{id:string};
+      NonCovCredSlss:{id:string};
       CredSlsHms:undefined;
       CreateChms:undefined;
       AddChmMembrsss:undefined;

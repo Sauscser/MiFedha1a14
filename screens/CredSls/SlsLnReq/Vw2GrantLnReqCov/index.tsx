@@ -101,7 +101,8 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Refresh to Load</Text>
+            
+            <Text style={styles.label}> Swipe down to refresh</Text>
             
           </>
         )}

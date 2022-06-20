@@ -27,16 +27,17 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyCrdByss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
                  {
-                      buyerContact:LnerPhn,
+                      
                       sortDirection: 'DESC',
                       limit: 100,
-                      filter:{lonBala:{gt:0}}
+                      filter:{lonBala:{gt:0}},
+                      buyerContact:LnerPhn,
                     }
                
                   ));
-              setLoanees(Lonees.data.VwMyCrdByss.items);
+              setLoanees(Lonees.data.listNonCovCreditSellers.items);
 
               const fetchUsrDtls = async () => {
                 try {

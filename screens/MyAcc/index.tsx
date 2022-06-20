@@ -139,21 +139,16 @@ const MyAccount = props => {
             </View>
             </View>
 
-            <View style={styles.acPressables}>
-            <View >
-            <Text style={styles.acPressableText}>Loan Requests</Text>
-            </View>
-            <View style = {{flexDirection:"row"}}>
-            <Pressable onPress={SearchUser} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>GetUser</Text>
+            
+            
+            
+            <Pressable onPress={SearchUser} style={styles.acPressables}>
+              <Text style={styles.acPressableText}>Search Pal</Text>
             </Pressable>
 
-            <Pressable onPress={Vw2DelLnReqs} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>View</Text>
-            </Pressable>
             
-            </View>
-            </View>
+           
+          
 
 
 

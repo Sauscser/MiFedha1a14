@@ -42,6 +42,11 @@ const [id,setid] = useState("")
     navigation.navigate('UpdateAccCodess');
   };
 
+  const RequestLoansPage = () => {
+    navigation.navigate('RequestLoansPage');
+  };
+
+
   return (
     <SafeAreaView>
       <View
@@ -98,22 +103,16 @@ const [id,setid] = useState("")
 
           </View>
           
-          <View style={styles.viewForPressables4}>
+          <View style={styles.viewForPressables5}>
           <TouchableOpacity
-            onPress={VwMakeLnReq}
+            onPress={RequestLoansPage}
             style={styles.chamaLoanAndCreditSalesButton4}>
-            <Text style={styles.ChamaLoanAndCreditSalesText}>
-              Request PalLoan
+            <Text style={styles.loanAFriendText2}>
+              Loan Requests
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={UpdateAccCodess}
-            style={styles.chamaLoanAndCreditSalesButton4}>
-            <Text style={styles.ChamaLoanAndCreditSalesText}>
-              Request Chama or Sale Loan
-            </Text>
-          </TouchableOpacity>
+          
           </View>
           
         </View>

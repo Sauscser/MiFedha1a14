@@ -4,7 +4,7 @@ import {View, Text,   FlatList, Alert} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/Chama/BL/BLChmNonCovLn";
 import styles from './styles';
-import { getCompany, getGroup, vwChamaMembersss, vwLnrNLnees } from '../../../../src/graphql/queries';
+import { getCompany, getGroup, listNonCvrdGroupLoans, vwChamaMembersss, vwLnrNLnees } from '../../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 import { updateCompany, updateGroup } from '../../../../src/graphql/mutations';
 
@@ -30,23 +30,24 @@ const FetchSMNonCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwChamaMembersss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoans, 
                {
-                grpContact: route.params.ChmNMmbrPhns,
+                
                       sortDirection: 'DESC',
                       limit: 100,
                       filter: {
                         and: {
                           
                           lonBala:{gt:0},
-                          status:{ne:"LoanBL"}
+                          status:{ne:"LoanBL"},
+                          grpContact: route.params.ChmNMmbrPhns,
                           
                         }
                       },
                     }
                   
                   ));
-              setLoanees(Lonees.data.vwChamaMembersss.items);
+              setLoanees(Lonees.data.listNonCvrdGroupLoans.items);
               
             } catch (e) {
               console.log(e);
@@ -71,7 +72,8 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My NonCov Loans</Text>
+            <Text style={styles.label}> Swipe down to refresh</Text>
+            <Text style={styles.label}> Select to Blacklist</Text>
           </>
         )}
       />

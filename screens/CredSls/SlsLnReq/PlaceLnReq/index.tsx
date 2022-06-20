@@ -106,16 +106,7 @@ const CreateBiz = (props) => {
                 ,
               );
 
-              if (pword !== pws)
-          {Alert.alert("Wrong User password");
-        
-      } 
-      
-      else if (parseFloat(itemPrys) > parseFloat(lnPrsntg))
-      {Alert.alert("Repayment Amount cant be lesser tha Loan")}
-      else {
-        Alert.alert("Loan Request Successful")
-      }
+              
 
               
             } catch (error) {
@@ -126,13 +117,27 @@ const CreateBiz = (props) => {
             } 
             
             }
-            
-            
+            Alert.alert("Loan Request Successful")           
             
           };
 
-          CreateNewSMAc();
+          if (pword !== pws)
+          {Alert.alert("Wrong User password");
+        
+      } 
+      
+      else if (parseFloat(itemPrys) > parseFloat(lnPrsntg))
+      {Alert.alert("Repayment Amount cant be lesser tha Loan")}
+      else {
+        
+      
 
+
+          CreateNewSMAc();}
+
+          
+
+          
         } catch (e) {
           if(e){Alert.alert("Please first sign up")}
           console.error(e);

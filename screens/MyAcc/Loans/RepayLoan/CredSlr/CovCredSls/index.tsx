@@ -133,7 +133,7 @@ const RepayCovSellerLnsss = props => {
           );
           
             
-          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
+          const UsrTransferFee = CompDtls.data.getCompany.crdSllrLnRpymntFee;
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;  
           const ttlSellerLnsInClrdTymsCovs = CompDtls.data.getCompany.ttlSellerLnsInClrdTymsCov; 
           const ttlSellerLnsInClrdAmtCovs = CompDtls.data.getCompany.ttlSellerLnsInClrdAmtCov;

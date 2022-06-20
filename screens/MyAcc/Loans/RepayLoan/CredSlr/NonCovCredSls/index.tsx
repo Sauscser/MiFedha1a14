@@ -109,7 +109,7 @@ const RepayNonCovCredSlsLnsss = props => {
           );
           
             
-          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
+          const UsrTransferFee = CompDtls.data.getCompany.crdSllrLnRpymntFee;
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;  
           const ttlSellerLnsInClrdTymsNonCovs = CompDtls.data.getCompany.ttlSellerLnsInClrdTymsNonCov; 
           const ttlSellerLnsInClrdAmtNonCovs = CompDtls.data.getCompany.ttlSellerLnsInClrdAmtNonCov;

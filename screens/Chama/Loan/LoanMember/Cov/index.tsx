@@ -12,6 +12,8 @@ import {
   updateCompany,
   updateGroup,
   
+  updateReqLoanChama,
+  
   updateSAgent,
   updateSMAccount,
   
@@ -86,16 +88,16 @@ const ChmCovLns = props => {
       }
       setIsLoading(true);
       try {
-          const ChmMbrtDtl:any = await API.graphql(
+          const ChmMbrtDtlz:any = await API.graphql(
               graphqlOperation(getReqLoanChama, {id: route.params.id}),
               );
-
-              const groupContacts =ChmMbrtDtl.data.getChamaMembers.chamaPhone;
-              const memberContacts =ChmMbrtDtl.data.getChamaMembers.loaneePhone;
-              const amount =ChmMbrtDtl.data.getChamaMembers.amount;
-              const AmtExp =ChmMbrtDtl.data.getChamaMembers.repaymentAmt;
-              const RepaymtPeriod =ChmMbrtDtl.data.getChamaMembers.repaymentPeriod;
-              const loaneeMemberId =ChmMbrtDtl.data.getChamaMembers.loaneeMemberId;
+              const loaneeEmail =ChmMbrtDtlz.data.getReqLoanChama.loaneeEmail;
+              const groupContacts =ChmMbrtDtlz.data.getReqLoanChama.chamaPhone;
+              const memberContacts =ChmMbrtDtlz.data.getReqLoanChama.loaneePhone;
+              const amount =ChmMbrtDtlz.data.getReqLoanChama.amount;
+              const AmtExp =ChmMbrtDtlz.data.getReqLoanChama.repaymentAmt;
+              const RepaymtPeriod =ChmMbrtDtlz.data.getReqLoanChama.repaymentPeriod;
+              const loaneeMemberId =ChmMbrtDtlz.data.getReqLoanChama.loaneeMemberId;
 
               const ChmNMmbrPhns = loaneeMemberId+groupContacts
                          
@@ -213,7 +215,7 @@ const fetchChmMbrDtls = async () => {
                 setIsLoading(true);
                 try {
                     const RecAccountDtl:any = await API.graphql(
-                        graphqlOperation(getSMAccount, {awsemail: memberContacts}),
+                        graphqlOperation(getSMAccount, {awsemail: loaneeEmail}),
                         );
                         const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
@@ -252,7 +254,7 @@ const fetchChmMbrDtls = async () => {
 
                           } catch (error) {
                             if(!error){
-                              Alert.alert("Account deactivated successfully")
+                              Alert.alert("Confirm member exists")
                               
                           } 
                           else{Alert.alert("Check internet")
@@ -272,7 +274,7 @@ const fetchChmMbrDtls = async () => {
                               graphqlOperation(createCvrdGroupLoans, {
                                 input: {
                                     grpContact: groupContacts,
-                                    loaneePhn: memberContacts,
+                                    loaneePhn: loaneeEmail,
                                     loanerLoanee:groupContacts+memberContacts,
                                     loanerLoaneeAdv:  groupContacts+memberContacts+ AdvRegNo ,  
                                     repaymentPeriod: RepaymtPeriod,
@@ -340,7 +342,7 @@ const fetchChmMbrDtls = async () => {
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    awsemail:memberContacts,
+                                    awsemail:loaneeEmail,
                                     TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
                                     TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ parseFloat(AmtExp)).toFixed(0),
                                     balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0) ,
@@ -420,10 +422,40 @@ const fetchChmMbrDtls = async () => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
-                          Alert.alert("Coverage:" +(parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2) 
-                          + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2)
+                          
+
+                          await updtLnReq();
+                          setIsLoading(false);
+                        }
+
+                        const updtLnReq = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(false);
+                          
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateReqLoanChama, {
+                                  input:{
+                                    id:route.params.id,                                                      
+                                    status:"Approved"
+                                  }
+                                })
+                              )
+                              
+                              
+                          }
+                          catch(error){
+                            console.log(error);
+                            if (error){Alert.alert("Check your internet connection")
+                        return;}
+                          }
+                          Alert.alert("Transaction Fee:Ksh. "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2)
+                         
                           );
                           setIsLoading(false);
+                          
                         }
                                               
                         if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
@@ -440,7 +472,7 @@ const fetchChmMbrDtls = async () => {
                     }
 
                     
-                    else if(ownr !==SenderSub){Alert.alert('You are not the creator/signitory of this Chama');}
+                    else if(ownr !==SenderSub){Alert.alert('You are not the Creator of this Chama');}
                         else if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
@@ -674,6 +706,7 @@ useEffect(() =>{
 
          <View style={styles.sendAmtView}>
            <TextInput
+           placeholder='Signitory PassWord'
              value={SnderPW}
              multiline={false}
              autoCompleteType ="off"
@@ -681,39 +714,42 @@ useEffect(() =>{
              onChangeText={setSnderPW}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Signitory PassWord</Text>
+           
          </View>
 
 
          <View style={styles.sendAmtView}>
            <TextInput
+           placeholder='Default Penalty'
            keyboardType={"decimal-pad"}
              value={DfltPnlty}
              onChangeText={setDfltPnlty}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Default Penalty</Text>
+          
          </View>
 
          <View style={styles.sendAmtView}>
            <TextInput
+           placeholder='Advocate License Number'
              value={AdvRegNo}
              onChangeText={setAdvRegNo}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Advocate Reg Number</Text>
+           
          </View>
 
 
 
          <View style={styles.sendAmtViewDesc}>
            <TextInput
+           placeholder='Loan Description'
              multiline={true}
              value={Desc}
              onChangeText={setDesc}
              style={styles.sendAmtInputDesc}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Description</Text>
+          
          </View>
 
          

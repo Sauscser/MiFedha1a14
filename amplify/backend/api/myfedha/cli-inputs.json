@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "myfedha",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\Admin\\myfedha\\amplify\\backend\\api\\myfedha\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authmyfedhabdd94507"
+    }
+  }
+}

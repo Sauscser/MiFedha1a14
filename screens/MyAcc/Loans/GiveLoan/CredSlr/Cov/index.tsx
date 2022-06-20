@@ -9,6 +9,8 @@ import {
   updateAgent,
   updateBizna,
   updateCompany,
+  updateCovCreditSeller,
+  updateReqLoanCredSl,
   updateSAgent,
   updateSMAccount,
   
@@ -408,12 +410,42 @@ const CovCredSls = props => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
-                          Alert.alert("Coverage:" 
-                          +(parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2) + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
-                         );
+                          
+                         ;
+                         await updtLnReq();
                           setIsLoading(false);
                         }
-                                              
+
+                        const updtLnReq = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(false);
+                          
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateReqLoanCredSl, {
+                                  input:{
+                                    id:route.params.id,                                                      
+                                    status:"Approved"
+                                  }
+                                })
+                              )
+                              
+                              
+                          }
+                          catch(error){
+                            console.log(error);
+                            if (error){Alert.alert("Check your internet connection")
+                        return;}
+                          }
+                          Alert.alert("Coverage:" 
+                          +(parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2) 
+                          + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
+                          );
+                          setIsLoading(false);
+                          
+                        }                                              
                                                    
                     }       
                     catch(e) {     

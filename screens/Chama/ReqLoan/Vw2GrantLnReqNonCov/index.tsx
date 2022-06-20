@@ -50,14 +50,12 @@ const FetchSMNonCovLns = props => {
             setLoading(true);
             try {
 
-            
-
               const Lonees:any = await API.graphql(graphqlOperation(listReqLoanChamas, 
                 { 
                     
                   filter: {
                   
-                    loanerEmail: { eq: LneePhn},
+                    chamaPhone: { eq: awsEmail},
                     status:{eq:"AwaitingResponse"}
                                
                 }
@@ -89,7 +87,8 @@ const FetchSMNonCovLns = props => {
           
           
   return (
-    
+    <View style={styles.image}>
+
     <View style={styles.root}>
       <FlatList
       style= {{width:"100%"}}
@@ -103,14 +102,28 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Swipe to filter</Text>
-            <Text style={styles.label2}> (Select to Loan)</Text>
+            <Text style={styles.label}> Enter group phone number below</Text>
+            <Text style={styles.label2}> (Swipe down to load and refresh)</Text>
           </>
         )}
       />
 
 </View>
 
+<View style={styles.sendLoanView}>
+                    <TextInput
+                     placeholder="Group Phone contact"
+                     
+                      value={awsEmail}
+                      onChangeText={setAWSEmail}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+
+
+                    
+                    
+    </View>
+    </View>
 
   );
 };

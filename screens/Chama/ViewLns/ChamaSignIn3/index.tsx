@@ -96,9 +96,8 @@ const ChmSignIn = (props) => {
                       
                       
 
-                      if(compDtls.data.listChamaMembers.items.length < 1 && owners !== ownr 
-                        && signitory2Subs !== ownr){Alert.alert("You dont belong to this Chama")}
-                      else if(pwss!==pword){Alert.alert("Wrong User Credentials")}
+                      if(compDtls.data.listChamaMembers.items.length < 1 ){Alert.alert("You dont belong to this Chama")}
+                      
                       else{FetchGrpLonsSts();}
                     }
 
@@ -228,19 +227,6 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Chama Phone Number</Text>
                   </View>
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    
-                      value={pword}
-                      onChangeText={setPW}
-                      secureTextEntry = {true}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>User PassWord</Text>
-                  </View>
-
-                 
-        
                   <TouchableOpacity
                     onPress={fetchUser}
                     style={styles.sendLoanButton}>

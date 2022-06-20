@@ -116,7 +116,7 @@ const SMASendChmNonLns = props => {
                         }),
                       );
                       
-                      const userTransferFees = CompDtls.data.getCompany.userTransferFee;
+                      const userTransferFees = CompDtls.data.getCompany.chmMmbrTransferFee;
                       const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
                       const companyEarnings = CompDtls.data.getCompany.companyEarning;
                       const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
