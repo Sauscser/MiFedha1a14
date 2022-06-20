@@ -170,7 +170,7 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Loaners</Text>
+            <Text style={styles.label}> My Credit Sellers</Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}

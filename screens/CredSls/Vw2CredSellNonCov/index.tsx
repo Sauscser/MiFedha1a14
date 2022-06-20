@@ -60,7 +60,7 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Work Places</Text>
+            <Text style={styles.label}> Select work place to sell</Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}
