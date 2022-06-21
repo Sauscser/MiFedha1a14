@@ -2,7 +2,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
 
-import HomeNavigator from '../HomeTabNav';
+import BotTab from '../BotTab';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {View, Text} from 'react-native';
@@ -44,7 +44,7 @@ const RootNavigator = props => {
       screenOptions={{
         headerShown: false,
       }}>
-        <Drawer.Screen name="Homes" component={HomeNavigator} />
+        <Drawer.Screen name="Homes" component={BotTab} />
         <Drawer.Screen name="MFNdogos" component={KFNdogoScreen} />
         <Drawer.Screen name="MFKubwa" component={MFKw} />
         <Drawer.Screen name="MFAdvocate" component={AdvSgnIn} />

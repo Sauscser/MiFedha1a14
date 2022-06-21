@@ -26,7 +26,7 @@ import LinkingConfiguration from '../LinkingConfiguration';
 import LoanChmz from "../../screens/Ads/Search/LoanChm";
 import SrchItemAdz from "../../screens/Ads/Search/SrchItemAd";
 import SrchLoanAdz from "../../screens/Ads/Search/SrchLoanAd";
-
+import HomeTabNav from "../HomeTabNav";
 
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
@@ -45,7 +45,7 @@ const HomeTabNavigator = props => {
       >
       <BottomTab.Screen
         name='Home'
-        component={HomeScreen}
+        component={HomeTabNav}
         options={{
           tabBarIcon: ({color: string}) => (
             <Fontisto name="home" size={25} color={'skyblue'} />

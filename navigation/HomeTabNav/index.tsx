@@ -311,6 +311,7 @@ import CrdSlVw2GrantLnReqCov from "../../screens/CredSls/SlsLnReq/Vw2GrantLnReqC
 import CrdSlVw2GrantLnReqNonCov from "../../screens/CredSls/SlsLnReq/Vw2GrantLnReqNonCov";
 import RequestLoansPage from "../../screens/RequestLoansPage";
 
+
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
   return (
@@ -318,8 +319,9 @@ const HomeNavigator = props => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name={'MyHome'} component={BtmTbNav} />
+      <Stack.Screen name={'MyHome'} component={Homeie} />
 
+   
       <Stack.Screen name={'RequestLoansPage'} component={RequestLoansPage} />
       <Stack.Screen name={'ChamaPlaceLnReq'} component={ChamaPlaceLnReq} />
       <Stack.Screen name={'ChamaVw2DelLnReqs'} component={ChamaVw2DelLnReqs} />

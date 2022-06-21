@@ -20,6 +20,7 @@
         "@react-navigation/drawer": "^6.1.5",
         "@react-navigation/native": "^6.0.2",
         "@react-navigation/native-stack": "^6.1.0",
+        "amazon-cognito-identity-js": "^5.2.9",
         "aws-amplify": "^4.3.17",
         "aws-amplify-react-native": "^6.0.3",
         "eas-cli": "^0.53.1",
