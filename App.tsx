@@ -6,7 +6,7 @@ import { Platform, Text, View, StyleSheet } from 'react-native';
 import * as Location from 'expo-location';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
-import RootNavigator from './navigation/RootNav';
+import RootNav from './navigation/RootNav';
 import { withAuthenticator } from 'aws-amplify-react-native'
 import { Amplify } from 'aws-amplify'
 import awsconfig from './src/aws-exports'
@@ -22,7 +22,7 @@ function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <RootNavigator colorScheme={colorScheme} />
+        <RootNav colorScheme={colorScheme} />
         <StatusBar />
       </SafeAreaProvider>
     );

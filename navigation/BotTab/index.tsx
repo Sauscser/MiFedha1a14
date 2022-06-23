@@ -36,6 +36,8 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 const HomeTabNavigator = props => {
   return (
+
+    
     <BottomTab.Navigator
       initialRouteName="Home"
 
