@@ -320,7 +320,7 @@ const HomeNavigator = props => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name={'MyHome'} component={Homeie} />
+      <Stack.Screen name={'Home'} component={Homeie} />
 
    
       <Stack.Screen name={'RequestLoansPage'} component={RequestLoansPage} />

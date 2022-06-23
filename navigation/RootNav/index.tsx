@@ -44,7 +44,7 @@ const RootNavigator = props => {
       screenOptions={{
         headerShown: false,
       }}>
-        <Drawer.Screen name="Home" component={BotTab} />
+        <Drawer.Screen name="MyHome" component={BotTab} />
         <Drawer.Screen name="MFNdogos" component={KFNdogoScreen} />
         <Drawer.Screen name="MFKubwa" component={MFKw} />
         <Drawer.Screen name="MFAdvocate" component={AdvSgnIn} />

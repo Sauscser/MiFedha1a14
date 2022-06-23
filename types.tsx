@@ -377,6 +377,8 @@ export type RootTabParamList = {
   LoanChmz:undefined; 
       SrchItemAdz:undefined; 
       SrchLoanAdz:undefined;
+      
+      MyHome:undefined;
   
   
   
