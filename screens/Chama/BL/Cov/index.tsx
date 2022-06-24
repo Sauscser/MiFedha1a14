@@ -132,7 +132,7 @@ const BLChmCovLoanee = (props) => {
                             setIsLoading(true);
                             try{
                               const compDtls5 :any= await API.graphql(
-                                graphqlOperation(getChamaMembers,{MembaId:memberIds})
+                                graphqlOperation(getChamaMembers,{ChamaNMember:memberIds})
                                 );
                                 const LnBalsss = compDtls5.data.getChamaMembers.LnBal
                                
