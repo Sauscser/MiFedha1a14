@@ -223,7 +223,7 @@ const UpdtChm = (props) => {
                       secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Signitory SM Ac PW</Text>
+                    <Text style={styles.sendLoanText}>Signitory User PW</Text>
                   </View>       
 
                   

@@ -462,7 +462,7 @@ const SMADepositForm = props => {
               secureTextEntry = {true}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Chama PW</Text>
+            <Text style={styles.sendAmtText}>Chama PassWord</Text>
           </View>
 
           <TouchableOpacity onPress={fetchChmDtls} style={styles.sendAmtButton}>

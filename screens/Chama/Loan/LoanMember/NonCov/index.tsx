@@ -641,7 +641,7 @@ useEffect(() =>{
 
          <View style={styles.sendAmtView}>
            <TextInput
-           placeholder='Signitory PassWord'
+           placeholder='Chama PassWord'
              value={SnderPW}
              onChangeText={setSnderPW}
              secureTextEntry = {true}

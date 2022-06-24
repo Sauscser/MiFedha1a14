@@ -363,7 +363,7 @@ useEffect(() =>{
                       secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Signitory Pass Word</Text>
+                    <Text style={styles.sendLoanText}>Chama Pass Word</Text>
                   </View>
 
                   
