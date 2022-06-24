@@ -87,6 +87,10 @@ const BLChmCovLoanee = (props) => {
               const DefaultPenaltyChms = compDtls2.data.getCvrdGroupLoans.DefaultPenaltyChm
               const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) 
               + parseFloat(amountExpectedBackWthClrncs) + parseFloat(DefaultPenaltyChms)
+
+              const MmbrClrnceCost = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
+              + parseFloat(DefaultPenaltyChms);
+
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
 
               const gtLoanerDtls = async () =>{
@@ -288,7 +292,7 @@ const BLChmCovLoanee = (props) => {
                                       graphqlOperation(updateChamaMembers, {
                                         input:{
                                           ChamaNMember:memberIds,
-                                          LnBal:(parseFloat(LnBalsss)+ LonBal).toFixed(0),
+                                          LnBal:(parseFloat(LnBalsss)+ MmbrClrnceCost).toFixed(2),
                                           blStatus:"AccountBlackListed",
                                         }
                                       })
