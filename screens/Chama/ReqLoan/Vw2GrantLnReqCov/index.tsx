@@ -100,8 +100,8 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Enter group phone number below</Text>
-            <Text style={styles.label2}> (Swipe down to load and refresh)</Text>
+            <Text style={styles.label}> Enter group phone and swipe</Text>
+            <Text style={styles.label2}> (Select Loan Request to Grant)</Text>
           </>
         )}
       />

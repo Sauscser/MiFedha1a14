@@ -207,7 +207,7 @@ const fetchChmLnReqDtls = async () => {
                                   ChamaNMember: ChmNMmbrPhns,
                                   LonAmtGven: (parseFloat(LonAmtGvens) + parseFloat(amount)).toFixed(0),
                                   GrossLnsGvn: (parseFloat(GrossLnsGvns) + parseFloat(AmtExp)).toFixed(0),
-                                  LnBal: (parseFloat(LnBals) + parseFloat(amount)).toFixed(0),                                  
+                                  LnBal: (parseFloat(LnBals) + parseFloat(AmtExp)).toFixed(0),                                  
                                   loanStatus:"LoanActive",                                    
                                   blStatus: "AccountNotBL",
                                 

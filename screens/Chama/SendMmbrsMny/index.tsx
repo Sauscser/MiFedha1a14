@@ -475,7 +475,7 @@ useEffect(() =>{
               secureTextEntry = {true}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Signitory PassWord</Text>
+            <Text style={styles.sendAmtText}>Chama PassWord</Text>
           </View>
 
           

@@ -104,6 +104,8 @@ const FetchSMNonCovLns = props => {
             
             <Text style={styles.label}> Swipe down to refresh</Text>
             
+            <Text style={styles.label2}> (Select Loan Request to Grant)</Text>
+            
           </>
         )}
       />
