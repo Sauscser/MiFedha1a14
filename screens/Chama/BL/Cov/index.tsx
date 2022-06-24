@@ -288,7 +288,7 @@ const BLChmCovLoanee = (props) => {
                                       graphqlOperation(updateChamaMembers, {
                                         input:{
                                           ChamaNMember:memberIds,
-                                          LnBal:parseFloat(LnBalsss).toFixed(0)+ (LonBal).toFixed(0),
+                                          LnBal:(parseFloat(LnBalsss)+ LonBal).toFixed(0),
                                           blStatus:"AccountBlackListed",
                                         }
                                       })
