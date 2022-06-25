@@ -310,6 +310,10 @@ import CrdSlVw2DelLnReqs from "../../screens/CredSls/SlsLnReq/Vw2DelLnReqs";
 import CrdSlVw2GrantLnReqCov from "../../screens/CredSls/SlsLnReq/Vw2GrantLnReqCov";
 import CrdSlVw2GrantLnReqNonCov from "../../screens/CredSls/SlsLnReq/Vw2GrantLnReqNonCov";
 import RequestLoansPage from "../../screens/RequestLoansPage";
+import ViewBiznaShareRec from "../../screens/CredSls/ViewBiznaShareRec";
+import ViewBiznaShareSent from "../../screens/CredSls/ViewBiznaShareSent";
+import SgnIn2VwRevenueShare from "../../screens/CredSls/SgnIn2VwRevenueShare";
+
 
 
 
@@ -323,6 +327,9 @@ const HomeNavigator = props => {
       <Stack.Screen name={'Home'} component={Homeie} />
 
    
+      <Stack.Screen name={'SgnIn2VwRevenueShare'} component={SgnIn2VwRevenueShare} />
+      <Stack.Screen name={'ViewBiznaShareSent'} component={ViewBiznaShareSent} />
+      <Stack.Screen name={'ViewBiznaShareRec'} component={ViewBiznaShareRec} />
       <Stack.Screen name={'RequestLoansPage'} component={RequestLoansPage} />
       <Stack.Screen name={'ChamaPlaceLnReq'} component={ChamaPlaceLnReq} />
       <Stack.Screen name={'ChamaVw2DelLnReqs'} component={ChamaVw2DelLnReqs} />

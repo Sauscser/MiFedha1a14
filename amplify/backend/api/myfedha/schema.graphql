@@ -2041,4 +2041,5 @@ enum Status {
   Approved
   Declined
   TransactionRev
+  BiznaShare
 }

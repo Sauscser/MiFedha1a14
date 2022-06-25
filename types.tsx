@@ -10,6 +10,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {
+      ViewBiznaShareSent:{MFNId:string};
+      SgnIn2VwRevenueShare:undefined;
+      ViewBiznaShareRec:undefined;
       RequestLoansPage:undefined;
       LnsScreen:undefined;
       CredSlsScreen:undefined;

@@ -114,6 +114,7 @@ export enum Status {
   Approved = "Approved",
   Declined = "Declined",
   TransactionRev = "TransactionRev",
+  BiznaShare = "BiznaShare",
 }
 
 

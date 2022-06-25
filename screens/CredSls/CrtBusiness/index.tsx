@@ -69,7 +69,7 @@ const CreateBiz = (props) => {
             BusKntct:ChmPhn,
             busName: ChmNm,
             pw: pword,
-            email: awsEmail,
+            email: UsrEmail,
             
             TtlEarnings: 0,
             earningsBal: 0,
@@ -247,16 +247,6 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Business Name</Text>
                   </View>
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={awsEmail}
-                      onChangeText={setAWSEmail}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Business email</Text>
-                  </View>
-
-                  
         
                   <View style={styles.sendLoanView}>
                     <TextInput

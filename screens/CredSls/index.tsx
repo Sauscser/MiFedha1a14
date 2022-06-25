@@ -84,6 +84,14 @@ const MyLoanAccount = props => {
     const SgnIn2RemoveSlAd = () => {
       navigation.navigate('SgnIn2RemoveSlAd');
     };
+
+    const ViewBiznaShareRec = () => {
+      navigation.navigate('ViewBiznaShareRec');
+    };
+
+    const SgnIn2VwRevenueShare = () => {
+      navigation.navigate('SgnIn2VwRevenueShare');
+    };
   
 
   return (
@@ -230,7 +238,7 @@ const MyLoanAccount = props => {
             </View>
 
             <View style={styles.clientsView5}>
-              <Text style={styles.salesText}>LoanStatus</Text>
+              <Text style={styles.salesText}>LoanStatus and Sharings</Text>
 
               <View style={styles.viewForClientsAndTitle}>
               <View style={styles.viewForClientsCategories}>
@@ -274,6 +282,27 @@ const MyLoanAccount = props => {
                     </Pressable>
                   </View>
                 </View>
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>ViewSharings</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={SgnIn2VwRevenueShare}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Bizna </Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={ViewBiznaShareRec}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      Partner
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
 
 
               </View>
