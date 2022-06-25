@@ -115,6 +115,7 @@ const fetchChmMbrDtls = async () => {
               const GrossLnsGvns =ChmMbrtDtl.data.getChamaMembers.GrossLnsGvn;
               const LonAmtGvens =ChmMbrtDtl.data.getChamaMembers.LonAmtGven;
               const LnBals =ChmMbrtDtl.data.getChamaMembers.LnBal;
+              const AmtRepaids =ChmMbrtDtl.data.getChamaMembers.AmtRepaid;
                          
 
 
