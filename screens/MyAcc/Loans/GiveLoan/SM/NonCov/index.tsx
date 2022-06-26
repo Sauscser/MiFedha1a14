@@ -250,8 +250,7 @@ const route = useRoute();
           const TransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount) ;
           const TtlTransCost =  TransCost +  parseFloat(amount);
           const AllTtlCost = TtlTransCost + MaxPwnBrkrInterest
-
-          
+          const TotalAmtExp = parseFloat(userLoanTransferFees)*parseFloat(amount) + parseFloat(AmtExp);          
           
               
 
@@ -308,12 +307,12 @@ const route = useRoute();
                                   DefaultPenaltySM2:0,
                                   loaneePhn: loaneeEmail,                                  
                                   amountgiven: parseFloat(amount).toFixed(0),
-                                  amountexpected: AmtExp,
-                                  amountExpectedBackWthClrnc:AmtExp,
+                                  amountexpected: TotalAmtExp,
+                                  amountExpectedBackWthClrnc:TotalAmtExp,
                                   amountrepaid: 0,
                                   loaneename:namess,
                                   loanername:names,
-                                  lonBala:parseFloat(AmtExp).toFixed(0),
+                                  lonBala:TotalAmtExp.toFixed(0),
                                   repaymentPeriod: RepaymtPeriod,
                                   
                                   description: Desc,
@@ -347,9 +346,9 @@ const route = useRoute();
                                   input:{
                                     awsemail:SendrEmail,
                                     TtlActvLonsTmsLnrNonCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
-                                    TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(AmtExp)).toFixed(0),
+                                    TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrCovs) + TotalAmtExp).toFixed(0),
                                     TtlActvLonsTmsLneeNonCov: parseFloat(TtlActvLonsTmsLneeCovs2) +1 ,
-                                    TtlActvLonsAmtLneeNonCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ parseFloat(AmtExp)).toFixed(0),                                        
+                                    TtlActvLonsAmtLneeNonCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ TotalAmtExp).toFixed(0),                                        
                                     balance:(parseFloat(SenderUsrBal)-TtlTransCost).toFixed(0), 
                                     TymsIHvGivnLn: parseFloat(TymsIHvGivnLns) + 1,   
                                     
@@ -378,7 +377,7 @@ const route = useRoute();
                                     awsemail:loaneeEmail,
                                     
                                     TtlActvLonsTmsLnrNonCov: parseFloat(TtlActvLonsTmsLnrCovs1)+1,
-                                    TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrCovs1) + parseFloat(AmtExp)).toFixed(0),
+                                    TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrCovs1) + TotalAmtExp).toFixed(0),
                                     balance:(parseFloat(RecUsrBal) + parseFloat(amount) ).toFixed(0),
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
@@ -412,7 +411,7 @@ const route = useRoute();
                                     companyEarningBal:userLoanTransferFees * parseFloat(amount) + parseFloat(companyEarningBals),
                                     companyEarning: userLoanTransferFees * parseFloat(amount) + parseFloat(companyEarnings),                                                    
                                     
-                                    ttlSMLnsInAmtNonCov: parseFloat(AmtExp) + parseFloat(ttlSMLnsInAmtCovs),
+                                    ttlSMLnsInAmtNonCov: TotalAmtExp + parseFloat(ttlSMLnsInAmtCovs),
                                    
                                     ttlSMLnsInTymsNonCov: 1 + parseFloat(ttlSMLnsInTymsCovs),
                                     

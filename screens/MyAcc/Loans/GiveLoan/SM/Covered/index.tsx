@@ -243,6 +243,7 @@ const SMASendLns = props => {
           const ttlSMLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSMLnsInActvTymsCov;       
           const maxInterestSMs = CompDtls.data.getCompany.maxInterestSM;
           const maxBLss = CompDtls.data.getCompany.maxBLs;
+        
           
           
           const IntAmt = parseFloat(AmtExp) - (parseFloat(amount) + 
@@ -263,7 +264,9 @@ const SMASendLns = props => {
           ttlCovFeeAmount);
           
           const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount)  + parseFloat(amount);
-          const AllTtlCost = TtlTransCost + (parseFloat(AmtExp)-parseFloat(amount))
+          const AllTtlCost = TtlTransCost + (parseFloat(AmtExp)-parseFloat(amount));
+          const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + parseFloat(AmtExp);
+
           
           
           const fetchAdv = async () =>{
@@ -341,12 +344,12 @@ const SMASendLns = props => {
                                   amountgiven: parseFloat(amount).toFixed(0),
                                   loaneename:namess,
                                   loanername:names,
-                                  amountexpected: parseFloat(AmtExp).toFixed(0),
-                                  amountExpectedBackWthClrnc:parseFloat(AmtExp).toFixed(2),
+                                  amountexpected: TotalAmtExp.toFixed(0),
+                                  amountExpectedBackWthClrnc:TotalAmtExp.toFixed(2),
                                   DefaultPenaltySM:PwnBrkr,
                                   DefaultPenaltySM2:0,
                                   amountrepaid: 0,
-                                  lonBala:parseFloat(AmtExp).toFixed(0),
+                                  lonBala:TotalAmtExp.toFixed(0),
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: AdvRegNo,
                                   description: Desc,
@@ -377,9 +380,9 @@ const SMASendLns = props => {
                                   input:{
                                     awsemail:SendrEmail,
                                     TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
-                                    TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + parseFloat(AmtExp)).toFixed(0),
+                                    TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + TotalAmtExp).toFixed(0),
                                     TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs2) +1 ,
-                                    TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ parseFloat(AmtExp)).toFixed(0),
+                                    TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ TotalAmtExp).toFixed(0),
                                     TymsIHvGivnLn: parseFloat(TymsIHvGivnLns) + 1,                                       
                                     balance:(parseFloat(SenderUsrBal)-TtlTransCost).toFixed(0) 
                                    
@@ -410,7 +413,7 @@ const SMASendLns = props => {
                                     awsemail:loaneeEmail,
                                     
                                     TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs1)+1,
-                                    TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs1) + parseFloat(AmtExp)).toFixed(0),
+                                    TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs1) + TotalAmtExp).toFixed(0),
                                     balance:(parseFloat(RecUsrBal) + parseFloat(amount) ).toFixed(0) ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
@@ -448,7 +451,7 @@ const SMASendLns = props => {
                                     
                                     companyEarning: CompanyTotalEarnings + parseFloat(companyEarnings),                    
                                    
-                                    ttlSMLnsInAmtCov: parseFloat(AmtExp) + parseFloat(ttlSMLnsInAmtCovs),
+                                    ttlSMLnsInAmtCov: TotalAmtExp + parseFloat(ttlSMLnsInAmtCovs),
                                     
                                     ttlSMLnsInTymsCov: 1 + parseFloat(ttlSMLnsInTymsCovs),
                                     

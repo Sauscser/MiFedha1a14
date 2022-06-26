@@ -144,6 +144,7 @@ const NonCovCredSls = props => {
                 
           const ActualMaxSMInterest = parseFloat(AmtExp) - 
                 (parseFloat(amount) + parseFloat(userLoanTransferFees)*parseFloat(amount));
+          const TotalAmtExp = parseFloat(userLoanTransferFees)*parseFloat(amount) + parseFloat(AmtExp);
           
               
 
@@ -213,12 +214,12 @@ const NonCovCredSls = props => {
                                   DefaultPenaltyCredSl:DfltPnlty,    
                                   DefaultPenaltyCredSl2:0,                     
                                   amountSold: parseFloat(amount).toFixed(0),
-                                  amountexpectedBack: (parseFloat(AmtExp) - TransCost).toFixed(0),
-                                  amountExpectedBackWthClrnc:(parseFloat(AmtExp) - TransCost).toFixed(0),
+                                  amountexpectedBack: (TotalAmtExp - TransCost).toFixed(0),
+                                  amountExpectedBackWthClrnc:(TotalAmtExp - TransCost).toFixed(0),
                                   amountRepaid: 0,
                                   buyerName:namess,
                                   SellerName:busNames,
-                                  lonBala:(parseFloat(AmtExp) - TransCost).toFixed(0),
+                                  lonBala:(TotalAmtExp - TransCost).toFixed(0),
                                   repaymentPeriod: RepaymtPeriod,
                                   
                                   description: Desc,
@@ -327,7 +328,7 @@ const NonCovCredSls = props => {
                                     companyEarningBal:userLoanTransferFees * parseFloat(amount) + parseFloat(companyEarningBals),
                                     companyEarning: userLoanTransferFees * parseFloat(amount) + parseFloat(companyEarnings),                                           
                                     
-                                    ttlSellerLnsInAmtNonCov: parseFloat(AmtExp) + parseFloat(ttlSellerLnsInAmtCovs),
+                                    ttlSellerLnsInAmtNonCov: TotalAmtExp + parseFloat(ttlSellerLnsInAmtCovs),
                                    
                                     ttlSellerLnsInTymsNonCov: 1 + parseFloat(ttlSellerLnsInTymsCovs),
                                     

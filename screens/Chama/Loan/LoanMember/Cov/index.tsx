@@ -185,7 +185,7 @@ const fetchChmMbrDtls = async () => {
 
           const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) 
           const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
-
+          const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + parseFloat(AmtExp);
           const AllTtlTrnsCst = TtlTransCost + MaxSMInterest;
 
    
@@ -243,8 +243,8 @@ const fetchChmMbrDtls = async () => {
                                 input: {
                                   ChamaNMember: ChmNMmbrPhns,
                                   LonAmtGven: (parseFloat(LonAmtGvens) + parseFloat(amount)).toFixed(0),
-                                  GrossLnsGvn: (parseFloat(GrossLnsGvns) + parseFloat(AmtExp)).toFixed(0),
-                                  LnBal: (parseFloat(LnBals) + parseFloat(AmtExp)).toFixed(0),                                  
+                                  GrossLnsGvn: (parseFloat(GrossLnsGvns) + TotalAmtExp).toFixed(0),
+                                  LnBal: (parseFloat(LnBals) + TotalAmtExp).toFixed(0),                                  
                                   loanStatus:"LoanActive",                                    
                                   blStatus: "AccountNotBL",
                                 
@@ -280,13 +280,13 @@ const fetchChmMbrDtls = async () => {
                                     loanerLoaneeAdv:  groupContacts+memberContacts+ AdvRegNo ,  
                                     repaymentPeriod: RepaymtPeriod,
                                     amountGiven: parseFloat(amount).toFixed(0),
-                                    amountExpectedBack: parseFloat(AmtExp).toFixed(0),
-                                    amountExpectedBackWthClrnc: parseFloat(AmtExp).toFixed(0),
+                                    amountExpectedBack: TotalAmtExp.toFixed(0),
+                                    amountExpectedBackWthClrnc: TotalAmtExp.toFixed(0),
                                     amountRepaid: 0,
                                     DefaultPenaltyChm:DfltPnlty,
                                     DefaultPenaltyChm2:0,
                                     description: Desc,
-                                    lonBala:parseFloat(AmtExp).toFixed(0),
+                                    lonBala:TotalAmtExp.toFixed(0),
                                     advRegNu: AdvRegNo,
                                     loaneeName:namess,
                                     LoanerName:grpNames,
@@ -316,7 +316,7 @@ const fetchChmMbrDtls = async () => {
                                   input:{
                                     grpContact:groupContacts,
                                     TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs)+1,
-                                    TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + parseFloat(AmtExp)).toFixed(0),
+                                    TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + TotalAmtExp).toFixed(0),
                                                                               
                                     grpBal:(parseFloat(grpBals)-TtlTransCost).toFixed(0) 
                                    
@@ -345,7 +345,7 @@ const fetchChmMbrDtls = async () => {
                                   input:{
                                     awsemail:loaneeEmail,
                                     TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
-                                    TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ parseFloat(AmtExp)).toFixed(0),
+                                    TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ TotalAmtExp).toFixed(0),
                                     balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0) ,
                                     loanStatus:"LoanActive",                                    
                                     blStatus: "AccountNotBL",
@@ -382,7 +382,7 @@ const fetchChmMbrDtls = async () => {
                                     companyEarningBal:CompCovAmt + parseFloat(companyEarningBals) + parseFloat(userLoanTransferFees)*parseFloat(amount),
                                     companyEarning: CompCovAmt + parseFloat(companyEarnings) + parseFloat(userLoanTransferFees)*parseFloat(amount),                                                    
                                     
-                                    ttlChmLnsInAmtCov: parseFloat(AmtExp) + parseFloat(ttlChmLnsInAmtCovs),
+                                    ttlChmLnsInAmtCov: TotalAmtExp + parseFloat(ttlChmLnsInAmtCovs),
                                    
                                     ttlChmLnsInTymsCov: 1 + parseFloat(ttlChmLnsInTymsCovs),
                                           
