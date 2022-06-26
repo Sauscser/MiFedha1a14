@@ -345,7 +345,7 @@ useEffect(() =>{
                       secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loaner User Word</Text>
+                    <Text style={styles.sendLoanText}>Loaner PassWord</Text>
                   </View>
 
                   <TouchableOpacity

@@ -155,17 +155,17 @@ const MFNSignIn = (props) => {
                       onChangeText={setChamPhn}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Seller Phone</Text>
+                    <Text style={styles.sendLoanText}>Business Phone</Text>
                   </View>
                   
                   <View style={styles.sendLoanView}>
                     <TextInput  
-                    placeholder="+2547xxxxxxxx"                 
+                         
                       value={MembrPhn}
                       onChangeText={setMembrPhn}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Buyer Phone</Text>
+                    <Text style={styles.sendLoanText}>Buyer email</Text>
                   </View>
                   
                   <View style={styles.sendLoanView}>
@@ -175,7 +175,7 @@ const MFNSignIn = (props) => {
                       onChangeText={setMFNId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Advocate Registration Number</Text>
+                    <Text style={styles.sendLoanText}>Advocate License Number</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>
@@ -185,7 +185,7 @@ const MFNSignIn = (props) => {
                       style={styles.sendLoanInput}
                       secureTextEntry = {true}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Pass Word</Text>
+                    <Text style={styles.sendLoanText}>Advocate Pass Word</Text>
                   </View>
         
                   <TouchableOpacity

@@ -199,7 +199,7 @@ const AdvPayToVwChm = (props) => {
                       onChangeText={setMFNId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Advocate Registration Number</Text>
+                    <Text style={styles.sendLoanText}>Advocate License Number</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>

@@ -210,13 +210,13 @@ const DeregChmMmbr = (props) => {
                               secureTextEntry = {true}
                               style={styles.sendLoanInput}
                               editable={true}></TextInput>
-                            <Text style={styles.sendLoanText}>Signitory PW</Text>
+                            <Text style={styles.sendLoanText}>Chama PassWord</Text>
                           </View>
         
                          
                 
                           <TouchableOpacity
-                            onPress={fetchChmMmbrDtls}
+                            onPress={updateChmMmbrAc}
                             style={styles.sendLoanButton}>
                             <Text style={styles.sendLoanButtonText}>
                               Click to DeRegister

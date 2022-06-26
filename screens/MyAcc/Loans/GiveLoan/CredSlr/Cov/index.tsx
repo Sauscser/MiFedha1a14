@@ -720,7 +720,7 @@ useEffect(() =>{
              onChangeText={setAdvRegNo}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Advocate Reg Number</Text>
+           <Text style={styles.sendAmtText}>Advocate License Number</Text>
          </View>
 
 

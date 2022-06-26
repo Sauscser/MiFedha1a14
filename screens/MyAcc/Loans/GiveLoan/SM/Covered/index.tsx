@@ -841,7 +841,7 @@ useEffect(() =>{
 
          <View style={styles.sendAmtView}>
            <TextInput
-           placeholder='Advocate Certificate Number'
+           placeholder='Advocate License Number'
              value={AdvRegNo}
              onChangeText={setAdvRegNo}
              style={styles.sendAmtInput}

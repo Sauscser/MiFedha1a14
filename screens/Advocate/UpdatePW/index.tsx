@@ -88,12 +88,7 @@ const UpdtMFAdvPW = (props) => {
                                         Alert.alert(names +", You have successfully updated your PassWord");
                                       } 
 
-                                      if(pwds!==OldAdmnPW)
-                                      {
-                                          Alert.alert("Wrong Old Password; call HR");
-                                      }
-                                      
-                                      else if(ownr!==owners)
+                                       if(ownr!==owners)
                                       {
                                           Alert.alert("You are not the owner of this Admin A/c");
                                       }
@@ -187,19 +182,10 @@ const UpdtMFAdvPW = (props) => {
                       onChangeText={setAdvRegNo}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Advocate Reg No</Text>
+                    <Text style={styles.sendLoanText}>Advocate License No</Text>
                   </View> 
         
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={OldAdmnPW}
-                      onChangeText={setOldAdmnPW}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Old Advocate PW</Text>
-                  </View>   
-
-                       
+                  
 
                   <View style={styles.sendLoanView}>
                     <TextInput

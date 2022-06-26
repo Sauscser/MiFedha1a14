@@ -177,7 +177,7 @@ const FetchSMNonLnsSnt = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Single Member Loans</Text>
+            <Text style={styles.label}> PalPal Loans</Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}

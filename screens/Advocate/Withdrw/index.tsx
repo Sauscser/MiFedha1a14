@@ -252,7 +252,7 @@ const AdvWthdwl = props => {
               onChangeText={setAdvReNo}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Advocate Reg No</Text>
+            <Text style={styles.sendAmtText}>Advocate License Number</Text>
           </View>
 
           <View style={styles.sendAmtView}>
@@ -272,7 +272,7 @@ const AdvWthdwl = props => {
               secureTextEntry = {true}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Advocate PW</Text>
+            <Text style={styles.sendAmtText}>Advocate PassWord</Text>
           </View>
 
           <TouchableOpacity onPress={fetchAcDtls} style={styles.sendAmtButton}>

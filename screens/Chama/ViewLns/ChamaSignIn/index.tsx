@@ -72,14 +72,14 @@ const ChmSignIn = (props) => {
                   setIsLoading(true);
                   try{
                     const compDtls :any= await API.graphql(
-                      graphqlOperation(listChamaMembers,
-                        {filter: {
-                          groupContact:{eq: grpContact},
-                          memberContact:{eq:ownr}
-                         }})
+                      graphqlOperation(getGroup,{grpContact:grpContact})
                       );
-                      if(compDtls.data.listChamaMembers.items.length < 1 )
-                      {Alert.alert("You dont belong to this Chama")}
+                      const signitoryPWs = compDtls.data.getGroup.signitoryPW;  
+                      const owners = compDtls.data.getGroup.owner;  
+                      const signitory2Subs = compDtls.data.getGroup.signitory2Sub; 
+
+                      if(signitoryPWs!==pword){Alert.alert("Wrong author credentials")}
+                      else if(ownr !== owners && signitory2Subs !== ownr){Alert.alert("You are neither the author nor signatory of this Chama")}
                       
                       else{FetchGrpLonsSts();}
                     }
@@ -178,6 +178,18 @@ useEffect(() =>{
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Chama Phone Number</Text>
                   </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    
+                      value={pword}
+                      onChangeText={setPW}
+                      secureTextEntry = {true}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Chama PassWord</Text>
+                  </View>
+
 
                   <TouchableOpacity
                     onPress={gtChmDtls}

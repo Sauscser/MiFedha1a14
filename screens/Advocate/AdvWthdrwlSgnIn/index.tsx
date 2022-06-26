@@ -128,7 +128,7 @@ const MFNSignIn = (props) => {
                       onChangeText={setMFNId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Advocate Registration Number</Text>
+                    <Text style={styles.sendLoanText}>Advocate License Number</Text>
                   </View>
         
                   <View style={styles.sendLoanView}>
@@ -138,7 +138,7 @@ const MFNSignIn = (props) => {
                       style={styles.sendLoanInput}
                       secureTextEntry = {true}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Pass Word</Text>
+                    <Text style={styles.sendLoanText}>Advocate Pass Word</Text>
                   </View>
         
                   <TouchableOpacity
