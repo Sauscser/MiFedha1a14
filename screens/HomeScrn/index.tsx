@@ -70,7 +70,7 @@ const [id,setid] = useState("")
         
         <View style={styles.viewForPressables2}> 
         <Text style={styles.title}>
-          Life ni kuokoleana na kudumisha urafiki
+          Life is Helping each other Out
         </Text>
         </View>
         
