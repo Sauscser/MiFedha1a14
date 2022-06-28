@@ -98,6 +98,8 @@ const CreateBiz = (props) => {
             const phonecontacts = compDtls.data.getSMAccount.phonecontact;
             const name = compDtls.data.getSMAccount.name;
 
+          const Int = ((parseFloat(lnPrsntg) - parseFloat(itemPrys))*100)/(parseFloat(lnPrsntg)*parseFloat(rpymntPrd))
+
             
 
       const CreateNewSMAc = async () => {
@@ -148,10 +150,11 @@ const CreateBiz = (props) => {
       {Alert.alert("Such a member doesn't exist")}
       else if (parseFloat(itemPrys) > parseFloat(lnPrsntg))
       {Alert.alert("Repayment Amount cant be lesser tha Loan")}
+      else if (Int > 100){
+        Alert.alert("Interest exploits you; enter lesser repayment amount")
+      }
       else {
-        
-      
-            
+          
 
           CreateNewSMAc();}
           
