@@ -31,9 +31,11 @@ const FetchSMNonCovLns = props => {
                 {
                       loanerPhn: LnerPhn,
                       sortDirection: 'DESC',
+                      
                       limit: 100,
                       filter:{
-                      lonBala:{gt:0}
+                      lonBala:{gt:0},
+                      
                       }
                       
                     }

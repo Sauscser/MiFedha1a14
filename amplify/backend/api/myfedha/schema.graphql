@@ -209,6 +209,7 @@ type SMLoansCovered
   amountgiven: Float!
   amountexpected: Float!
   amountExpectedBackWthClrnc: Float!
+
   amountrepaid: Float!
   lonBala:Float!
   loaneename:String!
@@ -282,6 +283,7 @@ type SMLoansNonCovered
   amountexpected: Float!
   amountExpectedBackWthClrnc: Float!
   amountrepaid: Float!
+ 
   lonBala:Float!
   loaneename:String!
   loanername:String!
@@ -1331,6 +1333,7 @@ type CovCreditSeller
   SellerName:String!
   sellerID: String!
   amountSold: Float!
+
   amountexpectedBack: Float!
   amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
@@ -1396,6 +1399,7 @@ id:ID!
   SellerName:String!
   sellerID: String!
   amountSold: Float!
+  
   amountexpectedBack: Float!
   amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
@@ -1698,6 +1702,7 @@ type CvrdGroupLoans
   amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
   description: String
+
   lonBala:Float!
   memberId:String!
   advRegNu: String! @index(name: "byAdv", sortKeyFields: ["createdAt"], queryField: "VwChmLnClients")
@@ -1761,6 +1766,7 @@ id:ID!
   amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
   description: String
+  
   loaneeName:String!
   loanerName:String!
   memberId:String!
@@ -2017,6 +2023,7 @@ type ReqLoanCredSl
   owner: String!
   createdAt: String!
 }
+
 
 enum Status {
   NoLoan

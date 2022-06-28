@@ -12,7 +12,7 @@ export interface SMCvLnSttus {
         amountrepaid: number,
         lonBala: number,
         repaymentPeriod: number,
-        
+     
         loaneename:string,
         status: string,
         amountExpectedBackWthClrnc: number,
@@ -34,6 +34,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
     lonBala,
     repaymentPeriod,
     loaneename,
+  
     amountExpectedBackWthClrnc,
     DefaultPenaltySM2,
     createdAt,
@@ -93,6 +94,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                        {/* interest*/}
                        Repayment Period in days: {repaymentPeriod}                    
                     </Text> 
+                 
                     
                     <Text style = {styles.interest}>                       
                        {/* interest*/}
@@ -106,6 +108,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                        {/* interest*/}
                      Last Update: {updatedAt}                    
                     </Text> 
+
                     <ScrollView>
                     <Text style = {styles.loanerotherdescriptions} >                       
                        {/* other description*/} 

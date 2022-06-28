@@ -79,6 +79,8 @@ const CreateBiz = (props) => {
             const phonecontacts = compDtls.data.getSMAccount.phonecontact;
             const name = compDtls.data.getSMAccount.name;
             
+            const Int = ((parseFloat(lnPrsntg) - parseFloat(itemPrys))*100)/(parseFloat(lnPrsntg)*parseFloat(rpymntPrd))
+            
 
       const CreateNewSMAc = async () => {
         if(isLoading){
@@ -109,7 +111,7 @@ const CreateBiz = (props) => {
 
               
             } catch (error) {
-              console.log(error)
+              
               if(error){
                 Alert.alert("Please enter details correctly")
                 return;
@@ -126,7 +128,12 @@ const CreateBiz = (props) => {
       } 
       
       else if (parseFloat(itemPrys) > parseFloat(lnPrsntg))
-      {Alert.alert("Repayment Amount cant be lesser tha Loan")}
+      {Alert.alert("Repayment Amount cant be lesser than Loan")}
+
+      else if (Int > 100){
+        Alert.alert("Interest exploits you; enter lesser repayment amount")
+      }
+      
       else {
         
       
@@ -137,6 +144,7 @@ const CreateBiz = (props) => {
         } catch (e) {
           if(e){Alert.alert("Please first sign up")}
           console.error(e);
+          console.log("Hi");
         }
         setIsLoading(false);
             setChmPhn('');

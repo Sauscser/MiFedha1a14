@@ -175,6 +175,7 @@ const route = useRoute();
         const amount =accountDtlszs.data.getReqLoan.amount;
         const AmtExp =accountDtlszs.data.getReqLoan.repaymentAmt;
         const RepaymtPeriod =accountDtlszs.data.getReqLoan.repaymentPeriod;
+        const RpymntSec = (RepaymtPeriod*24*60*60)
 
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
@@ -310,6 +311,7 @@ const route = useRoute();
                                   amountexpected: TotalAmtExp,
                                   amountExpectedBackWthClrnc:TotalAmtExp,
                                   amountrepaid: 0,
+                                  
                                   loaneename:namess,
                                   loanername:names,
                                   lonBala:TotalAmtExp.toFixed(0),
@@ -324,6 +326,7 @@ const route = useRoute();
 
 
                           } catch (error) {
+                            console.log(error)
                             if(!error){
                               Alert.alert("Account deactivated successfully")
                               
