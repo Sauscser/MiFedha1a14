@@ -131,8 +131,6 @@ const SMADepositForm = props => {
                                                     }}
                                                     ));
 
-
-        
         
         const fetchAcDtls = async () => {
     if(isLoading){
