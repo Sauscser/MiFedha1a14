@@ -324,7 +324,7 @@ const HomeNavigator = props => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name={'Home'} component={Homeie} />
+      <Stack.Screen name={'Homeie'} component={Homeie} />
 
    
       <Stack.Screen name={'SgnIn2VwRevenueShare'} component={SgnIn2VwRevenueShare} />
