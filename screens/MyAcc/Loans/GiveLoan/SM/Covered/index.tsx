@@ -179,6 +179,9 @@ const SMASendLns = props => {
         const amount =accountDtlszs.data.getReqLoan.amount;
         const AmtExp =accountDtlszs.data.getReqLoan.repaymentAmt;
         const RepaymtPeriod =accountDtlszs.data.getReqLoan.repaymentPeriod;
+        const DefaultPenaltyRate = parseFloat(PwnBrkr)/parseFloat(AmtExp) *100;
+        const RecomDfltPnltyRate = (parseFloat(AmtExp)*20) / 100;
+
         
         const fetchSenderUsrDtls = async () => {
     if(isLoading){
@@ -549,6 +552,10 @@ const SMASendLns = props => {
                         ) {Alert.alert('Requested amount is more than you have in your account');}
                         else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
+                        else if((DefaultPenaltyRate) > 20)
+                    {Alert.alert('Please enter Default Penalty less than ' + RecomDfltPnltyRate);
+                      return;
+                    }
                         else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
                         
                         else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}

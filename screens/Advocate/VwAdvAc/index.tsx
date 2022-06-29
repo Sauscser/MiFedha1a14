@@ -22,7 +22,7 @@ const FetchSMNonLnsSnt = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listAdvocates, 
                 { filter: {
                     and: {
-                      advregnu: { eq: route.params.AdvReNo},
+                      advregnu:  {eq:route.params.AdvReNo},
                       status: { eq: "AccountActive"},
                       
                     }

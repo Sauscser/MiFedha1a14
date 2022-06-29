@@ -176,6 +176,9 @@ const route = useRoute();
         const AmtExp =accountDtlszs.data.getReqLoan.repaymentAmt;
         const RepaymtPeriod =accountDtlszs.data.getReqLoan.repaymentPeriod;
         const RpymntSec = (RepaymtPeriod*24*60*60)
+        const DefaultPenaltyRate = parseFloat(PwnBrkr)/parseFloat(AmtExp) *100;
+        const RecomDfltPnltyRate = (parseFloat(AmtExp)*20) / 100;
+
 
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
@@ -471,8 +474,10 @@ const route = useRoute();
                         else if((parseFloat(TymsIHvGivnLns) - parseFloat(TymsMyLnClrds)) > 4 
                     && compDtls.data.listChamasNPwnBrkrs.items.length < 1){Alert.alert("Call customer care to have limit increased");}
 
-                    
-
+                    else if((DefaultPenaltyRate) > 20)
+                    {Alert.alert('Please enter Default Penalty less than ' + RecomDfltPnltyRate);
+                      return;
+                    }
 
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                         else if(SendrEmail === RecPhn){Alert.alert('You cannot Loan Yourself');}

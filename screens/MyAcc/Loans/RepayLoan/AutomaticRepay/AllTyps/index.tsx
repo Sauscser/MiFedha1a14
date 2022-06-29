@@ -42,7 +42,8 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
                 { 
                   sortDirection: 'DESC',
-                  limit: 100,             filter: {
+                  limit: 100,             
+                  filter: {
                     and: {
                       loaneePhn: { eq: LnerPhn},
                         lonBala:{gt:0},
@@ -74,11 +75,11 @@ const FetchSMCovLns = props => {
             try {
               const Lonees2:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
                 { 
-                  loaneePhn: LnerPhn,
+                  
                   sortDirection: 'DESC',
                   limit: 100,                
                   filter: {                    
-                      
+                    loaneePhn: {eq:LnerPhn},
                       lonBala:{gt:0},                      
                       status:{eq:"LoanBL"}                      
                     
@@ -105,11 +106,11 @@ const FetchSMCovLns = props => {
             try {
               const Lonees3:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
                 { 
-                  loaneePhn: LnerPhn,
+                  
                   sortDirection: 'DESC',
                   limit: 100,                
                   filter: {                    
-                      
+                    loaneePhn: {eq:LnerPhn},
                       lonBala:{gt:0},                      
                       status:{eq:"LoanBL"}                      
                     
@@ -136,11 +137,11 @@ const FetchSMCovLns = props => {
             try {
               const Lonees4:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoans, 
                 { 
-                  loaneePhn: LnerPhn,
+                  
                   sortDirection: 'DESC',
                   limit: 100,                
                   filter: {                    
-                      
+                    loaneePhn: {eq:LnerPhn},
                       lonBala:{gt:0},                      
                       status:{eq:"LoanBL"}                      
                     
@@ -167,11 +168,11 @@ const FetchSMCovLns = props => {
             try {
               const Lonees5:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
                 { 
-                  buyerContact: LnerPhn,
+                 
                   sortDirection: 'DESC',
                   limit: 100,                
                   filter: {                    
-                      
+                    buyerContact: {eq:LnerPhn},
                       lonBala:{gt:0},                      
                       status:{eq:"LoanBL"}                      
                     
@@ -198,11 +199,11 @@ const FetchSMCovLns = props => {
             try {
               const Lonees6:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
                 { 
-                  buyerContact: LnerPhn,
+                  
                   sortDirection: 'DESC',
                   limit: 100,                
                   filter: {                    
-                      
+                    buyerContact: {eq:LnerPhn},
                       lonBala:{gt:0},                      
                       status:{eq:"LoanBL"}                      
                     

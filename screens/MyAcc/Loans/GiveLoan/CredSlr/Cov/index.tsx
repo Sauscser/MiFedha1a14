@@ -98,8 +98,9 @@ const CovCredSls = props => {
       const amount =PersnlDtl.data.getReqLoanCredSl.amount;
       const AmtExp =PersnlDtl.data.getReqLoanCredSl.repaymentAmt;
       const RepaymtPeriod =PersnlDtl.data.getReqLoanCredSl.repaymentPeriod;
+      const DefaultPenaltyRate = parseFloat(DfltPnlty)/parseFloat(AmtExp) *100;
+      const RecomDfltPnltyRate = (parseFloat(AmtExp)*20) / 100;
 
-      
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -292,7 +293,10 @@ const CovCredSls = props => {
                         else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
                         else if(pwz !==SnderPW){Alert.alert('Wrong password');}
                         
-                        
+                        else if((DefaultPenaltyRate) > 20)
+                    {Alert.alert('Please enter Default Penalty less than ' + RecomDfltPnltyRate);
+                      return;
+                    }
                          else {
                           sendSMLn();
                         }                     

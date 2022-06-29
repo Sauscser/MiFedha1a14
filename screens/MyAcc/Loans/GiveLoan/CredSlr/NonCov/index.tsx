@@ -96,6 +96,8 @@ const NonCovCredSls = props => {
       const amount =PersnlDtl.data.getReqLoanCredSl.amount;
       const AmtExp =PersnlDtl.data.getReqLoanCredSl.repaymentAmt;
       const RepaymtPeriod =PersnlDtl.data.getReqLoanCredSl.repaymentPeriod;
+      const DefaultPenaltyRate = parseFloat(DfltPnlty)/parseFloat(AmtExp) *100;
+      const RecomDfltPnltyRate = (parseFloat(AmtExp)*20) / 100;
 
       
       const fetchCompDtls = async () => {
@@ -253,7 +255,12 @@ const NonCovCredSls = props => {
                           parseFloat(userLoanTransferFees)*parseFloat(amount) > parseFloat(RecUsrBal)) 
                                                    {Alert.alert('Buyer cannot facilitate; should recharge');}
                         
-                        else if(pwz !==SnderPW){Alert.alert('Wrong password');}
+                                                   else if((DefaultPenaltyRate) > 20)
+                                                   {Alert.alert('Please enter Default Penalty less than ' + RecomDfltPnltyRate);
+                                                     return;
+                                                   }
+                                                   
+                                                   else if(pwz !==SnderPW){Alert.alert('Wrong password');}
                         
                         
                          else {

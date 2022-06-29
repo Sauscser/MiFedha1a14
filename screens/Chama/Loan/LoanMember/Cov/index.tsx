@@ -230,7 +230,8 @@ const fetchChmMbrDtls = async () => {
                         const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
                         const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                         const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
-                        const DefaultPenaltySMs =RecAccountDtl.data.getSMAccount.DefaultPenaltySM;
+                        const DefaultPenaltyRate = parseFloat(DfltPnlty)/parseFloat(AmtRepaids) *100;
+                        const RecomDfltPnltyRate = (parseFloat(AmtRepaids)*20) / 100;
                       
                         const updatMmbr = async () => {
                           if(isLoading){
@@ -469,6 +470,11 @@ const fetchChmMbrDtls = async () => {
 
                     else if((parseFloat(RecUsrBal) + parseFloat(amount)) > parseFloat(MaxAcBals))
                     {Alert.alert('Loanee call customer care to have wallet capacity adjusted');
+                      return;
+                    }
+
+                    else if((DefaultPenaltyRate) > 20)
+                    {Alert.alert('Please enter Default Penalty less than ' + RecomDfltPnltyRate);
                       return;
                     }
 

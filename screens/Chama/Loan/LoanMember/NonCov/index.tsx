@@ -194,7 +194,8 @@ const fetchChmLnReqDtls = async () => {
                         const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
                         const DefaultPenaltySMs =RecAccountDtl.data.getSMAccount.DefaultPenaltySM;
                         const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
-
+                        const DefaultPenaltyRate = parseFloat(DfltPnlty)/parseFloat(AmtExp) *100;
+                        const RecomDfltPnltyRate = (parseFloat(AmtExp)*20) / 100;
 
                         const updatMmbr = async () => {
                           if(isLoading){
@@ -419,6 +420,12 @@ const fetchChmLnReqDtls = async () => {
                     {Alert.alert('Loanee call customer care to have wallet capacity adjusted');
                       return;
                     }
+
+                    else if((DefaultPenaltyRate) > 20)
+                    {Alert.alert('Please enter Default Penalty less than ' + RecomDfltPnltyRate);
+                      return;
+                    }
+                    
                         else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         
