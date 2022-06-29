@@ -160,6 +160,10 @@ const FetchSMNonCovLns = props => {
         }
       };
 
+      useEffect(() => {
+        fetchLoanees();
+      }, [])
+
   return (
     <View style={styles.root}>
       <FlatList

@@ -157,7 +157,9 @@ const FetchSMNonLnsRec = props => {
             }
           };
         
-         
+          useEffect(() => {
+            fetchLoanees();
+          }, [])  
 
   return (
     <View style={styles.root}>

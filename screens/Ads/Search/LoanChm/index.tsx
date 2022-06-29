@@ -75,7 +75,9 @@ const FetchSMNonCovLns = props => {
             setitemTwn("");
             setitemPrys("");
           };
-          
+          useEffect(() => {
+            fetchLoanees();
+          }, [])
           
   return (
     <View style={styles.image}>

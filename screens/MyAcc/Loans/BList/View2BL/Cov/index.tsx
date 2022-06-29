@@ -55,6 +55,9 @@ const FetchSMCovLns = props => {
             }
           };
         
+          useEffect(() => {
+            fetchLoanees();
+          }, [])
           
 
   return (

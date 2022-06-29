@@ -1,4 +1,4 @@
-import React, {useState, } from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text,   FlatList, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
@@ -145,7 +145,9 @@ const FetchSMCovLns = props => {
             }
           };
         
-          
+          useEffect(() => {
+            fetchChm();
+          }, []) 
 
   return (
     <View style={styles.root}>

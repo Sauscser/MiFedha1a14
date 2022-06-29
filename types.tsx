@@ -17,7 +17,7 @@ declare global {
       LnsScreen:undefined;
       CredSlsScreen:undefined;
       ChamaScreen:undefined;
-
+      Homeie:undefined;
       MFNdogoo:undefined;
       RegMFNdogo:undefined;
       RegMFKbw:undefined;

@@ -47,7 +47,7 @@ const FetchSMNonLnsSnt = props => {
       <FlatList
       style= {{width:"100%"}}
         data={Recvrs}
-        renderItem={({item}) => <NonLnSent Loanee={item} />}
+        renderItem={({item}) => <NonLnSent SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={fetchLoanees}
         refreshing={loading}

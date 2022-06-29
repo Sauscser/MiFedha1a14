@@ -151,7 +151,9 @@ const FetchSMNonLnsSnt = props => {
               setLoading(false);
             }
           };
-        
+          useEffect(() => {
+            fetchLoanees();
+          }, [])
  
 
   return (
