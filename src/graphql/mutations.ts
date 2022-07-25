@@ -1933,7 +1933,6 @@ export const createCovCreditSeller = /* GraphQL */ `
     createCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       loanerLoaneeAdv
       buyerContact
@@ -1967,7 +1966,6 @@ export const updateCovCreditSeller = /* GraphQL */ `
     updateCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       loanerLoaneeAdv
       buyerContact
@@ -2001,7 +1999,6 @@ export const deleteCovCreditSeller = /* GraphQL */ `
     deleteCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       loanerLoaneeAdv
       buyerContact
@@ -2035,7 +2032,6 @@ export const createNonCovCreditSeller = /* GraphQL */ `
     createNonCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       buyerContact
       sellerContact
@@ -2067,7 +2063,6 @@ export const updateNonCovCreditSeller = /* GraphQL */ `
     updateNonCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       buyerContact
       sellerContact
@@ -2099,7 +2094,6 @@ export const deleteNonCovCreditSeller = /* GraphQL */ `
     deleteNonCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       buyerContact
       sellerContact
@@ -2884,6 +2878,7 @@ export const createReqLoanCredSl = /* GraphQL */ `
       businessNo
       loaneePhone
       loaneeName
+      itemName
       amount
       repaymentAmt
       repaymentPeriod
@@ -2905,6 +2900,7 @@ export const updateReqLoanCredSl = /* GraphQL */ `
       businessNo
       loaneePhone
       loaneeName
+      itemName
       amount
       repaymentAmt
       repaymentPeriod
@@ -2926,6 +2922,7 @@ export const deleteReqLoanCredSl = /* GraphQL */ `
       businessNo
       loaneePhone
       loaneeName
+      itemName
       amount
       repaymentAmt
       repaymentPeriod

@@ -2272,7 +2272,6 @@ export type DeleteCompanyInput = {
 export type CreateCovCreditSellerInput = {
   id?: string | null,
   itemName: string,
-  itemSerialNumber?: string | null,
   loanerLoanee: string,
   loanerLoaneeAdv: string,
   buyerContact: string,
@@ -2298,7 +2297,6 @@ export type CreateCovCreditSellerInput = {
 
 export type ModelCovCreditSellerConditionInput = {
   itemName?: ModelStringInput | null,
-  itemSerialNumber?: ModelStringInput | null,
   loanerLoanee?: ModelStringInput | null,
   loanerLoaneeAdv?: ModelStringInput | null,
   buyerContact?: ModelStringInput | null,
@@ -2329,7 +2327,6 @@ export type CovCreditSeller = {
   __typename: "CovCreditSeller",
   id: string,
   itemName: string,
-  itemSerialNumber?: string | null,
   loanerLoanee: string,
   loanerLoaneeAdv: string,
   buyerContact: string,
@@ -2357,7 +2354,6 @@ export type CovCreditSeller = {
 export type UpdateCovCreditSellerInput = {
   id: string,
   itemName?: string | null,
-  itemSerialNumber?: string | null,
   loanerLoanee?: string | null,
   loanerLoaneeAdv?: string | null,
   buyerContact?: string | null,
@@ -2388,7 +2384,6 @@ export type DeleteCovCreditSellerInput = {
 export type CreateNonCovCreditSellerInput = {
   id?: string | null,
   itemName: string,
-  itemSerialNumber?: string | null,
   loanerLoanee: string,
   buyerContact: string,
   sellerContact: string,
@@ -2412,7 +2407,6 @@ export type CreateNonCovCreditSellerInput = {
 
 export type ModelNonCovCreditSellerConditionInput = {
   itemName?: ModelStringInput | null,
-  itemSerialNumber?: ModelStringInput | null,
   loanerLoanee?: ModelStringInput | null,
   buyerContact?: ModelStringInput | null,
   sellerContact?: ModelStringInput | null,
@@ -2441,7 +2435,6 @@ export type NonCovCreditSeller = {
   __typename: "NonCovCreditSeller",
   id: string,
   itemName: string,
-  itemSerialNumber?: string | null,
   loanerLoanee: string,
   buyerContact: string,
   sellerContact: string,
@@ -2467,7 +2460,6 @@ export type NonCovCreditSeller = {
 export type UpdateNonCovCreditSellerInput = {
   id: string,
   itemName?: string | null,
-  itemSerialNumber?: string | null,
   loanerLoanee?: string | null,
   buyerContact?: string | null,
   sellerContact?: string | null,
@@ -3299,6 +3291,7 @@ export type CreateReqLoanCredSlInput = {
   businessNo: string,
   loaneePhone: string,
   loaneeName: string,
+  itemName: string,
   amount: number,
   repaymentAmt: number,
   repaymentPeriod: number,
@@ -3312,6 +3305,7 @@ export type ModelReqLoanCredSlConditionInput = {
   businessNo?: ModelStringInput | null,
   loaneePhone?: ModelStringInput | null,
   loaneeName?: ModelStringInput | null,
+  itemName?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
   repaymentAmt?: ModelFloatInput | null,
   repaymentPeriod?: ModelFloatInput | null,
@@ -3330,6 +3324,7 @@ export type ReqLoanCredSl = {
   businessNo: string,
   loaneePhone: string,
   loaneeName: string,
+  itemName: string,
   amount: number,
   repaymentAmt: number,
   repaymentPeriod: number,
@@ -3345,6 +3340,7 @@ export type UpdateReqLoanCredSlInput = {
   businessNo?: string | null,
   loaneePhone?: string | null,
   loaneeName?: string | null,
+  itemName?: string | null,
   amount?: number | null,
   repaymentAmt?: number | null,
   repaymentPeriod?: number | null,
@@ -4045,7 +4041,6 @@ export type ModelCompanyConnection = {
 export type ModelCovCreditSellerFilterInput = {
   id?: ModelIDInput | null,
   itemName?: ModelStringInput | null,
-  itemSerialNumber?: ModelStringInput | null,
   loanerLoanee?: ModelStringInput | null,
   loanerLoaneeAdv?: ModelStringInput | null,
   buyerContact?: ModelStringInput | null,
@@ -4081,7 +4076,6 @@ export type ModelCovCreditSellerConnection = {
 export type ModelNonCovCreditSellerFilterInput = {
   id?: ModelIDInput | null,
   itemName?: ModelStringInput | null,
-  itemSerialNumber?: ModelStringInput | null,
   loanerLoanee?: ModelStringInput | null,
   buyerContact?: ModelStringInput | null,
   sellerContact?: ModelStringInput | null,
@@ -4388,6 +4382,7 @@ export type ModelReqLoanCredSlFilterInput = {
   businessNo?: ModelStringInput | null,
   loaneePhone?: ModelStringInput | null,
   loaneeName?: ModelStringInput | null,
+  itemName?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
   repaymentAmt?: ModelFloatInput | null,
   repaymentPeriod?: ModelFloatInput | null,
@@ -4413,6 +4408,96 @@ export type ModelStringKeyConditionInput = {
   gt?: string | null,
   between?: Array< string | null > | null,
   beginsWith?: string | null,
+};
+
+export type ModelReqLoanByLoaneeEmlCompositeKeyConditionInput = {
+  eq?: ModelReqLoanByLoaneeEmlCompositeKeyInput | null,
+  le?: ModelReqLoanByLoaneeEmlCompositeKeyInput | null,
+  lt?: ModelReqLoanByLoaneeEmlCompositeKeyInput | null,
+  ge?: ModelReqLoanByLoaneeEmlCompositeKeyInput | null,
+  gt?: ModelReqLoanByLoaneeEmlCompositeKeyInput | null,
+  between?: Array< ModelReqLoanByLoaneeEmlCompositeKeyInput | null > | null,
+  beginsWith?: ModelReqLoanByLoaneeEmlCompositeKeyInput | null,
+};
+
+export type ModelReqLoanByLoaneeEmlCompositeKeyInput = {
+  status?: Status | null,
+  createdAt?: string | null,
+};
+
+export type ModelReqLoanByLoanerEmlCompositeKeyConditionInput = {
+  eq?: ModelReqLoanByLoanerEmlCompositeKeyInput | null,
+  le?: ModelReqLoanByLoanerEmlCompositeKeyInput | null,
+  lt?: ModelReqLoanByLoanerEmlCompositeKeyInput | null,
+  ge?: ModelReqLoanByLoanerEmlCompositeKeyInput | null,
+  gt?: ModelReqLoanByLoanerEmlCompositeKeyInput | null,
+  between?: Array< ModelReqLoanByLoanerEmlCompositeKeyInput | null > | null,
+  beginsWith?: ModelReqLoanByLoanerEmlCompositeKeyInput | null,
+};
+
+export type ModelReqLoanByLoanerEmlCompositeKeyInput = {
+  status?: Status | null,
+  createdAt?: string | null,
+};
+
+export type ModelReqLoanChamaChmaLneeCompositeKeyConditionInput = {
+  eq?: ModelReqLoanChamaChmaLneeCompositeKeyInput | null,
+  le?: ModelReqLoanChamaChmaLneeCompositeKeyInput | null,
+  lt?: ModelReqLoanChamaChmaLneeCompositeKeyInput | null,
+  ge?: ModelReqLoanChamaChmaLneeCompositeKeyInput | null,
+  gt?: ModelReqLoanChamaChmaLneeCompositeKeyInput | null,
+  between?: Array< ModelReqLoanChamaChmaLneeCompositeKeyInput | null > | null,
+  beginsWith?: ModelReqLoanChamaChmaLneeCompositeKeyInput | null,
+};
+
+export type ModelReqLoanChamaChmaLneeCompositeKeyInput = {
+  status?: Status | null,
+  createdAt?: string | null,
+};
+
+export type ModelReqLoanChamaChmaNoDescCompositeKeyConditionInput = {
+  eq?: ModelReqLoanChamaChmaNoDescCompositeKeyInput | null,
+  le?: ModelReqLoanChamaChmaNoDescCompositeKeyInput | null,
+  lt?: ModelReqLoanChamaChmaNoDescCompositeKeyInput | null,
+  ge?: ModelReqLoanChamaChmaNoDescCompositeKeyInput | null,
+  gt?: ModelReqLoanChamaChmaNoDescCompositeKeyInput | null,
+  between?: Array< ModelReqLoanChamaChmaNoDescCompositeKeyInput | null > | null,
+  beginsWith?: ModelReqLoanChamaChmaNoDescCompositeKeyInput | null,
+};
+
+export type ModelReqLoanChamaChmaNoDescCompositeKeyInput = {
+  status?: Status | null,
+  createdAt?: string | null,
+};
+
+export type ModelReqLoanCredSlBzLneeCompositeKeyConditionInput = {
+  eq?: ModelReqLoanCredSlBzLneeCompositeKeyInput | null,
+  le?: ModelReqLoanCredSlBzLneeCompositeKeyInput | null,
+  lt?: ModelReqLoanCredSlBzLneeCompositeKeyInput | null,
+  ge?: ModelReqLoanCredSlBzLneeCompositeKeyInput | null,
+  gt?: ModelReqLoanCredSlBzLneeCompositeKeyInput | null,
+  between?: Array< ModelReqLoanCredSlBzLneeCompositeKeyInput | null > | null,
+  beginsWith?: ModelReqLoanCredSlBzLneeCompositeKeyInput | null,
+};
+
+export type ModelReqLoanCredSlBzLneeCompositeKeyInput = {
+  status?: Status | null,
+  createdAt?: string | null,
+};
+
+export type ModelReqLoanCredSlBzNoDescCompositeKeyConditionInput = {
+  eq?: ModelReqLoanCredSlBzNoDescCompositeKeyInput | null,
+  le?: ModelReqLoanCredSlBzNoDescCompositeKeyInput | null,
+  lt?: ModelReqLoanCredSlBzNoDescCompositeKeyInput | null,
+  ge?: ModelReqLoanCredSlBzNoDescCompositeKeyInput | null,
+  gt?: ModelReqLoanCredSlBzNoDescCompositeKeyInput | null,
+  between?: Array< ModelReqLoanCredSlBzNoDescCompositeKeyInput | null > | null,
+  beginsWith?: ModelReqLoanCredSlBzNoDescCompositeKeyInput | null,
+};
+
+export type ModelReqLoanCredSlBzNoDescCompositeKeyInput = {
+  status?: Status | null,
+  createdAt?: string | null,
 };
 
 export type CreateSMAccountMutationVariables = {
@@ -6468,7 +6553,6 @@ export type CreateCovCreditSellerMutation = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     loanerLoaneeAdv: string,
     buyerContact: string,
@@ -6504,7 +6588,6 @@ export type UpdateCovCreditSellerMutation = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     loanerLoaneeAdv: string,
     buyerContact: string,
@@ -6540,7 +6623,6 @@ export type DeleteCovCreditSellerMutation = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     loanerLoaneeAdv: string,
     buyerContact: string,
@@ -6576,7 +6658,6 @@ export type CreateNonCovCreditSellerMutation = {
     __typename: "NonCovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
@@ -6610,7 +6691,6 @@ export type UpdateNonCovCreditSellerMutation = {
     __typename: "NonCovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
@@ -6644,7 +6724,6 @@ export type DeleteNonCovCreditSellerMutation = {
     __typename: "NonCovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
@@ -7491,6 +7570,7 @@ export type CreateReqLoanCredSlMutation = {
     businessNo: string,
     loaneePhone: string,
     loaneeName: string,
+    itemName: string,
     amount: number,
     repaymentAmt: number,
     repaymentPeriod: number,
@@ -7514,6 +7594,7 @@ export type UpdateReqLoanCredSlMutation = {
     businessNo: string,
     loaneePhone: string,
     loaneeName: string,
+    itemName: string,
     amount: number,
     repaymentAmt: number,
     repaymentPeriod: number,
@@ -7537,6 +7618,7 @@ export type DeleteReqLoanCredSlMutation = {
     businessNo: string,
     loaneePhone: string,
     loaneeName: string,
+    itemName: string,
     amount: number,
     repaymentAmt: number,
     repaymentPeriod: number,
@@ -9016,7 +9098,6 @@ export type GetCovCreditSellerQuery = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     loanerLoaneeAdv: string,
     buyerContact: string,
@@ -9055,7 +9136,6 @@ export type ListCovCreditSellersQuery = {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
-      itemSerialNumber?: string | null,
       loanerLoanee: string,
       loanerLoaneeAdv: string,
       buyerContact: string,
@@ -9092,7 +9172,6 @@ export type GetNonCovCreditSellerQuery = {
     __typename: "NonCovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
@@ -9129,7 +9208,6 @@ export type ListNonCovCreditSellersQuery = {
       __typename: "NonCovCreditSeller",
       id: string,
       itemName: string,
-      itemSerialNumber?: string | null,
       loanerLoanee: string,
       buyerContact: string,
       sellerContact: string,
@@ -9751,6 +9829,7 @@ export type GetReqLoanCredSlQuery = {
     businessNo: string,
     loaneePhone: string,
     loaneeName: string,
+    itemName: string,
     amount: number,
     repaymentAmt: number,
     repaymentPeriod: number,
@@ -9777,6 +9856,7 @@ export type ListReqLoanCredSlsQuery = {
       businessNo: string,
       loaneePhone: string,
       loaneeName: string,
+      itemName: string,
       amount: number,
       repaymentAmt: number,
       repaymentPeriod: number,
@@ -10179,8 +10259,8 @@ export type VwMyRecMnyQuery = {
   } | null,
 };
 
-export type DakaByDescQueryVariables = {
-  sokodesc: string,
+export type DakaByNameQueryVariables = {
+  sokoname: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelSokoAdFilterInput | null,
@@ -10188,8 +10268,8 @@ export type DakaByDescQueryVariables = {
   nextToken?: string | null,
 };
 
-export type DakaByDescQuery = {
-  DakaByDesc?:  {
+export type DakaByNameQuery = {
+  DakaByName?:  {
     __typename: "ModelSokoAdConnection",
     items:  Array< {
       __typename: "SokoAd",
@@ -10613,6 +10693,40 @@ export type BiznaVwwsQuery = {
   } | null,
 };
 
+export type SrchAdvCovLnsQueryVariables = {
+  phonecontact: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelAdvocateFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type SrchAdvCovLnsQuery = {
+  srchAdvCovLns?:  {
+    __typename: "ModelAdvocateConnection",
+    items:  Array< {
+      __typename: "Advocate",
+      advregnu: string,
+      nationalid: string,
+      pwd: string,
+      name: string,
+      phonecontact: string,
+      TtlEarnings: number,
+      advBal: number,
+      email: string,
+      bankName: string,
+      bkAcNo: string,
+      officeLoc: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type VwAdvWthdrwlsQueryVariables = {
   advregnu: string,
   createdAt?: ModelStringKeyConditionInput | null,
@@ -10658,7 +10772,6 @@ export type VwLnrNLneesssQuery = {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
-      itemSerialNumber?: string | null,
       loanerLoanee: string,
       loanerLoaneeAdv: string,
       buyerContact: string,
@@ -10702,7 +10815,6 @@ export type VwAdvNLnrNLneesssQuery = {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
-      itemSerialNumber?: string | null,
       loanerLoanee: string,
       loanerLoaneeAdv: string,
       buyerContact: string,
@@ -10746,7 +10858,6 @@ export type VwMyCrdBysQuery = {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
-      itemSerialNumber?: string | null,
       loanerLoanee: string,
       loanerLoaneeAdv: string,
       buyerContact: string,
@@ -10790,7 +10901,6 @@ export type VwMySalesQuery = {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
-      itemSerialNumber?: string | null,
       loanerLoanee: string,
       loanerLoaneeAdv: string,
       buyerContact: string,
@@ -10834,7 +10944,6 @@ export type VwAdvCrdSlsQuery = {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
-      itemSerialNumber?: string | null,
       loanerLoanee: string,
       loanerLoaneeAdv: string,
       buyerContact: string,
@@ -10878,7 +10987,6 @@ export type VwLnrNLneessQuery = {
       __typename: "NonCovCreditSeller",
       id: string,
       itemName: string,
-      itemSerialNumber?: string | null,
       loanerLoanee: string,
       buyerContact: string,
       sellerContact: string,
@@ -10920,7 +11028,6 @@ export type VwMyCrdByssQuery = {
       __typename: "NonCovCreditSeller",
       id: string,
       itemName: string,
-      itemSerialNumber?: string | null,
       loanerLoanee: string,
       buyerContact: string,
       sellerContact: string,
@@ -10962,7 +11069,6 @@ export type VwMySalessQuery = {
       __typename: "NonCovCreditSeller",
       id: string,
       itemName: string,
-      itemSerialNumber?: string | null,
       loanerLoanee: string,
       buyerContact: string,
       sellerContact: string,
@@ -11763,9 +11869,103 @@ export type VwChamaMembersssssQuery = {
   } | null,
 };
 
+export type VwMyLoaneeReqQueryVariables = {
+  loaneeEmail: string,
+  statusCreatedAt?: ModelReqLoanByLoaneeEmlCompositeKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelReqLoanFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyLoaneeReqQuery = {
+  VwMyLoaneeReq?:  {
+    __typename: "ModelReqLoanConnection",
+    items:  Array< {
+      __typename: "ReqLoan",
+      id: string,
+      loaneeEmail: string,
+      loanerEmail: string,
+      loaneePhone: string,
+      loaneeName: string,
+      amount: number,
+      repaymentAmt: number,
+      repaymentPeriod: number,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwLoaneeReqQueryVariables = {
+  loanerEmail: string,
+  statusCreatedAt?: ModelReqLoanByLoanerEmlCompositeKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelReqLoanFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwLoaneeReqQuery = {
+  VwLoaneeReq?:  {
+    __typename: "ModelReqLoanConnection",
+    items:  Array< {
+      __typename: "ReqLoan",
+      id: string,
+      loaneeEmail: string,
+      loanerEmail: string,
+      loaneePhone: string,
+      loaneeName: string,
+      amount: number,
+      repaymentAmt: number,
+      repaymentPeriod: number,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ByChmaLneeQueryVariables = {
+  loaneeEmail: string,
+  statusCreatedAt?: ModelReqLoanChamaChmaLneeCompositeKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelReqLoanChamaFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ByChmaLneeQuery = {
+  ByChmaLnee?:  {
+    __typename: "ModelReqLoanChamaConnection",
+    items:  Array< {
+      __typename: "ReqLoanChama",
+      id: string,
+      loaneeEmail: string,
+      chamaPhone: string,
+      loaneePhone: string,
+      loaneeName: string,
+      amount: number,
+      repaymentAmt: number,
+      repaymentPeriod: number,
+      status: Status,
+      owner: string,
+      loaneeMemberId: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type ByChmaNoDescQueryVariables = {
   chamaPhone: string,
-  createdAt?: ModelStringKeyConditionInput | null,
+  statusCreatedAt?: ModelReqLoanChamaChmaNoDescCompositeKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelReqLoanChamaFilterInput | null,
   limit?: number | null,
@@ -11795,9 +11995,41 @@ export type ByChmaNoDescQuery = {
   } | null,
 };
 
+export type ByBzLneeQueryVariables = {
+  loaneeEmail: string,
+  statusCreatedAt?: ModelReqLoanCredSlBzLneeCompositeKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelReqLoanCredSlFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ByBzLneeQuery = {
+  ByBzLnee?:  {
+    __typename: "ModelReqLoanCredSlConnection",
+    items:  Array< {
+      __typename: "ReqLoanCredSl",
+      id: string,
+      loaneeEmail: string,
+      businessNo: string,
+      loaneePhone: string,
+      loaneeName: string,
+      itemName: string,
+      amount: number,
+      repaymentAmt: number,
+      repaymentPeriod: number,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type ByBzNoDescQueryVariables = {
   businessNo: string,
-  createdAt?: ModelStringKeyConditionInput | null,
+  statusCreatedAt?: ModelReqLoanCredSlBzNoDescCompositeKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelReqLoanCredSlFilterInput | null,
   limit?: number | null,
@@ -11814,6 +12046,7 @@ export type ByBzNoDescQuery = {
       businessNo: string,
       loaneePhone: string,
       loaneeName: string,
+      itemName: string,
       amount: number,
       repaymentAmt: number,
       repaymentPeriod: number,
@@ -13806,7 +14039,6 @@ export type OnCreateCovCreditSellerSubscription = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     loanerLoaneeAdv: string,
     buyerContact: string,
@@ -13841,7 +14073,6 @@ export type OnUpdateCovCreditSellerSubscription = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     loanerLoaneeAdv: string,
     buyerContact: string,
@@ -13876,7 +14107,6 @@ export type OnDeleteCovCreditSellerSubscription = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     loanerLoaneeAdv: string,
     buyerContact: string,
@@ -13911,7 +14141,6 @@ export type OnCreateNonCovCreditSellerSubscription = {
     __typename: "NonCovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
@@ -13944,7 +14173,6 @@ export type OnUpdateNonCovCreditSellerSubscription = {
     __typename: "NonCovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
@@ -13977,7 +14205,6 @@ export type OnDeleteNonCovCreditSellerSubscription = {
     __typename: "NonCovCreditSeller",
     id: string,
     itemName: string,
-    itemSerialNumber?: string | null,
     loanerLoanee: string,
     buyerContact: string,
     sellerContact: string,
@@ -14793,6 +15020,7 @@ export type OnCreateReqLoanCredSlSubscription = {
     businessNo: string,
     loaneePhone: string,
     loaneeName: string,
+    itemName: string,
     amount: number,
     repaymentAmt: number,
     repaymentPeriod: number,
@@ -14815,6 +15043,7 @@ export type OnUpdateReqLoanCredSlSubscription = {
     businessNo: string,
     loaneePhone: string,
     loaneeName: string,
+    itemName: string,
     amount: number,
     repaymentAmt: number,
     repaymentPeriod: number,
@@ -14837,6 +15066,7 @@ export type OnDeleteReqLoanCredSlSubscription = {
     businessNo: string,
     loaneePhone: string,
     loaneeName: string,
+    itemName: string,
     amount: number,
     repaymentAmt: number,
     repaymentPeriod: number,

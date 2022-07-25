@@ -92,7 +92,7 @@ const NonCovCredSls = props => {
       const RecPhn =PersnlDtl.data.getReqLoanCredSl.loaneeEmail;
       const BusinessRegNos =PersnlDtl.data.getReqLoanCredSl.businessNo;
       const loaneePhone =PersnlDtl.data.getReqLoanCredSl.loaneePhone;
-      const loaneeName =PersnlDtl.data.getReqLoanCredSl.loaneeName;
+      const itemName =PersnlDtl.data.getReqLoanCredSl.itemName;
       const amount =PersnlDtl.data.getReqLoanCredSl.amount;
       const AmtExp =PersnlDtl.data.getReqLoanCredSl.repaymentAmt;
       const RepaymtPeriod =PersnlDtl.data.getReqLoanCredSl.repaymentPeriod;
@@ -206,8 +206,8 @@ const NonCovCredSls = props => {
                             await API.graphql(
                               graphqlOperation(createNonCovCreditSeller, {
                                 input: {
-                                  itemName:ItmNm,
-                                  itemSerialNumber:ItmSrlNu,
+                                  itemName:itemName,
+                                  
                                   buyerID: nationalidss,
                                   sellerID: nationalids,
                                   sellerContact:BusinessRegNos,
@@ -595,24 +595,6 @@ useEffect(() =>{
              style={styles.sendAmtInput}
              editable={true}></TextInput>
            <Text style={styles.sendAmtText}>Sales Officer User PassWord</Text>
-         </View>
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-             value={ItmNm}
-             onChangeText={setItmNm}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Item Name</Text>
-         </View>
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-             value={ItmSrlNu}
-             onChangeText={setItmSrlNu}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Item Serial Number</Text>
          </View>
 
 

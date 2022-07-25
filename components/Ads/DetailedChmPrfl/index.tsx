@@ -58,13 +58,13 @@ const ViewSMDeposts = (props:SMAccount) => {
 
                     <Text style ={styles.amountoffered} >                       
                        {/* amount*/} 
-                       Chama Venture: {oprtnArea}
+                      Base Region/Town: {oprtnArea}
                        
                     </Text>
 
                     <Text style ={styles.amountoffered} >                       
                        {/* amount*/} 
-                       Chama Venture: {description}
+                       Chama Description: {description}
                        
                     </Text>
                     

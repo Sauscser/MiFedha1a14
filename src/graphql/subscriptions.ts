@@ -1750,7 +1750,6 @@ export const onCreateCovCreditSeller = /* GraphQL */ `
     onCreateCovCreditSeller(owner: $owner) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       loanerLoaneeAdv
       buyerContact
@@ -1781,7 +1780,6 @@ export const onUpdateCovCreditSeller = /* GraphQL */ `
     onUpdateCovCreditSeller(owner: $owner) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       loanerLoaneeAdv
       buyerContact
@@ -1812,7 +1810,6 @@ export const onDeleteCovCreditSeller = /* GraphQL */ `
     onDeleteCovCreditSeller(owner: $owner) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       loanerLoaneeAdv
       buyerContact
@@ -1843,7 +1840,6 @@ export const onCreateNonCovCreditSeller = /* GraphQL */ `
     onCreateNonCovCreditSeller(owner: $owner) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       buyerContact
       sellerContact
@@ -1872,7 +1868,6 @@ export const onUpdateNonCovCreditSeller = /* GraphQL */ `
     onUpdateNonCovCreditSeller(owner: $owner) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       buyerContact
       sellerContact
@@ -1901,7 +1896,6 @@ export const onDeleteNonCovCreditSeller = /* GraphQL */ `
     onDeleteNonCovCreditSeller(owner: $owner) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       buyerContact
       sellerContact
@@ -2593,6 +2587,7 @@ export const onCreateReqLoanCredSl = /* GraphQL */ `
       businessNo
       loaneePhone
       loaneeName
+      itemName
       amount
       repaymentAmt
       repaymentPeriod
@@ -2611,6 +2606,7 @@ export const onUpdateReqLoanCredSl = /* GraphQL */ `
       businessNo
       loaneePhone
       loaneeName
+      itemName
       amount
       repaymentAmt
       repaymentPeriod
@@ -2629,6 +2625,7 @@ export const onDeleteReqLoanCredSl = /* GraphQL */ `
       businessNo
       loaneePhone
       loaneeName
+      itemName
       amount
       repaymentAmt
       repaymentPeriod

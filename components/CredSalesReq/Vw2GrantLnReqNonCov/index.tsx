@@ -13,6 +13,7 @@ import { updateReqLoanCredSl } from '../../../src/graphql/mutations';
 export interface SMAccount {
     SMAc: {
       id:string,
+      itemName:string,
       loaneeEmail:string,
       loaneePhone:string,
       amount:number,
@@ -27,6 +28,7 @@ const SMCvLnStts = (props:SMAccount) => {
       SMAc: {
         loaneeEmail,
         loaneePhone,
+        itemName,
         amount,
         repaymentAmt,
         repaymentPeriod,
@@ -83,7 +85,7 @@ const SMCvLnStts = (props:SMAccount) => {
                       <View >
                       <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                      Hi! it's {loaneeName}. Kindly Loan me goods worth Ksh. {amount}. I 
+                      Hi! it's {loaneeName}. Kindly Loan me {itemName} worth Ksh. {amount}. I 
                       commit to repay a Total of Ksh. {repaymentAmt} within {repaymentPeriod} days. 
                       You can reach me through {loaneePhone}. {status}    
                     </Text>

@@ -86,7 +86,7 @@ const KFNdogoScreen = props => {
             <Pressable
               onPress={FloatBghtSgnInss}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>UsrDposit</Text>
+              <Text style={styles.floatPressableText2}>UserDposit</Text>
             </Pressable>
 
             <Pressable
@@ -103,7 +103,7 @@ const KFNdogoScreen = props => {
             <Pressable
               onPress={UsrWthdrwlsSgnInss}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>UsrWthdrwls</Text>
+              <Text style={styles.floatPressableText2}>UserWthdrwls</Text>
             </Pressable>
 
             <Pressable
@@ -152,7 +152,7 @@ const KFNdogoScreen = props => {
             <Pressable
               onPress={DpstMneys}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText}>SM Deposit</Text>
+              <Text style={styles.floatPressableText}>User Deposit</Text>
             </Pressable>
 
             <Pressable
@@ -180,7 +180,7 @@ const KFNdogoScreen = props => {
             <Pressable
               onPress={UpdateMFNComss}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText}>UpdtCom</Text>
+              <Text style={styles.floatPressableText}>UpdateCommision</Text>
             </Pressable>
           </View>
         </View>

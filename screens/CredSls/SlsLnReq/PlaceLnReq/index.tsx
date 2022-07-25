@@ -99,7 +99,7 @@ const CreateBiz = (props) => {
             amount: parseFloat(itemPrys).toFixed(2),
             repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
             repaymentPeriod:rpymntPrd,
-           
+            itemName:ChmDesc,
             status: "AwaitingResponse",
             owner: ownr,
                   },
@@ -320,7 +320,16 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Business Phone</Text>
                   </View>
                   
-                  
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    
+                    placeholder='Item Name'
+                      value={ChmDesc}
+                      onChangeText={setChmDesc}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Item Name</Text>
+                  </View>
 
                   <View style={styles.sendLoanView}>
                     <TextInput

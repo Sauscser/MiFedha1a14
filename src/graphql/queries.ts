@@ -1401,7 +1401,6 @@ export const getCovCreditSeller = /* GraphQL */ `
     getCovCreditSeller(id: $id) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       loanerLoaneeAdv
       buyerContact
@@ -1441,7 +1440,6 @@ export const listCovCreditSellers = /* GraphQL */ `
       items {
         id
         itemName
-        itemSerialNumber
         loanerLoanee
         loanerLoaneeAdv
         buyerContact
@@ -1474,7 +1472,6 @@ export const getNonCovCreditSeller = /* GraphQL */ `
     getNonCovCreditSeller(id: $id) {
       id
       itemName
-      itemSerialNumber
       loanerLoanee
       buyerContact
       sellerContact
@@ -1512,7 +1509,6 @@ export const listNonCovCreditSellers = /* GraphQL */ `
       items {
         id
         itemName
-        itemSerialNumber
         loanerLoanee
         buyerContact
         sellerContact
@@ -2084,6 +2080,7 @@ export const getReqLoanCredSl = /* GraphQL */ `
       businessNo
       loaneePhone
       loaneeName
+      itemName
       amount
       repaymentAmt
       repaymentPeriod
@@ -2107,6 +2104,7 @@ export const listReqLoanCredSls = /* GraphQL */ `
         businessNo
         loaneePhone
         loaneeName
+        itemName
         amount
         repaymentAmt
         repaymentPeriod
@@ -2549,17 +2547,17 @@ export const vwMyRecMny = /* GraphQL */ `
     }
   }
 `;
-export const dakaByDesc = /* GraphQL */ `
-  query DakaByDesc(
-    $sokodesc: String!
+export const dakaByName = /* GraphQL */ `
+  query DakaByName(
+    $sokoname: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelSokoAdFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    DakaByDesc(
-      sokodesc: $sokodesc
+    DakaByName(
+      sokoname: $sokoname
       createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
@@ -3039,6 +3037,44 @@ export const biznaVwws = /* GraphQL */ `
     }
   }
 `;
+export const srchAdvCovLns = /* GraphQL */ `
+  query SrchAdvCovLns(
+    $phonecontact: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelAdvocateFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    srchAdvCovLns(
+      phonecontact: $phonecontact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        advregnu
+        nationalid
+        pwd
+        name
+        phonecontact
+        TtlEarnings
+        advBal
+        email
+        bankName
+        bkAcNo
+        officeLoc
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const vwAdvWthdrwls = /* GraphQL */ `
   query VwAdvWthdrwls(
     $advregnu: String!
@@ -3092,7 +3128,6 @@ export const vwLnrNLneesss = /* GraphQL */ `
       items {
         id
         itemName
-        itemSerialNumber
         loanerLoanee
         loanerLoaneeAdv
         buyerContact
@@ -3140,7 +3175,6 @@ export const vwAdvNLnrNLneesss = /* GraphQL */ `
       items {
         id
         itemName
-        itemSerialNumber
         loanerLoanee
         loanerLoaneeAdv
         buyerContact
@@ -3188,7 +3222,6 @@ export const vwMyCrdBys = /* GraphQL */ `
       items {
         id
         itemName
-        itemSerialNumber
         loanerLoanee
         loanerLoaneeAdv
         buyerContact
@@ -3236,7 +3269,6 @@ export const vwMySales = /* GraphQL */ `
       items {
         id
         itemName
-        itemSerialNumber
         loanerLoanee
         loanerLoaneeAdv
         buyerContact
@@ -3284,7 +3316,6 @@ export const vwAdvCrdSls = /* GraphQL */ `
       items {
         id
         itemName
-        itemSerialNumber
         loanerLoanee
         loanerLoaneeAdv
         buyerContact
@@ -3332,7 +3363,6 @@ export const vwLnrNLneess = /* GraphQL */ `
       items {
         id
         itemName
-        itemSerialNumber
         loanerLoanee
         buyerContact
         sellerContact
@@ -3378,7 +3408,6 @@ export const vwMyCrdByss = /* GraphQL */ `
       items {
         id
         itemName
-        itemSerialNumber
         loanerLoanee
         buyerContact
         sellerContact
@@ -3424,7 +3453,6 @@ export const vwMySaless = /* GraphQL */ `
       items {
         id
         itemName
-        itemSerialNumber
         loanerLoanee
         buyerContact
         sellerContact
@@ -4309,18 +4337,88 @@ export const vwChamaMembersssss = /* GraphQL */ `
     }
   }
 `;
-export const byChmaNoDesc = /* GraphQL */ `
-  query ByChmaNoDesc(
-    $chamaPhone: String!
-    $createdAt: ModelStringKeyConditionInput
+export const vwMyLoaneeReq = /* GraphQL */ `
+  query VwMyLoaneeReq(
+    $loaneeEmail: String!
+    $statusCreatedAt: ModelReqLoanByLoaneeEmlCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelReqLoanFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyLoaneeReq(
+      loaneeEmail: $loaneeEmail
+      statusCreatedAt: $statusCreatedAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        loaneeEmail
+        loanerEmail
+        loaneePhone
+        loaneeName
+        amount
+        repaymentAmt
+        repaymentPeriod
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwLoaneeReq = /* GraphQL */ `
+  query VwLoaneeReq(
+    $loanerEmail: String!
+    $statusCreatedAt: ModelReqLoanByLoanerEmlCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelReqLoanFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwLoaneeReq(
+      loanerEmail: $loanerEmail
+      statusCreatedAt: $statusCreatedAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        loaneeEmail
+        loanerEmail
+        loaneePhone
+        loaneeName
+        amount
+        repaymentAmt
+        repaymentPeriod
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const byChmaLnee = /* GraphQL */ `
+  query ByChmaLnee(
+    $loaneeEmail: String!
+    $statusCreatedAt: ModelReqLoanChamaChmaLneeCompositeKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelReqLoanChamaFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    ByChmaNoDesc(
-      chamaPhone: $chamaPhone
-      createdAt: $createdAt
+    ByChmaLnee(
+      loaneeEmail: $loaneeEmail
+      statusCreatedAt: $statusCreatedAt
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -4345,18 +4443,54 @@ export const byChmaNoDesc = /* GraphQL */ `
     }
   }
 `;
-export const byBzNoDesc = /* GraphQL */ `
-  query ByBzNoDesc(
-    $businessNo: String!
-    $createdAt: ModelStringKeyConditionInput
+export const byChmaNoDesc = /* GraphQL */ `
+  query ByChmaNoDesc(
+    $chamaPhone: String!
+    $statusCreatedAt: ModelReqLoanChamaChmaNoDescCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelReqLoanChamaFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    ByChmaNoDesc(
+      chamaPhone: $chamaPhone
+      statusCreatedAt: $statusCreatedAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        loaneeEmail
+        chamaPhone
+        loaneePhone
+        loaneeName
+        amount
+        repaymentAmt
+        repaymentPeriod
+        status
+        owner
+        loaneeMemberId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const byBzLnee = /* GraphQL */ `
+  query ByBzLnee(
+    $loaneeEmail: String!
+    $statusCreatedAt: ModelReqLoanCredSlBzLneeCompositeKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelReqLoanCredSlFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    ByBzNoDesc(
-      businessNo: $businessNo
-      createdAt: $createdAt
+    ByBzLnee(
+      loaneeEmail: $loaneeEmail
+      statusCreatedAt: $statusCreatedAt
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -4368,6 +4502,43 @@ export const byBzNoDesc = /* GraphQL */ `
         businessNo
         loaneePhone
         loaneeName
+        itemName
+        amount
+        repaymentAmt
+        repaymentPeriod
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const byBzNoDesc = /* GraphQL */ `
+  query ByBzNoDesc(
+    $businessNo: String!
+    $statusCreatedAt: ModelReqLoanCredSlBzNoDescCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelReqLoanCredSlFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    ByBzNoDesc(
+      businessNo: $businessNo
+      statusCreatedAt: $statusCreatedAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        loaneeEmail
+        businessNo
+        loaneePhone
+        loaneeName
+        itemName
         amount
         repaymentAmt
         repaymentPeriod

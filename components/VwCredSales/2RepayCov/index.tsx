@@ -10,7 +10,7 @@ import styles from './styles';
          Loanee: {
            id: string,
            itemName: string,
-           itemSerialNumber: string,
+         
            buyerContact: string,
            
            SellerName:string,
@@ -32,7 +32,7 @@ import styles from './styles';
         const {
          Loanee: {
            id,
-           
+           itemName,
            SellerName,
         
            lonBala,
@@ -59,6 +59,10 @@ import styles from './styles';
                             Loan Id: {id}                 
                          </Text>
                          
+                         <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Item Name: {itemName}                 
+                    </Text> 
      
                          <Text style = {styles.interest}>                       
                             {/* interest*/}
