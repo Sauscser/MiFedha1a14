@@ -65,7 +65,7 @@ const CreateBiz = (props) => {
           await API.graphql(
           graphqlOperation(createBizna, {
           input: {
-            BusinessRegNo: ChmRegNo,
+           
             BusKntct:ChmPhn,
             busName: ChmNm,
             pw: pword,
@@ -225,19 +225,6 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Business Phone</Text>
                   </View>
 
-                  
-                  
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                     
-                      value={ChmRegNo}
-                      onChangeText={setChmRegNo}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Business Registration Number</Text>
-                  </View>
-
-                  
                   <View style={styles.sendLoanView}>
                     <TextInput
                       value={ChmNm}
