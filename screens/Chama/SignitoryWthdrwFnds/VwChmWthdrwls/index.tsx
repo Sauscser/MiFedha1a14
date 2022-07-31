@@ -11,25 +11,18 @@ import { useRoute } from '@react-navigation/native';
 
 const FetchSMNonLnsSnt = props => {
 
-    const[SenderEmail, setSenderEmail] = useState(null);
+    
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
     const route = useRoute();
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setSenderEmail(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    
 
         const fetchLoanees = async () => {
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
+              
+             
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyUsrWthdrwls, 
                 { 
@@ -44,7 +37,7 @@ const FetchSMNonLnsSnt = props => {
                   const fetchUsrDtls = async () => {
                     try {
                             const MFNDtls: any = await API.graphql(
-                                graphqlOperation(getSMAccount, {awsemail: SenderEmail}
+                                graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
                             ),);
               
                             const balances = MFNDtls.data.getSMAccount.balance;
@@ -89,7 +82,7 @@ const FetchSMNonLnsSnt = props => {
                                                         await API.graphql(
                                                           graphqlOperation(updateSMAccount,{
                                                             input:{
-                                                              awsemail: SenderEmail,
+                                                              awsemail: userInfo.attributes.email,
                                                               balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                             }
                                                           })

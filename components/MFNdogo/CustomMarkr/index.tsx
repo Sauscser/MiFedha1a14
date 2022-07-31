@@ -1,27 +1,64 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {View, Text, Alert, Pressable} from 'react-native';
 import {Marker} from 'react-native-maps';
+import {graphqlOperation, API} from 'aws-amplify';
+import { getCompany } from '../../../src/graphql/queries';
+import { useNavigation } from '@react-navigation/native';
+
+
+
 
 const CustomMarker = props => {
-    const {cordinate, name, onPress, isSelected} = props;
+  const [Alrt, setAlrt] = useState ( );
+  const navigation = useNavigation();
+  const VwMFNDtls = () => {
+    navigation.navigate ("VwMFNAcDtls", {phonecontact})
+ }
+  
+
+  const gtCompDtls = async () =>{
+    
+      
+    try{
+      const compDtls :any= await API.graphql(
+        graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+        );
+  
+        setAlrt(compDtls.data.getCompany.companyCom)
+        
+      }
+      
+      catch(e){
+        console.log(e)
+       
+      }};
+  
+      useEffect(() => {
+        gtCompDtls();
+      }, []);
+    const {coordinate, name, onPress, isSelected, phonecontact, town, longitude, latitude, MFNWithdrwlFee, phone} = props;
     return (
-      <Marker coordinate={cordinate} onPress={onPress}>
+      <Marker coordinate={coordinate} onPress={VwMFNDtls}>
         <View
           style={{
-            backgroundColor: isSelected ? 'black' : 'white',
+            backgroundColor: 'black',
             padding: 3,
             borderRadius: 5,
             borderColor: 'green',
             borderWidth: 1,
+            flexDirection: "column"
           }}>
+            
           <Text
             style={{
-              color: isSelected ? 'white' : 'black',
+              color: 'white',
               fontSize: 10,
               fontWeight: 'bold',
+              
             }}>
-            {name}
+           {MFNWithdrwlFee*100} %
           </Text>
+          
         </View>
       </Marker>
     );

@@ -117,6 +117,10 @@ const SMASendChmNonLns = props => {
                       );
                       
                       const userTransferFees = CompDtls.data.getCompany.chmMmbrTransferFee;
+                      const UsrTransferFeeAmt = userTransferFees*parseFloat(amounts);
+                      const UsrTransferFee2 = parseFloat(SenderUsrBal) -parseFloat(amounts);
+                     
+                      const TotalTransacted2 = parseFloat(amounts)  + UsrTransferFee2;
                       const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
                       const companyEarnings = CompDtls.data.getCompany.companyEarning;
                       const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
@@ -288,7 +292,160 @@ const SMASendChmNonLns = props => {
                                 return;
                               }
                                   }
-                                  Alert.alert(names + ", you have sent Ksh. " + parseFloat(amounts).toFixed(2) + " to " + grpNames+" Chama");
+                                  Alert.alert("Ksh. " + parseFloat(amounts).toFixed(2) + " sent to " 
+                                  + grpNames+" Transaction fee "+ UsrTransferFeeAmt);
+                                  setIsLoading(false);
+                                }                                
+                                                      
+
+                                const CrtChmMbrContri2 = async () => {
+                                  if(isLoading){
+                                    return;
+                                  }
+                                  setIsLoading(true)
+                                  try {
+                                    await API.graphql(
+                                      graphqlOperation(createGrpMembersContribution, {
+                                        input: {
+                                          memberPhn: memberContacts,
+                                          mmberNme:names,
+                                          GrpName:grpNames,
+                                          grpContact: groupContacts,
+                                          contriAmount: parseFloat(amounts).toFixed(0),
+                                          memberId:MembaId,
+                                          status: "AccountActive",
+                                          owner: ownr
+                                        },
+                                      }),
+                                    );
+            
+            
+                                  } catch (error) {
+                                    console.log(error)
+                                  }
+                                  setIsLoading(false);
+                                  await updtSendrAc2();
+                                };
+                              
+                                
+            
+                                const updtSendrAc2 = async () =>{
+                                  if(isLoading){
+                                    return;
+                                  }
+                                  setIsLoading(true);
+                                  try{
+                                      await API.graphql(
+                                        graphqlOperation(updateSMAccount, {
+                                          input:{
+                                            awsemail:memberContacts,
+                                            
+                                            balance:(parseFloat(SenderUsrBal)-TotalTransacted2).toFixed(0)
+                                                                           
+                                          }
+                                        })
+                                      )
+            
+            
+                                  }
+                                  catch(error){
+                                    console.log(error)
+                                    if (error){Alert.alert("Check your internet connection")
+                                    return;
+                                  }
+                                  }
+                                  setIsLoading(false);
+                                  await updtRecAc2();
+                                }
+            
+                                const updtRecAc2 = async () =>{
+                                  if(isLoading){
+                                    return;
+                                  }
+                                  setIsLoading(true);
+                                  try{
+                                      await API.graphql(
+                                        graphqlOperation(updateGroup, {
+                                          input:{
+                                            grpContact:groupContacts,
+                                            
+                                            grpBal:(parseFloat(grpBals) + parseFloat(amounts)).toFixed(0),                                     
+                                            ttlNonLonsRecChm: (parseFloat(amounts) + parseFloat(ttlNonLonsRecChmsssssss)).toFixed(0)
+                                                                              
+                                            
+                                          }
+                                        })
+                                      )                              
+                                  }
+                                  catch(error){
+                                    console.log(error)
+                                    if (error){Alert.alert("Check your internet connection");
+                                    return;
+                                  }
+                                  }
+                                  setIsLoading(false);
+                                  await updtComp2();
+                                }
+            
+                                const updtComp2 = async () =>{
+                                  if(isLoading){
+                                    return;
+                                  }
+                                  setIsLoading(true);
+                                  try{
+                                      await API.graphql(
+                                        graphqlOperation(updateCompany, {
+                                          input:{
+                                            AdminId: "BaruchHabaB'ShemAdonai2",                                                      
+                                            companyEarningBal: parseFloat(companyEarningBals) + UsrTransferFee2,
+                                            companyEarning: parseFloat(companyEarnings) + UsrTransferFee2,
+                                            ttlNonLonssRecChm: (parseFloat(amounts) + parseFloat(ttlNonLonssRecChmss)).toFixed(2),
+                                            
+                                            
+                                          }
+                                        })
+                                      )
+                                      
+                                      
+                                  }
+                                  catch(error){
+                                    console.log(error)
+                                    if (error){Alert.alert("Check your internet connection");
+                                return;
+                              }
+                                  }
+                                  await updtChmMbr2();
+                                  setIsLoading(false);
+                                }
+
+                                const updtChmMbr2 = async () =>{
+                                  if(isLoading){
+                                    return;
+                                  }
+                                  setIsLoading(true);
+                                  try{
+                                      await API.graphql(
+                                        graphqlOperation(updateChamaMembers, {
+                                          input:{
+                                            ChamaNMember: MembaId,   
+                                            NonLoanAcBal:(parseFloat(NonLoanAcBals) + parseFloat(amounts)).toFixed(0)  ,
+                                                                                                                          
+                                            
+                                          }
+                                        })
+                                      )
+                                      
+                                      
+                                  }
+                                  catch(error){
+                                    console.log(MembaId)
+                                    console.log(error)
+                                    if (error){Alert.alert("Check your internet connection")
+                                return;
+                              }
+                                  }
+                                  Alert.alert("Insufficient transaction fees? No worries! Ksh. " +parseFloat(amounts).toFixed(0) + " sent!");
+                                  
                                   setIsLoading(false);
                                 }                                
                                                       
@@ -297,7 +454,7 @@ const SMASendChmNonLns = props => {
                                 else if(statuss !== "AccountActive"){Alert.alert('Chama account is inactive');}
                                 
                                 else if (
-                                  parseFloat(SenderUsrBal) < TotalTransacted 
+                                  UsrTransferFee2 < 0
                                 ) {Alert.alert('Requested amount is more than you have in your account');}
                                 
                                 else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
@@ -305,6 +462,8 @@ const SMASendChmNonLns = props => {
                                 
                                 else if(parseFloat(loanLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');}
                                 
+                                else if (UsrTransferFeeAmt > UsrTransferFee2 
+                                  && UsrTransferFee2 > 0){CrtChmMbrContri2();}
                                  else {
                                   CrtChmMbrContri();
                                   

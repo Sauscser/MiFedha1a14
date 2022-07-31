@@ -32,28 +32,22 @@ const BuyFlt = (props:buyAgntFlts) => {
   
   const [amt, setAmt] = useState("");
   const [phoneContact, setPhoneContact] = useState("");
-  const[ownr, setownr] =useState(null);
+  
   const[bankAdminId, setBankAdminId] =useState("");
   const[transId, setTransId] =useState("");
   const[pwss, setpwss] =useState("");
   const [isLoading, setIsLoading] = useState(false)
 
-const fetchUser = async () => {
-  const userInfo = await Auth.currentAuthenticatedUser();  
-  
-  setownr(userInfo.attributes.sub);
-  
-};
 
-useEffect(() => {
-  fetchUser();
-}, []);
 
 const ftchAgInfo = async () => {
   if (isLoading){
     return;
   }
   setIsLoading(true);
+  const userInfo = await Auth.currentAuthenticatedUser();  
+  
+  
     try{
         const agntBal:any = await API.graphql(
             graphqlOperation(getAgent, {phonecontact:phoneContact}),
@@ -103,7 +97,7 @@ const ftchAgInfo = async () => {
                                               transactId:bankAdminId,
                                               bankAdminID:bankAdminId,
                                               status:"AccountActive",
-                                              owner:ownr
+                                              owner:userInfo.attributes.sub
                                                                           
                                            },
                                           }),

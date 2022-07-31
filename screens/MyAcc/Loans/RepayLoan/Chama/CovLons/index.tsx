@@ -58,22 +58,14 @@ const RepayCovChmLnsss = props => {
   const [amounts, setAmount] = useState("");
   const[LnId, setLnId] = useState("")
   const [Desc, setDesc] = useState("");
-  const [ownr, setownr] = useState(null);
+
   const[isLoading, setIsLoading] = useState(false);
-  const [SendrEmail, setSendrEmail] = useState(null);
+
   const route = useRoute();
   
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setSendrEmail(userInfo.attributes.email);
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
+  
 
 
     const ftchCvdSMLn = async () => {
@@ -81,6 +73,8 @@ const RepayCovChmLnsss = props => {
         return;
       }
       setIsLoading(true);
+      const userInfo = await Auth.currentAuthenticatedUser();
+
       try {
           const RecAccountDtl:any = await API.graphql(
               graphqlOperation(getCvrdGroupLoans, {id: route.params.id}),
@@ -202,7 +196,7 @@ const RepayCovChmLnsss = props => {
                                               await API.graphql(
                                                 graphqlOperation(updateSMAccount, {
                                                   input:{
-                                                    awsemail:SendrEmail,
+                                                    awsemail:userInfo.attributes.email,
                                                     balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                                     MaxTymsBL:0 ,
                                                     TtlClrdLonsTmsLneeChmCov:parseFloat(TtlClrdLonsTmsLneeChmCovs)+1,                                          
@@ -233,7 +227,7 @@ const RepayCovChmLnsss = props => {
                                               await API.graphql(
                                                 graphqlOperation(updateSMAccount, {
                                                   input:{
-                                                    awsemail:SendrEmail,
+                                                    awsemail:userInfo.attributes.email,
                                                     balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                                     MaxTymsBL:parseFloat(MaxTymsBLss)-1 ,
                                                     TtlClrdLonsTmsLneeChmCov:parseFloat(TtlClrdLonsTmsLneeChmCovs)+1,                                          
@@ -329,7 +323,7 @@ const RepayCovChmLnsss = props => {
                                         amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "ChmLonRepayment",
-                                        owner: ownr
+                                        owner: userInfo.attributes.sub
                                       },
                                     }),
                                   );
@@ -479,7 +473,7 @@ const RepayCovChmLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          awsemail:SendrEmail,
+                                          awsemail:userInfo.attributes.email,
                                           
                                           balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0),
                                                                                
@@ -570,13 +564,13 @@ const RepayCovChmLnsss = props => {
                                     graphqlOperation(createNonLoans, {
                                       input: {
                                         recPhn: grpContactssss,
-                                        senderPhn: SendrEmail,  
+                                        senderPhn: userInfo.attributes.email,  
                                         RecName:namess,
                                         SenderName:names,                                  
                                         amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "ChmLonRepayment",
-                                        owner: ownr
+                                        owner: userInfo.attributes.sub
                                       },
                                     }),
                                   );

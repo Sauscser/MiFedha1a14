@@ -9,25 +9,17 @@ import { useRoute } from '@react-navigation/native';
 
 const FetchSMCovLns = props => {
 
-    const[LnerPhn, setLnerPhn] = useState(null);
+    
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
     const route = useRoute();
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLnerPhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
-
+ 
         const fetchLoanees = async () => {
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
+              
+       
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
                {
@@ -47,7 +39,7 @@ const FetchSMCovLns = props => {
               const fetchUsrDtls = async () => {
                 try {
                         const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {awsemail: LnerPhn}
+                            graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
                         ),);
           
                         const balances = MFNDtls.data.getSMAccount.balance;
@@ -94,7 +86,7 @@ const FetchSMCovLns = props => {
                                                     await API.graphql(
                                                       graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          awsemail: LnerPhn,
+                                                          awsemail: userInfo.attributes.email,
                                                           balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })

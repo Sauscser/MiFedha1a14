@@ -4,33 +4,25 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/Chama/ChmActivities/Membership/Member";
 import styles from './styles';
-import { getCompany, getSMAccount, listCvrdGroupLoanss, listGrpMemberss, vwMyChamas } from '../../../../../src/graphql/queries';
+import { getCompany, getSMAccount, vwMyChamas } from '../../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
 
 const FetchSMCovLns = props => {
 
-    const[LneeEmail, setLneeEmail] = useState(null);
+    
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneeEmail(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
-
+    
         const fetchLoanees = async () => {
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
+              
+   
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyChamas, 
                 {
-                      memberContact: LneeEmail,
+                      memberContact: userInfo.attributes.email,
                       sortDirection: 'DESC',
                       limit: 100,
                     }
@@ -41,7 +33,7 @@ const FetchSMCovLns = props => {
               const fetchUsrDtls = async () => {
                 try {
                         const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {awsemail: LneeEmail}
+                            graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
                         ),);
           
                         const balances = MFNDtls.data.getSMAccount.balance;
@@ -86,7 +78,7 @@ const FetchSMCovLns = props => {
                                                     await API.graphql(
                                                       graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          awsemail: LneeEmail,
+                                                          awsemail: userInfo.attributes.email,
                                                           balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })

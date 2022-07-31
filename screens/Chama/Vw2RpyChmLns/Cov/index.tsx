@@ -8,29 +8,22 @@ import { listCvrdGroupLoans } from '../../../../src/graphql/queries';
 
 const FetchSMCovLns = props => {
 
-    const[LneeEmail, setLneeEmail] = useState(null);
+    
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneeEmail(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    
 
         const fetchLoanees = async () => {
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
+              
+       
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
                 { filter: {
                     and: {
-                      loaneePhn: { eq: LneeEmail},
+                      loaneePhn: { eq: userInfo.attributes.email},
                       lonBala:{gt:0}
                       
                     }

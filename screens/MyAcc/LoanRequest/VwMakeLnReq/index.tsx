@@ -29,23 +29,9 @@ const FetchSMNonCovLns = props => {
   const [rpymntPrd, setrpymntPrd] = useState('0');
 
   
-  
-
-
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneePhn(userInfo.attributes.phone_number);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
-
         const fetchLoanees = async () => {
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
             try {
 
             
@@ -55,7 +41,7 @@ const FetchSMNonCovLns = props => {
                     
                   filter: {
                   
-                    phonecontact: { eq: awsEmail},
+                    phonecontact: { eq: userInfo.attributes.phone_number},
                     acStatus:{eq:"AccountActive"}
                               
                 }

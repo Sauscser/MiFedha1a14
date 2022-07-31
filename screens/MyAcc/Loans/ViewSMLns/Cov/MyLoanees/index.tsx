@@ -12,24 +12,14 @@ const FetchSMCovLns = props => {
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLnerPhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
-
+    
         const fetchLoanees = async () => {
+          const userInfo = await Auth.currentAuthenticatedUser();
             setLoading(true);
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyDebtors, 
                 {
-                        loanerPhn: LnerPhn,
+                        loanerPhn: userInfo.attributes.email,
                         sortDirection: 'DESC',
                       limit: 100,
                       filter:{
@@ -43,7 +33,7 @@ const FetchSMCovLns = props => {
               const fetchUsrDtls = async () => {
                 try {
                         const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {awsemail: LnerPhn}
+                            graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
                         ),);
           
                         const balances = MFNDtls.data.getSMAccount.balance;
@@ -88,7 +78,7 @@ const FetchSMCovLns = props => {
                                                     await API.graphql(
                                                       graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          awsemail: LnerPhn,
+                                                          awsemail: userInfo.attributes.email,
                                                           balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })
@@ -119,7 +109,7 @@ const FetchSMCovLns = props => {
                       catch (e)
                       {
                         if(e){
-                          Alert.alert("User does not exist does not exist; otherwise check internet connection");
+                          Alert.alert("User does not exist; otherwise check internet connection");
                           return;
                         }
                           console.log(e)

@@ -16,8 +16,8 @@ const KFKubwaScreen = props => {
 
   
 
-  const goRegKFNdogoFm = () => {
-    navigation.navigate('RegMFNdgScrn');
+  const ApplyMFKubwa = () => {
+    navigation.navigate('ApplyMFKubwa');
   };
 
   
@@ -88,6 +88,12 @@ const KFKubwaScreen = props => {
               onPress={RegMFKbws}
               style={styles.kfkubwaView}>
               <Text style={styles.kfkubwaPressableText}>CreateAc</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={ApplyMFKubwa}
+              style={styles.kfkubwaView}>
+              <Text style={styles.kfkubwaPressableText}>Apply4Ac</Text>
             </Pressable>
 
           </View>

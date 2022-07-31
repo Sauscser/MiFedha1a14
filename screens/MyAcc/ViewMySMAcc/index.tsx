@@ -12,25 +12,16 @@ const FetchSMNonCovLns = props => {
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneePhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    
 
         const fetchLoanees = async () => {
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listSMAccounts, 
                 { filter: {
                     and: {
-                      awsemail: { eq: LneePhn},
+                      awsemail: { eq: userInfo.attributes.email},
                       acStatus: { eq: "AccountActive"},
                     }
                   }}

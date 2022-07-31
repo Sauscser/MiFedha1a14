@@ -54,7 +54,7 @@ const MFNSignIn = (props) => {
 
                 const pw1s = MFNDtls.data.getBizna.pw;
                 const owners = MFNDtls.data.getBizna.owner;
-                const BusinessRegNos = MFNDtls.data.getBizna.BusinessRegNo;
+                const BusinessRegNos = MFNDtls.data.getBizna.busName;
 
                 const VwMFNAc = () => {
                   navigation.navigate("VwBusAcss", {BusinessRegNos});

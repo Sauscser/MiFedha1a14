@@ -7,29 +7,21 @@ import styles from './styles';
 
 const FetchSMCovLns = props => {
 
-    const[LnerPhn, setLnerPhn] = useState(null);
+    
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLnerPhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
-
+    
         const fetchLoanees = async () => {
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
+              
+        
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
                 { filter: {
                     and: {
-                      buyerContact: { eq: LnerPhn},
+                      buyerContact: { eq: userInfo.attributes.email},
                       lonBala:{gt:0}
                       
                     }

@@ -49,9 +49,8 @@ const FetchSMNonCovLns = props => {
             try {
 
             let  filter = {
-              and: [{rafikiamnt: { gt: parseFloat(itemPrys)}},
-              {rafikiprcntg: { lt: parseFloat(lnPrsntg)}},
-              {rafikirpymntperiod: { gt: parseFloat(rpymntPrd)}}]
+              and: {rafikiamnt: { gt: parseFloat(itemPrys)}},
+              
             };
             
 
@@ -123,21 +122,7 @@ const FetchSMNonCovLns = props => {
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     
-                    <TextInput
-                    placeholder='Maximum Interest'
-                    keyboardType='decimal-pad'
-                      value={lnPrsntg}
-                      onChangeText={setlnPrsntg}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-
-<TextInput
-                    placeholder='Minimum Repayment Period in days'
-                    keyboardType='decimal-pad'
-                      value={rpymntPrd}
-                      onChangeText={setrpymntPrd}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
+                   
 
 
                   

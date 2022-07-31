@@ -13,11 +13,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#e58d29',
   },
   title: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'skyblue',
     width: '70%',
-    marginLeft: "5%",
+    marginLeft: "1%",
+    marginRight: "1%",
+    marginTop: "1%",
     
   },
 
@@ -33,10 +35,11 @@ const styles = StyleSheet.create({
     marginRight:"1%",
     marginLeft:"1%",
     marginTop: "1%",
-    
-    
-    
+   
   },
+
+  
+
 
   chamaLoanAndCreditSalesButton: {
     backgroundColor: 'white',
@@ -100,11 +103,19 @@ const styles = StyleSheet.create({
     
   },
 
+  loanAFriendText3: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'red',
+    padding:8
+    
+  },
+
   viewForPressables1: {
     backgroundColor: '#72ebd8',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "10%",
+    height: "8%",
     borderRadius: 20,
     marginTop: "2%",
     justifyContent: 'center',
@@ -119,11 +130,13 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width - 20,
     height: "15%",
     borderRadius: 20,
-    marginTop: "8%",
+    marginTop: "1%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
   },
+
+  
 
   viewForPressables3: {
     backgroundColor: '#72ebd8',
@@ -131,7 +144,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width - 20,
     height: "25%",
     borderRadius: 20,
-    marginTop: "9%",
+    marginTop: "5%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
@@ -159,6 +172,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     marginTop: "1%",
+  },
+
+  viewForPressables6: {
+    backgroundColor: '#e58d29',
+    width: "90%",
+    marginRight:"1%",
+    marginLeft:"1%",
+    height: "12%",
+    borderRadius: 20,
+    marginTop: "10%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+
+  loanFriendButton2: {
+    backgroundColor: 'white',
+    
+    height: "100%",
+    borderRadius: 30,
+    
+    
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: "100%",
+    marginRight:"1%",
+    marginLeft:"1%",
+    marginTop: "1%",
+    marginBottom: "1%",
+   
   },
   
 });

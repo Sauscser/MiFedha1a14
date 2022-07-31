@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 
+  label: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+
   loanTitleView: {
     backgroundColor: 'white',
     marginHorizontal: 10,

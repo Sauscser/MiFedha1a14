@@ -184,7 +184,10 @@ const SMASendNonLns = props => {
           
             
           const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
+          const UsrTransferFeeAmt = UsrTransferFee*parseFloat(amounts);
+          const UsrTransferFee2 = parseFloat(SenderUsrBal) -parseFloat(amounts);
           const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
+          const TotalTransacted2 = parseFloat(amounts)  + UsrTransferFee2;
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
           
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
@@ -247,6 +250,38 @@ const SMASendNonLns = props => {
                       await updtSendrAc();
                     };
 
+                    const sendSMNonLn2 = async () => {
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true)
+                      try {
+                        await API.graphql(
+                          graphqlOperation(createNonLoans, {
+                            input: {
+                              recPhn: RecNatId,
+                              senderPhn: SendrEmail,                                  
+                              amount: parseFloat(amounts).toFixed(0),                              
+                              description: Desc,
+                              RecName:namess,
+                              SenderName:names,
+                              status: "SMNonLons",
+                              owner: ownr
+                            },
+                          }),
+                        );
+
+
+                      } catch (error) {
+                        console.log(error)
+                        
+                      
+                      }
+                      setIsLoading(false);
+                      await updtSendrAc2();
+                    };
+
+
                     const updtSendrAc = async () =>{
                       if(isLoading){
                         return;
@@ -276,6 +311,35 @@ const SMASendNonLns = props => {
                       await updtRecAc();
                     }
 
+                    const updtSendrAc2 = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateSMAccount, {
+                              input:{
+                                awsemail:SendrEmail,
+                                ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(0),
+                                balance:(parseFloat(SenderUsrBal)-TotalTransacted2).toFixed(0) 
+                               
+                                
+                              }
+                            })
+                          )
+
+
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Check your internet connection")
+                        return;}
+                      }
+                      setIsLoading(false);
+                      await updtRecAc2();
+                    }
+
                     const updtRecAc = async () =>{
                       if(isLoading){
                         return;
@@ -301,6 +365,33 @@ const SMASendNonLns = props => {
                       }
                       setIsLoading(false);
                       await updtComp();
+                    }
+
+                    const updtRecAc2 = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateSMAccount, {
+                              input:{
+                                awsemail:RecNatId,
+                                ttlNonLonsRecSM: (parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts)).toFixed(0) ,
+                                balance:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(0)                                     
+                                                                
+                                
+                              }
+                            })
+                          )                              
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Check your internet connection")
+                        return;}
+                      }
+                      setIsLoading(false);
+                      await updtComp2();
                     }
 
                     const updtComp = async () =>{
@@ -331,7 +422,40 @@ const SMASendNonLns = props => {
                         if (error){Alert.alert("Check your internet connection")
                     return;}
                       }
-                      Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(2) + " Transaction: Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
+                      Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0)
+                      );
+                      setIsLoading(false);
+                    }
+
+                    const updtComp2 = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateCompany, {
+                              input:{
+                                AdminId: "BaruchHabaB'ShemAdonai2",                                                      
+                               
+                                companyEarningBal:UsrTransferFee2 + parseFloat(companyEarningBals),
+                                companyEarning: UsrTransferFee2 + parseFloat(companyEarnings),                                                    
+                                
+                                ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
+                                ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
+                                
+                              }
+                            })
+                          )
+                          
+                          
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Check your internet connection")
+                    return;}
+                      }
+                      Alert.alert("Insufficient transaction fees? No worries! Ksh. " +parseFloat(amounts).toFixed(0) + " sent!");
                       setIsLoading(false);
                     }
                     
@@ -342,7 +466,7 @@ const SMASendNonLns = props => {
                     else if(SenderNatId === RecNatId){Alert.alert('You cannot Send money to yourself Yourself');}
                     else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
                     else if (
-                      parseFloat(SenderUsrBal) < TotalTransacted 
+                      UsrTransferFee2 < 0
                     ) {Alert.alert('Requested amount is more than you have in your account');}
                     
                     else if (
@@ -371,6 +495,9 @@ const SMASendNonLns = props => {
                       ) {
                         SndChmMmbrMny();
                     } 
+
+                    else if (UsrTransferFeeAmt > UsrTransferFee2 
+                      && UsrTransferFee2 > 0){sendSMNonLn2();}
 
                      else {
                       sendSMNonLn();

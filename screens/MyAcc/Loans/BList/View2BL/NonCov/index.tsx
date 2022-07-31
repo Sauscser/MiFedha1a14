@@ -27,6 +27,9 @@ const FetchSMNonCovLns = props => {
 
         const fetchLoanees = async () => {
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
+              
+            
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
                 { 
@@ -35,7 +38,7 @@ const FetchSMNonCovLns = props => {
                   limit: 100,                
                   filter: {
                     
-                    loanerPhn: {eq:LnerPhn},
+                    loanerPhn: {eq:userInfo.attributes.email},
                       lonBala:{gt:0},
                       
                       status:{ne:"LoanBL"}                      

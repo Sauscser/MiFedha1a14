@@ -35,15 +35,6 @@ const BLCovCredByr = (props) => {
   const [LonId, setLonId] = useState("")
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-     
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
     
     const gtCompDtls = async () =>{
     if(isLoading){

@@ -6,11 +6,21 @@ const styles = StyleSheet.create ({
         
     },
 
-   
+    
     ownerName: {
         fontSize: 15,
         fontWeight: '900',
         color: '#ad1c65'
+    },
+
+   
+
+    amountoffered: {
+        marginBottom:5,
+        fontSize: 15,
+        fontWeight: '900',
+        color: '#88124e',
+        
     },
 
     

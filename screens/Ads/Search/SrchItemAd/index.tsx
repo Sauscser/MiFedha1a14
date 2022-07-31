@@ -46,9 +46,8 @@ const FetchSMNonCovLns = props => {
             try {
 
               let  filter = {
-                and: [{sokoname: { contains: itemPrys}},                
-                {sokoprice: { lt: parseFloat(lnPrsntg)}},
-                {sokolnprcntg: { gt: parseFloat(rpymntPrd)}}]
+                and: {sokoname: { contains: itemPrys}},                
+                
               };
 
               const Lonees:any = await API.graphql(graphqlOperation(listSokoAds, 
@@ -115,21 +114,7 @@ const FetchSMNonCovLns = props => {
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     
-                    <TextInput
-                    placeholder='Enter Maximum Price in Ksh.'
-                    keyboardType='decimal-pad'
-                      value={lnPrsntg}
-                      onChangeText={setlnPrsntg}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-
-<TextInput
-                    placeholder='Least Percentage Discount'
-                    keyboardType='decimal-pad'
-                      value={rpymntPrd}
-                      onChangeText={setrpymntPrd}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
+                    
                   
     </View>
     </View>

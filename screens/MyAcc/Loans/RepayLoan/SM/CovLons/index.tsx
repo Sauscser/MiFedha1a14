@@ -50,32 +50,24 @@ const RepayCovLnsss = props => {
   const [amounts, setAmount] = useState("");
   
   const [Desc, setDesc] = useState("");
-  const [ownr, setownr] = useState(null);
+
   const[isLoading, setIsLoading] = useState(false);
-  const [SendrEmail, setSendrEmail] = useState(null);
-  
+
   const route = useRoute();
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setSendrEmail(userInfo.attributes.email);
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-
+  
 
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
       return;
     }
     setIsLoading(false);
+    const userInfo = await Auth.currentAuthenticatedUser();
+    
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: SendrEmail}),
+        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -169,7 +161,7 @@ const RepayCovLnsss = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                awsemail:SendrEmail,
+                                awsemail:userInfo.attributes.email,
                                 
                                 balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                 
@@ -202,7 +194,7 @@ const RepayCovLnsss = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                awsemail:SendrEmail,
+                                awsemail:userInfo.attributes.email,
                                 
                                 balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                 
@@ -265,14 +257,14 @@ const RepayCovLnsss = props => {
                                   await API.graphql(
                                     graphqlOperation(createNonLoans, {
                                       input: {
-                                        senderPhn: SendrEmail,
+                                        senderPhn: userInfo.attributes.email,
                                         recPhn: loanerPhns,     
                                         RecName:namess,
                                         SenderName:names,                             
                                         amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "SMLonRepayment",
-                                        owner: ownr
+                                        owner: userInfo.attributes.sub
                                       },
                                     }),
                                   );
@@ -394,13 +386,13 @@ const RepayCovLnsss = props => {
                                     graphqlOperation(createNonLoans, {
                                       input: {
                                         recPhn: loanerPhns,
-                                        senderPhn: SendrEmail,    
+                                        senderPhn: userInfo.attributes.email,    
                                         RecName:namess,
                                         SenderName:names,                                
                                         amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "SMLonRepayment",
-                                        owner: ownr
+                                        owner: userInfo.attributes.sub
                                       },
                                     }),
                                   );
@@ -428,7 +420,7 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          awsemail:SendrEmail,
+                                          awsemail:userInfo.attributes.email,
                                           TtlClrdLonsAmtLneeCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(0),
                                           balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0),
                                           
@@ -521,7 +513,7 @@ const RepayCovLnsss = props => {
                               ) {Alert.alert('Requested amount is more than you have in your account');
                             return;
                           }
-                          else if(SendrEmail === loanerPhns){Alert.alert('You cannot Repay Yourself');}
+                          else if(userInfo.attributes.email === loanerPhns){Alert.alert('You cannot Repay Yourself');}
 
                           else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Too little repayment: at least "+ClranceAmt.toFixed(2));
                             return;

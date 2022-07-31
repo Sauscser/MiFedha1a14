@@ -8,44 +8,80 @@ import * as Location from 'expo-location';
 
 import {graphqlOperation, API} from 'aws-amplify';
 import { useRoute } from '@react-navigation/core';
+import CustomMarker from '../../../components/MFNdogo/CustomMarkr';
+import Carousels from '../../../components/MFNdogo/MFNCarousel';
 
 const GenralShpMpViewThree = props => {
     const [selectedPlaceId, setSelectedPlaceId] = useState(null);
     const [MFN, setMFN] = useState([]);
+    const [MFNss, setMFNss] = useState([]);
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
+    const[loading, setLoading] = useState(false);
     const route = useRoute()
 
     const flatlist = useRef();
-  
+    const map = useRef();
     const width = useWindowDimensions().width;
-  
-    useEffect(() => {
-      const fetchMFN = async () => {
-        try {
-          const response:any = await API.graphql(
-            graphqlOperation(
-              listAgents,
+    
+    const fetchMFN = async () => {
+      try {
+        const response:any = await API.graphql(
+          graphqlOperation(
+            listAgents,
 
-              { filter: {
-                and: {
-                  town: { contains: route.params.town},
-                  
-                  
-                }
-              }}
-            )
+            { filter: {
+              and: {
+                town: { contains: route.params.town},
+                
+              }
+            }}
           )
-  
-          setMFN(response.data.listAgents.items);
-        } catch (e) {
-          console.error(e);
-        }
-      };
-  
-      fetchMFN();
-    }, [])
+        )
 
+        setMFN(response.data.listAgents.items);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    useEffect(() => {
+      fetchMFN();
+    }, []);
+
+    
+    const viewConfig = useRef({itemVisiblePercentThreshold: 70})
+  const onViewChanged = useRef(({viewableItems}) => {
+    if (viewableItems.length > 0) {
+      const selectedPlace = viewableItems[0].item;
+      setSelectedPlaceId(selectedPlace.id)
+    }
+  })
+
+  
+
+  useEffect(() => {
+    if (!selectedPlaceId || !flatlist) {
+      return;
+    }
+    const index = MFN.findIndex(place => place.id === selectedPlaceId)
+    flatlist.current.scrollToIndex({index})
+
+    const selectedPlace = MFN[index];
+    const region = {
+      latitude: selectedPlace.latitude,
+      longitude: selectedPlace.longitude,
+      latitudeDelta: 0.8,
+      longitudeDelta: 0.8,
+    }
+    map.current.animateToRegion(region);
+  }, [selectedPlaceId])
+
+    
+
+  
+    
+      
     useEffect(() => {
       (async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -69,7 +105,10 @@ const GenralShpMpViewThree = props => {
 
     return (
       
-        <MapView
+
+
+<MapView
+  ref={map}
           style={{width: '100%', height: '100%'}}
           provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
@@ -79,17 +118,24 @@ const GenralShpMpViewThree = props => {
             latitudeDelta: 0.8,
             longitudeDelta: 0.8,
           }}>
-          {MFN.map((Agent) => (
-        <Marker
-          key={Agent.phonecontact}
-          coordinate={{latitude: Agent.latitude, longitude: Agent.longitude}}
-        >
-          
-            
-          
-        </Marker>
+          {MFN.map((place) => (
+        <CustomMarker
+          key={place.phonecontact}
+          coordinate={{latitude: place.latitude, longitude: place.longitude}}
+          MFNWithdrwlFee={place.MFNWithdrwlFee}
+          name={place.name}
+          phonecontact={place.phonecontact}
+        isSelected={place.id === selectedPlaceId}
+        onPress={() => setSelectedPlaceId(place.id)}
+        />
       ))}
     </MapView>
+
+
+    
+
+
+
   );
 };
   export default GenralShpMpViewThree;

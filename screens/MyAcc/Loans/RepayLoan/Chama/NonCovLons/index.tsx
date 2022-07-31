@@ -14,7 +14,7 @@ import {
   updateSMLoansCovered,
   updateCvrdGroupLoans,
   updateGroup,
-  updateGrpMembers,
+ 
   updateNonCvrdGroupLoans,
   updateChamaMembers,
   
@@ -27,7 +27,7 @@ import {
   getCompany,
   getCvrdGroupLoans,
   getGroup,
-  getGrpMembers,
+  
   getNonCvrdGroupLoans,
   getSMAccount,
   getSMLoansCovered,
@@ -60,22 +60,14 @@ const RepayNonCovChmLnsss = props => {
   const [amounts, setAmount] = useState("");
   const[LnId, setLnId] = useState("")
   const [Desc, setDesc] = useState("");
-  const [ownr, setownr] = useState(null);
+
   const[isLoading, setIsLoading] = useState(false);
-  const [SendrEmail, setSendrEmail] = useState(null);
+  
   const route = useRoute();
   
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setSendrEmail(userInfo.attributes.email);
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
+  
 
 
     const ftchCvdSMLn = async () => {
@@ -83,6 +75,8 @@ const RepayNonCovChmLnsss = props => {
         return;
       }
       setIsLoading(true);
+      const userInfo = await Auth.currentAuthenticatedUser();
+     
       try {
           const RecAccountDtl:any = await API.graphql(
               graphqlOperation(getNonCvrdGroupLoans, {id: route.params.id}),
@@ -200,7 +194,7 @@ const RepayNonCovChmLnsss = props => {
                                               await API.graphql(
                                                 graphqlOperation(updateSMAccount, {
                                                   input:{
-                                                    awsemail:SendrEmail,
+                                                    awsemail:userInfo.attributes.email,
                                                     
                                                     balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                                     TtlClrdLonsTmsLneeChmNonCov:parseFloat(TtlClrdLonsTmsLneeChmNonCovs)+1,                                          
@@ -234,7 +228,7 @@ const RepayNonCovChmLnsss = props => {
                                               await API.graphql(
                                                 graphqlOperation(updateSMAccount, {
                                                   input:{
-                                                    awsemail:SendrEmail,
+                                                    awsemail:userInfo.attributes.email,
                                                     
                                                     balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                                     TtlClrdLonsTmsLneeChmNonCov:parseFloat(TtlClrdLonsTmsLneeChmNonCovs)+1,                                          
@@ -332,7 +326,7 @@ const RepayNonCovChmLnsss = props => {
                                         amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "ChmLonRepayment",
-                                        owner: ownr
+                                        owner: userInfo.attributes.sub
                                       },
                                     }),
                                   );
@@ -481,7 +475,7 @@ const RepayNonCovChmLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          awsemail:SendrEmail,
+                                          awsemail:userInfo.attributes.email,
                                           TtlClrdLonsAmtLneeChmNonCov: (parseFloat(TtlClrdLonsAmtLneeChmNonCovs) + parseFloat(amounts)).toFixed(0), 
                                           balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0),
                                           
@@ -564,13 +558,13 @@ const RepayNonCovChmLnsss = props => {
                                     graphqlOperation(createNonLoans, {
                                       input: {
                                         recPhn: grpContactssss,
-                                        senderPhn: SendrEmail,  
+                                        senderPhn: userInfo.attributes.email,  
                                         RecName:namess,
                                         SenderName:names,                                  
                                         amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "ChmLonRepayment",
-                                        owner: ownr
+                                        owner: userInfo.attributes.sub
                                       },
                                     }),
                                   );

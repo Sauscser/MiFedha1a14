@@ -126,7 +126,7 @@ const MyLoanAccount = props => {
             
 
                 <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Earnings</Text>
+                  <Text style={styles.salesPressableText}>Revenue</Text>
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
@@ -238,7 +238,7 @@ const MyLoanAccount = props => {
             </View>
 
             <View style={styles.clientsView5}>
-              <Text style={styles.salesText}>LoanStatus and Sharings</Text>
+              <Text style={styles.salesText}>LoanStatus and Revenue Sharings</Text>
 
               <View style={styles.viewForClientsAndTitle}>
               <View style={styles.viewForClientsCategories}>

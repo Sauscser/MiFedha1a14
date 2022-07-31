@@ -34,16 +34,6 @@ const BLNonCovCredByr = (props) => {
   const[isLoading, setIsLoading] = useState(false);
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-     
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-    
     const gtCompDtls = async () =>{
     if(isLoading){
       return;

@@ -1061,7 +1061,6 @@ export const onDeletePersonel = /* GraphQL */ `
 export const onCreateBizna = /* GraphQL */ `
   subscription OnCreateBizna($owner: String) {
     onCreateBizna(owner: $owner) {
-      BusinessRegNo
       BusKntct
       busName
       pw
@@ -1080,7 +1079,6 @@ export const onCreateBizna = /* GraphQL */ `
 export const onUpdateBizna = /* GraphQL */ `
   subscription OnUpdateBizna($owner: String) {
     onUpdateBizna(owner: $owner) {
-      BusinessRegNo
       BusKntct
       busName
       pw
@@ -1099,7 +1097,6 @@ export const onUpdateBizna = /* GraphQL */ `
 export const onDeleteBizna = /* GraphQL */ `
   subscription OnDeleteBizna($owner: String) {
     onDeleteBizna(owner: $owner) {
-      BusinessRegNo
       BusKntct
       busName
       pw

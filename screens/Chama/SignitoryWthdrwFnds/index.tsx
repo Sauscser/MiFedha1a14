@@ -32,20 +32,12 @@ const SMADepositForm = props => {
   const [AgentPhn, setAgentPhn] = useState("");
   const [amount, setAmount] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const [ownr, setownr] = useState(null);
+ 
 
   
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setWthDrwrPhn(userInfo.attributes.email); 
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
+ 
 
 
   const fetchChmDtls = async () => {
@@ -53,6 +45,8 @@ const SMADepositForm = props => {
       return;
     }
     setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+    
     try {
       const ChmDtl:any = await API.graphql(
         graphqlOperation(getGroup, {grpContact: ChmKntct}),
@@ -138,7 +132,7 @@ const SMADepositForm = props => {
                                     withdrawerid: ChmKntct,                    
                                     agentPhonecontact: AgentPhn,
                                     sagentId: sagentregnos,
-                                    owner: ownr,
+                                    owner: userInfo.attributes.sub,
                                     amount: parseFloat(amount).toFixed(0),
                                     agentName:namess,
                                     userName:names,
@@ -298,7 +292,7 @@ const SMADepositForm = props => {
                       return;
                     } 
 
-                    else if (ownr!==owners) {
+                    else if (userInfo.attributes.sub !==owners) {
                       Alert.alert("You are not the main chama signitory")
                       return;
                     }  

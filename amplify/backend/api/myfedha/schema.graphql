@@ -146,6 +146,7 @@ type SMAccount
   depositLimit: Float!
   owner: String!
   createdAt: String!
+
 }
 
 type SMLoansCovered
@@ -884,9 +885,9 @@ type Bizna
 
   
    {
-  BusinessRegNo: String! @index(name: "byCrtnTymmmmms", sortKeyFields: ["createdAt"], queryField: "BiznaVwws")
+  
   BusKntct: String! @primaryKey
-  busName: String!
+  busName: String! @index(name: "byCrtnTymmmmms", sortKeyFields: ["createdAt"], queryField: "BiznaVwws")
   pw: String!
   TtlEarnings: Float!
   earningsBal:Float!
@@ -1561,7 +1562,7 @@ type ChamasNPwnBrkrs
   @auth(
     rules: [
       { allow: owner, operations: [read, update] }
-      { allow: private, operations: [read] }
+      { allow: private, operations: [read, create, update] }
       {
         allow: groups
         groups: ["AdminOne"]
@@ -2043,7 +2044,8 @@ enum Status {
   SMLonRepayment
   
   ChmLonRepayment
-  
+  Yes
+  No
   CredSlrLonRepayment
   AwaitingResponse
   Approved

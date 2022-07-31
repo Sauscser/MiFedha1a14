@@ -59,10 +59,10 @@ const SMASendLns = props => {
   const [AmtExp, setAmtExp] = useState("");
   const [AdvRegNo, setAdvRegNo] = useState("");
   const [Desc, setDesc] = useState("");
-  const [ownr, setownr] = useState(null);
+ 
   const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
-  const [SendrEmail, setSendrEmail] = useState(null);
+  
   const [PwnBrkr, setPwnBrkr] = useState('');
   
   
@@ -73,26 +73,20 @@ const SMASendLns = props => {
  }
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setSendrEmail(userInfo.attributes.email);
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-
+  
   
     const fetchCvLnSM = async () => {
       setIsLoading(true);
+      const userInfo = await Auth.currentAuthenticatedUser();
+      
+      
       try {
         const Lonees1:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
           { filter: {
               and: {
                 status: { eq: "LoanBL"},
                 lonBala: { gt: 0},
-                loaneePhn: { eq: SendrEmail},
+                loaneePhn: { eq: userInfo.attributes.email},
               }
             }}
             ));
@@ -105,7 +99,7 @@ const SMASendLns = props => {
                       and: {
                         status: { eq: "LoanBL"},
                 lonBala: { gt: 0},
-                loaneePhn: { eq: SendrEmail},
+                loaneePhn: { eq: userInfo.attributes.email},
                       }
                     }}
                     ));
@@ -118,7 +112,7 @@ const SMASendLns = props => {
                               and: {
                                 status: { eq: "LoanBL"},
                         lonBala: { gt: 0},
-                        buyerContact: { eq: SendrEmail},
+                        buyerContact: { eq: userInfo.attributes.email},
                               }
                             }}
                             ));
@@ -131,7 +125,7 @@ const SMASendLns = props => {
                                       and: {
                                         status: { eq: "LoanBL"},
                                 lonBala: { gt: 0},
-                                buyerContact: { eq: SendrEmail},
+                                buyerContact: { eq: userInfo.attributes.email},
                                       }
                                     }}
                                     ));
@@ -144,7 +138,7 @@ const SMASendLns = props => {
                                               and: {
                                                 status: { eq: "LoanBL"},
                                         lonBala: { gt: 0},
-                                        loaneePhn: { eq: SendrEmail},
+                                        loaneePhn: { eq: userInfo.attributes.email},
                                               }
                                             }}
                                             ));
@@ -157,7 +151,7 @@ const SMASendLns = props => {
                                                       and: {
                                                         status: { eq: "LoanBL"},
                                                 lonBala: { gt: 0},
-                                                loaneePhn: { eq: SendrEmail},
+                                                loaneePhn: { eq: userInfo.attributes.email},
                                                       }
                                                     }}
                                                     ));
@@ -190,7 +184,7 @@ const SMASendLns = props => {
     setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: SendrEmail}),
+        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -314,20 +308,7 @@ const SMASendLns = props => {
                         const DefaultPenaltySMs =RecAccountDtl.data.getSMAccount.DefaultPenaltySM;
 
 
-                        const confrmReg = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-                            const compDtls :any= await API.graphql(
-                              graphqlOperation(listChamasNPwnBrkrs,{ filter: {
-                            
-                                contact: { eq: SendrEmail}
-                                              
-                                }}))
-
-                                
+                        
                       
                         const sendSMLn = async () => {
                           if(isLoading){
@@ -340,10 +321,10 @@ const SMASendLns = props => {
                                 input: {
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,
-                                  loanerPhn:SendrEmail,
+                                  loanerPhn:userInfo.attributes.email,
                                   loaneePhn: loaneeEmail,  
-                                  loanerLoanee:SendrEmail+RecPhn,
-                                  loanerLoaneeAdv:  SendrEmail+RecPhn+ AdvRegNo ,                          
+                                  loanerLoanee:userInfo.attributes.email+RecPhn,
+                                  loanerLoaneeAdv:  userInfo.attributes.email+RecPhn+ AdvRegNo ,                          
                                   amountgiven: parseFloat(amount).toFixed(0),
                                   loaneename:namess,
                                   loanername:names,
@@ -357,7 +338,7 @@ const SMASendLns = props => {
                                   advregnu: AdvRegNo,
                                   description: Desc,
                                   status: "LoanActive",
-                                  owner: ownr
+                                  owner: userInfo.attributes.sub
                                 },
                               }),
                             );
@@ -381,7 +362,7 @@ const SMASendLns = props => {
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    awsemail:SendrEmail,
+                                    awsemail:userInfo.attributes.email,
                                     TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
                                     TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + TotalAmtExp).toFixed(0),
                                     TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs2) +1 ,
@@ -539,12 +520,12 @@ const SMASendLns = props => {
                     {Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
 
                     else if((parseFloat(TymsIHvGivnLns) - parseFloat(TymsMyLnClrds)) > 4 
-                    && compDtls.data.listChamasNPwnBrkrs.items.length < 1){Alert.alert("Call customer care to have limit increased");}
+                    ){Alert.alert("Call customer care to have limit increased");}
 
                    
 
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                        else if(SendrEmail === loaneeEmail){Alert.alert('You cannot Loan Yourself');}
+                        else if(userInfo.attributes.email === loaneeEmail){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         
                         else if (
@@ -556,7 +537,7 @@ const SMASendLns = props => {
                     {Alert.alert('Please enter Default Penalty less than ' + RecomDfltPnltyRate);
                       return;
                     }
-                        else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
+                        else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You can only loan from your account');}
                         
                         else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
                         else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
@@ -581,15 +562,7 @@ const SMASendLns = props => {
                         }                                                
                    
                    
-                      }       
-                      catch(e) {     
-                        console.log(e)
-                        if (e){Alert.alert("Check your internet connection")
-        return;}                 
-                      }
-                      setIsLoading(false);
-                      }                    
-                        await confrmReg();        
+                   
                     
                       }       
                     catch(e) {     

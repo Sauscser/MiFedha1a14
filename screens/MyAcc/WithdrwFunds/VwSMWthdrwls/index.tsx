@@ -10,28 +10,21 @@ import { updateCompany, updateSMAccount } from '../../../../src/graphql/mutation
 
 const FetchSMNonLnsSnt = props => {
 
-    const[SenderPhn, setSenderPhn] = useState(null);
+    
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setSenderPhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    
 
         const fetchLoanees = async () => {
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
+              
+        
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyUsrWthdrwls, 
                 { 
-                      withdrawerid: SenderPhn,
+                      withdrawerid: userInfo.attributes.email,
                       sortDirection: "DESC",
                       limit:100
                     }
@@ -42,7 +35,7 @@ const FetchSMNonLnsSnt = props => {
                   const fetchUsrDtls = async () => {
                     try {
                             const MFNDtls: any = await API.graphql(
-                                graphqlOperation(getSMAccount, {awsemail: SenderPhn}
+                                graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
                             ),);
               
                             const balances = MFNDtls.data.getSMAccount.balance;
@@ -87,7 +80,7 @@ const FetchSMNonLnsSnt = props => {
                                                         await API.graphql(
                                                           graphqlOperation(updateSMAccount,{
                                                             input:{
-                                                              awsemail: SenderPhn,
+                                                              awsemail: userInfo.attributes.email,
                                                               balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                             }
                                                           })

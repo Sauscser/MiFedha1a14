@@ -3849,7 +3849,7 @@
           "name" : "BiznaVwws",
           "description" : null,
           "args" : [ {
-            "name" : "BusinessRegNo",
+            "name" : "busName",
             "description" : null,
             "type" : {
               "kind" : "NON_NULL",
@@ -7923,6 +7923,16 @@
           "deprecationReason" : null
         }, {
           "name" : "ChmLonRepayment",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "Yes",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "No",
           "description" : null,
           "isDeprecated" : false,
           "deprecationReason" : null
@@ -14825,21 +14835,6 @@
         "name" : "Bizna",
         "description" : null,
         "fields" : [ {
-          "name" : "BusinessRegNo",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
           "name" : "BusKntct",
           "description" : null,
           "args" : [ ],
@@ -15069,15 +15064,6 @@
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "BusinessRegNo",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelStringInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
           "name" : "BusKntct",
           "description" : null,
           "type" : {
@@ -39047,19 +39033,6 @@
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "BusinessRegNo",
-          "description" : null,
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
           "name" : "BusKntct",
           "description" : null,
           "type" : {
@@ -39208,15 +39181,6 @@
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "BusinessRegNo",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelStringInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
           "name" : "busName",
           "description" : null,
           "type" : {
@@ -39351,15 +39315,6 @@
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "BusinessRegNo",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
           "name" : "BusKntct",
           "description" : null,
           "type" : {
@@ -55410,23 +55365,6 @@
         "onFragment" : false,
         "onField" : false
       }, {
-        "name" : "deprecated",
-        "description" : null,
-        "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
-        "args" : [ {
-          "name" : "reason",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : "\"No longer supported\""
-        } ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
         "name" : "aws_cognito_user_pools",
         "description" : "Tells the service this field/object has access authorized by a Cognito User Pools token.",
         "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
@@ -55481,6 +55419,23 @@
         "description" : "Tells the service this field/object has access authorized by a Lambda Authorizer.",
         "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
         "args" : [ ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
+        "name" : "deprecated",
+        "description" : null,
+        "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
+        "args" : [ {
+          "name" : "reason",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : "\"No longer supported\""
+        } ],
         "onOperation" : false,
         "onFragment" : false,
         "onField" : false

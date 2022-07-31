@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {  updateCompany, updateGroup, updateGrpMembers} from '../../../src/graphql/mutations';
-import {  getCompany, getGroup, getGrpMembers, getSMAccount } from '../../../src/graphql/queries';
+import {  updateCompany, updateGroup} from '../../../src/graphql/mutations';
+import {  getCompany, getGroup,  getSMAccount } from '../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -34,31 +34,23 @@ const UpdtChm = (props) => {
   const [LnAcCod, setLnAcCod] = useState("");
   const [SMPW, setSMPW] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const[ownr, setownr] = useState(null);
-  const[names, setName] = useState(null);
-  const[Email, setEmail] = useState(null);
-  
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    setName(userInfo.username);
-    setownr(userInfo.attributes.sub);
-    setEmail(userInfo.attributes.email);
-    
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
+
 
   
+ 
         const fetchChmAuthorDtls = async () =>{
             if(isLoading){
               return;
             }
             setIsLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
+    
+             
+
+
             try{
               const compDtls :any= await API.graphql(
-                graphqlOperation(getSMAccount,{awsemail:Email})
+                graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
                 );
                 const loanAcceptanceCodes = compDtls.data.getSMAccount.loanAcceptanceCode                
                 const pws = compDtls.data.getSMAccount.pw
@@ -104,7 +96,7 @@ const UpdtChm = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +" has updated "+grpNames+"'s Chama password");
+                                        Alert.alert(userInfo.attributes.username +" has updated "+grpNames+"'s Chama password");
                                       } 
 
                                       if(SMPW!==pws)
@@ -112,7 +104,7 @@ const UpdtChm = (props) => {
                                           Alert.alert("Wrong SM A/C PW; Prove authorship of Chama");
                                       }
 
-                                      else if(ownr!==owners)
+                                      else if(userInfo.attributes.sub !==owners)
                                       {
                                           Alert.alert("You are not the author of the Chama");
                                       }

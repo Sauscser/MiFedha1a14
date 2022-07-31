@@ -48,32 +48,18 @@ const CreateBiz = (props) => {
   const route = useRoute();
 
 
-  const[ownr, setownr] = useState(null);
-
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);
-      setUsrEmail(userInfo.attributes.email);
-      
-          
-    };
+  
 
     
-
-    useEffect(() => {
-        fetchUser();
-      }, []);
-
       const gtBizna = async () =>{
         if(isLoading){
           return;
         }
         setIsLoading(true);
+        const userInfo = await Auth.currentAuthenticatedUser();
         try{
           const compDtls :any= await API.graphql(
-            graphqlOperation(getSMAccount,{awsemail:UsrEmail})
+            graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
             );
             const pws = compDtls.data.getSMAccount.pw;
             const phonecontacts = compDtls.data.getSMAccount.phonecontact;
@@ -100,7 +86,7 @@ const CreateBiz = (props) => {
             repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
             repaymentPeriod:rpymntPrd,
             status: "AwaitingResponse",
-            owner: ownr,
+            owner: userInfo.attributes.sub,
                   },
                 })
                 

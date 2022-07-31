@@ -313,8 +313,9 @@ import RequestLoansPage from "../../screens/RequestLoansPage";
 import ViewBiznaShareRec from "../../screens/CredSls/ViewBiznaShareRec";
 import ViewBiznaShareSent from "../../screens/CredSls/ViewBiznaShareSent";
 import SgnIn2VwRevenueShare from "../../screens/CredSls/SgnIn2VwRevenueShare";
-
-
+import ViewAlertDtls from "../../screens/Settings/ViewAlertDtls";
+import ApplyMFKubwa from "../../screens/MFKubwa/ApplyMFKubwa";
+import VwMFNAcDtls from "../../screens/MFNdogo/VwMFNAcDtls";
 
 
 const Stack = createNativeStackNavigator();
@@ -326,7 +327,9 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />
 
-   
+      <Stack.Screen name={'VwMFNAcDtls'} component={VwMFNAcDtls} />
+      <Stack.Screen name={'ApplyMFKubwa'} component={ApplyMFKubwa} />
+      <Stack.Screen name={'ViewAlertDtls'} component={ViewAlertDtls} />
       <Stack.Screen name={'SgnIn2VwRevenueShare'} component={SgnIn2VwRevenueShare} />
       <Stack.Screen name={'ViewBiznaShareSent'} component={ViewBiznaShareSent} />
       <Stack.Screen name={'ViewBiznaShareRec'} component={ViewBiznaShareRec} />

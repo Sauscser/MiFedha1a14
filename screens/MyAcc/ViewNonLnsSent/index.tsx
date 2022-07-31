@@ -9,28 +9,21 @@ import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
 const FetchSMNonLnsRec = props => {
 
-    const[RecPhn, setRecPhn] = useState(null);
+    
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setRecPhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    
 
         const fetchLoanees = async () => {
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
+              
+        
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMySntMny, 
               {
-                      senderPhn: RecPhn,
+                      senderPhn: userInfo.attributes.email,
                       sortDirection: 'DESC',
                       limit: 100,
                       filter:{status:{eq:"SMNonLons"}}
@@ -43,7 +36,7 @@ const FetchSMNonLnsRec = props => {
               const fetchUsrDtls = async () => {
                 try {
                         const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {awsemail: RecPhn}
+                            graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
                         ),);
           
                         const balances = MFNDtls.data.getSMAccount.balance;
@@ -88,7 +81,7 @@ const FetchSMNonLnsRec = props => {
                                                     await API.graphql(
                                                       graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          awsemail: RecPhn,
+                                                          awsemail: userInfo.attributes.email,
                                                           balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })

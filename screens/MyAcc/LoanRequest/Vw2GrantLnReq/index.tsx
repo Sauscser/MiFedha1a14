@@ -31,23 +31,9 @@ const FetchSMNonCovLns = props => {
   const [rpymntPrd, setrpymntPrd] = useState('0');
 
   
-  
-
-
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneePhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
-
         const fetchLoanees = async () => {
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
             try {
 
             
@@ -57,7 +43,7 @@ const FetchSMNonCovLns = props => {
                     
                   filter: {
                   
-                    loanerEmail: { eq: LneePhn},
+                    loanerEmail: { eq: userInfo.attributes.email},
                     status:{eq:"AwaitingResponse"}
                                
                 }

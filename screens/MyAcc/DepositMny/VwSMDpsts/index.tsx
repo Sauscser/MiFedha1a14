@@ -13,24 +13,14 @@ const FetchSMNonLnsSnt = props => {
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setSenderEmail(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
-
         const fetchLoanees = async () => {
+          
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyUsrDposits, 
                 { 
-                      depositerid: SenderEmail,
+                      depositerid: userInfo.attributes.email,
                       sortDirection: "DESC",
                       limit:100
                       

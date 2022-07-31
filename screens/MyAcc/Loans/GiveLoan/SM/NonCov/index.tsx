@@ -55,10 +55,10 @@ const SMASendNonCovLns = props => {
   const [AmtExp, setAmtExp] = useState("");
   const [AdvRegNo, setAdvRegNo] = useState("");
   const [Desc, setDesc] = useState("");
-  const [ownr, setownr] = useState(null);
+  
   const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
-  const [SendrEmail, setSendrEmail] = useState(null);
+  
   const [PwnBrkr, setPwnBrkr] = useState('');
 
   const navigation = useNavigation()
@@ -69,27 +69,20 @@ const SMASendNonCovLns = props => {
   
 const route = useRoute();
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setSendrEmail(userInfo.attributes.email);
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-
   
 
     const fetchCvLnSM = async () => {
       setIsLoading(true);
+      const userInfo = await Auth.currentAuthenticatedUser();
+       
+        
       try {
         const Lonees1:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
           { filter: {
               and: {
                 status: { eq: "LoanBL"},
                 lonBala: { gt: 0},
-                loaneePhn: { eq: SendrEmail},
+                loaneePhn: { eq: userInfo.attributes.email},
               }
             }}
             ));
@@ -102,7 +95,7 @@ const route = useRoute();
                       and: {
                         status: { eq: "LoanBL"},
                 lonBala: { gt: 0},
-                loaneePhn: { eq: SendrEmail},
+                loaneePhn: { eq: userInfo.attributes.email},
                       }
                     }}
                     ));
@@ -115,7 +108,7 @@ const route = useRoute();
                               and: {
                                 status: { eq: "LoanBL"},
                         lonBala: { gt: 0},
-                        buyerContact: { eq: SendrEmail},
+                        buyerContact: { eq: userInfo.attributes.email},
                               }
                             }}
                             ));
@@ -128,7 +121,7 @@ const route = useRoute();
                                       and: {
                                         status: { eq: "LoanBL"},
                                 lonBala: { gt: 0},
-                                buyerContact: { eq: SendrEmail},
+                                buyerContact: { eq: userInfo.attributes.email},
                                       }
                                     }}
                                     ));
@@ -141,7 +134,7 @@ const route = useRoute();
                                               and: {
                                                 status: { eq: "LoanBL"},
                                         lonBala: { gt: 0},
-                                        loaneePhn: { eq: SendrEmail},
+                                        loaneePhn: { eq: userInfo.attributes.email},
                                               }
                                             }}
                                             ));
@@ -154,7 +147,7 @@ const route = useRoute();
                                                       and: {
                                                         status: { eq: "LoanBL"},
                                                 lonBala: { gt: 0},
-                                                loaneePhn: { eq: SendrEmail},
+                                                loaneePhn: { eq: userInfo.attributes.email},
                                                       }
                                                     }}
                                                     ));
@@ -187,7 +180,7 @@ const route = useRoute();
     setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: SendrEmail}),
+        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -290,7 +283,7 @@ const route = useRoute();
                             const compDtls :any= await API.graphql(
                               graphqlOperation(listChamasNPwnBrkrs,{ filter: {
                             
-                                contact: { eq: SendrEmail}
+                                contact: { eq: userInfo.attributes.email}
                                               
                                 }}))
                                 
@@ -305,8 +298,8 @@ const route = useRoute();
                                 input: {
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,
-                                  loanerPhn:SendrEmail,
-                                  loanerLoanee:SendrEmail+RecPhn,
+                                  loanerPhn:userInfo.attributes.email,
+                                  loanerLoanee:userInfo.attributes.email+RecPhn,
                                   DefaultPenaltySM:DefaultPenaltySMs,
                                   DefaultPenaltySM2:0,
                                   loaneePhn: loaneeEmail,                                  
@@ -322,7 +315,7 @@ const route = useRoute();
                                   
                                   description: Desc,
                                   status: "LoanActive",
-                                  owner: ownr
+                                  owner: userInfo.attributes.sub
                                 },
                               }),
                             );
@@ -350,7 +343,7 @@ const route = useRoute();
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    awsemail:SendrEmail,
+                                    awsemail:userInfo.attributes.email,
                                     TtlActvLonsTmsLnrNonCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
                                     TtlActvLonsAmtLnrNonCov: (parseFloat(TtlActvLonsAmtLnrCovs) + TotalAmtExp).toFixed(0),
                                     TtlActvLonsTmsLneeNonCov: parseFloat(TtlActvLonsTmsLneeCovs2) +1 ,
@@ -480,7 +473,7 @@ const route = useRoute();
                     }
 
                         else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                        else if(SendrEmail === RecPhn){Alert.alert('You cannot Loan Yourself');}
+                        else if(userInfo.attributes.email === RecPhn){Alert.alert('You cannot Loan Yourself');}
                         else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                         
                         
@@ -489,7 +482,7 @@ const route = useRoute();
                         ) {Alert.alert('Requested amount is more than you have in your account');}
                         
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                        else if(ownr !==SenderSub){Alert.alert('You can only loan from your account');}
+                        else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You can only loan from your account');}
                         
                         else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact 
                         + ' to have your Loan limit adjusted');}

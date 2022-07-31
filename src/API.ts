@@ -109,6 +109,8 @@ export enum Status {
   ChmSndMbr = "ChmSndMbr",
   SMLonRepayment = "SMLonRepayment",
   ChmLonRepayment = "ChmLonRepayment",
+  Yes = "Yes",
+  No = "No",
   CredSlrLonRepayment = "CredSlrLonRepayment",
   AwaitingResponse = "AwaitingResponse",
   Approved = "Approved",
@@ -1402,7 +1404,6 @@ export type DeletePersonelInput = {
 };
 
 export type CreateBiznaInput = {
-  BusinessRegNo: string,
   BusKntct: string,
   busName: string,
   pw: string,
@@ -1417,7 +1418,6 @@ export type CreateBiznaInput = {
 };
 
 export type ModelBiznaConditionInput = {
-  BusinessRegNo?: ModelStringInput | null,
   busName?: ModelStringInput | null,
   pw?: ModelStringInput | null,
   TtlEarnings?: ModelFloatInput | null,
@@ -1435,7 +1435,6 @@ export type ModelBiznaConditionInput = {
 
 export type Bizna = {
   __typename: "Bizna",
-  BusinessRegNo: string,
   BusKntct: string,
   busName: string,
   pw: string,
@@ -1451,7 +1450,6 @@ export type Bizna = {
 };
 
 export type UpdateBiznaInput = {
-  BusinessRegNo?: string | null,
   BusKntct: string,
   busName?: string | null,
   pw?: string | null,
@@ -3780,7 +3778,6 @@ export type ModelPersonelConnection = {
 };
 
 export type ModelBiznaFilterInput = {
-  BusinessRegNo?: ModelStringInput | null,
   BusKntct?: ModelStringInput | null,
   busName?: ModelStringInput | null,
   pw?: ModelStringInput | null,
@@ -5774,7 +5771,6 @@ export type CreateBiznaMutationVariables = {
 export type CreateBiznaMutation = {
   createBizna?:  {
     __typename: "Bizna",
-    BusinessRegNo: string,
     BusKntct: string,
     busName: string,
     pw: string,
@@ -5798,7 +5794,6 @@ export type UpdateBiznaMutationVariables = {
 export type UpdateBiznaMutation = {
   updateBizna?:  {
     __typename: "Bizna",
-    BusinessRegNo: string,
     BusKntct: string,
     busName: string,
     pw: string,
@@ -5822,7 +5817,6 @@ export type DeleteBiznaMutationVariables = {
 export type DeleteBiznaMutation = {
   deleteBizna?:  {
     __typename: "Bizna",
-    BusinessRegNo: string,
     BusKntct: string,
     busName: string,
     pw: string,
@@ -8546,7 +8540,6 @@ export type GetBiznaQueryVariables = {
 export type GetBiznaQuery = {
   getBizna?:  {
     __typename: "Bizna",
-    BusinessRegNo: string,
     BusKntct: string,
     busName: string,
     pw: string,
@@ -8575,7 +8568,6 @@ export type ListBiznasQuery = {
     __typename: "ModelBiznaConnection",
     items:  Array< {
       __typename: "Bizna",
-      BusinessRegNo: string,
       BusKntct: string,
       busName: string,
       pw: string,
@@ -10662,7 +10654,7 @@ export type BusOwnrVwWrkrssQuery = {
 };
 
 export type BiznaVwwsQueryVariables = {
-  BusinessRegNo: string,
+  busName: string,
   createdAt?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelBiznaFilterInput | null,
@@ -10675,7 +10667,6 @@ export type BiznaVwwsQuery = {
     __typename: "ModelBiznaConnection",
     items:  Array< {
       __typename: "Bizna",
-      BusinessRegNo: string,
       BusKntct: string,
       busName: string,
       pw: string,
@@ -13290,7 +13281,6 @@ export type OnCreateBiznaSubscriptionVariables = {
 export type OnCreateBiznaSubscription = {
   onCreateBizna?:  {
     __typename: "Bizna",
-    BusinessRegNo: string,
     BusKntct: string,
     busName: string,
     pw: string,
@@ -13313,7 +13303,6 @@ export type OnUpdateBiznaSubscriptionVariables = {
 export type OnUpdateBiznaSubscription = {
   onUpdateBizna?:  {
     __typename: "Bizna",
-    BusinessRegNo: string,
     BusKntct: string,
     busName: string,
     pw: string,
@@ -13336,7 +13325,6 @@ export type OnDeleteBiznaSubscriptionVariables = {
 export type OnDeleteBiznaSubscription = {
   onDeleteBizna?:  {
     __typename: "Bizna",
-    BusinessRegNo: string,
     BusKntct: string,
     busName: string,
     pw: string,

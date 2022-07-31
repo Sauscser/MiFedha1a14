@@ -859,7 +859,6 @@ export const listPersonels = /* GraphQL */ `
 export const getBizna = /* GraphQL */ `
   query GetBizna($BusKntct: String!) {
     getBizna(BusKntct: $BusKntct) {
-      BusinessRegNo
       BusKntct
       busName
       pw
@@ -891,7 +890,6 @@ export const listBiznas = /* GraphQL */ `
       sortDirection: $sortDirection
     ) {
       items {
-        BusinessRegNo
         BusKntct
         busName
         pw
@@ -3003,7 +3001,7 @@ export const busOwnrVwWrkrss = /* GraphQL */ `
 `;
 export const biznaVwws = /* GraphQL */ `
   query BiznaVwws(
-    $BusinessRegNo: String!
+    $busName: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelBiznaFilterInput
@@ -3011,7 +3009,7 @@ export const biznaVwws = /* GraphQL */ `
     $nextToken: String
   ) {
     BiznaVwws(
-      BusinessRegNo: $BusinessRegNo
+      busName: $busName
       createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
@@ -3019,7 +3017,6 @@ export const biznaVwws = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        BusinessRegNo
         BusKntct
         busName
         pw

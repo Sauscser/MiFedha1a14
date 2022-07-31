@@ -15,25 +15,18 @@ const FetchSMCovLns = props => {
     const combined = (Loanees[0] + Loaneess[0]);
     const route = useRoute();
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLnerPhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
-
+    
         const fetchLoanees = async () => {
             setLoading(true);
+
+            const userInfo = await Auth.currentAuthenticatedUser();
+              
+        
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
                 { filter: {
                     and: {
-                      loanerPhn: { eq: LnerPhn},
+                      loanerPhn: { eq: userInfo.attributes.email},
                         lonBala:{gt:0},
                         
                         status:{ne:"LoanBL"}

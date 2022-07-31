@@ -27,13 +27,13 @@ import Navigation from '../../../navigation';
 import { useNavigation } from '@react-navigation/native';
 
 const SMADepositForm = props => {
-  const [WthDrwrPhn, setWthDrwrPhn] = useState(null);
+  
 
   const[UsrPWd, setUsrPWd] = useState("");
   const [AgentPhn, setAgentPhn] = useState("");
   const [amount, setAmount] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const [ownr, setownr] = useState(null);
+  
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation()
 
@@ -42,26 +42,20 @@ const SMADepositForm = props => {
  }
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setWthDrwrPhn(userInfo.attributes.email); 
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
+  
 
 
     const fetchCvLnSM = async () => {
       setLoading(true);
+      const userInfo = await Auth.currentAuthenticatedUser();
+    
       try {
         const Lonees1:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
           { filter: {
               and: {
                 status: { eq: "LoanBL"},
                 lonBala: { gt: 0},
-                loaneePhn: { eq: WthDrwrPhn},
+                loaneePhn: { eq: userInfo.attributes.email},
               }
             }}
             ));
@@ -74,7 +68,7 @@ const SMADepositForm = props => {
                       and: {
                         status: { eq: "LoanBL"},
                 lonBala: { gt: 0},
-                loaneePhn: { eq: WthDrwrPhn},
+                loaneePhn: { eq: userInfo.attributes.email},
                       }
                     }}
                     ));
@@ -87,7 +81,7 @@ const SMADepositForm = props => {
                               and: {
                                 status: { eq: "LoanBL"},
                         lonBala: { gt: 0},
-                        buyerContact: { eq: WthDrwrPhn},
+                        buyerContact: { eq: userInfo.attributes.email},
                               }
                             }}
                             ));
@@ -100,7 +94,7 @@ const SMADepositForm = props => {
                                       and: {
                                         status: { eq: "LoanBL"},
                                 lonBala: { gt: 0},
-                                buyerContact: { eq: WthDrwrPhn},
+                                buyerContact: { eq: userInfo.attributes.email},
                                       }
                                     }}
                                     ));
@@ -113,7 +107,7 @@ const SMADepositForm = props => {
                                               and: {
                                                 status: { eq: "LoanBL"},
                                         lonBala: { gt: 0},
-                                        loaneePhn: { eq: WthDrwrPhn},
+                                        loaneePhn: { eq: userInfo.attributes.email},
                                               }
                                             }}
                                             ));
@@ -126,7 +120,7 @@ const SMADepositForm = props => {
                                                       and: {
                                                         status: { eq: "LoanBL"},
                                                 lonBala: { gt: 0},
-                                                loaneePhn: { eq: WthDrwrPhn},
+                                                loaneePhn: { eq: userInfo.attributes.email},
                                                       }
                                                     }}
                                                     ));
@@ -139,7 +133,7 @@ const SMADepositForm = props => {
     setIsLoading(true);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: WthDrwrPhn}),
+        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
       );
 
       const usrBala = accountDtl.data.getSMAccount.balance;      
@@ -227,10 +221,10 @@ const SMADepositForm = props => {
                                 graphqlOperation(createFloatAdd, {
                                   input: {
                                   
-                                    withdrawerid: WthDrwrPhn,                    
+                                    withdrawerid: userInfo.attributes.email,                    
                                     agentPhonecontact: AgentPhn,
                                     sagentId: sagentregnos,
-                                    owner: ownr,
+                                    owner: userInfo.attributes.sub,
                                     amount: parseFloat(amount).toFixed(0),
                                     agentName:namess,
                                     userName:names,
@@ -263,7 +257,7 @@ const SMADepositForm = props => {
                         await API.graphql(
                           graphqlOperation(updateSMAccount, {
                             input: {
-                              awsemail: WthDrwrPhn,
+                              awsemail: userInfo.attributes.email,
                   
                               balance: (parseFloat(usrBala) - TTlAmtTrnsctd).toFixed(0) ,
                               TtlWthdrwnSM: (parseFloat(TtlWthdrwnSMs) + parseFloat(amount)).toFixed(0),
@@ -386,7 +380,7 @@ const SMADepositForm = props => {
                       return;
                     } 
 
-                    else if (ownr!==owners) {
+                    else if (userInfo.attributes.sub !==owners) {
                       Alert.alert("You cannot withdraw from another account")
                       return;
                     }  

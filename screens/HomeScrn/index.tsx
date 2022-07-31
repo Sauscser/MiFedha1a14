@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-import {View, Text, ImageBackground, Pressable, SafeAreaView} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {View, Text, Alert, Pressable, SafeAreaView} from 'react-native';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
-import {Auth} from 'aws-amplify';
+import {graphqlOperation, API} from 'aws-amplify';
+import { getCompany } from '../../src/graphql/queries';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const HomeScreen = props => {
+
+  const [Alrt, setAlrt] = useState ("")
   const navigation = useNavigation();
 const [id,setid] = useState("")
   
@@ -38,13 +41,36 @@ const [id,setid] = useState("")
     navigation.navigate('ViewSmAcs');
   };
 
-  const UpdateAccCodess = () => {
-    navigation.navigate('UpdateAccCodess');
+  const ViewAlertDtls = () => {
+    navigation.navigate('ViewAlertDtls');
   };
 
   const RequestLoansPage = () => {
     navigation.navigate('RequestLoansPage');
   };
+
+  const gtCompDtls = async () =>{
+    
+    try{
+      const compDtls :any= await API.graphql(
+        graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+        );
+
+        setAlrt(compDtls.data.getCompany.alert)
+        
+      }
+      
+      catch(e){
+        console.log(e)
+        if(e){
+          Alert.alert("Check your internet")
+          return;
+      }
+      }};
+
+      useEffect(() => {
+        gtCompDtls();
+      }, []);
 
 
   return (
@@ -70,7 +96,7 @@ const [id,setid] = useState("")
         
         <View style={styles.viewForPressables2}> 
         <Text style={styles.title}>
-          Life is Helping each other Out
+          Life is helping out each other
         </Text>
         </View>
         
@@ -116,6 +142,15 @@ const [id,setid] = useState("")
           </View>
           
         </View>
+
+        <View style={styles.viewForPressables6}> 
+        <TouchableOpacity
+            onPress={ViewAlertDtls}
+            style={styles.loanFriendButton2}>
+            <Text style={styles.loanAFriendText3} >{Alrt} </Text>
+          </TouchableOpacity>
+        </View>
+        
       </View>
     </SafeAreaView>
   );

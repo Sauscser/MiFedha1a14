@@ -56,30 +56,23 @@ const RepayNonCovCredSlsLnsss = props => {
   const [amounts, setAmount] = useState("");
   
   const [Desc, setDesc] = useState("");
-  const [ownr, setownr] = useState(null);
+ 
   const[isLoading, setIsLoading] = useState(false);
-  const [SendrEmail, setSendrEmail] = useState(null);
+  
   const route = useRoute();
   
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setSendrEmail(userInfo.attributes.email);
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-
+  
 
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
       return;
     }
     setIsLoading(false);
+    const userInfo = await Auth.currentAuthenticatedUser();
+ 
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: SendrEmail}),
+        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -169,7 +162,7 @@ const RepayNonCovCredSlsLnsss = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                awsemail:SendrEmail,
+                                awsemail:userInfo.attributes.email,
                                 
                                 balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                 
@@ -198,7 +191,7 @@ const RepayNonCovCredSlsLnsss = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                awsemail:SendrEmail,
+                                awsemail:userInfo.attributes.email,
                                 
                                 balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
                                 
@@ -255,14 +248,14 @@ const RepayNonCovCredSlsLnsss = props => {
                                   await API.graphql(
                                     graphqlOperation(createNonLoans, {
                                       input: {
-                                        senderPhn: SendrEmail,
+                                        senderPhn: userInfo.attributes.email,
                                         recPhn: sellerContacts,  
                                         RecName:SellerNames,   
                                         SenderName:buyerNames,                             
                                         amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "CredSlrLonRepayment",
-                                        owner: ownr
+                                        owner: userInfo.attributes.sub
                                       },
                                     }),
                                   );
@@ -377,13 +370,13 @@ const RepayNonCovCredSlsLnsss = props => {
                                     graphqlOperation(createNonLoans, {
                                       input: {
                                         recPhn: sellerContacts,
-                                        senderPhn: SendrEmail, 
+                                        senderPhn: userInfo.attributes.email, 
                                         RecName:SellerNames,
                                         SenderName:buyerNames ,                                
                                         amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
                                         status: "CredSlrLonRepayment",
-                                        owner: ownr
+                                        owner: userInfo.attributes.sub
                                       },
                                     }),
                                   );
@@ -410,7 +403,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMAccount, {
                                         input:{
-                                          awsemail:SendrEmail,
+                                          awsemail:userInfo.attributes.email,
                                           
                                           balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0),
                                           

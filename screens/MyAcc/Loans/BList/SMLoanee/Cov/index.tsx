@@ -30,26 +30,19 @@ const BLSMCovLoanee = (props) => {
   const navigation = useNavigation();
 
   const [LonId, setLonId] = useState("");
-  const [ownr, setownr] = useState(null);
+  
   const[isLoading, setIsLoading] = useState(false);
   const route = useRoute()
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-     
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-    
+ 
     const gtCompDtls = async () =>{
     if(isLoading){
       return;
     }
     setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+     
     try{
       const compDtls :any= await API.graphql(
         graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -209,7 +202,7 @@ const BLSMCovLoanee = (props) => {
                             Alert.alert("Loanee has cleared this loan")
                           }
 
-                          else if(owners !== ownr){
+                          else if(owners !== userInfo.attributes.sub ){
                             Alert.alert("You are not the one owed this loan")
                           } 
 

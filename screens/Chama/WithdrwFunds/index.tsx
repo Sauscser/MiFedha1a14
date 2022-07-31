@@ -25,26 +25,18 @@ import {
 import styles from './styles';
 
 const SMADepositForm = props => {
-  const [WthDrwrEmail, setWthDrwrEmail] = useState(null);
+  
 
   const[UsrPWd, setUsrPWd] = useState("");
   const [AgentPhn, setAgentPhn] = useState("");
   const [amount, setAmount] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const [ownr, setownr] = useState(null);
+
 
   
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setWthDrwrEmail(userInfo.attributes.email); 
-  }
 
-  useEffect(() => {
-    fetchUser();
-    }, []);  
 
 
   const fetchAcDtls = async () => {
@@ -52,9 +44,11 @@ const SMADepositForm = props => {
       return;
     }
     setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+   
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: WthDrwrEmail}),
+        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
       );
 
       const usrBala = accountDtl.data.getSMAccount.balance;      
@@ -144,10 +138,10 @@ const SMADepositForm = props => {
                                 graphqlOperation(createFloatAdd, {
                                   input: {
                                   
-                                    withdrawerid: WthDrwrEmail,                    
+                                    withdrawerid: userInfo.attributes.email,                    
                                     agentPhonecontact: AgentPhn,
                                     sagentId: sagentregnos,
-                                    owner: ownr,
+                                    owner: userInfo.attributes.sub,
                                     amount: parseFloat(amount).toFixed(0),
                                     agentName:namess,
                                     userName:names,
@@ -180,7 +174,7 @@ const SMADepositForm = props => {
                         await API.graphql(
                           graphqlOperation(updateSMAccount, {
                             input: {
-                              awsemail: WthDrwrEmail,
+                              awsemail: userInfo.attributes.email,
                   
                               balance: (parseFloat(usrBala) - TTlAmtTrnsctd).toFixed(0) ,
                               TtlWthdrwnSM: (parseFloat(TtlWthdrwnSMs) + parseFloat(amount)).toFixed(0),
@@ -303,7 +297,7 @@ const SMADepositForm = props => {
                       return;
                     } 
 
-                    else if (ownr!==owners) {
+                    else if (userInfo.attributes.sub !==owners) {
                       Alert.alert("You cannot withdraw from another account")
                       return;
                     }  

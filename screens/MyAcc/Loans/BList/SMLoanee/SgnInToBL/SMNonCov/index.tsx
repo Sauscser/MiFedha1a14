@@ -43,48 +43,37 @@ const ChmSignIn = (props) => {
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
-  const [SendrEmail, setSendrEmail] = useState(null);
-  const[ownr, setownr] = useState(null);
-  const ChmNMmbrPhnss = SendrEmail+memberPhn
+
+
 
   
 
-  const FetchGrpLonsSts = () => {
-    navigation.navigate("Vw2BLSMNonCovs", {ChmNMmbrPhnss});
-  };
   
 
   
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub); 
-      setSendrEmail(userInfo.attributes.email);    
-          
-    };
-    useEffect(() => {
-      fetchUser();
-    }, []);
-
-
     
-
     
                 const gtChmDtls = async () =>{
                   if(isLoading){
                     return;
                   }
                   setIsLoading(true);
+                  const userInfo = await Auth.currentAuthenticatedUser();
+                  const ChmNMmbrPhnss = userInfo.attributes.email+memberPhn
+
+                  const FetchGrpLonsSts = () => {
+                    navigation.navigate("Vw2BLSMNonCovs", {ChmNMmbrPhnss});
+                  };
+                  
                   try{
                     const compDtls :any= await API.graphql(
-                      graphqlOperation(getSMAccount,{awsemail:SendrEmail})
+                      graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
                       );
                       const signitoryPWs = compDtls.data.getSMAccount.pw;  
                       const owners = compDtls.data.getSMAccount.owner;  
 
                       if(signitoryPWs!==pword){Alert.alert("Wrong User credentials")}
-                      else if(ownr!==owners){Alert.alert("This is not your Account")}
+                      else if(userInfo.attributes.sub!==owners){Alert.alert("This is not your Account")}
                       else{FetchGrpLonsSts();}
                     }
 

@@ -37,52 +37,42 @@ const ChmSignIn = (props) => {
   const [grpContact, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
   const [phoneContacts, setPhoneContacts] = useState("");
-  const [SendrEmail, setSendrEmail] = useState(null);
+
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
-  const[ownr, setownr] = useState(null);
-  const ChmNMmbrPhns = SendrEmail+memberPhn;
-
-
-  const FetchGrpLonsSts = () => {
-    navigation.navigate("Vw2BLCovSMLns", {ChmNMmbrPhns});
-  };
+  
+  
   
 
   
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);     
-      setSendrEmail(userInfo.attributes.email);
-          
-    };
-    useEffect(() => {
-      fetchUser();
-    }, []);
-
-
     
-
     
                 const gtChmDtls = async () =>{
                   if(isLoading){
                     return;
                   }
                   setIsLoading(true);
+                  const userInfo = await Auth.currentAuthenticatedUser();
+                  const ChmNMmbrPhns = userInfo.attributes.email+memberPhn;
+
+
+                  const FetchGrpLonsSts = () => {
+                        navigation.navigate("Vw2BLCovSMLns", {ChmNMmbrPhns});
+                      };
+      
+                   
                   try{
                     const compDtls :any= await API.graphql(
-                      graphqlOperation(getSMAccount,{awsemail:SendrEmail})
+                      graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
                       );
                       const signitoryPWs = compDtls.data.getSMAccount.pw;  
                       const owners = compDtls.data.getSMAccount.owner;  
 
                       if(signitoryPWs!==pword){Alert.alert("Wrong User credentials")}
-                      else if(ownr!==owners){Alert.alert("This is not your Account")}
+                      else if(userInfo.attributes.sub !==owners){Alert.alert("This is not your Account")}
                       else{FetchGrpLonsSts();}
                     }
 

@@ -39,12 +39,12 @@ const ChmSignIn = (props) => {
   const [phoneContacts, setPhoneContacts] = useState("");
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [SendrEmail, setSendrEmail] = useState(null);
+
   const [pword, setPW] = useState('');
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
-  const[ownr, setownr] = useState(null);
+ 
   const ChmNMmbrPhns = ChmDesc
 
   
@@ -54,26 +54,18 @@ const ChmSignIn = (props) => {
   };
   
 
-  
-    const fetchUser = async () => {
+    const ChckPersonelExistence = async () => {
+
       const userInfo = await Auth.currentAuthenticatedUser();
       
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);    
-      setSendrEmail(userInfo.attributes.email);     
-          
-    };
-    useEffect(() => {
-      fetchUser();
-    }, []);
+     
 
-    const ChckPersonelExistence = async () => {
       try {
         const UsrDtls:any = await API.graphql(
           graphqlOperation(listPersonels,
             { filter: {
                 
-              phoneKontact: { eq: SendrEmail},
+              phoneKontact: { eq: userInfo.attributes.email},
               BusinessRegNo:{eq: ChmDesc}
                             
               }}
@@ -87,7 +79,7 @@ const ChmSignIn = (props) => {
           setIsLoading(true);
           try{
             const compDtls :any= await API.graphql(
-              graphqlOperation(getSMAccount,{awsemail:SendrEmail})
+              graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
               );
               const signitoryPWs = compDtls.data.getSMAccount.pw;  
               const owners = compDtls.data.getSMAccount.owner; 
@@ -98,7 +90,7 @@ const ChmSignIn = (props) => {
       return;
       
     }
-    else if(ownr!==owners){Alert.alert("This is not your Account")}
+    else if(userInfo.attributes.sub !==owners){Alert.alert("This is not your Account")}
     else{FetchGrpLonsSts();}
                     }
 

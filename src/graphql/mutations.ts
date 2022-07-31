@@ -1190,7 +1190,6 @@ export const createBizna = /* GraphQL */ `
     $condition: ModelBiznaConditionInput
   ) {
     createBizna(input: $input, condition: $condition) {
-      BusinessRegNo
       BusKntct
       busName
       pw
@@ -1212,7 +1211,6 @@ export const updateBizna = /* GraphQL */ `
     $condition: ModelBiznaConditionInput
   ) {
     updateBizna(input: $input, condition: $condition) {
-      BusinessRegNo
       BusKntct
       busName
       pw
@@ -1234,7 +1232,6 @@ export const deleteBizna = /* GraphQL */ `
     $condition: ModelBiznaConditionInput
   ) {
     deleteBizna(input: $input, condition: $condition) {
-      BusinessRegNo
       BusKntct
       busName
       pw

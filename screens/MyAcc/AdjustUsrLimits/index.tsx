@@ -44,20 +44,10 @@ const UpdtSMPW = (props) => {
   const[ownr, setownr] = useState(null);
   
   
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    
-    setownr(userInfo.attributes.sub);
-    setPhoneContact(userInfo.attributes.phone_number);
-    
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
+  
   
         const fetchSMDtls = async () =>{
+          const userInfo = await Auth.currentAuthenticatedUser();
             if(isLoading){
               return;
             }
@@ -104,7 +94,7 @@ const UpdtSMPW = (props) => {
                                         Alert.alert("You have successfully updated User Limits");
                                       } 
 
-                                     if(ownr!==owners)
+                                     if(userInfo.attributes.sub !==owners)
                                       {
                                           Alert.alert("This is not your Admin Account");
                                       }
