@@ -77,7 +77,7 @@ const RegisterMFKubwaAcForm = props => {
                       regNo: userInfo.attributes.phone_number,
                       
                       AcStatus: 'AccountActive',
-                      owner:userInfo.attributes.name,
+                      owner:userInfo.attributes.username,
                       
                     },
                   }),
