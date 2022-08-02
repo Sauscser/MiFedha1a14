@@ -45,15 +45,13 @@ const UpdtChm = (props) => {
             setIsLoading(true);
             const userInfo = await Auth.currentAuthenticatedUser();
     
-             
-
-
             try{
               const compDtls :any= await API.graphql(
                 graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
                 );
                 const loanAcceptanceCodes = compDtls.data.getSMAccount.loanAcceptanceCode                
                 const pws = compDtls.data.getSMAccount.pw
+                const owner = compDtls.data.getSMAccount.owner
                
                 const ftchChmDtls = async () =>{
                   if(isLoading){
@@ -124,7 +122,11 @@ const UpdtChm = (props) => {
                                         return
                                       }
                                     }}
-                                    await ftchChmDtls();            
+
+                                    if (userInfo.attributes.sub !== owner)
+    {Alert.alert ("Please first create main account")}
+    else{
+                                    await ftchChmDtls();   }         
 
             } catch (error) {
                 if(error){

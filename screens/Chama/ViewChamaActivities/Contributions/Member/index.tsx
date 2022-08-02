@@ -13,7 +13,15 @@ const FetchSMCovLns = props => {
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
-    
+    const fetchUsrDtls = async () => {
+      const userInfo = await Auth.currentAuthenticatedUser();
+      try {
+              const MFNDtls: any = await API.graphql(
+                  graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+              ),);
+
+              const balances = MFNDtls.data.getSMAccount.balance;
+              const owner = MFNDtls.data.getSMAccount.owner;
 
         const fetchLoanees = async () => {
             setLoading(true);
@@ -37,13 +45,7 @@ const FetchSMCovLns = props => {
 
                   
 
-              const fetchUsrDtls = async () => {
-                try {
-                        const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
-                        ),);
-          
-                        const balances = MFNDtls.data.getSMAccount.balance;
+              
                         
                         const fetchCompDtls = async () => {
                           try {
@@ -144,7 +146,11 @@ const FetchSMCovLns = props => {
                       
                        }
 
-                       await fetchUsrDtls();
+                       if (userInfo.attributes.sub !== owner)
+                       {Alert.alert ("Please first create main account")}
+                       else{
+                                              await fetchLoanees();}
+                                     
             } catch (e) {
               console.log(e);
             } finally {
@@ -153,7 +159,7 @@ const FetchSMCovLns = props => {
           };
         
           useEffect(() => {
-            fetchLoanees();
+            fetchUsrDtls();
           }, [])     
 
   return (
@@ -163,7 +169,7 @@ const FetchSMCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts MmbrContriDtls={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

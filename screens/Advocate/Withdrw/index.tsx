@@ -23,36 +23,26 @@ import {
 import styles from './styles';
 
 const AdvWthdwl = props => {
-  const [Email, setEmail] = useState(null);
+
 
   const[UsrPWd, setUsrPWd] = useState("");
   const [AdvReNo, setAdvReNo] = useState("");
   const [amount, setAmount] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const [ownr, setownr] = useState(null);
-
-  
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setEmail(userInfo.attributes.email); 
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-
+  
 
   const fetchAcDtls = async () => {
     if(isLoading){
       return;
     }
     setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+   
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: Email}),
+        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
       );
 
       const usrBala = accountDtl.data.getSMAccount.balance;      
@@ -90,7 +80,7 @@ const AdvWthdwl = props => {
                                   
                                     bankAdmnId: "BnkkAdmNatId",                    
                                     advregnu: AdvReNo,  
-                                    owner: ownr,
+                                    owner: userInfo.attributes.sub,
                                     amount: amount,
                                     bankName: bankNames,
                                     bkAcNo: bkAcNos,
@@ -153,7 +143,7 @@ const AdvWthdwl = props => {
                       return;
                     } 
 
-                    else if (ownr!==owners) {
+                    else if (userInfo.attributes.sub!==owners) {
                       Alert.alert("This is not your Advocate Account")
                       return;
                     }  
@@ -181,7 +171,11 @@ const AdvWthdwl = props => {
   setIsLoading(false);
 };
 
-    await fetchAdvDtls();
+if (userInfo.attributes.sub !== owners)
+    {Alert.alert ("Please first create main account")}
+    else{
+
+    await fetchAdvDtls();}
     }
 
     catch (e) {

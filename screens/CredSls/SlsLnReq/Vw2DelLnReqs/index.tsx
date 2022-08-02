@@ -1,50 +1,30 @@
 import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/CredSalesReq/Vw2DelLnReq";
 import styles from './styles';
-import { listReqLoanChamas, listReqLoanCredSls, listReqLoans } from '../../../../src/graphql/queries';
+import { getSMAccount, listReqLoanChamas, listReqLoanCredSls, listReqLoans } from '../../../../src/graphql/queries';
 
 
 
 const FetchSMNonCovLns = props => {
 
-    const[LneePhn, setLneePhn] = useState(null);
+    
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
-    const [ChmPhn, setChmPhn] = useState('');
-  const [nam, setName] = useState(null);
-  const [UsrEmail, setUsrEmail] = useState(null);
-  const [awsEmail, setAWSEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [pword, setPW] = useState('');
-  const [ChmNm, setChmNm] = useState('');
-  const [ChmDesc, setChmDesc] = useState('');
-  const [ChmRegNo, setChmRegNo] = useState('');
-  const [MmbaID, setMmbaID] = useState('');
-  const [Sign2Phn, setSign2Phn] = useState('');
-
-  const [itemPrys, setitemPrys] = useState('0');
-  const [itemTwn, setitemTwn] = useState('0');
-  const [lnPrsntg, setlnPrsntg] = useState('0');
-  const [rpymntPrd, setrpymntPrd] = useState('0');
-
-  
-  
-
-
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneePhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    
+        const fetchUsrDtls = async () => {
+          const userInfo = await Auth.currentAuthenticatedUser();
+        
+          
+          try {
+                  const MFNDtls: any = await API.graphql(
+                      graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+                  ),);
+    
+                  const balances = MFNDtls.data.getSMAccount.balance;
+                  const owner = MFNDtls.data.getSMAccount.owner;
 
         const fetchLoanees = async () => {
             setLoading(true);
@@ -57,7 +37,7 @@ const FetchSMNonCovLns = props => {
                     
                   filter: {
                   
-                    loaneeEmail: { eq: LneePhn},
+                    loaneeEmail: { eq: userInfo.attributes.email},
                     
                                
                 }
@@ -69,23 +49,33 @@ const FetchSMNonCovLns = props => {
             } finally {
               setLoading(false);
             }
-            setChmPhn('');
-            setPW('');
-            setAWSEmail("")
-            setChmDesc("")
-            setChmNm("")
-            setChmRegNo("")
-            setMmbaID("")
-            setSign2Phn("");
-            setrpymntPrd("");
-            setlnPrsntg("");
-            setitemTwn("");
-            setitemPrys("");
+            
           };
+          if (userInfo.attributes.sub !== owner)
+          {Alert.alert ("Please first create main account")}
+          else{
+                                 await fetchLoanees();}
+                        
+        }
+              
+        catch (e)
+        {
+          if(e){
+            Alert.alert("Advocate does not exist; otherwise check internet connection");
+            return;
+          }
+            console.log(e)
+           
+            
+        }    
 
+        
+         }
+      
+        
           useEffect(() => {
-            fetchLoanees();
-          }, []);
+            fetchUsrDtls();
+          }, [])  
           
           
   return (
@@ -96,7 +86,7 @@ const FetchSMNonCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

@@ -26,26 +26,12 @@ import {
 import styles from './styles';
 
 const AdminWthdwl = props => {
-  const [WthDrwrEmail, setWthDrwrEmail] = useState(null);
+
 
   const[UsrPWd, setUsrPWd] = useState("");
   const [BnkkAdmNatId, setBnkkAdmNatId] = useState("");
   const [amount, setAmount] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const [ownr, setownr] = useState(null);
-
-  
-  
-
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setWthDrwrEmail(userInfo.attributes.email); 
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
 
 
   const fetchAcDtls = async () => {
@@ -53,9 +39,11 @@ const AdminWthdwl = props => {
       return;
     }
     setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+   
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: WthDrwrEmail}),
+        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
       );
 
       const usrBala = accountDtl.data.getSMAccount.balance;      
@@ -92,7 +80,7 @@ const AdminWthdwl = props => {
                                   
                                     bankAdmNatId: BnkkAdmNatId,                    
                                     
-                                    owner: ownr,
+                                    owner: userInfo.attributes.sub,
                                     amount: amount,
                                     status: 'AccountActive',
                                   },
@@ -120,7 +108,7 @@ const AdminWthdwl = props => {
                         await API.graphql(
                           graphqlOperation(updateSMAccount, {
                             input: {
-                              awsemail: WthDrwrEmail,
+                              awsemail: userInfo.attributes.email,
                   
                               balance: parseFloat(usrBala) + parseFloat(amount) ,
                               
@@ -155,7 +143,7 @@ const AdminWthdwl = props => {
                       return;
                     } 
 
-                    else if (ownr!==owners) {
+                    else if (userInfo.attributes.sub!==owners) {
                       Alert.alert("You cannot withdraw from another account")
                       return;
                     }  
@@ -183,7 +171,11 @@ const AdminWthdwl = props => {
   setIsLoading(false);
 };
 
-    await fetchAdmnDtls();
+if (userInfo.attributes.sub !== owners)
+          {Alert.alert ("Please first create main account")}
+          else{
+
+    await fetchAdmnDtls();}
     }
 
     catch (e) {

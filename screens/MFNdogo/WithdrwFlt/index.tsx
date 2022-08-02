@@ -29,7 +29,7 @@ import {
 import styles from './styles';
 
 const MFNWthdwFlt = props => {
-  const [WthDrwrEmail, setWthDrwrEmail] = useState(null);
+  
 
   const[UsrPWd, setUsrPWd] = useState("");
   const [MFKPhn, setMFKPhn] = useState("");
@@ -40,25 +40,19 @@ const MFNWthdwFlt = props => {
   
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setWthDrwrEmail(userInfo.attributes.email); 
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-
+  
 
   const fetchAcDtls = async () => {
     if(isLoading){
       return;
     }
     setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+    
+
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: WthDrwrEmail}),
+        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
       );
 
       const usrBala = accountDtl.data.getSMAccount.balance;      
@@ -124,7 +118,7 @@ const MFNWthdwFlt = props => {
                         await API.graphql(
                           graphqlOperation(updateSMAccount, {
                             input: {
-                              awsemail: WthDrwrEmail,
+                              awsemail: userInfo.attributes.email,
                   
                               balance: parseFloat(usrBala) + parseFloat(amount) ,
                               
@@ -215,7 +209,11 @@ const MFNWthdwFlt = props => {
   setIsLoading(false);
 };
 
-    await fetchMFNDtls();
+if (userInfo.attributes.sub !== owners)
+                           {Alert.alert ("Please first create main account")}
+                           else{
+
+    await fetchMFNDtls();}
     }
 
     catch (e) {

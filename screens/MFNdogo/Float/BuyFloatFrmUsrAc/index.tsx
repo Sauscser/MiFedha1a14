@@ -19,6 +19,7 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
+
 import { getAgent, getBankAdmin, getCompany, getSMAccount } from '../../../../src/graphql/queries';
 
 export type buyAgntFlts = {
@@ -60,6 +61,7 @@ const ftchAgInfo = async () => {
         const agntBal:any = await API.graphql(
             graphqlOperation(getAgent, {phonecontact:phoneContact}),
         );
+           
 
             const fltBal = agntBal.data.getAgent.floatBal;
             const ttlFltIn = agntBal.data.getAgent.TtlFltIn;

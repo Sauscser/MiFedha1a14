@@ -1,10 +1,10 @@
 import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/MyAc/LoanReq/Vw2DelLnReq";
 import styles from './styles';
-import { listReqLoans } from '../../../../src/graphql/queries';
+import { getSMAccount, listReqLoans } from '../../../../src/graphql/queries';
 
 
 
@@ -32,7 +32,19 @@ const FetchSMNonCovLns = props => {
 
   
   
-        const fetchLoanees = async () => {
+  const fetchUsrDtls = async () => {
+
+    const userInfo = await Auth.currentAuthenticatedUser();
+    try {
+            const MFNDtls: any = await API.graphql(
+                graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+            ),);
+
+            const balances = MFNDtls.data.getSMAccount.balance;
+            const owner = MFNDtls.data.getSMAccount.owner;
+            
+            
+            const fetchLoanees = async () => {
             setLoading(true);
             const userInfo = await Auth.currentAuthenticatedUser();
             try {
@@ -56,24 +68,24 @@ const FetchSMNonCovLns = props => {
             } finally {
               setLoading(false);
             }
-            setChmPhn('');
-            setPW('');
-            setAWSEmail("")
-            setChmDesc("")
-            setChmNm("")
-            setChmRegNo("")
-            setMmbaID("")
-            setSign2Phn("");
-            setrpymntPrd("");
-            setlnPrsntg("");
-            setitemTwn("");
-            setitemPrys("");
+            
           };
 
-          useEffect(() => {
-            fetchLoanees();
-          }, []);
-          
+          if (userInfo.attributes.sub!==owner) {
+            Alert.alert("Please first create a main account")
+            return;
+          }  else {
+           await fetchLoanees();}
+} catch (e) {
+console.log(e);
+} finally {
+setLoading(false);
+}
+};
+
+useEffect(() => {
+fetchUsrDtls();
+}, [])   
           
   return (
     
@@ -83,7 +95,7 @@ const FetchSMNonCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {createBizna, createChamaMembers, createGoodsAds, createGroup,   createItem,   createSokoAd,   updateCompany} from '../../../src/graphql/mutations';
+import {createBizna, createChamaMembers,  createGroup,      createSokoAd,   updateCompany} from '../../../src/graphql/mutations';
 import { getBizna, getCompany, getSMAccount, listChamasRegConfirms, listPersonels, vwViaPhonss,  } from '../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
@@ -30,7 +30,7 @@ const CreateBiz = (props) => {
 
   const [ChmPhn, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
-  const [UsrEmail, setUsrEmail] = useState(null);
+
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
@@ -48,20 +48,19 @@ const CreateBiz = (props) => {
 
   const[ownr, setownr] = useState(null);
 
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);
-      setUsrEmail(userInfo.attributes.email);
-          
-    };
+  const gtUzr = async () =>{
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+    try{
+      const compDtls :any= await API.graphql(
+        graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+        );
+        
+        const owner = compDtls.data.getSMAccount.owner;
 
-    
-
-    useEffect(() => {
-        fetchUser();
-      }, []);
 
       const ChckPersonelExistence = async () => {
         try {
@@ -69,14 +68,14 @@ const CreateBiz = (props) => {
             graphqlOperation(listPersonels,
               { filter: {
                   
-                phoneKontact: { eq: UsrEmail},
+                phoneKontact: { eq: userInfo.attributes.email},
                 BusinessRegNo:{eq: ChmPhn}
                               
                 }}
             )
           )
           
-          const gtBizna = async () =>{
+      const gtBizna = async () =>{
         if(isLoading){
           return;
         }
@@ -88,6 +87,9 @@ const CreateBiz = (props) => {
             const pws = compDtls.data.getBizna.pw;
             const BusinessRegNos = compDtls.data.getBizna.BusinessRegNo;
             const busNames = compDtls.data.getBizna.busName;
+
+
+            
             
 
       const CreateNewSMAc = async () => {
@@ -145,6 +147,10 @@ const CreateBiz = (props) => {
 
           CreateNewSMAc();
 
+       
+      
+
+
         } catch (e) {
           if(e){Alert.alert("Please first sign up")}
           console.error(e);
@@ -162,6 +168,20 @@ const CreateBiz = (props) => {
       return;
       }
       }
+
+                            
+                        
+    };
+
+    if (userInfo.attributes.sub !== owner)
+    {Alert.alert ("Please first create main account")}
+    else{
+
+    await ChckPersonelExistence();
+    }
+  } catch (e) {
+  
+  }
         setIsLoading(false);
             setChmPhn('');
             setPW('');
@@ -403,7 +423,7 @@ useEffect(() =>{
 
 
                   <TouchableOpacity
-                    onPress={ChckPersonelExistence}
+                    onPress={gtUzr}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Advertise

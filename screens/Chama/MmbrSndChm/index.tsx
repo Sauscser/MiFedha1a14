@@ -1,36 +1,40 @@
 import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
+import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../components/Chama/ChmActivities/Membership/MbrSndTChm";
 import styles from './styles';
-import { listChamaMembers,    } from '../../../src/graphql/queries';
+import { getSMAccount, listChamaMembers,    } from '../../../src/graphql/queries';
 
 const FetchSMCovLns = props => {
 
-    const[LneeEmail, setLneeEmail] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneeEmail(userInfo.attributes.email);
-             
-      };
+   
+    const fetchUsrDtls = async () => {
+      const userInfo = await Auth.currentAuthenticatedUser();
+    
       
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+      try {
+              const MFNDtls: any = await API.graphql(
+                  graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+              ),);
+
+              const balances = MFNDtls.data.getSMAccount.balance;
+              const owner = MFNDtls.data.getSMAccount.owner;
+
 
         const fetchLoanees = async () => {
             setLoading(true);
+           
+              
+        
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listChamaMembers, 
                 { filter: {
                     and: {
-                      memberContact: { eq: LneeEmail}
+                      memberContact: { eq: userInfo.attributes.email}
                       
                     }
                   }}
@@ -42,11 +46,32 @@ const FetchSMCovLns = props => {
               setLoading(false);
             }
           };
+
+          if (userInfo.attributes.sub !== owner)
+    {Alert.alert ("Please first create main account")}
+    else{
+                           await fetchLoanees();}
+        
+        }
+              
+        catch (e)
+        {
+          if(e){
+            Alert.alert("Advocate does not exist; otherwise check internet connection");
+            return;
+          }
+            console.log(e)
+           
+            
+        }    
+
+        
+         }
+      
         
           useEffect(() => {
-            fetchLoanees();
-          }, [])
-
+            fetchUsrDtls();
+          }, [])    
   return (
     <View style={styles.root}>
       <FlatList
@@ -54,7 +79,7 @@ const FetchSMCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts ChamaMmbrshpDtls={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

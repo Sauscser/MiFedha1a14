@@ -28,36 +28,26 @@ import {
 import styles from './styles';
 
 const AdminWthdwl = props => {
-  const [WthDrwrEmail, setWthDrwrEmail] = useState(null);
+ 
 
   const[UsrPWd, setUsrPWd] = useState("");
   const [MFKPhn, setMFKPhn] = useState("");
   const [amount, setAmount] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const [ownr, setownr] = useState(null);
-
-  
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setWthDrwrEmail(userInfo.attributes.email); 
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-
+  
 
   const fetchAcDtls = async () => {
     if(isLoading){
       return;
     }
     setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+   
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: WthDrwrEmail}),
+        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
       );
 
       const usrBala = accountDtl.data.getSMAccount.balance;      
@@ -96,7 +86,7 @@ const AdminWthdwl = props => {
                                   
                                     bankAdmnId: "BnkkAdmNatId",                    
                                     saId:MFKPhn,
-                                    owner: ownr,
+                                    owner: userInfo.attributes.sub,
                                     amount: amount,
                                     bankName: bankNames,
                                     bkAcNo: bkAcNos,
@@ -151,8 +141,8 @@ const AdminWthdwl = props => {
                       return;
                     } 
 
-                    else if (ownr!==owners) {
-                      Alert.alert("You cannot withdraw from another account")
+                    else if (userInfo.attributes.sub !==owners) {
+                      Alert.alert("Please first create a main account")
                       return;
                     }  
 

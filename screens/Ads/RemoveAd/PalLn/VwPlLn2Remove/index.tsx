@@ -1,38 +1,43 @@
 import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
+import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/Ads/VwLn2Dlt";
 import styles from './styles';
 
 import { useRoute } from '@react-navigation/native';
-import { listRafikiLnAds, listSokoAds } from '../../../../../src/graphql/queries';
+import { getSMAccount, listRafikiLnAds, listSokoAds } from '../../../../../src/graphql/queries';
 
 const FetchSMCovLns = props => {
 
-    const[LneePhn, setLneePhn] = useState(null);
+    
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const route = useRoute();
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneePhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    const gtUzr = async () =>{
+      if(isLoading){
+        return;
+      }
+      setIsLoading(true);
+      const userInfo = await Auth.currentAuthenticatedUser();
+      try{
+        const compDtls :any= await API.graphql(
+          graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+          );
+          
+          const owner = compDtls.data.getSMAccount.owner;
 
-        const fetchLoanees = async () => {
+          const fetchLoanees = async () => {
             setLoading(true);
+            
+              
+            
             try {
 
               let  filter = {
-                rafikiEmail: { eq: LneePhn},               
+                rafikiEmail: { eq: userInfo.attributes.email},               
                 
               };
               const Lonees:any = await API.graphql(graphqlOperation(listRafikiLnAds, 
@@ -51,9 +56,25 @@ const FetchSMCovLns = props => {
               setLoading(false);
             }
           };
+
+          if (owner !== userInfo.attributes.sub) 
+          {Alert.alert ("Please first create main Account")}
+
+          else
+          {
+
+          await fetchLoanees();
+        }
+
+        } catch (e) {
+          
+        }
+        setIsLoading(false);}
+
+        
         
           useEffect(() => {
-            fetchLoanees();
+            gtUzr();
           }, [])
 
   return (
@@ -63,7 +84,7 @@ const FetchSMCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={gtUzr}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

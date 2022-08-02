@@ -42,7 +42,7 @@ const ChmSignIn = (props) => {
   const [pword, setPW] = useState('');
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
-  const[ownr, setownr] = useState(null);
+
 
   const FetchGrpLonsSts = () => {
     navigation.navigate("ChmLnsGvnOuts", {grpContact});
@@ -50,19 +50,7 @@ const ChmSignIn = (props) => {
   
 
   
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.email);     
-          
-    };
-    useEffect(() => {
-      fetchUser();
-    }, []);
-
-
-    
+   
 
     
                 const gtChmDtls = async () =>{
@@ -70,6 +58,12 @@ const ChmSignIn = (props) => {
                     return;
                   }
                   setIsLoading(true);
+
+                  const userInfo = await Auth.currentAuthenticatedUser();
+      
+         
+
+
                   try{
                     const compDtls :any= await API.graphql(
                       graphqlOperation(getGroup,{grpContact:grpContact})
@@ -79,7 +73,9 @@ const ChmSignIn = (props) => {
                       const signitory2Subs = compDtls.data.getGroup.signitory2Sub; 
 
                       if(signitoryPWs!==pword){Alert.alert("Wrong author credentials")}
-                      else if(ownr !== owners && signitory2Subs !== ownr){Alert.alert("You are neither the author nor signatory of this Chama")}
+                      else if(userInfo.attributes.sub !== owners 
+                        && signitory2Subs !== userInfo.attributes.sub)
+                        {Alert.alert("You are neither the author nor signatory of this Chama")}
                       
                       else{FetchGrpLonsSts();}
                     }

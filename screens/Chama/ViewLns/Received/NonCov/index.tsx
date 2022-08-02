@@ -14,10 +14,19 @@ const FetchSMNonCovLns = props => {
     const [Loanees, setLoanees] = useState([]);
 
     
+    const fetchUsrDtls = async () => {
+      const userInfo = await Auth.currentAuthenticatedUser();
+      try {
+              const MFNDtls: any = await API.graphql(
+                  graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+              ),);
+
+              const balances = MFNDtls.data.getSMAccount.balance;
+              const owner = MFNDtls.data.getSMAccount.owner;
 
         const fetchLoanees = async () => {
             setLoading(true);
-            const userInfo = await Auth.currentAuthenticatedUser();
+            
        
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyChamasss, 
@@ -32,13 +41,7 @@ const FetchSMNonCovLns = props => {
                   ));
               setLoanees(Lonees.data.VwMyChamasss.items);
 
-              const fetchUsrDtls = async () => {
-                try {
-                        const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
-                        ),);
-          
-                        const balances = MFNDtls.data.getSMAccount.balance;
+              
                         
                         const fetchCompDtls = async () => {
                           try {
@@ -138,8 +141,10 @@ const FetchSMNonCovLns = props => {
           
                       
                        }
-
-                       await fetchUsrDtls();
+                       if (userInfo.attributes.sub !== owner)
+                       {Alert.alert ("Please first create main account")}
+                       else{
+                                              await fetchLoanees();}
             } catch (e) {
               console.log(e);
             } finally {
@@ -148,7 +153,7 @@ const FetchSMNonCovLns = props => {
           };
         
           useEffect(() => {
-            fetchLoanees();
+            fetchUsrDtls();
           }, [])   
 
   return (
@@ -158,7 +163,7 @@ const FetchSMNonCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts Loanee={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

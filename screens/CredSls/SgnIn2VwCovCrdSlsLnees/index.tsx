@@ -26,7 +26,7 @@ const MFNSignIn = (props) => {
   const [MFNId, setMFNId] = useState("");
   const [MFNPW, setMFNPW] = useState(""); 
   
-  const [PhoneContact, setPhoneContact] = useState(null);  
+
   
   const [grpContact, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
@@ -38,7 +38,7 @@ const MFNSignIn = (props) => {
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
-  const[ownr, setownr] = useState(null);
+ 
   const ChmNMmbrPhns = ChmDesc+memberPhn
 
   const VwMFNAc = () => {
@@ -46,21 +46,22 @@ const MFNSignIn = (props) => {
   };
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    
-    setownr(userInfo.attributes.sub);
-    setPhoneContact(userInfo.attributes.email);
-     
-  };
-
   
-
-  useEffect(() => {
-      fetchUser();
-    }, []);
     
+    const gtChmDtls = async () =>{
+      if(isLoading){
+        return;
+      }
+      setIsLoading(true);
+
+      const userInfo = await Auth.currentAuthenticatedUser();
+    
+      try{
+        const compDtls :any= await API.graphql(
+          graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+          );
+          const signitoryPWs = compDtls.data.getSMAccount.pw;  
+          const owners = compDtls.data.getSMAccount.owner; 
     
     const ChckPersonelExistence = async () => {
       try {
@@ -68,24 +69,14 @@ const MFNSignIn = (props) => {
           graphqlOperation(listPersonels,
             { filter: {
                 
-              phoneKontact: { eq: PhoneContact},
+              phoneKontact: { eq: userInfo.attributes.email},
               BusinessRegNo:{eq: MFNId}
                             
               }}
           )
         )
 
-        const gtChmDtls = async () =>{
-          if(isLoading){
-            return;
-          }
-          setIsLoading(true);
-          try{
-            const compDtls :any= await API.graphql(
-              graphqlOperation(getSMAccount,{awsemail:PhoneContact})
-              );
-              const signitoryPWs = compDtls.data.getSMAccount.pw;  
-              const owners = compDtls.data.getSMAccount.owner; 
+        
 
               if(signitoryPWs!==pword){Alert.alert("Wrong User credentials")}
     else if (UsrDtls.data.listPersonels.items.length < 1) {
@@ -93,7 +84,7 @@ const MFNSignIn = (props) => {
       return;
       
     }
-    else if(ownr!==owners){Alert.alert("This is not your Account")}
+    else if(userInfo.attributes.sub !==owners){Alert.alert("This is not your Account")}
     else{VwMFNAc();}
 
       }
@@ -112,7 +103,10 @@ const MFNSignIn = (props) => {
                   
       };
 
-      await gtChmDtls();
+      if (userInfo.attributes.sub !== owners)
+    {Alert.alert ("Please first create main account")}
+    else{
+      await ChckPersonelExistence();}
 
   }
 
@@ -203,7 +197,7 @@ useEffect(() =>{
                   </View>
         
                   <TouchableOpacity
-                    onPress={ChckPersonelExistence}
+                    onPress={gtChmDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to View

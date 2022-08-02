@@ -14444,10 +14444,6 @@ export type OnDeleteChamaMembersSubscription = {
   } | null,
 };
 
-export type OnCreateChamasNPwnBrkrsSubscriptionVariables = {
-  owner?: string | null,
-};
-
 export type OnCreateChamasNPwnBrkrsSubscription = {
   onCreateChamasNPwnBrkrs?:  {
     __typename: "ChamasNPwnBrkrs",
@@ -14461,10 +14457,6 @@ export type OnCreateChamasNPwnBrkrsSubscription = {
   } | null,
 };
 
-export type OnUpdateChamasNPwnBrkrsSubscriptionVariables = {
-  owner?: string | null,
-};
-
 export type OnUpdateChamasNPwnBrkrsSubscription = {
   onUpdateChamasNPwnBrkrs?:  {
     __typename: "ChamasNPwnBrkrs",
@@ -14476,10 +14468,6 @@ export type OnUpdateChamasNPwnBrkrsSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
-};
-
-export type OnDeleteChamasNPwnBrkrsSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnDeleteChamasNPwnBrkrsSubscription = {

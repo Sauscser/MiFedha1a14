@@ -31,7 +31,7 @@ const CreateAcForm = (props) => {
 
   const [nationalId, setNationalid] = useState('');
   
-  const [awsEmail, setAWSEmail] = useState(null);
+  
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
 
@@ -47,7 +47,7 @@ const CreateAcForm = (props) => {
   
     const fetchUser = async () => {
       const userInfo = await Auth.currentAuthenticatedUser();
-      setAWSEmail(userInfo.attributes.email);
+      
       const name = userInfo.username;
      const ownr = userInfo.attributes.sub;
       const phoneContact = userInfo.attributes.phone_number;
@@ -245,7 +245,7 @@ const CreateAcForm = (props) => {
                   setIsLoading(false);
                 }
                 
-                Alert.alert("Sign up using a different Phone Number")
+                Alert.alert("Sign up using different user details")
       }
       
       catch(e){
@@ -260,8 +260,8 @@ const CreateAcForm = (props) => {
                   setPW('');
       };
 
-          
-          if (UsrDtls.data.listSMAccounts.items.length > 0) {
+      
+         if (UsrDtls.data.listSMAccounts.items.length > 0) {
             Alert.alert("This National ID is already registered");
             return;
             
@@ -275,7 +275,12 @@ const CreateAcForm = (props) => {
         }
       }
 
-      await ChckUsrExistence();
+      if (userInfo.attributes.sub!==ownr) {
+        Alert.alert("Please first create a main account")
+        return;
+      }  else {
+      
+      await ChckUsrExistence();}
     };
 
     

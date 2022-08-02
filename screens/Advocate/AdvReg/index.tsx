@@ -29,32 +29,26 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
   const [nam, setName] = useState("");
   const [phoneContact, setPhoneContact] = useState("");
   const[eml, setEml] =useState("");
-  const [ownr, setOwnr] = useState(null);
+  
   const [pword, setPW] = useState('');
   const [advRegNo, setAdvRegNo] = useState('');
   const[officeLocs, setOfficeLoc] = useState("");
   const [BkName, setBkName] = useState('');
   const [BkAcNu, setBkAcNu] = useState('');
   const [isLoading, setIsLoading] =useState(false);
-  const [UsrPhn, setUsrPhn] = useState(null);
-  const [UsrEmail, setUsrEmail] = useState(null);
+ 
   
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();   
-    setOwnr(userInfo.attributes.sub); 
-    setUsrPhn(userInfo.attributes.phone_number);
-    setUsrEmail(userInfo.attributes.email);
-  };
-
-    useEffect(() => {
-    fetchUser();
-   }, []);
+  
+ 
 
    const gtCompDtls = async () =>{
      if(isLoading){
        return;
      }
      setIsLoading(true);
+
+     const userInfo = await Auth.currentAuthenticatedUser();   
+      
     try{
         const compDtls :any= await API.graphql(
           graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -66,11 +60,12 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
             const UsrDtls:any = await API.graphql(
               graphqlOperation(getSMAccount, 
                 { 
-                  awsemail:UsrEmail
+                  awsemail:userInfo.attributes.email
                 }
               )
             )
             const nationalidssss = UsrDtls.data.getSMAccount.nationalid
+            const owner = UsrDtls.data.getSMAccount.owner
         
         const CreateNewMFN = async () => {
           if(isLoading){
@@ -92,7 +87,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
                   advBal: 0,
                   officeLoc: officeLocs,
                   TtlEarnings: 0,        
-                  owner:ownr,
+                  owner:userInfo.attributes.sub,
                   status: 'AccountActive',
                 },
               }),
@@ -113,8 +108,13 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
            await updtActAdm();
         setIsLoading(false);
         };
+
+        if (userInfo.attributes.sub !== owner)
+    {Alert.alert ("Please first create main account")}
+    else{
+
         CreateNewMFN();
-        
+    }
       
       
         const updtActAdm = async()=>{
@@ -152,6 +152,8 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
       
     }
   }
+
+  
 
   await ChckUsrExistence();
    

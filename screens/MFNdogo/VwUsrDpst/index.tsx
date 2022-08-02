@@ -12,24 +12,23 @@ import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
 const FetchSMNonLnsSnt = props => {
 
-    const[SenderEmail, setSenderEmail] = useState(null);
+   
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
     const route = useRoute();
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setSenderEmail(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
-
-        const fetchLoanees = async () => {
+    
+        const fetchUsrDtls = async () => {
+          const userInfo = await Auth.currentAuthenticatedUser();              
+        
+          try {
+                  const MFNDtls: any = await API.graphql(
+                      graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}                        ),);
+    
+                  const balances = MFNDtls.data.getSMAccount.balance;
+                  const owner = MFNDtls.data.getSMAccount.owner;
+                  
+                  const fetchLoanees = async () => {
             setLoading(true);
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMFNFltDeductns, 
@@ -46,13 +45,7 @@ const FetchSMNonLnsSnt = props => {
                   setRecvrs(Lonees.data.VwMFNFltDeductns.items);
 
                   
-              const fetchUsrDtls = async () => {
-                try {
-                        const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {awsemail: SenderEmail}
-                        ),);
-          
-                        const balances = MFNDtls.data.getSMAccount.balance;
+              
                         
                         const fetchCompDtls = async () => {
                           try {
@@ -94,7 +87,7 @@ const FetchSMNonLnsSnt = props => {
                                                     await API.graphql(
                                                       graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          awsemail: SenderEmail,
+                                                          awsemail: userInfo.attributes.email,
                                                           balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })
@@ -153,16 +146,20 @@ const FetchSMNonLnsSnt = props => {
                       
                        }
 
-                       await fetchUsrDtls();
+                       if (userInfo.attributes.sub !== owner)
+                           {Alert.alert ("Please first create main account")}
+                           else{
+                                                  await fetchLoanees();}
             } catch (e) {
               console.log(e);
             } finally {
               setLoading(false);
             }
           };
+        
           useEffect(() => {
-            fetchLoanees();
-          }, [])
+            fetchUsrDtls();
+            }, [])
          
 
   return (
@@ -172,7 +169,7 @@ const FetchSMNonLnsSnt = props => {
         data={Recvrs}
         renderItem={({item}) => <NonLnSent SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

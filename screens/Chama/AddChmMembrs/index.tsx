@@ -35,36 +35,22 @@ const AddChmMmbrs = (props:UserReg) => {
   const navigation = useNavigation();
 
   const [ChmPhn, setChmPhn] = useState('');
-  const [nam, setName] = useState(null);
+
   const [phoneContacts, setPhoneContacts] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
-  const[ownr, setownr] = useState(null);
+
   const [MmbaID, setMmbaID] = useState('');
   const ChmPhnNphoneContacts = MmbaID+ChmPhn
 
 
-  
-
-  
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);
-      ;
-          
-    };
-
-    
-
-    useEffect(() => {
-        fetchUser();
-      }, []);
 
       const ChckUsrExistence = async () => {
+        const userInfo = await Auth.currentAuthenticatedUser();
+      
+     
         try {
           const UsrDtls:any = await API.graphql(
             graphqlOperation(getSMAccount, { awsemail:phoneContacts}),
@@ -148,7 +134,7 @@ const AddChmMmbrs = (props:UserReg) => {
                         return;
                       } 
 
-                      else  if (ownr !== owners && signitory2Subs !== ownr){Alert.alert("You are neither the author nor signatory of this Chama")}
+                      else  if (userInfo.attributes.sub !== owners && signitory2Subs !== userInfo.attributes.sub){Alert.alert("You are neither the author nor signatory of this Chama")}
                       
                       else {
                         CrtChm();
@@ -200,7 +186,7 @@ const AddChmMmbrs = (props:UserReg) => {
                                 return;
                             }
                             }
-                            Alert.alert("Congrats " + nam + ", You have added " + namess +" to " +grpNames)
+                            Alert.alert("Congrats " + userInfo.attributes.username + ", You have added " + namess +" to " +grpNames)
                             setIsLoading(false);
                           }
                           

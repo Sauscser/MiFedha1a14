@@ -31,7 +31,7 @@ const CreateBiz = (props) => {
 
   const [ChmPhn, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
-  const [UsrEmail, setUsrEmail] = useState(null);
+
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
@@ -48,35 +48,38 @@ const CreateBiz = (props) => {
   const route = useRoute();
 
 
-  const[ownr, setownr] = useState(null);
+ 
+  const gtBizna = async () =>{
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+    try{
+      const compDtls :any= await API.graphql(
+        graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+        );
+        const pws = compDtls.data.getSMAccount.pw;
+        const phonecontacts = compDtls.data.getSMAccount.phonecontact;
+        const name = compDtls.data.getSMAccount.name;
+        const owner = compDtls.data.getSMAccount.owner;
 
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);
-      setUsrEmail(userInfo.attributes.email);
-      
-          
-    };
+      const Int = ((parseFloat(lnPrsntg) - parseFloat(itemPrys))*100)/(parseFloat(lnPrsntg)*parseFloat(rpymntPrd))
 
     
-
-    useEffect(() => {
-        fetchUser();
-      }, []);
-
       const gtChmDtls = async () =>{
         if(isLoading){
           return;
         }
         setIsLoading(true);
+
+
         try{
           const compDtlsz :any= await API.graphql(
             graphqlOperation(listChamaMembers,
               {filter: {
                 groupContact:{eq: awsEmail},
-                memberContact:{eq:UsrEmail},
+                memberContact:{eq:userInfo.attributes.email},
                 MembaId:{eq:MmbaID}
                }})
             );
@@ -85,21 +88,7 @@ const CreateBiz = (props) => {
 
             
              
-        const gtBizna = async () =>{
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
-        try{
-          const compDtls :any= await API.graphql(
-            graphqlOperation(getSMAccount,{awsemail:UsrEmail})
-            );
-            const pws = compDtls.data.getSMAccount.pw;
-            const phonecontacts = compDtls.data.getSMAccount.phonecontact;
-            const name = compDtls.data.getSMAccount.name;
-
-          const Int = ((parseFloat(lnPrsntg) - parseFloat(itemPrys))*100)/(parseFloat(lnPrsntg)*parseFloat(rpymntPrd))
-
+        
             
 
       const CreateNewSMAc = async () => {
@@ -112,7 +101,7 @@ const CreateBiz = (props) => {
           graphqlOperation(createReqLoanChama, {
           input: {
            
-            loaneeEmail:UsrEmail,
+            loaneeEmail:userInfo.attributes.email,
             chamaPhone:awsEmail,
             loaneeName: name,
             loaneePhone:phonecontacts,
@@ -121,7 +110,7 @@ const CreateBiz = (props) => {
             repaymentPeriod:rpymntPrd,
             loaneeMemberId:MmbaID,
             status: "AwaitingResponse",
-            owner: ownr,
+            owner: userInfo.attributes.sub,
                   },
                 })
                 
@@ -170,7 +159,11 @@ const CreateBiz = (props) => {
        
       };
 
-      await gtBizna();
+      if (userInfo.attributes.sub !== owner)
+    {Alert.alert ("Please first create main account")}
+    else{
+
+      await gtChmDtls();}
 
         } catch (e) {
           if(e){Alert.alert("Please first sign up")}
@@ -405,7 +398,7 @@ useEffect(() =>{
                   </View>
 
                   <TouchableOpacity
-                    onPress={gtChmDtls}
+                    onPress={gtBizna}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Request 

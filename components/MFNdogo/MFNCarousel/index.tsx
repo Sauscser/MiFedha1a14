@@ -86,6 +86,7 @@ const ViewSMDeposts = (props:SMAccount) => {
                     setUsrWthdrwlFees(MFNDtlszz.data.getCompany.UsrWthdrwlFees); 
                     setMFNWDFFrmCmp(MFNDtlszz.data.getCompany.agentCom);
                     setMFKWDFeeFrmCmp(MFNDtlszz.data.getCompany.sagentCom);
+                     
                   
                    
                 } catch (error) {
@@ -133,12 +134,12 @@ const ViewSMDeposts = (props:SMAccount) => {
           </Text>
 
           <Text style={styles.amountoffered} >
-          Withdrawal Fee:{UsrWthdrwlFees}%
+          Withdrawal Fee:{parseFloat(UsrWthdrwlFees)*100}%
           </Text>
 
 
           <Text style={styles.amountoffered} numberOfLines={4}>
-          Company Disc:{((0.2 - parseFloat(CompWithdrwlFee))*100).toFixed(4)}%
+          Company Disc:{(((100 - ((parseFloat(MFKWDFeeFrmCmp)*100) + (parseFloat(MFNWDFFrmCmp)*100)))  - (parseFloat(CompWithdrwlFee))*100)).toFixed(4)}%
           </Text>
 
           {/* Type & Description */}

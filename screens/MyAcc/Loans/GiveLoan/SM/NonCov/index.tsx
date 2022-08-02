@@ -164,7 +164,7 @@ const route = useRoute();
         );
 
         const loaneeEmail =accountDtlszs.data.getReqLoan.loaneeEmail;
-        const loanerEml =accountDtlszs.data.getReqLoan.owner;
+        const owner =accountDtlszs.data.getReqLoan.owner;
         const amount =accountDtlszs.data.getReqLoan.amount;
         const AmtExp =accountDtlszs.data.getReqLoan.repaymentAmt;
         const RepaymtPeriod =accountDtlszs.data.getReqLoan.repaymentPeriod;
@@ -455,12 +455,13 @@ const route = useRoute();
                         }
                         
                                               
-                        if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
+                        if (userInfo.attributes.sub!==owner) {
+                          Alert.alert("Please first create a main account")
+                          return;
+                        }  else if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
                       return;
                     }
                         
-                    
-
                     else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
 
                     

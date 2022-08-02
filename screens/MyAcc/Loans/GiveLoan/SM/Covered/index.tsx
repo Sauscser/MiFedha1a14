@@ -168,6 +168,7 @@ const SMASendLns = props => {
           graphqlOperation(getReqLoan, {id: route.params.id}),
         );
 
+        const owner =accountDtlszs.data.getReqLoan.owner;
         const loaneeEmail =accountDtlszs.data.getReqLoan.loaneeEmail;
     
         const amount =accountDtlszs.data.getReqLoan.amount;
@@ -511,7 +512,10 @@ const SMASendLns = props => {
 
                         
                                               
-                        if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
+                        if (userInfo.attributes.sub!==owner) {
+                          Alert.alert("Please first create a main account")
+                          return;
+                        }  else if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
                       return;
                     }
                         

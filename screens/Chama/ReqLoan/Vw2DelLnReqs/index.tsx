@@ -1,16 +1,16 @@
 import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/Chama/LnReq/Vw2DelLnReq";
 import styles from './styles';
-import { listReqLoanChamas, listReqLoans } from '../../../../src/graphql/queries';
+import { getSMAccount, listReqLoanChamas, listReqLoans } from '../../../../src/graphql/queries';
 
 
 
 const FetchSMNonCovLns = props => {
 
-    const[LneePhn, setLneePhn] = useState(null);
+ 
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
     const [ChmPhn, setChmPhn] = useState('');
@@ -32,19 +32,20 @@ const FetchSMNonCovLns = props => {
 
   
   
+  const gtBizna = async () =>{
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+    try{
+      const compDtls :any= await API.graphql(
+        graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+        );
+       
+        const owner = compDtls.data.getSMAccount.owner;
 
-
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneePhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    
 
         const fetchLoanees = async () => {
             setLoading(true);
@@ -57,7 +58,7 @@ const FetchSMNonCovLns = props => {
                     
                   filter: {
                   
-                    loaneeEmail: { eq: LneePhn},
+                    loaneeEmail: { eq: userInfo.attributes.email},
                     
                                
                 }
@@ -67,25 +68,33 @@ const FetchSMNonCovLns = props => {
             } catch (e) {
               console.log(e);
             } finally {
-              setLoading(false);
+              
             }
-            setChmPhn('');
-            setPW('');
-            setAWSEmail("")
-            setChmDesc("")
-            setChmNm("")
-            setChmRegNo("")
-            setMmbaID("")
-            setSign2Phn("");
-            setrpymntPrd("");
-            setlnPrsntg("");
-            setitemTwn("");
-            setitemPrys("");
+            setLoading(false);
           };
 
+          if (userInfo.attributes.sub !== owner)
+    {Alert.alert ("Please first create main account")}
+    else{
+      await fetchLoanees();}
+
+        }
+              
+        catch (e)
+        {
+          
+            console.log(e)
+           
+            
+        }    
+
+        
+         }
+      
+        
           useEffect(() => {
-            fetchLoanees();
-          }, []);
+            gtBizna();
+          }, [])   
           
           
   return (
@@ -96,7 +105,7 @@ const FetchSMNonCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={gtBizna}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

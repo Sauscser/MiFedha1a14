@@ -25,38 +25,27 @@ import { getCompany, getSMAccount, listSMAccounts } from '../../../src/graphql/q
 const RegisterMFKubwaAcForm = props => {
   const [nationalId, setNationalid] = useState("");
   const [nam, setName] = useState("");
-  const [phoneContact, setPhoneContact] = useState(null);
+ 
   const[eml, setEml] =useState("");
-  const[ownr, setOwnr] = useState(null);
+  
   const [pword, setPW] = useState("");
   const [BkName, setBkName] = useState('');
   const [BkAcNu, setBkAcNu] = useState('');
   const[isLoading, setIsLoading] = useState(false);
-  const [UsrEmail, setUsrEmail] = useState(null);
-
-
-
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();   
-    setOwnr(userInfo.attributes.sub); 
-    setUsrEmail(userInfo.attributes.email);
-    setPhoneContact(userInfo.attributes.phone_number);
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
   
 
 
+
+
         const ChckPhnUse = async () => {
+          const userInfo = await Auth.currentAuthenticatedUser();   
+  
           try {
             const UsrDtlss:any = await API.graphql(
               graphqlOperation(listSMAccounts,
                 { filter: {
                     
-                  awsemail: { eq: UsrEmail}
+                  awsemail: { eq: userInfo.attributes.email}
                                 
                   }}
               )
@@ -67,11 +56,11 @@ const RegisterMFKubwaAcForm = props => {
                 const UsrDtls:any = await API.graphql(
                   graphqlOperation(getSMAccount, 
                     { 
-                      awsemail:UsrEmail
+                      awsemail:userInfo.attributes.email
                     }
                   )
                 )
-                const nationalidssss = UsrDtls.data.getSMAccount.nationalid
+                const owner = UsrDtls.data.getSMAccount.owner
                 const TtlClrdLonsAmtSllrCovs = UsrDtls.data.getSMAccount.TtlClrdLonsAmtSllrCov
 
             const CreateNewSA = async () => {
@@ -84,11 +73,11 @@ const RegisterMFKubwaAcForm = props => {
                   graphqlOperation(createChamasNPwnBrkrs, {
                     input: {
                       
-                      contact: UsrEmail,
-                      regNo: phoneContact,
+                      contact: userInfo.attributes.email,
+                      regNo: userInfo.attributes.phone_number,
                       
                       AcStatus: 'AccountActive',
-                      owner:nam,
+                      owner:userInfo.attributes.name,
                       
                     },
                   }),
@@ -105,14 +94,17 @@ const RegisterMFKubwaAcForm = props => {
               setIsLoading(false); 
               Alert.alert("Successful application, wait for communication from MiFedha LTD")           
             };
-            if (pword.length<8)
+
+            if (userInfo.attributes.sub !== owner)
+          {Alert.alert ("Please first create main account")}
+          else if (pword.length<8)
         {Alert.alert("Password is too short; at least eight characters");
       return;
 
       
     }
-
-          CreateNewSA();
+else {
+          CreateNewSA();}
         
           } catch (e) {
             if(e){Alert.alert("Please first sign up")}
@@ -132,7 +124,7 @@ const RegisterMFKubwaAcForm = props => {
           setPW("");
           setName("");
           setEml("");
-          setPhoneContact("");
+         
           setBkAcNu("");
           setBkName("");
         }
@@ -212,16 +204,7 @@ useEffect(() =>{
                 }, [eml]
                  );
 
-                 useEffect(() =>{
-                  const mfkphn=phoneContact
-                    if(!mfkphn && mfkphn!=="")
-                    {
-                      setPhoneContact("");
-                      return;
-                    }
-                    setPhoneContact(mfkphn);
-                    }, [phoneContact]
-                     );
+                 
   return (
     <View>
       <View

@@ -30,7 +30,7 @@ const CreateBiz = (props) => {
 
   const [ChmPhn, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
-  const [UsrEmail, setUsrEmail] = useState(null);
+ 
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
@@ -39,28 +39,32 @@ const CreateBiz = (props) => {
   const [ChmRegNo, setChmRegNo] = useState('');
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState('');
-  const[ownr, setownr] = useState(null);
 
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
+
+  const fetchAcDtls = async () => {
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+   
+    try {
+      const accountDtl:any = await API.graphql(
+        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
+      );
+
+  
+      const owners = accountDtl.data.getSMAccount.owner;
       
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);
-      setUsrEmail(userInfo.attributes.email);
-          
-    };
-
-    
-
-    useEffect(() => {
-        fetchUser();
-      }, []);
 
       const CreateNewSMAc = async () => {
         if(isLoading){
           return;
         }
         setIsLoading(true);
+        const userInfo = await Auth.currentAuthenticatedUser();
+      
+     
         try {
           await API.graphql(
           graphqlOperation(createBizna, {
@@ -69,7 +73,7 @@ const CreateBiz = (props) => {
             BusKntct:ChmPhn,
             busName: ChmNm,
             pw: pword,
-            email: UsrEmail,
+            email: userInfo.attributes.email,
             
             TtlEarnings: 0,
             earningsBal: 0,
@@ -77,7 +81,7 @@ const CreateBiz = (props) => {
             description: ChmDesc,
           
             status: "AccountActive",
-            owner: ownr,
+            owner: userInfo.attributes.sub,
                   },
                 })
                 
@@ -103,17 +107,31 @@ const CreateBiz = (props) => {
             
             }
             
-            setIsLoading(false);
-            setChmPhn('');
-            setPW('');
-            setAWSEmail("")
-            setChmDesc("")
-            setChmNm("")
-            setChmRegNo("")
-            setMmbaID("")
-            setSign2Phn("");
-            
-          };
+                     };
+
+                     if (userInfo.attributes.sub !== owners)
+    {Alert.alert ("Please first create main account")}
+    else{
+                           await CreateNewSMAc();}
+
+        }
+
+        catch (e) {
+          console.log(e)
+          if (e){Alert.alert("Check your internet connection")
+          return;}
+              
+         }       
+         setIsLoading(false);
+         setChmPhn('');
+         setPW('');
+         setAWSEmail("")
+         setChmDesc("")
+         setChmNm("")
+         setChmRegNo("")
+         setMmbaID("")
+         setSign2Phn(""); 
+      }; 
           
     
       useEffect(() =>{
@@ -257,7 +275,7 @@ useEffect(() =>{
 
         
                   <TouchableOpacity
-                    onPress={CreateNewSMAc}
+                    onPress={fetchAcDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Register Business

@@ -37,8 +37,8 @@ const CreateChama = (props:UserReg) => {
   const navigation = useNavigation();
 
   const [ChmPhn, setChmPhn] = useState('');
-  const [nam, setName] = useState(null);
-  const [UsrEmail, setUsrEmail] = useState(null);
+
+
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
@@ -50,7 +50,7 @@ const CreateChama = (props:UserReg) => {
   const [oprtnAreas, setoprtnAreas] = useState('');
   const [ventures, setventures] = useState('');
 
-  const[ownr, setownr] = useState(null);
+ 
 
   const ChmPhnNphoneContact = MmbaID+ChmPhn
 
@@ -58,30 +58,19 @@ const CreateChama = (props:UserReg) => {
   
 
   
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);
-      setUsrEmail(userInfo.attributes.email);
-          
-    };
-
-    
-
-    useEffect(() => {
-        fetchUser();
-      }, []);
 
       const ChckUsrExistence = async () => {
+        const userInfo = await Auth.currentAuthenticatedUser();
+     
         try {
           const UsrDtls:any = await API.graphql(
-            graphqlOperation(getSMAccount, { awsemail:UsrEmail}),
+            graphqlOperation(getSMAccount, { awsemail:userInfo.attributes.email}),
                         
           )
 
           const nationalidsss = UsrDtls.data.getSMAccount.nationalid;
           const namess = UsrDtls.data.getSMAccount.name;
+          const owner = UsrDtls.data.getSMAccount.owner;
 
           const FetchSign2 = async () => {
             try {
@@ -118,7 +107,7 @@ const CreateChama = (props:UserReg) => {
                 input: {
                   grpContact: ChmPhn,
                   regNo:ChmRegNo,
-                  signitoryContact: UsrEmail,
+                  signitoryContact: userInfo.attributes.email,
                   SignitoryNatid: nationalidsss,
                   signitoryName: namess,
                   grpName: ChmNm,
@@ -153,7 +142,7 @@ const CreateChama = (props:UserReg) => {
                   TtlClrdLonsAmtLnrChmNonCov: 0,
                   
                   status: "AccountActive",
-                  owner: ownr,
+                  owner: userInfo.attributes.sub,
                         },
                       }),
                     );
@@ -190,7 +179,7 @@ const CreateChama = (props:UserReg) => {
                   groupContact: ChmPhn,
                   regNo:ChmRegNo,
                   ChamaNMember:ChmPhnNphoneContact,
-                  memberContact: UsrEmail,
+                  memberContact: userInfo.attributes.email,
                   memberNatId: nationalidsss,
                   
                   
@@ -205,7 +194,7 @@ const CreateChama = (props:UserReg) => {
                   AcStatus: "AccountActive",
                   loanStatus: "NoLoan",
                   blStatus: "AccountNotBL",
-                  owner: ownr,
+                  owner: userInfo.attributes.sub,
                   
                         },
                       }),
@@ -244,7 +233,7 @@ const CreateChama = (props:UserReg) => {
                       return;
                   }
                   }
-                  Alert.alert("Congrats " + nam + ", You have created " + ChmNm+" Chama")
+                  Alert.alert("Congrats " + userInfo.attributes.username + ", You have created " + ChmNm+" Chama")
                   setIsLoading(false);
                 }
                 
@@ -271,7 +260,11 @@ const CreateChama = (props:UserReg) => {
       };
          
     }
-    await FetchSign2();
+
+    if (userInfo.attributes.sub !== owner)
+    {Alert.alert ("Please first create main account")}
+    else{
+    await FetchSign2();}
 
 
          

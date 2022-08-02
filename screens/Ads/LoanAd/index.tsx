@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {createBeshteLn, createBizna, createChamaMembers, createGroup,   createRafikiLnAd,   updateCompany} from '../../../src/graphql/mutations';
+import { createBizna, createChamaMembers, createGroup,   createRafikiLnAd,   updateCompany} from '../../../src/graphql/mutations';
 import { getBizna, getCompany, getSMAccount, listChamasRegConfirms, vwViaPhonss,  } from '../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
@@ -64,7 +64,7 @@ const CreateBiz = (props) => {
         fetchUser();
       }, []);
 
-      const gtBizna = async () =>{
+      const gtUzr = async () =>{
         if(isLoading){
           return;
         }
@@ -75,6 +75,7 @@ const CreateBiz = (props) => {
             );
             const pws = compDtls.data.getSMAccount.pw;
             const phonecontacts = compDtls.data.getSMAccount.phonecontact;
+            const owner = compDtls.data.getSMAccount.owner;
             
 
       const CreateNewSMAc = async () => {
@@ -106,6 +107,9 @@ const CreateBiz = (props) => {
           {Alert.alert("Wrong User password");
         
       } 
+
+      else if (owner !== ownr)
+      {Alert.alert("Please first create main account")}
       
       
       else {
@@ -349,7 +353,7 @@ useEffect(() =>{
                   </View>
 
                   <TouchableOpacity
-                    onPress={gtBizna}
+                    onPress={gtUzr}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Advertise

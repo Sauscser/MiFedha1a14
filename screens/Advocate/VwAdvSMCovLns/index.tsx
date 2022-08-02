@@ -14,19 +14,20 @@ const FetchSMNonLnsSnt = props => {
 
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
-    const [Email, setEmail] = useState(null);
+   
     const route = useRoute();
 
-    const fetchUser = async () => {
+    const fetchUsrDtls = async () => {
       const userInfo = await Auth.currentAuthenticatedUser();
+    
       
-      setEmail(userInfo.attributes.email);
-       
-    };
-  
-    useEffect(() => {
-        fetchUser();
-      }, []);
+      try {
+              const MFNDtls: any = await API.graphql(
+                  graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+              ),);
+
+              const balances = MFNDtls.data.getSMAccount.balance;
+              const owner = MFNDtls.data.getSMAccount.owner;
 
         const fetchLoanees = async () => {
             setLoading(true);
@@ -46,13 +47,7 @@ const FetchSMNonLnsSnt = props => {
                   ));
                   
                   setRecvrs(Lonees.data.VwAdvNLnrNLneesssss.items);
-                  const fetchUsrDtls = async () => {
-                    try {
-                            const MFNDtls: any = await API.graphql(
-                                graphqlOperation(getSMAccount, {awsemail: Email}
-                            ),);
-              
-                            const balances = MFNDtls.data.getSMAccount.balance;
+                  
                             
                             const fetchCompDtls = async () => {
                               try {
@@ -94,7 +89,7 @@ const FetchSMNonLnsSnt = props => {
                                                         await API.graphql(
                                                           graphqlOperation(updateSMAccount,{
                                                             input:{
-                                                              awsemail:Email,
+                                                              awsemail:userInfo.attributes.email,
                                                               balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                             }
                                                           })
@@ -149,21 +144,38 @@ const FetchSMNonLnsSnt = props => {
                               console.log(e)
                              
                               
-                          }    
+                            }    
               
                           
-                           }
-                           await fetchUsrDtls();
-            } catch (e) {
-              console.log(e);
-            } finally {
-              setLoading(false);
-            }
-          };
-        
-          useEffect(() => {
-            fetchLoanees();
-          }, [])  
+                          }
+
+                          if (userInfo.attributes.sub !== owner)
+   {Alert.alert ("Please first create main account")}
+   else{
+                          await fetchLoanees();}
+                 
+           
+         
+       }
+             
+       catch (e)
+       {
+         if(e){
+           Alert.alert("Advocate does not exist; otherwise check internet connection");
+           return;
+         }
+           console.log(e)
+          
+           
+       }    
+
+       
+        }
+     
+       
+         useEffect(() => {
+           fetchUsrDtls();
+         }, [])  
 
   return (
     <View style={styles.root}>
@@ -172,7 +184,7 @@ const FetchSMNonLnsSnt = props => {
         data={Recvrs}
         renderItem={({item}) => <NonLnSent SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

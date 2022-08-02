@@ -53,12 +53,21 @@ const ChmSignIn = (props) => {
     navigation.navigate("Vw2BLCredSlsNonCovs", {ChmNMmbrPhns});
   };
   
+  const gtChmDtls = async () =>{
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+    try{
+      const compDtls :any= await API.graphql(
+        graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+        );
+        const signitoryPWs = compDtls.data.getSMAccount.pw;  
+        const owners = compDtls.data.getSMAccount.owner; 
+
 
     const ChckPersonelExistence = async () => {
-
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-     
 
       try {
         const UsrDtls:any = await API.graphql(
@@ -72,17 +81,7 @@ const ChmSignIn = (props) => {
           )
         )
 
-        const gtChmDtls = async () =>{
-          if(isLoading){
-            return;
-          }
-          setIsLoading(true);
-          try{
-            const compDtls :any= await API.graphql(
-              graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
-              );
-              const signitoryPWs = compDtls.data.getSMAccount.pw;  
-              const owners = compDtls.data.getSMAccount.owner; 
+        
 
               if(signitoryPWs!==pword){Alert.alert("Wrong User credentials")}
     else if (UsrDtls.data.listPersonels.items.length < 1) {
@@ -107,8 +106,11 @@ const ChmSignIn = (props) => {
                         setIsLoading(false)
                         
             };
-
-            await gtChmDtls();
+            if (userInfo.attributes.sub!==owners) {
+              Alert.alert("Please first create a main account")
+              return;
+            }  else {
+            await ChckPersonelExistence();}
 
           }catch(e){
               console.log(e)
@@ -236,7 +238,7 @@ useEffect(() =>{
                   </View>
         
                   <TouchableOpacity
-                    onPress={ChckPersonelExistence}
+                    onPress={gtChmDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to View

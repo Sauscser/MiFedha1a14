@@ -1,6 +1,6 @@
 import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
-import { listBiznas, listPersonels } from '../../../src/graphql/queries';
+import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
+import { getSMAccount, listBiznas, listPersonels } from '../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../components/VwCredSales/Vw2CrdSlCov";
 import styles from './styles';
@@ -12,11 +12,21 @@ const FetchSMCovLns = props => {
     const [Loanees, setLoanees] = useState([]);
 
     
+    const fetchUsrDtls = async () => {
+      const userInfo = await Auth.currentAuthenticatedUser();              
+  
+      try {
+              const MFNDtls: any = await API.graphql(
+                  graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+              ),);
+
+              const balances = MFNDtls.data.getSMAccount.balance;
+              const owner = MFNDtls.data.getSMAccount.owner;
+
 
         const fetchLoanees = async () => {
             setLoading(true);
-            const userInfo = await Auth.currentAuthenticatedUser();
-              
+            const userInfo = await Auth.currentAuthenticatedUser();             
         
 
             try {
@@ -36,8 +46,19 @@ const FetchSMCovLns = props => {
             }
           };
         
+                if (userInfo.attributes.sub !== owner)
+                           {Alert.alert ("Please first create main account")}
+                           else{
+                                                  await fetchLoanees();}
+            } catch (e) {
+              console.log(e);
+            } finally {
+              setLoading(false);
+            }
+          };
+        
           useEffect(() => {
-            fetchLoanees();
+            fetchUsrDtls();
           }, [])
 
   return (
@@ -47,7 +68,7 @@ const FetchSMCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts Loanee={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

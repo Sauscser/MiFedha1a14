@@ -2121,8 +2121,8 @@ export const onDeleteChamaMembers = /* GraphQL */ `
   }
 `;
 export const onCreateChamasNPwnBrkrs = /* GraphQL */ `
-  subscription OnCreateChamasNPwnBrkrs($owner: String) {
-    onCreateChamasNPwnBrkrs(owner: $owner) {
+  subscription OnCreateChamasNPwnBrkrs {
+    onCreateChamasNPwnBrkrs {
       id
       contact
       regNo
@@ -2134,8 +2134,8 @@ export const onCreateChamasNPwnBrkrs = /* GraphQL */ `
   }
 `;
 export const onUpdateChamasNPwnBrkrs = /* GraphQL */ `
-  subscription OnUpdateChamasNPwnBrkrs($owner: String) {
-    onUpdateChamasNPwnBrkrs(owner: $owner) {
+  subscription OnUpdateChamasNPwnBrkrs {
+    onUpdateChamasNPwnBrkrs {
       id
       contact
       regNo
@@ -2147,8 +2147,8 @@ export const onUpdateChamasNPwnBrkrs = /* GraphQL */ `
   }
 `;
 export const onDeleteChamasNPwnBrkrs = /* GraphQL */ `
-  subscription OnDeleteChamasNPwnBrkrs($owner: String) {
-    onDeleteChamasNPwnBrkrs(owner: $owner) {
+  subscription OnDeleteChamasNPwnBrkrs {
+    onDeleteChamasNPwnBrkrs {
       id
       contact
       regNo

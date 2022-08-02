@@ -26,7 +26,7 @@ import {
 import styles from './styles';
 
 const SMADepositForm = props => {
-  const [WthDrwrEmail, setWthDrwrEmail] = useState(null);
+  
 
   const[UsrPWd, setUsrPWd] = useState("");
   const [AgentPhn, setAgentPhn] = useState("");
@@ -35,32 +35,24 @@ const SMADepositForm = props => {
   const[isLoading, setIsLoading] = useState(false);
   const [ownr, setownr] = useState(null);
 
-  
-  
-
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setWthDrwrEmail(userInfo.attributes.email); 
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-
+ 
 
   const fetchAcDtls = async () => {
     if(isLoading){
       return;
     }
     setIsLoading(true);
+
+    const userInfo = await Auth.currentAuthenticatedUser();
+ 
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: WthDrwrEmail}),
+        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
       );
 
       
       const pws = accountDtl.data.getSMAccount.pw;
+      const owner = accountDtl.data.getSMAccount.owner;
       
 
       const fetchChamaDtls = async () => {
@@ -126,8 +118,12 @@ const SMADepositForm = props => {
                     }
                     setIsLoading(false);
                     };    
+
+                    if (userInfo.attributes.sub !== owner)
+    {Alert.alert ("Please first create main account")}
+    else{
         
-                    await fetchChamaDtls();         
+                    await fetchChamaDtls();     }    
             
             
     }

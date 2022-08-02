@@ -79,7 +79,7 @@ const RepayCovSellerLnsss = props => {
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
       const usrPW =accountDtl.data.getSMAccount.pw;
       const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const TtlClrdLonsTmsByrCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsByrCov;
+      const owner =accountDtl.data.getSMAccount.owner;
       const TtlActvLonsTmsByrCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsByrCov;
       const TtlActvLonsAmtByrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtByrCov;
       const TtlClrdLonsAmtByrCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtByrCov;
@@ -490,7 +490,10 @@ const RepayCovSellerLnsss = props => {
                                                           
                                                     
                               
-                              if(usrAcActvStts === "AccountInactive"){Alert.alert('Sender account is inactive');
+                              if (userInfo.attributes.sub!==owner) {
+                                Alert.alert("Please first create a main account")
+                                return;
+                              }  else if(usrAcActvStts === "AccountInactive"){Alert.alert('Sender account is inactive');
                               return;
                             }
                              

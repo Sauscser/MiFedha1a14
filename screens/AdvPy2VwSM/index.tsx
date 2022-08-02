@@ -26,36 +26,26 @@ const AdvPayToVwChm = (props) => {
   const [AdvReNo, setMFNId] = useState("");
   const [MFNPW, setMFNPW] = useState(""); 
   const [ownr, setownr] = useState(null); 
-  const [Email, setEmail] = useState(null); 
+  
 
 
   const VwMFNAc = () => {
     navigation.navigate("VwAdvAcs", {AdvReNo});
   };
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    
-    setownr(userInfo.attributes.sub);
-    setEmail(userInfo.attributes.email);
-     
-  };
-
-  
-
-  useEffect(() => {
-      fetchUser();
-    }, []);
-    
+ 
     
     const fetchUsrDtls = async () => {
+      const userInfo = await Auth.currentAuthenticatedUser();
+    
+   
       try {
               const MFNDtls: any = await API.graphql(
-                  graphqlOperation(getSMAccount, {awsemail: Email}
+                  graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
               ),);
 
               const balances = MFNDtls.data.getSMAccount.balance;
+              const owner = MFNDtls.data.getSMAccount.owner;
               
               const fetchCompDtls = async () => {
                 try {
@@ -97,7 +87,7 @@ const AdvPayToVwChm = (props) => {
                                           await API.graphql(
                                             graphqlOperation(updateSMAccount,{
                                               input:{
-                                                awsemail:Email,
+                                                awsemail:userInfo.attributes.email,
                                                 balance:parseFloat(balances) - parseFloat(enquiryFees),
                                               }
                                             })
@@ -139,7 +129,11 @@ const AdvPayToVwChm = (props) => {
 
     
              }
-             await fetchCompDtls();
+
+             if (userInfo.attributes.sub !== owner)
+    {Alert.alert ("Please first create main account")}
+    else{
+             await fetchCompDtls();}
 
             }
 

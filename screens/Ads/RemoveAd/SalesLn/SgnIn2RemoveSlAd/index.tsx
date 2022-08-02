@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 
-import { getCompany, getGroup, getSMAccount, listSMAccounts, } from '../../../../src/graphql/queries';
+import { getCompany, getGroup, getSMAccount, listSMAccounts, } from '../../../../../src/graphql/queries';
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -45,7 +45,7 @@ const ChmSignIn = (props) => {
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
   const[ownr, setownr] = useState(null);
-  const [UsrEmail, setUsrEmail] = useState(null);
+  
 
 
 
@@ -55,25 +55,27 @@ const ChmSignIn = (props) => {
   
 
   
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);     
-      setUsrEmail(userInfo.attributes.email);
-          
-    };
-    useEffect(() => {
-      fetchUser();
-    }, []);
+  const gtUzr = async () =>{
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+    try{
+      const compDtls :any= await API.graphql(
+        graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+        );
+        
+        const owner = compDtls.data.getSMAccount.owner;
 
     const ChckPersonelExistence = async () => {
+      
       try {
         const UsrDtls:any = await API.graphql(
           graphqlOperation(listPersonels,
             { filter: {
                 
-              phoneKontact: { eq: UsrEmail},
+              phoneKontact: { eq: userInfo.attributes.email},
               BusinessRegNo:{eq: BiznaContact}
                             
               }}
@@ -125,16 +127,29 @@ const ChmSignIn = (props) => {
           }
           }
             setIsLoading(false)
-            setChmPhn('');
-            setPW('');
-            setPhoneContacts("")
-            setChmDesc("")
-            setChmNm("")
-            setmemberPhn("")
+            
                         
                         
             };
-             
+
+            if (userInfo.attributes.sub !== owner)
+            {Alert.alert ("Please first create main account")}
+            else{
+
+            await ChckPersonelExistence();
+            }
+          } catch (e) {
+          
+          }
+          setIsLoading(false);
+          setChmPhn('');
+          setPW('');
+          setPhoneContacts("")
+          setChmDesc("")
+          setChmNm("")
+          setmemberPhn("")}
+  
+          
     
             useEffect(() =>{
               const memberPhns=memberPhn
@@ -237,7 +252,7 @@ useEffect(() =>{
                  
         
                   <TouchableOpacity
-                    onPress={ChckPersonelExistence}
+                    onPress={gtUzr}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       View Sales Ads

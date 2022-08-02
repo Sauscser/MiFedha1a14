@@ -1,10 +1,10 @@
 import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
+import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/Chama/RepayChmLn/RepyChmNonCovLn";
 import styles from './styles';
-import {  listNonCvrdGroupLoans,  } from '../../../../src/graphql/queries';
+import {  getSMAccount, listNonCvrdGroupLoans,  } from '../../../../src/graphql/queries';
 
 const FetchSMNonCovLns = props => {
 
@@ -12,7 +12,15 @@ const FetchSMNonCovLns = props => {
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
-   
+    const fetchUsrDtls = async () => {
+      const userInfo = await Auth.currentAuthenticatedUser();
+      try {
+              const MFNDtls: any = await API.graphql(
+                  graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+              ),);
+
+              const balances = MFNDtls.data.getSMAccount.balance;
+              const owner = MFNDtls.data.getSMAccount.owner;
 
         const fetchLoanees = async () => {
             setLoading(true);
@@ -37,10 +45,20 @@ const FetchSMNonCovLns = props => {
               setLoading(false);
             }
           };
-        
-          useEffect(() => {
-            fetchLoanees();
-          }, [])
+          if (userInfo.attributes.sub !== owner)
+          {Alert.alert ("Please first create main account")}
+          else{
+                                 await fetchLoanees();}
+} catch (e) {
+ console.log(e);
+} finally {
+ setLoading(false);
+}
+};
+
+useEffect(() => {
+fetchUsrDtls();
+}, [])  
 
   return (
     <View style={styles.root}>
@@ -49,7 +67,7 @@ const FetchSMNonCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts ChamaMmbrshpDtls={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

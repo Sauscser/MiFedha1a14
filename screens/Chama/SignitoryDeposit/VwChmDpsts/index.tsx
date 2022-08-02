@@ -11,22 +11,23 @@ import { updateCompany, updateSMAccount } from '../../../../src/graphql/mutation
 
 const FetchSMNonLnsSnt = props => {
 
-    const[SenderPhn, setSenderPhn] = useState(null);
+    
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
     const route = useRoute();
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
+   
+        const fetchUsrDtls = async () => {
+          const userInfo = await Auth.currentAuthenticatedUser();
               
-        setSenderPhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+        
+          try {
+                  const MFNDtls: any = await API.graphql(
+                      graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+                  ),);
+    
+                  const balances = MFNDtls.data.getSMAccount.balance;
+                  const owner = MFNDtls.data.getSMAccount.owner;
 
         const fetchLoanees = async () => {
             setLoading(true);
@@ -42,13 +43,7 @@ const FetchSMNonLnsSnt = props => {
                   ))
                   setRecvrs(Lonees.data.VwMyUsrDposits.items);
 
-                  const fetchUsrDtls = async () => {
-                    try {
-                            const MFNDtls: any = await API.graphql(
-                                graphqlOperation(getSMAccount, {awsemail: SenderPhn}
-                            ),);
-              
-                            const balances = MFNDtls.data.getSMAccount.balance;
+                  
                             
                             const fetchCompDtls = async () => {
                               try {
@@ -90,7 +85,7 @@ const FetchSMNonLnsSnt = props => {
                                                         await API.graphql(
                                                           graphqlOperation(updateSMAccount,{
                                                             input:{
-                                                              awsemail: SenderPhn,
+                                                              awsemail: userInfo.attributes.email,
                                                               balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                             }
                                                           })
@@ -149,8 +144,11 @@ const FetchSMNonLnsSnt = props => {
                           
                            }
     
-                           await fetchUsrDtls();
-                  console.log(Lonees)
+                           if (userInfo.attributes.sub !== owner)
+                           {Alert.alert ("Please first create main account")}
+                           else{
+                                                  await fetchLoanees();}
+                 
             } catch (e) {
               console.log(e);
             } finally {
@@ -159,7 +157,7 @@ const FetchSMNonLnsSnt = props => {
           };
         
           useEffect(() => {
-            fetchLoanees();
+            fetchUsrDtls();
           }, [])
 
   return (
@@ -169,7 +167,7 @@ const FetchSMNonLnsSnt = props => {
         data={Recvrs}
         renderItem={({item}) => <NonLnSent SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

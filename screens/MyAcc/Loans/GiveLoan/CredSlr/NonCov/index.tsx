@@ -56,35 +56,24 @@ const NonCovCredSls = props => {
   const [AmtExp, setAmtExp] = useState("");
   
   const [Desc, setDesc] = useState("");
-  const [ownr, setownr] = useState(null);
+
   const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
-  const [SendrEmail, setSendrEmail] = useState(null);
+  
   const [ItmNm, setItmNm] = useState("");
   const [ItmSrlNu, setItmSrlNu] = useState("");
   const [DfltPnlty, setDfltPnlty] = useState('');
   const route = useRoute();
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setSendrEmail(userInfo.attributes.email);
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-
-  
-
-
-
+ 
   const fetchCredSlLnReq = async () => {
     if(isLoading){
       return;
     }
     setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+    
     try {
       const PersnlDtl:any = await API.graphql(
         graphqlOperation(getReqLoanCredSl, {id: route.params.id}),
@@ -191,9 +180,10 @@ const NonCovCredSls = props => {
                                     setIsLoading(true);
                                     try {
                                         const RecAccountDtl:any = await API.graphql(
-                                            graphqlOperation(getSMAccount, {awsemail: SendrEmail}),
+                                            graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
                                             );
                                             const pwz =RecAccountDtl.data.getSMAccount.pw;
+                                            const owner =RecAccountDtl.data.getSMAccount.owner;
                                             const nationalids =RecAccountDtl.data.getSMAccount.nationalid;
                                             
                       
@@ -226,7 +216,7 @@ const NonCovCredSls = props => {
                                   
                                   description: Desc,
                                   status: "LoanActive",
-                                  owner: ownr
+                                  owner: userInfo.attributes.sub
                                 },
                               }),
                             );
@@ -244,7 +234,10 @@ const NonCovCredSls = props => {
                           await updtSendrAc();
                         };
 
-                        if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
+                        if (userInfo.attributes.sub!==owner) {
+                          Alert.alert("Please first create a main account")
+                          return;
+                        }  else if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
                       return;
                     }
                         

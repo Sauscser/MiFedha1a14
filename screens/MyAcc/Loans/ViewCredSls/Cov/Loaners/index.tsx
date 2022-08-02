@@ -9,24 +9,26 @@ import { useRoute } from '@react-navigation/native';
 
 const FetchSMCovLns = props => {
 
-    const[LnerPhn, setLnerPhn] = useState(null);
+    
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
     const route = useRoute();
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLnerPhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    
 
-        const fetchLoanees = async () => {
+        const fetchUsrDtls = async () => {
+          const userInfo = await Auth.currentAuthenticatedUser();
+              
+        
+          try {
+                  const MFNDtls: any = await API.graphql(
+                      graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+                  ),);
+    
+                  const balances = MFNDtls.data.getSMAccount.balance;
+                  const owner = MFNDtls.data.getSMAccount.owner;
+                  
+                  const fetchLoanees = async () => {
             setLoading(true);
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
@@ -35,7 +37,7 @@ const FetchSMCovLns = props => {
                       
                       filter:{
                       lonBala:{gt:0},
-                      buyerContact: {eq:LnerPhn}
+                      buyerContact: {eq:userInfo.attributes.email}
                       },
                       
                     }
@@ -43,13 +45,7 @@ const FetchSMCovLns = props => {
                   ));
               setLoanees(Lonees.data.listCovCreditSellers.items);
 
-              const fetchUsrDtls = async () => {
-                try {
-                        const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {awsemail: LnerPhn}
-                        ),);
-          
-                        const balances = MFNDtls.data.getSMAccount.balance;
+              
                         
                         const fetchCompDtls = async () => {
                           try {
@@ -91,7 +87,7 @@ const FetchSMCovLns = props => {
                                                     await API.graphql(
                                                       graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          awsemail: LnerPhn,
+                                                          awsemail: userInfo.attributes.email,
                                                           balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })
@@ -150,17 +146,21 @@ const FetchSMCovLns = props => {
                       
                        }
 
-                       await fetchUsrDtls();
+                       if (userInfo.attributes.sub!==owner) {
+                        Alert.alert("Please first create a main account")
+                        return;
+                      }  else {
+                       await fetchLoanees();}
             } catch (e) {
-              console.log(e);
+            console.log(e);
             } finally {
-              setLoading(false);
+            setLoading(false);
             }
-          };
-        
-          useEffect(() => {
-            fetchLoanees();
-          }, [])  
+            };
+            
+            useEffect(() => {
+            fetchUsrDtls();
+            }, [])   
 
   return (
     <View style={styles.root}>
@@ -169,7 +169,7 @@ const FetchSMCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts Loanee={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

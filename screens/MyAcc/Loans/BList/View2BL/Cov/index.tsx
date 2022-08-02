@@ -1,6 +1,6 @@
 import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
-import { listSMLoansCovereds, listSMLoansNonCovereds } from '../../../../../../src/graphql/queries';
+import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
+import { getSMAccount, listSMLoansCovereds, listSMLoansNonCovereds } from '../../../../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../../components/MyAc/BL/Vw2BLCov";
 import styles from './styles';
@@ -15,7 +15,17 @@ const FetchSMCovLns = props => {
     const combined = (Loanees[0] + Loaneess[0]);
     const route = useRoute();
 
-    
+    const fetchUsrDtls = async () => {
+
+      const userInfo = await Auth.currentAuthenticatedUser();
+      try {
+              const MFNDtls: any = await API.graphql(
+                  graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+              ),);
+
+              const balances = MFNDtls.data.getSMAccount.balance;
+              const owner = MFNDtls.data.getSMAccount.owner;
+
         const fetchLoanees = async () => {
             setLoading(true);
 
@@ -48,9 +58,21 @@ const FetchSMCovLns = props => {
             }
           };
         
-          useEffect(() => {
-            fetchLoanees();
-          }, [])
+          if (userInfo.attributes.sub!==owner) {
+            Alert.alert("Please first create a main account")
+            return;
+          }  else {
+           await fetchLoanees();}
+} catch (e) {
+console.log(e);
+} finally {
+setLoading(false);
+}
+};
+
+useEffect(() => {
+fetchUsrDtls();
+}, [])   
           
 
   return (
@@ -60,7 +82,7 @@ const FetchSMCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts Loanee={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

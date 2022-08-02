@@ -12,22 +12,7 @@ const FetchSMNonCovLns = props => {
     const[LneePhn, setLneePhn] = useState(null);
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
-    const [ChmPhn, setChmPhn] = useState('');
-  const [nam, setName] = useState(null);
-  const [UsrEmail, setUsrEmail] = useState(null);
-  const [awsEmail, setAWSEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [pword, setPW] = useState('');
-  const [ChmNm, setChmNm] = useState('');
-  const [ChmDesc, setChmDesc] = useState('');
-  const [ChmRegNo, setChmRegNo] = useState('');
-  const [MmbaID, setMmbaID] = useState('');
-  const [Sign2Phn, setSign2Phn] = useState('');
-
-  const [itemPrys, setitemPrys] = useState('');
-  const [itemTwn, setitemTwn] = useState('0');
-  const [lnPrsntg, setlnPrsntg] = useState('0');
-  const [rpymntPrd, setrpymntPrd] = useState('0');
+   
 
   const route = useRoute();
   
@@ -66,18 +51,7 @@ const FetchSMNonCovLns = props => {
             } finally {
               setLoading(false);
             }
-            setChmPhn('');
-            setPW('');
-            setAWSEmail("")
-            setChmDesc("")
-            setChmNm("")
-            setChmRegNo("")
-            setMmbaID("")
-            setSign2Phn("");
-            setrpymntPrd("");
-            setlnPrsntg("");
-            setitemTwn("");
-            setitemPrys("");
+            
           };
 
           useEffect(() => {

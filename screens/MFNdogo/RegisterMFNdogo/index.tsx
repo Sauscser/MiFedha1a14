@@ -26,8 +26,8 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
   const [nam, setName] = useState("");
   const [phoneContact, setPhoneContact] = useState("");
   const[eml, setEml] =useState("");
-  const [ownr, setOwnr] = useState(null);
-  const [UsrEmail, setUsrEmail] = useState(null);
+
+  
   const [pword, setPW] = useState('');
   const [saRegNo, setSARegNo] = useState('');
   const [BkName, setBkName] = useState('');
@@ -37,22 +37,14 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
   const[lon, setLon] = useState("");
   const[isLoading, setIsLoading]=useState(false);
   
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();   
-    setOwnr(userInfo.attributes.sub); 
-    setUsrEmail(userInfo.attributes.email);
-  };
-
-    useEffect(() => {
-    fetchUser();
-   }, []);  
-
-
+  
    const gtMFKDtsl = async () =>{
      if(isLoading){
        return;
      }
      setIsLoading(true);
+     const userInfo = await Auth.currentAuthenticatedUser();   
+    
     try{
     const MFKb:any = await API.graphql(
     graphqlOperation(getSAgent, {saPhoneContact:saRegNo})
@@ -89,10 +81,11 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
                   const UsrDtls:any = await API.graphql(
                     graphqlOperation(getSMAccount, 
                       { 
-                        awsemail:UsrEmail
+                        awsemail:userInfo.attributes.email
                       }
                     )
                   )
+                  const owner = UsrDtls.data.getSMAccount.owner
                   const nationalidssss = UsrDtls.data.getSMAccount.nationalid
                   const TtlClrdLonsAmtByrCovs = UsrDtls.data.getSMAccount.TtlClrdLonsAmtByrCov
                  
@@ -123,7 +116,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
                     agentEarningBal: 0,
                     MFNWithdrwlFee:0.4,
                     town:twn,      
-                    owner:ownr,
+                    owner:userInfo.attributes.sub,
                     status: 'AccountActive',
 
                   },
@@ -145,7 +138,9 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
         await updtActAdm();
           }
 
-          if(pword.length<8) {Alert.alert("Password is too short; at least eight characters");
+          if (userInfo.attributes.sub !== owner)
+                           {Alert.alert ("Please first create main account")}
+                           else if(pword.length<8) {Alert.alert("Password is too short; at least eight characters");
         return;
       } 
       
@@ -220,7 +215,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
                 await API.graphql(
                   graphqlOperation(updateSMAccount,{
                     input:{
-                      awsemail:UsrEmail,
+                      awsemail:userInfo.attributes.email,
                       TtlClrdLonsAmtByrCov:parseFloat(TtlClrdLonsAmtByrCovs) - 1,
                     }
                   })
@@ -242,6 +237,8 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
           console.error(e);
         }
       }
+
+      
        if(UsrDtlss.data.listSMAccounts.items.length > 0){Alert.alert("This Phone number is in use in a Single Member Account")}
        else{
       await ChckUsrExistence();}

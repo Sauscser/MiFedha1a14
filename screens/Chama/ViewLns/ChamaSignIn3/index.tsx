@@ -36,7 +36,7 @@ const ChmSignIn = (props) => {
 
   const [grpContact, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
-  const [phoneContacts, setPhoneContacts] = useState("");
+
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
@@ -50,23 +50,22 @@ const ChmSignIn = (props) => {
   
 
   
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-         
-      const phoneContacts = userInfo.attributes.email; 
-      const ownr = userInfo.attributes.sub;
-     
+    
     const gtMemberUsrDetails = async () =>{
       if(isLoading){
         return;
       }
       setIsLoading(true);
+
+      const userInfo = await Auth.currentAuthenticatedUser();      
+      const ownr = userInfo.attributes.sub;
+
       try{
         const UsrDtls :any= await API.graphql(
-          graphqlOperation(getSMAccount,{awsemail:phoneContacts})
+          graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
           );
           const pwss = UsrDtls.data.getSMAccount.pw;
+          const owner = UsrDtls.data.getSMAccount.owner;
 
           const gtChamaDetails = async () =>{
             if(isLoading){
@@ -90,7 +89,7 @@ const ChmSignIn = (props) => {
                       graphqlOperation(listChamaMembers,
                         {filter: {
                           groupContact:{eq: grpContact},
-                          memberContact:{eq:phoneContacts}
+                          memberContact:{eq:userInfo.attributes.email}
                          }})
                       );
                       
@@ -129,11 +128,14 @@ const ChmSignIn = (props) => {
                       
           };
 
+          if (userInfo.attributes.sub !== owner)
+    {Alert.alert ("Please first create main account")}
+    else{
           await gtChamaDetails();
+    }
 
-
-          }
-      
+          
+        }
           catch(e){
             console.log(e)
             if(e){
@@ -143,25 +145,14 @@ const ChmSignIn = (props) => {
           }
           setChmPhn('');
           setPW('');
-          setPhoneContacts("")
+          
           setChmDesc("")
           setChmNm("")
                       setIsLoading(false)
           };
-          await gtMemberUsrDetails();
-        }
-
+         
     
-      useEffect(() =>{
-        const phoneContactss=phoneContacts
-          if(!phoneContactss && phoneContactss!=="")
-          {
-            setPhoneContacts("");
-            return;
-          }
-          setPhoneContacts(phoneContactss);
-          }, [phoneContacts]
-           );
+      
 
       useEffect(() =>{
         const ChmNms=ChmNm
@@ -228,7 +219,7 @@ useEffect(() =>{
                   </View>
 
                   <TouchableOpacity
-                    onPress={fetchUser}
+                    onPress={gtMemberUsrDetails}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to View

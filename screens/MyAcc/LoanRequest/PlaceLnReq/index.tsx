@@ -64,6 +64,7 @@ const CreateBiz = (props) => {
             const pws = compDtls.data.getSMAccount.pw;
             const phonecontacts = compDtls.data.getSMAccount.phonecontact;
             const name = compDtls.data.getSMAccount.name;
+            const owner = compDtls.data.getSMAccount.ownr;
             
             const Int = ((parseFloat(lnPrsntg) - parseFloat(itemPrys))*100)/(parseFloat(lnPrsntg)*parseFloat(rpymntPrd))
             
@@ -108,8 +109,8 @@ const CreateBiz = (props) => {
             Alert.alert("Loan Request Successful")
             
           };
-          if (pword !== pws)
-          {Alert.alert("Wrong User password");
+          if (userInfo.attributes.sub!==owner)
+          {Alert.alert("Please first create a main account");
         
       } 
       
@@ -120,11 +121,11 @@ const CreateBiz = (props) => {
         Alert.alert("Interest exploits you; enter lesser repayment amount")
       }
       
-      else {
-        
-      
-
-          CreateNewSMAc();}
+      else if (pword !== pws) {
+        Alert.alert("Wrong User password")
+        return;
+      }  else {
+       await CreateNewSMAc();}
          
 
         } catch (e) {

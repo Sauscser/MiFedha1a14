@@ -24,6 +24,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import Navigation from '../../../navigation';
+import uuid from 'react-native-uuid';
 import { useNavigation } from '@react-navigation/native';
 
 const SMADepositForm = props => {
@@ -43,11 +44,30 @@ const SMADepositForm = props => {
   
 
   
+ const fetchAcDtls = async () => {
+  if(isLoading){
+    return;
+  }
+  setIsLoading(true);
+  const userInfo = await Auth.currentAuthenticatedUser();
+  try {
+    const accountDtl:any = await API.graphql(
+      graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
+    );
+    
+    const usrBala = accountDtl.data.getSMAccount.balance;      
+    const TtlWthdrwnSMs = accountDtl.data.getSMAccount.TtlWthdrwnSM;
+    const usrStts = accountDtl.data.getSMAccount.acStatus; 
+    const withdrawalLimits = accountDtl.data.getSMAccount.withdrawalLimit;  
+    const pws = accountDtl.data.getSMAccount.pw;
+    const owners = accountDtl.data.getSMAccount.owner;
+    const names = accountDtl.data.getSMAccount.name;
 
+    console.log (uuids)
 
     const fetchCvLnSM = async () => {
       setLoading(true);
-      const userInfo = await Auth.currentAuthenticatedUser();
+      
     
       try {
         const Lonees1:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
@@ -126,23 +146,7 @@ const SMADepositForm = props => {
                                                     ));
 
         
-        const fetchAcDtls = async () => {
-    if(isLoading){
-      return;
-    }
-    setIsLoading(true);
-    try {
-      const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
-      );
-
-      const usrBala = accountDtl.data.getSMAccount.balance;      
-      const TtlWthdrwnSMs = accountDtl.data.getSMAccount.TtlWthdrwnSM;
-      const usrStts = accountDtl.data.getSMAccount.acStatus; 
-      const withdrawalLimits = accountDtl.data.getSMAccount.withdrawalLimit;  
-      const pws = accountDtl.data.getSMAccount.pw;
-      const owners = accountDtl.data.getSMAccount.owner;
-      const names = accountDtl.data.getSMAccount.name;
+  
          
       
       const fetchAgtBal = async () => {
@@ -462,18 +466,6 @@ const SMADepositForm = props => {
 setIsLoading(false);
 };
 
-  await fetchAcDtls();
-
-}     
-  catch (e) {
-    console.log(e)
-    if (e){Alert.alert("Check your internet connection")
-    return;}
-       
-  }   
-setIsLoading(false);
-};
-
   await fetchNCLChm();
 
 }     
@@ -523,6 +515,21 @@ setIsLoading(false);
 };
 
   await fetchNCLSM();
+
+}     
+  catch (e) {
+    console.log(e)
+    if (e){Alert.alert("Check your internet connection")
+    return;}
+       
+  }   
+setIsLoading(false);
+};
+
+if (userInfo.attributes.sub !== owners)
+    {Alert.alert ("Please first create main account")}
+    else{
+  await fetchCvLnSM();}
     }
 
     catch (e) {
@@ -618,7 +625,7 @@ setIsLoading(false);
             <Text style={styles.sendAmtText}>User PW</Text>
           </View>
 
-          <TouchableOpacity onPress={fetchCvLnSM} style={styles.sendAmtButton}>
+          <TouchableOpacity onPress={fetchAcDtls} style={styles.sendAmtButton}>
             <Text style={styles.sendAmtButtonText}>Click to Withdraw</Text>
             {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
           </TouchableOpacity>

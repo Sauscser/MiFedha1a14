@@ -27,30 +27,24 @@ const RegisterMFKubwaAcForm = props => {
   const [nam, setName] = useState("");
   const [phoneContact, setPhoneContact] = useState("");
   const[eml, setEml] =useState("");
-  const[ownr, setOwnr] = useState(null);
+
   const [pword, setPW] = useState("");
   const [BkName, setBkName] = useState('');
   const [BkAcNu, setBkAcNu] = useState('');
   const[isLoading, setIsLoading] = useState(false);
-  const [UsrEmail, setUsrEmail] = useState(null);
+  
 
 
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();   
-    setOwnr(userInfo.attributes.sub); 
-    setUsrEmail(userInfo.attributes.email);
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
+  
   const gtCompDtls = async () =>{
     if(isLoading){
       return;
     }
     setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();   
+    
+
     try{
         const compDtls :any= await API.graphql(
           graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -75,11 +69,12 @@ const RegisterMFKubwaAcForm = props => {
                 const UsrDtls:any = await API.graphql(
                   graphqlOperation(getSMAccount, 
                     { 
-                      awsemail:UsrEmail
+                      awsemail:userInfo.attributes.email
                     }
                   )
                 )
                 const nationalidssss = UsrDtls.data.getSMAccount.nationalid
+                const owner = UsrDtls.data.getSMAccount.owner
                 const TtlClrdLonsAmtSllrCovs = UsrDtls.data.getSMAccount.TtlClrdLonsAmtSllrCov
 
             const CreateNewSA = async () => {
@@ -104,8 +99,8 @@ const RegisterMFKubwaAcForm = props => {
                       email: eml,
                       saBalance: 0,   
                       status: 'AccountActive',
-                      owner:ownr,
-                      MFKWithdrwlFee:0.4
+                      owner:userInfo.attributes.sub,
+                      MFKWithdrwlFee:0.35
                     },
                   }),
                 );
@@ -125,7 +120,10 @@ const RegisterMFKubwaAcForm = props => {
               setIsLoading(false); 
               await  updtActAdm();              
             };
-            if(0 >= TtlClrdLonsAmtSllrCovs){
+
+            if (userInfo.attributes.sub !== owner)
+                           {Alert.alert ("Please first create main account")}
+                           else if(0 >= TtlClrdLonsAmtSllrCovs){
           Alert.alert("Please first purchase this account");
           return;
         } 
@@ -173,7 +171,7 @@ const RegisterMFKubwaAcForm = props => {
                   await API.graphql(
                     graphqlOperation(updateSMAccount,{
                       input:{
-                        awsemail:UsrEmail,
+                        awsemail:userInfo.attributes.email,
                         TtlClrdLonsAmtSllrCov:parseFloat(TtlClrdLonsAmtSllrCovs) - 1,
                       }
                     })

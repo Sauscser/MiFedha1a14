@@ -298,7 +298,7 @@ const SMADepositForm = props => {
                     } 
 
                     else if (userInfo.attributes.sub !==owners) {
-                      Alert.alert("You cannot withdraw from another account")
+                      Alert.alert("Please create main account")
                       return;
                     }  
 
@@ -349,7 +349,12 @@ const SMADepositForm = props => {
   setIsLoading(false);
 };
 
+if (userInfo.attributes.sub !== owners)
+    {Alert.alert ("Please first create main account")}
+    else{
+                           
     await fetchAgtBal();
+    }
     }
 
     catch (e) {
