@@ -87,9 +87,6 @@ const CreateAcForm = (props) => {
       }
     
       
-    
-          
-        
       const onCreateNewSMAc = async () => {
         if(isLoading){
           return;
@@ -101,8 +98,7 @@ const CreateAcForm = (props) => {
           input: {
             contact: nationalId,
             regNo: pword,
-            AcStatus: 'AccountActive',
-          
+            AcStatus: 'AccountActive',          
             owner:ownr
                   },
                 }),
