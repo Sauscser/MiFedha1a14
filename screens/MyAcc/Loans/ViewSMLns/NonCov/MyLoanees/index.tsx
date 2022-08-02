@@ -8,28 +8,28 @@ import { updateCompany, updateSMAccount } from '../../../../../../src/graphql/mu
 
 const FetchSMNonCovLns = props => {
 
-    const[LnerPhn, setLneePhn] = useState(null);
+    
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneePhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    const fetchUsrDtls = async () => {
+      const userInfo = await Auth.currentAuthenticatedUser();
+    
 
+   
+      try {
+              const MFNDtls: any = await API.graphql(
+                  graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+              ),);
+
+              const balances = MFNDtls.data.getSMAccount.balance;
+              const owner = MFNDtls.data.getSMAccount.owner;
         const fetchLoanees = async () => {
             setLoading(true);
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyDebtorss, 
                 {
-                      loanerPhn: LnerPhn,
+                      loanerPhn: userInfo.attributes.email,
                       sortDirection: 'DESC',
                       
                       limit: 100,
@@ -43,13 +43,7 @@ const FetchSMNonCovLns = props => {
                   ));
               setLoanees(Lonees.data.VwMyDebtorss.items);
 
-              const fetchUsrDtls = async () => {
-                try {
-                        const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {awsemail: LnerPhn}
-                        ),);
-          
-                        const balances = MFNDtls.data.getSMAccount.balance;
+              
                         
                         const fetchCompDtls = async () => {
                           try {
@@ -91,7 +85,7 @@ const FetchSMNonCovLns = props => {
                                                     await API.graphql(
                                                       graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          awsemail: LnerPhn,
+                                                          awsemail: userInfo.attributes.email,
                                                           balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })
@@ -150,17 +144,21 @@ const FetchSMNonCovLns = props => {
                       
                        }
 
-                       await fetchUsrDtls();
+                       if (userInfo.attributes.sub!==owner) {
+                        Alert.alert("Please first create a main account")
+                        return;
+                      }  else {
+                       await fetchLoanees();}
             } catch (e) {
-              console.log(e);
+            console.log(e);
             } finally {
-              setLoading(false);
+            setLoading(false);
             }
-          };
-        
-          useEffect(() => {
-            fetchLoanees();
-          }, [])
+            };
+            
+            useEffect(() => {
+            fetchUsrDtls();
+            }, [])   
 
   return (
     <View style={styles.root}>
@@ -169,7 +167,7 @@ const FetchSMNonCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts Loanee={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

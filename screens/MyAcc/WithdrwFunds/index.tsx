@@ -63,7 +63,7 @@ const SMADepositForm = props => {
     const owners = accountDtl.data.getSMAccount.owner;
     const names = accountDtl.data.getSMAccount.name;
 
-    console.log (uuids)
+   
 
     const fetchCvLnSM = async () => {
       setLoading(true);

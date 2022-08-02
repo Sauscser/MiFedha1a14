@@ -8,28 +8,31 @@ import { updateCompany, updateSMAccount } from '../../../../../../src/graphql/mu
 
 const FetchSMCovLns = props => {
 
-    const[LneePhn, setLneePhn] = useState(null);
+   
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneePhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+   
 
-        const fetchLoanees = async () => {
+        const fetchUsrDtls = async () => {
+          const userInfo = await Auth.currentAuthenticatedUser();
+              
+        
+          try {
+                  const MFNDtls: any = await API.graphql(
+                      graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+                  ),);
+    
+                  const balances = MFNDtls.data.getSMAccount.balance;
+                  const owner = MFNDtls.data.getSMAccount.owner; 
+                  
+                  
+                  const fetchLoanees = async () => {
             setLoading(true);
             try {
               const Lonees:any = await API.graphql(graphqlOperation(vwMyDebts, 
                {
-                      loaneePhn: LneePhn,
+                      loaneePhn: userInfo.attributes.email,
                       sortDirection: 'DESC',
                       limit: 100,
                       filter:{
@@ -40,13 +43,7 @@ const FetchSMCovLns = props => {
                   ));
               setLoanees(Lonees.data.VwMyDebts.items);
 
-              const fetchUsrDtls = async () => {
-                try {
-                        const MFNDtls: any = await API.graphql(
-                            graphqlOperation(getSMAccount, {awsemail: LneePhn}
-                        ),);
-          
-                        const balances = MFNDtls.data.getSMAccount.balance;
+              
                         
                         const fetchCompDtls = async () => {
                           try {
@@ -88,7 +85,7 @@ const FetchSMCovLns = props => {
                                                     await API.graphql(
                                                       graphqlOperation(updateSMAccount,{
                                                         input:{
-                                                          awsemail: LneePhn,
+                                                          awsemail: userInfo.attributes.email,
                                                           balance:parseFloat(balances) - parseFloat(enquiryFees),
                                                         }
                                                       })
@@ -146,18 +143,21 @@ const FetchSMCovLns = props => {
           
                       
                        }
-
-                       await fetchUsrDtls();
+                       if (userInfo.attributes.sub!==owner) {
+                        Alert.alert("Please first create a main account")
+                        return;
+                      }  else {
+                       await fetchLoanees();}
             } catch (e) {
-              console.log(e);
+            console.log(e);
             } finally {
-              setLoading(false);
+            setLoading(false);
             }
-          };
-        
-          useEffect(() => {
-            fetchLoanees();
-          }, [])
+            };
+            
+            useEffect(() => {
+            fetchUsrDtls();
+            }, [])   
 
   return (
     <View style={styles.root}>
@@ -166,7 +166,7 @@ const FetchSMCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts Loanee={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

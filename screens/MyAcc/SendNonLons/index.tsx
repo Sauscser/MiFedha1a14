@@ -50,11 +50,11 @@ const SMASendNonLns = props => {
   const [SenderNatId, setSenderNatId] = useState('');
   const [RecNatId, setRecNatId] = useState('');
   const [SnderPW, setSnderPW] = useState("");
-  const [SendrEmail, setSendrEmail] = useState(null);  
+ 
   const [amounts, setAmount] = useState("");
   
   const [Desc, setDesc] = useState("");
-  const [ownr, setownr] = useState(null);
+ 
   const[isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation()
   const SndChmMmbrMny = () => {
@@ -62,28 +62,20 @@ const SMASendNonLns = props => {
  }
   
   
-  
-
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setSendrEmail(userInfo.attributes.email);
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-
-
+ 
     const fetchCvLnSM = async () => {
       setIsLoading(true);
+
+      const userInfo = await Auth.currentAuthenticatedUser();
+
+
       try {
         const Lonees1:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
           { filter: {
               and: {
                 status: { eq: "LoanBL"},
                 lonBala: { gt: 0},
-                loaneePhn: { eq: SendrEmail},
+                loaneePhn: { eq: userInfo.attributes.email},
               }
             }}
             ));
@@ -96,7 +88,7 @@ const SMASendNonLns = props => {
                       and: {
                         status: { eq: "LoanBL"},
                 lonBala: { gt: 0},
-                loaneePhn: { eq: SendrEmail},
+                loaneePhn: { eq: userInfo.attributes.email},
                       }
                     }}
                     ));
@@ -109,7 +101,7 @@ const SMASendNonLns = props => {
                               and: {
                                 status: { eq: "LoanBL"},
                         lonBala: { gt: 0},
-                        buyerContact: { eq: SendrEmail},
+                        buyerContact: { eq: userInfo.attributes.email},
                               }
                             }}
                             ));
@@ -122,7 +114,7 @@ const SMASendNonLns = props => {
                                       and: {
                                         status: { eq: "LoanBL"},
                                 lonBala: { gt: 0},
-                                buyerContact: { eq: SendrEmail},
+                                buyerContact: { eq: userInfo.attributes.email},
                                       }
                                     }}
                                     ));
@@ -135,7 +127,7 @@ const SMASendNonLns = props => {
                                               and: {
                                                 status: { eq: "LoanBL"},
                                         lonBala: { gt: 0},
-                                        loaneePhn: { eq: SendrEmail},
+                                        loaneePhn: { eq: userInfo.attributes.email},
                                               }
                                             }}
                                             ));
@@ -148,7 +140,7 @@ const SMASendNonLns = props => {
                                                       and: {
                                                         status: { eq: "LoanBL"},
                                                 lonBala: { gt: 0},
-                                                loaneePhn: { eq: SendrEmail},
+                                                loaneePhn: { eq: userInfo.attributes.email},
                                                       }
                                                     }}
                                                     ));const fetchSenderUsrDtls = async () => {
@@ -158,7 +150,7 @@ const SMASendNonLns = props => {
     setIsLoading(false);
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: SendrEmail}),
+        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
       );
 
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
@@ -169,6 +161,7 @@ const SMASendNonLns = props => {
       const loanLimits =accountDtl.data.getSMAccount.loanLimit;
       
       const names =accountDtl.data.getSMAccount.name;
+      const owner =accountDtl.data.getSMAccount.owner;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -225,13 +218,13 @@ const SMASendNonLns = props => {
                           graphqlOperation(createNonLoans, {
                             input: {
                               recPhn: RecNatId,
-                              senderPhn: SendrEmail,                                  
+                              senderPhn: userInfo.attributes.email,                                  
                               amount: parseFloat(amounts).toFixed(0),                              
                               description: Desc,
                               RecName:namess,
                               SenderName:names,
                               status: "SMNonLons",
-                              owner: ownr
+                              owner: userInfo.attributes.sub
                             },
                           }),
                         );
@@ -260,13 +253,13 @@ const SMASendNonLns = props => {
                           graphqlOperation(createNonLoans, {
                             input: {
                               recPhn: RecNatId,
-                              senderPhn: SendrEmail,                                  
+                              senderPhn: userInfo.attributes.email,                                  
                               amount: parseFloat(amounts).toFixed(0),                              
                               description: Desc,
                               RecName:namess,
                               SenderName:names,
                               status: "SMNonLons",
-                              owner: ownr
+                              owner: userInfo.attributes.sub
                             },
                           }),
                         );
@@ -291,7 +284,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                awsemail:SendrEmail,
+                                awsemail:userInfo.attributes.email,
                                 ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(0),
                                 balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) 
                                
@@ -320,7 +313,7 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
-                                awsemail:SendrEmail,
+                                awsemail:userInfo.attributes.email,
                                 ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(0),
                                 balance:(parseFloat(SenderUsrBal)-TotalTransacted2).toFixed(0) 
                                
@@ -461,7 +454,10 @@ const SMASendNonLns = props => {
                     
                                           
                     
-                    if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
+                    if (userInfo.attributes.sub!==owner) {
+                      Alert.alert("Please first create a main account")
+                      return;
+                    }  else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                     else if(SenderNatId === RecNatId){Alert.alert('You cannot Send money to yourself Yourself');}
                     else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
@@ -474,7 +470,7 @@ const SMASendNonLns = props => {
                     ) {Alert.alert('Receiver Call customer care to have wallet capacity adjusted');}
                     
                     else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                    else if(ownr !==SenderSub){Alert.alert('Please send from your own  account');}
+                    else if(userInfo.attributes.sub !==SenderSub){Alert.alert('Please send from your own  account');}
                     
                     else if(parseFloat(loanLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');}
                     
