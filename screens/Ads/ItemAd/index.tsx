@@ -108,7 +108,7 @@ const CreateBiz = (props) => {
             sokoprice: parseFloat(itemPrys),
             sokotown: itemTwn,
             sokolnprcntg: parseFloat(lnPrsntg),
-            sokolpymntperiod: parseFloat(rpymntPrd),
+            sokolpymntperiod: 61,
             sokodesc:ChmDesc,
             owner: ownr,
                   },
@@ -386,19 +386,6 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Item Name</Text>
                   </View>
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    keyboardType='decimal-pad'
-                    placeholder='Enter number of Days'
-                      value={rpymntPrd}
-                      onChangeText={setrpymntPrd}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Repayment Period</Text>
-                  </View>
-
-                  
-        
                   
 
                   <View style={styles.sendAmtViewDesc}>

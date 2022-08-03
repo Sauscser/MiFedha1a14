@@ -2,7 +2,7 @@
   "expo": {
     "name": "MiFedha",
     "slug": "mifedha",
-    "version": "1.10.30",
+    "version": "1.10.32",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -34,7 +34,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.MiFedhaLimited.MiFedha",
-      "versionCode":41,
+      "versionCode":43,
       "permissions":[
        "LOCATION", "ACCESS_USER_LOCATION",
        "LOCATION", "ACCESS_FINE_LOCATION",

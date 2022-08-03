@@ -36,34 +36,35 @@ const CreateAcForm = (props) => {
   const [pword, setPW] = useState('');
 
   
-
-  const moveToWelcomPg = () => {
-    navigation.navigate("WelcomePgss", {awsEmail});
-  };
-
-
-  
-
-  
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      const name = userInfo.username;
-     const ownr = userInfo.attributes.sub;
-      const phoneContact = userInfo.attributes.phone_number;
-      const awsEmails = userInfo.attributes.email;   
-      
       const ChckUsrExistence = async () => {
+        const userInfo = await Auth.currentAuthenticatedUser();
         try {
           const UsrDtls:any = await API.graphql(
             graphqlOperation(listSMAccounts,
-              { filter: {
-                  
+              { filter: 
+                {
+                  and:{
                     nationalid: { eq: nationalId},
-                              
+                    
+                }                          
                 }}
             )
           )
+
+          const ChckUsrExistence2 = async () => {
+            const userInfoz = await Auth.currentAuthenticatedUser();
+            try {
+              const UsrDtlsz:any = await API.graphql(
+                graphqlOperation(listSMAccounts,
+                  { filter: 
+                    {
+                      and:{
+                        awsemail: { eq: userInfo.attributes.email},
+                        
+                    }                          
+                    }}
+                )
+              )
 
           const gtCompDtls = async () =>{
             if(isLoading){
@@ -87,13 +88,13 @@ const CreateAcForm = (props) => {
                 graphqlOperation(createSMAccount, {
                 input: {
                 nationalid: nationalId,
-                name: name,
-                phonecontact: phoneContact,
-                awsemail: awsEmails,
+                name: userInfo.username,
+                phonecontact: userInfo.attributes.phone_number,
+                awsemail: userInfo.attributes.email,
                 balance: 0,
                                    
                 pw: pword,
-                loanAcceptanceCode:awsEmails,
+                loanAcceptanceCode:userInfo.attributes.email,
       
                 ttlDpstSM: 0,
                 TtlWthdrwnSM: 0,
@@ -189,7 +190,7 @@ const CreateAcForm = (props) => {
                 nonLonLimit:500000,
                 withdrawalLimit: 5000000,
                 depositLimit: 5000000,
-                owner:ownr
+                owner:userInfo.attributes.sub
                         },
                       }),
                     );
@@ -197,7 +198,7 @@ const CreateAcForm = (props) => {
                   } catch (error) {
                     console.log(error)
                     if(error){
-                      
+                      Alert.alert("Either email already exists or details are incorrect")                      
                       return;
                   } 
                   
@@ -206,14 +207,22 @@ const CreateAcForm = (props) => {
                   setIsLoading(false);
                   
                 };
-                Alert.alert("Account successfully created")
+                
                 if (pword.length < 8)
                 {Alert.alert("Short password; at least 8 mixed characters");
              
             } 
       
-            
-            
+            else if (UsrDtls.data.listSMAccounts.items.length > 0) {
+              Alert.alert("National ID already exists");
+             
+            }
+
+           else if (UsrDtlsz.data.listSMAccounts.items.length > 0) {
+              Alert.alert("Email already exists");
+             
+            }
+           
             else {
               onCreateNewSMAc();
             }
@@ -241,11 +250,12 @@ const CreateAcForm = (props) => {
                       return;
                   }
                   }
-                  
+                  Alert.alert("Account successfully created")    
                   setIsLoading(false);
                 }
+
+                           
                 
-                Alert.alert("Sign up using different user details")
       }
       
       catch(e){
@@ -255,35 +265,32 @@ const CreateAcForm = (props) => {
           return;
       }
       }
-                  setIsLoading(false)
-                  setNationalid('');
-                  setPW('');
+        console.log(UsrDtls.data.listSMAccounts.items.length)          
       };
 
       
-         if (UsrDtls.data.listSMAccounts.items.length > 0) {
-            Alert.alert("This National ID is already registered");
-            return;
-            
-          }
-          else{
+         
           await gtCompDtls();
-        }
-        } catch (e) {
+        
+      } catch (e) {
+        if(e){Alert.alert("Please first sign up")}
+        console.error(e);
+      }
+                
+    }
+    
+    await ChckUsrExistence2 ();
+   
+  
+  } catch (e) {
           if(e){Alert.alert("Please first sign up")}
           console.error(e);
         }
+                  setIsLoading(false)
+                  setNationalid('');
+                  setPW('');
       }
 
-      if (userInfo.attributes.sub!==ownr) {
-        Alert.alert("Please first create a main account")
-        return;
-      }  else {
-      
-      await ChckUsrExistence();}
-    };
-
-    
 
 useEffect(() =>{
   const natid=nationalId
@@ -339,7 +346,7 @@ useEffect(() =>{
                   </View>
         
                   <TouchableOpacity
-                    onPress={fetchUser}
+                    onPress={ChckUsrExistence}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Create Main Account

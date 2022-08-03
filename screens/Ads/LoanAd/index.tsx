@@ -92,9 +92,9 @@ const CreateBiz = (props) => {
             rafikiEmail: UsrEmail,
             rafikiamnt: parseFloat(itemPrys),
             rafikidesc:ChmDesc,
-            rafikiprcntg: parseFloat(lnPrsntg),
+            rafikiprcntg: parseFloat(itemPrys),
            
-            rafikirpymntperiod: parseFloat(rpymntPrd),
+            rafikirpymntperiod: 61,
             
             owner: ownr,
                   },
@@ -308,30 +308,8 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Loan Amount</Text>
                   </View>
 
-                  
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    keyboardType='decimal-pad'
-                    placeholder='Ex for 20% pm enter 20'
-                      value={lnPrsntg}
-                      onChangeText={setlnPrsntg}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loan Percentage</Text>
-                  </View>
+                 
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    keyboardType='decimal-pad'
-                    placeholder='Enter number of Days'
-                      value={rpymntPrd}
-                      onChangeText={setrpymntPrd}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Repayment Period</Text>
-                  </View>
-
-                  
                   <View style={styles.sendAmtViewDesc}>
                     <TextInput
                       value={ChmDesc}

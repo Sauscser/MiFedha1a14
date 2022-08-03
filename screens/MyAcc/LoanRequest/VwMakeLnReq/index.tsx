@@ -50,7 +50,7 @@ const FetchSMNonCovLns = props => {
                     
                   filter: {
                   
-                    phonecontact: { eq: userInfo.attributes.phone_number},
+                    phonecontact: { contains: awsEmail},
                     acStatus:{eq:"AccountActive"}
                               
                 }
@@ -88,9 +88,7 @@ setLoading(false);
 }
 };
 
-useEffect(() => {
-fetchUsrDtls();
-}, [])   
+
           
           
   return (

@@ -63,18 +63,7 @@ const ViewSMDeposts = (props:SMAccount) => {
                        Loan Amount: {rafikiamnt.toFixed(2)}
                        
                     </Text>
-
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Interest Percentage: {rafikiprcntg.toFixed(2)} %
-                       
-                    </Text>
-
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Repayment Period: {rafikirpymntperiod} days
-                       
-                    </Text>                    
+            
 
                     <Text style ={styles.amountoffered} numberOfLines={2}>                         
                        {/* amount*/} 
