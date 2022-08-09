@@ -59,7 +59,7 @@ const ViewSMWithdrwls = (props:SMAccount) => {
                    </Text>
                    <Text style = {styles.ownerContact}>                       
                       {/*loaner details */}  
-                      Agent Contact: {agentPhonecontact}                
+                      MFNdogo Number: {agentPhonecontact}                
                    </Text>                     
                    
                    <Text style ={styles.amountoffered}>                       
