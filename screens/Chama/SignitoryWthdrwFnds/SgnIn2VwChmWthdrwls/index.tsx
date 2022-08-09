@@ -64,7 +64,7 @@ const ChmSignIn = (props) => {
                       graphqlOperation(listChamaMembers,
                         {filter: {
                           groupContact:{eq: grpContact},
-                          memberContact:{eq:userInfo.attributes.sub}
+                          memberContact:{eq:userInfo.attributes.email}
                          }})
                       );
                       

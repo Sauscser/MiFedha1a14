@@ -189,7 +189,7 @@ const AddChmMmbrs = (props:UserReg) => {
                                 return;
                             }
                             }
-                            Alert.alert("Congrats " + userInfo.attributes.username + ", You have added " + namess +" to " +grpNames)
+                            Alert.alert("Congrats " + userInfo.username + ", You have added " + namess +" to " +grpNames)
                             setIsLoading(false);
                           }
                           

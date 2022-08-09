@@ -54,6 +54,8 @@ const FetchSMCovLns = props => {
                                   const companyEarningBals = MFNDtls.data.getCompany.companyEarningBal;
                                   const companyEarnings = MFNDtls.data.getCompany.companyEarning;
                                   const enquiryFees = MFNDtls.data.getCompany.enquiryFee;
+
+                                  
                                   
                                   
                                               const updtActAdm = async()=>{

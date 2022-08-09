@@ -54,7 +54,7 @@ const ChmSignIn = (props) => {
       const userInfo = await Auth.currentAuthenticatedUser();
       
       setName(userInfo.username);
-      setownr(userInfo.attributes.sub);     
+      setownr(userInfo.attributes.email);     
           
     };
     useEffect(() => {

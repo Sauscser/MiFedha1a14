@@ -341,7 +341,7 @@ useEffect(() =>{
               onChangeText={setBkAcNu}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>Bank Ac Number</Text>
+            <Text style={styles.sendLoanText}>Bank Name</Text>
           </View>
 
           <View style={styles.sendLoanView}>
@@ -350,7 +350,7 @@ useEffect(() =>{
               onChangeText={setBkName}
               style={styles.sendLoanInput}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>Bank Name</Text>
+            <Text style={styles.sendLoanText}>Bank Ac Number</Text>
           </View>
 
           <View style={styles.sendLoanView}>
