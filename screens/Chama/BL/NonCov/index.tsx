@@ -90,57 +90,6 @@ const BLChmNonCovLoanee = (props) => {
               const createdAt = compDtls.data.getNonCvrdGroupLoans.createdAt;
               const repaymentPeriod = compDtls.data.getNonCvrdGroupLoans.repaymentPeriod;
               
-             
-              const today = new Date();
-              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
-              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
-              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
-              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
-              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
-              let months2 = parseFloat(months)+1
-              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
-              
-              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
-
-              const now1:any = "2024-05-20";
-             
-              
-              
-              
-              let char = createdAt;
-              let char1 = char.charAt(0)
-              let char2 = char.charAt(1)
-              let char3 = char.charAt(2)
-              let char4 = char.charAt(3)
-              let char5 = char.charAt(4)
-              let char6 = char.charAt(5)
-              let char7 = char.charAt(6)
-              let char8 = char.charAt(7)
-              let char9 = char.charAt(8)
-              let char10 = char.charAt(9)
-              let char11 = char.charAt(10)
-              let char12 = char.charAt(11)
-              let char13 = char.charAt(12)
-
-              
-              let crtnYr = char1+char2+char3+char4;
-              let crtnMnth = char6+char7;
-              let crtnDy = char9+char10;
-              let crtnHr = char12+char13;
-
-        
-              const curYrs = parseFloat(years)*365;
-              const curMnths = (months2)*30.4375;
-              const daysUpToDate = curYrs + curMnths + parseFloat(days)
-
-              const crtnYears = parseFloat(crtnYr)*365;
-              const crtnMnths = parseFloat(crtnMnth)*30.4375;
-              const daysAtCrtn = crtnYears + crtnMnths + parseFloat(crtnDy)
-
-              const tmDif = daysUpToDate - daysAtCrtn;
-              
-              const lglGrcePrd = 60 - tmDif;
-
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -207,7 +156,9 @@ const BLChmNonCovLoanee = (props) => {
                                 
                             }
                             catch(error){ 
-                        console.log(error)
+                              if (error){
+                                Alert.alert("Blacklisting unsuccessful; enter details correctly")
+                                return}
                       }
 
                             setIsLoading(false);          
@@ -224,14 +175,6 @@ const BLChmNonCovLoanee = (props) => {
 
                           else if(statusssss === "LoanBL"){
                             Alert.alert("This Loan is already Black Listed")
-                          } 
-
-                          else if(tmDif > repaymentPeriod && repaymentPeriod < 61){
-                            Alert.alert("Loanee still has legal grace period of " + lglGrcePrd + " days")
-                          } 
-
-                          else if(tmDif < repaymentPeriod){
-                            Alert.alert("Repayment Date not yet Due")
                           } 
 
                           else if(acStatuss === "AccountInactive"){
@@ -294,7 +237,10 @@ const BLChmNonCovLoanee = (props) => {
                                     
                                 }
                                 catch(error){
-                                  console.log(error)
+                                  if (error){
+                                    Alert.alert("Blacklisting unsuccessful; Retry")
+                                    return
+                                  }
                                    }
                               await updateLoanDtls();
                                 setIsLoading(false);          
@@ -351,7 +297,10 @@ const BLChmNonCovLoanee = (props) => {
                                     
                                 }
                                 catch(error){
-                                  console.log(error)
+                                  if (error){
+                                    Alert.alert("Blacklisting unsuccessful; Retry")
+                                    return
+                                  }
                                   }
                               Alert.alert(grpNames +", you have blacklisted "+ namess)
                                 setIsLoading(false);          
@@ -361,13 +310,10 @@ const BLChmNonCovLoanee = (props) => {
             
                         
                             catch(error){
-                              console.log(error)
-                              if(!error){
-                              Alert.alert("Account deactivated successfully")
-                              
-                          } 
-                          else{Alert.alert("Please check your internet connection")
-                          return;} }
+                              if (error){
+                                Alert.alert("Blacklisting unsuccessful; Retry")
+                                return
+                              } }
                             setIsLoading(false);         
                             
                           }
@@ -377,7 +323,10 @@ const BLChmNonCovLoanee = (props) => {
             
                         
                         catch(error){
-                          console.log(error)
+                          if (error){
+                            Alert.alert("Blacklisting unsuccessful; Retry")
+                            return
+                          }
                            }
                         setIsLoading(false);         
                         
@@ -385,7 +334,10 @@ const BLChmNonCovLoanee = (props) => {
                       await gtLoaneeDtls(); 
                   }
       
-                  catch(error){ console.log(error)}
+                  catch(error){ if (error){
+                    Alert.alert("Blacklisting unsuccessful; Retry")
+                    return
+                  }}
                   setIsLoading(false);         
                   
                 }

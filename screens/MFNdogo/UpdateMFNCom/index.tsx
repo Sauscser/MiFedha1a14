@@ -95,11 +95,10 @@ const UpdtMFNPW = (props) => {
                                     
                                             
                                         }
-                                        catch(error){if(error){
-                                          console.log(error)
-                                          Alert.alert("Please check internet; otherwise MFNdogo doesnt exist")
-                                          
-                                      } 
+                                        catch(error){if (error){
+                                          Alert.alert("Adjustment unsuccessful; Retry")
+                                          return
+                                        }
                                     }
                                         setIsLoading(false);
                                         Alert.alert(names +", You have successfully updated your Commission");
@@ -140,7 +139,7 @@ const UpdtMFNPW = (props) => {
 
             } catch (error) {
                 if(error){
-                  Alert.alert("Check internet; otherwise MFNdogo doesnt exist")
+                  Alert.alert("Retry")
                   return
                 }
               }

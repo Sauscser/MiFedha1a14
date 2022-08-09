@@ -25,28 +25,10 @@ const MFNSignIn = (props) => {
 
   const [MFNId, setMFNId] = useState("");
   const [MFNPW, setMFNPW] = useState(""); 
-  const [ownr, setownr] = useState(null); 
 
-
-
-  
-
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    
-    setownr(userInfo.attributes.sub);
-     
-  };
-
-  
-
-  useEffect(() => {
-      fetchUser();
-    }, []);
-    
-    
       const fetchMFNDts = async () => {
+        const userInfo = await Auth.currentAuthenticatedUser();
+  
         try {
                 const MFNDtls: any = await API.graphql(
                     graphqlOperation(getBizna, {BusKntct: MFNId}
@@ -61,7 +43,7 @@ const MFNSignIn = (props) => {
                 };
 
 
-                if(owners!==ownr){
+                if(owners!==userInfo.attributes.sub){
                   Alert.alert("You dont own this Business");
                 }
           else if(MFNPW !== pw1s ){

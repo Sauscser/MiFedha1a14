@@ -126,12 +126,10 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
               }
             
             catch (error) {
-              console.log(error)
-              if(error){
-                Alert.alert("Not authorised or the details are incorrect")
-                
-            
-            return;}
+              if (error){
+                Alert.alert("Application unsuccessful; Retry")
+                return
+              }
               
             }
             setIsLoading(false);
@@ -233,7 +231,8 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
 
           
         } catch (e) {
-          if(e){Alert.alert("Please first sign up")}
+          if(e){Alert.alert("Please first sign up")
+        return}
           console.error(e);
         }
       }
@@ -244,7 +243,8 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
       await ChckUsrExistence();}
     
     } catch (e) {
-          if(e){Alert.alert("Please first sign up")}
+          if(e){Alert.alert("Please first sign up")
+        return}
           console.error(e);
         }
       }
@@ -254,7 +254,10 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
       }
   
         catch(e){
-          console.log(e)
+          if (e){
+            Alert.alert("Retry")
+            return
+          }
         
         }
         setIsLoading(false);

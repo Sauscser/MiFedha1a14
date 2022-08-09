@@ -66,8 +66,9 @@ const ViewSMDeposts = (props:SMAccount) => {
               return;
             }
           }
-            setIsLoading(false)
           
+            setIsLoading(false)
+            Alert.alert("Ad deleted. Refresh to load other ads")
         }
   
         

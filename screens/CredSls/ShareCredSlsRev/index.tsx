@@ -50,27 +50,20 @@ const SMASendNonLns = props => {
   const [amounts, setAmount] = useState("");
   
   const [Desc, setDesc] = useState("");
-  const [ownr, setownr] = useState(null);
+
   const[isLoading, setIsLoading] = useState(false);
   
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setSendrPhn(userInfo.attributes.phone_number);
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-
+ 
 
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
       return;
     }
     setIsLoading(false);
+    const userInfo = await Auth.currentAuthenticatedUser();
+   
     try {
       const accountDtl:any = await API.graphql(
         graphqlOperation(getBizna, {BusKntct: SenderNatId}),
@@ -139,20 +132,17 @@ const SMASendNonLns = props => {
                               RecName:namess,
                               SenderName:busNames,
                               status: "BiznaShare",
-                              owner: ownr
+                              owner: userInfo.attributes.sub
                             },
                           }),
                         );
 
 
                       } catch (error) {
-                        console.log(error)
-                        if(!error){
-                          Alert.alert("Account deactivated successfully")
-                          
-                      } 
-                      else{Alert.alert("Please check your internet connection")
-                      return;}
+                        if (error){
+                          Alert.alert("Revenue sharing unsuccessful; Retry")
+                          return
+                        }
                       }
                       setIsLoading(false);
                       await updtSendrAc();
@@ -180,7 +170,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Enter details correctly")
                         return;}
                       }
                       setIsLoading(false);
@@ -262,7 +252,7 @@ const SMASendNonLns = props => {
                     
                     else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs)===0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
                     else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                    else if(ownr !==SenderSub){Alert.alert('You do not own this business');}
+                    else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You do not own this business');}
                     
                     
                      else {

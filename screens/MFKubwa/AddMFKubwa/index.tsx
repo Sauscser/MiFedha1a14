@@ -76,11 +76,10 @@ const UpdtMFNPW = (props) => {
                                             )
                                     
                                         }
-                                        catch(error){if(error){
-                                          console.log(error)
-                                          Alert.alert("Please check internet; otherwise user doesnt exist")
-                                          
-                                      } 
+                                        catch(error){if (error){
+                                          Alert.alert("Addition unsuccessful; Retry")
+                                          return
+                                        }
                                     }
                                         setIsLoading(false);
                                         Alert.alert("MFKubwa creation successfully authorised");

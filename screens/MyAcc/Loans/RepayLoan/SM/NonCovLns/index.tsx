@@ -185,8 +185,10 @@ const RepayNonCovLnsss = props => {
 
                       }
                       catch(error){
-                        if (error){Alert.alert("Check your internet connection")
-                        return;}
+                        if (error){
+                          Alert.alert("Repayment unsuccessful; Retry")
+                          return
+                        }
                       }
                       setIsLoading(false);
                       await updtSMCvLnLnOver();
@@ -218,8 +220,10 @@ const RepayNonCovLnsss = props => {
 
                       }
                       catch(error){
-                        if (error){Alert.alert("Check your internet connection")
-                        return;}
+                        if (error){
+                          Alert.alert("Repayment unsuccessful; Retry")
+                          return
+                        }
                       }
                       setIsLoading(false);
                       await updtSMCvLnLnOver();
@@ -276,12 +280,10 @@ const RepayNonCovLnsss = props => {
           
           
                                 } catch (error) {
-                                  if(!error){
-                                    Alert.alert("Account deactivated successfully")
-                                    
-                                } 
-                                else{Alert.alert("Please check your internet connection")
-                                return;}
+                                  if (error){
+                                    Alert.alert("Repayment unsuccessful; Retry")
+                                    return
+                                  }
                                 }
                                 setIsLoading(false);
                                 await updtRecAcLonOver();
@@ -349,6 +351,10 @@ const RepayNonCovLnsss = props => {
                                     
                                 }
                                 catch(error){
+                                  if (error){
+                                    Alert.alert("Repayment unsuccessful; Retry")
+                                    return
+                                  }
                                   
                                 }
                                 Alert.alert("Cleared. Clearance charge: " +(ClranceAmt).toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
@@ -407,12 +413,10 @@ const RepayNonCovLnsss = props => {
           
           
                                 } catch (error) {
-                                  if(!error){
-                                    Alert.alert("Account deactivated successfully")
-                                    
-                                } 
-                                else{Alert.alert("Please check your internet connection")
-                                return;}
+                                  if (error){
+                                    Alert.alert("Repayment unsuccessful; Retry")
+                                    return
+                                  }
                                 }
                                 setIsLoading(false);
                                 await updtSendrAc();
@@ -496,6 +500,10 @@ const RepayNonCovLnsss = props => {
                                     
                                 }
                                 catch(error){
+                                  if (error){
+                                    Alert.alert("Repayment unsuccessful; Retry")
+                                    return
+                                  }
                                   
                                 }
                                 Alert.alert("Partially paid. Clearance: " +ClranceAmt.toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));

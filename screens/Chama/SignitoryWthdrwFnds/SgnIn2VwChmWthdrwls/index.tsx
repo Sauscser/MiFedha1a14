@@ -44,41 +44,27 @@ const ChmSignIn = (props) => {
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState('');
   
-  const[ownr, setownr] = useState(null);
+
   const ChmNMmbrPhns = grpContact+memberPhn
 
   const FetchGrpLonsSts = () => {
     navigation.navigate("VwChmWthdrwlss", {grpContact});
   };
   
-
-  
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);     
-          
-    };
-    useEffect(() => {
-      fetchUser();
-    }, []);
-
-
-    
-
-    
                 const gtChmDtls = async () =>{
                   if(isLoading){
                     return;
                   }
                   setIsLoading(true);
+                  const userInfo = await Auth.currentAuthenticatedUser();
+      
+  
                   try{
                     const compDtls :any= await API.graphql(
                       graphqlOperation(listChamaMembers,
                         {filter: {
                           groupContact:{eq: grpContact},
-                          memberContact:{eq:ownr}
+                          memberContact:{eq:userInfo.attributes.sub}
                          }})
                       );
                       

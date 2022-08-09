@@ -73,12 +73,13 @@ const UpdtSMPW = (props) => {
                                         }
                                         catch(error){if(error){
                                           console.log(error)
-                                          Alert.alert("Please check internet; otherwise member doesnt exist")
+                                          Alert.alert("Failed; Update your app")
+                                          return
                                           
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(userInfo.attributes.username +", You have successfully updated your PassWord");
+                                        Alert.alert(userInfo.username +", You have successfully updated your PassWord");
                                       } 
 
                                       

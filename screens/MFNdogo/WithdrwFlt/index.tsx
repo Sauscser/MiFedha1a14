@@ -35,7 +35,7 @@ const MFNWthdwFlt = props => {
   const [MFKPhn, setMFKPhn] = useState("");
   const [amount, setAmount] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const [ownr, setownr] = useState(null);
+
 
   
   
@@ -181,7 +181,7 @@ const MFNWthdwFlt = props => {
                       return;
                     } 
 
-                    else if (ownr!==owners) {
+                    else if (userInfo.attributes.sub !==owners) {
                       Alert.alert("You cannot withdraw from another's account")
                       return;
                     }  

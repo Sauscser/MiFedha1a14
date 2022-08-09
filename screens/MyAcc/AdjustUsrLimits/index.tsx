@@ -84,11 +84,10 @@ const UpdtSMPW = (props) => {
                                     
                                             
                                         }
-                                        catch(error){if(error){
-                                          console.log(error)
-                                          Alert.alert("This User doesnt exist or enter details correctly")
-                                          
-                                      } 
+                                        catch(error){if (error){
+                                          Alert.alert("Adjustment unsuccessful; Retry")
+                                          return
+                                        }
                                     }
                                         setIsLoading(false);
                                         Alert.alert("You have successfully updated User Limits");
@@ -110,7 +109,7 @@ const UpdtSMPW = (props) => {
 
             } catch (error) {
                 if(error){
-                  Alert.alert("Check internet; otherwise Admin doesnt exist")
+                  Alert.alert("Retry")
                   return
                 }
               }

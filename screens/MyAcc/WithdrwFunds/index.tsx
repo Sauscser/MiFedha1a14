@@ -240,13 +240,10 @@ const SMADepositForm = props => {
                               );
             
                     } catch (error) {
-                      console.log(error)
-                      if(!error){
-                        Alert.alert("Account deactivated successfully")
-                        
-                    } 
-                    else{Alert.alert("Please check your internet connection")
-                    return;}
+                      if (error){
+                        Alert.alert("Withdrawal unsuccessful; Retry")
+                        return
+                      }
                     }
                     setIsLoading(false);
                     await onUpdtUsrBal();
@@ -375,7 +372,8 @@ const SMADepositForm = props => {
                     
                     
                     if (TTlAmtTrnsctd > parseFloat(usrBala)) {
-                      Alert.alert("Insufficient user Balance")
+                      Alert.alert("Cancelled."+ "Bal: "+ usrBala +". Deductable: " + TTlAmtTrnsctd.toFixed(2) 
+                      + ". "+ ((TTlAmtTrnsctd) - parseFloat(usrBala)).toFixed(2) + ' more needed')
                       return;
                     } 
         

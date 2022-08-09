@@ -87,11 +87,10 @@ const UpdtChm = (props) => {
                                     
                                             
                                         }
-                                        catch(error){if(error){
-                                          console.log(error)
-                                          Alert.alert("Please internet; otherwise group doesnt exist")
-                                          
-                                      } 
+                                        catch(error){if (error){
+                                          Alert.alert("Update unsuccessful; Retry")
+                                          return
+                                        }
                                     }
                                         setIsLoading(false);
                                         Alert.alert(userInfo.attributes.username +" has updated "+grpNames+"'s Chama password");
@@ -99,7 +98,7 @@ const UpdtChm = (props) => {
 
                                       if(SMPW!==pws)
                                       {
-                                          Alert.alert("Wrong SM A/C PW; Prove authorship of Chama");
+                                          Alert.alert("Wrong Main A/C PW; Prove authorship of Chama");
                                       }
 
                                       else if(userInfo.attributes.sub !==owners)

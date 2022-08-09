@@ -166,7 +166,8 @@ const CreateBiz = (props) => {
       await gtChmDtls();}
 
         } catch (e) {
-          if(e){Alert.alert("Please first sign up")}
+          if(e){Alert.alert("Please first sign up")
+        return}
           console.error(e);
         }
         setIsLoading(false);

@@ -88,28 +88,24 @@ const CreateBiz = (props) => {
                 ,
               );
 
-              if (pword.length < 8)
+              
+              
+            } catch (error) {
+              if (error){
+                Alert.alert("Creation unsuccessful; Retry")
+                return
+              }
+            
+            }
+            Alert.alert("Business created successfully")
+                     };
+
+                     if (pword.length < 8)
           {Alert.alert("password is too short; at least eight characters");
         
       } 
       
-      
-      else {
-        Alert.alert("Business successfully registered")
-      }
-              
-            } catch (error) {
-              console.log(error)
-              if(error){
-                Alert.alert("Please enter details correctly")
-                return;
-            } 
-            
-            }
-            
-                     };
-
-                     if (userInfo.attributes.sub !== owners)
+     else if (userInfo.attributes.sub !== owners)
     {Alert.alert ("Please first create main account")}
     else{
                            await CreateNewSMAc();}
@@ -118,7 +114,7 @@ const CreateBiz = (props) => {
 
         catch (e) {
           console.log(e)
-          if (e){Alert.alert("Check your internet connection")
+          if (e){Alert.alert("Check your Details")
           return;}
               
          }       

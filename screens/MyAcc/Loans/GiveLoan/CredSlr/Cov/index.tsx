@@ -90,6 +90,20 @@ const CovCredSls = props => {
       const DefaultPenaltyRate = parseFloat(DfltPnlty)/parseFloat(AmtExp) *100;
       const RecomDfltPnltyRate = (parseFloat(AmtExp)*20) / 100;
 
+      const today = new Date();
+              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
+              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
+              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
+              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
+              let months2 = parseFloat(months)
+              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
+              
+              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
+              const curYrs = parseFloat(years)*365;
+              const curMnths = (months2)*30.4375;
+              const daysUpToDate = curYrs + curMnths + parseFloat(days)
+
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -244,6 +258,8 @@ const CovCredSls = props => {
                                   SellerName:busNames,
                                   lonBala:(TotalAmtExp - TransCost).toFixed(0),
                                   repaymentPeriod: RepaymtPeriod,
+                                  timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
+                                    timeExpBack2: 61 + daysUpToDate,
                                   advregnu: AdvRegNo,
                                   description: Desc,
                                   DefaultPenaltyCredSl:DfltPnlty,
@@ -256,13 +272,10 @@ const CovCredSls = props => {
 
 
                           } catch (error) {
-                            console.log(error)
-                            if(!error){
-                              Alert.alert("Account deactivated successfully")
-                              
-                          } 
-                          else{Alert.alert("Please check your internet connection")
-                          return;}
+                            if (error){
+                              Alert.alert("Credit Sale unsuccessful; Retry")
+                              return
+                            }
                           }
                           setIsLoading(false);
                           await updtSendrAc();
@@ -280,7 +293,8 @@ const CovCredSls = props => {
                         
                         else if (
                           parseFloat(RecUsrBal) < TransCost 
-                        ) {Alert.alert('Buyer cannot facilitate; should recharge');}
+                        ) {Alert.alert("Cancelled."+ "Bal: "+ RecUsrBal +". Deductable: " + TransCost.toFixed(2) 
+                        + ". "+ ((TransCost) - parseFloat(RecUsrBal)).toFixed(2) + ' more needed');}
                         
                       
                         else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}

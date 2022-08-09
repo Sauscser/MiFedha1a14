@@ -311,6 +311,8 @@ export const onCreateSMLoansCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -340,6 +342,8 @@ export const onUpdateSMLoansCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -369,6 +373,8 @@ export const onDeleteSMLoansCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -396,6 +402,8 @@ export const onCreateSMLoansNonCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -423,6 +431,8 @@ export const onUpdateSMLoansNonCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -450,6 +460,8 @@ export const onDeleteSMLoansNonCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -1760,6 +1772,8 @@ export const onCreateCovCreditSeller = /* GraphQL */ `
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       lonBala
       description
       status
@@ -1790,6 +1804,8 @@ export const onUpdateCovCreditSeller = /* GraphQL */ `
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       lonBala
       description
       status
@@ -1820,6 +1836,8 @@ export const onDeleteCovCreditSeller = /* GraphQL */ `
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       lonBala
       description
       status
@@ -1850,6 +1868,8 @@ export const onCreateNonCovCreditSeller = /* GraphQL */ `
       amountRepaid
       lonBala
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       description
       DefaultPenaltyCredSl
       DefaultPenaltyCredSl2
@@ -1878,6 +1898,8 @@ export const onUpdateNonCovCreditSeller = /* GraphQL */ `
       amountRepaid
       lonBala
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       description
       DefaultPenaltyCredSl
       DefaultPenaltyCredSl2
@@ -1906,6 +1928,8 @@ export const onDeleteNonCovCreditSeller = /* GraphQL */ `
       amountRepaid
       lonBala
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       description
       DefaultPenaltyCredSl
       DefaultPenaltyCredSl2
@@ -2217,6 +2241,8 @@ export const onCreateCvrdGroupLoans = /* GraphQL */ `
       advRegNu
       loaneeName
       LoanerName
+      timeExpBack
+      timeExpBack2
       status
       owner
       DefaultPenaltyChm
@@ -2245,6 +2271,8 @@ export const onUpdateCvrdGroupLoans = /* GraphQL */ `
       advRegNu
       loaneeName
       LoanerName
+      timeExpBack
+      timeExpBack2
       status
       owner
       DefaultPenaltyChm
@@ -2273,6 +2301,8 @@ export const onDeleteCvrdGroupLoans = /* GraphQL */ `
       advRegNu
       loaneeName
       LoanerName
+      timeExpBack
+      timeExpBack2
       status
       owner
       DefaultPenaltyChm
@@ -2296,6 +2326,8 @@ export const onCreateNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountExpectedBackWthClrnc
       amountRepaid
+      timeExpBack
+      timeExpBack2
       description
       loaneeName
       loanerName
@@ -2322,6 +2354,8 @@ export const onUpdateNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountExpectedBackWthClrnc
       amountRepaid
+      timeExpBack
+      timeExpBack2
       description
       loaneeName
       loanerName
@@ -2348,6 +2382,8 @@ export const onDeleteNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountExpectedBackWthClrnc
       amountRepaid
+      timeExpBack
+      timeExpBack2
       description
       loaneeName
       loanerName

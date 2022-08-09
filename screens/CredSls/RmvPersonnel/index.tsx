@@ -42,21 +42,10 @@ const DeregChmMmbr = (props) => {
   const [MmberId, setMmberId] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
-  const[ownr, setownr] = useState(null);
+ 
   const ChmNMmbrPhns = MmberId+grpContact
   const route = useRoute()
   
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    setName(userInfo.username);
-    setownr(userInfo.attributes.sub);
-      
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
   
         
                 const ftchChmDtls = async () =>{
@@ -64,6 +53,9 @@ const DeregChmMmbr = (props) => {
                       return;
                     }
                     setIsLoading(true);
+                    const userInfo = await Auth.currentAuthenticatedUser();
+    
+   
                     try{
                       const compDtls :any= await API.graphql(
                         graphqlOperation(getBizna,{BusKntct:grpContact})
@@ -90,14 +82,13 @@ const DeregChmMmbr = (props) => {
                                             )
                                         }
                                         catch(error){
-                                          console.log(error)
-                                          if(error){
-                                            Alert.alert("Check your internet")
-                                            return;
+                                          if (error){
+                                            Alert.alert("Removal unsuccessful; Retry")
+                                            return
                                           }
                                         }
                                           setIsLoading(false)
-                                          Alert.alert("Worker deleted")
+                                          Alert.alert("Worker Removed")
                                        
                                       }
                                       if(signitoryPWs!==pword)
@@ -105,7 +96,7 @@ const DeregChmMmbr = (props) => {
                                           Alert.alert("Wrong Administrator password");
                                       }
                                       
-                                      else if(owners !== ownr)
+                                      else if(owners !== userInfo.attributes.sub)
                                       {
                                           Alert.alert("Not authorised to deregister worker");
                                       }
@@ -118,7 +109,7 @@ const DeregChmMmbr = (props) => {
                                   } catch (error) {
                         if(error){
                           console.log(error)
-                          Alert.alert("Check your internet")
+                          Alert.alert("Unsuccessful, retry")
                           return
                         }
                       }
@@ -133,15 +124,7 @@ const DeregChmMmbr = (props) => {
                     setmemberPhn("")
                   
                     }
-                      
-
-            
-           
-
-            
-            
-
-            
+     
         useEffect(() =>{
           const ChmMmbrIds=MmberId
             if(!ChmMmbrIds && ChmMmbrIds!=="")

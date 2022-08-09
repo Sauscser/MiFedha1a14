@@ -172,6 +172,20 @@ const route = useRoute();
         const DefaultPenaltyRate = parseFloat(PwnBrkr)/parseFloat(AmtExp) *100;
         const RecomDfltPnltyRate = (parseFloat(AmtExp)*20) / 100;
 
+        const today = new Date();
+              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
+              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
+              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
+              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
+              let months2 = parseFloat(months)
+              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
+              
+              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
+              const curYrs = parseFloat(years)*365;
+              const curMnths = (months2)*30.4375;
+              const daysUpToDate = curYrs + curMnths + parseFloat(days)
+
 
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
@@ -307,12 +321,12 @@ const route = useRoute();
                                   amountexpected: TotalAmtExp,
                                   amountExpectedBackWthClrnc:TotalAmtExp,
                                   amountrepaid: 0,
-                                  
+                                  timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
+                                  timeExpBack2: 61 + daysUpToDate,                                  
                                   loaneename:namess,
                                   loanername:names,
                                   lonBala:TotalAmtExp.toFixed(0),
-                                  repaymentPeriod: RepaymtPeriod,
-                                  
+                                  repaymentPeriod: RepaymtPeriod,                                  
                                   description: Desc,
                                   status: "LoanActive",
                                   owner: userInfo.attributes.sub
@@ -322,13 +336,10 @@ const route = useRoute();
 
 
                           } catch (error) {
-                            console.log(error)
-                            if(!error){
-                              Alert.alert("Account deactivated successfully")
-                              
-                          } 
-                          else{Alert.alert("Please check your internet connection")
-                          return;}
+                            if (error){
+                              Alert.alert("Loaning unsuccessful; Retry")
+                              return
+                            }
                           }
                           setIsLoading(false);
                           await updtSendrAc();
@@ -358,7 +369,7 @@ const route = useRoute();
 
                           }
                           catch(error){
-                            if (error){Alert.alert("Check your internet connection")
+                            if (error){Alert.alert("Enter details correctly")
                             return;}
                           }
                           setIsLoading(false);
@@ -387,7 +398,7 @@ const route = useRoute();
                               )                              
                           }
                           catch(error){
-                            if (error){Alert.alert("Check your internet connection")
+                            if (error){Alert.alert("Enter details correctly")
                             return;}
                           }
                           setIsLoading(false);
@@ -422,7 +433,7 @@ const route = useRoute();
                               
                           }
                           catch(error){
-                            if (error){Alert.alert("Check your internet connection")
+                            if (error){Alert.alert("Enter details correctly")
                         return;}
                           }
                           Alert.alert("U'v Loaned "+ namess +" "+amount+ ": TransactionFee:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) );
@@ -455,7 +466,7 @@ const route = useRoute();
                         }
                         
                                               
-                        if (userInfo.attributes.sub!==owner) {
+                        if (userInfo.attributes.sub!==SenderSub) {
                           Alert.alert("Please first create a main account")
                           return;
                         }  else if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
@@ -480,7 +491,8 @@ const route = useRoute();
                         
                         else if (
                           parseFloat(SenderUsrBal) < TtlTransCost 
-                        ) {Alert.alert('Requested amount is more than you have in your account');}
+                        ) {Alert.alert("Cancelled."+ "Bal: "+ SenderUsrBal +". Deductable: " + TtlTransCost.toFixed(2) 
+                        + ". "+ ((TtlTransCost) - parseFloat(SenderUsrBal)).toFixed(2) + ' more needed');}
                         
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                         else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You can only loan from your account');}

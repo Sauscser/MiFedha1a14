@@ -100,9 +100,10 @@ const MFNWthdwl = props => {
                               );
             
                     } catch (error) {
-                      console.log(error)
-                      if(error){Alert.alert("Please check your internet connection")
-                    return;}
+                      if (error){
+                        Alert.alert("Withdrawal unsuccessful; Retry")
+                        return
+                      }
                     }
 
                     await UpdateMFN();
@@ -126,7 +127,7 @@ const MFNWthdwl = props => {
       
               } catch (error) {
                 console.log(error)
-                if(error){Alert.alert("Please check your internet connection")
+                if(error){Alert.alert("Retry")
               return;}
               }
               setIsLoading(false);
@@ -170,8 +171,8 @@ const MFNWthdwl = props => {
       
     }     
     catch (e) {
-      console.log(e)
-      if (e){Alert.alert("Check your internet connection")
+      
+      if (e){Alert.alert("Retry")
       return;}
          
     }   
@@ -182,8 +183,8 @@ const MFNWthdwl = props => {
     }
 
     catch (e) {
-      console.log(e)
-      if (e){Alert.alert("Check your internet connection")
+      
+      if (e){Alert.alert("Retry")
       return;}
           
      }       

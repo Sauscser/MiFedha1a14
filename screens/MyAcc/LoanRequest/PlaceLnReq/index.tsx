@@ -31,7 +31,7 @@ const CreateBiz = (props) => {
 
   const [ChmPhn, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
-  const [UsrEmail, setUsrEmail] = useState(null);
+  
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
@@ -64,11 +64,11 @@ const CreateBiz = (props) => {
             const pws = compDtls.data.getSMAccount.pw;
             const phonecontacts = compDtls.data.getSMAccount.phonecontact;
             const name = compDtls.data.getSMAccount.name;
-            const owner = compDtls.data.getSMAccount.ownr;
+            const owner = compDtls.data.getSMAccount.owner;
             
             const Int = ((parseFloat(lnPrsntg) - parseFloat(itemPrys))*100)/(parseFloat(lnPrsntg)*parseFloat(rpymntPrd))
             
-
+console.log(userInfo.attributes.sub)
       const CreateNewSMAc = async () => {
         if(isLoading){
           return;
@@ -79,7 +79,7 @@ const CreateBiz = (props) => {
           graphqlOperation(createReqLoan, {
           input: {
            
-            loaneeEmail:UsrEmail,
+            loaneeEmail:userInfo.attributes.email,
             loanerEmail:awsEmail,
             loaneeName: name,
             loaneePhone:phonecontacts,
@@ -98,7 +98,7 @@ const CreateBiz = (props) => {
 
               
             } catch (error) {
-              
+              console.log(error)
               if(error){
                 Alert.alert("Please enter details correctly")
                 return;
@@ -109,7 +109,7 @@ const CreateBiz = (props) => {
             Alert.alert("Loan Request Successful")
             
           };
-          if (userInfo.attributes.sub!==owner)
+          if (userInfo.attributes.sub!== owner)
           {Alert.alert("Please first create a main account");
         
       } 

@@ -210,9 +210,10 @@ const RepayCovChmLnsss = props => {
                     
                                           }
                                           catch(error){
-                                            console.log(error)
-                                            if (error){Alert.alert("Check your internet connection")
-                                            return;}
+                                            if (error){
+                                              Alert.alert("Repayment unsuccessful; Retry")
+                                              return
+                                            }
                                           }
                                           setIsLoading(false);
                                           await updtChmMbrTTlBlOvr();
@@ -241,9 +242,10 @@ const RepayCovChmLnsss = props => {
                     
                                           }
                                           catch(error){
-                                            console.log(error)
-                                            if (error){Alert.alert("Check your internet connection")
-                                            return;}
+                                            if (error){
+                                              Alert.alert("Repayment unsuccessful; Retry")
+                                              return
+                                            }
                                           }
                                           setIsLoading(false);
                                           await updtChmMbrTTlBlOvr();
@@ -270,7 +272,7 @@ const RepayCovChmLnsss = props => {
                     
                                           }
                                           catch(error){
-                                            if (error){Alert.alert("Check your internet connection")
+                                            if (error){Alert.alert("Retry")
                                             return;}
                                           }
                                           setIsLoading(false);
@@ -300,7 +302,7 @@ const RepayCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Retry")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -332,7 +334,7 @@ const RepayCovChmLnsss = props => {
                                 } catch (error) {
                                   console.log(error)
                                   if(error){
-                                    Alert.alert("Please check your internet connection")
+                                    Alert.alert("Retry")
                                 return;}
                                 }
                                 setIsLoading(false);
@@ -366,7 +368,7 @@ const RepayCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Retry")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -426,7 +428,7 @@ const RepayCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Retry")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -456,7 +458,7 @@ const RepayCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Retry")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -487,7 +489,7 @@ const RepayCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Retry")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -516,7 +518,7 @@ const RepayCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Retry")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -578,7 +580,7 @@ const RepayCovChmLnsss = props => {
           
                                 } catch (error) {
                                   console.log(error)
-                                  if(error){Alert.alert("Please check your internet connection")
+                                  if(error){Alert.alert("Retry")
                                 return;}
                                 }
                                 setIsLoading(false);
@@ -658,7 +660,7 @@ const RepayCovChmLnsss = props => {
                   await fetchCompDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Check your internet connection")
+          if (e){Alert.alert("Retry")
       return;}
         }
         setIsLoading(false);        

@@ -316,6 +316,9 @@ import SgnIn2VwRevenueShare from "../../screens/CredSls/SgnIn2VwRevenueShare";
 import ViewAlertDtls from "../../screens/Settings/ViewAlertDtls";
 import ApplyMFKubwa from "../../screens/MFKubwa/ApplyMFKubwa";
 import VwMFNAcDtls from "../../screens/MFNdogo/VwMFNAcDtls";
+import DeclChamaReq from "../../screens/DecliningLnReq/ChamaReq";
+import DeclCredSls from "../../screens/DecliningLnReq/CredSls";
+import DeclPalLn from "../../screens/DecliningLnReq/PalLn";
 
 
 const Stack = createNativeStackNavigator();
@@ -327,6 +330,9 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />
 
+      <Stack.Screen name={'DeclChamaReq'} component={DeclChamaReq} />
+      <Stack.Screen name={'DeclCredSls'} component={DeclCredSls} />
+      <Stack.Screen name={'DeclPalLn'} component={DeclPalLn} />
       <Stack.Screen name={'VwMFNAcDtls'} component={VwMFNAcDtls} />
       <Stack.Screen name={'ApplyMFKubwa'} component={ApplyMFKubwa} />
       <Stack.Screen name={'ViewAlertDtls'} component={ViewAlertDtls} />

@@ -113,7 +113,7 @@ const FetchSMNonLnsSnt = props => {
                           catch (e)
                           {
                             if(e){
-                              Alert.alert("User does not exist does not exist; otherwise check internet connection");
+                              Alert.alert("User does not exist does not exist; otherwise update app");
                               return;
                             }
                               console.log(e)

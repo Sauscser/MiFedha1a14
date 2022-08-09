@@ -49,6 +49,7 @@ const CreateChama = (props:UserReg) => {
   const [Sign2Phn, setSign2Phn] = useState('');
   const [oprtnAreas, setoprtnAreas] = useState('');
   const [ventures, setventures] = useState('');
+  const [Err1, setErr1] = useState(null);
 
  
 
@@ -149,10 +150,14 @@ const CreateChama = (props:UserReg) => {
                     
                   } catch (error) {
                     
-                  
+                    if (error){
+                      Alert.alert("Creation unsuccessful; enter details correctly")
+                      return
+                    }
                   }
-                  await CrtChm();
                   setIsLoading(false);
+                  await CrtChm();               
+                  
                   
                 };
                 if (pword.length < 8)
@@ -205,9 +210,9 @@ const CreateChama = (props:UserReg) => {
                     
                   
                   }
-                  await updtActAdm();
-                  setIsLoading(false);
                   
+                  setIsLoading(false);
+                  await updtActAdm();
                 };
                 
       
@@ -233,7 +238,7 @@ const CreateChama = (props:UserReg) => {
                       return;
                   }
                   }
-                  Alert.alert("Congrats " + userInfo.attributes.username + ", You have created " + ChmNm+" Chama")
+                  Alert.alert("Congrats " + userInfo.username + ", You have created " + ChmNm+" Chama")
                   setIsLoading(false);
                 }
                 
@@ -244,7 +249,7 @@ const CreateChama = (props:UserReg) => {
       catch(e){
         console.log(e)
         if(e){
-          Alert.alert("Check your internet")
+          Alert.alert("Retry")
           return;
       }
       }
@@ -255,7 +260,7 @@ const CreateChama = (props:UserReg) => {
 
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Please fill details correctly or check your internet connection")
+          if (e){Alert.alert("Retry")
           return;}
       };
          
@@ -270,7 +275,10 @@ const CreateChama = (props:UserReg) => {
          
         
         } catch (e) {
-          console.error(e);
+          if (e){
+            Alert.alert("Creation unsuccessful; Retry")
+            return
+          }
         }
 
         setIsLoading(false)

@@ -110,12 +110,10 @@ const RegisterMFKubwaAcForm = props => {
     
               catch (error) {
                 console.log(error)
-                if(error){
-                  Alert.alert("Account already registered or unauthorised ");
-                  return;
-                  
-              } 
-              
+                if (error){
+                  Alert.alert("Registration unsuccessful; Retry")
+                  return
+                }
               }
               setIsLoading(false); 
               await  updtActAdm();              
@@ -187,7 +185,8 @@ const RegisterMFKubwaAcForm = props => {
             }
             
           } catch (e) {
-            if(e){Alert.alert("Please first sign up")}
+            if(e){Alert.alert("Please first sign up")
+          return}
             console.error(e);
           }
         }
@@ -196,7 +195,8 @@ const RegisterMFKubwaAcForm = props => {
         await ChckUsrExistence();}
       
       } catch (e) {
-            if(e){Alert.alert("Please first sign up")}
+            if(e){Alert.alert("Please first sign up")
+          return}
             console.error(e);
           }
         }

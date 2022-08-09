@@ -14,7 +14,7 @@ const FetchSMNonCovLns = props => {
     const [ChmPhn, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
   const [UsrEmail, setUsrEmail] = useState(null);
-  const [awsEmail, setAWSEmail] = useState("");
+  const [awsEmail, setAWSEmail] = useState("@**@!12#");
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
   const [ChmNm, setChmNm] = useState('');

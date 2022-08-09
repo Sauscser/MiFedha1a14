@@ -210,7 +210,7 @@ const SMCvLnStts = (props:SMAccount) => {
         
                   
             
-            <ScrollView >              
+            <View style = {styles.container}>              
                        
                         
                      <Text style = {styles.ownerName}>                       
@@ -223,7 +223,7 @@ const SMCvLnStts = (props:SMAccount) => {
                       Email: {awsemail}                  
                     </Text> 
 
-        </ScrollView>
+        </View >
                 
        
     );

@@ -48,28 +48,18 @@ const SMASendNonLns = props => {
   const [amounts, setAmount] = useState("");
   const [MmbrId, setMmbrId] = useState('');
   const [Desc, setDesc] = useState("");
-  const [ownr, setownr] = useState(null);
+ 
   const[isLoading, setIsLoading] = useState(false);
   const  MemberID = MmbrId+RecNatId
   const route = useRoute();
   
-  
-
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
-
     const fetchChmMbrDtls = async () => {
       if(isLoading){
         return;
       }
       setIsLoading(true);
+      const userInfo = await Auth.currentAuthenticatedUser();
+    
       try {
           const ChmMbrtDtl:any = await API.graphql(
               graphqlOperation(getChamaMembers, {ChamaNMember: MemberID}),
@@ -153,16 +143,17 @@ const SMASendNonLns = props => {
                               description: Desc,
                               memberId:MemberID,
                               status: "AccountActive",
-                              owner: ownr,
+                              owner: userInfo.attributes.sub,
                             },
                           }),
                         );
 
 
                       } catch (error) {
-                        console.log(error)
-                        if(error){Alert.alert("Please check your internet connection")
-                      return;}
+                        if (error){
+                          Alert.alert("Sending unsuccessful; Retry")
+                          return
+                        }
                       }
                       setIsLoading(false);
                       await updtSendrAc();
@@ -292,10 +283,11 @@ const SMASendNonLns = props => {
                     
                     else if (
                       parseFloat(grpBals) < TotalTransacted 
-                    ) {Alert.alert('Requested amount is more than you have in your account');}
+                    ) {Alert.alert("Cancelled."+ "Bal: "+ grpBals +". Deductable: " + TotalTransacted.toFixed(2) 
+                    + ". "+ ((TotalTransacted) - parseFloat(grpBals)).toFixed(2) + ' more needed');}
                     
                     else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');}
-                    else if(ownr !==SenderSub){Alert.alert('You are not the creator of this group');}
+                    else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You are not the creator of this group');}
                     
                     
                     

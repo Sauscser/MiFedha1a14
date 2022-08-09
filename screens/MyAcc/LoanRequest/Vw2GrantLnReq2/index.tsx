@@ -41,7 +41,9 @@ const FetchSMNonCovLns = props => {
             ),);
 
             const balances = MFNDtls.data.getSMAccount.balance;
-            const owner = MFNDtls.data.getSMAccount.owner;const fetchLoanees = async () => {
+            const owner = MFNDtls.data.getSMAccount.owner;
+            
+            const fetchLoanees = async () => {
             setLoading(true);
             const userInfo = await Auth.currentAuthenticatedUser();
             try {

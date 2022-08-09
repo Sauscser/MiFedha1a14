@@ -201,9 +201,10 @@ const DeregUsrForm = (props) => {
                   
               }
               catch(error){
-                console.log(error)
-                if(error){Alert.alert("User does not exist");
-              return;}
+                if (error){
+                  Alert.alert("Deactivation unsuccessful; Retry")
+                  return
+                }
                 }
             Alert.alert("User deactivated successfully")
               setIsLoading(false);          
@@ -231,9 +232,9 @@ const DeregUsrForm = (props) => {
             
           
           } catch (error) {
-            console.log(error)
+            
             if(error){
-              Alert.alert("Check your internet")
+              Alert.alert("Retry")
               return;
           };
           }
@@ -261,7 +262,7 @@ const DeregUsrForm = (props) => {
   } catch (error) {
     console.log(error)
     if(error){
-      Alert.alert("Check your internet")
+      Alert.alert("Retry")
       return;
   };
   }
@@ -312,7 +313,10 @@ await ftchNonCvdChmLn();
           else{await ftchCvdChmLn();}
           
         } catch (error) {
-          console.log(compDtls)
+          if (error){
+            Alert.alert("Retry")
+            return
+          }
           
         
         }}

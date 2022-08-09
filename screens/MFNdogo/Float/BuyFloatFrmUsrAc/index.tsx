@@ -119,11 +119,10 @@ const ftchAgInfo = async () => {
                         
                                             
                                       } catch (error) {
-                                        console.log(error)
-                                        if(error){
-                                          Alert.alert("This MFNdogo does not exist");
-                                    return;                                          
-                                      } 
+                                        if (error){
+                                          Alert.alert("Purchase unsuccessful; Retry")
+                                          return
+                                        }
                                       
                                       }   
                                      await updtAgntFlt();
@@ -246,7 +245,10 @@ const ftchAgInfo = async () => {
                                             
               }            
             
-              catch (e) {console.log(e)}
+              catch (e) {if (e){
+                Alert.alert("check details")
+                return
+              }}
             
               setIsLoading(false)
                
@@ -262,6 +264,7 @@ const ftchAgInfo = async () => {
 
     catch (e) {if(e){
       Alert.alert("MFNdogo does not exist")
+      return
     }}
 
     setAmt ("");

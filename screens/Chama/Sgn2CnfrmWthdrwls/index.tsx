@@ -33,7 +33,7 @@ const SMADepositForm = props => {
   const [grpKntct, setgrpKntct] = useState("");
   const [amount, setAmount] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const [ownr, setownr] = useState(null);
+  
 
  
 
@@ -96,7 +96,7 @@ const SMADepositForm = props => {
                       Alert.alert("Chama Withdrawal confirmed")
                     }
 
-                    if (ownr!==owners) {
+                    if (userInfo.attributes.sub !==owners) {
                       Alert.alert("Not authorised to confirm chama withdrawal")
                       return;
                     }  

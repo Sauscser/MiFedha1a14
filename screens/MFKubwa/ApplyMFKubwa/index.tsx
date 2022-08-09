@@ -87,9 +87,10 @@ const RegisterMFKubwaAcForm = props => {
               } 
     
               catch (error) {
-                console.log(error)
-                
-              
+                if (error){
+                  Alert.alert("Application unsuccessful; Retry")
+                  return
+                }
               }
               setIsLoading(false); 
               Alert.alert("Successful application, wait for communication from MiFedha LTD")           
@@ -107,7 +108,8 @@ else {
           CreateNewSA();}
         
           } catch (e) {
-            if(e){Alert.alert("Please first sign up")}
+            if(e){Alert.alert("Please first sign up")
+          return}
             console.error(e);
           }
         }
@@ -116,7 +118,8 @@ else {
         await ChckUsrExistence();}
       
       } catch (e) {
-            if(e){Alert.alert("Please first sign up")}
+            if(e){Alert.alert("Please first sign up")
+          return}
             console.error(e);
           }
           setIsLoading(false);

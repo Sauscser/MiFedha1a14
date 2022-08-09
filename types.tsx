@@ -10,6 +10,10 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {
+      DeclChamaReq:{id:string};
+      DeclCredSls:{id:string};
+      DeclPalLn:{id:string};
+      
       VwMFNAcDtls:{phonecontact:string};
       ApplyMFKubwa:undefined;
       ViewAlertDtls:undefined;

@@ -78,7 +78,7 @@ const RepayNonCovCredSlsLnsss = props => {
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
       const usrPW =accountDtl.data.getSMAccount.pw;
       const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const TtlClrdLonsTmsByrNonCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsByrNonCov;
+      const owner =accountDtl.data.getSMAccount.owner;
       const TtlActvLonsTmsByrNonCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsByrNonCov;
       const TtlActvLonsAmtByrNonCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtByrNonCov;
       const TtlClrdLonsAmtByrNonCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtByrNonCov;
@@ -175,8 +175,10 @@ const RepayNonCovCredSlsLnsss = props => {
 
                       }
                       catch(error){
-                        if (error){Alert.alert("Check your internet connection")
-                        return;}
+                        if (error){
+                          Alert.alert("Repayment unsuccessful; Retry")
+                          return
+                        }
                       }
                       setIsLoading(false);
                       await updtSMCvLnLnOver();
@@ -204,8 +206,10 @@ const RepayNonCovCredSlsLnsss = props => {
 
                       }
                       catch(error){
-                        if (error){Alert.alert("Check your internet connection")
-                        return;}
+                        if (error){
+                          Alert.alert("Repayment unsuccessful; Retry")
+                          return
+                        }
                       }
                       setIsLoading(false);
                       await updtSMCvLnLnOver();
@@ -325,6 +329,10 @@ const RepayNonCovCredSlsLnsss = props => {
                                     
                                 }
                                 catch(error){
+                                  if (error){
+                                    Alert.alert("Repayment unsuccessful; Retry")
+                                    return
+                                  }
                                   
                                 }
                                 Alert.alert("Cleared. Clearance charge: " +ClranceAmt.toFixed(2) + " Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
@@ -383,12 +391,10 @@ const RepayNonCovCredSlsLnsss = props => {
           
           
                                 } catch (error) {
-                                  if(!error){
-                                    Alert.alert("Account deactivated successfully")
-                                    
-                                } 
-                                else{Alert.alert("Please check your internet connection")
-                                return;}
+                                  if (error){
+                                    Alert.alert("Repayment unsuccessful; Retry")
+                                    return
+                                  }
                                 }
                                 setIsLoading(false);
                                 await updtSendrAc();
@@ -476,7 +482,10 @@ const RepayNonCovCredSlsLnsss = props => {
                                                           
                                                     
                               
-                              if(usrAcActvStts === "AccountInactive"){Alert.alert('Sender account is inactive');
+                              if (userInfo.attributes.sub!==owner) {
+                                Alert.alert("Please first create a main account")
+                                return;
+                              }  else if(usrAcActvStts === "AccountInactive"){Alert.alert('Sender account is inactive');
                               return;
                             }
                               

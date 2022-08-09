@@ -67,7 +67,7 @@ const CreateAcForm = (props) => {
             )
           )
           if (UsrDtls.data.listSMAccounts.items.length < 1) {
-            Alert.alert("Please create Single Member Account");
+            Alert.alert("Please create Main Account");
             return;
             
           }

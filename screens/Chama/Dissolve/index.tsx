@@ -97,8 +97,9 @@ const DissolveChm = (props) => {
                                         }
                                         catch(error){
                                           if(error){
-                                            Alert.alert("Check internet; otherwise chama doesnt exist")
-                                            return;
+                                            if (error){
+                                              Alert.alert("Dissolution unsuccessful; enter details correctly")
+                                              return}
                                           }
                                         }
                                           setIsLoading(false)
@@ -158,16 +159,16 @@ const DissolveChm = (props) => {
                                       } 
 
         
-                    } catch (error) {
-                        if(error){
+                    } catch (e) {
+                        if(e){
                           Alert.alert("Check internet; otherwise Chama doesnt exist")
                           return
                         }
                       }}
                       await ftchChmDtls();
 
-            } catch (error) {
-                if(error){
+            } catch (e) {
+                if(e){
                   Alert.alert("Check internet; otherwise Chama doesnt exist")
                   return
                 }

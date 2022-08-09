@@ -90,12 +90,13 @@ const AdvWthdwl = props => {
                               );
             
                     } catch (error) {
-                      if(error){
-                        
+                     
+                        if (error){
+                          Alert.alert("Withdrawal unsuccessful; enter details correctly")
+                          return}
                         
                     
-                    Alert.alert("Please check your entered info")
-                    return;}
+                    
                     }
                     setIsLoading(false);
                     await onUpdtAdvBal();

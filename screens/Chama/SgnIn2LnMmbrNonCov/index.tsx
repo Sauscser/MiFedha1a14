@@ -42,7 +42,7 @@ const ChmSignIn = (props) => {
   const [pword, setPW] = useState('');
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
-  const[ownr, setownr] = useState(null);
+ 
   const [memberPhn, setmemberPhn] = useState(''); 
 
   const ChmNMmbrPhns = grpContact+memberPhn
@@ -52,28 +52,14 @@ const ChmSignIn = (props) => {
     navigation.navigate("VwChmMbrs2NonCovLnss", {ChmNMmbrPhns});
   };
   
-
-  
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);     
-          
-    };
-    useEffect(() => {
-      fetchUser();
-    }, []);
-
-
-    
-
-    
                 const gtChmDtls = async () =>{
                   if(isLoading){
                     return;
                   }
                   setIsLoading(true);
+                  const userInfo = await Auth.currentAuthenticatedUser();
+      
+       
                   try{
                     const compDtls :any= await API.graphql(
                       graphqlOperation(getGroup,{grpContact:grpContact})
@@ -82,7 +68,7 @@ const ChmSignIn = (props) => {
                       const owners = compDtls.data.getGroup.owner;  
 
                       if(signitoryPWs!==pword){Alert.alert("Wrong author credentials")}
-                      else if(ownr!==owners){Alert.alert("You are not the author of the group")}
+                      else if(userInfo.attributes.sub !==owners){Alert.alert("You are not the author of the group")}
                       else{FetchGrpLonsSts();}
                     }
 

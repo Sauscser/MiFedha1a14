@@ -323,6 +323,8 @@ export const createSMLoansCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -355,6 +357,8 @@ export const updateSMLoansCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -387,6 +391,8 @@ export const deleteSMLoansCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -417,6 +423,8 @@ export const createSMLoansNonCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -447,6 +455,8 @@ export const updateSMLoansNonCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -477,6 +487,8 @@ export const deleteSMLoansNonCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -1943,6 +1955,8 @@ export const createCovCreditSeller = /* GraphQL */ `
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       lonBala
       description
       status
@@ -1976,6 +1990,8 @@ export const updateCovCreditSeller = /* GraphQL */ `
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       lonBala
       description
       status
@@ -2009,6 +2025,8 @@ export const deleteCovCreditSeller = /* GraphQL */ `
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       lonBala
       description
       status
@@ -2042,6 +2060,8 @@ export const createNonCovCreditSeller = /* GraphQL */ `
       amountRepaid
       lonBala
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       description
       DefaultPenaltyCredSl
       DefaultPenaltyCredSl2
@@ -2073,6 +2093,8 @@ export const updateNonCovCreditSeller = /* GraphQL */ `
       amountRepaid
       lonBala
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       description
       DefaultPenaltyCredSl
       DefaultPenaltyCredSl2
@@ -2104,6 +2126,8 @@ export const deleteNonCovCreditSeller = /* GraphQL */ `
       amountRepaid
       lonBala
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       description
       DefaultPenaltyCredSl
       DefaultPenaltyCredSl2
@@ -2454,6 +2478,8 @@ export const createCvrdGroupLoans = /* GraphQL */ `
       advRegNu
       loaneeName
       LoanerName
+      timeExpBack
+      timeExpBack2
       status
       owner
       DefaultPenaltyChm
@@ -2485,6 +2511,8 @@ export const updateCvrdGroupLoans = /* GraphQL */ `
       advRegNu
       loaneeName
       LoanerName
+      timeExpBack
+      timeExpBack2
       status
       owner
       DefaultPenaltyChm
@@ -2516,6 +2544,8 @@ export const deleteCvrdGroupLoans = /* GraphQL */ `
       advRegNu
       loaneeName
       LoanerName
+      timeExpBack
+      timeExpBack2
       status
       owner
       DefaultPenaltyChm
@@ -2542,6 +2572,8 @@ export const createNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountExpectedBackWthClrnc
       amountRepaid
+      timeExpBack
+      timeExpBack2
       description
       loaneeName
       loanerName
@@ -2571,6 +2603,8 @@ export const updateNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountExpectedBackWthClrnc
       amountRepaid
+      timeExpBack
+      timeExpBack2
       description
       loaneeName
       loanerName
@@ -2600,6 +2634,8 @@ export const deleteNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountExpectedBackWthClrnc
       amountRepaid
+      timeExpBack
+      timeExpBack2
       description
       loaneeName
       loanerName

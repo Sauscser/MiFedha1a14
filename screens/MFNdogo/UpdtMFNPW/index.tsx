@@ -84,9 +84,10 @@ const UpdtMFNPW = (props) => {
                                             
                                         }
                                         catch(error){if(error){
-                                          console.log(error)
-                                          Alert.alert("Please check internet; otherwise Admin doesnt exist")
-                                          
+                                          if (error){
+                                            Alert.alert("Update unsuccessful; Retry")
+                                            return
+                                          }
                                       } 
                                     }
                                         setIsLoading(false);
@@ -116,7 +117,7 @@ const UpdtMFNPW = (props) => {
 
             } catch (error) {
                 if(error){
-                  Alert.alert("Check internet; otherwise Chama doesnt exist")
+                  Alert.alert("Retry")
                   return
                 }
               }

@@ -145,10 +145,10 @@ const SMASendNonLns = props => {
 
 
                       } catch (error) {
-                        console.log(error)
-                        if(error){
-                          Alert.alert("Please check your internet connection")
-                      return;}
+                        if (error){
+                          Alert.alert("Reversal unsuccessful; Retry")
+                          return
+                        }
                       }
                       setIsLoading(false);
                       await updtSendrAc();
@@ -175,9 +175,10 @@ const SMASendNonLns = props => {
 
                       }
                       catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
-                        return;}
+                        if (error){
+                          Alert.alert("Reversal unsuccessful; Retry")
+                          return
+                        }
                       }
                       setIsLoading(false);
                       await updtRecAc();
@@ -267,13 +268,10 @@ const SMASendNonLns = props => {
 
 
                       } catch (error) {
-                        console.log(error)
-                        if(!error){
-                          Alert.alert("Account deactivated successfully")
-                          
-                      } 
-                      else{Alert.alert("Please check your internet connection")
-                      return;}
+                        if (error){
+                          Alert.alert("Reversal unsuccessful; Retry")
+                          return
+                        }
                       }
                       setIsLoading(false);
                       

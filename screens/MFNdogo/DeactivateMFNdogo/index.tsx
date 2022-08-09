@@ -86,12 +86,10 @@ const DeregMFNForm = (props) => {
                 })
               )        
           }
-          catch(error){if(error){
-                Alert.alert("MFNdogo does not exist or Check your internet connection");
-                return;
-                
-            } 
-            
+          catch(error){if (error){
+            Alert.alert("Deactivation unsuccessful; Retry")
+            return
+          }
         } 
           Alert.alert("MFNdogo successfully deactivated")
           setIsLoading(false);

@@ -96,9 +96,10 @@ const AdminWthdwl = props => {
                               );
             
                     } catch (error) {
-                      console.log(error)
-                      if(error){Alert.alert("Please check your internet connection")
-                    return;}
+                      if (error){
+                        Alert.alert("Withdrawal unsuccessful; Retry")
+                        return
+                      }
                     }
                     await UpdateMFK();
                     setIsLoading(false);

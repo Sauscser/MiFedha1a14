@@ -47,35 +47,19 @@ const CreateChama = (props:UserReg) => {
   const [ChmRegNo, setChmRegNo] = useState('');
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState('');
-  const[ownr, setownr] = useState(null);
+
 
   const WorkerID = ChmDesc+ChmRegNo
 
 
-  
-
-  
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);
-      setPhoneContact(userInfo.attributes.phone_number);
-          
-    };
-
     
-
-    useEffect(() => {
-        fetchUser();
-      }, []);
-
-
       const ChckUsrExistence = async () => {
         if(isLoading){
           return;
         }
         setIsLoading(true);
+        const userInfo = await Auth.currentAuthenticatedUser();
+      
         try {
           const UsrDtls:any = await API.graphql(
             graphqlOperation(getSMAccount, { awsemail:ChmPhn}),
@@ -126,11 +110,10 @@ const CreateChama = (props:UserReg) => {
               );
               
             } catch (error) {
-              console.log(error)
-              if(error){
-                Alert.alert("Enter details correctly")
-                return;
-            } 
+              if (error){
+                Alert.alert("Addition unsuccessful; Retry")
+                return
+              }
             
             }
             Alert.alert("Sales Officer added successfully")
@@ -143,7 +126,7 @@ const CreateChama = (props:UserReg) => {
             Alert.alert("Wrong Business password")
           }
 
-          else if (ownerz !== ownr ){
+          else if (ownerz !== userInfo.attributes.sub ){
             Alert.alert("You are not the owner of this business")
           }
           else{
@@ -152,7 +135,8 @@ const CreateChama = (props:UserReg) => {
           }
       } catch (e) {
         console.error(e);
-        if (e){Alert.alert("Ensure officer has a Personal account")}
+        if (e){Alert.alert("Ensure officer has a Personal account")
+      return}
       }
   
       setIsLoading(false)
@@ -165,7 +149,8 @@ const CreateChama = (props:UserReg) => {
     } catch (e) {
       console.error(e);
 
-      if (e){Alert.alert("Ensure officer has a Personal account")}
+      if (e){Alert.alert("Ensure officer has a Personal account")
+    return}
     }
 
     setIsLoading(false)

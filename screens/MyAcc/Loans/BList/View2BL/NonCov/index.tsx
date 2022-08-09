@@ -1,6 +1,6 @@
 import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
-import {  getSMAccount, listSMLoansNonCovereds, vwLnrNLneessss } from '../../../../../../src/graphql/queries';
+import {  getSMAccount, listSMLoansNonCovereds, vwLnrNLneessss, vwMyDebtorss } from '../../../../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../../components/MyAc/BL/Vw2BLNonCov";
 import styles from './styles';
@@ -25,24 +25,45 @@ const FetchSMNonCovLns = props => {
     
                   const balances = MFNDtls.data.getSMAccount.balance;
                   const owner = MFNDtls.data.getSMAccount.owner;
-                  
-                  const fetchLoanees = async () => {
-            setLoading(true);
-            const userInfo = await Auth.currentAuthenticatedUser();
+
+                  const today = new Date();
+              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
+              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
+              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
+              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
+              let months2 = parseFloat(months)
+              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
               
+              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
+              const curYrs = parseFloat(years)*365;
+              const curMnths = (months2)*30.4375;
+              const daysUpToDate = curYrs + curMnths + parseFloat(days)
+
+              console.log(daysUpToDate)
+                  
+          const fetchLoanees = async () => {
+            setLoading(true);
             
             try {
+              
               const Lonees:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
                 { 
                   
+                   
                   sortDirection: 'DESC',
-                  limit: 100,                
+                  limit: 100,   
+                              
                   filter: {
                     
-                    loanerPhn: {eq:userInfo.attributes.email},
+                    and:{
+                      loanerPhn: {eq:userInfo.attributes.email},
                       lonBala:{gt:0},
                       
-                      status:{ne:"LoanBL"}                      
+                      status:{ne:"LoanBL"},
+                      timeExpBack:{lt: daysUpToDate},
+                      timeExpBack2:{lt:daysUpToDate},     
+                    }                 
                     
                   },
                 
@@ -57,7 +78,7 @@ const FetchSMNonCovLns = props => {
             }
           };
         
-          if (userInfo.attributes.sub!==owner) {
+          if (userInfo.attributes.sub !== owner) {
             Alert.alert("Please first create a main account")
             return;
           }  else {

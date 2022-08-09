@@ -42,27 +42,20 @@ const DeregChmMmbr = (props) => {
   const [MmberId, setMmberId] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
-  const[ownr, setownr] = useState(null);
+ 
   const ChmNMmbrPhns = MmberId+grpContactz
   const route = useRoute()
   
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    setName(userInfo.username);
-    setownr(userInfo.attributes.sub);
-      
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
+ 
   
         const fetchChmMmbrDtls = async () =>{
             if(isLoading){
               return;
             }
             setIsLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
+    
+ 
             try{
               const compDtls :any= await API.graphql(
                 graphqlOperation(getChamaMembers,{ChamaNMember:ChmNMmbrPhns})
@@ -118,10 +111,10 @@ const DeregChmMmbr = (props) => {
                                             )
                                         }
                                         catch(error){
-                                          console.log(error)
-                                          if(error){
-                                            Alert.alert("Check your internet")
-                                            return;
+                                          
+                                          if (error){
+                                            Alert.alert("Deletion unsuccessful; Retry")
+                                            return
                                           }
                                         }
                                           setIsLoading(false)
@@ -132,7 +125,7 @@ const DeregChmMmbr = (props) => {
                                           Alert.alert("Wrong Signitory password");
                                       }
                                       
-                                      else if(owners !== ownr)
+                                      else if(owners !== userInfo.attributes.sub)
                                       {
                                           Alert.alert("Not authorised to deactive member");
                                       }

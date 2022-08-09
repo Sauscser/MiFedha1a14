@@ -120,7 +120,9 @@ const AddChmMmbrs = (props:UserReg) => {
                               );
                               
                             } catch (error) {
-                             
+                              if (error){
+                                Alert.alert("Addition unsuccessful; enter details correctly")
+                                return}
                             
                             }
                             await updtActAdm();
@@ -134,7 +136,8 @@ const AddChmMmbrs = (props:UserReg) => {
                         return;
                       } 
 
-                      else  if (userInfo.attributes.sub !== owners && signitory2Subs !== userInfo.attributes.sub){Alert.alert("You are neither the author nor signatory of this Chama")}
+                      else  if (userInfo.attributes.sub !== owners && signitory2Subs !== userInfo.attributes.sub)
+                      {Alert.alert("You are neither the author nor signatory of this Chama")}
                       
                       else {
                         CrtChm();
@@ -232,7 +235,8 @@ const AddChmMmbrs = (props:UserReg) => {
         
         } catch (e) {
           console.error(e);
-          if (e){Alert.alert("User does not exist")}
+          if (e){Alert.alert("User does not exist")
+        return}
         }
       }
     

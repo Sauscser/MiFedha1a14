@@ -45,6 +45,36 @@ const DeregMFAdminForm = (props) => {
         const inActvMFAdmin = compDtls.data.getCompany.ttlKFAdmInActv
         const actvMFAdmin = compDtls.data.getCompany.ttlKFAdmActv
            
+        const KFAdminDtls = async () => {
+          if(isLoading){
+            return;
+          }
+          setIsLoading(true);
+          try{
+              await API.graphql(
+                graphqlOperation(updateBankAdmin,{
+                  input:{
+                    nationalid:AdminId,
+                    status:"AccountInactive"
+                  }
+                })
+              )
+      
+              
+          }
+          catch(error){if (error){
+            Alert.alert("Deactivation unsuccessful; Retry")
+            return
+          }
+        }
+
+      await updtActAdm();
+          setIsLoading(false);
+        } 
+
+        KFAdminDtls();
+        
+        
         const updtActAdm = async()=>{
           if(isLoading){
             return;
@@ -62,45 +92,16 @@ const DeregMFAdminForm = (props) => {
                   )
               }
               catch(error){
-                if(error){
-                  Alert.alert("Check your internet")
-                  return;
-                }
+                
               }
                 setIsLoading(false)
               
             }
             
 
-            const KFAdminDtls = async () => {
-              if(isLoading){
-                return;
-              }
-              setIsLoading(true);
-              try{
-                  await API.graphql(
-                    graphqlOperation(updateBankAdmin,{
-                      input:{
-                        nationalid:AdminId,
-                        status:"AccountInactive"
-                      }
-                    })
-                  )
-          
-                  
-              }
-              catch(error){if(!error){
-                Alert.alert("Account deactivated successfully")
-                
-            } 
-            else{Alert.alert("Please check your internet connection")
-          return;} }
+            
 
-          await updtActAdm();
-              setIsLoading(false);
-            } 
-
-            KFAdminDtls();
+           
             
           } catch (error) {
             if(error){

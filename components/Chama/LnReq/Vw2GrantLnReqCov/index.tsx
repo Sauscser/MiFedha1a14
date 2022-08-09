@@ -39,35 +39,12 @@ const SMCvLnStts = (props:SMAccount) => {
    const SndChmMmbrMny = () => {
        navigation.navigate("ChmCovLons", {id})
 
-       
-      
    }
 
-   const updtRecAc2 = async () =>{
-    if(isLoading){
-      return;
-    }
-    setIsLoading(true);
-    try{
-        await API.graphql(
-          graphqlOperation(updateReqLoanChama, {
-            input:{
-              id:id,
-              status:"Declined"                  
-              
-            }
-          })
-        )                              
-    }
-    catch(error){
-      console.log(error)
-      
-    }
-    setIsLoading(false);
-    
-  }
- 
+   const SndChmMmbrMny2 = () => {
+    navigation.navigate("DeclChamaReq", {id})
 
+}
 
     return (
         
@@ -97,7 +74,7 @@ const SMCvLnStts = (props:SMAccount) => {
                     </View>   
                     <View>
                     <Pressable
-                      onPress={updtRecAc2}
+                      onPress={SndChmMmbrMny2}
                       style = {styles.loanFriendButton}>            
                         <Text>Decline</Text>            
                     </Pressable>  

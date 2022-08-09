@@ -196,11 +196,10 @@ const CreateAcForm = (props) => {
                     );
                     
                   } catch (error) {
-                    console.log(error)
-                    if(error){
-                      Alert.alert("Either email already exists or details are incorrect")                      
-                      return;
-                  } 
+                    if (error){
+                      Alert.alert("Creation unsuccessful; Retry")
+                      return
+                    }
                   
                   }
                   await updtActAdm();
@@ -261,7 +260,7 @@ const CreateAcForm = (props) => {
       catch(e){
         console.log(e)
         if(e){
-          Alert.alert("Check your internet")
+          Alert.alert("Retry")
           return;
       }
       }
@@ -273,8 +272,9 @@ const CreateAcForm = (props) => {
           await gtCompDtls();
         
       } catch (e) {
-        if(e){Alert.alert("Please first sign up")}
-        console.error(e);
+        if(e){Alert.alert("Retry")
+      return}
+        
       }
                 
     }
@@ -283,8 +283,8 @@ const CreateAcForm = (props) => {
    
   
   } catch (e) {
-          if(e){Alert.alert("Please first sign up")}
-          console.error(e);
+          if(e){Alert.alert("Retry")}
+          return
         }
                   setIsLoading(false)
                   setNationalid('');

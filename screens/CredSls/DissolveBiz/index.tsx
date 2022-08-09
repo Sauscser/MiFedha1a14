@@ -32,28 +32,16 @@ const DissolveChm = (props) => {
   const [SigntryPW, setSigntryPW] = useState("");
   const [groupCnt, setgroupCnt] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const[ownr, setownr] = useState(null);
-  const[names, setName] = useState(null);
-  
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    setName(userInfo.username);
-    setownr(userInfo.attributes.sub);
-      
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
 
-  
-        
 
                 const ftchChmDtls = async () =>{
                     if(isLoading){
                       return;
                     }
                     setIsLoading(true);
+                    const userInfo = await Auth.currentAuthenticatedUser();
+    
+  
                     try{
                       const compDtls :any= await API.graphql(
                         graphqlOperation(getBizna,{BusKntct:groupCnt})
@@ -80,14 +68,16 @@ const DissolveChm = (props) => {
                                     
                                             
                                         }
-                                        catch(error){if(error){
-                                          console.log(error)
-                                          Alert.alert("Please internet; otherwise Business doesnt exist")
+                                        catch(error){
                                           
+                                          if (error){
+                                            Alert.alert("Dissolution unsuccessful; Retry")
+                                            return
+                                          }
                                       } 
-                                    }
+                                    
                                         setIsLoading(false);
-                                        Alert.alert(names +" has dissolved "+grpNames+" Business");
+                                        Alert.alert(userInfo.username +" has dissolved "+grpNames+" Business");
                                       } 
 
                                      if(signitoryPWs!==SigntryPW)
@@ -95,7 +85,7 @@ const DissolveChm = (props) => {
                                           Alert.alert("Wrong Admin password");
                                       }
 
-                                      else if(ownr!==owners)
+                                      else if(userInfo.attributes.sub !==owners)
                                       {
                                           Alert.alert("You do not own this business");
                                       }
@@ -111,7 +101,7 @@ const DissolveChm = (props) => {
         
                     } catch (error) {
                         if(error){
-                          Alert.alert("Check internet; otherwise Business doesnt exist")
+                          Alert.alert("Enter details correctly")
                           return
                         }
                       }

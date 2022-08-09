@@ -90,7 +90,7 @@ const UpdtMFAdvPW = (props) => {
 
                                        if(ownr!==owners)
                                       {
-                                          Alert.alert("You are not the owner of this Admin A/c");
+                                          Alert.alert("You are not the owner of this Advocate A/c");
                                       }
 
                                       else if(statuss!=="AccountActive")

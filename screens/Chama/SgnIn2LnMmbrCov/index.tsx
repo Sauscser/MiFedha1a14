@@ -44,7 +44,7 @@ const ChmSignIn = (props) => {
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState('');
   
-  const[ownr, setownr] = useState(null);
+ 
   const ChmNMmbrPhns = grpContact+memberPhn
 
   const FetchGrpLonsSts = () => {
@@ -53,26 +53,15 @@ const ChmSignIn = (props) => {
   
 
   
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);     
-          
-    };
-    useEffect(() => {
-      fetchUser();
-    }, []);
-
-
     
-
     
                 const gtChmDtls = async () =>{
                   if(isLoading){
                     return;
                   }
                   setIsLoading(true);
+                  const userInfo = await Auth.currentAuthenticatedUser();
+      
                   try{
                     const compDtls :any= await API.graphql(
                       graphqlOperation(getGroup,{grpContact:grpContact})
@@ -82,7 +71,7 @@ const ChmSignIn = (props) => {
                       
 
                       if(signitoryPWs!==pword){Alert.alert("Wrong author credentials")}
-                      else if(ownr!==owners){Alert.alert("You are not the author of the group")}
+                      else if(userInfo.attributes.sub!==owners){Alert.alert("You are not the author of the group")}
                       else{FetchGrpLonsSts();}
                     }
 

@@ -83,11 +83,10 @@ const UpdtMFAdmPW = (props) => {
                                     
                                             
                                         }
-                                        catch(error){if(error){
-                                          console.log(error)
-                                          Alert.alert("Please check internet; otherwise Admin doesnt exist")
-                                          
-                                      } 
+                                        catch(error){if (error){
+                                          Alert.alert("Update unsuccessful; Retry")
+                                          return
+                                        }
                                     }
                                         setIsLoading(false);
                                         Alert.alert(names +", You have successfully updated your PassWord");

@@ -82,7 +82,7 @@ const BLCovCredByr = (props) => {
               let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
               let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
               let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
-              let months2 = parseFloat(months)+1
+              let months2 = parseFloat(months)
               let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
               
               const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
@@ -188,13 +188,7 @@ const BLCovCredByr = (props) => {
                                 Alert.alert("Loanee has cleared this loan")
                               }
     
-                              else if(tmDif > repaymentPeriod && repaymentPeriod < 61){
-                                Alert.alert("Loanee still has legal grace period of " + lglGrcePrd + " days")
-                              } 
-    
-                              else if(tmDif < repaymentPeriod){
-                                Alert.alert("Repayment Date not yet Due")
-                              } 
+                              
     
                               else if(statusssss === "LoanBL"){
                                 Alert.alert("This Loan is already Black Listed")
@@ -276,19 +270,22 @@ const BLCovCredByr = (props) => {
                         
                         catch(error){
                           console.log(error)
-                          if(!error){
-                          Alert.alert("Account deactivated successfully")
-                          
-                      } 
-                      else{Alert.alert("Please check your internet connection")
-                      return;} }
+                          if (error){
+                            Alert.alert("Blacklisting unsuccessful; Retry")
+                            return
+                          }}
                         setIsLoading(false);         
                         
                       }
                       await gtLoaneeDtls(); 
                   }
       
-                  catch(error){ console.log(error)}
+                  catch(error){ 
+                    if (error){
+                      Alert.alert("Blacklisting unsuccessful; Retry")
+                      return
+                    }
+                  }
                   setIsLoading(false);         
                   
                 }

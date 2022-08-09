@@ -41,7 +41,10 @@ const FetchSMCovLns = props => {
                   ));
               setLoanees(Lonees.data.listChamaMembers.items);
             } catch (e) {
-              console.log(e);
+              if (e){
+                Alert.alert("Transaction unsuccessful; Retry")
+                return
+              }
             } finally {
               setLoading(false);
             }

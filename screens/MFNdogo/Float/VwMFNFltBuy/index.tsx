@@ -69,10 +69,10 @@ const FetchSMNonLnsSnt = props => {
                                                         )
                                                     }
                                                     catch(error){
-                                                      if(error){
-                                                        Alert.alert("Check your internet connection")
-                                                        return;
-                                                    }
+                                                      if (error){
+                                                        Alert.alert("Application unsuccessful; Retry")
+                                                        return
+                                                      }
                                                     }
                                                     updtUsrAc();
                                                     
@@ -148,7 +148,10 @@ const FetchSMNonLnsSnt = props => {
                            else{
                                                   await fetchLoanees();}
             } catch (e) {
-              console.log(e);
+              if (e)
+              {Alert.alert("Check details")
+            return}
+              
             } finally {
               setLoading(false);
             }

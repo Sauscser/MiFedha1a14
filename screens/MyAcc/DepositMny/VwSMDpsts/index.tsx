@@ -9,7 +9,7 @@ import {  getSMAccount, vwMyUsrDposits, vwMyUsrWthdrwls } from '../../../../src/
 
 const FetchSMNonLnsSnt = props => {
 
-    const[SenderEmail, setSenderEmail] = useState(null);
+   
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
 
@@ -24,7 +24,7 @@ const FetchSMNonLnsSnt = props => {
               const balances = MFNDtls.data.getSMAccount.balance;
               const owner = MFNDtls.data.getSMAccount.owner;
               
-              const fetchLoanees = async () => {
+          const fetchLoanees = async () => {
           
             setLoading(true);
           

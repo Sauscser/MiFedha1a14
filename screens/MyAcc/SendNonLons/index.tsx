@@ -231,13 +231,10 @@ const SMASendNonLns = props => {
 
 
                       } catch (error) {
-                        console.log(error)
-                        if(!error){
-                          Alert.alert("Account deactivated successfully")
-                          
-                      } 
-                      else{Alert.alert("Please check your internet connection")
-                      return;}
+                        if (error){
+                          Alert.alert("Sending unsuccessful; Retry")
+                          return
+                        }
                       }
                       setIsLoading(false);
                       await updtSendrAc();
@@ -266,8 +263,10 @@ const SMASendNonLns = props => {
 
 
                       } catch (error) {
-                        console.log(error)
-                        
+                        if (error){
+                          Alert.alert("Sending unsuccessful; Retry")
+                          return
+                        }
                       
                       }
                       setIsLoading(false);

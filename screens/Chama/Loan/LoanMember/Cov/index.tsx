@@ -100,6 +100,21 @@ const ChmCovLns = props => {
               const loaneeMemberId =ChmMbrtDtlz.data.getReqLoanChama.loaneeMemberId;
 
               const ChmNMmbrPhns = loaneeMemberId+groupContacts
+
+              const today = new Date();
+              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
+              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
+              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
+              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
+              let months2 = parseFloat(months)
+              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
+              
+              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
+
+              const curYrs = parseFloat(years)*365;
+              const curMnths = (months2)*30.4375;
+              const daysUpToDate = curYrs + curMnths + parseFloat(days)
                          
 const fetchChmMbrDtls = async () => {
       if(isLoading){
@@ -233,6 +248,52 @@ const fetchChmMbrDtls = async () => {
                         const DefaultPenaltyRate = parseFloat(DfltPnlty)/parseFloat(AmtRepaids) *100;
                         const RecomDfltPnltyRate = (parseFloat(AmtRepaids)*20) / 100;
                       
+                   
+                        
+                        const sendSMLn = async () => {
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
+                          try {
+                            await API.graphql(
+                              graphqlOperation(createCvrdGroupLoans, {
+                                input: {
+                                    grpContact: groupContacts,
+                                    loaneePhn: loaneeEmail,
+                                    loanerLoanee:groupContacts+memberContacts,
+                                    loanerLoaneeAdv:  groupContacts+memberContacts+ AdvRegNo ,  
+                                    repaymentPeriod: RepaymtPeriod,
+                                    amountGiven: parseFloat(amount).toFixed(0),
+                                    amountExpectedBack: TotalAmtExp.toFixed(0),
+                                    amountExpectedBackWthClrnc: TotalAmtExp.toFixed(0),
+                                    amountRepaid: 0,
+                                    DefaultPenaltyChm:DfltPnlty,
+                                    DefaultPenaltyChm2:0,
+                                    timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
+                                    timeExpBack2: 61 + daysUpToDate,
+                                    description: Desc,
+                                    lonBala:TotalAmtExp.toFixed(0),
+                                    advRegNu: AdvRegNo,
+                                    loaneeName:namess,
+                                    LoanerName:grpNames,
+                                    memberId:ChmNMmbrPhns,
+                                    status: "LoanActive",
+                                    owner: ownr,
+                                },
+                              }),
+                            );
+
+
+                          } catch (error) {
+                            if (error){
+                              Alert.alert("Loaning unsuccessful; enter details correctly")
+                              return}
+                          }
+                          setIsLoading(false);
+                          await updatMmbr();
+                        };
+
                         const updatMmbr = async () => {
                           if(isLoading){
                             return;
@@ -263,49 +324,9 @@ const fetchChmMbrDtls = async () => {
                           return;}
                           }
                           setIsLoading(false);
-                          await sendSMLn();
-                        };
-                        
-                        const sendSMLn = async () => {
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try {
-                            await API.graphql(
-                              graphqlOperation(createCvrdGroupLoans, {
-                                input: {
-                                    grpContact: groupContacts,
-                                    loaneePhn: loaneeEmail,
-                                    loanerLoanee:groupContacts+memberContacts,
-                                    loanerLoaneeAdv:  groupContacts+memberContacts+ AdvRegNo ,  
-                                    repaymentPeriod: RepaymtPeriod,
-                                    amountGiven: parseFloat(amount).toFixed(0),
-                                    amountExpectedBack: TotalAmtExp.toFixed(0),
-                                    amountExpectedBackWthClrnc: TotalAmtExp.toFixed(0),
-                                    amountRepaid: 0,
-                                    DefaultPenaltyChm:DfltPnlty,
-                                    DefaultPenaltyChm2:0,
-                                    description: Desc,
-                                    lonBala:TotalAmtExp.toFixed(0),
-                                    advRegNu: AdvRegNo,
-                                    loaneeName:namess,
-                                    LoanerName:grpNames,
-                                    memberId:ChmNMmbrPhns,
-                                    status: "LoanActive",
-                                    owner: ownr,
-                                },
-                              }),
-                            );
-
-
-                          } catch (error) {
-                            
-                          }
-                          setIsLoading(false);
                           await updtSendrAc();
                         };
-
+                        
                         const updtSendrAc = async () =>{
                           if(isLoading){
                             return;
@@ -486,13 +507,14 @@ const fetchChmMbrDtls = async () => {
                         
                         else if (
                           parseFloat(grpBals) < TtlTransCost 
-                        ) {Alert.alert('Requested amount is more than you have in your account');}
+                        ) {Alert.alert("Cancelled."+ "Bal: "+ grpBals +". Deductable: " + TtlTransCost.toFixed(2) 
+                        + ". "+ ((TtlTransCost) - parseFloat(grpBals)).toFixed(2) + ' more needed');}
                         else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
                         else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');}
                                                                  
             
                                                  else {
-                                                  updatMmbr();
+                                                  sendSMLn();
                         }                                                
                     }       
                     catch(e) {    

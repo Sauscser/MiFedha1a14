@@ -230,6 +230,8 @@ export const getSMLoansCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -264,6 +266,8 @@ export const listSMLoansCovereds = /* GraphQL */ `
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
+        timeExpBack
+        timeExpBack2
         description
         status
         owner
@@ -293,6 +297,8 @@ export const getSMLoansNonCovered = /* GraphQL */ `
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
+      timeExpBack
+      timeExpBack2
       description
       status
       owner
@@ -329,6 +335,8 @@ export const listSMLoansNonCovereds = /* GraphQL */ `
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
+        timeExpBack
+        timeExpBack2
         description
         status
         owner
@@ -1412,6 +1420,8 @@ export const getCovCreditSeller = /* GraphQL */ `
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       lonBala
       description
       status
@@ -1451,6 +1461,8 @@ export const listCovCreditSellers = /* GraphQL */ `
         amountExpectedBackWthClrnc
         amountRepaid
         repaymentPeriod
+        timeExpBack
+        timeExpBack2
         lonBala
         description
         status
@@ -1483,6 +1495,8 @@ export const getNonCovCreditSeller = /* GraphQL */ `
       amountRepaid
       lonBala
       repaymentPeriod
+      timeExpBack
+      timeExpBack2
       description
       DefaultPenaltyCredSl
       DefaultPenaltyCredSl2
@@ -1520,6 +1534,8 @@ export const listNonCovCreditSellers = /* GraphQL */ `
         amountRepaid
         lonBala
         repaymentPeriod
+        timeExpBack
+        timeExpBack2
         description
         DefaultPenaltyCredSl
         DefaultPenaltyCredSl2
@@ -1787,6 +1803,8 @@ export const getCvrdGroupLoans = /* GraphQL */ `
       advRegNu
       loaneeName
       LoanerName
+      timeExpBack
+      timeExpBack2
       status
       owner
       DefaultPenaltyChm
@@ -1820,6 +1838,8 @@ export const listCvrdGroupLoans = /* GraphQL */ `
         advRegNu
         loaneeName
         LoanerName
+        timeExpBack
+        timeExpBack2
         status
         owner
         DefaultPenaltyChm
@@ -1845,6 +1865,8 @@ export const getNonCvrdGroupLoans = /* GraphQL */ `
       amountExpectedBack
       amountExpectedBackWthClrnc
       amountRepaid
+      timeExpBack
+      timeExpBack2
       description
       loaneeName
       loanerName
@@ -1880,6 +1902,8 @@ export const listNonCvrdGroupLoans = /* GraphQL */ `
         amountExpectedBack
         amountExpectedBackWthClrnc
         amountRepaid
+        timeExpBack
+        timeExpBack2
         description
         loaneeName
         loanerName
@@ -2151,6 +2175,8 @@ export const vwMyDebts = /* GraphQL */ `
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
+        timeExpBack
+        timeExpBack2
         description
         status
         owner
@@ -2197,6 +2223,8 @@ export const vwLnrNLneesssss = /* GraphQL */ `
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
+        timeExpBack
+        timeExpBack2
         description
         status
         owner
@@ -2243,6 +2271,8 @@ export const vwAdvNLnrNLneesssss = /* GraphQL */ `
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
+        timeExpBack
+        timeExpBack2
         description
         status
         owner
@@ -2289,6 +2319,8 @@ export const vwMyDebtors = /* GraphQL */ `
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
+        timeExpBack
+        timeExpBack2
         description
         status
         owner
@@ -2335,6 +2367,8 @@ export const advVwLnsClient = /* GraphQL */ `
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
+        timeExpBack
+        timeExpBack2
         description
         status
         owner
@@ -2379,6 +2413,8 @@ export const vwMyDebtss = /* GraphQL */ `
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
+        timeExpBack
+        timeExpBack2
         description
         status
         owner
@@ -2423,6 +2459,8 @@ export const vwMyDebtorss = /* GraphQL */ `
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
+        timeExpBack
+        timeExpBack2
         description
         status
         owner
@@ -2467,6 +2505,8 @@ export const vwLnrNLneessss = /* GraphQL */ `
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
+        timeExpBack
+        timeExpBack2
         description
         status
         owner
@@ -3138,6 +3178,8 @@ export const vwLnrNLneesss = /* GraphQL */ `
         amountExpectedBackWthClrnc
         amountRepaid
         repaymentPeriod
+        timeExpBack
+        timeExpBack2
         lonBala
         description
         status
@@ -3185,6 +3227,8 @@ export const vwAdvNLnrNLneesss = /* GraphQL */ `
         amountExpectedBackWthClrnc
         amountRepaid
         repaymentPeriod
+        timeExpBack
+        timeExpBack2
         lonBala
         description
         status
@@ -3232,6 +3276,8 @@ export const vwMyCrdBys = /* GraphQL */ `
         amountExpectedBackWthClrnc
         amountRepaid
         repaymentPeriod
+        timeExpBack
+        timeExpBack2
         lonBala
         description
         status
@@ -3279,6 +3325,8 @@ export const vwMySales = /* GraphQL */ `
         amountExpectedBackWthClrnc
         amountRepaid
         repaymentPeriod
+        timeExpBack
+        timeExpBack2
         lonBala
         description
         status
@@ -3326,6 +3374,8 @@ export const vwAdvCrdSls = /* GraphQL */ `
         amountExpectedBackWthClrnc
         amountRepaid
         repaymentPeriod
+        timeExpBack
+        timeExpBack2
         lonBala
         description
         status
@@ -3373,6 +3423,8 @@ export const vwLnrNLneess = /* GraphQL */ `
         amountRepaid
         lonBala
         repaymentPeriod
+        timeExpBack
+        timeExpBack2
         description
         DefaultPenaltyCredSl
         DefaultPenaltyCredSl2
@@ -3418,6 +3470,8 @@ export const vwMyCrdByss = /* GraphQL */ `
         amountRepaid
         lonBala
         repaymentPeriod
+        timeExpBack
+        timeExpBack2
         description
         DefaultPenaltyCredSl
         DefaultPenaltyCredSl2
@@ -3463,6 +3517,8 @@ export const vwMySaless = /* GraphQL */ `
         amountRepaid
         lonBala
         repaymentPeriod
+        timeExpBack
+        timeExpBack2
         description
         DefaultPenaltyCredSl
         DefaultPenaltyCredSl2
@@ -3876,6 +3932,8 @@ export const vwChamaMemberss = /* GraphQL */ `
         advRegNu
         loaneeName
         LoanerName
+        timeExpBack
+        timeExpBack2
         status
         owner
         DefaultPenaltyChm
@@ -3921,6 +3979,8 @@ export const vwMyChamass = /* GraphQL */ `
         advRegNu
         loaneeName
         LoanerName
+        timeExpBack
+        timeExpBack2
         status
         owner
         DefaultPenaltyChm
@@ -3966,6 +4026,8 @@ export const vwLnrNLnee = /* GraphQL */ `
         advRegNu
         loaneeName
         LoanerName
+        timeExpBack
+        timeExpBack2
         status
         owner
         DefaultPenaltyChm
@@ -4011,6 +4073,8 @@ export const vwAdvNLnrNLnee = /* GraphQL */ `
         advRegNu
         loaneeName
         LoanerName
+        timeExpBack
+        timeExpBack2
         status
         owner
         DefaultPenaltyChm
@@ -4056,6 +4120,8 @@ export const vwChmLnClients = /* GraphQL */ `
         advRegNu
         loaneeName
         LoanerName
+        timeExpBack
+        timeExpBack2
         status
         owner
         DefaultPenaltyChm
@@ -4096,6 +4162,8 @@ export const vwChamaMembersss = /* GraphQL */ `
         amountExpectedBack
         amountExpectedBackWthClrnc
         amountRepaid
+        timeExpBack
+        timeExpBack2
         description
         loaneeName
         loanerName
@@ -4139,6 +4207,8 @@ export const vwMyChamasss = /* GraphQL */ `
         amountExpectedBack
         amountExpectedBackWthClrnc
         amountRepaid
+        timeExpBack
+        timeExpBack2
         description
         loaneeName
         loanerName
@@ -4182,6 +4252,8 @@ export const vwLnrNLnees = /* GraphQL */ `
         amountExpectedBack
         amountExpectedBackWthClrnc
         amountRepaid
+        timeExpBack
+        timeExpBack2
         description
         loaneeName
         loanerName
@@ -4337,7 +4409,7 @@ export const vwChamaMembersssss = /* GraphQL */ `
 export const vwMyLoaneeReq = /* GraphQL */ `
   query VwMyLoaneeReq(
     $loaneeEmail: String!
-    $statusCreatedAt: ModelReqLoanByLoaneeEmlCompositeKeyConditionInput
+    $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelReqLoanFilterInput
     $limit: Int
@@ -4345,7 +4417,7 @@ export const vwMyLoaneeReq = /* GraphQL */ `
   ) {
     VwMyLoaneeReq(
       loaneeEmail: $loaneeEmail
-      statusCreatedAt: $statusCreatedAt
+      createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -4372,7 +4444,7 @@ export const vwMyLoaneeReq = /* GraphQL */ `
 export const vwLoaneeReq = /* GraphQL */ `
   query VwLoaneeReq(
     $loanerEmail: String!
-    $statusCreatedAt: ModelReqLoanByLoanerEmlCompositeKeyConditionInput
+    $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelReqLoanFilterInput
     $limit: Int
@@ -4380,7 +4452,7 @@ export const vwLoaneeReq = /* GraphQL */ `
   ) {
     VwLoaneeReq(
       loanerEmail: $loanerEmail
-      statusCreatedAt: $statusCreatedAt
+      createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -4407,7 +4479,7 @@ export const vwLoaneeReq = /* GraphQL */ `
 export const byChmaLnee = /* GraphQL */ `
   query ByChmaLnee(
     $loaneeEmail: String!
-    $statusCreatedAt: ModelReqLoanChamaChmaLneeCompositeKeyConditionInput
+    $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelReqLoanChamaFilterInput
     $limit: Int
@@ -4415,7 +4487,7 @@ export const byChmaLnee = /* GraphQL */ `
   ) {
     ByChmaLnee(
       loaneeEmail: $loaneeEmail
-      statusCreatedAt: $statusCreatedAt
+      createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -4443,7 +4515,7 @@ export const byChmaLnee = /* GraphQL */ `
 export const byChmaNoDesc = /* GraphQL */ `
   query ByChmaNoDesc(
     $chamaPhone: String!
-    $statusCreatedAt: ModelReqLoanChamaChmaNoDescCompositeKeyConditionInput
+    $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelReqLoanChamaFilterInput
     $limit: Int
@@ -4451,7 +4523,7 @@ export const byChmaNoDesc = /* GraphQL */ `
   ) {
     ByChmaNoDesc(
       chamaPhone: $chamaPhone
-      statusCreatedAt: $statusCreatedAt
+      createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -4479,7 +4551,7 @@ export const byChmaNoDesc = /* GraphQL */ `
 export const byBzLnee = /* GraphQL */ `
   query ByBzLnee(
     $loaneeEmail: String!
-    $statusCreatedAt: ModelReqLoanCredSlBzLneeCompositeKeyConditionInput
+    $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelReqLoanCredSlFilterInput
     $limit: Int
@@ -4487,7 +4559,7 @@ export const byBzLnee = /* GraphQL */ `
   ) {
     ByBzLnee(
       loaneeEmail: $loaneeEmail
-      statusCreatedAt: $statusCreatedAt
+      createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -4515,7 +4587,7 @@ export const byBzLnee = /* GraphQL */ `
 export const byBzNoDesc = /* GraphQL */ `
   query ByBzNoDesc(
     $businessNo: String!
-    $statusCreatedAt: ModelReqLoanCredSlBzNoDescCompositeKeyConditionInput
+    $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelReqLoanCredSlFilterInput
     $limit: Int
@@ -4523,7 +4595,7 @@ export const byBzNoDesc = /* GraphQL */ `
   ) {
     ByBzNoDesc(
       businessNo: $businessNo
-      statusCreatedAt: $statusCreatedAt
+      createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit

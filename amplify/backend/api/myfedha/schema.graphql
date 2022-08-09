@@ -191,11 +191,6 @@ type SMLoansCovered
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, create] }
     ]
   )
-  
-  
-  
-  
-  
  
   {
   id:ID!
@@ -205,20 +200,19 @@ type SMLoansCovered
   loanerLoaneeAdv:String!  @index(name: "byAdvNLnrNLneesssss", sortKeyFields: ["createdAt"], queryField: "VwAdvNLnrNLneesssss")
   loanerPhn:String! @index(name: "byLnerPhn", sortKeyFields: ["createdAt"], queryField: "VwMyDebtors")
   advregnu: String! @index(name: "byAdv", sortKeyFields: ["createdAt"], queryField: "AdvVwLnsClient")
-  loanerId: String!
-  
+  loanerId: String!  
   amountgiven: Float!
   amountexpected: Float!
   amountExpectedBackWthClrnc: Float!
-
   amountrepaid: Float!
   lonBala:Float!
   loaneename:String!
   loanername:String!
-  repaymentPeriod: Int!
+  repaymentPeriod: Float!
   DefaultPenaltySM: Float!
   DefaultPenaltySM2: Float!
-
+  timeExpBack: Float!
+  timeExpBack2: Float!
   description: String
   status: Status!
   owner: String!
@@ -288,9 +282,11 @@ type SMLoansNonCovered
   lonBala:Float!
   loaneename:String!
   loanername:String!
-  repaymentPeriod: Int!
+  repaymentPeriod: Float!
   DefaultPenaltySM: Float!
   DefaultPenaltySM2: Float!
+  timeExpBack: Float!
+  timeExpBack2: Float!
   description: String
   status: Status!
   owner: String!
@@ -1337,7 +1333,9 @@ type CovCreditSeller
   amountexpectedBack: Float!
   amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
-  repaymentPeriod: Int!
+  repaymentPeriod: Float!
+  timeExpBack: Float!
+  timeExpBack2: Float!
   lonBala:Float!
   description: String
   status: Status!
@@ -1404,7 +1402,9 @@ id:ID!
   amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
   lonBala:Float!
-  repaymentPeriod: Int!
+  repaymentPeriod: Float!
+  timeExpBack: Float!
+  timeExpBack2: Float!
   description: String
   DefaultPenaltyCredSl: Float!
   DefaultPenaltyCredSl2: Float!
@@ -1684,6 +1684,8 @@ type CvrdGroupLoans
   advRegNu: String! @index(name: "byAdv", sortKeyFields: ["createdAt"], queryField: "VwChmLnClients")
   loaneeName:String!
   LoanerName:String!
+  timeExpBack: Float!
+  timeExpBack2: Float!
   status: Status!
   owner: String!
   DefaultPenaltyChm: Float!
@@ -1736,11 +1738,13 @@ id:ID!
   loanerLoanee:String!  @index(name: "byLnrNLnees", sortKeyFields: ["createdAt"], queryField: "VwLnrNLnees")
   DefaultPenaltyChm: Float!
   DefaultPenaltyChm2: Float!
-  repaymentPeriod: Int!
+  repaymentPeriod: Float!
   amountGiven: Float!
   amountExpectedBack: Float!
   amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
+  timeExpBack: Float!
+  timeExpBack2: Float!
   description: String
   
   loaneeName:String!
@@ -1887,8 +1891,8 @@ type ReqLoan
 
   {
   id:ID!
-  loaneeEmail: String! @index(name: "byLoaneeEml", sortKeyFields: ["status", "createdAt"], queryField: "VwMyLoaneeReq")
-  loanerEmail: String! @index(name: "byLoanerEml", sortKeyFields: ["status", "createdAt"], queryField: "VwLoaneeReq")
+  loaneeEmail: String! @index(name: "byLoaneeEml", sortKeyFields: ["createdAt"], queryField: "VwMyLoaneeReq")
+  loanerEmail: String! @index(name: "byLoanerEmls", sortKeyFields: ["createdAt"], queryField: "VwLoaneeReq")
   loaneePhone:String!
   loaneeName: String!
   amount:Float!
@@ -1937,8 +1941,8 @@ type ReqLoanChama
 
   {
   id:ID!
-  loaneeEmail: String! @index(name: "ChmaLnee", sortKeyFields: ["status", "createdAt"], queryField: "ByChmaLnee")
-  chamaPhone: String! @index(name: "ChmaNoDesc", sortKeyFields: ["status", "createdAt"], queryField: "ByChmaNoDesc")
+  loaneeEmail: String! @index(name: "ChmaLnee", sortKeyFields: ["createdAt"], queryField: "ByChmaLnee")
+  chamaPhone: String! @index(name: "ChmaNoDesc", sortKeyFields: ["createdAt"], queryField: "ByChmaNoDesc")
   loaneePhone:String!
   loaneeName: String!
   
@@ -1989,8 +1993,8 @@ type ReqLoanCredSl
 
   {
   id:ID!
-  loaneeEmail: String! @index(name: "BzLnee", sortKeyFields: ["status", "createdAt"], queryField: "ByBzLnee")
-  businessNo: String! @index(name: "BzNoDesc", sortKeyFields: ["status", "createdAt"], queryField: "ByBzNoDesc")
+  loaneeEmail: String! @index(name: "BzLnee", sortKeyFields: ["createdAt"], queryField: "ByBzLnee")
+  businessNo: String! @index(name: "BzNoDesc", sortKeyFields: ["createdAt"], queryField: "ByBzNoDesc")
   loaneePhone:String!
   loaneeName: String!
   itemName: String!

@@ -97,19 +97,18 @@ const UpdtMFKPW = (props) => {
                                     
                                             
                                         }
-                                        catch(error){if(error){
-                                          console.log(error)
-                                          Alert.alert("Please check internet; otherwise MFKubwa doesnt exist")
-                                          
-                                      } 
+                                        catch(error){if (error){
+                                          Alert.alert("Adjustment unsuccessful; Retry")
+                                          return
+                                        }
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +", You have successfully updated your Commission");
+                                        Alert.alert(names +", You have successfully Adjusted your Commission");
                                       } 
 
                                       if(pws!==OldAdmnPW)
                                       {
-                                          Alert.alert("Wrong MFKubwa Password; call HR");
+                                          Alert.alert("Wrong MFKubwa Password");
                                       }
                                       
                                       else if(ownr!==owners)

@@ -169,7 +169,9 @@ const SMASendChmNonLns = props => {
             
             
                                   } catch (error) {
-                                    console.log(error)
+                                    if (error){
+                                      Alert.alert("Subscription unsuccessful; enter details correctly")
+                                      return}
                                   }
                                   setIsLoading(false);
                                   await updtSendrAc();
@@ -286,8 +288,7 @@ const SMASendChmNonLns = props => {
                                       
                                   }
                                   catch(error){
-                                    console.log(MembaId)
-                                    console.log(error)
+                                   
                                     if (error){Alert.alert("Check your internet connection")
                                 return;
                               }
@@ -321,7 +322,10 @@ const SMASendChmNonLns = props => {
             
             
                                   } catch (error) {
-                                    console.log(error)
+                                    if (error){
+                                      Alert.alert("Contribution unsuccessful; Retry")
+                                      return
+                                    }
                                   }
                                   setIsLoading(false);
                                   await updtSendrAc2();
@@ -438,8 +442,7 @@ const SMASendChmNonLns = props => {
                                       
                                   }
                                   catch(error){
-                                    console.log(MembaId)
-                                    console.log(error)
+                                   
                                     if (error){Alert.alert("Check your internet connection")
                                 return;
                               }

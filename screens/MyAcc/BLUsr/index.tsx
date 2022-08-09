@@ -57,8 +57,10 @@ const BLUsrForm = (props) => {
       
               
           }
-          catch(error){if(error){Alert.alert("Please Enter User Contact correctlyas hinted")
-        return;} }
+          catch(error){if (error){
+            Alert.alert("Blacklisting unsuccessful; Retry")
+            return
+          } }
           setIsLoading(false);          
           await updtActAdm ();
         } 
@@ -92,7 +94,7 @@ const BLUsrForm = (props) => {
             
           } catch (error) {
             if(error){
-              Alert.alert("Check your internet")
+              Alert.alert("Retry")
               return;
           };
           }

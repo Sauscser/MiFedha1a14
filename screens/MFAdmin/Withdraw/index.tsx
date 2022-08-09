@@ -88,12 +88,10 @@ const AdminWthdwl = props => {
                               );
             
                     } catch (error) {
-                      if(!error){
-                        Alert.alert("Account deactivated successfully")
-                        
-                    } 
-                    else{Alert.alert("Please check your internet connection")
-                    return;}
+                      if (error){
+                        Alert.alert("Withdrawal unsuccessful; Retry")
+                        return
+                      }
                     }
                     setIsLoading(false);
                     await onUpdtUsrBal();
