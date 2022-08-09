@@ -75,7 +75,7 @@ const AdvPayToVwChm = (props) => {
                                       }
                                       catch(error){
                                         if(error){
-                                          Alert.alert("Check your internet connection")
+                                          Alert.alert("Check entered Details")
                                           return;
                                       }
                                       }
@@ -126,7 +126,6 @@ const AdvPayToVwChm = (props) => {
               }
                 console.log(e)
                
-                
             }    
 
     
