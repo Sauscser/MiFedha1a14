@@ -525,7 +525,6 @@ export const onCreateSokoAd = /* GraphQL */ `
   subscription OnCreateSokoAd($owner: String) {
     onCreateSokoAd(owner: $owner) {
       id
-      sokoregno
       sokokntct
       sokoname
       sokoprice
@@ -543,7 +542,6 @@ export const onUpdateSokoAd = /* GraphQL */ `
   subscription OnUpdateSokoAd($owner: String) {
     onUpdateSokoAd(owner: $owner) {
       id
-      sokoregno
       sokokntct
       sokoname
       sokoprice
@@ -561,7 +559,6 @@ export const onDeleteSokoAd = /* GraphQL */ `
   subscription OnDeleteSokoAd($owner: String) {
     onDeleteSokoAd(owner: $owner) {
       id
-      sokoregno
       sokokntct
       sokoname
       sokoprice

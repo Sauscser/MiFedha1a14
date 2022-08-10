@@ -392,7 +392,6 @@ export const getSokoAd = /* GraphQL */ `
   query GetSokoAd($id: ID!) {
     getSokoAd(id: $id) {
       id
-      sokoregno
       sokokntct
       sokoname
       sokoprice
@@ -415,7 +414,6 @@ export const listSokoAds = /* GraphQL */ `
     listSokoAds(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        sokoregno
         sokokntct
         sokoname
         sokoprice
@@ -2139,6 +2137,232 @@ export const listReqLoanCredSls = /* GraphQL */ `
     }
   }
 `;
+export const vwNatIdentity = /* GraphQL */ `
+  query VwNatIdentity(
+    $nationalid: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSMAccountFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwNatIdentity(
+      nationalid: $nationalid
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        nationalid
+        name
+        phonecontact
+        awsemail
+        balance
+        pw
+        loanAcceptanceCode
+        ttlDpstSM
+        TtlWthdrwnSM
+        TtlActvLonsTmsLnrCov
+        TtlActvLonsTmsLneeCov
+        TtlActvLonsAmtLnrCov
+        TtlActvLonsAmtLneeCov
+        TtlBLLonsTmsLnrCov
+        TtlBLLonsTmsLneeCov
+        TtlBLLonsAmtLnrCov
+        TtlBLLonsAmtLneeCov
+        TtlClrdLonsTmsLnrCov
+        TtlClrdLonsTmsLneeCov
+        TtlClrdLonsAmtLnrCov
+        TtlClrdLonsAmtLneeCov
+        TtlActvLonsTmsLneeChmCov
+        TtlActvLonsAmtLneeChmCov
+        TtlBLLonsTmsLneeChmCov
+        TtlBLLonsAmtLneeChmCov
+        TtlClrdLonsTmsLneeChmCov
+        TtlClrdLonsAmtLneeChmCov
+        TtlActvLonsTmsSllrCov
+        TtlActvLonsTmsByrCov
+        TtlActvLonsAmtSllrCov
+        TtlActvLonsAmtByrCov
+        TtlBLLonsTmsSllrCov
+        TtlBLLonsTmsByrCov
+        TtlBLLonsAmtSllrCov
+        TtlBLLonsAmtByrCov
+        TtlClrdLonsTmsSllrCov
+        TtlClrdLonsTmsByrCov
+        TtlClrdLonsAmtSllrCov
+        TtlClrdLonsAmtByrCov
+        TtlActvLonsTmsLnrNonCov
+        TtlActvLonsTmsLneeNonCov
+        TtlActvLonsAmtLnrNonCov
+        TtlActvLonsAmtLneeNonCov
+        TtlBLLonsTmsLnrNonCov
+        TtlBLLonsTmsLneeNonCov
+        TtlBLLonsAmtLnrNonCov
+        TtlBLLonsAmtLneeNonCov
+        TtlClrdLonsTmsLnrNonCov
+        TtlClrdLonsTmsLneeNonCov
+        TtlClrdLonsAmtLnrNonCov
+        TtlClrdLonsAmtLneeNonCov
+        TtlActvLonsTmsLneeChmNonCov
+        TtlActvLonsAmtLneeChmNonCov
+        TtlBLLonsTmsLneeChmNonCov
+        TtlBLLonsAmtLneeChmNonCov
+        TtlClrdLonsTmsLneeChmNonCov
+        TtlClrdLonsAmtLneeChmNonCov
+        TtlActvLonsTmsSllrNonCov
+        TtlActvLonsTmsByrNonCov
+        TtlActvLonsAmtSllrNonCov
+        TtlActvLonsAmtByrNonCov
+        TtlBLLonsTmsSllrNonCov
+        TtlBLLonsTmsByrNonCov
+        TtlBLLonsAmtSllrNonCov
+        TtlBLLonsAmtByrNonCov
+        TtlClrdLonsTmsSllrNonCov
+        TtlClrdLonsTmsByrNonCov
+        TtlClrdLonsAmtSllrNonCov
+        TtlClrdLonsAmtByrNonCov
+        ttlNonLonsRecSM
+        ttlNonLonsSentSM
+        ttlNonLonsRecChm
+        ttlNonLonsSentChm
+        MaxTymsBL
+        MaxTymsIHvBL
+        MaxAcBal
+        TymsIHvGivnLn
+        TymsMyLnClrd
+        DefaultPenaltySM
+        loanStatus
+        acStatus
+        deActvtnReason
+        blStatus
+        loanLimit
+        nonLonLimit
+        withdrawalLimit
+        depositLimit
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwPnCntct = /* GraphQL */ `
+  query VwPnCntct(
+    $phonecontact: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSMAccountFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwPnCntct(
+      phonecontact: $phonecontact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        nationalid
+        name
+        phonecontact
+        awsemail
+        balance
+        pw
+        loanAcceptanceCode
+        ttlDpstSM
+        TtlWthdrwnSM
+        TtlActvLonsTmsLnrCov
+        TtlActvLonsTmsLneeCov
+        TtlActvLonsAmtLnrCov
+        TtlActvLonsAmtLneeCov
+        TtlBLLonsTmsLnrCov
+        TtlBLLonsTmsLneeCov
+        TtlBLLonsAmtLnrCov
+        TtlBLLonsAmtLneeCov
+        TtlClrdLonsTmsLnrCov
+        TtlClrdLonsTmsLneeCov
+        TtlClrdLonsAmtLnrCov
+        TtlClrdLonsAmtLneeCov
+        TtlActvLonsTmsLneeChmCov
+        TtlActvLonsAmtLneeChmCov
+        TtlBLLonsTmsLneeChmCov
+        TtlBLLonsAmtLneeChmCov
+        TtlClrdLonsTmsLneeChmCov
+        TtlClrdLonsAmtLneeChmCov
+        TtlActvLonsTmsSllrCov
+        TtlActvLonsTmsByrCov
+        TtlActvLonsAmtSllrCov
+        TtlActvLonsAmtByrCov
+        TtlBLLonsTmsSllrCov
+        TtlBLLonsTmsByrCov
+        TtlBLLonsAmtSllrCov
+        TtlBLLonsAmtByrCov
+        TtlClrdLonsTmsSllrCov
+        TtlClrdLonsTmsByrCov
+        TtlClrdLonsAmtSllrCov
+        TtlClrdLonsAmtByrCov
+        TtlActvLonsTmsLnrNonCov
+        TtlActvLonsTmsLneeNonCov
+        TtlActvLonsAmtLnrNonCov
+        TtlActvLonsAmtLneeNonCov
+        TtlBLLonsTmsLnrNonCov
+        TtlBLLonsTmsLneeNonCov
+        TtlBLLonsAmtLnrNonCov
+        TtlBLLonsAmtLneeNonCov
+        TtlClrdLonsTmsLnrNonCov
+        TtlClrdLonsTmsLneeNonCov
+        TtlClrdLonsAmtLnrNonCov
+        TtlClrdLonsAmtLneeNonCov
+        TtlActvLonsTmsLneeChmNonCov
+        TtlActvLonsAmtLneeChmNonCov
+        TtlBLLonsTmsLneeChmNonCov
+        TtlBLLonsAmtLneeChmNonCov
+        TtlClrdLonsTmsLneeChmNonCov
+        TtlClrdLonsAmtLneeChmNonCov
+        TtlActvLonsTmsSllrNonCov
+        TtlActvLonsTmsByrNonCov
+        TtlActvLonsAmtSllrNonCov
+        TtlActvLonsAmtByrNonCov
+        TtlBLLonsTmsSllrNonCov
+        TtlBLLonsTmsByrNonCov
+        TtlBLLonsAmtSllrNonCov
+        TtlBLLonsAmtByrNonCov
+        TtlClrdLonsTmsSllrNonCov
+        TtlClrdLonsTmsByrNonCov
+        TtlClrdLonsAmtSllrNonCov
+        TtlClrdLonsAmtByrNonCov
+        ttlNonLonsRecSM
+        ttlNonLonsSentSM
+        ttlNonLonsRecChm
+        ttlNonLonsSentChm
+        MaxTymsBL
+        MaxTymsIHvBL
+        MaxAcBal
+        TymsIHvGivnLn
+        TymsMyLnClrd
+        DefaultPenaltySM
+        loanStatus
+        acStatus
+        deActvtnReason
+        blStatus
+        loanLimit
+        nonLonLimit
+        withdrawalLimit
+        depositLimit
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const vwMyDebts = /* GraphQL */ `
   query VwMyDebts(
     $loaneePhn: String!
@@ -2604,7 +2828,6 @@ export const dakaByName = /* GraphQL */ `
     ) {
       items {
         id
-        sokoregno
         sokokntct
         sokoname
         sokoprice
@@ -2665,6 +2888,50 @@ export const mFKVwMFN = /* GraphQL */ `
   ) {
     MFKVwMFN(
       sagentregno: $sagentregno
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        phonecontact
+        sagentregno
+        nationalid
+        name
+        ttlEarnings
+        pw
+        email
+        TtlFltIn
+        TtlFltOut
+        floatBal
+        latitude
+        longitude
+        agentEarningBal
+        status
+        bankName
+        bkAcNo
+        owner
+        town
+        MFNWithdrwlFee
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwNatIdentitys = /* GraphQL */ `
+  query VwNatIdentitys(
+    $nationalid: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelAgentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwNatIdentitys(
+      nationalid: $nationalid
       createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
@@ -2929,6 +3196,45 @@ export const vwMFNWthdrwls = /* GraphQL */ `
         Amount
         status
         owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwNatIdentityss = /* GraphQL */ `
+  query VwNatIdentityss(
+    $saNationalid: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSAgentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwNatIdentityss(
+      saNationalid: $saNationalid
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        saPhoneContact
+        saNationalid
+        name
+        pw
+        TtlEarnings
+        actvMFNdog
+        InctvMFNdog
+        email
+        saBalance
+        bankName
+        bkAcNo
+        status
+        owner
+        MFKWithdrwlFee
         createdAt
         updatedAt
       }
@@ -3522,6 +3828,65 @@ export const vwMySaless = /* GraphQL */ `
         description
         DefaultPenaltyCredSl
         DefaultPenaltyCredSl2
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwNatIdentitysz = /* GraphQL */ `
+  query VwNatIdentitysz(
+    $SignitoryNatid: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGroupFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwNatIdentitysz(
+      SignitoryNatid: $SignitoryNatid
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        grpContact
+        regNo
+        signitoryContact
+        SignitoryNatid
+        signitoryName
+        grpName
+        signitoryPW
+        oprtnArea
+        venture
+        signitory2Sub
+        WithdrawCnfrmtn
+        grpEmail
+        grpBal
+        ttlGrpMembers
+        description
+        ttlNonLonsRecChm
+        ttlNonLonsSentChm
+        ttlDpst
+        ttlWthdrwn
+        tymsChmHvBL
+        TtlActvLonsTmsLnrChmCov
+        TtlActvLonsAmtLnrChmCov
+        TtlBLLonsTmsLnrChmCov
+        TtlBLLonsAmtLnrChmCov
+        TtlClrdLonsTmsLnrChmCov
+        TtlClrdLonsAmtLnrChmCov
+        TtlActvLonsTmsLnrChmNonCov
+        TtlActvLonsAmtLnrChmNonCov
+        TtlBLLonsTmsLnrChmNonCov
+        TtlBLLonsAmtLnrChmNonCov
+        TtlClrdLonsTmsLnrChmNonCov
+        TtlClrdLonsAmtLnrChmNonCov
         status
         owner
         createdAt

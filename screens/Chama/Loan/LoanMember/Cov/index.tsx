@@ -433,8 +433,8 @@ const fetchChmMbrDtls = async () => {
                                 graphqlOperation(updateAdvocate, {
                                   input:{
                                     advregnu: AdvRegNo,
-                                    advBal: AdvCovAmt + parseFloat(advBl) ,
-                                    TtlEarnings:AdvCovAmt + parseFloat(advTtlAern),                                 
+                                    advBal: (AdvCovAmt + parseFloat(advBl)).toFixed(0) ,
+                                    TtlEarnings:(AdvCovAmt + parseFloat(advTtlAern)).toFixed(0),                                 
                                     
                                   }
                                 })

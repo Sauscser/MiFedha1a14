@@ -256,7 +256,7 @@ const BLChmNonCovLoanee = (props) => {
                                       graphqlOperation(updateNonCvrdGroupLoans, {
                                         input:{
                                           id:route.params.id,
-                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncss,
+                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncss.toFixed(0),
                                           lonBala:LonBal.toFixed(0),
                                           status:"LoanBL",
                                           DefaultPenaltyChm2:DefaultPenaltyChms.toFixed(0),
@@ -288,7 +288,7 @@ const BLChmNonCovLoanee = (props) => {
                                       graphqlOperation(updateChamaMembers, {
                                         input:{
                                           ChamaNMember:memberIds,
-                                          LnBal:(parseFloat(LnBalsss)+ MmbrClrnceCost).toFixed(2),
+                                          LnBal:(parseFloat(LnBalsss)+ MmbrClrnceCost).toFixed(0),
                                           blStatus:"AccountBlackListed",
                                         }
                                       })

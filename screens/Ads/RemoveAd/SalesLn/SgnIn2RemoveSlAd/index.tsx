@@ -229,7 +229,7 @@ useEffect(() =>{
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="Bizna Phone Number"
+                    placeholder="Business Phone Number"
                       value={BiznaContact}
                       onChangeText={setChmPhn}
                       style={styles.sendLoanInput}
@@ -240,7 +240,7 @@ useEffect(() =>{
 
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="Bizna PassWord"
+                    placeholder="Business PassWord"
                       value={pword}
                       onChangeText={setPW}
                       secureTextEntry = {true}

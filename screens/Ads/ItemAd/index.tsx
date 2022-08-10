@@ -46,7 +46,7 @@ const CreateBiz = (props) => {
   const [rpymntPrd, setrpymntPrd] = useState('');
 
 
-  const[ownr, setownr] = useState(null);
+
 
   const gtUzr = async () =>{
     if(isLoading){
@@ -85,7 +85,7 @@ const CreateBiz = (props) => {
             graphqlOperation(getBizna,{BusKntct:ChmPhn})
             );
             const pws = compDtls.data.getBizna.pw;
-            const BusinessRegNos = compDtls.data.getBizna.BusinessRegNo;
+            
             const busNames = compDtls.data.getBizna.busName;
 
 
@@ -101,16 +101,16 @@ const CreateBiz = (props) => {
           await API.graphql(
           graphqlOperation(createSokoAd, {
           input: {
-            sokoregno: BusinessRegNos,
+            
             sokokntct:ChmPhn,
             
             sokoname: awsEmail,
             sokoprice: parseFloat(itemPrys),
-            sokotown: itemTwn,
+            sokotown: "itemTwn",
             sokolnprcntg: parseFloat(lnPrsntg),
             sokolpymntperiod: 61,
             sokodesc:ChmDesc,
-            owner: ownr,
+            owner: userInfo.attributes.sub,
                   },
                 })
                 
@@ -405,7 +405,7 @@ useEffect(() =>{
                       secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loaner PassWord</Text>
+                    <Text style={styles.sendLoanText}>Business PassWord</Text>
                   </View>
 
 

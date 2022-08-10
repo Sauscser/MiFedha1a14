@@ -41,9 +41,9 @@ type SMAccount
   )
   
   {
-  nationalid: String!
-  name: String!
-  phonecontact: String! 
+  nationalid: String! @index(name: "byNatIdentity", sortKeyFields: ["createdAt"], queryField: "VwNatIdentity")
+  name: String! 
+  phonecontact: String! @index(name: "byPnCntct", sortKeyFields: ["createdAt"], queryField: "VwPnCntct")
   awsemail: String! @primaryKey 
   balance: Float!
   pw: String!
@@ -371,7 +371,7 @@ type SokoAd
    {
   
   id:ID!
-  sokoregno: String! 
+  
   sokokntct: String! 
   sokoname: String! @index(name: "DakaName", sortKeyFields: ["createdAt"], queryField: "DakaByName")
  
@@ -459,7 +459,7 @@ type Agent
   {
   phonecontact: String! @primaryKey
   sagentregno: String! @index(name: "byCrtnTyms", sortKeyFields: ["createdAt"], queryField: "MFKVwMFN")
-  nationalid: String!
+  nationalid: String! @index(name: "byNatIdentitys", sortKeyFields: ["createdAt"], queryField: "VwNatIdentitys")
   name: String!
   ttlEarnings: Float!
   pw: String!
@@ -721,7 +721,7 @@ type SAgent
   
    {
   saPhoneContact: String! @primaryKey
-  saNationalid: String!
+  saNationalid: String! @index(name: "byNatIdentityss", sortKeyFields: ["createdAt"], queryField: "VwNatIdentityss")
   name: String!
   
   pw: String!
@@ -1453,7 +1453,7 @@ type Group
   grpContact: String! @primaryKey
   regNo:String!
   signitoryContact: String!
-  SignitoryNatid: String!
+  SignitoryNatid: String! @index(name: "byNatIdentitysz", sortKeyFields: ["createdAt"], queryField: "VwNatIdentitysz")
   signitoryName: String!
   grpName: String!
   signitoryPW: String!

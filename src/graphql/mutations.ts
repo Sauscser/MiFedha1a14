@@ -564,7 +564,6 @@ export const createSokoAd = /* GraphQL */ `
   ) {
     createSokoAd(input: $input, condition: $condition) {
       id
-      sokoregno
       sokokntct
       sokoname
       sokoprice
@@ -585,7 +584,6 @@ export const updateSokoAd = /* GraphQL */ `
   ) {
     updateSokoAd(input: $input, condition: $condition) {
       id
-      sokoregno
       sokokntct
       sokoname
       sokoprice
@@ -606,7 +604,6 @@ export const deleteSokoAd = /* GraphQL */ `
   ) {
     deleteSokoAd(input: $input, condition: $condition) {
       id
-      sokoregno
       sokokntct
       sokoname
       sokoprice

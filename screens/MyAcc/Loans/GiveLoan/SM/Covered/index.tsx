@@ -344,7 +344,7 @@ const SMASendLns = props => {
                                   loaneename:namess,
                                   loanername:names,
                                   amountexpected: TotalAmtExp.toFixed(0),
-                                  amountExpectedBackWthClrnc:TotalAmtExp.toFixed(2),
+                                  amountExpectedBackWthClrnc:TotalAmtExp.toFixed(0),
                                   DefaultPenaltySM:PwnBrkr,
                                   DefaultPenaltySM2:0,
                                   amountrepaid: 0,
@@ -481,8 +481,8 @@ const SMASendLns = props => {
                                 graphqlOperation(updateAdvocate, {
                                   input:{
                                     advregnu: AdvRegNo,
-                                    advBal: (AdvCovAmt + parseFloat(advBl)).toFixed(2) ,
-                                    TtlEarnings:(AdvCovAmt + parseFloat(advTtlAern)).toFixed(2),                                 
+                                    advBal: (AdvCovAmt + parseFloat(advBl)).toFixed(0) ,
+                                    TtlEarnings:(AdvCovAmt + parseFloat(advTtlAern)).toFixed(0),                                 
                                     
                                   }
                                 })
