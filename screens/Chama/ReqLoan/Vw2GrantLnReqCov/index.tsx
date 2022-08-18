@@ -5,6 +5,7 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/Chama/LnReq/Vw2GrantLnReqCov";
 import styles from './styles';
 import {  listGroups, listRafikiLnAds, listReqLoanChamas, listSMAccounts } from '../../../../src/graphql/queries';
+import { useRoute } from '@react-navigation/native';
 
 const FetchSMNonCovLns = props => {
 
@@ -28,7 +29,7 @@ const FetchSMNonCovLns = props => {
   const [lnPrsntg, setlnPrsntg] = useState('0');
   const [rpymntPrd, setrpymntPrd] = useState('0');
 
-  
+  const route = useRoute();
   
 
 
@@ -53,7 +54,7 @@ const FetchSMNonCovLns = props => {
                     
                   filter: {
                   
-                    chamaPhone: { eq: awsEmail},
+                    chamaPhone: { eq: route.params.grpContact},
                     status:{eq:"AwaitingResponse"}
                 }
                 }
@@ -87,7 +88,7 @@ const FetchSMNonCovLns = props => {
   return (
     <View style={styles.image}>
 
-    <View style={styles.root}>
+   
       <FlatList
       style= {{width:"100%"}}
         data={Loanees}
@@ -100,7 +101,7 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Enter group phone and swipe</Text>
+            
             <Text style={styles.label2}> (Select Loan Request to Grant)</Text>
           </>
         )}
@@ -108,20 +109,7 @@ const FetchSMNonCovLns = props => {
 
 </View>
 
-<View style={styles.sendLoanView}>
-                    <TextInput
-                     placeholder="Group Phone contact"
-                     
-                      value={awsEmail}
-                      onChangeText={setAWSEmail}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
 
-
-                    
-                    
-    </View>
-    </View>
   );
 };
 

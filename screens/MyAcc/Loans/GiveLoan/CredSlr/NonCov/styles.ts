@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'skyblue',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "6%",
+    height: "7%",
     borderRadius: 20,
     marginTop: "5%",
     justifyContent: 'center',
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   sendAmtButton: {
     backgroundColor: '#fff',
-    height: "3%",
+    height: "6%",
     borderRadius: 30,
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
@@ -70,9 +70,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginHorizontal: 15,
     width: Dimensions.get('screen').width - 30,
-    height: "60%",
+    height: "100%",
     borderRadius: 10,
-    marginTop: "2%",
+  
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -94,12 +94,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginHorizontal: 15,
     width: Dimensions.get('screen').width - 30,
-    height: "70%",
+    height: "100%",
     borderRadius: 10,
-    marginTop: "2%",
+ 
     justifyContent: 'center',
     alignItems: 'center',
-    
+    padding:2
   },
 });
 export default styles;

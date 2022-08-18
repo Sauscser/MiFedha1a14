@@ -474,7 +474,7 @@ const fetchChmMbrDtls = async () => {
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
-                          Alert.alert("Transaction Fee:Ksh. "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) + " coverage "+ttlCovFeeAmount.toFixed(2)
+                          Alert.alert("Success. TransactionFee: "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) + ". AdvocateFee "+ttlCovFeeAmount.toFixed(2)
                          
                           );
                           setIsLoading(false);

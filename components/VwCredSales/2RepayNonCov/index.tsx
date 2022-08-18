@@ -10,7 +10,7 @@ export interface ChmCvLnSttusRec {
       itemName: string,
     
       buyerContact: string,
-      
+      sellerContact:string,
       SellerName:string,
    
       amountSold: number,
@@ -30,7 +30,7 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
    const {
     Loanee: {
       id,
-      
+      sellerContact,
       itemName,
       SellerName,
    
@@ -57,6 +57,8 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
                        {/*loaner details */}   
                        Loan Id: {id}                 
                     </Text>
+
+                   
                     
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   

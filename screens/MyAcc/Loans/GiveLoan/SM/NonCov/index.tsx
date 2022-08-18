@@ -436,7 +436,7 @@ const route = useRoute();
                             if (error){Alert.alert("Enter details correctly")
                         return;}
                           }
-                          Alert.alert("U'v Loaned "+ namess +" "+amount+ ": TransactionFee:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) );
+                          Alert.alert("Success. TransactionFee:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) );
                           setIsLoading(false);
                           await updtRecAc3();
                         }

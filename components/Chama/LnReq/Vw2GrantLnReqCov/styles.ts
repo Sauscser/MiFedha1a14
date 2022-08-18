@@ -10,7 +10,8 @@ const styles = StyleSheet.create ({
     ownerName: {
         fontSize: 15,
         fontWeight: '900',
-        color: '#ad1c65'
+        color: '#ad1c65',
+        padding:10
     },
 
     ownerContact: {

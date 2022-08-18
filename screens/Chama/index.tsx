@@ -127,12 +127,14 @@ const MyLoanAccount = props => {
     navigation.navigate('Sgn2CnfrmWthdrwlsss');
   };
 
-  const ChamaVw2GrantLnReqCov = () => {
-    navigation.navigate('ChamaVw2GrantLnReqCov');
+  
+
+  const VwGrp2LnCov = () => {
+    navigation.navigate('VwGrp2LnCov');
   };
 
-  const ChamaVw2GrantLnReqNonCov = () => {
-    navigation.navigate('ChamaVw2GrantLnReqNonCov');
+  const VwGrp2LnNonCov = () => {
+    navigation.navigate('VwGrp2LnNonCov');
   };
 
 
@@ -150,13 +152,13 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={ChamaVw2GrantLnReqCov}
+                      onPress={VwGrp2LnCov}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Covered Loans</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={ChamaVw2GrantLnReqNonCov}
+                      onPress={VwGrp2LnNonCov}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Non-Covered Loans

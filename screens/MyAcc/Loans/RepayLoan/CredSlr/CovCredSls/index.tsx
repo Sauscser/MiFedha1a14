@@ -337,7 +337,7 @@ const RepayCovSellerLnsss = props => {
                                     return
                                   }
                                 }
-                                Alert.alert("Cleared. Clearance charge: " +ClranceAmt.toFixed(2) + " TransactionFee: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
+                                Alert.alert("Cleared. ClearanceFee: " +ClranceAmt.toFixed(2) + " TransactionFee: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 setIsLoading(false);
                               }                                                                                                            
                         

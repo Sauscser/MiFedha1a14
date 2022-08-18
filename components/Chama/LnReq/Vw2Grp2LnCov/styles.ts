@@ -3,6 +3,8 @@ import { StyleSheet, Dimensions } from "react-native";
 const styles = StyleSheet.create ({
     container: {
         margin: 25,
+        alignItems: 'center',
+    flexDirection: 'column',
         
     },
 
@@ -10,8 +12,7 @@ const styles = StyleSheet.create ({
     ownerName: {
         fontSize: 15,
         fontWeight: '900',
-        color: '#ad1c65',
-        padding: 10
+        color: '#ad1c65'
     },
 
     ownerContact: {

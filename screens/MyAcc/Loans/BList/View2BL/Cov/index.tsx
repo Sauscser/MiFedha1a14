@@ -26,13 +26,7 @@ const FetchSMCovLns = props => {
               const balances = MFNDtls.data.getSMAccount.balance;
               const owner = MFNDtls.data.getSMAccount.owner;
 
-        const fetchLoanees = async () => {
-            setLoading(true);
-
-            const userInfo = await Auth.currentAuthenticatedUser();
               
-        
-            try {
               const today = new Date();
               let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
               let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
@@ -46,6 +40,16 @@ const FetchSMCovLns = props => {
               const curYrs = parseFloat(years)*365;
               const curMnths = (months2)*30.4375;
               const daysUpToDate = curYrs + curMnths + parseFloat(days)
+
+              console.log(daysUpToDate)
+
+        const fetchLoanees = async () => {
+            setLoading(true);
+
+            
+        
+            try {
+              
 
               const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
                 { filter: {

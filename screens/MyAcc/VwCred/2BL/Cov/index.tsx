@@ -49,8 +49,8 @@ const FetchSMCovLns = props => {
                       lonBala:{gt:0},
                       
                       status:{ne:"LoanBL"},
-                      timeExpBack:{lt: daysUpToDate},
-                      timeExpBack2:{lt:daysUpToDate},
+                      timeExpBack:{le: daysUpToDate},
+                      timeExpBack2:{le:daysUpToDate},
 
                   },
                   

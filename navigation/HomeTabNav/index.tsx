@@ -153,8 +153,8 @@ import Vw2RpyCov from "../../screens/Chama/Vw2RpyChmLns/Cov";
 import Vw2RpyNonCov from "../../screens/Chama/Vw2RpyChmLns/NonCov";
 import SgnIn2BLCov from "../../screens/Chama/BL/SgnInToBL/MmbrCov";
 import SgnIn2BLNonCov from "../../screens/Chama/BL/SgnInToBL/MmbrNonCov";
-import Vw2BLCov from "../../screens/Chama/BL/View/Cov";
-import Vw2BLNonCov from "../../screens/Chama/BL/View/NonCov";
+import Vw2BLCov from "../../screens/Chama/BL/Vw2BLChmCov";
+import Vw2BLNonCov from "../../screens/Chama/BL/Vw2BLChmNonCov";
 
 import Vw2RepySMCovLn from "../../screens/MyAcc/Loans/Vw2Rpay/Cov";
 import Vw2RepySMNonCovLn from "../../screens/MyAcc/Loans/Vw2Rpay/NonCov";
@@ -319,6 +319,8 @@ import VwMFNAcDtls from "../../screens/MFNdogo/VwMFNAcDtls";
 import DeclChamaReq from "../../screens/DecliningLnReq/ChamaReq";
 import DeclCredSls from "../../screens/DecliningLnReq/CredSls";
 import DeclPalLn from "../../screens/DecliningLnReq/PalLn";
+import VwGrp2LnNonCov from "../../screens/Chama/Loan/VwGrp2LnNonCov";
+import VwGrp2LnCov from "../../screens/Chama/Loan/VwGrp2LnCov";
 
 
 const Stack = createNativeStackNavigator();
@@ -330,6 +332,9 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />
 
+      <Stack.Screen name={'VwGrp2LnNonCov'} component={VwGrp2LnNonCov} />
+      <Stack.Screen name={'VwGrp2LnCov'} component={VwGrp2LnCov} />
+      
       <Stack.Screen name={'DeclChamaReq'} component={DeclChamaReq} />
       <Stack.Screen name={'DeclCredSls'} component={DeclCredSls} />
       <Stack.Screen name={'DeclPalLn'} component={DeclPalLn} />

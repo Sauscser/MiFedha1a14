@@ -87,8 +87,6 @@ const BLChmNonCovLoanee = (props) => {
               const MmbrClrnceCost = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
               + parseFloat(DefaultPenaltyChms);
 
-              const createdAt = compDtls.data.getNonCvrdGroupLoans.createdAt;
-              const repaymentPeriod = compDtls.data.getNonCvrdGroupLoans.repaymentPeriod;
               
 
               const gtLoanerDtls = async () =>{
@@ -106,7 +104,10 @@ const BLChmNonCovLoanee = (props) => {
                     const TtlBLLonsAmtLnrChmNonCovs = compDtls3.data.getGroup.TtlBLLonsAmtLnrChmNonCov
                     const grpNames = compDtls3.data.getGroup.grpName
                     const tymsChmHvBLs = compDtls3.data.getGroup.tymsChmHvBL
-                    const TtlActvLonsAmtLnrChmNonCovs = compDtls3.data.getGroup.TtlActvLonsAmtLnrChmNonCov    
+                    const TtlActvLonsAmtLnrChmNonCovs = compDtls3.data.getGroup.TtlActvLonsAmtLnrChmNonCov  
+                    
+                    
+
                     const gtLoaneeDtls = async () =>{
                       if(isLoading){
                         return;

@@ -451,9 +451,9 @@ const CovCredSls = props => {
                             if (error){Alert.alert("Check your internet connection")
                         return;}
                           }
-                          Alert.alert("Coverage:" 
+                          Alert.alert("Success. AdvocateFee:" 
                           +(parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2) 
-                          + ", Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
+                          + ", TransactionFee:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
                           );
                           setIsLoading(false);
                           
@@ -687,32 +687,35 @@ useEffect(() =>{
          
          <View style={styles.sendAmtView}>
            <TextInput
+           placeholder='Sales Officer User PassWord'
              value={SnderPW}
              onChangeText={setSnderPW}
              secureTextEntry = {true}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Sales Officer User PassWord</Text>
+           
          </View>
 
 
          <View style={styles.sendAmtView}>
            <TextInput
            keyboardType={"decimal-pad"}
+           placeholder='Default Penalty'
              value={DfltPnlty}
              onChangeText={setDfltPnlty}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Default Penalty</Text>
+           
          </View>
 
          <View style={styles.sendAmtView}>
            <TextInput
+           placeholder='Advocate License Number'
              value={AdvRegNo}
              onChangeText={setAdvRegNo}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Advocate License Number</Text>
+           
          </View>
 
 
@@ -720,12 +723,13 @@ useEffect(() =>{
 
          <View style={styles.sendAmtViewDesc}>
            <TextInput
+           placeholder='Description'
              multiline={true}
              value={Desc}
              onChangeText={setDesc}
              style={styles.sendAmtInputDesc}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Description</Text>
+           
          </View>
 
          

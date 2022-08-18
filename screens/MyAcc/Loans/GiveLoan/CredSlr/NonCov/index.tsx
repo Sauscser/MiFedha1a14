@@ -360,7 +360,7 @@ const NonCovCredSls = props => {
                           }
                           await updtLnReq();
                           setIsLoading(false);
-                          Alert.alert("Transaction:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
+                          Alert.alert("TransactionFee:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
                           );
                         }
 
@@ -597,33 +597,38 @@ useEffect(() =>{
 
          <View style={styles.sendAmtView}>
            <TextInput
+           placeholder='Sales Officer User PassWord'
              value={SnderPW}
              onChangeText={setSnderPW}
              secureTextEntry = {true}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Sales Officer User PassWord</Text>
+           
          </View>
 
 
          <View style={styles.sendAmtView}>
            <TextInput
+           placeholder='Default Penalty'
            keyboardType={"decimal-pad"}
              value={DfltPnlty}
              onChangeText={setDfltPnlty}
              style={styles.sendAmtInput}
              editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Default Penalty</Text>
+           
          </View>
 
          <View style={styles.sendAmtViewDesc}>
            <TextInput
+           
+           placeholder='Description'
              multiline={true}
              value={Desc}
              onChangeText={setDesc}
              style={styles.sendAmtInputDesc}
-             editable={true}></TextInput>
-           <Text style={styles.sendAmtText}>Description</Text>
+             editable={true}
+              ></TextInput>
+          
          </View>
 
          

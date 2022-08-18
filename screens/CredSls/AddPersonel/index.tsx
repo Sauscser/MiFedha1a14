@@ -133,9 +133,9 @@ const CreateChama = (props:UserReg) => {
          
         onCreateNewSMAc();
           }
-      } catch (e) {
-        console.error(e);
-        if (e){Alert.alert("Ensure officer has a Personal account")
+      } catch (error) {
+        
+        if (error){Alert.alert("Ensure officer has a Personal account")
       return}
       }
   

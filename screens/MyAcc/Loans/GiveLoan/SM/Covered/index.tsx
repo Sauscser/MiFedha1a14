@@ -493,8 +493,8 @@ const SMASendLns = props => {
                             if (error){Alert.alert("Check your internet connection")
       return;}
                           }
-                          Alert.alert("U'v Loaned "+ namess + " " +amount+ ": Coverage:" +(parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2) 
-                          + ", TrnsctnFee:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2)
+                          Alert.alert("Success. AdvocateFee:" +(parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2) 
+                          + ", TransactionFee:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2)
                           );
                           setIsLoading(false);
                           await updtRecAc3();

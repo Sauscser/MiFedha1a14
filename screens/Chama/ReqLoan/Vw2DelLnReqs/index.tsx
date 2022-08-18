@@ -87,6 +87,9 @@ const FetchSMNonCovLns = props => {
            
             
         }    
+        finally {
+          setLoading(false);
+          }
 
         
          }

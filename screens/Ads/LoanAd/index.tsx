@@ -92,9 +92,9 @@ const CreateBiz = (props) => {
             rafikiEmail: UsrEmail,
             rafikiamnt: parseFloat(itemPrys),
             rafikidesc:ChmDesc,
-            rafikiprcntg: parseFloat(itemPrys),
+            rafikiprcntg: parseFloat(lnPrsntg),
            
-            rafikirpymntperiod: 61,
+            rafikirpymntperiod: rpymntPrd,
             
             owner: ownr,
                   },
@@ -110,6 +110,13 @@ const CreateBiz = (props) => {
 
       else if (owner !== ownr)
       {Alert.alert("Please first create main account")}
+      else if (parseFloat(lnPrsntg) >=36){
+        Alert.alert("Cancelled: Exploitative Annual Interest Rate")
+      }
+
+      else if (parseFloat(rpymntPrd) < 60){
+        Alert.alert("Repayment period must be greater than 60 days")
+      }
       
       
       else {
@@ -305,10 +312,30 @@ useEffect(() =>{
                       onChangeText={setitemPrys}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loan Amount</Text>
+                    <Text style={styles.sendLoanText}>Amount</Text>
                   </View>
 
-                 
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                     keyboardType='decimal-pad'
+                     
+                      value={rpymntPrd}
+                      onChangeText={setrpymntPrd}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Repayment Period in days</Text>
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                     keyboardType='decimal-pad'
+                     
+                      value={lnPrsntg}
+                      onChangeText={setlnPrsntg}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Annual Percentage Rate</Text>
+                  </View>
 
                   <View style={styles.sendAmtViewDesc}>
                     <TextInput

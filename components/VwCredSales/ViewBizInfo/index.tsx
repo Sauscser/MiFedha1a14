@@ -7,7 +7,7 @@ import styles from './styles';
 
 export interface ChmaInfo {
     ChmDtls: {
-      BusinessRegNo:string,
+      
       BusKntct: string,
       netEarnings: number,
       busName: string,
@@ -21,7 +21,7 @@ export interface ChmaInfo {
 const ChmInfo = (props:ChmaInfo) => {
    const {
       ChmDtls: {
-         BusinessRegNo,
+        
       BusKntct,
       netEarnings,
       busName,
@@ -48,10 +48,7 @@ const ChmInfo = (props:ChmaInfo) => {
                       Business Name: {busName}                
                     </Text> 
                     
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Business Registration Number: {BusinessRegNo}                
-                    </Text>    
+                   
                                                                    
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
@@ -62,10 +59,7 @@ const ChmInfo = (props:ChmaInfo) => {
                        Repayed Sales : {earningsBal.toFixed(2)}
                     </Text>  
 
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Earnings from sales : {(earningsBal - TtlEarnings).toFixed(2)}
-                    </Text>    
+                      
 
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 

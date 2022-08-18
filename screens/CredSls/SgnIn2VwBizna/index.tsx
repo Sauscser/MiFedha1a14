@@ -37,7 +37,7 @@ const MFNSignIn = (props) => {
 
                 const pw1s = MFNDtls.data.getBizna.pw;
                 const owners = MFNDtls.data.getBizna.owner;
-                const BusinessRegNos = MFNDtls.data.getBizna.busName;
+                const BusinessRegNos = MFNDtls.data.getBizna.BusKntct;
 
                 const VwMFNAc = () => {
                   navigation.navigate("VwBusAcss", {BusinessRegNos});
@@ -48,7 +48,7 @@ const MFNSignIn = (props) => {
                   Alert.alert("You dont own this Business");
                 }
           else if(MFNPW !== pw1s ){
-            Alert.alert("Wrong Admin password");
+            Alert.alert("Wrong Business password");
           }
           else{
               

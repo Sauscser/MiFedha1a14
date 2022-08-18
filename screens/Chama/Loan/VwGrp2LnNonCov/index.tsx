@@ -2,12 +2,9 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../components/Chama/LnReq/Vw2GrantLnReqNonCov";
+import LnerStts from "../../../../components/Chama/LnReq/Vw2Grp2LnNonCov";
 import styles from './styles';
-import { listReqLoanChamas, listReqLoans } from '../../../../src/graphql/queries';
-import { useRoute } from '@react-navigation/native';
-
-
+import {  listGroups, listRafikiLnAds, listReqLoanChamas, listSMAccounts } from '../../../../src/graphql/queries';
 
 const FetchSMNonCovLns = props => {
 
@@ -26,44 +23,33 @@ const FetchSMNonCovLns = props => {
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState('');
 
-  const [itemPrys, setitemPrys] = useState('0');
+  const [itemPrys, setitemPrys] = useState('');
   const [itemTwn, setitemTwn] = useState('0');
   const [lnPrsntg, setlnPrsntg] = useState('0');
   const [rpymntPrd, setrpymntPrd] = useState('0');
-  const route = useRoute();
+
   
   
 
-
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneePhn(userInfo.attributes.email);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
 
         const fetchLoanees = async () => {
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
             try {
 
-              const Lonees:any = await API.graphql(graphqlOperation(listReqLoanChamas, 
+              const Lonees:any = await API.graphql(graphqlOperation(listGroups, 
                 { 
                     
                   filter: {
                   
-                    chamaPhone: { eq: route.params.grpContact},
-                    status:{eq:"AwaitingResponse"}
-                               
+                    signitoryContact: { eq: userInfo.attributes.email},
+                    status:{eq:"AccountActive"}
                 }
                 }
                   ));
-              setLoanees(Lonees.data.listReqLoanChamas.items);
+              setLoanees(Lonees.data.listGroups.items);
             } catch (e) {
+            
               console.log(e);
             } finally {
               setLoading(false);
@@ -88,9 +74,9 @@ const FetchSMNonCovLns = props => {
           
           
   return (
-    <View style={styles.image}>
+   
 
-    
+    <View style={styles.image}>
       <FlatList
       style= {{width:"100%"}}
         data={Loanees}
@@ -103,14 +89,13 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Enter group phone and swipe</Text>
-            <Text style={styles.label2}> (Select Loan Request to Grant)</Text>
+            <Text style={styles.label}> Swipe down to refresh</Text>
+            <Text style={styles.label2}> (Select Group to proceed)</Text>
           </>
         )}
       />
 
 </View>
-
 
   );
 };

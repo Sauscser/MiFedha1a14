@@ -31,16 +31,16 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(biznaVwws, 
+              const Lonees:any = await API.graphql(graphqlOperation(listBiznas, 
                  {
-                  busName: route.params.BusinessRegNos,
-                      sortDirection: 'DESC',
+                      filter:{BusKntct:{eq:route.params.BusinessRegNos,}},
+                      
                       limit: 100,
                       
                     }
                  
                   ));
-                  setRecvrs(Lonees.data.BiznaVwws.items);
+                  setRecvrs(Lonees.data.listBiznas.items);
             } catch (e) {
               console.log(e);
             } finally {

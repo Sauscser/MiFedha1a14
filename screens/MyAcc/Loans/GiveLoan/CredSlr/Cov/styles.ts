@@ -70,9 +70,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginHorizontal: 15,
     width: Dimensions.get('screen').width - 30,
-    height: "60%",
+    height: "100%",
     borderRadius: 10,
-    marginTop: "2%",
+    
     justifyContent: 'center',
     alignItems: 'center',
   },

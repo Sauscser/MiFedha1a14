@@ -15,21 +15,16 @@ const FetchSMCovLns = props => {
     const [Loanees, setLoanees] = useState([]);
     const route = useRoute()
 
-    const fetchUser = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-              
-        setLneePhn(userInfo.attributes.phone_number);
-             
-      };
-      
-  
-      useEffect(() => {
-          fetchUser();
-        }, []);
+    const fetchUsrDtls = async () => {
 
-        const fetchLoanees = async () => {
-            setLoading(true);
-            try {
+      const userInfo = await Auth.currentAuthenticatedUser();
+      try {
+              const MFNDtls: any = await API.graphql(
+                  graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+              ),);
+
+              const balances = MFNDtls.data.getSMAccount.balance;
+              const owner = MFNDtls.data.getSMAccount.owner;
 
               const today = new Date();
               let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
@@ -37,7 +32,7 @@ const FetchSMCovLns = props => {
               let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
               let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
               let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
-              let months2 = parseFloat(months)+1
+              let months2 = parseFloat(months)
               let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
               
               const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
@@ -45,6 +40,15 @@ const FetchSMCovLns = props => {
               const curMnths = (months2)*30.4375;
               const daysUpToDate = curYrs + curMnths + parseFloat(days)
 
+              console.log(daysUpToDate)
+
+
+
+        const fetchLoanees = async () => {
+            setLoading(true);
+            try {
+
+              
 
               const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
                {
@@ -56,8 +60,8 @@ const FetchSMCovLns = props => {
                           
                           lonBala:{gt:0},
                           status:{ne:"LoanBL"},
-                          timeExpBack:{lt: daysUpToDate},
-                          timeExpBack2:{lt:daysUpToDate},
+                          timeExpBack:{le: daysUpToDate},
+                          timeExpBack2:{le:daysUpToDate},
                           grpContact: {eq:route.params.ChmNMmbrPhns},
                           
                         }
@@ -68,18 +72,24 @@ const FetchSMCovLns = props => {
 
                   setLoanees(Lonees.data.listCvrdGroupLoans.items);
 
-
+                } catch (e) {
+                  console.log(e);
+                } finally {
+                  setLoading(false);
+                }
               
-            } catch (e) {
-              console.log(e);
-            } finally {
-              setLoading(false);
-            }
-          };
-        
-          useEffect(() => {
-            fetchLoanees();
-          }, [])
+                  }
+                  await fetchLoanees();
+                } catch (e) {
+                console.log(e);
+                } finally {
+                setLoading(false);
+                }
+                };
+                
+                useEffect(() => {
+                fetchUsrDtls();
+                }, [])   
 
   return (
     <View style={styles.root}>
@@ -88,7 +98,7 @@ const FetchSMCovLns = props => {
         data={Loanees}
         renderItem={({item}) => <LnerStts ChamaMmbrshpDtls={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
+        onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

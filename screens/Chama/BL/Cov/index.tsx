@@ -93,8 +93,6 @@ const BLChmCovLoanee = (props) => {
 
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids);
 
-              const createdAt = compDtls.data.getCvrdGroupLoans.createdAt;
-              const repaymentPeriod = compDtls.data.getCvrdGroupLoans.repaymentPeriod;
               
 
               const gtLoanerDtls = async () =>{

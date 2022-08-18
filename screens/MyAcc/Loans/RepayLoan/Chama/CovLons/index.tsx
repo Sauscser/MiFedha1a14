@@ -404,7 +404,7 @@ const RepayCovChmLnsss = props => {
                                   console.log(error)
                                   
                                 }
-                                Alert.alert("Cleared. Clearance charge: " +ClranceAmt.toFixed(2) + ". Transaction: "+( parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2) );
+                                Alert.alert("Cleared. ClearanceFee: " +ClranceAmt.toFixed(2) + ". TransactionFee: "+( parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2) );
                                 setIsLoading(false);
                               }    
                               

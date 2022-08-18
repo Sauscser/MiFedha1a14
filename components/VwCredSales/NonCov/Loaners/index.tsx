@@ -63,13 +63,13 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
                    </Text>
                    
                    <Text style = {styles.ownerContact}>                       
-                      {/*loaner details */}  
-                      Amount Given (Ksh): {amountSold.toFixed(2)}                
-                   </Text>                     
-                   <Text style ={styles.amountoffered}>                       
-                      {/* amount*/} 
-                      Amount Expected Back(Ksh): {amountexpectedBack.toFixed(2)}
-                   </Text>   
+                       {/*loaner details */}  
+                       Cash Price (Ksh): {amountSold.toFixed(2)}                
+                    </Text>                     
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Credit Sale Price(Ksh): {amountexpectedBack.toFixed(2)}
+                    </Text>   
                    <Text style = {styles.repaymentPeriod}>                       
                       {/* repaymentPeriod*/}
                       Amount Repaid(Ksh): {amountRepaid.toFixed(2)}                  

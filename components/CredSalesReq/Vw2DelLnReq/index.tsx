@@ -15,6 +15,7 @@ export interface SMAccount {
       id:string,
       status:string,
       loaneePhone:string,
+      itemName:string,
       amount:number,
       repaymentAmt:number,
       repaymentPeriod:number
@@ -27,6 +28,7 @@ const SMCvLnStts = (props:SMAccount) => {
         status,
         loaneePhone,
         amount,
+        itemName,
         repaymentAmt,
         repaymentPeriod,
         loaneeName,
@@ -73,7 +75,7 @@ const SMCvLnStts = (props:SMAccount) => {
                       style = {styles.container}>
                       <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                      Hi! it's {loaneeName}. Kindly Loan me goods worth Ksh. {amount}. I 
+                      Hi! it's {loaneeName}. Kindly sell me a {itemName} on credit whose cash price is Ksh. {amount}. I 
                       commit to repay a Total of Ksh. {repaymentAmt} within {repaymentPeriod} days. 
                       You can reach me through {loaneePhone}. {status}    
                     </Text>
