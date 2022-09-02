@@ -2022,7 +2022,7 @@ enum Status {
   ChmMbrGrpContri
   ChmSndMbr
   SMLonRepayment
-  
+  cashSales
   ChmLonRepayment
   Yes
   No

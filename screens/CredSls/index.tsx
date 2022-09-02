@@ -92,6 +92,22 @@ const MyLoanAccount = props => {
     const SgnIn2VwRevenueShare = () => {
       navigation.navigate('SgnIn2VwRevenueShare');
     };
+
+    const PayCash = () => {
+      navigation.navigate('PayCash');
+    };
+
+    const VwCashPayRec = () => {
+      navigation.navigate('VwCashPayRec');
+    };
+
+    const VwCashPaySent = () => {
+      navigation.navigate('VwCashPaySent');
+    };
+
+    const SgnIn2VwCashSales = () => {
+      navigation.navigate('SgnIn2VwCashSales');
+    };
   
 
   return (
@@ -168,7 +184,7 @@ const MyLoanAccount = props => {
             </View>
 
             <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Sales</Text>
+              <Text style={styles.salesText}>Credit Sales</Text>
 
               <View style={styles.viewForClientsAndTitle}>
               <View style={styles.viewForClientsCategories}>
@@ -231,6 +247,47 @@ const MyLoanAccount = props => {
                       </Text>
                     </Pressable>
                   </View>
+                </View>
+
+
+              </View>
+            </View>
+
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Cash Sales and purchases</Text>
+
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  
+                  <Pressable 
+                  onPress={PayCash}
+                  
+                  style={styles.viewForClientsPressables}>
+                  <Text style={styles.salesPressableText}>Pay Cash</Text>
+                  </Pressable>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  
+                  <Pressable 
+                  onPress={VwCashPaySent}
+                  
+                  style={styles.viewForClientsPressables}>
+                  <Text style={styles.salesPressableText}>View Purchases</Text>
+
+                  </Pressable>
+                </View>
+
+                <View style={styles.viewForClientsCategories}>
+                <Pressable 
+                onPress={SgnIn2VwCashSales}
+                
+                style={styles.viewForClientsPressables}>
+                  <Text style={styles.salesPressableText}>View Sales</Text>
+
+                  </Pressable>
                 </View>
 
 
@@ -303,10 +360,10 @@ const MyLoanAccount = props => {
                   </View>
                 </View>
 
-
-
               </View>
             </View>
+
+            
 
     </ScrollView>
     </SafeAreaView> 

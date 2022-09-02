@@ -108,6 +108,7 @@ export enum Status {
   ChmMbrGrpContri = "ChmMbrGrpContri",
   ChmSndMbr = "ChmSndMbr",
   SMLonRepayment = "SMLonRepayment",
+  cashSales = "cashSales",
   ChmLonRepayment = "ChmLonRepayment",
   Yes = "Yes",
   No = "No",

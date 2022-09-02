@@ -93,15 +93,9 @@ const SMADepositForm = props => {
                   const sagentComs = compDtls.data.getCompany.sagentCom;
                   const companyComs = compDtls.data.getCompany.companyCom;
                   const UsrWthdrwlFeess = compDtls.data.getCompany.UsrWthdrwlFees;
-                  
+                 
 
-                  const AgentCommission = parseFloat(agentComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)                                                
-                  const saCommission =    parseFloat(sagentComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
-                  const compCommission = parseFloat(companyComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
-
-                  const UsrWithdrawalFee = AgentCommission+saCommission+compCommission;
-
-                  const TTlAmtTrnsctd = parseFloat(amount) + UsrWithdrawalFee
+                 
                   
                   const companyEarningBals = compDtls.data.getCompany.companyEarningBal
                   const companyEarnings = compDtls.data.getCompany.companyEarning
@@ -124,9 +118,9 @@ const SMADepositForm = props => {
                           const saBalances = compDtls.data.getSAgent.saBalance;
                           const namessssssss = compDtls.data.getSAgent.name;
                           const MFKWithdrwlFees = compDtls.data.getSAgent.MFKWithdrwlFee;
-                          const AgentCommission = parseFloat(MFNWithdrwlFees)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)                                                
-                          const saCommission =    parseFloat(MFKWithdrwlFees)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
-                          const compCommission = parseFloat(companyComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+                          const AgentCommission = (parseFloat(sagentComs) - parseFloat(MFNWithdrwlFees))*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)                                                
+                          const saCommission =    (parseFloat(agentComs) - parseFloat(MFKWithdrwlFees))*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+                          const compCommission = (parseFloat(companyComs))*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
 
                           const UsrWithdrawalFee = AgentCommission+saCommission+compCommission;
 

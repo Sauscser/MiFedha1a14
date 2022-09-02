@@ -114,7 +114,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
                     latitude: lat,
                     longitude: lon,              
                     agentEarningBal: 0,
-                    MFNWithdrwlFee:0.4,
+                    MFNWithdrwlFee:0,
                     town:twn,      
                     owner:userInfo.attributes.sub,
                     status: 'AccountActive',

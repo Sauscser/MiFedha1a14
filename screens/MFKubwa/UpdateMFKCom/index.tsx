@@ -239,7 +239,7 @@ const UpdtMFKPW = (props) => {
                       onChangeText={setNewAdmnPW}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>New Commission</Text>
+                    <Text style={styles.sendLoanText}>Commission Discount</Text>
                   </View>     
 
                                    

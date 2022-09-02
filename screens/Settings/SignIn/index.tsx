@@ -66,9 +66,9 @@ const AdminSignIn = (props) => {
             pw2: PWTwos,            
           
             agentwithdrawalFee: 0.02,
-            agentCom: 0.4,
-            sagentCom: 0.3,
-            companyCom: 0.3,
+            agentCom: 40,
+            sagentCom: 35,
+            companyCom: 25,
             AdvCom: 0.6,
             AdvCompanyCom:0.4,
             bankAdminCom: 0.02,

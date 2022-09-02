@@ -321,6 +321,10 @@ import DeclCredSls from "../../screens/DecliningLnReq/CredSls";
 import DeclPalLn from "../../screens/DecliningLnReq/PalLn";
 import VwGrp2LnNonCov from "../../screens/Chama/Loan/VwGrp2LnNonCov";
 import VwGrp2LnCov from "../../screens/Chama/Loan/VwGrp2LnCov";
+import PayCash from "../../screens/CredSls/PayCash";
+import VwCashPayRec from "../../screens/CredSls/VwCashPayRec";
+import VwCashPaySent from "../../screens/CredSls/VwCashPaySent";
+import SgnIn2VwCashSales from "../../screens/CredSls/SgnIn2VwCashSales";
 
 
 const Stack = createNativeStackNavigator();
@@ -332,9 +336,14 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />
 
-      <Stack.Screen name={'VwGrp2LnNonCov'} component={VwGrp2LnNonCov} />
-      <Stack.Screen name={'VwGrp2LnCov'} component={VwGrp2LnCov} />
+      <Stack.Screen name={'SgnIn2VwCashSales'} component={SgnIn2VwCashSales} />
       
+      <Stack.Screen name={'PayCash'} component={PayCash} />
+      <Stack.Screen name={'VwCashPayRec'} component={VwCashPayRec} />      
+      <Stack.Screen name={'VwCashPaySent'} component={VwCashPaySent} />
+      
+      <Stack.Screen name={'VwGrp2LnNonCov'} component={VwGrp2LnNonCov} />
+      <Stack.Screen name={'VwGrp2LnCov'} component={VwGrp2LnCov} />      
       <Stack.Screen name={'DeclChamaReq'} component={DeclChamaReq} />
       <Stack.Screen name={'DeclCredSls'} component={DeclCredSls} />
       <Stack.Screen name={'DeclPalLn'} component={DeclPalLn} />

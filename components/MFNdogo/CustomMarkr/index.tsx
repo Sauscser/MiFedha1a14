@@ -56,7 +56,7 @@ const CustomMarker = props => {
               fontWeight: 'bold',
               
             }}>
-           {MFNWithdrwlFee*100} %
+           {MFNWithdrwlFee} %
           </Text>
           
         </View>

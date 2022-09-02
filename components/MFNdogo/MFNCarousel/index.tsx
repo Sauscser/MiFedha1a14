@@ -139,18 +139,18 @@ const ViewSMDeposts = (props:SMAccount) => {
 
 
           <Text style={styles.amountoffered} numberOfLines={4}>
-          Company Disc:{(((100 - ((parseFloat(MFKWDFeeFrmCmp)*100) + (parseFloat(MFNWDFFrmCmp)*100)))  - (parseFloat(CompWithdrwlFee))*100)).toFixed(4)}%
+          Company Disc:{25 - parseFloat(CompWithdrwlFee)}%
           </Text>
 
           {/* Type & Description */}
           <Text style={styles.amountoffered} numberOfLines={2}>
 
-          MiFedha Kubwa Disc:{((parseFloat(MFKWDFeeFrmCmp) - parseFloat(MFKWithdrwlFee))*100).toFixed(4)}%
+          MiFedha Kubwa Disc:{MFKWithdrwlFee}%
           </Text>
 
           <Text style={styles.amountoffered} numberOfLines={4}>
 
-          MiFedha Ndogo Disc:{(((parseFloat(MFNWDFFrmCmp) - (MFNWithdrwlFee)))*100).toFixed(4)}%
+          MiFedha Ndogo Disc:{MFNWithdrwlFee}%
           </Text>
 
           {/* Type & Description */}

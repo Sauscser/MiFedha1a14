@@ -49,8 +49,9 @@ const FetchSMNonCovLns = props => {
           }  else {
            await fetchLoanees();}
 } catch (e) {
-console.log(e);
-} finally {
+if (e)
+{Alert.alert ("Please first create a main account on home page")}
+return} finally {
 setLoading(false);
 }
 };

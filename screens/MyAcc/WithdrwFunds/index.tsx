@@ -211,8 +211,8 @@ const SMADepositForm = props => {
                           const saBalances = compDtls.data.getSAgent.saBalance;
                           const namessssssss = compDtls.data.getSAgent.name;
                           const MFKWithdrwlFees = compDtls.data.getSAgent.MFKWithdrwlFee;
-                          const AgentCommission = parseFloat(MFNWithdrwlFees)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)                                                
-                          const saCommission =    parseFloat(MFKWithdrwlFees)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+                          const AgentCommission = (parseFloat(agentComs) - parseFloat(MFNWithdrwlFees))*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)                                                
+                          const saCommission =    (parseFloat(sagentComs) - parseFloat(MFKWithdrwlFees))*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
                           const compCommission = parseFloat(companyComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
 
                           const UsrWithdrawalFee = AgentCommission+saCommission+compCommission;

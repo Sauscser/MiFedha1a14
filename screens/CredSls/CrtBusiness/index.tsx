@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {createBizna, createChamaMembers, createGroup,   updateCompany} from '../../../src/graphql/mutations';
+import {createBizna, createChamaMembers, createGroup,   createPersonel,   updateCompany} from '../../../src/graphql/mutations';
 import { getCompany, getSMAccount, listChamasRegConfirms, vwViaPhonss,  } from '../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
@@ -40,6 +40,8 @@ const CreateBiz = (props) => {
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState('');
 
+  const WorkerID = "00001"+ChmPhn
+
 
   const fetchAcDtls = async () => {
     if(isLoading){
@@ -55,7 +57,7 @@ const CreateBiz = (props) => {
 
   
       const owners = accountDtl.data.getSMAccount.owner;
-      
+      const nationalid = accountDtl.data.getSMAccount.nationalid
 
       const CreateNewSMAc = async () => {
         if(isLoading){
@@ -97,8 +99,45 @@ const CreateBiz = (props) => {
               }
             
             }
-            Alert.alert("Business created successfully")
+            await onCreateNewSMAc();
+            
                      };
+
+                     const onCreateNewSMAc = async () => {
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try {
+                        await API.graphql(
+                        graphqlOperation(createPersonel, {
+                        input: {
+                          BusinessRegNo: ChmPhn,
+                          phoneKontact:userInfo.attributes.email,
+                          name: userInfo.username,
+                          workerId: WorkerID,
+                          workId:"00001",
+                          email: userInfo.attributes.email,
+                          nationalid:nationalid,
+                          BiznaName:ChmNm,
+                          ownrsss: owners,
+                                },
+                              }),
+                            );
+                            
+                          } catch (error) {
+                            if (error){
+                              Alert.alert("Error: possible this Business Phone exists here")
+                              return
+                            }
+                          
+                          }
+                          Alert.alert("Business and owner accounts successfully created")
+                          
+                          setIsLoading(false);
+                          
+                          
+                        };
 
                      if (pword.length < 8)
           {Alert.alert("password is too short; at least eight characters");

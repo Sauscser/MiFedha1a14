@@ -111,7 +111,7 @@ const CreateChama = (props:UserReg) => {
               
             } catch (error) {
               if (error){
-                Alert.alert("Addition unsuccessful; Retry")
+                Alert.alert("Error: Work ID 00001 belongs to Business owner. Retry")
                 return
               }
             

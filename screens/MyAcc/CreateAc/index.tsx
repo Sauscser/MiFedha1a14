@@ -180,14 +180,14 @@ const CreateAcForm = (props) => {
 
                 DefaultPenaltySM:0,
 
-                MaxAcBal:5000000,
+                MaxAcBal:10000000,
 
                 acStatus: 'AccountActive',
                 deActvtnReason:"None",
                 blStatus: 'AccountNotBL',
                 loanStatus: "NoLoan",
-                loanLimit: 5000000,
-                nonLonLimit:500000,
+                loanLimit: 10000000,
+                nonLonLimit:10000000,
                 withdrawalLimit: 5000000,
                 depositLimit: 5000000,
                 owner:userInfo.attributes.sub

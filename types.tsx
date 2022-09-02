@@ -356,6 +356,11 @@ declare global {
       CrdSlVw2DelLnReqs:undefined;
       CrdSlVw2GrantLnReqCov:{BusinessRegNo:string};
       CrdSlVw2GrantLnReqNonCov:{BusinessRegNo:string};
+
+      PayCash: undefined;
+      VwCashPayRec: {MFNId:string};
+      VwCashPaySent:undefined;
+      SgnIn2VwCashSales:undefined;
       
     }
   }
