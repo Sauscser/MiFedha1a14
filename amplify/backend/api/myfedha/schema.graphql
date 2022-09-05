@@ -349,6 +349,64 @@ type NonLoans
   createdAt: String!
 }
 
+type LoanPayment
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, update, create] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, create]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["BranchAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  
+  
+  {
+  id:ID!
+  senderPhn: String! @index(name: "bySendrPhns", sortKeyFields: ["createdAt"], queryField: "VwMySntMnys")
+  recPhn: String! @index(name: "byRecPhns", sortKeyFields: ["createdAt"], queryField: "VwMyRecMnys")
+  RecName:String!
+  SenderName:String!
+  lnId:String!
+  amount: Float!
+  description: String
+  status:Status!
+  owner: String!
+  createdAt: String!
+}
+
+
 type SokoAd
   @model
   @auth(

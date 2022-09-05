@@ -388,6 +388,49 @@ export const listNonLoans = /* GraphQL */ `
     }
   }
 `;
+export const getLoanPayment = /* GraphQL */ `
+  query GetLoanPayment($id: ID!) {
+    getLoanPayment(id: $id) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      lnId
+      amount
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listLoanPayments = /* GraphQL */ `
+  query ListLoanPayments(
+    $filter: ModelLoanPaymentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listLoanPayments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        senderPhn
+        recPhn
+        RecName
+        SenderName
+        lnId
+        amount
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getSokoAd = /* GraphQL */ `
   query GetSokoAd($id: ID!) {
     getSokoAd(id: $id) {
@@ -2798,6 +2841,76 @@ export const vwMyRecMny = /* GraphQL */ `
         recPhn
         RecName
         SenderName
+        amount
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMySntMnys = /* GraphQL */ `
+  query VwMySntMnys(
+    $senderPhn: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelLoanPaymentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMySntMnys(
+      senderPhn: $senderPhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        senderPhn
+        recPhn
+        RecName
+        SenderName
+        lnId
+        amount
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyRecMnys = /* GraphQL */ `
+  query VwMyRecMnys(
+    $recPhn: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelLoanPaymentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyRecMnys(
+      recPhn: $recPhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        senderPhn
+        recPhn
+        RecName
+        SenderName
+        lnId
         amount
         description
         status

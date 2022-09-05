@@ -762,6 +762,70 @@ export type DeleteNonLoansInput = {
   id: string,
 };
 
+export type CreateLoanPaymentInput = {
+  id?: string | null,
+  senderPhn: string,
+  recPhn: string,
+  RecName: string,
+  SenderName: string,
+  lnId: string,
+  amount: number,
+  description?: string | null,
+  status: Status,
+  owner: string,
+  createdAt?: string | null,
+};
+
+export type ModelLoanPaymentConditionInput = {
+  senderPhn?: ModelStringInput | null,
+  recPhn?: ModelStringInput | null,
+  RecName?: ModelStringInput | null,
+  SenderName?: ModelStringInput | null,
+  lnId?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  description?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelLoanPaymentConditionInput | null > | null,
+  or?: Array< ModelLoanPaymentConditionInput | null > | null,
+  not?: ModelLoanPaymentConditionInput | null,
+};
+
+export type LoanPayment = {
+  __typename: "LoanPayment",
+  id: string,
+  senderPhn: string,
+  recPhn: string,
+  RecName: string,
+  SenderName: string,
+  lnId: string,
+  amount: number,
+  description?: string | null,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateLoanPaymentInput = {
+  id: string,
+  senderPhn?: string | null,
+  recPhn?: string | null,
+  RecName?: string | null,
+  SenderName?: string | null,
+  lnId?: string | null,
+  amount?: number | null,
+  description?: string | null,
+  status?: Status | null,
+  owner?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteLoanPaymentInput = {
+  id: string,
+};
+
 export type CreateSokoAdInput = {
   id?: string | null,
   sokokntct: string,
@@ -3583,6 +3647,29 @@ export type ModelNonLoansConnection = {
   nextToken?: string | null,
 };
 
+export type ModelLoanPaymentFilterInput = {
+  id?: ModelIDInput | null,
+  senderPhn?: ModelStringInput | null,
+  recPhn?: ModelStringInput | null,
+  RecName?: ModelStringInput | null,
+  SenderName?: ModelStringInput | null,
+  lnId?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  description?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelLoanPaymentFilterInput | null > | null,
+  or?: Array< ModelLoanPaymentFilterInput | null > | null,
+  not?: ModelLoanPaymentFilterInput | null,
+};
+
+export type ModelLoanPaymentConnection = {
+  __typename: "ModelLoanPaymentConnection",
+  items:  Array<LoanPayment | null >,
+  nextToken?: string | null,
+};
+
 export type ModelSokoAdFilterInput = {
   id?: ModelIDInput | null,
   sokokntct?: ModelStringInput | null,
@@ -5021,6 +5108,75 @@ export type DeleteNonLoansMutation = {
     recPhn: string,
     RecName: string,
     SenderName: string,
+    amount: number,
+    description?: string | null,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateLoanPaymentMutationVariables = {
+  input: CreateLoanPaymentInput,
+  condition?: ModelLoanPaymentConditionInput | null,
+};
+
+export type CreateLoanPaymentMutation = {
+  createLoanPayment?:  {
+    __typename: "LoanPayment",
+    id: string,
+    senderPhn: string,
+    recPhn: string,
+    RecName: string,
+    SenderName: string,
+    lnId: string,
+    amount: number,
+    description?: string | null,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateLoanPaymentMutationVariables = {
+  input: UpdateLoanPaymentInput,
+  condition?: ModelLoanPaymentConditionInput | null,
+};
+
+export type UpdateLoanPaymentMutation = {
+  updateLoanPayment?:  {
+    __typename: "LoanPayment",
+    id: string,
+    senderPhn: string,
+    recPhn: string,
+    RecName: string,
+    SenderName: string,
+    lnId: string,
+    amount: number,
+    description?: string | null,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteLoanPaymentMutationVariables = {
+  input: DeleteLoanPaymentInput,
+  condition?: ModelLoanPaymentConditionInput | null,
+};
+
+export type DeleteLoanPaymentMutation = {
+  deleteLoanPayment?:  {
+    __typename: "LoanPayment",
+    id: string,
+    senderPhn: string,
+    recPhn: string,
+    RecName: string,
+    SenderName: string,
+    lnId: string,
     amount: number,
     description?: string | null,
     status: Status,
@@ -8014,6 +8170,56 @@ export type ListNonLoansQuery = {
   } | null,
 };
 
+export type GetLoanPaymentQueryVariables = {
+  id: string,
+};
+
+export type GetLoanPaymentQuery = {
+  getLoanPayment?:  {
+    __typename: "LoanPayment",
+    id: string,
+    senderPhn: string,
+    recPhn: string,
+    RecName: string,
+    SenderName: string,
+    lnId: string,
+    amount: number,
+    description?: string | null,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListLoanPaymentsQueryVariables = {
+  filter?: ModelLoanPaymentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListLoanPaymentsQuery = {
+  listLoanPayments?:  {
+    __typename: "ModelLoanPaymentConnection",
+    items:  Array< {
+      __typename: "LoanPayment",
+      id: string,
+      senderPhn: string,
+      recPhn: string,
+      RecName: string,
+      SenderName: string,
+      lnId: string,
+      amount: number,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetSokoAdQueryVariables = {
   id: string,
 };
@@ -10483,6 +10689,68 @@ export type VwMyRecMnyQuery = {
       recPhn: string,
       RecName: string,
       SenderName: string,
+      amount: number,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMySntMnysQueryVariables = {
+  senderPhn: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelLoanPaymentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMySntMnysQuery = {
+  VwMySntMnys?:  {
+    __typename: "ModelLoanPaymentConnection",
+    items:  Array< {
+      __typename: "LoanPayment",
+      id: string,
+      senderPhn: string,
+      recPhn: string,
+      RecName: string,
+      SenderName: string,
+      lnId: string,
+      amount: number,
+      description?: string | null,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type VwMyRecMnysQueryVariables = {
+  recPhn: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelLoanPaymentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type VwMyRecMnysQuery = {
+  VwMyRecMnys?:  {
+    __typename: "ModelLoanPaymentConnection",
+    items:  Array< {
+      __typename: "LoanPayment",
+      id: string,
+      senderPhn: string,
+      recPhn: string,
+      RecName: string,
+      SenderName: string,
+      lnId: string,
       amount: number,
       description?: string | null,
       status: Status,
@@ -13012,6 +13280,72 @@ export type OnDeleteNonLoansSubscription = {
     recPhn: string,
     RecName: string,
     SenderName: string,
+    amount: number,
+    description?: string | null,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateLoanPaymentSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateLoanPaymentSubscription = {
+  onCreateLoanPayment?:  {
+    __typename: "LoanPayment",
+    id: string,
+    senderPhn: string,
+    recPhn: string,
+    RecName: string,
+    SenderName: string,
+    lnId: string,
+    amount: number,
+    description?: string | null,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateLoanPaymentSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateLoanPaymentSubscription = {
+  onUpdateLoanPayment?:  {
+    __typename: "LoanPayment",
+    id: string,
+    senderPhn: string,
+    recPhn: string,
+    RecName: string,
+    SenderName: string,
+    lnId: string,
+    amount: number,
+    description?: string | null,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteLoanPaymentSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteLoanPaymentSubscription = {
+  onDeleteLoanPayment?:  {
+    __typename: "LoanPayment",
+    id: string,
+    senderPhn: string,
+    recPhn: string,
+    RecName: string,
+    SenderName: string,
+    lnId: string,
     amount: number,
     description?: string | null,
     status: Status,

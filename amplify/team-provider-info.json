@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "myfedhabdd94507": {}
+        "myfedhabdd94507": {},
+        "userPoolGroups": {}
       }
     }
   }

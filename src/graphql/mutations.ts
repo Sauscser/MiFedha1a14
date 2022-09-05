@@ -557,6 +557,69 @@ export const deleteNonLoans = /* GraphQL */ `
     }
   }
 `;
+export const createLoanPayment = /* GraphQL */ `
+  mutation CreateLoanPayment(
+    $input: CreateLoanPaymentInput!
+    $condition: ModelLoanPaymentConditionInput
+  ) {
+    createLoanPayment(input: $input, condition: $condition) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      lnId
+      amount
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateLoanPayment = /* GraphQL */ `
+  mutation UpdateLoanPayment(
+    $input: UpdateLoanPaymentInput!
+    $condition: ModelLoanPaymentConditionInput
+  ) {
+    updateLoanPayment(input: $input, condition: $condition) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      lnId
+      amount
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteLoanPayment = /* GraphQL */ `
+  mutation DeleteLoanPayment(
+    $input: DeleteLoanPaymentInput!
+    $condition: ModelLoanPaymentConditionInput
+  ) {
+    deleteLoanPayment(input: $input, condition: $condition) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      lnId
+      amount
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createSokoAd = /* GraphQL */ `
   mutation CreateSokoAd(
     $input: CreateSokoAdInput!

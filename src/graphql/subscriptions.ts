@@ -521,6 +521,60 @@ export const onDeleteNonLoans = /* GraphQL */ `
     }
   }
 `;
+export const onCreateLoanPayment = /* GraphQL */ `
+  subscription OnCreateLoanPayment($owner: String) {
+    onCreateLoanPayment(owner: $owner) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      lnId
+      amount
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateLoanPayment = /* GraphQL */ `
+  subscription OnUpdateLoanPayment($owner: String) {
+    onUpdateLoanPayment(owner: $owner) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      lnId
+      amount
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteLoanPayment = /* GraphQL */ `
+  subscription OnDeleteLoanPayment($owner: String) {
+    onDeleteLoanPayment(owner: $owner) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      lnId
+      amount
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateSokoAd = /* GraphQL */ `
   subscription OnCreateSokoAd($owner: String) {
     onCreateSokoAd(owner: $owner) {
