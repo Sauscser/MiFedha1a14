@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-
+import Communications from 'react-native-communications';
+import SendSMS from 'react-native-sms';
 import {
   createFloatAdd,
   createSMAccount,
@@ -312,7 +313,7 @@ const SMASendLns = props => {
                         const RecNatId =RecAccountDtl.data.getSMAccount.nationalid;
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
                         const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
-                        const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
+                        const phonecontact =RecAccountDtl.data.getSMAccount.phonecontact; 
                         const TtlActvLonsTmsLnrCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov; 
                         const TtlActvLonsTmsLneeCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov; 
                         const TtlActvLonsTmsLnrCovs1 =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov;
@@ -521,6 +522,7 @@ const SMASendLns = props => {
                             console.log(error)
                             
                           }
+                          
                           setIsLoading(false);
                           
                         }

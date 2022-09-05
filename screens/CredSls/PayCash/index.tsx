@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import Communications from 'react-native-communications';
 import {
   
   createSMLoansCovered,
@@ -35,7 +35,7 @@ import {useNavigation} from '@react-navigation/native';
 import {
   View,
   Text,
-  ImageBackground,
+  Linking,
   Pressable,
   TextInput,
   ScrollView,
@@ -161,7 +161,7 @@ const SMASendNonLns = props => {
       const SenderSub =accountDtl.data.getSMAccount.owner;
       const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
       const loanLimits =accountDtl.data.getSMAccount.loanLimit;
-      
+      const phonecontact =accountDtl.data.getSMAccount.phonecontact;
       const names =accountDtl.data.getSMAccount.name;
       const owner =accountDtl.data.getSMAccount.owner;
       
@@ -445,6 +445,7 @@ const SMASendNonLns = props => {
                         if (error){Alert.alert("Check your internet connection")
                     return;}
                       }
+                      Linking.openURL('tel://+254716987866');
                       Alert.alert("Insufficient transaction fees? No worries! Ksh. " +parseFloat(amounts).toFixed(0) + " sent!");
                       setIsLoading(false);
                     }
