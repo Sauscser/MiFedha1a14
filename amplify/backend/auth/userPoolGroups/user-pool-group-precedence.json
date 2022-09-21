@@ -46,5 +46,9 @@
   {
     "groupName": "KFNdogo",
     "precedence": 12
+  },
+  {
+    "groupName": "SpareGrp",
+    "precedence": 13
   }
 ]
