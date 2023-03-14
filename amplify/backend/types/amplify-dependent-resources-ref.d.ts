@@ -1,4 +1,10 @@
 export type AmplifyDependentResourcesAttributes = {
+    "api": {
+        "myfedha": {
+            "GraphQLAPIIdOutput": "string",
+            "GraphQLAPIEndpointOutput": "string"
+        }
+    },
     "auth": {
         "myfedhabdd94507": {
             "IdentityPoolId": "string",
@@ -23,12 +29,6 @@ export type AmplifyDependentResourcesAttributes = {
             "KFKubwaGroupRole": "string",
             "KFNdogoGroupRole": "string",
             "SpareGrpGroupRole": "string"
-        }
-    },
-    "api": {
-        "myfedha": {
-            "GraphQLAPIIdOutput": "string",
-            "GraphQLAPIEndpointOutput": "string"
         }
     }
 }

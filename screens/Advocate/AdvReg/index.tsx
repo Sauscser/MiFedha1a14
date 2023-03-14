@@ -99,7 +99,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
           catch (error) {    
             console.log(error)   
             if(error)
-          {Alert.alert("Not authorised to register as Advocate")
+          {Alert.alert("Error! Access denied")
         return;} 
          
       
@@ -110,7 +110,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
         };
 
         if (userInfo.attributes.sub !== owner)
-    {Alert.alert ("Please first create main account")}
+    {Alert.alert ("Error! Access denied")}
     else{
 
         CreateNewMFN();
@@ -134,7 +134,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
           }
           catch(error){if(error){
             console.log(error)  
-            Alert.alert("Check your internet")
+            Alert.alert("Error! Access denied!")
             return;}
         }
         Alert.alert("Advocate "+advRegNo+ " successfully registered.")
@@ -148,7 +148,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
     } catch (e) {
       console.error(e);
       
-      if(e){Alert.alert("Please first sign up")}
+      if(e){Alert.alert("Error! Access denied!")}
       
     }
   }
@@ -162,7 +162,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
 catch(e){
   if(e){
     console.log(e)  
-    Alert.alert("Check your internet")
+    Alert.alert("Error! Access denied!")
     return;
   }
 };

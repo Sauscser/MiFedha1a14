@@ -71,7 +71,7 @@ const FetchSMNonLnsSnt = props => {
                                                     }
                                                     catch(error){
                                                       if(error){
-                                                        Alert.alert("Check your internet connection")
+                                                        Alert.alert("Error! Access denied!")
                                                         return;
                                                     }
                                                     }
@@ -93,7 +93,7 @@ const FetchSMNonLnsSnt = props => {
                                                     }
                                                     catch(error){
                                                       if(error){
-                                                        Alert.alert("User does not exist")
+                                                        Alert.alert("Error! Access denied!")
                                                         return;
                                                     }
                                                     }
@@ -116,7 +116,7 @@ const FetchSMNonLnsSnt = props => {
                           catch (e)
                           {
                             if(e){
-                              Alert.alert("Advocate does not exist; otherwise check internet connection");
+                              Alert.alert("Error! Access denied!");
                               return;
                             }
                               console.log(e)
@@ -133,7 +133,7 @@ const FetchSMNonLnsSnt = props => {
                           catch (e)
                           {
                             if(e){
-                              Alert.alert("Advocate does not exist; otherwise check internet connection");
+                              Alert.alert("Error! Access denied!");
                               return;
                             }
                               console.log(e)
@@ -155,7 +155,7 @@ const FetchSMNonLnsSnt = props => {
        catch (e)
        {
          if(e){
-           Alert.alert("Advocate does not exist; otherwise check internet connection");
+           Alert.alert("Error! Access denied!");
            return;
          }
            console.log(e)

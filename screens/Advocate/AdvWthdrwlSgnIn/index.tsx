@@ -75,7 +75,7 @@ const MFNSignIn = (props) => {
             catch (e)
             {
               if(e){
-                Alert.alert("Advocate does not exist; otherwise check internet connection");
+                Alert.alert("Error! Access denied!");
                 return;
               }
                 console.log(e)

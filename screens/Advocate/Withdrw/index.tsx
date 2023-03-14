@@ -92,7 +92,7 @@ const AdvWthdwl = props => {
                     } catch (error) {
                      
                         if (error){
-                          Alert.alert("Withdrawal unsuccessful; enter details correctly")
+                          Alert.alert("Error! Access denied!")
                           return}
                         
                     
@@ -121,7 +121,7 @@ const AdvWthdwl = props => {
                       }
         
                       catch (error) {
-                        if (error){Alert.alert("Check internet Connection")
+                        if (error){Alert.alert("Error! Access denied!")
                         return;}
                       }
                       Alert.alert(names + ", You have Withdrawn Ksh. "+ amount )
@@ -165,7 +165,7 @@ const AdvWthdwl = props => {
       
     }     
     catch (e) {
-      if (e){Alert.alert("This Advocate does not exist")
+      if (e){Alert.alert("Error! Access denied!")
       return;}
          
     }   
@@ -180,7 +180,7 @@ if (userInfo.attributes.sub !== owners)
     }
 
     catch (e) {
-      if (e){Alert.alert("Check your internet connection")
+      if (e){Alert.alert("Error! Access denied!")
       return;}
           
      }       

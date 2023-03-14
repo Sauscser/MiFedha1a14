@@ -80,7 +80,7 @@ const UpdtMFAdvPW = (props) => {
                                         }
                                         catch(error){if(error){
                                           console.log(error)
-                                          Alert.alert("Please check internet; otherwise Advocate doesnt exist")
+                                          Alert.alert("Error! Access denied!")
                                           
                                       } 
                                     }
@@ -106,7 +106,7 @@ const UpdtMFAdvPW = (props) => {
 
             } catch (error) {
                 if(error){
-                  Alert.alert("Check internet; otherwise Chama doesnt exist")
+                  Alert.alert("Error! Access denied!")
                   return
                 }
               }

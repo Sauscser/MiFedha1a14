@@ -47,7 +47,12 @@ type SMAccount
   awsemail: String! @primaryKey 
   balance: Float!
   pw: String!
-
+  nationality: String!
+  MFKubwaCost: Float!
+  MFKubwaNetCost: Float!
+  MFNdogoDue: Float!
+  MFNdogoNet: Float!
+  
   loanAcceptanceCode: String!
 
   ttlDpstSM: Float!
@@ -193,7 +198,7 @@ type SMLoansCovered
   )
  
   {
-  id:ID!
+  id: ID!
   loaneeid: String! 
   loaneePhn: String!  @index(name: "byLneePhn", sortKeyFields: ["createdAt"], queryField: "VwMyDebts")
   loanerLoanee:String! @index(name: "byLnrNLneesssss", sortKeyFields: ["createdAt"], queryField: "VwLnrNLneesssss")
@@ -217,6 +222,7 @@ type SMLoansCovered
   status: Status!
   owner: String!
   createdAt: String!
+  advEmail:String
 }
 
 
@@ -268,11 +274,11 @@ type SMLoansNonCovered
   
  
   {
-  id:ID!
+  id: ID!
   loaneePhn: String! @index(name: "byLneePhns", sortKeyFields: ["createdAt"], queryField: "VwMyDebtss")
   loanerPhn:String! @index(name: "byLnerPhns", sortKeyFields: ["createdAt"], queryField: "VwMyDebtorss")
   loanerLoanee:String! @index(name: "byLnrNLneessss", sortKeyFields: ["createdAt"], queryField: "VwLnrNLneessss")
-  loaneeid: ID!
+  loaneeid: String!
   loanerId: String!
   amountgiven: Float!
   amountexpected: Float!
@@ -548,6 +554,7 @@ type FloatPurchase
       { allow: groups, groups: ["BankAdmin"], operations: [create, read] }
       { allow: groups, groups: ["KFNdogo"], operations: [create, update, read] }
       { allow: owner, operations: [read, update] }
+      { allow: private, operations: [read, update, create] }
      
       {
         allow: groups
@@ -569,7 +576,7 @@ type FloatPurchase
       { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
-      { allow: private, operations: [read, update] }
+      
       {
         allow: groups
         groups: ["Executive"]
@@ -594,7 +601,7 @@ type FloatAdd
   @auth(
     rules: [
       { allow: owner, operations: [read] }
-      { allow: private, operations: [read, create] }
+      { allow: private, operations: [read, update, create] }
       {
         allow: groups
         groups: ["AdminOne"]
@@ -785,6 +792,10 @@ type SAgent
   pw: String!
   TtlEarnings: Float!
   actvMFNdog: Float!
+  cost: Float!
+  costBal:Float!
+  mfnTtl:Float!
+  offerStatus:String!
   InctvMFNdog: Float!
   email: String!
   saBalance: Float!
@@ -1333,6 +1344,10 @@ type Company
   owner:String!
   totalLnsRecovered: Float!
   createdAt: String!
+  MFNdogoTC: String!
+  MFKubwaTC: String!
+  AdvocateTC:String!
+  maxDfltPen: Float!
 }
 
 type CovCreditSeller
@@ -1375,7 +1390,7 @@ type CovCreditSeller
   
   
   {
-  id:ID!
+  id: ID!
   itemName: String!
  
   loanerLoanee:String! @index(name: "byLnrNLneesss", sortKeyFields: ["createdAt"], queryField: "VwLnrNLneesss")
@@ -1383,6 +1398,7 @@ type CovCreditSeller
   buyerContact: String!  @index(name: "byByrPhn", sortKeyFields: ["createdAt"], queryField: "VwMyCrdBys")
   sellerContact: String! @index(name: "bySlrPhn", sortKeyFields: ["createdAt"], queryField: "VwMySales")
   buyerID: String!
+  advEmail:String
   buyerName:String!
   SellerName:String!
   sellerID: String!
@@ -1443,7 +1459,7 @@ type NonCovCreditSeller
   
 
   {
-id:ID!
+  id : ID!
   itemName: String!
   
   loanerLoanee:String! @index(name: "byLnrNLneess", sortKeyFields: ["createdAt"], queryField: "VwLnrNLneess")
@@ -1725,13 +1741,14 @@ type CvrdGroupLoans
   
   
   {
-  id:ID!
+  id : ID!
   grpContact: String! @index(name: "byChmCntctss", sortKeyFields: ["createdAt"], queryField: "VwChamaMemberss")
   loaneePhn: String! @index(name: "byMemberCntctss", sortKeyFields: ["createdAt"], queryField: "VwMyChamass")
   repaymentPeriod: Float!
   loanerLoanee:String!  @index(name: "byLnrNLnee", sortKeyFields: ["createdAt"], queryField: "VwLnrNLnee")
   loanerLoaneeAdv:String!  @index(name: "byAdvNLnrNLnee", sortKeyFields: ["createdAt"], queryField: "VwAdvNLnrNLnee")
   amountGiven: Float!
+  advEmail:String
   amountExpectedBack: Float!
   amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
@@ -1790,7 +1807,8 @@ type NonCvrdGroupLoans
  
   
   {
-id:ID!
+
+  id :ID!
   grpContact: String!  @index(name: "byChmCntctsss", sortKeyFields: ["createdAt"], queryField: "VwChamaMembersss")
   loaneePhn: String!  @index(name: "byMemberCntctsss", sortKeyFields: ["createdAt"], queryField: "VwMyChamasss")
   loanerLoanee:String!  @index(name: "byLnrNLnees", sortKeyFields: ["createdAt"], queryField: "VwLnrNLnees")
@@ -1851,7 +1869,8 @@ type GroupNonLoans
   
   
   {
- id:ID!
+  
+  id:ID!
   grpContact: String! @index(name: "byChmCntctssss", sortKeyFields: ["createdAt"], queryField: "VwChamaMemberssss")
   recipientPhn: String! @index(name: "byMemberCntctssss", sortKeyFields: ["createdAt"], queryField: "VwMyChamassss")
   receiverName:String!
@@ -1953,12 +1972,20 @@ type ReqLoan
   loanerEmail: String! @index(name: "byLoanerEmls", sortKeyFields: ["createdAt"], queryField: "VwLoaneeReq")
   loaneePhone:String!
   loaneeName: String!
+  AdvEmail: String
+  advLicNo: String
+  loanerName: String!
+  loanerPhone: String!
+
   amount:Float!
   repaymentAmt: Float! 
   repaymentPeriod: Float!
   status: Status!
   owner: String!
   createdAt: String!
+  statusNumber: Float!
+  description: String
+  defaultPenalty: Float!
 }
 
 
@@ -2003,7 +2030,7 @@ type ReqLoanChama
   chamaPhone: String! @index(name: "ChmaNoDesc", sortKeyFields: ["createdAt"], queryField: "ByChmaNoDesc")
   loaneePhone:String!
   loaneeName: String!
-  
+  advLicNo: String
   amount:Float!
   repaymentAmt: Float! 
   repaymentPeriod: Float!
@@ -2011,6 +2038,12 @@ type ReqLoanChama
   owner: String!
   loaneeMemberId: String!
   createdAt: String!
+  statusNumber: Float!
+  AdvEmail: String
+  loanerName: String!
+  loanerPhone: String!
+  description: String
+  defaultPenalty: Float!
 }
 
 
@@ -2062,13 +2095,88 @@ type ReqLoanCredSl
   status: Status!
   owner: String!
   createdAt: String!
+  statusNumber: Float!
+  AdvEmail: String
+  advLicNo: String
+  loanerName: String!
+  loanerPhone: String!
+  description: String
+  defaultPenalty: Float!
+}
+
+type ExRates
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [delete, read, update] }
+      { allow: private, operations: [read] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, update]
+      }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  
+
+  {
+  cur:String! @primaryKey
+  sellingPrice: Float! 
+  buyingPrice: Float! 
+  symbol:String! @index(name: "BzNoDescszxc", sortKeyFields: ["createdAt"], queryField: "ByBzNoDescsxzc")
+  
+  createdAt: String!
+}
+
+
+
+
+type MFKOfferz
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, delete, read, update] }
+      { allow: private, operations: [read] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["KFKubwa"], operations: [read, create, update] }
+     
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  
+
+  {
+  id:ID!
+  offerStatus: String! 
+  acCost: Float! 
+  amtPaid:Float!
+  mfnOffered: Float!
+  mfnReg: Float!
+  status:Status! 
+  mfkAc: String! @index(name: "MFKOffer", sortKeyFields: ["createdAt"], queryField: "MFKOffers")
+  acMainAc: String!
+  createdAt: String!
 }
 
 
 enum Status {
   NoLoan
   LoanActive
-
+  LnWitnessed
   LoanInActive
   LoanCleared
   LoanBL

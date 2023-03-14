@@ -59,7 +59,7 @@ const DeregMFAdvForm = (props) => {
           }
       
           
-          catch(error){if(error){Alert.alert("Please enter Advocate Reg. Number correctly")
+          catch(error){if(error){Alert.alert("Error! Access denied!")
       return;} }
       setIsLoading(false);
           
@@ -80,7 +80,7 @@ const DeregMFAdvForm = (props) => {
                   })
                 )
             }
-            catch(error){if(error){Alert.alert("Please check your internet connection")
+            catch(error){if(error){Alert.alert("Error! Access denied!")
         return;}}
         setIsLoading(false);
           }
@@ -90,7 +90,7 @@ const DeregMFAdvForm = (props) => {
         KFAdminDtls();         
                   
           } catch (error) {
-            if(error){Alert.alert("Please check your internet connection")
+            if(error){Alert.alert("Error! Access denied!")
         return;};
           }
           setIsLoading(false);

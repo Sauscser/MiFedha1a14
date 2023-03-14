@@ -15,6 +15,12 @@
       "auth": {
         "myfedhabdd94507": {},
         "userPoolGroups": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2gsnpz7lauuq7",
+          "type": "manual"
+        }
       }
     }
   }

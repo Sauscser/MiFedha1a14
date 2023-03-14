@@ -10,9 +10,9 @@ export interface SMAccount {
     SMAc: {
       name:string,
       phonecontact: string,
-      
+      email: string,
       officeLoc: number,  
-      
+      advregnu:string,
       
               
     }}
@@ -23,8 +23,8 @@ const ViewSMDeposts = (props:SMAccount) => {
          name,
          phonecontact,
          officeLoc,  
-         
-         
+         advregnu,
+         email,
                  
    }} = props ;
 
@@ -46,10 +46,21 @@ const ViewSMDeposts = (props:SMAccount) => {
                        Phone : {phonecontact}                 
                     </Text>
 
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                       Email : {email}                 
+                    </Text>
+
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
                        Location: {officeLoc}
                     </Text>
+
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       License number: {advregnu}
+                    </Text>
+
                    
         </ScrollView>
                 

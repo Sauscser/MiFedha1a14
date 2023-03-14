@@ -1,7 +1,5 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList,ScrollView} from 'react-native';
-
-import { API, graphqlOperation, Auth } from 'aws-amplify';
+import React from 'react';
+import {View, Text, ScrollView} from 'react-native';
 
 import styles from './styles';
 
@@ -9,20 +7,27 @@ import styles from './styles';
 
 export interface SMAccount {
     SMAc: {
-      id:string,
-      advRegNu: string,      
-      grpContact: string,  
-      loaneePhn:string,
-
-      amountGiven:number,
-      amountExpectedBack: number,      
-      amountRepaid: number,  
+      id: string,
+      
+      itemName: string,  
+      itemSerialNumber:string,
+      
+      buyerContact:string,
+      sellerContact:string,
+      buyerName: string,
+      
+      SellerName: string,  
+      amountSold:number,
+      
+      amountexpectedBack:number,
+      amountRepaid:number,
+      advregnu: string,
+      
+      repaymentPeriod: number,  
       lonBala:number,
-      repaymentPeriod:number,
-      LoanerName: string,      
-      loaneeName: string,  
-
-      description:string,
+      description: string,  
+      
+      
       createdAt:string,
       updatedAt:string,
               
@@ -32,19 +37,21 @@ const ViewSMDeposts = (props:SMAccount) => {
    const {
       SMAc: {
          id,
-        
-         grpContact,  
-         loaneePhn,
-         amountGiven,
-         amountExpectedBack,
+         itemName,  
+         itemSerialNumber,
+         buyerContact,
+         sellerContact,
+         buyerName,
+         SellerName,  
+         amountSold,
+         amountexpectedBack,
          amountRepaid,
+         
+         repaymentPeriod,  
          lonBala,
-         repaymentPeriod,
-         LoanerName,
-         loaneeName,
+         description,
          createdAt,
          updatedAt,
-         description
                  
    }} = props ;
 
@@ -63,22 +70,32 @@ const ViewSMDeposts = (props:SMAccount) => {
                         
                    <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Chama Name : {LoanerName}                 
+                       Seller Name : {SellerName}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Chama Member Name: {loaneeName}                 
+                       Buyer Name: {buyerName}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                      Loan Amount (Ksh): {amountGiven.toFixed(2)}                 
+                      Item Name: {itemName}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                     Amount Expected Back (Ksh): {amountExpectedBack.toFixed(2)}                 
+                     Item Serial Number: {itemSerialNumber}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                      Cost (Ksh): {amountSold.toFixed(2)}                 
+                    </Text>
+
+                    <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                     Amount Expected Back (Ksh): {amountexpectedBack.toFixed(2)}                 
                     </Text>
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
@@ -97,15 +114,15 @@ const ViewSMDeposts = (props:SMAccount) => {
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Chama Contact : {grpContact}                 
+                       Seller Contact : {sellerContact}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Chama Member Contact: {loaneePhn}                 
+                      Buyer Contact: {buyerContact}                 
                     </Text>
-                                                               
-                    
+                                                         
+                  
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
                        Created At: {createdAt}
@@ -116,11 +133,10 @@ const ViewSMDeposts = (props:SMAccount) => {
                     </Text>
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                      More: {description}                 
+                    More: {description}                 
                     </Text>
                     
-                    
-        </ScrollView>
+                    </ScrollView >             
                 
         </View>
     );

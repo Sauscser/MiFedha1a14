@@ -135,7 +135,7 @@ const CreateBiz = (props) => {
             } catch (error) {
               console.log(error)
               if(error){
-                Alert.alert("Please enter details correctly")
+                Alert.alert("Error! Access denied")
                 return;
             } 
             
@@ -152,7 +152,7 @@ const CreateBiz = (props) => {
 
 
         } catch (e) {
-          if(e){Alert.alert("Please first sign up")}
+          if(e){Alert.alert("Error! Access denied")}
           console.error(e);
         }
 
@@ -164,7 +164,7 @@ const CreateBiz = (props) => {
       catch(e){
       console.log(e)
       if(e){
-      Alert.alert("User does not exist; otherwise check inernet connection")
+      Alert.alert("Error! Access denied")
       return;
       }
       }
@@ -174,7 +174,7 @@ const CreateBiz = (props) => {
     };
 
     if (userInfo.attributes.sub !== owner)
-    {Alert.alert ("Please first create main account")}
+    {Alert.alert ("Error! Access denied")}
     else{
 
     await ChckPersonelExistence();

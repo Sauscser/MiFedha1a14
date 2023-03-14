@@ -121,11 +121,7 @@ const FetchSMNonCovLns = props => {
                       onChangeText={setitemPrys}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    
-                   
-
-
-                  
+             
     </View>
     </View>
   );

@@ -127,7 +127,7 @@ const CreateBiz = (props) => {
             } catch (error) {
               console.log(error)
               if(error){
-                Alert.alert("Please enter details correctly")
+                Alert.alert("Error! Access denied")
                 return;
             } 
             
@@ -140,7 +140,7 @@ const CreateBiz = (props) => {
           CreateNewSMAc();
 
         } catch (e) {
-          if(e){Alert.alert("Please first sign up")}
+          if(e){Alert.alert("Error! Access denied")}
           console.error(e);
         }
         setIsLoading(false);

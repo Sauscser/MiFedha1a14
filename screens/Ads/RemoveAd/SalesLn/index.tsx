@@ -76,7 +76,7 @@ const DeregChmMmbr = (props) => {
         catch(error){
           console.log(error)
           if(error){
-            Alert.alert("Check your internet")
+            Alert.alert("Error! Access denied")
             return;
           }
         }

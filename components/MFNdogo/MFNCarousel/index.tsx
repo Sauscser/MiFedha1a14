@@ -139,7 +139,7 @@ const ViewSMDeposts = (props:SMAccount) => {
 
 
           <Text style={styles.amountoffered} numberOfLines={4}>
-          Company Disc:{25 - parseFloat(CompWithdrwlFee)}%
+          Company Disc:{25 - parseFloat(CompWithdrwlFee)*100}%
           </Text>
 
           {/* Type & Description */}
@@ -155,9 +155,7 @@ const ViewSMDeposts = (props:SMAccount) => {
 
           {/* Type & Description */}
           <Text style={styles.amountoffered} numberOfLines={2}>
-          Total Disc:{((parseFloat(MFKWDFeeFrmCmp) - 100*parseFloat(MFKWithdrwlFee) ) +
-          (parseFloat(MFNWDFFrmCmp) - 100*(MFNWithdrwlFee)) + 
-          ((100 - (parseFloat(MFKWDFeeFrmCmp) + parseFloat(MFNWDFFrmCmp))) - 100*parseFloat(CompWithdrwlFee)))}%
+          Total Disc:{(25 - parseFloat(CompWithdrwlFee)*100 )+MFKWithdrwlFee + MFNWithdrwlFee}%
           </Text>
 
           {/*  Old price & new price */}
