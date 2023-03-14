@@ -121,7 +121,7 @@ const AddChmMmbrs = (props:UserReg) => {
                               
                             } catch (error) {
                               if (error){
-                                Alert.alert("Addition unsuccessful; enter details correctly")
+                                Alert.alert("Error! Access denied!")
                                 return}
                             
                             }
@@ -137,7 +137,8 @@ const AddChmMmbrs = (props:UserReg) => {
                       } 
 
                       else  if (userInfo.attributes.sub !== owners && signitory2Subs !== userInfo.attributes.sub)
-                      {Alert.alert("You are neither the author nor signatory of this Chama")}
+                      {Alert.alert("You are neither the author nor signatory of this Chama")
+                      return;}
                       
                       else {
                         CrtChm();
@@ -160,7 +161,7 @@ const AddChmMmbrs = (props:UserReg) => {
                             }
                             catch(error){
                               if(error){
-                                Alert.alert("Check your internet connection")
+                                Alert.alert("Error! Access denied!")
                                 return;
                             }
                             }
@@ -185,7 +186,7 @@ const AddChmMmbrs = (props:UserReg) => {
                             }
                             catch(error){
                               if(error){
-                                Alert.alert("Check your internet connection")
+                                Alert.alert("Error! Access denied!")
                                 return;
                             }
                             }
@@ -201,7 +202,7 @@ const AddChmMmbrs = (props:UserReg) => {
             catch(e){
               console.log(e)
               if(e){
-                Alert.alert("Group does not exist; otherwise check internet connection")
+                Alert.alert("Error! Access denied!")
                 return;
             }
             }
@@ -218,7 +219,7 @@ const AddChmMmbrs = (props:UserReg) => {
       catch(e){
         console.log(e)
         if(e){
-          Alert.alert("Check your internet")
+          Alert.alert("Error! Access denied!")
           return;
       }
       }
