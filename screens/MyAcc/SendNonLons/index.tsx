@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import Communications from 'react-native-communications';
 import {
   
   createSMLoansCovered,
@@ -206,6 +206,7 @@ const SMASendNonLns = props => {
                     const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
                     const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                     const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
+                    const phonecontact =RecAccountDtl.data.getSMAccount.phonecontact;
                     
                   
                     const sendSMNonLn = async () => {
@@ -296,7 +297,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error!")
                         return;}
                       }
                       setIsLoading(false);
@@ -325,7 +326,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error!")
                         return;}
                       }
                       setIsLoading(false);
@@ -352,7 +353,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error!")
                         return;}
                       }
                       setIsLoading(false);
@@ -379,7 +380,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error!")
                         return;}
                       }
                       setIsLoading(false);
@@ -411,12 +412,18 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error!")
                     return;}
                       }
                       Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0)
                       );
-                      setIsLoading(false);
+                      Communications.textWithoutEncoding(phonecontact,'Hi '
+                              + namess + names + ', has sent you a non loan of Ksh. ' 
+                              + amounts 
+                              +'. For clarification call the: '
+                            + userInfo.attributes.phone_number + '. Thank you. MiFedha')
+                            
+                            setIsLoading(false);
                     }
 
                     const updtComp2 = async () =>{
@@ -444,10 +451,15 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error!")
                     return;}
                       }
                       Alert.alert("Insufficient transaction fees? No worries! Ksh. " +parseFloat(amounts).toFixed(0) + " sent!");
+                      Communications.textWithoutEncoding(phonecontact,'Hi '
+                              + namess + names + ', has sent you a non loan of Ksh. ' 
+                              + amounts 
+                              +'. For clarification call the: '
+                            + userInfo.attributes.phone_number + '. Thank you. MiFedha')
                       setIsLoading(false);
                     }
                     
@@ -500,7 +512,7 @@ const SMASendNonLns = props => {
                 }       
                 catch(e) {   
                   console.log(e)  
-                  if (e){Alert.alert("Reciever does not exist")
+                  if (e){Alert.alert("Error!")
   return;}                 
                 }
                 setIsLoading(false);
@@ -508,7 +520,7 @@ const SMASendNonLns = props => {
                   await fetchRecUsrDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Check your internet connection")
+          if (e){Alert.alert("Error!")
       return;}
         }
         setIsLoading(false);        
@@ -519,7 +531,7 @@ const SMASendNonLns = props => {
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Check your internet connection")
+      if (e){Alert.alert("Error!")
       return;}
          
     }   
@@ -531,7 +543,7 @@ const SMASendNonLns = props => {
   }     
   catch (e) {
     console.log(e)
-    if (e){Alert.alert("Check your internet connection")
+    if (e){Alert.alert("Error!")
     return;}
        
   }   
@@ -543,7 +555,7 @@ const SMASendNonLns = props => {
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Check your internet connection")
+      if (e){Alert.alert("Error!")
       return;}
          
     }   
@@ -555,7 +567,7 @@ const SMASendNonLns = props => {
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Check your internet connection")
+      if (e){Alert.alert("Error!")
       return;}
          
     }   
@@ -567,7 +579,7 @@ const SMASendNonLns = props => {
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Check your internet connection")
+      if (e){Alert.alert("Error!")
       return;}
          
     }   
@@ -579,7 +591,7 @@ const SMASendNonLns = props => {
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Check your internet connection")
+      if (e){Alert.alert("Error!")
       return;}
          
     }   
@@ -590,7 +602,7 @@ const SMASendNonLns = props => {
           
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Please fill details correctly or check your internet connection")
+          if (e){Alert.alert("Error!")
           return;}
       };
   

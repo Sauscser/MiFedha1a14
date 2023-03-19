@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import Communications from 'react-native-communications';
 import {
   
   createSMLoansCovered,
@@ -115,6 +115,7 @@ const SMASendNonLns = props => {
                     const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
                     const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                     const MaxAcBals = RecAccountDtl.data.getSMAccount.MaxAcBal; 
+                    const phonecontact = RecAccountDtl.data.getSMAccount.phonecontact; 
                   
                     const sendSMNonLn = async () => {
                       if(isLoading){
@@ -170,7 +171,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Enter details correctly")
+                        if (error){Alert.alert("Error! Enter details correctly")
                         return;}
                       }
                       setIsLoading(false);
@@ -198,7 +199,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error!")
                         return;}
                       }
                       setIsLoading(false);
@@ -234,7 +235,14 @@ const SMASendNonLns = props => {
                     return;}
                       }
                       Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(2) + " Transaction: Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
-                      setIsLoading(false);
+                      Communications.textWithoutEncoding(phonecontact,
+                        'Confirmed. '
+                                  + busNames 
+                                  + ' Business entity has sent you Ksh. '
+                                  + amounts + ' to your MiFedha Main account ' + 
+                                  'Please confirm this transaction record is on your Mifedha app. Thank you. MiFedha');
+                                  
+                                  setIsLoading(false);
                     }
                     
                                           
@@ -261,7 +269,7 @@ const SMASendNonLns = props => {
                 }       
                 catch(e) {   
                   console.log(e)  
-                  if (e){Alert.alert("Reciever does not exist")
+                  if (e){Alert.alert("Error!")
   return;}                 
                 }
                 setIsLoading(false);
@@ -269,7 +277,7 @@ const SMASendNonLns = props => {
                   await fetchRecUsrDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Check your internet connection")
+          if (e){Alert.alert("Error!")
       return;}
         }
         setIsLoading(false);        
@@ -279,7 +287,7 @@ const SMASendNonLns = props => {
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Sender does not exist")
+      if (e){Alert.alert("Error!")
       return;}
   };
       setIsLoading(false);

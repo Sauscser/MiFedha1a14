@@ -111,7 +111,7 @@ const CreateChama = (props:UserReg) => {
               
             } catch (error) {
               if (error){
-                Alert.alert("Error: Work ID 00001 belongs to Business owner. Retry")
+                Alert.alert("Error! Access denied!")
                 return
               }
             
@@ -135,7 +135,7 @@ const CreateChama = (props:UserReg) => {
           }
       } catch (error) {
         
-        if (error){Alert.alert("Ensure officer has a Personal account")
+        if (error){Alert.alert("Error! Access denied!")
       return}
       }
   
@@ -149,7 +149,7 @@ const CreateChama = (props:UserReg) => {
     } catch (e) {
       console.error(e);
 
-      if (e){Alert.alert("Ensure officer has a Personal account")
+      if (e){Alert.alert("Error! Access denied!")
     return}
     }
 

@@ -67,8 +67,8 @@ const MyAccount = props => {
     navigation.navigate('ElimNonLnsSents');
   };
 
-  const UpdateAccCodesss = () => {
-    navigation.navigate('UpdateAccCodess');
+  const PayPalDposit = () => {
+    navigation.navigate('VwAcBfDpst');
   };
 
   const VwPlLn2Remove = () => {
@@ -85,9 +85,21 @@ const MyAccount = props => {
           <Text style={styles.accountText}>Account</Text>
 
           <View style={styles.viewForSalesPressables}>
-            <Pressable onPress={SMDpsitsss} style={styles.acPressables}>
-              <Text style={styles.acPressableText}>View Deposits</Text>
+            
+
+            <View style={styles.acPressables}>
+            <View >
+            <Text style={styles.acPressableText}>User Deposit</Text>
+            </View>
+            <View style = {{flexDirection:"row"}}>
+            <Pressable onPress={PayPalDposit} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>Make</Text>
             </Pressable>
+            <Pressable onPress={SMDpsitsss} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>View</Text>
+            </Pressable>
+            </View>
+            </View>
 
             <View style={styles.acPressables}>
             <View >

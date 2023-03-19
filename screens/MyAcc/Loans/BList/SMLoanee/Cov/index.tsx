@@ -5,7 +5,7 @@ import {getCompany, getSMAccount, getSMLoansCovered } from '../../../../../../sr
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
-
+import Communications from 'react-native-communications';
 
 import {
   View,
@@ -64,7 +64,7 @@ const BLSMCovLoanee = (props) => {
               const loaneePhns = compDtls.data.getSMLoansCovered.loaneePhn
               const loanerPhns = compDtls.data.getSMLoansCovered.loanerPhn
               const amountexpecteds = compDtls.data.getSMLoansCovered.amountexpected
-              const amountgivens = compDtls.data.getSMLoansCovered.amountgiven
+              const lonBala = compDtls.data.getSMLoansCovered.lonBala
               
               const amountrepaids = compDtls.data.getSMLoansCovered.amountrepaid
               
@@ -72,6 +72,7 @@ const BLSMCovLoanee = (props) => {
               
               const statusssss = compDtls.data.getSMLoansCovered.status
               const DefaultPenaltySMs = compDtls.data.getSMLoansCovered.DefaultPenaltySM
+              const ClrnceCosts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
               const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) 
               + parseFloat(amountExpectedBackWthClrncs) + parseFloat(DefaultPenaltySMs)
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
@@ -114,6 +115,7 @@ const BLSMCovLoanee = (props) => {
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
                           const MaxTymsBLs =compDtls.data.getSMAccount.MaxTymsBL;
+                          const phonecontact =compDtls.data.getSMAccount.phonecontact;
                           
                           const updateLoanerDtls = async () => {
                             if(isLoading){
@@ -189,7 +191,7 @@ const BLSMCovLoanee = (props) => {
                                 catch(error){
                                   console.log(error)
                                   if(error){
-                                  Alert.alert("Check your internet")
+                                  Alert.alert("Error!")
                                   return;
                               }}
                               await updateLoaneeDtls();
@@ -250,11 +252,20 @@ const BLSMCovLoanee = (props) => {
                                 catch(error){
                                   console.log(error)
                                   if(error){
-                                  Alert.alert("Ensure User Exists")
+                                  Alert.alert("Error!")
                                   return;
                               } 
                                }
-                              Alert.alert(names +", you have blacklisted "+ namess)
+                              Alert.alert(names +", you have blacklisted "+ namess);
+                              Communications.textWithoutEncoding(phonecontact,'Hi '
+                              + namess + ', your loan of ID ' 
+                              +  route.params.id 
+                              + 'has been blacklisted by '+ names 
+                              + '. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
+                            + lonBala + '. Default Penalty as you had agreed with your loaner is Ksh. ' + DefaultPenaltySMs 
+                            + '. Clearance fee is Ksh. ' + ClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal
+                             +'. For clarification call the Business Owner: '
+                            + userInfo.attributes.phone_number + '. Thank you. MiFedha');
                                 setIsLoading(false);          
                               } 
                               
@@ -263,11 +274,10 @@ const BLSMCovLoanee = (props) => {
                         
                         catch(error){
                           console.log(error)
-                          if(!error){
-                          Alert.alert("Account deactivated successfully")
+                          if(error){
+                          Alert.alert("Error!")
                           
-                      } 
-                      else{Alert.alert("Please check your internet connection")
+                      
                       return;} }
                         setIsLoading(false);         
                         
@@ -285,7 +295,7 @@ const BLSMCovLoanee = (props) => {
             catch(error){
               console.log(error)
               if(error){
-              Alert.alert("Loan does not exist")
+              Alert.alert("Error!")
               return;              
           } 
            }
@@ -297,7 +307,7 @@ const BLSMCovLoanee = (props) => {
             console.log(error)
             
             if(error){
-              Alert.alert("Check your internet")
+              Alert.alert("Error!")
               return;
           };
           }

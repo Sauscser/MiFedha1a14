@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {updateCompany, updateSMAccount, updateSMLoansCovered, updateSMLoansNonCovered, } from '../../../../../../src/graphql/mutations';
 import {getCompany, getSMAccount, getSMLoansCovered, getSMLoansNonCovered } from '../../../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
-
+import Communications from 'react-native-communications';
 import {useNavigation, useRoute} from '@react-navigation/native';
 
 
@@ -65,7 +65,7 @@ const BLSMNonCovLoanee = (props) => {
               const loaneePhns = compDtls.data.getSMLoansNonCovered.loaneePhn
               const loanerPhns = compDtls.data.getSMLoansNonCovered.loanerPhn
               const amountexpecteds = compDtls.data.getSMLoansNonCovered.amountexpected
-              const amountgivens = compDtls.data.getSMLoansNonCovered.amountgiven
+              const lonBala = compDtls.data.getSMLoansNonCovered.lonBala
               const amountExpectedBackWthClrncs = compDtls.data.getSMLoansNonCovered.amountExpectedBackWthClrnc
               
               const amountrepaids = compDtls.data.getSMLoansNonCovered.amountrepaid
@@ -74,7 +74,7 @@ const BLSMNonCovLoanee = (props) => {
               const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) 
               + parseFloat(amountExpectedBackWthClrncs) + parseFloat(DefaultPenaltySMs)
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
-
+              const ClrnceCosts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
               const createdAt = compDtls.data.getSMLoansNonCovered.createdAt;
               const repaymentPeriod = compDtls.data.getSMLoansNonCovered.repaymentPeriod;
               
@@ -114,6 +114,8 @@ const BLSMNonCovLoanee = (props) => {
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
                           const MaxTymsBLs =compDtls.data.getSMAccount.MaxTymsBL;
+                          const phonecontact =compDtls.data.getSMAccount.phonecontact;
+
 
                           const updateLoanerDtls = async () => {
                             if(isLoading){
@@ -191,7 +193,7 @@ const BLSMNonCovLoanee = (props) => {
                                 catch(error){
                                   console.log(error)
                                   if(error){
-                                  Alert.alert("Check your internet")
+                                  Alert.alert("Error!")
                                   return;
                               }}
                               await updateLoaneeDtls();
@@ -253,12 +255,21 @@ const BLSMNonCovLoanee = (props) => {
                                 catch(error){
                                   console.log(error)
                                   if(error){
-                                  Alert.alert("Ensure User Exists")
+                                  Alert.alert("Error!")
                                   return
                                   
                               } 
                               }
-                              Alert.alert(names +", you have blacklisted "+ namess)
+                              Alert.alert(names +", you have blacklisted "+ namess);
+                              Communications.textWithoutEncoding(phonecontact,'Hi '
+                              + namess + ', your loan of ID ' 
+                              +  route.params.id 
+                              + 'has been blacklisted by '+ names 
+                              + '. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
+                            + lonBala + '. Default Penalty as you had agreed with your loaner is Ksh. ' + DefaultPenaltySMs 
+                            + '. Clearance fee is Ksh. ' + ClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal
+                             +'. For clarification call the Business Owner: '
+                            + userInfo.attributes.phone_number + '. Thank you. MiFedha');
                                 setIsLoading(false);          
                               } 
                               
@@ -294,7 +305,7 @@ const BLSMNonCovLoanee = (props) => {
               
               console.log(error)
               if(error){
-              Alert.alert("Loan does not exist")
+              Alert.alert("Error!")
               return;              
           } 
            }
@@ -306,7 +317,7 @@ const BLSMNonCovLoanee = (props) => {
             console.log(error)
             
             if(error){
-              Alert.alert("Check your internet")
+              Alert.alert("Error!")
               return;
           };
           }

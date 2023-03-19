@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {  deleteChamaMembers,   updateGroup} from '../../../src/graphql/mutations';
 import {  getChamaMembers,  getGroup, getSMAccount } from '../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
-
+import Communications from 'react-native-communications';
 import {useNavigation, useRoute} from '@react-navigation/native';
 
 
@@ -94,6 +94,8 @@ const DeregChmMmbr = (props) => {
                               );
                               
                               const ownersss = UsrDtls.data.getSMAccount.owner
+                              const name = UsrDtls.data.getSMAccount.name
+                              const phonecontact = UsrDtls.data.getSMAccount.phonecontact
 
                         const updateChmMmbrAc = async()=>{
                                     if(isLoading){
@@ -123,16 +125,19 @@ const DeregChmMmbr = (props) => {
                                       if(signitoryPWs!==pword)
                                       {
                                           Alert.alert("Wrong Signitory password");
+                                          return;
                                       }
                                       
                                       else if(owners !== userInfo.attributes.sub)
                                       {
                                           Alert.alert("Not authorised to deactive member");
+                                          return;
                                       }
 
                                       else if(owners === ownersss &&  parseFloat(ttlGrpMemberss) > 1)
                                       {
                                           Alert.alert("Deactivate yourself, the Chama author, as the last one");
+                                          return;
                                       }
                                      
                                       else {updateChmMmbrAc();}
@@ -157,13 +162,17 @@ const DeregChmMmbr = (props) => {
                                         catch(error){ }
                                         setIsLoading(false);
                                         Alert.alert(grpNames+" has deregistered "+memberNames);
+                                        Communications.textWithoutEncoding(phonecontact,'Hi '+ name 
+                          + ', you have been de-registered from group '
+                          + grpNames + '. For clarification plese contact the group admin through '
+                          + userInfo.atributes.phone_number  +'. Thank you. MiFedha.');
                                       } 
 
         
                                     } catch (error) {
                                       if(error){
                                         console.log(error)
-                                        Alert.alert("Check your internet")
+                                        Alert.alert("Error! Access denied!")
                                         return
                                       }
                                     }}
@@ -172,7 +181,7 @@ const DeregChmMmbr = (props) => {
                                   } catch (error) {
                         if(error){
                           console.log(error)
-                          Alert.alert("Check your internet")
+                          Alert.alert("Error! Access denied!")
                           return
                         }
                       }}
@@ -181,7 +190,7 @@ const DeregChmMmbr = (props) => {
             } catch (error) {
               console.log(error)
                 if(error){
-                  Alert.alert("Check your internet")
+                  Alert.alert("Error! Access denied!")
                   return
                 }
               }

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {  deleteGroup, updateCompany, updateGroup, updateGrpMembers} from '../../../src/graphql/mutations';
-import {  getCompany, getGroup, getGrpMembers, getSMAccount } from '../../../src/graphql/queries';
+import {  deleteGroup, updateCompany, updateGroup} from '../../../src/graphql/mutations';
+import {  getCompany, getGroup, getSMAccount } from '../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -108,26 +108,31 @@ const DissolveChm = (props) => {
                                       if(ttlNonLonsRecChms>ttlNonLonsSentChms)
                                       {
                                           Alert.alert("Chama has Members Money");
+                                          return;
                                       }
                                       
                                       else if(signitoryPWs!==SigntryPW)
                                       {
                                           Alert.alert("Wrong signitory password");
+                                          return;
                                       }
 
                                       else if(ownr!==owners)
                                       {
                                           Alert.alert("You are not the author of the Chama");
+                                          return;
                                       }
 
                                       else if(parseFloat(ttlGrpMemberss)>0)
                                       {
                                           Alert.alert("Pls first deregister all members");
+                                          return;
                                       }
 
                                       else if(grpBals>1)
                                       {
                                           Alert.alert("Chama has money in its account");
+                                          return;
                                       }
                                       else {updateComp();}
                           
@@ -150,7 +155,7 @@ const DissolveChm = (props) => {
                                         }
                                         catch(error){if(error){
                                           console.log(error)
-                                          Alert.alert("Please internet; otherwise group doesnt exist")
+                                          Alert.alert("Error! Access denied!")
                                           
                                       } 
                                     }
@@ -161,7 +166,7 @@ const DissolveChm = (props) => {
         
                     } catch (e) {
                         if(e){
-                          Alert.alert("Check internet; otherwise Chama doesnt exist")
+                          Alert.alert("Error! Access denied!")
                           return
                         }
                       }}
@@ -169,7 +174,7 @@ const DissolveChm = (props) => {
 
             } catch (e) {
                 if(e){
-                  Alert.alert("Check internet; otherwise Chama doesnt exist")
+                  Alert.alert("Error! Access denied!")
                   return
                 }
               }

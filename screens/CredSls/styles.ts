@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#e58d29',
     marginHorizontal: "2%",
     
-    height: "15%",
+    height: "10%",
     borderRadius: 4,
     marginTop:"5%",
     
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   viewForClientsAndTitle: {
     backgroundColor: '#e58d29',
     width:"100%",
-    height: "50%",
+    height: "40%",
     borderRadius: 4,
     marginTop:"2%",
     marginBottom:"2%",
@@ -88,6 +88,21 @@ const styles = StyleSheet.create({
     marginBottom:"5%",
     height: "100%",
     width:"32%",
+    borderRadius: 4,
+    marginLeft:"0.5%",
+    marginRight:"0.5%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    
+  },
+
+  viewForClientsCategories7: {
+    backgroundColor: '#e58d29',
+    marginTop:"5%",
+    marginBottom:"5%",
+    height: "100%",
+    width:"22%",
     borderRadius: 4,
     marginLeft:"0.5%",
     marginRight:"0.5%",

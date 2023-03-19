@@ -57,8 +57,17 @@ const MyAccount = props => {
     navigation.navigate('CrdSlVw2DelLnReqs');
   };
 
+  const BiznaReqstPage1 = () => {
+    navigation.navigate('BiznaReqstPage1');
+  };
+
+  const BiznaReqstPage2 = () => {
+    navigation.navigate('BiznaReqstPage2');
+  };
+
+
   const CrdSlPlaceLnReq = () => {
-    navigation.navigate('CrdSlPlaceLnReq');
+    navigation.navigate('BiznaReqstPage1');
   };
 
   const ChamaVw2DelLnReqs = () => {
@@ -93,19 +102,14 @@ const MyAccount = props => {
             
             
 
-            <View style={styles.acPressables}>
+          <Pressable onPress={BiznaReqstPage2} style={styles.acPressables}>
             <View >
-            <Text style={styles.acPressableText}>PalPalLoans</Text>
+            <Text style={styles.acPressableText}>PalLoans</Text>
             </View>
             <View style = {{flexDirection:"row"}}>
-            <Pressable onPress={VwMakeLnReq} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>Request</Text>
-            </Pressable>
-            <Pressable onPress={Vw2DelLnReqs} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>View</Text>
-            </Pressable>
+            
             </View>
-            </View>
+            </Pressable>
 
             <View style={styles.acPressables}>
             <View >
@@ -125,19 +129,16 @@ const MyAccount = props => {
 
 
 
-            <View style={styles.acPressables}>
+            <Pressable onPress={CrdSlPlaceLnReq} style={styles.acPressables}>
             <View >
             <Text style={styles.acPressableText}>CredSale</Text>
             </View>
             <View style = {{flexDirection:"row"}}>
-            <Pressable onPress={CrdSlPlaceLnReq} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>Request</Text>
-            </Pressable>
-            <Pressable onPress={CrdSlVw2DelLnReqs} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>View</Text>
-            </Pressable>
+            
             </View>
-            </View>
+            </Pressable>
+
+            
            
           </View>
         </View>

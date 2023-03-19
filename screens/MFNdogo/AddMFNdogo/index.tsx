@@ -93,7 +93,7 @@ const UpdtMFNPW = (props) => {
 
             } catch (error) {
                 if(error){
-                  Alert.alert("Check internet; otherwise User doesnt exist")
+                  Alert.alert("Error!")
                   return
                 }
               }

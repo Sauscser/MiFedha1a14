@@ -50,7 +50,8 @@
       "Advocate",
       "KFKubwa",
       "KFNdogo",
-      "SpareGrp"
+      "SpareGrp",
+      "BizOwner"
     ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,

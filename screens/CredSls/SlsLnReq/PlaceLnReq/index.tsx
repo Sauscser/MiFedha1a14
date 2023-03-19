@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-
+import Communications from 'react-native-communications';
 import {createReqLoanChama, createReqLoanCredSl, updateCompany} from '../../../../src/graphql/mutations';
-import { getBizna, getCompany, getSMAccount  } from '../../../../src/graphql/queries';
+import { getAdvocate, getBizna, getCompany, getSMAccount  } from '../../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -30,21 +30,23 @@ const CreateBiz = (props) => {
   
 
   const [ChmPhn, setChmPhn] = useState('');
-  const [nam, setName] = useState(null);
+ 
   
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
-  const [ChmNm, setChmNm] = useState('');
+  
   const [ChmDesc, setChmDesc] = useState('');
   const [ChmRegNo, setChmRegNo] = useState('');
-  const [MmbaID, setMmbaID] = useState('');
-  const [Sign2Phn, setSign2Phn] = useState('');
+ 
+  const [Sign2Phn, setSign2Phn] = useState("");
 
   const [itemPrys, setitemPrys] = useState('');
   const [itemTwn, setitemTwn] = useState('');
   const [lnPrsntg, setlnPrsntg] = useState('');
   const [rpymntPrd, setrpymntPrd] = useState('');
+  const [ChmNm, setChmNm] = useState('');
+  const [MmbaID, setMmbaID] = useState('');
   const route = useRoute();
 
 
@@ -66,9 +68,106 @@ const CreateBiz = (props) => {
             const phonecontacts = compDtls.data.getSMAccount.phonecontact;
             const name = compDtls.data.getSMAccount.name;
             const owner = compDtls.data.getSMAccount.owner;
-
             const Int = ((parseFloat(lnPrsntg) - parseFloat(itemPrys))*100)/(parseFloat(lnPrsntg)*parseFloat(rpymntPrd))
             
+
+            const gtComp = async () =>{
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
+              const userInfo = await Auth.currentAuthenticatedUser();
+              try{
+                const compDtls :any= await API.graphql(
+                  graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+                  );
+                  const maxDefaultPen = compDtls.data.getCompany.maxDfltPen;
+
+                  const RecomDfltPnltyRate = (parseFloat(lnPrsntg)*maxDefaultPen) / 100;
+                  const DfltPnltyRate = (parseFloat(MmbaID)*maxDefaultPen) / 100;
+                  
+            const gtBiznaInfo = async () =>{
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
+              const userInfo = await Auth.currentAuthenticatedUser();
+              try{
+                const compDtlsx :any= await API.graphql(
+                  graphqlOperation(getBizna,{BusKntct:awsEmail})
+                  );
+                  const busName = compDtlsx.data.getBizna.busName;
+                  
+                  
+
+            const CreateNewSMAc2 = async () => {
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
+              try {
+                await API.graphql(
+                graphqlOperation(createReqLoanCredSl, {
+                input: {
+                 
+                  loaneeEmail:userInfo.attributes.email,
+                  businessNo:awsEmail,
+                  loaneeName: name,
+                  loaneePhone:phonecontacts,
+                  amount: parseFloat(itemPrys).toFixed(2),
+                  repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
+                  repaymentPeriod:rpymntPrd,
+                  itemName:ChmDesc,
+                  status: "AwaitingResponse",
+                  owner: userInfo.attributes.sub,
+                  statusNumber: 0,
+                  AdvEmail: "email",
+                  advLicNo:"None",
+                  loanerName: busName,
+                  loanerPhone: awsEmail,
+                  description: ChmNm,
+                  defaultPenalty: MmbaID
+                        },
+                      })
+                      
+                      ,
+                    );
+      
+                    
+      
+                    
+                  } catch (error) {
+                    console.log(error)
+                    if(error){
+                      Alert.alert("Please enter details correctly")
+                      return;
+                  } 
+                  
+                  }
+                  Alert.alert("Loan Request Successful")    ;
+                  Communications.textWithoutEncoding(awsEmail,
+         
+                    "MiFedha. " + name + ' has requested '
+                              + ' your Business entity to loan goods worth Ksh. '
+                              + lnPrsntg + '. Please go to your MiFedha'
+                              + ' app to view the loan details and thereafter'
+                              +' grant me the request. Thank you.');       
+                  
+                };
+
+                
+            const gtAdv = async () =>{
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
+              const userInfo = await Auth.currentAuthenticatedUser();
+              try{
+                const compDtls6 :any= await API.graphql(
+                  graphqlOperation(getAdvocate,{advregnu:Sign2Phn})
+                  );
+                  const email = compDtls6.data.getAdvocate.email;
+                  const phonecontact = compDtls6.data.getAdvocate.phonecontact;
 
       const CreateNewSMAc = async () => {
         if(isLoading){
@@ -90,6 +189,13 @@ const CreateBiz = (props) => {
             itemName:ChmDesc,
             status: "AwaitingResponse",
             owner: userInfo.attributes.sub,
+            statusNumber: 0,
+            AdvEmail: email,
+            advLicNo:Sign2Phn,
+            loanerName: busName,
+            loanerPhone: awsEmail,
+            description: ChmNm,
+            defaultPenalty: MmbaID
                   },
                 })
                 
@@ -107,37 +213,72 @@ const CreateBiz = (props) => {
             } 
             
             }
-            Alert.alert("Loan Request Successful")           
+            Alert.alert("Loan Request Successful")    ;
+            Communications.textWithoutEncoding(phonecontact,'MiFedha. Greetings! '
+            + 'We ' + name + ', the loanee and ' + busName + ', the Loaning Business humbly' +  
+            ' request that you witness our loan contract on MiFedha app amounting to Ksh. '+
+            itemPrys + ' repayable as Ksh. ' + lnPrsntg + ' by the end of ' +rpymntPrd + 
+            ' days. Default penalty is Ksh. '+ MmbaID + '. You can reach my loaner through '+ awsEmail +
+             '. You can also reach me through ' +phonecontacts +'. Thank you.');       
             
           };
 
-          if (userInfo.attributes.sub !== owner)
-    {Alert.alert ("Please first create main account")}
-    else if
+          
+          CreateNewSMAc();
 
-         (pword !== pws)
+        } catch (e) {
+          if(e){Alert.alert("Error!")}
+          console.error(e);
+        }
+        setIsLoading(false);
+      }
+      if (pword !== pws)
           {Alert.alert("Wrong User password");
         
       } 
+      
+      else if (parseFloat(itemPrys) > parseFloat(lnPrsntg))
+      {Alert.alert("Repayment Amount cant be lesser than Loan")}
+
+      else if ((DfltPnltyRate) > (RecomDfltPnltyRate))
+      {Alert.alert("Enter Default Penalty less than Ksh. " + RecomDfltPnltyRate)}
+
 
       else if (Int > 100){
         Alert.alert("Interest exploits you; enter lesser repayment amount")
       }
+      else if (Sign2Phn != "")
+      {
       
-      else if (parseFloat(itemPrys) > parseFloat(lnPrsntg))
-      {Alert.alert("Repayment Amount cant be lesser tha Loan")}
-      else {
-        
+      await gtAdv();
+    
+    }
+
+    else {CreateNewSMAc2();}
       
-
-
-          CreateNewSMAc();}
-
           
+  } catch (e) {
+    if(e){Alert.alert("Error")}
+    console.error(e);
+  }
+  setIsLoading(false);
+      
+}
 
-          
-        } catch (e) {
-          if(e){Alert.alert("Please first sign up")}
+await gtBiznaInfo();
+
+} catch (e) {
+  if(e){Alert.alert("Error")}
+  console.error(e);
+}
+setIsLoading(false);
+    
+}
+
+await gtComp();
+
+} catch (e) {
+          if(e){Alert.alert("Error")}
           console.error(e);
         }
         setIsLoading(false);
@@ -311,6 +452,17 @@ useEffect(() =>{
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Business Phone</Text>
                   </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    
+                    placeholder='Advocate License Number (Optional)'
+                      value={Sign2Phn}
+                      onChangeText={setSign2Phn}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Advocate License Number</Text>
+                  </View>
                   
                   <View style={styles.sendLoanView}>
                     <TextInput
@@ -320,7 +472,19 @@ useEffect(() =>{
                       onChangeText={setChmDesc}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Item Name</Text>
+                    <Text style={styles.sendLoanText}>Item/Service Name</Text>
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    
+                    placeholder='Loan Description (Optional)'
+                      value={ChmNm}
+                      multiline = {true}
+                      onChangeText={setChmNm}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Loan Description</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>
@@ -357,7 +521,16 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Repayment Period</Text>
                   </View>
 
-                  
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                     keyboardType='decimal-pad'
+                     
+                      value={MmbaID}
+                      onChangeText={setMmbaID}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Default Penalty</Text>
+                  </View>
 
                   <View style={styles.sendLoanView}>
                     <TextInput

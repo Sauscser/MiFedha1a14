@@ -76,7 +76,7 @@ const CreateBiz = (props) => {
             busName: ChmNm,
             pw: pword,
             email: userInfo.attributes.email,
-            
+            owner2email:userInfo.attributes.email,
             TtlEarnings: 0,
             earningsBal: 0,
             netEarnings:0,

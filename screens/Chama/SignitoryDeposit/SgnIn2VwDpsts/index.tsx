@@ -75,7 +75,8 @@ const ChmSignIn = (props) => {
                       
 
                       if(compDtls.data.listChamaMembers.items.length < 1 )
-                      {Alert.alert("You dont belong to this Chama")}
+                      {Alert.alert("You dont belong to this Chama");
+                      return;}
                        else{ FetchGrpLonsSts();}
                     }
 
@@ -84,7 +85,7 @@ const ChmSignIn = (props) => {
             catch(e){
               console.log(e)
               if(e){
-                Alert.alert("Group does not exist; otherwise check inernet connection")
+                Alert.alert("Error! Access denied!")
                 return;
             }
             }

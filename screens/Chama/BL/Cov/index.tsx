@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import Communications from 'react-native-communications';
 import {updateCompany, updateSMAccount, updateCvrdGroupLoans, updateGroup,  updateChamaMembers, } from '../../../../src/graphql/mutations';
 import {getCompany, getSMAccount, getCvrdGroupLoans, getGroup, getChamaMembers } from '../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
@@ -33,7 +33,7 @@ const BLChmCovLoanee = (props) => {
   const [ChmMbrId, setChmMbrId] = useState("");
   const [SigntryPW, setSigntryPW] = useState("");
   
-  const [ownr, setownr] = useState(null);
+ 
   const[isLoading, setIsLoading] = useState(false);
   
 
@@ -41,21 +41,15 @@ const BLChmCovLoanee = (props) => {
   const route = useRoute();
   
 
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-     
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
+  
     
     const gtCompDtls = async () =>{
+      
     if(isLoading){
       return;
     }
     setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
     try{
       const compDtls :any= await API.graphql(
         graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -78,7 +72,7 @@ const BLChmCovLoanee = (props) => {
               const loanerPhns = compDtls2.data.getCvrdGroupLoans.grpContact
               const amountexpecteds = compDtls2.data.getCvrdGroupLoans.amountExpectedBack
               const amountrepaids = compDtls2.data.getCvrdGroupLoans.amountRepaid
-              const amountGivens = compDtls2.data.getCvrdGroupLoans.amountGiven
+              const lonBala = compDtls2.data.getCvrdGroupLoans.lonBala
               const amountExpectedBackWthClrncs = compDtls2.data.getCvrdGroupLoans.amountExpectedBackWthClrnc
               
               const statusssss = compDtls2.data.getCvrdGroupLoans.status
@@ -87,7 +81,7 @@ const BLChmCovLoanee = (props) => {
               const DefaultPenaltyChms = compDtls2.data.getCvrdGroupLoans.DefaultPenaltyChm
               const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) 
               + parseFloat(amountExpectedBackWthClrncs) + parseFloat(DefaultPenaltyChms)
-
+              const MmbrClrnceCosts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
               const MmbrClrnceCost = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
               + parseFloat(DefaultPenaltyChms);
 
@@ -125,7 +119,7 @@ const BLChmCovLoanee = (props) => {
                           );
                           const TtlBLLonsTmsLneeChmCovs = compDtls4.data.getSMAccount.TtlBLLonsTmsLneeChmCov
                           const TtlBLLonsAmtLneeChmCovs = compDtls4.data.getSMAccount.TtlBLLonsAmtLneeChmCov
-                          const TtlActvLonsTmsLneeChmCovs = compDtls4.data.getSMAccount.TtlActvLonsTmsLneeChmCov
+                          const phonecontact = compDtls4.data.getSMAccount.phonecontact
                           const TtlActvLonsAmtLneeChmCovs = compDtls4.data.getSMAccount.TtlActvLonsAmtLneeChmCov
                           const acStatusss = compDtls4.data.getSMAccount.acStatus
                           const namess = compDtls4.data.getSMAccount.name
@@ -166,7 +160,7 @@ const BLChmCovLoanee = (props) => {
                             }
                             catch(error){ 
                               if (error){
-                                Alert.alert("Blacklisting unsuccessful; enter details correctly")
+                                Alert.alert("Error! Access denied!")
                                 return}
                       }
 
@@ -175,24 +169,29 @@ const BLChmCovLoanee = (props) => {
                           } 
                           
                           if(LonBal === 0){
-                            Alert.alert("Loanee has cleared this loan")
+                            Alert.alert("Loanee has cleared this loan");
+                            return;
                           }
 
-                          else if(owners !== ownr){
+                          else if(owners !== userInfo.attributes.sub){
                             Alert.alert("You are not the one owed this loan")
+                            return;
                           } 
                           
 
                           else if(statusssss === "LoanBL"){
                             Alert.alert("This Loan is already Black Listed")
+                            return;
                           } 
 
                           else if(acStatuss === "AccountInactive"){
                             Alert.alert("Loaner account has been deactivated")
+                            return;
                           } 
 
                           else if(acStatusss === "AccountInactive"){
-                            Alert.alert("Loanee account has been deactivated")
+                            Alert.alert("Loanee account has been deactivated");
+                            return;
                           } 
                           else{updateLoanerDtls();}
                           
@@ -217,7 +216,7 @@ const BLChmCovLoanee = (props) => {
                                 catch(error){
                                   console.log(error)
                                   if(error){
-                                  Alert.alert("Check your internet")
+                                  Alert.alert("Error! Access denied!")
                                   return;
                               }}
                               await updateLoaneeDtls();
@@ -249,8 +248,7 @@ const BLChmCovLoanee = (props) => {
                                 }
                                 catch(error){
                                   if (error){
-                                    Alert.alert("Blacklisting unsuccessful; Retry")
-                                    return
+                                    Alert.alert("Error! Access denied!")
                                   }
                                   }
                               await updateLoanDtls();
@@ -280,7 +278,7 @@ const BLChmCovLoanee = (props) => {
                                 catch(error){
                                   console.log(error)
                                   if(error){
-                                  Alert.alert("Ensure Member Exists");
+                                  Alert.alert("Error! Access denied!");
                                   return;
                               } 
                                }
@@ -309,11 +307,20 @@ const BLChmCovLoanee = (props) => {
                                 }
                                 catch(error){
                                   if (error){
-                                    Alert.alert("Blacklisting unsuccessful; Retry")
+                                    Alert.alert("Blacklisting unsuccessful; Retry!")
                                     return
                                   }
                                    }
                               Alert.alert(grpNames +", you have blacklisted "+ namess)
+                              Communications.textWithoutEncoding(phonecontact,'Hi '
+                              + namess + ', your loan of ID ' 
+                              +  route.params.id 
+                              + 'has been blacklisted by '+ grpNames 
+                              + ' group. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
+                            + lonBala + '. Default Penalty as you had agreed with your loaner is Ksh. ' + DefaultPenaltyChms 
+                            + '. Clearance fee is Ksh. ' + MmbrClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal
+                             +'. For clarification call the group Admin: '
+                            + userInfo.attributes.phone_number + '. Thank you. MiFedha');
                                 setIsLoading(false);          
                               } 
                               
@@ -322,11 +329,10 @@ const BLChmCovLoanee = (props) => {
                         
                             catch(error){
                               console.log(error)
-                              if(!error){
-                              Alert.alert("Account deactivated successfully")
+                              if(error){
+                              Alert.alert("Error! Access denied!")
                               
-                          } 
-                          else{Alert.alert("Please check your internet connection")
+                          
                           return;} }
                             setIsLoading(false);         
                             
@@ -338,11 +344,10 @@ const BLChmCovLoanee = (props) => {
                         
                         catch(error){
                           console.log(error)
-                          if(!error){
-                          Alert.alert("Account deactivated successfully")
+                          if(error){
+                          Alert.alert("Error! Access denied!")
                           
-                      } 
-                      else{Alert.alert("Please check your internet connection")
+                      
                       return;} }
                         setIsLoading(false);         
                         
@@ -351,7 +356,7 @@ const BLChmCovLoanee = (props) => {
                   }
       
                   catch(error){ if (error){
-                    Alert.alert("Blacklisting unsuccessful; Retry")
+                    Alert.alert("Error! Access denied!")
                     return
                   }}
                   setIsLoading(false);         
@@ -363,7 +368,7 @@ const BLChmCovLoanee = (props) => {
             catch(error){
               console.log(error)
               if(error){
-              Alert.alert("Loan does not exist")
+              Alert.alert("Error! Access denied!")
               return;              
           } 
            }
@@ -375,7 +380,7 @@ const BLChmCovLoanee = (props) => {
             console.log(error)
             
             if(error){
-              Alert.alert("Check your internet")
+              Alert.alert("Error! Access denied!")
               return;
           };
           }

@@ -10,13 +10,53 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {
+      PayPalDposit:undefined;
+      VwAcBfDpst:undefined;
+
+      PersonelVw2GrntB2B:undefined;
+      PersonelVw2GrntB2P:undefined;
+      
+      Vw2GrntBiz2Biz:{BusinessRegNo:string};
+      Vw2GrntBiz2Pal:{BusinessRegNo:string};
+      Vw2GrntPal2Biz:undefined;
+      Vw2GrntPal2Pal:undefined;
+      
+      BizPalLn:{id:string};
+      PalPalLn: {id:string};
+
+      SignIn2GrntLnReq:undefined;
+      CompVw2GrantLnReq2:{MFNId:string};
+      PalVw2GrantLnReq2:undefined;
+      
+      BiznaReqstPage1:undefined;
+      BiznaReqstPage2:undefined;
+      PlaceLnReq:undefined;
+      PlaceLnReq2:undefined;
+      PlaceLnReq3:undefined;
+      PlaceLnReq4:undefined;
+      
+      SIBiz2Biz:undefined;
+      SIBiz2Pal:undefined;
+      VwBiz2Biz:undefined;
+      VwBiz2Pal:undefined;
+      VwPal2Biz:undefined;
+      GrantPal2BizCrdSl:{id:string};
+      GrantBiz2PalCrdSl:{id:string};
+      GrantBiz2BizCrdSl:{id:string};
+      GrantPal2PalCrdSl:{id:string};
+      TakeOverBizna: {BusKntct:string};
+      giveBizna: undefined;
+      VwBusAc2TakeUp:{id:string};
+
+
       VwGrp2LnNonCov: undefined;
       VwGrp2LnCov: undefined;
       DeclChamaReq:{id:string};
+     
       DeclCredSls:{id:string};
       DeclPalLn:{id:string};
       
-      
+    
       VwMFNAcDtls:{phonecontact:string};
       ApplyMFKubwa:undefined;
       ViewAlertDtls:undefined;
@@ -343,7 +383,7 @@ declare global {
       VwPlLn2Remove:undefined;
       AutomaticRepayAllTyps:undefined;
       VwMakeLnReq:undefined;
-      PlaceLnReq:undefined;
+      
       Vw2GrantLnReq:undefined;
       Vw2DelLnReqs:undefined;
       Vw2GrantLnReq2:undefined;

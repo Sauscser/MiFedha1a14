@@ -91,7 +91,7 @@ const MFNSignIn = (props) => {
       catch(e){
         console.log(e)
         if(e){
-          Alert.alert("User does not exist; otherwise check inernet connection")
+          Alert.alert("Error! Update app or call customer care")
           return;
       }
       }
@@ -111,7 +111,7 @@ const MFNSignIn = (props) => {
 catch(e){
 console.log(e)
 if(e){
-Alert.alert("User does not exist; otherwise check inernet connection")
+Alert.alert("Error! Update app or call customer care")
 return;
 }
 }

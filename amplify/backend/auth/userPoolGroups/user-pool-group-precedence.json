@@ -50,5 +50,9 @@
   {
     "groupName": "SpareGrp",
     "precedence": 13
+  },
+  {
+    "groupName": "BizOwner",
+    "precedence": 14
   }
 ]

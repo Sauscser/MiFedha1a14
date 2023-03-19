@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import Communications from 'react-native-communications';
 import {
   createFloatReduction, 
 
@@ -62,6 +62,7 @@ const SMADepositForm = props => {
       const names = accountDtl.data.getSMAccount.name;  
       const nationalids = accountDtl.data.getSMAccount.nationalid; 
       const MaxAcBals = accountDtl.data.getSMAccount.MaxAcBal; 
+      const phonecontact = accountDtl.data.getSMAccount.phonecontact;
 
       const WalCap = parseFloat(usrBala) + parseFloat(amount);
       console.log(WalCap)
@@ -204,6 +205,9 @@ const SMADepositForm = props => {
                     
                   }
                   Alert.alert("Ksh. " + amount+" deposited in "+ names+ "'s ac ");
+                  Communications.textWithoutEncoding(phonecontact,
+                    'Confirmed. You have successfully deposited Ksh. '+ amount + ' into your main account.'
+                    + ' Please confirm this deposit record is on your MiFedha app. Thank you. MiFedha');
                   setIsLoading(false);
                   }; 
             

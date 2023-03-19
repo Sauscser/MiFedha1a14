@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import Communications from 'react-native-communications';
 import {
   
   createSMLoansCovered,
@@ -149,6 +149,7 @@ const RepayCovLnsss = props => {
                     const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
                     const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                     const namess =RecAccountDtl.data.getSMAccount.name;
+                    const phonecontactz =RecAccountDtl.data.getSMAccount.phonecontact;
                     const MaxTymsIHvBLs =RecAccountDtl.data.getSMAccount.MaxTymsIHvBL;
                     const TymsMyLnClrds =RecAccountDtl.data.getSMAccount.TymsMyLnClrd;
                     
@@ -243,7 +244,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -274,7 +275,7 @@ const RepayCovLnsss = props => {
           
                                 } catch (error) {
                                   if (error){
-                                    Alert.alert("Application unsuccessful; Retry")
+                                    Alert.alert("Error!; Retry")
                                     return
                                   }
                                 }
@@ -306,7 +307,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -347,7 +348,14 @@ const RepayCovLnsss = props => {
                                   
                                 }
                                 Alert.alert("Cleared. ClearanceFee: " +ClranceAmt.toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
-                                setIsLoading(false);
+                                Communications.textWithoutEncoding(phonecontactz,'Hi '
+                              + namess + ', your loan of ID ' 
+                              +  route.params.id 
+                              + 'has been repaid Ksh. ' + amounts + ' by '+ names 
+                              +'. For clarification call the loanee: '
+                            + userInfo.attributes.phone_number + '. Thank you. MiFedha');
+                        
+                        setIsLoading(false);
                               }                                                                                                            
                         
 
@@ -373,7 +381,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -433,7 +441,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -460,7 +468,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -496,7 +504,14 @@ const RepayCovLnsss = props => {
                                   
                                 }
                                 Alert.alert("Partially paid. Clearance: " +ClranceAmt.toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
-                                setIsLoading(false);
+                                Communications.textWithoutEncoding(phonecontactz,'Hi '
+                              + namess + ', your loan of ID ' 
+                              +  route.params.id 
+                              + ' has been repaid Ksh. ' + amounts + ' by '+ names 
+                              +'. For clarification call the loanee: '
+                            + userInfo.attributes.phone_number + '. Thank you. MiFedha');
+                        
+                        setIsLoading(false);
                               }
 
                                                           
@@ -548,7 +563,7 @@ const RepayCovLnsss = props => {
                               }
                           }
                           catch (e) {
-                            if (e){Alert.alert("There is no such a loan")
+                            if (e){Alert.alert("Error!")
                             return;}
                         };
                       }
@@ -557,7 +572,7 @@ const RepayCovLnsss = props => {
                                                                                          
                 }       
                 catch(e) {     
-                  if (e){Alert.alert("Reciever does not exist")
+                  if (e){Alert.alert("Error!")
   return;}                 
                 }
                 setIsLoading(false);
@@ -565,7 +580,7 @@ const RepayCovLnsss = props => {
                   await fetchCompDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Check your internet connection")
+          if (e){Alert.alert("Error!")
       return;}
         }
         setIsLoading(false);        
@@ -574,7 +589,7 @@ const RepayCovLnsss = props => {
     
       
     } catch (e) {
-      if (e){Alert.alert("Sender does not exist")
+      if (e){Alert.alert("Error!")
       return;}
   };
       setIsLoading(false);

@@ -26,10 +26,14 @@ const KFKubwaScreen = props => {
     navigation.navigate('UpdtMFKPWs');
   };
 
-  const RegMFKbws = () => {
-    navigation.navigate('RegMFKbw');}
+  const RegMFKbwsz = () => {
+    navigation.navigate('VwCompMFKTC');}
+
+    const RegMFKbws = () => {
+      navigation.navigate('VwMFKToReg');}
 
     
+
       const MFKWthdrwss = () => {
         navigation.navigate('MFKWthdrws');
   };

@@ -132,7 +132,7 @@ const UpdtMFKPW = (props) => {
         
                                     } catch (error) {
                                       if(error){
-                                        Alert.alert("Check internet; otherwise MFKubwa doesnt exist")
+                                        Alert.alert("Error!")
                                         return
                                       }
                                     } }        
@@ -141,7 +141,7 @@ const UpdtMFKPW = (props) => {
 
             } catch (error) {
                 if(error){
-                  Alert.alert("Check internet; otherwise MFKubwa doesnt exist")
+                  Alert.alert("Error!")
                   return
                 }
               }

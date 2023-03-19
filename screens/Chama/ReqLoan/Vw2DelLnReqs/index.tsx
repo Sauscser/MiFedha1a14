@@ -74,7 +74,8 @@ const FetchSMNonCovLns = props => {
           };
 
           if (userInfo.attributes.sub !== owner)
-    {Alert.alert ("Please first create main account")}
+    {Alert.alert ("Please first create main account");
+    return;}
     else{
       await fetchLoanees();}
 

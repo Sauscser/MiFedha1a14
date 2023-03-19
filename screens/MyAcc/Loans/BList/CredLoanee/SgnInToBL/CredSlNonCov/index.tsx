@@ -98,7 +98,7 @@ const ChmSignIn = (props) => {
             catch(e){
               console.log(e)
               if(e){
-                Alert.alert("Group does not exist; otherwise check inernet connection")
+                Alert.alert("Error!")
                 return;
             }
             }
@@ -115,7 +115,7 @@ const ChmSignIn = (props) => {
           }catch(e){
               console.log(e)
               if(e){
-                Alert.alert("Group does not exist; otherwise check inernet connection")
+                Alert.alert("Error!")
                 return;
             }
             }

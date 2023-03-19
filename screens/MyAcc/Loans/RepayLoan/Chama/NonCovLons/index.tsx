@@ -276,7 +276,7 @@ const RepayNonCovChmLnsss = props => {
                                           }
                                           catch(error){
                                             console.log(error)
-                                            if (error){Alert.alert("Check your internet connection")
+                                            if (error){Alert.alert("Error!")
                                             return;}
                                           }
                                           setIsLoading(false);
@@ -305,7 +305,7 @@ const RepayNonCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -369,7 +369,7 @@ const RepayNonCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -430,7 +430,7 @@ const RepayNonCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -460,7 +460,7 @@ const RepayNonCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -489,7 +489,7 @@ const RepayNonCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -516,7 +516,7 @@ const RepayNonCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -626,7 +626,7 @@ const RepayNonCovChmLnsss = props => {
                             }
                             catch (e) {
                               console.log(e)
-                              if (e){Alert.alert("There is no such a member")
+                              if (e){Alert.alert("Error!")
                               return;}
                           };
                         }
@@ -634,7 +634,7 @@ const RepayNonCovChmLnsss = props => {
                         await fetchMmbrDtls();
                           }
                           catch (e) {
-                            if (e){Alert.alert("There is no such a loan")
+                            if (e){Alert.alert("Error!")
                             return;}
                         };
                       }
@@ -643,7 +643,7 @@ const RepayNonCovChmLnsss = props => {
                                                                                          
                 }       
                 catch(e) {     
-                  if (e){Alert.alert("Reciever does not exist")
+                  if (e){Alert.alert("Error!")
   return;}                 
                 }
                 setIsLoading(false);
@@ -651,7 +651,7 @@ const RepayNonCovChmLnsss = props => {
                   await fetchCompDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Check your internet connection")
+          if (e){Alert.alert("Error!")
       return;}
         }
         setIsLoading(false);        
@@ -661,7 +661,7 @@ const RepayNonCovChmLnsss = props => {
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Sender does not exist")
+      if (e){Alert.alert("Error!")
       return;}
   };
       setIsLoading(false);

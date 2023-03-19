@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import Communications from 'react-native-communications';
 import {updateCompany, updateCovCreditSeller, updateSMAccount, updateSMLoansCovered, } from '../../../../../../src/graphql/mutations';
 import {getBizna, getCompany, getCovCreditSeller, getSMAccount, getSMLoansCovered } from '../../../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
@@ -41,6 +41,7 @@ const BLCovCredByr = (props) => {
       return;
     }
     setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
     try{
       const compDtls :any= await API.graphql(
         graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -64,6 +65,7 @@ const BLCovCredByr = (props) => {
               const amountexpecteds = compDtls.data.getCovCreditSeller.amountexpectedBack
               const amountrepaids = compDtls.data.getCovCreditSeller.amountRepaid
               const amountSolds = compDtls.data.getCovCreditSeller.amountSold
+              const lonBala = compDtls.data.getCovCreditSeller.lonBala
               const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
               
               const statusssss = compDtls.data.getCovCreditSeller.status
@@ -74,7 +76,7 @@ const BLCovCredByr = (props) => {
 
               const createdAt = compDtls.data.getCovCreditSeller.createdAt;
               const repaymentPeriod = compDtls.data.getCovCreditSeller.repaymentPeriod;
-              
+              const ClrnceCosts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
              
               const today = new Date();
               let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
@@ -153,6 +155,7 @@ const BLCovCredByr = (props) => {
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
                           const MaxTymsBLs =compDtls.data.getSMAccount.MaxTymsBL;
+                          const phonecontactz =compDtls.data.getSMAccount.phonecontact;
 
                           
                   
@@ -177,7 +180,7 @@ const BLCovCredByr = (props) => {
                                 catch(error){
                                   console.log(error)
                                   if(error){
-                                  Alert.alert("Check your internet")
+                                  Alert.alert("Error!")
                                   return;
                               }}
                               await updateLoaneeDtls();
@@ -224,11 +227,10 @@ const BLCovCredByr = (props) => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if(!error){
-                                  Alert.alert("Account deactivated successfully")
+                                  if(error){
+                                  Alert.alert("Error!")
                                   
-                              } 
-                              else{Alert.alert("Please check your internet connection")
+                             
                               return;} }
                               await updateLoanDtls();
                                 setIsLoading(false);          
@@ -261,7 +263,16 @@ const BLCovCredByr = (props) => {
                                   return;
                               } 
                                }
-                              Alert.alert(names +", you have blacklisted "+ namess)
+                              Alert.alert(names +", you have blacklisted "+ namess);
+                              Communications.textWithoutEncoding(phonecontactz,'Hi '
+                              + namess + ', your loan of ID ' 
+                              +  route.params.id 
+                              + 'has been blacklisted by '+ names 
+                              + ' Business. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
+                            + lonBala + '. Default Penalty as you had agreed with your loaner is Ksh. ' + DefaultPenaltyCredSls 
+                            + '. Clearance fee is Ksh. ' + ClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal
+                             +'. For clarification call the Business Owner: '
+                            + userInfo.attributes.phone_number + '. Thank you. MiFedha');
                                 setIsLoading(false);          
                               } 
                               
@@ -295,7 +306,7 @@ const BLCovCredByr = (props) => {
             catch(error){
               console.log(error)
               if(error){
-              Alert.alert("Loan does not exist")
+              Alert.alert("Error!")
               return;              
           } 
            }
@@ -307,7 +318,7 @@ const BLCovCredByr = (props) => {
             console.log(error)
             
             if(error){
-              Alert.alert("Check your internet")
+              Alert.alert("Error!")
               return;
           };
           }

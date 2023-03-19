@@ -94,6 +94,11 @@ const CreateAcForm = (props) => {
                 balance: 0,
                                    
                 pw: pword,
+                nationality: "Kenyan",
+                MFKubwaCost: 0,
+                MFKubwaNetCost: 0,
+                MFNdogoDue: 0,
+                MFNdogoNet: 0,
                 loanAcceptanceCode:userInfo.attributes.email,
       
                 ttlDpstSM: 0,
@@ -245,7 +250,7 @@ const CreateAcForm = (props) => {
                   catch(error){
                     console.log(error)
                     if(error){
-                      Alert.alert("Check your internet connection")
+                      Alert.alert("Error!")
                       return;
                   }
                   }

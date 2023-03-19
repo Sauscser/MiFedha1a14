@@ -1,34 +1,35 @@
 export type AmplifyDependentResourcesAttributes = {
-    "api": {
-        "myfedha": {
-            "GraphQLAPIIdOutput": "string",
-            "GraphQLAPIEndpointOutput": "string"
-        }
-    },
-    "auth": {
-        "myfedhabdd94507": {
-            "IdentityPoolId": "string",
-            "IdentityPoolName": "string",
-            "UserPoolId": "string",
-            "UserPoolArn": "string",
-            "UserPoolName": "string",
-            "AppClientIDWeb": "string",
-            "AppClientID": "string"
-        },
-        "userPoolGroups": {
-            "ExecutiveGroupRole": "string",
-            "AdminOneGroupRole": "string",
-            "AdminOneTwoGroupRole": "string",
-            "RegionalAdminGroupRole": "string",
-            "RegionalAdminTwoGroupRole": "string",
-            "CountyAdminGroupRole": "string",
-            "CountyAdminTwoGroupRole": "string",
-            "BranchAdminGroupRole": "string",
-            "BranchAdminTwoGroupRole": "string",
-            "AdvocateGroupRole": "string",
-            "KFKubwaGroupRole": "string",
-            "KFNdogoGroupRole": "string",
-            "SpareGrpGroupRole": "string"
-        }
+  "api": {
+    "myfedha": {
+      "GraphQLAPIEndpointOutput": "string",
+      "GraphQLAPIIdOutput": "string"
     }
+  },
+  "auth": {
+    "myfedhabdd94507": {
+      "AppClientID": "string",
+      "AppClientIDWeb": "string",
+      "IdentityPoolId": "string",
+      "IdentityPoolName": "string",
+      "UserPoolArn": "string",
+      "UserPoolId": "string",
+      "UserPoolName": "string"
+    },
+    "userPoolGroups": {
+      "AdminOneGroupRole": "string",
+      "AdminOneTwoGroupRole": "string",
+      "AdvocateGroupRole": "string",
+      "BizOwnerGroupRole": "string",
+      "BranchAdminGroupRole": "string",
+      "BranchAdminTwoGroupRole": "string",
+      "CountyAdminGroupRole": "string",
+      "CountyAdminTwoGroupRole": "string",
+      "ExecutiveGroupRole": "string",
+      "KFKubwaGroupRole": "string",
+      "KFNdogoGroupRole": "string",
+      "RegionalAdminGroupRole": "string",
+      "RegionalAdminTwoGroupRole": "string",
+      "SpareGrpGroupRole": "string"
+    }
+  }
 }

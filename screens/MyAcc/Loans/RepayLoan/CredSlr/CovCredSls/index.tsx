@@ -242,7 +242,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -302,7 +302,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -364,7 +364,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -426,7 +426,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -454,7 +454,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -536,7 +536,7 @@ const RepayCovSellerLnsss = props => {
                               }
                           }
                           catch (e) {
-                            if (e){Alert.alert("There is no such a loan")
+                            if (e){Alert.alert("Error!")
                             return;}
                         };
                       }
@@ -545,7 +545,7 @@ const RepayCovSellerLnsss = props => {
                                                                                          
                 }       
                 catch(e) {     
-                  if (e){Alert.alert("Reciever does not exist")
+                  if (e){Alert.alert("Error!")
   return;}                 
                 }
                 setIsLoading(false);
@@ -553,7 +553,7 @@ const RepayCovSellerLnsss = props => {
                   await fetchCompDtls ();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Check your internet connection")
+          if (e){Alert.alert("Error!")
       return;}
         }
         setIsLoading(false);        
@@ -562,7 +562,7 @@ const RepayCovSellerLnsss = props => {
     
       
     } catch (e) {
-      if (e){Alert.alert("Sender does not exist")
+      if (e){Alert.alert("Error!")
       return;}
   };
       setIsLoading(false);

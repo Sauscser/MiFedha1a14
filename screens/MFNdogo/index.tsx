@@ -22,7 +22,7 @@ const KFNdogoScreen = props => {
 
   
   const RegMFNdogos = () => {
-    navigation.navigate('RegMFNdgScrn');
+    navigation.navigate('VwCompMFNTC');
   };
 
   

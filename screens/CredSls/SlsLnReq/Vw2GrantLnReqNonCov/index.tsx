@@ -49,6 +49,8 @@ const FetchSMNonCovLns = props => {
 
         const fetchLoanees = async () => {
             setLoading(true);
+
+            const userInfo = await Auth.currentAuthenticatedUser();
             try {
 
             
@@ -58,7 +60,7 @@ const FetchSMNonCovLns = props => {
                     
                   filter: {
                   
-                    businessNo: { eq: route.params.BusinessRegNo},
+                    businessNo: { eq: userInfo.attributes.email},
                     status:{eq:"AwaitingResponse"}
                                
                 }

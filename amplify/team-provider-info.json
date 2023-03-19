@@ -12,15 +12,18 @@
       "AmplifyAppId": "d2gsnpz7lauuq7"
     },
     "categories": {
-      "auth": {
-        "myfedhabdd94507": {},
-        "userPoolGroups": {}
-      },
       "hosting": {
         "amplifyhosting": {
           "appId": "d2gsnpz7lauuq7",
           "type": "manual"
         }
+      },
+      "auth": {
+        "myfedhabdd94507": {},
+        "userPoolGroups": {}
+      },
+      "api": {
+        "myfedha": {}
       }
     }
   }

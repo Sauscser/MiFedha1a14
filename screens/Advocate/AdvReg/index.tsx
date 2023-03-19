@@ -81,7 +81,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
                   pwd: pword,
                   name: nam,
                   phonecontact: phoneContact,
-                  email: eml,
+                  email: userInfo.attributes.email,
                   bankName:BkAcNu,
                   bkAcNo:BkName,
                   advBal: 0,
@@ -99,7 +99,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
           catch (error) {    
             console.log(error)   
             if(error)
-          {Alert.alert("Error! Access denied")
+          {Alert.alert("Not authorised to register as Advocate")
         return;} 
          
       
@@ -110,7 +110,7 @@ import { getCompany, getSMAccount } from '../../../src/graphql/queries';
         };
 
         if (userInfo.attributes.sub !== owner)
-    {Alert.alert ("Error! Access denied")}
+    {Alert.alert ("Please first create main account")}
     else{
 
         CreateNewMFN();
@@ -338,15 +338,6 @@ setBkAcNu("");
             <Text style={styles.sendLoanText}>Bank Name</Text>
           </View>
 
-
-          <View style={styles.sendLoanView}>
-            <TextInput
-              value={eml}
-              onChangeText={setEml}
-              style={styles.sendLoanInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>Advocate Email</Text>
-          </View>
 
           <View style={styles.sendLoanView}>
             <TextInput

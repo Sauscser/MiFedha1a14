@@ -36,12 +36,12 @@ const MyLoanAccount = props => {
     navigation.navigate('RpayCredSlrNonCovs', {id});
   };
 
-  const Vw2GrantLnReq = () => {
-    navigation.navigate('Vw2GrantLnReq');
+  const SignIn2GrntLnReq = () => {
+    navigation.navigate('SignIn2GrntLnReq');
   };
 
-  const Vw2GrantLnReq2 = () => {
-    navigation.navigate('Vw2GrantLnReq2');
+  const PalVw2GrantLnReq2 = () => {
+    navigation.navigate('PalVw2GrantLnReq2');
   };
   
 
@@ -350,16 +350,16 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={Vw2GrantLnReq}
+                      onPress={SignIn2GrntLnReq}
                       style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}> Covered</Text>
+                      <Text style={styles.clientsPressableText}> Biz2Pal</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={Vw2GrantLnReq2}
+                      onPress={PalVw2GrantLnReq2}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
-                        Non Cov
+                     Pal2Pal
                       </Text>
                     </Pressable>
                   </View>

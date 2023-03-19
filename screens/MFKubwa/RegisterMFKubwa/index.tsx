@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 
-import {createSAgent, updateCompany, updateSMAccount} from '../../../src/graphql/mutations';
+import {createSAgent, updateCompany, updateMFKOfferz, updateSMAccount} from '../../../src/graphql/mutations';
 
 import {Auth, DataStore, graphqlOperation, API} from 'aws-amplify';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {
   View,
@@ -20,7 +20,7 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
-import { getCompany, getSMAccount, listSMAccounts } from '../../../src/graphql/queries';
+import { getCompany, getMFKOfferz, getSMAccount, listSMAccounts } from '../../../src/graphql/queries';
 
 const RegisterMFKubwaAcForm = props => {
   const [nationalId, setNationalid] = useState("");
@@ -32,7 +32,7 @@ const RegisterMFKubwaAcForm = props => {
   const [BkName, setBkName] = useState('');
   const [BkAcNu, setBkAcNu] = useState('');
   const[isLoading, setIsLoading] = useState(false);
-  
+  const route = useRoute();
 
 
 
@@ -58,7 +58,7 @@ const RegisterMFKubwaAcForm = props => {
               graphqlOperation(listSMAccounts,
                 { filter: {
                     
-                  awsemail: { eq: phoneContact}
+                  awsemail: { eq: userInfo.attributes.email}
                                 
                   }}
               )
@@ -77,6 +77,25 @@ const RegisterMFKubwaAcForm = props => {
                 const owner = UsrDtls.data.getSMAccount.owner
                 const TtlClrdLonsAmtSllrCovs = UsrDtls.data.getSMAccount.TtlClrdLonsAmtSllrCov
 
+                const fetchMFKOffer = async () => {
+                  try {
+                    const UsrDtlsz:any = await API.graphql(
+                      graphqlOperation(getMFKOfferz, 
+                        { 
+                          id:route.params.idz
+                        }
+                      )
+                    );
+                    const offerStatus = UsrDtlsz.data.getMFKOfferz.offerStatus
+                    const acCost = UsrDtlsz.data.getMFKOfferz.acCost
+                    const amtPaid = UsrDtlsz.data.getMFKOfferz.amtPaid
+
+                    const mfnOffered = UsrDtlsz.data.getMFKOfferz.mfnOffered
+                    const mfnReg = UsrDtlsz.data.getMFKOfferz.mfnReg
+                    const mfkAc = UsrDtlsz.data.getMFKOfferz.mfkAc
+                    const acMainAc = UsrDtlsz.data.getMFKOfferz.acMainAc
+                  
+
             const CreateNewSA = async () => {
               if(isLoading){
                 return;
@@ -89,14 +108,18 @@ const RegisterMFKubwaAcForm = props => {
                       
                       saNationalid: nationalidssss,
                       name: nam,
-                      saPhoneContact: phoneContact,
+                      saPhoneContact: acMainAc,
                       pw: pword,
                       TtlEarnings: 0,
                       bankName:BkAcNu,
+                      mfnTtl:mfnOffered,
                       bkAcNo:BkName,
+                      offerStatus: offerStatus,
+                      cost: acCost,
+                      costBal: amtPaid,
                       actvMFNdog:0,
                       InctvMFNdog:0,
-                      email: eml,
+                      email: mfkAc,
                       saBalance: 0,   
                       status: 'AccountActive',
                       owner:userInfo.attributes.sub,
@@ -111,13 +134,15 @@ const RegisterMFKubwaAcForm = props => {
               catch (error) {
                 console.log(error)
                 if (error){
-                  Alert.alert("Registration unsuccessful; Retry")
+                  Alert.alert("Error! Access denied!")
                   return
                 }
               }
               setIsLoading(false); 
               await  updtActAdm();              
             };
+
+
 
             if (userInfo.attributes.sub !== owner)
                            {Alert.alert ("Please first create main account")}
@@ -153,7 +178,7 @@ const RegisterMFKubwaAcForm = props => {
                   )
               }
               catch(error){if(error){
-                Alert.alert("Check your internet")
+                Alert.alert("Error!")
                 return
               }}
               await updtSMAc();
@@ -177,25 +202,59 @@ const RegisterMFKubwaAcForm = props => {
               }
               catch(error){if (error) {
                 console.log(error)
-                Alert.alert("Please check your internet connection")
+                Alert.alert("Error!")
                 return;
               }}
-              Alert.alert("MFKubwa Account registered successfully")
+              await updtMFKOffer();
               setIsLoading(false);
             }
+
+            const updtMFKOffer = async()=>{
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
+              try{
+                  await API.graphql(
+                    graphqlOperation(updateMFKOfferz,{
+                      input:{
+                        id:route.params.idz,
+                        status:"AccountInactive"
+                      }
+                    })
+                  )
+              }
+              catch(error){if (error) {
+                console.log(error)
+                Alert.alert("Error!")
+                return;
+              }}
+              Alert.alert("MFKubwa Account registered successfully")   
+              setIsLoading(false);
+            }
+
+           
             
           } catch (e) {
-            if(e){Alert.alert("Please first sign up")
+            if(e){Alert.alert("Error!")
           return}
             console.error(e);
           }
         }
-         if(UsrDtlss.data.listSMAccounts.items.length > 0){Alert.alert("This Contact is in use in a Single Member Account")}
-         else{
-        await ChckUsrExistence();}
+         
+        await fetchMFKOffer();
       
       } catch (e) {
-            if(e){Alert.alert("Please first sign up")
+            if(e){Alert.alert("Error!")
+          return}
+            console.error(e);
+          }
+        }
+         
+        await ChckUsrExistence();
+      
+      } catch (e) {
+            if(e){Alert.alert("Error!")
           return}
             console.error(e);
           }
@@ -312,20 +371,6 @@ useEffect(() =>{
             <Text style={styles.title}>Fill Details Below</Text>
           </View>
 
-          
-          
-          <View style={styles.sendLoanView}>
-            <TextInput
-            placeholder="+2547xxxxxxxx"
-            value={phoneContact}
-              onChangeText={setPhoneContact}
-              style={styles.sendLoanInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFKubwa Phone</Text>
-          </View>
-
-         
-
           <View style={styles.sendLoanView}>
             <TextInput
               value={nam}
@@ -363,15 +408,6 @@ useEffect(() =>{
             <Text style={styles.sendLoanText}>MFKubwa Pass Word</Text>
           </View>
 
-          <View style={styles.sendLoanView}>
-            <TextInput
-              value={eml}
-              onChangeText={setEml}
-              style={styles.sendLoanInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFKubwa Email</Text>
-          </View>
-          
 
           <TouchableOpacity
             onPress={gtCompDtls}

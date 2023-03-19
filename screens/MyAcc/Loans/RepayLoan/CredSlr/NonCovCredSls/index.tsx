@@ -236,7 +236,7 @@ const RepayNonCovCredSlsLnsss = props => {
           
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -266,11 +266,10 @@ const RepayNonCovCredSlsLnsss = props => {
           
           
                                 } catch (error) {
-                                  if(!error){
-                                    Alert.alert("Account deactivated successfully")
+                                  if(error){
+                                    Alert.alert("Error!")
                                     
-                                } 
-                                else{Alert.alert("Please check your internet connection")
+                                
                                 return;}
                                 }
                                 setIsLoading(false);
@@ -297,7 +296,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                     )                              
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -361,7 +360,7 @@ const RepayNonCovCredSlsLnsss = props => {
           
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -420,7 +419,7 @@ const RepayNonCovCredSlsLnsss = props => {
           
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -445,7 +444,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                     )                              
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Check your internet connection")
+                                  if (error){Alert.alert("Error!")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -522,7 +521,7 @@ const RepayNonCovCredSlsLnsss = props => {
                               }
                           }
                           catch (e) {
-                            if (e){Alert.alert("There is no such a loan")
+                            if (e){Alert.alert("Error!")
                             return;}
                         };
                       }
@@ -531,14 +530,14 @@ const RepayNonCovCredSlsLnsss = props => {
                                                                                          
                 }       
                 catch(e) {     
-                  if (e){Alert.alert("Reciever does not exist")
+                  if (e){Alert.alert("Error!")
   return;}                 
                 }
                 setIsLoading(false);
                 }                    
                   await ftchCvdSMLn ();
         } catch (e) {
-          if (e){Alert.alert("Check your internet connection")
+          if (e){Alert.alert("Error!")
       return;}
         }
         setIsLoading(false);        
@@ -547,7 +546,7 @@ const RepayNonCovCredSlsLnsss = props => {
     
       
     } catch (e) {
-      if (e){Alert.alert("Sender does not exist")
+      if (e){Alert.alert("Error!")
       return;}
   };
       setIsLoading(false);

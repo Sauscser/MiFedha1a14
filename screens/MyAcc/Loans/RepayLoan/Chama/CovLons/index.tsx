@@ -14,7 +14,7 @@ import {
   updateSMLoansCovered,
   updateCvrdGroupLoans,
   updateGroup,
-  updateGrpMembers,
+  
   updateChamaMembers,
   
 } from '../../../../../../src/graphql/mutations';
@@ -26,7 +26,7 @@ import {
   getCompany,
   getCvrdGroupLoans,
   getGroup,
-  getGrpMembers,
+  
   getSMAccount,
   getSMLoansCovered,
   
@@ -633,7 +633,7 @@ const RepayCovChmLnsss = props => {
                             }
                             catch (e) {
                               console.log(e)
-                              if (e){Alert.alert("There is no such a member")
+                              if (e){Alert.alert("Error!")
                               return;}
                           };
                         }
@@ -642,7 +642,7 @@ const RepayCovChmLnsss = props => {
                           }
                           catch (e) {
                             console.log(e)
-                            if (e){Alert.alert("There is no such a loan")
+                            if (e){Alert.alert("Error!")
                             return;}
                         };
                       }
@@ -652,7 +652,7 @@ const RepayCovChmLnsss = props => {
                 }       
                 catch(e) {     
                   console.log(e)
-                  if (e){Alert.alert("Reciever does not exist")
+                  if (e){Alert.alert("Error!")
   return;}                 
                 }
                 setIsLoading(false);
@@ -670,7 +670,7 @@ const RepayCovChmLnsss = props => {
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Sender does not exist")
+      if (e){Alert.alert("Error!")
       return;}
   };
       setIsLoading(false);

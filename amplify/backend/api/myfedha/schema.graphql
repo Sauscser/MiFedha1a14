@@ -2,7 +2,7 @@ type SMAccount
   @model
   @auth(
     rules: [
-      { allow: owner, operations: [read, update, create] }
+      { allow: owner, ownerField: "owner", operations: [read, update, create] }
       { allow: private, operations: [read, update, create] }
       {
         allow: groups
@@ -45,6 +45,7 @@ type SMAccount
   name: String! 
   phonecontact: String! @index(name: "byPnCntct", sortKeyFields: ["createdAt"], queryField: "VwPnCntct")
   awsemail: String! @primaryKey 
+ 
   balance: Float!
   pw: String!
   nationality: String!
@@ -149,7 +150,7 @@ type SMAccount
   nonLonLimit:Float!
   withdrawalLimit: Float!
   depositLimit: Float!
-  owner: String!
+  owner: String! 
   createdAt: String!
 
 }
@@ -158,7 +159,7 @@ type SMLoansCovered
   @model
   @auth(
     rules: [
-      { allow: owner, operations: [create, read, update] }
+      { allow: owner, ownerField: "owner", operations: [create, read, update] }
       { allow: private, operations: [read, update, create] }
       {
         allow: groups
@@ -198,29 +199,32 @@ type SMLoansCovered
   )
  
   {
-  id: ID!
+  id: ID! 
   loaneeid: String! 
   loaneePhn: String!  @index(name: "byLneePhn", sortKeyFields: ["createdAt"], queryField: "VwMyDebts")
   loanerLoanee:String! @index(name: "byLnrNLneesssss", sortKeyFields: ["createdAt"], queryField: "VwLnrNLneesssss")
-  loanerLoaneeAdv:String!  @index(name: "byAdvNLnrNLneesssss", sortKeyFields: ["createdAt"], queryField: "VwAdvNLnrNLneesssss")
+  loanerLoaneeAdv:String
   loanerPhn:String! @index(name: "byLnerPhn", sortKeyFields: ["createdAt"], queryField: "VwMyDebtors")
-  advregnu: String! @index(name: "byAdv", sortKeyFields: ["createdAt"], queryField: "AdvVwLnsClient")
+  advregnu: String
   loanerId: String!  
   amountgiven: Float!
   amountexpected: Float!
   amountExpectedBackWthClrnc: Float!
+  dfltUpdate: String
   amountrepaid: Float!
   lonBala:Float!
   loaneename:String!
   loanername:String!
+  loanerEmail: String!
   repaymentPeriod: Float!
   DefaultPenaltySM: Float!
   DefaultPenaltySM2: Float!
   timeExpBack: Float!
+  loaneeEmail: String! @index(name: "byLnerEmail", sortKeyFields: ["createdAt"], queryField: "VwMyLenders")
   timeExpBack2: Float!
   description: String
   status: Status!
-  owner: String!
+  owner: String! 
   createdAt: String!
   advEmail:String
 }
@@ -412,8 +416,102 @@ type LoanPayment
   createdAt: String!
 }
 
+type LoanPayment3
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, update, create] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, create]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["BranchAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+  
+  
+  {
+  id:ID!
+  senderPhn: String! @index(name: "bySendrPhns3", sortKeyFields: ["createdAt"], queryField: "VwMySntMnys3")
+  recPhn: String! @index(name: "byRecPhns3", sortKeyFields: ["createdAt"], queryField: "VwMyRecMnys3")
+  RecName:String!
+  SenderName:String!
+  lnId:String!
+  amount: Float!
+  description: String
+  status:Status!
+  owner: String!
+  createdAt: String!
+}
+
 
 type SokoAd
+  @model
+  @auth(
+    rules: [
+      
+      { allow: owner, ownerField: "owner", operations: [read, update, delete] }
+      { allow: private, operations: [read, create] }
+      
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      ]
+  )
+
+  
+   {
+  
+  id:ID! 
+  
+  sokokntct: String! 
+  sokoname: String! @index(name: "DakaName", sortKeyFields: ["createdAt"], queryField: "DakaByName")
+ 
+  sokoprice: Float!
+  sokotown: String!
+  sokolnprcntg: Float!
+  sokolpymntperiod: Float!
+  sokodesc: String! 
+  
+  owner: String! 
+  
+  createdAt: String!
+}
+
+type SokoAd5
   @model
   @auth(
     rules: [
@@ -437,7 +535,7 @@ type SokoAd
   id:ID!
   
   sokokntct: String! 
-  sokoname: String! @index(name: "DakaName", sortKeyFields: ["createdAt"], queryField: "DakaByName")
+  sokoname: String! @index(name: "DakaName5", sortKeyFields: ["createdAt"], queryField: "DakaByName5")
  
   sokoprice: Float!
   sokotown: String!
@@ -455,7 +553,7 @@ type RafikiLnAd
   @model
   @auth(
     rules: [
-      { allow: owner, operations: [read, update, delete] }
+      { allow: owner, ownerField: "owner", operations: [read, update, delete] }
       { allow: private, operations: [read, create] }
       
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
@@ -470,18 +568,19 @@ type RafikiLnAd
 
   
    {
-  id: ID!
+  id: ID! 
   rafikiName: String! 
   rafikicntct: String! 
   rafikiEmail: String! 
-  
+  AdvEmail: String
+  advLicNo: String
   rafikiamnt: Float! 
- 
+  defaultPenalty: Float!
   rafikidesc: String! @index(name: "ShikaDesc", sortKeyFields: ["createdAt"], queryField: "PataByDesc")
   rafikiprcntg: Float! 
   rafikirpymntperiod: Float!
   
-  owner: String!
+  owner: String! 
   
   createdAt: String!
 }
@@ -788,7 +887,7 @@ type SAgent
   saPhoneContact: String! @primaryKey
   saNationalid: String! @index(name: "byNatIdentityss", sortKeyFields: ["createdAt"], queryField: "VwNatIdentityss")
   name: String!
-  
+  acChamp: String
   pw: String!
   TtlEarnings: Float!
   actvMFNdog: Float!
@@ -888,7 +987,7 @@ type Personel
       { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
       { allow: groups, groups: ["KFKubwa"], operations: [read, update] }
-      { allow: groups, groups: ["BusinessOwner"], operations: [read, create, update, delete] }
+      
       {
         allow: groups
         groups: ["Executive"]
@@ -923,6 +1022,63 @@ type Bizna
         operations: [read, create, update, delete]
       }
       { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      
+      { allow: private, operations: [read, update, create, delete] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, delete, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+     
+
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+
+      
+      ]
+  )
+
+  
+   {
+  
+  BusKntct: String! @primaryKey
+  busName: String! @index(name: "byCrtnTymmmmms", sortKeyFields: ["createdAt"], queryField: "BiznaVwws")
+  pw: String!
+  TtlEarnings: Float!
+  earningsBal:Float!
+  netEarnings:Float!
+  owner2email:String
+  email: String!
+  licenseNo: String
+  bizType: String! 
+  status:String!
+  owner: String!
+  description:String!
+  createdAt: String!
+}
+
+type Bizna2
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
       { allow: owner, operations: [read, update, delete] }
       { allow: private, operations: [read, update, create, delete] }
       {
@@ -930,6 +1086,14 @@ type Bizna
         groups: ["RegionalAdmin"]
         operations: [read, delete, update]
       }
+
+      {
+        allow: groups
+        groups: ["BizOwner"]
+       
+        operations: [read, create, update, delete]
+      }
+
       {
         allow: groups
         groups: ["RegionalAdminTwo"]
@@ -952,12 +1116,14 @@ type Bizna
    {
   
   BusKntct: String! @primaryKey
-  busName: String! @index(name: "byCrtnTymmmmms", sortKeyFields: ["createdAt"], queryField: "BiznaVwws")
+  busName: String! @index(name: "byCrtnTymmmmms2", sortKeyFields: ["createdAt"], queryField: "BiznaVwws2")
   pw: String!
   TtlEarnings: Float!
   earningsBal:Float!
   netEarnings:Float!
-  
+  ownerEml:String
+  saleStts: String
+  noBL: Float
   email: String!
   status:String!
   owner: String!
@@ -1183,11 +1349,12 @@ type Company
         operations: [read, create, update, delete]
       }
       { allow: private, operations: [read, update] }
+      { allow: owner, ownerField: "owner", operations: [read, update] }
     ]
   )
   
   {
-  AdminId: String! @primaryKey
+  AdminId: String! @primaryKey 
   phoneContact: String!
   companyEmail: String!
   termsNconditions: String!
@@ -1217,6 +1384,11 @@ type Company
   palpalLnRpymntFee: Float!
   chmLnRpymntFee: Float!
   crdSllrLnRpymntFee: Float!
+  biznaCredSaleFee:Float
+  biznaCashSaleFee: Float
+  dfltWaiverFee:Float
+  tenderingFee: Float
+  EmploymentFee: Float
   
   userClearanceFee: Float!
   CoverageFee: Float!
@@ -1341,13 +1513,17 @@ type Company
   maxMFNdogos:Float!
   maxBLs:Float!
 
-  owner:String!
+  owner:String! 
   totalLnsRecovered: Float!
   createdAt: String!
   MFNdogoTC: String!
   MFKubwaTC: String!
   AdvocateTC:String!
+  BiznaTNC:String
+  ChamaTNC:String
+  PayPalTNC:String
   maxDfltPen: Float!
+  bizBLNo: Float
 }
 
 type CovCreditSeller
@@ -1394,7 +1570,7 @@ type CovCreditSeller
   itemName: String!
  
   loanerLoanee:String! @index(name: "byLnrNLneesss", sortKeyFields: ["createdAt"], queryField: "VwLnrNLneesss")
-  loanerLoaneeAdv:String! @index(name: "byAdvNLnrNLneesss", sortKeyFields: ["createdAt"], queryField: "VwAdvNLnrNLneesss")
+  loanerLoaneeAdv:String
   buyerContact: String!  @index(name: "byByrPhn", sortKeyFields: ["createdAt"], queryField: "VwMyCrdBys")
   sellerContact: String! @index(name: "bySlrPhn", sortKeyFields: ["createdAt"], queryField: "VwMySales")
   buyerID: String!
@@ -1403,17 +1579,18 @@ type CovCreditSeller
   SellerName:String!
   sellerID: String!
   amountSold: Float!
-
+dfltUpdate: String
   amountexpectedBack: Float!
   amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
   repaymentPeriod: Float!
+
   timeExpBack: Float!
   timeExpBack2: Float!
   lonBala:Float!
   description: String
   status: Status!
-  advregnu: String!  @index(name: "byAdvNo", sortKeyFields: ["createdAt"], queryField: "VwAdvCrdSls")
+  advregnu: String
   DefaultPenaltyCredSl: Float!
   DefaultPenaltyCredSl2: Float!
   owner: String!
@@ -1540,7 +1717,7 @@ type Group
   grpBal: Float!
   ttlGrpMembers: Float!
   description: String
-
+  withdrwlAmt: Float
   ttlNonLonsRecChm: Float!
   ttlNonLonsSentChm:Float!
 
@@ -1746,17 +1923,17 @@ type CvrdGroupLoans
   loaneePhn: String! @index(name: "byMemberCntctss", sortKeyFields: ["createdAt"], queryField: "VwMyChamass")
   repaymentPeriod: Float!
   loanerLoanee:String!  @index(name: "byLnrNLnee", sortKeyFields: ["createdAt"], queryField: "VwLnrNLnee")
-  loanerLoaneeAdv:String!  @index(name: "byAdvNLnrNLnee", sortKeyFields: ["createdAt"], queryField: "VwAdvNLnrNLnee")
+  loanerLoaneeAdv:String
   amountGiven: Float!
   advEmail:String
   amountExpectedBack: Float!
   amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
   description: String
-
+  dfltUpdate: String
   lonBala:Float!
   memberId:String!
-  advRegNu: String! @index(name: "byAdv", sortKeyFields: ["createdAt"], queryField: "VwChmLnClients")
+  advRegNu: String
   loaneeName:String!
   LoanerName:String!
   timeExpBack: Float!
@@ -2165,6 +2342,7 @@ type MFKOfferz
   acCost: Float! 
   amtPaid:Float!
   mfnOffered: Float!
+  acChamp: String!
   mfnReg: Float!
   status:Status! 
   mfkAc: String! @index(name: "MFKOffer", sortKeyFields: ["createdAt"], queryField: "MFKOffers")
@@ -2190,8 +2368,13 @@ enum Status {
   SMLonRepayment
   cashSales
   ChmLonRepayment
+  biznaDeposits
+  biznaWithdrawals
   Yes
   No
+  Waived
+  Forfeited
+  Sold
   CredSlrLonRepayment
   AwaitingResponse
   Approved

@@ -123,7 +123,7 @@ const [id,setid] = useState("")
             onPress={CredSlsScreen}
             style={styles.chamaLoanAndCreditSalesButton4}>
             <Text style={styles.ChamaLoanAndCreditSalesText4}>
-              CredSales Products
+              Business Products
             </Text>
           </TouchableOpacity>
 

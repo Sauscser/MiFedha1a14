@@ -205,7 +205,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error! Update app or call customer care" + CompPhoneContact)
                         return;}
                       }
                       setIsLoading(false);
@@ -237,7 +237,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error! Update app or call customer care")
                     return;}
                       }
                       Alert.alert("Transaction reversed");
@@ -298,7 +298,7 @@ const SMASendNonLns = props => {
                 }       
                 catch(e) {   
                   console.log(e)  
-                  if (e){Alert.alert("Reciever does not exist")
+                  if (e){Alert.alert("Error! Update app or call customer care")
   return;}                 
                 }
                 setIsLoading(false);
@@ -306,7 +306,7 @@ const SMASendNonLns = props => {
                   await fetchRecUsrDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Check your internet connection")
+          if (e){Alert.alert("Error! Update app or call customer care")
       return;}
         }
         setIsLoading(false);        
@@ -316,7 +316,7 @@ const SMASendNonLns = props => {
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Sender does not exist")
+      if (e){Alert.alert("Error! Update app or call customer care")
       return;}
   };
       
@@ -327,7 +327,7 @@ await fetchSenderUsrDtls();
 
 } catch (e) {
   console.log(e)
-  if (e){Alert.alert("Sender does not exist")
+  if (e){Alert.alert("Error! Update app or call customer care")
   return;}
 };
   setIsLoading(false);

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 
 import {createReqLoanChama, updateCompany} from '../../../../src/graphql/mutations';
-import { getBizna, getCompany, getSMAccount, listChamaMembers  } from '../../../../src/graphql/queries';
+import { getAdvocate, getBizna, getCompany, getGroup, getSMAccount, listChamaMembers  } from '../../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
-
+import Communications from 'react-native-communications';
 
 import {
   View,
@@ -30,21 +30,26 @@ const CreateBiz = (props) => {
   
 
   const [ChmPhn, setChmPhn] = useState('');
-  const [nam, setName] = useState(null);
-
   const [awsEmail, setAWSEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [pword, setPW] = useState('');
-  const [ChmNm, setChmNm] = useState('');
-  const [ChmDesc, setChmDesc] = useState('');
-  const [ChmRegNo, setChmRegNo] = useState('');
+  const [Sign2Phn, setSign2Phn] = useState("");
   const [MmbaID, setMmbaID] = useState('');
-  const [Sign2Phn, setSign2Phn] = useState('');
-
   const [itemPrys, setitemPrys] = useState('');
   const [itemTwn, setitemTwn] = useState('');
   const [lnPrsntg, setlnPrsntg] = useState('');
   const [rpymntPrd, setrpymntPrd] = useState('');
+  const [pword, setPW] = useState('');
+  const [nam, setName] = useState(null);
+
+  
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const [ChmNm, setChmNm] = useState('');
+  const [ChmDesc, setChmDesc] = useState('');
+  const [ChmRegNo, setChmRegNo] = useState('');
+  
+ 
+
+  
   const route = useRoute();
 
 
@@ -84,11 +89,113 @@ const CreateBiz = (props) => {
                }})
             );
             
-            
+            const fetchSenderUsrDtls = async () => {
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
+              try {
+                const accountDtl:any = await API.graphql(
+                  graphqlOperation(getGroup, {grpContact: awsEmail}),
+                );
+          
+                const signitoryContact =accountDtl.data.getGroup.signitoryContact;
+                const grpName =accountDtl.data.getGroup.grpName;
+                
+                const gtComp = async () =>{
+                  if(isLoading){
+                    return;
+                  }
+                  setIsLoading(true);
+                  const userInfo = await Auth.currentAuthenticatedUser();
+                  try{
+                    const compDtls :any= await API.graphql(
+                      graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+                      );
+                      const maxDefaultPen = compDtls.data.getCompany.maxDfltPen;
+    
+                      const RecomDfltPnltyRate = (parseFloat(lnPrsntg)*maxDefaultPen) / 100;
+                      const DfltPnltyRate = (parseFloat(MmbaID)*maxDefaultPen) / 100;
+                      
+                      
+                const fetchRecUsrDtls = async () => {
+                  if(isLoading){
+                    return;
+                  }
+                  setIsLoading(true);
+                  try {
+                      const RecAccountDtl:any = await API.graphql(
+                          graphqlOperation(getSMAccount, {awsemail: signitoryContact}),
+                          );
+                          
+                          const phonecontact =RecAccountDtl.data.getSMAccount.phonecontact; 
+                          const name =RecAccountDtl.data.getSMAccount.name; 
 
-            
-             
-        
+                          const CreateNewSMAc2 = async () => {
+                            if(isLoading){
+                              return;
+                            }
+                            setIsLoading(true);
+                            try {
+                              await API.graphql(
+                              graphqlOperation(createReqLoanChama, {
+                              input: {
+                               
+                                loaneeEmail:userInfo.attributes.email,
+                                chamaPhone:awsEmail,
+                                loaneeName: name,
+                                loaneePhone:phonecontacts,
+                                amount: parseFloat(itemPrys).toFixed(2),
+                                repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
+                                repaymentPeriod:rpymntPrd,
+                                loaneeMemberId:MmbaID,
+                                status: "AwaitingResponse",
+                                owner: userInfo.attributes.sub,
+                                statusNumber: 0,
+                                AdvEmail: "email",
+                                advLicNo:Sign2Phn,
+                                loanerName: grpName,
+                                loanerPhone: awsEmail,
+                                description: ChmNm,
+                                defaultPenalty:ChmDesc
+                                      },
+                                    })
+                                    
+                                    
+                                  );
+                    
+                                  
+                    
+                                  
+                                } catch (error) {
+                                  console.log(error)
+                                  if(error){
+                                    Alert.alert("Please enter details correctly")
+                                    return;
+                                } 
+                                
+                                }
+                                Alert.alert("Loan Request Successful");
+                                Communications.textWithoutEncoding(phonecontact,'MiFedha. Hi '+ name + '. '
+                                              + userInfo.username + ', member Id ' + MmbaID
+                                              + ' has requested Ksh. '+ itemPrys +
+                                            'loan from group ' + grpName +'. Thank you.');
+                              };
+
+                          const gtAdvDtls = async () =>{
+                            if(isLoading){
+                              return;
+                            }
+                            setIsLoading(true);
+                            const userInfo = await Auth.currentAuthenticatedUser();
+                            try{
+                              const compDtls5 :any= await API.graphql(
+                                graphqlOperation(getAdvocate,{advregnu:Sign2Phn})
+                                );
+                            
+                                const email = compDtls5.data.getAdvocate.email;
+                                const phonecontact = compDtls5.data.getAdvocate.phonecontact;
+                          
             
 
       const CreateNewSMAc = async () => {
@@ -111,6 +218,13 @@ const CreateBiz = (props) => {
             loaneeMemberId:MmbaID,
             status: "AwaitingResponse",
             owner: userInfo.attributes.sub,
+            statusNumber: 0,
+            AdvEmail: email,
+            advLicNo:Sign2Phn,
+            loanerName: grpName,
+            loanerPhone: awsEmail,
+            description: ChmNm,
+            defaultPenalty:ChmDesc
                   },
                 })
                 
@@ -128,30 +242,87 @@ const CreateBiz = (props) => {
             } 
             
             }
-            Alert.alert("Loan Request Successful")
+            Alert.alert("Loan Request Successful");
+            Communications.textWithoutEncoding(phonecontact,'MiFedha. Greetings! '
+            + 'We ' + name + ', the loanee and ' + grpName + ', the Loaning Group humbly' +  
+            ' request that you witness our loan contract on MiFedha app amounting to Ksh. '+
+            itemPrys + ' repayable as Ksh. ' + lnPrsntg + ' by the end of ' +rpymntPrd + 
+            ' days. Default penalty is Ksh. '+ ChmDesc + '. You can reach my loaner through '+ awsEmail +
+             '. You can also reach me through ' +phonecontacts +'. Thank you.');
           };
+          CreateNewSMAc();
+          
 
-          if (pword !== pws)
+        } catch (e) {
+          if(e){Alert.alert("Error!")}
+          return
+        }
+  
+      }
+
+      if (pword !== pws)
           {Alert.alert("Wrong User password");
         
       } 
       else if(compDtlsz.data.listChamaMembers.items.length < 1 )
-      {Alert.alert("Such a member doesn't exist")}
+      {Alert.alert("Such a member doesn't exist");
+      return;}
       else if (parseFloat(itemPrys) > parseFloat(lnPrsntg))
-      {Alert.alert("Repayment Amount cant be lesser tha Loan")}
+      {Alert.alert("Repayment Amount cant be lesser than Loan");
+      return;}
+      else if ((DfltPnltyRate) > (RecomDfltPnltyRate))
+      {Alert.alert("Enter Default Penalty less than Ksh. " + RecomDfltPnltyRate);
+      return;}
       else if (Int > 100){
-        Alert.alert("Interest exploits you; enter lesser repayment amount")
+        Alert.alert("Interest exploits you; enter lesser repayment amount");
+        return;
       }
-      else {
-          
+      else if (Sign2Phn != "")
+      {
+      
+      await gtAdvDtls();
+      
+    
+    }
 
-          CreateNewSMAc();}
+    else {CreateNewSMAc2();}
+
+        }       
+        catch(e) {    
+          console.log(e); 
+          if (e){Alert.alert("Error!")
+return;}                 
+        }
+        setIsLoading(false);
+        }                    
+          await fetchRecUsrDtls();        
+
+        } catch (e) {
+          if(e){Alert.alert("Error!")}
+          console.error(e);
+        }
+        setIsLoading(false);
+            
+        }
+        
+        await gtComp();
+      
+      } catch (e) {
+          console.log(e)
+          if (e){Alert.alert("Error!")
+          return;}
+      };
+          setIsLoading(false);
+          
+          
+    }
+    await fetchSenderUsrDtls();
           
 
         } catch (error) {
           console.log(error)
           if(error){
-            Alert.alert("Please enter details correctly")
+            Alert.alert("Error!")
             return;
         } 
         
@@ -166,7 +337,7 @@ const CreateBiz = (props) => {
       await gtChmDtls();}
 
         } catch (e) {
-          if(e){Alert.alert("Please first sign up")
+          if(e){Alert.alert("Error!")
         return}
           console.error(e);
         }
@@ -341,6 +512,17 @@ useEffect(() =>{
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Group Phone</Text>
                   </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    
+                    placeholder='Advocate License Number (Optional)'
+                      value={Sign2Phn}
+                      onChangeText={setSign2Phn}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Advocate License Number</Text>
+                  </View>
                   
                   <View style={styles.sendLoanView}>
                     <TextInput
@@ -351,6 +533,30 @@ useEffect(() =>{
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Member Group Number</Text>
                   </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                     placeholder='Loan Description (Optional)'
+                      value={ChmNm}
+                      multiline = {true}
+                      onChangeText={setChmNm}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Loan Description</Text>
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder='Default Penalty'
+                     keyboardType='decimal-pad'
+                     
+                      value={ChmDesc}
+                      onChangeText={setChmDesc}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Default Penalty</Text>
+                  </View>
+
 
                   <View style={styles.sendLoanView}>
                     <TextInput

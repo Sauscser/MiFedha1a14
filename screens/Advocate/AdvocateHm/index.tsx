@@ -13,7 +13,7 @@ const KFAdvHome = props => {
 
  
   const MFAdvocateRegs = () => {
-    navigation.navigate('MFAdvocateReg');
+    navigation.navigate('VwCompMFAdvTC');
   };
 
   const WithdwAdvss = () => {
@@ -34,10 +34,10 @@ const KFAdvHome = props => {
 
 
   const AdvVwCrdSlsSgnInss = () => {
-    navigation.navigate('AdvVwCrdSlsSgnIns');
+    navigation.navigate('VwAdvCrdSlrCovLnss');
   };
   const AdvVwSMSgnInss = () => {
-    navigation.navigate('AdvVwSMSgnIns');
+    navigation.navigate('VwAdvSMCovLnss');
   };
   const AdvWthdrwlSgnInss = () => {
     navigation.navigate('AdvWthdrwlSgnIns');
@@ -46,7 +46,17 @@ const KFAdvHome = props => {
     navigation.navigate('AdvVwAcSgnIns');
   };
   const AdvVwChmSgnInss = () => {
-    navigation.navigate('AdvVwChmSgnIns');
+    navigation.navigate('VwAdvChamaCovLnss');
+  };
+
+  const Vw2ApprovePPReq = () => {
+    navigation.navigate('Vw2ApprovePPReq');
+  };
+  const Vw2ApproveChmReq = () => {
+    navigation.navigate('Vw2ApproveChmReq');
+  };
+  const Vw2ApproveBizReq = () => {
+    navigation.navigate('Vw2ApproveBizReq');
   };
 
   return (
@@ -66,7 +76,7 @@ const KFAdvHome = props => {
             </Pressable>
 
             <Pressable onPress={AdvVwSMSgnInss} style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>SMLoans</Text>
+              <Text style={styles.floatPressableText2}>PalLoans</Text>
             </Pressable>
 
             <Pressable
@@ -80,7 +90,7 @@ const KFAdvHome = props => {
             <Pressable
               onPress={AdvVwChmSgnInss}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>Chama Loans</Text>
+              <Text style={styles.floatPressableText2}>Grp/Chama Loans</Text>
             </Pressable>
           </View>
         </View>
@@ -115,17 +125,52 @@ const KFAdvHome = props => {
         </View>
 
         <View style={styles.floatMainView}>
-          <Text style={styles.floatText}> Earnings</Text>
+          <Text style={styles.floatText}>Witness</Text>
 
           <View style={styles.viewForFloatPressables}>
-            
-            <Pressable onPress={WithdwAdvss} style={styles.floatView}>
-              <Text style={styles.floatPressableText}>Withdraw</Text>
+            <Pressable
+              onPress={Vw2ApprovePPReq}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>PalPal</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={Vw2ApproveChmReq}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>Groups</Text>
+            </Pressable>
+            <Pressable
+              onPress={Vw2ApproveBizReq}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>CredSales</Text>
             </Pressable>
 
             
           </View>
         </View>
+
+        <View style={styles.floatMainView}>
+          <Text style={styles.floatText}>Withdrawals</Text>
+
+          <View style={styles.viewForFloatPressables}>
+            <Pressable
+              onPress={WithdwAdvss}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>Make</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={AdvWthdrwlSgnInss}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>View</Text>
+            </Pressable>
+           
+
+            
+          </View>
+        </View>
+
+       
       </SafeAreaView>
     
   );

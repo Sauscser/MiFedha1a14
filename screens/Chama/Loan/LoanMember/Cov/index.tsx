@@ -58,27 +58,17 @@ const ChmCovLns = props => {
   const [RepaymtPeriod, setRepaymtPeriod] = useState("");
   const [amount, setAmount] = useState("");
   const [AmtExp, setAmtExp] = useState("");
-  const [AdvRegNo, setAdvRegNo] = useState("");
-  const [Desc, setDesc] = useState("");
-  const [ownr, setownr] = useState(null);
+ 
   const[isLoading, setIsLoading] = useState(false);
   const [RecAccCode, setRecAccCode] = useState("");
   const [SendrPhn, setSendrPhn] = useState(null);
   const [MmbrId, setMmbrId] = useState('');
-  const [DfltPnlty, setDfltPnlty] = useState('');
+  
+  
   const route = useRoute();
 
-  const ChmNMmbrPhns = MmbrId+ChmPhn
-
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setownr(userInfo.attributes.sub);  
-    setSendrPhn(userInfo.attributes.phone_number);
-  }
-
-  useEffect(() => {
-    fetchUser();
-    }, []);  
+  
+  
 
 
     
@@ -87,6 +77,8 @@ const ChmCovLns = props => {
         return;
       }
       setIsLoading(true);
+
+      const userInfo = await Auth.currentAuthenticatedUser();
       try {
           const ChmMbrtDtlz:any = await API.graphql(
               graphqlOperation(getReqLoanChama, {id: route.params.id}),
@@ -98,6 +90,12 @@ const ChmCovLns = props => {
               const AmtExp =ChmMbrtDtlz.data.getReqLoanChama.repaymentAmt;
               const RepaymtPeriod =ChmMbrtDtlz.data.getReqLoanChama.repaymentPeriod;
               const loaneeMemberId =ChmMbrtDtlz.data.getReqLoanChama.loaneeMemberId;
+              const advLicNo =ChmMbrtDtlz.data.getReqLoanChama.advLicNo;
+              const description =ChmMbrtDtlz.data.getReqLoanChama.description;
+              const defaultPenalty =ChmMbrtDtlz.data.getReqLoanChama.defaultPenalty;
+              const AdvEmail =ChmMbrtDtlz.data.getReqLoanChama.AdvEmail;
+              
+              const status =ChmMbrtDtlz.data.getReqLoanChama.status;
 
               const ChmNMmbrPhns = loaneeMemberId+groupContacts
 
@@ -215,7 +213,7 @@ const fetchChmMbrDtls = async () => {
 
               const AdvDtls:any = await API.graphql(
                 graphqlOperation(getAdvocate,
-                  {advregnu: AdvRegNo}),
+                  {advregnu: advLicNo}),
                   
               );
               const advTtlAern = AdvDtls.data.getAdvocate.TtlEarnings;
@@ -245,7 +243,7 @@ const fetchChmMbrDtls = async () => {
                         const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
                         const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                         const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
-                        const DefaultPenaltyRate = parseFloat(DfltPnlty)/parseFloat(AmtRepaids) *100;
+                        const DefaultPenaltyRate = parseFloat(defaultPenalty)/parseFloat(AmtRepaids) *100;
                         const RecomDfltPnltyRate = (parseFloat(AmtRepaids)*20) / 100;
                       
                    
@@ -262,24 +260,25 @@ const fetchChmMbrDtls = async () => {
                                     grpContact: groupContacts,
                                     loaneePhn: loaneeEmail,
                                     loanerLoanee:groupContacts+memberContacts,
-                                    loanerLoaneeAdv:  groupContacts+memberContacts+ AdvRegNo ,  
+                                    loanerLoaneeAdv:  groupContacts+memberContacts+ advLicNo ,  
                                     repaymentPeriod: RepaymtPeriod,
                                     amountGiven: parseFloat(amount).toFixed(0),
                                     amountExpectedBack: TotalAmtExp.toFixed(0),
                                     amountExpectedBackWthClrnc: TotalAmtExp.toFixed(0),
                                     amountRepaid: 0,
-                                    DefaultPenaltyChm:DfltPnlty,
+                                    DefaultPenaltyChm:defaultPenalty,
                                     DefaultPenaltyChm2:0,
                                     timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
                                     timeExpBack2: 61 + daysUpToDate,
-                                    description: Desc,
+                                    description: description,
                                     lonBala:TotalAmtExp.toFixed(0),
-                                    advRegNu: AdvRegNo,
+                                    advRegNu: advLicNo,
                                     loaneeName:namess,
                                     LoanerName:grpNames,
                                     memberId:ChmNMmbrPhns,
                                     status: "LoanActive",
-                                    owner: ownr,
+                                    owner: userInfo.attributes.sub,
+                                    AdvEmail:AdvEmail
                                 },
                               }),
                             );
@@ -316,11 +315,10 @@ const fetchChmMbrDtls = async () => {
 
 
                           } catch (error) {
-                            if(!error){
-                              Alert.alert("Confirm member exists")
+                            if(error){
+                              Alert.alert("Error! Access denied!")
                               
-                          } 
-                          else{Alert.alert("Check internet")
+                          
                           return;}
                           }
                           setIsLoading(false);
@@ -350,7 +348,7 @@ const fetchChmMbrDtls = async () => {
 
                           }
                           catch(error){
-                            if (error){Alert.alert("Check your internet connection")
+                            if (error){Alert.alert("Error! Access denied!")
                             return;}
                           }
                           setIsLoading(false);
@@ -379,7 +377,7 @@ const fetchChmMbrDtls = async () => {
                           }
                           catch(error){
                             console.log(error)
-                            if (error){Alert.alert("Check your internet connection")
+                            if (error){Alert.alert("Error! Access denied!")
                             return;}
                           }
                           setIsLoading(false);
@@ -417,7 +415,7 @@ const fetchChmMbrDtls = async () => {
                           }
                           catch(error){
                             console.log(error);
-                            if (error){Alert.alert("Check your internet connection")
+                            if (error){Alert.alert("Error! Access denied!")
                         return;}
                           }
                           setIsLoading(false);
@@ -432,7 +430,7 @@ const fetchChmMbrDtls = async () => {
                               await API.graphql(
                                 graphqlOperation(updateAdvocate, {
                                   input:{
-                                    advregnu: AdvRegNo,
+                                    advregnu: advLicNo,
                                     advBal: (AdvCovAmt + parseFloat(advBl)).toFixed(0) ,
                                     TtlEarnings:(AdvCovAmt + parseFloat(advTtlAern)).toFixed(0),                                 
                                     
@@ -442,7 +440,7 @@ const fetchChmMbrDtls = async () => {
                           }
                           catch(error){
                             console.log(error);
-                            if (error){Alert.alert("Check your internet connection")
+                            if (error){Alert.alert("Error! Access denied!")
       return;}
                           }
                           
@@ -471,7 +469,7 @@ const fetchChmMbrDtls = async () => {
                           }
                           catch(error){
                             console.log(error);
-                            if (error){Alert.alert("Check your internet connection")
+                            if (error){Alert.alert("Error! Access denied!")
                         return;}
                           }
                           Alert.alert("Success. TransactionFee: "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) + ". AdvocateFee "+ttlCovFeeAmount.toFixed(2)
@@ -481,7 +479,7 @@ const fetchChmMbrDtls = async () => {
                           
                         }
                                               
-                        if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver does not qualify');
+                        if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver adversely listed');
                       return;
                     }
                         
@@ -494,23 +492,29 @@ const fetchChmMbrDtls = async () => {
                       return;
                     }
 
-                    else if((DefaultPenaltyRate) > 20)
-                    {Alert.alert('Please enter Default Penalty less than ' + RecomDfltPnltyRate);
-                      return;
-                    }
+                    
 
                     
-                    else if(ownr !==SenderSub){Alert.alert('You are not the Creator of this Chama');}
-                        else if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                        else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');}
-                        else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
+                    else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You are not the Creator of this Chama');
+                    return;}
+                        else if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');
+                        return;}
+                        else if(status === "Approved"){Alert.alert('Loan already granted');
+                        return;}
+                        else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');
+                        return;}
+                        else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');
+                        return;}
                         
                         else if (
                           parseFloat(grpBals) < TtlTransCost 
                         ) {Alert.alert("Cancelled."+ "Bal: "+ grpBals +". Deductable: " + TtlTransCost.toFixed(2) 
-                        + ". "+ ((TtlTransCost) - parseFloat(grpBals)).toFixed(2) + ' more needed');}
-                        else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');}
-                        else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');}
+                        + ". "+ ((TtlTransCost) - parseFloat(grpBals)).toFixed(2) + ' more needed');
+                        return;}
+                        else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');
+                        return;}
+                        else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');
+                        return;}
                                                                  
             
                                                  else {
@@ -519,7 +523,7 @@ const fetchChmMbrDtls = async () => {
                     }       
                     catch(e) {    
                       console.log(e); 
-                      if (e){Alert.alert("Check your internet connection")
+                      if (e){Alert.alert("Error! Access denied!")
       return;}                 
                     }
                     setIsLoading(false);
@@ -530,7 +534,7 @@ const fetchChmMbrDtls = async () => {
             }
             catch (e){
               console.log(e);
-              if (e){Alert.alert("Advocate not registered")
+              if (e){Alert.alert("Error! Access denied!")
       return;}
             }
             setIsLoading(false);
@@ -542,7 +546,7 @@ const fetchChmMbrDtls = async () => {
         
         } catch (e) {
           console.log(e);
-          if (e){Alert.alert("Check your internet connection")
+          if (e){Alert.alert("Error! Access denied!")
       return;}
         } 
         setIsLoading(false);       
@@ -552,7 +556,7 @@ const fetchChmMbrDtls = async () => {
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Please fill details correctly or check your internet connection")
+      if (e){Alert.alert("Error! Access denied!")
       return;}
   };
       setIsLoading(false);
@@ -563,7 +567,7 @@ await fetchSenderUsrDtls();
 
 } catch (e) {
   console.log(e)
-  if (e){Alert.alert("Please fill details correctly or check your internet connection")
+  if (e){Alert.alert("Error! Access denied!")
   return;}
 };
   setIsLoading(false);
@@ -574,33 +578,23 @@ await fetchChmMbrDtls();
 
 } catch (e) {
   console.log(e);
-  if (e){Alert.alert("Check internet or enter correct Member ID")
+  if (e){Alert.alert("Error! Access denied!")
 return;}
 }
 setAmount("");
       
-setAdvRegNo("");
+
 setAmtExp("");
-setDesc("");
+
 setSnderPW("");
 setRepaymtPeriod("");
 setRecAccCode("");
-setDfltPnlty("");
+
 setChmPhn("")
 setMmbrId("")
 setIsLoading(false);        
 };
 
-useEffect(() =>{
-  const DfltPnltys=DfltPnlty
-    if(!DfltPnltys && DfltPnltys!=="")
-    {
-      setDfltPnlty("");
-      return;
-    }
-    setDfltPnlty(DfltPnltys);
-    }, [DfltPnlty]
-     );
 
      useEffect(() =>{
       const SnderNatIds=MmbrId
@@ -657,16 +651,7 @@ useEffect(() =>{
             }, [RecNatId]
              );
 
-             useEffect(() =>{
-              const AdvRegNoss=AdvRegNo
-                if(!AdvRegNoss && AdvRegNoss!=="")
-                {
-                  setAdvRegNo("");
-                  return;
-                }
-                setAdvRegNo(AdvRegNoss);
-                }, [AdvRegNo]
-                 );
+             
 
                  useEffect(() =>{
                   const AmtExpss=AmtExp
@@ -679,16 +664,7 @@ useEffect(() =>{
                     }, [AmtExp]
                      );
 
-                     useEffect(() =>{
-                      const descr=Desc
-                        if(!descr && descr!=="")
-                        {
-                          setDesc("");
-                          return;
-                        }
-                        setDesc(descr);
-                        }, [Desc]
-                         );
+                     
 
                          useEffect(() =>{
                           const SnderPWss=SnderPW
@@ -735,7 +711,7 @@ useEffect(() =>{
 
          <View style={styles.sendAmtView}>
            <TextInput
-           placeholder='Chama PassWord'
+           placeholder='Group PassWord'
              value={SnderPW}
              multiline={false}
              autoCompleteType ="off"
@@ -747,42 +723,6 @@ useEffect(() =>{
          </View>
 
 
-         <View style={styles.sendAmtView}>
-           <TextInput
-           placeholder='Default Penalty'
-           keyboardType={"decimal-pad"}
-             value={DfltPnlty}
-             onChangeText={setDfltPnlty}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-          
-         </View>
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-           placeholder='Advocate License Number'
-             value={AdvRegNo}
-             onChangeText={setAdvRegNo}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           
-         </View>
-
-
-
-         <View style={styles.sendAmtViewDesc}>
-           <TextInput
-           placeholder='Loan Description'
-             multiline={true}
-             value={Desc}
-             onChangeText={setDesc}
-             style={styles.sendAmtInputDesc}
-             editable={true}></TextInput>
-          
-         </View>
-
-         
-         
 
          <TouchableOpacity
            onPress={fetchChmLoanReq}

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-
+import Communications from 'react-native-communications';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -22,7 +22,7 @@ import {
 import styles from './styles';
 
 import { updateReqLoan, updateReqLoanChama } from '../../../src/graphql/mutations';
-import { getSMAccount } from '../../../src/graphql/queries';
+import { getReqLoanChama, getSMAccount } from '../../../src/graphql/queries';
 
 
 
@@ -65,12 +65,11 @@ const CreateBiz = (props) => {
     const userInfo = await Auth.currentAuthenticatedUser();
     try{
       const compDtls :any= await API.graphql(
-        graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+        graphqlOperation(getReqLoanChama,{id:route.params.id})
         );
-        const pws = compDtls.data.getSMAccount.pw;
-        const phonecontacts = compDtls.data.getSMAccount.phonecontact;
-        const name = compDtls.data.getSMAccount.name;
-        const owner = compDtls.data.getSMAccount.owner;
+        const loaneePhone = compDtls.data.getReqLoanChama.loaneePhone;
+        const loaneeName = compDtls.data.getReqLoanChama.loaneeName;
+        const owner = compDtls.data.getReqLoanChama.owner;
 
       const Int = ((parseFloat(lnPrsntg) - parseFloat(itemPrys))*100)/(parseFloat(lnPrsntg)*parseFloat(rpymntPrd))
 
@@ -94,7 +93,11 @@ const CreateBiz = (props) => {
           
         }
         setIsLoading(false);
-        Alert.alert ("Loan Declined")
+        Communications.textWithoutEncoding(loaneePhone,'MiFedha. Hi '+ loaneeName 
+                          + ', We regret to inform you that due to unavoidable circumstances ' 
+                          + 'We could not grant your loan request of id number '
+                          + route.params.id +'. Sorry for any inconvenience'
+                        + '. Thank you.');
         SndChmMmbrMny2();
       }
 

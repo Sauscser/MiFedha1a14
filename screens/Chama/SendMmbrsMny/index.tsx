@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import Communications from 'react-native-communications';
 import {
   
   
@@ -118,7 +118,8 @@ const SMASendNonLns = props => {
                 const RecAccountDtl:any = await API.graphql(
                     graphqlOperation(getSMAccount, {awsemail: memberContacts}),
                     );
-                    const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
+                    const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;   
+                    const phonecontact =RecAccountDtl.data.getSMAccount.phonecontact;                  
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                     const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
                     const namess =RecAccountDtl.data.getSMAccount.name;
@@ -181,7 +182,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error! Access denied!")
                         return;}
                       }
                       setIsLoading(false);
@@ -209,7 +210,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error! Access denied!")
                         return;}
                       }
                       setIsLoading(false);
@@ -237,7 +238,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error! Access denied!")
                     return;}
                       }
                       await updtChmMbr();
@@ -265,29 +266,41 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error! Access denied!")
                     return;}
                       }
                       Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(2) );
+                      Communications.textWithoutEncoding(phonecontact,'Hi '
+                              + namess +  grpNames 
+                              + ' group has sent you Ksh. ' + amounts
+                             +'. For clarification call the group Admin: '
+                            + userInfo.attributes.phone_number + '. Thank you. MiFedha');
                       setIsLoading(false);
                     }                                
                                           
                     
-                    if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                    else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
+                    if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');
+                    return;}
+                    else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');
+                    return;}
                     
-                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Member National ID be verified through deposit at MFNdogo');}
+                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Member National ID be verified through deposit at MFNdogo');
+                    return;}
                     else if (
                       (parseFloat(RecUsrBal) + parseFloat(amounts)) > parseFloat(MaxAcBals) 
-                    ) {Alert.alert('Receiver Call customer care to have wallet capacity adjusted');}
+                    ) {Alert.alert('Receiver Call customer care to have wallet capacity adjusted');
+                    return;}
                     
                     else if (
                       parseFloat(grpBals) < TotalTransacted 
                     ) {Alert.alert("Cancelled."+ "Bal: "+ grpBals +". Deductable: " + TotalTransacted.toFixed(2) 
-                    + ". "+ ((TotalTransacted) - parseFloat(grpBals)).toFixed(2) + ' more needed');}
+                    + ". "+ ((TotalTransacted) - parseFloat(grpBals)).toFixed(2) + ' more needed');
+                    return;}
                     
-                    else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');}
-                    else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You are not the creator of this group');}
+                    else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');
+                    return;}
+                    else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You are not the creator of this group');
+                    return;}
                     
                     
                     
@@ -297,7 +310,7 @@ const SMASendNonLns = props => {
                 }       
                 catch(e) {     
                   console.log(e) 
-                  if (e){Alert.alert("Reciever does not exist")
+                  if (e){Alert.alert("Error! Access denied!")
   return;}                 
                 }
                 setIsLoading(false);
@@ -305,7 +318,7 @@ const SMASendNonLns = props => {
                   await fetchRecUsrDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Check your internet connection")
+          if (e){Alert.alert("Error! Access denied!")
       return;}
         }
         setIsLoading(false);        
@@ -315,7 +328,7 @@ const SMASendNonLns = props => {
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Chama does not exist")
+      if (e){Alert.alert("Error! Access denied!")
       return;}
   };
       setIsLoading(false);
@@ -324,7 +337,7 @@ const SMASendNonLns = props => {
 
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Chama Member doesnt exist")
+      if (e){Alert.alert("Error! Access denied!")
   return;}
     }
           setMmbrId('');

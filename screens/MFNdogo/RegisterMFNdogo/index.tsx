@@ -51,6 +51,9 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
     );
     const actvMFNdogs = MFKb.data.getSAgent.actvMFNdog;
     const names = MFKb.data.getSAgent.name
+    const mfnTtl = MFKb.data.getSAgent.mfnTtl;
+    const offerStatus = MFKb.data.getSAgent.offerStatus
+    
 
     const gtCompDtls = async () =>{
       if(isLoading){
@@ -88,6 +91,9 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
                   const owner = UsrDtls.data.getSMAccount.owner
                   const nationalidssss = UsrDtls.data.getSMAccount.nationalid
                   const TtlClrdLonsAmtByrCovs = UsrDtls.data.getSMAccount.TtlClrdLonsAmtByrCov
+
+                  
+                      
                  
 
           const createNewMFN = async () => {
@@ -148,7 +154,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
       } 
 
       
-      else if((actvMFNdogs+1)>maxMFNdogoss){
+      else if((actvMFNdogs+1)>mfnTtl){
         Alert.alert("Exceeded MFNdogo slots; Open another MFKubwa account");
         return;
       }
@@ -173,7 +179,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
             }
             catch(error){if (error) {
               console.log(error)
-              Alert.alert("Please check your internet connection")
+              Alert.alert("Error!")
             }}
             setIsLoading(false);
             await updtSA();
@@ -196,7 +202,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
             }
             catch(error){if (error) {
               console.log(error)
-              Alert.alert("Please check your internet connection")
+              Alert.alert("Error!")
               return;
             }}
             
@@ -221,7 +227,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
             }
             catch(error){if (error) {
               console.log(error)
-              Alert.alert("Please check your internet connection")
+              Alert.alert("Error!")
               return;
             }}
             Alert.alert(" MFKubwa " +names+ " has registered MFNdogo "  +nam );
@@ -230,20 +236,22 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
 
 
           
-        } catch (e) {
-          if(e){Alert.alert("Please first sign up")
-        return}
-          console.error(e);
-        }
-      }
+        
 
-      
-       if(UsrDtlss.data.listSMAccounts.items.length > 0){Alert.alert("This Phone number is in use in a Single Member Account")}
-       else{
-      await ChckUsrExistence();}
+  } catch (e) {
+    if(e){Alert.alert("Error!")
+  return}
+    console.error(e);
+  }
+}
+
+
+ if(UsrDtlss.data.listSMAccounts.items.length > 0){Alert.alert("This Phone number is in use in a Single Member Account")}
+ else{
+await ChckUsrExistence();}
     
     } catch (e) {
-          if(e){Alert.alert("Please first sign up")
+          if(e){Alert.alert("Error!")
         return}
           console.error(e);
         }
@@ -267,7 +275,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
       }
 catch(e){
   console.log(e)
-  if(e) {Alert.alert("This MFKubwa does not exist");
+  if(e) {Alert.alert("Error!");
 return;
 }
 }
