@@ -26,16 +26,16 @@ import DActivtMFN from "../../screens/MFNdogo/DeactivateMFNdogo";
 import DActivtMFK from "../../screens/MFKubwa/DeActRegMFK/DeactivateMFNdogo";
 import DActivtMFUsr from "../../screens/MyAcc/DeActivtUsr/DeactivateMFNdogo";
 import DActivtMFAdv from "../../screens/Advocate/DeactivtAdv/DeactivateMFAdmin/DeactivateMFNdogo";
-import SMGvCovLon from "../../screens/MyAcc/Loans/GiveLoan/SM/Covered";
-import SMASendNonCovLns from "../../screens/MyAcc/Loans/GiveLoan/SM/NonCov";
+import SMGvCovLon from "../../screens/MyAcc/Loans/GiveLoan/SM/PalPal";
+import SMASendNonCovLns from "../../screens/MyAcc/Loans/GiveLoan/SM/BizPal";
 import SMAWthdrwForm from '../../screens/MyAcc/WithdrwFunds';
 import SendNonLn from "../../screens/MyAcc/SendNonLons";
 import RepayCovLns from "../../screens/MyAcc/Loans/RepayLoan/SM/CovLons";
 import RepayNonCovLns from "../../screens/MyAcc/Loans/RepayLoan/SM/NonCovLns";
 import BListSMLneeCov from "../../screens/MyAcc/Loans/BList/SMLoanee/Cov";
 import BListSMLneeNonCov from "../../screens/MyAcc/Loans/BList/SMLoanee/NonCov";
-import CovCredSls from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Cov";
-import NonCovCredSls from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/NonCov";
+import CovCredSls from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Biz2Biz";
+import NonCovCredSls from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Biz2Pal";
 import CreateChm from "../../screens/Chama/CrtChm";
 import AddChmMembrss from "../../screens/Chama/AddChmMembrs";
 import ChmCovLon from "../../screens/Chama/Loan/LoanMember/Cov";
@@ -249,8 +249,8 @@ import AddMFKubwa from "../../screens/MFKubwa/AddMFKubwa";
 import SignitoryWthdrwFndss from "../../screens/Chama/SignitoryWthdrwFnds";
 import SignitoryDeposits from "../../screens/Chama/SignitoryDeposit";
 import Sgn2CnfrmWthdrwlss from "../../screens/Chama/Sgn2CnfrmWthdrwls";
-import Vw2CredSellCov from "../../screens/CredSls/Vw2CredSellCov";
-import Vw2CredSellNonCov from "../../screens/CredSls/Vw2CredSellNonCov";
+import Vw2CredSellCov from "../../screens/CredSls/Vw2GrntCrdSls/Biz2Pal";
+import Vw2CredSellNonCov from "../../screens/CredSls/Vw2GrntCrdSls/Pal2Biz";
 import AddPersonel from "../../screens/CredSls/AddPersonel";
 import CrtBusiness from "../../screens/CredSls/CrtBusiness";
 
@@ -294,10 +294,10 @@ import VwPlLn2Remove from "../../screens/Ads/RemoveAd/PalLn/VwPlLn2Remove";
 import AutomaticRepayAllTyps from "../../screens/MyAcc/Loans/RepayLoan/AutomaticRepay/AllTyps";
 
 import VwMakeLnReq from "../../screens/MyAcc/LoanRequest/VwMakeLnReq";
-import PlaceLnReq from "../../screens/MyAcc/LoanRequest/PlaceLnReq";
-import Vw2GrantLnReq from "../../screens/MyAcc/LoanRequest/Vw2GrantLnReq";
+
+
 import Vw2DelLnReqs from "../../screens/MyAcc/LoanRequest/Vw2DelLnReqs";
-import Vw2GrantLnReq2 from "../../screens/MyAcc/LoanRequest/Vw2GrantLnReq2";
+import Vw2GrantLnReq2 from "../../screens/MyAcc/LoanRequest/View2GrntLnReq/CompVw2GrantLnReq2";
 import EntrAdvLoc from '../../screens/Advocate/EnterAdvLoc';
 
 
@@ -305,9 +305,9 @@ import ChamaPlaceLnReq from "../../screens/Chama/ReqLoan/PlaceLnReq";
 import ChamaVw2DelLnReqs from "../../screens/Chama/ReqLoan//Vw2DelLnReqs";
 import ChamaVw2GrantLnReqCov from "../../screens/Chama/ReqLoan/Vw2GrantLnReqCov";
 import ChamaVw2GrantLnReqNonCov from "../../screens/Chama/ReqLoan/Vw2GrantLnReqNonCov";
-import CrdSlPlaceLnReq from "../../screens/CredSls/SlsLnReq/PlaceLnReq";
+
 import CrdSlVw2DelLnReqs from "../../screens/CredSls/SlsLnReq/Vw2DelLnReqs";
-import CrdSlVw2GrantLnReqCov from "../../screens/CredSls/SlsLnReq/Vw2GrantLnReqCov";
+
 import CrdSlVw2GrantLnReqNonCov from "../../screens/CredSls/SlsLnReq/Vw2GrantLnReqNonCov";
 import RequestLoansPage from "../../screens/RequestLoansPage";
 import ViewBiznaShareRec from "../../screens/CredSls/ViewBiznaShareRec";
@@ -326,6 +326,48 @@ import VwCashPayRec from "../../screens/CredSls/VwCashPayRec";
 import VwCashPaySent from "../../screens/CredSls/VwCashPaySent";
 import SgnIn2VwCashSales from "../../screens/CredSls/SgnIn2VwCashSales";
 
+import PayPalDposit from "../../screens/MyAcc/DepositMny/PayPalDposit";
+import VwAcBfDpst from "../../screens/MyAcc/DepositMny/VwAcBfDpst";
+
+import TakeOverBizna from "../../screens/CredSls/TakeOverBizna";
+import giveBizna from "../../screens/CredSls/giveBizna";
+import VwBusAc2TakeUp from "../../screens/CredSls/VwBusAc2TakeUp";
+import BiznaReqstPage1 from "../../screens/CredSls/BiznaReqstPage1";
+import BiznaReqstPage2 from "../../screens/CredSls/BiznaReqstPage2";
+
+
+import SIBiz2Biz from "../../screens/CredSls/SignIn2GrntCrdSls/Biz2Biz";
+import SIBiz2Pal from "../../screens/CredSls/SignIn2GrntCrdSls/Biz2Pal";
+import VwBiz2Biz from "../../screens/CredSls/Vw2GrntCrdSls/Biz2Biz";
+import VwBiz2Pal from "../../screens/CredSls/Vw2GrntCrdSls/Biz2Pal";
+import VwPal2Biz from "../../screens/CredSls/Vw2GrntCrdSls/Pal2Biz";
+import GrantBiz2BizCrdSl from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Biz2Biz";
+import GrantBiz2PalCrdSl from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Biz2Pal";
+import GrantPal2BizCrdSl from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Pal2Biz";
+import GrantPal2PalCrdSl from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Pal2Pal";
+
+import SignIn2GrntLnReq from "../../screens/MyAcc/LoanRequest/SignIn2GrntLnReq";
+import CompVw2GrantLnReq2 from "../../screens/MyAcc/LoanRequest/View2GrntLnReq/CompVw2GrantLnReq2";
+import PalVw2GrantLnReq2 from "../../screens/MyAcc/LoanRequest/View2GrntLnReq/PalVw2GrantLnReq2";
+
+import BizPalLn from "../../screens/MyAcc/Loans/GiveLoan/SM/BizPal";
+import PalPalLn from "../../screens/MyAcc/Loans/GiveLoan/SM/PalPal";
+import PlaceLnReq from "../../screens/CredSls/SlsLnReq/PlaceLnReq";
+import PlaceLnReq2 from "../../screens/CredSls/SlsLnReq/PlaceLnReq2";
+import PlaceLnReq3 from "../../screens/CredSls/SlsLnReq/PlaceLnReq3";
+import PlaceLnReq4 from "../../screens/CredSls/SlsLnReq/PlaceLnReq4";
+import PV2GBiz2Biz from "../../screens/CredSls/PersonelVw2GrntLR/Biz2Biz";
+import PV2GBiz2Pal from "../../screens/CredSls/PersonelVw2GrntLR/Biz2Pal";
+
+import Vw2GrntBiz2Biz from "../../screens/CredSls/SlsLnReq/Vw2Grant/Biz2Biz";
+import Vw2GrntBiz2Pal from "../../screens/CredSls/SlsLnReq/Vw2Grant/Biz2Pal";
+import Vw2GrntPal2Biz from "../../screens/CredSls/SlsLnReq/Vw2Grant/Pal2Biz";
+import Vw2GrntPal2Pal from "../../screens/CredSls/SlsLnReq/Vw2Grant/Pal2Pal";
+
+import PersonelVw2GrntB2B from "../../screens/CredSls/PersonelVw2GrntLR/Biz2Biz";
+import PersonelVw2GrntB2P from "../../screens/CredSls/PersonelVw2GrntLR/Biz2Pal";
+
+
 
 const Stack = createNativeStackNavigator();
 const HomeNavigator = props => {
@@ -336,10 +378,55 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />
 
-      <Stack.Screen name={'SgnIn2VwCashSales'} component={SgnIn2VwCashSales} />
+      <Stack.Screen name={'PersonelVw2GrntB2B'} component={PersonelVw2GrntB2B} />
+      <Stack.Screen name={'PersonelVw2GrntB2P'} component={PersonelVw2GrntB2P} />
       
+      <Stack.Screen name={'Vw2GrntBiz2Biz'} component={Vw2GrntBiz2Biz} />
+      <Stack.Screen name={'Vw2GrntBiz2Pal'} component={Vw2GrntBiz2Pal} />
+
+      <Stack.Screen name={'Vw2GrntPal2Biz'} component={Vw2GrntPal2Biz} />
+      <Stack.Screen name={'Vw2GrntPal2Pal'} component={Vw2GrntPal2Pal} />
+      
+      <Stack.Screen name={'PV2GBiz2Biz'} component={PV2GBiz2Biz} />
+      <Stack.Screen name={'PV2GBiz2Pal'} component={PV2GBiz2Pal} />
+
+      <Stack.Screen name={'BizPalLn'} component={BizPalLn} />
+      <Stack.Screen name={'PalPalLn'} component={PalPalLn} />
+      
+      <Stack.Screen name={'SignIn2GrntLnReq'} component={SignIn2GrntLnReq} />
+      <Stack.Screen name={'CompVw2GrantLnReq2'} component={CompVw2GrantLnReq2} />
+      <Stack.Screen name={'PalVw2GrantLnReq2'} component={PalVw2GrantLnReq2} />
+      
+      <Stack.Screen name={'GrantBiz2BizCrdSl'} component={GrantBiz2BizCrdSl} />
+      <Stack.Screen name={'GrantBiz2PalCrdSl'} component={GrantBiz2PalCrdSl} />
+      <Stack.Screen name={'GrantPal2BizCrdSl'} component={GrantPal2BizCrdSl} />
+      <Stack.Screen name={'GrantPal2PalCrdSl'} component={GrantPal2PalCrdSl} />
+      
+      <Stack.Screen name={'PlaceLnReq2'} component={PlaceLnReq2} />
+      <Stack.Screen name={'PlaceLnReq3'} component={PlaceLnReq3} />
+      <Stack.Screen name={'PlaceLnReq'} component={PlaceLnReq} />
+      <Stack.Screen name={'PlaceLnReq4'} component={PlaceLnReq4} />
+      
+      <Stack.Screen name={'SIBiz2Biz'} component={SIBiz2Biz} />
+      <Stack.Screen name={'SIBiz2Pal'} component={SIBiz2Pal} />
+      <Stack.Screen name={'VwBiz2Biz'} component={VwBiz2Biz} />
+      <Stack.Screen name={'VwBiz2Pal'} component={VwBiz2Pal} />
+      <Stack.Screen name={'VwPal2Biz'} component={VwPal2Biz} />  
+      
+      <Stack.Screen name={'BiznaReqstPage1'} component={BiznaReqstPage1} />
+      <Stack.Screen name={'BiznaReqstPage2'} component={BiznaReqstPage2} />
+      <Stack.Screen name={'TakeOverBizna'} component={TakeOverBizna} />
+      <Stack.Screen name={'giveBizna'} component={giveBizna} />
+      <Stack.Screen name={'VwBusAc2TakeUp'} component={VwBusAc2TakeUp} />  
+      
+       <Stack.Screen name={'SgnIn2VwCashSales'} component={SgnIn2VwCashSales} />
+      
+      <Stack.Screen name={'VwAcBfDpst'} component={VwAcBfDpst} />
+      <Stack.Screen name={'PayPalDposit'} component={PayPalDposit} />     
+
       <Stack.Screen name={'PayCash'} component={PayCash} />
-      <Stack.Screen name={'VwCashPayRec'} component={VwCashPayRec} />      
+      <Stack.Screen name={'VwCashPayRec'} component={VwCashPayRec} /> 
+
       <Stack.Screen name={'VwCashPaySent'} component={VwCashPaySent} />
       
       <Stack.Screen name={'VwGrp2LnNonCov'} component={VwGrp2LnNonCov} />
@@ -358,19 +445,19 @@ const HomeNavigator = props => {
       <Stack.Screen name={'ChamaVw2DelLnReqs'} component={ChamaVw2DelLnReqs} />
       <Stack.Screen name={'ChamaVw2GrantLnReqCov'} component={ChamaVw2GrantLnReqCov} />
       <Stack.Screen name={'ChamaVw2GrantLnReqNonCov'} component={ChamaVw2GrantLnReqNonCov} />
-      <Stack.Screen name={'CrdSlPlaceLnReq'} component={CrdSlPlaceLnReq} />
+      
       <Stack.Screen name={'CrdSlVw2DelLnReqs'} component={CrdSlVw2DelLnReqs} />
-      <Stack.Screen name={'CrdSlVw2GrantLnReqCov'} component={CrdSlVw2GrantLnReqCov} />
+      
       <Stack.Screen name={'CrdSlVw2GrantLnReqNonCov'} component={CrdSlVw2GrantLnReqNonCov} />
       
       <Stack.Screen name={'Vw2GrantLnReq2'} component={Vw2GrantLnReq2} />
       <Stack.Screen name={'EntrAdvLoc'} component={EntrAdvLoc} />
-      <Stack.Screen name={'Vw2GrantLnReq'} component={Vw2GrantLnReq} />
+     
       <Stack.Screen name={'Vw2DelLnReqs'} component={Vw2DelLnReqs} />
       <Stack.Screen name={'AutomaticRepayAllTyps'} component={AutomaticRepayAllTyps} />
       
       <Stack.Screen name={'VwMakeLnReq'} component={VwMakeLnReq} />
-      <Stack.Screen name={'PlaceLnReq'} component={PlaceLnReq} />
+     
       
        <Stack.Screen name={'VwPlLn2Remove'} component={VwPlLn2Remove} />
       <Stack.Screen name={'SgnIn2RemoveSlAd'} component={SgnIn2RemoveSlAd} />
