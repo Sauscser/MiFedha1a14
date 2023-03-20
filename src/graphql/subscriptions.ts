@@ -536,6 +536,9 @@ export const onCreateNonLoans = /* GraphQL */ `
       RecName
       SenderName
       amount
+      loanId1
+      loanId2
+      loanId3
       description
       status
       owner
@@ -556,6 +559,9 @@ export const onUpdateNonLoans = /* GraphQL */ `
       RecName
       SenderName
       amount
+      loanId1
+      loanId2
+      loanId3
       description
       status
       owner
@@ -576,132 +582,9 @@ export const onDeleteNonLoans = /* GraphQL */ `
       RecName
       SenderName
       amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateLoanPayment = /* GraphQL */ `
-  subscription OnCreateLoanPayment(
-    $filter: ModelSubscriptionLoanPaymentFilterInput
-    $owner: String
-  ) {
-    onCreateLoanPayment(filter: $filter, owner: $owner) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateLoanPayment = /* GraphQL */ `
-  subscription OnUpdateLoanPayment(
-    $filter: ModelSubscriptionLoanPaymentFilterInput
-    $owner: String
-  ) {
-    onUpdateLoanPayment(filter: $filter, owner: $owner) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteLoanPayment = /* GraphQL */ `
-  subscription OnDeleteLoanPayment(
-    $filter: ModelSubscriptionLoanPaymentFilterInput
-    $owner: String
-  ) {
-    onDeleteLoanPayment(filter: $filter, owner: $owner) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateLoanPayment3 = /* GraphQL */ `
-  subscription OnCreateLoanPayment3(
-    $filter: ModelSubscriptionLoanPayment3FilterInput
-    $owner: String
-  ) {
-    onCreateLoanPayment3(filter: $filter, owner: $owner) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateLoanPayment3 = /* GraphQL */ `
-  subscription OnUpdateLoanPayment3(
-    $filter: ModelSubscriptionLoanPayment3FilterInput
-    $owner: String
-  ) {
-    onUpdateLoanPayment3(filter: $filter, owner: $owner) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteLoanPayment3 = /* GraphQL */ `
-  subscription OnDeleteLoanPayment3(
-    $filter: ModelSubscriptionLoanPayment3FilterInput
-    $owner: String
-  ) {
-    onDeleteLoanPayment3(filter: $filter, owner: $owner) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
+      loanId1
+      loanId2
+      loanId3
       description
       status
       owner

@@ -65,6 +65,12 @@ const MyAccount = props => {
     navigation.navigate('BiznaReqstPage2');
   };
 
+  const PalProdsRequest = () => {
+    navigation.navigate('PalProdsRequest');
+  };
+
+  
+
 
   const CrdSlPlaceLnReq = () => {
     navigation.navigate('BiznaReqstPage1');
@@ -102,7 +108,7 @@ const MyAccount = props => {
             
             
 
-          <Pressable onPress={BiznaReqstPage2} style={styles.acPressables}>
+          <Pressable onPress={PalProdsRequest} style={styles.acPressables}>
             <View >
             <Text style={styles.acPressableText}>PalLoans</Text>
             </View>
@@ -129,7 +135,7 @@ const MyAccount = props => {
 
 
 
-            <Pressable onPress={CrdSlPlaceLnReq} style={styles.acPressables}>
+            <Pressable onPress={BiznaReqstPage1} style={styles.acPressables}>
             <View >
             <Text style={styles.acPressableText}>CredSale</Text>
             </View>

@@ -374,6 +374,9 @@ export const getNonLoans = /* GraphQL */ `
       RecName
       SenderName
       amount
+      loanId1
+      loanId2
+      loanId3
       description
       status
       owner
@@ -396,92 +399,9 @@ export const listNonLoans = /* GraphQL */ `
         RecName
         SenderName
         amount
-        description
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getLoanPayment = /* GraphQL */ `
-  query GetLoanPayment($id: ID!) {
-    getLoanPayment(id: $id) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listLoanPayments = /* GraphQL */ `
-  query ListLoanPayments(
-    $filter: ModelLoanPaymentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listLoanPayments(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        senderPhn
-        recPhn
-        RecName
-        SenderName
-        lnId
-        amount
-        description
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getLoanPayment3 = /* GraphQL */ `
-  query GetLoanPayment3($id: ID!) {
-    getLoanPayment3(id: $id) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listLoanPayment3s = /* GraphQL */ `
-  query ListLoanPayment3s(
-    $filter: ModelLoanPayment3FilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listLoanPayment3s(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        senderPhn
-        recPhn
-        RecName
-        SenderName
-        lnId
-        amount
+        loanId1
+        loanId2
+        loanId3
         description
         status
         owner
@@ -3131,6 +3051,9 @@ export const vwMySntMny = /* GraphQL */ `
         RecName
         SenderName
         amount
+        loanId1
+        loanId2
+        loanId3
         description
         status
         owner
@@ -3165,146 +3088,9 @@ export const vwMyRecMny = /* GraphQL */ `
         RecName
         SenderName
         amount
-        description
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwMySntMnys = /* GraphQL */ `
-  query VwMySntMnys(
-    $senderPhn: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelLoanPaymentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwMySntMnys(
-      senderPhn: $senderPhn
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        senderPhn
-        recPhn
-        RecName
-        SenderName
-        lnId
-        amount
-        description
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwMyRecMnys = /* GraphQL */ `
-  query VwMyRecMnys(
-    $recPhn: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelLoanPaymentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwMyRecMnys(
-      recPhn: $recPhn
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        senderPhn
-        recPhn
-        RecName
-        SenderName
-        lnId
-        amount
-        description
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwMySntMnys3 = /* GraphQL */ `
-  query VwMySntMnys3(
-    $senderPhn: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelLoanPayment3FilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwMySntMnys3(
-      senderPhn: $senderPhn
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        senderPhn
-        recPhn
-        RecName
-        SenderName
-        lnId
-        amount
-        description
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwMyRecMnys3 = /* GraphQL */ `
-  query VwMyRecMnys3(
-    $recPhn: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelLoanPayment3FilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwMyRecMnys3(
-      recPhn: $recPhn
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        senderPhn
-        recPhn
-        RecName
-        SenderName
-        lnId
-        amount
+        loanId1
+        loanId2
+        loanId3
         description
         status
         owner

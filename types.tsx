@@ -13,6 +13,39 @@ declare global {
       PayPalDposit:undefined;
       VwAcBfDpst:undefined;
 
+      VwB2PMyLoanersDtld: {id:string};
+      VwB2PMyLoaneesDtld: {id:string};
+      VwP2PMyLoaneesDtld: {id:string};
+      VwP2PMyLoanersDtld:{id:string};
+      
+      PlaceLnReqP2P: undefined;
+      PlaceLnReqB2P: undefined;
+      PalProdsRequest: undefined;
+      SI2VwB2PLoanees:undefined;
+      VwB2PMyLoanees:{memberPhn:string};
+      VwP2PMyLoanees:undefined;
+      VwP2PMyLoaners:undefined;
+      VwB2PMyLoaners:undefined;
+
+      SignIn2VwLR:undefined;
+      VwB2PReceived:{MFNId:string};
+      VwB2PLRSent:{id:string};
+      VwP2PReceived:{id:string};
+      VwP2PSent:{id:string};
+      
+      SISgnInToBLB2P:undefined;
+      Vw2BLBiz2Pal:{memberPhn:string};
+      Vw2BLPal2Pal:undefined;
+      BLBiz2Pal:{id:string};
+      BLPal2Pal:{id:string};
+
+      SIBiz2Pal2Repay:undefined;
+      Vw2RpyB2P:{memberPhn:string};
+      Vw2RpyP2P:undefined;
+      RpyBiz2Pal:{id:string};
+      RpyPal2Pal:{id:string};
+      
+
       PersonelVw2GrntB2B:undefined;
       PersonelVw2GrntB2P:undefined;
       

@@ -287,6 +287,57 @@ const MyLoanAccount = props => {
 
             
             <View style={styles.clientsView}>
+              <Text style={styles.salesText}>View Credit Sales Loan Repayments</Text>
+
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories7}>
+                  
+                  <Pressable 
+                  onPress={PayCash}
+                  
+                  style={styles.viewForClientsPressables}>
+                  <Text style={styles.salesPressableText}>Pal2Pal</Text>
+                  </Pressable>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories7}>
+                  
+                  <Pressable 
+                  onPress={VwCashPaySent}
+                  
+                  style={styles.viewForClientsPressables}>
+                  <Text style={styles.salesPressableText}>Pal2Biz</Text>
+
+                  </Pressable>
+                </View>
+
+                <View style={styles.viewForClientsCategories7}>
+                <Pressable 
+                onPress={SgnIn2VwCashSales}
+                
+                style={styles.viewForClientsPressables}>
+                  <Text style={styles.salesPressableText}>Biz2Pal</Text>
+
+                  </Pressable>
+                </View>
+
+                <View style={styles.viewForClientsCategories7}>
+                <Pressable 
+                onPress={SgnIn2VwCashSales}
+                
+                style={styles.viewForClientsPressables}>
+                  <Text style={styles.salesPressableText}>Biz2Biz</Text>
+
+                  </Pressable>
+                </View>
+
+
+              </View>
+            </View>
+            
+            <View style={styles.clientsView}>
               <Text style={styles.salesText}>View Credit Sales Loan Status</Text>
 
               <View style={styles.viewForClientsAndTitle}>

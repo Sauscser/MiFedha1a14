@@ -296,6 +296,8 @@ import AutomaticRepayAllTyps from "../../screens/MyAcc/Loans/RepayLoan/Automatic
 import VwMakeLnReq from "../../screens/MyAcc/LoanRequest/VwMakeLnReq";
 
 
+
+
 import Vw2DelLnReqs from "../../screens/MyAcc/LoanRequest/Vw2DelLnReqs";
 import Vw2GrantLnReq2 from "../../screens/MyAcc/LoanRequest/View2GrntLnReq/CompVw2GrantLnReq2";
 import EntrAdvLoc from '../../screens/Advocate/EnterAdvLoc';
@@ -336,6 +338,7 @@ import BiznaReqstPage1 from "../../screens/CredSls/BiznaReqstPage1";
 import BiznaReqstPage2 from "../../screens/CredSls/BiznaReqstPage2";
 
 
+
 import SIBiz2Biz from "../../screens/CredSls/SignIn2GrntCrdSls/Biz2Biz";
 import SIBiz2Pal from "../../screens/CredSls/SignIn2GrntCrdSls/Biz2Pal";
 import VwBiz2Biz from "../../screens/CredSls/Vw2GrntCrdSls/Biz2Biz";
@@ -367,6 +370,39 @@ import Vw2GrntPal2Pal from "../../screens/CredSls/SlsLnReq/Vw2Grant/Pal2Pal";
 import PersonelVw2GrntB2B from "../../screens/CredSls/PersonelVw2GrntLR/Biz2Biz";
 import PersonelVw2GrntB2P from "../../screens/CredSls/PersonelVw2GrntLR/Biz2Pal";
 
+import SIBiz2Pal2Repay from "../../screens/MyAcc/Loans/RepayLoan/SM/SIBiz2Pal";
+import RpyBiz2Pal from "../../screens/MyAcc/Loans/RepayLoan/SM/Repay/Biz2Pal";
+import RpyPal2Pal from "../../screens/MyAcc/Loans/RepayLoan/SM/Repay/Pal2Pal";
+import Vw2RpyB2P from "../../screens/MyAcc/Loans/RepayLoan/SM/Vw2Repay/Biz2Pal";
+import Vw2RpyP2P from "../../screens/MyAcc/Loans/RepayLoan/SM/Vw2Repay/Pal2Pal";
+
+import SISgnInToBLB2P from "../../screens/MyAcc/Loans/BList/SMLoanee/SgnInToBL/Biz2Pal";
+import Vw2BLBiz2Pal from "../../screens/MyAcc/Loans/BList/View2BL/Biz2Pal";
+import Vw2BLPal2Pal from "../../screens/MyAcc/Loans/BList/View2BL/Pal2Pal";
+import BLBiz2Pal from "../../screens/MyAcc/Loans/BList/SMLoanee/Biz2Pal";
+import BLPal2Pal from "../../screens/MyAcc/Loans/BList/SMLoanee/Pal2Pal";
+
+import SI2VwB2PLoanees from "../../screens/MyAcc/Loans/ViewSMLns/SI2VwB2PLoanees";
+import VwB2PMyLoaners from "../../screens/MyAcc/Loans/ViewSMLns/Biz2Pal/MyLoaners";
+import VwB2PMyLoanees from "../../screens/MyAcc/Loans/ViewSMLns/Biz2Pal/MyLoanees";
+import VwP2PMyLoanees from "../../screens/MyAcc/Loans/ViewSMLns/Pal2Pal/MyLoanees";
+import VwP2PMyLoaners from "../../screens/MyAcc/Loans/ViewSMLns/Pal2Pal/MyLoaners";
+
+import SignIn2VwLR from "../../screens/MyAcc/Loans/LRpyments/SignIn2VwLR";
+import VwB2PLRSent from "../../screens/MyAcc/Loans/LRpyments/B2PSent";
+import VwB2PReceived from "../../screens/MyAcc/Loans/LRpyments/B2PReceived";
+import VwP2PReceived from "../../screens/MyAcc/Loans/LRpyments/P2PReceived";
+import VwP2PSent from "../../screens/MyAcc/Loans/LRpyments/P2PSent";
+
+import PalProdsRequest from "../../screens/MyAcc/PalProdsRequest";
+import PlaceLnReqP2P from "../../screens/MyAcc/LoanRequest/PlaceLnReq";
+import PlaceLnReqB2P from "../../screens/MyAcc/LoanRequest/PlaceLnReq2";
+
+import VwB2PMyLoanersDtld from "../../screens/MyAcc/Loans/ViewSMLns/Biz2Pal/MyLoanersDtld";
+import VwB2PMyLoaneesDtld from "../../screens/MyAcc/Loans/ViewSMLns/Biz2Pal/MyLoaneesDtld";
+import VwP2PMyLoaneesDtld from "../../screens/MyAcc/Loans/ViewSMLns/Pal2Pal/MyLoaneesDtld";
+import VwP2PMyLoanersDtld from "../../screens/MyAcc/Loans/ViewSMLns/Pal2Pal/MyLoanersDtld";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -378,6 +414,42 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />
 
+      <Stack.Screen name={'VwB2PMyLoanersDtld'} component={VwB2PMyLoanersDtld} />
+      <Stack.Screen name={'VwB2PMyLoaneesDtld'} component={VwB2PMyLoaneesDtld} />
+      <Stack.Screen name={'VwP2PMyLoaneesDtld'} component={VwP2PMyLoaneesDtld} />
+      <Stack.Screen name={'VwP2PMyLoanersDtld'} component={VwP2PMyLoanersDtld} />
+
+      <Stack.Screen name={'SignIn2VwLR'} component={SignIn2VwLR} />
+      <Stack.Screen name={'VwB2PLRSent'} component={VwB2PLRSent} />
+      <Stack.Screen name={'VwB2PReceived'} component={VwB2PReceived} />
+      <Stack.Screen name={'VwP2PReceived'} component={VwP2PReceived} />
+
+      <Stack.Screen name={'VwP2PSent'} component={VwP2PSent} />
+      
+      <Stack.Screen name={'PlaceLnReqP2P'} component={PlaceLnReqP2P} />
+      <Stack.Screen name={'PlaceLnReqB2P'} component={PlaceLnReqB2P} />
+      
+      <Stack.Screen name={'PalProdsRequest'} component={PalProdsRequest} />
+      
+      <Stack.Screen name={'SI2VwB2PLoanees'} component={SI2VwB2PLoanees} />
+      <Stack.Screen name={'VwB2PMyLoaners'} component={VwB2PMyLoaners} />
+      <Stack.Screen name={'VwB2PMyLoanees'} component={VwB2PMyLoanees} />
+      <Stack.Screen name={'VwP2PMyLoanees'} component={VwP2PMyLoanees} />
+      <Stack.Screen name={'VwP2PMyLoaners'} component={VwP2PMyLoaners} />
+      
+      <Stack.Screen name={'SISgnInToBLB2P'} component={SISgnInToBLB2P} />
+      <Stack.Screen name={'Vw2BLBiz2Pal'} component={Vw2BLBiz2Pal} />
+      <Stack.Screen name={'Vw2BLPal2Pal'} component={Vw2BLPal2Pal} />
+      <Stack.Screen name={'BLBiz2Pal'} component={BLBiz2Pal} />
+      <Stack.Screen name={'BLPal2Pal'} component={BLPal2Pal} />
+      
+      <Stack.Screen name={'SIBiz2Pal2Repay'} component={SIBiz2Pal2Repay} />
+      <Stack.Screen name={'RpyBiz2Pal'} component={RpyBiz2Pal} />
+      <Stack.Screen name={'RpyPal2Pal'} component={RpyPal2Pal} />
+      <Stack.Screen name={'Vw2RpyB2P'} component={Vw2RpyB2P} />
+      <Stack.Screen name={'Vw2RpyP2P'} component={Vw2RpyP2P} />
+      
+      
       <Stack.Screen name={'PersonelVw2GrntB2B'} component={PersonelVw2GrntB2B} />
       <Stack.Screen name={'PersonelVw2GrntB2P'} component={PersonelVw2GrntB2P} />
       

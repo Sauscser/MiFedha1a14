@@ -735,6 +735,9 @@ export type CreateNonLoansInput = {
   RecName: string,
   SenderName: string,
   amount: number,
+  loanId1?: string | null,
+  loanId2?: string | null,
+  loanId3?: string | null,
   description?: string | null,
   status: Status,
   owner: string,
@@ -747,6 +750,9 @@ export type ModelNonLoansConditionInput = {
   RecName?: ModelStringInput | null,
   SenderName?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
+  loanId1?: ModelStringInput | null,
+  loanId2?: ModelStringInput | null,
+  loanId3?: ModelStringInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
@@ -764,6 +770,9 @@ export type NonLoans = {
   RecName: string,
   SenderName: string,
   amount: number,
+  loanId1?: string | null,
+  loanId2?: string | null,
+  loanId3?: string | null,
   description?: string | null,
   status: Status,
   owner: string,
@@ -778,6 +787,9 @@ export type UpdateNonLoansInput = {
   RecName?: string | null,
   SenderName?: string | null,
   amount?: number | null,
+  loanId1?: string | null,
+  loanId2?: string | null,
+  loanId3?: string | null,
   description?: string | null,
   status?: Status | null,
   owner?: string | null,
@@ -785,134 +797,6 @@ export type UpdateNonLoansInput = {
 };
 
 export type DeleteNonLoansInput = {
-  id: string,
-};
-
-export type CreateLoanPaymentInput = {
-  id?: string | null,
-  senderPhn: string,
-  recPhn: string,
-  RecName: string,
-  SenderName: string,
-  lnId: string,
-  amount: number,
-  description?: string | null,
-  status: Status,
-  owner: string,
-  createdAt?: string | null,
-};
-
-export type ModelLoanPaymentConditionInput = {
-  senderPhn?: ModelStringInput | null,
-  recPhn?: ModelStringInput | null,
-  RecName?: ModelStringInput | null,
-  SenderName?: ModelStringInput | null,
-  lnId?: ModelStringInput | null,
-  amount?: ModelFloatInput | null,
-  description?: ModelStringInput | null,
-  status?: ModelStatusInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelLoanPaymentConditionInput | null > | null,
-  or?: Array< ModelLoanPaymentConditionInput | null > | null,
-  not?: ModelLoanPaymentConditionInput | null,
-};
-
-export type LoanPayment = {
-  __typename: "LoanPayment",
-  id: string,
-  senderPhn: string,
-  recPhn: string,
-  RecName: string,
-  SenderName: string,
-  lnId: string,
-  amount: number,
-  description?: string | null,
-  status: Status,
-  owner: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateLoanPaymentInput = {
-  id: string,
-  senderPhn?: string | null,
-  recPhn?: string | null,
-  RecName?: string | null,
-  SenderName?: string | null,
-  lnId?: string | null,
-  amount?: number | null,
-  description?: string | null,
-  status?: Status | null,
-  owner?: string | null,
-  createdAt?: string | null,
-};
-
-export type DeleteLoanPaymentInput = {
-  id: string,
-};
-
-export type CreateLoanPayment3Input = {
-  id?: string | null,
-  senderPhn: string,
-  recPhn: string,
-  RecName: string,
-  SenderName: string,
-  lnId: string,
-  amount: number,
-  description?: string | null,
-  status: Status,
-  owner: string,
-  createdAt?: string | null,
-};
-
-export type ModelLoanPayment3ConditionInput = {
-  senderPhn?: ModelStringInput | null,
-  recPhn?: ModelStringInput | null,
-  RecName?: ModelStringInput | null,
-  SenderName?: ModelStringInput | null,
-  lnId?: ModelStringInput | null,
-  amount?: ModelFloatInput | null,
-  description?: ModelStringInput | null,
-  status?: ModelStatusInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelLoanPayment3ConditionInput | null > | null,
-  or?: Array< ModelLoanPayment3ConditionInput | null > | null,
-  not?: ModelLoanPayment3ConditionInput | null,
-};
-
-export type LoanPayment3 = {
-  __typename: "LoanPayment3",
-  id: string,
-  senderPhn: string,
-  recPhn: string,
-  RecName: string,
-  SenderName: string,
-  lnId: string,
-  amount: number,
-  description?: string | null,
-  status: Status,
-  owner: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateLoanPayment3Input = {
-  id: string,
-  senderPhn?: string | null,
-  recPhn?: string | null,
-  RecName?: string | null,
-  SenderName?: string | null,
-  lnId?: string | null,
-  amount?: number | null,
-  description?: string | null,
-  status?: Status | null,
-  owner?: string | null,
-  createdAt?: string | null,
-};
-
-export type DeleteLoanPayment3Input = {
   id: string,
 };
 
@@ -4189,6 +4073,9 @@ export type ModelNonLoansFilterInput = {
   RecName?: ModelStringInput | null,
   SenderName?: ModelStringInput | null,
   amount?: ModelFloatInput | null,
+  loanId1?: ModelStringInput | null,
+  loanId2?: ModelStringInput | null,
+  loanId3?: ModelStringInput | null,
   description?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
@@ -4201,52 +4088,6 @@ export type ModelNonLoansFilterInput = {
 export type ModelNonLoansConnection = {
   __typename: "ModelNonLoansConnection",
   items:  Array<NonLoans | null >,
-  nextToken?: string | null,
-};
-
-export type ModelLoanPaymentFilterInput = {
-  id?: ModelIDInput | null,
-  senderPhn?: ModelStringInput | null,
-  recPhn?: ModelStringInput | null,
-  RecName?: ModelStringInput | null,
-  SenderName?: ModelStringInput | null,
-  lnId?: ModelStringInput | null,
-  amount?: ModelFloatInput | null,
-  description?: ModelStringInput | null,
-  status?: ModelStatusInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelLoanPaymentFilterInput | null > | null,
-  or?: Array< ModelLoanPaymentFilterInput | null > | null,
-  not?: ModelLoanPaymentFilterInput | null,
-};
-
-export type ModelLoanPaymentConnection = {
-  __typename: "ModelLoanPaymentConnection",
-  items:  Array<LoanPayment | null >,
-  nextToken?: string | null,
-};
-
-export type ModelLoanPayment3FilterInput = {
-  id?: ModelIDInput | null,
-  senderPhn?: ModelStringInput | null,
-  recPhn?: ModelStringInput | null,
-  RecName?: ModelStringInput | null,
-  SenderName?: ModelStringInput | null,
-  lnId?: ModelStringInput | null,
-  amount?: ModelFloatInput | null,
-  description?: ModelStringInput | null,
-  status?: ModelStatusInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelLoanPayment3FilterInput | null > | null,
-  or?: Array< ModelLoanPayment3FilterInput | null > | null,
-  not?: ModelLoanPayment3FilterInput | null,
-};
-
-export type ModelLoanPayment3Connection = {
-  __typename: "ModelLoanPayment3Connection",
-  items:  Array<LoanPayment3 | null >,
   nextToken?: string | null,
 };
 
@@ -5461,41 +5302,14 @@ export type ModelSubscriptionNonLoansFilterInput = {
   RecName?: ModelSubscriptionStringInput | null,
   SenderName?: ModelSubscriptionStringInput | null,
   amount?: ModelSubscriptionFloatInput | null,
+  loanId1?: ModelSubscriptionStringInput | null,
+  loanId2?: ModelSubscriptionStringInput | null,
+  loanId3?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionNonLoansFilterInput | null > | null,
   or?: Array< ModelSubscriptionNonLoansFilterInput | null > | null,
-};
-
-export type ModelSubscriptionLoanPaymentFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  senderPhn?: ModelSubscriptionStringInput | null,
-  recPhn?: ModelSubscriptionStringInput | null,
-  RecName?: ModelSubscriptionStringInput | null,
-  SenderName?: ModelSubscriptionStringInput | null,
-  lnId?: ModelSubscriptionStringInput | null,
-  amount?: ModelSubscriptionFloatInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  status?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionLoanPaymentFilterInput | null > | null,
-  or?: Array< ModelSubscriptionLoanPaymentFilterInput | null > | null,
-};
-
-export type ModelSubscriptionLoanPayment3FilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  senderPhn?: ModelSubscriptionStringInput | null,
-  recPhn?: ModelSubscriptionStringInput | null,
-  RecName?: ModelSubscriptionStringInput | null,
-  SenderName?: ModelSubscriptionStringInput | null,
-  lnId?: ModelSubscriptionStringInput | null,
-  amount?: ModelSubscriptionFloatInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  status?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionLoanPayment3FilterInput | null > | null,
-  or?: Array< ModelSubscriptionLoanPayment3FilterInput | null > | null,
 };
 
 export type ModelSubscriptionSokoAdFilterInput = {
@@ -6790,6 +6604,9 @@ export type CreateNonLoansMutation = {
     RecName: string,
     SenderName: string,
     amount: number,
+    loanId1?: string | null,
+    loanId2?: string | null,
+    loanId3?: string | null,
     description?: string | null,
     status: Status,
     owner: string,
@@ -6812,6 +6629,9 @@ export type UpdateNonLoansMutation = {
     RecName: string,
     SenderName: string,
     amount: number,
+    loanId1?: string | null,
+    loanId2?: string | null,
+    loanId3?: string | null,
     description?: string | null,
     status: Status,
     owner: string,
@@ -6834,144 +6654,9 @@ export type DeleteNonLoansMutation = {
     RecName: string,
     SenderName: string,
     amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateLoanPaymentMutationVariables = {
-  input: CreateLoanPaymentInput,
-  condition?: ModelLoanPaymentConditionInput | null,
-};
-
-export type CreateLoanPaymentMutation = {
-  createLoanPayment?:  {
-    __typename: "LoanPayment",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateLoanPaymentMutationVariables = {
-  input: UpdateLoanPaymentInput,
-  condition?: ModelLoanPaymentConditionInput | null,
-};
-
-export type UpdateLoanPaymentMutation = {
-  updateLoanPayment?:  {
-    __typename: "LoanPayment",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteLoanPaymentMutationVariables = {
-  input: DeleteLoanPaymentInput,
-  condition?: ModelLoanPaymentConditionInput | null,
-};
-
-export type DeleteLoanPaymentMutation = {
-  deleteLoanPayment?:  {
-    __typename: "LoanPayment",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateLoanPayment3MutationVariables = {
-  input: CreateLoanPayment3Input,
-  condition?: ModelLoanPayment3ConditionInput | null,
-};
-
-export type CreateLoanPayment3Mutation = {
-  createLoanPayment3?:  {
-    __typename: "LoanPayment3",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateLoanPayment3MutationVariables = {
-  input: UpdateLoanPayment3Input,
-  condition?: ModelLoanPayment3ConditionInput | null,
-};
-
-export type UpdateLoanPayment3Mutation = {
-  updateLoanPayment3?:  {
-    __typename: "LoanPayment3",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteLoanPayment3MutationVariables = {
-  input: DeleteLoanPayment3Input,
-  condition?: ModelLoanPayment3ConditionInput | null,
-};
-
-export type DeleteLoanPayment3Mutation = {
-  deleteLoanPayment3?:  {
-    __typename: "LoanPayment3",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
+    loanId1?: string | null,
+    loanId2?: string | null,
+    loanId3?: string | null,
     description?: string | null,
     status: Status,
     owner: string,
@@ -10367,6 +10052,9 @@ export type GetNonLoansQuery = {
     RecName: string,
     SenderName: string,
     amount: number,
+    loanId1?: string | null,
+    loanId2?: string | null,
+    loanId3?: string | null,
     description?: string | null,
     status: Status,
     owner: string,
@@ -10392,106 +10080,9 @@ export type ListNonLoansQuery = {
       RecName: string,
       SenderName: string,
       amount: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetLoanPaymentQueryVariables = {
-  id: string,
-};
-
-export type GetLoanPaymentQuery = {
-  getLoanPayment?:  {
-    __typename: "LoanPayment",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListLoanPaymentsQueryVariables = {
-  filter?: ModelLoanPaymentFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListLoanPaymentsQuery = {
-  listLoanPayments?:  {
-    __typename: "ModelLoanPaymentConnection",
-    items:  Array< {
-      __typename: "LoanPayment",
-      id: string,
-      senderPhn: string,
-      recPhn: string,
-      RecName: string,
-      SenderName: string,
-      lnId: string,
-      amount: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetLoanPayment3QueryVariables = {
-  id: string,
-};
-
-export type GetLoanPayment3Query = {
-  getLoanPayment3?:  {
-    __typename: "LoanPayment3",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListLoanPayment3sQueryVariables = {
-  filter?: ModelLoanPayment3FilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListLoanPayment3sQuery = {
-  listLoanPayment3s?:  {
-    __typename: "ModelLoanPayment3Connection",
-    items:  Array< {
-      __typename: "LoanPayment3",
-      id: string,
-      senderPhn: string,
-      recPhn: string,
-      RecName: string,
-      SenderName: string,
-      lnId: string,
-      amount: number,
+      loanId1?: string | null,
+      loanId2?: string | null,
+      loanId3?: string | null,
       description?: string | null,
       status: Status,
       owner: string,
@@ -13224,6 +12815,9 @@ export type VwMySntMnyQuery = {
       RecName: string,
       SenderName: string,
       amount: number,
+      loanId1?: string | null,
+      loanId2?: string | null,
+      loanId3?: string | null,
       description?: string | null,
       status: Status,
       owner: string,
@@ -13254,130 +12848,9 @@ export type VwMyRecMnyQuery = {
       RecName: string,
       SenderName: string,
       amount: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type VwMySntMnysQueryVariables = {
-  senderPhn: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelLoanPaymentFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type VwMySntMnysQuery = {
-  VwMySntMnys?:  {
-    __typename: "ModelLoanPaymentConnection",
-    items:  Array< {
-      __typename: "LoanPayment",
-      id: string,
-      senderPhn: string,
-      recPhn: string,
-      RecName: string,
-      SenderName: string,
-      lnId: string,
-      amount: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type VwMyRecMnysQueryVariables = {
-  recPhn: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelLoanPaymentFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type VwMyRecMnysQuery = {
-  VwMyRecMnys?:  {
-    __typename: "ModelLoanPaymentConnection",
-    items:  Array< {
-      __typename: "LoanPayment",
-      id: string,
-      senderPhn: string,
-      recPhn: string,
-      RecName: string,
-      SenderName: string,
-      lnId: string,
-      amount: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type VwMySntMnys3QueryVariables = {
-  senderPhn: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelLoanPayment3FilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type VwMySntMnys3Query = {
-  VwMySntMnys3?:  {
-    __typename: "ModelLoanPayment3Connection",
-    items:  Array< {
-      __typename: "LoanPayment3",
-      id: string,
-      senderPhn: string,
-      recPhn: string,
-      RecName: string,
-      SenderName: string,
-      lnId: string,
-      amount: number,
-      description?: string | null,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type VwMyRecMnys3QueryVariables = {
-  recPhn: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelLoanPayment3FilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type VwMyRecMnys3Query = {
-  VwMyRecMnys3?:  {
-    __typename: "ModelLoanPayment3Connection",
-    items:  Array< {
-      __typename: "LoanPayment3",
-      id: string,
-      senderPhn: string,
-      recPhn: string,
-      RecName: string,
-      SenderName: string,
-      lnId: string,
-      amount: number,
+      loanId1?: string | null,
+      loanId2?: string | null,
+      loanId3?: string | null,
       description?: string | null,
       status: Status,
       owner: string,
@@ -15916,6 +15389,9 @@ export type OnCreateNonLoansSubscription = {
     RecName: string,
     SenderName: string,
     amount: number,
+    loanId1?: string | null,
+    loanId2?: string | null,
+    loanId3?: string | null,
     description?: string | null,
     status: Status,
     owner: string,
@@ -15938,6 +15414,9 @@ export type OnUpdateNonLoansSubscription = {
     RecName: string,
     SenderName: string,
     amount: number,
+    loanId1?: string | null,
+    loanId2?: string | null,
+    loanId3?: string | null,
     description?: string | null,
     status: Status,
     owner: string,
@@ -15960,144 +15439,9 @@ export type OnDeleteNonLoansSubscription = {
     RecName: string,
     SenderName: string,
     amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateLoanPaymentSubscriptionVariables = {
-  filter?: ModelSubscriptionLoanPaymentFilterInput | null,
-  owner?: string | null,
-};
-
-export type OnCreateLoanPaymentSubscription = {
-  onCreateLoanPayment?:  {
-    __typename: "LoanPayment",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateLoanPaymentSubscriptionVariables = {
-  filter?: ModelSubscriptionLoanPaymentFilterInput | null,
-  owner?: string | null,
-};
-
-export type OnUpdateLoanPaymentSubscription = {
-  onUpdateLoanPayment?:  {
-    __typename: "LoanPayment",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteLoanPaymentSubscriptionVariables = {
-  filter?: ModelSubscriptionLoanPaymentFilterInput | null,
-  owner?: string | null,
-};
-
-export type OnDeleteLoanPaymentSubscription = {
-  onDeleteLoanPayment?:  {
-    __typename: "LoanPayment",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateLoanPayment3SubscriptionVariables = {
-  filter?: ModelSubscriptionLoanPayment3FilterInput | null,
-  owner?: string | null,
-};
-
-export type OnCreateLoanPayment3Subscription = {
-  onCreateLoanPayment3?:  {
-    __typename: "LoanPayment3",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateLoanPayment3SubscriptionVariables = {
-  filter?: ModelSubscriptionLoanPayment3FilterInput | null,
-  owner?: string | null,
-};
-
-export type OnUpdateLoanPayment3Subscription = {
-  onUpdateLoanPayment3?:  {
-    __typename: "LoanPayment3",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
-    description?: string | null,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteLoanPayment3SubscriptionVariables = {
-  filter?: ModelSubscriptionLoanPayment3FilterInput | null,
-  owner?: string | null,
-};
-
-export type OnDeleteLoanPayment3Subscription = {
-  onDeleteLoanPayment3?:  {
-    __typename: "LoanPayment3",
-    id: string,
-    senderPhn: string,
-    recPhn: string,
-    RecName: string,
-    SenderName: string,
-    lnId: string,
-    amount: number,
+    loanId1?: string | null,
+    loanId2?: string | null,
+    loanId3?: string | null,
     description?: string | null,
     status: Status,
     owner: string,

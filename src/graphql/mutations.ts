@@ -536,6 +536,9 @@ export const createNonLoans = /* GraphQL */ `
       RecName
       SenderName
       amount
+      loanId1
+      loanId2
+      loanId3
       description
       status
       owner
@@ -556,6 +559,9 @@ export const updateNonLoans = /* GraphQL */ `
       RecName
       SenderName
       amount
+      loanId1
+      loanId2
+      loanId3
       description
       status
       owner
@@ -576,132 +582,9 @@ export const deleteNonLoans = /* GraphQL */ `
       RecName
       SenderName
       amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createLoanPayment = /* GraphQL */ `
-  mutation CreateLoanPayment(
-    $input: CreateLoanPaymentInput!
-    $condition: ModelLoanPaymentConditionInput
-  ) {
-    createLoanPayment(input: $input, condition: $condition) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateLoanPayment = /* GraphQL */ `
-  mutation UpdateLoanPayment(
-    $input: UpdateLoanPaymentInput!
-    $condition: ModelLoanPaymentConditionInput
-  ) {
-    updateLoanPayment(input: $input, condition: $condition) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteLoanPayment = /* GraphQL */ `
-  mutation DeleteLoanPayment(
-    $input: DeleteLoanPaymentInput!
-    $condition: ModelLoanPaymentConditionInput
-  ) {
-    deleteLoanPayment(input: $input, condition: $condition) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createLoanPayment3 = /* GraphQL */ `
-  mutation CreateLoanPayment3(
-    $input: CreateLoanPayment3Input!
-    $condition: ModelLoanPayment3ConditionInput
-  ) {
-    createLoanPayment3(input: $input, condition: $condition) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateLoanPayment3 = /* GraphQL */ `
-  mutation UpdateLoanPayment3(
-    $input: UpdateLoanPayment3Input!
-    $condition: ModelLoanPayment3ConditionInput
-  ) {
-    updateLoanPayment3(input: $input, condition: $condition) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
-      description
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteLoanPayment3 = /* GraphQL */ `
-  mutation DeleteLoanPayment3(
-    $input: DeleteLoanPayment3Input!
-    $condition: ModelLoanPayment3ConditionInput
-  ) {
-    deleteLoanPayment3(input: $input, condition: $condition) {
-      id
-      senderPhn
-      recPhn
-      RecName
-      SenderName
-      lnId
-      amount
+      loanId1
+      loanId2
+      loanId3
       description
       status
       owner

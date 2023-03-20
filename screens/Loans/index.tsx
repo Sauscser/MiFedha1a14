@@ -28,12 +28,12 @@ const MyLoanAccount = props => {
     navigation.navigate('ElimRpyChmNonCvs');
   };
 
-  const RpayCredSlrCovss = () => {
-    navigation.navigate('RpayCredSlrCovs', {id});
+  const SIBiz2Pal2Repay = () => {
+    navigation.navigate('SIBiz2Pal2Repay');
   };
 
-  const RpayCredSlrNonCovss = () => {
-    navigation.navigate('RpayCredSlrNonCovs', {id});
+  const Vw2RpyP2P = () => {
+    navigation.navigate('Vw2RpyP2P');
   };
 
   const SignIn2GrntLnReq = () => {
@@ -45,19 +45,19 @@ const MyLoanAccount = props => {
   };
   
 
-  const SMGivNonCovLon2 = () => {
-    navigation.navigate('Vw2GrantLnReq');
+  const Vw2BLPal2Pal = () => {
+    navigation.navigate('Vw2BLPal2Pal');
   };
 
-  const SMGivNonCovLons = () => {
-    navigation.navigate('SMGivNonCovLon', {id});
+  const VwP2PMyLoaners = () => {
+    navigation.navigate('VwP2PMyLoaners');
   };
-  const ViewMyCovLoaneesss = () => {
-    navigation.navigate('ElimLnsCvLnees');
+  const VwP2PMyLoanees = () => {
+    navigation.navigate('VwP2PMyLoanees');
   };
 
-  const ViewMyCovLoanersss = () => {
-    navigation.navigate('ElimLnsCvLnrs');
+  const VwB2PMyLoaners = () => {
+    navigation.navigate('VwB2PMyLoaners');
   };
 
   const ViewMyNonCovLoaneess = () => {
@@ -68,12 +68,12 @@ const MyLoanAccount = props => {
     navigation.navigate('ElimLnsNonCvLnrs');
   };
 
-  const Vw2RepySMCovLnss = () => {
-    navigation.navigate('ElimRpySMCovs');
+  const SISgnInToBLB2P = () => {
+    navigation.navigate('SISgnInToBLB2P');
   };
 
-  const Vw2RepySMNonCovLnss = () => {
-    navigation.navigate('ElimRpySMNonCovs');
+  const SI2VwB2PLoanees = () => {
+    navigation.navigate('SI2VwB2PLoanees');
   };
 
   const Vw2BLCovSMLnss = () => {
@@ -130,223 +130,16 @@ const MyLoanAccount = props => {
         <ScrollView>
           
         <View style={styles.adminImage}>
-            <View style={styles.clientsView1}>
-              <Text style={styles.salesText}>Repay Loan</Text>
-
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Pal-Pal</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={Vw2RepySMCovLnss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={Vw2RepySMNonCovLnss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        Non-Covered Loans
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-            
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Credit Seller</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={Vw2RepyCredSlsCovLnss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Covered</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={Vw2RepyCredSlsNonCovLnss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        Non-Covered Loans
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Chama</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={Vw2RpyCovss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={Vw2RpyNonCovss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                      Non-Covered Loans
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-            </View>
           
- 
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>View Loan Repayments (LP)</Text>
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Pal-Pal</Text>
+          
 
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={ViewNonLnsSntSMss}
-                      style={styles.ClientsPressables2}>
-                      <Text style={styles.clientsPressableText}>Sent</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={ViewNonLnsRecSMss}
-                      style={styles.ClientsPressables2}>
-                      <Text style={styles.clientsPressableText}>
-                     Received
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-            
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Chama</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={ViewNonLnsSntChmss}
-                      style={styles.ClientsPressables2}>
-                      <Text style={styles.clientsPressableText}>Sent</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={ChamaSignIn2VwLnRpymntss}
-                      style={styles.ClientsPressables2}>
-                      <Text style={styles.clientsPressableText}>
-                      Received
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>CredSeller</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={ViewNonLnsSntCredSlrss}
-                      style={styles.ClientsPressables2}>
-                      <Text style={styles.clientsPressableText}>Sent</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={ViewNonLnsRecCredSlrss}
-                      style={styles.ClientsPressables2}>
-                      <Text style={styles.clientsPressableText}>
-                      Received
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-            </View>
 
             <View style={styles.clientsView}>
-              <Text style={styles.salesText}>View and Black List </Text>
+              <Text style={styles.salesText}>Loans </Text>
               <View style={styles.viewForClientsAndTitle}>
+
               <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>View CovLoan</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={ViewMyCovLoaneesss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>My Loanees</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={ViewMyCovLoanersss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                      My Loaners
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-            
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>View Non-Cov</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={ViewMyNonCovLoaneess}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>My Loanees</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={ViewMyNonCovLoanersss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                      My Loaners
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>BlackList</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={Vw2BLCovSMLnss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={Vw2BLSMNonCovss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        Non-Covered Loans
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-
-              </View>
-            </View>
-
-
-
-            <View style={styles.clientsView1}>
-              <Text style={styles.salesText}>View to Grant Loan Requests </Text>
-
-              <View style={styles.viewForClientsAndTitle}>
-              
-
-            
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>ViewLoanReq</Text>
+                  <Text style={styles.salesPressableText}>Grant Loan Requests</Text>
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
@@ -366,8 +159,56 @@ const MyLoanAccount = props => {
                 </View>
 
 
+              <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>BizLoanStatus</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={SI2VwB2PLoanees}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Company Loanees</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={VwB2PMyLoaners}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      Loaning Companies
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>PalLoanStatus</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={VwP2PMyLoanees}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>My Loanees</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={VwP2PMyLoaners}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                      My Loaners
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+               
+
+                
+
+
               </View>
             </View>
+
 
      
      </View>
