@@ -449,6 +449,8 @@ import BLCredPal2Pal from "../../screens/CredSls/BList/Pal2Pal";
 import ChmLoaneesDtls from "../../screens/Chama/ViewLns/GivenOut/LoaneesDtls";
 import ChmLoanersDtls from "../../screens/Chama/ViewLns/Received/LoanersDtls";
 
+import SgnIn2TransferBiz from "../../screens/CredSls/SgnIn2TransferBiz";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -460,6 +462,8 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />
 
+      <Stack.Screen name={'SgnIn2TransferBiz'} component={SgnIn2TransferBiz} />
+      
       <Stack.Screen name={'ChmLoaneesDtls'} component={ChmLoaneesDtls} />
       <Stack.Screen name={'ChmLoanersDtls'} component={ChmLoanersDtls} />
       

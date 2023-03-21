@@ -16,6 +16,8 @@ declare global {
       ChmLoanersDtls: {id:string};
       ChmLoaneesDtls: {id:string};
       
+      SgnIn2TransferBiz:undefined;
+      
       CredRPyBiz2Biz: {id:string};
       CredRPyBiz2Pal: {id:string};
       CredRPyPal2Biz: {id:string};
@@ -124,7 +126,7 @@ declare global {
       GrantBiz2PalCrdSl:{id:string};
       GrantBiz2BizCrdSl:{id:string};
       GrantPal2PalCrdSl:{id:string};
-      TakeOverBizna: {BusKntct:string};
+      TakeOverBizna: undefined;
       giveBizna: undefined;
       VwBusAc2TakeUp:{id:string};
 

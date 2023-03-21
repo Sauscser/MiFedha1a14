@@ -212,6 +212,16 @@ const SMADepositForm = props => {
             <Text style={styles.sendAmtText}>Chama Phone</Text>
           </View>
 
+          <View style={styles.sendAmtView}>
+            <TextInput
+          
+              value={amount}
+              onChangeText={setAmount}
+              style={styles.sendAmtInput}
+              editable={true}></TextInput>
+            <Text style={styles.sendAmtText}>Amount</Text>
+          </View>
+
           
 
           <View style={styles.sendAmtView}>

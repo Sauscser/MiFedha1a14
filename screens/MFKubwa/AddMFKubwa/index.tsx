@@ -30,6 +30,7 @@ const UpdtMFNPW = (props) => {
   const [NewAdmnPW, setNewAdmnPW] = useState("");
   const [OldAdmnPW, setOldAdmnPW] = useState("");
   const [OfferStatus, setOfferStatus] = useState("");
+  const [MFChamp, setMFChamp] = useState("");
   const[isLoading, setIsLoading] = useState(false);
   const[ownr, setownr] = useState(null);
   const[names, setName] = useState(null);
@@ -99,6 +100,7 @@ const UpdtMFNPW = (props) => {
                                                 acCost: NewAdmnPW,
                                                 amtPaid:SigntryPW,
                                                 mfnOffered: MFNS,
+                                                acChamp: MFChamp,
                                                 mfnReg: 0,
                                                 status:"AccountActive",
                                                 mfkAc: AdminID,
@@ -142,20 +144,33 @@ const UpdtMFNPW = (props) => {
               setAdminId("")
               setLnAcCod(" ");
               setMFNS(" ")
+              setMFChamp ("")
               setOfferStatus(" ")
           
             }
         
         useEffect(() =>{
-          const OfferStatuss=OfferStatus
-            if(!OfferStatuss && OfferStatuss!=="")
+          const MFChamps=MFChamp
+            if(!MFChamps && MFChamps!=="")
             {
-              setOfferStatus("");
+              setMFChamp("");
               return;
             }
-            setOfferStatus(OfferStatuss);
-            }, [OfferStatus]
+            setMFChamp(MFChamps);
+            }, [MFChamp]
              );
+
+             useEffect(() =>{
+              const OfferStatuss=OfferStatus
+                if(!OfferStatuss && OfferStatuss!=="")
+                {
+                  setOfferStatus("");
+                  return;
+                }
+                setOfferStatus(OfferStatuss);
+                }, [OfferStatus]
+                 );
+    
 
              useEffect(() =>{
               const LnAcCods=LnAcCod
@@ -244,6 +259,16 @@ const UpdtMFNPW = (props) => {
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>MFK Phone</Text>
+                  </View> 
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder="MFChamp Email"
+                      value={MFChamp}
+                      onChangeText={setMFChamp}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>MFChamp Email</Text>
                   </View> 
 
                   <View style={styles.sendLoanView}>

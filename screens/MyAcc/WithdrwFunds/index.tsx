@@ -182,10 +182,12 @@ const SMADepositForm = props => {
                   const sagentComs = compDtls.data.getCompany.sagentCom;
                   const companyComs = compDtls.data.getCompany.companyCom;
                   const UsrWthdrwlFeess = compDtls.data.getCompany.UsrWthdrwlFees;
+
+                  const ChampCom = compDtls.data.getCompany.ChampCom;
                   
 
                   
-                  const compCommission = parseFloat(companyComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+                  
 
                   
 
@@ -209,15 +211,29 @@ const SMADepositForm = props => {
                         );
                           const TtlEarningss = compDtls.data.getSAgent.TtlEarnings;
                           const saBalances = compDtls.data.getSAgent.saBalance;
+                          const acChamp = compDtls.data.getSAgent.acChamp;
                           const namessssssss = compDtls.data.getSAgent.name;
                           const MFKWithdrwlFees = compDtls.data.getSAgent.MFKWithdrwlFee;
                           const AgentCommission = (parseFloat(agentComs) - parseFloat(MFNWithdrwlFees))*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)                                                
                           const saCommission =    (parseFloat(sagentComs) - parseFloat(MFKWithdrwlFees))*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
                           const compCommission = parseFloat(companyComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+                          const ChampCommission = parseFloat(ChampCom)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
 
-                          const UsrWithdrawalFee = AgentCommission+saCommission+compCommission;
+                          const UsrWithdrawalFee = AgentCommission+saCommission+compCommission + ChampCommission;
 
                           const TTlAmtTrnsctd = parseFloat(amount) + UsrWithdrawalFee
+
+                          const gtMFChamp = async () =>{
+                            if(isLoading){
+                              return;
+                            }
+                            setIsLoading(true);
+                            try{
+                              const compDtlsx :any= await API.graphql(
+                              graphqlOperation(getSMAccount,{awsEmail:acChamp})
+                                );
+                                  const balancesx = compDtlsx.data.getSMAccount.balance;
+                                  
                           
                           const CrtFltAdd = async () => {
                             try {
@@ -367,8 +383,36 @@ const SMADepositForm = props => {
                                 return;}
                               }
                               setIsLoading(false);
+                              await onUpdtMFChamp();
                               Alert.alert(names + " has withdrawn Ksh. " + parseFloat(amount).toFixed(2) + " from " + namess + " MFNdogo");
                               }; 
+
+                              const onUpdtMFChamp = async () => {
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try {
+                                  await API.graphql(
+                                    graphqlOperation(updateSMAccount, {
+                                      input: {
+                                        awsemail: acChamp,
+                            
+                                        balance: (ChampCommission + balancesx).toFixed(0) ,
+                                        
+                                      },
+                                    }),
+                                  );
+                                }
+                  
+                                catch (error) {
+                                  console.log(error)
+                                  if (error){Alert.alert("Check internet Connection")
+                                  return;}
+                                }
+                                setIsLoading(false);
+                                
+                                }; 
                     
                     
                     if (TTlAmtTrnsctd > parseFloat(usrBala)) {
@@ -430,7 +474,17 @@ const SMADepositForm = props => {
                     setIsLoading(false);
                     };    
         
-                    await gtsaDtls();         
+                    await gtMFChamp();        
+                    
+                  } catch (error) {
+                    console.log(error)
+                if (error){Alert.alert("Check your internet connection")
+                        return;}
+                  }
+                  setIsLoading(false);
+                  };    
+      
+                  await gtsaDtls();      
             
             } catch (error) {
               console.log(error)

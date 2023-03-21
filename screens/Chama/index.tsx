@@ -246,6 +246,56 @@ const MyLoanAccount = props => {
               </View>
             </View>
 
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Members</Text>
+
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Registration</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={AddChmMembrssss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Reg</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={SgnIn2RemoveMmbrss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        De-Reg
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Money</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={MmbrSndChmsss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Contribute</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={ChamaSndMbrMneyss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                       Send to Member
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+              </View>
+            </View>
+          
+
 
       
         <View style={styles.clientsView2}>
@@ -354,55 +404,7 @@ const MyLoanAccount = props => {
             </View>
 
             
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Members</Text>
-
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Registration</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={AddChmMembrssss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Reg</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={SgnIn2RemoveMmbrss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        De-Reg
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
             
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Money</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={MmbrSndChmsss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Contribute</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={ChamaSndMbrMneyss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                       Send to Member
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-              </View>
-            </View>
-          
 
           
     </View> 

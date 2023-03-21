@@ -59,6 +59,7 @@ const SMADepositForm = props => {
       const pws = ChmDtl.data.getGroup.signitoryPW;
       const owners = ChmDtl.data.getGroup.owner;
       const names = ChmDtl.data.getGroup.grpName;
+      const WithdrawCnfrmtnAmt = ChmDtl.data.getGroup.WithdrawCnfrmtnAmt;
          
       
       const fetchAgtBal = async () => {
@@ -100,7 +101,8 @@ const SMADepositForm = props => {
                   const agentEarnings = compDtls.data.getCompany.agentEarning
                   const saEarningBals = compDtls.data.getCompany.saEarningBal
                   const saEarnings = compDtls.data.getCompany.saEarning
-                  const agentFloatIns = compDtls.data.getCompany.agentFloatIn                 
+                  const agentFloatIns = compDtls.data.getCompany.agentFloatIn     
+                  const ChampCom = compDtls.data.getCompany.ChampCom            
                   
                   const gtsaDtls = async () =>{
                     if(isLoading){
@@ -122,7 +124,22 @@ const SMADepositForm = props => {
                           const UsrWithdrawalFee = AgentCommission+saCommission;
 
                           const TTlAmtTrnsctd = parseFloat(amount) + UsrWithdrawalFee
-                          
+                          const acChamp = compDtls.data.getSAgent.acChamp;
+                          const ChampCommission = parseFloat(ChampCom)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+
+                          const gtMFChamp = async () =>{
+                            if(isLoading){
+                              return;
+                            }
+                            setIsLoading(true);
+                            try{
+                              const compDtlsx :any= await API.graphql(
+                              graphqlOperation(getSMAccount,{awsEmail:acChamp})
+                                );
+                                  const balancesx = compDtlsx.data.getSMAccount.balance;
+                                  
+
+
                           const CrtFltAdd = async () => {
                             try {
                               await API.graphql(
@@ -273,12 +290,46 @@ const SMADepositForm = props => {
                                 return;}
                               }
                               setIsLoading(false);
+                              await onUpdtMFChamp ()
                               Alert.alert(names + " has withdrawn Ksh. " + parseFloat(amount).toFixed(2) + " from " + namess + " MFNdogo");
                               }; 
+
+                              const onUpdtMFChamp = async () => {
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try {
+                                  await API.graphql(
+                                    graphqlOperation(updateSMAccount, {
+                                      input: {
+                                        awsemail: acChamp,
+                            
+                                        balance: (ChampCommission + balancesx).toFixed(0) ,
+                                        
+                                      },
+                                    }),
+                                  );
+                                }
+                  
+                                catch (error) {
+                                  console.log(error)
+                                  if (error){Alert.alert("Check internet Connection")
+                                  return;}
+                                }
+                                setIsLoading(false);
+                                
+                                }; 
+                    
                     
                     
                               if (WithdrawCnfrmtns==="NO") {
                                 Alert.alert("Let co-signitory confirm withdrawal first")
+                                return;
+                              } 
+
+                              else if (WithdrawCnfrmtnAmt !== parseFloat(amount)) {
+                                Alert.alert("Enter agreed amount")
                                 return;
                               } 
                               
@@ -312,6 +363,16 @@ const SMADepositForm = props => {
         
         
                     } catch (error) {
+                      console.log(error)
+                  if (error){Alert.alert("Check your internet connection")
+                          return;}
+                    }
+                    setIsLoading(false);
+                    };    
+        
+                    await gtMFChamp();      
+                  
+                  } catch (error) {
                       console.log(error)
                   if (error){Alert.alert("Check your internet connection")
                           return;}

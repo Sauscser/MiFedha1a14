@@ -52,7 +52,7 @@ const CreateBiz = (props) => {
    
     try {
       const accountDtl:any = await API.graphql(
-        graphqlOperation(getBizna, {BusKntct: route.params.BusKntct}),
+        graphqlOperation(getBizna, {BusKntct: Sign2Phn}),
       );
 
   
@@ -72,7 +72,7 @@ const CreateBiz = (props) => {
           graphqlOperation(updateBizna, {
           input: {
            
-            BusKntct:route.params.BusKntct,
+            BusKntct:Sign2Phn,
             
             email:userInfo.attributes.email,
             owner: userInfo.attributes.sub
@@ -86,7 +86,7 @@ const CreateBiz = (props) => {
               
             } catch (error) {
               if (error){
-                Alert.alert("Creation unsuccessful; Retry")
+                Alert.alert("Error; update app or call customer care")
                 return
               }
             
@@ -97,7 +97,7 @@ const CreateBiz = (props) => {
                      
 
                      if (owner2email !== userInfo.attributes.email)
-          {Alert.alert("Not yet transfered to you");
+          {Alert.alert("Bizna not yet transfered to you");
         
       } 
       
@@ -216,7 +216,42 @@ useEffect(() =>{
         
           return (
             <View>
-             
+              <View
+                 style={styles.image}>
+                <ScrollView>
+                  <View style={styles.loanTitleView}>
+                    <Text style={styles.title}>Fill Details Below</Text>
+                  </View>
+        
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder="+2547xxxxxxxx"
+                      value={Sign2Phn}
+                      onChangeText={setSign2Phn}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Business Phone</Text>
+                  </View>
+        
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                      value={pword}
+                      onChangeText={setPW}
+                      secureTextEntry = {true}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>User PassWord</Text>
+                  </View>
+        
+                  <TouchableOpacity
+                    onPress={fetchAcDtls}
+                    style={styles.sendLoanButton}>
+                    <Text style={styles.sendLoanButtonText}>
+                      Click to Receive
+                    </Text>
+                  </TouchableOpacity>
+                </ScrollView>
+              </View>
             </View>
           );
         };

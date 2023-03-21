@@ -86,7 +86,7 @@ const CreateBiz = (props) => {
               
             } catch (error) {
               if (error){
-                Alert.alert("Creation unsuccessful; Retry")
+                Alert.alert("Error!; Update app or call customer care")
                 return
               }
             

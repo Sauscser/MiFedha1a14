@@ -1263,6 +1263,7 @@ type Company
   sagentCom: Float!
   companyCom: Float!
   AdvCom: Float!
+  ChampCom: Float!
   AdvCompanyCom: Float!
   bankAdminCom: Float!
   sawithdrawalFee: Float!
@@ -1604,6 +1605,7 @@ type Group
   venture: String! @index(name: "byChmVenture", sortKeyFields: ["createdAt"], queryField: "ViaChmVenture")
   signitory2Sub: String!
   WithdrawCnfrmtn: String!
+   WithdrawCnfrmtnAmt: Float!
   
   grpEmail: String!
   grpBal: Float!

@@ -91,7 +91,7 @@ const RegisterMFKubwaAcForm = props => {
                     const amtPaid = UsrDtlsz.data.getMFKOfferz.amtPaid
 
                     const mfnOffered = UsrDtlsz.data.getMFKOfferz.mfnOffered
-                    const mfnReg = UsrDtlsz.data.getMFKOfferz.mfnReg
+                    const acChamp = UsrDtlsz.data.getMFKOfferz.acChamp
                     const mfkAc = UsrDtlsz.data.getMFKOfferz.mfkAc
                     const acMainAc = UsrDtlsz.data.getMFKOfferz.acMainAc
                   
@@ -117,6 +117,7 @@ const RegisterMFKubwaAcForm = props => {
                       offerStatus: offerStatus,
                       cost: acCost,
                       costBal: amtPaid,
+                      acChamp:acChamp,
                       actvMFNdog:0,
                       InctvMFNdog:0,
                       email: mfkAc,

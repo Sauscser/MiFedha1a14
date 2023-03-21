@@ -122,6 +122,13 @@ const MyLoanAccount = props => {
       navigation.navigate('PersonelVw2GrntB2B');
     };
   
+    const giveBizna = () => {
+      navigation.navigate('giveBizna');
+    };
+
+    const TakeOverBizna = () => {
+      navigation.navigate('TakeOverBizna');
+    };
     
   
 
@@ -443,6 +450,26 @@ const MyLoanAccount = props => {
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
                         Delete
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Ownership</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={giveBizna}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Transfer</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={TakeOverBizna}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Receive
                       </Text>
                     </Pressable>
                   </View>
