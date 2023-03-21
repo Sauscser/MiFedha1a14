@@ -48,40 +48,63 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
 
    const navigation = useNavigation();
    const SndChmMmbrMny = () => {
-      navigation.navigate ("VwB2PMyLoaneesDtld", {id})
+      navigation.navigate ("ViewNonLnsRecChm", {id})
    }
+
+   const VwRpayments = () => {
+      navigation.navigate ("VwB2PReceived", {id})
+   }
+
+   const Blacklist = () => {
+      navigation.navigate ("BLBiz2Pal", {id})
+   }
+
+   
+   
     return (
-        <Pressable style = {styles.container}>              
+        <View style = {{marginTop:"10%"}}>              
             
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.loanAdvert}>                       
-                       {/*loaner details */}   
-                       {loaneename}               
-                    </Text>
-            </View>
-             
-                     
-                       
-                        
+            <Pressable onPress={SndChmMmbrMny} style = {styles.container}>
             <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
+                     
+                       Loanee Name: {loaneename}               
+                    </Text>
+                  
+            <Text style = {styles.ownerName}>                       
+                       
                        Loan Id: {id}                 
                     </Text>
+                    <Text style = {styles.ownerName}>                       
+                      
+                       Loanee Contact: {loaneePhn}                 
+                    </Text>
 
-                    <Text style = {styles.interest}>                       
+                    <Text style = {styles.ownerName}>                       
                        {/* interest*/}
                        Loan Balance(Ksh): {lonBala.toFixed(2)}                    
                     </Text> 
 
-                    
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loanee Contact: {loaneePhn}                 
-                    </Text>
-                   
-       
-                
-        </Pressable>
+                    </Pressable>
+
+                    <View style = {styles.viewForPressables2}>
+                    <View>
+                    <Pressable
+                      onPress={VwRpayments}
+                      style = {styles.loanFriendButton}
+                      >            
+                        <Text>ViewRpymnts</Text>            
+                    </Pressable>
+                    </View>   
+                    <View>
+                    <Pressable
+                      onPress={Blacklist}
+                      style = {styles.loanFriendButton}>            
+                        <Text>BlackList</Text>            
+                    </Pressable>  
+                    </View>
+                     
+                    </View>
+        </View>
     );
 }; 
 
