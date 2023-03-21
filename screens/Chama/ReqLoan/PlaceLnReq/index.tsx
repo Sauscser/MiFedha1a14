@@ -246,7 +246,7 @@ const CreateBiz = (props) => {
             Communications.textWithoutEncoding(phonecontact,'MiFedha. Greetings! '
             + 'We ' + name + ', the loanee and ' + grpName + ', the Loaning Group humbly' +  
             ' request that you witness our loan contract on MiFedha app amounting to Ksh. '+
-            itemPrys + ' repayable as Ksh. ' + lnPrsntg + ' by the end of ' +rpymntPrd + 
+            itemPrys + ' repayable with ' + lnPrsntg + 'percentage by the end of ' +rpymntPrd + 
             ' days. Default penalty is Ksh. '+ ChmDesc + '. You can reach my loaner through '+ awsEmail +
              '. You can also reach me through ' +phonecontacts +'. Thank you.');
           };
@@ -267,13 +267,11 @@ const CreateBiz = (props) => {
       else if(compDtlsz.data.listChamaMembers.items.length < 1 )
       {Alert.alert("Such a member doesn't exist");
       return;}
-      else if (parseFloat(itemPrys) > parseFloat(lnPrsntg))
-      {Alert.alert("Repayment Amount cant be lesser than Loan");
-      return;}
+      
       else if ((DfltPnltyRate) > (RecomDfltPnltyRate))
       {Alert.alert("Enter Default Penalty less than Ksh. " + RecomDfltPnltyRate);
       return;}
-      else if (Int > 100){
+      else if (parseFloat(lnPrsntg) > 100){
         Alert.alert("Interest exploits you; enter lesser repayment amount");
         return;
       }
@@ -569,17 +567,17 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Loan Amount</Text>
                   </View>
 
-                  
                   <View style={styles.sendLoanView}>
                     <TextInput
                     keyboardType='decimal-pad'
-                    
+                    placeholder='Example: 8% write 8'
                       value={lnPrsntg}
                       onChangeText={setlnPrsntg}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Repayment Amount</Text>
+                    <Text style={styles.sendLoanText}>Monthly Interest rate</Text>
                   </View>
+
 
                   <View style={styles.sendLoanView}>
                     <TextInput

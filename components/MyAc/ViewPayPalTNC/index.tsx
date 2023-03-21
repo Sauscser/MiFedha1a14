@@ -31,7 +31,7 @@ const FetchSMNonCovLns = props => {
             setLoading(true);
             const userInfo = await Auth.currentAuthenticatedUser();
             try {
-              const Lonees = await API.graphql(graphqlOperation(listSMAccounts, 
+              const Lonees:any = await API.graphql(graphqlOperation(listSMAccounts, 
                 { filter: {
                     and: {
                       awsemail: { eq: userInfo.attributes.email},
@@ -47,7 +47,7 @@ const FetchSMNonCovLns = props => {
                 }
                 setIsLoading(true)
                 try{
-                  const compDtlsz = await API.graphql(
+                  const compDtlsz:any = await API.graphql(
                   graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
                     );
                     const nationality = compDtlsz.data.getSMAccount.nationality; 
@@ -59,11 +59,12 @@ const FetchSMNonCovLns = props => {
                         }
                         setIsLoading(true)
                         try{
-                          const compDtls = await API.graphql(
+                          const compDtls:any = await API.graphql(
                           graphqlOperation(getExRates,{cur:nationality})
                             );
                             setsellingPrice(compDtls.data.getExRates.sellingPrice)
                             setCur(compDtls.data.getExRates.symbol)
+                            const Cur2 = compDtls.data.getExRates.symbol
 
                               const gtCompDtls = async () =>{
                                 if(isLoading){
@@ -71,11 +72,11 @@ const FetchSMNonCovLns = props => {
                                 }
                                 setIsLoading(true);
                                 try{
-                                  const compDtlszx= await API.graphql(
+                                  const compDtlszx:any= await API.graphql(
                                     graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
                                     );
                                     
-                                    setRecom(compDtlszx.data.getCompany.recom);
+                                    setRecom(compDtlszx.data.getCompany.PayPalTNC);
                               
         
                                   } catch (error) {
@@ -111,12 +112,7 @@ const FetchSMNonCovLns = props => {
           
                       await gtExchangeRt(); 
 
-              if (Lonees.data.listSMAccounts.items.length < 1) {
-                PyPlDpst2();
-                
-                Alert.alert("Please first create a main account")
-                
-              }  
+              
 
 
             } catch (e) {

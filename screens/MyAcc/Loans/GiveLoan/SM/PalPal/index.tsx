@@ -87,23 +87,12 @@ const SMASendLns = props => {
               and: {
                 status: { eq: "LoanBL"},
                 lonBala: { gt: 0},
-                loaneePhn: { eq: userInfo.attributes.email},
+                loaneeEmail: { eq: userInfo.attributes.email},
               }
             }}
             ));
 
-            const fetchNCLSM = async () => {
-              setIsLoading(true);
-              try {
-                const Lonees2:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
-                  { filter: {
-                      and: {
-                        status: { eq: "LoanBL"},
-                lonBala: { gt: 0},
-                loaneePhn: { eq: userInfo.attributes.email},
-                      }
-                    }}
-                    ));
+            
         
                     const fetchCLCrdSl = async () => {
                       setIsLoading(true);
@@ -118,18 +107,7 @@ const SMASendLns = props => {
                             }}
                             ));
 
-                            const fetchNCLCrdSl = async () => {
-                              setIsLoading(true);
-                              try {
-                                const Lonees4:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
-                                  { filter: {
-                                      and: {
-                                        status: { eq: "LoanBL"},
-                                lonBala: { gt: 0},
-                                buyerContact: { eq: userInfo.attributes.email},
-                                      }
-                                    }}
-                                    ));
+                            
 
                                     const fetchCLChm = async () => {
                                       setIsLoading(true);
@@ -144,20 +122,7 @@ const SMASendLns = props => {
                                             }}
                                             ));
 
-                                            const fetchNCLChm = async () => {
-                                              setIsLoading(true);
-                                              try {
-                                                const Lonees6:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoans, 
-                                                  { filter: {
-                                                      and: {
-                                                        status: { eq: "LoanBL"},
-                                                lonBala: { gt: 0},
-                                                loaneePhn: { eq: userInfo.attributes.email},
-                                                      }
-                                                    }}
-                                                    ));
-
-
+                                            
 
     const fetchLnReq = async () => {
       if(isLoading){
@@ -286,15 +251,18 @@ const SMASendLns = props => {
           const lnTrnsfrFee = parseFloat(userLoanTransferFees)*parseFloat(amount);
           
           
-          const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + parseFloat(AmtExp);
+          
           const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount)  + parseFloat(amount);
 
           const AllTtlCost = TtlTransCost + (parseFloat(AmtExp)-parseFloat(amount));
 
-          const TotalAmtExp2 = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + parseFloat(AmtExp);
+          
           const TtlTransCost2 = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount)  + parseFloat(amount);
           const CompanyTotalEarnings2 = parseFloat(userLoanTransferFees)*parseFloat(amount)
-          
+          const amtrpayable2 = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod)
+          const amtrpayable = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod)
+          const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable;
+          const TotalAmtExp2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable2;
           
               
 
@@ -341,6 +309,7 @@ const SMASendLns = props => {
                                   amountgiven: parseFloat(amount).toFixed(0),
                                   loaneename:namess,
                                   loanername:names,
+                                  interest:AmtExp,
                                   amountexpected: TotalAmtExp2.toFixed(0),
                                   amountExpectedBackWthClrnc:TotalAmtExp2.toFixed(0),
                                   DefaultPenaltySM:defaultPenalty,
@@ -560,6 +529,7 @@ const SMASendLns = props => {
                                   timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
                                   timeExpBack2: 61 + daysUpToDate,
                                   dfltUpdate: daysUpToDate,
+                                  interest:AmtExp,
                                   lonBala:TotalAmtExp.toFixed(0),
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: advLicNo,
@@ -803,16 +773,13 @@ const SMASendLns = props => {
                         
                         else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
                         else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
-                          ||
-                          Lonees2.data.listSMLoansNonCovereds.items.length > 0 
+                          
                           ||
                           Lonees3.data.listCovCreditSellers.items.length > 0 
                           ||
-                          Lonees4.data.listNonCovCreditSellers.items.length > 0 
-                          ||
+                          
                           Lonees5.data.listCvrdGroupLoans.items.length > 0 
-                          ||
-                          Lonees6.data.listNonCvrdGroupLoans.items.length > 0 
+                          
                           
     
                         
@@ -865,17 +832,7 @@ return;}
 setIsLoading(false);       
 };
 await fetchLnReq();
-}     
-catch (e) {
-  console.log(e)
-  if (e){Alert.alert("Error!")
-  return;}
-     
-}   
-setIsLoading(false);
-};
 
-await fetchNCLChm();
 
 }     
 catch (e) {
@@ -889,17 +846,7 @@ setIsLoading(false);
 
 await fetchCLChm();
 
-}     
-catch (e) {
-  console.log(e)
-  if (e){Alert.alert("Error!")
-  return;}
-     
-}   
-setIsLoading(false);
-};
 
-await fetchNCLCrdSl();
 
 }     
 catch (e) {
@@ -913,17 +860,7 @@ setIsLoading(false);
 
 await fetchCLCrdSl();
 
-}     
-catch (e) {
-  console.log(e)
-  if (e){Alert.alert("Error!")
-  return;}
-     
-}   
-setIsLoading(false);
-};
 
-await fetchNCLSM();
       
     } catch (e) {
       console.log(e)
@@ -1060,7 +997,7 @@ useEffect(() =>{
          <TouchableOpacity
            onPress={fetchCvLnSM}
            style={styles.sendAmtButton}>
-           <Text style={styles.sendAmtButtonText}>Loan with Advocate Coverage</Text>
+           <Text style={styles.sendAmtButtonText}>Click to loan</Text>
            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
          </TouchableOpacity>
 

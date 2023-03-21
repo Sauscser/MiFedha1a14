@@ -62,37 +62,7 @@ const FetchSMCovLns = props => {
           }, []);
 
 
-          const fetchLoanees2 = async () => {
-            setLoading(true);
-            const userInfo = await Auth.currentAuthenticatedUser();
-            try {
-              const Lonees2:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
-                { 
-                  
-                  sortDirection: 'DESC',
-                  limit: 100,                
-                  filter: {                    
-                    loaneePhn: {eq: userInfo.attributes.email},
-                      lonBala:{gt:0},                      
-                      status:{eq:"LoanBL"}                      
-                    
-                  },
-                
-                  
-                }
-                  ));
-                  
-
-              setLoaneess(Lonees2.data.listSMLoansNonCovereds.items);
-            } catch (e) {
-              console.log(e);
-            } finally {
-              setLoading(false);
-            }
-          };
-          useEffect(() => {
-            fetchLoanees2();
-          }, []);
+         
 
           const fetchLoanees3 = async () => {
             setLoading(true);
@@ -126,37 +96,7 @@ const FetchSMCovLns = props => {
             fetchLoanees3();
           }, []);
 
-          const fetchLoanees4 = async () => {
-            setLoading(true);
-            const userInfo = await Auth.currentAuthenticatedUser();
-            try {
-              const Lonees4:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoans, 
-                { 
-                  
-                  sortDirection: 'DESC',
-                  limit: 100,                
-                  filter: {                    
-                    loaneePhn: {eq: userInfo.attributes.email},
-                      lonBala:{gt:0},                      
-                      status:{eq:"LoanBL"}                      
-                    
-                  },
-                
-                  
-                }
-                  ));
-                  
-
-              setLoanees4(Lonees4.data.listNonCvrdGroupLoans.items);
-            } catch (e) {
-              console.log(e);
-            } finally {
-              setLoading(false);
-            }
-          };
-          useEffect(() => {
-            fetchLoanees4();
-          }, []);
+          
 
           const fetchLoanees5 = async () => {
             setLoading(true);
@@ -190,37 +130,7 @@ const FetchSMCovLns = props => {
             fetchLoanees5();
           }, []);
 
-          const fetchLoanees6 = async () => {
-            setLoading(true);
-            const userInfo = await Auth.currentAuthenticatedUser();
-            try {
-              const Lonees6:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
-                { 
-                  
-                  sortDirection: 'DESC',
-                  limit: 100,                
-                  filter: {                    
-                    buyerContact: {eq: userInfo.attributes.email},
-                      lonBala:{gt:0},                      
-                      status:{eq:"LoanBL"}                      
-                    
-                  },
-                
-                  
-                }
-                  ));
-                  
-
-              setLoanees6(Lonees6.data.listNonCovCreditSellers.items);
-            } catch (e) {
-              console.log(e);
-            } finally {
-              setLoading(false);
-            }
-          };
-          useEffect(() => {
-            fetchLoanees6();
-          }, []);
+          
 
           
 
@@ -303,68 +213,17 @@ const FetchSMCovLns = props => {
 
       <View style={styles.loanTitleView1}>
       <View style={styles.loanTitleView}>
-      <View style={styles.root}>
-      <FlatList
-      style= {{width:"100%"}}
-        data={Loaneess}
-        renderItem={({item}) => <AutoNCVSM Loanee={item} />}
-        keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
-        refreshing={loading}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponentStyle={{alignItems: 'center'}}
-        ListHeaderComponent={() => (
-          <>
-            
-            
-          </>
-        )}
-      />
-    </View>
+      
         
       </View>
 
       <View style={styles.loanTitleView}>
-      <View style={styles.root}>
-      <FlatList
-      style= {{width:"100%"}}
-        data={Loanees4}
-        renderItem={({item}) => <AutoChmNonCov ChamaMmbrshpDtls={item} />}
-        keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
-        refreshing={loading}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponentStyle={{alignItems: 'center'}}
-        ListHeaderComponent={() => (
-          <>
-            
-            
-          </>
-        )}
-      />
-    </View>
+      
         
       </View>
 
       <View style={styles.loanTitleView}>
-      <View style={styles.root}>
-      <FlatList
-      style= {{width:"100%"}}
-        data={Loanees6}
-        renderItem={({item}) => <AutoCredSlNCV Loanee={item} />}
-        keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
-        refreshing={loading}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponentStyle={{alignItems: 'center'}}
-        ListHeaderComponent={() => (
-          <>
-            
-            
-          </>
-        )}
-      />
-    </View>
+      
         
       </View>
       </View>

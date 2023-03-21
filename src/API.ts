@@ -507,6 +507,7 @@ export type CreateSMLoansCoveredInput = {
   dfltUpdate?: string | null,
   amountrepaid: number,
   lonBala: number,
+  interest: number,
   loaneename: string,
   loanername: string,
   loanerEmail: string,
@@ -537,6 +538,7 @@ export type ModelSMLoansCoveredConditionInput = {
   dfltUpdate?: ModelStringInput | null,
   amountrepaid?: ModelFloatInput | null,
   lonBala?: ModelFloatInput | null,
+  interest?: ModelFloatInput | null,
   loaneename?: ModelStringInput | null,
   loanername?: ModelStringInput | null,
   loanerEmail?: ModelStringInput | null,
@@ -572,6 +574,7 @@ export type SMLoansCovered = {
   dfltUpdate?: string | null,
   amountrepaid: number,
   lonBala: number,
+  interest: number,
   loaneename: string,
   loanername: string,
   loanerEmail: string,
@@ -604,6 +607,7 @@ export type UpdateSMLoansCoveredInput = {
   dfltUpdate?: string | null,
   amountrepaid?: number | null,
   lonBala?: number | null,
+  interest?: number | null,
   loaneename?: string | null,
   loanername?: string | null,
   loanerEmail?: string | null,
@@ -861,66 +865,6 @@ export type UpdateSokoAdInput = {
 };
 
 export type DeleteSokoAdInput = {
-  id: string,
-};
-
-export type CreateSokoAd5Input = {
-  id?: string | null,
-  sokokntct: string,
-  sokoname: string,
-  sokoprice: number,
-  sokotown: string,
-  sokolnprcntg: number,
-  sokolpymntperiod: number,
-  sokodesc: string,
-  owner: string,
-  createdAt?: string | null,
-};
-
-export type ModelSokoAd5ConditionInput = {
-  sokokntct?: ModelStringInput | null,
-  sokoname?: ModelStringInput | null,
-  sokoprice?: ModelFloatInput | null,
-  sokotown?: ModelStringInput | null,
-  sokolnprcntg?: ModelFloatInput | null,
-  sokolpymntperiod?: ModelFloatInput | null,
-  sokodesc?: ModelStringInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelSokoAd5ConditionInput | null > | null,
-  or?: Array< ModelSokoAd5ConditionInput | null > | null,
-  not?: ModelSokoAd5ConditionInput | null,
-};
-
-export type SokoAd5 = {
-  __typename: "SokoAd5",
-  id: string,
-  sokokntct: string,
-  sokoname: string,
-  sokoprice: number,
-  sokotown: string,
-  sokolnprcntg: number,
-  sokolpymntperiod: number,
-  sokodesc: string,
-  owner: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateSokoAd5Input = {
-  id: string,
-  sokokntct?: string | null,
-  sokoname?: string | null,
-  sokoprice?: number | null,
-  sokotown?: string | null,
-  sokolnprcntg?: number | null,
-  sokolpymntperiod?: number | null,
-  sokodesc?: string | null,
-  owner?: string | null,
-  createdAt?: string | null,
-};
-
-export type DeleteSokoAd5Input = {
   id: string,
 };
 
@@ -1614,82 +1558,6 @@ export type DeleteBiznaInput = {
   BusKntct: string,
 };
 
-export type CreateBizna2Input = {
-  BusKntct: string,
-  busName: string,
-  pw: string,
-  TtlEarnings: number,
-  earningsBal: number,
-  netEarnings: number,
-  ownerEml?: string | null,
-  saleStts?: string | null,
-  noBL?: number | null,
-  email: string,
-  status: string,
-  owner: string,
-  description: string,
-  createdAt?: string | null,
-};
-
-export type ModelBizna2ConditionInput = {
-  busName?: ModelStringInput | null,
-  pw?: ModelStringInput | null,
-  TtlEarnings?: ModelFloatInput | null,
-  earningsBal?: ModelFloatInput | null,
-  netEarnings?: ModelFloatInput | null,
-  ownerEml?: ModelStringInput | null,
-  saleStts?: ModelStringInput | null,
-  noBL?: ModelFloatInput | null,
-  email?: ModelStringInput | null,
-  status?: ModelStringInput | null,
-  owner?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelBizna2ConditionInput | null > | null,
-  or?: Array< ModelBizna2ConditionInput | null > | null,
-  not?: ModelBizna2ConditionInput | null,
-};
-
-export type Bizna2 = {
-  __typename: "Bizna2",
-  BusKntct: string,
-  busName: string,
-  pw: string,
-  TtlEarnings: number,
-  earningsBal: number,
-  netEarnings: number,
-  ownerEml?: string | null,
-  saleStts?: string | null,
-  noBL?: number | null,
-  email: string,
-  status: string,
-  owner: string,
-  description: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateBizna2Input = {
-  BusKntct: string,
-  busName?: string | null,
-  pw?: string | null,
-  TtlEarnings?: number | null,
-  earningsBal?: number | null,
-  netEarnings?: number | null,
-  ownerEml?: string | null,
-  saleStts?: string | null,
-  noBL?: number | null,
-  email?: string | null,
-  status?: string | null,
-  owner?: string | null,
-  description?: string | null,
-  createdAt?: string | null,
-};
-
-export type DeleteBizna2Input = {
-  BusKntct: string,
-};
-
 export type CreateBankAdminInput = {
   nationalid: string,
   name: string,
@@ -1943,6 +1811,7 @@ export type CreateCompanyInput = {
   sagentCom: number,
   companyCom: number,
   AdvCom: number,
+  ChampCom: number,
   AdvCompanyCom: number,
   bankAdminCom: number,
   sawithdrawalFee: number,
@@ -2094,6 +1963,7 @@ export type ModelCompanyConditionInput = {
   sagentCom?: ModelFloatInput | null,
   companyCom?: ModelFloatInput | null,
   AdvCom?: ModelFloatInput | null,
+  ChampCom?: ModelFloatInput | null,
   AdvCompanyCom?: ModelFloatInput | null,
   bankAdminCom?: ModelFloatInput | null,
   sawithdrawalFee?: ModelFloatInput | null,
@@ -2250,6 +2120,7 @@ export type Company = {
   sagentCom: number,
   companyCom: number,
   AdvCom: number,
+  ChampCom: number,
   AdvCompanyCom: number,
   bankAdminCom: number,
   sawithdrawalFee: number,
@@ -2403,6 +2274,7 @@ export type UpdateCompanyInput = {
   sagentCom?: number | null,
   companyCom?: number | null,
   AdvCom?: number | null,
+  ChampCom?: number | null,
   AdvCompanyCom?: number | null,
   bankAdminCom?: number | null,
   sawithdrawalFee?: number | null,
@@ -2545,6 +2417,7 @@ export type DeleteCompanyInput = {
 export type CreateCovCreditSellerInput = {
   id?: string | null,
   itemName: string,
+  interest: number,
   loanerLoanee: string,
   loanerLoaneeAdv?: string | null,
   buyerContact: string,
@@ -2575,6 +2448,7 @@ export type CreateCovCreditSellerInput = {
 
 export type ModelCovCreditSellerConditionInput = {
   itemName?: ModelStringInput | null,
+  interest?: ModelFloatInput | null,
   loanerLoanee?: ModelStringInput | null,
   loanerLoaneeAdv?: ModelStringInput | null,
   buyerContact?: ModelStringInput | null,
@@ -2610,6 +2484,7 @@ export type CovCreditSeller = {
   __typename: "CovCreditSeller",
   id: string,
   itemName: string,
+  interest: number,
   loanerLoanee: string,
   loanerLoaneeAdv?: string | null,
   buyerContact: string,
@@ -2642,6 +2517,7 @@ export type CovCreditSeller = {
 export type UpdateCovCreditSellerInput = {
   id: string,
   itemName?: string | null,
+  interest?: number | null,
   loanerLoanee?: string | null,
   loanerLoaneeAdv?: string | null,
   buyerContact?: string | null,
@@ -2674,118 +2550,6 @@ export type DeleteCovCreditSellerInput = {
   id: string,
 };
 
-export type CreateNonCovCreditSellerInput = {
-  id?: string | null,
-  itemName: string,
-  loanerLoanee: string,
-  buyerContact: string,
-  sellerContact: string,
-  buyerID: string,
-  buyerName: string,
-  SellerName: string,
-  sellerID: string,
-  amountSold: number,
-  amountexpectedBack: number,
-  amountExpectedBackWthClrnc: number,
-  amountRepaid: number,
-  lonBala: number,
-  repaymentPeriod: number,
-  timeExpBack: number,
-  timeExpBack2: number,
-  description?: string | null,
-  DefaultPenaltyCredSl: number,
-  DefaultPenaltyCredSl2: number,
-  status: Status,
-  owner: string,
-  createdAt?: string | null,
-};
-
-export type ModelNonCovCreditSellerConditionInput = {
-  itemName?: ModelStringInput | null,
-  loanerLoanee?: ModelStringInput | null,
-  buyerContact?: ModelStringInput | null,
-  sellerContact?: ModelStringInput | null,
-  buyerID?: ModelStringInput | null,
-  buyerName?: ModelStringInput | null,
-  SellerName?: ModelStringInput | null,
-  sellerID?: ModelStringInput | null,
-  amountSold?: ModelFloatInput | null,
-  amountexpectedBack?: ModelFloatInput | null,
-  amountExpectedBackWthClrnc?: ModelFloatInput | null,
-  amountRepaid?: ModelFloatInput | null,
-  lonBala?: ModelFloatInput | null,
-  repaymentPeriod?: ModelFloatInput | null,
-  timeExpBack?: ModelFloatInput | null,
-  timeExpBack2?: ModelFloatInput | null,
-  description?: ModelStringInput | null,
-  DefaultPenaltyCredSl?: ModelFloatInput | null,
-  DefaultPenaltyCredSl2?: ModelFloatInput | null,
-  status?: ModelStatusInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelNonCovCreditSellerConditionInput | null > | null,
-  or?: Array< ModelNonCovCreditSellerConditionInput | null > | null,
-  not?: ModelNonCovCreditSellerConditionInput | null,
-};
-
-export type NonCovCreditSeller = {
-  __typename: "NonCovCreditSeller",
-  id: string,
-  itemName: string,
-  loanerLoanee: string,
-  buyerContact: string,
-  sellerContact: string,
-  buyerID: string,
-  buyerName: string,
-  SellerName: string,
-  sellerID: string,
-  amountSold: number,
-  amountexpectedBack: number,
-  amountExpectedBackWthClrnc: number,
-  amountRepaid: number,
-  lonBala: number,
-  repaymentPeriod: number,
-  timeExpBack: number,
-  timeExpBack2: number,
-  description?: string | null,
-  DefaultPenaltyCredSl: number,
-  DefaultPenaltyCredSl2: number,
-  status: Status,
-  owner: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateNonCovCreditSellerInput = {
-  id: string,
-  itemName?: string | null,
-  loanerLoanee?: string | null,
-  buyerContact?: string | null,
-  sellerContact?: string | null,
-  buyerID?: string | null,
-  buyerName?: string | null,
-  SellerName?: string | null,
-  sellerID?: string | null,
-  amountSold?: number | null,
-  amountexpectedBack?: number | null,
-  amountExpectedBackWthClrnc?: number | null,
-  amountRepaid?: number | null,
-  lonBala?: number | null,
-  repaymentPeriod?: number | null,
-  timeExpBack?: number | null,
-  timeExpBack2?: number | null,
-  description?: string | null,
-  DefaultPenaltyCredSl?: number | null,
-  DefaultPenaltyCredSl2?: number | null,
-  status?: Status | null,
-  owner?: string | null,
-  createdAt?: string | null,
-};
-
-export type DeleteNonCovCreditSellerInput = {
-  id: string,
-};
-
 export type CreateGroupInput = {
   grpContact: string,
   regNo: string,
@@ -2798,6 +2562,7 @@ export type CreateGroupInput = {
   venture: string,
   signitory2Sub: string,
   WithdrawCnfrmtn: string,
+  WithdrawCnfrmtnAmt: number,
   grpEmail: string,
   grpBal: number,
   ttlGrpMembers: number,
@@ -2836,6 +2601,7 @@ export type ModelGroupConditionInput = {
   venture?: ModelStringInput | null,
   signitory2Sub?: ModelStringInput | null,
   WithdrawCnfrmtn?: ModelStringInput | null,
+  WithdrawCnfrmtnAmt?: ModelFloatInput | null,
   grpEmail?: ModelStringInput | null,
   grpBal?: ModelFloatInput | null,
   ttlGrpMembers?: ModelFloatInput | null,
@@ -2879,6 +2645,7 @@ export type Group = {
   venture: string,
   signitory2Sub: string,
   WithdrawCnfrmtn: string,
+  WithdrawCnfrmtnAmt: number,
   grpEmail: string,
   grpBal: number,
   ttlGrpMembers: number,
@@ -2919,6 +2686,7 @@ export type UpdateGroupInput = {
   venture?: string | null,
   signitory2Sub?: string | null,
   WithdrawCnfrmtn?: string | null,
+  WithdrawCnfrmtnAmt?: number | null,
   grpEmail?: string | null,
   grpBal?: number | null,
   ttlGrpMembers?: number | null,
@@ -3142,6 +2910,7 @@ export type CreateCvrdGroupLoansInput = {
   loanerLoanee: string,
   loanerLoaneeAdv?: string | null,
   amountGiven: number,
+  interest: number,
   advEmail?: string | null,
   amountExpectedBack: number,
   amountExpectedBackWthClrnc: number,
@@ -3169,6 +2938,7 @@ export type ModelCvrdGroupLoansConditionInput = {
   loanerLoanee?: ModelStringInput | null,
   loanerLoaneeAdv?: ModelStringInput | null,
   amountGiven?: ModelFloatInput | null,
+  interest?: ModelFloatInput | null,
   advEmail?: ModelStringInput | null,
   amountExpectedBack?: ModelFloatInput | null,
   amountExpectedBackWthClrnc?: ModelFloatInput | null,
@@ -3201,6 +2971,7 @@ export type CvrdGroupLoans = {
   loanerLoanee: string,
   loanerLoaneeAdv?: string | null,
   amountGiven: number,
+  interest: number,
   advEmail?: string | null,
   amountExpectedBack: number,
   amountExpectedBackWthClrnc: number,
@@ -3230,6 +3001,7 @@ export type UpdateCvrdGroupLoansInput = {
   loanerLoanee?: string | null,
   loanerLoaneeAdv?: string | null,
   amountGiven?: number | null,
+  interest?: number | null,
   advEmail?: string | null,
   amountExpectedBack?: number | null,
   amountExpectedBackWthClrnc?: number | null,
@@ -3251,110 +3023,6 @@ export type UpdateCvrdGroupLoansInput = {
 };
 
 export type DeleteCvrdGroupLoansInput = {
-  id: string,
-};
-
-export type CreateNonCvrdGroupLoansInput = {
-  id?: string | null,
-  grpContact: string,
-  loaneePhn: string,
-  loanerLoanee: string,
-  DefaultPenaltyChm: number,
-  DefaultPenaltyChm2: number,
-  repaymentPeriod: number,
-  amountGiven: number,
-  amountExpectedBack: number,
-  amountExpectedBackWthClrnc: number,
-  amountRepaid: number,
-  timeExpBack: number,
-  timeExpBack2: number,
-  description?: string | null,
-  loaneeName: string,
-  loanerName: string,
-  memberId: string,
-  lonBala: number,
-  status: Status,
-  owner: string,
-  createdAt?: string | null,
-};
-
-export type ModelNonCvrdGroupLoansConditionInput = {
-  grpContact?: ModelStringInput | null,
-  loaneePhn?: ModelStringInput | null,
-  loanerLoanee?: ModelStringInput | null,
-  DefaultPenaltyChm?: ModelFloatInput | null,
-  DefaultPenaltyChm2?: ModelFloatInput | null,
-  repaymentPeriod?: ModelFloatInput | null,
-  amountGiven?: ModelFloatInput | null,
-  amountExpectedBack?: ModelFloatInput | null,
-  amountExpectedBackWthClrnc?: ModelFloatInput | null,
-  amountRepaid?: ModelFloatInput | null,
-  timeExpBack?: ModelFloatInput | null,
-  timeExpBack2?: ModelFloatInput | null,
-  description?: ModelStringInput | null,
-  loaneeName?: ModelStringInput | null,
-  loanerName?: ModelStringInput | null,
-  memberId?: ModelStringInput | null,
-  lonBala?: ModelFloatInput | null,
-  status?: ModelStatusInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelNonCvrdGroupLoansConditionInput | null > | null,
-  or?: Array< ModelNonCvrdGroupLoansConditionInput | null > | null,
-  not?: ModelNonCvrdGroupLoansConditionInput | null,
-};
-
-export type NonCvrdGroupLoans = {
-  __typename: "NonCvrdGroupLoans",
-  id: string,
-  grpContact: string,
-  loaneePhn: string,
-  loanerLoanee: string,
-  DefaultPenaltyChm: number,
-  DefaultPenaltyChm2: number,
-  repaymentPeriod: number,
-  amountGiven: number,
-  amountExpectedBack: number,
-  amountExpectedBackWthClrnc: number,
-  amountRepaid: number,
-  timeExpBack: number,
-  timeExpBack2: number,
-  description?: string | null,
-  loaneeName: string,
-  loanerName: string,
-  memberId: string,
-  lonBala: number,
-  status: Status,
-  owner: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateNonCvrdGroupLoansInput = {
-  id: string,
-  grpContact?: string | null,
-  loaneePhn?: string | null,
-  loanerLoanee?: string | null,
-  DefaultPenaltyChm?: number | null,
-  DefaultPenaltyChm2?: number | null,
-  repaymentPeriod?: number | null,
-  amountGiven?: number | null,
-  amountExpectedBack?: number | null,
-  amountExpectedBackWthClrnc?: number | null,
-  amountRepaid?: number | null,
-  timeExpBack?: number | null,
-  timeExpBack2?: number | null,
-  description?: string | null,
-  loaneeName?: string | null,
-  loanerName?: string | null,
-  memberId?: string | null,
-  lonBala?: number | null,
-  status?: Status | null,
-  owner?: string | null,
-  createdAt?: string | null,
-};
-
-export type DeleteNonCvrdGroupLoansInput = {
   id: string,
 };
 
@@ -3999,6 +3667,7 @@ export type ModelSMLoansCoveredFilterInput = {
   dfltUpdate?: ModelStringInput | null,
   amountrepaid?: ModelFloatInput | null,
   lonBala?: ModelFloatInput | null,
+  interest?: ModelFloatInput | null,
   loaneename?: ModelStringInput | null,
   loanername?: ModelStringInput | null,
   loanerEmail?: ModelStringInput | null,
@@ -4118,28 +3787,6 @@ export type ModelSokoAdFilterInput = {
 export type ModelSokoAdConnection = {
   __typename: "ModelSokoAdConnection",
   items:  Array<SokoAd | null >,
-  nextToken?: string | null,
-};
-
-export type ModelSokoAd5FilterInput = {
-  id?: ModelIDInput | null,
-  sokokntct?: ModelStringInput | null,
-  sokoname?: ModelStringInput | null,
-  sokoprice?: ModelFloatInput | null,
-  sokotown?: ModelStringInput | null,
-  sokolnprcntg?: ModelFloatInput | null,
-  sokolpymntperiod?: ModelFloatInput | null,
-  sokodesc?: ModelStringInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelSokoAd5FilterInput | null > | null,
-  or?: Array< ModelSokoAd5FilterInput | null > | null,
-  not?: ModelSokoAd5FilterInput | null,
-};
-
-export type ModelSokoAd5Connection = {
-  __typename: "ModelSokoAd5Connection",
-  items:  Array<SokoAd5 | null >,
   nextToken?: string | null,
 };
 
@@ -4385,32 +4032,6 @@ export type ModelBiznaConnection = {
   nextToken?: string | null,
 };
 
-export type ModelBizna2FilterInput = {
-  BusKntct?: ModelStringInput | null,
-  busName?: ModelStringInput | null,
-  pw?: ModelStringInput | null,
-  TtlEarnings?: ModelFloatInput | null,
-  earningsBal?: ModelFloatInput | null,
-  netEarnings?: ModelFloatInput | null,
-  ownerEml?: ModelStringInput | null,
-  saleStts?: ModelStringInput | null,
-  noBL?: ModelFloatInput | null,
-  email?: ModelStringInput | null,
-  status?: ModelStringInput | null,
-  owner?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelBizna2FilterInput | null > | null,
-  or?: Array< ModelBizna2FilterInput | null > | null,
-  not?: ModelBizna2FilterInput | null,
-};
-
-export type ModelBizna2Connection = {
-  __typename: "ModelBizna2Connection",
-  items:  Array<Bizna2 | null >,
-  nextToken?: string | null,
-};
-
 export type ModelBankAdminFilterInput = {
   nationalid?: ModelStringInput | null,
   name?: ModelStringInput | null,
@@ -4515,6 +4136,7 @@ export type ModelCompanyFilterInput = {
   sagentCom?: ModelFloatInput | null,
   companyCom?: ModelFloatInput | null,
   AdvCom?: ModelFloatInput | null,
+  ChampCom?: ModelFloatInput | null,
   AdvCompanyCom?: ModelFloatInput | null,
   bankAdminCom?: ModelFloatInput | null,
   sawithdrawalFee?: ModelFloatInput | null,
@@ -4662,6 +4284,7 @@ export type ModelCompanyConnection = {
 export type ModelCovCreditSellerFilterInput = {
   id?: ModelIDInput | null,
   itemName?: ModelStringInput | null,
+  interest?: ModelFloatInput | null,
   loanerLoanee?: ModelStringInput | null,
   loanerLoaneeAdv?: ModelStringInput | null,
   buyerContact?: ModelStringInput | null,
@@ -4699,41 +4322,6 @@ export type ModelCovCreditSellerConnection = {
   nextToken?: string | null,
 };
 
-export type ModelNonCovCreditSellerFilterInput = {
-  id?: ModelIDInput | null,
-  itemName?: ModelStringInput | null,
-  loanerLoanee?: ModelStringInput | null,
-  buyerContact?: ModelStringInput | null,
-  sellerContact?: ModelStringInput | null,
-  buyerID?: ModelStringInput | null,
-  buyerName?: ModelStringInput | null,
-  SellerName?: ModelStringInput | null,
-  sellerID?: ModelStringInput | null,
-  amountSold?: ModelFloatInput | null,
-  amountexpectedBack?: ModelFloatInput | null,
-  amountExpectedBackWthClrnc?: ModelFloatInput | null,
-  amountRepaid?: ModelFloatInput | null,
-  lonBala?: ModelFloatInput | null,
-  repaymentPeriod?: ModelFloatInput | null,
-  timeExpBack?: ModelFloatInput | null,
-  timeExpBack2?: ModelFloatInput | null,
-  description?: ModelStringInput | null,
-  DefaultPenaltyCredSl?: ModelFloatInput | null,
-  DefaultPenaltyCredSl2?: ModelFloatInput | null,
-  status?: ModelStatusInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelNonCovCreditSellerFilterInput | null > | null,
-  or?: Array< ModelNonCovCreditSellerFilterInput | null > | null,
-  not?: ModelNonCovCreditSellerFilterInput | null,
-};
-
-export type ModelNonCovCreditSellerConnection = {
-  __typename: "ModelNonCovCreditSellerConnection",
-  items:  Array<NonCovCreditSeller | null >,
-  nextToken?: string | null,
-};
-
 export type ModelGroupFilterInput = {
   grpContact?: ModelStringInput | null,
   regNo?: ModelStringInput | null,
@@ -4746,6 +4334,7 @@ export type ModelGroupFilterInput = {
   venture?: ModelStringInput | null,
   signitory2Sub?: ModelStringInput | null,
   WithdrawCnfrmtn?: ModelStringInput | null,
+  WithdrawCnfrmtnAmt?: ModelFloatInput | null,
   grpEmail?: ModelStringInput | null,
   grpBal?: ModelFloatInput | null,
   ttlGrpMembers?: ModelFloatInput | null,
@@ -4857,6 +4446,7 @@ export type ModelCvrdGroupLoansFilterInput = {
   loanerLoanee?: ModelStringInput | null,
   loanerLoaneeAdv?: ModelStringInput | null,
   amountGiven?: ModelFloatInput | null,
+  interest?: ModelFloatInput | null,
   advEmail?: ModelStringInput | null,
   amountExpectedBack?: ModelFloatInput | null,
   amountExpectedBackWthClrnc?: ModelFloatInput | null,
@@ -4883,39 +4473,6 @@ export type ModelCvrdGroupLoansFilterInput = {
 export type ModelCvrdGroupLoansConnection = {
   __typename: "ModelCvrdGroupLoansConnection",
   items:  Array<CvrdGroupLoans | null >,
-  nextToken?: string | null,
-};
-
-export type ModelNonCvrdGroupLoansFilterInput = {
-  id?: ModelIDInput | null,
-  grpContact?: ModelStringInput | null,
-  loaneePhn?: ModelStringInput | null,
-  loanerLoanee?: ModelStringInput | null,
-  DefaultPenaltyChm?: ModelFloatInput | null,
-  DefaultPenaltyChm2?: ModelFloatInput | null,
-  repaymentPeriod?: ModelFloatInput | null,
-  amountGiven?: ModelFloatInput | null,
-  amountExpectedBack?: ModelFloatInput | null,
-  amountExpectedBackWthClrnc?: ModelFloatInput | null,
-  amountRepaid?: ModelFloatInput | null,
-  timeExpBack?: ModelFloatInput | null,
-  timeExpBack2?: ModelFloatInput | null,
-  description?: ModelStringInput | null,
-  loaneeName?: ModelStringInput | null,
-  loanerName?: ModelStringInput | null,
-  memberId?: ModelStringInput | null,
-  lonBala?: ModelFloatInput | null,
-  status?: ModelStatusInput | null,
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  and?: Array< ModelNonCvrdGroupLoansFilterInput | null > | null,
-  or?: Array< ModelNonCvrdGroupLoansFilterInput | null > | null,
-  not?: ModelNonCvrdGroupLoansFilterInput | null,
-};
-
-export type ModelNonCvrdGroupLoansConnection = {
-  __typename: "ModelNonCvrdGroupLoansConnection",
-  items:  Array<NonCvrdGroupLoans | null >,
   nextToken?: string | null,
 };
 
@@ -5246,6 +4803,7 @@ export type ModelSubscriptionSMLoansCoveredFilterInput = {
   dfltUpdate?: ModelSubscriptionStringInput | null,
   amountrepaid?: ModelSubscriptionFloatInput | null,
   lonBala?: ModelSubscriptionFloatInput | null,
+  interest?: ModelSubscriptionFloatInput | null,
   loaneename?: ModelSubscriptionStringInput | null,
   loanername?: ModelSubscriptionStringInput | null,
   loanerEmail?: ModelSubscriptionStringInput | null,
@@ -5333,20 +4891,6 @@ export type ModelSubscriptionSokoAdFilterInput = {
   createdAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSokoAdFilterInput | null > | null,
   or?: Array< ModelSubscriptionSokoAdFilterInput | null > | null,
-};
-
-export type ModelSubscriptionSokoAd5FilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  sokokntct?: ModelSubscriptionStringInput | null,
-  sokoname?: ModelSubscriptionStringInput | null,
-  sokoprice?: ModelSubscriptionFloatInput | null,
-  sokotown?: ModelSubscriptionStringInput | null,
-  sokolnprcntg?: ModelSubscriptionFloatInput | null,
-  sokolpymntperiod?: ModelSubscriptionFloatInput | null,
-  sokodesc?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionSokoAd5FilterInput | null > | null,
-  or?: Array< ModelSubscriptionSokoAd5FilterInput | null > | null,
 };
 
 export type ModelSubscriptionRafikiLnAdFilterInput = {
@@ -5514,24 +5058,6 @@ export type ModelSubscriptionBiznaFilterInput = {
   or?: Array< ModelSubscriptionBiznaFilterInput | null > | null,
 };
 
-export type ModelSubscriptionBizna2FilterInput = {
-  BusKntct?: ModelSubscriptionStringInput | null,
-  busName?: ModelSubscriptionStringInput | null,
-  pw?: ModelSubscriptionStringInput | null,
-  TtlEarnings?: ModelSubscriptionFloatInput | null,
-  earningsBal?: ModelSubscriptionFloatInput | null,
-  netEarnings?: ModelSubscriptionFloatInput | null,
-  ownerEml?: ModelSubscriptionStringInput | null,
-  saleStts?: ModelSubscriptionStringInput | null,
-  noBL?: ModelSubscriptionFloatInput | null,
-  email?: ModelSubscriptionStringInput | null,
-  status?: ModelSubscriptionStringInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionBizna2FilterInput | null > | null,
-  or?: Array< ModelSubscriptionBizna2FilterInput | null > | null,
-};
-
 export type ModelSubscriptionBankAdminFilterInput = {
   nationalid?: ModelSubscriptionStringInput | null,
   name?: ModelSubscriptionStringInput | null,
@@ -5604,6 +5130,7 @@ export type ModelSubscriptionCompanyFilterInput = {
   sagentCom?: ModelSubscriptionFloatInput | null,
   companyCom?: ModelSubscriptionFloatInput | null,
   AdvCom?: ModelSubscriptionFloatInput | null,
+  ChampCom?: ModelSubscriptionFloatInput | null,
   AdvCompanyCom?: ModelSubscriptionFloatInput | null,
   bankAdminCom?: ModelSubscriptionFloatInput | null,
   sawithdrawalFee?: ModelSubscriptionFloatInput | null,
@@ -5743,6 +5270,7 @@ export type ModelSubscriptionCompanyFilterInput = {
 export type ModelSubscriptionCovCreditSellerFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   itemName?: ModelSubscriptionStringInput | null,
+  interest?: ModelSubscriptionFloatInput | null,
   loanerLoanee?: ModelSubscriptionStringInput | null,
   loanerLoaneeAdv?: ModelSubscriptionStringInput | null,
   buyerContact?: ModelSubscriptionStringInput | null,
@@ -5772,33 +5300,6 @@ export type ModelSubscriptionCovCreditSellerFilterInput = {
   or?: Array< ModelSubscriptionCovCreditSellerFilterInput | null > | null,
 };
 
-export type ModelSubscriptionNonCovCreditSellerFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  itemName?: ModelSubscriptionStringInput | null,
-  loanerLoanee?: ModelSubscriptionStringInput | null,
-  buyerContact?: ModelSubscriptionStringInput | null,
-  sellerContact?: ModelSubscriptionStringInput | null,
-  buyerID?: ModelSubscriptionStringInput | null,
-  buyerName?: ModelSubscriptionStringInput | null,
-  SellerName?: ModelSubscriptionStringInput | null,
-  sellerID?: ModelSubscriptionStringInput | null,
-  amountSold?: ModelSubscriptionFloatInput | null,
-  amountexpectedBack?: ModelSubscriptionFloatInput | null,
-  amountExpectedBackWthClrnc?: ModelSubscriptionFloatInput | null,
-  amountRepaid?: ModelSubscriptionFloatInput | null,
-  lonBala?: ModelSubscriptionFloatInput | null,
-  repaymentPeriod?: ModelSubscriptionFloatInput | null,
-  timeExpBack?: ModelSubscriptionFloatInput | null,
-  timeExpBack2?: ModelSubscriptionFloatInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  DefaultPenaltyCredSl?: ModelSubscriptionFloatInput | null,
-  DefaultPenaltyCredSl2?: ModelSubscriptionFloatInput | null,
-  status?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionNonCovCreditSellerFilterInput | null > | null,
-  or?: Array< ModelSubscriptionNonCovCreditSellerFilterInput | null > | null,
-};
-
 export type ModelSubscriptionGroupFilterInput = {
   grpContact?: ModelSubscriptionStringInput | null,
   regNo?: ModelSubscriptionStringInput | null,
@@ -5811,6 +5312,7 @@ export type ModelSubscriptionGroupFilterInput = {
   venture?: ModelSubscriptionStringInput | null,
   signitory2Sub?: ModelSubscriptionStringInput | null,
   WithdrawCnfrmtn?: ModelSubscriptionStringInput | null,
+  WithdrawCnfrmtnAmt?: ModelSubscriptionFloatInput | null,
   grpEmail?: ModelSubscriptionStringInput | null,
   grpBal?: ModelSubscriptionFloatInput | null,
   ttlGrpMembers?: ModelSubscriptionFloatInput | null,
@@ -5891,6 +5393,7 @@ export type ModelSubscriptionCvrdGroupLoansFilterInput = {
   loanerLoanee?: ModelSubscriptionStringInput | null,
   loanerLoaneeAdv?: ModelSubscriptionStringInput | null,
   amountGiven?: ModelSubscriptionFloatInput | null,
+  interest?: ModelSubscriptionFloatInput | null,
   advEmail?: ModelSubscriptionStringInput | null,
   amountExpectedBack?: ModelSubscriptionFloatInput | null,
   amountExpectedBackWthClrnc?: ModelSubscriptionFloatInput | null,
@@ -5910,31 +5413,6 @@ export type ModelSubscriptionCvrdGroupLoansFilterInput = {
   createdAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCvrdGroupLoansFilterInput | null > | null,
   or?: Array< ModelSubscriptionCvrdGroupLoansFilterInput | null > | null,
-};
-
-export type ModelSubscriptionNonCvrdGroupLoansFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  grpContact?: ModelSubscriptionStringInput | null,
-  loaneePhn?: ModelSubscriptionStringInput | null,
-  loanerLoanee?: ModelSubscriptionStringInput | null,
-  DefaultPenaltyChm?: ModelSubscriptionFloatInput | null,
-  DefaultPenaltyChm2?: ModelSubscriptionFloatInput | null,
-  repaymentPeriod?: ModelSubscriptionFloatInput | null,
-  amountGiven?: ModelSubscriptionFloatInput | null,
-  amountExpectedBack?: ModelSubscriptionFloatInput | null,
-  amountExpectedBackWthClrnc?: ModelSubscriptionFloatInput | null,
-  amountRepaid?: ModelSubscriptionFloatInput | null,
-  timeExpBack?: ModelSubscriptionFloatInput | null,
-  timeExpBack2?: ModelSubscriptionFloatInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  loaneeName?: ModelSubscriptionStringInput | null,
-  loanerName?: ModelSubscriptionStringInput | null,
-  memberId?: ModelSubscriptionStringInput | null,
-  lonBala?: ModelSubscriptionFloatInput | null,
-  status?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionNonCvrdGroupLoansFilterInput | null > | null,
-  or?: Array< ModelSubscriptionNonCvrdGroupLoansFilterInput | null > | null,
 };
 
 export type ModelSubscriptionGroupNonLoansFilterInput = {
@@ -6400,6 +5878,7 @@ export type CreateSMLoansCoveredMutation = {
     dfltUpdate?: string | null,
     amountrepaid: number,
     lonBala: number,
+    interest: number,
     loaneename: string,
     loanername: string,
     loanerEmail: string,
@@ -6440,6 +5919,7 @@ export type UpdateSMLoansCoveredMutation = {
     dfltUpdate?: string | null,
     amountrepaid: number,
     lonBala: number,
+    interest: number,
     loaneename: string,
     loanername: string,
     loanerEmail: string,
@@ -6480,6 +5960,7 @@ export type DeleteSMLoansCoveredMutation = {
     dfltUpdate?: string | null,
     amountrepaid: number,
     lonBala: number,
+    interest: number,
     loaneename: string,
     loanername: string,
     loanerEmail: string,
@@ -6727,72 +6208,6 @@ export type DeleteSokoAdMutationVariables = {
 export type DeleteSokoAdMutation = {
   deleteSokoAd?:  {
     __typename: "SokoAd",
-    id: string,
-    sokokntct: string,
-    sokoname: string,
-    sokoprice: number,
-    sokotown: string,
-    sokolnprcntg: number,
-    sokolpymntperiod: number,
-    sokodesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateSokoAd5MutationVariables = {
-  input: CreateSokoAd5Input,
-  condition?: ModelSokoAd5ConditionInput | null,
-};
-
-export type CreateSokoAd5Mutation = {
-  createSokoAd5?:  {
-    __typename: "SokoAd5",
-    id: string,
-    sokokntct: string,
-    sokoname: string,
-    sokoprice: number,
-    sokotown: string,
-    sokolnprcntg: number,
-    sokolpymntperiod: number,
-    sokodesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateSokoAd5MutationVariables = {
-  input: UpdateSokoAd5Input,
-  condition?: ModelSokoAd5ConditionInput | null,
-};
-
-export type UpdateSokoAd5Mutation = {
-  updateSokoAd5?:  {
-    __typename: "SokoAd5",
-    id: string,
-    sokokntct: string,
-    sokoname: string,
-    sokoprice: number,
-    sokotown: string,
-    sokolnprcntg: number,
-    sokolpymntperiod: number,
-    sokodesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteSokoAd5MutationVariables = {
-  input: DeleteSokoAd5Input,
-  condition?: ModelSokoAd5ConditionInput | null,
-};
-
-export type DeleteSokoAd5Mutation = {
-  deleteSokoAd5?:  {
-    __typename: "SokoAd5",
     id: string,
     sokokntct: string,
     sokoname: string,
@@ -7539,84 +6954,6 @@ export type DeleteBiznaMutation = {
   } | null,
 };
 
-export type CreateBizna2MutationVariables = {
-  input: CreateBizna2Input,
-  condition?: ModelBizna2ConditionInput | null,
-};
-
-export type CreateBizna2Mutation = {
-  createBizna2?:  {
-    __typename: "Bizna2",
-    BusKntct: string,
-    busName: string,
-    pw: string,
-    TtlEarnings: number,
-    earningsBal: number,
-    netEarnings: number,
-    ownerEml?: string | null,
-    saleStts?: string | null,
-    noBL?: number | null,
-    email: string,
-    status: string,
-    owner: string,
-    description: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateBizna2MutationVariables = {
-  input: UpdateBizna2Input,
-  condition?: ModelBizna2ConditionInput | null,
-};
-
-export type UpdateBizna2Mutation = {
-  updateBizna2?:  {
-    __typename: "Bizna2",
-    BusKntct: string,
-    busName: string,
-    pw: string,
-    TtlEarnings: number,
-    earningsBal: number,
-    netEarnings: number,
-    ownerEml?: string | null,
-    saleStts?: string | null,
-    noBL?: number | null,
-    email: string,
-    status: string,
-    owner: string,
-    description: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteBizna2MutationVariables = {
-  input: DeleteBizna2Input,
-  condition?: ModelBizna2ConditionInput | null,
-};
-
-export type DeleteBizna2Mutation = {
-  deleteBizna2?:  {
-    __typename: "Bizna2",
-    BusKntct: string,
-    busName: string,
-    pw: string,
-    TtlEarnings: number,
-    earningsBal: number,
-    netEarnings: number,
-    ownerEml?: string | null,
-    saleStts?: string | null,
-    noBL?: number | null,
-    email: string,
-    status: string,
-    owner: string,
-    description: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
 export type CreateBankAdminMutationVariables = {
   input: CreateBankAdminInput,
   condition?: ModelBankAdminConditionInput | null,
@@ -7902,6 +7239,7 @@ export type CreateCompanyMutation = {
     sagentCom: number,
     companyCom: number,
     AdvCom: number,
+    ChampCom: number,
     AdvCompanyCom: number,
     bankAdminCom: number,
     sawithdrawalFee: number,
@@ -8063,6 +7401,7 @@ export type UpdateCompanyMutation = {
     sagentCom: number,
     companyCom: number,
     AdvCom: number,
+    ChampCom: number,
     AdvCompanyCom: number,
     bankAdminCom: number,
     sawithdrawalFee: number,
@@ -8224,6 +7563,7 @@ export type DeleteCompanyMutation = {
     sagentCom: number,
     companyCom: number,
     AdvCom: number,
+    ChampCom: number,
     AdvCompanyCom: number,
     bankAdminCom: number,
     sawithdrawalFee: number,
@@ -8371,6 +7711,7 @@ export type CreateCovCreditSellerMutation = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
+    interest: number,
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     buyerContact: string,
@@ -8411,6 +7752,7 @@ export type UpdateCovCreditSellerMutation = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
+    interest: number,
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     buyerContact: string,
@@ -8451,6 +7793,7 @@ export type DeleteCovCreditSellerMutation = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
+    interest: number,
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     buyerContact: string,
@@ -8481,111 +7824,6 @@ export type DeleteCovCreditSellerMutation = {
   } | null,
 };
 
-export type CreateNonCovCreditSellerMutationVariables = {
-  input: CreateNonCovCreditSellerInput,
-  condition?: ModelNonCovCreditSellerConditionInput | null,
-};
-
-export type CreateNonCovCreditSellerMutation = {
-  createNonCovCreditSeller?:  {
-    __typename: "NonCovCreditSeller",
-    id: string,
-    itemName: string,
-    loanerLoanee: string,
-    buyerContact: string,
-    sellerContact: string,
-    buyerID: string,
-    buyerName: string,
-    SellerName: string,
-    sellerID: string,
-    amountSold: number,
-    amountexpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    lonBala: number,
-    repaymentPeriod: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    DefaultPenaltyCredSl: number,
-    DefaultPenaltyCredSl2: number,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateNonCovCreditSellerMutationVariables = {
-  input: UpdateNonCovCreditSellerInput,
-  condition?: ModelNonCovCreditSellerConditionInput | null,
-};
-
-export type UpdateNonCovCreditSellerMutation = {
-  updateNonCovCreditSeller?:  {
-    __typename: "NonCovCreditSeller",
-    id: string,
-    itemName: string,
-    loanerLoanee: string,
-    buyerContact: string,
-    sellerContact: string,
-    buyerID: string,
-    buyerName: string,
-    SellerName: string,
-    sellerID: string,
-    amountSold: number,
-    amountexpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    lonBala: number,
-    repaymentPeriod: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    DefaultPenaltyCredSl: number,
-    DefaultPenaltyCredSl2: number,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteNonCovCreditSellerMutationVariables = {
-  input: DeleteNonCovCreditSellerInput,
-  condition?: ModelNonCovCreditSellerConditionInput | null,
-};
-
-export type DeleteNonCovCreditSellerMutation = {
-  deleteNonCovCreditSeller?:  {
-    __typename: "NonCovCreditSeller",
-    id: string,
-    itemName: string,
-    loanerLoanee: string,
-    buyerContact: string,
-    sellerContact: string,
-    buyerID: string,
-    buyerName: string,
-    SellerName: string,
-    sellerID: string,
-    amountSold: number,
-    amountexpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    lonBala: number,
-    repaymentPeriod: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    DefaultPenaltyCredSl: number,
-    DefaultPenaltyCredSl2: number,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
 export type CreateGroupMutationVariables = {
   input: CreateGroupInput,
   condition?: ModelGroupConditionInput | null,
@@ -8605,6 +7843,7 @@ export type CreateGroupMutation = {
     venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
+    WithdrawCnfrmtnAmt: number,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -8653,6 +7892,7 @@ export type UpdateGroupMutation = {
     venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
+    WithdrawCnfrmtnAmt: number,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -8701,6 +7941,7 @@ export type DeleteGroupMutation = {
     venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
+    WithdrawCnfrmtnAmt: number,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -8946,6 +8187,7 @@ export type CreateCvrdGroupLoansMutation = {
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     amountGiven: number,
+    interest: number,
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -8983,6 +8225,7 @@ export type UpdateCvrdGroupLoansMutation = {
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     amountGiven: number,
+    interest: number,
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -9020,6 +8263,7 @@ export type DeleteCvrdGroupLoansMutation = {
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     amountGiven: number,
+    interest: number,
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -9037,105 +8281,6 @@ export type DeleteCvrdGroupLoansMutation = {
     owner: string,
     DefaultPenaltyChm: number,
     DefaultPenaltyChm2: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateNonCvrdGroupLoansMutationVariables = {
-  input: CreateNonCvrdGroupLoansInput,
-  condition?: ModelNonCvrdGroupLoansConditionInput | null,
-};
-
-export type CreateNonCvrdGroupLoansMutation = {
-  createNonCvrdGroupLoans?:  {
-    __typename: "NonCvrdGroupLoans",
-    id: string,
-    grpContact: string,
-    loaneePhn: string,
-    loanerLoanee: string,
-    DefaultPenaltyChm: number,
-    DefaultPenaltyChm2: number,
-    repaymentPeriod: number,
-    amountGiven: number,
-    amountExpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    loaneeName: string,
-    loanerName: string,
-    memberId: string,
-    lonBala: number,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateNonCvrdGroupLoansMutationVariables = {
-  input: UpdateNonCvrdGroupLoansInput,
-  condition?: ModelNonCvrdGroupLoansConditionInput | null,
-};
-
-export type UpdateNonCvrdGroupLoansMutation = {
-  updateNonCvrdGroupLoans?:  {
-    __typename: "NonCvrdGroupLoans",
-    id: string,
-    grpContact: string,
-    loaneePhn: string,
-    loanerLoanee: string,
-    DefaultPenaltyChm: number,
-    DefaultPenaltyChm2: number,
-    repaymentPeriod: number,
-    amountGiven: number,
-    amountExpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    loaneeName: string,
-    loanerName: string,
-    memberId: string,
-    lonBala: number,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteNonCvrdGroupLoansMutationVariables = {
-  input: DeleteNonCvrdGroupLoansInput,
-  condition?: ModelNonCvrdGroupLoansConditionInput | null,
-};
-
-export type DeleteNonCvrdGroupLoansMutation = {
-  deleteNonCvrdGroupLoans?:  {
-    __typename: "NonCvrdGroupLoans",
-    id: string,
-    grpContact: string,
-    loaneePhn: string,
-    loanerLoanee: string,
-    DefaultPenaltyChm: number,
-    DefaultPenaltyChm2: number,
-    repaymentPeriod: number,
-    amountGiven: number,
-    amountExpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    loaneeName: string,
-    loanerName: string,
-    memberId: string,
-    lonBala: number,
-    status: Status,
-    owner: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -9917,6 +9062,7 @@ export type GetSMLoansCoveredQuery = {
     dfltUpdate?: string | null,
     amountrepaid: number,
     lonBala: number,
+    interest: number,
     loaneename: string,
     loanername: string,
     loanerEmail: string,
@@ -9960,6 +9106,7 @@ export type ListSMLoansCoveredsQuery = {
       dfltUpdate?: string | null,
       amountrepaid: number,
       lonBala: number,
+      interest: number,
       loaneename: string,
       loanername: string,
       loanerEmail: string,
@@ -10138,54 +9285,6 @@ export type ListSokoAdsQuery = {
     __typename: "ModelSokoAdConnection",
     items:  Array< {
       __typename: "SokoAd",
-      id: string,
-      sokokntct: string,
-      sokoname: string,
-      sokoprice: number,
-      sokotown: string,
-      sokolnprcntg: number,
-      sokolpymntperiod: number,
-      sokodesc: string,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetSokoAd5QueryVariables = {
-  id: string,
-};
-
-export type GetSokoAd5Query = {
-  getSokoAd5?:  {
-    __typename: "SokoAd5",
-    id: string,
-    sokokntct: string,
-    sokoname: string,
-    sokoprice: number,
-    sokotown: string,
-    sokolnprcntg: number,
-    sokolpymntperiod: number,
-    sokodesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListSokoAd5sQueryVariables = {
-  filter?: ModelSokoAd5FilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListSokoAd5sQuery = {
-  listSokoAd5s?:  {
-    __typename: "ModelSokoAd5Connection",
-    items:  Array< {
-      __typename: "SokoAd5",
       id: string,
       sokokntct: string,
       sokoname: string,
@@ -10740,64 +9839,6 @@ export type ListBiznasQuery = {
   } | null,
 };
 
-export type GetBizna2QueryVariables = {
-  BusKntct: string,
-};
-
-export type GetBizna2Query = {
-  getBizna2?:  {
-    __typename: "Bizna2",
-    BusKntct: string,
-    busName: string,
-    pw: string,
-    TtlEarnings: number,
-    earningsBal: number,
-    netEarnings: number,
-    ownerEml?: string | null,
-    saleStts?: string | null,
-    noBL?: number | null,
-    email: string,
-    status: string,
-    owner: string,
-    description: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListBizna2sQueryVariables = {
-  BusKntct?: string | null,
-  filter?: ModelBizna2FilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  sortDirection?: ModelSortDirection | null,
-};
-
-export type ListBizna2sQuery = {
-  listBizna2s?:  {
-    __typename: "ModelBizna2Connection",
-    items:  Array< {
-      __typename: "Bizna2",
-      BusKntct: string,
-      busName: string,
-      pw: string,
-      TtlEarnings: number,
-      earningsBal: number,
-      netEarnings: number,
-      ownerEml?: string | null,
-      saleStts?: string | null,
-      noBL?: number | null,
-      email: string,
-      status: string,
-      owner: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type GetBankAdminQueryVariables = {
   nationalid: string,
 };
@@ -11015,6 +10056,7 @@ export type GetCompanyQuery = {
     sagentCom: number,
     companyCom: number,
     AdvCom: number,
+    ChampCom: number,
     AdvCompanyCom: number,
     bankAdminCom: number,
     sawithdrawalFee: number,
@@ -11181,6 +10223,7 @@ export type ListCompaniesQuery = {
       sagentCom: number,
       companyCom: number,
       AdvCom: number,
+      ChampCom: number,
       AdvCompanyCom: number,
       bankAdminCom: number,
       sawithdrawalFee: number,
@@ -11329,6 +10372,7 @@ export type GetCovCreditSellerQuery = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
+    interest: number,
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     buyerContact: string,
@@ -11372,6 +10416,7 @@ export type ListCovCreditSellersQuery = {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
+      interest: number,
       loanerLoanee: string,
       loanerLoaneeAdv?: string | null,
       buyerContact: string,
@@ -11404,80 +10449,6 @@ export type ListCovCreditSellersQuery = {
   } | null,
 };
 
-export type GetNonCovCreditSellerQueryVariables = {
-  id: string,
-};
-
-export type GetNonCovCreditSellerQuery = {
-  getNonCovCreditSeller?:  {
-    __typename: "NonCovCreditSeller",
-    id: string,
-    itemName: string,
-    loanerLoanee: string,
-    buyerContact: string,
-    sellerContact: string,
-    buyerID: string,
-    buyerName: string,
-    SellerName: string,
-    sellerID: string,
-    amountSold: number,
-    amountexpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    lonBala: number,
-    repaymentPeriod: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    DefaultPenaltyCredSl: number,
-    DefaultPenaltyCredSl2: number,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListNonCovCreditSellersQueryVariables = {
-  filter?: ModelNonCovCreditSellerFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListNonCovCreditSellersQuery = {
-  listNonCovCreditSellers?:  {
-    __typename: "ModelNonCovCreditSellerConnection",
-    items:  Array< {
-      __typename: "NonCovCreditSeller",
-      id: string,
-      itemName: string,
-      loanerLoanee: string,
-      buyerContact: string,
-      sellerContact: string,
-      buyerID: string,
-      buyerName: string,
-      SellerName: string,
-      sellerID: string,
-      amountSold: number,
-      amountexpectedBack: number,
-      amountExpectedBackWthClrnc: number,
-      amountRepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      timeExpBack: number,
-      timeExpBack2: number,
-      description?: string | null,
-      DefaultPenaltyCredSl: number,
-      DefaultPenaltyCredSl2: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type GetGroupQueryVariables = {
   grpContact: string,
 };
@@ -11496,6 +10467,7 @@ export type GetGroupQuery = {
     venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
+    WithdrawCnfrmtnAmt: number,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -11549,6 +10521,7 @@ export type ListGroupsQuery = {
       venture: string,
       signitory2Sub: string,
       WithdrawCnfrmtn: string,
+      WithdrawCnfrmtnAmt: number,
       grpEmail: string,
       grpBal: number,
       ttlGrpMembers: number,
@@ -11742,6 +10715,7 @@ export type GetCvrdGroupLoansQuery = {
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     amountGiven: number,
+    interest: number,
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -11782,6 +10756,7 @@ export type ListCvrdGroupLoansQuery = {
       loanerLoanee: string,
       loanerLoaneeAdv?: string | null,
       amountGiven: number,
+      interest: number,
       advEmail?: string | null,
       amountExpectedBack: number,
       amountExpectedBackWthClrnc: number,
@@ -11799,76 +10774,6 @@ export type ListCvrdGroupLoansQuery = {
       owner: string,
       DefaultPenaltyChm: number,
       DefaultPenaltyChm2: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetNonCvrdGroupLoansQueryVariables = {
-  id: string,
-};
-
-export type GetNonCvrdGroupLoansQuery = {
-  getNonCvrdGroupLoans?:  {
-    __typename: "NonCvrdGroupLoans",
-    id: string,
-    grpContact: string,
-    loaneePhn: string,
-    loanerLoanee: string,
-    DefaultPenaltyChm: number,
-    DefaultPenaltyChm2: number,
-    repaymentPeriod: number,
-    amountGiven: number,
-    amountExpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    loaneeName: string,
-    loanerName: string,
-    memberId: string,
-    lonBala: number,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListNonCvrdGroupLoansQueryVariables = {
-  filter?: ModelNonCvrdGroupLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListNonCvrdGroupLoansQuery = {
-  listNonCvrdGroupLoans?:  {
-    __typename: "ModelNonCvrdGroupLoansConnection",
-    items:  Array< {
-      __typename: "NonCvrdGroupLoans",
-      id: string,
-      grpContact: string,
-      loaneePhn: string,
-      loanerLoanee: string,
-      DefaultPenaltyChm: number,
-      DefaultPenaltyChm2: number,
-      repaymentPeriod: number,
-      amountGiven: number,
-      amountExpectedBack: number,
-      amountExpectedBackWthClrnc: number,
-      amountRepaid: number,
-      timeExpBack: number,
-      timeExpBack2: number,
-      description?: string | null,
-      loaneeName: string,
-      loanerName: string,
-      memberId: string,
-      lonBala: number,
-      status: Status,
-      owner: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -12520,6 +11425,7 @@ export type VwMyDebtsQuery = {
       dfltUpdate?: string | null,
       amountrepaid: number,
       lonBala: number,
+      interest: number,
       loaneename: string,
       loanername: string,
       loanerEmail: string,
@@ -12568,6 +11474,7 @@ export type VwLnrNLneesssssQuery = {
       dfltUpdate?: string | null,
       amountrepaid: number,
       lonBala: number,
+      interest: number,
       loaneename: string,
       loanername: string,
       loanerEmail: string,
@@ -12616,6 +11523,7 @@ export type VwMyDebtorsQuery = {
       dfltUpdate?: string | null,
       amountrepaid: number,
       lonBala: number,
+      interest: number,
       loaneename: string,
       loanername: string,
       loanerEmail: string,
@@ -12664,6 +11572,7 @@ export type VwMyLendersQuery = {
       dfltUpdate?: string | null,
       amountrepaid: number,
       lonBala: number,
+      interest: number,
       loaneename: string,
       loanername: string,
       loanerEmail: string,
@@ -12890,36 +11799,6 @@ export type DakaByNameQuery = {
     __typename: "ModelSokoAdConnection",
     items:  Array< {
       __typename: "SokoAd",
-      id: string,
-      sokokntct: string,
-      sokoname: string,
-      sokoprice: number,
-      sokotown: string,
-      sokolnprcntg: number,
-      sokolpymntperiod: number,
-      sokodesc: string,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type DakaByName5QueryVariables = {
-  sokoname: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelSokoAd5FilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type DakaByName5Query = {
-  DakaByName5?:  {
-    __typename: "ModelSokoAd5Connection",
-    items:  Array< {
-      __typename: "SokoAd5",
       id: string,
       sokokntct: string,
       sokoname: string,
@@ -13424,40 +12303,6 @@ export type BiznaVwwsQuery = {
   } | null,
 };
 
-export type BiznaVwws2QueryVariables = {
-  busName: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelBizna2FilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type BiznaVwws2Query = {
-  BiznaVwws2?:  {
-    __typename: "ModelBizna2Connection",
-    items:  Array< {
-      __typename: "Bizna2",
-      BusKntct: string,
-      busName: string,
-      pw: string,
-      TtlEarnings: number,
-      earningsBal: number,
-      netEarnings: number,
-      ownerEml?: string | null,
-      saleStts?: string | null,
-      noBL?: number | null,
-      email: string,
-      status: string,
-      owner: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type SrchAdvCovLnsQueryVariables = {
   phonecontact: string,
   createdAt?: ModelStringKeyConditionInput | null,
@@ -13537,6 +12382,7 @@ export type VwLnrNLneesssQuery = {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
+      interest: number,
       loanerLoanee: string,
       loanerLoaneeAdv?: string | null,
       buyerContact: string,
@@ -13585,6 +12431,7 @@ export type VwMyCrdBysQuery = {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
+      interest: number,
       loanerLoanee: string,
       loanerLoaneeAdv?: string | null,
       buyerContact: string,
@@ -13633,6 +12480,7 @@ export type VwMySalesQuery = {
       __typename: "CovCreditSeller",
       id: string,
       itemName: string,
+      interest: number,
       loanerLoanee: string,
       loanerLoaneeAdv?: string | null,
       buyerContact: string,
@@ -13657,135 +12505,6 @@ export type VwMySalesQuery = {
       advregnu?: string | null,
       DefaultPenaltyCredSl: number,
       DefaultPenaltyCredSl2: number,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type VwLnrNLneessQueryVariables = {
-  loanerLoanee: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonCovCreditSellerFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type VwLnrNLneessQuery = {
-  VwLnrNLneess?:  {
-    __typename: "ModelNonCovCreditSellerConnection",
-    items:  Array< {
-      __typename: "NonCovCreditSeller",
-      id: string,
-      itemName: string,
-      loanerLoanee: string,
-      buyerContact: string,
-      sellerContact: string,
-      buyerID: string,
-      buyerName: string,
-      SellerName: string,
-      sellerID: string,
-      amountSold: number,
-      amountexpectedBack: number,
-      amountExpectedBackWthClrnc: number,
-      amountRepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      timeExpBack: number,
-      timeExpBack2: number,
-      description?: string | null,
-      DefaultPenaltyCredSl: number,
-      DefaultPenaltyCredSl2: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type VwMyCrdByssQueryVariables = {
-  buyerContact: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonCovCreditSellerFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type VwMyCrdByssQuery = {
-  VwMyCrdByss?:  {
-    __typename: "ModelNonCovCreditSellerConnection",
-    items:  Array< {
-      __typename: "NonCovCreditSeller",
-      id: string,
-      itemName: string,
-      loanerLoanee: string,
-      buyerContact: string,
-      sellerContact: string,
-      buyerID: string,
-      buyerName: string,
-      SellerName: string,
-      sellerID: string,
-      amountSold: number,
-      amountexpectedBack: number,
-      amountExpectedBackWthClrnc: number,
-      amountRepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      timeExpBack: number,
-      timeExpBack2: number,
-      description?: string | null,
-      DefaultPenaltyCredSl: number,
-      DefaultPenaltyCredSl2: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type VwMySalessQueryVariables = {
-  sellerContact: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonCovCreditSellerFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type VwMySalessQuery = {
-  VwMySaless?:  {
-    __typename: "ModelNonCovCreditSellerConnection",
-    items:  Array< {
-      __typename: "NonCovCreditSeller",
-      id: string,
-      itemName: string,
-      loanerLoanee: string,
-      buyerContact: string,
-      sellerContact: string,
-      buyerID: string,
-      buyerName: string,
-      SellerName: string,
-      sellerID: string,
-      amountSold: number,
-      amountexpectedBack: number,
-      amountExpectedBackWthClrnc: number,
-      amountRepaid: number,
-      lonBala: number,
-      repaymentPeriod: number,
-      timeExpBack: number,
-      timeExpBack2: number,
-      description?: string | null,
-      DefaultPenaltyCredSl: number,
-      DefaultPenaltyCredSl2: number,
-      status: Status,
       owner: string,
       createdAt: string,
       updatedAt: string,
@@ -13819,6 +12538,7 @@ export type VwNatIdentityszQuery = {
       venture: string,
       signitory2Sub: string,
       WithdrawCnfrmtn: string,
+      WithdrawCnfrmtnAmt: number,
       grpEmail: string,
       grpBal: number,
       ttlGrpMembers: number,
@@ -13875,6 +12595,7 @@ export type ViaChmAreaQuery = {
       venture: string,
       signitory2Sub: string,
       WithdrawCnfrmtn: string,
+      WithdrawCnfrmtnAmt: number,
       grpEmail: string,
       grpBal: number,
       ttlGrpMembers: number,
@@ -13931,6 +12652,7 @@ export type ViaChmVentureQuery = {
       venture: string,
       signitory2Sub: string,
       WithdrawCnfrmtn: string,
+      WithdrawCnfrmtnAmt: number,
       grpEmail: string,
       grpBal: number,
       ttlGrpMembers: number,
@@ -14204,6 +12926,7 @@ export type VwChamaMemberssQuery = {
       loanerLoanee: string,
       loanerLoaneeAdv?: string | null,
       amountGiven: number,
+      interest: number,
       advEmail?: string | null,
       amountExpectedBack: number,
       amountExpectedBackWthClrnc: number,
@@ -14249,6 +12972,7 @@ export type VwMyChamassQuery = {
       loanerLoanee: string,
       loanerLoaneeAdv?: string | null,
       amountGiven: number,
+      interest: number,
       advEmail?: string | null,
       amountExpectedBack: number,
       amountExpectedBackWthClrnc: number,
@@ -14294,6 +13018,7 @@ export type VwLnrNLneeQuery = {
       loanerLoanee: string,
       loanerLoaneeAdv?: string | null,
       amountGiven: number,
+      interest: number,
       advEmail?: string | null,
       amountExpectedBack: number,
       amountExpectedBackWthClrnc: number,
@@ -14311,129 +13036,6 @@ export type VwLnrNLneeQuery = {
       owner: string,
       DefaultPenaltyChm: number,
       DefaultPenaltyChm2: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type VwChamaMembersssQueryVariables = {
-  grpContact: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonCvrdGroupLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type VwChamaMembersssQuery = {
-  VwChamaMembersss?:  {
-    __typename: "ModelNonCvrdGroupLoansConnection",
-    items:  Array< {
-      __typename: "NonCvrdGroupLoans",
-      id: string,
-      grpContact: string,
-      loaneePhn: string,
-      loanerLoanee: string,
-      DefaultPenaltyChm: number,
-      DefaultPenaltyChm2: number,
-      repaymentPeriod: number,
-      amountGiven: number,
-      amountExpectedBack: number,
-      amountExpectedBackWthClrnc: number,
-      amountRepaid: number,
-      timeExpBack: number,
-      timeExpBack2: number,
-      description?: string | null,
-      loaneeName: string,
-      loanerName: string,
-      memberId: string,
-      lonBala: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type VwMyChamasssQueryVariables = {
-  loaneePhn: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonCvrdGroupLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type VwMyChamasssQuery = {
-  VwMyChamasss?:  {
-    __typename: "ModelNonCvrdGroupLoansConnection",
-    items:  Array< {
-      __typename: "NonCvrdGroupLoans",
-      id: string,
-      grpContact: string,
-      loaneePhn: string,
-      loanerLoanee: string,
-      DefaultPenaltyChm: number,
-      DefaultPenaltyChm2: number,
-      repaymentPeriod: number,
-      amountGiven: number,
-      amountExpectedBack: number,
-      amountExpectedBackWthClrnc: number,
-      amountRepaid: number,
-      timeExpBack: number,
-      timeExpBack2: number,
-      description?: string | null,
-      loaneeName: string,
-      loanerName: string,
-      memberId: string,
-      lonBala: number,
-      status: Status,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type VwLnrNLneesQueryVariables = {
-  loanerLoanee: string,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelNonCvrdGroupLoansFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type VwLnrNLneesQuery = {
-  VwLnrNLnees?:  {
-    __typename: "ModelNonCvrdGroupLoansConnection",
-    items:  Array< {
-      __typename: "NonCvrdGroupLoans",
-      id: string,
-      grpContact: string,
-      loaneePhn: string,
-      loanerLoanee: string,
-      DefaultPenaltyChm: number,
-      DefaultPenaltyChm2: number,
-      repaymentPeriod: number,
-      amountGiven: number,
-      amountExpectedBack: number,
-      amountExpectedBackWthClrnc: number,
-      amountRepaid: number,
-      timeExpBack: number,
-      timeExpBack2: number,
-      description?: string | null,
-      loaneeName: string,
-      loanerName: string,
-      memberId: string,
-      lonBala: number,
-      status: Status,
-      owner: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -15193,6 +13795,7 @@ export type OnCreateSMLoansCoveredSubscription = {
     dfltUpdate?: string | null,
     amountrepaid: number,
     lonBala: number,
+    interest: number,
     loaneename: string,
     loanername: string,
     loanerEmail: string,
@@ -15233,6 +13836,7 @@ export type OnUpdateSMLoansCoveredSubscription = {
     dfltUpdate?: string | null,
     amountrepaid: number,
     lonBala: number,
+    interest: number,
     loaneename: string,
     loanername: string,
     loanerEmail: string,
@@ -15273,6 +13877,7 @@ export type OnDeleteSMLoansCoveredSubscription = {
     dfltUpdate?: string | null,
     amountrepaid: number,
     lonBala: number,
+    interest: number,
     loaneename: string,
     loanername: string,
     loanerEmail: string,
@@ -15520,72 +14125,6 @@ export type OnDeleteSokoAdSubscriptionVariables = {
 export type OnDeleteSokoAdSubscription = {
   onDeleteSokoAd?:  {
     __typename: "SokoAd",
-    id: string,
-    sokokntct: string,
-    sokoname: string,
-    sokoprice: number,
-    sokotown: string,
-    sokolnprcntg: number,
-    sokolpymntperiod: number,
-    sokodesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateSokoAd5SubscriptionVariables = {
-  filter?: ModelSubscriptionSokoAd5FilterInput | null,
-  owner?: string | null,
-};
-
-export type OnCreateSokoAd5Subscription = {
-  onCreateSokoAd5?:  {
-    __typename: "SokoAd5",
-    id: string,
-    sokokntct: string,
-    sokoname: string,
-    sokoprice: number,
-    sokotown: string,
-    sokolnprcntg: number,
-    sokolpymntperiod: number,
-    sokodesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateSokoAd5SubscriptionVariables = {
-  filter?: ModelSubscriptionSokoAd5FilterInput | null,
-  owner?: string | null,
-};
-
-export type OnUpdateSokoAd5Subscription = {
-  onUpdateSokoAd5?:  {
-    __typename: "SokoAd5",
-    id: string,
-    sokokntct: string,
-    sokoname: string,
-    sokoprice: number,
-    sokotown: string,
-    sokolnprcntg: number,
-    sokolpymntperiod: number,
-    sokodesc: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteSokoAd5SubscriptionVariables = {
-  filter?: ModelSubscriptionSokoAd5FilterInput | null,
-  owner?: string | null,
-};
-
-export type OnDeleteSokoAd5Subscription = {
-  onDeleteSokoAd5?:  {
-    __typename: "SokoAd5",
     id: string,
     sokokntct: string,
     sokoname: string,
@@ -16329,84 +14868,6 @@ export type OnDeleteBiznaSubscription = {
   } | null,
 };
 
-export type OnCreateBizna2SubscriptionVariables = {
-  filter?: ModelSubscriptionBizna2FilterInput | null,
-  owner?: string | null,
-};
-
-export type OnCreateBizna2Subscription = {
-  onCreateBizna2?:  {
-    __typename: "Bizna2",
-    BusKntct: string,
-    busName: string,
-    pw: string,
-    TtlEarnings: number,
-    earningsBal: number,
-    netEarnings: number,
-    ownerEml?: string | null,
-    saleStts?: string | null,
-    noBL?: number | null,
-    email: string,
-    status: string,
-    owner: string,
-    description: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateBizna2SubscriptionVariables = {
-  filter?: ModelSubscriptionBizna2FilterInput | null,
-  owner?: string | null,
-};
-
-export type OnUpdateBizna2Subscription = {
-  onUpdateBizna2?:  {
-    __typename: "Bizna2",
-    BusKntct: string,
-    busName: string,
-    pw: string,
-    TtlEarnings: number,
-    earningsBal: number,
-    netEarnings: number,
-    ownerEml?: string | null,
-    saleStts?: string | null,
-    noBL?: number | null,
-    email: string,
-    status: string,
-    owner: string,
-    description: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteBizna2SubscriptionVariables = {
-  filter?: ModelSubscriptionBizna2FilterInput | null,
-  owner?: string | null,
-};
-
-export type OnDeleteBizna2Subscription = {
-  onDeleteBizna2?:  {
-    __typename: "Bizna2",
-    BusKntct: string,
-    busName: string,
-    pw: string,
-    TtlEarnings: number,
-    earningsBal: number,
-    netEarnings: number,
-    ownerEml?: string | null,
-    saleStts?: string | null,
-    noBL?: number | null,
-    email: string,
-    status: string,
-    owner: string,
-    description: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
 export type OnCreateBankAdminSubscriptionVariables = {
   filter?: ModelSubscriptionBankAdminFilterInput | null,
   owner?: string | null,
@@ -16692,6 +15153,7 @@ export type OnCreateCompanySubscription = {
     sagentCom: number,
     companyCom: number,
     AdvCom: number,
+    ChampCom: number,
     AdvCompanyCom: number,
     bankAdminCom: number,
     sawithdrawalFee: number,
@@ -16853,6 +15315,7 @@ export type OnUpdateCompanySubscription = {
     sagentCom: number,
     companyCom: number,
     AdvCom: number,
+    ChampCom: number,
     AdvCompanyCom: number,
     bankAdminCom: number,
     sawithdrawalFee: number,
@@ -17014,6 +15477,7 @@ export type OnDeleteCompanySubscription = {
     sagentCom: number,
     companyCom: number,
     AdvCom: number,
+    ChampCom: number,
     AdvCompanyCom: number,
     bankAdminCom: number,
     sawithdrawalFee: number,
@@ -17161,6 +15625,7 @@ export type OnCreateCovCreditSellerSubscription = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
+    interest: number,
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     buyerContact: string,
@@ -17201,6 +15666,7 @@ export type OnUpdateCovCreditSellerSubscription = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
+    interest: number,
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     buyerContact: string,
@@ -17241,6 +15707,7 @@ export type OnDeleteCovCreditSellerSubscription = {
     __typename: "CovCreditSeller",
     id: string,
     itemName: string,
+    interest: number,
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     buyerContact: string,
@@ -17271,111 +15738,6 @@ export type OnDeleteCovCreditSellerSubscription = {
   } | null,
 };
 
-export type OnCreateNonCovCreditSellerSubscriptionVariables = {
-  filter?: ModelSubscriptionNonCovCreditSellerFilterInput | null,
-  owner?: string | null,
-};
-
-export type OnCreateNonCovCreditSellerSubscription = {
-  onCreateNonCovCreditSeller?:  {
-    __typename: "NonCovCreditSeller",
-    id: string,
-    itemName: string,
-    loanerLoanee: string,
-    buyerContact: string,
-    sellerContact: string,
-    buyerID: string,
-    buyerName: string,
-    SellerName: string,
-    sellerID: string,
-    amountSold: number,
-    amountexpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    lonBala: number,
-    repaymentPeriod: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    DefaultPenaltyCredSl: number,
-    DefaultPenaltyCredSl2: number,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateNonCovCreditSellerSubscriptionVariables = {
-  filter?: ModelSubscriptionNonCovCreditSellerFilterInput | null,
-  owner?: string | null,
-};
-
-export type OnUpdateNonCovCreditSellerSubscription = {
-  onUpdateNonCovCreditSeller?:  {
-    __typename: "NonCovCreditSeller",
-    id: string,
-    itemName: string,
-    loanerLoanee: string,
-    buyerContact: string,
-    sellerContact: string,
-    buyerID: string,
-    buyerName: string,
-    SellerName: string,
-    sellerID: string,
-    amountSold: number,
-    amountexpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    lonBala: number,
-    repaymentPeriod: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    DefaultPenaltyCredSl: number,
-    DefaultPenaltyCredSl2: number,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteNonCovCreditSellerSubscriptionVariables = {
-  filter?: ModelSubscriptionNonCovCreditSellerFilterInput | null,
-  owner?: string | null,
-};
-
-export type OnDeleteNonCovCreditSellerSubscription = {
-  onDeleteNonCovCreditSeller?:  {
-    __typename: "NonCovCreditSeller",
-    id: string,
-    itemName: string,
-    loanerLoanee: string,
-    buyerContact: string,
-    sellerContact: string,
-    buyerID: string,
-    buyerName: string,
-    SellerName: string,
-    sellerID: string,
-    amountSold: number,
-    amountexpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    lonBala: number,
-    repaymentPeriod: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    DefaultPenaltyCredSl: number,
-    DefaultPenaltyCredSl2: number,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
 export type OnCreateGroupSubscriptionVariables = {
   filter?: ModelSubscriptionGroupFilterInput | null,
   owner?: string | null,
@@ -17395,6 +15757,7 @@ export type OnCreateGroupSubscription = {
     venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
+    WithdrawCnfrmtnAmt: number,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -17443,6 +15806,7 @@ export type OnUpdateGroupSubscription = {
     venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
+    WithdrawCnfrmtnAmt: number,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -17491,6 +15855,7 @@ export type OnDeleteGroupSubscription = {
     venture: string,
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
+    WithdrawCnfrmtnAmt: number,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -17733,6 +16098,7 @@ export type OnCreateCvrdGroupLoansSubscription = {
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     amountGiven: number,
+    interest: number,
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -17770,6 +16136,7 @@ export type OnUpdateCvrdGroupLoansSubscription = {
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     amountGiven: number,
+    interest: number,
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -17807,6 +16174,7 @@ export type OnDeleteCvrdGroupLoansSubscription = {
     loanerLoanee: string,
     loanerLoaneeAdv?: string | null,
     amountGiven: number,
+    interest: number,
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
@@ -17824,105 +16192,6 @@ export type OnDeleteCvrdGroupLoansSubscription = {
     owner: string,
     DefaultPenaltyChm: number,
     DefaultPenaltyChm2: number,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateNonCvrdGroupLoansSubscriptionVariables = {
-  filter?: ModelSubscriptionNonCvrdGroupLoansFilterInput | null,
-  owner?: string | null,
-};
-
-export type OnCreateNonCvrdGroupLoansSubscription = {
-  onCreateNonCvrdGroupLoans?:  {
-    __typename: "NonCvrdGroupLoans",
-    id: string,
-    grpContact: string,
-    loaneePhn: string,
-    loanerLoanee: string,
-    DefaultPenaltyChm: number,
-    DefaultPenaltyChm2: number,
-    repaymentPeriod: number,
-    amountGiven: number,
-    amountExpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    loaneeName: string,
-    loanerName: string,
-    memberId: string,
-    lonBala: number,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateNonCvrdGroupLoansSubscriptionVariables = {
-  filter?: ModelSubscriptionNonCvrdGroupLoansFilterInput | null,
-  owner?: string | null,
-};
-
-export type OnUpdateNonCvrdGroupLoansSubscription = {
-  onUpdateNonCvrdGroupLoans?:  {
-    __typename: "NonCvrdGroupLoans",
-    id: string,
-    grpContact: string,
-    loaneePhn: string,
-    loanerLoanee: string,
-    DefaultPenaltyChm: number,
-    DefaultPenaltyChm2: number,
-    repaymentPeriod: number,
-    amountGiven: number,
-    amountExpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    loaneeName: string,
-    loanerName: string,
-    memberId: string,
-    lonBala: number,
-    status: Status,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteNonCvrdGroupLoansSubscriptionVariables = {
-  filter?: ModelSubscriptionNonCvrdGroupLoansFilterInput | null,
-  owner?: string | null,
-};
-
-export type OnDeleteNonCvrdGroupLoansSubscription = {
-  onDeleteNonCvrdGroupLoans?:  {
-    __typename: "NonCvrdGroupLoans",
-    id: string,
-    grpContact: string,
-    loaneePhn: string,
-    loanerLoanee: string,
-    DefaultPenaltyChm: number,
-    DefaultPenaltyChm2: number,
-    repaymentPeriod: number,
-    amountGiven: number,
-    amountExpectedBack: number,
-    amountExpectedBackWthClrnc: number,
-    amountRepaid: number,
-    timeExpBack: number,
-    timeExpBack2: number,
-    description?: string | null,
-    loaneeName: string,
-    loanerName: string,
-    memberId: string,
-    lonBala: number,
-    status: Status,
-    owner: string,
     createdAt: string,
     updatedAt: string,
   } | null,

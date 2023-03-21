@@ -164,7 +164,7 @@ const CreateBiz = (props) => {
          
                     "MiFedha. " + busNames + ' has requested '
                               + ' your Business entity to loan goods worth Ksh. '
-                              + lnPrsntg + '. Please go to your MiFedha'
+                              + itemPrys + '. Please go to your MiFedha'
                               + ' app to view the loan details and thereafter'
                               +' grant me the request. Thank you.');       
                   
@@ -235,7 +235,7 @@ const CreateBiz = (props) => {
             Communications.textWithoutEncoding(phonecontact,'MiFedha. Greetings! '
             + 'We ' + busNames + ', the loanee Business and ' + busName + ', the Loaning Business humbly' +  
             ' request that you witness our loan contract on MiFedha app amounting to Ksh. '+
-            itemPrys + ' repayable as Ksh. ' + lnPrsntg + ' by the end of ' +rpymntPrd + 
+            itemPrys + ' repayable with ' + lnPrsntg + 'interest by the end of ' +rpymntPrd + 
             ' days. Default penalty is Ksh. '+ MmbaID + '. You can reach my loaner through '+ awsEmail +
              '. You can also reach us through ' + awsEmail2 +'. Thank you.');       
             
@@ -255,16 +255,13 @@ const CreateBiz = (props) => {
         
       } 
       
-      else if (parseFloat(itemPrys) > parseFloat(lnPrsntg))
-      {Alert.alert("Repayment Amount cant be lesser than Loan")}
-
       
       
       else if ((DfltPnltyRate) > (RecomDfltPnltyRate))
       {Alert.alert("Enter Default Penalty less than Ksh. " + RecomDfltPnltyRate)}
 
 
-      else if (Int > 100){
+      else if (parseFloat(lnPrsntg) > 100){
         Alert.alert("Interest exploits you; enter lesser repayment amount")
       }
       else if (Sign2Phn != "")
@@ -553,17 +550,17 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Loan Amount</Text>
                   </View>
 
-                  
                   <View style={styles.sendLoanView}>
                     <TextInput
                     keyboardType='decimal-pad'
-                    
+                    placeholder='Example: 8% write 8'
                       value={lnPrsntg}
                       onChangeText={setlnPrsntg}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Repayment Amount</Text>
+                    <Text style={styles.sendLoanText}>Monthly Interest rate</Text>
                   </View>
+
 
                   <View style={styles.sendLoanView}>
                     <TextInput

@@ -73,6 +73,11 @@ const BLChmCovLoanee = (props) => {
               const amountexpecteds = compDtls2.data.getCvrdGroupLoans.amountExpectedBack
               const amountrepaids = compDtls2.data.getCvrdGroupLoans.amountRepaid
               const lonBala = compDtls2.data.getCvrdGroupLoans.lonBala
+              const interest = compDtls2.data.getCvrdGroupLoans.interest
+              const dfltUpdate = compDtls2.data.getCvrdGroupLoans.dfltUpdate
+              const createdAt = compDtls2.data.getCvrdGroupLoans.createdAt
+              const repaymentPeriod = compDtls2.data.getCvrdGroupLoans.repaymentPeriod
+
               const amountExpectedBackWthClrncs = compDtls2.data.getCvrdGroupLoans.amountExpectedBackWthClrnc
               
               const statusssss = compDtls2.data.getCvrdGroupLoans.status
@@ -86,7 +91,81 @@ const BLChmCovLoanee = (props) => {
               + parseFloat(DefaultPenaltyChms);
 
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids);
+              const LonBal1 = Math.pow(LonBal*(1 + parseFloat(interest)), repaymentPeriod);
 
+              const today = new Date();
+              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
+              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
+              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
+              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
+              let months2 = parseFloat(months)
+              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
+              
+              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
+
+              const now1:any = "2024-05-20";
+             
+              
+              
+              
+              let char = dfltUpdate;
+              let char1 = char.charAt(0)
+              let char2 = char.charAt(1)
+              let char3 = char.charAt(2)
+              let char4 = char.charAt(3)
+              let char5 = char.charAt(4)
+              let char6 = char.charAt(5)
+              let char7 = char.charAt(6)
+              let char8 = char.charAt(7)
+              let char9 = char.charAt(8)
+              let char10 = char.charAt(9)
+              let char11 = char.charAt(10)
+              let char12 = char.charAt(11)
+              let char13 = char.charAt(12)
+
+              
+              let crtnYr = char1+char2+char3+char4;
+              let crtnMnth = char6+char7;
+              let crtnDy = char9+char10;
+              let crtnHr = char12+char13;
+
+        
+              const curYrs = parseFloat(years)*365;
+              const curMnths = (months2)*30.4375;
+              const daysUpToDate = curYrs + curMnths + parseFloat(days)
+
+              const crtnYears = parseFloat(crtnYr)*365;
+              const crtnMnths = parseFloat(crtnMnth)*30.4375;
+              const daysAtCrtn = crtnYears + crtnMnths + parseFloat(crtnDy)
+
+              let charz = createdAt;
+              let char1z = charz.charAt(0)
+              let char2z = charz.charAt(1)
+              let char3z = charz.charAt(2)
+              let char4z = charz.charAt(3)
+              let char5z = charz.charAt(4)
+              let char6z = charz.charAt(5)
+              let char7z = charz.charAt(6)
+              let char8z = charz.charAt(7)
+              let char9z = charz.charAt(8)
+              let char10z = charz.charAt(9)
+              let char11z = charz.charAt(10)
+              let char12z = charz.charAt(11)
+              let char13z = charz.charAt(12)
+
+              
+              let crtnYrz = char1z+char2z+char3z+char4z;
+              let crtnMnthz = char6z+char7z;
+              let crtnDyz = char9z+char10z;
+              let crtnHrz = char12z+char13z;
+              const crtnYearsz = parseFloat(crtnYrz)*365;
+              const crtnMnthsz = parseFloat(crtnMnthz)*30.4375;
+              const daysAtCrtnz = crtnYearsz + crtnMnthsz + parseFloat(crtnDyz)
+
+              const tmDif = daysUpToDate - daysAtCrtn;
+              const tmDif2 = daysUpToDate - daysAtCrtnz;
+              
               
 
               const gtLoanerDtls = async () =>{
@@ -172,22 +251,9 @@ const BLChmCovLoanee = (props) => {
                             Alert.alert("Loanee has cleared this loan");
                             return;
                           }
-
-                          else if(owners !== userInfo.attributes.sub){
-                            Alert.alert("You are not the one owed this loan")
-                            return;
-                          } 
-                          
-
-                          else if(statusssss === "LoanBL"){
-                            Alert.alert("This Loan is already Black Listed")
-                            return;
-                          } 
-
-                          else if(acStatuss === "AccountInactive"){
-                            Alert.alert("Loaner account has been deactivated")
-                            return;
-                          } 
+                          else if (tmDif < repaymentPeriod && repaymentPeriod > tmDif2){
+                            Alert.alert("Time to add penalty is not yet")
+                          }
 
                           else if(acStatusss === "AccountInactive"){
                             Alert.alert("Loanee account has been deactivated");
@@ -266,7 +332,7 @@ const BLChmCovLoanee = (props) => {
                                         input:{
                                           id:route.params.id,
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss.toFixed(0),
-                                          lonBala:LonBal.toFixed(0),
+                                          lonBala:LonBal1.toFixed(0),
                                           status:"LoanBL",
                                           DefaultPenaltyChm2:DefaultPenaltyChms.toFixed(0),
                                         }
@@ -318,7 +384,7 @@ const BLChmCovLoanee = (props) => {
                               + 'has been blacklisted by '+ grpNames 
                               + ' group. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
                             + lonBala + '. Default Penalty as you had agreed with your loaner is Ksh. ' + DefaultPenaltyChms 
-                            + '. Clearance fee is Ksh. ' + MmbrClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal
+                            + '. Clearance fee is Ksh. ' + MmbrClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal1
                              +'. For clarification call the group Admin: '
                             + userInfo.attributes.phone_number + '. Thank you. MiFedha');
                                 setIsLoading(false);          

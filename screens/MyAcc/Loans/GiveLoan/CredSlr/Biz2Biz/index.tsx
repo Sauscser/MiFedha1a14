@@ -26,6 +26,9 @@ import {
   getPersonel,
   getBizna,
   getReqLoanCredSl,
+  listSMLoansCovereds,
+  listCovCreditSellers,
+  listCvrdGroupLoans,
 } from '../../../../../../src/graphql/queries';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -65,8 +68,10 @@ const CovCredSls = props => {
   const [DfltPnlty, setDfltPnlty] = useState("");
 
   const route = useRoute();
-  
-
+  const navigation = useNavigation();
+  const SndChmMmbrMny = () => {
+    navigation.navigate("AutomaticRepayAllTyps")
+ }
  
   const fetchCredSlLnReq = async () => {
     if(isLoading){
@@ -109,6 +114,52 @@ const CovCredSls = props => {
               const curYrs = parseFloat(years)*365;
               const curMnths = (months2)*30.4375;
               const daysUpToDate = curYrs + curMnths + parseFloat(days)
+
+              const fetchCvLnSM = async () => {
+                setIsLoading(true);
+                const userInfo = await Auth.currentAuthenticatedUser();
+                
+                
+                try {
+                  const Lonees1:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
+                    { filter: {
+                        and: {
+                          status: { eq: "LoanBL"},
+                          lonBala: { gt: 0},
+                          loaneeEmail: { eq: RecPhn},
+                        }
+                      }}
+                      ));
+          
+                      
+                  
+                              const fetchCLCrdSl = async () => {
+                                setIsLoading(true);
+                                try {
+                                  const Lonees3:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
+                                    { filter: {
+                                        and: {
+                                          status: { eq: "LoanBL"},
+                                  lonBala: { gt: 0},
+                                  buyerContact: { eq: RecPhn},
+                                        }
+                                      }}
+                                      ));
+          
+                                      
+          
+                                              const fetchCLChm = async () => {
+                                                setIsLoading(true);
+                                                try {
+                                                  const Lonees5:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
+                                                    { filter: {
+                                                        and: {
+                                                          status: { eq: "LoanBL"},
+                                                  lonBala: { gt: 0},
+                                                  loaneePhn: { eq: userInfo.attributes.email},
+                                                        }
+                                                      }}
+                                                      ));
 
       
       const fetchCompDtls = async () => {
@@ -170,12 +221,13 @@ const CovCredSls = props => {
                   ttlCovFeeAmount);
 
           const lnTrnsfrFee = parseFloat(userLoanTransferFees)*parseFloat(amount);
-          const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + parseFloat(AmtExp);
-          
-          const TotalAmtExp2 = parseFloat(userLoanTransferFees)*parseFloat(amount) + parseFloat(AmtExp);
+        
           const TransCost2 = parseFloat(userLoanTransferFees)*parseFloat(amount)
           
-              
+          const amtrpayable2 = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod)
+          const amtrpayable = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod)
+          const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable;
+          const TotalAmtExp2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable2;
 
               const fetchRecUsrDtls = async () => {
                 if(isLoading){
@@ -246,32 +298,35 @@ const CovCredSls = props => {
                                                             graphqlOperation(createCovCreditSeller, {
                                                               input: {
                                                                 itemName:itemName,
-                                                            
-                                                                buyerID: nationalids,
-                                                                sellerID: nationalidss,
-                                                                sellerContact:BusinessRegNos,
-                                                                buyerContact: RecPhn, 
                                                                 loanerLoanee:BusinessRegNos+RecPhn,
-                                                                loanerLoaneeAdv:  BusinessRegNos+RecPhn+ AdvRegNo,                                   
+                                                                loanerLoaneeAdv:  BusinessRegNos+RecPhn+ AdvRegNo, 
+                                                                buyerContact: RecPhn, 
+                                                                sellerContact:BusinessRegNos,
+                                                                buyerID: nationalids, 
+                                                                advEmail: "None",
+                                                                buyerName:busNames2,
+                                                                SellerName:busNames,
+                                                                sellerID: nationalidss,  
                                                                 amountSold: parseFloat(amount).toFixed(0),
+                                                                interest:AmtExp,
+                                                                dfltUpdate: daysUpToDate,
                                                                 amountexpectedBack: (TotalAmtExp2 - TransCost2).toFixed(0),
                                                                 amountExpectedBackWthClrnc:(TotalAmtExp2 - TransCost2).toFixed(0),
                                                                 amountRepaid: 0,
-                                                                buyerName:busNames2,
-                                                                SellerName:busNames,
-                                                                lonBala:(TotalAmtExp2 - TransCost2).toFixed(0),
                                                                 repaymentPeriod: RepaymtPeriod,
-                                                                timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
-                                                                timeExpBack2: 61 + daysUpToDate,
-                                                                dfltUpdate: daysUpToDate,
                                                                 giverStatus: "Biz2Biz",
-                                                                description: description,
+                                                                timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
+                                                                timeExpBack2: 61 + daysUpToDate, 
+                                                                lonBala:(TotalAmtExp2 - TransCost2).toFixed(0),
+                                                                description: description,   
+                                                                status: "LoanActive",  
+                                                                advregnu: "None",   
                                                                 DefaultPenaltyCredSl:defaultPenalty,
-                                                                DefaultPenaltyCredSl2:0,
-                                                                status: "LoanActive",
+                                                                DefaultPenaltyCredSl2:0,                                                       
+          
                                                                 owner: owner,
-                                                                advEmail: "None",
-                                                                advregnu: "None",
+                                                                
+                                                                
                                                                
                                                               },
                                                             }),
@@ -463,6 +518,7 @@ const CovCredSls = props => {
                                   amountExpectedBackWthClrnc:(TotalAmtExp - TransCost).toFixed(0),
                                   amountRepaid: 0,
                                   buyerName:busNames2,
+                                  interest:AmtExp,
                                   SellerName:busNames,
                                   lonBala:(TotalAmtExp - TransCost).toFixed(0),
                                   repaymentPeriod: RepaymtPeriod,
@@ -694,6 +750,21 @@ const CovCredSls = props => {
                   
                     
                     else if(pwz !==SnderPW){Alert.alert('Wrong password');}
+
+                    else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
+                          
+                      ||
+                      Lonees3.data.listCovCreditSellers.items.length > 0 
+                      ||
+                      
+                      Lonees5.data.listCvrdGroupLoans.items.length > 0 
+                      
+                      
+
+                    
+                      ) {
+                        SndChmMmbrMny();
+                    } 
                     
                     else if(advLicNo == ' '){sendSMLn2();}
                     
@@ -752,6 +823,43 @@ const CovCredSls = props => {
       };
       await fetchCompDtls();
     
+    }     
+    catch (e) {
+      console.log(e)
+      if (e){Alert.alert("Error!")
+      return;}
+         
+    }   
+    setIsLoading(false);
+    };
+    
+    await fetchCLChm();
+    
+    
+    
+    }     
+    catch (e) {
+      console.log(e)
+      if (e){Alert.alert("Error!")
+      return;}
+         
+    }   
+    setIsLoading(false);
+    };
+    
+    await fetchCLCrdSl();
+
+  }     
+  catch (e) {
+    console.log(e)
+    if (e){Alert.alert("Error!")
+    return;}
+       
+  }   
+  setIsLoading(false);
+  };
+  
+  await fetchCvLnSM();
       
     } catch (e) {
       console.log(e)

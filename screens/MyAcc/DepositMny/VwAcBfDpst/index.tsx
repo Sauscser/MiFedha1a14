@@ -29,7 +29,7 @@ const FetchSMNonCovLns = props => {
             setLoading(true);
             const userInfo = await Auth.currentAuthenticatedUser();
             try {
-              const Lonees = await API.graphql(graphqlOperation(listSMAccounts, 
+              const Lonees:any = await API.graphql(graphqlOperation(listSMAccounts, 
                 { filter: {
                     and: {
                       awsemail: { eq: userInfo.attributes.email},
@@ -39,67 +39,7 @@ const FetchSMNonCovLns = props => {
                   ));
               setLoanees(Lonees.data.listSMAccounts.items);
 
-              const gtExchangeRt = async () =>{
-                if(isLoading){
-                    return;
-                }
-                setIsLoading(true)
-                try{
-                  const compDtlsz = await API.graphql(
-                  graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
-                    );
-                    const nationality = compDtlsz.data.getSMAccount.nationality; 
 
-
-                      const gtExchangeRt2 = async () =>{
-                        if(isLoading){
-                            return;
-                        }
-                        setIsLoading(true)
-                        try{
-                          const compDtls = await API.graphql(
-                          graphqlOperation(getExRates,{cur:nationality})
-                            );
-                              const sellingPrice = compDtls.data.getExRates.sellingPrice
-
-                              const fetchLoaneesscx = async () => {
-                                setLoading(true);
-                                try {
-                                  const Lonees= await API.graphql(graphqlOperation(listCompanies, 
-                                    
-                                      ));
-                                      setRecvrs(Lonees.data.listCompanies.items);
-                                } catch (e) {
-                                  console.log(e);
-                                } finally {
-                                  setLoading(false);
-                                }
-                              };
-                      
-                                  await fetchLoaneesscx(); 
-        
-                            } catch (error) {
-                                console.log(error)
-                            if (error){Alert.alert("Error")
-                                    return;}
-                              }
-                              setIsLoading(false);
-                              };    
-                  
-                              await gtExchangeRt2(); 
-        
-
-
-
-                    } catch (error) {
-                        console.log(error)
-                    if (error){Alert.alert("Error")
-                            return;}
-                      }
-                      setIsLoading(false);
-                      };    
-          
-                      await gtExchangeRt(); 
 
               if (Lonees.data.listSMAccounts.items.length < 1) {
                 PyPlDpst2();
@@ -129,7 +69,7 @@ useEffect(() => {
 <View style={styles.root}>
       <FlatList
       style= {{width:"100%"}}
-        data={Recom}
+        data={Loanees}
         renderItem={({item}) => <LnerStts SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={fetchLoanees}
@@ -138,7 +78,9 @@ useEffect(() => {
         ListHeaderComponentStyle={{alignItems: 'center'}}
         ListHeaderComponent={() => (
           <>
-            
+            <Text>
+              Please swipe to reload terms and conditions before proceeding
+            </Text>
             
           </>
         )}

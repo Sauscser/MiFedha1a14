@@ -334,6 +334,7 @@ export const createSMLoansCovered = /* GraphQL */ `
       dfltUpdate
       amountrepaid
       lonBala
+      interest
       loaneename
       loanername
       loanerEmail
@@ -372,6 +373,7 @@ export const updateSMLoansCovered = /* GraphQL */ `
       dfltUpdate
       amountrepaid
       lonBala
+      interest
       loaneename
       loanername
       loanerEmail
@@ -410,6 +412,7 @@ export const deleteSMLoansCovered = /* GraphQL */ `
       dfltUpdate
       amountrepaid
       lonBala
+      interest
       loaneename
       loanername
       loanerEmail
@@ -639,66 +642,6 @@ export const deleteSokoAd = /* GraphQL */ `
     $condition: ModelSokoAdConditionInput
   ) {
     deleteSokoAd(input: $input, condition: $condition) {
-      id
-      sokokntct
-      sokoname
-      sokoprice
-      sokotown
-      sokolnprcntg
-      sokolpymntperiod
-      sokodesc
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createSokoAd5 = /* GraphQL */ `
-  mutation CreateSokoAd5(
-    $input: CreateSokoAd5Input!
-    $condition: ModelSokoAd5ConditionInput
-  ) {
-    createSokoAd5(input: $input, condition: $condition) {
-      id
-      sokokntct
-      sokoname
-      sokoprice
-      sokotown
-      sokolnprcntg
-      sokolpymntperiod
-      sokodesc
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateSokoAd5 = /* GraphQL */ `
-  mutation UpdateSokoAd5(
-    $input: UpdateSokoAd5Input!
-    $condition: ModelSokoAd5ConditionInput
-  ) {
-    updateSokoAd5(input: $input, condition: $condition) {
-      id
-      sokokntct
-      sokoname
-      sokoprice
-      sokotown
-      sokolnprcntg
-      sokolpymntperiod
-      sokodesc
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteSokoAd5 = /* GraphQL */ `
-  mutation DeleteSokoAd5(
-    $input: DeleteSokoAd5Input!
-    $condition: ModelSokoAd5ConditionInput
-  ) {
-    deleteSokoAd5(input: $input, condition: $condition) {
       id
       sokokntct
       sokoname
@@ -1385,78 +1328,6 @@ export const deleteBizna = /* GraphQL */ `
     }
   }
 `;
-export const createBizna2 = /* GraphQL */ `
-  mutation CreateBizna2(
-    $input: CreateBizna2Input!
-    $condition: ModelBizna2ConditionInput
-  ) {
-    createBizna2(input: $input, condition: $condition) {
-      BusKntct
-      busName
-      pw
-      TtlEarnings
-      earningsBal
-      netEarnings
-      ownerEml
-      saleStts
-      noBL
-      email
-      status
-      owner
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateBizna2 = /* GraphQL */ `
-  mutation UpdateBizna2(
-    $input: UpdateBizna2Input!
-    $condition: ModelBizna2ConditionInput
-  ) {
-    updateBizna2(input: $input, condition: $condition) {
-      BusKntct
-      busName
-      pw
-      TtlEarnings
-      earningsBal
-      netEarnings
-      ownerEml
-      saleStts
-      noBL
-      email
-      status
-      owner
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteBizna2 = /* GraphQL */ `
-  mutation DeleteBizna2(
-    $input: DeleteBizna2Input!
-    $condition: ModelBizna2ConditionInput
-  ) {
-    deleteBizna2(input: $input, condition: $condition) {
-      BusKntct
-      busName
-      pw
-      TtlEarnings
-      earningsBal
-      netEarnings
-      ownerEml
-      saleStts
-      noBL
-      email
-      status
-      owner
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const createBankAdmin = /* GraphQL */ `
   mutation CreateBankAdmin(
     $input: CreateBankAdminInput!
@@ -1716,6 +1587,7 @@ export const createCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      ChampCom
       AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
@@ -1875,6 +1747,7 @@ export const updateCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      ChampCom
       AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
@@ -2034,6 +1907,7 @@ export const deleteCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      ChampCom
       AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
@@ -2179,6 +2053,7 @@ export const createCovCreditSeller = /* GraphQL */ `
     createCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
+      interest
       loanerLoanee
       loanerLoaneeAdv
       buyerContact
@@ -2217,6 +2092,7 @@ export const updateCovCreditSeller = /* GraphQL */ `
     updateCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
+      interest
       loanerLoanee
       loanerLoaneeAdv
       buyerContact
@@ -2255,6 +2131,7 @@ export const deleteCovCreditSeller = /* GraphQL */ `
     deleteCovCreditSeller(input: $input, condition: $condition) {
       id
       itemName
+      interest
       loanerLoanee
       loanerLoaneeAdv
       buyerContact
@@ -2285,105 +2162,6 @@ export const deleteCovCreditSeller = /* GraphQL */ `
     }
   }
 `;
-export const createNonCovCreditSeller = /* GraphQL */ `
-  mutation CreateNonCovCreditSeller(
-    $input: CreateNonCovCreditSellerInput!
-    $condition: ModelNonCovCreditSellerConditionInput
-  ) {
-    createNonCovCreditSeller(input: $input, condition: $condition) {
-      id
-      itemName
-      loanerLoanee
-      buyerContact
-      sellerContact
-      buyerID
-      buyerName
-      SellerName
-      sellerID
-      amountSold
-      amountexpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      lonBala
-      repaymentPeriod
-      timeExpBack
-      timeExpBack2
-      description
-      DefaultPenaltyCredSl
-      DefaultPenaltyCredSl2
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateNonCovCreditSeller = /* GraphQL */ `
-  mutation UpdateNonCovCreditSeller(
-    $input: UpdateNonCovCreditSellerInput!
-    $condition: ModelNonCovCreditSellerConditionInput
-  ) {
-    updateNonCovCreditSeller(input: $input, condition: $condition) {
-      id
-      itemName
-      loanerLoanee
-      buyerContact
-      sellerContact
-      buyerID
-      buyerName
-      SellerName
-      sellerID
-      amountSold
-      amountexpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      lonBala
-      repaymentPeriod
-      timeExpBack
-      timeExpBack2
-      description
-      DefaultPenaltyCredSl
-      DefaultPenaltyCredSl2
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteNonCovCreditSeller = /* GraphQL */ `
-  mutation DeleteNonCovCreditSeller(
-    $input: DeleteNonCovCreditSellerInput!
-    $condition: ModelNonCovCreditSellerConditionInput
-  ) {
-    deleteNonCovCreditSeller(input: $input, condition: $condition) {
-      id
-      itemName
-      loanerLoanee
-      buyerContact
-      sellerContact
-      buyerID
-      buyerName
-      SellerName
-      sellerID
-      amountSold
-      amountexpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      lonBala
-      repaymentPeriod
-      timeExpBack
-      timeExpBack2
-      description
-      DefaultPenaltyCredSl
-      DefaultPenaltyCredSl2
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const createGroup = /* GraphQL */ `
   mutation CreateGroup(
     $input: CreateGroupInput!
@@ -2401,6 +2179,7 @@ export const createGroup = /* GraphQL */ `
       venture
       signitory2Sub
       WithdrawCnfrmtn
+      WithdrawCnfrmtnAmt
       grpEmail
       grpBal
       ttlGrpMembers
@@ -2447,6 +2226,7 @@ export const updateGroup = /* GraphQL */ `
       venture
       signitory2Sub
       WithdrawCnfrmtn
+      WithdrawCnfrmtnAmt
       grpEmail
       grpBal
       ttlGrpMembers
@@ -2493,6 +2273,7 @@ export const deleteGroup = /* GraphQL */ `
       venture
       signitory2Sub
       WithdrawCnfrmtn
+      WithdrawCnfrmtnAmt
       grpEmail
       grpBal
       ttlGrpMembers
@@ -2718,6 +2499,7 @@ export const createCvrdGroupLoans = /* GraphQL */ `
       loanerLoanee
       loanerLoaneeAdv
       amountGiven
+      interest
       advEmail
       amountExpectedBack
       amountExpectedBackWthClrnc
@@ -2753,6 +2535,7 @@ export const updateCvrdGroupLoans = /* GraphQL */ `
       loanerLoanee
       loanerLoaneeAdv
       amountGiven
+      interest
       advEmail
       amountExpectedBack
       amountExpectedBackWthClrnc
@@ -2788,6 +2571,7 @@ export const deleteCvrdGroupLoans = /* GraphQL */ `
       loanerLoanee
       loanerLoaneeAdv
       amountGiven
+      interest
       advEmail
       amountExpectedBack
       amountExpectedBackWthClrnc
@@ -2805,99 +2589,6 @@ export const deleteCvrdGroupLoans = /* GraphQL */ `
       owner
       DefaultPenaltyChm
       DefaultPenaltyChm2
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createNonCvrdGroupLoans = /* GraphQL */ `
-  mutation CreateNonCvrdGroupLoans(
-    $input: CreateNonCvrdGroupLoansInput!
-    $condition: ModelNonCvrdGroupLoansConditionInput
-  ) {
-    createNonCvrdGroupLoans(input: $input, condition: $condition) {
-      id
-      grpContact
-      loaneePhn
-      loanerLoanee
-      DefaultPenaltyChm
-      DefaultPenaltyChm2
-      repaymentPeriod
-      amountGiven
-      amountExpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      timeExpBack
-      timeExpBack2
-      description
-      loaneeName
-      loanerName
-      memberId
-      lonBala
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateNonCvrdGroupLoans = /* GraphQL */ `
-  mutation UpdateNonCvrdGroupLoans(
-    $input: UpdateNonCvrdGroupLoansInput!
-    $condition: ModelNonCvrdGroupLoansConditionInput
-  ) {
-    updateNonCvrdGroupLoans(input: $input, condition: $condition) {
-      id
-      grpContact
-      loaneePhn
-      loanerLoanee
-      DefaultPenaltyChm
-      DefaultPenaltyChm2
-      repaymentPeriod
-      amountGiven
-      amountExpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      timeExpBack
-      timeExpBack2
-      description
-      loaneeName
-      loanerName
-      memberId
-      lonBala
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteNonCvrdGroupLoans = /* GraphQL */ `
-  mutation DeleteNonCvrdGroupLoans(
-    $input: DeleteNonCvrdGroupLoansInput!
-    $condition: ModelNonCvrdGroupLoansConditionInput
-  ) {
-    deleteNonCvrdGroupLoans(input: $input, condition: $condition) {
-      id
-      grpContact
-      loaneePhn
-      loanerLoanee
-      DefaultPenaltyChm
-      DefaultPenaltyChm2
-      repaymentPeriod
-      amountGiven
-      amountExpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      timeExpBack
-      timeExpBack2
-      description
-      loaneeName
-      loanerName
-      memberId
-      lonBala
-      status
-      owner
       createdAt
       updatedAt
     }

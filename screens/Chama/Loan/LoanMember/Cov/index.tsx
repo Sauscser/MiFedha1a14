@@ -197,13 +197,21 @@ const fetchChmMbrDtls = async () => {
           ttlCovFeeAmount)
 
           const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) 
-          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
-          const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + parseFloat(AmtExp);
+          
+          
+          
+          
 
           const TtlTransCost2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
-          const TotalAmtExp2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) + parseFloat(AmtExp);
+          const amtrpayable2 = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod)
+          const amtrpayable = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod)
+          const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable;
+          const TotalAmtExp2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable2;
+          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
 
           const AllTtlTrnsCst = TtlTransCost + MaxSMInterest;
+
+          
 
    
 
@@ -230,6 +238,7 @@ const fetchChmMbrDtls = async () => {
                         const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
                         const DefaultPenaltyRate = parseFloat(defaultPenalty)/parseFloat(AmtRepaids) *100;
                         const RecomDfltPnltyRate = (parseFloat(AmtRepaids)*20) / 100;
+
 
                         const sendSMLn = async () => {
                           if(isLoading){
@@ -260,6 +269,8 @@ const fetchChmMbrDtls = async () => {
                                     LoanerName:grpNames,
                                     memberId:ChmNMmbrPhns,
                                     status: "LoanActive",
+                                    interest:AmtExp,
+                                    dfltUpdate: daysUpToDate,
                                     owner: userInfo.attributes.sub,
                                     AdvEmail:AdvEmail
                                 },
@@ -481,7 +492,9 @@ const fetchChmMbrDtls = async () => {
                                     advRegNu: advLicNo,
                                     loaneeName:namess,
                                     LoanerName:grpNames,
+                                    interest:AmtExp,
                                     memberId:ChmNMmbrPhns,
+                                    dfltUpdate: daysUpToDate,
                                     status: "LoanActive",
                                     owner: userInfo.attributes.sub,
                                     AdvEmail:AdvEmail

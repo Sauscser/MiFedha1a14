@@ -223,7 +223,7 @@ const CreateNewSMAc = async () => {
       Communications.textWithoutEncoding(phonecontact,'MiFedha. Greetings! '
       + 'We ' + name + ', the loanee and ' + name + ', the loaner humbly' +  
       ' request that you witness our loan contract on MiFedha app amounting to Ksh. '+
-      itemPrys + ' repayable as Ksh. ' + lnPrsntg + ' by the end of ' +rpymntPrd + 
+      itemPrys + ' repayable with ' + lnPrsntg + 'interest by the end of ' +rpymntPrd + 
       ' days. Default penalty is Ksh. '+ MmbaID + '. You can reach my loaner through '+ phonecontactz +
        '. You can also reach me through ' +phonecontacts +'. Thank you.');
       
@@ -246,11 +246,10 @@ const CreateNewSMAc = async () => {
         
       } 
       
-      else if (parseFloat(itemPrys) > parseFloat(lnPrsntg))
-      {Alert.alert("Repayment Amount cant be lesser than Loan")}
+      
       else if ((DfltPnltyRate) > (RecomDfltPnltyRate))
       {Alert.alert("Enter Default Penalty less than Ksh. " + RecomDfltPnltyRate)}
-      else if (Int > 100){
+      else if (parseFloat(lnPrsntg) > 100){
         Alert.alert("Interest exploits you; enter lesser repayment amount")
       }
       else if (Sign2Phn != "")
@@ -478,18 +477,17 @@ useEffect(() =>{
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Loan Amount</Text>
                   </View>
-
-                  
                   <View style={styles.sendLoanView}>
                     <TextInput
                     keyboardType='decimal-pad'
-                    
+                    placeholder='Example: 8% write 8'
                       value={lnPrsntg}
                       onChangeText={setlnPrsntg}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Repayment Amount</Text>
+                    <Text style={styles.sendLoanText}>Monthly Interest rate</Text>
                   </View>
+
 
                   <View style={styles.sendLoanView}>
                     <TextInput

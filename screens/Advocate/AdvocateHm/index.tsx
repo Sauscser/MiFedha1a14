@@ -69,6 +69,12 @@ const KFAdvHome = props => {
           <Text style={styles.floatText}> View</Text>
 
           <View style={styles.viewForFloatPressables}>
+          <Pressable
+              onPress={AdvVwChmSgnInss}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText2}>Group Loans</Text>
+            </Pressable>
+            
             <Pressable
               onPress={AdvVwCrdSlsSgnInss}
               style={styles.floatView}>
@@ -87,11 +93,7 @@ const KFAdvHome = props => {
 
             
 
-            <Pressable
-              onPress={AdvVwChmSgnInss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>Grp/Chama Loans</Text>
-            </Pressable>
+            
           </View>
         </View>
         

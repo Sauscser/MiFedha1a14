@@ -65,7 +65,9 @@ const BLCovCredByr = (props) => {
               const sellerContacts = compDtls.data.getCovCreditSeller.sellerContact
               const amountexpecteds = compDtls.data.getCovCreditSeller.amountexpectedBack
               const amountrepaids = compDtls.data.getCovCreditSeller.amountRepaid
-              const amountSolds = compDtls.data.getCovCreditSeller.amountSold
+              const dfltUpdate = compDtls.data.getCovCreditSeller.dfltUpdate
+              const interest = compDtls.data.getCovCreditSeller.interest
+              
               const lonBala = compDtls.data.getCovCreditSeller.lonBala
               const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
               
@@ -95,7 +97,7 @@ const BLCovCredByr = (props) => {
               
               
               
-              let char = createdAt;
+              let char = dfltUpdate;
               let char1 = char.charAt(0)
               let char2 = char.charAt(1)
               let char3 = char.charAt(2)
@@ -125,9 +127,36 @@ const BLCovCredByr = (props) => {
               const crtnMnths = parseFloat(crtnMnth)*30.4375;
               const daysAtCrtn = crtnYears + crtnMnths + parseFloat(crtnDy)
 
+              let charz = createdAt;
+              let char1z = charz.charAt(0)
+              let char2z = charz.charAt(1)
+              let char3z = charz.charAt(2)
+              let char4z = charz.charAt(3)
+              let char5z = charz.charAt(4)
+              let char6z = charz.charAt(5)
+              let char7z = charz.charAt(6)
+              let char8z = charz.charAt(7)
+              let char9z = charz.charAt(8)
+              let char10z = charz.charAt(9)
+              let char11z = charz.charAt(10)
+              let char12z = charz.charAt(11)
+              let char13z = charz.charAt(12)
+
+              
+              let crtnYrz = char1z+char2z+char3z+char4z;
+              let crtnMnthz = char6z+char7z;
+              let crtnDyz = char9z+char10z;
+              let crtnHrz = char12z+char13z;
+              const crtnYearsz = parseFloat(crtnYrz)*365;
+              const crtnMnthsz = parseFloat(crtnMnthz)*30.4375;
+              const daysAtCrtnz = crtnYearsz + crtnMnthsz + parseFloat(crtnDyz)
+
               const tmDif = daysUpToDate - daysAtCrtn;
+              const tmDif2 = daysUpToDate - daysAtCrtnz;
               
               const lglGrcePrd = 60 - tmDif;
+
+              const LonBal1 = Math.pow(LonBal*(1 + parseFloat(interest)), repaymentPeriod)
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -194,11 +223,9 @@ const BLCovCredByr = (props) => {
     
                               
     
-                              else if(statusssss === "LoanBL"){
-                                Alert.alert("This Loan is already Black Listed")
-                              } 
-    
-                              
+                              else if (tmDif < repaymentPeriod && repaymentPeriod > tmDif2){
+                                Alert.alert("Time to add penalty is not yet")
+                              }
     
                               else if(acStatusss === "AccountInactive"){
                                 Alert.alert("Loanee account has been deactivated")
@@ -250,7 +277,9 @@ const BLCovCredByr = (props) => {
                                           amountExpectedBackWthClrnc:(amountExpectedBackWthClrncss).toFixed(0),
                                           status:"LoanBL",
                                           DefaultPenaltyCredSl2:DefaultPenaltyCredSls.toFixed(0),
-                                          lonBala:LonBal.toFixed(0)
+                                          lonBala:LonBal1.toFixed(0),
+                                          dfltUpdate: daysUpToDate,
+                                          
                                         }
                                       })
                                     )
@@ -271,7 +300,7 @@ const BLCovCredByr = (props) => {
                               + 'has been blacklisted by '+ names 
                               + ' Business. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
                             + lonBala + '. Default Penalty as you had agreed with your loaner is Ksh. ' + DefaultPenaltyCredSls 
-                            + '. Clearance fee is Ksh. ' + ClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal
+                            + '. Clearance fee is Ksh. ' + ClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal1
                              +'. For clarification call the Business Owner: '
                             + sellerContacts + '. Thank you. MiFedha');
                                 setIsLoading(false);          

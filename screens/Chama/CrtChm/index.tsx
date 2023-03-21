@@ -121,7 +121,7 @@ const CreateChama = (props:UserReg) => {
                   grpBal: 0,
                   ttlGrpMembers: 1,
                   description: ChmDesc,
-                
+                  WithdrawCnfrmtnAmt:0,
                   ttlNonLonsRecChm: 0,
                   ttlNonLonsSentChm:0,
                 

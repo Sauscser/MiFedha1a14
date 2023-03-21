@@ -65,7 +65,7 @@ const BLCovCredByr = (props) => {
               const sellerContacts = compDtls.data.getCovCreditSeller.sellerContact
               const amountexpecteds = compDtls.data.getCovCreditSeller.amountexpectedBack
               const amountrepaids = compDtls.data.getCovCreditSeller.amountRepaid
-              const amountSolds = compDtls.data.getCovCreditSeller.amountSold
+              const interest = compDtls.data.getCovCreditSeller.interest
               const lonBala = compDtls.data.getCovCreditSeller.lonBala
               const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
               
@@ -128,6 +128,8 @@ const BLCovCredByr = (props) => {
               const tmDif = daysUpToDate - daysAtCrtn;
               
               const lglGrcePrd = 60 - tmDif;
+
+              const LonBal1 = Math.pow(LonBal*(1 + parseFloat(interest)), repaymentPeriod)
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -249,7 +251,7 @@ const BLCovCredByr = (props) => {
                                           amountExpectedBackWthClrnc:(amountExpectedBackWthClrncss).toFixed(0),
                                           status:"LoanBL",
                                           DefaultPenaltyCredSl2:DefaultPenaltyCredSls.toFixed(0),
-                                          lonBala:LonBal.toFixed(0)
+                                          lonBala:LonBal1.toFixed(0)
                                         }
                                       })
                                     )
@@ -270,7 +272,7 @@ const BLCovCredByr = (props) => {
                               + 'has been blacklisted by '+ namess 
                               + ' Business. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
                             + lonBala + '. Default Penalty as you had agreed with your loaner is Ksh. ' + DefaultPenaltyCredSls 
-                            + '. Clearance fee is Ksh. ' + ClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal
+                            + '. Clearance fee is Ksh. ' + ClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal1
                              +'. For clarification call the Business Owner: '
                             + userInfo.attributes.phone_number + '. Thank you. MiFedha');
                                 setIsLoading(false);          

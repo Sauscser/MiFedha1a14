@@ -81,7 +81,8 @@ const CreateBiz = (props) => {
             earningsBal: 0,
             netEarnings:0,
             description: ChmDesc,
-          
+            licenseNo: Sign2Phn,
+            bizType:"bizType",
             status: "AccountActive",
             owner: userInfo.attributes.sub,
                   },
@@ -285,6 +286,15 @@ useEffect(() =>{
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Business Name</Text>
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                      value={Sign2Phn}
+                      onChangeText={setSign2Phn}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Registration/License Number</Text>
                   </View>
 
         

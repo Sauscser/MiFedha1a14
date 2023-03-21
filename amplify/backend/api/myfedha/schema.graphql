@@ -213,6 +213,7 @@ type SMLoansCovered
   dfltUpdate: String
   amountrepaid: Float!
   lonBala:Float!
+  interest: Float!
   loaneename:String!
   loanername:String!
   loanerEmail: String!
@@ -403,42 +404,7 @@ type SokoAd
   createdAt: String!
 }
 
-type SokoAd5
-  @model
-  @auth(
-    rules: [
-      
-      { allow: owner, operations: [read, update, delete] }
-      { allow: private, operations: [read, create] }
-      
-      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
-      
-      {
-        allow: groups
-        groups: ["Executive"]
-        operations: [read, create, update, delete]
-      }
-      ]
-  )
 
-  
-   {
-  
-  id:ID!
-  
-  sokokntct: String! 
-  sokoname: String! @index(name: "DakaName5", sortKeyFields: ["createdAt"], queryField: "DakaByName5")
- 
-  sokoprice: Float!
-  sokotown: String!
-  sokolnprcntg: Float!
-  sokolpymntperiod: Float!
-  sokodesc: String! 
-  
-  owner: String!
-  
-  createdAt: String!
-}
 
 
 type RafikiLnAd
@@ -961,67 +927,7 @@ type Bizna
   createdAt: String!
 }
 
-type Bizna2
-  @model
-  @auth(
-    rules: [
-      {
-        allow: groups
-        groups: ["AdminOne"]
-        operations: [read, create, update, delete]
-      }
-      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
-      { allow: owner, operations: [read, update, delete] }
-      { allow: private, operations: [read, update, create, delete] }
-      {
-        allow: groups
-        groups: ["RegionalAdmin"]
-        operations: [read, delete, update]
-      }
 
-      {
-        allow: groups
-        groups: ["BizOwner"]
-       
-        operations: [read, create, update, delete]
-      }
-
-      {
-        allow: groups
-        groups: ["RegionalAdminTwo"]
-        operations: [read, update]
-      }
-      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
-      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
-      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
-      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
-      
-      {
-        allow: groups
-        groups: ["Executive"]
-        operations: [read, create, update, delete]
-      }
-      ]
-  )
-
-  
-   {
-  
-  BusKntct: String! @primaryKey
-  busName: String! @index(name: "byCrtnTymmmmms2", sortKeyFields: ["createdAt"], queryField: "BiznaVwws2")
-  pw: String!
-  TtlEarnings: Float!
-  earningsBal:Float!
-  netEarnings:Float!
-  ownerEml:String
-  saleStts: String
-  noBL: Float
-  email: String!
-  status:String!
-  owner: String!
-  description:String!
-  createdAt: String!
-}
 
 
 
@@ -1461,7 +1367,7 @@ type CovCreditSeller
   {
   id: ID!
   itemName: String!
- 
+ interest: Float!
   loanerLoanee:String! @index(name: "byLnrNLneesss", sortKeyFields: ["createdAt"], queryField: "VwLnrNLneesss")
   loanerLoaneeAdv:String
   buyerContact: String!  @index(name: "byByrPhn", sortKeyFields: ["createdAt"], queryField: "VwMyCrdBys")
@@ -1490,72 +1396,7 @@ giverStatus:Status!
   createdAt: String!
 }
 
-type NonCovCreditSeller
-  @model
-  @auth(
-    rules: [
-      { allow: owner, operations: [create, read, update] }
-      { allow: private, operations: [read, create, update] }
-      {
-        allow: groups
-        groups: ["AdminOne"]
-        operations: [read, create, update, delete]
-      }
-      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
-      {
-        allow: groups
-        groups: ["RegionalAdmin"]
-        operations: [read, create, update]
-      }
-      {
-        allow: groups
-        groups: ["RegionalAdminTwo"]
-        operations: [read, update]
-      }
-      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
-      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
-      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
-      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
-      {
-        allow: groups
-        groups: ["Executive"]
-        operations: [read, create, update, delete]
-      }
-      { allow: groups, groups: ["Advocate"], operations: [read] }
-    ]
-  )
- 
-  
-  
 
-  {
-  id : ID!
-  itemName: String!
-  
-  loanerLoanee:String! @index(name: "byLnrNLneess", sortKeyFields: ["createdAt"], queryField: "VwLnrNLneess")
-  
-  buyerContact: String! @index(name: "byByrPhns", sortKeyFields: ["createdAt"], queryField: "VwMyCrdByss")
-  sellerContact: String!  @index(name: "bySlrPhns", sortKeyFields: ["createdAt"], queryField: "VwMySaless")
-  buyerID: String!
-  buyerName:String!
-  SellerName:String!
-  sellerID: String!
-  amountSold: Float!
-  
-  amountexpectedBack: Float!
-  amountExpectedBackWthClrnc: Float!
-  amountRepaid: Float!
-  lonBala:Float!
-  repaymentPeriod: Float!
-  timeExpBack: Float!
-  timeExpBack2: Float!
-  description: String
-  DefaultPenaltyCredSl: Float!
-  DefaultPenaltyCredSl2: Float!
-  status: Status!
-  owner: String!
-  createdAt: String!
-}
 
 type Group
   @model
@@ -1819,6 +1660,7 @@ type CvrdGroupLoans
   loanerLoanee:String!  @index(name: "byLnrNLnee", sortKeyFields: ["createdAt"], queryField: "VwLnrNLnee")
   loanerLoaneeAdv:String
   amountGiven: Float!
+  interest: Float!
   advEmail:String
   amountExpectedBack: Float!
   amountExpectedBackWthClrnc: Float!
@@ -1839,69 +1681,7 @@ type CvrdGroupLoans
   createdAt: String!
 }
 
-type NonCvrdGroupLoans
-  @model
-  @auth(
-    rules: [
-      { allow: owner, operations: [create, read, update] }
-      { allow: private, operations: [read, create, update] }
-      {
-        allow: groups
-        groups: ["AdminOne"]
-        operations: [read, create, update, delete]
-      }
-      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
-      {
-        allow: groups
-        groups: ["RegionalAdmin"]
-        operations: [read, create, update]
-      }
-      {
-        allow: groups
-        groups: ["RegionalAdminTwo"]
-        operations: [read, update]
-      }
-      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
-      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
-      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
-      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
-      {
-        allow: groups
-        groups: ["Executive"]
-        operations: [read, create, update, delete]
-      }
-      { allow: groups, groups: ["Advocate"], operations: [read] }
-    ]
-  )
- 
- 
- 
-  
-  {
 
-  id :ID!
-  grpContact: String!  @index(name: "byChmCntctsss", sortKeyFields: ["createdAt"], queryField: "VwChamaMembersss")
-  loaneePhn: String!  @index(name: "byMemberCntctsss", sortKeyFields: ["createdAt"], queryField: "VwMyChamasss")
-  loanerLoanee:String!  @index(name: "byLnrNLnees", sortKeyFields: ["createdAt"], queryField: "VwLnrNLnees")
-  DefaultPenaltyChm: Float!
-  DefaultPenaltyChm2: Float!
-  repaymentPeriod: Float!
-  amountGiven: Float!
-  amountExpectedBack: Float!
-  amountExpectedBackWthClrnc: Float!
-  amountRepaid: Float!
-  timeExpBack: Float!
-  timeExpBack2: Float!
-  description: String
-  
-  loaneeName:String!
-  loanerName:String!
-  memberId:String!
-  lonBala:Float!
-  status: Status!
-  owner: String!
-  createdAt: String!
-}
 
 type GroupNonLoans
   @model

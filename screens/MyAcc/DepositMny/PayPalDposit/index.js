@@ -77,14 +77,14 @@ const PayPalPg = () => {
                         }
                         setIsLoading(true)
                         try{
-                          const compDtls = await API.graphql(
+                          const compDtls1 = await API.graphql(
                           graphqlOperation(getExRates,{cur:nationality})
                             );
-                              const sellingPrice = compDtls.data.getExRates.sellingPrice
-                              const symbol = compDtls.data.getExRates.symbol
+                              const buyingPrice = compDtls1.data.getExRates.buyingPrice
+                              const symbol = compDtls1.data.getExRates.symbol
 
-                              const Amtz = parseFloat(Amountss)*parseFloat(sellingPrice)
-                              const WalCap = parseFloat(usrBala) + parseFloat(Amtz);
+                              const Amtz = parseFloat(Amountss)*parseFloat(buyingPrice)
+                              const WalCap = parseFloat(usrBala) + Amtz;
 
 
     
@@ -127,8 +127,8 @@ const PayPalPg = () => {
                         input: {
                           awsemail: userInfo.attributes.email,
               
-                          balance: (parseFloat(usrBala) + parseFloat(Amtz)).toFixed(2),
-                          ttlDpstSM: (parseFloat(usrTlDpst) + parseFloat(Amtz)).toFixed(2),
+                          balance: (parseFloat(usrBala) + Amtz).toFixed(2),
+                          ttlDpstSM: (parseFloat(usrTlDpst) + Amtz).toFixed(2),
                         },
                       }),
                     );
@@ -157,8 +157,8 @@ const PayPalPg = () => {
                               AdminId:"BaruchHabaB'ShemAdonai2",
                   
                              
-                              ttlUsrDep: parseFloat(ttlUsrDpsts) + parseFloat(Amtz),
-                              agentFloatOut: parseFloat(agentFloatOuts) + parseFloat(Amtz),
+                              ttlUsrDep: parseFloat(ttlUsrDpsts) + Amtz,
+                              agentFloatOut: parseFloat(agentFloatOuts) + Amtz,
                             },
                           }),
                         );
@@ -180,7 +180,7 @@ const PayPalPg = () => {
     
                 
                 
-                else if(parseFloat(Amtz)>parseFloat(depositLimits)) {
+                else if(Amtz>parseFloat(depositLimits)) {
                   Alert.alert('Limit exceeded; call customer care for adjusment');
                   return;
                 }

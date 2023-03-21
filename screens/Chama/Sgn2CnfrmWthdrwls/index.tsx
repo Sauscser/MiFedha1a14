@@ -80,7 +80,8 @@ const SMADepositForm = props => {
                             input: {
                               grpContact: grpKntct,
                   
-                              WithdrawCnfrmtn: "YES"
+                              WithdrawCnfrmtn: "YES",
+                              WithdrawCnfrmtnAmt:amount
                               
                             },
                           }),

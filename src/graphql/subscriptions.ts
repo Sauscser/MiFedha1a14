@@ -334,6 +334,7 @@ export const onCreateSMLoansCovered = /* GraphQL */ `
       dfltUpdate
       amountrepaid
       lonBala
+      interest
       loaneename
       loanername
       loanerEmail
@@ -372,6 +373,7 @@ export const onUpdateSMLoansCovered = /* GraphQL */ `
       dfltUpdate
       amountrepaid
       lonBala
+      interest
       loaneename
       loanername
       loanerEmail
@@ -410,6 +412,7 @@ export const onDeleteSMLoansCovered = /* GraphQL */ `
       dfltUpdate
       amountrepaid
       lonBala
+      interest
       loaneename
       loanername
       loanerEmail
@@ -639,66 +642,6 @@ export const onDeleteSokoAd = /* GraphQL */ `
     $owner: String
   ) {
     onDeleteSokoAd(filter: $filter, owner: $owner) {
-      id
-      sokokntct
-      sokoname
-      sokoprice
-      sokotown
-      sokolnprcntg
-      sokolpymntperiod
-      sokodesc
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateSokoAd5 = /* GraphQL */ `
-  subscription OnCreateSokoAd5(
-    $filter: ModelSubscriptionSokoAd5FilterInput
-    $owner: String
-  ) {
-    onCreateSokoAd5(filter: $filter, owner: $owner) {
-      id
-      sokokntct
-      sokoname
-      sokoprice
-      sokotown
-      sokolnprcntg
-      sokolpymntperiod
-      sokodesc
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateSokoAd5 = /* GraphQL */ `
-  subscription OnUpdateSokoAd5(
-    $filter: ModelSubscriptionSokoAd5FilterInput
-    $owner: String
-  ) {
-    onUpdateSokoAd5(filter: $filter, owner: $owner) {
-      id
-      sokokntct
-      sokoname
-      sokoprice
-      sokotown
-      sokolnprcntg
-      sokolpymntperiod
-      sokodesc
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteSokoAd5 = /* GraphQL */ `
-  subscription OnDeleteSokoAd5(
-    $filter: ModelSubscriptionSokoAd5FilterInput
-    $owner: String
-  ) {
-    onDeleteSokoAd5(filter: $filter, owner: $owner) {
       id
       sokokntct
       sokoname
@@ -1376,78 +1319,6 @@ export const onDeleteBizna = /* GraphQL */ `
     }
   }
 `;
-export const onCreateBizna2 = /* GraphQL */ `
-  subscription OnCreateBizna2(
-    $filter: ModelSubscriptionBizna2FilterInput
-    $owner: String
-  ) {
-    onCreateBizna2(filter: $filter, owner: $owner) {
-      BusKntct
-      busName
-      pw
-      TtlEarnings
-      earningsBal
-      netEarnings
-      ownerEml
-      saleStts
-      noBL
-      email
-      status
-      owner
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateBizna2 = /* GraphQL */ `
-  subscription OnUpdateBizna2(
-    $filter: ModelSubscriptionBizna2FilterInput
-    $owner: String
-  ) {
-    onUpdateBizna2(filter: $filter, owner: $owner) {
-      BusKntct
-      busName
-      pw
-      TtlEarnings
-      earningsBal
-      netEarnings
-      ownerEml
-      saleStts
-      noBL
-      email
-      status
-      owner
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteBizna2 = /* GraphQL */ `
-  subscription OnDeleteBizna2(
-    $filter: ModelSubscriptionBizna2FilterInput
-    $owner: String
-  ) {
-    onDeleteBizna2(filter: $filter, owner: $owner) {
-      BusKntct
-      busName
-      pw
-      TtlEarnings
-      earningsBal
-      netEarnings
-      ownerEml
-      saleStts
-      noBL
-      email
-      status
-      owner
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const onCreateBankAdmin = /* GraphQL */ `
   subscription OnCreateBankAdmin(
     $filter: ModelSubscriptionBankAdminFilterInput
@@ -1707,6 +1578,7 @@ export const onCreateCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      ChampCom
       AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
@@ -1866,6 +1738,7 @@ export const onUpdateCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      ChampCom
       AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
@@ -2025,6 +1898,7 @@ export const onDeleteCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      ChampCom
       AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
@@ -2170,6 +2044,7 @@ export const onCreateCovCreditSeller = /* GraphQL */ `
     onCreateCovCreditSeller(filter: $filter, owner: $owner) {
       id
       itemName
+      interest
       loanerLoanee
       loanerLoaneeAdv
       buyerContact
@@ -2208,6 +2083,7 @@ export const onUpdateCovCreditSeller = /* GraphQL */ `
     onUpdateCovCreditSeller(filter: $filter, owner: $owner) {
       id
       itemName
+      interest
       loanerLoanee
       loanerLoaneeAdv
       buyerContact
@@ -2246,6 +2122,7 @@ export const onDeleteCovCreditSeller = /* GraphQL */ `
     onDeleteCovCreditSeller(filter: $filter, owner: $owner) {
       id
       itemName
+      interest
       loanerLoanee
       loanerLoaneeAdv
       buyerContact
@@ -2276,105 +2153,6 @@ export const onDeleteCovCreditSeller = /* GraphQL */ `
     }
   }
 `;
-export const onCreateNonCovCreditSeller = /* GraphQL */ `
-  subscription OnCreateNonCovCreditSeller(
-    $filter: ModelSubscriptionNonCovCreditSellerFilterInput
-    $owner: String
-  ) {
-    onCreateNonCovCreditSeller(filter: $filter, owner: $owner) {
-      id
-      itemName
-      loanerLoanee
-      buyerContact
-      sellerContact
-      buyerID
-      buyerName
-      SellerName
-      sellerID
-      amountSold
-      amountexpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      lonBala
-      repaymentPeriod
-      timeExpBack
-      timeExpBack2
-      description
-      DefaultPenaltyCredSl
-      DefaultPenaltyCredSl2
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateNonCovCreditSeller = /* GraphQL */ `
-  subscription OnUpdateNonCovCreditSeller(
-    $filter: ModelSubscriptionNonCovCreditSellerFilterInput
-    $owner: String
-  ) {
-    onUpdateNonCovCreditSeller(filter: $filter, owner: $owner) {
-      id
-      itemName
-      loanerLoanee
-      buyerContact
-      sellerContact
-      buyerID
-      buyerName
-      SellerName
-      sellerID
-      amountSold
-      amountexpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      lonBala
-      repaymentPeriod
-      timeExpBack
-      timeExpBack2
-      description
-      DefaultPenaltyCredSl
-      DefaultPenaltyCredSl2
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteNonCovCreditSeller = /* GraphQL */ `
-  subscription OnDeleteNonCovCreditSeller(
-    $filter: ModelSubscriptionNonCovCreditSellerFilterInput
-    $owner: String
-  ) {
-    onDeleteNonCovCreditSeller(filter: $filter, owner: $owner) {
-      id
-      itemName
-      loanerLoanee
-      buyerContact
-      sellerContact
-      buyerID
-      buyerName
-      SellerName
-      sellerID
-      amountSold
-      amountexpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      lonBala
-      repaymentPeriod
-      timeExpBack
-      timeExpBack2
-      description
-      DefaultPenaltyCredSl
-      DefaultPenaltyCredSl2
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const onCreateGroup = /* GraphQL */ `
   subscription OnCreateGroup(
     $filter: ModelSubscriptionGroupFilterInput
@@ -2392,6 +2170,7 @@ export const onCreateGroup = /* GraphQL */ `
       venture
       signitory2Sub
       WithdrawCnfrmtn
+      WithdrawCnfrmtnAmt
       grpEmail
       grpBal
       ttlGrpMembers
@@ -2438,6 +2217,7 @@ export const onUpdateGroup = /* GraphQL */ `
       venture
       signitory2Sub
       WithdrawCnfrmtn
+      WithdrawCnfrmtnAmt
       grpEmail
       grpBal
       ttlGrpMembers
@@ -2484,6 +2264,7 @@ export const onDeleteGroup = /* GraphQL */ `
       venture
       signitory2Sub
       WithdrawCnfrmtn
+      WithdrawCnfrmtnAmt
       grpEmail
       grpBal
       ttlGrpMembers
@@ -2706,6 +2487,7 @@ export const onCreateCvrdGroupLoans = /* GraphQL */ `
       loanerLoanee
       loanerLoaneeAdv
       amountGiven
+      interest
       advEmail
       amountExpectedBack
       amountExpectedBackWthClrnc
@@ -2741,6 +2523,7 @@ export const onUpdateCvrdGroupLoans = /* GraphQL */ `
       loanerLoanee
       loanerLoaneeAdv
       amountGiven
+      interest
       advEmail
       amountExpectedBack
       amountExpectedBackWthClrnc
@@ -2776,6 +2559,7 @@ export const onDeleteCvrdGroupLoans = /* GraphQL */ `
       loanerLoanee
       loanerLoaneeAdv
       amountGiven
+      interest
       advEmail
       amountExpectedBack
       amountExpectedBackWthClrnc
@@ -2793,99 +2577,6 @@ export const onDeleteCvrdGroupLoans = /* GraphQL */ `
       owner
       DefaultPenaltyChm
       DefaultPenaltyChm2
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateNonCvrdGroupLoans = /* GraphQL */ `
-  subscription OnCreateNonCvrdGroupLoans(
-    $filter: ModelSubscriptionNonCvrdGroupLoansFilterInput
-    $owner: String
-  ) {
-    onCreateNonCvrdGroupLoans(filter: $filter, owner: $owner) {
-      id
-      grpContact
-      loaneePhn
-      loanerLoanee
-      DefaultPenaltyChm
-      DefaultPenaltyChm2
-      repaymentPeriod
-      amountGiven
-      amountExpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      timeExpBack
-      timeExpBack2
-      description
-      loaneeName
-      loanerName
-      memberId
-      lonBala
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateNonCvrdGroupLoans = /* GraphQL */ `
-  subscription OnUpdateNonCvrdGroupLoans(
-    $filter: ModelSubscriptionNonCvrdGroupLoansFilterInput
-    $owner: String
-  ) {
-    onUpdateNonCvrdGroupLoans(filter: $filter, owner: $owner) {
-      id
-      grpContact
-      loaneePhn
-      loanerLoanee
-      DefaultPenaltyChm
-      DefaultPenaltyChm2
-      repaymentPeriod
-      amountGiven
-      amountExpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      timeExpBack
-      timeExpBack2
-      description
-      loaneeName
-      loanerName
-      memberId
-      lonBala
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteNonCvrdGroupLoans = /* GraphQL */ `
-  subscription OnDeleteNonCvrdGroupLoans(
-    $filter: ModelSubscriptionNonCvrdGroupLoansFilterInput
-    $owner: String
-  ) {
-    onDeleteNonCvrdGroupLoans(filter: $filter, owner: $owner) {
-      id
-      grpContact
-      loaneePhn
-      loanerLoanee
-      DefaultPenaltyChm
-      DefaultPenaltyChm2
-      repaymentPeriod
-      amountGiven
-      amountExpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      timeExpBack
-      timeExpBack2
-      description
-      loaneeName
-      loanerName
-      memberId
-      lonBala
-      status
-      owner
       createdAt
       updatedAt
     }

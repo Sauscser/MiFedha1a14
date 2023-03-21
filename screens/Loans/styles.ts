@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   clientsView: {
     backgroundColor: '#e58d29',
     width:"100%",
-    height: "20%",
+    height: "30%",
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center',

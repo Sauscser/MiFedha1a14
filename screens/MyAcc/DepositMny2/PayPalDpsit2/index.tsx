@@ -192,9 +192,9 @@ const CreateAcForm = (props) => {
                 blStatus: 'AccountNotBL',
                 loanStatus: "NoLoan",
                 loanLimit: 10000000,
-                nonLonLimit:100000,
-                withdrawalLimit: 3000000,
-                depositLimit: 500000,
+                nonLonLimit:10000000,
+                withdrawalLimit: 5000000,
+                depositLimit: 5000000,
                 owner:userInfo.attributes.sub
                         },
                       }),
