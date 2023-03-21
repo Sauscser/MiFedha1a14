@@ -55,8 +55,8 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
       navigation.navigate ("VwB2PLRSent", {id})
    }
 
-   const Blacklist = () => {
-      navigation.navigate ("BLBiz2Pal", {id})
+   const Repay = () => {
+      navigation.navigate ("RpyBiz2Pal", {id})
    }
 
    
@@ -97,9 +97,9 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                     </View>   
                     <View>
                     <Pressable
-                      onPress={Blacklist}
+                      onPress={Repay}
                       style = {styles.loanFriendButton}>            
-                        <Text>B.List</Text>            
+                        <Text>Repay</Text>            
                     </Pressable>  
                     </View>
                      

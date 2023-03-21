@@ -43,7 +43,7 @@ const FetchSMNonCovLns = props => {
                     
                   filter: {
                   
-                    businessNo: { eq: route.params.BusinessRegNo},
+                    businessNo: { eq: route.params.MFNId},
                     status:{eq:"AwaitingResponse"}
                 }
                 }

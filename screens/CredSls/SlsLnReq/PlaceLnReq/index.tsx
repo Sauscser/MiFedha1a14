@@ -450,7 +450,7 @@ useEffect(() =>{
                       onChangeText={setAWSEmail}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Business Phone</Text>
+                    <Text style={styles.sendLoanText}>Loaner Business Phone</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>

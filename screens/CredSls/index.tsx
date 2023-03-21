@@ -20,41 +20,30 @@ const MyLoanAccount = props => {
 
   
   
-    const CovCredSlss = () => {
-      navigation.navigate('Vw2CredSellCovs');
-    };
+    
 
     const ItemAds = () => {
       navigation.navigate('ItemAds');
     };
   
-    const NonCovCredSlsss = () => {
-      navigation.navigate('Vw2CredSellNonCovs');
-    };
-  
     
-  
-    const CredSlsLneesss = () => {
-      navigation.navigate('SgnIn2VwCovCrdSlsLneesss');
+    const VwPal2BizLners = () => {
+      navigation.navigate('VwPal2BizLners');
     };
   
-    const CredSlsLnersss = () => {
-      navigation.navigate('ElimCredCvLnrs');
+    const SI2VwBiz2PalLoanees = () => {
+      navigation.navigate('SI2VwBiz2PalLoanees');
+    };
+    const SI2VwBiz2BizLoaners = () => {
+      navigation.navigate('SI2VwBiz2BizLoaners');
     };
   
-    const CredByrLneesss = () => {
-      navigation.navigate('SgnIn2VwNCCrdSlsLneess');
-    };
-    const CredByrLnersss = () => {
-      navigation.navigate('ElimCredNonCvLnrs');
+    const SI2VwBiz2BizLoanees = () => {
+      navigation.navigate('SI2VwBiz2BizLoanees');
     };
   
-    const SgnIn2BLCredSlCovss = () => {
-      navigation.navigate('SgnIn2BLCredSlCovs');
-    };
-  
-    const SgnIn2BLCredSlNonCovss = () => {
-      navigation.navigate('SgnIn2BLCredSlNonCovs');
+    const SI2VwBiz2PalLoaners = () => {
+      navigation.navigate('SI2VwBiz2PalLoaners');
     };
 
     const CrtBusinessss = () => {
@@ -97,8 +86,8 @@ const MyLoanAccount = props => {
       navigation.navigate('PayCash');
     };
 
-    const VwCashPayRec = () => {
-      navigation.navigate('VwCashPayRec');
+    const VwPalLners = () => {
+      navigation.navigate('VwPalLners');
     };
 
     const VwCashPaySent = () => {
@@ -108,6 +97,32 @@ const MyLoanAccount = props => {
     const SgnIn2VwCashSales = () => {
       navigation.navigate('SgnIn2VwCashSales');
     };
+
+    const VwPal2BizLnees = () => {
+      navigation.navigate('VwPal2BizLnees');
+    };
+  
+    const VwPalLnees = () => {
+      navigation.navigate('VwPalLnees');
+    };
+
+    const Vw2GrntPal2Biz = () => {
+      navigation.navigate("Vw2GrntPal2Biz");
+    };
+
+    const Vw2GrntPal2Pal = () => {
+      navigation.navigate('Vw2GrntPal2Pal');
+    };
+
+    const PersonelVw2GrntB2P = () => {
+      navigation.navigate('PersonelVw2GrntB2P');
+    };
+  
+    const PersonelVw2GrntB2B = () => {
+      navigation.navigate('PersonelVw2GrntB2B');
+    };
+  
+    
   
 
   return (
@@ -183,56 +198,7 @@ const MyLoanAccount = props => {
               </View>
             </View>
 
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>BlackList Credit Buyers</Text>
 
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories7}>
-                  
-                  <Pressable 
-                  onPress={PayCash}
-                  
-                  style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Pal2Pal</Text>
-                  </Pressable>
-                </View>
-
-            
-
-                <View style={styles.viewForClientsCategories7}>
-                  
-                  <Pressable 
-                  onPress={VwCashPaySent}
-                  
-                  style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Pal2Biz</Text>
-
-                  </Pressable>
-                </View>
-
-                <View style={styles.viewForClientsCategories7}>
-                <Pressable 
-                onPress={SgnIn2VwCashSales}
-                
-                style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Biz2Pal</Text>
-
-                  </Pressable>
-                </View>
-
-                <View style={styles.viewForClientsCategories7}>
-                <Pressable 
-                onPress={SgnIn2VwCashSales}
-                
-                style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Biz2Biz</Text>
-
-                  </Pressable>
-                </View>
-
-
-              </View>
-            </View>
 
             <View style={styles.clientsView}>
               <Text style={styles.salesText}>Grant Credit Sales Requests</Text>
@@ -241,7 +207,7 @@ const MyLoanAccount = props => {
               <View style={styles.viewForClientsCategories7}>
                   
                   <Pressable 
-                  onPress={PayCash}
+                  onPress={Vw2GrntPal2Pal}
                   
                   style={styles.viewForClientsPressables}>
                   <Text style={styles.salesPressableText}>Pal2Pal</Text>
@@ -253,7 +219,7 @@ const MyLoanAccount = props => {
                 <View style={styles.viewForClientsCategories7}>
                   
                   <Pressable 
-                  onPress={VwCashPaySent}
+                  onPress={Vw2GrntPal2Biz}
                   
                   style={styles.viewForClientsPressables}>
                   <Text style={styles.salesPressableText}>Pal2Biz</Text>
@@ -263,7 +229,7 @@ const MyLoanAccount = props => {
 
                 <View style={styles.viewForClientsCategories7}>
                 <Pressable 
-                onPress={SgnIn2VwCashSales}
+                onPress={PersonelVw2GrntB2P}
                 
                 style={styles.viewForClientsPressables}>
                   <Text style={styles.salesPressableText}>Biz2Pal</Text>
@@ -273,7 +239,7 @@ const MyLoanAccount = props => {
 
                 <View style={styles.viewForClientsCategories7}>
                 <Pressable 
-                onPress={SgnIn2VwCashSales}
+                onPress={PersonelVw2GrntB2B}
                 
                 style={styles.viewForClientsPressables}>
                   <Text style={styles.salesPressableText}>Biz2Biz</Text>
@@ -286,17 +252,19 @@ const MyLoanAccount = props => {
             </View>
 
             
+
+            
             <View style={styles.clientsView}>
-              <Text style={styles.salesText}>View Credit Sales Loan Repayments</Text>
+              <Text style={styles.salesText}>CreditSales LoanStatus (Biz)</Text>
 
               <View style={styles.viewForClientsAndTitle}>
               <View style={styles.viewForClientsCategories7}>
                   
                   <Pressable 
-                  onPress={PayCash}
+                  onPress={SI2VwBiz2PalLoaners}
                   
                   style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Pal2Pal</Text>
+                  <Text style={styles.salesPressableText}>BizPal Loaners</Text>
                   </Pressable>
                 </View>
 
@@ -305,30 +273,30 @@ const MyLoanAccount = props => {
                 <View style={styles.viewForClientsCategories7}>
                   
                   <Pressable 
-                  onPress={VwCashPaySent}
+                  onPress={SI2VwBiz2PalLoanees}
                   
                   style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Pal2Biz</Text>
+                  <Text style={styles.salesPressableText}>BizPal Loanees</Text>
 
                   </Pressable>
                 </View>
 
                 <View style={styles.viewForClientsCategories7}>
                 <Pressable 
-                onPress={SgnIn2VwCashSales}
+                onPress={SI2VwBiz2BizLoaners}
                 
                 style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Biz2Pal</Text>
+                  <Text style={styles.salesPressableText}>BizBiz Loaners</Text>
 
                   </Pressable>
                 </View>
 
                 <View style={styles.viewForClientsCategories7}>
                 <Pressable 
-                onPress={SgnIn2VwCashSales}
+                onPress={SI2VwBiz2BizLoanees}
                 
                 style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Biz2Biz</Text>
+                  <Text style={styles.salesPressableText}>BizBiz Loanees</Text>
 
                   </Pressable>
                 </View>
@@ -336,18 +304,19 @@ const MyLoanAccount = props => {
 
               </View>
             </View>
-            
+
+
             <View style={styles.clientsView}>
-              <Text style={styles.salesText}>View Credit Sales Loan Status</Text>
+              <Text style={styles.salesText}>CreditSales LoanStatus (Pal)</Text>
 
               <View style={styles.viewForClientsAndTitle}>
               <View style={styles.viewForClientsCategories7}>
                   
                   <Pressable 
-                  onPress={PayCash}
+                  onPress={VwPalLners}
                   
                   style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Pal2Pal</Text>
+                  <Text style={styles.salesPressableText}>PalPal Loaners</Text>
                   </Pressable>
                 </View>
 
@@ -356,30 +325,30 @@ const MyLoanAccount = props => {
                 <View style={styles.viewForClientsCategories7}>
                   
                   <Pressable 
-                  onPress={VwCashPaySent}
+                  onPress={VwPalLnees}
                   
                   style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Pal2Biz</Text>
+                  <Text style={styles.salesPressableText}>PalPal Loanees</Text>
 
                   </Pressable>
                 </View>
 
                 <View style={styles.viewForClientsCategories7}>
                 <Pressable 
-                onPress={SgnIn2VwCashSales}
+                onPress={VwPal2BizLners}
                 
                 style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Biz2Pal</Text>
+                  <Text style={styles.salesPressableText}>PalBiz Loaners</Text>
 
                   </Pressable>
                 </View>
 
                 <View style={styles.viewForClientsCategories7}>
                 <Pressable 
-                onPress={SgnIn2VwCashSales}
+                onPress={VwPal2BizLnees}
                 
                 style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Biz2Biz</Text>
+                  <Text style={styles.salesPressableText}>PalBiz Loanees</Text>
 
                   </Pressable>
                 </View>

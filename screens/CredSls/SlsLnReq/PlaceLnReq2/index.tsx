@@ -112,18 +112,6 @@ const CreateBiz = (props) => {
                         const pwsz = compDtlsx.data.getBizna.pw;
                         const busNames = compDtlsx.data.getBizna.busName;
 
-                        const ChckPersonelExistence = async () => {
-                          try {
-                            const UsrDtls:any = await API.graphql(
-                              graphqlOperation(listPersonels,
-                                { filter: {
-                                    
-                                  phoneKontact: { eq: userInfo.attributes.email},
-                                  BusinessRegNo:{eq: awsEmail2}
-                                                
-                                  }}
-                              )
-                            )
                         
                   
 
@@ -270,11 +258,7 @@ const CreateBiz = (props) => {
       else if (parseFloat(itemPrys) > parseFloat(lnPrsntg))
       {Alert.alert("Repayment Amount cant be lesser than Loan")}
 
-      else if (UsrDtls.data.listPersonels.items.length < 1) {
-        Alert.alert("Business doesnt exist or You do not work here");
-        return;
-        
-      }
+      
       
       else if ((DfltPnltyRate) > (RecomDfltPnltyRate))
       {Alert.alert("Enter Default Penalty less than Ksh. " + RecomDfltPnltyRate)}
@@ -292,15 +276,7 @@ const CreateBiz = (props) => {
 
     else {CreateNewSMAc2();}
 
-  } catch (e) {
-    if(e){Alert.alert("Error! Update app or contact customer care")}
-    console.error(e);
-  }
-  setIsLoading(false);
-      
-}
-
-await ChckPersonelExistence();
+ 
       
           
   } catch (e) {

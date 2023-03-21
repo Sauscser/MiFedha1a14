@@ -1476,7 +1476,7 @@ dfltUpdate: String
   amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
   repaymentPeriod: Float!
-
+giverStatus:Status!
   timeExpBack: Float!
   timeExpBack2: Float!
   lonBala:Float!
@@ -2262,6 +2262,10 @@ enum Status {
   ChmLonRepayment
   biznaDeposits
   biznaWithdrawals
+  Biz2Biz
+  Biz2Pal
+  Pal2Biz
+  Pal2Pal
   Yes
   No
   Waived

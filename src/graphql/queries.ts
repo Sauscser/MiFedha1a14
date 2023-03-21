@@ -1590,6 +1590,7 @@ export const getCovCreditSeller = /* GraphQL */ `
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      giverStatus
       timeExpBack
       timeExpBack2
       lonBala
@@ -1633,6 +1634,7 @@ export const listCovCreditSellers = /* GraphQL */ `
         amountExpectedBackWthClrnc
         amountRepaid
         repaymentPeriod
+        giverStatus
         timeExpBack
         timeExpBack2
         lonBala
@@ -3861,6 +3863,7 @@ export const vwLnrNLneesss = /* GraphQL */ `
         amountExpectedBackWthClrnc
         amountRepaid
         repaymentPeriod
+        giverStatus
         timeExpBack
         timeExpBack2
         lonBala
@@ -3912,6 +3915,7 @@ export const vwMyCrdBys = /* GraphQL */ `
         amountExpectedBackWthClrnc
         amountRepaid
         repaymentPeriod
+        giverStatus
         timeExpBack
         timeExpBack2
         lonBala
@@ -3963,6 +3967,7 @@ export const vwMySales = /* GraphQL */ `
         amountExpectedBackWthClrnc
         amountRepaid
         repaymentPeriod
+        giverStatus
         timeExpBack
         timeExpBack2
         lonBala

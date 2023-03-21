@@ -101,14 +101,14 @@ const MyAccount = props => {
 
             <Pressable onPress={PlaceLnReq} style={styles.acPressables}>
             <View >
-            <Text style={styles.acPressableText}>Biz2Biz</Text>
+            <Text style={styles.acPressableText}>Biz2Pal</Text>
             </View>
             
             </Pressable>
 
             <Pressable onPress={PlaceLnReq2} style={styles.acPressables}>
             <View >
-            <Text style={styles.acPressableText}>Biz2Pal</Text>
+            <Text style={styles.acPressableText}>Biz2Biz</Text>
             </View>
             
             </Pressable>
@@ -120,7 +120,7 @@ const MyAccount = props => {
             
             </Pressable>
 
-            <Pressable style={styles.acPressables}>
+            <Pressable onPress={PlaceLnReq4} style={styles.acPressables}>
             <View >
             <Text style={styles.acPressableText}>Pal2Pal</Text>
             </View>

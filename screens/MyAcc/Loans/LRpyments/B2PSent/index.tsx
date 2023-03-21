@@ -173,7 +173,7 @@ const FetchSMNonLnsRec = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}>Received PalPal LP </Text>
+            <Text style={styles.label}>Sent Biz LP </Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}

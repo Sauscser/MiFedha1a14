@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
 
-    width: "18%",
+    width: "40%",
   },
 
   acNonLnsPressables: {

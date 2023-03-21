@@ -241,7 +241,7 @@ const CovCredSls = props => {
                                                                 buyerContact: RecPhn,
                                                                 sellerContact:userInfo.attributes.email,
                                                                 
-
+                                                                giverStatus: "Pal2Biz",
                                                                 buyerID: nationalids,
                                                                 advEmail: "None",
                                                                 advregnu: "None",
@@ -461,6 +461,7 @@ const CovCredSls = props => {
                                   amountExpectedBackWthClrnc:(TotalAmtExp - TransCost).toFixed(0),
                                   amountRepaid: 0,
                                   buyerName:busNames2,
+                                  giverStatus: "Pal2Biz",
                                   SellerName:name,
                                   lonBala:(TotalAmtExp - TransCost).toFixed(0),
                                   repaymentPeriod: RepaymtPeriod,

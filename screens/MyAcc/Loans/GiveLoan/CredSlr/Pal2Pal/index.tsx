@@ -247,7 +247,7 @@ const CovCredSls = props => {
                                                                 timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
                                                                 timeExpBack2: 61 + daysUpToDate,
                                                                 dfltUpdate: daysUpToDate,
-                                                                
+                                                                giverStatus: "Pal2Pal",
                                                                 description: description,
                                                                 DefaultPenaltyCredSl:defaultPenalty,
                                                                 DefaultPenaltyCredSl2:0,
@@ -447,6 +447,7 @@ const CovCredSls = props => {
                                   amountRepaid: 0,
                                   buyerName:namess,
                                   SellerName:name,
+                                  giverStatus: "Pal2Pal",
                                   lonBala:(TotalAmtExp - TransCost).toFixed(0),
                                   repaymentPeriod: RepaymtPeriod,
                                   timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,

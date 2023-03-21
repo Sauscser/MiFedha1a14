@@ -95,12 +95,12 @@ const CreateBiz = (props) => {
               setIsLoading(true);
               const userInfo = await Auth.currentAuthenticatedUser();
               try{
-                const compDtls :any= await API.graphql(
-                  graphqlOperation(getSMAccount,{awsemail:awsEmail})
+                const compDtls3 :any= await API.graphql(
+                  graphqlOperation(getBizna,{BusKntct:awsEmail})
                   );
               
-                  const phonecontactz = compDtls.data.getSMAccount.phonecontact;
-                  const namez = compDtls.data.getSMAccount.name;
+                 
+                  const namez = compDtls3.data.getBizna.busName;
 
                   const CreateNewSMAc2 = async () => {
                     if(isLoading){
@@ -119,7 +119,7 @@ const CreateBiz = (props) => {
                         AdvEmail: "email",
                         advLicNo: "Sign2Phn",
                         loanerName: namez,
-                        loanerPhone: phonecontactz,
+                        loanerPhone: awsEmail,
                         amount: parseFloat(itemPrys).toFixed(2),
                         repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
                         repaymentPeriod:rpymntPrd,
@@ -146,7 +146,7 @@ const CreateBiz = (props) => {
                         
                         }
                         Alert.alert("Loan Request Successful");
-                        Communications.textWithoutEncoding(phonecontactz,'MiFedha. Hi '+ namez + '. It is '
+                        Communications.textWithoutEncoding(awsEmail,'MiFedha. Hi '+ namez + '. It is '
                     + name
                     + '. I request a soft loan of Ksh. '+ itemPrys +
                   ' from you. '
@@ -192,7 +192,7 @@ const CreateNewSMAc = async () => {
       AdvEmail: email,
       advLicNo: Sign2Phn,
       loanerName: namez,
-      loanerPhone: phonecontactz,
+      loanerPhone: awsEmail,
       amount: parseFloat(itemPrys).toFixed(2),
       repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
       repaymentPeriod:rpymntPrd,
@@ -220,11 +220,11 @@ const CreateNewSMAc = async () => {
       }
       
       Alert.alert("Loan Request Successful");
-      Communications.textWithoutEncoding(phonecontact,'MiFedha. Greetings! '
-      + 'We ' + name + ', the loanee and ' + name + ', the loaner humbly' +  
+      Communications.textWithoutEncoding(awsEmail,'MiFedha. Greetings! '
+      + 'We ' + name + ', the loanee and ' + namez + ', the loaner humbly' +  
       ' request that you witness our loan contract on MiFedha app amounting to Ksh. '+
       itemPrys + ' repayable as Ksh. ' + lnPrsntg + ' by the end of ' +rpymntPrd + 
-      ' days. Default penalty is Ksh. '+ MmbaID + '. You can reach my loaner through '+ phonecontactz +
+      ' days. Default penalty is Ksh. '+ MmbaID + '. You can reach my loaner through '+ awsEmail +
        '. You can also reach me through ' +phonecontacts +'. Thank you.');
       
     };
@@ -449,12 +449,12 @@ useEffect(() =>{
                   <View style={styles.sendLoanView}>
                     <TextInput
                     
-                    placeholder='Loaner Email'
+                    placeholder='Company Phone'
                       value={awsEmail}
                       onChangeText={setAWSEmail}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Company Number</Text>
+                    <Text style={styles.sendLoanText}>Company Phone Number</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>

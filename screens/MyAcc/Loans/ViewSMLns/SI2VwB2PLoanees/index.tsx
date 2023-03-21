@@ -190,7 +190,7 @@ await gtChmDtls();
                       secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loaner PW</Text>
+                    <Text style={styles.sendLoanText}>MainAccountPassword</Text>
                   </View>
 
                  

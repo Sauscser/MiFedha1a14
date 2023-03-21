@@ -195,7 +195,7 @@ useEffect(() =>{
                       secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Credit Officer User PW</Text>
+                    <Text style={styles.sendLoanText}>MainAccountPassword</Text>
                   </View>
         
                   <TouchableOpacity

@@ -174,7 +174,7 @@ const route = useRoute();
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}>Received PalPal LP </Text>
+            <Text style={styles.label}>Received Biz LP </Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}

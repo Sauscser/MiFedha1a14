@@ -77,10 +77,10 @@ import ChmSignIns from "../../screens/Chama/ViewLns/ChamaSignIn";
 import ChamSignIn2 from "../../screens/Chama/ViewLns/ChamaSignIn2";
 import ChamSignIn3 from "../../screens/Chama/ViewLns/ChamaSignIn3";
 import ChamSignIn4 from "../../screens/Chama/ViewLns/ChamaSignIn4";
-import ChmLnsGvnOutCov from "../../screens/Chama/ViewLns/GivenOut/Cov";
-import ChmLnsGvnOutNonCov from "../../screens/Chama/ViewLns/GivenOut/NonCov";
-import ChmLnsRecCov from "../../screens/Chama/ViewLns/Received/Cov";
-import ChmLnsRecNonCov from "../../screens/Chama/ViewLns/Received/NonCov";
+import ChmLnsGvnOutCov from "../../screens/Chama/ViewLns/GivenOut/LoaneesDtls";
+import ChmLnsGvnOutNonCov from "../../screens/Chama/ViewLns/GivenOut/Loanees";
+import ChmLnsRecCov from "../../screens/Chama/ViewLns/Received/LoanersDtls";
+import ChmLnsRecNonCov from "../../screens/Chama/ViewLns/Received/Loaners";
 import ChamaGenInfo from "../../screens/Chama/ViewLns/Generalnfo";
 import ChmSignIn5 from "../../screens/Chama/ViewLns/ChamaSignIn5";
 import ChmSignIn6 from "../../screens/Chama/ViewLns/ChamaSignIn6";
@@ -344,6 +344,7 @@ import SIBiz2Pal from "../../screens/CredSls/SignIn2GrntCrdSls/Biz2Pal";
 import VwBiz2Biz from "../../screens/CredSls/Vw2GrntCrdSls/Biz2Biz";
 import VwBiz2Pal from "../../screens/CredSls/Vw2GrntCrdSls/Biz2Pal";
 import VwPal2Biz from "../../screens/CredSls/Vw2GrntCrdSls/Pal2Biz";
+import VwPal2Pal from "../../screens/CredSls/Vw2GrntCrdSls/Pal2Pal";
 import GrantBiz2BizCrdSl from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Biz2Biz";
 import GrantBiz2PalCrdSl from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Biz2Pal";
 import GrantPal2BizCrdSl from "../../screens/MyAcc/Loans/GiveLoan/CredSlr/Pal2Biz";
@@ -355,12 +356,12 @@ import PalVw2GrantLnReq2 from "../../screens/MyAcc/LoanRequest/View2GrntLnReq/Pa
 
 import BizPalLn from "../../screens/MyAcc/Loans/GiveLoan/SM/BizPal";
 import PalPalLn from "../../screens/MyAcc/Loans/GiveLoan/SM/PalPal";
+
 import PlaceLnReq from "../../screens/CredSls/SlsLnReq/PlaceLnReq";
 import PlaceLnReq2 from "../../screens/CredSls/SlsLnReq/PlaceLnReq2";
 import PlaceLnReq3 from "../../screens/CredSls/SlsLnReq/PlaceLnReq3";
 import PlaceLnReq4 from "../../screens/CredSls/SlsLnReq/PlaceLnReq4";
-import PV2GBiz2Biz from "../../screens/CredSls/PersonelVw2GrntLR/Biz2Biz";
-import PV2GBiz2Pal from "../../screens/CredSls/PersonelVw2GrntLR/Biz2Pal";
+
 
 import Vw2GrntBiz2Biz from "../../screens/CredSls/SlsLnReq/Vw2Grant/Biz2Biz";
 import Vw2GrntBiz2Pal from "../../screens/CredSls/SlsLnReq/Vw2Grant/Biz2Pal";
@@ -403,6 +404,51 @@ import VwB2PMyLoaneesDtld from "../../screens/MyAcc/Loans/ViewSMLns/Biz2Pal/MyLo
 import VwP2PMyLoaneesDtld from "../../screens/MyAcc/Loans/ViewSMLns/Pal2Pal/MyLoaneesDtld";
 import VwP2PMyLoanersDtld from "../../screens/MyAcc/Loans/ViewSMLns/Pal2Pal/MyLoanersDtld";
 
+import SI2VwBiz2BizLoanees from "../../screens/CredSls/VwLoanStts/SI2VwBiz2BizLoanees";
+import SI2VwBiz2PalLoaners from "../../screens/CredSls/VwLoanStts/SI2VwBiz2PalLoaners";
+import VwBizLnees from "../../screens/CredSls/VwLoanStts/Biz/MyLoanees";
+import VwBizLners from "../../screens/CredSls/VwLoanStts/Biz/MyLoaners";
+import VwPalLnees from "../../screens/CredSls/VwLoanStts/Pal/MyLoanees";
+import VwPalLners from "../../screens/CredSls/VwLoanStts/Pal/MyLoaners";
+import VwMyBizLoaneesDtld from "../../screens/CredSls/VwLoanStts/Biz/MyLoaneesDtld";
+import VwMyBizLoanersDtld from "../../screens/CredSls/VwLoanStts/Biz/MyLoanersDtld";
+import VwMyPalLoaneesDtld from "../../screens/CredSls/VwLoanStts/Pal/MyLoaneesDtld";
+import VwMyPalLoanersDtld from "../../screens/CredSls/VwLoanStts/Pal/MyLoanersDtld";
+
+import SI2VwBiz2BizLoaners from "../../screens/CredSls/VwLoanStts/SI2VwBiz2BizLoaners";
+import SI2VwBiz2PalLoanees from "../../screens/CredSls/VwLoanStts/SI2VwBiz2PalLoanees";
+import VwBiz2PalLnees from "../../screens/CredSls/VwLoanStts/Biz2Pal/MyLoanees";
+import VwBiz2PalLners from "../../screens/CredSls/VwLoanStts/Biz2Pal/MyLoaners";
+import VwPal2BizLnees from "../../screens/CredSls/VwLoanStts/Pal2Biz/MyLoanees";
+import VwPal2BizLners from "../../screens/CredSls/VwLoanStts/Pal2Biz/MyLoaners";
+import VwMyBiz2PalLoaneesDtld from "../../screens/CredSls/VwLoanStts/Biz2Pal/MyLoaneesDtld";
+import VwMyBiz2PalLoanersDtld from "../../screens/CredSls/VwLoanStts/Biz2Pal/MyLoanersDtld";
+import VwMyPal2BizLoaneesDtld from "../../screens/CredSls/VwLoanStts/Pal2Biz/MyLoaneesDtld";
+import VwMyPal2BizLoanersDtld from "../../screens/CredSls/VwLoanStts/Pal2Biz/MyLoanersDtld";
+
+import CredB2BSent from "../../screens/CredSls/ViewRPymnts/B2BSent";
+import CredB2BReceived from "../../screens/CredSls/ViewRPymnts/B2BReceived";
+import CredP2PReceived from "../../screens/CredSls/ViewRPymnts/P2PReceived";
+import CredP2PSent from "../../screens/CredSls/ViewRPymnts/P2PSent";
+import CredB2PSent from "../../screens/CredSls/ViewRPymnts/B2PSent";
+import CredB2PReceived from "../../screens/CredSls/ViewRPymnts/B2PReceived";
+import CredP2BReceived from "../../screens/CredSls/ViewRPymnts/P2BReceived";
+import CredP2BSent from "../../screens/CredSls/ViewRPymnts/P2BSent";
+
+
+
+import CredRPyBiz2Biz from "../../screens/CredSls/RepayCredSales/Repay/Biz2Biz";
+import CredRPyBiz2Pal from "../../screens/CredSls/RepayCredSales/Repay/Biz2Pal";
+import CredRPyPal2Biz from "../../screens/CredSls/RepayCredSales/Repay/Pal2Biz";
+import CredRPyPal2Pal from "../../screens/CredSls/RepayCredSales/Repay/Pal2Pal";
+
+import BLCredBiz2Biz from "../../screens/CredSls/BList/Biz2Biz";
+import BLCredBiz2Pal from "../../screens/CredSls/BList/Biz2Pal";
+import BLCredPal2Biz from "../../screens/CredSls/BList/Pal2Biz";
+import BLCredPal2Pal from "../../screens/CredSls/BList/Pal2Pal";
+import ChmLoaneesDtls from "../../screens/Chama/ViewLns/GivenOut/LoaneesDtls";
+import ChmLoanersDtls from "../../screens/Chama/ViewLns/Received/LoanersDtls";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -414,6 +460,51 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />
 
+      <Stack.Screen name={'ChmLoaneesDtls'} component={ChmLoaneesDtls} />
+      <Stack.Screen name={'ChmLoanersDtls'} component={ChmLoanersDtls} />
+      
+      <Stack.Screen name={'CredB2PSent'} component={CredB2PSent} />
+      <Stack.Screen name={'CredB2PReceived'} component={CredB2PReceived} />
+      <Stack.Screen name={'CredP2BReceived'} component={CredP2BReceived} />
+      <Stack.Screen name={'CredP2BSent'} component={CredP2BSent} />
+      
+      <Stack.Screen name={'CredRPyBiz2Biz'} component={CredRPyBiz2Biz} />
+      <Stack.Screen name={'CredRPyBiz2Pal'} component={CredRPyBiz2Pal} />
+      <Stack.Screen name={'CredRPyPal2Biz'} component={CredRPyPal2Biz} />
+      <Stack.Screen name={'CredRPyPal2Pal'} component={CredRPyPal2Pal} />
+      
+      <Stack.Screen name={'SI2VwBiz2PalLoaners'} component={SI2VwBiz2PalLoaners} />
+      <Stack.Screen name={'SI2VwBiz2PalLoanees'} component={SI2VwBiz2PalLoanees} />
+      <Stack.Screen name={'VwBiz2PalLnees'} component={VwBiz2PalLnees} />
+      <Stack.Screen name={'VwBiz2PalLners'} component={VwBiz2PalLners} />
+      <Stack.Screen name={'VwPal2BizLnees'} component={VwPal2BizLnees} />
+      <Stack.Screen name={'VwPal2BizLners'} component={VwPal2BizLners} />
+      <Stack.Screen name={'VwMyBiz2PalLoaneesDtld'} component={VwMyBiz2PalLoaneesDtld} />
+      <Stack.Screen name={'VwMyBiz2PalLoanersDtld'} component={VwMyBiz2PalLoanersDtld} />
+      <Stack.Screen name={'VwMyPal2BizLoaneesDtld'} component={VwMyPal2BizLoaneesDtld} />
+      <Stack.Screen name={'VwMyPal2BizLoanersDtld'} component={VwMyPal2BizLoanersDtld} />
+      
+      <Stack.Screen name={'BLCredBiz2Biz'} component={BLCredBiz2Biz} />
+      <Stack.Screen name={'BLCredBiz2Pal'} component={BLCredBiz2Pal} />
+      <Stack.Screen name={'BLCredPal2Biz'} component={BLCredPal2Biz} />
+      <Stack.Screen name={'BLCredPal2Pal'} component={BLCredPal2Pal} />
+      
+      <Stack.Screen name={'CredB2BSent'} component={CredB2BSent} />
+      <Stack.Screen name={'CredB2BReceived'} component={CredB2BReceived} />
+      <Stack.Screen name={'CredP2PReceived'} component={CredP2PReceived} />
+      <Stack.Screen name={'CredP2PSent'} component={CredP2PSent} />
+      
+      <Stack.Screen name={'SI2VwBiz2BizLoanees'} component={SI2VwBiz2BizLoanees} />
+      <Stack.Screen name={'SI2VwBiz2BizLoaners'} component={SI2VwBiz2PalLoaners} />
+      <Stack.Screen name={'VwBizLnees'} component={VwBizLnees} />
+      <Stack.Screen name={'VwBizLners'} component={VwBizLners} />
+      <Stack.Screen name={'VwPalLnees'} component={VwPalLnees} />
+      <Stack.Screen name={'VwPalLners'} component={VwPalLners} />
+      <Stack.Screen name={'VwMyBizLoaneesDtld'} component={VwMyBizLoaneesDtld} />
+      <Stack.Screen name={'VwMyBizLoanersDtld'} component={VwMyBizLoanersDtld} />
+      <Stack.Screen name={'VwMyPalLoaneesDtld'} component={VwMyPalLoaneesDtld} />
+      <Stack.Screen name={'VwMyPalLoanersDtld'} component={VwMyPalLoanersDtld} />
+      
       <Stack.Screen name={'VwB2PMyLoanersDtld'} component={VwB2PMyLoanersDtld} />
       <Stack.Screen name={'VwB2PMyLoaneesDtld'} component={VwB2PMyLoaneesDtld} />
       <Stack.Screen name={'VwP2PMyLoaneesDtld'} component={VwP2PMyLoaneesDtld} />
@@ -459,8 +550,6 @@ const HomeNavigator = props => {
       <Stack.Screen name={'Vw2GrntPal2Biz'} component={Vw2GrntPal2Biz} />
       <Stack.Screen name={'Vw2GrntPal2Pal'} component={Vw2GrntPal2Pal} />
       
-      <Stack.Screen name={'PV2GBiz2Biz'} component={PV2GBiz2Biz} />
-      <Stack.Screen name={'PV2GBiz2Pal'} component={PV2GBiz2Pal} />
 
       <Stack.Screen name={'BizPalLn'} component={BizPalLn} />
       <Stack.Screen name={'PalPalLn'} component={PalPalLn} />
@@ -642,7 +731,7 @@ const HomeNavigator = props => {
       <Stack.Screen name={'ViewNonLnsRecChms'} component={ViewNonLnsRecChm} />
       <Stack.Screen name={'ViewNonLnsRecCredSlrs'} component={ViewNonLnsRecCredSlr} />
       <Stack.Screen name={'ViewNonLnsRecSMs'} component={ViewNonLnsRecSM} />
-      <Stack.Screen name={'ViewNonLnsSntChms'} component={ViewNonLnsSntChm} />      
+      <Stack.Screen name={'ViewNonLnsSntChm'} component={ViewNonLnsSntChm} />      
       <Stack.Screen name={'ViewNonLnsSntCredSlrs'} component={ViewNonLnsSntCredSlr} />      
       <Stack.Screen name={'ViewNonLnsSntSMs'} component={ViewNonLnsSntSM} />
       

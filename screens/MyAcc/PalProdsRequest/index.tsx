@@ -92,7 +92,8 @@ const MyAccount = props => {
           <View style={styles.viewForSalesPressables}>
            
 
-          <View style={styles.acPressables}>
+
+            <View style={styles.acPressables}>
             <View >
             <Text style={styles.acPressableText}>Company</Text>
             </View>

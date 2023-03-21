@@ -12,11 +12,58 @@ declare global {
     interface RootParamList extends RootStackParamList {
       PayPalDposit:undefined;
       VwAcBfDpst:undefined;
+      ViewNonLnsRecChm : {id:string}
+      ChmLoanersDtls: {id:string};
+      ChmLoaneesDtls: {id:string};
+      
+      CredRPyBiz2Biz: {id:string};
+      CredRPyBiz2Pal: {id:string};
+      CredRPyPal2Biz: {id:string};
+      CredRPyPal2Pal:{id:string};
+
+      BLCredBiz2Biz: {id:string};
+      BLCredBiz2Pal: {id:string};
+      BLCredPal2Biz: {id:string};
+      BLCredPal2Pal:{id:string};
+      
+      CredB2PSent: {id:string};
+      CredB2PReceived: {id:string};
+      CredP2BReceived: {id:string};
+      CredP2BSent:{id:string};
+
+      CredB2BSent: {id:string};
+      CredB2BReceived: {id:string};
+      CredP2PReceived: {id:string};
+      CredP2PSent:{id:string};
 
       VwB2PMyLoanersDtld: {id:string};
       VwB2PMyLoaneesDtld: {id:string};
       VwP2PMyLoaneesDtld: {id:string};
       VwP2PMyLoanersDtld:{id:string};
+      
+      SI2VwBiz2BizLoanees:undefined;
+      SI2VwBiz2PalLoaners:undefined;
+      SI2VwBiz2BizLoaners:undefined;
+      SI2VwBiz2PalLoanees:undefined;
+
+      VwBiz2PalLnees: {ChmDesc:string};
+      VwBiz2PalLners: {ChmDesc:string};
+      VwPal2BizLnees: undefined;
+      VwPal2BizLners:undefined;
+      VwMyBiz2PalLoaneesDtld: {id:string};
+      VwMyBiz2PalLoanersDtld: {id:string};
+      VwMyPal2BizLoaneesDtld: {id:string};
+      VwMyPal2BizLoanersDtld:{id:string};
+      
+      
+      VwBizLnees: {ChmDesc:string};
+      VwBizLners: {ChmDesc:string};
+      VwPalLnees: undefined;
+      VwPalLners:undefined;
+      VwMyBizLoaneesDtld: {id:string};
+      VwMyBizLoanersDtld: {id:string};
+      VwMyPalLoaneesDtld: {id:string};
+      VwMyPalLoanersDtld:{id:string};
       
       PlaceLnReqP2P: undefined;
       PlaceLnReqB2P: undefined;
@@ -28,7 +75,7 @@ declare global {
       VwB2PMyLoaners:undefined;
 
       SignIn2VwLR:undefined;
-      VwB2PReceived:{MFNId:string};
+      VwB2PReceived:{id:string};
       VwB2PLRSent:{id:string};
       VwP2PReceived:{id:string};
       VwP2PSent:{id:string};
@@ -38,19 +85,19 @@ declare global {
       Vw2BLPal2Pal:undefined;
       BLBiz2Pal:{id:string};
       BLPal2Pal:{id:string};
-
+      
       SIBiz2Pal2Repay:undefined;
       Vw2RpyB2P:{memberPhn:string};
       Vw2RpyP2P:undefined;
       RpyBiz2Pal:{id:string};
       RpyPal2Pal:{id:string};
-      
+      PalLnStsB2PLnee:undefined;
 
       PersonelVw2GrntB2B:undefined;
       PersonelVw2GrntB2P:undefined;
       
-      Vw2GrntBiz2Biz:{BusinessRegNo:string};
-      Vw2GrntBiz2Pal:{BusinessRegNo:string};
+      Vw2GrntBiz2Biz:{MFNId:string};
+      Vw2GrntBiz2Pal:{MFNId:string};
       Vw2GrntPal2Biz:undefined;
       Vw2GrntPal2Pal:undefined;
       
@@ -309,10 +356,10 @@ declare global {
       
 
       ChamaSignIn2VwLnRpymnts:undefined;
-      ViewNonLnsRecChms:{grpContact:string};
+     
       ViewNonLnsRecCredSlrs:{MFNId:string};
       ViewNonLnsRecSMs:undefined;
-      ViewNonLnsSntChms:undefined;
+      ViewNonLnsSntChms:{id:string};
       ViewNonLnsSntCredSlrs:{MFNId:string};
       ViewNonLnsSntSMs:undefined;
 

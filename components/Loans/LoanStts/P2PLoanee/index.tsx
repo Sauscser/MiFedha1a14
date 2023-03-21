@@ -99,7 +99,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                     <Pressable
                       onPress={Blacklist}
                       style = {styles.loanFriendButton}>            
-                        <Text>Repay</Text>            
+                        <Text>BlackList</Text>            
                     </Pressable>  
                     </View>
                      

@@ -321,6 +321,8 @@ const RepayCovChmLnsss = props => {
                                         senderPhn: loaneePhnssss,
                                         recPhn: grpContactssss,  
                                         RecName:namess,
+                                        loanId1: "route.params.id",
+                                        loanId2: "route.params.id",
                                         loanId3: route.params.id,  
                                         SenderName:names,                                
                                         amount: parseFloat(amounts).toFixed(0),                              
@@ -570,6 +572,9 @@ const RepayCovChmLnsss = props => {
                                         senderPhn: userInfo.attributes.email,  
                                         RecName:namess,
                                         loanId3: route.params.id,  
+                                        loanId1: "route.params.id",
+                                        loanId2: "route.params.id",
+                                        
                                         SenderName:names,                                  
                                         amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,

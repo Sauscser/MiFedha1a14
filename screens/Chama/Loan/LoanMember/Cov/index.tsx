@@ -199,28 +199,13 @@ const fetchChmMbrDtls = async () => {
           const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) 
           const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
           const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + parseFloat(AmtExp);
+
+          const TtlTransCost2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
+          const TotalAmtExp2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) + parseFloat(AmtExp);
+
           const AllTtlTrnsCst = TtlTransCost + MaxSMInterest;
 
    
-          
-          
-          const fetchAdv = async () =>{
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
-            try{
-
-              const AdvDtls:any = await API.graphql(
-                graphqlOperation(getAdvocate,
-                  {advregnu: advLicNo}),
-                  
-              );
-              const advTtlAern = AdvDtls.data.getAdvocate.TtlEarnings;
-              const advBl = AdvDtls.data.getAdvocate.advBal;
-              const advStts = AdvDtls.data.getAdvocate.status;
-              const namesssssss = AdvDtls.data.getAdvocate.name;
-              
 
               const fetchRecUsrDtls = async () => {
                 if(isLoading){
@@ -245,8 +230,229 @@ const fetchChmMbrDtls = async () => {
                         const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
                         const DefaultPenaltyRate = parseFloat(defaultPenalty)/parseFloat(AmtRepaids) *100;
                         const RecomDfltPnltyRate = (parseFloat(AmtRepaids)*20) / 100;
-                      
-                   
+
+                        const sendSMLn = async () => {
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
+                          try {
+                            await API.graphql(
+                              graphqlOperation(createCvrdGroupLoans, {
+                                input: {
+                                    grpContact: groupContacts,
+                                    loaneePhn: loaneeEmail,
+                                    loanerLoanee:groupContacts+memberContacts,
+                                    loanerLoaneeAdv:  groupContacts+memberContacts+ advLicNo ,  
+                                    repaymentPeriod: RepaymtPeriod,
+                                    amountGiven: parseFloat(amount).toFixed(0),
+                                    amountExpectedBack: TotalAmtExp2.toFixed(0),
+                                    amountExpectedBackWthClrnc: TotalAmtExp2.toFixed(0),
+                                    amountRepaid: 0,
+                                    DefaultPenaltyChm:defaultPenalty,
+                                    DefaultPenaltyChm2:0,
+                                    timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
+                                    timeExpBack2: 61 + daysUpToDate,
+                                    description: description,
+                                    lonBala:TotalAmtExp2.toFixed(0),
+                                    advRegNu: advLicNo,
+                                    loaneeName:namess,
+                                    LoanerName:grpNames,
+                                    memberId:ChmNMmbrPhns,
+                                    status: "LoanActive",
+                                    owner: userInfo.attributes.sub,
+                                    AdvEmail:AdvEmail
+                                },
+                              }),
+                            );
+
+
+                          } catch (error) {
+                            if (error){
+                              Alert.alert("Loaning unsuccessful; enter details correctly")
+                              return}
+                          }
+                          setIsLoading(false);
+                          await updatMmbr();
+                        };
+
+                        const updatMmbr = async () => {
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
+                          try {
+                            await API.graphql(
+                              graphqlOperation(updateChamaMembers, {
+                                input: {
+                                  ChamaNMember: ChmNMmbrPhns,
+                                  LonAmtGven: (parseFloat(LonAmtGvens) + parseFloat(amount)).toFixed(0),
+                                  GrossLnsGvn: (parseFloat(GrossLnsGvns) + TotalAmtExp2).toFixed(0),
+                                  LnBal: (parseFloat(LnBals) + TotalAmtExp2).toFixed(0),                                  
+                                  loanStatus:"LoanActive",                                    
+                                  blStatus: "AccountNotBL",
+                                
+                                },
+                              }),
+                            );
+
+
+                          } catch (error) {
+                            if(error){
+                              Alert.alert("Error! Access denied!")
+                              
+                          
+                          return;}
+                          }
+                          setIsLoading(false);
+                          await updtSendrAc();
+                        };
+                        
+                        const updtSendrAc = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateGroup, {
+                                  input:{
+                                    grpContact:groupContacts,
+                                    TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs)+1,
+                                    TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + TotalAmtExp2).toFixed(0),
+                                                                              
+                                    grpBal:(parseFloat(grpBals)-TtlTransCost2).toFixed(0) 
+                                   
+                                    
+                                  }
+                                })
+                              )
+
+
+                          }
+                          catch(error){
+                            if (error){Alert.alert("Error! Access denied!")
+                            return;}
+                          }
+                          setIsLoading(false);
+                          await updtRecAc();
+                        }
+                        const updtRecAc = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateSMAccount, {
+                                  input:{
+                                    awsemail:loaneeEmail,
+                                    TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
+                                    TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ TotalAmtExp).toFixed(0),
+                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0) ,
+                                    loanStatus:"LoanActive",                                    
+                                    blStatus: "AccountNotBL",
+                                    loanAcceptanceCode:"None"                                
+                                    
+                                  }
+                                })
+                              )                              
+                          }
+                          catch(error){
+                            console.log(error)
+                            if (error){Alert.alert("Error! Access denied!")
+                            return;}
+                          }
+                          setIsLoading(false);
+                          await updtComp();
+                        }
+
+                        const updtComp = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(false);
+                          
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateCompany, {
+                                  input:{
+                                    AdminId: "BaruchHabaB'ShemAdonai2",                                                      
+                                        
+                                    ttlCompCovEarnings: parseFloat(ttlCompCovEarningss),
+                                    AdvEarningBal: parseFloat(AdvEarningBals),                                                                                                                                                     
+                                    AdvEarning: parseFloat(AdvEarnings),
+                                    companyEarningBal: parseFloat(companyEarningBals) + parseFloat(userLoanTransferFees)*parseFloat(amount),
+                                    companyEarning:  parseFloat(companyEarnings) + parseFloat(userLoanTransferFees)*parseFloat(amount),                                                    
+                                    
+                                    ttlChmLnsInAmtCov: TotalAmtExp2 + parseFloat(ttlChmLnsInAmtCovs),
+                                   
+                                    ttlChmLnsInTymsCov: 1 + parseFloat(ttlChmLnsInTymsCovs),
+                                          
+                                    
+                                  }
+                                })
+                              )
+                              
+                              
+                          }
+                          catch(error){
+                            console.log(error);
+                            if (error){Alert.alert("Error! Access denied!")
+                        return;}
+                          }
+                          setIsLoading(false);
+                          await updtLnReq();
+                        }
+                        
+
+                        const updtLnReq = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(false);
+                          
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateReqLoanChama, {
+                                  input:{
+                                    id:route.params.id,                                                      
+                                    status:"Approved"
+                                  }
+                                })
+                              )
+                              
+                              
+                          }
+                          catch(error){
+                            console.log(error);
+                            if (error){Alert.alert("Error! Access denied!")
+                        return;}
+                          }
+                          Alert.alert("Success. TransactionFee: "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) + ". AdvocateFee "+ttlCovFeeAmount.toFixed(2)
+                         
+                          );
+                          setIsLoading(false);
+                          
+                        }
+                                              
+                        
+                        const fetchAdv = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(true);
+                          try{
+              
+                            const AdvDtls:any = await API.graphql(
+                              graphqlOperation(getAdvocate,
+                                {advregnu: advLicNo}),
+                                
+                            );
+                            const advTtlAern = AdvDtls.data.getAdvocate.TtlEarnings;
+                            const advBl = AdvDtls.data.getAdvocate.advBal;
+                            const advStts = AdvDtls.data.getAdvocate.status;
+                            const namesssssss = AdvDtls.data.getAdvocate.name;
                         
                         const sendSMLn = async () => {
                           if(isLoading){
@@ -479,7 +685,17 @@ const fetchChmMbrDtls = async () => {
                           
                         }
                                               
-                        if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver adversely listed');
+                        
+                    }       
+                    catch(e) {    
+                      console.log(e); 
+                      if (e){Alert.alert("Error! Access denied!")
+      return;}                 
+                    }
+                    setIsLoading(false);
+                    }                    
+                              
+                    if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver adversely listed');
                       return;
                     }
                         
@@ -511,25 +727,18 @@ const fetchChmMbrDtls = async () => {
                         ) {Alert.alert("Cancelled."+ "Bal: "+ grpBals +". Deductable: " + TtlTransCost.toFixed(2) 
                         + ". "+ ((TtlTransCost) - parseFloat(grpBals)).toFixed(2) + ' more needed');
                         return;}
-                        else if(advStts !=="AccountActive"){Alert.alert('Advocate Account is inactive');
-                        return;}
+                        
+                        
                         else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');
                         return;}
+
+                        else if (advLicNo != "") {await fetchAdv()}
                                                                  
             
                                                  else {
                                                   sendSMLn();
-                        }                                                
-                    }       
-                    catch(e) {    
-                      console.log(e); 
-                      if (e){Alert.alert("Error! Access denied!")
-      return;}                 
-                    }
-                    setIsLoading(false);
-                    }                    
-                      await fetchRecUsrDtls();        
-                    
+                        }  
+                      
 
             }
             catch (e){
@@ -540,7 +749,7 @@ const fetchChmMbrDtls = async () => {
             setIsLoading(false);
           }
           
-          await fetchAdv();
+          await fetchRecUsrDtls();
 
           
         

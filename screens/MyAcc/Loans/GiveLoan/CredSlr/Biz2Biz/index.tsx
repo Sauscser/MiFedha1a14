@@ -264,7 +264,7 @@ const CovCredSls = props => {
                                                                 timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
                                                                 timeExpBack2: 61 + daysUpToDate,
                                                                 dfltUpdate: daysUpToDate,
-                                                                
+                                                                giverStatus: "Biz2Biz",
                                                                 description: description,
                                                                 DefaultPenaltyCredSl:defaultPenalty,
                                                                 DefaultPenaltyCredSl2:0,
@@ -470,6 +470,7 @@ const CovCredSls = props => {
                                   timeExpBack2: 61 + daysUpToDate,
                                   dfltUpdate: daysUpToDate,
                                   advregnu: advLicNo,
+                                  giverStatus: "Biz2Biz",
                                   description: description,
                                   DefaultPenaltyCredSl:defaultPenalty,
                                   DefaultPenaltyCredSl2:0,

@@ -247,6 +247,7 @@ const CovCredSls = props => {
                                                       amountExpectedBackWthClrnc:(TotalAmtExp2 - TransCost2).toFixed(0),
                                                       amountRepaid: 0,
                                                       buyerName:namess,
+                                                      giverStatus: "Biz2Pal",
                                                       SellerName:busNames,
                                                       lonBala:(TotalAmtExp2 - TransCost2).toFixed(0),
                                                       repaymentPeriod: RepaymtPeriod,
@@ -457,6 +458,7 @@ const CovCredSls = props => {
                                   description: description,
                                   DefaultPenaltyCredSl:defaultPenalty,
                                   DefaultPenaltyCredSl2:0,
+                                  giverStatus: "Biz2Pal",
                                   status: "LoanActive",
                                   owner: userInfo.attributes.sub,
                                   AdvEmail:AdvEmail

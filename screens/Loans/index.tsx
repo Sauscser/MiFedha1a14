@@ -76,6 +76,10 @@ const MyLoanAccount = props => {
     navigation.navigate('SI2VwB2PLoanees');
   };
 
+  const PalLnStsB2PLnee = () => {
+    navigation.navigate('PalLnStsB2PLnee');
+  };
+
   const Vw2BLCovSMLnss = () => {
     navigation.navigate("Vw2BLCovSMLns", {ChmNMmbrPhns});
   };
@@ -127,7 +131,7 @@ const MyLoanAccount = props => {
       
       <SafeAreaView>
      
-        <ScrollView>
+        
           
         <View style={styles.adminImage}>
           
@@ -212,7 +216,7 @@ const MyLoanAccount = props => {
 
      
      </View>
-    </ScrollView>
+    
     </SafeAreaView>
 
    

@@ -148,65 +148,32 @@ const MyLoanAccount = props => {
 
               <View style={styles.viewForClientsAndTitle}>
               <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Give Loan</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={VwGrp2LnCov}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={VwGrp2LnNonCov}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        Non-Covered Loans
-                      </Text>
-                    </Pressable>
-                  </View>
+                  
+                  <Pressable onPress={VwGrp2LnCov}
+                  
+                  style={styles.viewForClientsPressables}>
+                    <Text style={styles.salesPressableText}>Give Loan</Text>
+                  </Pressable>
                 </View>
 
             
 
                 <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Black-List</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={SgnIn2BLCovss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Covered</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={SgnIn2BLNonCovss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        Non-Covered Loans
-                      </Text>
-                    </Pressable>
-                  </View>
+                  
+                  <Pressable onPress={ChmSignInsss}
+                  
+                  style={styles.viewForClientsPressables}>
+                    <Text style={styles.salesPressableText}>Group Status</Text>
+                  </Pressable>
                 </View>
 
                 <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Repay</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={Vw2RpyCovss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Covered Loans</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={Vw2RpyNonCovs}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                      Non-Covered Loans
-                      </Text>
-                    </Pressable>
-                  </View>
+                  
+                  <Pressable onPress={ChmLnsRecCovss}
+                  
+                  style={styles.viewForClientsPressables}>
+                    <Text style={styles.salesPressableText}>Member Status</Text>
+                  </Pressable>
                 </View>
               </View>
             </View>
@@ -279,109 +246,6 @@ const MyLoanAccount = props => {
               </View>
             </View>
 
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Members</Text>
-
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Registration</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={AddChmMembrssss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Reg</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={SgnIn2RemoveMmbrss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        De-Reg
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-            
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Money</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={MmbrSndChmsss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Contribute</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={ChamaSndMbrMneyss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                       Send to Member
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Loan Status</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-
-                    <View style={styles.ClientsPressablesLnStts}>
-
-                      <View style={styles.viewForClientsCategoriesChama2}>
-                      <Text style={styles.salesPressableText}>Chm</Text>
-                      </View>
-
-                    <View style={styles.viewForClientsCategoriesChama4}>
-                    <Pressable
-                      onPress={ChmSignInsss}
-                      style={styles.viewForClientsCategoriesChama3}>
-                      <Text style={styles.clientsPressableTextStts}>Covered</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={ChamSignIn2ss}
-                      style={styles.viewForClientsCategoriesChama3}>
-                      <Text style={styles.clientsPressableTextStts}>
-                      NonCov
-                      </Text>
-                    </Pressable>
-                    </View>
-                    </View>
-
-                    <View style={styles.ClientsPressablesLnStts}>
-
-                      <View style={styles.viewForClientsCategoriesChama2}>
-                      <Text style={styles.salesPressableText}>Mine</Text>
-                      </View>
-
-                    <View style={styles.viewForClientsCategoriesChama4}>
-                    <Pressable
-                      onPress={ChmLnsRecCovss}
-                      style={styles.viewForClientsCategoriesChama3}>
-                      <Text style={styles.clientsPressableTextStts}>Covered</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={ChmLnsRecNonCovss}
-                      style={styles.viewForClientsCategoriesChama3}>
-                      <Text style={styles.clientsPressableTextStts}>
-                      NonCov
-                      </Text>
-                    </Pressable>
-                    </View>
-                    </View>
-                    
-                  </View>
-                </View>
-
-
-              </View>
-            </View>
 
       
         <View style={styles.clientsView2}>
@@ -486,6 +350,56 @@ const MyLoanAccount = props => {
                 </View>
 
                 
+              </View>
+            </View>
+
+            
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Members</Text>
+
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Registration</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={AddChmMembrssss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Reg</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={SgnIn2RemoveMmbrss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        De-Reg
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
+            
+
+                <View style={styles.viewForClientsCategories}>
+                  <Text style={styles.salesPressableText}>Money</Text>
+
+                  <View style={styles.viewForClientsPressables}>
+                    <Pressable
+                      onPress={MmbrSndChmsss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Contribute</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={ChamaSndMbrMneyss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                       Send to Member
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+
               </View>
             </View>
           

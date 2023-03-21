@@ -2185,6 +2185,7 @@ export const onCreateCovCreditSeller = /* GraphQL */ `
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      giverStatus
       timeExpBack
       timeExpBack2
       lonBala
@@ -2222,6 +2223,7 @@ export const onUpdateCovCreditSeller = /* GraphQL */ `
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      giverStatus
       timeExpBack
       timeExpBack2
       lonBala
@@ -2259,6 +2261,7 @@ export const onDeleteCovCreditSeller = /* GraphQL */ `
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      giverStatus
       timeExpBack
       timeExpBack2
       lonBala
