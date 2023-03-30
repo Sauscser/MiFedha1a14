@@ -16,6 +16,7 @@ import {
   updateGroup,
   
   updateChamaMembers,
+  createLoanRepayments,
   
 } from '../../../../../../src/graphql/mutations';
 
@@ -316,7 +317,7 @@ const RepayCovChmLnsss = props => {
                                 setIsLoading(true)
                                 try {
                                   await API.graphql(
-                                    graphqlOperation(createNonLoans, {
+                                    graphqlOperation(createLoanRepayments, {
                                       input: {
                                         senderPhn: loaneePhnssss,
                                         recPhn: grpContactssss,  
@@ -566,7 +567,7 @@ const RepayCovChmLnsss = props => {
                                 setIsLoading(true)
                                 try {
                                   await API.graphql(
-                                    graphqlOperation(createNonLoans, {
+                                    graphqlOperation(createLoanRepayments, {
                                       input: {
                                         recPhn: grpContactssss,
                                         senderPhn: userInfo.attributes.email,  

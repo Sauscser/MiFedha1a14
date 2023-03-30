@@ -1,6 +1,6 @@
 import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList} from 'react-native';
-import { listCovCreditSellers, listCvrdGroupLoans, listNonCovCreditSellers, listNonCvrdGroupLoans, listSMLoansCovereds, listSMLoansNonCovereds } from '../../../../../../src/graphql/queries';
+import { listCovCreditSellers, listCvrdGroupLoans, listSMLoansCovereds, listSMLoansNonCovereds } from '../../../../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../../components/MyAc/RepyLn/AutomaticRepay/AutoCvSM";
 import AutoNCVSM from "../../../../../../components/MyAc/RepyLn/AutomaticRepay/AutoNCVSM";

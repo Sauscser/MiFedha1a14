@@ -159,7 +159,7 @@ const BLSMCovLoanee = (props) => {
               
               const lglGrcePrd = 60 - tmDif;
 
-              const LonBal1 = Math.pow(LonBal*(1 + parseFloat(interest)), repaymentPeriod)
+              const LonBal1 = Math.pow(LonBal*(1 + parseFloat(interest)), tmDif/30);
 
               
               const gtLoanerDtls = async () =>{
@@ -225,8 +225,12 @@ const BLSMCovLoanee = (props) => {
 
                           
 
-                          else if(statusssss === "LoanBL"){
-                            Alert.alert("This Loan is already Black Listed")
+                          else if(tmDif2 < repaymentPeriod){
+                            Alert.alert("Time to Blacklist is not yet")
+                          } 
+
+                          else if(tmDif < 30){
+                            Alert.alert("Time to Penalise is not yet")
                           } 
 
                          
@@ -309,6 +313,7 @@ const BLSMCovLoanee = (props) => {
                                           lonBala:LonBal1.toFixed(0),
                                           DefaultPenaltySM2:DefaultPenaltySMs.toFixed(0),
                                           status:"LoanBL",
+                                          dfltUpdate:daysUpToDate
                                         }
                                       })
                                     )

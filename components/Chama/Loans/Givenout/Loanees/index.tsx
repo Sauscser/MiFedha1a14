@@ -96,7 +96,7 @@ const ChmNonCvLnSttsSent = (props:ChmNonCvLnSttusSent) => {
               <Pressable
                 onPress={Blacklist}
                 style = {styles.loanFriendButton}>            
-                  <Text>BlackList</Text>            
+                  <Text>BL/Penalise</Text>            
               </Pressable>  
               </View>
                

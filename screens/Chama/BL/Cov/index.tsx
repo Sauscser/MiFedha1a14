@@ -91,7 +91,7 @@ const BLChmCovLoanee = (props) => {
               + parseFloat(DefaultPenaltyChms);
 
               const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids);
-              const LonBal1 = Math.pow(LonBal*(1 + parseFloat(interest)), repaymentPeriod);
+              
 
               const today = new Date();
               let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
@@ -166,7 +166,7 @@ const BLChmCovLoanee = (props) => {
               const tmDif = daysUpToDate - daysAtCrtn;
               const tmDif2 = daysUpToDate - daysAtCrtnz;
               
-              
+              const LonBal1 = Math.pow(LonBal*(1 + parseFloat(interest)), tmDif/30);
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -251,7 +251,11 @@ const BLChmCovLoanee = (props) => {
                             Alert.alert("Loanee has cleared this loan");
                             return;
                           }
-                          else if (tmDif < repaymentPeriod && repaymentPeriod > tmDif2){
+                          else if (tmDif2 < repaymentPeriod){
+                            Alert.alert("Time to to Black List is not yet")
+                          }
+
+                          else if (30 > tmDif){
                             Alert.alert("Time to add penalty is not yet")
                           }
 
@@ -334,6 +338,7 @@ const BLChmCovLoanee = (props) => {
                                           amountExpectedBackWthClrnc:amountExpectedBackWthClrncss.toFixed(0),
                                           lonBala:LonBal1.toFixed(0),
                                           status:"LoanBL",
+                                          dfltUpdate:daysUpToDate,
                                           DefaultPenaltyChm2:DefaultPenaltyChms.toFixed(0),
                                         }
                                       })

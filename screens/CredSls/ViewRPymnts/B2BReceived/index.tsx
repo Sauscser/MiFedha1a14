@@ -6,7 +6,7 @@ import RecNonLns from "../../../../components/MyAc/ViewRecNonLns";
 import styles from './styles';
 
 import { useRoute } from '@react-navigation/native';
-import { getCompany, getSMAccount, listNonLoans } from '../../../../src/graphql/queries';
+import { getCompany, getSMAccount, listLoanRepayments, listNonLoans } from '../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../src/graphql/mutations';
 
 const FetchSMNonLnsRec = props => {
@@ -31,7 +31,7 @@ const route = useRoute();
               
        
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
+              const Lonees:any = await API.graphql(graphqlOperation(listLoanRepayments, 
               {
                       
                       sortDirection: 'DESC',
@@ -42,7 +42,7 @@ const route = useRoute();
                     }
                   
                   ));
-              setLoanees(Lonees.data.listNonLoans.items);
+              setLoanees(Lonees.data.listLoanRepayments.items);
 
               
                         

@@ -539,9 +539,6 @@ export const createNonLoans = /* GraphQL */ `
       RecName
       SenderName
       amount
-      loanId1
-      loanId2
-      loanId3
       description
       status
       owner
@@ -562,9 +559,6 @@ export const updateNonLoans = /* GraphQL */ `
       RecName
       SenderName
       amount
-      loanId1
-      loanId2
-      loanId3
       description
       status
       owner
@@ -579,6 +573,72 @@ export const deleteNonLoans = /* GraphQL */ `
     $condition: ModelNonLoansConditionInput
   ) {
     deleteNonLoans(input: $input, condition: $condition) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      amount
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createLoanRepayments = /* GraphQL */ `
+  mutation CreateLoanRepayments(
+    $input: CreateLoanRepaymentsInput!
+    $condition: ModelLoanRepaymentsConditionInput
+  ) {
+    createLoanRepayments(input: $input, condition: $condition) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      amount
+      loanId1
+      loanId2
+      loanId3
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateLoanRepayments = /* GraphQL */ `
+  mutation UpdateLoanRepayments(
+    $input: UpdateLoanRepaymentsInput!
+    $condition: ModelLoanRepaymentsConditionInput
+  ) {
+    updateLoanRepayments(input: $input, condition: $condition) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      amount
+      loanId1
+      loanId2
+      loanId3
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteLoanRepayments = /* GraphQL */ `
+  mutation DeleteLoanRepayments(
+    $input: DeleteLoanRepaymentsInput!
+    $condition: ModelLoanRepaymentsConditionInput
+  ) {
+    deleteLoanRepayments(input: $input, condition: $condition) {
       id
       senderPhn
       recPhn

@@ -22,7 +22,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import { getBizna, getCompany, getCovCreditSeller, getSMAccount } from '../../../../../src/graphql/queries';
-import { createNonLoans, updateBizna, updateCompany, updateCovCreditSeller, updateSMAccount } from '../../../../../src/graphql/mutations';
+import { createLoanRepayments, createNonLoans, updateBizna, updateCompany, updateCovCreditSeller, updateSMAccount } from '../../../../../src/graphql/mutations';
 
 
 const RepayCovSellerLnsss = props => {
@@ -230,7 +230,7 @@ const RepayCovSellerLnsss = props => {
                                 setIsLoading(true)
                                 try {
                                   await API.graphql(
-                                    graphqlOperation(createNonLoans, {
+                                    graphqlOperation(createLoanRepayments, {
                                       input: {
                                         senderPhn: buyerContact,
                                         recPhn: sellerContacts,    
@@ -356,7 +356,7 @@ const RepayCovSellerLnsss = props => {
                                 setIsLoading(true)
                                 try {
                                   await API.graphql(
-                                    graphqlOperation(createNonLoans, {
+                                    graphqlOperation(createLoanRepayments, {
                                       input: {
                                         recPhn: sellerContacts,
                                         senderPhn: buyerContact, 

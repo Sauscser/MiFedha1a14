@@ -1,55 +1,5 @@
 {
-  "api": {
-    "myfedha": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "myfedhabdd94507"
-        }
-      ],
-      "output": {
-        "authConfig": {
-          "additionalAuthenticationProviders": [],
-          "defaultAuthentication": {
-            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-            "userPoolConfig": {
-              "userPoolId": "authmyfedhabdd94507"
-            }
-          }
-        }
-      },
-      "providerPlugin": "awscloudformation",
-      "service": "AppSync"
-    }
-  },
   "auth": {
-    "myfedhabdd94507": {
-      "customAuth": false,
-      "dependsOn": [],
-      "frontendAuthConfig": {
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [],
-          "passwordPolicyMinLength": 8
-        },
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "socialProviders": [],
-        "usernameAttributes": [],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
-      },
-      "providerPlugin": "awscloudformation",
-      "service": "Cognito"
-    },
     "userPoolGroups": {
       "dependsOn": [
         {
@@ -63,15 +13,7 @@
           "resourceName": "myfedhabdd94507"
         }
       ],
-      "providerPlugin": "awscloudformation",
       "service": "Cognito-UserPool-Groups"
-    }
-  },
-  "hosting": {
-    "amplifyhosting": {
-      "providerPlugin": "awscloudformation",
-      "service": "amplifyhosting",
-      "type": "manual"
     }
   },
   "parameters": {

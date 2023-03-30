@@ -154,7 +154,7 @@ const BLSMCovLoanee = (props) => {
               
               const lglGrcePrd = 60 - tmDif;
 
-              const LonBal1 = Math.pow(LonBal*(1 + parseFloat(interest)), repaymentPeriod)
+              const LonBal1 = Math.pow(LonBal*(1 + parseFloat(interest)), tmDif/30);
 
               
               const gtLoanerDtls = async () =>{
@@ -223,26 +223,18 @@ const BLSMCovLoanee = (props) => {
                             await updtActAdm ();
                           } 
                           
-                          if(LonBal === 0){
-                            Alert.alert("Loanee has cleared this loan")
-                          }
-
-                          else if(owners !== userInfo.attributes.sub ){
-                            Alert.alert("You are not the one owed this loan")
-                          } 
-
                           
 
-                          else if(statusssss === "LoanBL"){
-                            Alert.alert("This Loan is already Black Listed")
-                          } 
-
-                          else if(acStatuss === "AccountInactive"){
-                            Alert.alert("Loaner account has been deactivated")
-                          } 
-
-                          else if(acStatusss === "AccountInactive"){
+                           if(acStatusss === "AccountInactive"){
                             Alert.alert("Loanee account has been deactivated")
+                          } 
+
+                          else if(tmDif2 < repaymentPeriod){
+                            Alert.alert("Time to Blacklist is not yet")
+                          } 
+
+                          else if(tmDif < 30){
+                            Alert.alert("Time to Penalise is not yet")
                           } 
                           else{updateLoanerDtls();}
                           
@@ -319,6 +311,7 @@ const BLSMCovLoanee = (props) => {
                                           lonBala:LonBal1.toFixed(0),
                                           DefaultPenaltySM2:DefaultPenaltySMs.toFixed(0),
                                           status:"LoanBL",
+                                          dfltUpdate:daysUpToDate
                                         }
                                       })
                                     )

@@ -4,14 +4,16 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import RecNonLns from "../../../../../components/MyAc/ViewSentNonLns";
 import styles from './styles';
-import { getCompany, getSMAccount,  listSMAccounts, vwMyRecMny } from '../../../../../src/graphql/queries';
+import { getCompany, getSMAccount,  listLoanRepayments,  listSMAccounts, vwMyRecMny } from '../../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
+import { useRoute } from '@react-navigation/native';
 
 const FetchSMNonLnsRec = props => {
 
    
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
+    const route = useRoute()
 
     const fetchUsrDtls = async () => {
       const userInfo = await Auth.currentAuthenticatedUser();
@@ -29,17 +31,16 @@ const FetchSMNonLnsRec = props => {
               
        
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyRecMny, 
+              const Lonees:any = await API.graphql(graphqlOperation(listLoanRepayments, 
               {
-                      recPhn: userInfo.attributes.email,
-                      sortDirection: 'DESC',
-                      limit: 100,
-                      filter:{status:{eq:"SMLonRepayment"}}
+                sortDirection: 'DESC',
+                limit: 100,
+                filter:{LoanId1:{eq:route.params.id}}
                       
                     }
                   
                   ));
-              setLoanees(Lonees.data.VwMyRecMny.items);
+              setLoanees(Lonees.data.listLoanRepayments.items);
 
               
                         

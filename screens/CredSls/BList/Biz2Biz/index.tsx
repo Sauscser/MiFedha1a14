@@ -154,9 +154,9 @@ const BLCovCredByr = (props) => {
               const tmDif = daysUpToDate - daysAtCrtn;
               const tmDif2 = daysUpToDate - daysAtCrtnz;
               
-              const lglGrcePrd = 60 - tmDif;
+              
 
-              const LonBal1 = Math.pow(LonBal*(1 + parseFloat(interest)), repaymentPeriod)
+              const LonBal1 = Math.pow(LonBal*(1 + parseFloat(interest)), tmDif/30);
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -223,7 +223,11 @@ const BLCovCredByr = (props) => {
     
                               
     
-                              else if (tmDif < repaymentPeriod && repaymentPeriod > tmDif2){
+                              else if (tmDif2 < repaymentPeriod){
+                                Alert.alert("Time to to Black List is not yet")
+                              }
+    
+                              else if (30 > tmDif){
                                 Alert.alert("Time to add penalty is not yet")
                               }
     
@@ -378,17 +382,7 @@ const BLCovCredByr = (props) => {
                     <Text style={styles.title}>Fill User Details Below</Text>
                   </View>
         
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={LonId}
-                      onChangeText={setLonId}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Comment</Text>
-                  </View>
-        
                   
-        
                   <TouchableOpacity
                     onPress={gtCompDtls}
                     style={styles.sendLoanButton}>

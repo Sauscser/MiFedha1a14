@@ -13,6 +13,7 @@ import {
   updateSMAccount,
   updateSMLoansCovered,
   updateBizna,
+  createLoanRepayments,
   
 } from '../../../../../../../src/graphql/mutations';
 
@@ -255,7 +256,7 @@ const RepayCovLnsss = props => {
                                 setIsLoading(true)
                                 try {
                                   await API.graphql(
-                                    graphqlOperation(createNonLoans, {
+                                    graphqlOperation(createLoanRepayments, {
                                       input: {
                                         senderPhn: userInfo.attributes.email,
                                         recPhn: loanerPhns,     
@@ -393,7 +394,7 @@ const RepayCovLnsss = props => {
                                 setIsLoading(true)
                                 try {
                                   await API.graphql(
-                                    graphqlOperation(createNonLoans, {
+                                    graphqlOperation(createLoanRepayments, {
                                       input: {
                                         recPhn: loanerEmail,
                                         senderPhn: userInfo.attributes.email,    

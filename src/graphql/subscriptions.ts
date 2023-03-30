@@ -539,9 +539,6 @@ export const onCreateNonLoans = /* GraphQL */ `
       RecName
       SenderName
       amount
-      loanId1
-      loanId2
-      loanId3
       description
       status
       owner
@@ -562,9 +559,6 @@ export const onUpdateNonLoans = /* GraphQL */ `
       RecName
       SenderName
       amount
-      loanId1
-      loanId2
-      loanId3
       description
       status
       owner
@@ -579,6 +573,72 @@ export const onDeleteNonLoans = /* GraphQL */ `
     $owner: String
   ) {
     onDeleteNonLoans(filter: $filter, owner: $owner) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      amount
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateLoanRepayments = /* GraphQL */ `
+  subscription OnCreateLoanRepayments(
+    $filter: ModelSubscriptionLoanRepaymentsFilterInput
+    $owner: String
+  ) {
+    onCreateLoanRepayments(filter: $filter, owner: $owner) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      amount
+      loanId1
+      loanId2
+      loanId3
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateLoanRepayments = /* GraphQL */ `
+  subscription OnUpdateLoanRepayments(
+    $filter: ModelSubscriptionLoanRepaymentsFilterInput
+    $owner: String
+  ) {
+    onUpdateLoanRepayments(filter: $filter, owner: $owner) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      amount
+      loanId1
+      loanId2
+      loanId3
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteLoanRepayments = /* GraphQL */ `
+  subscription OnDeleteLoanRepayments(
+    $filter: ModelSubscriptionLoanRepaymentsFilterInput
+    $owner: String
+  ) {
+    onDeleteLoanRepayments(filter: $filter, owner: $owner) {
       id
       senderPhn
       recPhn
