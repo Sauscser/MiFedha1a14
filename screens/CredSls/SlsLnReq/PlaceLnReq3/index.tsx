@@ -138,7 +138,7 @@ const CreateBiz = (props) => {
                   status: "AwaitingResponse",
                   owner: userInfo.attributes.sub,
                   statusNumber: 0,
-                  AdvEmail: "email",
+                  AdvEmail: "None",
                   advLicNo:"None",
                   loanerName: name,
                   loanerPhone: phonecontacts,
@@ -265,11 +265,7 @@ const CreateBiz = (props) => {
         
       }
       
-      else if ((DfltPnltyRate) > (RecomDfltPnltyRate))
-      {Alert.alert("Enter Default Penalty less than Ksh. " + RecomDfltPnltyRate)}
-
-
-      else if (parseFloat(lnPrsntg) > 100){
+       if (parseFloat(lnPrsntg) > 100){
         Alert.alert("Interest exploits you; enter lesser repayment amount")
       }
       else if (Sign2Phn != "")

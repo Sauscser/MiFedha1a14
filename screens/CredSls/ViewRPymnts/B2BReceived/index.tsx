@@ -37,7 +37,7 @@ const route = useRoute();
                       sortDirection: 'DESC',
                       limit: 100,
                      
-                      filter:{LoanId2:{eq:route.params.id}}
+                      filter:{loanId2:{eq:route.params.id}}
                       
                     }
                   

@@ -450,6 +450,10 @@ import ChmLoaneesDtls from "../../screens/Chama/ViewLns/GivenOut/LoaneesDtls";
 import ChmLoanersDtls from "../../screens/Chama/ViewLns/Received/LoanersDtls";
 
 import SgnIn2TransferBiz from "../../screens/CredSls/SgnIn2TransferBiz";
+import ReadPayPalTNC from "../../screens/MyAcc/DepositMny/ReadPayPalTNC";
+import Vw2ApprovePPReq from "../../screens/Advocate/Vw2ApprovePPReq";
+import Vw2ApproveChmReq from "../../screens/Advocate/Vw2ApproveChmReq";
+import Vw2ApproveBizReq from "../../screens/Advocate/Vw2ApproveBizReq";
 
 
 
@@ -462,7 +466,11 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />
 
+      <Stack.Screen name={'Vw2ApproveChmReq'} component={Vw2ApproveChmReq} />
+      <Stack.Screen name={'Vw2ApproveBizReq'} component={Vw2ApproveBizReq} />
       <Stack.Screen name={'SgnIn2TransferBiz'} component={SgnIn2TransferBiz} />
+      <Stack.Screen name={'Vw2ApprovePPReq'} component={Vw2ApprovePPReq} />
+      <Stack.Screen name={'ReadPayPalTNC'} component={ReadPayPalTNC} />
       
       <Stack.Screen name={'ChmLoaneesDtls'} component={ChmLoaneesDtls} />
       <Stack.Screen name={'ChmLoanersDtls'} component={ChmLoanersDtls} />

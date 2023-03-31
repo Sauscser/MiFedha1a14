@@ -6,7 +6,7 @@ import LnerStts from "../../../../../components/VwCredSales/CrdStatus/Biz/Biz2Pa
 import styles from './styles';
 
 import { useRoute } from '@react-navigation/native';
-import { getCompany, getSMAccount, listSMLoansCovereds } from '../../../../../src/graphql/queries';
+import { getCompany, getSMAccount, listCovCreditSellers, listSMLoansCovereds } from '../../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
 
 const FetchSMCovLns = props => {
@@ -31,7 +31,7 @@ const FetchSMCovLns = props => {
           
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
+              const Lonees:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
                 {
                         
                         
@@ -39,7 +39,7 @@ const FetchSMCovLns = props => {
                       filter:{
                         and :{
                       lonBala:{gt:0},
-                      loaneeEmail: {eq:userInfo.attributes.email},
+                      buyerContact: {eq:userInfo.attributes.email},
                         }
                       },
                       limit: 100,
@@ -47,7 +47,7 @@ const FetchSMCovLns = props => {
                     }
               
                   ));
-              setLoanees(Lonees.data.listSMLoansCovereds.items);
+              setLoanees(Lonees.data.listCovCreditSellers.items);
 
               
                         

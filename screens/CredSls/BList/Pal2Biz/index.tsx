@@ -67,6 +67,7 @@ const BLCovCredByr = (props) => {
               const amountrepaids = compDtls.data.getCovCreditSeller.amountRepaid
               const interest = compDtls.data.getCovCreditSeller.interest
               const dfltUpdate = compDtls.data.getCovCreditSeller.dfltUpdate
+              const dfltUpdates = compDtls.data.getCovCreditSeller.dfltUpdate
               const lonBala = compDtls.data.getCovCreditSeller.lonBala
               const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
               
@@ -150,12 +151,12 @@ const BLCovCredByr = (props) => {
               const crtnMnthsz = parseFloat(crtnMnthz)*30.4375;
               const daysAtCrtnz = crtnYearsz + crtnMnthsz + parseFloat(crtnDyz)
 
-              const tmDif = daysUpToDate - daysAtCrtn;
+              const tmDif = daysUpToDate - dfltUpdates;
               const tmDif2 = daysUpToDate - daysAtCrtnz;
               
              
 
-              const LonBal1 = Math.pow(LonBal*(1 + parseFloat(interest)), tmDif/30);
+              const LonBal1 = LonBal*Math.pow((1 + parseFloat(interest)), tmDif/30);
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -217,27 +218,6 @@ const BLCovCredByr = (props) => {
                               setIsLoading(false);
                               }
 
-                              if(LonBal === 0){
-                                Alert.alert("Loanee has cleared this loan")
-                              }
-    
-                              
-    
-                              else if(tmDif2 < repaymentPeriod){
-                                Alert.alert("Time to Blacklist is not yet")
-                              } 
-    
-                              else if(tmDif < 30){
-                                Alert.alert("Time to Penalise is not yet")
-                              } 
-    
-                              
-    
-                              else if(acStatusss === "AccountInactive"){
-                                Alert.alert("Loanee account has been deactivated")
-                              } 
-
-                              else {updtActAdm();}
                               
                               const updateLoaneeDtls = async () => {
                                 if(isLoading){
@@ -300,7 +280,7 @@ const BLCovCredByr = (props) => {
                               Communications.textWithoutEncoding(phonecontactz,'Hi '
                               + names + ', your loan of ID ' 
                               +  route.params.id 
-                              + 'has been blacklisted by '+ namess 
+                              + ' has been blacklisted by '+ namess 
                               + ' Business. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
                             + lonBala + '. Default Penalty as you had agreed with your loaner is Ksh. ' + DefaultPenaltyCredSls 
                             + '. Clearance fee is Ksh. ' + ClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal1
@@ -308,6 +288,128 @@ const BLCovCredByr = (props) => {
                             + userInfo.attributes.phone_number + '. Thank you. MiFedha');
                                 setIsLoading(false);          
                               } 
+
+                              const updtActAdm2 = async()=>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                    try{
+                                        await API.graphql(
+                                          graphqlOperation(updateCompany,{
+                                            input:{
+                                              AdminId:"BaruchHabaB'ShemAdonai2",
+                                              ttlSellerLnsInBlTymsCov: parseFloat(ttlSellerLnsInBlTymsCovs) + 1,
+                                              ttlSellerLnsInBlAmtCov: (parseFloat(ttlSellerLnsInBlAmtCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(2),
+                                              ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
+    
+                                            }
+                                          })
+                                        )
+                                    }
+                                    catch(error){
+                                      console.log(error)
+                                      if(error){
+                                      Alert.alert("Error!")
+                                      return;
+                                  }}
+                                  await updateLoaneeDtls2();
+                                  setIsLoading(false);
+                                  }
+    
+                                  if(LonBal === 0){
+                                    Alert.alert("Loanee has cleared this loan")
+                                  }
+        
+                                  
+        
+                                  
+        
+                                  
+        
+                                  else if(acStatusss === "AccountInactive"){
+                                    Alert.alert("Loanee account has been deactivated")
+                                  } 
+
+                                  else if(tmDif2 < repaymentPeriod){
+                                    updtActAdm()
+                                  } 
+        
+                                  else if(tmDif > 30){
+                                    updtActAdm2
+                                  } 
+    
+                                  else {Alert.alert("Time to Blacklist/Penalise is not yet")}
+                                  
+                                  const updateLoaneeDtls2 = async () => {
+                                    if(isLoading){
+                                      return;
+                                    }
+                                    setIsLoading(true);
+                                    try{
+                                        await API.graphql(
+                                          graphqlOperation(updateBizna,{
+                                            input:{
+                                              BusKntct:sellerContacts,
+                                         
+                                              
+                                            }
+                                          })
+                                        )
+                                
+                                        
+                                    }
+                                    catch(error){
+                                      console.log(error)
+                                      if(error){
+                                      Alert.alert("Error!")
+                                      
+                                 
+                                  return;} }
+                                  await updateLoanDtls2();
+                                    setIsLoading(false);          
+                                  } 
+    
+                                  const updateLoanDtls2 = async () => {
+                                    if(isLoading){
+                                      return;
+                                    }
+                                    setIsLoading(true);
+                                    try{
+                                        await API.graphql(
+                                          graphqlOperation(updateCovCreditSeller, {
+                                            input:{
+                                              id:route.params.id,
+                                              amountExpectedBackWthClrnc:(amountExpectedBackWthClrncss).toFixed(0),
+                                              status:"LoanBL",
+                                              DefaultPenaltyCredSl2:DefaultPenaltyCredSls.toFixed(0),
+                                              lonBala:LonBal1.toFixed(0),
+                                              dfltUpdate:daysUpToDate,
+                                            }
+                                          })
+                                        )
+                                
+                                        
+                                    }
+                                    catch(error){
+                                      console.log(error)
+                                      if(error){
+                                      Alert.alert("Ensure User Exists");
+                                      return;
+                                  } 
+                                   }
+                                  Alert.alert(names +", you have blacklisted "+ namess);
+                                  Communications.textWithoutEncoding(phonecontactz,'Hi '
+                                  + names + ', your loan of ID ' 
+                                  +  route.params.id 
+                                  + ' has been blacklisted by '+ namess 
+                                  + ' Business. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
+                                + lonBala + '. Default Penalty as you had agreed with your loaner is Ksh. ' + DefaultPenaltyCredSls 
+                                + '. Clearance fee is Ksh. ' + ClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal1
+                                 +'. For clarification call the Business Owner: '
+                                + userInfo.attributes.phone_number + '. Thank you. MiFedha');
+                                    setIsLoading(false);          
+                                  } 
                               
                         }
             
@@ -377,20 +479,6 @@ const BLCovCredByr = (props) => {
                  style={styles.image}>
                 <ScrollView>
            
-                  <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill User Details Below</Text>
-                  </View>
-        
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={LonId}
-                      onChangeText={setLonId}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Comment</Text>
-                  </View>
-        
-                  
         
                   <TouchableOpacity
                     onPress={gtCompDtls}

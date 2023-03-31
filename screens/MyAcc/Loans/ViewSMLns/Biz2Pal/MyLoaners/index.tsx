@@ -2,7 +2,7 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 import { getCompany, getSMAccount, listSMLoansCovereds, vwMyDebtors } from '../../../../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../../components/Loans/LoanStts/CovLons/Loaner";
+import LnerStts from "../../../../../../components/Loans/LoanStts/B2PLoaner";
 import styles from './styles';
 import { updateCompany, updateSMAccount } from '../../../../../../src/graphql/mutations';
 import { useRoute } from '@react-navigation/native';

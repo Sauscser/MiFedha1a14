@@ -95,14 +95,14 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
                       onPress={VwRpayments}
                       style = {styles.loanFriendButton}
                       >            
-                        <Text>ViewRpymnts</Text>            
+                        <Text style = {styles.loanAFriendText}>ViewRpymnts</Text>            
                     </Pressable>
                     </View>   
                     <View>
                     <Pressable
                       onPress={Blacklist}
                       style = {styles.loanFriendButton}>            
-                        <Text>BL/Penalise</Text>            
+                        <Text style = {styles.loanAFriendText}>BL/Penalise</Text>            
                     </Pressable>  
                     </View>
                      

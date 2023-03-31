@@ -92,14 +92,14 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                       onPress={VwRpayments}
                       style = {styles.loanFriendButton}
                       >            
-                        <Text>ViewRpymnts</Text>            
+                        <Text style = {styles.loanAFriendText}>ViewRpymnts</Text>            
                     </Pressable>
                     </View>   
                     <View>
                     <Pressable
-                      onPress={Blacklist}
+                      onPress={Repay}
                       style = {styles.loanFriendButton}>            
-                        <Text>Repay</Text>            
+                        <Text style = {styles.loanAFriendText}>Repay</Text>            
                     </Pressable>  
                     </View>
                      

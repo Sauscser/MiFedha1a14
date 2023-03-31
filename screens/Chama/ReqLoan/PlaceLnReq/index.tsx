@@ -268,9 +268,7 @@ const CreateBiz = (props) => {
       {Alert.alert("Such a member doesn't exist");
       return;}
       
-      else if ((DfltPnltyRate) > (RecomDfltPnltyRate))
-      {Alert.alert("Enter Default Penalty less than Ksh. " + RecomDfltPnltyRate);
-      return;}
+      
       else if (parseFloat(lnPrsntg) > 100){
         Alert.alert("Interest exploits you; enter lesser repayment amount");
         return;

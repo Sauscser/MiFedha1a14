@@ -2,7 +2,7 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 import { getCompany, getSMAccount, listSMLoansCovereds, vwMyDebtors } from '../../../../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../../components/Loans/LoanStts/CovLons/Loanee";
+import LnerStts from "../../../../../../components/Loans/LoanStts/P2PLoanee";
 import styles from './styles';
 import { updateCompany, updateSMAccount } from '../../../../../../src/graphql/mutations';
 
@@ -44,7 +44,7 @@ const FetchSMCovLns = props => {
                     }
               
                   ));
-              setLoanees(Lonees.data.VwMyDebtors.items);
+              setLoanees(Lonees.data.listSMLoansCovereds.items);
 
               
                         
@@ -136,10 +136,11 @@ const FetchSMCovLns = props => {
                       catch (e)
                       {
                         if(e){
-                          Alert.alert("User does not exist; otherwise check internet connection");
-                          return;
-                        }
+                          
+
                           console.log(e)
+                        }
+                          
                          
                           
                       }    

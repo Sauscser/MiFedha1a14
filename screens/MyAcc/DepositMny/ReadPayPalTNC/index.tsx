@@ -2,7 +2,7 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../components/MyAc/ViewPayPalTNC";
+import LnerStts from "../../../../components/MyAc/ReadPayPalTNC";
 import styles from './styles';
 import { getCompany, getExRates, getSMAccount, listCompanies, listExRates, listSMAccounts } from '../../../../src/graphql/queries';
 import { useNavigation } from '@react-navigation/native';
@@ -53,24 +53,7 @@ const FetchSMNonCovLns = props => {
               const nationality = compDtlsz.data.getSMAccount.nationality; 
 console.log (nationality)
 
-                const gtExchangeRt2 = async () =>{
-                  if(isLoading){
-                      return;
-                  }
-                  setIsLoading(true)
-                  try{
-                    const compDtls:any = await API.graphql(
-                    graphqlOperation(listExRates,
-                      
-                      { filter: {
-                        and: {
-                          cur: { eq: nationality},
-                         
-                        }
-                      }})
-                      );
-                      setsellingPrice(compDtls.data.listExRates.items)
-                      
+                
                       
                         const gtCompDtls = async () =>{
                           if(isLoading){
@@ -79,10 +62,15 @@ console.log (nationality)
                           setIsLoading(true);
                           try{
                             const compDtlszx:any= await API.graphql(
-                              graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
+                              graphqlOperation(listCompanies,{ filter: {
+                                and: {
+                                  AdminId: { eq: "BaruchHabaB'ShemAdonai2"},
+                                 
+                                }
+                              }})
                               );
                               
-                              setRecom(compDtlszx.data.getCompany.PayPalTNC);
+                              setRecom(compDtlszx.data.listCompanies.items);
                         
   
                             } catch (error) {
@@ -95,16 +83,7 @@ console.log (nationality)
                 
                             await gtCompDtls(); 
   
-                      } catch (error) {
-                          console.log(error)
-                      if (error){Alert.alert("Error")
-                              return;}
-                        }
-                        setIsLoading(false);
-                        };    
-            
-                        await gtExchangeRt2(); 
-  
+              
 
 
 
@@ -140,7 +119,7 @@ fetchLoanees();
 <View style={styles.root}>
       <FlatList
       style= {{width:"100%"}}
-        data={sellingPrice}
+        data={Recom}
         renderItem={({item}) => <LnerStts SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={fetchLoanees}
@@ -150,7 +129,7 @@ fetchLoanees();
         ListHeaderComponent={() => (
           <>
             <Text>
-              Please swipe to reload exchange rates
+              Please swipe to reload terms and conditions before proceeding
             </Text>
             
           </>

@@ -46,7 +46,7 @@ const FetchSMCovLns = props => {
                     }
               
                   ));
-              setLoanees(Lonees.data.VwMyDebts.items);
+              setLoanees(Lonees.data.listSMLoansCovereds.items);
 
               
                         

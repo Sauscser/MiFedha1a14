@@ -164,7 +164,8 @@ const styles = StyleSheet.create ({
         marginTop: "1%",
       },
     
-      
+     
+    
       chamaLoanAndCreditSalesButton5: {
         backgroundColor: 'white',
         height: "90%",
@@ -194,12 +195,11 @@ const styles = StyleSheet.create ({
         fontSize: 12,
         fontWeight: 'bold',
         color: 'black',
-        padding:3
+        
       },
     
 
     
       
-
 });
 export default styles

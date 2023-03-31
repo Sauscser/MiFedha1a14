@@ -78,7 +78,7 @@ const ViewSMDeposts = (props:SMAccount) => {
          Communications.textWithoutEncoding(loanerPhone, 
           'MiFedha. Hi I have witnessed the '
          + ' loan contract between you ' + loanerName +
-         ' the Loaner and ' + loaneeName + 'the Loaned. Thank you.');    
+         ' the Loaner and ' + loaneeName + ' the Loaned. Thank you.');    
        
    }
 
@@ -127,7 +127,7 @@ const ViewSMDeposts = (props:SMAccount) => {
                       MiFedha.
                       Greetings! We, {loaneeName}, the loaned and {loanerName}, the loaner, humbly 
                       request that you witness our loan contract amounting to Ksh.
-                     {amount}, repayable as Ksh. {repaymentAmt} by the end of {repaymentPeriod} days,
+                     {amount}, repayable at a compund interest of {repaymentAmt}% per month by the end of {repaymentPeriod} days,
                       default penalty is Ksh. {defaultPenalty} and its description is as 
                       as follows: "{description}." You can reach
                      my loaner through {loanerPhone}. You can also reach me through {loaneePhone}. 

@@ -116,8 +116,8 @@ const CreateBiz = (props) => {
                         loanerEmail:awsEmail,
                         loaneeName: name,
                         loaneePhone:phonecontacts,
-                        AdvEmail: "email",
-                        advLicNo: "Sign2Phn",
+                        AdvEmail: "None",
+                        advLicNo: "None",
                         loanerName: namez,
                         loanerPhone: phonecontactz,
                         amount: parseFloat(itemPrys).toFixed(2),
@@ -247,8 +247,7 @@ const CreateNewSMAc = async () => {
       } 
       
       
-      else if ((DfltPnltyRate) > (RecomDfltPnltyRate))
-      {Alert.alert("Enter Default Penalty less than Ksh. " + RecomDfltPnltyRate)}
+      
       else if (parseFloat(lnPrsntg) > 100){
         Alert.alert("Interest exploits you; enter lesser repayment amount")
       }

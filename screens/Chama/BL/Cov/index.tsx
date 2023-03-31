@@ -75,6 +75,7 @@ const BLChmCovLoanee = (props) => {
               const lonBala = compDtls2.data.getCvrdGroupLoans.lonBala
               const interest = compDtls2.data.getCvrdGroupLoans.interest
               const dfltUpdate = compDtls2.data.getCvrdGroupLoans.dfltUpdate
+              const dfltUpdates = compDtls2.data.getCvrdGroupLoans.dfltUpdate
               const createdAt = compDtls2.data.getCvrdGroupLoans.createdAt
               const repaymentPeriod = compDtls2.data.getCvrdGroupLoans.repaymentPeriod
 
@@ -163,10 +164,10 @@ const BLChmCovLoanee = (props) => {
               const crtnMnthsz = parseFloat(crtnMnthz)*30.4375;
               const daysAtCrtnz = crtnYearsz + crtnMnthsz + parseFloat(crtnDyz)
 
-              const tmDif = daysUpToDate - daysAtCrtn;
+              const tmDif = daysUpToDate - dfltUpdates;
               const tmDif2 = daysUpToDate - daysAtCrtnz;
               
-              const LonBal1 = Math.pow(LonBal*(1 + parseFloat(interest)), tmDif/30);
+              const LonBal1 = LonBal*Math.pow((1 + parseFloat(interest)), tmDif/30);
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -247,23 +248,7 @@ const BLChmCovLoanee = (props) => {
                             await updtActAdm ();
                           } 
                           
-                          if(LonBal === 0){
-                            Alert.alert("Loanee has cleared this loan");
-                            return;
-                          }
-                          else if (tmDif2 < repaymentPeriod){
-                            Alert.alert("Time to to Black List is not yet")
-                          }
-
-                          else if (30 > tmDif){
-                            Alert.alert("Time to add penalty is not yet")
-                          }
-
-                          else if(acStatusss === "AccountInactive"){
-                            Alert.alert("Loanee account has been deactivated");
-                            return;
-                          } 
-                          else{updateLoanerDtls();}
+                          
                           
                   
                           const updtActAdm = async()=>{
@@ -386,7 +371,7 @@ const BLChmCovLoanee = (props) => {
                               Communications.textWithoutEncoding(phonecontact,'Hi '
                               + namess + ', your loan of ID ' 
                               +  route.params.id 
-                              + 'has been blacklisted by '+ grpNames 
+                              + ' has been blacklisted by '+ grpNames 
                               + ' group. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
                             + lonBala + '. Default Penalty as you had agreed with your loaner is Ksh. ' + DefaultPenaltyChms 
                             + '. Clearance fee is Ksh. ' + MmbrClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal1
@@ -394,6 +379,193 @@ const BLChmCovLoanee = (props) => {
                             + userInfo.attributes.phone_number + '. Thank you. MiFedha');
                                 setIsLoading(false);          
                               } 
+
+                              const updateLoanerDtls2 = async () => {
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                try{
+                                    await API.graphql(
+                                      graphqlOperation(updateGroup,{
+                                        input:{
+                                          grpContact:loanerPhns,
+                                          tymsChmHvBL: parseFloat(tymsChmHvBLs) + 1,
+                                          TtlBLLonsTmsLnrChmCov: parseFloat(TtlBLLonsTmsLnrChmCovs) + 1,
+                                          TtlBLLonsAmtLnrChmCov: (parseFloat(TtlBLLonsAmtLnrChmCovs) + amountExpectedBackWthClrncss).toFixed(0),
+                                          TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(0),
+                                          
+                                        }
+                                      })
+                                    )
+                            
+                                    
+                                }
+                                catch(error){ 
+                                  if (error){
+                                    Alert.alert("Error! Access denied!")
+                                    return}
+                          }
+    
+                                setIsLoading(false);          
+                                await updtActAdm2 ();
+                              } 
+                              
+                              if(LonBal === 0){
+                                Alert.alert("Loanee has cleared this loan");
+                                return;
+                              }
+                              else if (tmDif2 < repaymentPeriod){
+                                Alert.alert("Time to to Black List is not yet")
+                              }
+    
+                              else if (30 > tmDif){
+                                Alert.alert("Time to add penalty is not yet")
+                              }
+    
+                              else if(acStatusss === "AccountInactive"){
+                                Alert.alert("Loanee account has been deactivated");
+                                return;
+                              } 
+
+                              else if (tmDif2 > repaymentPeriod){
+                                updateLoanerDtls()
+                              }
+    
+                              else if (30 < tmDif){
+                                updateLoanerDtls2()
+                              }
+                              
+                              
+                      
+                              const updtActAdm2 = async()=>{
+                                if(isLoading){
+                                  return;
+                                }
+                                setIsLoading(true);
+                                    try{
+                                        await API.graphql(
+                                          graphqlOperation(updateCompany,{
+                                            input:{
+                                              AdminId:"BaruchHabaB'ShemAdonai2",
+                                              ttlChmLnsInBlTymsCov: parseFloat(ttlChmLnsInBlTymsCovs) + 1,
+                                              ttlChmLnsInBlAmtCov: (parseFloat(ttlChmLnsInBlAmtCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(0),
+                                              ttlBLUsrs:parseFloat(ttlBLUsrss) + 1,
+                                            }
+                                          })
+                                        )
+                                    }
+                                    catch(error){
+                                      console.log(error)
+                                      if(error){
+                                      Alert.alert("Error! Access denied!")
+                                      return;
+                                  }}
+                                  await updateLoaneeDtls2();
+                                  setIsLoading(false);
+                                  }
+                                  
+                                  const updateLoaneeDtls2 = async () => {
+                                    if(isLoading){
+                                      return;
+                                    }
+                                    setIsLoading(true);
+                                    try{
+                                        await API.graphql(
+                                          graphqlOperation(updateSMAccount,{
+                                            input:{
+                                              awsemail:loaneePhns,
+                                              
+                                              TtlBLLonsTmsLneeChmCov: parseFloat(TtlBLLonsTmsLneeChmCovs) + 1,
+                                              TtlBLLonsAmtLneeChmCov: (parseFloat(TtlBLLonsAmtLneeChmCovs) + amountExpectedBackWthClrncss).toFixed(0),
+                                              
+                                              TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(0),
+                                              blStatus:"AccountBlackListed",
+                                              loanStatus: "LoanActive"
+                                            }
+                                          })
+                                        )
+                                
+                                        
+                                    }
+                                    catch(error){
+                                      if (error){
+                                        Alert.alert("Error! Access denied!")
+                                      }
+                                      }
+                                  await updateLoanDtls2();
+                                    setIsLoading(false);          
+                                  } 
+    
+                                  const updateLoanDtls2 = async () => {
+                                    if(isLoading){
+                                      return;
+                                    }
+                                    setIsLoading(true);
+                                    try{
+                                        await API.graphql(
+                                          graphqlOperation(updateCvrdGroupLoans, {
+                                            input:{
+                                              id:route.params.id,
+                                              amountExpectedBackWthClrnc:amountExpectedBackWthClrncss.toFixed(0),
+                                              lonBala:LonBal1.toFixed(0),
+                                              status:"LoanBL",
+                                              dfltUpdate:daysUpToDate,
+                                              DefaultPenaltyChm2:DefaultPenaltyChms.toFixed(0),
+                                            }
+                                          })
+                                        )
+                                
+                                        
+                                    }
+                                    catch(error){
+                                      console.log(error)
+                                      if(error){
+                                      Alert.alert("Error! Access denied!");
+                                      return;
+                                  } 
+                                   }
+                                  await updateMbrDtls2();
+                                  
+                                    setIsLoading(false);          
+                                  } 
+    
+                                  const updateMbrDtls2 = async () => {
+                                    if(isLoading){
+                                      return;
+                                    }
+                                    setIsLoading(true);
+                                    try{
+                                        await API.graphql(
+                                          graphqlOperation(updateChamaMembers, {
+                                            input:{
+                                              ChamaNMember:memberIds,
+                                              LnBal:(parseFloat(LnBalsss)+ MmbrClrnceCost).toFixed(0),
+                                              blStatus:"AccountBlackListed",
+                                            }
+                                          })
+                                        )
+                                
+                                        
+                                    }
+                                    catch(error){
+                                      if (error){
+                                        Alert.alert("Blacklisting unsuccessful; Retry!")
+                                        return
+                                      }
+                                       }
+                                  Alert.alert(grpNames +", you have blacklisted "+ namess)
+                                  Communications.textWithoutEncoding(phonecontact,'Hi '
+                                  + namess + ', your loan of ID ' 
+                                  +  route.params.id 
+                                  + ' has been blacklisted by '+ grpNames 
+                                  + ' group. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
+                                + lonBala + '. Default Penalty as you had agreed with your loaner is Ksh. ' + DefaultPenaltyChms 
+                                + '. Clearance fee is Ksh. ' + MmbrClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal1
+                                 +'. For clarification call the group Admin: '
+                                + userInfo.attributes.phone_number + '. Thank you. MiFedha');
+                                    setIsLoading(false);          
+                                  } 
                               
                             }
             
@@ -502,20 +674,6 @@ const BLChmCovLoanee = (props) => {
                  style={styles.image}>
                 <ScrollView>
            
-                  <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill User Details Below</Text>
-                  </View>
-        
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={SigntryPW}
-                      onChangeText={setSigntryPW}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Comment</Text>
-                  </View>       
-                  
-        
                   <TouchableOpacity
                     onPress={gtCompDtls}
                     style={styles.sendLoanButton}>

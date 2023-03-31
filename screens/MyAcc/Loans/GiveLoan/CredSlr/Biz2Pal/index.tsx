@@ -225,10 +225,10 @@ const CovCredSls = props => {
           const lnTrnsfrFee = parseFloat(userLoanTransferFees)*parseFloat(amount);
           
           const TransCost2 = parseFloat(userLoanTransferFees)*parseFloat(amount)
-          const amtrpayable2 = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod/30)
-          const amtrpayable = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod/30)
-          const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable;
-          const TotalAmtExp2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable2;
+          const amtrpayable2 = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30)
+          const amtrpayable = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30)
+          const TotalAmtExp = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) + amtrpayable;
+          const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
           
               
 
@@ -457,7 +457,7 @@ const CovCredSls = props => {
                                             + '. The following is a break down of your repayable loan: '
                                             + ' Cash price of the goods is Ksh. '+ amount 
                                             + '. Amount you had committed to repay is Ksh. '
-                                            + AmtExp + '. Transaction fee is Ksh. '
+                                            + amtrpayable2 + '. Transaction fee is Ksh. '
                                             + lnTrnsfrFee + '. Total Repayable is Ksh'+ TotalAmtExp2 
                                             + '. Thank you.');
                                               setIsLoading(false);
@@ -691,7 +691,7 @@ const CovCredSls = props => {
                         + '. The following is a break down of your repayable loan: '
                         + ' Cash price of the goods is Ksh. '+ amount 
                         + '. Amount you had committed to repay is Ksh. '
-                        + AmtExp + '. Transaction fee is Ksh. '
+                        + amtrpayable + '. Transaction fee is Ksh. '
                         + lnTrnsfrFee + '. Advocacy Fee is Ksh. '
                         + ttlCovFeeAmount + '. Total Repayable is Ksh'+ TotalAmtExp 
                         + '. Thank you.');
@@ -713,7 +713,7 @@ const CovCredSls = props => {
                       }  else if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver adversely listed');
                     return;
                   }
-                  else if(statusNumber === 0){Alert.alert('Advocate has not yet witnessed');                  
+                  else if(statusNumber === 0 && advLicNo != "None"){Alert.alert('Advocate has not yet witnessed');                  
                 }
                       
                       else if(BusinessRegNos === loaneeEmail){Alert.alert('You cannot Loan Yourself');}
@@ -749,7 +749,7 @@ const CovCredSls = props => {
                           SndChmMmbrMny();
                       } 
                       
-                      else if(advLicNo ==" "){sendSMLn();}
+                      else if(advLicNo =="None"){sendSMLn();}
                        else {
                                 
                         await fetchAdv(); }

@@ -10,11 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export interface SMCvLnSttus {
   SMAc: {
-      cur:string,
-      sellingPrice: number,
-      
-      
-      symbol:string
+    PayPalTNC:string,
       
       
   }}
@@ -23,10 +19,8 @@ const FetchSMNonCovLns = props => {
 
   const {
     SMAc: {
-    cur,
-    sellingPrice,
+      PayPalTNC,
     
-    symbol,
     
    
    }} = props ;
@@ -42,7 +36,7 @@ const FetchSMNonCovLns = props => {
     const navigation = useNavigation();
 
     const PyPlDpst = () => {
-      navigation.navigate("ReadPayPalTNC");
+      navigation.navigate("PayPalDposit");
     }
 
     const PyPlDpst2 = () => {
@@ -62,7 +56,7 @@ const FetchSMNonCovLns = props => {
  {/*loaner details */}   
 
  
-We are buying one US dollar at {symbol} {sellingPrice}.
+{PayPalTNC}
 </Text>
 </View>  
 

@@ -6,7 +6,7 @@ import NonLnSent from "../../../components/Advocate/VwPP2Approve";
 import styles from './styles';
 
 
-import { advVwLnsClient, getCompany, getSMAccount, listReqLoans, vwAdvNLnrNLneesssss } from '../../../src/graphql/queries';
+import {  getCompany, getSMAccount, listReqLoans } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 

@@ -76,7 +76,7 @@ const SMCvLnStts = (props:SMAccount) => {
                       <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
                       Hi! it's {loaneeName}. Kindly sell me a {itemName} on credit whose cash price is Ksh. {amount}. I 
-                      commit to repay a Total of Ksh. {repaymentAmt} within {repaymentPeriod} days. 
+                      commit to repay at a compound interest of {repaymentAmt}% per month within {repaymentPeriod} days. 
                       You can reach me through {loaneePhone}. {status}    
                     </Text>
                     </Pressable>  

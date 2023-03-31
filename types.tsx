@@ -12,10 +12,13 @@ declare global {
     interface RootParamList extends RootStackParamList {
       PayPalDposit:undefined;
       VwAcBfDpst:undefined;
+      Vw2ApprovePPReq:undefined;
+      Vw2ApproveChmReq:undefined;
+      Vw2ApproveBizReq:undefined;
       ViewNonLnsRecChm : {id:string}
       ChmLoanersDtls: {id:string};
       ChmLoaneesDtls: {id:string};
-      
+      ReadPayPalTNC:undefined;
       SgnIn2TransferBiz:undefined;
       
       CredRPyBiz2Biz: {id:string};

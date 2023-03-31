@@ -259,10 +259,13 @@ const SMASendLns = props => {
           
           const TtlTransCost2 = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount)  + parseFloat(amount);
           const CompanyTotalEarnings2 = parseFloat(userLoanTransferFees)*parseFloat(amount)
-          const amtrpayable2 = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod/30)
-          const amtrpayable = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod/30)
-          const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable;
-          const TotalAmtExp2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable2;
+          const amtrpayable2 = parseFloat(amount)*(Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30))
+          const amtrpayable = parseFloat(amount)*(Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30))
+          const TotalAmtExp = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) + amtrpayable;
+          const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
+
+          console.log(amtrpayable)
+          console.log(TotalAmtExp)
           
               
 
@@ -469,9 +472,9 @@ const SMASendLns = props => {
                         + '. The following is a break down of your repayable loan: '
                         + ' Amount debited into your main account is Ksh. '+ amount 
                         + '. Amount you had committed to repay is Ksh. '
-                        + AmtExp + '. Transaction fee is Ksh. '
+                        + amtrpayable2 + '. Transaction fee is Ksh. '
                         + lnTrnsfrFee + 
-                        '. Total Repayable is Ksh '+ TotalAmtExp 
+                        '. Total Repayable is Ksh '+ TotalAmtExp2 
                         + '. Thank you. MiFedha.');
                           setIsLoading(false);
                           
@@ -714,7 +717,7 @@ const SMASendLns = props => {
                         + '. The following is a break down of your repayable loan: '
                         + ' Amount debited into your main account is Ksh. '+ amount 
                         + '. Amount you had committed to repay is Ksh. '
-                        + AmtExp + '. Transaction fee is Ksh. '
+                        + amtrpayable + '. Transaction fee is Ksh. '
                         + lnTrnsfrFee + 
                         '. Advocacy fee is Ksh. '
                         + ttlCovFeeAmount + '. Total Repayable is Ksh '+ TotalAmtExp 
@@ -751,10 +754,8 @@ const SMASendLns = props => {
                     else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0)
                     {Alert.alert('Loanee ID be verified through deposit at MFNdogo');}
                     else if(status === "Approved"){Alert.alert('Loan already granted');}
-                    else if((parseFloat(TymsIHvGivnLns) - parseFloat(TymsMyLnClrds)) > 4 
-                    ){Alert.alert("Call customer care to have limit increased");}
-
-                    else if(statusNumber === 0 && advLicNo != " " ){Alert.alert('Advocate has not yet witnessed');                  
+                    
+                    else if(statusNumber === 0 && advLicNo != "None" ){Alert.alert('Advocate has not yet witnessed');                  
                   }
                      
                     
@@ -787,7 +788,7 @@ const SMASendLns = props => {
                             SndChmMmbrMny();
                         } 
                         
-                        else if (advLicNo == "") {sendSMLn();}
+                        else if (advLicNo == "None") {sendSMLn();}
                         else {
                          await fetchAdv ();
                         }                                           

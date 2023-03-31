@@ -36,7 +36,7 @@ const FetchSMNonLnsRec = props => {
                 sortDirection: 'DESC',
                 limit: 100,
                
-                filter:{LoanId1:{eq:route.params.id}}
+                filter:{loanId1:{eq:route.params.id}}
                     }
                   
                   ));

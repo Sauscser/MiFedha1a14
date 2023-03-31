@@ -225,10 +225,10 @@ const CovCredSls = props => {
          
           const TransCost2 = parseFloat(userLoanTransferFees)*parseFloat(amount)
 
-          const amtrpayable2 = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod/30)
-          const amtrpayable = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod/30)
-          const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable;
-          const TotalAmtExp2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable2;
+          const amtrpayable2 = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30)
+          const amtrpayable = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30)
+          const TotalAmtExp = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) + amtrpayable;
+          const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
           
           
               
@@ -715,7 +715,7 @@ const CovCredSls = props => {
                     }  else if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver adversely listed');
                   return;
                 }
-                else if(statusNumber === 0){Alert.alert('Advocate has not yet witnessed');                  
+                else if(statusNumber === 0 && advLicNo != "None"){Alert.alert('Advocate has not yet witnessed');                  
               }
                     
                     else if(BusinessRegNos === loaneeEmail){Alert.alert('You cannot Loan Yourself');}
@@ -750,7 +750,7 @@ const CovCredSls = props => {
                         SndChmMmbrMny();
                     } 
                     
-                    else if(advLicNo == ' '){sendSMLn2();}
+                    else if(advLicNo == "None"){sendSMLn2();}
                     
                      else {
                     

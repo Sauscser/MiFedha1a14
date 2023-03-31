@@ -93,6 +93,7 @@ const ChmCovLns = props => {
               const advLicNo =ChmMbrtDtlz.data.getReqLoanChama.advLicNo;
               const description =ChmMbrtDtlz.data.getReqLoanChama.description;
               const defaultPenalty =ChmMbrtDtlz.data.getReqLoanChama.defaultPenalty;
+              const statusNumber =ChmMbrtDtlz.data.getReqLoanChama.statusNumber;
               const AdvEmail =ChmMbrtDtlz.data.getReqLoanChama.AdvEmail;
               
               const status =ChmMbrtDtlz.data.getReqLoanChama.status;
@@ -203,11 +204,11 @@ const fetchChmMbrDtls = async () => {
           
 
           const TtlTransCost2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
-          const amtrpayable2 = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod/30)
-          const amtrpayable = Math.pow(parseFloat(amount)*(1 + parseFloat(AmtExp)), RepaymtPeriod/30)
+          const amtrpayable2 = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30)
+          const amtrpayable = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30)
           const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable;
-          const TotalAmtExp2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable2;
-          const TtlTransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
+          const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
+          const TtlTransCost = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) +  parseFloat(amount)
 
           const AllTtlTrnsCst = TtlTransCost + MaxSMInterest;
 
@@ -728,6 +729,10 @@ const fetchChmMbrDtls = async () => {
                     return;}
                         else if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');
                         return;}
+
+                        else if(statusNumber === 0 && advLicNo != "None"){Alert.alert('Advocate has not yet witnessed');                  
+              }
+                    
                         else if(status === "Approved"){Alert.alert('Loan already granted');
                         return;}
                         else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');
@@ -745,7 +750,7 @@ const fetchChmMbrDtls = async () => {
                         else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');
                         return;}
 
-                        else if (advLicNo != "") {await fetchAdv()}
+                        else if (advLicNo != "None") {await fetchAdv()}
                                                                  
             
                                                  else {
