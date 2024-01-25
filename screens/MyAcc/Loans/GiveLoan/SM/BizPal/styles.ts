@@ -27,11 +27,23 @@ const styles = StyleSheet.create({
     
   },
 
+  sendAmtButton: {
+    backgroundColor: '#fff',
+    height: "7%",
+    borderRadius: 30,
+    marginHorizontal: 10,
+    width: Dimensions.get('screen').width - 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: "5%",
+    marginBottom: "95%",
+  },
+
   sendAmtView: {
     backgroundColor: 'skyblue',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "12%",
+    height: "10%",
     borderRadius: 20,
     marginTop: "5%",
     justifyContent: 'center',
@@ -49,17 +61,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 30,
   },
-  sendAmtButton: {
-    backgroundColor: '#fff',
-    height: "5%",
-    borderRadius: 30,
-    marginHorizontal: 10,
-    width: Dimensions.get('screen').width - 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: "5%",
-    marginBottom: "95%",
-  },
+  
   sendAmtButtonText: {
     fontSize: 18,
     fontWeight: 'bold',

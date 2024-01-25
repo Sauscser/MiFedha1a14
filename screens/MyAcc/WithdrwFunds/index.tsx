@@ -11,7 +11,7 @@ import {
   
 } from '../../../src/graphql/mutations';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {getAgent, getCompany, getSAgent, getSMAccount, listCovCreditSellers, listCvrdGroupLoans, listGroupNonLoans, listNonCovCreditSellers, listNonCvrdGroupLoans, listSMLoansCovereds, listSMLoansNonCovereds} from '../../../src/graphql/queries';
+import {getAgent, getCompany, getSAgent, getSMAccount, listCovCreditSellers, listCvrdGroupLoans, listGroupNonLoans,   listSMLoansCovereds, listSMLoansNonCovereds} from '../../../src/graphql/queries';
 import {
   View,
   Text,
@@ -75,23 +75,12 @@ const SMADepositForm = props => {
               and: {
                 status: { eq: "LoanBL"},
                 lonBala: { gt: 0},
-                loaneePhn: { eq: userInfo.attributes.email},
+                loaneeEmail: { eq: userInfo.attributes.email},
               }
             }}
             ));
 
-            const fetchNCLSM = async () => {
-              setLoading(true);
-              try {
-                const Lonees2:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
-                  { filter: {
-                      and: {
-                        status: { eq: "LoanBL"},
-                lonBala: { gt: 0},
-                loaneePhn: { eq: userInfo.attributes.email},
-                      }
-                    }}
-                    ));
+            
         
                     const fetchCLCrdSl = async () => {
                       setLoading(true);
@@ -106,18 +95,7 @@ const SMADepositForm = props => {
                             }}
                             ));
 
-                            const fetchNCLCrdSl = async () => {
-                              setLoading(true);
-                              try {
-                                const Lonees4:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
-                                  { filter: {
-                                      and: {
-                                        status: { eq: "LoanBL"},
-                                lonBala: { gt: 0},
-                                buyerContact: { eq: userInfo.attributes.email},
-                                      }
-                                    }}
-                                    ));
+                            
 
                                     const fetchCLChm = async () => {
                                       setLoading(true);
@@ -132,20 +110,7 @@ const SMADepositForm = props => {
                                             }}
                                             ));
 
-                                            const fetchNCLChm = async () => {
-                                              setLoading(true);
-                                              try {
-                                                const Lonees6:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoans, 
-                                                  { filter: {
-                                                      and: {
-                                                        status: { eq: "LoanBL"},
-                                                lonBala: { gt: 0},
-                                                loaneePhn: { eq: userInfo.attributes.email},
-                                                      }
-                                                    }}
-                                                    ));
-
-        
+                                           
   
          
       
@@ -184,13 +149,6 @@ const SMADepositForm = props => {
                   const UsrWthdrwlFeess = compDtls.data.getCompany.UsrWthdrwlFees;
 
                   const ChampCom = compDtls.data.getCompany.ChampCom;
-                  
-
-                  
-                  
-
-                  
-
                  
                   const companyEarningBals = compDtls.data.getCompany.companyEarningBal
                   const companyEarnings = compDtls.data.getCompany.companyEarning
@@ -214,14 +172,13 @@ const SMADepositForm = props => {
                           const acChamp = compDtls.data.getSAgent.acChamp;
                           const namessssssss = compDtls.data.getSAgent.name;
                           const MFKWithdrwlFees = compDtls.data.getSAgent.MFKWithdrwlFee;
-                          const AgentCommission = (parseFloat(agentComs) - parseFloat(MFNWithdrwlFees))*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)                                                
-                          const saCommission =    (parseFloat(sagentComs) - parseFloat(MFKWithdrwlFees))*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
-                          const compCommission = parseFloat(companyComs)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
-                          const ChampCommission = parseFloat(ChampCom)*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
-
-                          const UsrWithdrawalFee = AgentCommission+saCommission+compCommission + ChampCommission;
-
+                          const AgentCommission = (parseFloat(agentComs) - parseFloat(MFNWithdrwlFees))/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)                                                
+                          const saCommission = (parseFloat(sagentComs) - parseFloat(MFKWithdrwlFees))/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+                          const compCommission = parseFloat(companyComs)/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+                          const ChampCommission = parseFloat(ChampCom)/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+                          const UsrWithdrawalFee = AgentCommission+saCommission+compCommission+ChampCommission;
                           const TTlAmtTrnsctd = parseFloat(amount) + UsrWithdrawalFee
+
 
                           const gtMFChamp = async () =>{
                             if(isLoading){
@@ -230,7 +187,7 @@ const SMADepositForm = props => {
                             setIsLoading(true);
                             try{
                               const compDtlsx :any= await API.graphql(
-                              graphqlOperation(getSMAccount,{awsEmail:acChamp})
+                              graphqlOperation(getSMAccount,{awsemail:acChamp})
                                 );
                                   const balancesx = compDtlsx.data.getSMAccount.balance;
                                   
@@ -285,7 +242,7 @@ const SMADepositForm = props => {
         
                       catch (error) {
                         console.log(error)
-                        if (error){Alert.alert("Check internet Connection")
+                        if (error){Alert.alert("Retry, or update app or call customer care")
                         return;}
                       }
                       setIsLoading(false);
@@ -301,13 +258,13 @@ const SMADepositForm = props => {
                           await API.graphql(
                             graphqlOperation(updateAgent, {
                               input: {
-                                phonecontact: AgentPhn,
-                    
+                                phonecontact: AgentPhn,                   
                                
                                 ttlEarnings: (parseFloat(ttlEarningssss) + AgentCommission).toFixed(0),
                                 agentEarningBal: (parseFloat(agentEarningBalsss) + AgentCommission).toFixed(0),
                                 floatBal: (parseFloat(floatBals) + parseFloat(amount)).toFixed(0),
                                 TtlFltIn: (parseFloat(TtlFltInsss) + parseFloat(amount)).toFixed(0),
+
                               },
                             }),
                           );
@@ -315,7 +272,7 @@ const SMADepositForm = props => {
         
                         catch (error) {
                           console.log(error)
-                          if (error){Alert.alert("Check internet Connection")
+                          if (error){Alert.alert("Retry, or update app or call customer care")
                           return;}
                         }
                         setIsLoading(false);
@@ -345,7 +302,7 @@ const SMADepositForm = props => {
             
                             catch (error) {
                               console.log(error)
-                              if (error){Alert.alert("Check internet Connection")
+                              if (error){Alert.alert("Retry, or update app or call customer care")
                               return;}
                             }
                             await onUpdtCompDtls();
@@ -379,7 +336,7 @@ const SMADepositForm = props => {
               
                               catch (error) {
                                 console.log(error)
-                                if (error){Alert.alert("Check internet Connection")
+                                if (error){Alert.alert("Retry, or update app or call customer care")
                                 return;}
                               }
                               setIsLoading(false);
@@ -407,7 +364,7 @@ const SMADepositForm = props => {
                   
                                 catch (error) {
                                   console.log(error)
-                                  if (error){Alert.alert("Check internet Connection")
+                                  if (error){Alert.alert("Retry, or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -446,17 +403,13 @@ const SMADepositForm = props => {
                     } 
 
                     else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
-                      ||
-                      Lonees2.data.listSMLoansNonCovereds.items.length > 0 
+                      
                       ||
                       Lonees3.data.listCovCreditSellers.items.length > 0 
                       ||
-                      Lonees4.data.listNonCovCreditSellers.items.length > 0 
-                      ||
-                      Lonees5.data.listCvrdGroupLoans.items.length > 0 
-                      ||
-                      Lonees6.data.listNonCvrdGroupLoans.items.length > 0 
                       
+                      Lonees5.data.listCvrdGroupLoans.items.length > 0 
+                     
 
                     
                       ) {
@@ -468,7 +421,7 @@ const SMADepositForm = props => {
         
                     } catch (error) {
                       console.log(error)
-                  if (error){Alert.alert("Check your internet connection")
+                  if (error){Alert.alert("Retry, update app or call customer care")
                           return;}
                     }
                     setIsLoading(false);
@@ -478,7 +431,7 @@ const SMADepositForm = props => {
                     
                   } catch (error) {
                     console.log(error)
-                if (error){Alert.alert("Check your internet connection")
+                if (error){Alert.alert("Retry, update app or call customer care")
                         return;}
                   }
                   setIsLoading(false);
@@ -488,7 +441,7 @@ const SMADepositForm = props => {
             
             } catch (error) {
               console.log(error)
-          if (error){Alert.alert("Check your internet connection")
+          if (error){Alert.alert("Retry, update app or call customer care")
                   return;}
             }
            setIsLoading(false);
@@ -499,7 +452,7 @@ const SMADepositForm = props => {
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Check your internet connection")
+      if (e){Alert.alert("Retry, update app or call customer care")
       return;}
          
     }   
@@ -508,22 +461,12 @@ const SMADepositForm = props => {
 
     await fetchAgtBal();
 
-  }     
-  catch (e) {
-    console.log(e)
-    if (e){Alert.alert("Check your internet connection")
-    return;}
-       
-  }   
-setIsLoading(false);
-};
-
-  await fetchNCLChm();
+  
 
 }     
   catch (e) {
     console.log(e)
-    if (e){Alert.alert("Check your internet connection")
+    if (e){Alert.alert("Retry, update app or call customer care")
     return;}
        
   }   
@@ -532,22 +475,12 @@ setIsLoading(false);
 
   await fetchCLChm();
 
-}     
-  catch (e) {
-    console.log(e)
-    if (e){Alert.alert("Check your internet connection")
-    return;}
-       
-  }   
-setIsLoading(false);
-};
 
-  await fetchNCLCrdSl();
 
 }     
   catch (e) {
     console.log(e)
-    if (e){Alert.alert("Check your internet connection")
+    if (e){Alert.alert("Retry, update app or call customer care")
     return;}
        
   }   
@@ -556,22 +489,12 @@ setIsLoading(false);
 
   await fetchCLCrdSl();
 
-}     
-  catch (e) {
-    console.log(e)
-    if (e){Alert.alert("Check your internet connection")
-    return;}
-       
-  }   
-setIsLoading(false);
-};
 
-  await fetchNCLSM();
 
 }     
   catch (e) {
     console.log(e)
-    if (e){Alert.alert("Check your internet connection")
+    if (e){Alert.alert("Retry, update app or call customer care")
     return;}
        
   }   
@@ -586,7 +509,7 @@ if (userInfo.attributes.sub !== owners)
 
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Check your internet connection")
+      if (e){Alert.alert("Retry, update app or call customer care")
       return;}
           
      }       

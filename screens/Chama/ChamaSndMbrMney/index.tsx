@@ -44,12 +44,12 @@ const ChmSignIn = (props) => {
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
   const[ownr, setownr] = useState(null);
-  const ChmNMmbrPhns = grpContact+memberPhn
+  const ChamaNMember = grpContact+memberPhn
 
   
 
   const FetchGrpLonsSts = () => {
-    navigation.navigate("SndToChmMbrss", {ChmNMmbrPhns});
+    navigation.navigate("SndToChmMbrss", {ChamaNMember});
   };
   
 
@@ -189,25 +189,7 @@ useEffect(() =>{
                     <Text style={styles.title}>Fill Chama Details Below</Text>
                   </View>
         
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    placeholder="+2547xxxxxxxx"
-                      value={grpContact}
-                      onChangeText={setChmPhn}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Phone Number</Text>
-                  </View>
-
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    placeholder="+2547xxxxxxxx"
-                      value={memberPhn}
-                      onChangeText={setmemberPhn}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Member Number</Text>
-                  </View>
+                  
 
                   <View style={styles.sendLoanView}>
                     <TextInput

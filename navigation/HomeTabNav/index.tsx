@@ -52,7 +52,7 @@ import RpayCredSlrCov from "../../screens/MyAcc/Loans/RepayLoan/CredSlr/CovCredS
 import RpayCredSlrNonCov from "../../screens/MyAcc/Loans/RepayLoan/CredSlr/NonCovCredSls";
 import RemoveChmMbr from "../../screens/Chama/RmvChmMbr";
 import DissolveChm from "../../screens/Chama/Dissolve";
-import UpdateChm from "../../screens/Chama/Update";
+import UpdateChm from "../../screens/Chama/UpdateChmAc/Update";
 import UpdateSMPW from "../../screens/MyAcc/UpdatePW";
 import UpdateMFAdminPW from "../../screens/MFAdmin/Update";
 import WithdwAdmn from "../../screens/MFAdmin/Withdraw";
@@ -79,8 +79,7 @@ import ChamSignIn3 from "../../screens/Chama/ViewLns/ChamaSignIn3";
 import ChamSignIn4 from "../../screens/Chama/ViewLns/ChamaSignIn4";
 import ChmLnsGvnOutCov from "../../screens/Chama/ViewLns/GivenOut/LoaneesDtls";
 import ChmLnsGvnOutNonCov from "../../screens/Chama/ViewLns/GivenOut/Loanees";
-import ChmLnsRecCov from "../../screens/Chama/ViewLns/Received/LoanersDtls";
-import ChmLnsRecNonCov from "../../screens/Chama/ViewLns/Received/Loaners";
+
 import ChamaGenInfo from "../../screens/Chama/ViewLns/Generalnfo";
 import ChmSignIn5 from "../../screens/Chama/ViewLns/ChamaSignIn5";
 import ChmSignIn6 from "../../screens/Chama/ViewLns/ChamaSignIn6";
@@ -446,14 +445,75 @@ import BLCredBiz2Biz from "../../screens/CredSls/BList/Biz2Biz";
 import BLCredBiz2Pal from "../../screens/CredSls/BList/Biz2Pal";
 import BLCredPal2Biz from "../../screens/CredSls/BList/Pal2Biz";
 import BLCredPal2Pal from "../../screens/CredSls/BList/Pal2Pal";
-import ChmLoaneesDtls from "../../screens/Chama/ViewLns/GivenOut/LoaneesDtls";
-import ChmLoanersDtls from "../../screens/Chama/ViewLns/Received/LoanersDtls";
+
 
 import SgnIn2TransferBiz from "../../screens/CredSls/SgnIn2TransferBiz";
 import ReadPayPalTNC from "../../screens/MyAcc/DepositMny/ReadPayPalTNC";
 import Vw2ApprovePPReq from "../../screens/Advocate/Vw2ApprovePPReq";
 import Vw2ApproveChmReq from "../../screens/Advocate/Vw2ApproveChmReq";
 import Vw2ApproveBizReq from "../../screens/Advocate/Vw2ApproveBizReq";
+import MakeBizDpsts from "../../screens/CredSls/Depost/MakeBizDpsts";
+import VwBizDpsts from "../../screens/CredSls/Depost/VwBizDpsts";
+import WaiveBiz2Biz from "../../screens/CredSls/Waive/Biz2Biz";
+import WaiveBiz2Pal from "../../screens/CredSls/Waive/Biz2Pal";
+import WaivePal2Biz from "../../screens/CredSls/Waive/Pal2Biz";
+import WaivePal2Pal from "../../screens/CredSls/Waive/Pal2Pal";
+import WaiveSMBiz2Pal from "../../screens/MyAcc/Loans/RepayLoan/SM/Waive/Biz2Pal";
+import WaiveSMPal2Pal from "../../screens/MyAcc/Loans/RepayLoan/SM/Waive/Pal2Pal";
+import WaiveChmCov from "../../screens/MyAcc/Loans/RepayLoan/Chama/Waive/CovLons";
+
+
+import ChmLnsSent from "../../screens/Chama/ViewLns/GivenOut/Loanees";
+import ChmLnsRec from "../../screens/Chama/ViewLns/Received/Loaners";
+import ChmLoaneesDtls from "../../screens/Chama/ViewLns/GivenOut/LoaneesDtls";
+import ChmLoanersDtls from "../../screens/Chama/ViewLns/Received/LoanersDtls";
+
+import SendNLBnftChm from "../../screens/MyAcc/SendNonLonsOptions/BenefitChm";
+import BenefitChmSenderOnly from "../../screens/MyAcc/SendNonLonsOptions/BenefitChmSenderOnly";
+import SendNLBnftNone from "../../screens/MyAcc/SendNonLonsOptions/BenefitNone";
+import Vw2SelectChmBeneficiary from "../../screens/MyAcc/SendNonLonsOptions/Vw2SelectChmBeneficiary";
+
+import B2BPayCashReq from "../../screens/CredSls/PayCash/B2B/B2BPayCashReq";
+import B2BPayCashVw2Grant from "../../screens/CredSls/PayCash/B2B/B2BPayCashVw2Grant";
+import B2BPayCash from "../../screens/CredSls/PayCash/B2B/B2BPayCash";
+import B2PPayCashReq from "../../screens/CredSls/PayCash/B2P/B2PPayCashReq";
+import B2PPayCashVw2Grant from "../../screens/CredSls/PayCash/B2P/B2PPayCashVw2Grant";
+import B2PPayCash from "../../screens/CredSls/PayCash/B2P/B2PPayCash";
+import P2BPayCash from "../../screens/CredSls/PayCash/P2B/PayCash2";
+import PenaliseMember from "../../screens/Chama/PenaliseMember";
+import ChamaDtls from "../../screens/Chama/ViewChamaActivities/Membership/ChamaDtls";
+import VwMbrSubsDirectly from "../../screens/Chama/ViewChamaActivities/MmbrSubs";
+import ViewBiznaShareRecP2B from "../../screens/CredSls/PayCash/P2B/PayCash2/ViewBiznaShareRecP2B";
+import ViewBiznaShareSentP2B from "../../screens/CredSls/PayCash/P2B/PayCash2/ViewBiznaShareSentP2B";
+import ViewBiznaShareRecB2B from "../../screens/CredSls/PayCash/B2B/ViewBiznaShareRecB2B";
+import ViewBiznaShareSentB2B from "../../screens/CredSls/PayCash/B2B/ViewBiznaShareSentB2B";
+import ViewBiznaShareRecB2P from "../../screens/CredSls/PayCash/B2P/ViewBiznaShareRecB2P";
+import ViewBiznaShareSentB2P from "../../screens/CredSls/PayCash/B2P/ViewBiznaShareSentB2P";
+import BizAddAdmin from "../../screens/CredSls/UpdateBizAc/AddAdmin";
+import AddBizBeneficiary from "../../screens/CredSls/UpdateBizAc/AddBizBeneficiary";
+import BizCancelObjection from "../../screens/CredSls/UpdateBizAc/CancelObjection";
+import BizObject from "../../screens/CredSls/UpdateBizAc/Object";
+import BizUpdatePW from "../../screens/CredSls/UpdateBizAc/UpdatePW";
+import ChmCancelObjection from "../../screens/Chama/UpdateChmAc/CancelObjection";
+import ChmObject from "../../screens/Chama/UpdateChmAc/Object";
+import ChmUpdate from "../../screens/Chama/UpdateChmAc/Update";
+import UpdateBizAc from "../../screens/CredSls/UpdateBizAc";
+import UpdateChmAc from "../../screens/Chama/UpdateChmAc";
+import ChmAddAdmin from "../../screens/Chama/UpdateChmAc/AddAdmin";
+import AddBeneficiary from "../../screens/MyAcc/AddBeneficiary";
+import UpdateMainAc from "../../screens/MyAcc/UpdateMainAc";
+import BizReadPayPalTNC from "../../screens/CredSls/Depost/PayPal/ReadPayPalTNC";
+import BizPayPalDposit from "../../screens/CredSls/Depost/PayPal/PayPalDposit";
+import MakeNVwPayPalDpsits from "../../screens/CredSls/Depost/PayPal/MakeNVwPayPalDpsits";
+import VwCompMFAdvTC from "../../screens/Settings/VwCompMFAdvTC";
+import VwCompMFKTC from "../../screens/Settings/VwCompMFKTC";
+import VwCompMFNTC from "../../screens/Settings/VwCompMFNTC";
+import VwToRegMFK from "../../screens/MFKubwa/VwToRegMFK";
+import MemberReqChm from "../../screens/Chama/ReqLoan/PlaceLnReq";
+import Vw2SelectChm2Req from "../../screens/Chama/ReqLoan/Vw2SelectChm2Req";
+import CreateExRates from "../../screens/Settings/CreateExRates";
+import MemberDtls from "../../screens/Chama/ViewChamaActivities/Membership/MemberDtls";
+import ChmMmbrContriss from "../../screens/Chama/ViewChamaActivities/Contributions/Member";
 
 
 
@@ -464,16 +524,86 @@ const HomeNavigator = props => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name={'Homeie'} component={Homeie} />
+      <Stack.Screen name={'Homeie'} component={Homeie} />      
+      
+      <Stack.Screen name={'ChmMmbrContriss'} component={ChmMmbrContriss} />
+      
+      <Stack.Screen name={'MemberDtls'} component={MemberDtls} />
+      <Stack.Screen name={'CreateExRates'} component={CreateExRates} />
+      <Stack.Screen name={'MemberReqChm'} component={MemberReqChm} />
+      <Stack.Screen name={'VwToRegMFK'} component={VwToRegMFK} />
+      <Stack.Screen name={'Vw2SelectChm2Req'} component={Vw2SelectChm2Req} />
+      <Stack.Screen name={'VwCompMFAdvTC'} component={VwCompMFAdvTC} />
+      
+      <Stack.Screen name={'VwCompMFKTC'} component={VwCompMFKTC} />
+      <Stack.Screen name={'VwCompMFNTC'} component={VwCompMFNTC} />
+      
+      <Stack.Screen name={'MakeNVwPayPalDpsits'} component={MakeNVwPayPalDpsits} />
+      
+      <Stack.Screen name={'BizReadPayPalTNC'} component={BizReadPayPalTNC} />
+      <Stack.Screen name={'BizPayPalDposit'} component={BizPayPalDposit} />
+      
+      <Stack.Screen name={'UpdateMainAc'} component={UpdateMainAc} />
+       <Stack.Screen name={'AddBeneficiary'} component={AddBeneficiary} />
+      <Stack.Screen name={'ChmAddAdmin'} component={ChmAddAdmin} />
+      <Stack.Screen name={'UpdateBizAc'} component={UpdateBizAc} />
+      <Stack.Screen name={'UpdateChmAc'} component={UpdateChmAc} />
+      
+      <Stack.Screen name={'BizAddAdmin'} component={BizAddAdmin} />
+      <Stack.Screen name={'AddBizBeneficiary'} component={AddBizBeneficiary} />
+      <Stack.Screen name={'BizCancelObjection'} component={BizCancelObjection} />
+      <Stack.Screen name={'BizObject'} component={BizObject} />
+      <Stack.Screen name={'BizUpdatePW'} component={BizUpdatePW} />
+      <Stack.Screen name={'ChmCancelObjection'} component={ChmCancelObjection} />      
+      <Stack.Screen name={'ChmObject'} component={ChmObject} />
+      <Stack.Screen name={'ChmUpdate'} component={ChmUpdate} />
+      
+       <Stack.Screen name={'ViewBiznaShareRecP2B'} component={ViewBiznaShareRecP2B} />
+      <Stack.Screen name={'ViewBiznaShareSentP2B'} component={ViewBiznaShareSentP2B} />
+      <Stack.Screen name={'ViewBiznaShareRecB2B'} component={ViewBiznaShareRecB2B} />
+      <Stack.Screen name={'ViewBiznaShareSentB2B'} component={ViewBiznaShareSentB2B} />
+      <Stack.Screen name={'ViewBiznaShareRecB2P'} component={ViewBiznaShareRecB2P} />
+      <Stack.Screen name={'ViewBiznaShareSentB2P'} component={ViewBiznaShareSentB2P} />      
+      <Stack.Screen name={'VwMbrSubsDirectly'} component={VwMbrSubsDirectly} />
+      <Stack.Screen name={'ChamaDtls'} component={ChamaDtls} />
+      <Stack.Screen name={'PenaliseMember'} component={PenaliseMember} />
+      <Stack.Screen name={'B2BPayCashReq'} component={B2BPayCashReq} />
+      <Stack.Screen name={'B2BPayCashVw2Grant'} component={B2BPayCashVw2Grant} />
+      <Stack.Screen name={'B2BPayCash'} component={B2BPayCash} />
+      <Stack.Screen name={'B2PPayCashReq'} component={B2PPayCashReq} />      
+      <Stack.Screen name={'B2PPayCash'} component={B2PPayCash} />      
+      <Stack.Screen name={'P2BPayCash'} component={P2BPayCash} />
+      
+      <Stack.Screen name={'B2PPayCashVw2Grant'} component={B2PPayCashVw2Grant} />      
+      <Stack.Screen name={'Vw2SelectChmBeneficiary'} component={Vw2SelectChmBeneficiary} />
+      
+      <Stack.Screen name={'SendNLBnftChm'} component={SendNLBnftChm} />
+      <Stack.Screen name={'BenefitChmSenderOnly'} component={BenefitChmSenderOnly} />
+      <Stack.Screen name={'SendNLBnftNone'} component={SendNLBnftNone} />
+      
+      <Stack.Screen name={'ChmLnsRec'} component={ChmLnsRec} />
+      <Stack.Screen name={'ChmLnsSent'} component={ChmLnsSent} />
+      <Stack.Screen name={'ChmLoaneesDtls'} component={ChmLoaneesDtls} />
+      <Stack.Screen name={'ChmLoanersDtls'} component={ChmLoanersDtls} />
 
+      <Stack.Screen name={'WaiveBiz2Biz'} component={WaiveBiz2Biz} />
+      <Stack.Screen name={'WaiveBiz2Pal'} component={WaiveBiz2Pal} />      
+      <Stack.Screen name={'WaivePal2Biz'} component={WaivePal2Biz} />
+      <Stack.Screen name={'WaivePal2Pal'} component={WaivePal2Pal} />
+      <Stack.Screen name={'WaiveSMBiz2Pal'} component={WaiveSMBiz2Pal} />
+      <Stack.Screen name={'WaiveSMPal2Pal'} component={WaiveSMPal2Pal} />
+      <Stack.Screen name={'WaiveChmCov'} component={WaiveChmCov} />
+      
+      <Stack.Screen name={'MakeBizDpsts'} component={MakeBizDpsts} />
+      <Stack.Screen name={'VwBizDpsts'} component={VwBizDpsts} />
+      
       <Stack.Screen name={'Vw2ApproveChmReq'} component={Vw2ApproveChmReq} />
       <Stack.Screen name={'Vw2ApproveBizReq'} component={Vw2ApproveBizReq} />
       <Stack.Screen name={'SgnIn2TransferBiz'} component={SgnIn2TransferBiz} />
       <Stack.Screen name={'Vw2ApprovePPReq'} component={Vw2ApprovePPReq} />
       <Stack.Screen name={'ReadPayPalTNC'} component={ReadPayPalTNC} />
       
-      <Stack.Screen name={'ChmLoaneesDtls'} component={ChmLoaneesDtls} />
-      <Stack.Screen name={'ChmLoanersDtls'} component={ChmLoanersDtls} />
+
       
       <Stack.Screen name={'CredB2PSent'} component={CredB2PSent} />
       <Stack.Screen name={'CredB2PReceived'} component={CredB2PReceived} />
@@ -487,6 +617,7 @@ const HomeNavigator = props => {
       
       <Stack.Screen name={'SI2VwBiz2PalLoaners'} component={SI2VwBiz2PalLoaners} />
       <Stack.Screen name={'SI2VwBiz2PalLoanees'} component={SI2VwBiz2PalLoanees} />
+    
       <Stack.Screen name={'VwBiz2PalLnees'} component={VwBiz2PalLnees} />
       <Stack.Screen name={'VwBiz2PalLners'} component={VwBiz2PalLners} />
       <Stack.Screen name={'VwPal2BizLnees'} component={VwPal2BizLnees} />
@@ -507,7 +638,7 @@ const HomeNavigator = props => {
       <Stack.Screen name={'CredP2PSent'} component={CredP2PSent} />
       
       <Stack.Screen name={'SI2VwBiz2BizLoanees'} component={SI2VwBiz2BizLoanees} />
-      <Stack.Screen name={'SI2VwBiz2BizLoaners'} component={SI2VwBiz2PalLoaners} />
+      <Stack.Screen name={'SI2VwBiz2BizLoaners'} component={SI2VwBiz2BizLoaners} />
       <Stack.Screen name={'VwBizLnees'} component={VwBizLnees} />
       <Stack.Screen name={'VwBizLners'} component={VwBizLners} />
       <Stack.Screen name={'VwPalLnees'} component={VwPalLnees} />
@@ -740,7 +871,7 @@ const HomeNavigator = props => {
       
       <Stack.Screen name={'ChamaSignIn2VwLnRpymnts'} component={ChamaSignIn2VwLnRpymnt} />
       
-      <Stack.Screen name={'ViewNonLnsRecChms'} component={ViewNonLnsRecChm} />
+      <Stack.Screen name={'ViewNonLnsRecChm'} component={ViewNonLnsRecChm} />
       <Stack.Screen name={'ViewNonLnsRecCredSlrs'} component={ViewNonLnsRecCredSlr} />
       <Stack.Screen name={'ViewNonLnsRecSMs'} component={ViewNonLnsRecSM} />
       <Stack.Screen name={'ViewNonLnsSntChm'} component={ViewNonLnsSntChm} />      
@@ -854,8 +985,7 @@ const HomeNavigator = props => {
       <Stack.Screen name={'ChmSignInss'} component={ChmSignIns} />
       <Stack.Screen name={'ChmLnsGvnOuts'} component={ChmLnsGvnOutCov} />
       <Stack.Screen name={'ChmLnsGvnOutNonCovs'} component={ChmLnsGvnOutNonCov} />
-      <Stack.Screen name={'ChmLnsRecCovs'} component={ChmLnsRecCov} />
-      <Stack.Screen name={'ChmLnsRecNonCovs'} component={ChmLnsRecNonCov} />
+
       <Stack.Screen name={'VwNonLnsSnts'} component={VwNonLnsSnt} />
       <Stack.Screen name={'VwNonLnsRecs'} component={VwNonLnsRec} />
       <Stack.Screen name={'ViewSmAcss'} component={ViewSmAcs} />

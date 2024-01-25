@@ -96,7 +96,7 @@ Biz2Pal
       catch(e){
         console.log(e)
         if(e){
-          Alert.alert("User does not exist; otherwise check inernet connection")
+          Alert.alert("Retry or update app or call customer care")
           return;
       }
       }
@@ -117,7 +117,7 @@ Biz2Pal
 catch(e){
 console.log(e)
 if(e){
-Alert.alert("User does not exist; otherwise check inernet connection")
+Alert.alert("Retry or update app or call customer care")
 return;
 }
 }

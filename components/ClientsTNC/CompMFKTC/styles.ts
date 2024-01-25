@@ -11,7 +11,6 @@ const styles = StyleSheet.create ({
         fontSize: 15,
         fontWeight: '900',
         color: '#ad1c65'
-        
     },
 
     ownerContact: {
@@ -78,9 +77,9 @@ const styles = StyleSheet.create ({
 
       viewForPressables1: {
         backgroundColor: 'white',
-        padding: 3,
-        width: "95%",
-        height: "60%",
+        
+        width: "100%",
+        height: "40%",
         borderRadius: 20,
         marginTop: "8%",
         justifyContent: 'center',
@@ -90,9 +89,7 @@ const styles = StyleSheet.create ({
       },
     
       viewForPressables2: {
-        height: "30%",
-        borderRadius: 20,
-        marginTop: "8%",
+        
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',

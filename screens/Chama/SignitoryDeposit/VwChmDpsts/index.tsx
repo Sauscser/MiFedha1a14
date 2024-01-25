@@ -93,7 +93,7 @@ const FetchSMNonLnsSnt = props => {
                                                     }
                                                     catch(error){
                                                       if(error){
-                                                        Alert.alert("User does not exist")
+                                                        Alert.alert("Retry or update app or call customer care")
                                                         return;
                                                     }
                                                     }

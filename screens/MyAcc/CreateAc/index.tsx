@@ -92,13 +92,15 @@ const CreateAcForm = (props) => {
                 phonecontact: userInfo.attributes.phone_number,
                 awsemail: userInfo.attributes.email,
                 balance: 0,
-                                   
+                p2pchmBenefits:0,           
                 pw: pword,
                 nationality: "Kenyan",
                 MFKubwaCost: 0,
                 MFKubwaNetCost: 0,
                 MFNdogoDue: 0,
                 MFNdogoNet: 0,
+                beneficiary:   userInfo.attributes.email,
+                beneficiaryAmt:0,
                 loanAcceptanceCode:userInfo.attributes.email,
       
                 ttlDpstSM: 0,
@@ -170,6 +172,41 @@ const CreateAcForm = (props) => {
                 TtlClrdLonsTmsByrNonCov: 0,
                 TtlClrdLonsAmtSllrNonCov: 0,
                 TtlClrdLonsAmtByrNonCov: 0,
+
+                TtlActvLonsTmsLnrCredSlsP2P: 0,
+                TtlActvLonsAmtLnrCredSlsP2P: 0,
+                TtlBLLonsTmsLnrCredSlsP2P: 0,
+                TtlBLLonsAmtLnrCredSlsP2P: 0,
+                TtlClrdLonsTmsLnrCredSlsP2P: 0,
+                TtlClrdLonsAmtLnrCredSlsP2P: 0,
+              
+                TtlActvLonsTmsLnrCredSlsP2B: 0,
+                TtlActvLonsAmtLnrCredSlsP2B: 0,
+                TtlBLLonsTmsLnrCredSlsP2B: 0,
+                TtlBLLonsAmtLnrCredSlsP2B: 0,
+                TtlClrdLonsTmsLnrCredSlsP2B: 0,
+                TtlClrdLonsAmtLnrCredSlsP2B: 0,
+              
+                TtlActvLonsTmsLneeB2P: 0,
+                TtlActvLonsAmtLneeB2P: 0,
+                TtlBLLonsTmsLneeB2P: 0,
+                TtlBLLonsAmtLneeB2P: 0,
+                TtlClrdLonsLneeB2P: 0,
+                TtlClrdLonsAmtLneeB2P: 0,
+              
+                TtlActvLonsTmsLneeP2P: 0,
+                TtlActvLonsAmtLneeP2P: 0,
+                TtlBLLonsTmsLneeP2P: 0,
+                TtlBLLonsAmtLneeP2P: 0,
+                TtlClrdLonsLneeP2P: 0,
+                TtlClrdLonsAmtLneeP2P: 0,
+              
+                TtlActvLonsTmsLnrP2P: 0,
+                TtlActvLonsAmtLnrP2P: 0,
+                TtlBLLonsTmsLnrP2P: 0,
+                TtlBLLonsAmtLnrP2P: 0,
+                TtlClrdLonsLnrP2P: 0,
+                TtlClrdLonsAmtLnrP2P: 0,
       
                 ttlNonLonsRecSM: 0,
                 ttlNonLonsSentSM:0,
@@ -250,7 +287,7 @@ const CreateAcForm = (props) => {
                   catch(error){
                     console.log(error)
                     if(error){
-                      Alert.alert("Error!")
+                      Alert.alert("Retry or update app or call customer care")
                       return;
                   }
                   }
@@ -265,7 +302,7 @@ const CreateAcForm = (props) => {
       catch(e){
         console.log(e)
         if(e){
-          Alert.alert("Retry")
+          Alert.alert("Retry or update app or call customer care")
           return;
       }
       }
@@ -277,7 +314,7 @@ const CreateAcForm = (props) => {
           await gtCompDtls();
         
       } catch (e) {
-        if(e){Alert.alert("Retry")
+        if(e){Alert.alert("Retry or update app or call customer care")
       return}
         
       }
@@ -288,7 +325,7 @@ const CreateAcForm = (props) => {
    
   
   } catch (e) {
-          if(e){Alert.alert("Retry")}
+          if(e){Alert.alert("Retry or update app or call customer care")}
           return
         }
                   setIsLoading(false)

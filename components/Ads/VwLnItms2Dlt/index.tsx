@@ -61,7 +61,7 @@ const ViewSMDeposts = (props:SMAccount) => {
           catch(error){
             console.log(error)
             if(error){
-              Alert.alert("Error!")
+              Alert.alert("Retry or update app or call customer care")
               return;
             }
           }

@@ -15,6 +15,7 @@ import {
   updateCovCreditSeller,
   updateGroup,
   updateBizna,
+  createLoanRepayments,
   
 } from '../../../../../../src/graphql/mutations';
 
@@ -97,7 +98,7 @@ const RepayCovSellerLnsss = props => {
         setIsLoading(true);
         try {
             const RecAccountDtl:any = await API.graphql(
-                graphqlOperation(getCovCreditSeller, {id: route.params.id}),
+                graphqlOperation(getCovCreditSeller, {loanID: route.params.loanID}),
                 );
                 
                 const amountExpectedBackWthClrncs =RecAccountDtl.data.getCovCreditSeller.amountExpectedBackWthClrnc; 
@@ -229,7 +230,7 @@ const RepayCovSellerLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateCovCreditSeller, {
                                         input:{
-                                          id:route.params.id,
+                                          loanID:route.params.loanID,
                                           amountRepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
                                           lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(0),
                                           amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
@@ -242,7 +243,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -256,7 +257,7 @@ const RepayCovSellerLnsss = props => {
                                 setIsLoading(true)
                                 try {
                                   await API.graphql(
-                                    graphqlOperation(createNonLoans, {
+                                    graphqlOperation(createLoanRepayments, {
                                       input: {
                                         senderPhn: userInfo.attributes.email,
                                         recPhn: sellerContacts,    
@@ -264,6 +265,10 @@ const RepayCovSellerLnsss = props => {
                                         SenderName:buyerNames,                             
                                         amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
+                                        loanId2: route.params.loanID,  
+                                        loanId1: "route.params.id",
+                                        
+                                        loanId3: "route.params.id", 
                                         status: "CredSlrLonRepayment",
                                         owner: userInfo.attributes.sub
                                       },
@@ -302,7 +307,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -351,7 +356,7 @@ const RepayCovSellerLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateCovCreditSeller, {
                                         input:{
-                                          id:route.params.id,
+                                          loanID:route.params.loanID,
                                           amountRepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
                                           lonBala: (parseFloat(lonBalas) - parseFloat(amounts)).toFixed(0),
                                           DefaultPenaltyCredSl2:0,
@@ -364,7 +369,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -378,7 +383,7 @@ const RepayCovSellerLnsss = props => {
                                 setIsLoading(true)
                                 try {
                                   await API.graphql(
-                                    graphqlOperation(createNonLoans, {
+                                    graphqlOperation(createLoanRepayments, {
                                       input: {
                                         recPhn: sellerContacts,
                                         senderPhn: userInfo.attributes.email, 
@@ -386,6 +391,10 @@ const RepayCovSellerLnsss = props => {
                                         SenderName:buyerNames,                                    
                                         amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
+                                        loanId2: route.params.loanID,  
+                                        loanId1: "route.params.id",
+                                        
+                                        loanId3: "route.params.id", 
                                         status: "CredSlrLonRepayment",
                                         owner: userInfo.attributes.sub
                                       },
@@ -426,7 +435,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -454,7 +463,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -536,7 +545,7 @@ const RepayCovSellerLnsss = props => {
                               }
                           }
                           catch (e) {
-                            if (e){Alert.alert("Error!")
+                            if (e){Alert.alert("Retry or update app or call customer care")
                             return;}
                         };
                       }
@@ -545,7 +554,7 @@ const RepayCovSellerLnsss = props => {
                                                                                          
                 }       
                 catch(e) {     
-                  if (e){Alert.alert("Error!")
+                  if (e){Alert.alert("Retry or update app or call customer care")
   return;}                 
                 }
                 setIsLoading(false);
@@ -553,7 +562,7 @@ const RepayCovSellerLnsss = props => {
                   await fetchCompDtls ();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Error!")
+          if (e){Alert.alert("Retry or update app or call customer care")
       return;}
         }
         setIsLoading(false);        
@@ -562,7 +571,7 @@ const RepayCovSellerLnsss = props => {
     
       
     } catch (e) {
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
   };
       setIsLoading(false);

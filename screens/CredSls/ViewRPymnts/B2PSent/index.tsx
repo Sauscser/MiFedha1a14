@@ -2,7 +2,7 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import RecNonLns from "../../../../components/MyAc/ViewRecNonLns";
+import RecNonLns from "../../../../components/MyAc/ViewSentNonLns";
 import styles from './styles';
 
 import { useRoute } from '@react-navigation/native';
@@ -37,7 +37,7 @@ const FetchSMNonLnsRec = props => {
                 sortDirection: 'DESC',
                 limit: 100,
                
-                filter:{loanId2:{eq:route.params.id}}
+                filter:{loanId2:{eq:route.params.loanID}}
                     }
                   
                   ));
@@ -93,7 +93,7 @@ const FetchSMNonLnsRec = props => {
                                                 }
                                                 catch(error){
                                                   if(error){
-                                                    Alert.alert("User does not exist")
+                                                    Alert.alert("Retry or update app or call customer care")
                                                     return;
                                                 }
                                                 }
@@ -133,7 +133,7 @@ const FetchSMNonLnsRec = props => {
                       catch (e)
                       {
                         if(e){
-                          Alert.alert("User does not exist; otherwise check internet connection");
+                          Alert.alert("Retry or update app or call customer care");
                           return;
                         }
                           console.log(e)

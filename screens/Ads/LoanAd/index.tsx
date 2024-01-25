@@ -88,10 +88,13 @@ const CreateBiz = (props) => {
           graphqlOperation(createRafikiLnAd, {
           input: {
             rafikiName: nam,
-            rafikicntct:phonecontacts,
+            rafikicntct:awsEmail,
             rafikiEmail: UsrEmail,
             rafikiamnt: parseFloat(itemPrys),
             rafikidesc:ChmDesc,
+            AdvEmail: "ChmNm",
+            advLicNo: "ChmRegNo",
+            defaultPenalty:0,
             rafikiprcntg: parseFloat(lnPrsntg),
            
             rafikirpymntperiod: rpymntPrd,
@@ -103,7 +106,23 @@ const CreateBiz = (props) => {
                 ,
               );
 
-              if (pword !== pws)
+             
+
+              
+            } catch (error) {
+              console.log(error)
+              if(error){
+                Alert.alert("Error! Access denied")
+                return;
+            } 
+            
+            }
+            
+            Alert.alert("Advert successfully Published")
+            
+          };
+
+          if (pword !== pws)
           {Alert.alert("Wrong User password");
         
       } 
@@ -120,24 +139,10 @@ const CreateBiz = (props) => {
       
       
       else {
-        Alert.alert("Advert successfully Published")
+        CreateNewSMAc();
       }
 
-              
-            } catch (error) {
-              console.log(error)
-              if(error){
-                Alert.alert("Error! Access denied")
-                return;
-            } 
-            
-            }
-            
-            
-            
-          };
-
-          CreateNewSMAc();
+          
 
         } catch (e) {
           if(e){Alert.alert("Error! Access denied")}
@@ -306,8 +311,17 @@ useEffect(() =>{
                   
                   <View style={styles.sendLoanView}>
                     <TextInput
-                     keyboardType='decimal-pad'
-                     
+                      value={awsEmail}
+                      onChangeText={setAWSEmail}
+                      
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Loaner Phone</Text>
+                  </View>
+                  
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                     keyboardType='decimal-pad'                     
                       value={itemPrys}
                       onChangeText={setitemPrys}
                       style={styles.sendLoanInput}

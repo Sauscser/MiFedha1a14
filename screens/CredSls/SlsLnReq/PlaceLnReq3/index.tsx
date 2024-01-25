@@ -48,6 +48,8 @@ const CreateBiz = (props) => {
   const [rpymntPrd, setrpymntPrd] = useState('');
   const [ChmNm, setChmNm] = useState('');
   const [MmbaID, setMmbaID] = useState('');
+  const [InstAmt, setInstAmt] = useState("");
+  const [InstFreq, setInstFreq] = useState("");
   const route = useRoute();
 
 
@@ -65,11 +67,26 @@ const CreateBiz = (props) => {
           const compDtls :any= await API.graphql(
             graphqlOperation(getSMAccount,{awsemail: awsEmail})
             );
-            const pws = compDtls.data.getSMAccount.pw;
+            
             const phonecontacts = compDtls.data.getSMAccount.phonecontact;
             const name = compDtls.data.getSMAccount.name;
-            const owner = compDtls.data.getSMAccount.owner;
-            const Int = ((parseFloat(lnPrsntg) - parseFloat(itemPrys))*100)/(parseFloat(lnPrsntg)*parseFloat(rpymntPrd))
+            
+            
+
+            const gtPersonelMainAc = async () =>{
+              if(isLoading){
+                return;
+              }
+              setIsLoading(true);
+              const userInfo = await Auth.currentAuthenticatedUser();
+              try{
+                const compDtls3 :any= await API.graphql(
+                  graphqlOperation(getSMAccount,{awsemail: userInfo.attributes.email})
+                  );
+                  const pws = compDtls3.data.getSMAccount.pw;
+                  
+                  
+                  
             
 
             const gtComp = async () =>{
@@ -115,7 +132,8 @@ const CreateBiz = (props) => {
                               )
                             )
                         
-                  
+                            const amtrpayable = parseFloat(itemPrys)*Math.pow((1 + parseFloat(lnPrsntg)/100), parseFloat(rpymntPrd)/parseFloat(InstFreq))
+                            const ExpInstmnt = amtrpayable/parseFloat(rpymntPrd)
 
             const CreateNewSMAc2 = async () => {
               if(isLoading){
@@ -139,11 +157,15 @@ const CreateBiz = (props) => {
                   owner: userInfo.attributes.sub,
                   statusNumber: 0,
                   AdvEmail: "None",
+                  lnType:"Pal2Biz",
                   advLicNo:"None",
+                  dfltDeadLn:0,
                   loanerName: name,
                   loanerPhone: phonecontacts,
                   description: ChmNm,
-                  defaultPenalty: MmbaID
+                  defaultPenalty: MmbaID,
+                  installmentAmount:InstAmt,
+                  paymentFrequency:InstFreq
                         },
                       })
                       
@@ -165,7 +187,7 @@ const CreateBiz = (props) => {
                   Communications.textWithoutEncoding(phonecontacts,
          
                     "MiFedha. " + busNames + ' has requested '
-                              + ' your Business entity to loan goods worth Ksh. '
+                              + ' you to loan the business goods/services worth Ksh. '
                               + itemPrys + '. Please go to your MiFedha'
                               + ' app to view the loan details and thereafter'
                               +' grant me the request. Thank you.');       
@@ -210,12 +232,16 @@ const CreateBiz = (props) => {
             status: "AwaitingResponse",
             owner: userInfo.attributes.sub,
             statusNumber: 0,
+            dfltDeadLn:0,
             AdvEmail: email,
             advLicNo:Sign2Phn,
+            lnType:"Pal2Biz",
             loanerName: name,
-            loanerPhone: awsEmail,
+            loanerPhone: phonecontacts,
             description: ChmNm,
-            defaultPenalty: MmbaID
+            defaultPenalty: MmbaID,
+            installmentAmount:InstAmt,
+                        paymentFrequency:InstFreq
                   },
                 })
                 
@@ -236,8 +262,8 @@ const CreateBiz = (props) => {
             Alert.alert("Loan Request Successful")    ;
             Communications.textWithoutEncoding(phonecontact,'MiFedha. Greetings! '
             + 'We ' + busNames + ', the loanee Business and ' + name + ', the Loaner' +  
-            ' request that you witness our loan contract on MiFedha app amounting to Ksh. '+
-            itemPrys + ' repayable with ' + lnPrsntg + 'interest by the end of ' +rpymntPrd + 
+            ', request that you witness our loan contract on MiFedha app amounting to Ksh. '+
+            itemPrys + ' repayable with ' + lnPrsntg + '% interest by the end of ' +rpymntPrd + 
             ' days. Default penalty is Ksh. '+ MmbaID + '. You can reach my loaner through '+ phonecontacts +
              '. You can also reach us through ' + awsEmail2 +'. Thank you.');       
             
@@ -247,13 +273,13 @@ const CreateBiz = (props) => {
           CreateNewSMAc();
 
         } catch (e) {
-          if(e){Alert.alert("Error!")}
+          if(e){Alert.alert("Error! Please enter advocate license correctly")}
           console.error(e);
         }
         setIsLoading(false);
       }
-      if (pwsz !== pword)
-          {Alert.alert("Wrong business password");
+      if (pws !== pword)
+          {Alert.alert("Wrong User Main Account password");
         
       } 
       
@@ -264,9 +290,14 @@ const CreateBiz = (props) => {
         return;
         
       }
-      
-       if (parseFloat(lnPrsntg) > 100){
+      else if (parseFloat(rpymntPrd) < 1){
+        Alert.alert("Enter repayment Period greater than 1 day")
+      }
+       else if (parseFloat(lnPrsntg) > 100){
         Alert.alert("Interest exploits you; enter lesser repayment amount")
+      }
+      else if (ExpInstmnt > parseFloat(InstAmt)){
+        Alert.alert("Enter Installment greater than "+(ExpInstmnt+1).toFixed(0))
       }
       else if (Sign2Phn != "")
       {
@@ -311,6 +342,16 @@ setIsLoading(false);
 await gtComp();
 
 } catch (e) {
+  if(e){Alert.alert("Error! Update app or contact customer care")}
+  console.error(e);
+}
+setIsLoading(false);
+    
+}
+
+await gtPersonelMainAc();
+
+} catch (e) {
           if(e){Alert.alert("Error! Update app or contact customer care")}
           console.error(e);
         }
@@ -328,7 +369,33 @@ await gtComp();
             setlnPrsntg("");
             setitemTwn("");
             setitemPrys("");
+            setInstAmt("");
+            setInstFreq("")
       }
+          
+    
+      useEffect(() =>{
+        const InstAmts=InstAmt
+          if(!InstAmts && InstAmts!=="")
+          {
+            setInstAmt("");
+            return;
+          }
+          setInstAmt(InstAmts);
+          }, [InstAmt]
+           );
+           
+           useEffect(() =>{
+            const InstFreqs=InstFreq
+              if(!InstFreqs && InstFreqs!=="")
+              {
+                setInstFreq("");
+                return;
+              }
+              setInstFreq(InstFreqs);
+              }, [InstFreq]
+               );
+               
           
     
           useEffect(() =>{
@@ -490,7 +557,7 @@ useEffect(() =>{
                   <View style={styles.sendLoanView}>
                     <TextInput
                     
-                    placeholder='Business Phone'
+                    placeholder='Email Address'
                       value={awsEmail}
                       onChangeText={setAWSEmail}
                       style={styles.sendLoanInput}
@@ -503,7 +570,7 @@ useEffect(() =>{
                     
                     placeholder='Business Phone'
                       value={awsEmail2}
-                      onChangeText={setAWSEmail}
+                      onChangeText={setAWSEmail2}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Loanee Business Phone</Text>
@@ -578,6 +645,33 @@ useEffect(() =>{
 
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder='Payment Frequency (Days)'
+                     keyboardType='decimal-pad'
+                     
+                      value={InstFreq}
+                      onChangeText={setInstFreq}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    
+                  </View>         
+                  
+                    <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder='Installment Amount'
+                     keyboardType='decimal-pad'
+                     
+                      value={InstAmt}
+                      onChangeText={setInstAmt}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    
+                  </View>
+
+                          
+                  
+                  
+                  <View style={styles.sendLoanView}>
+                    <TextInput
                      keyboardType='decimal-pad'
                      
                       value={MmbaID}
@@ -587,6 +681,7 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Default Penalty</Text>
                   </View>
 
+
                   <View style={styles.sendLoanView}>
                     <TextInput
                       value={pword}
@@ -594,7 +689,7 @@ useEffect(() =>{
                       secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}> User PassWord</Text>
+                    <Text style={styles.sendLoanText}> User Main Ac PassWord</Text>
                   </View>
 
                   <TouchableOpacity

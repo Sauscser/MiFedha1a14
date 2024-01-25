@@ -80,7 +80,7 @@ const SMASendChmNonLns = props => {
               const groupContacts =ChmMbrtDtl.data.getChamaMembers.groupContact;
               const memberContacts =ChmMbrtDtl.data.getChamaMembers.memberContact;
               const NonLoanAcBals =ChmMbrtDtl.data.getChamaMembers.NonLoanAcBal;
-              const ttlNonLonAcBal =ChmMbrtDtl.data.getChamaMembers.ttlNonLonAcBal;
+              const subscribedAmt =ChmMbrtDtl.data.getChamaMembers.subscribedAmt;
 
 
               console.log(ChmMbrtDtl)
@@ -279,7 +279,7 @@ const SMASendChmNonLns = props => {
                                           input:{
                                             ChamaNMember: MembaId,   
                                             NonLoanAcBal:(parseFloat(NonLoanAcBals) + parseFloat(amounts)).toFixed(0)  ,
-                                                                                                                          
+                                            subscribedAmt: (parseFloat(subscribedAmt) + parseFloat(amounts)).toFixed(0)                                                                      
                                             
                                           }
                                         })
@@ -466,7 +466,7 @@ const SMASendChmNonLns = props => {
                                 else if(parseFloat(loanLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');}
                                 
                                 else if (UsrTransferFeeAmt > UsrTransferFee2 
-                                  && UsrTransferFee2 > 0){CrtChmMbrContri2();}
+                                  ){CrtChmMbrContri2();}
                                  else {
                                   CrtChmMbrContri();
                                   

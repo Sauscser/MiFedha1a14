@@ -100,7 +100,11 @@ const ChmInfo = (props:ChmaInfo) => {
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
                        Account Balance (Ksh): {grpBal.toFixed(2)}                
-                    </Text>                     
+                    </Text>   
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                       Chama Benefits (Ksh): {TtlActvLonsTmsLnrChmNonCov.toFixed(2)}                
+                    </Text>                    
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
                        Chama Members: {ttlGrpMembers}

@@ -78,7 +78,7 @@ const RepayCovChmLnsss = props => {
 
       try {
           const RecAccountDtl:any = await API.graphql(
-              graphqlOperation(getCvrdGroupLoans, {id: route.params.id}),
+              graphqlOperation(getCvrdGroupLoans, {loanID: route.params.loanID}),
               );
               
               const amountExpectedBackWthClrncs =RecAccountDtl.data.getCvrdGroupLoans.amountExpectedBackWthClrnc; 
@@ -273,7 +273,7 @@ const RepayCovChmLnsss = props => {
                     
                                           }
                                           catch(error){
-                                            if (error){Alert.alert("Retry")
+                                            if (error){Alert.alert("Retry or update app or call customer care")
                                             return;}
                                           }
                                           setIsLoading(false);
@@ -290,7 +290,7 @@ const RepayCovChmLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateCvrdGroupLoans, {
                                         input:{
-                                          id:route.params.id,
+                                          loanID: route.params.loanID,
                                           amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(0),
                                           lonBala: (LonBalsss-parseFloat(amounts)).toFixed(0),
                                           amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
@@ -303,7 +303,7 @@ const RepayCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Retry")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -324,7 +324,7 @@ const RepayCovChmLnsss = props => {
                                         RecName:namess,
                                         loanId1: "route.params.id",
                                         loanId2: "route.params.id",
-                                        loanId3: route.params.id,  
+                                        loanId3: route.params.loanID,  
                                         SenderName:names,                                
                                         amount: parseFloat(amounts).toFixed(0),                              
                                         description: Desc,
@@ -338,7 +338,7 @@ const RepayCovChmLnsss = props => {
                                 } catch (error) {
                                   console.log(error)
                                   if(error){
-                                    Alert.alert("Retry")
+                                    Alert.alert("Retry or update app or call customer care")
                                 return;}
                                 }
                                 setIsLoading(false);
@@ -372,7 +372,7 @@ const RepayCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Retry")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -432,7 +432,7 @@ const RepayCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Retry")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -449,7 +449,7 @@ const RepayCovChmLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateCvrdGroupLoans, {
                                         input:{
-                                          id:route.params.id,
+                                          loanID: route.params.loanID,
                                           amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(0),
                                           lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(0),
                                           amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
@@ -462,7 +462,7 @@ const RepayCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Retry")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -493,7 +493,7 @@ const RepayCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Retry")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -522,7 +522,7 @@ const RepayCovChmLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Retry")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -572,7 +572,7 @@ const RepayCovChmLnsss = props => {
                                         recPhn: grpContactssss,
                                         senderPhn: userInfo.attributes.email,  
                                         RecName:namess,
-                                        loanId3: route.params.id,  
+                                        loanId3: route.params.loanID,  
                                         loanId1: "route.params.id",
                                         loanId2: "route.params.id",
                                         
@@ -588,7 +588,7 @@ const RepayCovChmLnsss = props => {
           
                                 } catch (error) {
                                   console.log(error)
-                                  if(error){Alert.alert("Retry")
+                                  if(error){Alert.alert("Retry or update app or call customer care")
                                 return;}
                                 }
                                 setIsLoading(false);
@@ -611,10 +611,6 @@ const RepayCovChmLnsss = props => {
                             return;
                           }
                           
-                              else if(usrPW !==SnderPW){Alert.alert('Wrong password');
-                            return;
-                          }
-                              
                               
                               else if(parseFloat(nonLonLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');
                             return;
@@ -641,7 +637,7 @@ const RepayCovChmLnsss = props => {
                             }
                             catch (e) {
                               console.log(e)
-                              if (e){Alert.alert("Error!")
+                              if (e){Alert.alert("Retry or update app or call customer care")
                               return;}
                           };
                         }
@@ -650,7 +646,7 @@ const RepayCovChmLnsss = props => {
                           }
                           catch (e) {
                             console.log(e)
-                            if (e){Alert.alert("Error!")
+                            if (e){Alert.alert("Retry or update app or call customer care")
                             return;}
                         };
                       }
@@ -660,7 +656,7 @@ const RepayCovChmLnsss = props => {
                 }       
                 catch(e) {     
                   console.log(e)
-                  if (e){Alert.alert("Error!")
+                  if (e){Alert.alert("Retry or update app or call customer care")
   return;}                 
                 }
                 setIsLoading(false);
@@ -668,7 +664,7 @@ const RepayCovChmLnsss = props => {
                   await fetchCompDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Retry")
+          if (e){Alert.alert("Retry or update app or call customer care")
       return;}
         }
         setIsLoading(false);        
@@ -678,7 +674,7 @@ const RepayCovChmLnsss = props => {
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
   };
       setIsLoading(false);
@@ -782,16 +778,6 @@ useEffect(() =>{
             <Text style={styles.sendAmtText}>Amount Sent</Text>
           </View>
 
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={SnderPW}
-              onChangeText={setSnderPW}
-              secureTextEntry = {true}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Loanee PassWord</Text>
-          </View>
 
           <View style={styles.sendAmtViewDesc}>
             <TextInput

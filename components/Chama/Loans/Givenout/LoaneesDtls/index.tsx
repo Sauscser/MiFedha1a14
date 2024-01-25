@@ -6,7 +6,7 @@ import styles from './styles';
 
 export interface ChmCvLnSttusSent {
     Loaner: {
-        id:string,
+      loanID:string,
         loaneeName: string,
         amountGiven: number,
         amountExpectedBack: number,
@@ -27,7 +27,7 @@ export interface ChmCvLnSttusSent {
 const ChmCvLnSttsSent = (props:ChmCvLnSttusSent) => {
    const {
     Loaner: {
-    id,
+      loanID,
     
     amountGiven,
     amountExpectedBack,
@@ -59,7 +59,7 @@ const ChmCvLnSttsSent = (props:ChmCvLnSttusSent) => {
                    
                      <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Loan Id: {id}                 
+                       Loan Id: {loanID}                 
                     </Text>
 
                     <Text style = {styles.ownerName}>                       

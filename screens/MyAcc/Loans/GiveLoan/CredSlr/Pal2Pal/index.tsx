@@ -87,7 +87,7 @@ const CovCredSls = props => {
       );
 
       const loaneeEmail =PersnlDtl.data.getReqLoanCredSl.loaneeEmail;
-
+      const dfltDeadLn =PersnlDtl.data.getReqLoanCredSl.dfltDeadLn;
       const advLicNo =PersnlDtl.data.getReqLoanCredSl.advLicNo;
       const BusinessRegNos =PersnlDtl.data.getReqLoanCredSl.businessNo;
       const statusNumber =PersnlDtl.data.getReqLoanCredSl.statusNumber;
@@ -99,6 +99,8 @@ const CovCredSls = props => {
       const description =PersnlDtl.data.getReqLoanCredSl.description;
       const defaultPenalty =PersnlDtl.data.getReqLoanCredSl.defaultPenalty;
       const AdvEmail =PersnlDtl.data.getReqLoanCredSl.AdvEmail;
+      const installmentAmount =PersnlDtl.data.getReqLoanCredSl.installmentAmount;
+      const paymentFrequency =PersnlDtl.data.getReqLoanCredSl.paymentFrequency;
       const DefaultPenaltyRate = parseFloat(defaultPenalty)/parseFloat(AmtExp) *100;
       const RecomDfltPnltyRate = (parseFloat(AmtExp)*20) / 100;
 
@@ -230,7 +232,7 @@ const CovCredSls = props => {
           const TotalAmtExp = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) + amtrpayable;
           const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
           
-          
+          console.log(advLicNo)
               
 
               const fetchRecUsrDtls = async () => {
@@ -240,7 +242,7 @@ const CovCredSls = props => {
                 setIsLoading(true);
                 try {
                     const RecAccountDtl:any = await API.graphql(
-                        graphqlOperation(getSMAccount, {awsEmail: loaneeEmail}),
+                        graphqlOperation(getSMAccount, {awsemail: loaneeEmail}),
                         );
                         const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
                         const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
@@ -253,7 +255,9 @@ const CovCredSls = props => {
                         const namess =RecAccountDtl.data.getSMAccount.name;
                         const nationalids =RecAccountDtl.data.getSMAccount.nationalid;
                         const phonecontactz =RecAccountDtl.data.getSMAccount.phonecontact;
-
+                        const UsrTransferFee2 = parseFloat(RecUsrBal) -parseFloat(amount);
+                        const TotalTransacted2 = parseFloat(amount)  + UsrTransferFee2;
+                        const TotalAmtExp3 =  UsrTransferFee2 + amtrpayable2;
 
                         
                                   
@@ -275,6 +279,197 @@ const CovCredSls = props => {
                                                       const phonecontact =RecAccountDtl.data.getSMAccount.phonecontact;
                                                       const SenderUsrBal =RecAccountDtl.data.getSMAccount.balance;
 
+                                                      const sendSMLn3 = async () => {
+                                                        if(isLoading){
+                                                          return;
+                                                        }
+                                                        setIsLoading(true);
+                                                        try {
+                                                          await API.graphql(
+                                                            graphqlOperation(createCovCreditSeller, {
+                                                              input: {
+                                                                loanID:route.params.id,
+                                                                itemName:itemName,
+                                                                loanerLoanee:BusinessRegNos+loaneeEmail,
+                                                                loanerLoaneeAdv:  BusinessRegNos+loaneeEmail+ AdvRegNo, 
+                                                                buyerContact: phonecontactz, 
+                                                                sellerContact:BusinessRegNos,
+                                                                buyerID: nationalids, 
+                                                                advEmail: "None",
+                                                                crtnDate:daysUpToDate,
+                                                                buyerName:namess,
+                                                                SellerName:name,
+                                                                sellerID: nationalidss,  
+                                                                amountSold: parseFloat(amount).toFixed(0),
+                                                                interest:AmtExp,
+                                                                dfltUpdate: daysUpToDate,
+                                                                dfltDeadLn:dfltDeadLn,
+                                                                amountexpectedBack: (TotalAmtExp3 - TotalTransacted2).toFixed(0),
+                                                                amountExpectedBackWthClrnc:(TotalAmtExp3 - TotalTransacted2).toFixed(0),
+                                                                amountRepaid: 0,
+                                                                repaymentPeriod: RepaymtPeriod,
+                                                                giverStatus: "Biz2Biz",
+                                                                lnType:"Biz2Biz",
+                                                                timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
+                                                                timeExpBack2: 61 + daysUpToDate, 
+                                                                lonBala:(TotalAmtExp3 - TotalTransacted2).toFixed(0),
+                                                                description: description,   
+                                                                status: "LoanActive",  
+                                                                advregnu: "None",   
+                                                                DefaultPenaltyCredSl:defaultPenalty,
+                                                                DefaultPenaltyCredSl2:0,                                                       
+                                                                blOfficer:"None",
+                                                                owner: owner,
+                                                                installmentAmount:installmentAmount,
+                                                                paymentFrequency:paymentFrequency
+                                                                
+                                                               
+                                                              },
+                                                            }),
+                                                          );
+                                
+                                
+                                                        } catch (error) {
+                                                          if (error){
+                                                            console.log(error)
+                                                            return
+                                                          }
+                                                        }
+                                                        setIsLoading(false);
+                                                        await updtSendrAc3();
+                                                      };
+                                                      
+                                
+                                                      const updtSendrAc3 = async () =>{
+                                                        if(isLoading){
+                                                          return;
+                                                        }
+                                                        setIsLoading(true);
+                                                        try{
+                                                            await API.graphql(
+                                                              graphqlOperation(updateBizna, {
+                                                                input:{
+                                                                  BusKntct:BusinessRegNos,
+                                                                  
+                                                                  
+                                                                }
+                                                              })
+                                                            )
+                                
+                                
+                                                        }
+                                                        catch(error){
+                                                          console.log(error)
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
+                                                          return;}
+                                                        }
+                                                        setIsLoading(false);
+                                                        await updtRecAc3();
+                                                      }
+                                                      const updtRecAc3 = async () =>{
+                                                        if(isLoading){
+                                                          return;
+                                                        }
+                                                        setIsLoading(true);
+                                                        try{
+                                                            await API.graphql(
+                                                              graphqlOperation(updateSMAccount, {
+                                                                input:{
+                                                                  awsemail: loaneeEmail,
+                                                                  
+                                                                  balance:(parseFloat(RecUsrBal) - TotalTransacted2).toFixed(0),
+                                                                   
+                                                                }
+                                                              })
+                                                            )                              
+                                                        }
+                                                        catch(error){
+                                                          console.log(error)
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
+                                                          return;}
+                                                        }
+                                                        setIsLoading(false);
+                                                        await updtComp3();
+                                                      }
+                                
+                                                      const updtComp3 = async () =>{
+                                                        if(isLoading){
+                                                          return;
+                                                        }
+                                                        setIsLoading(false);
+                                                        
+                                                        try{
+                                                            await API.graphql(
+                                                              graphqlOperation(updateCompany, {
+                                                                input:{
+                                                                  AdminId: "BaruchHabaB'ShemAdonai2",                                                      
+                                                                      
+                                                                  
+                                                                  companyEarningBal:parseFloat(companyEarningBals) + UsrTransferFee2,
+                                                                  companyEarning:  parseFloat(companyEarnings) + UsrTransferFee2,  
+                                                                 
+                                                                  ttlSellerLnsInAmtCov: TotalAmtExp3 + parseFloat(ttlSellerLnsInAmtCovs),
+                                                                  
+                                                                  ttlSellerLnsInTymsCov: 1 + parseFloat(ttlSellerLnsInTymsCovs),
+                                                                     
+                                                                  
+                                                                   
+                                                                  
+                                                                }
+                                                              })
+                                                            )
+                                                            
+                                                            
+                                                        }
+                                                        catch(error){
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
+                                                      return;}
+                                                        }
+                                                        setIsLoading(false);
+                                                        await updtLnReq3();
+                                                      }
+                                                      
+                                                      const updtLnReq3 = async () =>{
+                                                        if(isLoading){
+                                                          return;
+                                                        }
+                                                        setIsLoading(false);
+                                                        
+                                                        try{
+                                                            await API.graphql(
+                                                              graphqlOperation(updateReqLoanCredSl, {
+                                                                input:{
+                                                                  id:route.params.id,                                                      
+                                                                  status:"Approved"
+                                                                }
+                                                              })
+                                                            )
+                                                            
+                                                            
+                                                        }
+                                                        catch(error){
+                                                          console.log(error);
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
+                                                      return;}
+                                                        }
+                                                        Alert.alert("Success. TransactionFee:"+ UsrTransferFee2.toFixed(2) 
+                                                        );
+                                
+                                                        Communications.textWithoutEncoding(phonecontactz,'MiFedha. Hi '+ namess 
+                                                        + ', you have been loaned goods worth Ksh. '+ parseFloat(amount).toFixed(2) +' by '
+                                                      + name + ' . For clarification call the business Owner: '
+                                                      + BusinessRegNos 
+                                                      + '. The following is a break down of your repayable loan: '
+                                                      + ' Cash price of the goods is Ksh. '+ parseFloat(amount).toFixed(2) 
+                                                      + '. Amount you had committed to repay is Ksh. '
+                                                      + amtrpayable2.toFixed(2) + '. Transaction fee is Ksh. '
+                                                      + lnTrnsfrFee.toFixed(2) +  '. Total Repayable is Ksh '+ TotalAmtExp3.toFixed(2) 
+                                                      + '. Thank you.');
+                                                        setIsLoading(false);
+                                                        
+                                                      } 
+                                                      
+                                                      
                                                       const sendSMLn2 = async () => {
                                                         if(isLoading){
                                                           return;
@@ -285,7 +480,7 @@ const CovCredSls = props => {
                                                             graphqlOperation(createCovCreditSeller, {
                                                               input: {
                                                                 itemName:itemName,
-                                                            
+                                                                loanID:route.params.id,
                                                                 buyerID: nationalids,
                                                                 sellerID: nationalidss,
                                                                 sellerContact:userInfo.attributes.email,
@@ -297,8 +492,10 @@ const CovCredSls = props => {
                                                                 amountExpectedBackWthClrnc:(TotalAmtExp2 - TransCost2).toFixed(0),
                                                                 amountRepaid: 0,
                                                                 buyerName:namess,
+                                                                lnType:"Pal2Pal",
                                                                 interest:AmtExp,
                                                                 SellerName:name,
+                                                                dfltDeadLn:dfltDeadLn,
                                                                 lonBala:(TotalAmtExp2 - TransCost2).toFixed(0),
                                                                 repaymentPeriod: RepaymtPeriod,
                                                                 timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
@@ -310,9 +507,12 @@ const CovCredSls = props => {
                                                                 DefaultPenaltyCredSl2:0,
                                                                 status: "LoanActive",
                                                                 owner: owner,
+                                                                blOfficer:"None",
+                                                                crtnDate:daysUpToDate,
                                                                 advEmail: "None",
                                                                 advregnu: "None",
-                                                               
+                                                                installmentAmount:installmentAmount,
+                                                                paymentFrequency:paymentFrequency
                                                               },
                                                             }),
                                                           );
@@ -320,7 +520,7 @@ const CovCredSls = props => {
                               
                                                         } catch (error) {
                                                           if (error){
-                                                            Alert.alert("Credit Sale unsuccessful; Retry")
+                                                            console.log(error)
                                                             return
                                                           }
                                                         }
@@ -338,7 +538,7 @@ const CovCredSls = props => {
                                                             await API.graphql(
                                                               graphqlOperation(updateSMAccount, {
                                                                 input:{
-                                                                  awsEmail:userInfo.attributes.email,
+                                                                  awsemail:userInfo.attributes.email,
                                                                   
                                                                   
                                                                 }
@@ -349,7 +549,7 @@ const CovCredSls = props => {
                                                         }
                                                         catch(error){
                                                           console.log(error)
-                                                          if (error){Alert.alert("Error!")
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
                                                           return;}
                                                         }
                                                         setIsLoading(false);
@@ -364,12 +564,11 @@ const CovCredSls = props => {
                                                             await API.graphql(
                                                               graphqlOperation(updateSMAccount, {
                                                                 input:{
-                                                                  awsEmail:loaneeEmail,
+                                                                  awsemail:loaneeEmail,
                                                                   
                                                                   balance:(parseFloat(RecUsrBal) - TransCost2).toFixed(0),
                                                                                                    
-                                                                  saleStts: "AccountNotBL",
-                                                                                                  
+                                                                          
                                                                   
                                                                 }
                                                               })
@@ -377,7 +576,7 @@ const CovCredSls = props => {
                                                         }
                                                         catch(error){
                                                           console.log(error)
-                                                          if (error){Alert.alert("Error!")
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
                                                           return;}
                                                         }
                                                         setIsLoading(false);
@@ -414,7 +613,7 @@ const CovCredSls = props => {
                                                             
                                                         }
                                                         catch(error){
-                                                          if (error){Alert.alert("Error!")
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
                                                       return;}
                                                         }
                                                         setIsLoading(false);
@@ -441,21 +640,21 @@ const CovCredSls = props => {
                                                         }
                                                         catch(error){
                                                           console.log(error);
-                                                          if (error){Alert.alert("Error!")
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
                                                       return;}
                                                         }
                                                         Alert.alert("Success. TransactionFee:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
                                                         );
                               
                                                         Communications.textWithoutEncoding(phonecontactz,'MiFedha. Hi '+ namess 
-                                                        + ', you have been loaned services/goods worth Ksh. '+ amount +' by '
+                                                        + ', you have been loaned services/goods worth Ksh. '+ parseFloat(amount).toFixed(2) +' by '
                                                       + name + '. For clarification call the Loaner: '
                                                       + phonecontact 
                                                       + '. The following is a break down of your repayable loan: '
-                                                      + ' Cash price of the goods is Ksh. '+ amount 
+                                                      + ' Cash price of the goods is Ksh. '+ parseFloat(amount).toFixed(2) 
                                                       + '. Amount you had committed to repay is Ksh. '
-                                                      + AmtExp + '. Transaction fee is Ksh. '
-                                                      + lnTrnsfrFee +  '. Total Repayable is Ksh'+ TotalAmtExp2 
+                                                      + amtrpayable2.toFixed(2) + '. Transaction fee is Ksh. '
+                                                      + lnTrnsfrFee.toFixed(2) +  '. Total Repayable is Ksh '+ TotalAmtExp2.toFixed(2) 
                                                       + '. Thank you.');
                                                         setIsLoading(false);
                                                         
@@ -490,34 +689,40 @@ const CovCredSls = props => {
                             await API.graphql(
                               graphqlOperation(createCovCreditSeller, {
                                 input: {
-                                  itemName:itemName,
-                              
-                                  buyerID: nationalids,
-                                  sellerID: nationalidss,
-                                  sellerContact:userInfo.attributes.email,
-                                  buyerContact: loaneeEmail, 
-                                  loanerLoanee:userInfo.attributes.email+loaneeEmail,
-                                  loanerLoaneeAdv:  userInfo.attributes.email+loaneeEmail+ AdvRegNo,                                   
-                                  amountSold: parseFloat(amount).toFixed(0),
-                                  amountexpectedBack: (TotalAmtExp - TransCost).toFixed(0),
-                                  amountExpectedBackWthClrnc:(TotalAmtExp - TransCost).toFixed(0),
-                                  amountRepaid: 0,
-                                  buyerName:namess,
-                                  interest:AmtExp,
-                                  SellerName:name,
-                                  giverStatus: "Pal2Pal",
-                                  lonBala:(TotalAmtExp - TransCost).toFixed(0),
-                                  repaymentPeriod: RepaymtPeriod,
-                                  timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
-                                  timeExpBack2: 61 + daysUpToDate,
-                                  dfltUpdate: daysUpToDate,
-                                  advregnu: advLicNo,
-                                  description: description,
-                                  DefaultPenaltyCredSl:defaultPenalty,
-                                  DefaultPenaltyCredSl2:0,
-                                  status: "LoanActive",
-                                  owner: owner,
-                                  AdvEmail:AdvEmail
+                                                                itemName:itemName,
+                                                                loanID:route.params.id,   
+                                                                buyerID: nationalids,
+                                                                sellerID: nationalidss,
+                                                                sellerContact:userInfo.attributes.email,
+                                                                buyerContact: loaneeEmail, 
+                                                                loanerLoanee:userInfo.attributes.email+loaneeEmail,
+                                                                loanerLoaneeAdv:  userInfo.attributes.email+loaneeEmail+ advLicNo,                                   
+                                                                amountSold: parseFloat(amount).toFixed(0),
+                                                                amountexpectedBack: (TotalAmtExp2 - TransCost2).toFixed(0),
+                                                                amountExpectedBackWthClrnc:(TotalAmtExp2 - TransCost2).toFixed(0),
+                                                                amountRepaid: 0,
+                                                                buyerName:namess,
+                                                                interest:AmtExp,
+                                                                lnType:"Pal2Pal",
+                                                                crtnDate:daysUpToDate,
+                                                                SellerName:name,
+                                                                dfltDeadLn:dfltDeadLn,
+                                                                lonBala:(TotalAmtExp2 - TransCost2).toFixed(0),
+                                                                repaymentPeriod: RepaymtPeriod,
+                                                                timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
+                                                                timeExpBack2: 61 + daysUpToDate,
+                                                                dfltUpdate: daysUpToDate,
+                                                                giverStatus: "Pal2Pal",
+                                                                description: description,
+                                                                DefaultPenaltyCredSl:defaultPenalty,
+                                                                DefaultPenaltyCredSl2:0,
+                                                                status: "LoanActive",
+                                                                owner: owner,
+                                                                blOfficer:"None",
+                                                                advEmail: AdvEmail,
+                                                                advregnu: advLicNo,
+                                                                installmentAmount:installmentAmount,
+                                    paymentFrequency:paymentFrequency
                                 },
                               }),
                             );
@@ -525,6 +730,8 @@ const CovCredSls = props => {
 
                           } catch (error) {
                             if (error){
+
+                              console.log(error)
                               Alert.alert("Credit Sale unsuccessful; Retry")
                               return
                             }
@@ -545,7 +752,7 @@ const CovCredSls = props => {
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    awsEmail:userInfo.attributes.email,
+                                    awsemail:userInfo.attributes.email,
                                     
                                   }
                                 })
@@ -555,7 +762,7 @@ const CovCredSls = props => {
                           }
                           catch(error){
                             console.log(error)
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                             return;}
                           }
                           setIsLoading(false);
@@ -570,11 +777,9 @@ const CovCredSls = props => {
                               await API.graphql(
                                 graphqlOperation(updateSMAccount, {
                                   input:{
-                                    awsEmail:loaneeEmail,
+                                    awsemail:loaneeEmail,
                                     
                                     balance:(parseFloat(RecUsrBal) - TransCost).toFixed(0),                               
-                                    saleStts: "AccountNotBL",
-                                                                    
                                     
                                   }
                                 })
@@ -582,7 +787,7 @@ const CovCredSls = props => {
                           }
                           catch(error){
                             console.log(error)
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                             return;}
                           }
                           setIsLoading(false);
@@ -621,7 +826,7 @@ const CovCredSls = props => {
                               
                           }
                           catch(error){
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                         return;}
                           }
                           setIsLoading(false);
@@ -645,7 +850,7 @@ const CovCredSls = props => {
                               )
                           }
                           catch(error){
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
       return;}
                           }
                           
@@ -674,7 +879,7 @@ const CovCredSls = props => {
                           }
                           catch(error){
                             console.log(error);
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                         return;}
                           }
                           Alert.alert("Success. AdvocateFee:" 
@@ -683,21 +888,20 @@ const CovCredSls = props => {
                           );
 
                           Communications.textWithoutEncoding(phonecontactz,'MiFedha. Hi '+ namess 
-                          + ', you have been loaned Services/goods worth Ksh. '+ amount +' by '
+                          + ', you have been loaned Services/goods worth Ksh. '+ parseFloat(amount).toFixed(2) +' by '
                         + name + '. For clarification call the loaner: '
                         + phonecontact 
                         + '. The following is a break down of your repayable loan: '
-                        + ' Cash price of the goods is Ksh. '+ amount 
+                        + ' Cash price of the goods is Ksh. '+ parseFloat(amount).toFixed(2) 
                         + '. Amount you had committed to repay is Ksh. '
-                        + AmtExp + '. Transaction fee is Ksh. '
-                        + lnTrnsfrFee + '. Advocacy Fee is Ksh. '
-                        + ttlCovFeeAmount + '. Total Repayable is Ksh'+ TotalAmtExp 
+                        + amtrpayable.toFixed(2) + '. Transaction fee is Ksh. '
+                        + lnTrnsfrFee.toFixed(2) + '. Advocacy Fee is Ksh. '
+                        + ttlCovFeeAmount.toFixed(2) + '. Total Repayable is Ksh '+ TotalAmtExp.toFixed(2) 
                         + '. Thank you.');
                           setIsLoading(false);
                           
                         }       
                       
-                        
                         
                         
                         
@@ -712,25 +916,23 @@ const CovCredSls = props => {
                     if (userInfo.attributes.sub!==owner) {
                       Alert.alert("Please first create a main account")
                       return;
-                    }  else if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver adversely listed');
+                    }  else if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Unsuccessful....Apologies. Liase with the Loaned');
                   return;
                 }
                 else if(statusNumber === 0 && advLicNo != "None"){Alert.alert('Advocate has not yet witnessed');                  
               }
                     
                     else if(BusinessRegNos === loaneeEmail){Alert.alert('You cannot Loan Yourself');}
-                    else if(status !== "AccountActive"){Alert.alert('Receiver account is inactive');}
+                    else if(status === "AccountInactive"){Alert.alert('Receiver account is inactive');}
                     else if(status === "Approved"){Alert.alert('Loan already granted');}
 
                     else if (
                       parseFloat(RecUsrBal) < TransCost && advLicNo != " "
-                    ) {Alert.alert("Cancelled."+ "Bal: "+ RecUsrBal +". Deductable: " + TransCost.toFixed(2) 
-                    + ". "+ ((TransCost) - parseFloat(RecUsrBal)).toFixed(2) + ' more needed');}
+                    ) {Alert.alert("Unsuccessful!."+ "Buyer top up "+ ((TransCost) - parseFloat(RecUsrBal)).toFixed(2) + ' more');}
 
                     else if (
                       parseFloat(RecUsrBal) < TransCost2 && advLicNo == " "
-                    ) {Alert.alert("Cancelled."+ "Bal: "+ RecUsrBal +". Deductable: " + TransCost2.toFixed(2) 
-                    + ". "+ ((TransCost2) - parseFloat(RecUsrBal)).toFixed(2) + ' more needed');}
+                    ) {Alert.alert("Unsuccessful."+ "Buyer top up "+ ((TransCost2) - parseFloat(RecUsrBal)).toFixed(2) + ' more');}
                     
                   
                     
@@ -750,7 +952,9 @@ const CovCredSls = props => {
                         SndChmMmbrMny();
                     } 
                     
-                    else if(advLicNo == "None"){sendSMLn2();}
+                    else if(advLicNo == "None" && RecUsrBal < TransCost2){sendSMLn3();}
+
+                    else if(advLicNo == "None" && RecUsrBal > TransCost2){sendSMLn2();}
                     
                      else {
                     
@@ -770,7 +974,7 @@ const CovCredSls = props => {
                   
                     }
                     catch (e){
-                      if (e){Alert.alert("Error!")
+                      if (e){Alert.alert("Retry or update app or call customer care")
               return;}
                     }
                     setIsLoading(false);
@@ -783,7 +987,7 @@ const CovCredSls = props => {
           
         
         } catch (e) {
-          if (e){Alert.alert("Error!")
+          if (e){Alert.alert("Retry or update app or call customer care")
       return;}
         } 
         setIsLoading(false);       
@@ -793,7 +997,7 @@ const CovCredSls = props => {
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
          
     }   
@@ -807,7 +1011,7 @@ const CovCredSls = props => {
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
          
     }   
@@ -819,7 +1023,7 @@ const CovCredSls = props => {
   }     
   catch (e) {
     console.log(e)
-    if (e){Alert.alert("Error!")
+    if (e){Alert.alert("Retry or update app or call customer care")
     return;}
        
   }   
@@ -830,7 +1034,7 @@ const CovCredSls = props => {
 
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
   };
       setIsLoading(false);
@@ -989,14 +1193,14 @@ useEffect(() =>{
         <ScrollView >
          
          <View style={styles.amountTitleView}>
-           <Text style={styles.title}>Fill Loan Details Below</Text>
+           <Text style={styles.title}>Enter Password Below</Text>
          </View>
 
          
          
          <View style={styles.sendAmtView}>
            <TextInput
-           placeholder='Sales Officer User PassWord'
+           placeholder='User Main PassWord'
              value={SnderPW}
              onChangeText={setSnderPW}
              secureTextEntry = {true}
@@ -1009,7 +1213,7 @@ useEffect(() =>{
          <TouchableOpacity
            onPress={fetchCredSlLnReq}
            style={styles.sendAmtButton}>
-           <Text style={styles.sendAmtButtonText}>Credit Sell with Advocate Coverage</Text>
+           <Text style={styles.sendAmtButtonText}>Click to loan</Text>
            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
          </TouchableOpacity>
 

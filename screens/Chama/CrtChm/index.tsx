@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {createChamaMembers, createGroup,   updateCompany} from '../../../src/graphql/mutations';
-import { getCompany, getSMAccount, listChamasRegConfirms, vwViaPhons, vwViaPhonss,  } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount,  vwViaPhons,   } from '../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -50,6 +50,9 @@ const CreateChama = (props:UserReg) => {
   const [oprtnAreas, setoprtnAreas] = useState('');
   const [ventures, setventures] = useState('');
   const [Err1, setErr1] = useState(null);
+  const [SubFreq, setSubFreq] = useState('');
+  const [SubAmt, setSubAmt] = useState('');
+  const [lateSub, setlateSub] = useState('');
 
  
 
@@ -95,7 +98,20 @@ const CreateChama = (props:UserReg) => {
                 const phoneContacts = compDtls.data.getCompany.phoneContact;
                 const ttlActiveChmUserss = compDtls.data.getCompany.ttlActiveChmUsers;
 
-                
+                const today = new Date();
+              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
+              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
+              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
+              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
+              let months2 = parseFloat(months)
+              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
+              
+              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
+
+              const curYrs = parseFloat(years)*365;
+              const curMnths = (months2)*30.4375;
+              const daysUpToDate = curYrs + curMnths + parseFloat(days)
               
             const onCreateNewSMAc = async () => {
               if(isLoading){
@@ -122,6 +138,35 @@ const CreateChama = (props:UserReg) => {
                   ttlGrpMembers: 1,
                   description: ChmDesc,
                   WithdrawCnfrmtnAmt:0,
+                  ChmBenefits:0,
+                  subscriptionFrequency: SubFreq,
+                  subscriptionAmt: SubAmt,
+                  lateSubscriptionPenalty:lateSub,
+                  objectionStatus:"NotObjected",
+                  objOfficer: "None",
+                  objReason: "None",
+                  AdminNo:0,
+                  Admin1:"None",
+                  Admin2:"None",
+                  Admin3:"None",
+                  Admin4:"None",
+                  Admin5:"None",
+                  Admin6:"None",
+                  Admin7:"None",
+                  Admin8:"None",
+                  Admin9:"None",
+                  Admin10:"None",
+                  Admin11:"None",
+                  Admin12:"None",
+                  Admin13:"None",
+                  Admin14:"None",
+                  Admin15:"None",
+                  Admin16:"None",
+                  Admin17:"None",
+                  Admin18:"None",
+                  Admin19:"None",
+                  Admin20:"None",
+
                   ttlNonLonsRecChm: 0,
                   ttlNonLonsSentChm:0,
                 
@@ -164,7 +209,10 @@ const CreateChama = (props:UserReg) => {
                 {Alert.alert("password is too short; at least eight characters");
               
             } 
-            
+            else if (parseFloat(lateSub)>parseFloat(SubAmt))
+            {
+              Alert.alert("Too high late subscription panalty")
+            }
             
             else {
               onCreateNewSMAc();
@@ -186,8 +234,10 @@ const CreateChama = (props:UserReg) => {
                   ChamaNMember:ChmPhnNphoneContact,
                   memberContact: userInfo.attributes.email,
                   memberNatId: nationalidsss,
-                  
-                  
+                  memberChmBenefit:0,
+                  timeCrtd:daysUpToDate,
+                  subscribedAmt:0,
+                  totalSubAmt:0,
                   GrossLnsGvn:0,
                   LonAmtGven: 0,
                   AmtRepaid:0,
@@ -200,7 +250,10 @@ const CreateChama = (props:UserReg) => {
                   loanStatus: "NoLoan",
                   blStatus: "AccountNotBL",
                   owner: userInfo.attributes.sub,
-                  
+                  ttlLateSubs:0,
+                  subscriptionFrequency: SubFreq,
+                  subscriptionAmt: SubAmt,
+                  lateSubscriptionPenalty:lateSub,
                         },
                       }),
                     );
@@ -249,7 +302,7 @@ const CreateChama = (props:UserReg) => {
       catch(e){
         console.log(e)
         if(e){
-          Alert.alert("Retry")
+          Alert.alert("Retry or update app or call customer care")
           return;
       }
       }
@@ -260,7 +313,7 @@ const CreateChama = (props:UserReg) => {
 
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Retry")
+          if (e){Alert.alert("Retry or update app or call customer care")
           return;}
       };
          
@@ -292,31 +345,67 @@ const CreateChama = (props:UserReg) => {
                   setSign2Phn("");
                   setventures("");
                   setoprtnAreas("");
+                  setSubAmt("");
+                  setSubFreq("");
+                  setlateSub("")
       }
 
       
     
       useEffect(() =>{
-        const MmbaIDs=MmbaID
-          if(!MmbaIDs && MmbaIDs!=="")
+        const lateSubs=lateSub
+          if(!lateSubs && lateSubs!=="")
           {
-            setMmbaID("");
+            setlateSub("");
             return;
           }
-          setMmbaID(MmbaIDs);
-          }, [MmbaID]
+          setlateSub(lateSubs);
+          }, [lateSub]
            );
+
+           useEffect(() =>{
+            const SubAmts=SubAmt
+              if(!SubAmts && SubAmts!=="")
+              {
+                setSubAmt("");
+                return;
+              }
+              setSubAmt(SubAmts);
+              }, [SubAmt]
+               );
            
            useEffect(() =>{
-        const ChmRegNos=ChmRegNo
-          if(!ChmRegNos && ChmRegNos!=="")
+        const SubFreqs=SubFreq
+          if(!SubFreqs && SubFreqs!=="")
           {
-            setChmRegNo("");
+            setSubFreq("");
             return;
           }
-          setChmRegNo(ChmRegNos);
-          }, [ChmRegNo]
+          setSubFreq(SubFreqs);
+          }, [SubFreq]
            );
+
+           useEffect(() =>{
+            const MmbaIDs=MmbaID
+              if(!MmbaIDs && MmbaIDs!=="")
+              {
+                setMmbaID("");
+                return;
+              }
+              setMmbaID(MmbaIDs);
+              }, [MmbaID]
+               );
+               
+               useEffect(() =>{
+            const ChmRegNos=ChmRegNo
+              if(!ChmRegNos && ChmRegNos!=="")
+              {
+                setChmRegNo("");
+                return;
+              }
+              setChmRegNo(ChmRegNos);
+              }, [ChmRegNo]
+               );
            
            useEffect(() =>{
         const awsEmails=awsEmail
@@ -522,7 +611,41 @@ useEffect(() =>{
                     
                   </View>
 
-                  
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder='Signatory Subscription Amount'
+                     keyboardType='decimal-pad'
+                     
+                      value={SubAmt}
+                      onChangeText={setSubAmt}
+                      style={styles.sendAmtInputDesc}
+                      editable={true}></TextInput>
+                   
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder='Signatory Subscription Frequency (Days)'
+                     keyboardType='decimal-pad'
+                     
+                      value={SubFreq}
+                      onChangeText={setSubFreq}
+                      style={styles.sendAmtInputDesc}
+                      editable={true}></TextInput>
+                    
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder='Signatory Late Subscription Penalty'
+                     keyboardType='decimal-pad'
+                     
+                      value={lateSub}
+                      onChangeText={setlateSub}
+                      style={styles.sendAmtInputDesc}
+                      editable={true}></TextInput>
+                    
+                  </View>
         
                   <TouchableOpacity
                     onPress={ChckUsrExistence}

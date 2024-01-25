@@ -30,7 +30,7 @@ const KFKubwaScreen = props => {
     navigation.navigate('VwCompMFKTC');}
 
     const RegMFKbws = () => {
-      navigation.navigate('VwMFKToReg');}
+      navigation.navigate('VwToRegMFK');}
 
     
 

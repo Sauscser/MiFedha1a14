@@ -8,7 +8,7 @@ import styles from './styles';
      
      export interface ChmCvLnSttusRec {
          Loanee: {
-           id: string,
+            loanID: string,
            itemName: string,
            itemSerialNumber: string,
            buyerContact: string,
@@ -31,7 +31,7 @@ import styles from './styles';
      const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
         const {
          Loanee: {
-           id,
+            loanID,
            
            SellerName,
         
@@ -41,11 +41,11 @@ import styles from './styles';
         const navigation = useNavigation();
      
         const SndChmMmbrMny = () => {
-           navigation.navigate("RpayCredSlrCovs", {id})
+           navigation.navigate("RpayCredSlrCovs", {loanID})
         }
          return (
-           <Pressable 
-           onPress={SndChmMmbrMny}
+           <View 
+           
            style = {styles.container}>            
                  <View style = {{alignItems:"center"}}>
                  <Text style = {styles.loanAdvert}>                       
@@ -56,7 +56,7 @@ import styles from './styles';
                  
                           <Text style = {styles.ownerName}>                       
                             {/*loaner details */}   
-                            Loan Id: {id}                 
+                            Loan Id: {loanID}                 
                          </Text>
                          
      
@@ -67,7 +67,7 @@ import styles from './styles';
                          
              
                      
-             </Pressable>
+             </View>
          );
      }; 
      

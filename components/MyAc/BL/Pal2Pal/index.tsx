@@ -6,7 +6,7 @@ import styles from './styles';
 
 export interface SMCvLnSttus {
     Loanee: {
-        id:string,
+      loanID:string,
         loaneePhn: string,
         
         lonBala: number,
@@ -18,7 +18,7 @@ export interface SMCvLnSttus {
 const SMCvLnStts = (props:SMCvLnSttus) => {
    const {
     Loanee: {
-    id,
+      loanID,
     loaneePhn,
     
     lonBala,
@@ -31,7 +31,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
 
    
    const SndChmMmbrMny = () => {
-      navigation.navigate("BLPal2Pal", {id})
+      navigation.navigate("BLPal2Pal", {loanID})
    }
     return (
         <Pressable 
@@ -47,7 +47,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
            
                    <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Loan Id: {id}                 
+                       Loan Id: {loanID}                 
                     </Text>
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   

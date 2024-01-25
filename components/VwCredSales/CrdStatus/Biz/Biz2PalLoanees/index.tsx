@@ -6,7 +6,7 @@ import styles from './styles';
 
 export interface ChmCvLnSttusRec {
     Loanee: {
-      id: string,
+      loanID: string,
       itemName: string,
   
       buyerContact: string,
@@ -29,7 +29,7 @@ export interface ChmCvLnSttusRec {
 const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
    const {
     Loanee: {
-      id,
+      loanID,
       itemName,
      
       buyerContact,
@@ -51,15 +51,18 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
 
     const navigation = useNavigation();
    const SndChmMmbrMny = () => {
-      navigation.navigate ("VwMyBiz2PalLoaneesDtld", {id})
+      navigation.navigate ("VwMyBiz2PalLoaneesDtld", {loanID})
    }
 
    const VwRpayments = () => {
-      navigation.navigate ("CredB2PReceived", {id})
+      navigation.navigate ("CredB2PReceived", {loanID})
    }
 
    const Blacklist = () => {
-      navigation.navigate ("BLBiz2Pal", {id})
+      navigation.navigate ("BLCredBiz2Pal", {loanID})
+   }
+   const WaiveBiz2Pal = () => {
+      navigation.navigate ("WaiveBiz2Pal", {loanID})
    }
 
    
@@ -75,7 +78,7 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
                   
             <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Loan Id: {id}                 
+                       Loan Id: {loanID}                 
                     </Text>
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
@@ -90,21 +93,26 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
                     </Pressable>
 
                     <View style = {styles.viewForPressables2}>
-                    <View>
                     <Pressable
                       onPress={VwRpayments}
                       style = {styles.loanFriendButton}
                       >            
                         <Text style = {styles.loanAFriendText}>ViewRpymnts</Text>            
                     </Pressable>
-                    </View>   
-                    <View>
+                    
+                    
+                    <Pressable
+                      onPress={WaiveBiz2Pal}
+                      style = {styles.loanFriendButton}>            
+                        <Text style = {styles.loanAFriendText}>Waive</Text>            
+                    </Pressable>  
+                   
+                  
                     <Pressable
                       onPress={Blacklist}
                       style = {styles.loanFriendButton}>            
                         <Text style = {styles.loanAFriendText}>BL/Penalise</Text>            
-                    </Pressable>  
-                    </View>
+                    </Pressable> 
                      
                     </View>
         </View>

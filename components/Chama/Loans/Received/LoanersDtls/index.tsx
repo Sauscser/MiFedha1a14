@@ -5,7 +5,7 @@ import styles from './styles';
 
 export interface SMCvLnSttus {
     Loanee: {
-        id:string,
+      loanID:string,
         loaneePhn: string,
         amountGiven: number,
         amountExpectedBack: number,
@@ -24,7 +24,7 @@ export interface SMCvLnSttus {
 const SMCvLnStts = (props:SMCvLnSttus) => {
    const {
     Loanee: {
-    id,
+      loanID,
     loaneePhn,
     amountGiven,
     amountExpectedBack,
@@ -56,7 +56,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
 
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Loan Id: {id}                 
+                       Loan Id: {loanID}                 
                     </Text>
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   

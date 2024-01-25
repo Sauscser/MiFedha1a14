@@ -201,7 +201,7 @@ const ftchAgInfo = async () => {
                                             
               }            
             
-              catch (e) {if(e){Alert.alert("Retry")
+              catch (e) {if(e){Alert.alert("Retry or update app or call customer care")
             return}
 
               }

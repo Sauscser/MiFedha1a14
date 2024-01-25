@@ -44,7 +44,8 @@ const CreateBiz = (props) => {
   const [ChmRegNo, setChmRegNo] = useState('');
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState("");
-
+  const [InstAmt, setInstAmt] = useState("");
+  const [InstFreq, setInstFreq] = useState("");
   
   const [itemTwn, setitemTwn] = useState('');
   
@@ -102,6 +103,9 @@ const CreateBiz = (props) => {
                   const phonecontactz = compDtls.data.getSMAccount.phonecontact;
                   const namez = compDtls.data.getSMAccount.name;
 
+                  const amtrpayable = parseFloat(itemPrys)*Math.pow((1 + parseFloat(lnPrsntg)/100), parseFloat(rpymntPrd)/parseFloat(InstFreq))
+                          const ExpInstmnt = amtrpayable/parseFloat(rpymntPrd)
+
                   const CreateNewSMAc2 = async () => {
                     if(isLoading){
                       return;
@@ -118,6 +122,8 @@ const CreateBiz = (props) => {
                         loaneePhone:phonecontacts,
                         AdvEmail: "None",
                         advLicNo: "None",
+                        lnType:"Pal2Pal",
+                        dfltDeadLn:0,
                         loanerName: namez,
                         loanerPhone: phonecontactz,
                         amount: parseFloat(itemPrys).toFixed(2),
@@ -127,7 +133,9 @@ const CreateBiz = (props) => {
                         statusNumber: 0,
                         owner: userInfo.attributes.sub,
                         description: ChmRegNo,
-                        defaultPenalty: MmbaID
+                        defaultPenalty: MmbaID,
+                        installmentAmount:InstAmt,
+                        paymentFrequency:InstFreq
                               },
                             })
                             
@@ -192,15 +200,19 @@ const CreateNewSMAc = async () => {
       AdvEmail: email,
       advLicNo: Sign2Phn,
       loanerName: namez,
+      dfltDeadLn:0,
       loanerPhone: phonecontactz,
       amount: parseFloat(itemPrys).toFixed(2),
       repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
       repaymentPeriod:rpymntPrd,
       status: "AwaitingResponse",
+      lnType:"Pal2Pal",
       statusNumber: 0,
       owner: userInfo.attributes.sub,
       description: ChmRegNo,
-      defaultPenalty: MmbaID
+      defaultPenalty: MmbaID,
+      installmentAmount:InstAmt,
+      paymentFrequency:InstFreq
             },
           })
           
@@ -221,9 +233,9 @@ const CreateNewSMAc = async () => {
       
       Alert.alert("Loan Request Successful");
       Communications.textWithoutEncoding(phonecontact,'MiFedha. Greetings! '
-      + 'We ' + name + ', the loanee and ' + name + ', the loaner humbly' +  
+      + 'We ' + name + ', the loanee and ' + namez + ', the loaner humbly' +  
       ' request that you witness our loan contract on MiFedha app amounting to Ksh. '+
-      itemPrys + ' repayable with ' + lnPrsntg + 'interest by the end of ' +rpymntPrd + 
+      itemPrys + ' repayable with ' + lnPrsntg + '% interest by the end of ' +rpymntPrd + 
       ' days. Default penalty is Ksh. '+ MmbaID + '. You can reach my loaner through '+ phonecontactz +
        '. You can also reach me through ' +phonecontacts +'. Thank you.');
       
@@ -236,7 +248,7 @@ const CreateNewSMAc = async () => {
       
           
       } catch (e) {
-        if(e){Alert.alert("Error!")}
+        if(e){Alert.alert("Error! Please enter advocate license correctly")}
         return
       }
 
@@ -251,6 +263,12 @@ const CreateNewSMAc = async () => {
       else if (parseFloat(lnPrsntg) > 100){
         Alert.alert("Interest exploits you; enter lesser repayment amount")
       }
+      else if (parseFloat(rpymntPrd) < 1){
+        Alert.alert("Enter repayment Period greater than 1 day")
+      }
+      else if (ExpInstmnt > parseFloat(InstAmt)){
+        Alert.alert("Enter Installment greater than "+(ExpInstmnt+1).toFixed(0))
+      }
       else if (Sign2Phn != "")
       {
       
@@ -260,7 +278,7 @@ const CreateNewSMAc = async () => {
 
     else {CreateNewSMAc2();}
         } catch (e) {
-          if(e){Alert.alert("Error!")}
+          if(e){Alert.alert("Retry or update app or call customer care")}
           console.error(e);
           
         }
@@ -269,7 +287,7 @@ const CreateNewSMAc = async () => {
     await gtLnerDtls();
 
   } catch (e) {
-    if(e){Alert.alert("Error!")}
+    if(e){Alert.alert("Retry or update app or call customer care")}
     console.error(e);
   }
   setIsLoading(false);
@@ -279,7 +297,7 @@ const CreateNewSMAc = async () => {
   await gtComp();
 
         } catch (e) {
-          if(e){Alert.alert("Error!")}
+          if(e){Alert.alert("Retry or update app or call customer care")}
           console.error(e);
           
         }
@@ -296,10 +314,35 @@ const CreateNewSMAc = async () => {
             setlnPrsntg("");
             setitemTwn("");
             setitemPrys("");
+            setInstAmt("");
+            setInstFreq("")
       }
           
     
-          useEffect(() =>{
+      useEffect(() =>{
+        const InstAmts=InstAmt
+          if(!InstAmts && InstAmts!=="")
+          {
+            setInstAmt("");
+            return;
+          }
+          setInstAmt(InstAmts);
+          }, [InstAmt]
+           );
+           
+           useEffect(() =>{
+            const InstFreqs=InstFreq
+              if(!InstFreqs && InstFreqs!=="")
+              {
+                setInstFreq("");
+                return;
+              }
+              setInstFreq(InstFreqs);
+              }, [InstFreq]
+               );
+               
+               
+               useEffect(() =>{
             const itemPryss=itemPrys
               if(!itemPryss && itemPryss!=="")
               {
@@ -501,6 +544,32 @@ useEffect(() =>{
 
                   <View style={styles.sendLoanView}>
                     <TextInput
+                    placeholder='Payment Frequency (Days)'
+                     keyboardType='decimal-pad'
+                     
+                      value={InstFreq}
+                      onChangeText={setInstFreq}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    
+                  </View>      
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder='Installment Amount'
+                     keyboardType='decimal-pad'
+                     
+                      value={InstAmt}
+                      onChangeText={setInstAmt}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                    
+                  </View>
+
+                             
+                  
+                   <View style={styles.sendLoanView}>
+                    <TextInput
                     keyboardType='decimal-pad'
                     placeholder='Default Penalty'
                       value={MmbaID}
@@ -510,6 +579,7 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Default Penalty</Text>
                   </View>
 
+                
                   <View style={styles.sendLoanView}>
                     <TextInput
                     

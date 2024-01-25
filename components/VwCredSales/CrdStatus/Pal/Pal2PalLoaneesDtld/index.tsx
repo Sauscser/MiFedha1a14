@@ -5,7 +5,7 @@ import styles from './styles';
 
 export interface ChmCvLnSttusRec {
     Loanee: {
-      id: string,
+      loanID: string,
       itemName: string,
   
       buyerContact: string,
@@ -28,7 +28,7 @@ export interface ChmCvLnSttusRec {
 const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
    const {
     Loanee: {
-      id,
+      loanID,
       itemName,
      
       buyerContact,
@@ -62,7 +62,7 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
                     
                      <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Loan Id: {id}                 
+                       Loan Id: {loanID}                 
                     </Text>
 
                     

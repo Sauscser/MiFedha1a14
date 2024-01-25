@@ -82,13 +82,8 @@ const ChmSignIn = (props) => {
         graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
         );
         const signitoryPWs = compDtls.data.getSMAccount.pw;  
-        const owners = compDtls.data.getSMAccount.owner; 
+        const owners = compDtls.data.getSMAccount.owner;     
     
-    
-  
-
-      
-
             if(signitoryPWs!==pword){Alert.alert("Wrong User credentials")}
   else if (UsrDtls.data.listPersonels.items.length < 1) {
     Alert.alert("You do not work here");

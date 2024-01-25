@@ -98,7 +98,7 @@ const FetchSMCovLns = props => {
                                                 catch(error){
                                                   console.log(error);
                                                   if(error){
-                                                    Alert.alert("User does not exist")
+                                                    Alert.alert("Retry or update app or call customer care")
                                                     return;
                                                 }
                                                 }
@@ -138,7 +138,7 @@ const FetchSMCovLns = props => {
                       catch (e)
                       {
                         if(e){
-                          Alert.alert("User does not exist; otherwise check internet connection");
+                          Alert.alert("Retry or update app or call customer care");
                           return;
                         }
                           console.log(e)

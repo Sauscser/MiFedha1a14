@@ -59,7 +59,7 @@ const BLCovCredByr = (props) => {
           setIsLoading(true);
           try{
             const compDtls :any= await API.graphql(
-              graphqlOperation(getCovCreditSeller,{id:route.params.id})
+              graphqlOperation(getCovCreditSeller,{loanID:route.params.loanID})
               );
               const buyerContacts = compDtls.data.getCovCreditSeller.buyerContact
               const sellerContacts = compDtls.data.getCovCreditSeller.sellerContact
@@ -68,18 +68,18 @@ const BLCovCredByr = (props) => {
               const interest = compDtls.data.getCovCreditSeller.interest
               const lonBala = compDtls.data.getCovCreditSeller.lonBala
               const dfltUpdate = compDtls.data.getCovCreditSeller.dfltUpdate
-              const dfltUpdates = compDtls.data.getCovCreditSeller.dfltUpdate
+              const crtnDate = compDtls.data.getCovCreditSeller.crtnDate
               const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
-              
+              const dfltDeadLn = compDtls.data.getCovCreditSeller.repaymentPeriod
               const statusssss = compDtls.data.getCovCreditSeller.status
               const DefaultPenaltyCredSls = compDtls.data.getCovCreditSeller.DefaultPenaltyCredSl
               const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) 
               + parseFloat(amountExpectedBackWthClrncs) + parseFloat(DefaultPenaltyCredSls)
-              const LonBal = amountExpectedBackWthClrncss - parseFloat(amountrepaids)
+              
 
               const createdAt = compDtls.data.getCovCreditSeller.createdAt;
               const repaymentPeriod = compDtls.data.getCovCreditSeller.repaymentPeriod;
-              const ClrnceCosts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
+              
              
               const today = new Date();
               let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
@@ -94,8 +94,8 @@ const BLCovCredByr = (props) => {
 
               const now1:any = "2024-05-20";
              
-              
-              
+             
+            /*  
               
               let char = dfltUpdate;
               let char1 = char.charAt(0)
@@ -126,6 +126,11 @@ const BLCovCredByr = (props) => {
               const crtnYears = parseFloat(crtnYr)*365;
               const crtnMnths = parseFloat(crtnMnth)*30.4375;
               const daysAtCrtn = crtnYears + crtnMnths + parseFloat(crtnDy)
+*/
+
+const curYrs = parseFloat(years)*365;
+              const curMnths = (months2)*30.4375;
+              const daysUpToDate = curYrs + curMnths + parseFloat(days)
 
               let charz = createdAt;
               let char1z = charz.charAt(0)
@@ -151,12 +156,31 @@ const BLCovCredByr = (props) => {
               const crtnMnthsz = parseFloat(crtnMnthz)*30.4375;
               const daysAtCrtnz = crtnYearsz + crtnMnthsz + parseFloat(crtnDyz)
 
-              const tmDif = daysUpToDate - dfltUpdates;
-              const tmDif2 = daysUpToDate - daysAtCrtnz;
+              const tmDif = daysUpToDate - dfltUpdate;
+              const tmDif2 = daysUpToDate - crtnDate;
               
-             
+              const paymentFrequency = compDtls.data.getCovCreditSeller.paymentFrequency;              
+              const installmentAmount = compDtls.data.getCovCreditSeller.installmentAmount;
 
-              const LonBal1 = LonBal*Math.pow((1 + parseFloat(interest)), tmDif/30)
+              const LonBal = parseFloat(lonBala)
+
+              const LonBal1 = LonBal*Math.pow((1 + parseFloat(interest)/100), tmDif/parseFloat(paymentFrequency) );
+              const ClrnceCosts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)  + parseFloat(DefaultPenaltyCredSls)
+              const ClrnceCost = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
+              const LonBal4 = LonBal1 + ClrnceCosts
+              const LonBal5 = LonBal1 + ClrnceCost
+             
+              const pymtFrqncy = tmDif2/parseFloat(paymentFrequency)
+              const Amt2HvBnPaid = pymtFrqncy* parseFloat(installmentAmount)
+              const LonBal6 = parseFloat(lonBala) + parseFloat(DefaultPenaltyCredSls)
+              console.log(daysUpToDate)
+              console.log(dfltUpdate)
+              console.log(tmDif)
+              console.log(LonBal)
+              console.log (lonBala)
+              console.log (LonBal1)
+              console.log (Math.pow((1 + parseFloat(interest)), tmDif/30))
+              
 
 
               const gtLoanerDtls = async () =>{
@@ -180,9 +204,7 @@ const BLCovCredByr = (props) => {
                         const compDtls :any= await API.graphql(
                           graphqlOperation(getSMAccount,{awsemail:buyerContacts})
                           );
-                          const TtlBLLonsTmsByrCovs = compDtls.data.getSMAccount.TtlBLLonsTmsByrCov
-                          const TtlBLLonsAmtByrCovs = compDtls.data.getSMAccount.TtlBLLonsAmtByrCov
-                          const TtlActvLonsAmtByrCovs = compDtls.data.getSMAccount.TtlActvLonsAmtByrCov
+                          
                           const acStatusss = compDtls.data.getSMAccount.acStatus
                           const namess = compDtls.data.getSMAccount.name
                           const MaxTymsBLs =compDtls.data.getSMAccount.MaxTymsBL;
@@ -190,6 +212,50 @@ const BLCovCredByr = (props) => {
 
                           
                   
+                          const updateLoanDtls3 = async () => {
+                            if(isLoading){
+                              return;
+                            }
+                            setIsLoading(true);
+                            try{
+                                await API.graphql(
+                                  graphqlOperation(updateCovCreditSeller, {
+                                    input:{
+                                      loanID:route.params.loanID,
+                                      amountExpectedBackWthClrnc:(LonBal6).toFixed(0),
+                                      
+                                      DefaultPenaltyCredSl2:DefaultPenaltyCredSls.toFixed(0),
+                                      lonBala:LonBal6.toFixed(0),
+                                      dfltUpdate: daysUpToDate,
+                                      blOfficer:userInfo.attributes.email
+                                      
+                                    }
+                                  })
+                                )
+                        
+                                
+                            }
+                            catch(error){
+                              console.log(error)
+                              if(error){
+                              Alert.alert("Ensure User Exists");
+                              return;
+                          } 
+                           }
+                          Alert.alert(names +", you have Penalised "+ namess);
+                          Communications.textWithoutEncoding(buyerContacts,'MiFedha. Hi '
+                          + namess + ', your loan of ID ' 
+                          +  route.params.loanID 
+                          + ' has been Penalised by '+ names 
+                          + ' Business. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
+                          + LonBal.toFixed(0) + '. Default Penalty as you had agreed with your loaner is Ksh. ' + parseFloat(DefaultPenaltyCredSls).toFixed(0) 
+                          + '. Total current loan repayable: Ksh. '+ LonBal6.toFixed(0)
+                         +'. For clarification call the Business Owner: '
+                        + sellerContacts + '. Thank you. MiFedha');
+                            setIsLoading(false);          
+                          } 
+                          
+                          
                           const updtActAdm = async()=>{
                             if(isLoading){
                               return;
@@ -211,7 +277,7 @@ const BLCovCredByr = (props) => {
                                 catch(error){
                                   console.log(error)
                                   if(error){
-                                  Alert.alert("Error!")
+                                  Alert.alert("Retry or update app or call customer care")
                                   return;
                               }}
                               await updateLoaneeDtls();
@@ -242,7 +308,7 @@ const BLCovCredByr = (props) => {
                                 catch(error){
                                   console.log(error)
                                   if(error){
-                                  Alert.alert("Error!")
+                                  Alert.alert("Retry or update app or call customer care")
                                   
                              
                               return;} }
@@ -259,12 +325,13 @@ const BLCovCredByr = (props) => {
                                     await API.graphql(
                                       graphqlOperation(updateCovCreditSeller, {
                                         input:{
-                                          id:route.params.id,
-                                          amountExpectedBackWthClrnc:(amountExpectedBackWthClrncss).toFixed(0),
+                                          loanID:route.params.loanID,
+                                          amountExpectedBackWthClrnc:LonBal4.toFixed(0),
                                           status:"LoanBL",
                                           DefaultPenaltyCredSl2:DefaultPenaltyCredSls.toFixed(0),
-                                          lonBala:LonBal1.toFixed(0),
+                                          lonBala:LonBal4.toFixed(0),
                                           dfltUpdate:daysUpToDate,
+                                          blOfficer:userInfo.attributes.email
                                         }
                                       })
                                     )
@@ -279,13 +346,14 @@ const BLCovCredByr = (props) => {
                               } 
                                }
                               Alert.alert(names +", you have blacklisted "+ namess);
-                              Communications.textWithoutEncoding(phonecontactz,'Hi '
+                              Communications.textWithoutEncoding(phonecontactz,'MiFedha. Hi '
                               + namess + ', your loan of ID ' 
-                              +  route.params.id 
+                              +  route.params.loanID 
                               + ' has been blacklisted by '+ names 
                               + ' Business. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
-                            + lonBala + '. Default Penalty as you had agreed with your loaner is Ksh. ' + DefaultPenaltyCredSls 
-                            + '. Clearance fee is Ksh. ' + ClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal1
+                            + LonBal.toFixed(0) + '. Default Penalty as you had agreed with your loaner is Ksh. ' + parseFloat(DefaultPenaltyCredSls).toFixed(0) 
+                            + '. Clearance fee is Ksh. ' + ClrnceCost.toFixed(0) + '. compounded loan balance is Ksh. ' 
+                            + LonBal1.toFixed(0) + '. Total current loan repayable: Ksh. '+ LonBal4.toFixed(0)
                              +'. For clarification call the Business Owner: '
                             + sellerContacts + '. Thank you. MiFedha');
                                 setIsLoading(false);          
@@ -312,7 +380,7 @@ const BLCovCredByr = (props) => {
                                     catch(error){
                                       console.log(error)
                                       if(error){
-                                      Alert.alert("Error!")
+                                      Alert.alert("Retry or update app or call customer care")
                                       return;
                                   }}
                                   await updateLoaneeDtls2();
@@ -325,27 +393,30 @@ const BLCovCredByr = (props) => {
         
                                   
         
-                                  else if (tmDif2 < repaymentPeriod){
-                                    Alert.alert("Time to to Black List is not yet ")
-                                  }
-        
-                                  else if (30 > tmDif){
-                                    Alert.alert("Time to add penalty is not yet")
-                                  }
-        
                                   
         
                                   else if(acStatusss === "AccountInactive"){
                                     Alert.alert("Loanee account has been deactivated")
                                   } 
+                                  else if (tmDif < parseFloat(paymentFrequency))
+                                  {Alert.alert("Time to Blacklist is not yet")}
 
-                                  else if (tmDif2 > repaymentPeriod){
-                                    updtActAdm()
-                                  }
+                                  else if (tmDif2 > parseFloat(paymentFrequency) 
+                              && parseFloat(amountrepaids) < Amt2HvBnPaid && tmDif2 < dfltDeadLn
+                              && statusssss !== "LoanBL"){
+                                updateLoanDtls3()
+                              }
+                              
+                              else if(tmDif2 > dfltDeadLn && statusssss !== "LoanBL"){
+                                    {updtActAdm();}
+                                  } 
         
-                                  else (30 < tmDif){
-                                    updtActAdm2()
-                                  }
+                                  else if(tmDif > parseFloat(paymentFrequency) && statusssss === "LoanBL"){
+                                    {updtActAdm2();}
+                                  } 
+
+                                  else {Alert.alert("Time to Blacklist/Penalise is not yet")}
+                                  
         
     
                                   
@@ -372,7 +443,7 @@ const BLCovCredByr = (props) => {
                                     catch(error){
                                       console.log(error)
                                       if(error){
-                                      Alert.alert("Error!")
+                                      Alert.alert("Retry or update app or call customer care")
                                       
                                  
                                   return;} }
@@ -389,12 +460,13 @@ const BLCovCredByr = (props) => {
                                         await API.graphql(
                                           graphqlOperation(updateCovCreditSeller, {
                                             input:{
-                                              id:route.params.id,
-                                              amountExpectedBackWthClrnc:(amountExpectedBackWthClrncss).toFixed(0),
+                                              loanID:route.params.loanID,
+                                              amountExpectedBackWthClrnc:LonBal5.toFixed(0),
                                               status:"LoanBL",
                                               DefaultPenaltyCredSl2:DefaultPenaltyCredSls.toFixed(0),
-                                              lonBala:LonBal1.toFixed(0),
+                                              lonBala:LonBal5.toFixed(0),
                                               dfltUpdate:daysUpToDate,
+                                              blOfficer:userInfo.attributes.email
                                             }
                                           })
                                         )
@@ -409,13 +481,14 @@ const BLCovCredByr = (props) => {
                                   } 
                                    }
                                   Alert.alert(names +", you have blacklisted "+ namess);
-                                  Communications.textWithoutEncoding(phonecontactz,'Hi '
+                                  Communications.textWithoutEncoding(phonecontactz,'MiFedha, Hi '
                                   + namess + ', your loan of ID ' 
-                                  +  route.params.id 
-                                  + ' has been blacklisted by '+ names 
+                                  +  route.params.loanID 
+                                  + ' has been Penalised after blacklisting by '+ names 
                                   + ' Business. The following is a breakdown of your repayable loan. Loan balance before blacklisting was Ksh. '
-                                + lonBala + '. Default Penalty as you had agreed with your loaner is Ksh. ' + DefaultPenaltyCredSls 
-                                + '. Clearance fee is Ksh. ' + ClrnceCosts + '. Total current loan repayable is Ksh. ' + LonBal1
+                                + LonBal.toFixed(0) 
+                                + '. Clearance fee is Ksh. ' + ClrnceCost.toFixed(0) + '. compounded loan balance is Ksh. ' 
+                                + LonBal1.toFixed(0) + '. Total current loan repayable: Ksh. '+ LonBal5.toFixed(0)
                                  +'. For clarification call the Business Owner: '
                                 + sellerContacts + '. Thank you. MiFedha');
                                     setIsLoading(false);          
@@ -451,7 +524,7 @@ const BLCovCredByr = (props) => {
             catch(error){
               console.log(error)
               if(error){
-              Alert.alert("Error!")
+              Alert.alert("Retry or update app or call customer care")
               return;              
           } 
            }
@@ -463,7 +536,7 @@ const BLCovCredByr = (props) => {
             console.log(error)
             
             if(error){
-              Alert.alert("Error!")
+              Alert.alert("Retry or update app or call customer care")
               return;
           };
           }
@@ -497,7 +570,7 @@ const BLCovCredByr = (props) => {
                     onPress={gtCompDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
-                      Click to Black List 
+                      Click to BlackList
                     </Text>
                     {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
                   </TouchableOpacity>

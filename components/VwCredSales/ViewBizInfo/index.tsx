@@ -50,15 +50,7 @@ const ChmInfo = (props:ChmaInfo) => {
                     
                    
                                                                    
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Total Sales (Ksh): {TtlEarnings.toFixed(2)}                
-                    </Text>                     
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Repayed Sales : {earningsBal.toFixed(2)}
-                    </Text>  
-
+                    
                       
 
                     <Text style ={styles.amountoffered}>                       

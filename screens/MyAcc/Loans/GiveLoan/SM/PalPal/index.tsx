@@ -23,14 +23,14 @@ import {
   getAdvocate,
   
   listChamasNPwnBrkrs,
-  listChamasRegConfirms,
+  
   getReqLoan,
   listSMLoansCovereds,
-  listSMLoansNonCovereds,
+  
   listCovCreditSellers,
-  listNonCovCreditSellers,
+  
   listCvrdGroupLoans,
-  listNonCvrdGroupLoans,
+  
 } from '../../../../../../src/graphql/queries';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -144,6 +144,9 @@ const SMASendLns = props => {
         const defaultPenalty =accountDtlszs.data.getReqLoan.defaultPenalty;
         const description =accountDtlszs.data.getReqLoan.description;
         const advEmail =accountDtlszs.data.getReqLoan.advEmail;
+        const dfltDeadLn =accountDtlszs.data.getReqLoan.dfltDeadLn;
+        const installmentAmount =accountDtlszs.data.getReqLoan.installmentAmount;
+        const paymentFrequency =accountDtlszs.data.getReqLoan.paymentFrequency;
         
         const DefaultPenaltyRate = parseFloat(defaultPenalty)/parseFloat(AmtExp) *100;
         const RecomDfltPnltyRate = (parseFloat(AmtExp)*20) / 100;
@@ -259,8 +262,8 @@ const SMASendLns = props => {
           
           const TtlTransCost2 = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount)  + parseFloat(amount);
           const CompanyTotalEarnings2 = parseFloat(userLoanTransferFees)*parseFloat(amount)
-          const amtrpayable2 = parseFloat(amount)*(Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30))
-          const amtrpayable = parseFloat(amount)*(Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30))
+          const amtrpayable2 = parseFloat(amount)*(Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency)))
+          const amtrpayable = parseFloat(amount)*(Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency)))
           const TotalAmtExp = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) + amtrpayable;
           const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
 
@@ -302,6 +305,7 @@ const SMASendLns = props => {
                             await API.graphql(
                               graphqlOperation(createSMLoansCovered, {
                                 input: {
+                                  loanID:route.params.id,
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,
                                   loanerPhn:phonecontactxz,
@@ -313,6 +317,8 @@ const SMASendLns = props => {
                                   loaneename:namess,
                                   loanername:names,
                                   interest:AmtExp,
+                                  crtnDate:daysUpToDate,
+                                  dfltDeadLn:dfltDeadLn,
                                   amountexpected: TotalAmtExp2.toFixed(0),
                                   amountExpectedBackWthClrnc:TotalAmtExp2.toFixed(0),
                                   DefaultPenaltySM:defaultPenalty,
@@ -324,11 +330,15 @@ const SMASendLns = props => {
                                   lonBala:TotalAmtExp2.toFixed(0),
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: "None",
+                                  lnType:"Pal2Pal",
                                   description: description,
                                   loanerEmail: userInfo.attributes.email,
                                   status: "LoanActive",
-                                  owner: userInfo.attributes.sub,
-                                  advEmail:"None"
+                                  owner: userInfo.attributes.sub,                                 
+                                  blOfficer:"None",
+                                  advEmail:"None",
+                                  installmentAmount:installmentAmount,
+                                                                paymentFrequency:paymentFrequency
                                 },
                               }),
                             );
@@ -336,7 +346,7 @@ const SMASendLns = props => {
 
                           } catch (error) {
                             console.log(error)
-                            if(error){Alert.alert("Error!")
+                            if(error){Alert.alert("Retry or update app or call customer care")
                           return;}
                           }
                           setIsLoading(false);
@@ -369,7 +379,7 @@ const SMASendLns = props => {
                           }
                           catch(error){
                             console.log(error)
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                             return;}
                           }
                           setIsLoading(false);
@@ -399,7 +409,7 @@ const SMASendLns = props => {
                           }
                           catch(error){
                             console.log(error)
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                             return;}
                           }
                           setIsLoading(false);
@@ -435,7 +445,7 @@ const SMASendLns = props => {
                           }
                           catch(error){
                             console.log(error)
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                         return;}
                           }
                           setIsLoading(false);
@@ -466,15 +476,15 @@ const SMASendLns = props => {
                             
                           }
                           Communications.textWithoutEncoding(phonecontact,'Hi '+ namess 
-                          + ', you have been loaned Ksh. '+ amount +' by '
+                          + ', you have been loaned Ksh. '+ parseFloat(amount).toFixed(2) +' by '
                         + names + '. For clarification call the loaner: '
                         + userInfo.attributes.phone_number 
                         + '. The following is a break down of your repayable loan: '
-                        + ' Amount debited into your main account is Ksh. '+ amount 
+                        + ' Amount debited into your main account is Ksh. '+ parseFloat(amount).toFixed(2) 
                         + '. Amount you had committed to repay is Ksh. '
-                        + amtrpayable2 + '. Transaction fee is Ksh. '
-                        + lnTrnsfrFee + 
-                        '. Total Repayable is Ksh '+ TotalAmtExp2 
+                        + amtrpayable2.toFixed(2) + '. Transaction fee is Ksh. '
+                        + lnTrnsfrFee.toFixed(2) + 
+                        '. Total Repayable is Ksh '+ TotalAmtExp2.toFixed(2) 
                         + '. Thank you. MiFedha.');
                           setIsLoading(false);
                           
@@ -517,6 +527,7 @@ const SMASendLns = props => {
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,
                                   loanerPhn:phonecontactxz,
+                                  loanID:route.params.id,
                                   loaneePhn: phonecontact,  
                                   loaneeEmail:loaneeEmail, 
                                   loanerLoanee:userInfo.attributes.email+loaneeEmail,
@@ -524,11 +535,13 @@ const SMASendLns = props => {
                                   amountgiven: parseFloat(amount).toFixed(0),
                                   loaneename:namess,
                                   loanername:names,
+                                  dfltDeadLn:dfltDeadLn,
                                   amountexpected: TotalAmtExp.toFixed(0),
                                   amountExpectedBackWthClrnc:TotalAmtExp.toFixed(0),
                                   DefaultPenaltySM:defaultPenalty,
                                   DefaultPenaltySM2:0,
                                   amountrepaid: 0,
+                                  crtnDate:daysUpToDate,
                                   timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
                                   timeExpBack2: 61 + daysUpToDate,
                                   dfltUpdate: daysUpToDate,
@@ -537,10 +550,14 @@ const SMASendLns = props => {
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: advLicNo,
                                   description: description,
+                                  lnType:"Pal2Pal",
                                   loanerEmail: userInfo.attributes.email,
                                   status: "LoanActive",
                                   owner: userInfo.attributes.sub,
-                                  advEmail:advEmail
+                                  blOfficer:"None",
+                                  advEmail:advEmail,
+                                  installmentAmount:installmentAmount,
+                                                                paymentFrequency:paymentFrequency
                                 },
                               }),
                             );
@@ -548,7 +565,7 @@ const SMASendLns = props => {
 
                           } catch (error) {
                             console.log(error)
-                            if(error){Alert.alert("Error!")
+                            if(error){Alert.alert("Retry or update app or call customer care")
                           return;}
                           }
                           setIsLoading(false);
@@ -583,7 +600,7 @@ const SMASendLns = props => {
                           }
                           catch(error){
                             console.log(error)
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                             return;}
                           }
                           setIsLoading(false);
@@ -613,7 +630,7 @@ const SMASendLns = props => {
                           }
                           catch(error){
                             console.log(error)
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                             return;}
                           }
                           setIsLoading(false);
@@ -651,7 +668,7 @@ const SMASendLns = props => {
                           }
                           catch(error){
                             console.log(error)
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                         return;}
                           }
                           setIsLoading(false);
@@ -677,7 +694,7 @@ const SMASendLns = props => {
                           }
                           catch(error){
                             console.log(error)
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
       return;}
                           }
                           Alert.alert("Success. AdvocateFee:" +(parseFloat(CoverageFees)*parseFloat(amount)).toFixed(2) 
@@ -711,16 +728,16 @@ const SMASendLns = props => {
                             
                           }
                           Communications.textWithoutEncoding(phonecontact,'Hi '+ namess 
-                          + ', you have been loaned Ksh. '+ amount +' by '
+                          + ', you have been loaned Ksh. '+ parseFloat(amount).toFixed(2) +' by '
                         + names + '. For clarification call the loaner: '
                         + userInfo.attributes.phone_number 
                         + '. The following is a break down of your repayable loan: '
-                        + ' Amount debited into your main account is Ksh. '+ amount 
+                        + ' Amount debited into your main account is Ksh. '+ parseFloat(amount).toFixed(2) 
                         + '. Amount you had committed to repay is Ksh. '
-                        + amtrpayable + '. Transaction fee is Ksh. '
-                        + lnTrnsfrFee + 
+                        + amtrpayable.toFixed(2) + '. Transaction fee is Ksh. '
+                        + lnTrnsfrFee.toFixed(2) + 
                         '. Advocacy fee is Ksh. '
-                        + ttlCovFeeAmount + '. Total Repayable is Ksh '+ TotalAmtExp 
+                        + ttlCovFeeAmount.toFixed(2) + '. Total Repayable is Ksh '+ TotalAmtExp.toFixed(2) 
                         + '. Thank you. MiFedha.');
                           setIsLoading(false);
                           
@@ -746,7 +763,7 @@ const SMASendLns = props => {
                      if (userInfo.attributes.sub!==SenderSub) {
                           Alert.alert("Please first create a main account")
                           return;
-                        }  else if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver adversely listed');
+                        }  else if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Unsuccessful....Apologies. Liase with the Loaned');
                       return;
                     }
                         
@@ -770,7 +787,7 @@ const SMASendLns = props => {
                         
                         else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                         
-                        else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You can only loan from your account');}
+                        
                         
                         else if(parseFloat(usrLnLim) < parseFloat(amount)){Alert.alert('Call ' + CompPhoneContact + ' to have your Loan limit adjusted');}
                         else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
@@ -795,7 +812,7 @@ const SMASendLns = props => {
                       }       
                     catch(e) {     
                       console.log(e)
-                      if (e){Alert.alert("Error!")
+                      if (e){Alert.alert("Retry or update app or call customer care")
       return;}                 
                     }
                     setIsLoading(false);
@@ -809,7 +826,7 @@ const SMASendLns = props => {
         
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Error!")
+          if (e){Alert.alert("Retry or update app or call customer care")
       return;}
         } 
         setIsLoading(false);       
@@ -818,7 +835,7 @@ const SMASendLns = props => {
     
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
   return;}
     } 
     setIsLoading(false);       
@@ -827,7 +844,7 @@ const SMASendLns = props => {
 
 } catch (e) {
   console.log(e)
-  if (e){Alert.alert("Error!")
+  if (e){Alert.alert("Retry or update app or call customer care")
 return;}
 } 
 setIsLoading(false);       
@@ -838,7 +855,7 @@ await fetchLnReq();
 }     
 catch (e) {
   console.log(e)
-  if (e){Alert.alert("Error!")
+  if (e){Alert.alert("Retry or update app or call customer care")
   return;}
      
 }   
@@ -852,7 +869,7 @@ await fetchCLChm();
 }     
 catch (e) {
   console.log(e)
-  if (e){Alert.alert("Error!")
+  if (e){Alert.alert("Retry or update app or call customer care")
   return;}
      
 }   
@@ -865,7 +882,7 @@ await fetchCLCrdSl();
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
   };
       setIsLoading(false);
@@ -980,7 +997,7 @@ useEffect(() =>{
         <ScrollView >
          
          <View style={styles.amountTitleView}>
-           <Text style={styles.title}>Fill Loan Details Below</Text>
+           <Text style={styles.title}>Enter Password Below</Text>
          </View>
 
          

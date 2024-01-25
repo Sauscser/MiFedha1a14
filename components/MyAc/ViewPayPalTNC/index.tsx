@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 export interface SMCvLnSttus {
   SMAc: {
       cur:string,
-      sellingPrice: number,
+      buyingPrice: number,
       
       
       symbol:string
@@ -24,7 +24,7 @@ const FetchSMNonCovLns = props => {
   const {
     SMAc: {
     cur,
-    sellingPrice,
+    buyingPrice,
     
     symbol,
     
@@ -62,7 +62,7 @@ const FetchSMNonCovLns = props => {
  {/*loaner details */}   
 
  
-We are buying one US dollar at {symbol} {sellingPrice}.
+We are buying one US dollar at {symbol} {buyingPrice}.
 </Text>
 </View>  
 

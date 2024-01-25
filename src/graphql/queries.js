@@ -9,7 +9,15 @@ export const getSMAccount = /* GraphQL */ `
       phonecontact
       awsemail
       balance
+      p2pchmBenefits
       pw
+      nationality
+      MFKubwaCost
+      MFKubwaNetCost
+      MFNdogoDue
+      MFNdogoNet
+      beneficiary
+      beneficiaryAmt
       loanAcceptanceCode
       ttlDpstSM
       TtlWthdrwnSM
@@ -73,6 +81,36 @@ export const getSMAccount = /* GraphQL */ `
       TtlClrdLonsTmsByrNonCov
       TtlClrdLonsAmtSllrNonCov
       TtlClrdLonsAmtByrNonCov
+      TtlActvLonsTmsLnrCredSlsP2P
+      TtlActvLonsAmtLnrCredSlsP2P
+      TtlBLLonsTmsLnrCredSlsP2P
+      TtlBLLonsAmtLnrCredSlsP2P
+      TtlClrdLonsTmsLnrCredSlsP2P
+      TtlClrdLonsAmtLnrCredSlsP2P
+      TtlActvLonsTmsLnrCredSlsP2B
+      TtlActvLonsAmtLnrCredSlsP2B
+      TtlBLLonsTmsLnrCredSlsP2B
+      TtlBLLonsAmtLnrCredSlsP2B
+      TtlClrdLonsTmsLnrCredSlsP2B
+      TtlClrdLonsAmtLnrCredSlsP2B
+      TtlActvLonsTmsLneeB2P
+      TtlActvLonsAmtLneeB2P
+      TtlBLLonsTmsLneeB2P
+      TtlBLLonsAmtLneeB2P
+      TtlClrdLonsLneeB2P
+      TtlClrdLonsAmtLneeB2P
+      TtlActvLonsTmsLneeP2P
+      TtlActvLonsAmtLneeP2P
+      TtlBLLonsTmsLneeP2P
+      TtlBLLonsAmtLneeP2P
+      TtlClrdLonsLneeP2P
+      TtlClrdLonsAmtLneeP2P
+      TtlActvLonsTmsLnrP2P
+      TtlActvLonsAmtLnrP2P
+      TtlBLLonsTmsLnrP2P
+      TtlBLLonsAmtLnrP2P
+      TtlClrdLonsLnrP2P
+      TtlClrdLonsAmtLnrP2P
       ttlNonLonsRecSM
       ttlNonLonsSentSM
       ttlNonLonsRecChm
@@ -118,7 +156,15 @@ export const listSMAccounts = /* GraphQL */ `
         phonecontact
         awsemail
         balance
+        p2pchmBenefits
         pw
+        nationality
+        MFKubwaCost
+        MFKubwaNetCost
+        MFNdogoDue
+        MFNdogoNet
+        beneficiary
+        beneficiaryAmt
         loanAcceptanceCode
         ttlDpstSM
         TtlWthdrwnSM
@@ -182,6 +228,36 @@ export const listSMAccounts = /* GraphQL */ `
         TtlClrdLonsTmsByrNonCov
         TtlClrdLonsAmtSllrNonCov
         TtlClrdLonsAmtByrNonCov
+        TtlActvLonsTmsLnrCredSlsP2P
+        TtlActvLonsAmtLnrCredSlsP2P
+        TtlBLLonsTmsLnrCredSlsP2P
+        TtlBLLonsAmtLnrCredSlsP2P
+        TtlClrdLonsTmsLnrCredSlsP2P
+        TtlClrdLonsAmtLnrCredSlsP2P
+        TtlActvLonsTmsLnrCredSlsP2B
+        TtlActvLonsAmtLnrCredSlsP2B
+        TtlBLLonsTmsLnrCredSlsP2B
+        TtlBLLonsAmtLnrCredSlsP2B
+        TtlClrdLonsTmsLnrCredSlsP2B
+        TtlClrdLonsAmtLnrCredSlsP2B
+        TtlActvLonsTmsLneeB2P
+        TtlActvLonsAmtLneeB2P
+        TtlBLLonsTmsLneeB2P
+        TtlBLLonsAmtLneeB2P
+        TtlClrdLonsLneeB2P
+        TtlClrdLonsAmtLneeB2P
+        TtlActvLonsTmsLneeP2P
+        TtlActvLonsAmtLneeP2P
+        TtlBLLonsTmsLneeP2P
+        TtlBLLonsAmtLneeP2P
+        TtlClrdLonsLneeP2P
+        TtlClrdLonsAmtLneeP2P
+        TtlActvLonsTmsLnrP2P
+        TtlActvLonsAmtLnrP2P
+        TtlBLLonsTmsLnrP2P
+        TtlBLLonsAmtLnrP2P
+        TtlClrdLonsLnrP2P
+        TtlClrdLonsAmtLnrP2P
         ttlNonLonsRecSM
         ttlNonLonsSentSM
         ttlNonLonsRecChm
@@ -209,9 +285,9 @@ export const listSMAccounts = /* GraphQL */ `
   }
 `;
 export const getSMLoansCovered = /* GraphQL */ `
-  query GetSMLoansCovered($id: ID!) {
-    getSMLoansCovered(id: $id) {
-      id
+  query GetSMLoansCovered($loanID: String!) {
+    getSMLoansCovered(loanID: $loanID) {
+      loanID
       loaneeid
       loaneePhn
       loanerLoanee
@@ -222,32 +298,51 @@ export const getSMLoansCovered = /* GraphQL */ `
       amountgiven
       amountexpected
       amountExpectedBackWthClrnc
+      dfltUpdate
+      dfltDeadLn
       amountrepaid
       lonBala
+      interest
+      lnType
       loaneename
       loanername
+      loanerEmail
       repaymentPeriod
       DefaultPenaltySM
       DefaultPenaltySM2
       timeExpBack
+      crtnDate
+      loaneeEmail
       timeExpBack2
       description
       status
       owner
       createdAt
+      blOfficer
+      advEmail
+      installmentAmount
+      paymentFrequency
       updatedAt
     }
   }
 `;
 export const listSMLoansCovereds = /* GraphQL */ `
   query ListSMLoansCovereds(
+    $loanID: String
     $filter: ModelSMLoansCoveredFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listSMLoansCovereds(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listSMLoansCovereds(
+      loanID: $loanID
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
-        id
+        loanID
         loaneeid
         loaneePhn
         loanerLoanee
@@ -258,88 +353,222 @@ export const listSMLoansCovereds = /* GraphQL */ `
         amountgiven
         amountexpected
         amountExpectedBackWthClrnc
+        dfltUpdate
+        dfltDeadLn
         amountrepaid
         lonBala
+        interest
+        lnType
         loaneename
         loanername
+        loanerEmail
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
         timeExpBack
+        crtnDate
+        loaneeEmail
         timeExpBack2
         description
         status
         owner
         createdAt
+        blOfficer
+        advEmail
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
     }
   }
 `;
-export const getSMLoansNonCovered = /* GraphQL */ `
-  query GetSMLoansNonCovered($id: ID!) {
-    getSMLoansNonCovered(id: $id) {
-      id
-      loaneePhn
-      loanerPhn
+export const getCovCreditSeller = /* GraphQL */ `
+  query GetCovCreditSeller($loanID: String!) {
+    getCovCreditSeller(loanID: $loanID) {
+      loanID
+      itemName
+      interest
       loanerLoanee
-      loaneeid
-      loanerId
-      amountgiven
-      amountexpected
+      loanerLoaneeAdv
+      buyerContact
+      sellerContact
+      buyerID
+      advEmail
+      buyerName
+      SellerName
+      sellerID
+      amountSold
+      dfltUpdate
+      lnType
+      dfltDeadLn
+      amountexpectedBack
       amountExpectedBackWthClrnc
-      amountrepaid
-      lonBala
-      loaneename
-      loanername
+      amountRepaid
       repaymentPeriod
-      DefaultPenaltySM
-      DefaultPenaltySM2
+      giverStatus
       timeExpBack
       timeExpBack2
+      lonBala
+      crtnDate
       description
       status
+      advregnu
+      DefaultPenaltyCredSl
+      DefaultPenaltyCredSl2
       owner
       createdAt
+      blOfficer
+      installmentAmount
+      paymentFrequency
       updatedAt
     }
   }
 `;
-export const listSMLoansNonCovereds = /* GraphQL */ `
-  query ListSMLoansNonCovereds(
-    $filter: ModelSMLoansNonCoveredFilterInput
+export const listCovCreditSellers = /* GraphQL */ `
+  query ListCovCreditSellers(
+    $loanID: String
+    $filter: ModelCovCreditSellerFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listSMLoansNonCovereds(
+    listCovCreditSellers(
+      loanID: $loanID
       filter: $filter
       limit: $limit
       nextToken: $nextToken
+      sortDirection: $sortDirection
     ) {
       items {
-        id
-        loaneePhn
-        loanerPhn
+        loanID
+        itemName
+        interest
         loanerLoanee
-        loaneeid
-        loanerId
-        amountgiven
-        amountexpected
+        loanerLoaneeAdv
+        buyerContact
+        sellerContact
+        buyerID
+        advEmail
+        buyerName
+        SellerName
+        sellerID
+        amountSold
+        dfltUpdate
+        lnType
+        dfltDeadLn
+        amountexpectedBack
         amountExpectedBackWthClrnc
-        amountrepaid
-        lonBala
-        loaneename
-        loanername
+        amountRepaid
         repaymentPeriod
-        DefaultPenaltySM
-        DefaultPenaltySM2
+        giverStatus
         timeExpBack
         timeExpBack2
+        lonBala
+        crtnDate
         description
         status
+        advregnu
+        DefaultPenaltyCredSl
+        DefaultPenaltyCredSl2
         owner
         createdAt
+        blOfficer
+        installmentAmount
+        paymentFrequency
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getCvrdGroupLoans = /* GraphQL */ `
+  query GetCvrdGroupLoans($loanID: String!) {
+    getCvrdGroupLoans(loanID: $loanID) {
+      loanID
+      grpContact
+      loaneePhn
+      repaymentPeriod
+      loanerLoanee
+      loanerLoaneeAdv
+      amountGiven
+      interest
+      advEmail
+      amountExpectedBack
+      amountExpectedBackWthClrnc
+      amountRepaid
+      description
+      dfltUpdate
+      dfltDeadLn
+      lonBala
+      lnType
+      memberId
+      advRegNu
+      loaneeName
+      LoanerName
+      timeExpBack
+      timeExpBack2
+      crtnDate
+      status
+      owner
+      DefaultPenaltyChm
+      DefaultPenaltyChm2
+      createdAt
+      blOfficer
+      installmentAmount
+      paymentFrequency
+      updatedAt
+    }
+  }
+`;
+export const listCvrdGroupLoans = /* GraphQL */ `
+  query ListCvrdGroupLoans(
+    $loanID: String
+    $filter: ModelCvrdGroupLoansFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listCvrdGroupLoans(
+      loanID: $loanID
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        loanID
+        grpContact
+        loaneePhn
+        repaymentPeriod
+        loanerLoanee
+        loanerLoaneeAdv
+        amountGiven
+        interest
+        advEmail
+        amountExpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        description
+        dfltUpdate
+        dfltDeadLn
+        lonBala
+        lnType
+        memberId
+        advRegNu
+        loaneeName
+        LoanerName
+        timeExpBack
+        timeExpBack2
+        crtnDate
+        status
+        owner
+        DefaultPenaltyChm
+        DefaultPenaltyChm2
+        createdAt
+        blOfficer
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
@@ -387,16 +616,16 @@ export const listNonLoans = /* GraphQL */ `
     }
   }
 `;
-export const getLoanPayment = /* GraphQL */ `
-  query GetLoanPayment($id: ID!) {
-    getLoanPayment(id: $id) {
+export const getBizSlsReq = /* GraphQL */ `
+  query GetBizSlsReq($id: ID!) {
+    getBizSlsReq(id: $id) {
       id
       senderPhn
       recPhn
       RecName
       SenderName
-      lnId
       amount
+      attendingAdmin
       description
       status
       owner
@@ -405,21 +634,121 @@ export const getLoanPayment = /* GraphQL */ `
     }
   }
 `;
-export const listLoanPayments = /* GraphQL */ `
-  query ListLoanPayments(
-    $filter: ModelLoanPaymentFilterInput
+export const listBizSlsReqs = /* GraphQL */ `
+  query ListBizSlsReqs(
+    $filter: ModelBizSlsReqFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listLoanPayments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listBizSlsReqs(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         senderPhn
         recPhn
         RecName
         SenderName
-        lnId
         amount
+        attendingAdmin
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getBizSls = /* GraphQL */ `
+  query GetBizSls($saleId: String!) {
+    getBizSls(saleId: $saleId) {
+      saleId
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      amount
+      attendingAdmin
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listBizSls = /* GraphQL */ `
+  query ListBizSls(
+    $saleId: String
+    $filter: ModelBizSlsFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listBizSls(
+      saleId: $saleId
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        saleId
+        id
+        senderPhn
+        recPhn
+        RecName
+        SenderName
+        amount
+        attendingAdmin
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getLoanRepayments = /* GraphQL */ `
+  query GetLoanRepayments($id: ID!) {
+    getLoanRepayments(id: $id) {
+      id
+      senderPhn
+      recPhn
+      RecName
+      SenderName
+      amount
+      loanId1
+      loanId2
+      loanId3
+      description
+      status
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listLoanRepayments = /* GraphQL */ `
+  query ListLoanRepayments(
+    $filter: ModelLoanRepaymentsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listLoanRepayments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        senderPhn
+        recPhn
+        RecName
+        SenderName
+        amount
+        loanId1
+        loanId2
+        loanId3
         description
         status
         owner
@@ -478,7 +807,10 @@ export const getRafikiLnAd = /* GraphQL */ `
       rafikiName
       rafikicntct
       rafikiEmail
+      AdvEmail
+      advLicNo
       rafikiamnt
+      defaultPenalty
       rafikidesc
       rafikiprcntg
       rafikirpymntperiod
@@ -500,7 +832,10 @@ export const listRafikiLnAds = /* GraphQL */ `
         rafikiName
         rafikicntct
         rafikiEmail
+        AdvEmail
+        advLicNo
         rafikiamnt
+        defaultPenalty
         rafikidesc
         rafikiprcntg
         rafikirpymntperiod
@@ -757,9 +1092,14 @@ export const getSAgent = /* GraphQL */ `
       saPhoneContact
       saNationalid
       name
+      acChamp
       pw
       TtlEarnings
       actvMFNdog
+      cost
+      costBal
+      mfnTtl
+      offerStatus
       InctvMFNdog
       email
       saBalance
@@ -792,9 +1132,14 @@ export const listSAgents = /* GraphQL */ `
         saPhoneContact
         saNationalid
         name
+        acChamp
         pw
         TtlEarnings
         actvMFNdog
+        cost
+        costBal
+        mfnTtl
+        offerStatus
         InctvMFNdog
         email
         saBalance
@@ -912,12 +1257,95 @@ export const getBizna = /* GraphQL */ `
       pw
       TtlEarnings
       earningsBal
+      bizBeneficiary
       netEarnings
+      owner2email
       email
+      licenseNo
+      bizType
       status
       owner
       description
       createdAt
+      noBL
+      TtlActvLonsTmsLnrCredSlsB2B
+      TtlActvLonsAmtLnrCredSlsB2B
+      TtlBLLonsTmsLnrCredSlsB2B
+      TtlBLLonsAmtLnrCredSlsB2B
+      TtlClrdLonsTmsLnrCredSlsB2B
+      TtlClrdLonsAmtLnrCredSlsB2B
+      TtlActvLonsTmsLneeCredSlsB2B
+      TtlActvLonsAmtLneeCredSlsB2B
+      TtlBLLonsTmsLneeCredSlsB2B
+      TtlBLLonsAmtLneeCredSlsB2B
+      TtlClrdLonsTmsLneeCredSlsB2B
+      TtlClrdLonsAmtLneeCredSlsB2B
+      TtlActvLonsTmsLnrCredSlsB2P
+      TtlActvLonsAmtLnrCredSlsB2P
+      TtlBLLonsTmsLnrCredSlsB2P
+      TtlBLLonsAmtLnrCredSlsB2P
+      TtlClrdLonsTmsLnrCredSlsB2P
+      TtlClrdLonsAmtLnrCredSlsB2P
+      TtlActvLonsTmsLneeCredSlsP2B
+      TtlActvLonsAmtLneeCredSlsP2B
+      TtlBLLonsTmsLneeCredSlsP2B
+      TtlBLLonsAmtLneeCredSlsP2B
+      TtlClrdLonsTmsLneeCredSlsP2B
+      TtlClrdLonsAmtLneeCredSlsP2B
+      objectionStatus
+      objOfficer
+      objReason
+      AdminNo
+      Admin1
+      Admin2
+      Admin3
+      Admin4
+      Admin5
+      Admin6
+      Admin7
+      Admin8
+      Admin9
+      Admin10
+      Admin11
+      Admin12
+      Admin13
+      Admin14
+      Admin15
+      Admin16
+      Admin17
+      Admin18
+      Admin19
+      Admin20
+      Admin21
+      Admin22
+      Admin23
+      Admin24
+      Admin25
+      Admin26
+      Admin27
+      Admin28
+      Admin29
+      Admin30
+      Admin31
+      Admin32
+      Admin33
+      Admin34
+      Admin35
+      Admin36
+      Admin37
+      Admin38
+      Admin39
+      Admin40
+      Admin41
+      Admin42
+      Admin43
+      Admin44
+      Admin45
+      Admin46
+      Admin47
+      Admin48
+      Admin49
+      Admin50
       updatedAt
     }
   }
@@ -943,12 +1371,95 @@ export const listBiznas = /* GraphQL */ `
         pw
         TtlEarnings
         earningsBal
+        bizBeneficiary
         netEarnings
+        owner2email
         email
+        licenseNo
+        bizType
         status
         owner
         description
         createdAt
+        noBL
+        TtlActvLonsTmsLnrCredSlsB2B
+        TtlActvLonsAmtLnrCredSlsB2B
+        TtlBLLonsTmsLnrCredSlsB2B
+        TtlBLLonsAmtLnrCredSlsB2B
+        TtlClrdLonsTmsLnrCredSlsB2B
+        TtlClrdLonsAmtLnrCredSlsB2B
+        TtlActvLonsTmsLneeCredSlsB2B
+        TtlActvLonsAmtLneeCredSlsB2B
+        TtlBLLonsTmsLneeCredSlsB2B
+        TtlBLLonsAmtLneeCredSlsB2B
+        TtlClrdLonsTmsLneeCredSlsB2B
+        TtlClrdLonsAmtLneeCredSlsB2B
+        TtlActvLonsTmsLnrCredSlsB2P
+        TtlActvLonsAmtLnrCredSlsB2P
+        TtlBLLonsTmsLnrCredSlsB2P
+        TtlBLLonsAmtLnrCredSlsB2P
+        TtlClrdLonsTmsLnrCredSlsB2P
+        TtlClrdLonsAmtLnrCredSlsB2P
+        TtlActvLonsTmsLneeCredSlsP2B
+        TtlActvLonsAmtLneeCredSlsP2B
+        TtlBLLonsTmsLneeCredSlsP2B
+        TtlBLLonsAmtLneeCredSlsP2B
+        TtlClrdLonsTmsLneeCredSlsP2B
+        TtlClrdLonsAmtLneeCredSlsP2B
+        objectionStatus
+        objOfficer
+        objReason
+        AdminNo
+        Admin1
+        Admin2
+        Admin3
+        Admin4
+        Admin5
+        Admin6
+        Admin7
+        Admin8
+        Admin9
+        Admin10
+        Admin11
+        Admin12
+        Admin13
+        Admin14
+        Admin15
+        Admin16
+        Admin17
+        Admin18
+        Admin19
+        Admin20
+        Admin21
+        Admin22
+        Admin23
+        Admin24
+        Admin25
+        Admin26
+        Admin27
+        Admin28
+        Admin29
+        Admin30
+        Admin31
+        Admin32
+        Admin33
+        Admin34
+        Admin35
+        Admin36
+        Admin37
+        Admin38
+        Admin39
+        Admin40
+        Admin41
+        Admin42
+        Admin43
+        Admin44
+        Admin45
+        Admin46
+        Admin47
+        Admin48
+        Admin49
+        Admin50
         updatedAt
       }
       nextToken
@@ -995,43 +1506,6 @@ export const listBankAdmins = /* GraphQL */ `
         pw
         BankAdmBal
         email
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getBankAdmWithdrawals = /* GraphQL */ `
-  query GetBankAdmWithdrawals($id: ID!) {
-    getBankAdmWithdrawals(id: $id) {
-      id
-      bankAdmNatId
-      amount
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listBankAdmWithdrawals = /* GraphQL */ `
-  query ListBankAdmWithdrawals(
-    $filter: ModelBankAdmWithdrawalsFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listBankAdmWithdrawals(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        bankAdmNatId
-        amount
         status
         owner
         createdAt
@@ -1160,6 +1634,7 @@ export const getCompany = /* GraphQL */ `
       sagentCom
       companyCom
       AdvCom
+      ChampCom
       AdvCompanyCom
       bankAdminCom
       sawithdrawalFee
@@ -1173,6 +1648,11 @@ export const getCompany = /* GraphQL */ `
       palpalLnRpymntFee
       chmLnRpymntFee
       crdSllrLnRpymntFee
+      biznaCredSaleFee
+      biznaCashSaleFee
+      dfltWaiverFee
+      tenderingFee
+      EmploymentFee
       userClearanceFee
       CoverageFee
       vat
@@ -1280,6 +1760,14 @@ export const getCompany = /* GraphQL */ `
       owner
       totalLnsRecovered
       createdAt
+      MFNdogoTC
+      MFKubwaTC
+      AdvocateTC
+      BiznaTNC
+      ChamaTNC
+      PayPalTNC
+      maxDfltPen
+      bizBLNo
       updatedAt
     }
   }
@@ -1316,6 +1804,7 @@ export const listCompanies = /* GraphQL */ `
         sagentCom
         companyCom
         AdvCom
+        ChampCom
         AdvCompanyCom
         bankAdminCom
         sawithdrawalFee
@@ -1329,6 +1818,11 @@ export const listCompanies = /* GraphQL */ `
         palpalLnRpymntFee
         chmLnRpymntFee
         crdSllrLnRpymntFee
+        biznaCredSaleFee
+        biznaCashSaleFee
+        dfltWaiverFee
+        tenderingFee
+        EmploymentFee
         userClearanceFee
         CoverageFee
         vat
@@ -1436,152 +1930,14 @@ export const listCompanies = /* GraphQL */ `
         owner
         totalLnsRecovered
         createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getCovCreditSeller = /* GraphQL */ `
-  query GetCovCreditSeller($id: ID!) {
-    getCovCreditSeller(id: $id) {
-      id
-      itemName
-      loanerLoanee
-      loanerLoaneeAdv
-      buyerContact
-      sellerContact
-      buyerID
-      buyerName
-      SellerName
-      sellerID
-      amountSold
-      amountexpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      repaymentPeriod
-      timeExpBack
-      timeExpBack2
-      lonBala
-      description
-      status
-      advregnu
-      DefaultPenaltyCredSl
-      DefaultPenaltyCredSl2
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listCovCreditSellers = /* GraphQL */ `
-  query ListCovCreditSellers(
-    $filter: ModelCovCreditSellerFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCovCreditSellers(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        itemName
-        loanerLoanee
-        loanerLoaneeAdv
-        buyerContact
-        sellerContact
-        buyerID
-        buyerName
-        SellerName
-        sellerID
-        amountSold
-        amountexpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        repaymentPeriod
-        timeExpBack
-        timeExpBack2
-        lonBala
-        description
-        status
-        advregnu
-        DefaultPenaltyCredSl
-        DefaultPenaltyCredSl2
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getNonCovCreditSeller = /* GraphQL */ `
-  query GetNonCovCreditSeller($id: ID!) {
-    getNonCovCreditSeller(id: $id) {
-      id
-      itemName
-      loanerLoanee
-      buyerContact
-      sellerContact
-      buyerID
-      buyerName
-      SellerName
-      sellerID
-      amountSold
-      amountexpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      lonBala
-      repaymentPeriod
-      timeExpBack
-      timeExpBack2
-      description
-      DefaultPenaltyCredSl
-      DefaultPenaltyCredSl2
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listNonCovCreditSellers = /* GraphQL */ `
-  query ListNonCovCreditSellers(
-    $filter: ModelNonCovCreditSellerFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listNonCovCreditSellers(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        itemName
-        loanerLoanee
-        buyerContact
-        sellerContact
-        buyerID
-        buyerName
-        SellerName
-        sellerID
-        amountSold
-        amountexpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        lonBala
-        repaymentPeriod
-        timeExpBack
-        timeExpBack2
-        description
-        DefaultPenaltyCredSl
-        DefaultPenaltyCredSl2
-        status
-        owner
-        createdAt
+        MFNdogoTC
+        MFKubwaTC
+        AdvocateTC
+        BiznaTNC
+        ChamaTNC
+        PayPalTNC
+        maxDfltPen
+        bizBLNo
         updatedAt
       }
       nextToken
@@ -1602,10 +1958,40 @@ export const getGroup = /* GraphQL */ `
       venture
       signitory2Sub
       WithdrawCnfrmtn
+      WithdrawCnfrmtnAmt
       grpEmail
       grpBal
       ttlGrpMembers
       description
+      withdrwlAmt
+      ChmBenefits
+      subscriptionFrequency
+      subscriptionAmt
+      lateSubscriptionPenalty
+      objectionStatus
+      objOfficer
+      objReason
+      AdminNo
+      Admin1
+      Admin2
+      Admin3
+      Admin4
+      Admin5
+      Admin6
+      Admin7
+      Admin8
+      Admin9
+      Admin10
+      Admin11
+      Admin12
+      Admin13
+      Admin14
+      Admin15
+      Admin16
+      Admin17
+      Admin18
+      Admin19
+      Admin20
       ttlNonLonsRecChm
       ttlNonLonsSentChm
       ttlDpst
@@ -1657,10 +2043,40 @@ export const listGroups = /* GraphQL */ `
         venture
         signitory2Sub
         WithdrawCnfrmtn
+        WithdrawCnfrmtnAmt
         grpEmail
         grpBal
         ttlGrpMembers
         description
+        withdrwlAmt
+        ChmBenefits
+        subscriptionFrequency
+        subscriptionAmt
+        lateSubscriptionPenalty
+        objectionStatus
+        objOfficer
+        objReason
+        AdminNo
+        Admin1
+        Admin2
+        Admin3
+        Admin4
+        Admin5
+        Admin6
+        Admin7
+        Admin8
+        Admin9
+        Admin10
+        Admin11
+        Admin12
+        Admin13
+        Admin14
+        Admin15
+        Admin16
+        Admin17
+        Admin18
+        Admin19
+        Admin20
         ttlNonLonsRecChm
         ttlNonLonsSentChm
         ttlDpst
@@ -1698,6 +2114,10 @@ export const getChamaMembers = /* GraphQL */ `
       memberContact
       memberName
       memberNatId
+      memberChmBenefit
+      timeCrtd
+      subscribedAmt
+      totalSubAmt
       GrossLnsGvn
       LonAmtGven
       AmtRepaid
@@ -1737,6 +2157,10 @@ export const listChamaMembers = /* GraphQL */ `
         memberContact
         memberName
         memberNatId
+        memberChmBenefit
+        timeCrtd
+        subscribedAmt
+        totalSubAmt
         GrossLnsGvn
         LonAmtGven
         AmtRepaid
@@ -1779,177 +2203,6 @@ export const listChamasNPwnBrkrs = /* GraphQL */ `
         contact
         regNo
         AcStatus
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getChamasRegConfirm = /* GraphQL */ `
-  query GetChamasRegConfirm($id: ID!) {
-    getChamasRegConfirm(id: $id) {
-      id
-      contact
-      regNo
-      AcStatus
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listChamasRegConfirms = /* GraphQL */ `
-  query ListChamasRegConfirms(
-    $filter: ModelChamasRegConfirmFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listChamasRegConfirms(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        contact
-        regNo
-        AcStatus
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getCvrdGroupLoans = /* GraphQL */ `
-  query GetCvrdGroupLoans($id: ID!) {
-    getCvrdGroupLoans(id: $id) {
-      id
-      grpContact
-      loaneePhn
-      repaymentPeriod
-      loanerLoanee
-      loanerLoaneeAdv
-      amountGiven
-      amountExpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      description
-      lonBala
-      memberId
-      advRegNu
-      loaneeName
-      LoanerName
-      timeExpBack
-      timeExpBack2
-      status
-      owner
-      DefaultPenaltyChm
-      DefaultPenaltyChm2
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listCvrdGroupLoans = /* GraphQL */ `
-  query ListCvrdGroupLoans(
-    $filter: ModelCvrdGroupLoansFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCvrdGroupLoans(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        grpContact
-        loaneePhn
-        repaymentPeriod
-        loanerLoanee
-        loanerLoaneeAdv
-        amountGiven
-        amountExpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        description
-        lonBala
-        memberId
-        advRegNu
-        loaneeName
-        LoanerName
-        timeExpBack
-        timeExpBack2
-        status
-        owner
-        DefaultPenaltyChm
-        DefaultPenaltyChm2
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getNonCvrdGroupLoans = /* GraphQL */ `
-  query GetNonCvrdGroupLoans($id: ID!) {
-    getNonCvrdGroupLoans(id: $id) {
-      id
-      grpContact
-      loaneePhn
-      loanerLoanee
-      DefaultPenaltyChm
-      DefaultPenaltyChm2
-      repaymentPeriod
-      amountGiven
-      amountExpectedBack
-      amountExpectedBackWthClrnc
-      amountRepaid
-      timeExpBack
-      timeExpBack2
-      description
-      loaneeName
-      loanerName
-      memberId
-      lonBala
-      status
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listNonCvrdGroupLoans = /* GraphQL */ `
-  query ListNonCvrdGroupLoans(
-    $filter: ModelNonCvrdGroupLoansFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listNonCvrdGroupLoans(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        grpContact
-        loaneePhn
-        loanerLoanee
-        DefaultPenaltyChm
-        DefaultPenaltyChm2
-        repaymentPeriod
-        amountGiven
-        amountExpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        timeExpBack
-        timeExpBack2
-        description
-        loaneeName
-        loanerName
-        memberId
-        lonBala
-        status
         owner
         createdAt
         updatedAt
@@ -2054,12 +2307,23 @@ export const getReqLoan = /* GraphQL */ `
       loanerEmail
       loaneePhone
       loaneeName
+      AdvEmail
+      advLicNo
+      loanerName
+      loanerPhone
+      dfltDeadLn
       amount
       repaymentAmt
       repaymentPeriod
+      lnType
       status
       owner
       createdAt
+      statusNumber
+      description
+      defaultPenalty
+      installmentAmount
+      paymentFrequency
       updatedAt
     }
   }
@@ -2077,12 +2341,23 @@ export const listReqLoans = /* GraphQL */ `
         loanerEmail
         loaneePhone
         loaneeName
+        AdvEmail
+        advLicNo
+        loanerName
+        loanerPhone
+        dfltDeadLn
         amount
         repaymentAmt
         repaymentPeriod
+        lnType
         status
         owner
         createdAt
+        statusNumber
+        description
+        defaultPenalty
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
@@ -2097,13 +2372,24 @@ export const getReqLoanChama = /* GraphQL */ `
       chamaPhone
       loaneePhone
       loaneeName
+      advLicNo
+      dfltDeadLn
       amount
       repaymentAmt
       repaymentPeriod
       status
       owner
+      lnType
       loaneeMemberId
       createdAt
+      statusNumber
+      AdvEmail
+      loanerName
+      loanerPhone
+      description
+      defaultPenalty
+      installmentAmount
+      paymentFrequency
       updatedAt
     }
   }
@@ -2121,13 +2407,24 @@ export const listReqLoanChamas = /* GraphQL */ `
         chamaPhone
         loaneePhone
         loaneeName
+        advLicNo
+        dfltDeadLn
         amount
         repaymentAmt
         repaymentPeriod
         status
         owner
+        lnType
         loaneeMemberId
         createdAt
+        statusNumber
+        AdvEmail
+        loanerName
+        loanerPhone
+        description
+        defaultPenalty
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
@@ -2144,11 +2441,22 @@ export const getReqLoanCredSl = /* GraphQL */ `
       loaneeName
       itemName
       amount
+      dfltDeadLn
       repaymentAmt
       repaymentPeriod
       status
       owner
       createdAt
+      statusNumber
+      lnType
+      AdvEmail
+      advLicNo
+      loanerName
+      loanerPhone
+      description
+      defaultPenalty
+      installmentAmount
+      paymentFrequency
       updatedAt
     }
   }
@@ -2168,12 +2476,154 @@ export const listReqLoanCredSls = /* GraphQL */ `
         loaneeName
         itemName
         amount
+        dfltDeadLn
         repaymentAmt
         repaymentPeriod
         status
         owner
         createdAt
+        statusNumber
+        lnType
+        AdvEmail
+        advLicNo
+        loanerName
+        loanerPhone
+        description
+        defaultPenalty
+        installmentAmount
+        paymentFrequency
         updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getExRates = /* GraphQL */ `
+  query GetExRates($cur: String!) {
+    getExRates(cur: $cur) {
+      cur
+      sellingPrice
+      buyingPrice
+      symbol
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listExRates = /* GraphQL */ `
+  query ListExRates(
+    $cur: String
+    $filter: ModelExRatesFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listExRates(
+      cur: $cur
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        cur
+        sellingPrice
+        buyingPrice
+        symbol
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getMFKOfferz = /* GraphQL */ `
+  query GetMFKOfferz($id: ID!) {
+    getMFKOfferz(id: $id) {
+      id
+      offerStatus
+      acCost
+      amtPaid
+      mfnOffered
+      acChamp
+      mfnReg
+      status
+      mfkAc
+      acMainAc
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listMFKOfferzs = /* GraphQL */ `
+  query ListMFKOfferzs(
+    $filter: ModelMFKOfferzFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMFKOfferzs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        offerStatus
+        acCost
+        amtPaid
+        mfnOffered
+        acChamp
+        mfnReg
+        status
+        mfkAc
+        acMainAc
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getMFKOfferz2 = /* GraphQL */ `
+  query GetMFKOfferz2($id: ID!) {
+    getMFKOfferz2(id: $id) {
+      id
+      offerStatus
+      acCost
+      amtPaid
+      mfnOffered
+      acChamp
+      mfnReg
+      status
+      mfkAc
+      acMainAc
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listMFKOfferz2s = /* GraphQL */ `
+  query ListMFKOfferz2s(
+    $filter: ModelMFKOfferz2FilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMFKOfferz2s(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        offerStatus
+        acCost
+        amtPaid
+        mfnOffered
+        acChamp
+        mfnReg
+        status
+        mfkAc
+        acMainAc
+        createdAt
+        updatedAt
+        owner
       }
       nextToken
     }
@@ -2202,7 +2652,15 @@ export const vwNatIdentity = /* GraphQL */ `
         phonecontact
         awsemail
         balance
+        p2pchmBenefits
         pw
+        nationality
+        MFKubwaCost
+        MFKubwaNetCost
+        MFNdogoDue
+        MFNdogoNet
+        beneficiary
+        beneficiaryAmt
         loanAcceptanceCode
         ttlDpstSM
         TtlWthdrwnSM
@@ -2266,6 +2724,36 @@ export const vwNatIdentity = /* GraphQL */ `
         TtlClrdLonsTmsByrNonCov
         TtlClrdLonsAmtSllrNonCov
         TtlClrdLonsAmtByrNonCov
+        TtlActvLonsTmsLnrCredSlsP2P
+        TtlActvLonsAmtLnrCredSlsP2P
+        TtlBLLonsTmsLnrCredSlsP2P
+        TtlBLLonsAmtLnrCredSlsP2P
+        TtlClrdLonsTmsLnrCredSlsP2P
+        TtlClrdLonsAmtLnrCredSlsP2P
+        TtlActvLonsTmsLnrCredSlsP2B
+        TtlActvLonsAmtLnrCredSlsP2B
+        TtlBLLonsTmsLnrCredSlsP2B
+        TtlBLLonsAmtLnrCredSlsP2B
+        TtlClrdLonsTmsLnrCredSlsP2B
+        TtlClrdLonsAmtLnrCredSlsP2B
+        TtlActvLonsTmsLneeB2P
+        TtlActvLonsAmtLneeB2P
+        TtlBLLonsTmsLneeB2P
+        TtlBLLonsAmtLneeB2P
+        TtlClrdLonsLneeB2P
+        TtlClrdLonsAmtLneeB2P
+        TtlActvLonsTmsLneeP2P
+        TtlActvLonsAmtLneeP2P
+        TtlBLLonsTmsLneeP2P
+        TtlBLLonsAmtLneeP2P
+        TtlClrdLonsLneeP2P
+        TtlClrdLonsAmtLneeP2P
+        TtlActvLonsTmsLnrP2P
+        TtlActvLonsAmtLnrP2P
+        TtlBLLonsTmsLnrP2P
+        TtlBLLonsAmtLnrP2P
+        TtlClrdLonsLnrP2P
+        TtlClrdLonsAmtLnrP2P
         ttlNonLonsRecSM
         ttlNonLonsSentSM
         ttlNonLonsRecChm
@@ -2315,7 +2803,15 @@ export const vwPnCntct = /* GraphQL */ `
         phonecontact
         awsemail
         balance
+        p2pchmBenefits
         pw
+        nationality
+        MFKubwaCost
+        MFKubwaNetCost
+        MFNdogoDue
+        MFNdogoNet
+        beneficiary
+        beneficiaryAmt
         loanAcceptanceCode
         ttlDpstSM
         TtlWthdrwnSM
@@ -2379,6 +2875,36 @@ export const vwPnCntct = /* GraphQL */ `
         TtlClrdLonsTmsByrNonCov
         TtlClrdLonsAmtSllrNonCov
         TtlClrdLonsAmtByrNonCov
+        TtlActvLonsTmsLnrCredSlsP2P
+        TtlActvLonsAmtLnrCredSlsP2P
+        TtlBLLonsTmsLnrCredSlsP2P
+        TtlBLLonsAmtLnrCredSlsP2P
+        TtlClrdLonsTmsLnrCredSlsP2P
+        TtlClrdLonsAmtLnrCredSlsP2P
+        TtlActvLonsTmsLnrCredSlsP2B
+        TtlActvLonsAmtLnrCredSlsP2B
+        TtlBLLonsTmsLnrCredSlsP2B
+        TtlBLLonsAmtLnrCredSlsP2B
+        TtlClrdLonsTmsLnrCredSlsP2B
+        TtlClrdLonsAmtLnrCredSlsP2B
+        TtlActvLonsTmsLneeB2P
+        TtlActvLonsAmtLneeB2P
+        TtlBLLonsTmsLneeB2P
+        TtlBLLonsAmtLneeB2P
+        TtlClrdLonsLneeB2P
+        TtlClrdLonsAmtLneeB2P
+        TtlActvLonsTmsLneeP2P
+        TtlActvLonsAmtLneeP2P
+        TtlBLLonsTmsLneeP2P
+        TtlBLLonsAmtLneeP2P
+        TtlClrdLonsLneeP2P
+        TtlClrdLonsAmtLneeP2P
+        TtlActvLonsTmsLnrP2P
+        TtlActvLonsAmtLnrP2P
+        TtlBLLonsTmsLnrP2P
+        TtlBLLonsAmtLnrP2P
+        TtlClrdLonsLnrP2P
+        TtlClrdLonsAmtLnrP2P
         ttlNonLonsRecSM
         ttlNonLonsSentSM
         ttlNonLonsRecChm
@@ -2405,8 +2931,8 @@ export const vwPnCntct = /* GraphQL */ `
     }
   }
 `;
-export const vwMyDebts = /* GraphQL */ `
-  query VwMyDebts(
+export const vwMyDebts7 = /* GraphQL */ `
+  query VwMyDebts7(
     $loaneePhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
@@ -2414,7 +2940,7 @@ export const vwMyDebts = /* GraphQL */ `
     $limit: Int
     $nextToken: String
   ) {
-    VwMyDebts(
+    VwMyDebts7(
       loaneePhn: $loaneePhn
       createdAt: $createdAt
       sortDirection: $sortDirection
@@ -2423,7 +2949,7 @@ export const vwMyDebts = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        id
+        loanID
         loaneeid
         loaneePhn
         loanerLoanee
@@ -2434,27 +2960,38 @@ export const vwMyDebts = /* GraphQL */ `
         amountgiven
         amountexpected
         amountExpectedBackWthClrnc
+        dfltUpdate
+        dfltDeadLn
         amountrepaid
         lonBala
+        interest
+        lnType
         loaneename
         loanername
+        loanerEmail
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
         timeExpBack
+        crtnDate
+        loaneeEmail
         timeExpBack2
         description
         status
         owner
         createdAt
+        blOfficer
+        advEmail
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
     }
   }
 `;
-export const vwLnrNLneesssss = /* GraphQL */ `
-  query VwLnrNLneesssss(
+export const vwLnrNLneesssss7 = /* GraphQL */ `
+  query VwLnrNLneesssss7(
     $loanerLoanee: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
@@ -2462,7 +2999,7 @@ export const vwLnrNLneesssss = /* GraphQL */ `
     $limit: Int
     $nextToken: String
   ) {
-    VwLnrNLneesssss(
+    VwLnrNLneesssss7(
       loanerLoanee: $loanerLoanee
       createdAt: $createdAt
       sortDirection: $sortDirection
@@ -2471,7 +3008,7 @@ export const vwLnrNLneesssss = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        id
+        loanID
         loaneeid
         loaneePhn
         loanerLoanee
@@ -2482,75 +3019,38 @@ export const vwLnrNLneesssss = /* GraphQL */ `
         amountgiven
         amountexpected
         amountExpectedBackWthClrnc
+        dfltUpdate
+        dfltDeadLn
         amountrepaid
         lonBala
+        interest
+        lnType
         loaneename
         loanername
+        loanerEmail
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
         timeExpBack
+        crtnDate
+        loaneeEmail
         timeExpBack2
         description
         status
         owner
         createdAt
+        blOfficer
+        advEmail
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
     }
   }
 `;
-export const vwAdvNLnrNLneesssss = /* GraphQL */ `
-  query VwAdvNLnrNLneesssss(
-    $loanerLoaneeAdv: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelSMLoansCoveredFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwAdvNLnrNLneesssss(
-      loanerLoaneeAdv: $loanerLoaneeAdv
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        loaneeid
-        loaneePhn
-        loanerLoanee
-        loanerLoaneeAdv
-        loanerPhn
-        advregnu
-        loanerId
-        amountgiven
-        amountexpected
-        amountExpectedBackWthClrnc
-        amountrepaid
-        lonBala
-        loaneename
-        loanername
-        repaymentPeriod
-        DefaultPenaltySM
-        DefaultPenaltySM2
-        timeExpBack
-        timeExpBack2
-        description
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwMyDebtors = /* GraphQL */ `
-  query VwMyDebtors(
+export const vwMyDebtors7 = /* GraphQL */ `
+  query VwMyDebtors7(
     $loanerPhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
@@ -2558,7 +3058,7 @@ export const vwMyDebtors = /* GraphQL */ `
     $limit: Int
     $nextToken: String
   ) {
-    VwMyDebtors(
+    VwMyDebtors7(
       loanerPhn: $loanerPhn
       createdAt: $createdAt
       sortDirection: $sortDirection
@@ -2567,7 +3067,7 @@ export const vwMyDebtors = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        id
+        loanID
         loaneeid
         loaneePhn
         loanerLoanee
@@ -2578,36 +3078,47 @@ export const vwMyDebtors = /* GraphQL */ `
         amountgiven
         amountexpected
         amountExpectedBackWthClrnc
+        dfltUpdate
+        dfltDeadLn
         amountrepaid
         lonBala
+        interest
+        lnType
         loaneename
         loanername
+        loanerEmail
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
         timeExpBack
+        crtnDate
+        loaneeEmail
         timeExpBack2
         description
         status
         owner
         createdAt
+        blOfficer
+        advEmail
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
     }
   }
 `;
-export const advVwLnsClient = /* GraphQL */ `
-  query AdvVwLnsClient(
-    $advregnu: String!
+export const vwMyLenders7 = /* GraphQL */ `
+  query VwMyLenders7(
+    $loaneeEmail: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelSMLoansCoveredFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    AdvVwLnsClient(
-      advregnu: $advregnu
+    VwMyLenders7(
+      loaneeEmail: $loaneeEmail
       createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
@@ -2615,7 +3126,7 @@ export const advVwLnsClient = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        id
+        loanID
         loaneeid
         loaneePhn
         loanerLoanee
@@ -2626,35 +3137,279 @@ export const advVwLnsClient = /* GraphQL */ `
         amountgiven
         amountexpected
         amountExpectedBackWthClrnc
+        dfltUpdate
+        dfltDeadLn
         amountrepaid
         lonBala
+        interest
+        lnType
         loaneename
         loanername
+        loanerEmail
         repaymentPeriod
         DefaultPenaltySM
         DefaultPenaltySM2
         timeExpBack
+        crtnDate
+        loaneeEmail
         timeExpBack2
         description
         status
         owner
         createdAt
+        blOfficer
+        advEmail
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
     }
   }
 `;
-export const vwMyDebtss = /* GraphQL */ `
-  query VwMyDebtss(
-    $loaneePhn: String!
+export const vwLnrNLneesss7 = /* GraphQL */ `
+  query VwLnrNLneesss7(
+    $loanerLoanee: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelSMLoansNonCoveredFilterInput
+    $filter: ModelCovCreditSellerFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    VwMyDebtss(
+    VwLnrNLneesss7(
+      loanerLoanee: $loanerLoanee
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        loanID
+        itemName
+        interest
+        loanerLoanee
+        loanerLoaneeAdv
+        buyerContact
+        sellerContact
+        buyerID
+        advEmail
+        buyerName
+        SellerName
+        sellerID
+        amountSold
+        dfltUpdate
+        lnType
+        dfltDeadLn
+        amountexpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        repaymentPeriod
+        giverStatus
+        timeExpBack
+        timeExpBack2
+        lonBala
+        crtnDate
+        description
+        status
+        advregnu
+        DefaultPenaltyCredSl
+        DefaultPenaltyCredSl2
+        owner
+        createdAt
+        blOfficer
+        installmentAmount
+        paymentFrequency
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyCrdBys7 = /* GraphQL */ `
+  query VwMyCrdBys7(
+    $buyerContact: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCovCreditSellerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyCrdBys7(
+      buyerContact: $buyerContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        loanID
+        itemName
+        interest
+        loanerLoanee
+        loanerLoaneeAdv
+        buyerContact
+        sellerContact
+        buyerID
+        advEmail
+        buyerName
+        SellerName
+        sellerID
+        amountSold
+        dfltUpdate
+        lnType
+        dfltDeadLn
+        amountexpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        repaymentPeriod
+        giverStatus
+        timeExpBack
+        timeExpBack2
+        lonBala
+        crtnDate
+        description
+        status
+        advregnu
+        DefaultPenaltyCredSl
+        DefaultPenaltyCredSl2
+        owner
+        createdAt
+        blOfficer
+        installmentAmount
+        paymentFrequency
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMySales7 = /* GraphQL */ `
+  query VwMySales7(
+    $sellerContact: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCovCreditSellerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMySales7(
+      sellerContact: $sellerContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        loanID
+        itemName
+        interest
+        loanerLoanee
+        loanerLoaneeAdv
+        buyerContact
+        sellerContact
+        buyerID
+        advEmail
+        buyerName
+        SellerName
+        sellerID
+        amountSold
+        dfltUpdate
+        lnType
+        dfltDeadLn
+        amountexpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        repaymentPeriod
+        giverStatus
+        timeExpBack
+        timeExpBack2
+        lonBala
+        crtnDate
+        description
+        status
+        advregnu
+        DefaultPenaltyCredSl
+        DefaultPenaltyCredSl2
+        owner
+        createdAt
+        blOfficer
+        installmentAmount
+        paymentFrequency
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwChamaMemberss7 = /* GraphQL */ `
+  query VwChamaMemberss7(
+    $grpContact: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCvrdGroupLoansFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwChamaMemberss7(
+      grpContact: $grpContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        loanID
+        grpContact
+        loaneePhn
+        repaymentPeriod
+        loanerLoanee
+        loanerLoaneeAdv
+        amountGiven
+        interest
+        advEmail
+        amountExpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        description
+        dfltUpdate
+        dfltDeadLn
+        lonBala
+        lnType
+        memberId
+        advRegNu
+        loaneeName
+        LoanerName
+        timeExpBack
+        timeExpBack2
+        crtnDate
+        status
+        owner
+        DefaultPenaltyChm
+        DefaultPenaltyChm2
+        createdAt
+        blOfficer
+        installmentAmount
+        paymentFrequency
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyChamass7 = /* GraphQL */ `
+  query VwMyChamass7(
+    $loaneePhn: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCvrdGroupLoansFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyChamass7(
       loaneePhn: $loaneePhn
       createdAt: $createdAt
       sortDirection: $sortDirection
@@ -2663,90 +3418,54 @@ export const vwMyDebtss = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        id
+        loanID
+        grpContact
         loaneePhn
-        loanerPhn
-        loanerLoanee
-        loaneeid
-        loanerId
-        amountgiven
-        amountexpected
-        amountExpectedBackWthClrnc
-        amountrepaid
-        lonBala
-        loaneename
-        loanername
         repaymentPeriod
-        DefaultPenaltySM
-        DefaultPenaltySM2
+        loanerLoanee
+        loanerLoaneeAdv
+        amountGiven
+        interest
+        advEmail
+        amountExpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        description
+        dfltUpdate
+        dfltDeadLn
+        lonBala
+        lnType
+        memberId
+        advRegNu
+        loaneeName
+        LoanerName
         timeExpBack
         timeExpBack2
-        description
+        crtnDate
         status
         owner
+        DefaultPenaltyChm
+        DefaultPenaltyChm2
         createdAt
+        blOfficer
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
     }
   }
 `;
-export const vwMyDebtorss = /* GraphQL */ `
-  query VwMyDebtorss(
-    $loanerPhn: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelSMLoansNonCoveredFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwMyDebtorss(
-      loanerPhn: $loanerPhn
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        loaneePhn
-        loanerPhn
-        loanerLoanee
-        loaneeid
-        loanerId
-        amountgiven
-        amountexpected
-        amountExpectedBackWthClrnc
-        amountrepaid
-        lonBala
-        loaneename
-        loanername
-        repaymentPeriod
-        DefaultPenaltySM
-        DefaultPenaltySM2
-        timeExpBack
-        timeExpBack2
-        description
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwLnrNLneessss = /* GraphQL */ `
-  query VwLnrNLneessss(
+export const vwLnrNLnee7 = /* GraphQL */ `
+  query VwLnrNLnee7(
     $loanerLoanee: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelSMLoansNonCoveredFilterInput
+    $filter: ModelCvrdGroupLoansFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    VwLnrNLneessss(
+    VwLnrNLnee7(
       loanerLoanee: $loanerLoanee
       createdAt: $createdAt
       sortDirection: $sortDirection
@@ -2755,28 +3474,38 @@ export const vwLnrNLneessss = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        id
+        loanID
+        grpContact
         loaneePhn
-        loanerPhn
-        loanerLoanee
-        loaneeid
-        loanerId
-        amountgiven
-        amountexpected
-        amountExpectedBackWthClrnc
-        amountrepaid
-        lonBala
-        loaneename
-        loanername
         repaymentPeriod
-        DefaultPenaltySM
-        DefaultPenaltySM2
+        loanerLoanee
+        loanerLoaneeAdv
+        amountGiven
+        interest
+        advEmail
+        amountExpectedBack
+        amountExpectedBackWthClrnc
+        amountRepaid
+        description
+        dfltUpdate
+        dfltDeadLn
+        lonBala
+        lnType
+        memberId
+        advRegNu
+        loaneeName
+        LoanerName
         timeExpBack
         timeExpBack2
-        description
+        crtnDate
         status
         owner
+        DefaultPenaltyChm
+        DefaultPenaltyChm2
         createdAt
+        blOfficer
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
@@ -2851,16 +3580,16 @@ export const vwMyRecMny = /* GraphQL */ `
     }
   }
 `;
-export const vwMySntMnys = /* GraphQL */ `
-  query VwMySntMnys(
+export const vwMySntMny7 = /* GraphQL */ `
+  query VwMySntMny7(
     $senderPhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelLoanPaymentFilterInput
+    $filter: ModelBizSlsReqFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    VwMySntMnys(
+    VwMySntMny7(
       senderPhn: $senderPhn
       createdAt: $createdAt
       sortDirection: $sortDirection
@@ -2874,8 +3603,8 @@ export const vwMySntMnys = /* GraphQL */ `
         recPhn
         RecName
         SenderName
-        lnId
         amount
+        attendingAdmin
         description
         status
         owner
@@ -2886,16 +3615,16 @@ export const vwMySntMnys = /* GraphQL */ `
     }
   }
 `;
-export const vwMyRecMnys = /* GraphQL */ `
-  query VwMyRecMnys(
+export const vwMyRecMny7 = /* GraphQL */ `
+  query VwMyRecMny7(
     $recPhn: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelLoanPaymentFilterInput
+    $filter: ModelBizSlsReqFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    VwMyRecMnys(
+    VwMyRecMny7(
       recPhn: $recPhn
       createdAt: $createdAt
       sortDirection: $sortDirection
@@ -2909,8 +3638,154 @@ export const vwMyRecMnys = /* GraphQL */ `
         recPhn
         RecName
         SenderName
-        lnId
         amount
+        attendingAdmin
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMySntMny8 = /* GraphQL */ `
+  query VwMySntMny8(
+    $senderPhn: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelBizSlsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMySntMny8(
+      senderPhn: $senderPhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        saleId
+        id
+        senderPhn
+        recPhn
+        RecName
+        SenderName
+        amount
+        attendingAdmin
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyRecMny8 = /* GraphQL */ `
+  query VwMyRecMny8(
+    $recPhn: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelBizSlsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyRecMny8(
+      recPhn: $recPhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        saleId
+        id
+        senderPhn
+        recPhn
+        RecName
+        SenderName
+        amount
+        attendingAdmin
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMySntMnysxz = /* GraphQL */ `
+  query VwMySntMnysxz(
+    $senderPhn: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelLoanRepaymentsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMySntMnysxz(
+      senderPhn: $senderPhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        senderPhn
+        recPhn
+        RecName
+        SenderName
+        amount
+        loanId1
+        loanId2
+        loanId3
+        description
+        status
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const vwMyRecMnysxz = /* GraphQL */ `
+  query VwMyRecMnysxz(
+    $recPhn: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelLoanRepaymentsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    VwMyRecMnysxz(
+      recPhn: $recPhn
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        senderPhn
+        recPhn
+        RecName
+        SenderName
+        amount
+        loanId1
+        loanId2
+        loanId3
         description
         status
         owner
@@ -2977,7 +3852,10 @@ export const pataByDesc = /* GraphQL */ `
         rafikiName
         rafikicntct
         rafikiEmail
+        AdvEmail
+        advLicNo
         rafikiamnt
+        defaultPenalty
         rafikidesc
         rafikiprcntg
         rafikirpymntperiod
@@ -3336,9 +4214,14 @@ export const vwNatIdentityss = /* GraphQL */ `
         saPhoneContact
         saNationalid
         name
+        acChamp
         pw
         TtlEarnings
         actvMFNdog
+        cost
+        costBal
+        mfnTtl
+        offerStatus
         InctvMFNdog
         email
         saBalance
@@ -3480,12 +4363,95 @@ export const biznaVwws = /* GraphQL */ `
         pw
         TtlEarnings
         earningsBal
+        bizBeneficiary
         netEarnings
+        owner2email
         email
+        licenseNo
+        bizType
         status
         owner
         description
         createdAt
+        noBL
+        TtlActvLonsTmsLnrCredSlsB2B
+        TtlActvLonsAmtLnrCredSlsB2B
+        TtlBLLonsTmsLnrCredSlsB2B
+        TtlBLLonsAmtLnrCredSlsB2B
+        TtlClrdLonsTmsLnrCredSlsB2B
+        TtlClrdLonsAmtLnrCredSlsB2B
+        TtlActvLonsTmsLneeCredSlsB2B
+        TtlActvLonsAmtLneeCredSlsB2B
+        TtlBLLonsTmsLneeCredSlsB2B
+        TtlBLLonsAmtLneeCredSlsB2B
+        TtlClrdLonsTmsLneeCredSlsB2B
+        TtlClrdLonsAmtLneeCredSlsB2B
+        TtlActvLonsTmsLnrCredSlsB2P
+        TtlActvLonsAmtLnrCredSlsB2P
+        TtlBLLonsTmsLnrCredSlsB2P
+        TtlBLLonsAmtLnrCredSlsB2P
+        TtlClrdLonsTmsLnrCredSlsB2P
+        TtlClrdLonsAmtLnrCredSlsB2P
+        TtlActvLonsTmsLneeCredSlsP2B
+        TtlActvLonsAmtLneeCredSlsP2B
+        TtlBLLonsTmsLneeCredSlsP2B
+        TtlBLLonsAmtLneeCredSlsP2B
+        TtlClrdLonsTmsLneeCredSlsP2B
+        TtlClrdLonsAmtLneeCredSlsP2B
+        objectionStatus
+        objOfficer
+        objReason
+        AdminNo
+        Admin1
+        Admin2
+        Admin3
+        Admin4
+        Admin5
+        Admin6
+        Admin7
+        Admin8
+        Admin9
+        Admin10
+        Admin11
+        Admin12
+        Admin13
+        Admin14
+        Admin15
+        Admin16
+        Admin17
+        Admin18
+        Admin19
+        Admin20
+        Admin21
+        Admin22
+        Admin23
+        Admin24
+        Admin25
+        Admin26
+        Admin27
+        Admin28
+        Admin29
+        Admin30
+        Admin31
+        Admin32
+        Admin33
+        Admin34
+        Admin35
+        Admin36
+        Admin37
+        Admin38
+        Admin39
+        Admin40
+        Admin41
+        Admin42
+        Admin43
+        Admin44
+        Admin45
+        Admin46
+        Admin47
+        Admin48
+        Admin49
+        Admin50
         updatedAt
       }
       nextToken
@@ -3563,392 +4529,6 @@ export const vwAdvWthdrwls = /* GraphQL */ `
     }
   }
 `;
-export const vwLnrNLneesss = /* GraphQL */ `
-  query VwLnrNLneesss(
-    $loanerLoanee: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelCovCreditSellerFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwLnrNLneesss(
-      loanerLoanee: $loanerLoanee
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        itemName
-        loanerLoanee
-        loanerLoaneeAdv
-        buyerContact
-        sellerContact
-        buyerID
-        buyerName
-        SellerName
-        sellerID
-        amountSold
-        amountexpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        repaymentPeriod
-        timeExpBack
-        timeExpBack2
-        lonBala
-        description
-        status
-        advregnu
-        DefaultPenaltyCredSl
-        DefaultPenaltyCredSl2
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwAdvNLnrNLneesss = /* GraphQL */ `
-  query VwAdvNLnrNLneesss(
-    $loanerLoaneeAdv: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelCovCreditSellerFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwAdvNLnrNLneesss(
-      loanerLoaneeAdv: $loanerLoaneeAdv
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        itemName
-        loanerLoanee
-        loanerLoaneeAdv
-        buyerContact
-        sellerContact
-        buyerID
-        buyerName
-        SellerName
-        sellerID
-        amountSold
-        amountexpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        repaymentPeriod
-        timeExpBack
-        timeExpBack2
-        lonBala
-        description
-        status
-        advregnu
-        DefaultPenaltyCredSl
-        DefaultPenaltyCredSl2
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwMyCrdBys = /* GraphQL */ `
-  query VwMyCrdBys(
-    $buyerContact: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelCovCreditSellerFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwMyCrdBys(
-      buyerContact: $buyerContact
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        itemName
-        loanerLoanee
-        loanerLoaneeAdv
-        buyerContact
-        sellerContact
-        buyerID
-        buyerName
-        SellerName
-        sellerID
-        amountSold
-        amountexpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        repaymentPeriod
-        timeExpBack
-        timeExpBack2
-        lonBala
-        description
-        status
-        advregnu
-        DefaultPenaltyCredSl
-        DefaultPenaltyCredSl2
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwMySales = /* GraphQL */ `
-  query VwMySales(
-    $sellerContact: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelCovCreditSellerFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwMySales(
-      sellerContact: $sellerContact
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        itemName
-        loanerLoanee
-        loanerLoaneeAdv
-        buyerContact
-        sellerContact
-        buyerID
-        buyerName
-        SellerName
-        sellerID
-        amountSold
-        amountexpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        repaymentPeriod
-        timeExpBack
-        timeExpBack2
-        lonBala
-        description
-        status
-        advregnu
-        DefaultPenaltyCredSl
-        DefaultPenaltyCredSl2
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwAdvCrdSls = /* GraphQL */ `
-  query VwAdvCrdSls(
-    $advregnu: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelCovCreditSellerFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwAdvCrdSls(
-      advregnu: $advregnu
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        itemName
-        loanerLoanee
-        loanerLoaneeAdv
-        buyerContact
-        sellerContact
-        buyerID
-        buyerName
-        SellerName
-        sellerID
-        amountSold
-        amountexpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        repaymentPeriod
-        timeExpBack
-        timeExpBack2
-        lonBala
-        description
-        status
-        advregnu
-        DefaultPenaltyCredSl
-        DefaultPenaltyCredSl2
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwLnrNLneess = /* GraphQL */ `
-  query VwLnrNLneess(
-    $loanerLoanee: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelNonCovCreditSellerFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwLnrNLneess(
-      loanerLoanee: $loanerLoanee
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        itemName
-        loanerLoanee
-        buyerContact
-        sellerContact
-        buyerID
-        buyerName
-        SellerName
-        sellerID
-        amountSold
-        amountexpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        lonBala
-        repaymentPeriod
-        timeExpBack
-        timeExpBack2
-        description
-        DefaultPenaltyCredSl
-        DefaultPenaltyCredSl2
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwMyCrdByss = /* GraphQL */ `
-  query VwMyCrdByss(
-    $buyerContact: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelNonCovCreditSellerFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwMyCrdByss(
-      buyerContact: $buyerContact
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        itemName
-        loanerLoanee
-        buyerContact
-        sellerContact
-        buyerID
-        buyerName
-        SellerName
-        sellerID
-        amountSold
-        amountexpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        lonBala
-        repaymentPeriod
-        timeExpBack
-        timeExpBack2
-        description
-        DefaultPenaltyCredSl
-        DefaultPenaltyCredSl2
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwMySaless = /* GraphQL */ `
-  query VwMySaless(
-    $sellerContact: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelNonCovCreditSellerFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwMySaless(
-      sellerContact: $sellerContact
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        itemName
-        loanerLoanee
-        buyerContact
-        sellerContact
-        buyerID
-        buyerName
-        SellerName
-        sellerID
-        amountSold
-        amountexpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        lonBala
-        repaymentPeriod
-        timeExpBack
-        timeExpBack2
-        description
-        DefaultPenaltyCredSl
-        DefaultPenaltyCredSl2
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
 export const vwNatIdentitysz = /* GraphQL */ `
   query VwNatIdentitysz(
     $SignitoryNatid: String!
@@ -3978,10 +4558,40 @@ export const vwNatIdentitysz = /* GraphQL */ `
         venture
         signitory2Sub
         WithdrawCnfrmtn
+        WithdrawCnfrmtnAmt
         grpEmail
         grpBal
         ttlGrpMembers
         description
+        withdrwlAmt
+        ChmBenefits
+        subscriptionFrequency
+        subscriptionAmt
+        lateSubscriptionPenalty
+        objectionStatus
+        objOfficer
+        objReason
+        AdminNo
+        Admin1
+        Admin2
+        Admin3
+        Admin4
+        Admin5
+        Admin6
+        Admin7
+        Admin8
+        Admin9
+        Admin10
+        Admin11
+        Admin12
+        Admin13
+        Admin14
+        Admin15
+        Admin16
+        Admin17
+        Admin18
+        Admin19
+        Admin20
         ttlNonLonsRecChm
         ttlNonLonsSentChm
         ttlDpst
@@ -4037,10 +4647,40 @@ export const viaChmArea = /* GraphQL */ `
         venture
         signitory2Sub
         WithdrawCnfrmtn
+        WithdrawCnfrmtnAmt
         grpEmail
         grpBal
         ttlGrpMembers
         description
+        withdrwlAmt
+        ChmBenefits
+        subscriptionFrequency
+        subscriptionAmt
+        lateSubscriptionPenalty
+        objectionStatus
+        objOfficer
+        objReason
+        AdminNo
+        Admin1
+        Admin2
+        Admin3
+        Admin4
+        Admin5
+        Admin6
+        Admin7
+        Admin8
+        Admin9
+        Admin10
+        Admin11
+        Admin12
+        Admin13
+        Admin14
+        Admin15
+        Admin16
+        Admin17
+        Admin18
+        Admin19
+        Admin20
         ttlNonLonsRecChm
         ttlNonLonsSentChm
         ttlDpst
@@ -4096,10 +4736,40 @@ export const viaChmVenture = /* GraphQL */ `
         venture
         signitory2Sub
         WithdrawCnfrmtn
+        WithdrawCnfrmtnAmt
         grpEmail
         grpBal
         ttlGrpMembers
         description
+        withdrwlAmt
+        ChmBenefits
+        subscriptionFrequency
+        subscriptionAmt
+        lateSubscriptionPenalty
+        objectionStatus
+        objOfficer
+        objReason
+        AdminNo
+        Admin1
+        Admin2
+        Admin3
+        Admin4
+        Admin5
+        Admin6
+        Admin7
+        Admin8
+        Admin9
+        Admin10
+        Admin11
+        Admin12
+        Admin13
+        Admin14
+        Admin15
+        Admin16
+        Admin17
+        Admin18
+        Admin19
+        Admin20
         ttlNonLonsRecChm
         ttlNonLonsSentChm
         ttlDpst
@@ -4152,6 +4822,10 @@ export const viaChmNMmbr = /* GraphQL */ `
         memberContact
         memberName
         memberNatId
+        memberChmBenefit
+        timeCrtd
+        subscribedAmt
+        totalSubAmt
         GrossLnsGvn
         LonAmtGven
         AmtRepaid
@@ -4195,6 +4869,10 @@ export const vwChamaMembers = /* GraphQL */ `
         memberContact
         memberName
         memberNatId
+        memberChmBenefit
+        timeCrtd
+        subscribedAmt
+        totalSubAmt
         GrossLnsGvn
         LonAmtGven
         AmtRepaid
@@ -4238,6 +4916,10 @@ export const vwMyChamas = /* GraphQL */ `
         memberContact
         memberName
         memberNatId
+        memberChmBenefit
+        timeCrtd
+        subscribedAmt
+        totalSubAmt
         GrossLnsGvn
         LonAmtGven
         AmtRepaid
@@ -4307,436 +4989,6 @@ export const vwViaRegNo = /* GraphQL */ `
         contact
         regNo
         AcStatus
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwViaPhonss = /* GraphQL */ `
-  query VwViaPhonss(
-    $contact: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelChamasRegConfirmFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwViaPhonss(
-      contact: $contact
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        contact
-        regNo
-        AcStatus
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwViaRegNoss = /* GraphQL */ `
-  query VwViaRegNoss(
-    $regNo: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelChamasRegConfirmFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwViaRegNoss(
-      regNo: $regNo
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        contact
-        regNo
-        AcStatus
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwChamaMemberss = /* GraphQL */ `
-  query VwChamaMemberss(
-    $grpContact: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelCvrdGroupLoansFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwChamaMemberss(
-      grpContact: $grpContact
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        grpContact
-        loaneePhn
-        repaymentPeriod
-        loanerLoanee
-        loanerLoaneeAdv
-        amountGiven
-        amountExpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        description
-        lonBala
-        memberId
-        advRegNu
-        loaneeName
-        LoanerName
-        timeExpBack
-        timeExpBack2
-        status
-        owner
-        DefaultPenaltyChm
-        DefaultPenaltyChm2
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwMyChamass = /* GraphQL */ `
-  query VwMyChamass(
-    $loaneePhn: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelCvrdGroupLoansFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwMyChamass(
-      loaneePhn: $loaneePhn
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        grpContact
-        loaneePhn
-        repaymentPeriod
-        loanerLoanee
-        loanerLoaneeAdv
-        amountGiven
-        amountExpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        description
-        lonBala
-        memberId
-        advRegNu
-        loaneeName
-        LoanerName
-        timeExpBack
-        timeExpBack2
-        status
-        owner
-        DefaultPenaltyChm
-        DefaultPenaltyChm2
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwLnrNLnee = /* GraphQL */ `
-  query VwLnrNLnee(
-    $loanerLoanee: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelCvrdGroupLoansFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwLnrNLnee(
-      loanerLoanee: $loanerLoanee
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        grpContact
-        loaneePhn
-        repaymentPeriod
-        loanerLoanee
-        loanerLoaneeAdv
-        amountGiven
-        amountExpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        description
-        lonBala
-        memberId
-        advRegNu
-        loaneeName
-        LoanerName
-        timeExpBack
-        timeExpBack2
-        status
-        owner
-        DefaultPenaltyChm
-        DefaultPenaltyChm2
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwAdvNLnrNLnee = /* GraphQL */ `
-  query VwAdvNLnrNLnee(
-    $loanerLoaneeAdv: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelCvrdGroupLoansFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwAdvNLnrNLnee(
-      loanerLoaneeAdv: $loanerLoaneeAdv
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        grpContact
-        loaneePhn
-        repaymentPeriod
-        loanerLoanee
-        loanerLoaneeAdv
-        amountGiven
-        amountExpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        description
-        lonBala
-        memberId
-        advRegNu
-        loaneeName
-        LoanerName
-        timeExpBack
-        timeExpBack2
-        status
-        owner
-        DefaultPenaltyChm
-        DefaultPenaltyChm2
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwChmLnClients = /* GraphQL */ `
-  query VwChmLnClients(
-    $advRegNu: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelCvrdGroupLoansFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwChmLnClients(
-      advRegNu: $advRegNu
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        grpContact
-        loaneePhn
-        repaymentPeriod
-        loanerLoanee
-        loanerLoaneeAdv
-        amountGiven
-        amountExpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        description
-        lonBala
-        memberId
-        advRegNu
-        loaneeName
-        LoanerName
-        timeExpBack
-        timeExpBack2
-        status
-        owner
-        DefaultPenaltyChm
-        DefaultPenaltyChm2
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwChamaMembersss = /* GraphQL */ `
-  query VwChamaMembersss(
-    $grpContact: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelNonCvrdGroupLoansFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwChamaMembersss(
-      grpContact: $grpContact
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        grpContact
-        loaneePhn
-        loanerLoanee
-        DefaultPenaltyChm
-        DefaultPenaltyChm2
-        repaymentPeriod
-        amountGiven
-        amountExpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        timeExpBack
-        timeExpBack2
-        description
-        loaneeName
-        loanerName
-        memberId
-        lonBala
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwMyChamasss = /* GraphQL */ `
-  query VwMyChamasss(
-    $loaneePhn: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelNonCvrdGroupLoansFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwMyChamasss(
-      loaneePhn: $loaneePhn
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        grpContact
-        loaneePhn
-        loanerLoanee
-        DefaultPenaltyChm
-        DefaultPenaltyChm2
-        repaymentPeriod
-        amountGiven
-        amountExpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        timeExpBack
-        timeExpBack2
-        description
-        loaneeName
-        loanerName
-        memberId
-        lonBala
-        status
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const vwLnrNLnees = /* GraphQL */ `
-  query VwLnrNLnees(
-    $loanerLoanee: String!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelNonCvrdGroupLoansFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    VwLnrNLnees(
-      loanerLoanee: $loanerLoanee
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        grpContact
-        loaneePhn
-        loanerLoanee
-        DefaultPenaltyChm
-        DefaultPenaltyChm2
-        repaymentPeriod
-        amountGiven
-        amountExpectedBack
-        amountExpectedBackWthClrnc
-        amountRepaid
-        timeExpBack
-        timeExpBack2
-        description
-        loaneeName
-        loanerName
-        memberId
-        lonBala
-        status
         owner
         createdAt
         updatedAt
@@ -4906,12 +5158,23 @@ export const vwMyLoaneeReq = /* GraphQL */ `
         loanerEmail
         loaneePhone
         loaneeName
+        AdvEmail
+        advLicNo
+        loanerName
+        loanerPhone
+        dfltDeadLn
         amount
         repaymentAmt
         repaymentPeriod
+        lnType
         status
         owner
         createdAt
+        statusNumber
+        description
+        defaultPenalty
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
@@ -4941,12 +5204,23 @@ export const vwLoaneeReq = /* GraphQL */ `
         loanerEmail
         loaneePhone
         loaneeName
+        AdvEmail
+        advLicNo
+        loanerName
+        loanerPhone
+        dfltDeadLn
         amount
         repaymentAmt
         repaymentPeriod
+        lnType
         status
         owner
         createdAt
+        statusNumber
+        description
+        defaultPenalty
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
@@ -4976,13 +5250,24 @@ export const byChmaLnee = /* GraphQL */ `
         chamaPhone
         loaneePhone
         loaneeName
+        advLicNo
+        dfltDeadLn
         amount
         repaymentAmt
         repaymentPeriod
         status
         owner
+        lnType
         loaneeMemberId
         createdAt
+        statusNumber
+        AdvEmail
+        loanerName
+        loanerPhone
+        description
+        defaultPenalty
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
@@ -5012,13 +5297,24 @@ export const byChmaNoDesc = /* GraphQL */ `
         chamaPhone
         loaneePhone
         loaneeName
+        advLicNo
+        dfltDeadLn
         amount
         repaymentAmt
         repaymentPeriod
         status
         owner
+        lnType
         loaneeMemberId
         createdAt
+        statusNumber
+        AdvEmail
+        loanerName
+        loanerPhone
+        description
+        defaultPenalty
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
@@ -5050,11 +5346,22 @@ export const byBzLnee = /* GraphQL */ `
         loaneeName
         itemName
         amount
+        dfltDeadLn
         repaymentAmt
         repaymentPeriod
         status
         owner
         createdAt
+        statusNumber
+        lnType
+        AdvEmail
+        advLicNo
+        loanerName
+        loanerPhone
+        description
+        defaultPenalty
+        installmentAmount
+        paymentFrequency
         updatedAt
       }
       nextToken
@@ -5086,12 +5393,125 @@ export const byBzNoDesc = /* GraphQL */ `
         loaneeName
         itemName
         amount
+        dfltDeadLn
         repaymentAmt
         repaymentPeriod
         status
         owner
         createdAt
+        statusNumber
+        lnType
+        AdvEmail
+        advLicNo
+        loanerName
+        loanerPhone
+        description
+        defaultPenalty
+        installmentAmount
+        paymentFrequency
         updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const byBzNoDescsxzc = /* GraphQL */ `
+  query ByBzNoDescsxzc(
+    $symbol: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelExRatesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    ByBzNoDescsxzc(
+      symbol: $symbol
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        cur
+        sellingPrice
+        buyingPrice
+        symbol
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const mFKOffers = /* GraphQL */ `
+  query MFKOffers(
+    $mfkAc: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMFKOfferzFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    MFKOffers(
+      mfkAc: $mfkAc
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        offerStatus
+        acCost
+        amtPaid
+        mfnOffered
+        acChamp
+        mfnReg
+        status
+        mfkAc
+        acMainAc
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const mFKOffers2 = /* GraphQL */ `
+  query MFKOffers2(
+    $mfkAc: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMFKOfferz2FilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    MFKOffers2(
+      mfkAc: $mfkAc
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        offerStatus
+        acCost
+        amtPaid
+        mfnOffered
+        acChamp
+        mfnReg
+        status
+        mfkAc
+        acMainAc
+        createdAt
+        updatedAt
+        owner
       }
       nextToken
     }

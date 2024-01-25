@@ -69,7 +69,7 @@ const ViewSMDeposts = (props:SMAccount) => {
          }
          catch(error){
            if(error){
-             Alert.alert("User does not exist")
+             Alert.alert("Retry or update app or call customer care")
              return;
          }
          }
@@ -97,7 +97,7 @@ const ViewSMDeposts = (props:SMAccount) => {
  }
  catch(error){
    if(error){
-     Alert.alert("User does not exist")
+     Alert.alert("Retry or update app or call customer care")
      return;
  }
  }
@@ -127,7 +127,7 @@ const ViewSMDeposts = (props:SMAccount) => {
                       MiFedha.
                       Greetings! We, {loaneeName}, the loaned and {loanerName}, the loaner, humbly 
                       request that you witness our loan contract amounting to Ksh.
-                     {amount}, repayable at a compund interest of {repaymentAmt}% per month by the end of {repaymentPeriod} days,
+                     {amount}, repayable at a compound interest of {repaymentAmt}% per month by the end of {repaymentPeriod} days,
                       default penalty is Ksh. {defaultPenalty} and its description is as 
                       as follows: "{description}." You can reach
                      my loaner through {loanerPhone}. You can also reach me through {loaneePhone}. 

@@ -87,7 +87,7 @@ console.log (nationality)
   
                             } catch (error) {
                               console.log(error)
-                          if (error){Alert.alert("Error")
+                          if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                             }
                             setIsLoading(false);
@@ -97,7 +97,7 @@ console.log (nationality)
   
                       } catch (error) {
                           console.log(error)
-                      if (error){Alert.alert("Error")
+                      if (error){Alert.alert("Retry or update app or call customer care")
                               return;}
                         }
                         setIsLoading(false);
@@ -110,7 +110,7 @@ console.log (nationality)
 
               } catch (error) {
                   console.log(error)
-              if (error){Alert.alert("Error")
+              if (error){Alert.alert("Retry or update app or call customer care")
                       return;}
                 }
                 setIsLoading(false);

@@ -7,7 +7,7 @@ import styles from './styles';
 
 export interface ChamaMmbrshpInfo {
     ChamaMmbrshpDtls: {
-      id: string,
+      loanID: string,
       lonBala:number,
       loanerName:string,
       memberId:string,
@@ -17,7 +17,7 @@ export interface ChamaMmbrshpInfo {
 const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    const {
       ChamaMmbrshpDtls: {
-         id,
+         loanID,
          lonBala,
          loanerName,
          memberId
@@ -26,7 +26,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    const navigation = useNavigation();
     
    const SndChmMmbrMny = () => {
-      navigation.navigate("RepyChmNonCovLns", {id})
+      navigation.navigate("RepyChmNonCovLns", {loanID})
    }
    
     return (
@@ -36,7 +36,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
           
                      <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
-                       Loan ID: {id}                
+                       Loan ID: {loanID}                
                     </Text>  
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  

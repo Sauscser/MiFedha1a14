@@ -88,13 +88,15 @@ const CovCredSls = props => {
       const RecPhn =PersnlDtl.data.getReqLoanCredSl.loaneeEmail;
 
       const advLicNo =PersnlDtl.data.getReqLoanCredSl.advLicNo;
+      const dfltDeadLn =PersnlDtl.data.getReqLoanCredSl.dfltDeadLn;
       const BusinessRegNos =PersnlDtl.data.getReqLoanCredSl.businessNo;
       const statusNumber =PersnlDtl.data.getReqLoanCredSl.statusNumber;
       const itemName =PersnlDtl.data.getReqLoanCredSl.itemName;
       const amount =PersnlDtl.data.getReqLoanCredSl.amount;
       const AmtExp =PersnlDtl.data.getReqLoanCredSl.repaymentAmt;
       const RepaymtPeriod =PersnlDtl.data.getReqLoanCredSl.repaymentPeriod;
-      const status =PersnlDtl.data.getReqLoanCredSl.status;
+      const installmentAmount =PersnlDtl.data.getReqLoanCredSl.installmentAmount;
+      const paymentFrequency =PersnlDtl.data.getReqLoanCredSl.paymentFrequency;
       const description =PersnlDtl.data.getReqLoanCredSl.description;
       const defaultPenalty =PersnlDtl.data.getReqLoanCredSl.defaultPenalty;
       const AdvEmail =PersnlDtl.data.getReqLoanCredSl.AdvEmail;
@@ -224,10 +226,15 @@ const CovCredSls = props => {
         
           const TransCost2 = parseFloat(userLoanTransferFees)*parseFloat(amount)
           
-          const amtrpayable2 = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30)
-          const amtrpayable = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30)
+          const amtrpayable2 = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency))
+          const amtrpayable = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency))
           const TotalAmtExp = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) + amtrpayable;
           const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
+          const TotalAmtExp3 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
+          console.log(amtrpayable)
+          console.log(TotalAmtExp2)
+          console.log(TotalAmtExp)
+          console.log()
 
               const fetchRecUsrDtls = async () => {
                 if(isLoading){
@@ -235,15 +242,20 @@ const CovCredSls = props => {
                 }
                 setIsLoading(true);
                 try {
-                    const RecAccountDtl:any = await API.graphql(
+                    const RecBiznaDtl:any = await API.graphql(
                         graphqlOperation(getBizna, {BusKntct: RecPhn}),
                         );
-                        const TtlEarningsz2 =RecAccountDtl.data.getBizna.TtlEarnings;
-                                  const earningsBalsz2 =RecAccountDtl.data.getBizna.earningsBal;
-                                  const busNames2 =RecAccountDtl.data.getBizna.busName;
-                                  const noBL =RecAccountDtl.data.getBizna.noBL;
-                                  const status =RecAccountDtl.data.getBizna.status;
-                                  const email2 =RecAccountDtl.data.getBizna.email;
+                        const TtlEarningsz2 =RecBiznaDtl.data.getBizna.TtlEarnings;
+                                  const earningsBalsz2 =RecBiznaDtl.data.getBizna.earningsBal;
+                                  const busNames2 =RecBiznaDtl.data.getBizna.busName;
+                                  const noBL =RecBiznaDtl.data.getBizna.noBL;
+                                  const status =RecBiznaDtl.data.getBizna.status;
+                                  const email2 =RecBiznaDtl.data.getBizna.email;
+                                  const netEarnings =RecBiznaDtl.data.getBizna.netEarnings;
+                                  const RecobjectionStatus =RecBiznaDtl.data.getBizna.objectionStatus;
+                                  const UsrTransferFee2 = parseFloat(netEarnings) -parseFloat(amount);
+                                  const TotalTransacted2 = parseFloat(amount)  + UsrTransferFee2;
+                                  const TotalAmtExp3 =  UsrTransferFee2 + amtrpayable2;
 
 
                         const FetchBiznaDtls = async () => {
@@ -255,10 +267,12 @@ const CovCredSls = props => {
                               const BiznaDtl:any = await API.graphql(
                                   graphqlOperation(getBizna, {BusKntct: BusinessRegNos}),
                                   );
-                                  const netEarnings =BiznaDtl.data.getBizna.netEarnings;
+                                  const netEarnings3 =BiznaDtl.data.getBizna.netEarnings;
                                   const owner =BiznaDtl.data.getBizna.owner;
                                   const busNames =BiznaDtl.data.getBizna.busName;
                                   const email =BiznaDtl.data.getBizna.email;
+                                  const SenderobjectionStatus =RecBiznaDtl.data.getBizna.objectionStatus;
+                                  
                                   
 
                                   const FetchWrkrDtls = async () => {
@@ -267,12 +281,12 @@ const CovCredSls = props => {
                                     }
                                     setIsLoading(true);
                                     try {
-                                        const RecAccountDtl:any = await API.graphql(
+                                        const RecBiznaDtl2:any = await API.graphql(
                                             graphqlOperation(getSMAccount, {awsemail: email2}),
                                             );
-                                            const pwz =RecAccountDtl.data.getSMAccount.pw;
-                                            const nationalids =RecAccountDtl.data.getSMAccount.nationalid;
-                                            const ownerz =RecAccountDtl.data.getSMAccount.owner;
+                                            const pwzs =RecBiznaDtl2.data.getSMAccount.pw;
+                                            const nationalids =RecBiznaDtl2.data.getSMAccount.nationalid;
+                                            const ownerz =RecBiznaDtl2.data.getSMAccount.owner;
 
                                             const FetchWrkrDtls2 = async () => {
                                               if(isLoading){
@@ -280,14 +294,204 @@ const CovCredSls = props => {
                                               }
                                               setIsLoading(true);
                                               try {
-                                                  const RecAccountDtl:any = await API.graphql(
-                                                      graphqlOperation(getSMAccount, {awsemail: email}),
+                                                  const RecBiznaDtl3:any = await API.graphql(
+                                                      graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
                                                       );
-                                                      const pwz =RecAccountDtl.data.getSMAccount.pw;
-                                                      const nationalidss =RecAccountDtl.data.getSMAccount.nationalid;
-                                                      const owner =RecAccountDtl.data.getSMAccount.owner;
+                                                      const pwz =RecBiznaDtl3.data.getSMAccount.pw;
+                                                      const nationalidss =RecBiznaDtl3.data.getSMAccount.nationalid;
+                                                      const owner =RecBiznaDtl3.data.getSMAccount.owner;
 
 
+                                                      const sendSMLn3 = async () => {
+                                                        if(isLoading){
+                                                          return;
+                                                        }
+                                                        setIsLoading(true);
+                                                        try {
+                                                          await API.graphql(
+                                                            graphqlOperation(createCovCreditSeller, {
+                                                              input: {
+                                                                loanID:route.params.id,
+                                                                itemName:itemName,
+                                                                loanerLoanee:BusinessRegNos+RecPhn,
+                                                                loanerLoaneeAdv:  BusinessRegNos+RecPhn+ AdvRegNo, 
+                                                                buyerContact: RecPhn, 
+                                                                sellerContact:BusinessRegNos,
+                                                                buyerID: nationalids, 
+                                                                advEmail: "None",
+                                                                crtnDate:daysUpToDate,
+                                                                buyerName:busNames2,
+                                                                SellerName:busNames,
+                                                                sellerID: nationalidss,  
+                                                                amountSold: parseFloat(amount).toFixed(0),
+                                                                interest:AmtExp,
+                                                                dfltUpdate: daysUpToDate,
+                                                                dfltDeadLn:dfltDeadLn,
+                                                                amountexpectedBack: (TotalAmtExp3 - TotalTransacted2).toFixed(0),
+                                                                amountExpectedBackWthClrnc:(TotalAmtExp3 - TotalTransacted2).toFixed(0),
+                                                                amountRepaid: 0,
+                                                                repaymentPeriod: RepaymtPeriod,
+                                                                giverStatus: "Biz2Biz",
+                                                                lnType:"Biz2Biz",
+                                                                timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
+                                                                timeExpBack2: 61 + daysUpToDate, 
+                                                                lonBala:(TotalAmtExp3 - TotalTransacted2).toFixed(0),
+                                                                description: description,   
+                                                                status: "LoanActive",  
+                                                                advregnu: "None",   
+                                                                DefaultPenaltyCredSl:defaultPenalty,
+                                                                DefaultPenaltyCredSl2:0,                                                       
+                                                                blOfficer:"None",
+                                                                owner: owner,
+                                                                
+                                                                installmentAmount:installmentAmount,
+                                    paymentFrequency:paymentFrequency
+                                                               
+                                                              },
+                                                            }),
+                                                          );
+                              
+                              
+                                                        } catch (error) {
+                                                          if (error){
+                                                            console.log(error)
+                                                            return
+                                                          }
+                                                        }
+                                                        setIsLoading(false);
+                                                        await updtSendrAc3();
+                                                      };
+                                                      
+                              
+                                                      const updtSendrAc3 = async () =>{
+                                                        if(isLoading){
+                                                          return;
+                                                        }
+                                                        setIsLoading(true);
+                                                        try{
+                                                            await API.graphql(
+                                                              graphqlOperation(updateBizna, {
+                                                                input:{
+                                                                  BusKntct:BusinessRegNos,
+                                                                  
+                                                                  
+                                                                }
+                                                              })
+                                                            )
+                              
+                              
+                                                        }
+                                                        catch(error){
+                                                          console.log(error)
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
+                                                          return;}
+                                                        }
+                                                        setIsLoading(false);
+                                                        await updtRecAc3();
+                                                      }
+                                                      const updtRecAc3 = async () =>{
+                                                        if(isLoading){
+                                                          return;
+                                                        }
+                                                        setIsLoading(true);
+                                                        try{
+                                                            await API.graphql(
+                                                              graphqlOperation(updateBizna, {
+                                                                input:{
+                                                                  BusKntct:RecPhn,
+                                                                  
+                                                                  netEarnings:(parseFloat(netEarnings) - TotalTransacted2).toFixed(0),
+                                                                   
+                                                                }
+                                                              })
+                                                            )                              
+                                                        }
+                                                        catch(error){
+                                                          console.log(error)
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
+                                                          return;}
+                                                        }
+                                                        setIsLoading(false);
+                                                        await updtComp3();
+                                                      }
+                              
+                                                      const updtComp3 = async () =>{
+                                                        if(isLoading){
+                                                          return;
+                                                        }
+                                                        setIsLoading(false);
+                                                        
+                                                        try{
+                                                            await API.graphql(
+                                                              graphqlOperation(updateCompany, {
+                                                                input:{
+                                                                  AdminId: "BaruchHabaB'ShemAdonai2",                                                      
+                                                                      
+                                                                  
+                                                                  companyEarningBal:parseFloat(companyEarningBals) + UsrTransferFee2,
+                                                                  companyEarning:  parseFloat(companyEarnings) + UsrTransferFee2,  
+                                                                 
+                                                                  ttlSellerLnsInAmtCov: TotalAmtExp3 + parseFloat(ttlSellerLnsInAmtCovs),
+                                                                  
+                                                                  ttlSellerLnsInTymsCov: 1 + parseFloat(ttlSellerLnsInTymsCovs),
+                                                                     
+                                                                  
+                                                                   
+                                                                  
+                                                                }
+                                                              })
+                                                            )
+                                                            
+                                                            
+                                                        }
+                                                        catch(error){
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
+                                                      return;}
+                                                        }
+                                                        setIsLoading(false);
+                                                        await updtLnReq3();
+                                                      }
+                                                      
+                                                      const updtLnReq3 = async () =>{
+                                                        if(isLoading){
+                                                          return;
+                                                        }
+                                                        setIsLoading(false);
+                                                        
+                                                        try{
+                                                            await API.graphql(
+                                                              graphqlOperation(updateReqLoanCredSl, {
+                                                                input:{
+                                                                  id:route.params.id,                                                      
+                                                                  status:"Approved"
+                                                                }
+                                                              })
+                                                            )
+                                                            
+                                                            
+                                                        }
+                                                        catch(error){
+                                                          console.log(error);
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
+                                                      return;}
+                                                        }
+                                                        Alert.alert("Success. TransactionFee:"+ UsrTransferFee2.toFixed(2) 
+                                                        );
+                              
+                                                        Communications.textWithoutEncoding(RecPhn,'MiFedha. Hi '+ busNames2 
+                                                        + ', you have been loaned goods worth Ksh. '+ parseFloat(amount).toFixed(2) +' by '
+                                                      + busNames + ' Business. For clarification call the business owner: '
+                                                      + RecPhn 
+                                                      + '. The following is a break down of your repayable loan: '
+                                                      + ' Cash price of the goods is Ksh. '+ parseFloat(amount).toFixed(2) 
+                                                      + '. Amount you had committed to repay is Ksh. '
+                                                      + amtrpayable2.toFixed(2) + '. Transaction fee is Ksh. '
+                                                      + lnTrnsfrFee.toFixed(2) +  '. Total Repayable is Ksh '+ TotalAmtExp3.toFixed(2) 
+                                                      + '. Thank you.');
+                                                        setIsLoading(false);
+                                                        
+                                                      } 
+                                                      
                                                       const sendSMLn2 = async () => {
                                                         if(isLoading){
                                                           return;
@@ -297,6 +501,7 @@ const CovCredSls = props => {
                                                           await API.graphql(
                                                             graphqlOperation(createCovCreditSeller, {
                                                               input: {
+                                                                loanID:route.params.id,
                                                                 itemName:itemName,
                                                                 loanerLoanee:BusinessRegNos+RecPhn,
                                                                 loanerLoaneeAdv:  BusinessRegNos+RecPhn+ AdvRegNo, 
@@ -304,17 +509,20 @@ const CovCredSls = props => {
                                                                 sellerContact:BusinessRegNos,
                                                                 buyerID: nationalids, 
                                                                 advEmail: "None",
+                                                                crtnDate:daysUpToDate,
                                                                 buyerName:busNames2,
                                                                 SellerName:busNames,
                                                                 sellerID: nationalidss,  
                                                                 amountSold: parseFloat(amount).toFixed(0),
                                                                 interest:AmtExp,
                                                                 dfltUpdate: daysUpToDate,
+                                                                dfltDeadLn:dfltDeadLn,
                                                                 amountexpectedBack: (TotalAmtExp2 - TransCost2).toFixed(0),
                                                                 amountExpectedBackWthClrnc:(TotalAmtExp2 - TransCost2).toFixed(0),
                                                                 amountRepaid: 0,
                                                                 repaymentPeriod: RepaymtPeriod,
                                                                 giverStatus: "Biz2Biz",
+                                                                lnType:"Biz2Biz",
                                                                 timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
                                                                 timeExpBack2: 61 + daysUpToDate, 
                                                                 lonBala:(TotalAmtExp2 - TransCost2).toFixed(0),
@@ -323,10 +531,11 @@ const CovCredSls = props => {
                                                                 advregnu: "None",   
                                                                 DefaultPenaltyCredSl:defaultPenalty,
                                                                 DefaultPenaltyCredSl2:0,                                                       
-          
+                                                                blOfficer:"None",
                                                                 owner: owner,
                                                                 
-                                                                
+                                                                installmentAmount:installmentAmount,
+                                    paymentFrequency:paymentFrequency
                                                                
                                                               },
                                                             }),
@@ -335,7 +544,7 @@ const CovCredSls = props => {
                               
                                                         } catch (error) {
                                                           if (error){
-                                                            Alert.alert("Credit Sale unsuccessful; Retry")
+                                                            console.log(error)
                                                             return
                                                           }
                                                         }
@@ -364,7 +573,7 @@ const CovCredSls = props => {
                                                         }
                                                         catch(error){
                                                           console.log(error)
-                                                          if (error){Alert.alert("Error!")
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
                                                           return;}
                                                         }
                                                         setIsLoading(false);
@@ -382,17 +591,14 @@ const CovCredSls = props => {
                                                                   BusKntct:RecPhn,
                                                                   
                                                                   netEarnings:(parseFloat(netEarnings) - TransCost2).toFixed(0),
-                                                                                                   
-                                                                  saleStts: "AccountNotBL",
-                                                                                                  
-                                                                  
+                                                                   
                                                                 }
                                                               })
                                                             )                              
                                                         }
                                                         catch(error){
                                                           console.log(error)
-                                                          if (error){Alert.alert("Error!")
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
                                                           return;}
                                                         }
                                                         setIsLoading(false);
@@ -429,7 +635,7 @@ const CovCredSls = props => {
                                                             
                                                         }
                                                         catch(error){
-                                                          if (error){Alert.alert("Error!")
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
                                                       return;}
                                                         }
                                                         setIsLoading(false);
@@ -456,21 +662,21 @@ const CovCredSls = props => {
                                                         }
                                                         catch(error){
                                                           console.log(error);
-                                                          if (error){Alert.alert("Error!")
+                                                          if (error){Alert.alert("Retry or update app or call customer care")
                                                       return;}
                                                         }
                                                         Alert.alert("Success. TransactionFee:"+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
                                                         );
                               
                                                         Communications.textWithoutEncoding(RecPhn,'MiFedha. Hi '+ busNames2 
-                                                        + ', you have been loaned goods worth Ksh. '+ amount +' by '
+                                                        + ', you have been loaned goods worth Ksh. '+ parseFloat(amount).toFixed(2) +' by '
                                                       + busNames + ' Business. For clarification call the business owner: '
                                                       + RecPhn 
                                                       + '. The following is a break down of your repayable loan: '
-                                                      + ' Cash price of the goods is Ksh. '+ amount 
+                                                      + ' Cash price of the goods is Ksh. '+ parseFloat(amount).toFixed(2) 
                                                       + '. Amount you had committed to repay is Ksh. '
-                                                      + amtrpayable2 + '. Transaction fee is Ksh. '
-                                                      + lnTrnsfrFee +  '. Total Repayable is Ksh'+ TotalAmtExp2 
+                                                      + amtrpayable2.toFixed(2) + '. Transaction fee is Ksh. '
+                                                      + lnTrnsfrFee.toFixed(2) +  '. Total Repayable is Ksh '+ TotalAmtExp2.toFixed(2) 
                                                       + '. Thank you.');
                                                         setIsLoading(false);
                                                         
@@ -506,7 +712,7 @@ const CovCredSls = props => {
                               graphqlOperation(createCovCreditSeller, {
                                 input: {
                                   itemName:itemName,
-                              
+                                  loanID:route.params.id,
                                   buyerID: nationalids,
                                   sellerID: nationalidss,
                                   sellerContact:BusinessRegNos,
@@ -518,6 +724,7 @@ const CovCredSls = props => {
                                   amountExpectedBackWthClrnc:(TotalAmtExp - TransCost).toFixed(0),
                                   amountRepaid: 0,
                                   buyerName:busNames2,
+                                  dfltDeadLn:dfltDeadLn,
                                   interest:AmtExp,
                                   SellerName:busNames,
                                   lonBala:(TotalAmtExp - TransCost).toFixed(0),
@@ -527,12 +734,17 @@ const CovCredSls = props => {
                                   dfltUpdate: daysUpToDate,
                                   advregnu: advLicNo,
                                   giverStatus: "Biz2Biz",
+                                  lnType:"Biz2Biz",
                                   description: description,
+                                  crtnDate:daysUpToDate,
                                   DefaultPenaltyCredSl:defaultPenalty,
                                   DefaultPenaltyCredSl2:0,
                                   status: "LoanActive",
                                   owner: owner,
-                                  AdvEmail:AdvEmail
+                                  blOfficer:"None",
+                                  advEmail:AdvEmail,
+                                  installmentAmount:installmentAmount,
+                                    paymentFrequency:paymentFrequency
                                 },
                               }),
                             );
@@ -540,8 +752,7 @@ const CovCredSls = props => {
 
                           } catch (error) {
                             if (error){
-                              Alert.alert("Credit Sale unsuccessful; Retry")
-                              return
+                              
                             }
                           }
                           setIsLoading(false);
@@ -570,7 +781,7 @@ const CovCredSls = props => {
                           }
                           catch(error){
                             console.log(error)
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                             return;}
                           }
                           setIsLoading(false);
@@ -588,8 +799,7 @@ const CovCredSls = props => {
                                     BusKntct:RecPhn,
                                     
                                     netEarnings:(parseFloat(netEarnings) - TransCost2).toFixed(0),                                 
-                                    saleStts: "AccountNotBL",
-                                                                    
+                                                               
                                     
                                   }
                                 })
@@ -597,7 +807,7 @@ const CovCredSls = props => {
                           }
                           catch(error){
                             console.log(error)
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                             return;}
                           }
                           setIsLoading(false);
@@ -636,7 +846,7 @@ const CovCredSls = props => {
                               
                           }
                           catch(error){
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                         return;}
                           }
                           setIsLoading(false);
@@ -660,7 +870,7 @@ const CovCredSls = props => {
                               )
                           }
                           catch(error){
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
       return;}
                           }
                           
@@ -689,7 +899,7 @@ const CovCredSls = props => {
                           }
                           catch(error){
                             console.log(error);
-                            if (error){Alert.alert("Error!")
+                            if (error){Alert.alert("Retry or update app or call customer care")
                         return;}
                           }
                           Alert.alert("Success. AdvocateFee:" 
@@ -698,15 +908,15 @@ const CovCredSls = props => {
                           );
 
                           Communications.textWithoutEncoding(RecPhn,'MiFedha. Hi '+ busNames2 
-                          + ', you have been loaned goods worth Ksh. '+ amount +' by '
+                          + ', you have been loaned goods worth Ksh. '+ parseFloat(amount).toFixed(2) +' by '
                         + busNames + ' Business. For clarification call the business owner: '
                         + RecPhn 
                         + '. The following is a break down of your repayable loan: '
-                        + ' Cash price of the goods is Ksh. '+ amount 
+                        + ' Cash price of the goods is Ksh. '+ parseFloat(amount).toFixed(2) 
                         + '. Amount you had committed to repay is Ksh. '
-                        + amtrpayable + '. Transaction fee is Ksh. '
-                        + lnTrnsfrFee + '. Advocacy Fee is Ksh. '
-                        + ttlCovFeeAmount + '. Total Repayable is Ksh'+ TotalAmtExp 
+                        + amtrpayable.toFixed(2) + '. Transaction fee is Ksh. '
+                        + lnTrnsfrFee.toFixed(2) + '. Advocacy Fee is Ksh. '
+                        + ttlCovFeeAmount.toFixed(2) + '. Total Repayable is Ksh '+ TotalAmtExp.toFixed(2) 
                         + '. Thank you.');
                           setIsLoading(false);
                           
@@ -724,31 +934,34 @@ const CovCredSls = props => {
                       setIsLoading(false);
                     }
 
-                    if (userInfo.attributes.sub!==owner) {
-                      Alert.alert("Please first create a main account")
-                      return;
-                    }  else if (parseFloat(noBL) > parseFloat(maxBLss)){Alert.alert('Receiver adversely listed');
+                     if (parseFloat(noBL) > parseFloat(maxBLss)){Alert.alert('Unsuccessful....Apologies. Liase with the Loaned');
                   return;
                 }
                 else if(statusNumber === 0 && advLicNo != "None"){Alert.alert('Advocate has not yet witnessed');                  
               }
                     
-                    else if(BusinessRegNos === RecPhn){Alert.alert('You cannot Loan Yourself');}
+                    
                     else if(status !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                     else if(status === "Approved"){Alert.alert('Loan already granted');}
 
+                    
                     else if (
                       parseFloat(netEarnings) < TransCost && advLicNo != " "
-                    ) {Alert.alert("Cancelled."+ "Bal: "+ netEarnings +". Deductable: " + TransCost.toFixed(2) 
-                    + ". "+ ((TransCost) - parseFloat(netEarnings)).toFixed(2) + ' more needed');}
+                    ) {Alert.alert("Unsuccessful!."+ "Buyer top up "+ ((TransCost) - parseFloat(netEarnings)).toFixed(2) + ' more');}
 
                     else if (
                       parseFloat(netEarnings) < TransCost2 && advLicNo == " "
-                    ) {Alert.alert("Cancelled."+ "Bal: "+ netEarnings +". Deductable: " + TransCost2.toFixed(2) 
-                    + ". "+ ((TransCost2) - parseFloat(netEarnings)).toFixed(2) + ' more needed');}
+                    ) {Alert.alert("Unsuccessful."+ "Buyer top up "+ ((TransCost2) - parseFloat(netEarnings)).toFixed(2) + ' more');}
                     
-                  
-                    
+                    else if (RecobjectionStatus === "Objected")
+                    {
+                      Alert.alert ("Buyer account is locked")
+                    }
+
+                    else if (SenderobjectionStatus === "Objected")
+                    {
+                      Alert.alert ("Seller account is locked")
+                    }
                     else if(pwz !==SnderPW){Alert.alert('Wrong password');}
 
                     else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
@@ -765,8 +978,9 @@ const CovCredSls = props => {
                       ) {
                         SndChmMmbrMny();
                     } 
-                    
-                    else if(advLicNo == "None"){sendSMLn2();}
+                    else if(advLicNo == "None" && netEarnings < TransCost2){sendSMLn3();}
+
+                    else if(advLicNo == "None" && netEarnings > TransCost2){sendSMLn2();}
                     
                      else {
                     
@@ -792,7 +1006,7 @@ const CovCredSls = props => {
                       
                     }
                     catch (e){
-                      if (e){Alert.alert("Error!")
+                      if (e){Alert.alert("Retry or update app or call customer care")
               return;}
                     }
                     setIsLoading(false);
@@ -803,7 +1017,7 @@ const CovCredSls = props => {
                   
                     }
                     catch (e){
-                      if (e){Alert.alert("Error!")
+                      if (e){Alert.alert("Retry or update app or call customer care")
               return;}
                     }
                     setIsLoading(false);
@@ -816,7 +1030,7 @@ const CovCredSls = props => {
           
         
         } catch (e) {
-          if (e){Alert.alert("Error!")
+          if (e){Alert.alert("Retry or update app or call customer care")
       return;}
         } 
         setIsLoading(false);       
@@ -826,7 +1040,7 @@ const CovCredSls = props => {
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
          
     }   
@@ -840,7 +1054,7 @@ const CovCredSls = props => {
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
          
     }   
@@ -852,7 +1066,7 @@ const CovCredSls = props => {
   }     
   catch (e) {
     console.log(e)
-    if (e){Alert.alert("Error!")
+    if (e){Alert.alert("Retry or update app or call customer care")
     return;}
        
   }   
@@ -863,7 +1077,7 @@ const CovCredSls = props => {
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
   };
       setIsLoading(false);
@@ -1021,7 +1235,7 @@ useEffect(() =>{
         <ScrollView >
          
          <View style={styles.amountTitleView}>
-           <Text style={styles.title}>Fill Loan Details Below</Text>
+           <Text style={styles.title}>Enter Password Below</Text>
          </View>
 
          
@@ -1041,7 +1255,7 @@ useEffect(() =>{
          <TouchableOpacity
            onPress={fetchCredSlLnReq}
            style={styles.sendAmtButton}>
-           <Text style={styles.sendAmtButtonText}>Credit Sell with Advocate Coverage</Text>
+           <Text style={styles.sendAmtButtonText}>Click to loan</Text>
            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
          </TouchableOpacity>
 

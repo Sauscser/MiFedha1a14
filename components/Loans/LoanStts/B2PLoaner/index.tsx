@@ -6,7 +6,7 @@ import styles from './styles';
 
 export interface SMCvLnSttus {
     Loanee: {
-        id:string,
+      loanID:string,
         loanerPhn: string,
         amountgiven: number,
         amountexpected: number,
@@ -29,7 +29,7 @@ export interface SMCvLnSttus {
 const SMCvLnStts = (props:SMCvLnSttus) => {
    const {
     Loanee: {
-    id,
+      loanID,
     loanerPhn,
     amountgiven,
     amountexpected,
@@ -48,15 +48,15 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
 
    const navigation = useNavigation();
    const SndChmMmbrMny = () => {
-      navigation.navigate ("VwB2PMyLoanersDtld", {id})
+      navigation.navigate ("VwB2PMyLoanersDtld", {loanID})
    }
 
    const VwRpayments = () => {
-      navigation.navigate ("VwB2PLRSent", {id})
+      navigation.navigate ("VwB2PLRSent", {loanID})
    }
 
    const Repay = () => {
-      navigation.navigate ("RpyBiz2Pal", {id})
+      navigation.navigate ("RpyBiz2Pal", {loanID})
    }
 
    
@@ -72,7 +72,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                   
             <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Loan Id: {id}                 
+                       Loan Id: {loanID}                 
                     </Text>
                     <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
@@ -87,21 +87,20 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                     </Pressable>
 
                     <View style = {styles.viewForPressables2}>
-                    <View>
+                    
                     <Pressable
                       onPress={VwRpayments}
                       style = {styles.loanFriendButton}
                       >            
                         <Text style = {styles.loanAFriendText}>ViewRpymnts</Text>            
                     </Pressable>
-                    </View>   
-                    <View>
+                   
                     <Pressable
                       onPress={Repay}
                       style = {styles.loanFriendButton}>            
                         <Text style = {styles.loanAFriendText}>Repay</Text>            
                     </Pressable>  
-                    </View>
+                    
                      
                     </View>
         </View>

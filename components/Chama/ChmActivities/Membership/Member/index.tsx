@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import {View, Text,  ScrollView} from 'react-native';
+import {View, Text,  ScrollView, Pressable} from 'react-native';
 
 import styles from './styles';
 
@@ -9,9 +9,9 @@ export interface ChamaMmbrshpInfo {
     ChamaMmbrshpDtls: {
       MembaId: string,
       ChamaNMember: string,
-      groupContact: string,
-      
+      memberContact: string,
       groupName:string,
+      memberNatId:string,
       GrossLnsGvn:number,
       LonAmtGven: number,
       AmtRepaid:number,
@@ -23,6 +23,14 @@ export interface ChamaMmbrshpInfo {
       blStatus: string,
       createdAt:string,
       
+                  subscriptionFrequency:number,
+      subscriptionAmt:number,
+      lateSubscriptionPenalty:number,
+      ttlLateSubs:number,
+      timeCrtd:number,
+      subscribedAmt:number,
+      totalSubAmt:number
+      
     }}
 
 const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
@@ -30,8 +38,8 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
       ChamaMmbrshpDtls: {
          MembaId,
          ChamaNMember,
-         groupContact,
-       
+         memberNatId,
+         memberContact,
          groupName,
          loanStatus,
          blStatus,
@@ -43,92 +51,96 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
          ttlNonLonAcBal,
          createdAt,       
          AcStatus,
-       
-       
+         subscribedAmt,
+         totalSubAmt,
+         subscriptionFrequency,
+         subscriptionAmt,
+         lateSubscriptionPenalty,
+         ttlLateSubs,
+         timeCrtd,
+         
    }} = props ;
 
-   const navigation = useNavigation();
+   const today = new Date();
+              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
+              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
+              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
+              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
+              let months2 = parseFloat(months)
+              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
+              
+              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
 
+              const now1:any = "2024-05-20";
+             
+              const curYrs = parseFloat(years)*365;
+              const curMnths = (months2)*30.4375;
+              const daysUpToDate = curYrs + curMnths + parseFloat(days)          
+              const tmDif = daysUpToDate - timeCrtd;
+              const subFreq = tmDif/subscriptionFrequency
+              const Amt2HvBnSub = subFreq*subscriptionAmt
+              const subPnlties = totalSubAmt - subscribedAmt
+              const ttlArrears = (ttlLateSubs + Amt2HvBnSub).toFixed(0)
+
+   const navigation = useNavigation();
+   const SndChmMmbrMny = () => {
+      navigation.navigate("Contributionssss", {ChamaNMember})
+   }
+
+   const ViewMmberDtls = () => {
+      navigation.navigate ("MemberDtls", {ChamaNMember})
+   }
+
+   const ViewSubs = () => {
+      navigation.navigate ("ChmMmbrContriss", {ChamaNMember})
+   }
    
     return (
-        <View style = {styles.container}>              
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.subTitle}>                       
+      <View style = {{marginTop:"10%"}}>              
+            
+      <Pressable onPress={ViewMmberDtls} style = {styles.container}>
+      <Text style = {styles.subTitle}>                       
                        {/*loaner details */}   
                        {groupName}             
                     </Text>
-            </View>
-            
-            <ScrollView >       
-               
-
-            <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Member Chama Number: {MembaId}                
-                    </Text>    
 
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
-                       Member Chama ID: {ChamaNMember}                
-                    </Text>                                                 
-                                   
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Contribution to Chama (Ksh): {NonLoanAcBal.toFixed(2)}
+                       Member Chama Number: {MembaId}                
                     </Text>  
-
-                     <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Remittance from Chama (Ksh): {(ttlNonLonAcBal).toFixed(2)}
-                    </Text>    
-
-                    
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Gross Loans (Ksh): {GrossLnsGvn.toFixed(2)}
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                       Subscription up to date: {subscribedAmt}                
+                    </Text>   
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                       Subscription with Penalties: {ttlArrears}                
                     </Text>  
-
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Actual Loans (Ksh): {LonAmtGven.toFixed(2)}
-                    </Text>   
-                    
-                    
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                      Amount repaid (Ksh): {AmtRepaid.toFixed(2)}
-                    </Text>     
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Loan Balance (Ksh): {LnBal.toFixed(2)}
-                    </Text>   
-                    
-                   
-                      
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Chama Phone: {groupContact}                  
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Time Created: {createdAt}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Loan Status: {loanStatus}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Black-Listing status: {blStatus}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Membership Status: {AcStatus}                    
-                    </Text> 
             
-        </ScrollView>
-                
-        </View>
+      
+              </Pressable>
+
+              <View style = {styles.viewForPressables2}>
+              <Pressable
+                onPress={ViewSubs}
+                style = {styles.loanFriendButton}
+                >            
+                  <Text style = {styles.loanAFriendText}>Subscriptions</Text>            
+              </Pressable>
+              
+              
+              <Pressable
+                onPress={SndChmMmbrMny}
+                style = {styles.loanFriendButton}>            
+                  <Text style = {styles.loanAFriendText}>Subscribe</Text>            
+              </Pressable>  
+             
+            
+             
+               
+              </View>
+  </View>
     );
 }; 
 

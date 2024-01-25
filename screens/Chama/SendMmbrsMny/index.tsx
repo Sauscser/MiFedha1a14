@@ -42,15 +42,15 @@ import styles from './styles';
 
 const SMASendNonLns = props => {
   const [SenderNatId, setSenderNatId] = useState('');
-  const [RecNatId, setRecNatId] = useState('');
+  
   const [SnderPW, setSnderPW] = useState("");
   
   const [amounts, setAmount] = useState("");
-  const [MmbrId, setMmbrId] = useState('');
+  
   const [Desc, setDesc] = useState("");
  
   const[isLoading, setIsLoading] = useState(false);
-  const  MemberID = MmbrId+RecNatId
+ 
   const route = useRoute();
   
     const fetchChmMbrDtls = async () => {
@@ -62,7 +62,7 @@ const SMASendNonLns = props => {
     
       try {
           const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getChamaMembers, {ChamaNMember: MemberID}),
+              graphqlOperation(getChamaMembers, {ChamaNMember: route.params.ChamaNMember}),
               );
 
               const groupContacts =ChmMbrtDtl.data.getChamaMembers.groupContact;
@@ -142,7 +142,7 @@ const SMASendNonLns = props => {
                               amountSent: parseFloat(amounts).toFixed(0),
 
                               description: Desc,
-                              memberId:MemberID,
+                              memberId:route.params.ChamaNMember,
                               status: "AccountActive",
                               owner: userInfo.attributes.sub,
                             },
@@ -254,8 +254,8 @@ const SMASendNonLns = props => {
                           await API.graphql(
                             graphqlOperation(updateChamaMembers, {
                               input:{
-                                ChamaNMember: MemberID,                                                      
-                                ttlNonLonAcBal: (parseFloat(ttlNonLonAcBals) + parseFloat(amounts)).toFixed(0),
+                                ChamaNMember: route.params.ChamaNMember,                                                      
+                                NonLoanAcBal: (parseFloat(NonLoanAcBals) - parseFloat(amounts)).toFixed(0),
                                 
                                 
                               }
@@ -340,25 +340,16 @@ const SMASendNonLns = props => {
       if (e){Alert.alert("Error! Access denied!")
   return;}
     }
-          setMmbrId('');
+        
           setAmount("");
-          setRecNatId('');
+         
           
           setDesc("");
           setSnderPW("");
     setIsLoading(false);        
   };
 
-  useEffect(() =>{
-    const SnderNatIds=MmbrId
-      if(!SnderNatIds && SnderNatIds!=="")
-      {
-        setMmbrId("");
-        return;
-      }
-      setMmbrId(SnderNatIds);
-      }, [MmbrId]
-       );
+  
 
 useEffect(() =>{
   const SnderNatIds=SenderNatId
@@ -382,19 +373,7 @@ useEffect(() =>{
         }, [amounts]
          );
 
-         useEffect(() =>{
-          const RecNatIds=RecNatId
-            if(!RecNatIds && RecNatIds!=="")
-            {
-              setRecNatId("");
-              return;
-            }
-            setRecNatId(RecNatIds);
-            }, [RecNatId]
-             );
-
-             
-
+        
                  
 
                      useEffect(() =>{
@@ -434,30 +413,7 @@ useEffect(() =>{
             <Text style={styles.title}>Fill account Details Below</Text>
           </View>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-            placeholder="+2547xxxxxxxx"
-              value={RecNatId}
-              onChangeText={setRecNatId}
-              style={styles.sendAmtInput}
-              editable={true}
-              ></TextInput>
-              
-            <Text style={styles.sendAmtText}>Chama Phone</Text>
-          </View>
-
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-            
-              value={MmbrId}
-              onChangeText={setMmbrId}
-              style={styles.sendAmtInput}
-              editable={true}
-              ></TextInput>
-              
-            <Text style={styles.sendAmtText}>Chama member Number</Text>
-          </View>
+          
           
           
           <View style={styles.sendAmtView}>

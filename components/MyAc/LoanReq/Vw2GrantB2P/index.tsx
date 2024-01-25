@@ -18,6 +18,9 @@ export interface SMAccount {
       repaymentAmt:number,
       repaymentPeriod:number
       loaneeName:string,
+      dfltDeadLn:number
+      installmentAmount:number
+      paymentFrequency:number,
     }}
 
 const SMCvLnStts = (props:SMAccount) => {
@@ -29,7 +32,10 @@ const SMCvLnStts = (props:SMAccount) => {
         repaymentAmt,
         repaymentPeriod,
         loaneeName,
-        id
+        dfltDeadLn,
+        id,
+        installmentAmount,
+        paymentFrequency
    }} = props ;
 
    const[isLoading, setIsLoading] = useState(false);
@@ -58,6 +64,7 @@ const SMCvLnStts = (props:SMAccount) => {
                        {/*loaner details */}   
                       Hi! it's {loaneeName}. Kindly Loan me Ksh. {amount}. I 
                       commit to repay at a compound interest of {repaymentAmt}% per month within {repaymentPeriod} days. 
+                      Each Installment is {installmentAmount} after every {paymentFrequency} days.
                       You can reach me through {loaneePhone}.       
                     </Text>
                     </View>  

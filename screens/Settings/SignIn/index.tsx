@@ -205,7 +205,8 @@ const AdminSignIn = (props) => {
             maxMFNdogos:100,
 
             totalLnsRecovered: 0,
-            owner:ownr
+            owner:ownr,
+            maxDfltPen:20
           },
         }),
       );

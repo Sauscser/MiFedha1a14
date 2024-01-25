@@ -100,7 +100,7 @@ const ChmSignIn = (props) => {
                         catch(e){
                           console.log(e)
                           if(e){
-                            Alert.alert("Error!")
+                            Alert.alert("Retry or update app or call customer care")
                             return;
                         }
                         }
@@ -121,7 +121,7 @@ const ChmSignIn = (props) => {
             catch(e){
               console.log(e)
               if(e){
-                Alert.alert("Error!")
+                Alert.alert("Retry or update app or call customer care")
                 return;
             }
             }

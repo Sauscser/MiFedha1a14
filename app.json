@@ -2,7 +2,7 @@
   "expo": {
     "name": "MiFedha",
     "slug": "mifedha",
-    "version": "1.10.40",
+    "version": "1.10.64",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -21,12 +21,9 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.MiFedhaLimited.MiFedha",
-      "config":
-      {
-        "googleMapsApiKey":"AIzaSyBSxEmaAbLx6H5FIv1T7Mt1a_67vdWB7uw"
-    }
-  
-      
+      "config": {
+        "googleMapsApiKey": "AIzaSyBSxEmaAbLx6H5FIv1T7Mt1a_67vdWB7uw"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -34,26 +31,30 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.MiFedhaLimited.MiFedha",
-      "versionCode":51,
-      "permissions":[
-       "LOCATION", "ACCESS_USER_LOCATION",
-       "LOCATION", "ACCESS_FINE_LOCATION",
-       "LOCATION", "ACCESS_FOREGROUND_LOCATION"
+      "versionCode": 75,
+      "permissions": [
+        "LOCATION",
+        "ACCESS_USER_LOCATION",
+        "LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "LOCATION",
+        "ACCESS_FOREGROUND_LOCATION"
       ],
-      
-      "config":
-      {
-        "googleMaps":{
-          "apiKey":"AIzaSyB2fOeslPneWkf2XJzD31p1w2wmVBmdSKs"
-    }
-  }
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBRZNkT-P9MBJks_olCoqLGzbG3n484BnU"
+        }
+      }
     },
-    
-
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
     "description": "",
-    "githubUrl": "https://github.com/Sauscser/MyFedha.git"
+    "githubUrl": "https://github.com/Sauscser/MyFedha.git",
+    "extra": {
+      "eas": {
+        "projectId": "b30d507b-60bc-4c1c-a017-0d179493b241"
+      }
+    }
   }
 }

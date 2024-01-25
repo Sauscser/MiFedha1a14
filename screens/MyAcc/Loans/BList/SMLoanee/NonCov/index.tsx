@@ -193,7 +193,7 @@ const BLSMNonCovLoanee = (props) => {
                                 catch(error){
                                   console.log(error)
                                   if(error){
-                                  Alert.alert("Error!")
+                                  Alert.alert("Retry or update app or call customer care")
                                   return;
                               }}
                               await updateLoaneeDtls();
@@ -255,7 +255,7 @@ const BLSMNonCovLoanee = (props) => {
                                 catch(error){
                                   console.log(error)
                                   if(error){
-                                  Alert.alert("Error!")
+                                  Alert.alert("Retry or update app or call customer care")
                                   return
                                   
                               } 
@@ -305,7 +305,7 @@ const BLSMNonCovLoanee = (props) => {
               
               console.log(error)
               if(error){
-              Alert.alert("Error!")
+              Alert.alert("Retry or update app or call customer care")
               return;              
           } 
            }
@@ -317,7 +317,7 @@ const BLSMNonCovLoanee = (props) => {
             console.log(error)
             
             if(error){
-              Alert.alert("Error!")
+              Alert.alert("Retry or update app or call customer care")
               return;
           };
           }

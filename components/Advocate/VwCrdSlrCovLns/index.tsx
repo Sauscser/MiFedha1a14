@@ -7,7 +7,7 @@ import styles from './styles';
 
 export interface SMAccount {
     SMAc: {
-      id: string,
+      loanID: string,
       
       itemName: string,  
       itemSerialNumber:string,
@@ -36,7 +36,7 @@ export interface SMAccount {
 const ViewSMDeposts = (props:SMAccount) => {
    const {
       SMAc: {
-         id,
+         loanID,
          itemName,  
          itemSerialNumber,
          buyerContact,
@@ -62,7 +62,7 @@ const ViewSMDeposts = (props:SMAccount) => {
             <View style = {{alignItems:"center"}}>
             <Text style = {styles.subTitle}>                       
                        {/*loaner details */}   
-                       Transaction ID: {id}             
+                       loan ID: {loanID}             
                     </Text>
             </View>
             <ScrollView >              

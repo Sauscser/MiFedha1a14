@@ -180,7 +180,7 @@ const BLCovCredByr = (props) => {
                                 catch(error){
                                   console.log(error)
                                   if(error){
-                                  Alert.alert("Error!")
+                                  Alert.alert("Retry or update app or call customer care")
                                   return;
                               }}
                               await updateLoaneeDtls();
@@ -228,7 +228,7 @@ const BLCovCredByr = (props) => {
                                 catch(error){
                                   console.log(error)
                                   if(error){
-                                  Alert.alert("Error!")
+                                  Alert.alert("Retry or update app or call customer care")
                                   
                              
                               return;} }
@@ -306,7 +306,7 @@ const BLCovCredByr = (props) => {
             catch(error){
               console.log(error)
               if(error){
-              Alert.alert("Error!")
+              Alert.alert("Retry or update app or call customer care")
               return;              
           } 
            }
@@ -318,7 +318,7 @@ const BLCovCredByr = (props) => {
             console.log(error)
             
             if(error){
-              Alert.alert("Error!")
+              Alert.alert("Retry or update app or call customer care")
               return;
           };
           }

@@ -6,6 +6,7 @@ import LnerStts from "../../../../../components/VwCredSales/CrdStatus/Pal/Pal2Pa
 import styles from './styles';
 import { getCompany, getSMAccount, listCovCreditSellers, listSMLoansCovereds } from '../../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
+import { useRoute } from '@react-navigation/native';
 
 
 const FetchSMCovLns = props => {
@@ -14,7 +15,7 @@ const FetchSMCovLns = props => {
     const [loading, setLoading] = useState(false);
     const [Loanees, setLoanees] = useState([]);
 
-   
+   const route = useRoute()
 
         const fetchUsrDtls = async () => {
           const userInfo = await Auth.currentAuthenticatedUser();
@@ -40,107 +41,22 @@ const FetchSMCovLns = props => {
                       filter:{
                         and :{
                       lonBala:{gt:0},
-                      buyerContact: {eq:userInfo.attributes.email},
+                      loanID: {eq:route.params.loanID},
                         }
-                      },
-                      limit: 100,
-                  sortDirection: 'DESC',
+                      }
+                      
+                  
                     }
               
                   ));
               setLoanees(Lonees.data.listCovCreditSellers.items);
 
-              
-                        
-                        const fetchCompDtls = async () => {
-                          try {
-                                  const MFNDtls: any = await API.graphql(
-                                      graphqlOperation(getCompany, {AdminId: "BaruchHabaB'ShemAdonai2"}
-                                  ),);
-                  
-                                  const companyEarningBals = MFNDtls.data.getCompany.companyEarningBal;
-                                  const companyEarnings = MFNDtls.data.getCompany.companyEarning;
-                                  const enquiryFees = MFNDtls.data.getCompany.enquiryFee;
-                                  
-                                  
-                                              const updtActAdm = async()=>{
-                                                
-                                                try{
-                                                    await API.graphql(
-                                                      graphqlOperation(updateCompany,{
-                                                        input:{
-                                                          AdminId:"BaruchHabaB'ShemAdonai2",
-                                                          companyEarningBal:parseFloat(companyEarningBals) + parseFloat(enquiryFees),
-                                                          companyEarning:parseFloat(companyEarnings) + parseFloat(enquiryFees),
-                                                        }
-                                                      })
-                                                    )
-                                                }
-                                                catch(error){
-                                                  if(error){
-                                                    Alert.alert("Check your internet connection")
-                                                    return;
-                                                }
-                                                }
-                                                updtUsrAc();
-                                                
-                                              }
-          
-                                              const updtUsrAc = async()=>{
-                                                
-                                                try{
-                                                    await API.graphql(
-                                                      graphqlOperation(updateSMAccount,{
-                                                        input:{
-                                                          awsemail: userInfo.attributes.email,
-                                                          balance:parseFloat(balances) - parseFloat(enquiryFees),
-                                                        }
-                                                      })
-                                                    )
-                                                }
-                                                catch(error){
-                                                  if(error){
-                                                    Alert.alert("User does not exist")
-                                                    return;
-                                                }
-                                                }
-                                                                                                    
-                                              }
-                          
-          
-          
-                          
-          
-                  if(parseFloat(balances) < parseFloat(enquiryFees) ){
-                      Alert.alert("Account Balance is very little");
-                    }
-                    else{
-                        
-                      await updtActAdm();
-                        }
-                        
-                          }
-                      catch (e)
-                      {
-                        if(e){
-                          Alert.alert("User does not exist does not exist; otherwise check internet connection");
-                          return;
-                        }
-                          console.log(e)
-                         
-                          
-                      }    
-          
-              
-                       }
-                       await fetchCompDtls();
-          
                       }
           
                       catch (e)
                       {
                         if(e){
-                          Alert.alert("User does not exist; otherwise check internet connection");
+                          Alert.alert("Retry or update app or call customer care");
                           return;
                         }
                           console.log(e)

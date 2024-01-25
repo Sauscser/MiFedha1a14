@@ -81,7 +81,7 @@ const MyAccount = props => {
   };
 
   const ChamaPlaceLnReq = () => {
-    navigation.navigate('ChamaPlaceLnReq');
+    navigation.navigate('Vw2SelectChm2Req');
   };
 
   const Vw2DelLnReqs = () => {

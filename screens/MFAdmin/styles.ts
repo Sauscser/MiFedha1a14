@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
 
-    width: 80,
   },
 
   salesPressableText: {

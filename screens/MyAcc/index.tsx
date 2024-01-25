@@ -48,7 +48,7 @@ const MyAccount = props => {
   };
 
   const goToSMASndnonln = () => {
-    navigation.navigate('SendNonLnss');
+    navigation.navigate('Vw2SelectChmBeneficiary');
   };
 
   const UpdateSMPWss = () => {
@@ -63,8 +63,8 @@ const MyAccount = props => {
     navigation.navigate('LoanAds');
   };
 
-  const VwNonLnsSntss = () => {
-    navigation.navigate('ElimNonLnsSents');
+  const UpdateMainAc = () => {
+    navigation.navigate('UpdateMainAc');
   };
 
   const PayPalDposit = () => {
@@ -106,18 +106,18 @@ const MyAccount = props => {
             <Text style={styles.acPressableText}></Text>
             </View>
             <View style = {{flexDirection:"row"}}>
-            <Pressable onPress={UpdateSMPWss} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>UpdtPW</Text>
+            <Pressable onPress={UpdateMainAc} style={styles.acNonLnsPressables}>
+              <Text style={styles.acPressableText}>Update Account</Text>
             </Pressable>
             <Pressable onPress={goToSMASndnonln} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>Send NonLoan</Text>
+              <Text style={styles.acPressableText}>Send Cash</Text>
             </Pressable>
             </View>
             </View>
 
             <View style={styles.acPressables}>
             <View >
-            <Text style={styles.acPressableText}>ViewNonLoans</Text>
+            <Text style={styles.acPressableText}>View Cash Sent to Pals</Text>
             </View>
             <View style = {{flexDirection:"row"}}>
             <Pressable onPress={ViewNonLnsSents} style={styles.acNonLnsPressables}>

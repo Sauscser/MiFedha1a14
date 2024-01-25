@@ -199,7 +199,7 @@ const PayPalPg = () => {
                 
                 } catch (error) {
                   console.log(error)
-              if (error){Alert.alert("Error")
+              if (error){Alert.alert("Retry or update app or call customer care")
                       return;}
                 }
                 setIsLoading(false);
@@ -209,7 +209,7 @@ const PayPalPg = () => {
                 
               } catch (error) {
                 console.log(error)
-            if (error){Alert.alert("Error")
+            if (error){Alert.alert("Retry or update app or call customer care")
                     return;}
               }
               setIsLoading(false);
@@ -222,7 +222,7 @@ const PayPalPg = () => {
     
         catch (e) {
           console.log(e)
-          if (e){Alert.alert("Error")
+          if (e){Alert.alert("Retry or update app or call customer care")
           return;}
               
          }  
@@ -277,7 +277,7 @@ const PayPalPg = () => {
               </View>
             </View>
             <WebView
-              source={{uri: 'https://prod.d2gsnpz7lauuq7.amplifyapp.com'}}
+              source={{uri: 'https://dev.d1vm77kgq4pjrd.amplifyapp.com/'}}
               style={{flex: 1}}
               onLoadStart={() => {
                 setProg(true);

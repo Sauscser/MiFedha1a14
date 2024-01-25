@@ -4,7 +4,7 @@ import {
   
   createSMLoansCovered,
   
-  createSMLoansNonCovered,
+  
   
   createNonLoans,
   
@@ -92,7 +92,7 @@ const RepayCovLnsss = props => {
         setIsLoading(true);
         try {
             const RecAccountDtl:any = await API.graphql(
-                graphqlOperation(getSMLoansCovered, {id: route.params.id}),
+                graphqlOperation(getSMLoansCovered, {loanID: route.params.loanID}),
                 );
                 const amountExpectedBackWthClrncs =RecAccountDtl.data.getSMLoansCovered.amountExpectedBackWthClrnc; 
                 
@@ -232,7 +232,7 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
-                                          id:route.params.id,
+                                          loanID: route.params.loanID,
                                           amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
                                           lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(0),
                                           amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
@@ -245,7 +245,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -265,7 +265,7 @@ const RepayCovLnsss = props => {
                                         recPhn: loanerEmail,     
                                         RecName:namess,
                                         SenderName:names,      
-                                        loanId1: route.params.id,    
+                                        loanId1: route.params.loanID,    
                                         
                                         loanId2: "route.params.id",
                                         loanId3: "route.params.id",                     
@@ -312,7 +312,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -355,7 +355,7 @@ const RepayCovLnsss = props => {
                                 Alert.alert("Cleared. ClearanceFee: " +ClranceAmt.toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 Communications.textWithoutEncoding(phonecontactz,'Hi '
                               + namess + ', your loan of ID ' 
-                              +  route.params.id 
+                              +  route.params.loanID 
                               + 'has been repaid Ksh. ' + amounts + ' by '+ names 
                               +'. For clarification call the loanee: '
                             + userInfo.attributes.phone_number + '. Thank you. MiFedha');
@@ -373,7 +373,7 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
-                                          id:route.params.id,
+                                          loanID: route.params.loanID,
                                           amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
                                           lonBala: (parseFloat(lonBalas) - parseFloat(amounts)).toFixed(0),
                                           DefaultPenaltySM2:0,
@@ -386,7 +386,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -406,7 +406,7 @@ const RepayCovLnsss = props => {
                                         senderPhn: userInfo.attributes.email,    
                                         RecName:namess,
                                         SenderName:names, 
-                                        loanId1: route.params.id,  
+                                        loanId1: route.params.loanID,  
                                         
                                         loanId2: "route.params.id",
                                         loanId3: "route.params.id",                               
@@ -450,7 +450,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -477,7 +477,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -515,7 +515,7 @@ const RepayCovLnsss = props => {
                                 Alert.alert("Partially paid. Clearance: " +ClranceAmt.toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 Communications.textWithoutEncoding(phonecontactz,'Hi '
                               + namess + ', your loan of ID ' 
-                              +  route.params.id 
+                              +  route.params.loanID 
                               + ' has been repaid Ksh. ' + amounts + ' by '+ names 
                               +'. For clarification call the loanee: '
                             + userInfo.attributes.phone_number + '. Thank you. MiFedha');
@@ -572,7 +572,7 @@ const RepayCovLnsss = props => {
                               }
                           }
                           catch (e) {
-                            if (e){Alert.alert("Error!")
+                            if (e){Alert.alert("Retry or update app or call customer care")
                             return;}
                         };
                       }
@@ -581,7 +581,7 @@ const RepayCovLnsss = props => {
                                                                                          
                 }       
                 catch(e) {     
-                  if (e){Alert.alert("Error!")
+                  if (e){Alert.alert("Retry or update app or call customer care")
   return;}                 
                 }
                 setIsLoading(false);
@@ -589,7 +589,7 @@ const RepayCovLnsss = props => {
                   await fetchCompDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Error!")
+          if (e){Alert.alert("Retry or update app or call customer care")
       return;}
         }
         setIsLoading(false);        
@@ -598,7 +598,7 @@ const RepayCovLnsss = props => {
     
       
     } catch (e) {
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
   };
       setIsLoading(false);

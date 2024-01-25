@@ -179,7 +179,7 @@ const RegisterMFKubwaAcForm = props => {
                   )
               }
               catch(error){if(error){
-                Alert.alert("Error!")
+                Alert.alert("Retry or update app or call customer care")
                 return
               }}
               await updtSMAc();
@@ -203,7 +203,7 @@ const RegisterMFKubwaAcForm = props => {
               }
               catch(error){if (error) {
                 console.log(error)
-                Alert.alert("Error!")
+                Alert.alert("Retry or update app or call customer care")
                 return;
               }}
               await updtMFKOffer();
@@ -227,7 +227,7 @@ const RegisterMFKubwaAcForm = props => {
               }
               catch(error){if (error) {
                 console.log(error)
-                Alert.alert("Error!")
+                Alert.alert("Retry or update app or call customer care")
                 return;
               }}
               Alert.alert("MFKubwa Account registered successfully")   
@@ -237,7 +237,7 @@ const RegisterMFKubwaAcForm = props => {
            
             
           } catch (e) {
-            if(e){Alert.alert("Error!")
+            if(e){Alert.alert("Retry or update app or call customer care")
           return}
             console.error(e);
           }
@@ -246,7 +246,7 @@ const RegisterMFKubwaAcForm = props => {
         await fetchMFKOffer();
       
       } catch (e) {
-            if(e){Alert.alert("Error!")
+            if(e){Alert.alert("Retry or update app or call customer care")
           return}
             console.error(e);
           }
@@ -255,7 +255,7 @@ const RegisterMFKubwaAcForm = props => {
         await ChckUsrExistence();
       
       } catch (e) {
-            if(e){Alert.alert("Error!")
+            if(e){Alert.alert("Retry or update app or call customer care")
           return}
             console.error(e);
           }

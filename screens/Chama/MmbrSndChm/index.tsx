@@ -60,7 +60,7 @@ const FetchSMCovLns = props => {
         catch (e)
         {
           if(e){
-            Alert.alert("Advocate does not exist; otherwise check internet connection");
+            Alert.alert("Error!");
             return;
           }
             console.log(e)

@@ -68,13 +68,16 @@ const SMNonLnRec = (props:SMAccount) => {
                        {/* amount*/} 
                        Created At: {createdAt}
                     </Text>
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                     Last Update: {updatedAt}
-                    </Text>
+                    
+                    
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
                      More: {description}                  
+                    </Text> 
+
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                     Type of Transaction: {status}                  
                     </Text> 
                     
         </ScrollView>

@@ -63,13 +63,13 @@ const gtCompDtls = async () =>{
             <View style = {{marginTop:"10%"}}>
 
                   
-                       
-                      <ScrollView style = {styles.viewForPressables1}>
+<View >
+                      
                       <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
                       {Alrt}       
                     </Text>
-                    </ScrollView>  
+                    </View>
                      
                     <View style = {styles.viewForPressables2}>
                     <View>

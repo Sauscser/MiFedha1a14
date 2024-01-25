@@ -109,10 +109,15 @@ const styles = StyleSheet.create ({
          
       loanFriendButton: {
         
-        width: "50%",
-        marginRight:"20%",
-        marginLeft:"20%",
-        marginTop:"10%"
+        width: "30%",
+        marginRight:"2%",
+        marginLeft:"2%",
+        marginTop:"10%",
+        backgroundColor:"skyblue",
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+      
       
       },
 
@@ -187,6 +192,7 @@ const styles = StyleSheet.create ({
         fontSize: 10,
         fontWeight: 'bold',
         color: 'black',
+        padding:3
         
       },
     
@@ -194,7 +200,7 @@ const styles = StyleSheet.create ({
         fontSize: 12,
         fontWeight: 'bold',
         color: 'black',
-        
+        padding:3
       },
     
 

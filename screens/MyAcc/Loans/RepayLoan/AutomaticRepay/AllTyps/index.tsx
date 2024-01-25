@@ -10,6 +10,7 @@ import AutoCrdSlCv from "../../../../../../components/MyAc/RepyLn/AutomaticRepay
 import AutoCredSlNCV from "../../../../../../components/MyAc/RepyLn/AutomaticRepay/AutoCredSlNCV";
 import styles from './styles';
 import { useRoute } from '@react-navigation/core';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const FetchSMCovLns = props => {
 
@@ -33,11 +34,10 @@ const FetchSMCovLns = props => {
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
                 { 
-                  sortDirection: 'DESC',
-                  limit: 100,             
+                              
                   filter: {
                     and: {
-                      loaneePhn: { eq:  userInfo.attributes.email},
+                      loaneeEmail: { eq:  userInfo.attributes.email},
                         lonBala:{gt:0},
                         
                         status:{eq:"LoanBL"}
@@ -71,8 +71,7 @@ const FetchSMCovLns = props => {
               const Lonees3:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
                 { 
                   
-                  sortDirection: 'DESC',
-                  limit: 100,                
+                                
                   filter: {                    
                     loaneePhn: {eq: userInfo.attributes.email},
                       lonBala:{gt:0},                      
@@ -105,8 +104,7 @@ const FetchSMCovLns = props => {
               const Lonees5:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
                 { 
                  
-                  sortDirection: 'DESC',
-                  limit: 100,                
+                              
                   filter: {                    
                     buyerContact: {eq: userInfo.attributes.email},
                       lonBala:{gt:0},                      
@@ -136,102 +134,91 @@ const FetchSMCovLns = props => {
 
 
   return (
+    <SafeAreaView style = {{ marginBottom:"120%"}} >
     <View style={styles.image}>
 
-            <Text style={styles.label}> Please first repay these Debts</Text>
-            <Text style={styles.label2}> (Please swipe down to load)</Text>
-      <View style={styles.loanTitleView2}>
-      <View style={styles.loanTitleView1}>
-      <View style={styles.loanTitleView}>
-      <View style={styles.root}>
-      <FlatList
-      style= {{width:"100%"}}
-        data={Loanees}
-        renderItem={({item}) => <LnerStts Loanee={item} />}
-        keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
-        refreshing={loading}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponentStyle={{alignItems: 'center'}}
-        ListHeaderComponent={() => (
-          <>
-            
-            
-          </>
-        )}
-      />
-    </View>
-        
-      </View>
 
-      <View style={styles.loanTitleView}>
-      <View style={styles.root}>
-      <FlatList
-      style= {{width:"100%"}}
-        data={Loanees3}
-        renderItem={({item}) => <AutoChmCovLn ChamaMmbrshpDtls={item} />}
-        keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
-        refreshing={loading}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponentStyle={{alignItems: 'center'}}
-        ListHeaderComponent={() => (
-          <>
-            
-            
-          </>
-        )}
-      />
-    </View>
-    
-    
-        
-      </View>
+<Text style={styles.label}> Please first repay these Debts</Text>
+<Text style={styles.label2}> (Please swipe down to load)</Text>
 
-      <View style={styles.loanTitleView}>
-      <View style={styles.root}>
-      <FlatList
-      style= {{width:"100%"}}
-        data={Loanees5}
-        renderItem={({item}) => <AutoCrdSlCv Loanee={item} />}
-        keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchLoanees}
-        refreshing={loading}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponentStyle={{alignItems: 'center'}}
-        ListHeaderComponent={() => (
-          <>
-            
-            
-          </>
-        )}
-      />
-    </View>
-        
-      </View>
-      </View>
 
-      <View style={styles.loanTitleView1}>
-      <View style={styles.loanTitleView}>
-      
-        
-      </View>
+<View style={styles.loanTitleView}>
+<View style={styles.root}>
+<FlatList
+style= {{width:"100%"}}
+data={Loanees}
+renderItem={({item}) => <LnerStts Loanee={item} />}
+keyExtractor={(item, index) => index.toString()}
+onRefresh={fetchLoanees}
+refreshing={loading}
+showsVerticalScrollIndicator={false}
+ListHeaderComponentStyle={{alignItems: 'center'}}
+ListHeaderComponent={() => (
+<>
+<Text style={styles.label}> Pal Loans Loans</Text>
 
-      <View style={styles.loanTitleView}>
-      
-        
-      </View>
+</>
+)}
 
-      <View style={styles.loanTitleView}>
-      
-        
-      </View>
-      </View>
-  
-      </View>
-      
+/>
+</View>
+
+</View>
+
+<View style={styles.loanTitleView}>
+<View style={styles.root}>
+<FlatList
+style= {{width:"100%"}}
+data={Loanees3}
+renderItem={({item}) => <AutoChmCovLn ChamaMmbrshpDtls={item} />}
+keyExtractor={(item, index) => index.toString()}
+onRefresh={fetchLoanees}
+refreshing={loading}
+showsVerticalScrollIndicator={false}
+ListHeaderComponentStyle={{alignItems: 'center'}}
+ListHeaderComponent={() => (
+<>
+
+<Text style={styles.label}> Group Loans</Text>
+</>
+)}
+/>
+</View>
+
+
+
+</View>
+
+<View style={styles.loanTitleView}>
+<View style={styles.root}>
+<FlatList
+style= {{width:"100%"}}
+data={Loanees5}
+renderItem={({item}) => <AutoCrdSlCv Loanee={item} />}
+keyExtractor={(item, index) => index.toString()}
+onRefresh={fetchLoanees}
+refreshing={loading}
+showsVerticalScrollIndicator={false}
+ListHeaderComponentStyle={{alignItems: 'center'}}
+ListHeaderComponent={() => (
+<>
+<Text style={styles.label}> Business Loans</Text>
+
+</>
+)}
+/>
+</View>
+
+</View>
+
+
+
+
+
+
     </View>
     
+    </SafeAreaView>
   );
 };
 

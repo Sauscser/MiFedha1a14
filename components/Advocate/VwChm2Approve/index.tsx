@@ -11,7 +11,7 @@ export interface SMAccount {
    SMAc: {
       id:string,
       loaneePhone: string,      
-       
+      loanerPhone:string,
       loanerName: string,
       loaneeName: string,  
       amount:number,
@@ -31,7 +31,7 @@ const ViewSMDeposts = (props:SMAccount) => {
       SMAc: {
          id,
          loaneePhone,
-           
+         loanerPhone, 
          loanerName,
          loaneeName,
          amount,
@@ -68,7 +68,7 @@ const ViewSMDeposts = (props:SMAccount) => {
          }
          catch(error){
            if(error){
-             Alert.alert("Error!")
+             Alert.alert("Retry or update app or call customer care")
              return;
          }
          }
@@ -96,7 +96,7 @@ const ViewSMDeposts = (props:SMAccount) => {
  }
  catch(error){
    if(error){
-     Alert.alert("User does not exist")
+     Alert.alert("Retry or update app or call customer care")
      return;
  }
  }

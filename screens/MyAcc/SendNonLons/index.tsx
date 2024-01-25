@@ -4,7 +4,7 @@ import {
   
   createSMLoansCovered,
   
-  createSMLoansNonCovered,
+  
   
   createNonLoans,
   
@@ -12,7 +12,7 @@ import {
   
   updateSMAccount,
   
-} from '../../.././src/graphql/mutations';
+} from '../../../src/graphql/mutations';
 
 import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {
@@ -21,12 +21,10 @@ import {
   getSMAccount,
   listCovCreditSellers,
   listCvrdGroupLoans,
-  listNonCovCreditSellers,
-  listNonCvrdGroupLoans,
   listSMLoansCovereds,
-  listSMLoansNonCovereds,
   
-} from '../../.././src/graphql/queries';
+  
+} from '../../../src/graphql/queries';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -75,23 +73,12 @@ const SMASendNonLns = props => {
               and: {
                 status: { eq: "LoanBL"},
                 lonBala: { gt: 0},
-                loaneePhn: { eq: userInfo.attributes.email},
+                loaneeEmail: { eq: userInfo.attributes.email},
               }
             }}
             ));
 
-            const fetchNCLSM = async () => {
-              setIsLoading(true);
-              try {
-                const Lonees2:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
-                  { filter: {
-                      and: {
-                        status: { eq: "LoanBL"},
-                lonBala: { gt: 0},
-                loaneePhn: { eq: userInfo.attributes.email},
-                      }
-                    }}
-                    ));
+            
         
                     const fetchCLCrdSl = async () => {
                       setIsLoading(true);
@@ -106,18 +93,7 @@ const SMASendNonLns = props => {
                             }}
                             ));
 
-                            const fetchNCLCrdSl = async () => {
-                              setIsLoading(true);
-                              try {
-                                const Lonees4:any = await API.graphql(graphqlOperation(listNonCovCreditSellers, 
-                                  { filter: {
-                                      and: {
-                                        status: { eq: "LoanBL"},
-                                lonBala: { gt: 0},
-                                buyerContact: { eq: userInfo.attributes.email},
-                                      }
-                                    }}
-                                    ));
+                           
 
                                     const fetchCLChm = async () => {
                                       setIsLoading(true);
@@ -132,18 +108,7 @@ const SMASendNonLns = props => {
                                             }}
                                             ));
 
-                                            const fetchNCLChm = async () => {
-                                              setIsLoading(true);
-                                              try {
-                                                const Lonees6:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoans, 
-                                                  { filter: {
-                                                      and: {
-                                                        status: { eq: "LoanBL"},
-                                                lonBala: { gt: 0},
-                                                loaneePhn: { eq: userInfo.attributes.email},
-                                                      }
-                                                    }}
-                                                    ));const fetchSenderUsrDtls = async () => {
+const fetchSenderUsrDtls = async () => {
     if(isLoading){
       return;
     }
@@ -297,7 +262,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Error!")
+                        if (error){Alert.alert("Retry or update app or call customer care")
                         return;}
                       }
                       setIsLoading(false);
@@ -326,7 +291,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Error!")
+                        if (error){Alert.alert("Retry or update app or call customer care")
                         return;}
                       }
                       setIsLoading(false);
@@ -353,7 +318,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Error!")
+                        if (error){Alert.alert("Retry or update app or call customer care")
                         return;}
                       }
                       setIsLoading(false);
@@ -380,7 +345,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Error!")
+                        if (error){Alert.alert("Retry or update app or call customer care")
                         return;}
                       }
                       setIsLoading(false);
@@ -412,7 +377,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Error!")
+                        if (error){Alert.alert("Retry or update app or call customer care")
                     return;}
                       }
                       Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0)
@@ -451,7 +416,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Error!")
+                        if (error){Alert.alert("Retry or update app or call customer care")
                     return;}
                       }
                       Alert.alert("Insufficient transaction fees? No worries! Ksh. " +parseFloat(amounts).toFixed(0) + " sent!");
@@ -486,18 +451,13 @@ const SMASendNonLns = props => {
                     else if(parseFloat(loanLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');}
                     
                     else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
-                      ||
-                      Lonees2.data.listSMLoansNonCovereds.items.length > 0 
+                     
                       ||
                       Lonees3.data.listCovCreditSellers.items.length > 0 
-                      ||
-                      Lonees4.data.listNonCovCreditSellers.items.length > 0 
+                     
                       ||
                       Lonees5.data.listCvrdGroupLoans.items.length > 0 
-                      ||
-                      Lonees6.data.listNonCvrdGroupLoans.items.length > 0 
-                      
-
+                     
                     
                       ) {
                         SndChmMmbrMny();
@@ -512,7 +472,7 @@ const SMASendNonLns = props => {
                 }       
                 catch(e) {   
                   console.log(e)  
-                  if (e){Alert.alert("Error!")
+                  if (e){Alert.alert("Retry or update app or call customer care")
   return;}                 
                 }
                 setIsLoading(false);
@@ -520,7 +480,7 @@ const SMASendNonLns = props => {
                   await fetchRecUsrDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Error!")
+          if (e){Alert.alert("Retry or update app or call customer care")
       return;}
         }
         setIsLoading(false);        
@@ -531,7 +491,7 @@ const SMASendNonLns = props => {
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
          
     }   
@@ -540,22 +500,11 @@ const SMASendNonLns = props => {
     
     await fetchSenderUsrDtls();
 
-  }     
-  catch (e) {
-    console.log(e)
-    if (e){Alert.alert("Error!")
-    return;}
-       
-  }   
-  setIsLoading(false);
-  };
-  
-  await fetchNCLChm();
-    
+ 
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
          
     }   
@@ -564,22 +513,11 @@ const SMASendNonLns = props => {
     
     await fetchCLChm();
     
-    }     
-    catch (e) {
-      console.log(e)
-      if (e){Alert.alert("Error!")
-      return;}
-         
-    }   
-    setIsLoading(false);
-    };
-    
-    await fetchNCLCrdSl();
     
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
          
     }   
@@ -588,21 +526,11 @@ const SMASendNonLns = props => {
     
     await fetchCLCrdSl();
     
-    }     
-    catch (e) {
-      console.log(e)
-      if (e){Alert.alert("Error!")
-      return;}
-         
-    }   
-    setIsLoading(false);
-    };
     
-    await fetchNCLSM();
           
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Error!")
+          if (e){Alert.alert("Retry or update app or call customer care")
           return;}
       };
   

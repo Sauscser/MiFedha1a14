@@ -45,15 +45,26 @@ const ChmSignIn = (props) => {
 
 
   const FetchGrpLonsSts = () => {
-    navigation.navigate("ChmLnsGvnOuts", {grpContact});
+    navigation.navigate("ChmLnsSent", {grpContact});
   };
   
 
-  
-   
+  const gtChmDtls = async () =>{
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
 
+    const userInfo = await Auth.currentAuthenticatedUser();
+
+    try{
+      const compDtls1 :any= await API.graphql(
+        graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+        );
+   
+        const pw = compDtls1.data.getSMAccount.pw;  
     
-                const gtChmDtls = async () =>{
+                const gtChmDtls2 = async () =>{
                   if(isLoading){
                     return;
                   }
@@ -61,27 +72,85 @@ const ChmSignIn = (props) => {
 
                   const userInfo = await Auth.currentAuthenticatedUser();
       
-         
-
-
                   try{
                     const compDtls :any= await API.graphql(
                       graphqlOperation(getGroup,{grpContact:grpContact})
                       );
-                      const signitoryPWs = compDtls.data.getGroup.signitoryPW;  
+                   
                       const owners = compDtls.data.getGroup.owner;  
                       const signitory2Subs = compDtls.data.getGroup.signitory2Sub; 
+                      const Admin1 = compDtls.data.getGroup.Admin1;
+              const Admin2 = compDtls.data.getGroup.Admin2;
+              const Admin3 = compDtls.data.getGroup.Admin3;
+              const Admin4 = compDtls.data.getGroup.Admin4;
+              const Admin5 = compDtls.data.getGroup.Admin5;
+              const Admin6 = compDtls.data.getGroup.Admin6;
+              const Admin7 = compDtls.data.getGroup.Admin7;
+              const Admin8 = compDtls.data.getGroup.Admin8;
+              const Admin9 = compDtls.data.getGroup.Admin9;
+              const Admin10 = compDtls.data.getGroup.Admin10;
+              const Admin11 = compDtls.data.getGroup.Admin11;
+              const Admin12 = compDtls.data.getGroup.Admin12;
+              const Admin13 = compDtls.data.getGroup.Admin13;
+              const Admin14 = compDtls.data.getGroup.Admin14;
+              const Admin15 = compDtls.data.getGroup.Admin15;
+              const Admin16 = compDtls.data.getGroup.Admin16;
+              const Admin17 = compDtls.data.getGroup.Admin17;
+              const Admin18 = compDtls.data.getGroup.Admin18;
+              const Admin19 = compDtls.data.getGroup.Admin19;
+              const Admin20 = compDtls.data.getGroup.Admin20;
 
-                      if(signitoryPWs!==pword){Alert.alert("Wrong author credentials")}
+                      if(pw!==pword){Alert.alert("Wrong admin main account credentials")}
                       else if(userInfo.attributes.sub !== owners 
-                        && signitory2Subs !== userInfo.attributes.sub)
-                        {Alert.alert("You are neither the author nor signatory of this Chama")}
+                        && signitory2Subs !== userInfo.attributes.sub
+                        &&
+            Admin1 === userInfo.attributes.email
+            &&
+            Admin2 === userInfo.attributes.email 
+            &&
+            Admin3 === userInfo.attributes.email
+            &&
+            Admin4 === userInfo.attributes.email 
+            &&
+            Admin5 === userInfo.attributes.email
+            &&
+            Admin6 === userInfo.attributes.email 
+            &&
+            Admin7 === userInfo.attributes.email
+            &&
+            Admin8 === userInfo.attributes.email 
+            &&
+            Admin9 === userInfo.attributes.email
+            &&
+            Admin10 === userInfo.attributes.email 
+            &&
+            Admin11 === userInfo.attributes.email
+            &&
+            Admin12 === userInfo.attributes.email 
+            &&
+            Admin13 === userInfo.attributes.email
+            &&
+            Admin14 === userInfo.attributes.email 
+            &&
+            Admin14 === userInfo.attributes.email
+            &&
+            Admin15 === userInfo.attributes.email 
+            &&
+            Admin16 === userInfo.attributes.email
+            &&
+            Admin17 === userInfo.attributes.email 
+            &&
+            Admin18 === userInfo.attributes.email
+            &&
+            Admin19 === userInfo.attributes.email 
+            &&
+            Admin20 === userInfo.attributes.email
+                        )
+                        {Alert.alert("Neither the author nor signatory nor admin of this Chama")}
                       
                       else{FetchGrpLonsSts();}
                     }
 
-                    
-            
             catch(e){
               console.log(e)
               if(e){
@@ -89,15 +158,29 @@ const ChmSignIn = (props) => {
                 return;
             }
             }
-            setIsLoading(false)
-            setChmPhn('');
-            setPW('');
-            setPhoneContacts("")
-            setChmDesc("")
-            setChmNm("")
+           
                         setIsLoading(false)
                         
             };
+await gtChmDtls2()
+          }
+
+          catch(e){
+            console.log(e)
+            if(e){
+              Alert.alert("Group does not exist; otherwise check inernet connection")
+              return;
+          }
+          }
+          setIsLoading(false)
+          setChmPhn('');
+          setPW('');
+          setPhoneContacts("")
+          setChmDesc("")
+          setChmNm("")
+                      setIsLoading(false)
+                      
+          };
              
     
       useEffect(() =>{
@@ -183,7 +266,7 @@ useEffect(() =>{
                       secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama PassWord</Text>
+                    <Text style={styles.sendLoanText}>Main account PassWord</Text>
                   </View>
 
 

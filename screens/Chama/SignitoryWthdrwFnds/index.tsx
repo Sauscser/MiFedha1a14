@@ -134,7 +134,7 @@ const SMADepositForm = props => {
                             setIsLoading(true);
                             try{
                               const compDtlsx :any= await API.graphql(
-                              graphqlOperation(getSMAccount,{awsEmail:acChamp})
+                              graphqlOperation(getSMAccount,{awsemail:acChamp})
                                 );
                                   const balancesx = compDtlsx.data.getSMAccount.balance;
                                   

@@ -6,7 +6,7 @@ import styles from './styles';
 
 export interface SMCvLnSttus {
     Loanee: {
-        id:string,
+        loanID:string,
         loaneePhn: string,
         amountgiven: number,
         amountexpected: number,
@@ -25,7 +25,7 @@ export interface SMCvLnSttus {
 const SMCvLnStts = (props:SMCvLnSttus) => {
    const {
     Loanee: {
-    id,
+        loanID,
     
     lonBala,
     
@@ -36,11 +36,11 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
    const navigation = useNavigation();
 
    const SndChmMmbrMny = () => {
-       navigation.navigate("RepayCovLnss", {id})
+       navigation.navigate("RepayCovLnss", {loanID})
    }
     return (
-        <Pressable 
-        onPress={SndChmMmbrMny}
+        <View 
+       
         style = {styles.container}>             
             
             <View style = {{alignItems:"center"}}>
@@ -53,14 +53,14 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
                         
             <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Loan Id: {id}                 
+                       Loan Id: {loanID}                 
                     </Text>
                    
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
                        Loan Balance (Ksh): {lonBala.toFixed(2)}
                     </Text>                      
-                    </Pressable>
+                    </View>
     );
 }; 
 

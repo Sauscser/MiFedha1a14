@@ -61,7 +61,7 @@ const FetchSMNonCovLns = props => {
         catch (e)
         {
           if(e){
-            Alert.alert("Advocate does not exist; otherwise check internet connection");
+            Alert.alert("Retry or update app or call customer care");
             return;
           }
             console.log(e)

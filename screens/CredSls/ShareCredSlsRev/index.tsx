@@ -73,6 +73,7 @@ const SMASendNonLns = props => {
       const usrPW =accountDtl.data.getBizna.pw;
       const busNames =accountDtl.data.getBizna.busName;
       const SenderSub =accountDtl.data.getBizna.owner;
+      const noBL =accountDtl.data.getBizna.noBL;
       
       
       const fetchCompDtls = async () => {
@@ -199,7 +200,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Error!")
+                        if (error){Alert.alert("Retry or update app or call customer care")
                         return;}
                       }
                       setIsLoading(false);
@@ -257,6 +258,8 @@ const SMASendNonLns = props => {
                       Alert.alert("Receiver call customer care to have wallet capacity adjusted")
                       return;
                     } 
+
+                    else if(noBL > 0){Alert.alert('Please first clear your lenders');}
                     
                     else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs)===0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
                     else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
@@ -269,7 +272,7 @@ const SMASendNonLns = props => {
                 }       
                 catch(e) {   
                   console.log(e)  
-                  if (e){Alert.alert("Error!")
+                  if (e){Alert.alert("Retry or update app or call customer care")
   return;}                 
                 }
                 setIsLoading(false);
@@ -277,7 +280,7 @@ const SMASendNonLns = props => {
                   await fetchRecUsrDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Error!")
+          if (e){Alert.alert("Retry or update app or call customer care")
       return;}
         }
         setIsLoading(false);        
@@ -287,7 +290,7 @@ const SMASendNonLns = props => {
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
   };
       setIsLoading(false);

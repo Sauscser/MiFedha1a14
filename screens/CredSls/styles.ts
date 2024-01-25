@@ -177,6 +177,32 @@ const styles = StyleSheet.create({
     
   },
 
+  viewForClientsPressables3: {
+    backgroundColor: 'pink',
+    
+    height: "95%",
+    borderRadius: 4,
+    
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: "24%",
+    
+  },
+
+  viewForClientsPressables4: {
+    backgroundColor: 'pink',
+    
+    height: "100%",
+    borderRadius: 4,
+    
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: "100%",
+    
+  },
+
   ClientsPressables: {
     backgroundColor: '#72ebd8',
     width:"48%",
@@ -191,6 +217,22 @@ const styles = StyleSheet.create({
 
     
   },
+
+  ClientsPressables2: {
+    backgroundColor: '#72ebd8',
+    width:"100%",
+    marginLeft:"1%",
+    marginRight:"1%",
+    height: "100%",
+    borderRadius: 4,
+  
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+
+    
+  },
+
 
   ClientsPressablesLnStts: {
     backgroundColor: '#72ebd8',

@@ -71,7 +71,10 @@ const SettinsHm = props => {
   const UpdtVatComsss = () => {
     navigation.navigate('UpdtVatComss');
   };
-  
+
+  const CreateExRates = () => {
+    navigation.navigate('CreateExRates');
+  };  
   
   
 
@@ -80,8 +83,6 @@ const SettinsHm = props => {
      
         
           <View style={styles.adminImage}>
-
-
           
             <View style={styles.clientsView}>
               <Text style={styles.salesText}>Clients</Text>
@@ -245,6 +246,15 @@ const SettinsHm = props => {
                         WithdrwVAT
                       </Text>
                     </Pressable>
+
+                    <Pressable
+                      onPress={CreateExRates}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        CreateExRate
+                      </Text>
+                    </Pressable>
+
 
                    
                   </View>

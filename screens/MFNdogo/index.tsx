@@ -43,8 +43,8 @@ const KFNdogoScreen = props => {
     navigation.navigate('VwMFNAccountSgnIns');
   };
 
-  const BuyFloatFrmUsrAcss = () => {
-    navigation.navigate('BuyFloatFrmUsrAcs');
+  const MakeBizDpsts = () => {
+    navigation.navigate('MakeBizDpsts');
   };
   const FltWthdrwlsSgnInss = () => {
     navigation.navigate('FltWthdrwlsSgnIns');
@@ -86,7 +86,7 @@ const KFNdogoScreen = props => {
             <Pressable
               onPress={FloatBghtSgnInss}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>UserDposit</Text>
+              <Text style={styles.floatPressableText2}>Deposit</Text>
             </Pressable>
 
             <Pressable
@@ -103,7 +103,7 @@ const KFNdogoScreen = props => {
             <Pressable
               onPress={UsrWthdrwlsSgnInss}
               style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>UserWthdrwls</Text>
+              <Text style={styles.floatPressableText2}>ClientsWthdrwls</Text>
             </Pressable>
 
             <Pressable
@@ -159,6 +159,12 @@ const KFNdogoScreen = props => {
               onPress={SignitoryDepositsss}
               style={styles.floatView}>
               <Text style={styles.floatPressableText}>Chama Deposit</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={MakeBizDpsts}
+              style={styles.floatView}>
+              <Text style={styles.floatPressableText}>Biz Deposit</Text>
             </Pressable>
           </View>
         </View>

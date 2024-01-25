@@ -251,7 +251,7 @@ const RepayNonCovLnsss = props => {
           
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -319,7 +319,7 @@ const RepayNonCovLnsss = props => {
                                  
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -390,7 +390,7 @@ const RepayNonCovLnsss = props => {
           
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -450,7 +450,7 @@ const RepayNonCovLnsss = props => {
           
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -476,7 +476,7 @@ const RepayNonCovLnsss = props => {
                                     )                              
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -575,7 +575,7 @@ const RepayNonCovLnsss = props => {
                               }
                           }
                           catch (e) {
-                            if (e){Alert.alert("Error!")
+                            if (e){Alert.alert("Retry or update app or call customer care")
                             return;}
                         };
                       }
@@ -584,14 +584,14 @@ const RepayNonCovLnsss = props => {
                                                                                          
                 }       
                 catch(e) {     
-                  if (e){Alert.alert("Error!")
+                  if (e){Alert.alert("Retry or update app or call customer care")
   return;}                 
                 }
                 setIsLoading(false);
                 }                    
                   await fetchCompDtls();
         } catch (e) {
-          if (e){Alert.alert("Error!")
+          if (e){Alert.alert("Retry or update app or call customer care")
       return;}
         }
         setIsLoading(false);        
@@ -600,7 +600,7 @@ const RepayNonCovLnsss = props => {
     
       
     } catch (e) {
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
   };
       setIsLoading(false);

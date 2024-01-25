@@ -10,41 +10,97 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {
+      MemberReqChm:{ChamaNMember:String}
+      MemberDtls:{ChamaNMember:string}
+      VwToRegMFK:undefined;
+      SndMbrsMnys:{ChamaNMember:string};
+      Vw2SelectChm2Req:undefined;
+      BizPayPalDposit:{itemPrys:string};
+      MakeNVwPayPalDpsits:undefined;
+      BizReadPayPalTNC:undefined;
+      CreateExRates:undefined;
+      UpdateMainAc:undefined;
+      AddBeneficiary:undefined;
+      BizAddAdmin:undefined;
+      AddBizBeneficiary:undefined;
+      BizCancelObjection:undefined;
+      ChmMmbrContriss: {ChamaNMember:string}
+      BizObject:undefined;
+      BizUpdatePW:undefined;
+      ChmCancelObjection:undefined;
+      ChmObject:undefined;
+      ChmUpdate:undefined;
+      UpdateChmAc:undefined;
+      VwCompMFAdvTC:undefined;
+      VwCompMFNTC:undefined;
+      VwCompMFKTC:{id:string};
+      UpdateBizAc:undefined;
+      ChmAddAdmin:undefined;
+      ViewBiznaShareRecP2B:undefined;
+      ViewBiznaShareSentP2B:undefined;
+      ViewBiznaShareRecB2B:undefined;
+      ViewBiznaShareSentB2B:undefined;
+      ViewBiznaShareRecB2P:undefined;
+      ViewBiznaShareSentB2P:undefined;
+      PayCash:undefined;
+      B2bPayCash:{id:string};
+      B2BPayCashVw2Grant:undefined;
+      B2BPayCash:{id:string};
+      B2BPayCashReq:undefined;
+      B2PPayCashReq:undefined;
+      B2PPayCashVw2Grant:undefined;
+      B2PPayCash: {id:string};      
+      P2BPayCash:undefined;
+      PenaliseMember: {ChamaNMember:string};
+      SendNLBnftChm:{ChamaNMember:string};
+      BenefitChmSenderOnly:{ChamaNMember:string};
+      SendNLBnftNone:undefined;
+      Vw2SelectChmBeneficiary:undefined;
+      ChamaDtls: {ChamaNMember:string};
+      VwMbrSubsDirectly:{ChamaNMember:string};
       PayPalDposit:undefined;
       VwAcBfDpst:undefined;
       Vw2ApprovePPReq:undefined;
       Vw2ApproveChmReq:undefined;
-      Vw2ApproveBizReq:undefined;
-      ViewNonLnsRecChm : {id:string}
-      ChmLoanersDtls: {id:string};
-      ChmLoaneesDtls: {id:string};
+      Vw2ApproveBizReq:undefined;      
+      ChmLnsRec:undefined;
+      ChmLnsSent:{grpContact:string};
+      ChmLoaneesDtls:{loanID:string};
+      ChmLoanersDtls:{loanID:string};      
+      WaiveBiz2Biz:{loanID:string};
+      WaiveBiz2Pal:{loanID:string};
+      WaivePal2Biz:{loanID:string};
+      WaivePal2Pal:{loanID:string};
+      WaiveSMBiz2Pal:{loanID:string};
+      WaiveSMPal2Pal:{loanID:string};
+      WaiveChmCov:{loanID:string};
+      MakeBizDpsts:undefined;
+      VwBizDpsts:undefined;     
+      ViewNonLnsRecChm : {loanID:string}      
       ReadPayPalTNC:undefined;
-      SgnIn2TransferBiz:undefined;
-      
-      CredRPyBiz2Biz: {id:string};
-      CredRPyBiz2Pal: {id:string};
-      CredRPyPal2Biz: {id:string};
-      CredRPyPal2Pal:{id:string};
-
-      BLCredBiz2Biz: {id:string};
-      BLCredBiz2Pal: {id:string};
-      BLCredPal2Biz: {id:string};
-      BLCredPal2Pal:{id:string};
-      
-      CredB2PSent: {id:string};
-      CredB2PReceived: {id:string};
-      CredP2BReceived: {id:string};
+      SgnIn2TransferBiz:undefined;      
+      CredRPyBiz2Biz: {loanID:string};
+      CredRPyBiz2Pal: {loanID:string};
+      CredRPyPal2Biz: {loanID:string};
+      CredRPyPal2Pal:{loanID:string};
+      BLCredBiz2Biz: {loanID:string};
+      BLCredBiz2Pal: {loanID:string};
+      BLCredPal2Biz: {loanID:string};
+      BLCredPal2Pal:{loanID:string};      
+      CredB2PSent: {loanID:string};
+      CredB2PReceived: {loanID:string};
+      CredP2BReceived: {loanID:string};
       CredP2BSent:{id:string};
 
-      CredB2BSent: {id:string};
-      CredB2BReceived: {id:string};
-      CredP2PReceived: {id:string};
-      CredP2PSent:{id:string};
+      CredB2BSent: {loanID:string};
+      CredB2BReceived: {loanID:string};
+      CredP2PReceived: {loanID:string};
+      CredP2PSent:{loanID:string};
 
-      VwB2PMyLoanersDtld: {id:string};
-      VwB2PMyLoaneesDtld: {id:string};
-      VwP2PMyLoaneesDtld: {id:string};
-      VwP2PMyLoanersDtld:{id:string};
+      VwB2PMyLoanersDtld: {loanID:string};
+      VwB2PMyLoaneesDtld: {loanID:string};
+      VwP2PMyLoaneesDtld: {loanID:string};
+      VwP2PMyLoanersDtld:{loanID:string};
       
       SI2VwBiz2BizLoanees:undefined;
       SI2VwBiz2PalLoaners:undefined;
@@ -52,22 +108,22 @@ declare global {
       SI2VwBiz2PalLoanees:undefined;
 
       VwBiz2PalLnees: {ChmDesc:string};
-      VwBiz2PalLners: {ChmDesc:string};
+      VwBiz2PalLners: undefined;
       VwPal2BizLnees: undefined;
       VwPal2BizLners:undefined;
-      VwMyBiz2PalLoaneesDtld: {id:string};
-      VwMyBiz2PalLoanersDtld: {id:string};
-      VwMyPal2BizLoaneesDtld: {id:string};
-      VwMyPal2BizLoanersDtld:{id:string};
+      VwMyBiz2PalLoaneesDtld: {loanID:string};
+      VwMyBiz2PalLoanersDtld: {loanID:string};
+      VwMyPal2BizLoaneesDtld: {loanID:string};
+      VwMyPal2BizLoanersDtld:{loanID:string};
       
       
       VwBizLnees: {ChmDesc:string};
       VwBizLners: {ChmDesc:string};
       VwPalLnees: undefined;
       VwPalLners:undefined;
-      VwMyBizLoaneesDtld: {id:string};
-      VwMyBizLoanersDtld: {id:string};
-      VwMyPalLoaneesDtld: {id:string};
+      VwMyBizLoaneesDtld: {loanID:string};
+      VwMyBizLoanersDtld: {loanID:string};
+      VwMyPalLoaneesDtld: {loanID:string};
       VwMyPalLoanersDtld:{id:string};
       
       PlaceLnReqP2P: undefined;
@@ -80,22 +136,22 @@ declare global {
       VwB2PMyLoaners:undefined;
 
       SignIn2VwLR:undefined;
-      VwB2PReceived:{id:string};
-      VwB2PLRSent:{id:string};
-      VwP2PReceived:{id:string};
-      VwP2PSent:{id:string};
+      VwB2PReceived:{loanID:string};
+      VwB2PLRSent:{loanID:string};
+      VwP2PReceived:{loanID:string};
+      VwP2PSent:{loanID:string};
       
       SISgnInToBLB2P:undefined;
       Vw2BLBiz2Pal:{memberPhn:string};
       Vw2BLPal2Pal:undefined;
-      BLBiz2Pal:{id:string};
-      BLPal2Pal:{id:string};
+      BLBiz2Pal:{loanID:string};
+      BLPal2Pal:{loanID:string};
       
       SIBiz2Pal2Repay:undefined;
       Vw2RpyB2P:{memberPhn:string};
       Vw2RpyP2P:undefined;
-      RpyBiz2Pal:{id:string};
-      RpyPal2Pal:{id:string};
+      RpyBiz2Pal:{loanID:string};
+      RpyPal2Pal:{loanID:string};
       PalLnStsB2PLnee:undefined;
 
       PersonelVw2GrntB2B:undefined;
@@ -196,13 +252,13 @@ declare global {
       ChmCovLons:{id:string};
       ChmNonCovLons:{id:string};
       ChmContrs:{ContriToMmbrId:string};
-      SndMbrsMnys:{id:string};
+     
       
-      BLChmMmberCovs:{id:string};
+      BLChmMmberCovs:{loanID:string};
       BLChmMmberNonCovs:{id:string};
 
-      RepyChmCovLns:{id:string};
-      RepyChmNonCovLns:{id:string};
+      RepyChmCovLns:{loanID:string};
+      RepyChmNonCovLns:{loanID:string};
 
       
       SMGivCovLon:{id:string};
@@ -308,7 +364,7 @@ declare global {
       Commissionss:undefined;
       SndChmMbrMnys:{grpContact:string};
       ChamaSndMbrMneys:undefined;
-      SndToChmMbrss:{ChmNMmbrPhns:string};
+      SndToChmMbrss:{ChamaNMember:string};
       MmbrSndChmss:undefined;
       Contributionssss:{ChamaNMember:string}
       SgnIn2LnMmbrs:undefined;
@@ -327,13 +383,13 @@ declare global {
       Vw2BLCovSMLns:{ChmNMmbrPhns:string};
       Vw2BLSMNonCovs:{ChmNMmbrPhnss:string};
 
-      RepayCovLnss:{id:string};
-      RepayNonCovLnss:{id:string};
+      RepayCovLnss:{loanID:string};
+      RepayNonCovLnss:{loanID:string};
       BListSMLneeCovs:{id:string};
       BListSMLneeNonCovs:{id:string};
 
-      RpayCredSlrCovs:{id:string};
-      RpayCredSlrNonCovs:{id:string};
+      RpayCredSlrCovs:{loanID:string};
+      RpayCredSlrNonCovs:{loanID:string};
       BListCredByrCovs:{id:string};
       BListCredByrNonCovs:{id:string};
 
@@ -364,7 +420,7 @@ declare global {
      
       ViewNonLnsRecCredSlrs:{MFNId:string};
       ViewNonLnsRecSMs:undefined;
-      ViewNonLnsSntChms:{id:string};
+      ViewNonLnsSntChm:{loanID:string};
       ViewNonLnsSntCredSlrs:{MFNId:string};
       ViewNonLnsSntSMs:undefined;
 
@@ -482,7 +538,7 @@ declare global {
       CrdSlVw2GrantLnReqCov:{BusinessRegNo:string};
       CrdSlVw2GrantLnReqNonCov:{BusinessRegNo:string};
 
-      PayCash: undefined;
+      
       VwCashPayRec: {MFNId:string};
       VwCashPaySent:undefined;
       SgnIn2VwCashSales:undefined;

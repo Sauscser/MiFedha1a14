@@ -3,11 +3,12 @@ import React from 'react';
 import { Text,  Pressable,  } from 'react-native';
 
 import styles from './styles';
+import { View } from '../../../../Themed';
 
 
 export interface ChamaMmbrshpInfo {
     ChamaMmbrshpDtls: {
-      id: string,
+      loanID: string,
       lonBala:number,
       LoanerName:string,
       memberId:string,
@@ -17,7 +18,7 @@ export interface ChamaMmbrshpInfo {
 const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    const {
       ChamaMmbrshpDtls: {
-         id,
+         loanID,
          lonBala,
          LoanerName,
          memberId
@@ -26,17 +27,17 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    const navigation = useNavigation();
     
    const SndChmMmbrMny = () => {
-      navigation.navigate("RepyChmCovLns", {id})
+      navigation.navigate("RepyChmCovLns", {loanID})
    }
    
     return (
-       <Pressable 
-       onPress={SndChmMmbrMny}
-       style = {styles.container}>          
+       <View style = {styles.container}>
+      
+                 
           
                      <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
-                       Loan ID: {id}                
+                       Loan ID: {loanID}                
                     </Text>  
 
                     <Text style = {styles.ownerContact}>                       
@@ -53,7 +54,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                     </Text>  
                                 
                
-        </Pressable>
+        </View>
     );
 }; 
 

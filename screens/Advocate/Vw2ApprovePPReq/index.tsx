@@ -71,8 +71,7 @@ const FetchSMNonLnsSnt = props => {
                                                           graphqlOperation(updateCompany,{
                                                             input:{
                                                               AdminId:"BaruchHabaB'ShemAdonai2",
-                                                              companyEarningBal:parseFloat(companyEarningBals) + parseFloat(enquiryFees),
-                                                              companyEarning:parseFloat(companyEarnings) + parseFloat(enquiryFees),
+                                                              
                                                             }
                                                           })
                                                         )
@@ -94,7 +93,7 @@ const FetchSMNonLnsSnt = props => {
                                                           graphqlOperation(updateSMAccount,{
                                                             input:{
                                                               awsemail:userInfo.attributes.email,
-                                                              balance:parseFloat(balances) - parseFloat(enquiryFees),
+                                                              
                                                             }
                                                           })
                                                         )
@@ -143,10 +142,10 @@ const FetchSMNonLnsSnt = props => {
                           catch (e)
                           {
                             if(e){
-                              Alert.alert("Error! Access denied!");
+                              console.log(e)
                               return;
                             }
-                              console.log(e)
+                              
                              
                               
                             }    

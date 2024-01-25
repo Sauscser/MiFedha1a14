@@ -11,7 +11,7 @@ export interface SMAccount {
    SMAc: {
       id:string,
       loaneePhone: string,      
-       
+       loanerPhone:string,
       loanerName: string,
       loaneeName: string,  
       amount:number,
@@ -37,7 +37,7 @@ const ViewSMDeposts = (props:SMAccount) => {
          amount,
          repaymentAmt,
          businessNo,
-        
+         loanerPhone,
          repaymentPeriod,
          defaultPenalty,
          description,
@@ -67,12 +67,13 @@ const ViewSMDeposts = (props:SMAccount) => {
          }
          catch(error){
            if(error){
-             Alert.alert("Error!")
+             Alert.alert("Retry or update app or call customer care")
              return;
          }
+
          }
          SndChmMmbrMny3();
-         Communications.textWithoutEncoding(businessNo,
+         Communications.textWithoutEncoding(loanerPhone,
           'MiFedha. Hi I have witnessed the'
          + ' loan contract between ' +
          ' your Business and ' + loaneeName + ' the Loaned. Thank you.');  
@@ -94,7 +95,7 @@ const ViewSMDeposts = (props:SMAccount) => {
  }
  catch(error){
    if(error){
-     Alert.alert("User does not exist")
+     Alert.alert("Retry or update app or call customer care")
      return;
  }
  }

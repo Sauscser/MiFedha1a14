@@ -70,7 +70,7 @@ const RepayCovLnsss = props => {
         setIsLoading(true);
         try {
             const RecAccountDtl:any = await API.graphql(
-                graphqlOperation(getSMLoansCovered, {id: route.params.id}),
+                graphqlOperation(getSMLoansCovered, {loanID: route.params.loanID}),
                 );
                 const amountExpectedBackWthClrncs =RecAccountDtl.data.getSMLoansCovered.amountExpectedBackWthClrnc; 
                 
@@ -84,6 +84,7 @@ const RepayCovLnsss = props => {
                 const LonBalsss = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountrepaids);     
                 const loanerPhns =RecAccountDtl.data.getSMLoansCovered.loanerPhn; 
                 const DefaultPenaltySM2s =RecAccountDtl.data.getSMLoansCovered.DefaultPenaltySM2;
+                console.log(loanerEmail)
 
                 const fetchSenderUsrDtls = async () => {
                   if(isLoading){
@@ -146,9 +147,9 @@ const RepayCovLnsss = props => {
                 const RecAccountDtl:any = await API.graphql(
                     graphqlOperation(getBizna, {BusKntct: loanerEmail}),
                     );
-                    const netEarnings1 =accountDtl.data.getBizna.netEarnings;
-                  const TtlEarnings1 =accountDtl.data.getBizna.TtlEarnings;
-                  const busName =accountDtl.data.getBizna.busName;
+                    const netEarnings1 =RecAccountDtl.data.getBizna.netEarnings;
+                  const TtlEarnings1 =RecAccountDtl.data.getBizna.TtlEarnings;
+                  const busName =RecAccountDtl.data.getBizna.busName;
 
 
                     const updtSendrAcLonOvr1 = async () =>{
@@ -229,7 +230,7 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
-                                          id:route.params.id,
+                                          loanID: route.params.loanID,
                                           amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
                                           lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(0),
                                           amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
@@ -242,7 +243,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){console.log(error)
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -262,7 +263,7 @@ const RepayCovLnsss = props => {
                                         recPhn: loanerPhns,     
                                         RecName:busName,
                                         SenderName:names, 
-                                        loanId1: route.params.id,  
+                                        loanId1: route.params.loanID,  
                                         
                                         loanId2: "route.params.id",
                                         loanId3: "route.params.id",                            
@@ -277,7 +278,7 @@ const RepayCovLnsss = props => {
           
                                 } catch (error) {
                                   if (error){
-                                    Alert.alert("Error!; Retry")
+                                    console.log(error)
                                     return
                                   }
                                 }
@@ -306,7 +307,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){console.log(error)
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -349,7 +350,7 @@ const RepayCovLnsss = props => {
                                 Alert.alert("Cleared. ClearanceFee: " +ClranceAmt.toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                                 Communications.textWithoutEncoding(loanerPhns,'MiFedha. Hi '
                               + busName + ', your loan of ID ' 
-                              +  route.params.id 
+                              +  route.params.loanID 
                               + 'has been repaid Ksh. ' + amounts + ' by '+ names 
                               +'. For clarification call the loanee: '
                             + userInfo.attributes.phone_number + '. Thank you.');
@@ -367,7 +368,7 @@ const RepayCovLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateSMLoansCovered, {
                                         input:{
-                                          id:route.params.id,
+                                          loanID: route.params.loanID,
                                           amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
                                           lonBala: (parseFloat(lonBalas) - parseFloat(amounts)).toFixed(0),
                                           DefaultPenaltySM2:0,
@@ -380,7 +381,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){console.log(error)
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -400,7 +401,7 @@ const RepayCovLnsss = props => {
                                         senderPhn: userInfo.attributes.email,    
                                         RecName:busName,
                                         SenderName:names,  
-                                        loanId1: route.params.id,  
+                                        loanId1: route.params.loanID,  
                                         
                                         loanId2: "route.params.id",
                                         loanId3: "route.params.id",                              
@@ -444,7 +445,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){console.log(error)
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -471,7 +472,7 @@ const RepayCovLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){console.log(error)
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -507,9 +508,9 @@ const RepayCovLnsss = props => {
                                   
                                 }
                                 Alert.alert("Partially paid. Clearance: " +ClranceAmt.toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
-                                Communications.textWithoutEncoding(loanerEmail,'Hi '
+                                Communications.textWithoutEncoding(loanerPhns,'Hi '
                               + busName + ', your loan of ID ' 
-                              +  route.params.id 
+                              +  route.params.loanID 
                               + ' has been repaid Ksh. ' + amounts + ' by '+ names 
                               +'. For clarification call the loanee: '
                             + userInfo.attributes.phone_number + '. Thank you. MiFedha');
@@ -532,7 +533,7 @@ const RepayCovLnsss = props => {
                               ) {Alert.alert('Requested amount is more than you have in your account');
                             return;
                           }
-                          else if(userInfo.attributes.email === loanerPhns){Alert.alert('You cannot Repay Yourself');}
+                          
 
                           else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Too little repayment: at least "+ClranceAmt.toFixed(2));
                             return;
@@ -560,8 +561,7 @@ const RepayCovLnsss = props => {
                               }
                           }
                           catch (e) {
-                            if (e){Alert.alert("Error!")
-                            return;}
+                            if (e){console.log(e)}
                         };
                       }
                     
@@ -569,7 +569,7 @@ const RepayCovLnsss = props => {
                                                                                          
                 }       
                 catch(e) {     
-                  if (e){Alert.alert("Error!")
+                  if (e){console.log(e)
   return;}                 
                 }
                 setIsLoading(false);
@@ -577,7 +577,7 @@ const RepayCovLnsss = props => {
                   await fetchCompDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Error!")
+          if (e){console.log(e)
       return;}
         }
         setIsLoading(false);        
@@ -586,7 +586,7 @@ const RepayCovLnsss = props => {
     
       
     } catch (e) {
-      if (e){Alert.alert("Error!")
+      if (e){console.log(e)
       return;}
   };
       setIsLoading(false);

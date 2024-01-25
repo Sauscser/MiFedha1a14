@@ -7,7 +7,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 
 import styles from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { updateReqLoanCredSl } from '../../../src/graphql/mutations';
+import { updateReqLoanCredSl } from '../../../../src/graphql/mutations';
 
 
 export interface SMAccount {
@@ -19,7 +19,9 @@ export interface SMAccount {
       repaymentAmt:number,
       repaymentPeriod:number
       loaneeName:string,
-      status:string
+      status:string,
+      installmentAmount:number,
+      paymentFrequency:number,
     }}
 
 const SMCvLnStts = (props:SMAccount) => {
@@ -32,7 +34,10 @@ const SMCvLnStts = (props:SMAccount) => {
         repaymentPeriod,
         loaneeName,
         id,
-        status
+        status,
+        installmentAmount,
+        paymentFrequency
+
    }} = props ;
 
    const[isLoading, setIsLoading] = useState(false);
@@ -61,8 +66,9 @@ const SMCvLnStts = (props:SMAccount) => {
                       <View >
                       <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                      Hi! it's {loaneeName}. Kindly Loan me {itemName} worth Ksh. {amount}. I 
+                      Hi! it's business {loaneeName}. Kindly Loan me {itemName} worth Ksh. {amount}. I 
                       commit to repay at a compound interest of {repaymentAmt}% per month within {repaymentPeriod} days. 
+                      Each Installment is {installmentAmount} after every {paymentFrequency} days.
                       You can reach me through {loaneePhone}. {status}  
                     </Text>
                     </View>  

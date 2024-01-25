@@ -164,16 +164,7 @@ const styles = StyleSheet.create ({
         marginTop: "1%",
       },
     
-      chamaLoanAndCreditSalesButton4: {
-        backgroundColor: 'white',
-        height: "90%",
-        borderRadius: 30,
-        width:"90%",
-        justifyContent: 'center',
-        alignItems: 'center',
-    
-        marginTop: "1%",
-      },
+     
     
       chamaLoanAndCreditSalesButton5: {
         backgroundColor: 'white',
@@ -207,31 +198,6 @@ const styles = StyleSheet.create ({
         
       },
     
-
-    
-      viewForPressables3: {
-        backgroundColor: '#72ebd8',
-        marginHorizontal: 10,
-        width: Dimensions.get('screen').width - 20,
-        height: "25%",
-        borderRadius: 20,
-        marginTop: "9%",
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-      },
-    
-      viewForPressables4: {
-        backgroundColor: 'white',
-        height: "30%",
-        borderRadius: 30,
-        marginHorizontal: 30,
-        width: Dimensions.get('screen').width - 60,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        marginTop: "1%",
-      },
 
 });
 export default styles

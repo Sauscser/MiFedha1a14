@@ -6,106 +6,138 @@ import styles from './styles';
 
 export interface SMCvLnSttus {
     Loanee: {
-        id:string,
-        loaneePhn: string,
-        amountgiven: number,
-        amountexpected: number,
-        amountrepaid: number,
-        lonBala: number,
-        repaymentPeriod: number,
-        advregnu: string,
-        loaneename:string,
-        status: string,
-        description: string,
-        createdAt:string,
-        updatedAt:string,
-        amountExpectedBackWthClrnc: number,
-        DefaultPenaltySM2:number,
-        advEmail:string
-        
+      loanID: string,
+      itemName: string,
+  
+      buyerContact: string,
+      
+      buyerName:string,
+   
+      amountSold: number,
+      amountexpectedBack: number,
+      amountRepaid: number,
+      repaymentPeriod: number,
+      lonBala:number,
+      description: string,
+      status: string,
+      advregnu: string,
+      createdAt:string,
+      updatedAt:string,
         
     }}
 
-const SMCvLnStts = (props:SMCvLnSttus) => {
+const CredSlrCvLnStts = (props:SMCvLnSttus) => {
    const {
     Loanee: {
-    id,
-    loaneePhn,
-    amountgiven,
-    amountexpected,
-    amountrepaid,
-    lonBala,
-    repaymentPeriod,
-    advregnu,
-    amountExpectedBackWthClrnc,
-    DefaultPenaltySM2,
-    loaneename,
-    status,
-    description,
-    createdAt,
-    advEmail,
+      loanID,
+      itemName,
+     
+      buyerContact,
+      
+      buyerName,
+   
+      amountSold,
+      amountexpectedBack,
+      amountRepaid,
+      repaymentPeriod,
+      lonBala,
+      description,
+      status,
+      advregnu,
+      createdAt,
+      updatedAt,
    }} = props ;
 
    const navigation = useNavigation();
    const SndChmMmbrMny = () => {
-      navigation.navigate ("VwB2PMyLoaneesDtld", {id})
+      navigation.navigate ("VwB2PMyLoaneesDtld", {loanID})
    }
 
    const VwRpayments = () => {
-      navigation.navigate ("VwB2PReceived", {id})
+      navigation.navigate ("VwB2PReceived", {loanID})
    }
 
    const Blacklist = () => {
-      navigation.navigate ("BLBiz2Pal", {id})
+      navigation.navigate ("BLBiz2Pal", {loanID})
    }
 
    
    
     return (
-        <View style = {{marginTop:"10%"}}>              
-            
-            <Pressable onPress={SndChmMmbrMny} style = {styles.container}>
-            <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loanee Name: {loaneename}               
-                    </Text>
+      <View style = {styles.container}>              
+      <View style = {{alignItems:"center"}}>
+      <Text style = {styles.loanAdvert}>                       
+                 {/*loaner details */}   
+                 {buyerName}               
+              </Text>
+      </View>
+      
+      <ScrollView >              
+                 
                   
-            <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loan Id: {id}                 
-                    </Text>
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loanee Contact: {loaneePhn}                 
-                    </Text>
 
-                    <Text style = {styles.ownerName}>                       
-                       {/* interest*/}
-                       Loan Balance(Ksh): {lonBala.toFixed(2)}                    
-                    </Text> 
-
-                    </Pressable>
-
-                    <View style = {styles.viewForPressables2}>
-                    <View>
-                    <Pressable
-                      onPress={VwRpayments}
-                      style = {styles.loanFriendButton}
-                      >            
-                        <Text>ViewRpymnts</Text>            
-                    </Pressable>
-                    </View>   
-                    <View>
-                    <Pressable
-                      onPress={Blacklist}
-                      style = {styles.loanFriendButton}>            
-                        <Text>Repay</Text>            
-                    </Pressable>  
-                    </View>
-                     
-                    </View>
-        </View>
+              
+               <Text style = {styles.ownerName}>                       
+                 {/*loaner details */}   
+                 Loan Id: {loanID}                 
+              </Text>
+              
+              <Text style = {styles.ownerContact}>                       
+                  {/*loaner details */}  
+                  Cash Price (Ksh): {amountSold.toFixed(2)}                
+               </Text>                     
+               <Text style ={styles.amountoffered}>                       
+                  {/* amount*/} 
+                  Credit Sale Price(Ksh): {amountexpectedBack.toFixed(2)}
+               </Text>    
+              <Text style = {styles.repaymentPeriod}>                       
+                 {/* repaymentPeriod*/}
+                 Amount Repaid(Ksh): {amountRepaid.toFixed(2)}                  
+              </Text> 
+              <Text style = {styles.interest}>                       
+                 {/* interest*/}
+                 Loan Balance(Ksh): {lonBala.toFixed(2)}                    
+              </Text> 
+              <Text style = {styles.interest}>                       
+                 {/* interest*/}
+                 Repayment Period in days: {repaymentPeriod}                    
+              </Text> 
+              <Text style = {styles.interest}>                       
+                 {/* interest*/}
+               Buyer Contact: {buyerContact}                    
+              </Text> 
+              <Text style = {styles.interest}>                       
+                 {/* interest*/}
+                Advocate Registration Number: {advregnu}                    
+              </Text> 
+              <Text style = {styles.interest}>                       
+                 {/* interest*/}
+                Item Name(s): {itemName}                    
+              </Text> 
+          
+              <Text style = {styles.interest}>                       
+                 {/* interest*/}
+                Loan Status: {status}                    
+              </Text> 
+              <ScrollView>
+              <Text style = {styles.loanerotherdescriptions} >                       
+                 {/* other description*/} 
+                 Created At: {createdAt}                 
+              </Text>   
+              <Text style = {styles.loanerotherdescriptions} >                       
+                 {/* other description*/} 
+                 Last Update: {updatedAt}                 
+              </Text>   
+              <Text style = {styles.loanerotherdescriptions} >                       
+                 {/* other description*/} 
+                 More: {description}                 
+              </Text>   
+              </ScrollView>              
+      
+  </ScrollView>
+          
+  </View>
     );
 }; 
 
-export default SMCvLnStts
+export default CredSlrCvLnStts

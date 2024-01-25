@@ -63,8 +63,7 @@ const [id,setid] = useState("")
       catch(e){
         console.log(e)
         if(e){
-          Alert.alert("Check your internet")
-          return;
+          
       }
       }};
 
@@ -134,7 +133,7 @@ const [id,setid] = useState("")
             onPress={RequestLoansPage}
             style={styles.chamaLoanAndCreditSalesButton4}>
             <Text style={styles.loanAFriendText2}>
-              Loan Requests
+              Request Loan
             </Text>
           </TouchableOpacity>
 

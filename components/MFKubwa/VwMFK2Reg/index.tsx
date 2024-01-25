@@ -32,7 +32,7 @@ const ViewSMDeposts = (props:SMAccount) => {
  const navigation = useNavigation();
 
  const VwToReg = () =>{
-   navigation.navigate( "CompMFKTC", {id})
+   navigation.navigate( "VwCompMFKTC", {id})
  }
     return (
         <View style = {styles.container}>              

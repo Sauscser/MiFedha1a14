@@ -6,7 +6,7 @@ import NonLnSent from "../../../components/Advocate/VwChm2Approve";
 import styles from './styles';
 
 
-import { advVwLnsClient, getCompany, getSMAccount, listReqLoanChamas, listReqLoans, vwAdvNLnrNLneesssss } from '../../../src/graphql/queries';
+import {  getCompany, getSMAccount, listReqLoanChamas, listReqLoans} from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
@@ -34,8 +34,7 @@ const FetchSMNonLnsSnt = props => {
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listReqLoanChamas, 
                 {
-                  sortDirection: 'DESC',
-                  limit: 100, 
+                  
                   filter: {
                     AdvEmail:{eq:userInfo.attributes.email},
                       
@@ -126,6 +125,7 @@ const FetchSMNonLnsSnt = props => {
                           catch (e)
                           {
                             if(e){
+                              console.log(e)
                               Alert.alert("Error! Access denied!");
                               return;
                             }
@@ -143,6 +143,7 @@ const FetchSMNonLnsSnt = props => {
                           catch (e)
                           {
                             if(e){
+                              console.log(e)
                               Alert.alert("Error! Access denied!");
                               return;
                             }

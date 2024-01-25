@@ -38,10 +38,10 @@ const FetchSMCovLns = props => {
                         and :{
                       lonBala:{gt:0},
                       loaneeEmail: {eq:userInfo.attributes.email},
+                      lnType: {eq:"Biz2Pal"}
                         }
                       },
-                      limit: 100,
-                  sortDirection: 'DESC',
+                     
                     }
               
                   ));
@@ -97,7 +97,7 @@ const FetchSMCovLns = props => {
                                                 }
                                                 catch(error){
                                                   if(error){
-                                                    Alert.alert("User does not exist")
+                                                    Alert.alert("Retry or update app or call customer care")
                                                     return;
                                                 }
                                                 }
@@ -120,7 +120,7 @@ const FetchSMCovLns = props => {
                       catch (e)
                       {
                         if(e){
-                          Alert.alert("User does not exist; otherwise check internet connection");
+                          Alert.alert("Retry or update app or call customer care");
                           return;
                         }
                           console.log(e)
@@ -137,7 +137,7 @@ const FetchSMCovLns = props => {
                       catch (e)
                       {
                         if(e){
-                          Alert.alert("User does not exist; otherwise check internet connection");
+                          Alert.alert("Retry or update app or call customer care");
                           return;
                         }
                           console.log(e)
@@ -176,7 +176,7 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Loanees</Text>
+            <Text style={styles.label}> My Loaners</Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}

@@ -95,6 +95,9 @@ const ChmCovLns = props => {
               const defaultPenalty =ChmMbrtDtlz.data.getReqLoanChama.defaultPenalty;
               const statusNumber =ChmMbrtDtlz.data.getReqLoanChama.statusNumber;
               const AdvEmail =ChmMbrtDtlz.data.getReqLoanChama.AdvEmail;
+              const dfltDeadLn =ChmMbrtDtlz.data.getReqLoanChama.dfltDeadLn;
+              const installmentAmount =ChmMbrtDtlz.data.getReqLoanChama.installmentAmount;
+              const paymentFrequency =ChmMbrtDtlz.data.getReqLoanChama.paymentFrequency;
               
               const status =ChmMbrtDtlz.data.getReqLoanChama.status;
 
@@ -115,7 +118,19 @@ const ChmCovLns = props => {
               const curMnths = (months2)*30.4375;
               const daysUpToDate = curYrs + curMnths + parseFloat(days)
                          
-const fetchChmMbrDtls = async () => {
+              const fetchAdminDtls = async () => {
+                if(isLoading){
+                  return;
+                }
+                setIsLoading(true);
+                try {
+                    const RecAccountDtl:any = await API.graphql(
+                        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
+                        );
+                        const pwscz =RecAccountDtl.data.getSMAccount.pw;
+                        
+                        
+                        const fetchChmMbrDtls = async () => {
       if(isLoading){
         return;
       }
@@ -130,6 +145,7 @@ const fetchChmMbrDtls = async () => {
               const LonAmtGvens =ChmMbrtDtl.data.getChamaMembers.LonAmtGven;
               const LnBals =ChmMbrtDtl.data.getChamaMembers.LnBal;
               const AmtRepaids =ChmMbrtDtl.data.getChamaMembers.AmtRepaid;
+              const NonLoanAcBal =ChmMbrtDtl.data.getChamaMembers.NonLoanAcBal;
                          
 
 
@@ -204,13 +220,17 @@ const fetchChmMbrDtls = async () => {
           
 
           const TtlTransCost2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
-          const amtrpayable2 = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30)
-          const amtrpayable = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/30)
+          const amtrpayable2 = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency))
+          const amtrpayable = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency))
           const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable;
           const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
           const TtlTransCost = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) +  parseFloat(amount)
 
           const AllTtlTrnsCst = TtlTransCost + MaxSMInterest;
+
+          console.log(TotalAmtExp)
+          console.log(TtlTransCost)
+          console.log (amtrpayable)
 
           
 
@@ -239,7 +259,7 @@ const fetchChmMbrDtls = async () => {
                         const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
                         const DefaultPenaltyRate = parseFloat(defaultPenalty)/parseFloat(AmtRepaids) *100;
                         const RecomDfltPnltyRate = (parseFloat(AmtRepaids)*20) / 100;
-
+                          console.log (memberContacts)
 
                         const sendSMLn = async () => {
                           if(isLoading){
@@ -250,30 +270,37 @@ const fetchChmMbrDtls = async () => {
                             await API.graphql(
                               graphqlOperation(createCvrdGroupLoans, {
                                 input: {
+                                    loanID:route.params.id,
                                     grpContact: groupContacts,
                                     loaneePhn: loaneeEmail,
                                     loanerLoanee:groupContacts+memberContacts,
-                                    loanerLoaneeAdv:  groupContacts+memberContacts+ advLicNo ,  
+                                    loanerLoaneeAdv:  groupContacts+memberContacts+"None" ,  
                                     repaymentPeriod: RepaymtPeriod,
                                     amountGiven: parseFloat(amount).toFixed(0),
                                     amountExpectedBack: TotalAmtExp2.toFixed(0),
                                     amountExpectedBackWthClrnc: TotalAmtExp2.toFixed(0),
                                     amountRepaid: 0,
                                     DefaultPenaltyChm:defaultPenalty,
-                                    DefaultPenaltyChm2:0,
+                                    DefaultPenaltyChm2: 0,
                                     timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
                                     timeExpBack2: 61 + daysUpToDate,
+                                    crtnDate: daysUpToDate,
                                     description: description,
-                                    lonBala:TotalAmtExp2.toFixed(0),
-                                    advRegNu: advLicNo,
-                                    loaneeName:namess,
-                                    LoanerName:grpNames,
-                                    memberId:ChmNMmbrPhns,
+                                    lonBala: TotalAmtExp2.toFixed(0),
+                                    advRegNu: "None",
+                                    loaneeName: namess,
+                                    dfltDeadLn: dfltDeadLn,
+                                    LoanerName: grpNames,
+                                    memberId: ChmNMmbrPhns,
                                     status: "LoanActive",
-                                    interest:AmtExp,
+                                    lnType: "GrpLn",
+                                    interest: AmtExp,
                                     dfltUpdate: daysUpToDate,
                                     owner: userInfo.attributes.sub,
-                                    AdvEmail:AdvEmail
+                                    advEmail:"None",
+                                    blOfficer:"None",
+                                    installmentAmount:installmentAmount,
+                                    paymentFrequency:paymentFrequency
                                 },
                               }),
                             );
@@ -281,6 +308,7 @@ const fetchChmMbrDtls = async () => {
 
                           } catch (error) {
                             if (error){
+                              console.log(error)
                               Alert.alert("Loaning unsuccessful; enter details correctly")
                               return}
                           }
@@ -303,6 +331,7 @@ const fetchChmMbrDtls = async () => {
                                   LnBal: (parseFloat(LnBals) + TotalAmtExp2).toFixed(0),                                  
                                   loanStatus:"LoanActive",                                    
                                   blStatus: "AccountNotBL",
+                               
                                 
                                 },
                               }),
@@ -441,7 +470,7 @@ const fetchChmMbrDtls = async () => {
                             if (error){Alert.alert("Error! Access denied!")
                         return;}
                           }
-                          Alert.alert("Success. TransactionFee: "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) + ". AdvocateFee "+ttlCovFeeAmount.toFixed(2)
+                          Alert.alert("Success. TransactionFee: "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
                          
                           );
                           setIsLoading(false);
@@ -465,8 +494,9 @@ const fetchChmMbrDtls = async () => {
                             const advBl = AdvDtls.data.getAdvocate.advBal;
                             const advStts = AdvDtls.data.getAdvocate.status;
                             const namesssssss = AdvDtls.data.getAdvocate.name;
+                            console.log(advLicNo)
                         
-                        const sendSMLn = async () => {
+                        const sendSMLn2 = async () => {
                           if(isLoading){
                             return;
                           }
@@ -475,30 +505,38 @@ const fetchChmMbrDtls = async () => {
                             await API.graphql(
                               graphqlOperation(createCvrdGroupLoans, {
                                 input: {
-                                    grpContact: groupContacts,
+                                  loanID:route.params.id,
+                                  grpContact: groupContacts,
                                     loaneePhn: loaneeEmail,
                                     loanerLoanee:groupContacts+memberContacts,
-                                    loanerLoaneeAdv:  groupContacts+memberContacts+ advLicNo ,  
+                                    loanerLoaneeAdv:  groupContacts+memberContacts+advLicNo ,  
                                     repaymentPeriod: RepaymtPeriod,
                                     amountGiven: parseFloat(amount).toFixed(0),
-                                    amountExpectedBack: TotalAmtExp.toFixed(0),
-                                    amountExpectedBackWthClrnc: TotalAmtExp.toFixed(0),
+                                    amountExpectedBack: TotalAmtExp2.toFixed(0),
+                                    amountExpectedBackWthClrnc: TotalAmtExp2.toFixed(0),
                                     amountRepaid: 0,
                                     DefaultPenaltyChm:defaultPenalty,
                                     DefaultPenaltyChm2:0,
                                     timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
                                     timeExpBack2: 61 + daysUpToDate,
                                     description: description,
-                                    lonBala:TotalAmtExp.toFixed(0),
+                                    lonBala:TotalAmtExp2.toFixed(0),
                                     advRegNu: advLicNo,
                                     loaneeName:namess,
+                                    crtnDate:daysUpToDate,
+                                    dfltDeadLn:dfltDeadLn,
                                     LoanerName:grpNames,
-                                    interest:AmtExp,
                                     memberId:ChmNMmbrPhns,
-                                    dfltUpdate: daysUpToDate,
                                     status: "LoanActive",
+                                    interest:AmtExp,
+                                    dfltUpdate: daysUpToDate,
+                                    lnType:"GrpLn",
                                     owner: userInfo.attributes.sub,
-                                    AdvEmail:AdvEmail
+                                    blOfficer:"None",
+                                    advEmail:AdvEmail,
+                                    installmentAmount:installmentAmount,
+                                    paymentFrequency:paymentFrequency
+
                                 },
                               }),
                             );
@@ -506,14 +544,16 @@ const fetchChmMbrDtls = async () => {
 
                           } catch (error) {
                             if (error){
-                              Alert.alert("Loaning unsuccessful; enter details correctly")
+                              
                               return}
                           }
                           setIsLoading(false);
-                          await updatMmbr();
+                          await updatMmbr2();
                         };
 
-                        const updatMmbr = async () => {
+                        sendSMLn2();
+
+                        const updatMmbr2 = async () => {
                           if(isLoading){
                             return;
                           }
@@ -542,10 +582,10 @@ const fetchChmMbrDtls = async () => {
                           return;}
                           }
                           setIsLoading(false);
-                          await updtSendrAc();
+                          await updtSendrAc2();
                         };
                         
-                        const updtSendrAc = async () =>{
+                        const updtSendrAc2 = async () =>{
                           if(isLoading){
                             return;
                           }
@@ -572,9 +612,9 @@ const fetchChmMbrDtls = async () => {
                             return;}
                           }
                           setIsLoading(false);
-                          await updtRecAc();
+                          await updtRecAc2();
                         }
-                        const updtRecAc = async () =>{
+                        const updtRecAc2 = async () =>{
                           if(isLoading){
                             return;
                           }
@@ -601,10 +641,10 @@ const fetchChmMbrDtls = async () => {
                             return;}
                           }
                           setIsLoading(false);
-                          await updtComp();
+                          await updtComp2();
                         }
 
-                        const updtComp = async () =>{
+                        const updtComp2 = async () =>{
                           if(isLoading){
                             return;
                           }
@@ -639,9 +679,9 @@ const fetchChmMbrDtls = async () => {
                         return;}
                           }
                           setIsLoading(false);
-                          await updtAdv();
+                          await updtAdv2();
                         }
-                        const updtAdv = async () =>{
+                        const updtAdv2 = async () =>{
                           if(isLoading){
                             return;
                           }
@@ -665,11 +705,11 @@ const fetchChmMbrDtls = async () => {
                           }
                           
 
-                          await updtLnReq();
+                          await updtLnReq2();
                           setIsLoading(false);
                         }
 
-                        const updtLnReq = async () =>{
+                        const updtLnReq2 = async () =>{
                           if(isLoading){
                             return;
                           }
@@ -703,13 +743,13 @@ const fetchChmMbrDtls = async () => {
                     }       
                     catch(e) {    
                       console.log(e); 
-                      if (e){Alert.alert("Error! Access denied!")
+                      if (e){console.log(e)
       return;}                 
                     }
                     setIsLoading(false);
                     }                    
                               
-                    if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Receiver adversely listed');
+                    if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Unsuccessful....Apologies. Liase with the Loaned');
                       return;
                     }
                         
@@ -747,14 +787,14 @@ const fetchChmMbrDtls = async () => {
                         return;}
                         
                         
-                        else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');
+                        else if(SnderPW !==pwscz){Alert.alert('Wrong password');
                         return;}
 
-                        else if (advLicNo != "None") {await fetchAdv()}
+                        else if (advLicNo === "None") { sendSMLn()}
                                                                  
             
                                                  else {
-                                                  sendSMLn();
+                                                  await fetchAdv();
                         }  
                       
 
@@ -802,6 +842,17 @@ await fetchSenderUsrDtls();
   
 }
 await fetchChmMbrDtls();
+
+} catch (e) {
+  console.log(e)
+  if (e){Alert.alert("Error! Access denied!")
+  return;}
+};
+  setIsLoading(false);
+  
+  
+}
+await fetchAdminDtls();
 
 } catch (e) {
   console.log(e);
@@ -932,21 +983,19 @@ useEffect(() =>{
         <ScrollView >
          
          <View style={styles.amountTitleView}>
-           <Text style={styles.title}>Fill Loan Details Below</Text>
+           <Text style={styles.title}>Enter Password</Text>
          </View>
 
 
          <View style={styles.sendAmtView}>
            <TextInput
-           placeholder='Group PassWord'
+           placeholder='Admin Main Account PassWord'
              value={SnderPW}
-             multiline={false}
-             autoCompleteType ="off"
+             multiline={false}             
              secureTextEntry = {true}
              onChangeText={setSnderPW}
              style={styles.sendAmtInput}
-             editable={true}></TextInput>
-           
+             editable={true}></TextInput>           
          </View>
 
 
@@ -954,7 +1003,7 @@ useEffect(() =>{
          <TouchableOpacity
            onPress={fetchChmLoanReq}
            style={styles.sendAmtButton}>
-           <Text style={styles.sendAmtButtonText}>Loan with Advocate Coverage</Text>
+           <Text style={styles.sendAmtButtonText}>Click to loan</Text>
            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
          </TouchableOpacity>
 

@@ -33,9 +33,8 @@ const FetchSMNonLnsRec = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listLoanRepayments, 
               {
                       
-                      sortDirection: 'DESC',
-                      limit: 100,
-                      filter:{loanId1:{eq:route.params.id}}
+                      
+                      filter:{loanId1:{eq:route.params.loanID}}
                       
                     }
                   
@@ -92,15 +91,12 @@ const FetchSMNonLnsRec = props => {
                                                 }
                                                 catch(error){
                                                   if(error){
-                                                    Alert.alert("User does not exist")
+                                                    Alert.alert("Retry or update app or call customer care")
                                                     return;
                                                 }
                                                 }
                                                                                                     
                                               }
-                          
-          
-          
                           
           
                   if(parseFloat(balances) < parseFloat(enquiryFees) ){

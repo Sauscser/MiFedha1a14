@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
-import {createSMAccount, updateCompany} from '../../../src/graphql/mutations';
-import { getCompany, listSMAccounts, } from '../../../src/graphql/queries';
+import {createSMAccount, updateCompany} from '../../../../src/graphql/mutations';
+import { getCompany, listSMAccounts, } from '../../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -250,7 +250,7 @@ const CreateAcForm = (props) => {
                   catch(error){
                     console.log(error)
                     if(error){
-                      Alert.alert("Error!")
+                      Alert.alert("Retry or update app or call customer care")
                       return;
                   }
                   }
@@ -265,7 +265,7 @@ const CreateAcForm = (props) => {
       catch(e){
         console.log(e)
         if(e){
-          Alert.alert("Retry")
+          Alert.alert("Retry or update app or call customer care")
           return;
       }
       }
@@ -277,7 +277,7 @@ const CreateAcForm = (props) => {
           await gtCompDtls();
         
       } catch (e) {
-        if(e){Alert.alert("Retry")
+        if(e){Alert.alert("Retry or update app or call customer care")
       return}
         
       }
@@ -288,7 +288,7 @@ const CreateAcForm = (props) => {
    
   
   } catch (e) {
-          if(e){Alert.alert("Retry")}
+          if(e){Alert.alert("Retry or update app or call customer care")}
           return
         }
                   setIsLoading(false)

@@ -236,7 +236,7 @@ const RepayNonCovCredSlsLnsss = props => {
           
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -267,7 +267,7 @@ const RepayNonCovCredSlsLnsss = props => {
           
                                 } catch (error) {
                                   if(error){
-                                    Alert.alert("Error!")
+                                    Alert.alert("Retry or update app or call customer care")
                                     
                                 
                                 return;}
@@ -296,7 +296,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                     )                              
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -360,7 +360,7 @@ const RepayNonCovCredSlsLnsss = props => {
           
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -419,7 +419,7 @@ const RepayNonCovCredSlsLnsss = props => {
           
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -444,7 +444,7 @@ const RepayNonCovCredSlsLnsss = props => {
                                     )                              
                                 }
                                 catch(error){
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -521,7 +521,7 @@ const RepayNonCovCredSlsLnsss = props => {
                               }
                           }
                           catch (e) {
-                            if (e){Alert.alert("Error!")
+                            if (e){Alert.alert("Retry or update app or call customer care")
                             return;}
                         };
                       }
@@ -530,14 +530,14 @@ const RepayNonCovCredSlsLnsss = props => {
                                                                                          
                 }       
                 catch(e) {     
-                  if (e){Alert.alert("Error!")
+                  if (e){Alert.alert("Retry or update app or call customer care")
   return;}                 
                 }
                 setIsLoading(false);
                 }                    
                   await ftchCvdSMLn ();
         } catch (e) {
-          if (e){Alert.alert("Error!")
+          if (e){Alert.alert("Retry or update app or call customer care")
       return;}
         }
         setIsLoading(false);        
@@ -546,7 +546,7 @@ const RepayNonCovCredSlsLnsss = props => {
     
       
     } catch (e) {
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
   };
       setIsLoading(false);

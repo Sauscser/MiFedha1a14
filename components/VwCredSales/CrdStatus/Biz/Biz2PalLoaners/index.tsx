@@ -6,7 +6,7 @@ import styles from './styles';
 
 export interface ChmCvLnSttusRec {
    Loanee: {
-     id: string,
+      loanID: string,
      itemName: string,
  
      sellerContact: string,
@@ -29,7 +29,7 @@ export interface ChmCvLnSttusRec {
 const CredByrCvLnStts = (props:ChmCvLnSttusRec) => {
   const {
    Loanee: {
-     id,
+      loanID,
      itemName,
      
      sellerContact,
@@ -49,15 +49,15 @@ const CredByrCvLnStts = (props:ChmCvLnSttusRec) => {
   }} = props ;
   const navigation = useNavigation();
   const SndChmMmbrMny = () => {
-     navigation.navigate ("VwMyBiz2PalLoanersDtld", {id})
+     navigation.navigate ("VwMyBiz2PalLoanersDtld", {loanID})
   }
 
   const VwRpayments = () => {
-     navigation.navigate ("CredB2PSent", {id})
+     navigation.navigate ("CredB2PSent", {loanID})
   }
 
   const Repay = () => {
-     navigation.navigate ("CredRPyBiz2Pal", {id})
+     navigation.navigate ("CredRPyBiz2Pal", {loanID})
   }
 
   
@@ -73,7 +73,7 @@ const CredByrCvLnStts = (props:ChmCvLnSttusRec) => {
                  
            <Text style = {styles.ownerName}>                       
                       {/*loaner details */}   
-                      Loan Id: {id}                 
+                      Loan Id: {loanID}                 
                    </Text>
                    <Text style = {styles.ownerName}>                       
                       {/*loaner details */}   

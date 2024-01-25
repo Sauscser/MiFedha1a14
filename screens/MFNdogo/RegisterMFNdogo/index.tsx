@@ -179,7 +179,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
             }
             catch(error){if (error) {
               console.log(error)
-              Alert.alert("Error!")
+              Alert.alert("Retry or update app or call customer care")
             }}
             setIsLoading(false);
             await updtSA();
@@ -202,7 +202,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
             }
             catch(error){if (error) {
               console.log(error)
-              Alert.alert("Error!")
+              Alert.alert("Retry or update app or call customer care")
               return;
             }}
             
@@ -227,7 +227,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
             }
             catch(error){if (error) {
               console.log(error)
-              Alert.alert("Error!")
+              Alert.alert("Retry or update app or call customer care")
               return;
             }}
             Alert.alert(" MFKubwa " +names+ " has registered MFNdogo "  +nam );
@@ -239,7 +239,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
         
 
   } catch (e) {
-    if(e){Alert.alert("Error!")
+    if(e){Alert.alert("Retry or update app or call customer care")
   return}
     console.error(e);
   }
@@ -251,7 +251,7 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
 await ChckUsrExistence();}
     
     } catch (e) {
-          if(e){Alert.alert("Error!")
+          if(e){Alert.alert("Retry or update app or call customer care")
         return}
           console.error(e);
         }
@@ -263,7 +263,7 @@ await ChckUsrExistence();}
   
         catch(e){
           if (e){
-            Alert.alert("Retry")
+            Alert.alert("Retry or update app or call customer care")
             return
           }
         
@@ -275,7 +275,7 @@ await ChckUsrExistence();}
       }
 catch(e){
   console.log(e)
-  if(e) {Alert.alert("Error!");
+  if(e) {Alert.alert("Retry or update app or call customer care");
 return;
 }
 }

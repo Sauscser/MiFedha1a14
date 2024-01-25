@@ -2,11 +2,11 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import NonLnSent from "../../../components/MFKubwa/VwMFKWthdrwls";
+import NonLnSent from "../../../components/MFKubwa/VwMFK2Reg";
 import styles from './styles';
 
 
-import { getCompany, getSMAccount,  vwMFKWthdrwls } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount,  listMFKOfferzs,  vwMFKWthdrwls } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
@@ -33,16 +33,19 @@ const FetchSMNonLnsSnt = props => {
                   const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMFKWthdrwls, 
+              const Lonees:any = await API.graphql(graphqlOperation( listMFKOfferzs, 
                  {
-                      saId: route.params.MFKPhn,
-                      sortDirection: "DESC",
-                      limit:100
+                      filter:{
+                        and:{
+                          
+                          mfkAc:{eq:userInfo.attributes.email}
+                        }
+                      }
                       
                     }
   
                   ));
-                  setRecvrs(Lonees.data.VwMFKWthdrwls.items);
+                  setRecvrs(Lonees.data.listMFKOfferzs.items);
 
                   
                           }
@@ -50,7 +53,8 @@ const FetchSMNonLnsSnt = props => {
                           catch (e)
                           {
                             if(e){
-                              Alert.alert("Error!");
+                              console.log(e)
+                              Alert.alert("Retry or update app or call customer care");
                               return;
                             }
                               console.log(e)
@@ -92,7 +96,7 @@ const FetchSMNonLnsSnt = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}>My Withdrawals</Text>
+            <Text style={styles.label}>My MFKubwa Applications</Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}

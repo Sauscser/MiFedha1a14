@@ -49,7 +49,7 @@ const RepayCovSellerLnsss = props => {
         setIsLoading(true);
         try {
             const RecAccountDtl:any = await API.graphql(
-                graphqlOperation(getCovCreditSeller, {id: route.params.id}),
+                graphqlOperation(getCovCreditSeller, {loanID: route.params.loanID}),
                 );
                 
                 const amountExpectedBackWthClrncs =RecAccountDtl.data.getCovCreditSeller.amountExpectedBackWthClrnc; 
@@ -80,11 +80,11 @@ const RepayCovSellerLnsss = props => {
                   );
             
                   const netEarnings1 =accountDtl.data.getBizna.netEarnings;
-                  const TtlEarnings1 =accountDtl.data.getSMAccount.TtlEarnings;
+                  const TtlEarnings1 =accountDtl.data.getBizna.TtlEarnings;
                   
-                  const busName =accountDtl.data.getSMAccount.busName;
+                  const busName =accountDtl.data.getBizna.busName;
                   
-                  const noBL =accountDtl.data.getSMAccount.noBL;
+                  const noBL =accountDtl.data.getBizna.noBL;
 
                   
 
@@ -122,16 +122,16 @@ const RepayCovSellerLnsss = props => {
             }
             setIsLoading(true);
             try {
-                const RecAccountDtl:any = await API.graphql(
+                const RecAccountDtl2:any = await API.graphql(
                     graphqlOperation(getBizna, {BusKntct: buyerContact}),
                     );
-                    const netEarnings2 =RecAccountDtl.data.getBizna.netEarnings;                    
-                    const earningsBal2 =RecAccountDtl.data.getBizna.earningsBal; 
+                    const netEarnings2 =RecAccountDtl2.data.getBizna.netEarnings;                    
+                    const earningsBal2 =RecAccountDtl2.data.getBizna.earningsBal; 
                     
-                    const noBL =accountDtl.data.getSMAccount.noBL;
+                    const noBL =RecAccountDtl2.data.getBizna.noBL;
 
-                    const busName2 =RecAccountDtl.data.getBizna.busName;
-                    const owner =RecAccountDtl.data.getBizna.owner;
+                    const busName2 =RecAccountDtl2.data.getBizna.busName;
+                    const owner =RecAccountDtl2.data.getBizna.owner;
                     
                     const updtSendrAcLonOvr1 = async () =>{
                       if(isLoading){
@@ -203,7 +203,7 @@ const RepayCovSellerLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateCovCreditSeller, {
                                         input:{
-                                          id:route.params.id,
+                                          loanID:route.params.loanID,
                                           amountRepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
                                           lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(0),
                                           amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
@@ -216,7 +216,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -236,7 +236,7 @@ const RepayCovSellerLnsss = props => {
                                         recPhn: sellerContacts,    
                                         RecName:SellerNames,
                                         SenderName:buyerNames,    
-                                        loanId2: route.params.id,  
+                                        loanId2: route.params.loanID,  
                                         loanId1: "route.params.id",
                                         
                                         loanId3: "route.params.id",                         
@@ -280,7 +280,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -329,7 +329,7 @@ const RepayCovSellerLnsss = props => {
                                     await API.graphql(
                                       graphqlOperation(updateCovCreditSeller, {
                                         input:{
-                                          id:route.params.id,
+                                          loanID:route.params.loanID,
                                           amountRepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
                                           lonBala: (parseFloat(lonBalas) - parseFloat(amounts)).toFixed(0),
                                           DefaultPenaltyCredSl2:0,
@@ -342,7 +342,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -361,7 +361,7 @@ const RepayCovSellerLnsss = props => {
                                         recPhn: sellerContacts,
                                         senderPhn: buyerContact, 
                                         RecName:SellerNames,
-                                        loanId2: route.params.id,  
+                                        loanId2: route.params.loanID,  
                                         loanId1: "route.params.id",                                        
                                         loanId3: "route.params.id",  
                                         SenderName:buyerNames,                                    
@@ -407,7 +407,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -434,7 +434,7 @@ const RepayCovSellerLnsss = props => {
                                 }
                                 catch(error){
                                   console.log(error)
-                                  if (error){Alert.alert("Error!")
+                                  if (error){Alert.alert("Retry or update app or call customer care")
                                   return;}
                                 }
                                 setIsLoading(false);
@@ -505,7 +505,7 @@ const RepayCovSellerLnsss = props => {
                               }
                           }
                           catch (e) {
-                            if (e){Alert.alert("Error!")
+                            if (e){Alert.alert("Retry or update app or call customer care")
                             return;}
                         };
                       }
@@ -514,7 +514,7 @@ const RepayCovSellerLnsss = props => {
                                                                                          
                 }       
                 catch(e) {     
-                  if (e){Alert.alert("Error!")
+                  if (e){Alert.alert("Retry or update app or call customer care")
   return;}                 
                 }
                 setIsLoading(false);
@@ -522,7 +522,7 @@ const RepayCovSellerLnsss = props => {
                   await fetchCompDtls ();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Error!")
+          if (e){Alert.alert("Retry or update app or call customer care")
       return;}
         }
         setIsLoading(false);        
@@ -531,7 +531,7 @@ const RepayCovSellerLnsss = props => {
     
       
     } catch (e) {
-      if (e){Alert.alert("Error!")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
   };
       setIsLoading(false);
@@ -605,15 +605,6 @@ const RepayCovSellerLnsss = props => {
           </View>
 
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={SnderPW}
-              onChangeText={setSnderPW}
-              secureTextEntry = {true}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Loanee PassWord</Text>
-          </View>
 
           
           <View style={styles.sendAmtViewDesc}>

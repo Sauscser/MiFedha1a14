@@ -234,7 +234,7 @@ const DeregUsrForm = (props) => {
           } catch (error) {
             
             if(error){
-              Alert.alert("Retry")
+              Alert.alert("Retry or update app or call customer care")
               return;
           };
           }
@@ -262,7 +262,7 @@ const DeregUsrForm = (props) => {
   } catch (error) {
     console.log(error)
     if(error){
-      Alert.alert("Retry")
+      Alert.alert("Retry or update app or call customer care")
       return;
   };
   }
@@ -306,7 +306,7 @@ await ftchNonCvdChmLn();
           }}
 
           if(compDtls.data.getSMAccount===null){
-            Alert.alert("User does not exist")
+            Alert.alert("Retry or update app or call customer care")
             return;
         }
         
@@ -314,7 +314,7 @@ await ftchNonCvdChmLn();
           
         } catch (error) {
           if (error){
-            Alert.alert("Retry")
+            Alert.alert("Retry or update app or call customer care")
             return
           }
           

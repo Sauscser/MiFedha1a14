@@ -23,14 +23,7 @@ const MyLoanAccount = props => {
   };
 
   
-  const SgnIn2LnMmbrNonCovss = () => {
-    navigation.navigate('ChmNonCovLons', {ChamaNMember});
-  };
-
-  const SgnIn2LnMmbrs = () => {
-    navigation.navigate('ChmCovLons', {id});
-  };
-
+  
   const AddChmMembrssss = () => {
     navigation.navigate('AddChmMembrsss');
   };
@@ -62,11 +55,11 @@ const MyLoanAccount = props => {
   const ChmSignInsss = () => {
     navigation.navigate('ChmSignInss');
   };
-  const ChamSignIn2ss = () => {
-    navigation.navigate('ChamSignIn2s');
+  const ChmLnsRec = () => {
+    navigation.navigate('ChmLnsRec');
   };
-  const ChmLnsRecCovss = () => {
-    navigation.navigate('ElimChmVwCovLnss');
+  const ChmLnsSent = () => {
+    navigation.navigate('ChmLnsRec', );
   };
   const ChmLnsRecNonCovss = () => {
     navigation.navigate('ElimChmVwNonCvLns');
@@ -133,8 +126,8 @@ const MyLoanAccount = props => {
     navigation.navigate('VwGrp2LnCov');
   };
 
-  const VwGrp2LnNonCov = () => {
-    navigation.navigate('VwGrp2LnNonCov');
+  const UpdateChmAc = () => {
+    navigation.navigate('UpdateChmAc');
   };
 
 
@@ -169,7 +162,7 @@ const MyLoanAccount = props => {
 
                 <View style={styles.viewForClientsCategories}>
                   
-                  <Pressable onPress={ChmLnsRecCovss}
+                  <Pressable onPress={ChmLnsRec}
                   
                   style={styles.viewForClientsPressables}>
                     <Text style={styles.salesPressableText}>Member Status</Text>
@@ -179,24 +172,24 @@ const MyLoanAccount = props => {
             </View>
 
             <View style={styles.clientsView}>
-              <Text style={styles.salesText}>View Chama Activities</Text>
+              <Text style={styles.salesText}></Text>
 
               <View style={styles.viewForClientsAndTitle}>
               <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Contributions</Text>
+                  <Text style={styles.salesPressableText}>Registration</Text>
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={ChmSignIn5ss}
+                      onPress={AddChmMembrssss}
                       style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Chama</Text>
+                      <Text style={styles.clientsPressableText}>Reg</Text>
                     </Pressable>
 
                     <Pressable
-                      onPress={ChmMmbrContriss}
+                      onPress={SgnIn2RemoveMmbrss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
-                        Member
+                        De-Reg
                       </Text>
                     </Pressable>
                   </View>
@@ -246,58 +239,6 @@ const MyLoanAccount = props => {
               </View>
             </View>
 
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Members</Text>
-
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Registration</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={AddChmMembrssss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Reg</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={SgnIn2RemoveMmbrss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        De-Reg
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-            
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Money</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={MmbrSndChmsss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Contribute</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={ChamaSndMbrMneyss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                       Send to Member
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-              </View>
-            </View>
-          
-
-
-      
         <View style={styles.clientsView2}>
               <Text style={styles.salesText}>Chama Account</Text>
 
@@ -329,7 +270,7 @@ const MyLoanAccount = props => {
 
                   <View style={styles.viewForClientsPressables}>
                     <Pressable
-                      onPress={UpdateChmss}
+                      onPress={UpdateChmAc}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>Update</Text>
                     </Pressable>

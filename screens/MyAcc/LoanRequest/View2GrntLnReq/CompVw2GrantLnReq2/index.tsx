@@ -49,16 +49,15 @@ const FetchSMNonCovLns = props => {
             const userInfo = await Auth.currentAuthenticatedUser();
             try {
 
-            
-
               const Lonees:any = await API.graphql(graphqlOperation(listReqLoans, 
                 { 
                     
                   filter: {
-                  
-                    loanerEmail: { eq: route.params.MFNID},
+                    
+                  and: {
+                    loanerEmail: { eq: route.params.MFNId},
                     status:{eq:"AwaitingResponse"}
-                               
+                  }       
                 }
                 }
                   ));

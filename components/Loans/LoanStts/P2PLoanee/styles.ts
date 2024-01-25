@@ -109,10 +109,14 @@ const styles = StyleSheet.create ({
          
       loanFriendButton: {
         
-        width: "40%",
-        marginRight:"20%",
-        marginLeft:"20%",
+        width: "30%",
+        marginRight:"2%",
+        marginLeft:"2%",
         marginTop:"10%",
+        backgroundColor:"skyblue",
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
       
       
       },

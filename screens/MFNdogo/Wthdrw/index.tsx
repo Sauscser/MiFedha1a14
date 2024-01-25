@@ -127,7 +127,7 @@ const MFNWthdwl = props => {
       
               } catch (error) {
                 console.log(error)
-                if(error){Alert.alert("Retry")
+                if(error){Alert.alert("Retry or update app or call customer care")
               return;}
               }
               setIsLoading(false);
@@ -172,7 +172,7 @@ const MFNWthdwl = props => {
     }     
     catch (e) {
       
-      if (e){Alert.alert("Retry")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
          
     }   
@@ -184,7 +184,7 @@ const MFNWthdwl = props => {
 
     catch (e) {
       
-      if (e){Alert.alert("Retry")
+      if (e){Alert.alert("Retry or update app or call customer care")
       return;}
           
      }       
