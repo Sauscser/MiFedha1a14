@@ -100,6 +100,9 @@ const CovCredSls = props => {
       const description =PersnlDtl.data.getReqLoanCredSl.description;
       const defaultPenalty =PersnlDtl.data.getReqLoanCredSl.defaultPenalty;
       const AdvEmail =PersnlDtl.data.getReqLoanCredSl.AdvEmail;
+      
+      const repaymentPeriod =PersnlDtl.data.getReqLoanCredSl.repaymentPeriod;
+      const InterestRate =PersnlDtl.data.getReqLoanCredSl.repaymentAmt;
       const DefaultPenaltyRate = parseFloat(defaultPenalty)/parseFloat(AmtExp) *100;
       const RecomDfltPnltyRate = (parseFloat(AmtExp)*20) / 100;
 
@@ -226,8 +229,18 @@ const CovCredSls = props => {
         
           const TransCost2 = parseFloat(userLoanTransferFees)*parseFloat(amount)
           
-          const amtrpayable2 = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency))
-          const amtrpayable = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency))
+          const amtrpayable2 = parseFloat(amount) * 
+          ((Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 
+          Math.pow(1 + parseFloat(AmtExp)/36500, 0)) /
+          (Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 1))
+
+
+          const amtrpayable = parseFloat(amount) * 
+                  ((Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 
+                  Math.pow(1 + parseFloat(AmtExp)/36500, 0)) /
+                  (Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 1))
+
+
           const TotalAmtExp = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) + amtrpayable;
           const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
           const TotalAmtExp3 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
@@ -345,7 +358,7 @@ const CovCredSls = props => {
                                                                 owner: owner,
                                                                 
                                                                 installmentAmount:installmentAmount,
-                                    paymentFrequency:paymentFrequency
+                                                                paymentFrequency:paymentFrequency
                                                                
                                                               },
                                                             }),

@@ -128,7 +128,12 @@ const CreateBiz = (props) => {
                           
                           const phonecontact =RecAccountDtl.data.getSMAccount.phonecontact; 
                           const name =RecAccountDtl.data.getSMAccount.name; 
-                          const amtrpayable = parseFloat(itemPrys)*Math.pow((1 + parseFloat(lnPrsntg)/100), parseFloat(rpymntPrd)/parseFloat(InstFreq))
+                          const amtrpayable = parseFloat(itemPrys) * 
+                                              ((Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 
+                                              Math.pow(1 + parseFloat(lnPrsntg)/36500, 0)) /
+                                              (Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 1))
+                          
+                          
                           const ExpInstmnt = amtrpayable/parseFloat(rpymntPrd)
 
                           const CreateNewSMAc2 = async () => {
@@ -601,7 +606,7 @@ useEffect(() =>{
                       onChangeText={setlnPrsntg}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Monthly Interest rate</Text>
+                    <Text style={styles.sendLoanText}>Annual Interest rate</Text>
                   </View>
 
 
@@ -613,7 +618,7 @@ useEffect(() =>{
                       onChangeText={setrpymntPrd}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Total Repayment Period</Text>
+                    <Text style={styles.sendLoanText}>Repayment Period in Days</Text>
                   </View>
 
                   

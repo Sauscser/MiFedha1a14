@@ -101,8 +101,12 @@ const CreateBiz = (props) => {
                   const namesz = compDtlsx.data.getSMAccount.name;
                   const phonecontactzs = compDtlsx.data.getSMAccount.phonecontact;
 
-                  const amtrpayable = parseFloat(itemPrys)*Math.pow((1 + parseFloat(lnPrsntg)/100), parseFloat(rpymntPrd)/parseFloat(InstFreq))
-                          const ExpInstmnt = amtrpayable/parseFloat(rpymntPrd)
+                  const amtrpayable = parseFloat(itemPrys) * 
+                  ((Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 
+                  Math.pow(1 + parseFloat(lnPrsntg)/36500, 0)) /
+                  (Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 1))
+                          
+                  const ExpInstmnt = amtrpayable/parseFloat(rpymntPrd)
                   
                   
 

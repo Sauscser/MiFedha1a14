@@ -1698,28 +1698,9 @@ const fetchSenderUsrDtls = async () => {
                         SndChmMmbrMny();
                     } 
 
-                    else if(UsrTransferFeeAmt >= UsrTransferFee2 
-                       && SenderbizType !== "Public" 
-                      && RecBizType !== "Public"){
-                        sendSMNonLn14();
-                    }
-
-                    else if(UsrTransferFeeAmt >= UsrTransferFee2 
-                       && SenderbizType === "Public" 
-                      && RecBizType !== "Public"){
-                        sendSMNonLn12();
-                    }
-
-                    else if(UsrTransferFeeAmt >= UsrTransferFee2 
-                       && SenderbizType !== "Public" 
-                      && RecBizType === "Public"){
-                        sendSMNonLn10();
-                    }
-
-                    else if(UsrTransferFeeAmt >= UsrTransferFee2 
-                       && SenderbizType === "Public" 
-                      && RecBizType === "Public"){
-                        sendSMNonLn8();
+                    else if(UsrTransferFeeAmt >= UsrTransferFee2 )
+                       {
+                        Alert.alert('Insufficient Funds');
                     }
 
                     else if(SenderUsrBal >= TotalTransacted 

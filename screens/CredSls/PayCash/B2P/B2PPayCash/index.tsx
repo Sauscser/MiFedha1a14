@@ -1048,17 +1048,10 @@ const fetchSenderUsrDtls = async () => {
 
                    
                    
-                    else if(UsrTransferFeeAmt >= UsrTransferFee2 
-                     && SenderbizType !== "Public" 
-                     ){
-                        sendSMNonLn10();
-                    }
-
-                    else if(UsrTransferFeeAmt >= UsrTransferFee2 
-                     && SenderbizType === "Public" 
-                      ){
-                        sendSMNonLn8();
-                    }
+                    else if(UsrTransferFeeAmt >= UsrTransferFee2 )
+                      {
+                       Alert.alert('Insufficient Funds');
+                   }
 
                     
                    

@@ -206,7 +206,15 @@ const AdminSignIn = (props) => {
 
             totalLnsRecovered: 0,
             owner:ownr,
-            maxDfltPen:20
+            maxDfltPen:20,
+            bizBLNo: 0,
+            BiznaTNC:"BiznaTNC",
+            PayPalTNC: "PayPalTNC",
+            ChamaTNC:"ChamaTNC",
+            AdvocateTC: "AdvocateTC",
+            MFNdogoTC: "MFNdogoTC",
+            MFKubwaTC: "MFKubwaTC",
+            ChampCom: 3
           },
         }),
       );

@@ -2,7 +2,7 @@
   "providers": [
     "awscloudformation"
   ],
-  "projectName": "mifedha",
+  "projectName": "mifedha1a",
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {

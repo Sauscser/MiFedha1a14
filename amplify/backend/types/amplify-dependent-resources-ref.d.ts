@@ -1,12 +1,12 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
-    "mifedha": {
+    "mifedha1a": {
       "GraphQLAPIEndpointOutput": "string",
       "GraphQLAPIIdOutput": "string"
     }
   },
   "auth": {
-    "mifedha5355af98": {
+    "mifedha1a638affdc": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
       "IdentityPoolId": "string",
@@ -28,7 +28,6 @@ export type AmplifyDependentResourcesAttributes = {
       "KFKubwaGroupRole": "string",
       "KFNdogoGroupRole": "string",
       "RegionalAdminGroupRole": "string",
-      "RegionalAdminTwoGroupRole": "string",
       "SpareGrpGroupRole": "string"
     }
   }

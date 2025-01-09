@@ -99,8 +99,11 @@ const CreateBiz = (props) => {
                   graphqlOperation(getBizna,{BusKntct:awsEmail})
                   );
                   const busName = compDtlsx.data.getBizna.busName;
-                  const amtrpayable = parseFloat(itemPrys)*Math.pow((1 + parseFloat(lnPrsntg)/100), parseFloat(rpymntPrd)/parseFloat(InstFreq))
-                          const ExpInstmnt = amtrpayable/parseFloat(rpymntPrd)
+                  const amtrpayable = parseFloat(itemPrys) * 
+                  ((Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 
+                  Math.pow(1 + parseFloat(lnPrsntg)/36500, 0)) /
+                  (Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 1))
+                  const ExpInstmnt = amtrpayable/parseFloat(rpymntPrd)
                   
                   
 

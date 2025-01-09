@@ -137,7 +137,11 @@ const BLSMCovLoanee = (props) => {
               const MmbrClrnceCosts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) + parseFloat(DefaultPenaltySMs);
               const MmbrClrnceCost = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
 
-              const LonBal1 = LonBal*Math.pow((1 + parseFloat(interest)/100), tmDif/parseFloat(paymentFrequency));
+              const LonBal1 = parseFloat(amountExpectedBackWthClrncs)*
+              ((Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 
+              Math.pow(1 + parseFloat(interest)/36500, tmDif)) /
+              (Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 1))
+
               const LonBal4 = LonBal1 + MmbrClrnceCosts
               const LonBal5 = LonBal1 + MmbrClrnceCost
            

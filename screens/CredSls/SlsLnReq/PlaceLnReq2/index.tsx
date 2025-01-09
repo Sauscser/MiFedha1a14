@@ -114,7 +114,11 @@ const CreateBiz = (props) => {
                         );
                         const pwsz = compDtlsx.data.getBizna.pw;
                         const busNames = compDtlsx.data.getBizna.busName;
-                        const amtrpayable = parseFloat(itemPrys)*Math.pow((1 + parseFloat(lnPrsntg)/100), parseFloat(rpymntPrd)/parseFloat(InstFreq))
+                        const amtrpayable = parseFloat(itemPrys) * 
+                        ((Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 
+                        Math.pow(1 + parseFloat(lnPrsntg)/36500, 0)) /
+                        (Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 1))
+                        
                         const ExpInstmnt = amtrpayable/parseFloat(rpymntPrd)
                         
                   

@@ -100,6 +100,8 @@ const SMASendLns = props => {
     const dfltDeadLn =accountDtlszs.data.getReqLoan.dfltDeadLn;
     const installmentAmount =accountDtlszs.data.getReqLoan.installmentAmount;
     const paymentFrequency =accountDtlszs.data.getReqLoan.paymentFrequency;
+    const Interest =accountDtlszs.data.getReqLoan.repaymentAmt;
+   
     
     const DefaultPenaltyRate = parseFloat(defaultPenalty)/parseFloat(AmtExp) *100;
     const RecomDfltPnltyRate = (parseFloat(AmtExp)*20) / 100;
@@ -321,8 +323,15 @@ const SMASendLns = props => {
           
           const TtlTransCost2 = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount)  + parseFloat(amount);
           const CompanyTotalEarnings2 = parseFloat(userLoanTransferFees)*parseFloat(amount)
-          const amtrpayable2 = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency))
-          const amtrpayable = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency))
+          const amtrpayable2 = parseFloat(amount) * 
+          ((Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 
+          Math.pow(1 + parseFloat(Interest)/36500, 0)) /
+          (Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 1))
+        
+          const amtrpayable = parseFloat(amount) * 
+          ((Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 
+          Math.pow(1 + parseFloat(Interest)/36500, 0)) /
+          (Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 1))
           const TotalAmtExp = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) + amtrpayable;
           const TotalAmtExp2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable2;
           
@@ -391,7 +400,7 @@ const SMASendLns = props => {
                                   loanerEmail: loanerEmail,
                                   status: "LoanActive",
                                   installmentAmount:installmentAmount,
-                                                                paymentFrequency:paymentFrequency,
+                                  paymentFrequency:paymentFrequency,
                                   advEmail:"None",
                                   owner: userInfo.attributes.sub,
                                   blOfficer:"None"
@@ -588,8 +597,8 @@ const SMASendLns = props => {
                                   amountgiven: parseFloat(amount).toFixed(0),
                                   loaneename:namess,
                                   loanername:busName,
-                                  amountexpected: TotalAmtExp2.toFixed(0),
-                                  amountExpectedBackWthClrnc:TotalAmtExp2.toFixed(0),
+                                  amountexpected: TotalAmtExp.toFixed(0),
+                                  amountExpectedBackWthClrnc:TotalAmtExp.toFixed(0),
                                   DefaultPenaltySM:defaultPenalty,
                                   DefaultPenaltySM2:0,
                                   dfltDeadLn:dfltDeadLn,
@@ -600,7 +609,7 @@ const SMASendLns = props => {
                                   timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
                                   timeExpBack2: 61 + daysUpToDate,
                                   dfltUpdate: daysUpToDate,
-                                  lonBala:TotalAmtExp2.toFixed(0),
+                                  lonBala:TotalAmtExp.toFixed(0),
                                   repaymentPeriod: RepaymtPeriod,
                                   advregnu: advLicNo,
                                   description: description,

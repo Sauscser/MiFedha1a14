@@ -1,0 +1,73 @@
+{
+  "version": "1",
+  "cognitoConfig": {
+    "identityPoolName": "mifedha1a638affdc_identitypool_638affdc",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "mifedh638affdc",
+    "userPoolName": "mifedha1a638affdc_userpool_638affdc",
+    "autoVerifiedAttributes": [
+      "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+      "SMS Text Message"
+    ],
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+      "email"
+    ],
+    "aliasAttributes": [],
+    "userpoolClientGenerateSecret": false,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+      "email"
+    ],
+    "userpoolClientReadAttributes": [
+      "email"
+    ],
+    "userpoolClientLambdaRole": "mifedh638affdc_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": false,
+    "sharedId": "638affdc",
+    "resourceName": "mifedha1a638affdc",
+    "authSelections": "identityPoolAndUserPool",
+    "useDefault": "default",
+    "userPoolGroupList": [
+      "Executive",
+      "AdminOne",
+      "AdminOneTwo",
+      "RegionalAdmin",
+      "CountyAdmin",
+      "CountyAdminTwo",
+      "BranchAdmin",
+      "BranchAdminTwo",
+      "Advocate",
+      "KFKubwa",
+      "KFNdogo",
+      "SpareGrp",
+      "BizOwner"
+    ],
+    "serviceName": "Cognito",
+    "usernameCaseSensitive": false,
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": []
+  }
+}

@@ -2,7 +2,7 @@
   "expo": {
     "name": "MiFedha",
     "slug": "mifedha",
-    "version": "1.10.64",
+    "version": "1.10.97",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -26,25 +26,26 @@
       }
     },
     "android": {
+
+      "package": "com.MiFedhaLimited.MiFedha",
+      "targetSdkVersion": 34,
+      "compileSdkVersion": 34,
+      "versionCode": 105,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.MiFedhaLimited.MiFedha",
-      "versionCode": 75,
       "permissions": [
-        "LOCATION",
-        "ACCESS_USER_LOCATION",
-        "LOCATION",
         "ACCESS_FINE_LOCATION",
-        "LOCATION",
-        "ACCESS_FOREGROUND_LOCATION"
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
       ],
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBRZNkT-P9MBJks_olCoqLGzbG3n484BnU"
         }
       }
+      
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

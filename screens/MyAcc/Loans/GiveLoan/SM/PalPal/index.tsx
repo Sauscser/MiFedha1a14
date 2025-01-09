@@ -147,6 +147,7 @@ const SMASendLns = props => {
         const dfltDeadLn =accountDtlszs.data.getReqLoan.dfltDeadLn;
         const installmentAmount =accountDtlszs.data.getReqLoan.installmentAmount;
         const paymentFrequency =accountDtlszs.data.getReqLoan.paymentFrequency;
+        const Interest =accountDtlszs.data.getReqLoan.repaymentAmt;
         
         const DefaultPenaltyRate = parseFloat(defaultPenalty)/parseFloat(AmtExp) *100;
         const RecomDfltPnltyRate = (parseFloat(AmtExp)*20) / 100;
@@ -262,8 +263,17 @@ const SMASendLns = props => {
           
           const TtlTransCost2 = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount)  + parseFloat(amount);
           const CompanyTotalEarnings2 = parseFloat(userLoanTransferFees)*parseFloat(amount)
-          const amtrpayable2 = parseFloat(amount)*(Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency)))
-          const amtrpayable = parseFloat(amount)*(Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency)))
+
+          const amtrpayable2 = parseFloat(amount) * 
+          ((Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 
+          Math.pow(1 + parseFloat(Interest)/36500, 0)) /
+          (Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 1))
+
+          const amtrpayable = parseFloat(amount) * 
+          ((Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 
+          Math.pow(1 + parseFloat(Interest)/36500, 0)) /
+          (Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 1))
+          
           const TotalAmtExp = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) + amtrpayable;
           const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
 

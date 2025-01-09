@@ -227,8 +227,16 @@ const CovCredSls = props => {
           const lnTrnsfrFee = parseFloat(userLoanTransferFees)*parseFloat(amount);
           
           const TransCost2 = parseFloat(userLoanTransferFees)*parseFloat(amount)
-          const amtrpayable2 = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency))
-          const amtrpayable = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency))
+          const amtrpayable2 = parseFloat(amount) * 
+          ((Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 
+          Math.pow(1 + parseFloat(AmtExp)/36500, 0)) /
+          (Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 1))
+
+          const amtrpayable = parseFloat(amount) * 
+          ((Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 
+          Math.pow(1 + parseFloat(AmtExp)/36500, 0)) /
+          (Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 1))
+
           const TotalAmtExp = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) + amtrpayable;
           const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
           

@@ -164,7 +164,11 @@ const curYrs = parseFloat(years)*365;
 
               const LonBal = parseFloat(lonBala)
 
-              const LonBal1 = LonBal*Math.pow((1 + parseFloat(interest)/100), tmDif/parseFloat(paymentFrequency) );
+              const LonBal1 = parseFloat(amountExpectedBackWthClrncs) * 
+              ((Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 
+              Math.pow(1 + parseFloat(interest)/36500, tmDif)) /
+              (Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 1))
+
               const ClrnceCosts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)  + parseFloat(DefaultPenaltyCredSls)
               const ClrnceCost = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
               const LonBal4 = LonBal1 + ClrnceCosts

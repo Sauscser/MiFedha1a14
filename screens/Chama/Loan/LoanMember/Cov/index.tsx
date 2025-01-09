@@ -220,8 +220,17 @@ const ChmCovLns = props => {
           
 
           const TtlTransCost2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
-          const amtrpayable2 = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency))
-          const amtrpayable = parseFloat(amount)*Math.pow((1 + parseFloat(AmtExp)/100), RepaymtPeriod/parseFloat(paymentFrequency))
+          const amtrpayable2 = (parseFloat(amount) * 
+          ((Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 
+          Math.pow(1 + parseFloat(AmtExp)/36500, 0)) /
+          (Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 1))
+)
+        
+          const amtrpayable = parseFloat(amount) * 
+          ((Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 
+          Math.pow(1 + parseFloat(AmtExp)/36500, 0)) /
+          (Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 1))
+          
           const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable;
           const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
           const TtlTransCost = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) +  parseFloat(amount)
@@ -512,15 +521,15 @@ const ChmCovLns = props => {
                                     loanerLoaneeAdv:  groupContacts+memberContacts+advLicNo ,  
                                     repaymentPeriod: RepaymtPeriod,
                                     amountGiven: parseFloat(amount).toFixed(0),
-                                    amountExpectedBack: TotalAmtExp2.toFixed(0),
-                                    amountExpectedBackWthClrnc: TotalAmtExp2.toFixed(0),
+                                    amountExpectedBack: TotalAmtExp.toFixed(0),
+                                    amountExpectedBackWthClrnc: TotalAmtExp.toFixed(0),
                                     amountRepaid: 0,
                                     DefaultPenaltyChm:defaultPenalty,
                                     DefaultPenaltyChm2:0,
                                     timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
                                     timeExpBack2: 61 + daysUpToDate,
                                     description: description,
-                                    lonBala:TotalAmtExp2.toFixed(0),
+                                    lonBala:TotalAmtExp.toFixed(0),
                                     advRegNu: advLicNo,
                                     loaneeName:namess,
                                     crtnDate:daysUpToDate,

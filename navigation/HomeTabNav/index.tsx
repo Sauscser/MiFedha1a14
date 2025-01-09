@@ -29,6 +29,8 @@ import DActivtMFAdv from "../../screens/Advocate/DeactivtAdv/DeactivateMFAdmin/D
 import SMGvCovLon from "../../screens/MyAcc/Loans/GiveLoan/SM/PalPal";
 import SMASendNonCovLns from "../../screens/MyAcc/Loans/GiveLoan/SM/BizPal";
 import SMAWthdrwForm from '../../screens/MyAcc/WithdrwFunds';
+import WithdrwFundsOptions from '../../screens/MyAcc/WithdrwFundsOptions';
+import WithdrawalOptions from '../../screens/MyAcc/WithdrwFundsOptions/WithdrawalOptions';
 import SendNonLn from "../../screens/MyAcc/SendNonLons";
 import RepayCovLns from "../../screens/MyAcc/Loans/RepayLoan/SM/CovLons";
 import RepayNonCovLns from "../../screens/MyAcc/Loans/RepayLoan/SM/NonCovLns";
@@ -534,6 +536,9 @@ const HomeNavigator = props => {
       <Stack.Screen name={'VwToRegMFK'} component={VwToRegMFK} />
       <Stack.Screen name={'Vw2SelectChm2Req'} component={Vw2SelectChm2Req} />
       <Stack.Screen name={'VwCompMFAdvTC'} component={VwCompMFAdvTC} />
+
+      <Stack.Screen name={'WithdrwFundsOptions'} component={WithdrwFundsOptions} />
+      <Stack.Screen name={'WithdrawalOptions'} component={WithdrawalOptions} />
       
       <Stack.Screen name={'VwCompMFKTC'} component={VwCompMFKTC} />
       <Stack.Screen name={'VwCompMFNTC'} component={VwCompMFNTC} />

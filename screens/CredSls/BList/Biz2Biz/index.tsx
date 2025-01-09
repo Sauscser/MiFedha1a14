@@ -69,7 +69,7 @@ const BLCovCredByr = (props) => {
               const dfltUpdate = compDtls.data.getCovCreditSeller.dfltUpdate
               const crtnDate = compDtls.data.getCovCreditSeller.crtnDate
               const interest = compDtls.data.getCovCreditSeller.interest
-              const dfltDeadLn = compDtls.data.getCovCreditSeller.repaymentPeriod
+              const repaymentPeriod = compDtls.data.getCovCreditSeller.repaymentPeriod
               
               const lonBala = compDtls.data.getCovCreditSeller.lonBala
               const amountExpectedBackWthClrncs = compDtls.data.getCovCreditSeller.amountExpectedBackWthClrnc
@@ -95,41 +95,9 @@ const BLCovCredByr = (props) => {
 
               const now1:any = "2024-05-20";
              
-              
-              /*
-              
-              let char = dfltUpdate;
-              let char1 = char.charAt(0)
-              let char2 = char.charAt(1)
-              let char3 = char.charAt(2)
-              let char4 = char.charAt(3)
-              let char5 = char.charAt(4)
-              let char6 = char.charAt(5)
-              let char7 = char.charAt(6)
-              let char8 = char.charAt(7)
-              let char9 = char.charAt(8)
-              let char10 = char.charAt(9)
-              let char11 = char.charAt(10)
-              let char12 = char.charAt(11)
-              let char13 = char.charAt(12)
+             
 
-              
-              let crtnYr = char1+char2+char3+char4;
-              let crtnMnth = char6+char7;
-              let crtnDy = char9+char10;
-              let crtnHr = char12+char13;
-
-        
               const curYrs = parseFloat(years)*365;
-              const curMnths = (months2)*30.4375;
-              const daysUpToDate = curYrs + curMnths + parseFloat(days)
-
-              const crtnYears = parseFloat(crtnYr)*365;
-              const crtnMnths = parseFloat(crtnMnth)*30.4375;
-              const daysAtCrtn = crtnYears + crtnMnths + parseFloat(crtnDy)
-*/
-
-const curYrs = parseFloat(years)*365;
               const curMnths = (months2)*30.4375;
               const daysUpToDate = curYrs + curMnths + parseFloat(days)
 
@@ -171,10 +139,21 @@ const curYrs = parseFloat(years)*365;
               const pymtFrqncy = tmDif2/parseFloat(paymentFrequency)
               const Amt2HvBnPaid = pymtFrqncy* parseFloat(installmentAmount)
               const LonBal6 = parseFloat(lonBala) + parseFloat(DefaultPenaltyCredSls)
-              const LonBal1 = LonBal*Math.pow((1 + parseFloat(interest)/100), tmDif/parseFloat(paymentFrequency) );
 
-              const LonBal4 = LonBal1 + ClrnceCosts
-              const LonBal5 = LonBal1 + ClrnceCost
+              const LonBal1 = parseFloat(amountExpectedBackWthClrncs) * 
+              ((Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 
+              Math.pow(1 + parseFloat(interest)/36500, tmDif)) /
+              (Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 1))
+
+              const LoanBalz = (ClrnceCosts + LonBal1) - parseFloat(amountrepaids)
+              const LoanBalz2 = (ClrnceCost + LonBal1) - parseFloat(amountrepaids)
+
+              const amountExpectedBackWthClrncszz = (LoanBalz + ClrnceCosts) 
+              const amountExpectedBackWthClrncszz2 = (LoanBalz + ClrnceCost) 
+
+
+              const LonBal4 = LoanBalz + ClrnceCosts
+              const LonBal5 = LoanBalz + ClrnceCost
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -391,11 +370,11 @@ const curYrs = parseFloat(years)*365;
                                  {Alert.alert("Time to Blacklist is not yet")}
                               
                               else if (tmDif2 > parseFloat(paymentFrequency) 
-                              && parseFloat(amountrepaids) < Amt2HvBnPaid && tmDif2 < dfltDeadLn
+                              && parseFloat(amountrepaids) < Amt2HvBnPaid && tmDif2 < repaymentPeriod
                               && statusssss !== "LoanBL"){
                                 updateLoanDtls3()
                               }
-                               else if(tmDif2 > dfltDeadLn && statusssss !== "LoanBL"){
+                               else if(tmDif2 > repaymentPeriod && statusssss !== "LoanBL"){
                                 {updtActAdm();}
                               } 
     

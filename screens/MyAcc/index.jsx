@@ -44,7 +44,7 @@ const MyAccount = props => {
   };
 
   const goWithdrwMny = () => {
-    navigation.navigate('SMWthdFm');
+    navigation.navigate('WithdrawalOptions');
   };
 
   const goToSMASndnonln = () => {
@@ -150,19 +150,14 @@ const MyAccount = props => {
             </Pressable>
             </View>
             </View>
-
-            
+    
             
             
             <Pressable onPress={SearchUser} style={styles.acPressables}>
               <Text style={styles.acPressableText}>Search Pal</Text>
             </Pressable>
 
-            
-           
-          
-
-
+      
 
             <View style={styles.acPressables}>
             <View >

@@ -102,7 +102,11 @@ const CreateBiz = (props) => {
               
                  
                   const namez = compDtls3.data.getBizna.busName;
-                  const amtrpayable = parseFloat(itemPrys)*Math.pow((1 + parseFloat(lnPrsntg)/100), parseFloat(rpymntPrd)/parseFloat(InstFreq))
+                  const amtrpayable = parseFloat(itemPrys) * 
+                  ((Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 
+                  Math.pow(1 + parseFloat(lnPrsntg)/36500, 0)) /
+                  (Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 1))
+
                           const ExpInstmnt = amtrpayable/parseFloat(rpymntPrd)
 
                   const CreateNewSMAc2 = async () => {
@@ -529,7 +533,7 @@ useEffect(() =>{
                       onChangeText={setlnPrsntg}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Monthly Interest rate</Text>
+                    <Text style={styles.sendLoanText}>Annual Interest rate</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>

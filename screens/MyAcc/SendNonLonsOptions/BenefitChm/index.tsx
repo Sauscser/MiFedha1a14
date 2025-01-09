@@ -235,38 +235,7 @@ const SMASendNonLns = props => {
                       await updtSendrAc();
                     };
 
-                    const sendSMNonLn2 = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true)
-                      try {
-                        await API.graphql(
-                          graphqlOperation(createNonLoans, {
-                            input: {
-                              recPhn: RecNatId,
-                              senderPhn: userInfo.attributes.email,                                  
-                              amount: parseFloat(amounts).toFixed(0),                              
-                              description: Desc,
-                              RecName:namess,
-                              SenderName:names,
-                              status: "SMNonLons",
-                              owner: userInfo.attributes.sub
-                            },
-                          }),
-                        );
-
-
-                      } catch (error) {
-                        if (error){
-                          Alert.alert("Sending unsuccessful; Retry")
-                          return
-                        }
-                      
-                      }
-                      setIsLoading(false);
-                      await updtSendrAc2();
-                    };
+                    
 
 
                     const updtSendrAc = async () =>{
@@ -298,34 +267,7 @@ const SMASendNonLns = props => {
                       await updtRecAc();
                     }
 
-                    const updtSendrAc2 = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateSMAccount, {
-                              input:{
-                                awsemail:userInfo.attributes.email,
-                                ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(0),
-                                balance:(parseFloat(SenderUsrBal)-TotalTransacted2).toFixed(0) 
-                               
-                                
-                              }
-                            })
-                          )
-
-
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Retry or update app or call customer care")
-                        return;}
-                      }
-                      setIsLoading(false);
-                      await updtRecAc2();
-                    }
+                   
 
                     const updtRecAc = async () =>{
                       if(isLoading){
@@ -405,32 +347,7 @@ const SMASendNonLns = props => {
                       await updtComp();
                     }
 
-                    const updtRecAc2 = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateSMAccount, {
-                              input:{
-                                awsemail:RecNatId,
-                                ttlNonLonsRecSM: (parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts)).toFixed(0) ,
-                                balance:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(0)                                     
-                                                                
-                                
-                              }
-                            })
-                          )                              
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Retry or update app or call customer care")
-                        return;}
-                      }
-                      setIsLoading(false);
-                      await updtComp2();
-                    }
+                    
 
                     const updtComp = async () =>{
                       if(isLoading){
@@ -470,45 +387,7 @@ const SMASendNonLns = props => {
                             
                             setIsLoading(false);
                     }
-
-                    const updtComp2 = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateCompany, {
-                              input:{
-                                AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                               
-                                companyEarningBal:UsrTransferFee2 + parseFloat(companyEarningBals),
-                                companyEarning: UsrTransferFee2 + parseFloat(companyEarnings),                                                    
-                                
-                                ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
-                                ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
-                                
-                              }
-                            })
-                          )
-                          
-                          
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Retry or update app or call customer care")
-                    return;}
-                      }
-                      Alert.alert("Insufficient transaction fees? No worries! Ksh. " +parseFloat(amounts).toFixed(0) + " sent!");
-                      Communications.textWithoutEncoding(phonecontact,'Hi '
-                              + namess + ", "+names + ' has sent you a non loan of Ksh. ' 
-                              + amounts 
-                              +'. For clarification call the sender '
-                            + userInfo.attributes.phone_number + '. Thank you. MiFedha')
-                      setIsLoading(false);
-                    }
-                    
-                                          
+                   
                     
                     if (userInfo.attributes.sub!==owner) {
                       Alert.alert("Please first create a main account")
@@ -547,7 +426,7 @@ const SMASendNonLns = props => {
                     } 
 
                     else if (UsrTransferFeeAmt > UsrTransferFee2 
-                      ){sendSMNonLn2();}
+                      ){Alert.alert('Insufficient funds');}
 
                      else {
                       sendSMNonLn();

@@ -11,15 +11,22 @@ import {
   updateCompany,
   
   updateSMAccount,
-  updateGroup,
-  updateChamaMembers,
   
 } from '../../../../src/graphql/mutations';
 
 import {API, Auth, graphqlOperation} from 'aws-amplify';
+import {
+  
+  getCompany,
+  getSMAccount,
+  listCovCreditSellers,
+  listCvrdGroupLoans,
+  listSMLoansCovereds,
+  
+  
+} from '../../../../src/graphql/queries';
 
-
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 import {
   View,
@@ -35,7 +42,6 @@ import {
   ActivityIndicator
 } from 'react-native';
 import styles from './styles';
-import { getChamaMembers, getCompany, getGroup, getSMAccount, listCovCreditSellers, listCvrdGroupLoans, listSMLoansCovereds } from '../../../../src/graphql/queries';
 
 
 const SMASendNonLns = props => {
@@ -48,16 +54,10 @@ const SMASendNonLns = props => {
   const [Desc, setDesc] = useState("");
  
   const[isLoading, setIsLoading] = useState(false);
-  
-  const route = useRoute();
   const navigation = useNavigation()
   const SndChmMmbrMny = () => {
     navigation.navigate("AutomaticRepayAllTyps")
  }
-
- const grpDsNtExst = () => {
-  navigation.navigate("SendNLBnftNone")
-}
   
   
  
@@ -93,7 +93,7 @@ const SMASendNonLns = props => {
                             }}
                             ));
 
-                            
+                           
 
                                     const fetchCLChm = async () => {
                                       setIsLoading(true);
@@ -127,7 +127,23 @@ const SMASendNonLns = props => {
       
       const names =accountDtl.data.getSMAccount.name;
       const owner =accountDtl.data.getSMAccount.owner;
-      
+      const senderbeneficiary =accountDtl.data.getSMAccount.beneficiary;
+    
+
+
+      const fetchSenderBeneficiaryUsrDtls = async () => {
+        if(isLoading){
+          return;
+        }
+        setIsLoading(false);
+        try {
+          const accountDtl:any = await API.graphql(
+            graphqlOperation(getSMAccount, {awsemail: senderbeneficiary}),
+          );
+    
+          const SenderBeneficiarySenderUsrBal =accountDtl.data.getSMAccount.balance;
+          
+          const senderbeneficiaryAmt =accountDtl.data.getSMAccount.beneficiaryAmt;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -154,6 +170,7 @@ const SMASendNonLns = props => {
           const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
           const ttlNonLonssSentSMs = CompDtls.data.getCompany.ttlNonLonssSentSM; 
           
+          
          
                     
           const fetchRecUsrDtls = async () => {
@@ -173,36 +190,22 @@ const SMASendNonLns = props => {
                     const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                     const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
                     const phonecontact =RecAccountDtl.data.getSMAccount.phonecontact;
-                    const p2pchmBenefits =accountDtl.data.getSMAccount.p2pchmBenefits;
+                    const receiverbeneficiary =RecAccountDtl.data.getSMAccount.beneficiary;
+                    
 
-
-                    const fetchMmbrDtls = async () => {
+                    const fetchRecUsrDtlsBeneficiary = async () => {
                       if(isLoading){
                         return;
                       }
                       setIsLoading(true);
                       try {
-                          const RecAccountDtl17:any = await API.graphql(
-                              graphqlOperation(getChamaMembers, {ChamaNMember: route.params.ChamaNMember}),
+                          const RecAccountDtl:any = await API.graphql(
+                              graphqlOperation(getSMAccount, {awsemail: receiverbeneficiary}),
                               );
-                              const ttlNonLonAcBal =RecAccountDtl17.data.getChamaMembers.ttlNonLonAcBal; 
-                              const groupContact =RecAccountDtl17.data.getChamaMembers.groupContact; 
-                              const memberChmBenefit =RecAccountDtl17.data.getChamaMembers.memberChmBenefit; 
+                              const RecBeneficiaryUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
+                            
                               
-                              const fetchChmDtls = async () => {
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try {
-                                    const RecAccountDtl17:any = await API.graphql(
-                                        graphqlOperation(getGroup, {grpContact: groupContact}),
-                                        );
-                                        const grpBal =RecAccountDtl17.data.getGroup.grpBal; 
-                                        const ChmBenefits =RecAccountDtl17.data.getGroup.ChmBenefits;
-
-                                        const p2pBen = (parseFloat(p2pchmBenefits) + (parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3).toFixed(0)
-                              
+                              const receiverbeneficiaryAmt =RecAccountDtl.data.getSMAccount.beneficiaryAmt;
                     
                   
                     const sendSMNonLn = async () => {
@@ -237,38 +240,7 @@ const SMASendNonLns = props => {
                       await updtSendrAc();
                     };
 
-                    const sendSMNonLn2 = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true)
-                      try {
-                        await API.graphql(
-                          graphqlOperation(createNonLoans, {
-                            input: {
-                              recPhn: RecNatId,
-                              senderPhn: userInfo.attributes.email,                                  
-                              amount: parseFloat(amounts).toFixed(0),                              
-                              description: Desc,
-                              RecName:namess,
-                              SenderName:names,
-                              status: "SMNonLons",
-                              owner: userInfo.attributes.sub
-                            },
-                          }),
-                        );
-
-
-                      } catch (error) {
-                        if (error){
-                          Alert.alert("Sending unsuccessful; Retry")
-                          return
-                        }
-                      
-                      }
-                      setIsLoading(false);
-                      await updtSendrAc2();
-                    };
+                    
 
 
                     const updtSendrAc = async () =>{
@@ -300,112 +272,10 @@ const SMASendNonLns = props => {
                       await updtRecAc();
                     }
 
-                    const updtSendrAc2 = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateSMAccount, {
-                              input:{
-                                awsemail:userInfo.attributes.email,
-                                ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(0),
-                                balance:(parseFloat(SenderUsrBal)-TotalTransacted2).toFixed(0) 
-                               
-                                
-                              }
-                            })
-                          )
+                    
 
-
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Retry or update app or call customer care")
-                        return;}
-                      }
-                      setIsLoading(false);
-                      await updtRecAc2();
-                    }
-
+                    
                     const updtRecAc = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateSMAccount, {
-                              input:{
-                                awsemail:RecNatId,
-                                ttlNonLonsRecSM: (parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts)).toFixed(0) ,
-                                balance:(parseFloat(RecUsrBal) +  parseFloat(amounts)+ (parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3).toFixed(0) ,                                     
-                                p2pchmBenefits: (parseFloat(p2pchmBenefits) + (parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3).toFixed(0) ,                       
-                                
-                              }
-                            })
-                          )                              
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Retry or update app or call customer care")
-                        return;}
-                      }
-                      console.log(p2pBen)
-                      setIsLoading(false);
-                      await updtChmAc();
-                    }
-
-                    const updtChmAc = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateGroup, {
-                              input:{
-                                grpContact: groupContact,
-                                
-                              }
-                            })
-                          )                              
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Retry or update app or call customer care")
-                        return;}
-                      }
-                      setIsLoading(false);
-                      await updtChmMbrAc();
-                    }
-
-                    const updtChmMbrAc = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateChamaMembers, {
-                              input:{
-                                ChamaNMember: route.params.ChamaNMember,
-                                
-                              }
-                            })
-                          )                              
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Retry or update app or call customer care")
-                        return;}
-                      }
-                      setIsLoading(false);
-                      await updtComp();
-                    }
-
-                    const updtRecAc2 = async () =>{
                       if(isLoading){
                         return;
                       }
@@ -429,8 +299,72 @@ const SMASendNonLns = props => {
                         return;}
                       }
                       setIsLoading(false);
-                      await updtComp2();
+                      await updtSendrBeneficiaryAc();
                     }
+
+                    const updtSendrBeneficiaryAc = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateSMAccount, {
+                              input:{
+                                awsemail:senderbeneficiary,
+                                balance:((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(SenderBeneficiarySenderUsrBal)).toFixed(0),
+                                beneficiaryAmt: ((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(senderbeneficiaryAmt)).toFixed(0),
+                                                         
+                                
+                              }
+                            })
+                          )
+
+
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Retry or update app or call customer care")
+                        return;}
+                      }
+                      setIsLoading(false);
+                      await updtRecBeneficiaryAc();
+
+
+                    }
+
+                    const updtRecBeneficiaryAc = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateSMAccount, {
+                              input:{
+                                awsemail:receiverbeneficiary,
+                                balance:((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(RecBeneficiaryUsrBal)).toFixed(0),
+                                beneficiaryAmt: ((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(receiverbeneficiaryAmt)).toFixed(0),
+                                                         
+                                
+                              }
+                            })
+                          )
+
+
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Retry or update app or call customer care")
+                        return;}
+                      }
+                      setIsLoading(false);
+                      await updtComp();
+                    }
+
+                   
+
+                   
 
                     const updtComp = async () =>{
                       if(isLoading){
@@ -443,8 +377,8 @@ const SMASendNonLns = props => {
                               input:{
                                 AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                
-                                companyEarningBal:(parseFloat(UsrTransferFee) * parseFloat(amounts))*0.7 + parseFloat(companyEarningBals),
-                                companyEarning: (parseFloat(UsrTransferFee) * parseFloat(amounts))*0.7 + parseFloat(companyEarnings),                                                    
+                                companyEarningBal:parseFloat(UsrTransferFee) * parseFloat(amounts) + parseFloat(companyEarningBals),
+                                companyEarning: parseFloat(UsrTransferFee) * parseFloat(amounts) + parseFloat(companyEarnings),                                                    
                                 
                                 ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
                                 ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
@@ -463,7 +397,7 @@ const SMASendNonLns = props => {
                       Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0)
                       );
                       Communications.textWithoutEncoding(phonecontact,'Hi '
-                              + namess + ", " +names + ' has sent you a non loan of Ksh. ' 
+                              + namess + ', ' +names + ' has sent you a non loan of Ksh. ' 
                               + amounts 
                               +'. For clarification call the sender '
                             + userInfo.attributes.phone_number + '. Thank you. MiFedha')
@@ -471,42 +405,7 @@ const SMASendNonLns = props => {
                             setIsLoading(false);
                     }
 
-                    const updtComp2 = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateCompany, {
-                              input:{
-                                AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                               
-                                companyEarningBal:UsrTransferFee2 + parseFloat(companyEarningBals),
-                                companyEarning: UsrTransferFee2 + parseFloat(companyEarnings),                                                    
-                                
-                                ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
-                                ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
-                                
-                              }
-                            })
-                          )
-                          
-                          
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Retry or update app or call customer care")
-                    return;}
-                      }
-                      Alert.alert("Insufficient transaction fees? No worries! Ksh. " +parseFloat(amounts).toFixed(0) + " sent!");
-                      Communications.textWithoutEncoding(phonecontact,'Hi '
-                              + namess + ", "+names + ' has sent you a non loan of Ksh. ' 
-                              + amounts 
-                              +'. For clarification call the sender'
-                            + userInfo.attributes.phone_number + '. Thank you. MiFedha')
-                      setIsLoading(false);
-                    }
+                    
                     
                                           
                     
@@ -520,8 +419,6 @@ const SMASendNonLns = props => {
                     else if (
                       UsrTransferFee2 < 0
                     ) {Alert.alert('Requested amount is more than you have in your account');}
-
-                    
                     
                     else if (
                       (parseFloat(RecUsrBal) + parseFloat(amounts)) > parseFloat(MaxAcBals) 
@@ -533,13 +430,13 @@ const SMASendNonLns = props => {
                     else if(parseFloat(loanLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');}
                     
                     else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
-                      ||
                       
+                      ||
                       Lonees3.data.listCovCreditSellers.items.length > 0 
                       
                       ||
                       Lonees5.data.listCvrdGroupLoans.items.length > 0 
-                      
+                     
 
                     
                       ) {
@@ -547,39 +444,22 @@ const SMASendNonLns = props => {
                     } 
 
                     else if (UsrTransferFeeAmt > UsrTransferFee2 
-                      ){sendSMNonLn2();}
+                      ){Alert.alert('Insufficient Funds');}
 
                      else {
                       sendSMNonLn();
                     }                                                
-               
-                  }       
-                  catch(e) {   
-                    
-                    if (e){
-                      console.log(e)  
-                     
-                      Alert.alert("Group does not exist!");
-                  }                 
-                  }
-                  setIsLoading(false);
-                  }                    
-                    await fetchChmDtls();
+                }       
+                catch(e) {   
+                  console.log(e)  
+                  if (e){Alert.alert("Retry or update app or call customer care")
+  return;}                 
+                }
+                setIsLoading(false);
+                }                    
+                  await fetchRecUsrDtlsBeneficiary();
 
-                  }       
-                  catch(e) {   
-                    console.log(e)  
-                    if (e){
-                      
-                      
-                      Alert.alert("Retry or update app or call customer care");
-                  }                 
-                  }
-                  setIsLoading(false);
-                  }                    
-                    await fetchMmbrDtls();
-                  
-                  }       
+                }       
                 catch(e) {   
                   console.log(e)  
                   if (e){Alert.alert("Retry or update app or call customer care")
@@ -608,10 +488,21 @@ const SMASendNonLns = props => {
     setIsLoading(false);
     };
     
-    await fetchSenderUsrDtls();
+    await fetchSenderBeneficiaryUsrDtls();
+
+  }     
+  catch (e) {
+    console.log(e)
+    if (e){Alert.alert("Retry or update app or call customer care")
+    return;}
+       
+  }   
+  setIsLoading(false);
+  };
+  
+  await fetchSenderUsrDtls();
 
   
-    
     }     
     catch (e) {
       console.log(e)
@@ -625,7 +516,6 @@ const SMASendNonLns = props => {
     await fetchCLChm();
     
    
-    
     }     
     catch (e) {
       console.log(e)
@@ -638,7 +528,7 @@ const SMASendNonLns = props => {
     
     await fetchCLCrdSl();
     
-    
+   
           
         } catch (e) {
           console.log(e)

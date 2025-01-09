@@ -1,13 +1,13 @@
 {
   "api": {
-    "mifedha": {
+    "mifedha1a": {
       "dependsOn": [
         {
           "attributes": [
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "mifedha5355af98"
+          "resourceName": "mifedha1a638affdc"
         }
       ],
       "output": {
@@ -16,7 +16,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authmifedha5355af98"
+              "userPoolId": "authmifedha1a638affdc"
             }
           }
         }
@@ -26,7 +26,7 @@
     }
   },
   "auth": {
-    "mifedha5355af98": {
+    "mifedha1a638affdc": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -60,7 +60,7 @@
             "IdentityPoolId"
           ],
           "category": "auth",
-          "resourceName": "mifedha5355af98"
+          "resourceName": "mifedha1a638affdc"
         }
       ],
       "providerPlugin": "awscloudformation",

@@ -97,14 +97,90 @@ const RepayCovLnsss = props => {
                 const amountExpectedBackWthClrncs =RecAccountDtl.data.getSMLoansCovered.amountExpectedBackWthClrnc; 
                 
                 const lonBalas =RecAccountDtl.data.getSMLoansCovered.lonBala; 
-                const statussssssss =RecAccountDtl.data.getSMLoansCovered.status; 
+                const crtnDate =RecAccountDtl.data.getSMLoansCovered.crtnDate; 
+
+                const loanerEmail =RecAccountDtl.data.getSMLoansCovered.loanerEmail; 
                 const amountrepaids =RecAccountDtl.data.getSMLoansCovered.amountrepaid; 
                 const amountExpectedBacks =RecAccountDtl.data.getSMLoansCovered.amountexpected;
                 const ClranceAmt = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountExpectedBacks); 
                 const LonBalsss = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountrepaids);     
-                const loanerEmail =RecAccountDtl.data.getSMLoansCovered.loanerEmail; 
+                const loanerPhns =RecAccountDtl.data.getSMLoansCovered.loanerPhn; 
                 const DefaultPenaltySM2s =RecAccountDtl.data.getSMLoansCovered.DefaultPenaltySM2;
-      
+
+                const repaymentPeriod =RecAccountDtl.data.getSMLoansCovered.repaymentPeriod; 
+                const amountgiven =RecAccountDtl.data.getSMLoansCovered.amountgiven; 
+                const interest =RecAccountDtl.data.getSMLoansCovered.interest;
+                const dfltUpdate =RecAccountDtl.data.getSMLoansCovered.dfltUpdate;
+
+                const today = new Date();
+              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
+              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
+              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
+              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
+              let months2 = parseFloat(months)
+              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
+              
+              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
+
+              const now1:any = "2024-05-20";
+             
+              
+              
+              
+              
+              
+             
+
+        
+              const curYrs = parseFloat(years)*365;
+              const curMnths = (months2)*30.4375;
+              const daysUpToDate = curYrs + curMnths + parseFloat(days)
+
+             
+
+              let charz = crtnDate;
+              let char1z = charz.charAt(0)
+              let char2z = charz.charAt(1)
+              let char3z = charz.charAt(2)
+              let char4z = charz.charAt(3)
+              let char5z = charz.charAt(4)
+              let char6z = charz.charAt(5)
+              let char7z = charz.charAt(6)
+              let char8z = charz.charAt(7)
+              let char9z = charz.charAt(8)
+              let char10z = charz.charAt(9)
+              let char11z = charz.charAt(10)
+              let char12z = charz.charAt(11)
+              let char13z = charz.charAt(12)
+
+              
+              let crtnYrz = char1z+char2z+char3z+char4z;
+              let crtnMnthz = char6z+char7z;
+              let crtnDyz = char9z+char10z;
+              let crtnHrz = char12z+char13z;
+              const crtnYearsz = parseFloat(crtnYrz)*365;
+              const crtnMnthsz = parseFloat(crtnMnthz)*30.4375;
+              const daysAtCrtnz = crtnYearsz + crtnMnthsz + parseFloat(crtnDyz)
+
+              const tmDif = daysUpToDate - dfltUpdate;
+              const tmDif2 = daysUpToDate - crtnDate;
+
+
+
+
+                const LoanBal = parseFloat(amountExpectedBackWthClrncs) * 
+                ((Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 
+                Math.pow(1 + parseFloat(interest)/36500, tmDif)) /
+                (Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 1))
+
+                const LoanBalz = (ClranceAmt + LoanBal) - parseFloat(amountrepaids)
+
+                const amountExpectedBackWthClrncszz = (LoanBalz + ClranceAmt) - parseFloat(amounts)
+
+
+
+
       const fetchCompDtls = async () => {
         if(isLoading){
           return;
@@ -129,6 +205,9 @@ const RepayCovLnsss = props => {
           const ttlNonLonssSentSMs = CompDtls.data.getCompany.ttlNonLonssSentSM; 
           const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts) + ClranceAmt; 
           const maxBLss = CompDtls.data.getCompany.maxBLs;
+
+          const amountExpectedBackWthClrncszz = (LoanBalz + ClranceAmt) - parseFloat(amounts)
+
          
                     
           const fetchRecUsrDtls = async () => {
@@ -234,8 +313,8 @@ const RepayCovLnsss = props => {
                                         input:{
                                           loanID: route.params.loanID,
                                           amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
-                                          lonBala: (parseFloat(lonBalas)-parseFloat(amounts)).toFixed(0),
-                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
+                                          lonBala: ((LoanBalz)-parseFloat(amounts)).toFixed(0),
+                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncszz.toFixed(0),
                                           status: "LoanCleared",
                                           DefaultPenaltySM2:0
                                       }})
@@ -375,9 +454,9 @@ const RepayCovLnsss = props => {
                                         input:{
                                           loanID: route.params.loanID,
                                           amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
-                                          lonBala: (parseFloat(lonBalas) - parseFloat(amounts)).toFixed(0),
+                                          lonBala: ((LoanBalz) - parseFloat(amounts)).toFixed(0),
                                           DefaultPenaltySM2:0,
-                                          amountExpectedBackWthClrnc:(parseFloat(amountExpectedBackWthClrncs) - ClranceAmt).toFixed(0),
+                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncszz.toFixed(0),
                                         }
                                       })
                                     )

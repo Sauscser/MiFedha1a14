@@ -79,6 +79,7 @@ const BLChmCovLoanee = (props) => {
               const dfltDeadLn = compDtls2.data.getCvrdGroupLoans.repaymentPeriod
               const createdAt = compDtls2.data.getCvrdGroupLoans.createdAt
               const statussxzs = compDtls2.data.getCvrdGroupLoans.status
+              const amountGiven = compDtls2.data.getCvrdGroupLoans.amountGiven
               
               const amountExpectedBackWthClrncs = compDtls2.data.getCvrdGroupLoans.amountExpectedBackWthClrnc
               
@@ -86,6 +87,8 @@ const BLChmCovLoanee = (props) => {
               const memberIds = compDtls2.data.getCvrdGroupLoans.memberId
               
               const DefaultPenaltyChms = compDtls2.data.getCvrdGroupLoans.DefaultPenaltyChm
+
+              
 
               const amountExpectedBackWthClrncss = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) 
               + parseFloat(amountExpectedBackWthClrncs)
@@ -154,7 +157,10 @@ const BLChmCovLoanee = (props) => {
               
               const paymentFrequency = compDtls2.data.getCvrdGroupLoans.paymentFrequency
               const installmentAmount = compDtls2.data.getCvrdGroupLoans.installmentAmount
-              const LonBal1 = LonBal*Math.pow((1 + parseFloat(interest)/100), tmDif/parseFloat(paymentFrequency));
+              const LonBal1 = parseFloat(amountExpectedBackWthClrncs) * 
+              ((Math.pow(1 + parseFloat(interest)/36500, parseFloat(dfltDeadLn)) - 
+              Math.pow(1 + parseFloat(interest)/36500, tmDif)) /
+              (Math.pow(1 + parseFloat(interest)/36500, parseFloat(dfltDeadLn)) - 1))
             
               const pymtFrqncy = tmDif2/parseFloat(paymentFrequency)
               const Amt2HvBnPaid = pymtFrqncy* parseFloat(installmentAmount)
