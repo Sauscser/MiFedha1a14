@@ -13,12 +13,8 @@
     },
     "categories": {
       "auth": {
-        "mifedha5355af98": {},
-        "userPoolGroups": {},
-        "mifedha1a638affdc": {}
-      },
-      "api": {
-        "mifedha": {}
+        "mifedha1a638affdc": {},
+        "userPoolGroups": {}
       }
     }
   }

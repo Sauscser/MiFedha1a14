@@ -2,7 +2,7 @@
   "expo": {
     "name": "MiFedha",
     "slug": "mifedha",
-    "version": "1.10.97",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -30,7 +30,7 @@
       "package": "com.MiFedhaLimited.MiFedha",
       "targetSdkVersion": 34,
       "compileSdkVersion": 34,
-      "versionCode": 105,
+      "versionCode": 120,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"

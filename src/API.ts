@@ -301,6 +301,7 @@ export type ModelSMAccountConditionInput = {
   and?: Array< ModelSMAccountConditionInput | null > | null,
   or?: Array< ModelSMAccountConditionInput | null > | null,
   not?: ModelSMAccountConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ModelStringInput = {
@@ -702,6 +703,7 @@ export type ModelSMLoansCoveredConditionInput = {
   and?: Array< ModelSMLoansCoveredConditionInput | null > | null,
   or?: Array< ModelSMLoansCoveredConditionInput | null > | null,
   not?: ModelSMLoansCoveredConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type SMLoansCovered = {
@@ -862,6 +864,7 @@ export type ModelCovCreditSellerConditionInput = {
   and?: Array< ModelCovCreditSellerConditionInput | null > | null,
   or?: Array< ModelCovCreditSellerConditionInput | null > | null,
   not?: ModelCovCreditSellerConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type CovCreditSeller = {
@@ -1016,6 +1019,7 @@ export type ModelCvrdGroupLoansConditionInput = {
   and?: Array< ModelCvrdGroupLoansConditionInput | null > | null,
   or?: Array< ModelCvrdGroupLoansConditionInput | null > | null,
   not?: ModelCvrdGroupLoansConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type CvrdGroupLoans = {
@@ -1120,6 +1124,7 @@ export type ModelNonLoansConditionInput = {
   and?: Array< ModelNonLoansConditionInput | null > | null,
   or?: Array< ModelNonLoansConditionInput | null > | null,
   not?: ModelNonLoansConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type NonLoans = {
@@ -1182,6 +1187,7 @@ export type ModelBizSlsReqConditionInput = {
   and?: Array< ModelBizSlsReqConditionInput | null > | null,
   or?: Array< ModelBizSlsReqConditionInput | null > | null,
   not?: ModelBizSlsReqConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type BizSlsReq = {
@@ -1247,6 +1253,7 @@ export type ModelBizSlsConditionInput = {
   and?: Array< ModelBizSlsConditionInput | null > | null,
   or?: Array< ModelBizSlsConditionInput | null > | null,
   not?: ModelBizSlsConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type BizSls = {
@@ -1317,6 +1324,7 @@ export type ModelLoanRepaymentsConditionInput = {
   and?: Array< ModelLoanRepaymentsConditionInput | null > | null,
   or?: Array< ModelLoanRepaymentsConditionInput | null > | null,
   not?: ModelLoanRepaymentsConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type LoanRepayments = {
@@ -1383,6 +1391,7 @@ export type ModelSokoAdConditionInput = {
   and?: Array< ModelSokoAdConditionInput | null > | null,
   or?: Array< ModelSokoAdConditionInput | null > | null,
   not?: ModelSokoAdConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type SokoAd = {
@@ -1449,6 +1458,7 @@ export type ModelRafikiLnAdConditionInput = {
   and?: Array< ModelRafikiLnAdConditionInput | null > | null,
   or?: Array< ModelRafikiLnAdConditionInput | null > | null,
   not?: ModelRafikiLnAdConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type RafikiLnAd = {
@@ -1535,6 +1545,7 @@ export type ModelAgentConditionInput = {
   and?: Array< ModelAgentConditionInput | null > | null,
   or?: Array< ModelAgentConditionInput | null > | null,
   not?: ModelAgentConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type Agent = {
@@ -1609,6 +1620,7 @@ export type ModelFloatPurchaseConditionInput = {
   and?: Array< ModelFloatPurchaseConditionInput | null > | null,
   or?: Array< ModelFloatPurchaseConditionInput | null > | null,
   not?: ModelFloatPurchaseConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type FloatPurchase = {
@@ -1667,6 +1679,7 @@ export type ModelFloatAddConditionInput = {
   and?: Array< ModelFloatAddConditionInput | null > | null,
   or?: Array< ModelFloatAddConditionInput | null > | null,
   not?: ModelFloatAddConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type FloatAdd = {
@@ -1727,6 +1740,8 @@ export type ModelFloatReductionConditionInput = {
   and?: Array< ModelFloatReductionConditionInput | null > | null,
   or?: Array< ModelFloatReductionConditionInput | null > | null,
   not?: ModelFloatReductionConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type FloatReduction = {
@@ -1782,6 +1797,7 @@ export type ModelAgentWithdrawalsConditionInput = {
   and?: Array< ModelAgentWithdrawalsConditionInput | null > | null,
   or?: Array< ModelAgentWithdrawalsConditionInput | null > | null,
   not?: ModelAgentWithdrawalsConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type AgentWithdrawals = {
@@ -1860,6 +1876,7 @@ export type ModelSAgentConditionInput = {
   and?: Array< ModelSAgentConditionInput | null > | null,
   or?: Array< ModelSAgentConditionInput | null > | null,
   not?: ModelSAgentConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type SAgent = {
@@ -1938,6 +1955,7 @@ export type ModelSAgentWithdrawalsConditionInput = {
   and?: Array< ModelSAgentWithdrawalsConditionInput | null > | null,
   or?: Array< ModelSAgentWithdrawalsConditionInput | null > | null,
   not?: ModelSAgentWithdrawalsConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type SAgentWithdrawals = {
@@ -1996,6 +2014,8 @@ export type ModelPersonelConditionInput = {
   and?: Array< ModelPersonelConditionInput | null > | null,
   or?: Array< ModelPersonelConditionInput | null > | null,
   not?: ModelPersonelConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type Personel = {
@@ -2225,6 +2245,7 @@ export type ModelBiznaConditionInput = {
   and?: Array< ModelBiznaConditionInput | null > | null,
   or?: Array< ModelBiznaConditionInput | null > | null,
   not?: ModelBiznaConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type Bizna = {
@@ -2453,6 +2474,7 @@ export type ModelBankAdminConditionInput = {
   and?: Array< ModelBankAdminConditionInput | null > | null,
   or?: Array< ModelBankAdminConditionInput | null > | null,
   not?: ModelBankAdminConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type BankAdmin = {
@@ -2521,6 +2543,7 @@ export type ModelAdvocateConditionInput = {
   and?: Array< ModelAdvocateConditionInput | null > | null,
   or?: Array< ModelAdvocateConditionInput | null > | null,
   not?: ModelAdvocateConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type Advocate = {
@@ -2587,6 +2610,7 @@ export type ModelAdvocateWithdrawalsConditionInput = {
   and?: Array< ModelAdvocateWithdrawalsConditionInput | null > | null,
   or?: Array< ModelAdvocateWithdrawalsConditionInput | null > | null,
   not?: ModelAdvocateWithdrawalsConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type AdvocateWithdrawals = {
@@ -2925,6 +2949,7 @@ export type ModelCompanyConditionInput = {
   and?: Array< ModelCompanyConditionInput | null > | null,
   or?: Array< ModelCompanyConditionInput | null > | null,
   not?: ModelCompanyConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type Company = {
@@ -3375,6 +3400,7 @@ export type ModelGroupConditionInput = {
   and?: Array< ModelGroupConditionInput | null > | null,
   or?: Array< ModelGroupConditionInput | null > | null,
   not?: ModelGroupConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type Group = {
@@ -3579,6 +3605,7 @@ export type ModelChamaMembersConditionInput = {
   and?: Array< ModelChamaMembersConditionInput | null > | null,
   or?: Array< ModelChamaMembersConditionInput | null > | null,
   not?: ModelChamaMembersConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ChamaMembers = {
@@ -3665,6 +3692,7 @@ export type ModelChamasNPwnBrkrsConditionInput = {
   and?: Array< ModelChamasNPwnBrkrsConditionInput | null > | null,
   or?: Array< ModelChamasNPwnBrkrsConditionInput | null > | null,
   not?: ModelChamasNPwnBrkrsConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ChamasNPwnBrkrs = {
@@ -3719,6 +3747,7 @@ export type ModelGroupNonLoansConditionInput = {
   and?: Array< ModelGroupNonLoansConditionInput | null > | null,
   or?: Array< ModelGroupNonLoansConditionInput | null > | null,
   not?: ModelGroupNonLoansConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type GroupNonLoans = {
@@ -3781,6 +3810,7 @@ export type ModelGrpMembersContributionConditionInput = {
   and?: Array< ModelGrpMembersContributionConditionInput | null > | null,
   or?: Array< ModelGrpMembersContributionConditionInput | null > | null,
   not?: ModelGrpMembersContributionConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type GrpMembersContribution = {
@@ -3865,6 +3895,7 @@ export type ModelReqLoanConditionInput = {
   and?: Array< ModelReqLoanConditionInput | null > | null,
   or?: Array< ModelReqLoanConditionInput | null > | null,
   not?: ModelReqLoanConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ReqLoan = {
@@ -3975,6 +4006,7 @@ export type ModelReqLoanChamaConditionInput = {
   and?: Array< ModelReqLoanChamaConditionInput | null > | null,
   or?: Array< ModelReqLoanChamaConditionInput | null > | null,
   not?: ModelReqLoanChamaConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ReqLoanChama = {
@@ -4087,6 +4119,7 @@ export type ModelReqLoanCredSlConditionInput = {
   and?: Array< ModelReqLoanCredSlConditionInput | null > | null,
   or?: Array< ModelReqLoanCredSlConditionInput | null > | null,
   not?: ModelReqLoanCredSlConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ReqLoanCredSl = {
@@ -4163,6 +4196,8 @@ export type ModelExRatesConditionInput = {
   and?: Array< ModelExRatesConditionInput | null > | null,
   or?: Array< ModelExRatesConditionInput | null > | null,
   not?: ModelExRatesConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ExRates = {
@@ -4216,6 +4251,8 @@ export type ModelMFKOfferzConditionInput = {
   and?: Array< ModelMFKOfferzConditionInput | null > | null,
   or?: Array< ModelMFKOfferzConditionInput | null > | null,
   not?: ModelMFKOfferzConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type MFKOfferz = {
@@ -4281,6 +4318,8 @@ export type ModelMFKOfferz2ConditionInput = {
   and?: Array< ModelMFKOfferz2ConditionInput | null > | null,
   or?: Array< ModelMFKOfferz2ConditionInput | null > | null,
   not?: ModelMFKOfferz2ConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type MFKOfferz2 = {
@@ -4446,9 +4485,27 @@ export type ModelSMAccountFilterInput = {
   depositLimit?: ModelFloatInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelSMAccountFilterInput | null > | null,
   or?: Array< ModelSMAccountFilterInput | null > | null,
   not?: ModelSMAccountFilterInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
 };
 
 export enum ModelSortDirection {
@@ -4499,6 +4556,8 @@ export type ModelSMLoansCoveredFilterInput = {
   advEmail?: ModelStringInput | null,
   installmentAmount?: ModelFloatInput | null,
   paymentFrequency?: ModelFloatInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelSMLoansCoveredFilterInput | null > | null,
   or?: Array< ModelSMLoansCoveredFilterInput | null > | null,
   not?: ModelSMLoansCoveredFilterInput | null,
@@ -4546,6 +4605,8 @@ export type ModelCovCreditSellerFilterInput = {
   blOfficer?: ModelStringInput | null,
   installmentAmount?: ModelFloatInput | null,
   paymentFrequency?: ModelFloatInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelCovCreditSellerFilterInput | null > | null,
   or?: Array< ModelCovCreditSellerFilterInput | null > | null,
   not?: ModelCovCreditSellerFilterInput | null,
@@ -4590,6 +4651,8 @@ export type ModelCvrdGroupLoansFilterInput = {
   blOfficer?: ModelStringInput | null,
   installmentAmount?: ModelFloatInput | null,
   paymentFrequency?: ModelFloatInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelCvrdGroupLoansFilterInput | null > | null,
   or?: Array< ModelCvrdGroupLoansFilterInput | null > | null,
   not?: ModelCvrdGroupLoansFilterInput | null,
@@ -4612,25 +4675,10 @@ export type ModelNonLoansFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelNonLoansFilterInput | null > | null,
   or?: Array< ModelNonLoansFilterInput | null > | null,
   not?: ModelNonLoansFilterInput | null,
-};
-
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
 };
 
 export type ModelNonLoansConnection = {
@@ -4651,6 +4699,7 @@ export type ModelBizSlsReqFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelBizSlsReqFilterInput | null > | null,
   or?: Array< ModelBizSlsReqFilterInput | null > | null,
   not?: ModelBizSlsReqFilterInput | null,
@@ -4675,6 +4724,7 @@ export type ModelBizSlsFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelBizSlsFilterInput | null > | null,
   or?: Array< ModelBizSlsFilterInput | null > | null,
   not?: ModelBizSlsFilterInput | null,
@@ -4700,6 +4750,7 @@ export type ModelLoanRepaymentsFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelLoanRepaymentsFilterInput | null > | null,
   or?: Array< ModelLoanRepaymentsFilterInput | null > | null,
   not?: ModelLoanRepaymentsFilterInput | null,
@@ -4722,6 +4773,7 @@ export type ModelSokoAdFilterInput = {
   sokodesc?: ModelStringInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelSokoAdFilterInput | null > | null,
   or?: Array< ModelSokoAdFilterInput | null > | null,
   not?: ModelSokoAdFilterInput | null,
@@ -4747,6 +4799,7 @@ export type ModelRafikiLnAdFilterInput = {
   rafikirpymntperiod?: ModelFloatInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelRafikiLnAdFilterInput | null > | null,
   or?: Array< ModelRafikiLnAdFilterInput | null > | null,
   not?: ModelRafikiLnAdFilterInput | null,
@@ -4779,6 +4832,8 @@ export type ModelAgentFilterInput = {
   town?: ModelStringInput | null,
   MFNWithdrwlFee?: ModelFloatInput | null,
   createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelAgentFilterInput | null > | null,
   or?: Array< ModelAgentFilterInput | null > | null,
   not?: ModelAgentFilterInput | null,
@@ -4798,6 +4853,8 @@ export type ModelFloatPurchaseFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelFloatPurchaseFilterInput | null > | null,
   or?: Array< ModelFloatPurchaseFilterInput | null > | null,
   not?: ModelFloatPurchaseFilterInput | null,
@@ -4822,6 +4879,7 @@ export type ModelFloatAddFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelFloatAddFilterInput | null > | null,
   or?: Array< ModelFloatAddFilterInput | null > | null,
   not?: ModelFloatAddFilterInput | null,
@@ -4842,9 +4900,11 @@ export type ModelFloatReductionFilterInput = {
   userName?: ModelStringInput | null,
   status?: ModelStatusInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelFloatReductionFilterInput | null > | null,
   or?: Array< ModelFloatReductionFilterInput | null > | null,
   not?: ModelFloatReductionFilterInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelFloatReductionConnection = {
@@ -4863,6 +4923,7 @@ export type ModelAgentWithdrawalsFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelAgentWithdrawalsFilterInput | null > | null,
   or?: Array< ModelAgentWithdrawalsFilterInput | null > | null,
   not?: ModelAgentWithdrawalsFilterInput | null,
@@ -4895,6 +4956,8 @@ export type ModelSAgentFilterInput = {
   owner?: ModelStringInput | null,
   MFKWithdrwlFee?: ModelFloatInput | null,
   createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelSAgentFilterInput | null > | null,
   or?: Array< ModelSAgentFilterInput | null > | null,
   not?: ModelSAgentFilterInput | null,
@@ -4916,6 +4979,7 @@ export type ModelSAgentWithdrawalsFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelSAgentWithdrawalsFilterInput | null > | null,
   or?: Array< ModelSAgentWithdrawalsFilterInput | null > | null,
   not?: ModelSAgentWithdrawalsFilterInput | null,
@@ -4938,9 +5002,12 @@ export type ModelPersonelFilterInput = {
   workerId?: ModelStringInput | null,
   workId?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelPersonelFilterInput | null > | null,
   or?: Array< ModelPersonelFilterInput | null > | null,
   not?: ModelPersonelFilterInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelPersonelConnection = {
@@ -5044,6 +5111,8 @@ export type ModelBiznaFilterInput = {
   Admin48?: ModelStringInput | null,
   Admin49?: ModelStringInput | null,
   Admin50?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelBiznaFilterInput | null > | null,
   or?: Array< ModelBiznaFilterInput | null > | null,
   not?: ModelBiznaFilterInput | null,
@@ -5066,6 +5135,8 @@ export type ModelBankAdminFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelBankAdminFilterInput | null > | null,
   or?: Array< ModelBankAdminFilterInput | null > | null,
   not?: ModelBankAdminFilterInput | null,
@@ -5092,6 +5163,8 @@ export type ModelAdvocateFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelAdvocateFilterInput | null > | null,
   or?: Array< ModelAdvocateFilterInput | null > | null,
   not?: ModelAdvocateFilterInput | null,
@@ -5113,6 +5186,7 @@ export type ModelAdvocateWithdrawalsFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelAdvocateWithdrawalsFilterInput | null > | null,
   or?: Array< ModelAdvocateWithdrawalsFilterInput | null > | null,
   not?: ModelAdvocateWithdrawalsFilterInput | null,
@@ -5275,6 +5349,8 @@ export type ModelCompanyFilterInput = {
   PayPalTNC?: ModelStringInput | null,
   maxDfltPen?: ModelFloatInput | null,
   bizBLNo?: ModelFloatInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelCompanyFilterInput | null > | null,
   or?: Array< ModelCompanyFilterInput | null > | null,
   not?: ModelCompanyFilterInput | null,
@@ -5352,6 +5428,8 @@ export type ModelGroupFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelGroupFilterInput | null > | null,
   or?: Array< ModelGroupFilterInput | null > | null,
   not?: ModelGroupFilterInput | null,
@@ -5391,6 +5469,8 @@ export type ModelChamaMembersFilterInput = {
   subscriptionFrequency?: ModelFloatInput | null,
   subscriptionAmt?: ModelFloatInput | null,
   lateSubscriptionPenalty?: ModelFloatInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelChamaMembersFilterInput | null > | null,
   or?: Array< ModelChamaMembersFilterInput | null > | null,
   not?: ModelChamaMembersFilterInput | null,
@@ -5409,6 +5489,7 @@ export type ModelChamasNPwnBrkrsFilterInput = {
   AcStatus?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelChamasNPwnBrkrsFilterInput | null > | null,
   or?: Array< ModelChamasNPwnBrkrsFilterInput | null > | null,
   not?: ModelChamasNPwnBrkrsFilterInput | null,
@@ -5432,6 +5513,7 @@ export type ModelGroupNonLoansFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelGroupNonLoansFilterInput | null > | null,
   or?: Array< ModelGroupNonLoansFilterInput | null > | null,
   not?: ModelGroupNonLoansFilterInput | null,
@@ -5454,6 +5536,7 @@ export type ModelGrpMembersContributionFilterInput = {
   status?: ModelStatusInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelGrpMembersContributionFilterInput | null > | null,
   or?: Array< ModelGrpMembersContributionFilterInput | null > | null,
   not?: ModelGrpMembersContributionFilterInput | null,
@@ -5488,6 +5571,7 @@ export type ModelReqLoanFilterInput = {
   defaultPenalty?: ModelFloatInput | null,
   installmentAmount?: ModelFloatInput | null,
   paymentFrequency?: ModelFloatInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelReqLoanFilterInput | null > | null,
   or?: Array< ModelReqLoanFilterInput | null > | null,
   not?: ModelReqLoanFilterInput | null,
@@ -5523,6 +5607,7 @@ export type ModelReqLoanChamaFilterInput = {
   defaultPenalty?: ModelFloatInput | null,
   installmentAmount?: ModelFloatInput | null,
   paymentFrequency?: ModelFloatInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelReqLoanChamaFilterInput | null > | null,
   or?: Array< ModelReqLoanChamaFilterInput | null > | null,
   not?: ModelReqLoanChamaFilterInput | null,
@@ -5558,6 +5643,7 @@ export type ModelReqLoanCredSlFilterInput = {
   defaultPenalty?: ModelFloatInput | null,
   installmentAmount?: ModelFloatInput | null,
   paymentFrequency?: ModelFloatInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelReqLoanCredSlFilterInput | null > | null,
   or?: Array< ModelReqLoanCredSlFilterInput | null > | null,
   not?: ModelReqLoanCredSlFilterInput | null,
@@ -5575,9 +5661,12 @@ export type ModelExRatesFilterInput = {
   buyingPrice?: ModelFloatInput | null,
   symbol?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelExRatesFilterInput | null > | null,
   or?: Array< ModelExRatesFilterInput | null > | null,
   not?: ModelExRatesFilterInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelExRatesConnection = {
@@ -5598,9 +5687,11 @@ export type ModelMFKOfferzFilterInput = {
   mfkAc?: ModelStringInput | null,
   acMainAc?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelMFKOfferzFilterInput | null > | null,
   or?: Array< ModelMFKOfferzFilterInput | null > | null,
   not?: ModelMFKOfferzFilterInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelMFKOfferzConnection = {
@@ -5621,9 +5712,11 @@ export type ModelMFKOfferz2FilterInput = {
   mfkAc?: ModelStringInput | null,
   acMainAc?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelMFKOfferz2FilterInput | null > | null,
   or?: Array< ModelMFKOfferz2FilterInput | null > | null,
   not?: ModelMFKOfferz2FilterInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelMFKOfferz2Connection = {
@@ -5769,8 +5862,11 @@ export type ModelSubscriptionSMAccountFilterInput = {
   withdrawalLimit?: ModelSubscriptionFloatInput | null,
   depositLimit?: ModelSubscriptionFloatInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSMAccountFilterInput | null > | null,
   or?: Array< ModelSubscriptionSMAccountFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionStringInput = {
@@ -5798,6 +5894,21 @@ export type ModelSubscriptionFloatInput = {
   between?: Array< number | null > | null,
   in?: Array< number | null > | null,
   notIn?: Array< number | null > | null,
+};
+
+export type ModelSubscriptionIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
 };
 
 export type ModelSubscriptionSMLoansCoveredFilterInput = {
@@ -5835,8 +5946,11 @@ export type ModelSubscriptionSMLoansCoveredFilterInput = {
   advEmail?: ModelSubscriptionStringInput | null,
   installmentAmount?: ModelSubscriptionFloatInput | null,
   paymentFrequency?: ModelSubscriptionFloatInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSMLoansCoveredFilterInput | null > | null,
   or?: Array< ModelSubscriptionSMLoansCoveredFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionCovCreditSellerFilterInput = {
@@ -5874,8 +5988,11 @@ export type ModelSubscriptionCovCreditSellerFilterInput = {
   blOfficer?: ModelSubscriptionStringInput | null,
   installmentAmount?: ModelSubscriptionFloatInput | null,
   paymentFrequency?: ModelSubscriptionFloatInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCovCreditSellerFilterInput | null > | null,
   or?: Array< ModelSubscriptionCovCreditSellerFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionCvrdGroupLoansFilterInput = {
@@ -5910,8 +6027,11 @@ export type ModelSubscriptionCvrdGroupLoansFilterInput = {
   blOfficer?: ModelSubscriptionStringInput | null,
   installmentAmount?: ModelSubscriptionFloatInput | null,
   paymentFrequency?: ModelSubscriptionFloatInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCvrdGroupLoansFilterInput | null > | null,
   or?: Array< ModelSubscriptionCvrdGroupLoansFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionNonLoansFilterInput = {
@@ -5924,23 +6044,10 @@ export type ModelSubscriptionNonLoansFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionNonLoansFilterInput | null > | null,
   or?: Array< ModelSubscriptionNonLoansFilterInput | null > | null,
-};
-
-export type ModelSubscriptionIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionBizSlsReqFilterInput = {
@@ -5954,8 +6061,10 @@ export type ModelSubscriptionBizSlsReqFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionBizSlsReqFilterInput | null > | null,
   or?: Array< ModelSubscriptionBizSlsReqFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionBizSlsFilterInput = {
@@ -5970,8 +6079,10 @@ export type ModelSubscriptionBizSlsFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionBizSlsFilterInput | null > | null,
   or?: Array< ModelSubscriptionBizSlsFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionLoanRepaymentsFilterInput = {
@@ -5987,8 +6098,10 @@ export type ModelSubscriptionLoanRepaymentsFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionLoanRepaymentsFilterInput | null > | null,
   or?: Array< ModelSubscriptionLoanRepaymentsFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionSokoAdFilterInput = {
@@ -6001,8 +6114,10 @@ export type ModelSubscriptionSokoAdFilterInput = {
   sokolpymntperiod?: ModelSubscriptionFloatInput | null,
   sokodesc?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSokoAdFilterInput | null > | null,
   or?: Array< ModelSubscriptionSokoAdFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionRafikiLnAdFilterInput = {
@@ -6018,8 +6133,10 @@ export type ModelSubscriptionRafikiLnAdFilterInput = {
   rafikiprcntg?: ModelSubscriptionFloatInput | null,
   rafikirpymntperiod?: ModelSubscriptionFloatInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionRafikiLnAdFilterInput | null > | null,
   or?: Array< ModelSubscriptionRafikiLnAdFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionAgentFilterInput = {
@@ -6042,8 +6159,11 @@ export type ModelSubscriptionAgentFilterInput = {
   town?: ModelSubscriptionStringInput | null,
   MFNWithdrwlFee?: ModelSubscriptionFloatInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionAgentFilterInput | null > | null,
   or?: Array< ModelSubscriptionAgentFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionFloatPurchaseFilterInput = {
@@ -6053,8 +6173,11 @@ export type ModelSubscriptionFloatPurchaseFilterInput = {
   bankAdminID?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionFloatPurchaseFilterInput | null > | null,
   or?: Array< ModelSubscriptionFloatPurchaseFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionFloatAddFilterInput = {
@@ -6069,8 +6192,10 @@ export type ModelSubscriptionFloatAddFilterInput = {
   sagentId?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionFloatAddFilterInput | null > | null,
   or?: Array< ModelSubscriptionFloatAddFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionFloatReductionFilterInput = {
@@ -6082,8 +6207,10 @@ export type ModelSubscriptionFloatReductionFilterInput = {
   userName?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionFloatReductionFilterInput | null > | null,
   or?: Array< ModelSubscriptionFloatReductionFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionAgentWithdrawalsFilterInput = {
@@ -6095,8 +6222,10 @@ export type ModelSubscriptionAgentWithdrawalsFilterInput = {
   Amount?: ModelSubscriptionFloatInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionAgentWithdrawalsFilterInput | null > | null,
   or?: Array< ModelSubscriptionAgentWithdrawalsFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionSAgentFilterInput = {
@@ -6119,8 +6248,11 @@ export type ModelSubscriptionSAgentFilterInput = {
   status?: ModelSubscriptionStringInput | null,
   MFKWithdrwlFee?: ModelSubscriptionFloatInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSAgentFilterInput | null > | null,
   or?: Array< ModelSubscriptionSAgentFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionSAgentWithdrawalsFilterInput = {
@@ -6132,8 +6264,10 @@ export type ModelSubscriptionSAgentWithdrawalsFilterInput = {
   bkAcNo?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSAgentWithdrawalsFilterInput | null > | null,
   or?: Array< ModelSubscriptionSAgentWithdrawalsFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionPersonelFilterInput = {
@@ -6147,8 +6281,11 @@ export type ModelSubscriptionPersonelFilterInput = {
   workerId?: ModelSubscriptionStringInput | null,
   workId?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionPersonelFilterInput | null > | null,
   or?: Array< ModelSubscriptionPersonelFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionBiznaFilterInput = {
@@ -6246,6 +6383,8 @@ export type ModelSubscriptionBiznaFilterInput = {
   Admin48?: ModelSubscriptionStringInput | null,
   Admin49?: ModelSubscriptionStringInput | null,
   Admin50?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionBiznaFilterInput | null > | null,
   or?: Array< ModelSubscriptionBiznaFilterInput | null > | null,
 };
@@ -6260,8 +6399,11 @@ export type ModelSubscriptionBankAdminFilterInput = {
   email?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionBankAdminFilterInput | null > | null,
   or?: Array< ModelSubscriptionBankAdminFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionAdvocateFilterInput = {
@@ -6278,8 +6420,11 @@ export type ModelSubscriptionAdvocateFilterInput = {
   officeLoc?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionAdvocateFilterInput | null > | null,
   or?: Array< ModelSubscriptionAdvocateFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionAdvocateWithdrawalsFilterInput = {
@@ -6291,8 +6436,10 @@ export type ModelSubscriptionAdvocateWithdrawalsFilterInput = {
   bkAcNo?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionAdvocateWithdrawalsFilterInput | null > | null,
   or?: Array< ModelSubscriptionAdvocateWithdrawalsFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionCompanyFilterInput = {
@@ -6445,8 +6592,11 @@ export type ModelSubscriptionCompanyFilterInput = {
   PayPalTNC?: ModelSubscriptionStringInput | null,
   maxDfltPen?: ModelSubscriptionFloatInput | null,
   bizBLNo?: ModelSubscriptionFloatInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCompanyFilterInput | null > | null,
   or?: Array< ModelSubscriptionCompanyFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionGroupFilterInput = {
@@ -6514,8 +6664,11 @@ export type ModelSubscriptionGroupFilterInput = {
   TtlClrdLonsAmtLnrChmNonCov?: ModelSubscriptionFloatInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionGroupFilterInput | null > | null,
   or?: Array< ModelSubscriptionGroupFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionChamaMembersFilterInput = {
@@ -6545,8 +6698,11 @@ export type ModelSubscriptionChamaMembersFilterInput = {
   subscriptionFrequency?: ModelSubscriptionFloatInput | null,
   subscriptionAmt?: ModelSubscriptionFloatInput | null,
   lateSubscriptionPenalty?: ModelSubscriptionFloatInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionChamaMembersFilterInput | null > | null,
   or?: Array< ModelSubscriptionChamaMembersFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionChamasNPwnBrkrsFilterInput = {
@@ -6556,6 +6712,7 @@ export type ModelSubscriptionChamasNPwnBrkrsFilterInput = {
   AcStatus?: ModelSubscriptionStringInput | null,
   owner?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionChamasNPwnBrkrsFilterInput | null > | null,
   or?: Array< ModelSubscriptionChamasNPwnBrkrsFilterInput | null > | null,
 };
@@ -6571,8 +6728,10 @@ export type ModelSubscriptionGroupNonLoansFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionGroupNonLoansFilterInput | null > | null,
   or?: Array< ModelSubscriptionGroupNonLoansFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionGrpMembersContributionFilterInput = {
@@ -6585,8 +6744,10 @@ export type ModelSubscriptionGrpMembersContributionFilterInput = {
   memberId?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionGrpMembersContributionFilterInput | null > | null,
   or?: Array< ModelSubscriptionGrpMembersContributionFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionReqLoanFilterInput = {
@@ -6611,8 +6772,10 @@ export type ModelSubscriptionReqLoanFilterInput = {
   defaultPenalty?: ModelSubscriptionFloatInput | null,
   installmentAmount?: ModelSubscriptionFloatInput | null,
   paymentFrequency?: ModelSubscriptionFloatInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionReqLoanFilterInput | null > | null,
   or?: Array< ModelSubscriptionReqLoanFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionReqLoanChamaFilterInput = {
@@ -6638,8 +6801,10 @@ export type ModelSubscriptionReqLoanChamaFilterInput = {
   defaultPenalty?: ModelSubscriptionFloatInput | null,
   installmentAmount?: ModelSubscriptionFloatInput | null,
   paymentFrequency?: ModelSubscriptionFloatInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionReqLoanChamaFilterInput | null > | null,
   or?: Array< ModelSubscriptionReqLoanChamaFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionReqLoanCredSlFilterInput = {
@@ -6665,8 +6830,10 @@ export type ModelSubscriptionReqLoanCredSlFilterInput = {
   defaultPenalty?: ModelSubscriptionFloatInput | null,
   installmentAmount?: ModelSubscriptionFloatInput | null,
   paymentFrequency?: ModelSubscriptionFloatInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionReqLoanCredSlFilterInput | null > | null,
   or?: Array< ModelSubscriptionReqLoanCredSlFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionExRatesFilterInput = {
@@ -6675,8 +6842,11 @@ export type ModelSubscriptionExRatesFilterInput = {
   buyingPrice?: ModelSubscriptionFloatInput | null,
   symbol?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionExRatesFilterInput | null > | null,
   or?: Array< ModelSubscriptionExRatesFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionMFKOfferzFilterInput = {
@@ -6691,8 +6861,10 @@ export type ModelSubscriptionMFKOfferzFilterInput = {
   mfkAc?: ModelSubscriptionStringInput | null,
   acMainAc?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMFKOfferzFilterInput | null > | null,
   or?: Array< ModelSubscriptionMFKOfferzFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionMFKOfferz2FilterInput = {
@@ -6707,8 +6879,10 @@ export type ModelSubscriptionMFKOfferz2FilterInput = {
   mfkAc?: ModelSubscriptionStringInput | null,
   acMainAc?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMFKOfferz2FilterInput | null > | null,
   or?: Array< ModelSubscriptionMFKOfferz2FilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type CreateSMAccountMutationVariables = {

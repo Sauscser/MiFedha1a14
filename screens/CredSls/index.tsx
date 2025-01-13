@@ -1,453 +1,222 @@
-import React, { useState } from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {
-  View,
-  Text,
-  
-  Pressable,
-  
-  SafeAreaView,
-  ScrollView,
-  
-} from 'react-native';
+import React from 'react';
+import { SafeAreaView, ScrollView, View, Text, Pressable } from 'react-native';
 import styles from './styles';
+import { LinearGradient } from 'expo-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
 
-const MyLoanAccount = props => {
-  const navigation = useNavigation();
-  const[id, setID] =useState("")
-  const[ChamaNMember, setChamaNMember] =useState("")
+const Section = ({ title, options }) => (
+  <View style={styles.clientsView}>
+    <Text style={styles.salesText}>{title}</Text>
+    <View style={styles.viewForClientsAndTitle}>
+      {options.map(({ label, onPress, style }, index) => (
+        <Pressable key={index} onPress={onPress} style={style || styles.viewForClientsPressables}>
+          <LinearGradient
+            colors={['#FF8C00', '#00BFFF']} // Orange to Sky Blue gradient
+            start={{ x: 0, y: 0 }} // Gradient starts from the top left (vertical direction)
+            end={{ x: 1, y: 1 }}   // Gradient ends at the bottom right (vertical and horizontal)
+            style={styles.clientsPressableGradient}
+          >
+            <Text style={styles.salesPressableText}>{label}</Text>
+          </LinearGradient>
+        </Pressable>
+      ))}
+    </View>
+  </View>
+);
 
+
+
+const MyLoanAccount = () => {
+
+  const navigation = useNavigation()
+
+  const VwPal2BizLners = () => {
+    navigation.navigate('VwPal2BizLners');
+  };
+
+  const SI2VwBiz2PalLoanees = () => {
+    navigation.navigate('SI2VwBiz2PalLoanees');
+  };
+  const SI2VwBiz2BizLoaners = () => {
+    navigation.navigate('SI2VwBiz2BizLoaners');
+  };
+
+  const SI2VwBiz2BizLoanees = () => {
+    navigation.navigate('SI2VwBiz2BizLoanees');
+  };
+
+  const SI2VwBiz2PalLoaners = () => {
+    navigation.navigate('VwBiz2PalLners');
+  };
+
+  const CrtBusinessss = () => {
+    navigation.navigate('CrtBusinesss');
+  };
 
   
-  
-    
 
-    const ItemAds = () => {
-      navigation.navigate('ItemAds');
-    };
-  
-    
-    const VwPal2BizLners = () => {
-      navigation.navigate('VwPal2BizLners');
-    };
-  
-    const SI2VwBiz2PalLoanees = () => {
-      navigation.navigate('SI2VwBiz2PalLoanees');
-    };
-    const SI2VwBiz2BizLoaners = () => {
-      navigation.navigate('SI2VwBiz2BizLoaners');
-    };
-  
-    const SI2VwBiz2BizLoanees = () => {
-      navigation.navigate('SI2VwBiz2BizLoanees');
-    };
-  
-    const SI2VwBiz2PalLoaners = () => {
-      navigation.navigate('VwBiz2PalLners');
-    };
+  const SgnIn2VwBiznasss = () => {
+    navigation.navigate('SgnIn2VwBiznass');
+  };
 
-    const CrtBusinessss = () => {
-      navigation.navigate('CrtBusinesss');
-    };
+  const ShareCredSlsRevsss = () => {
+    navigation.navigate('ShareCredSlsRevss');
+  };
 
-    
+  const AddPersonelss = () => {
+    navigation.navigate('AddPersonels');
+  };
 
-    const SgnIn2VwBiznasss = () => {
-      navigation.navigate('SgnIn2VwBiznass');
-    };
+  const RmvPersonnelsss = () => {
+    navigation.navigate('RmvPersonnelss');
+  };
 
-    const ShareCredSlsRevsss = () => {
-      navigation.navigate('ShareCredSlsRevss');
-    };
+  const SgnIn2RemoveSlAd = () => {
+    navigation.navigate('SgnIn2RemoveSlAd');
+  };
 
-    const AddPersonelss = () => {
-      navigation.navigate('AddPersonels');
-    };
+  const ViewBiznaShareRec = () => {
+    navigation.navigate('ViewBiznaShareRec');
+  };
 
-    const RmvPersonnelsss = () => {
-      navigation.navigate('RmvPersonnelss');
-    };
+  const SgnIn2VwRevenueShare = () => {
+    navigation.navigate('SgnIn2VwRevenueShare');
+  };
 
-    const SgnIn2RemoveSlAd = () => {
-      navigation.navigate('SgnIn2RemoveSlAd');
-    };
+  const PayCash = () => {
+    navigation.navigate('PayCash');
+  };
 
-    const ViewBiznaShareRec = () => {
-      navigation.navigate('ViewBiznaShareRec');
-    };
+  const VwPalLners = () => {
+    navigation.navigate('VwPalLners');
+  };
 
-    const SgnIn2VwRevenueShare = () => {
-      navigation.navigate('SgnIn2VwRevenueShare');
-    };
+  const VwCashPaySent = () => {
+    navigation.navigate('VwCashPaySent');
+  };
 
-    const PayCash = () => {
-      navigation.navigate('PayCash');
-    };
+  const MakeNVwPayPalDpsits = () => {
+    navigation.navigate('MakeNVwPayPalDpsits');
+  };
 
-    const VwPalLners = () => {
-      navigation.navigate('VwPalLners');
-    };
+  const VwPal2BizLnees = () => {
+    navigation.navigate('VwPal2BizLnees');
+  };
 
-    const VwCashPaySent = () => {
-      navigation.navigate('VwCashPaySent');
-    };
+  const VwPalLnees = () => {
+    navigation.navigate('VwPalLnees');
+  };
 
-    const MakeNVwPayPalDpsits = () => {
-      navigation.navigate('MakeNVwPayPalDpsits');
-    };
+  const Vw2GrntPal2Biz = () => {
+    navigation.navigate("Vw2GrntPal2Biz");
+  };
 
-    const VwPal2BizLnees = () => {
-      navigation.navigate('VwPal2BizLnees');
-    };
-  
-    const VwPalLnees = () => {
-      navigation.navigate('VwPalLnees');
-    };
+  const ItemAds = () => {
+    navigation.navigate('ItemAds');
+  };
 
-    const Vw2GrntPal2Biz = () => {
-      navigation.navigate("Vw2GrntPal2Biz");
-    };
+  const Vw2GrntPal2Pal = () => {
+    navigation.navigate('Vw2GrntPal2Pal');
+  };
 
-    const Vw2GrntPal2Pal = () => {
-      navigation.navigate('Vw2GrntPal2Pal');
-    };
+  const PersonelVw2GrntB2P = () => {
+    navigation.navigate('PersonelVw2GrntB2P');
+  };
 
-    const PersonelVw2GrntB2P = () => {
-      navigation.navigate('PersonelVw2GrntB2P');
-    };
-  
-    const PersonelVw2GrntB2B = () => {
-      navigation.navigate('PersonelVw2GrntB2B');
-    };
-  
-    const giveBizna = () => {
-      navigation.navigate('giveBizna');
-    };
+  const PersonelVw2GrntB2B = () => {
+    navigation.navigate('PersonelVw2GrntB2B');
+  };
 
-    const TakeOverBizna = () => {
-      navigation.navigate('TakeOverBizna');
-    };
+  const giveBizna = () => {
+    navigation.navigate('giveBizna');
+  };
 
-    const VwBizDpsts = () => {
-      navigation.navigate('VwBizDpsts');
-    };
+  const TakeOverBizna = () => {
+    navigation.navigate('TakeOverBizna');
+  };
 
-    const UpdateBizAc = () => {
-      navigation.navigate('UpdateBizAc');
-    };
-    
-  
+  const VwBizDpsts = () => {
+    navigation.navigate('VwBizDpsts');
+  };
 
+  const UpdateBizAc = () => {
+    navigation.navigate('UpdateBizAc');
+  };
   return (
     <SafeAreaView>
       <ScrollView>
-          
-
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Manage Business</Text>
-
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>BizAc</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={CrtBusinessss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Create</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={UpdateBizAc}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        Update
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
+      <LinearGradient
+            colors={['#FF8C00', 'skyblue', 'white']} // Linear gradient for orange hues
+            start={{ x: 0, y: 0 }} // Gradient starts from the top left (vertical direction)
+            end={{ x: 1, y: 1 }}
+            style={styles.clientsPressableGradient}
+          >
             
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>View Ac</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={SgnIn2VwBiznasss}
-                      style={styles.ClientsPressables2}>
-                      <Text style={styles.clientsPressableText}>View</Text>
-                    </Pressable>
-
-                   
-                  </View>
-                </View>
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Sales Officer</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={AddPersonelss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Register</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={RmvPersonnelsss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                      DeReg
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-            </View>
-
-
-
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Grant Credit Sales Requests</Text>
-
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories7}>
-                  
-                  <Pressable 
-                  onPress={Vw2GrntPal2Pal}
-                  
-                  style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Pal2Pal</Text>
-                  </Pressable>
-                </View>
-
+        <Section 
+          title="Manage Business"
+          options={[
             
-
-                <View style={styles.viewForClientsCategories7}>
-                  
-                  <Pressable 
-                  onPress={Vw2GrntPal2Biz}
-                  
-                  style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Pal2Biz</Text>
-
-                  </Pressable>
-                </View>
-
-                <View style={styles.viewForClientsCategories7}>
-                <Pressable 
-                onPress={PersonelVw2GrntB2P}
-                
-                style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Biz2Pal</Text>
-
-                  </Pressable>
-                </View>
-
-                <View style={styles.viewForClientsCategories7}>
-                <Pressable 
-                onPress={PersonelVw2GrntB2B}
-                
-                style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Biz2Biz</Text>
-
-                  </Pressable>
-                </View>
+            { label: 'Create', onPress: CrtBusinessss, style: styles.ClientsPressables },
+            { label: 'Update', onPress: UpdateBizAc, style: styles.ClientsPressables },
+            { label: 'Register Sales Officer', onPress: AddPersonelss, style: styles.ClientsPressables },
+            { label: 'DeReg Sales Officer', onPress: RmvPersonnelsss, style: styles.ClientsPressables }
+          ]}
+        />
 
 
-              </View>
-            </View>
 
-            
+        <Section 
+          title="Grant Credit Sales Requests"
+          options={[
+            { label: 'Pal2Pal', onPress: Vw2GrntPal2Pal },
+            { label: 'Pal2Biz', onPress: Vw2GrntPal2Biz },
+            { label: 'Biz2Pal', onPress: PersonelVw2GrntB2P },
+            { label: 'Biz2Biz', onPress: PersonelVw2GrntB2B }
+          ]}
+        />
 
-            
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>CreditSales LoanStatus (Biz)</Text>
+        <Section 
+          title="CreditSales LoanStatus (Biz)"
+          options={[
+            { label: 'BizPal Loaners', onPress: SI2VwBiz2PalLoaners },
+            { label: 'BizPal Loanees', onPress: SI2VwBiz2PalLoanees },
+            { label: 'BizBiz Loaners', onPress: SI2VwBiz2BizLoaners },
+            { label: 'BizBiz Loanees', onPress: SI2VwBiz2BizLoanees }
+          ]}
+        />
 
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories7}>
-                  
-                  <Pressable 
-                  onPress={SI2VwBiz2PalLoaners}
-                  
-                  style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>BizPal Loaners</Text>
-                  </Pressable>
-                </View>
+        <Section 
+          title="CreditSales LoanStatus (Pal)"
+          options={[
+            { label: 'PalPal Loaners', onPress: VwPalLners },
+            { label: 'PalPal Loanees', onPress: VwPalLnees },
+            { label: 'PalBiz Loaners', onPress: VwPal2BizLners },
+            { label: 'PalBiz Loanees', onPress: VwPal2BizLnees }
+          ]}
+        />
 
-            
+        <Section 
+          title="Cash Sales/purchases & Deposits"
+          options={[
+            { label: 'Pay Cash', onPress: PayCash, style: styles.ClientsPressables },
+            { label: 'Deposits', onPress: MakeNVwPayPalDpsits, style: styles.ClientsPressables }
+          ]}
+        />
 
-                <View style={styles.viewForClientsCategories7}>
-                  
-                  <Pressable 
-                  onPress={SI2VwBiz2PalLoanees}
-                  
-                  style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>BizPal Loanees</Text>
+        <Section 
+          title="BizAdverts and Revenue Sharings"
+          options={[
+            { label: 'Make Adverts', onPress: ItemAds, style: styles.ClientsPressables },
+            { label: 'Delete Adverts', onPress: SgnIn2RemoveSlAd, style: styles.ClientsPressables },
+            { label: 'Transfer Ownership', onPress: giveBizna, style: styles.ClientsPressables },
+            { label: 'Receive Ownership', onPress: TakeOverBizna, style: styles.ClientsPressables }
+          ]}
+        />
 
-                  </Pressable>
-                </View>
-
-                <View style={styles.viewForClientsCategories7}>
-                <Pressable 
-                onPress={SI2VwBiz2BizLoaners}
-                
-                style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>BizBiz Loaners</Text>
-
-                  </Pressable>
-                </View>
-
-                <View style={styles.viewForClientsCategories7}>
-                <Pressable 
-                onPress={SI2VwBiz2BizLoanees}
-                
-                style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>BizBiz Loanees</Text>
-
-                  </Pressable>
-                </View>
-
-
-              </View>
-            </View>
-
-
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>CreditSales LoanStatus (Pal)</Text>
-
-              <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories7}>
-                  
-                  <Pressable 
-                  onPress={VwPalLners}
-                  
-                  style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>PalPal Loaners</Text>
-                  </Pressable>
-                </View>
-
-            
-
-                <View style={styles.viewForClientsCategories7}>
-                  
-                  <Pressable 
-                  onPress={VwPalLnees}
-                  
-                  style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>PalPal Loanees</Text>
-
-                  </Pressable>
-                </View>
-
-                <View style={styles.viewForClientsCategories7}>
-                <Pressable 
-                onPress={VwPal2BizLners}
-                
-                style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>PalBiz Loaners</Text>
-
-                  </Pressable>
-                </View>
-
-                <View style={styles.viewForClientsCategories7}>
-                <Pressable 
-                onPress={VwPal2BizLnees}
-                
-                style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>PalBiz Loanees</Text>
-
-                  </Pressable>
-                </View>
-
-
-              </View>
-            </View>
-
-
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Cash Sales/purchases & Deposits</Text>
-
-              <View style={styles.viewForClientsAndTitle}>
-              
-                  
-                  <Pressable 
-                  onPress={PayCash}
-                  
-                  style={styles.viewForClientsPressables3}>
-                  <Text style={styles.salesPressableText}>Pay Cash</Text>
-                  </Pressable>
-                
-
-            
-
-                
-                <Pressable 
-                onPress={MakeNVwPayPalDpsits}
-                
-                style={styles.viewForClientsPressables3}>
-                  <Text style={styles.salesPressableText}> Deposits</Text>
-
-                  </Pressable>
-                
-
-
-              </View>
-            </View>
-
-            <View style={styles.clientsView5}>
-              <Text style={styles.salesText}>BizAdverts and Revenue Sharings</Text>
-
-              <View style={styles.viewForClientsAndTitle}>
-             
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Adverts</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={ItemAds}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Make</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={SgnIn2RemoveSlAd}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        Delete
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-                <View style={styles.viewForClientsCategories}>
-                  <Text style={styles.salesPressableText}>Ownership</Text>
-
-                  <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={giveBizna}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Transfer</Text>
-                    </Pressable>
-
-                    <Pressable
-                      onPress={TakeOverBizna}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        Receive
-                      </Text>
-                    </Pressable>
-                  </View>
-                </View>
-
-              </View>
-            </View>
-
-            
-
-    </ScrollView>
-    </SafeAreaView> 
-    
+</LinearGradient>
+      </ScrollView>
+      
+    </SafeAreaView>
   );
 };
 

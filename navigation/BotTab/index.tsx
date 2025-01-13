@@ -14,8 +14,8 @@ import HomeScreen from '../../screens/HomeScrn';
 import KFNdogoLoc from '../../screens/MFNdogo/SearchMFN';
 import FindKFNdogoLoc from '../../screens/MFNdogo/SignInMFN';
 import MyAccount from '../../screens/MyAcc';
-import LoanScreen from '../../screens/Loans';
-import CredtSales from '../../screens/CredSls';
+import SearchPal from '../../screens/MyAcc/LoanRequest/VwMakeLnReq';
+import CredtSales from '../../screens/CredSls/index.=tsx';
 import ChamaScreen from '../../screens/Chama';
 import EntrAdvLoc from '../../screens/Advocate/EnterAdvLoc';
 import Welc from '../../screens/MyAcc/T&CAcceptanceForm';
@@ -75,7 +75,7 @@ const HomeTabNavigator = props => {
       />
 
 <BottomTab.Screen
-        name='PalLoan'
+        name='PalDeals'
         component={SrchLoanAdz}
         options={{
           tabBarIcon: ({color: string}) => (
@@ -95,8 +95,8 @@ const HomeTabNavigator = props => {
       />
 
 <BottomTab.Screen
-        name='Chama'
-        component={LoanChmz}
+        name='Search Pal'
+        component={SearchPal}
         options={{
           tabBarIcon: ({color: string}) => (
             <FontAwesome name="search" size={25} color={'skyblue'} />
