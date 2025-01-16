@@ -102,6 +102,8 @@ const CreateAcForm = (props) => {
                 beneficiary:   userInfo.attributes.email,
                 beneficiaryAmt:0,
                 loanAcceptanceCode:userInfo.attributes.email,
+                beneficiaryType: "Pal",
+                benefitsAmount: 0,
       
                 ttlDpstSM: 0,
                 TtlWthdrwnSM: 0,

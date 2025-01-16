@@ -140,6 +140,8 @@ export const onCreateSMAccount = /* GraphQL */ `subscription OnCreateSMAccount(
     depositLimit
     owner
     createdAt
+    beneficiaryType
+    benefitsAmount
     updatedAt
     __typename
   }
@@ -280,6 +282,8 @@ export const onUpdateSMAccount = /* GraphQL */ `subscription OnUpdateSMAccount(
     depositLimit
     owner
     createdAt
+    beneficiaryType
+    benefitsAmount
     updatedAt
     __typename
   }
@@ -420,6 +424,8 @@ export const onDeleteSMAccount = /* GraphQL */ `subscription OnDeleteSMAccount(
     depositLimit
     owner
     createdAt
+    beneficiaryType
+    benefitsAmount
     updatedAt
     __typename
   }
@@ -427,6 +433,429 @@ export const onDeleteSMAccount = /* GraphQL */ `subscription OnDeleteSMAccount(
 ` as GeneratedSubscription<
   APITypes.OnDeleteSMAccountSubscriptionVariables,
   APITypes.OnDeleteSMAccountSubscription
+>;
+export const onCreateBenProd2 = /* GraphQL */ `subscription OnCreateBenProd2(
+  $filter: ModelSubscriptionBenProd2FilterInput
+  $owner: String
+) {
+  onCreateBenProd2(filter: $filter, owner: $owner) {
+    id
+    benefactorAc
+    benefactorPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    prodDesc
+    prodStatus
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateBenProd2SubscriptionVariables,
+  APITypes.OnCreateBenProd2Subscription
+>;
+export const onUpdateBenProd2 = /* GraphQL */ `subscription OnUpdateBenProd2(
+  $filter: ModelSubscriptionBenProd2FilterInput
+  $owner: String
+) {
+  onUpdateBenProd2(filter: $filter, owner: $owner) {
+    id
+    benefactorAc
+    benefactorPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    prodDesc
+    prodStatus
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateBenProd2SubscriptionVariables,
+  APITypes.OnUpdateBenProd2Subscription
+>;
+export const onDeleteBenProd2 = /* GraphQL */ `subscription OnDeleteBenProd2(
+  $filter: ModelSubscriptionBenProd2FilterInput
+  $owner: String
+) {
+  onDeleteBenProd2(filter: $filter, owner: $owner) {
+    id
+    benefactorAc
+    benefactorPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    prodDesc
+    prodStatus
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteBenProd2SubscriptionVariables,
+  APITypes.OnDeleteBenProd2Subscription
+>;
+export const onCreateBenefitContributions2 = /* GraphQL */ `subscription OnCreateBenefitContributions2(
+  $filter: ModelSubscriptionBenefitContributions2FilterInput
+  $owner: String
+) {
+  onCreateBenefitContributions2(filter: $filter, owner: $owner) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateBenefitContributions2SubscriptionVariables,
+  APITypes.OnCreateBenefitContributions2Subscription
+>;
+export const onUpdateBenefitContributions2 = /* GraphQL */ `subscription OnUpdateBenefitContributions2(
+  $filter: ModelSubscriptionBenefitContributions2FilterInput
+  $owner: String
+) {
+  onUpdateBenefitContributions2(filter: $filter, owner: $owner) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateBenefitContributions2SubscriptionVariables,
+  APITypes.OnUpdateBenefitContributions2Subscription
+>;
+export const onDeleteBenefitContributions2 = /* GraphQL */ `subscription OnDeleteBenefitContributions2(
+  $filter: ModelSubscriptionBenefitContributions2FilterInput
+  $owner: String
+) {
+  onDeleteBenefitContributions2(filter: $filter, owner: $owner) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteBenefitContributions2SubscriptionVariables,
+  APITypes.OnDeleteBenefitContributions2Subscription
+>;
+export const onCreateBenefitShare2 = /* GraphQL */ `subscription OnCreateBenefitShare2(
+  $filter: ModelSubscriptionBenefitShare2FilterInput
+  $owner: String
+) {
+  onCreateBenefitShare2(filter: $filter, owner: $owner) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateBenefitShare2SubscriptionVariables,
+  APITypes.OnCreateBenefitShare2Subscription
+>;
+export const onUpdateBenefitShare2 = /* GraphQL */ `subscription OnUpdateBenefitShare2(
+  $filter: ModelSubscriptionBenefitShare2FilterInput
+  $owner: String
+) {
+  onUpdateBenefitShare2(filter: $filter, owner: $owner) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateBenefitShare2SubscriptionVariables,
+  APITypes.OnUpdateBenefitShare2Subscription
+>;
+export const onDeleteBenefitShare2 = /* GraphQL */ `subscription OnDeleteBenefitShare2(
+  $filter: ModelSubscriptionBenefitShare2FilterInput
+  $owner: String
+) {
+  onDeleteBenefitShare2(filter: $filter, owner: $owner) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteBenefitShare2SubscriptionVariables,
+  APITypes.OnDeleteBenefitShare2Subscription
+>;
+export const onCreateLinkBeneficiary2 = /* GraphQL */ `subscription OnCreateLinkBeneficiary2(
+  $filter: ModelSubscriptionLinkBeneficiary2FilterInput
+  $owner: String
+) {
+  onCreateLinkBeneficiary2(filter: $filter, owner: $owner) {
+    beneficiaryID
+    prodID
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateLinkBeneficiary2SubscriptionVariables,
+  APITypes.OnCreateLinkBeneficiary2Subscription
+>;
+export const onUpdateLinkBeneficiary2 = /* GraphQL */ `subscription OnUpdateLinkBeneficiary2(
+  $filter: ModelSubscriptionLinkBeneficiary2FilterInput
+  $owner: String
+) {
+  onUpdateLinkBeneficiary2(filter: $filter, owner: $owner) {
+    beneficiaryID
+    prodID
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateLinkBeneficiary2SubscriptionVariables,
+  APITypes.OnUpdateLinkBeneficiary2Subscription
+>;
+export const onDeleteLinkBeneficiary2 = /* GraphQL */ `subscription OnDeleteLinkBeneficiary2(
+  $filter: ModelSubscriptionLinkBeneficiary2FilterInput
+  $owner: String
+) {
+  onDeleteLinkBeneficiary2(filter: $filter, owner: $owner) {
+    beneficiaryID
+    prodID
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteLinkBeneficiary2SubscriptionVariables,
+  APITypes.OnDeleteLinkBeneficiary2Subscription
+>;
+export const onCreateBizPartners2 = /* GraphQL */ `subscription OnCreateBizPartners2(
+  $filter: ModelSubscriptionBizPartners2FilterInput
+  $owner: String
+) {
+  onCreateBizPartners2(filter: $filter, owner: $owner) {
+    partnerId
+    bizContact
+    regNo
+    bizNpartner
+    bizName
+    partnerContact
+    partnerName
+    partnerNatId
+    AcStatus
+    owner
+    updatedAt
+    createdAt
+    id
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateBizPartners2SubscriptionVariables,
+  APITypes.OnCreateBizPartners2Subscription
+>;
+export const onUpdateBizPartners2 = /* GraphQL */ `subscription OnUpdateBizPartners2(
+  $filter: ModelSubscriptionBizPartners2FilterInput
+  $owner: String
+) {
+  onUpdateBizPartners2(filter: $filter, owner: $owner) {
+    partnerId
+    bizContact
+    regNo
+    bizNpartner
+    bizName
+    partnerContact
+    partnerName
+    partnerNatId
+    AcStatus
+    owner
+    updatedAt
+    createdAt
+    id
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateBizPartners2SubscriptionVariables,
+  APITypes.OnUpdateBizPartners2Subscription
+>;
+export const onDeleteBizPartners2 = /* GraphQL */ `subscription OnDeleteBizPartners2(
+  $filter: ModelSubscriptionBizPartners2FilterInput
+  $owner: String
+) {
+  onDeleteBizPartners2(filter: $filter, owner: $owner) {
+    partnerId
+    bizContact
+    regNo
+    bizNpartner
+    bizName
+    partnerContact
+    partnerName
+    partnerNatId
+    AcStatus
+    owner
+    updatedAt
+    createdAt
+    id
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteBizPartners2SubscriptionVariables,
+  APITypes.OnDeleteBizPartners2Subscription
 >;
 export const onCreateSMLoansCovered = /* GraphQL */ `subscription OnCreateSMLoansCovered(
   $filter: ModelSubscriptionSMLoansCoveredFilterInput
@@ -1904,6 +2333,8 @@ export const onCreateBizna = /* GraphQL */ `subscription OnCreateBizna($filter: 
     earningsBal
     bizBeneficiary
     netEarnings
+    beneficiaryType
+    benefitsAmount
     owner2email
     email
     licenseNo
@@ -2008,6 +2439,8 @@ export const onUpdateBizna = /* GraphQL */ `subscription OnUpdateBizna($filter: 
     earningsBal
     bizBeneficiary
     netEarnings
+    beneficiaryType
+    benefitsAmount
     owner2email
     email
     licenseNo
@@ -2112,6 +2545,8 @@ export const onDeleteBizna = /* GraphQL */ `subscription OnDeleteBizna($filter: 
     earningsBal
     bizBeneficiary
     netEarnings
+    beneficiaryType
+    benefitsAmount
     owner2email
     email
     licenseNo
@@ -2578,6 +3013,11 @@ export const onCreateCompany = /* GraphQL */ `subscription OnCreateCompany(
     PayPalTNC
     maxDfltPen
     bizBLNo
+    b2bBenCom
+    b2pBenCom
+    p2pBenCom
+    g2pBenCom
+    p2BBenCom
     updatedAt
     __typename
   }
@@ -2741,6 +3181,11 @@ export const onUpdateCompany = /* GraphQL */ `subscription OnUpdateCompany(
     PayPalTNC
     maxDfltPen
     bizBLNo
+    b2bBenCom
+    b2pBenCom
+    p2pBenCom
+    g2pBenCom
+    p2BBenCom
     updatedAt
     __typename
   }
@@ -2904,6 +3349,11 @@ export const onDeleteCompany = /* GraphQL */ `subscription OnDeleteCompany(
     PayPalTNC
     maxDfltPen
     bizBLNo
+    b2bBenCom
+    b2pBenCom
+    p2pBenCom
+    g2pBenCom
+    p2BBenCom
     updatedAt
     __typename
   }

@@ -214,7 +214,12 @@ const AdminSignIn = (props) => {
             AdvocateTC: "AdvocateTC",
             MFNdogoTC: "MFNdogoTC",
             MFKubwaTC: "MFKubwaTC",
-            ChampCom: 3
+            ChampCom: 3,
+            b2bBenCom: 30,
+            b2pBenCom: 30,
+            p2pBenCom: 30,
+            g2pBenCom: 30,
+            p2BBenCom: 30
           },
         }),
       );

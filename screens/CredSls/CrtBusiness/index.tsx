@@ -120,6 +120,8 @@ const CreateBiz = (props) => {
             bizType:"bizType",
             status: "AccountActive",
             owner: userInfo.attributes.sub,
+            beneficiaryType: "Biz",
+            benefitsAmount: 0,
             noBL:0,
 
             TtlActvLonsTmsLnrCredSlsB2B: 0,

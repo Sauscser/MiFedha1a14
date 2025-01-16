@@ -4,7 +4,7 @@ import {View, Text,   FlatList, Alert} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../components/MyAc/ViewRecNonLns";
 import styles from './styles';
-import { getCompany, getSMAccount,   vwMyRecMny } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount,   listNonLoans } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
 const FetchSMNonLnsSnt = props => {
@@ -14,8 +14,30 @@ const FetchSMNonLnsSnt = props => {
     const [Recvrs, setRecvrs] = useState([]);
 
    
-    const fetchUsrDtls = async () => {
+    const fetchLoanees = async () => {
+      setLoading(true);
+      
       const userInfo = await Auth.currentAuthenticatedUser();
+       
+      try {
+        const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
+        {
+               
+                sortDirection: 'DESC',
+                limit: 100,
+                filter:{status:{eq:"BiznaShare"},
+                recPhn:{eq:userInfo.attributes.email}}
+              }
+         
+            ));
+
+            const revshare = Lonees.data.listNonLoans.items
+            setRecvrs(revshare);
+
+            
+            
+            const fetchUsrDtls = async () => {
+      
       try {
               const MFNDtls: any = await API.graphql(
                   graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
@@ -24,22 +46,7 @@ const FetchSMNonLnsSnt = props => {
               const balances = MFNDtls.data.getSMAccount.balance;
               const owner = MFNDtls.data.getSMAccount.owner;
 
-        const fetchLoanees = async () => {
-            setLoading(true);
-            
- 
-             
-            try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyRecMny, 
-              {
-                      recPhn: userInfo.attributes.email,
-                      sortDirection: 'DESC',
-                      limit: 100,
-                      filter:{status:{eq:"BiznaShare"}}
-                    }
-               
-                  ));
-                  setRecvrs(Lonees.data.VwMyRecMny.items);
+        
 
                   
                             
@@ -91,7 +98,7 @@ const FetchSMNonLnsSnt = props => {
                                                     }
                                                     catch(error){
                                                       if(error){
-                                                        Alert.alert("Retry or update app or call customer care")
+                                                        Alert.alert("Retry or update app or call customer cares")
                                                         return;
                                                     }
                                                     }
@@ -103,9 +110,16 @@ const FetchSMNonLnsSnt = props => {
                           Alert.alert("Account Balance is very little");
                           return;
                         }
-                        else{
+                        else if  (userInfo.attributes.sub !== owner)
+                          {Alert.alert ("Please first create main account")}
+
+                          else if (Recvrs.length < 1 ){
+                            Alert.alert("No revenue share")
+                          }
+                          
+                          else {
                             
-                          updtActAdm();
+                          await updtActAdm();
                             }
                             
                               }
@@ -128,10 +142,7 @@ const FetchSMNonLnsSnt = props => {
               
                           catch (e)
                           {
-                            if(e){
-                              Alert.alert("Retry or update app or call customer care");
-                              return;
-                            }
+                            
                               console.log(e)
                              
                               
@@ -139,10 +150,8 @@ const FetchSMNonLnsSnt = props => {
               
                           
                            }
-                           if (userInfo.attributes.sub !== owner)
-                           {Alert.alert ("Please first create main account")}
-                           else{
-                                                  await fetchLoanees();}
+                           
+                                                  await fetchUsrDtls();
             } catch (e) {
               console.log(e);
             } finally {
@@ -151,7 +160,7 @@ const FetchSMNonLnsSnt = props => {
           };
         
           useEffect(() => {
-            fetchUsrDtls();
+            fetchLoanees();
           }, [])
 
   return (
@@ -161,7 +170,7 @@ const FetchSMNonLnsSnt = props => {
         data={Recvrs}
         renderItem={({item}) => <NonLnSent SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchUsrDtls}
+        onRefresh={fetchLoanees}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}

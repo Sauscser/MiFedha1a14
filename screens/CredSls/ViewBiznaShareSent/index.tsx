@@ -4,7 +4,7 @@ import {View, Text,   FlatList, Alert} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../components/MyAc/ViewRecNonLns";
 import styles from './styles';
-import { getCompany, getSMAccount,   vwMyRecMny, vwMySntMny } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount,   listNonLoans,   vwMyRecMny, vwMySntMny } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 import { useRoute } from '@react-navigation/native';
 
@@ -32,16 +32,17 @@ const FetchSMNonLnsSnt = props => {
                   const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMySntMny, 
+              const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
               {
-                      senderPhn: route.params.MFNId,
+                      
                       sortDirection: 'DESC',
                       limit: 100,
-                      filter:{status:{eq:"BiznaShare"}}
+                      filter:{status:{eq:"BiznaShare"},
+                      senderPhn:{eq:route.params.MFNId}}
                     }
                
                   ));
-                  setRecvrs(Lonees.data.VwMySntMny.items);
+                  setRecvrs(Lonees.data.listNonLoans.items);
 
                   
                             

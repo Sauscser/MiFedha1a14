@@ -1,82 +1,65 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 const styles = StyleSheet.create({
-  image: {
-    width: '100%',
-    height: "100%",
-    resizeMode: 'cover',
-    
-    alignItems: 'center',
-    flexDirection: 'column',
-    marginTop: 1,
-    flexWrap:"wrap"
+  // General view for each section
+  clientsView: {
+    marginBottom: 20,
+    padding: 15,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    elevation: 3,
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 5,
   },
-
-  accountView: {
-    backgroundColor: '#e58d29',
-    marginHorizontal: 10,
-    width: Dimensions.get('screen').width - 20,
-    height: "32%",
-    borderRadius: 20,
-
+  // Section title text style
+  salesText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FF8C00', // Orange color from your theme
+    marginBottom: 10,
+  },
+  // View for options and title alignment
+  viewForClientsAndTitle: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+  // Base style for each pressable item in the section
+  viewForClientsPressables: {
+    padding: 10,
+    marginBottom: 8,
+    borderRadius: 6,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column',
-    marginTop: "5%",
+  },
+  // Linear gradient applied to pressable buttons
+  clientsPressableGradient: {
+    borderRadius: 8,
+    width: '100%',
+    padding: 12, // Add padding for the button inside the gradient
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  // Style for pressable text inside buttons
+  salesPressableText: {
+    fontSize: 16,
+    color: 'white',
+    textAlign: 'center',
+  },
+  // Style for different pressables in the "Cash Sales" section
+  viewForClientsPressables3: {
+    padding: 12,
+    borderRadius: 8,
+    width: '100%',
+    marginBottom: 8,
   },
 
   
-  acPressables: {
-    backgroundColor: '#e58d29',
-    
-    height: "60%",
-    borderRadius: 5,
-    marginTop: "4%",
-    marginLeft:"2%",
-    marginRight:"2%",
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
 
-    width: "30%",
-  },
 
-  acNonLnsPressables: {
-    backgroundColor: 'skyblue',
-    
-    height: "99%",
-    borderRadius: 5,
-    marginTop: "4%",
-    marginLeft:"2%",
-    marginRight:"2%",
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    
-    width: "45%",
-  },
-
-  viewForSalesPressables: {
-    backgroundColor: '#72ebd8',
-    marginHorizontal: 15,
-    width: Dimensions.get('screen').width - 30,
-    height: "70%",
-    borderRadius: 20,
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-
-  acPressableText: {
-    color: 'white',
-    fontSize: 12,
-    marginTop: 1,
-  },
-
-  accountText: {
-    fontSize: 25,
-    color: 'white',
-  },
 });
+
 export default styles;

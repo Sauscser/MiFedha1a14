@@ -5,177 +5,111 @@ import {
   Text,
   Pressable,
   SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
-import styles from './styles';
+import { LinearGradient } from 'expo-linear-gradient';
 
-const KFAdvHome = props => {
-  const navigation = useNavigation();
+
 
  
-  const MFAdvocateRegs = () => {
-    navigation.navigate('VwCompMFAdvTC');
-  };
-
-  const WithdwAdvss = () => {
-    navigation.navigate('WithdwAdvs');
-  };
-
-  
-    const UpdtMFAdvPWss = () => {
-      navigation.navigate('UpdtMFAdvPWs');
-  
-  };
-
-  const EntrAdvLoc = () => {
-    navigation.navigate('EntrAdvLoc');
-
-};
-
-
-
-  const AdvVwCrdSlsSgnInss = () => {
-    navigation.navigate('VwAdvCrdSlrCovLnss');
-  };
-  const AdvVwSMSgnInss = () => {
-    navigation.navigate('VwAdvSMCovLnss');
-  };
-  const AdvWthdrwlSgnInss = () => {
-    navigation.navigate('AdvWthdrwlSgnIns');
-  };
-  const AdvVwAcSgnInss = () => {
-    navigation.navigate('AdvVwAcSgnIns');
-  };
-  const AdvVwChmSgnInss = () => {
-    navigation.navigate('VwAdvChamaCovLnss');
-  };
-
-  const Vw2ApprovePPReq = () => {
-    navigation.navigate('Vw2ApprovePPReq');
-  };
-  const Vw2ApproveChmReq = () => {
-    navigation.navigate('Vw2ApproveChmReq');
-  };
-  const Vw2ApproveBizReq = () => {
-    navigation.navigate('Vw2ApproveBizReq');
-  };
-
-  return (
+  const SETTINGS_OPTIONS = [
+    { label: 'View groups Deals', navigateTo: 'VwAdvChamaCovLnss' },
+    { label: 'View Credit Sales Deals', navigateTo: 'VwAdvCrdSlrCovLnss' },
+    { label: 'View Pal Deals', navigateTo: 'VwAdvSMCovLnss' },
+    { label: 'My Withdrawals', navigateTo: 'AdvWthdrwlSgnIns' },
+    { label: 'Update Account', navigateTo: 'UpdtMFAdvPWs' },
+    { label: 'View Account', navigateTo: 'AdvVwAcSgnIns' },
+    { label: 'Register Advocate', navigateTo: 'VwCompMFAdvTC' },
+    { label: 'Search Advocate', navigateTo: 'EntrAdvLoc' },
+    { label: 'Approve PalPal Deals', navigateTo: 'Vw2ApprovePPReq' },
+    { label: 'Approve Group Deals', navigateTo: 'Vw2ApproveChmReq' },
+    { label: 'Approve Biz Deals', navigateTo: 'Vw2ApproveBizReq' },
+    { label: 'Withdraw Earnings', navigateTo: 'WithdwAdvs' },
+    { label: 'View Withdrawals', navigateTo: 'AdvWthdrwlSgnIns' },
     
-      <SafeAreaView
-        
-        style={styles.floatimage}>
-        
-        <View style={styles.floatMainView}>
-          <Text style={styles.floatText}> View</Text>
-
-          <View style={styles.viewForFloatPressables}>
-          <Pressable
-              onPress={AdvVwChmSgnInss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>Group Loans</Text>
-            </Pressable>
-            
+  ];
+  
+  const KFAdvHome = () => {
+    const navigation = useNavigation();
+  
+    const goToMainAccount = () => {
+      navigation.navigate('Homes');
+    };
+    
+    
+  
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <ScrollView contentContainerStyle={styles.container}>
+          {/* LinearGradient Title */}
+          <LinearGradient
+            colors={['#ffffff', '#87CEEB']}
+            style={styles.header}>
+              <TouchableOpacity onPress={goToMainAccount} >
+            <Text style={styles.headerText}>Go Home</Text>
+            </TouchableOpacity>
+          </LinearGradient>
+  
+          {/* Render Options */}
+          {SETTINGS_OPTIONS.map((option, index) => (
             <Pressable
-              onPress={AdvVwCrdSlsSgnInss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>CredSls</Text>
+              key={index}
+              onPress={() => navigation.navigate(option.navigateTo)}
+              style={styles.optionButton}>
+              <LinearGradient
+                colors={['#87CEEB', '#e58d29']}
+                style={styles.gradientButton}>
+                <Text style={styles.optionText}>{option.label}</Text>
+              </LinearGradient>
             </Pressable>
-
-            <Pressable onPress={AdvVwSMSgnInss} style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>PalLoans</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={AdvWthdrwlSgnInss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>My Withdrwls</Text>
-            </Pressable>
-
-            
-
-            
-          </View>
-        </View>
-        
-        <View style={styles.floatMainView}>
-          <Text style={styles.floatText}>My Account</Text>
-
-          <View style={styles.viewForFloatPressables}>
-            <Pressable
-              onPress={UpdtMFAdvPWss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>UpdateAc</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={AdvVwAcSgnInss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>ViewAc</Text>
-            </Pressable>
-            <Pressable
-              onPress={MFAdvocateRegs}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>CreateAc</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={EntrAdvLoc}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>SearchAdvocate</Text>
-            </Pressable>
-          </View>
-        </View>
-
-        <View style={styles.floatMainView}>
-          <Text style={styles.floatText}>Witness</Text>
-
-          <View style={styles.viewForFloatPressables}>
-            <Pressable
-              onPress={Vw2ApprovePPReq}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>PalPal</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={Vw2ApproveChmReq}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>Groups</Text>
-            </Pressable>
-            <Pressable
-              onPress={Vw2ApproveBizReq}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>CredSales</Text>
-            </Pressable>
-
-            
-          </View>
-        </View>
-
-        <View style={styles.floatMainView}>
-          <Text style={styles.floatText}>Withdrawals</Text>
-
-          <View style={styles.viewForFloatPressables}>
-            <Pressable
-              onPress={WithdwAdvss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>Make</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={AdvWthdrwlSgnInss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>View</Text>
-            </Pressable>
-           
-
-            
-          </View>
-        </View>
-
-       
+          ))}
+        </ScrollView>
       </SafeAreaView>
-    
-  );
-};
+    );
+  };
+  
+  export default KFAdvHome;
+   
+  
+  
+  
+  const styles = StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      backgroundColor: '#f5f5f5',
+    },
+    container: {
+      padding: 15,
+    },
+    header: {
+      marginBottom: 15,
+      paddingVertical: 15,
+      alignItems: 'center',
+      borderRadius: 10,
+      elevation: 2,
+    },
+    headerText: {
+      fontSize: 22,
+      fontWeight: 'bold',
+      color: 'black',
+    },
+    optionButton: {
+      marginVertical: 8,
+      borderRadius: 10,
+      elevation: 2,
+      overflow: 'hidden',
+    },
+    gradientButton: {
+      paddingVertical: 12,
+      paddingHorizontal: 20,
+      alignItems: 'center',
+    },
+    optionText: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: 'white',
+    },
 
-export default KFAdvHome;
+  })

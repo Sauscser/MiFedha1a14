@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {createBizna, createChamaMembers, createGroup,   createPersonel,   updateCompany} from '../../../src/graphql/mutations';
-import { getBizna, getCompany, getSMAccount, listChamasRegConfirms, vwViaPhonss,  } from '../../../src/graphql/queries';
+import {createBenProd, createBenProd2, createBizna, createChamaMembers, createGroup,   createPersonel,   updateCompany} from '../../../../src/graphql/mutations';
+import { getBizna, getCompany, getSMAccount,   } from '../../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -85,7 +85,6 @@ const CreateChama = (props:UserReg) => {
               const pws = BznaDtls.data.getBizna.pw;
               const ownerz = BznaDtls.data.getBizna.owner;
               const BiznaNames = BznaDtls.data.getBizna.busName;
-              
               const Admin1 = BznaDtls.data.getBizna.Admin1;
               const Admin2 = BznaDtls.data.getBizna.Admin2;
               const Admin3 = BznaDtls.data.getBizna.Admin3;
@@ -145,17 +144,20 @@ const CreateChama = (props:UserReg) => {
         setIsLoading(true);
         try {
           await API.graphql(
-          graphqlOperation(createPersonel, {
+          graphqlOperation(createBenProd2, {
           input: {
-            BusinessRegNo: ChmRegNo,
-            phoneKontact:ChmPhn,
-            name: namess,
-            workerId: WorkerID,
-            workId:ChmDesc,
-            email: awsemails,
-            nationalid:nationalidsss,
-            BiznaName:BiznaNames,
-            ownrsss: owners,
+            
+benefactorAc: ChmRegNo,
+benefactorPhone: ChmRegNo,
+creatorEmail: userInfo.attributes.email,
+prodName: ChmPhn,
+creatorName: BiznaNames,
+owner: userInfo.username,
+prodCost: Sign2Phn,
+benefitsAmount: 0,
+prodDesc: ChmDesc,
+prodStatus: "AccountActive"
+            
                   },
                 }),
               );
@@ -167,7 +169,7 @@ const CreateChama = (props:UserReg) => {
               }
             
             }
-            Alert.alert("Sales Officer added successfully")
+            Alert.alert("Product created successfully")
             
             setIsLoading(false);
             
@@ -285,7 +287,7 @@ const CreateChama = (props:UserReg) => {
           }
           else{
          
-            Alert.alert("Neither the Creator nor Admin of this business")
+            Alert.alert("You are Neither the Creator/Admin of this business")
           }
       } catch (error) {
         
@@ -418,24 +420,37 @@ useEffect(() =>{
                       editable={true}></TextInput>
                     <Text style={styles.sendLoanText}>Business Phone</Text>
                   </View>
-                  
-                   <View style={styles.sendLoanView}>
+
+                  <View style={styles.sendLoanView}>
                     <TextInput
-                     placeholder="Email"
+                     placeholder="Product Name"
                       value={ChmPhn}
                       onChangeText={setChmPhn}
                      
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Sales Officer Email</Text>
+                   
+                  </View>
+                  
+                  <View style={styles.sendAmtViewDesc}>
+                    <TextInput
+                      value={ChmDesc}
+                      onChangeText={setChmDesc}
+                      style={styles.sendAmtInputDesc}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Product Description</Text>
                   </View>
 
-                  
-                  
-                  
+                  <View style={styles.sendAmtViewDesc}>
+                    <TextInput
+                      value={Sign2Phn}
+                      onChangeText={setSign2Phn}
+                      keyboardType={"decimal-pad"}
+                      style={styles.sendAmtInputDesc}
+                      editable={true}></TextInput>
+                    <Text style={styles.sendLoanText}>Product Cost</Text>
+                  </View>
 
-                 
-        
                   <View style={styles.sendLoanView}>
                     <TextInput
                       value={pword}
@@ -446,14 +461,7 @@ useEffect(() =>{
                     <Text style={styles.sendLoanText}>Business PassWord</Text>
                   </View>
 
-                  <View style={styles.sendAmtViewDesc}>
-                    <TextInput
-                      value={ChmDesc}
-                      onChangeText={setChmDesc}
-                      style={styles.sendAmtInputDesc}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Sales Officer Work ID</Text>
-                  </View>
+                  
 
         
                   <TouchableOpacity

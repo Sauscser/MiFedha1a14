@@ -1,20 +1,14 @@
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {
-  View,
-  Text,
-  ImageBackground,
-  Pressable,
-  FlatList,
-  SafeAreaView,
-  Dimensions,
-} from 'react-native';
-import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
+import { View, Text, Pressable, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
-const KFNdogoScreen = props => {
+const KFNdogoScreen = () => {
   const navigation = useNavigation();
 
-  
+  const GoHome = () => {
+    navigation.navigate('Homes');
+  };
 
   const DpstMneys = () => {
     navigation.navigate('DpstMney');
@@ -74,125 +68,126 @@ const KFNdogoScreen = props => {
   };
 
 
+  // Reusable pressable button component
+  const CustomButton = ({ title, onPress }) => (
+    <Pressable onPress={onPress} style={styles.button}>
+      <Text style={styles.buttonText}>{title}</Text>
+    </Pressable>
+  );
+
+  const CustomButton2 = ({ title, onPress }) => (
+      <TouchableOpacity onPress={onPress} style={styles.buttonText2}>
+        <Text style={styles.buttonText2}>{title}</Text>
+      </TouchableOpacity>
+    );
+
   return (
-    <SafeAreaView>
-      <View
-        
-        style={styles.floatimage}>
-       <View style={styles.floatMainView}>
-          <Text style={styles.floatText}>View</Text>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {/* View Section */}
 
-          <View style={styles.viewForFloatPressables}>
-            <Pressable
-              onPress={FloatBghtSgnInss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>Deposit</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={UsrDpositSgnInss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>FloatBght</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={MFNWithdrawlsSgnInss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>MFNWithdrawls</Text>
-            </Pressable>
-            <Pressable
-              onPress={UsrWthdrwlsSgnInss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>ClientsWthdrwls</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={FltWthdrwlsSgnInss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText2}>FltWthdrwls</Text>
-            </Pressable>
+        <LinearGradient 
+                colors={['#ffffff', '#ffffff', 'skyblue']}
+                start={{ x: 0.5, y: 0 }}
+                end={{ x: 0.5, y: 1 }}
+                
+                style={styles.section}>
+                <CustomButton2 title="Go Home" onPress={GoHome} /> 
+                  
+                </LinearGradient>
+        <LinearGradient colors={['#e58d29', 'skyblue']} style={styles.section}> 
+          <Text style={styles.sectionTitle}>View</Text>
+          <View style={styles.buttonGroup}>
+            <CustomButton title="Deposit" onPress={FloatBghtSgnInss} />
+            <CustomButton title="Float Bought" onPress={UsrDpositSgnInss} />
+            <CustomButton title="MFNdogo Withdrawals" onPress={MFNWithdrawlsSgnInss} />
+            <CustomButton title="Clients Withdrawls" onPress={UsrWthdrwlsSgnInss} />
+            <CustomButton title="Float Withdrawls" onPress={FltWthdrwlsSgnInss} />
           </View>
-        </View>
+        </LinearGradient>
 
-        <View style={styles.floatMainView}>
-          <Text style={styles.floatText}>My Account</Text>
-
-          <View style={styles.viewForFloatPressables}>
-            <Pressable
-              onPress={UpdtMFNPWss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>UpdateAc</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={VwMFNAccountSgnInss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>ViewAc</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={RegMFNdogos}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>CreateAc</Text>
-            </Pressable>
+        {/* My Account Section */}
+        <LinearGradient colors={['skyblue', '#e58d29']} style={styles.section}>
+          <Text style={styles.sectionTitle}>My Account</Text>
+          <View style={styles.buttonGroup}>
+            <CustomButton title="Update Ac" onPress={UpdtMFNPWss} />
+            <CustomButton title="View Ac" onPress={VwMFNAccountSgnInss} />
+            <CustomButton title="Create Ac" onPress={RegMFNdogos} />
           </View>
-        </View>
+        </LinearGradient>
 
-         <View style={styles.floatMainView}>
-          <Text style={styles.floatText}>Float</Text>
-
-          <View style={styles.viewForFloatPressables}>
-           
-            
-            <Pressable
-              onPress={WthdrwMFNFltss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>MFN Withdraw</Text>
-            </Pressable>
-            <Pressable
-              onPress={DpstMneys}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>User Deposit</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={SignitoryDepositsss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>Chama Deposit</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={MakeBizDpsts}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>Biz Deposit</Text>
-            </Pressable>
+        {/* Float Section */}
+        <LinearGradient colors={['#e58d29', 'skyblue']} style={styles.section}>
+          <Text style={styles.sectionTitle}>Float</Text>
+          <View style={styles.buttonGroup}>
+            <CustomButton title="MFNdogo Withdraw" onPress={WthdrwMFNFltss} />
+            <CustomButton title="User Deposit" onPress={DpstMneys} />
+            <CustomButton title="Chama Deposit" onPress={SignitoryDepositsss} />
+            <CustomButton title="Biz Deposit" onPress={MakeBizDpsts} />
           </View>
-        </View>
+        </LinearGradient>
 
-        
-
-
-        <View style={styles.floatMainView}>
-          <Text style={styles.floatText}> Earnings</Text>
-
-          <View style={styles.viewForFloatPressables}>
-            
-            <Pressable onPress={WthdrwMFNss} style={styles.floatView}>
-              <Text style={styles.floatPressableText}>Withdraw</Text>
-            </Pressable>
-
-            
-
-            <Pressable
-              onPress={UpdateMFNComss}
-              style={styles.floatView}>
-              <Text style={styles.floatPressableText}>UpdateCommision</Text>
-            </Pressable>
+        {/* Earnings Section */}
+        <LinearGradient colors={['skyblue', '#e58d29']} style={styles.section}>
+          <Text style={styles.sectionTitle}>Earnings</Text>
+          <View style={styles.buttonGroup}>
+            <CustomButton title="Withdraw" onPress={WthdrwMFNss} />
+            <CustomButton title="UpdateCommision" onPress={UpdateMFNComss} />
           </View>
-        </View>
-      </View>
+        </LinearGradient>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 export default KFNdogoScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  scrollContainer: {
+    paddingVertical: 20,
+    alignItems: 'center',
+  },
+  section: {
+    width: '90%',
+    padding: 20,
+    marginBottom: 20,
+    borderRadius: 15,
+    elevation: 5,
+  },
+  sectionTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  buttonGroup: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    margin: 5,
+    borderRadius: 8,
+    elevation: 3,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#fff',
+  },
+
+  buttonText2: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: 'black',
+
+  },
+});

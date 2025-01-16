@@ -7,13 +7,36 @@ import {
   Pressable,
   FlatList,
   SafeAreaView,
+  ScrollView,
   Dimensions,
 } from 'react-native';
 import styles from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const MyAccount = props => {
   const navigation = useNavigation();
+
+  const Section = ({ title, options }) => (
+    <View style={styles.clientsView}>
+      <Text style={styles.salesText}>{title}</Text>
+      <View style={styles.viewForClientsAndTitle}>
+        {options.map(({ label, onPress, style }, index) => (
+          <Pressable key={index} onPress={onPress} style={style || styles.viewForClientsPressables}>
+            <LinearGradient
+              colors={['#FF8C00', '#00BFFF']} // Orange to Sky Blue gradient
+              start={{ x: 0, y: 0 }} // Gradient starts from the top left (vertical direction)
+              end={{ x: 1, y: 1 }}   // Gradient ends at the bottom right (vertical and horizontal)
+              style={styles.clientsPressableGradient}
+            >
+              <Text style={styles.salesPressableText}>{label}</Text>
+            </LinearGradient>
+          </Pressable>
+        ))}
+      </View>
+    </View>
+  );
+  
 
   const SMDpsitsss = () => {
     navigation.navigate('ElimDpstss');
@@ -27,17 +50,12 @@ const MyAccount = props => {
     navigation.navigate('ViewNonLnsSents');
   };
 
-  const Vw2DelLnReqs = () => {
-    navigation.navigate('Vw2DelLnReqs');
-  };
+  
 
   const SearchUser = () => {
     navigation.navigate('VwMakeLnReq');
   };
 
-  const goToCreateSMAc = () => {
-    navigation.navigate('CreateSMAc');
-  };
 
   const SMWthdrwlsss = () => {
     navigation.navigate('ElimWthdrwlss');
@@ -51,13 +69,7 @@ const MyAccount = props => {
     navigation.navigate('Vw2SelectChmBeneficiary');
   };
 
-  const UpdateSMPWss = () => {
-    navigation.navigate('UpdateSMPWs');
-  };
-
-  const ViewSmAcss = () => {
-    navigation.navigate('ElimAcs');
-  };
+ 
 
   const LoanAds = () => {
     navigation.navigate('LoanAds');
@@ -77,107 +89,53 @@ const MyAccount = props => {
 
   return (
     <SafeAreaView>
-      <View
-        
-        style={styles.image}>
-
-<View style={styles.accountView}>
-          <Text style={styles.accountText}>Account</Text>
-
-          <View style={styles.viewForSalesPressables}>
+      <ScrollView>
+      <LinearGradient
+            colors={['#FF8C00', 'skyblue', 'white']} // Linear gradient for orange hues
+            start={{ x: 0, y: 0 }} // Gradient starts from the top left (vertical direction)
+            end={{ x: 1, y: 1 }}
+            style={styles.clientsPressableGradient}
+          >
             
-
-            <View style={styles.acPressables}>
-            <View >
-            <Text style={styles.acPressableText}>User Deposit</Text>
-            </View>
-            <View style = {{flexDirection:"row"}}>
-            <Pressable onPress={PayPalDposit} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>Make</Text>
-            </Pressable>
-            <Pressable onPress={SMDpsitsss} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>View</Text>
-            </Pressable>
-            </View>
-            </View>
-
-            <View style={styles.acPressables}>
-            <View >
-            <Text style={styles.acPressableText}></Text>
-            </View>
-            <View style = {{flexDirection:"row"}}>
-            <Pressable onPress={UpdateMainAc} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>Update Account</Text>
-            </Pressable>
-            <Pressable onPress={goToSMASndnonln} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>Send Cash</Text>
-            </Pressable>
-            </View>
-            </View>
-
-            <View style={styles.acPressables}>
-            <View >
-            <Text style={styles.acPressableText}>View Cash Sent to Pals</Text>
-            </View>
-            <View style = {{flexDirection:"row"}}>
-            <Pressable onPress={ViewNonLnsSents} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>Sent</Text>
-            </Pressable>
-            <Pressable onPress={ViewNonLnsRecs} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>Rec</Text>
-            </Pressable>
-            </View>
-            </View>
-          </View>
-        </View>
-        <View style={styles.accountView}>
-          <Text style={styles.accountText}>MyMoney</Text>
-
-          <View style={styles.viewForSalesPressables}>
+        <Section 
+          title="Account"
+          options={[
             
-            
+            { label: 'Deposit Money', onPress: PayPalDposit, style: styles.ClientsPressables },
+            { label: 'View Deposits', onPress: SMDpsitsss, style: styles.ClientsPressables },
+            { label: 'Update Main Account', onPress: UpdateMainAc, style: styles.ClientsPressables },
+            { label: 'Send Cash', onPress: goToSMASndnonln, style: styles.ClientsPressables },
+            { label: 'View Cash sent to Pals', onPress: ViewNonLnsSents, style: styles.ClientsPressables },
+            { label: 'View Cash received from Pals', onPress: ViewNonLnsRecs, style: styles.ClientsPressables }
+          ]}
+        />
 
-            <View style={styles.acPressables}>
-            <View >
-            <Text style={styles.acPressableText}>Withdrawals</Text>
-            </View>
-            <View style = {{flexDirection:"row"}}>
-            <Pressable onPress={goWithdrwMny} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>Make</Text>
-            </Pressable>
-            <Pressable onPress={SMWthdrwlsss} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>View</Text>
-            </Pressable>
-            </View>
-            </View>
-    
-            
-            
-            <Pressable onPress={SearchUser} style={styles.acPressables}>
-              <Text style={styles.acPressableText}>Search Pal</Text>
-            </Pressable>
 
-      
 
-            <View style={styles.acPressables}>
-            <View >
-            <Text style={styles.acPressableText}>Loan Adverts</Text>
-            </View>
-            <View style = {{flexDirection:"row"}}>
-            <Pressable onPress={LoanAds} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>Make</Text>
-            </Pressable>
-            <Pressable onPress={VwPlLn2Remove} style={styles.acNonLnsPressables}>
-              <Text style={styles.acPressableText}>Delete</Text>
-            </Pressable>
-            </View>
-            </View>
+        <Section 
+          title="Withdrawals"
+          options={[
+            { label: 'Withdraw Money', onPress: goWithdrwMny },
+            { label: 'View Withdrawals', onPress: SMWthdrwlsss }
            
-          </View>
-        </View>
+          ]}
+        />
 
+        <Section 
+          title="Other Operations"
+          options={[
+            { label: 'Search Pal', onPress: SearchUser },
+            { label: 'Advertise', onPress: LoanAds },
+            { label: 'Delete ', onPress: VwPlLn2Remove },
+           
+          ]}
+        />
 
-      </View>
+        
+
+</LinearGradient>
+      </ScrollView>
+      
     </SafeAreaView>
   );
 };

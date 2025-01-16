@@ -140,6 +140,8 @@ export const createSMAccount = /* GraphQL */ `mutation CreateSMAccount(
     depositLimit
     owner
     createdAt
+    beneficiaryType
+    benefitsAmount
     updatedAt
     __typename
   }
@@ -280,6 +282,8 @@ export const updateSMAccount = /* GraphQL */ `mutation UpdateSMAccount(
     depositLimit
     owner
     createdAt
+    beneficiaryType
+    benefitsAmount
     updatedAt
     __typename
   }
@@ -420,6 +424,8 @@ export const deleteSMAccount = /* GraphQL */ `mutation DeleteSMAccount(
     depositLimit
     owner
     createdAt
+    beneficiaryType
+    benefitsAmount
     updatedAt
     __typename
   }
@@ -427,6 +433,429 @@ export const deleteSMAccount = /* GraphQL */ `mutation DeleteSMAccount(
 ` as GeneratedMutation<
   APITypes.DeleteSMAccountMutationVariables,
   APITypes.DeleteSMAccountMutation
+>;
+export const createBenProd2 = /* GraphQL */ `mutation CreateBenProd2(
+  $input: CreateBenProd2Input!
+  $condition: ModelBenProd2ConditionInput
+) {
+  createBenProd2(input: $input, condition: $condition) {
+    id
+    benefactorAc
+    benefactorPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    prodDesc
+    prodStatus
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateBenProd2MutationVariables,
+  APITypes.CreateBenProd2Mutation
+>;
+export const updateBenProd2 = /* GraphQL */ `mutation UpdateBenProd2(
+  $input: UpdateBenProd2Input!
+  $condition: ModelBenProd2ConditionInput
+) {
+  updateBenProd2(input: $input, condition: $condition) {
+    id
+    benefactorAc
+    benefactorPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    prodDesc
+    prodStatus
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateBenProd2MutationVariables,
+  APITypes.UpdateBenProd2Mutation
+>;
+export const deleteBenProd2 = /* GraphQL */ `mutation DeleteBenProd2(
+  $input: DeleteBenProd2Input!
+  $condition: ModelBenProd2ConditionInput
+) {
+  deleteBenProd2(input: $input, condition: $condition) {
+    id
+    benefactorAc
+    benefactorPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    prodDesc
+    prodStatus
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteBenProd2MutationVariables,
+  APITypes.DeleteBenProd2Mutation
+>;
+export const createBenefitContributions2 = /* GraphQL */ `mutation CreateBenefitContributions2(
+  $input: CreateBenefitContributions2Input!
+  $condition: ModelBenefitContributions2ConditionInput
+) {
+  createBenefitContributions2(input: $input, condition: $condition) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateBenefitContributions2MutationVariables,
+  APITypes.CreateBenefitContributions2Mutation
+>;
+export const updateBenefitContributions2 = /* GraphQL */ `mutation UpdateBenefitContributions2(
+  $input: UpdateBenefitContributions2Input!
+  $condition: ModelBenefitContributions2ConditionInput
+) {
+  updateBenefitContributions2(input: $input, condition: $condition) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateBenefitContributions2MutationVariables,
+  APITypes.UpdateBenefitContributions2Mutation
+>;
+export const deleteBenefitContributions2 = /* GraphQL */ `mutation DeleteBenefitContributions2(
+  $input: DeleteBenefitContributions2Input!
+  $condition: ModelBenefitContributions2ConditionInput
+) {
+  deleteBenefitContributions2(input: $input, condition: $condition) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteBenefitContributions2MutationVariables,
+  APITypes.DeleteBenefitContributions2Mutation
+>;
+export const createBenefitShare2 = /* GraphQL */ `mutation CreateBenefitShare2(
+  $input: CreateBenefitShare2Input!
+  $condition: ModelBenefitShare2ConditionInput
+) {
+  createBenefitShare2(input: $input, condition: $condition) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateBenefitShare2MutationVariables,
+  APITypes.CreateBenefitShare2Mutation
+>;
+export const updateBenefitShare2 = /* GraphQL */ `mutation UpdateBenefitShare2(
+  $input: UpdateBenefitShare2Input!
+  $condition: ModelBenefitShare2ConditionInput
+) {
+  updateBenefitShare2(input: $input, condition: $condition) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateBenefitShare2MutationVariables,
+  APITypes.UpdateBenefitShare2Mutation
+>;
+export const deleteBenefitShare2 = /* GraphQL */ `mutation DeleteBenefitShare2(
+  $input: DeleteBenefitShare2Input!
+  $condition: ModelBenefitShare2ConditionInput
+) {
+  deleteBenefitShare2(input: $input, condition: $condition) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteBenefitShare2MutationVariables,
+  APITypes.DeleteBenefitShare2Mutation
+>;
+export const createLinkBeneficiary2 = /* GraphQL */ `mutation CreateLinkBeneficiary2(
+  $input: CreateLinkBeneficiary2Input!
+  $condition: ModelLinkBeneficiary2ConditionInput
+) {
+  createLinkBeneficiary2(input: $input, condition: $condition) {
+    beneficiaryID
+    prodID
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateLinkBeneficiary2MutationVariables,
+  APITypes.CreateLinkBeneficiary2Mutation
+>;
+export const updateLinkBeneficiary2 = /* GraphQL */ `mutation UpdateLinkBeneficiary2(
+  $input: UpdateLinkBeneficiary2Input!
+  $condition: ModelLinkBeneficiary2ConditionInput
+) {
+  updateLinkBeneficiary2(input: $input, condition: $condition) {
+    beneficiaryID
+    prodID
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateLinkBeneficiary2MutationVariables,
+  APITypes.UpdateLinkBeneficiary2Mutation
+>;
+export const deleteLinkBeneficiary2 = /* GraphQL */ `mutation DeleteLinkBeneficiary2(
+  $input: DeleteLinkBeneficiary2Input!
+  $condition: ModelLinkBeneficiary2ConditionInput
+) {
+  deleteLinkBeneficiary2(input: $input, condition: $condition) {
+    beneficiaryID
+    prodID
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteLinkBeneficiary2MutationVariables,
+  APITypes.DeleteLinkBeneficiary2Mutation
+>;
+export const createBizPartners2 = /* GraphQL */ `mutation CreateBizPartners2(
+  $input: CreateBizPartners2Input!
+  $condition: ModelBizPartners2ConditionInput
+) {
+  createBizPartners2(input: $input, condition: $condition) {
+    partnerId
+    bizContact
+    regNo
+    bizNpartner
+    bizName
+    partnerContact
+    partnerName
+    partnerNatId
+    AcStatus
+    owner
+    updatedAt
+    createdAt
+    id
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateBizPartners2MutationVariables,
+  APITypes.CreateBizPartners2Mutation
+>;
+export const updateBizPartners2 = /* GraphQL */ `mutation UpdateBizPartners2(
+  $input: UpdateBizPartners2Input!
+  $condition: ModelBizPartners2ConditionInput
+) {
+  updateBizPartners2(input: $input, condition: $condition) {
+    partnerId
+    bizContact
+    regNo
+    bizNpartner
+    bizName
+    partnerContact
+    partnerName
+    partnerNatId
+    AcStatus
+    owner
+    updatedAt
+    createdAt
+    id
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateBizPartners2MutationVariables,
+  APITypes.UpdateBizPartners2Mutation
+>;
+export const deleteBizPartners2 = /* GraphQL */ `mutation DeleteBizPartners2(
+  $input: DeleteBizPartners2Input!
+  $condition: ModelBizPartners2ConditionInput
+) {
+  deleteBizPartners2(input: $input, condition: $condition) {
+    partnerId
+    bizContact
+    regNo
+    bizNpartner
+    bizName
+    partnerContact
+    partnerName
+    partnerNatId
+    AcStatus
+    owner
+    updatedAt
+    createdAt
+    id
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteBizPartners2MutationVariables,
+  APITypes.DeleteBizPartners2Mutation
 >;
 export const createSMLoansCovered = /* GraphQL */ `mutation CreateSMLoansCovered(
   $input: CreateSMLoansCoveredInput!
@@ -1907,6 +2336,8 @@ export const createBizna = /* GraphQL */ `mutation CreateBizna(
     earningsBal
     bizBeneficiary
     netEarnings
+    beneficiaryType
+    benefitsAmount
     owner2email
     email
     licenseNo
@@ -2014,6 +2445,8 @@ export const updateBizna = /* GraphQL */ `mutation UpdateBizna(
     earningsBal
     bizBeneficiary
     netEarnings
+    beneficiaryType
+    benefitsAmount
     owner2email
     email
     licenseNo
@@ -2121,6 +2554,8 @@ export const deleteBizna = /* GraphQL */ `mutation DeleteBizna(
     earningsBal
     bizBeneficiary
     netEarnings
+    beneficiaryType
+    benefitsAmount
     owner2email
     email
     licenseNo
@@ -2587,6 +3022,11 @@ export const createCompany = /* GraphQL */ `mutation CreateCompany(
     PayPalTNC
     maxDfltPen
     bizBLNo
+    b2bBenCom
+    b2pBenCom
+    p2pBenCom
+    g2pBenCom
+    p2BBenCom
     updatedAt
     __typename
   }
@@ -2750,6 +3190,11 @@ export const updateCompany = /* GraphQL */ `mutation UpdateCompany(
     PayPalTNC
     maxDfltPen
     bizBLNo
+    b2bBenCom
+    b2pBenCom
+    p2pBenCom
+    g2pBenCom
+    p2BBenCom
     updatedAt
     __typename
   }
@@ -2913,6 +3358,11 @@ export const deleteCompany = /* GraphQL */ `mutation DeleteCompany(
     PayPalTNC
     maxDfltPen
     bizBLNo
+    b2bBenCom
+    b2pBenCom
+    p2pBenCom
+    g2pBenCom
+    p2BBenCom
     updatedAt
     __typename
   }

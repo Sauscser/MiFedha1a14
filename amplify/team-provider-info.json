@@ -15,6 +15,9 @@
       "auth": {
         "mifedha1a638affdc": {},
         "userPoolGroups": {}
+      },
+      "api": {
+        "mifedha1a": {}
       }
     }
   }

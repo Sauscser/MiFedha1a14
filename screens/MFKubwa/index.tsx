@@ -1,20 +1,14 @@
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {
-  View,
-  Text,
-  ImageBackground,
-  Pressable,
-  FlatList,
-  SafeAreaView,
-  Dimensions,
-} from 'react-native';
-import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
+import { View, Text, TouchableOpacity, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
-const KFKubwaScreen = props => {
+const KFKubwaScreen = () => {
   const navigation = useNavigation();
 
-  
+  const GoHome = () => {
+    navigation.navigate('Homes');
+  };
 
   const ApplyMFKubwa = () => {
     navigation.navigate('ApplyMFKubwa');
@@ -51,80 +45,132 @@ const KFKubwaScreen = props => {
     const UpdateMFKComss = () => {
       navigation.navigate('UpdateMFKComs');
     };
-  
-    
+
+  // Reusable button component with TouchableOpacity
+  const CustomButton = ({ title, onPress }) => (
+    <TouchableOpacity onPress={onPress} style={styles.button}>
+      <Text style={styles.buttonText}>{title}</Text>
+    </TouchableOpacity>
+  );
+
+  const CustomButton2 = ({ title, onPress }) => (
+    <TouchableOpacity onPress={onPress} style={styles.buttonText2}>
+      <Text style={styles.buttonText2}>{title}</Text>
+    </TouchableOpacity>
+  );
 
   return (
-    <SafeAreaView>
-      <View
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {/* Section: Go Home */}
+        <LinearGradient 
+colors={['#ffffff', '#ffffff', 'skyblue']}
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
         
-        style={styles.kfkubwaimage}>
-        <View style={styles.kfkubwaMainView}>
-          <Text style={styles.kfkubwaText}>My MFNdogos</Text>
+        style={styles.section}>
+        <CustomButton2 title="Go Home" onPress={GoHome} />
+          
+        </LinearGradient>
 
-          <View style={styles.viewForkfkubwaPressables}>
-            <Pressable
-              onPress={MFKVwMFNSgnInsss}
-              style={styles.kfkubwaView}>
-              <Text style={styles.kfkubwaPressableText}>View</Text>
-            </Pressable>
+        <LinearGradient colors={['#ffffff', 'skyblue']} style={styles.section}>
+        
+          <CustomButton title="View My MiFedha Ndogos" onPress={MFKVwMFNSgnInsss} />
+        </LinearGradient>
 
+        {/* Section: My Account */}
+        <LinearGradient colors={['skyblue', '#e58d29']} style={styles.section}>
+          <Text style={styles.sectionTitle}>My Account</Text>
+          <View style={styles.buttonGroup}>
+            <CustomButton title="Update Account" onPress={UpdtMFKPWss} />
+            <CustomButton title="View Account" onPress={VwMFKAcSgnInss} />
+            <CustomButton title="Create Account" onPress={RegMFKbws} />
+            <CustomButton title="Apply for MiFedha Kubwa Account" onPress={ApplyMFKubwa} />
           </View>
-        </View>
+        </LinearGradient>
 
-        <View style={styles.kfkubwaMainView}>
-          <Text style={styles.kfkubwaText}>My Account</Text>
-
-          <View style={styles.viewForkfkubwaPressables}>
-            <Pressable
-              onPress={UpdtMFKPWss}
-              style={styles.kfkubwaView}>
-              <Text style={styles.kfkubwaPressableText}>UpdateAc</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={VwMFKAcSgnInss}
-              style={styles.kfkubwaView}>
-              <Text style={styles.kfkubwaPressableText}>ViewAc</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={RegMFKbws}
-              style={styles.kfkubwaView}>
-              <Text style={styles.kfkubwaPressableText}>CreateAc</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={ApplyMFKubwa}
-              style={styles.kfkubwaView}>
-              <Text style={styles.kfkubwaPressableText}>Apply4Ac</Text>
-            </Pressable>
-
+        {/* Section: Earnings */}
+        <LinearGradient colors={['#e58d29', 'skyblue']} style={styles.section}>
+          <Text style={styles.sectionTitle}>Earnings</Text>
+          <View style={styles.buttonGroup}>
+            <CustomButton title="Withdraw" onPress={MFKWthdrwss} />
+            <CustomButton title="View My Withdrawals" onPress={VwMFKWthdrwlsSgnInss} />
+            <CustomButton title="Update Commission" onPress={UpdateMFKComss} />
           </View>
-        </View>
-
-        <View style={styles.kfkubwaMainView}>
-          <Text style={styles.kfkubwaText}> Earnings</Text>
-
-          <View style={styles.viewForkfkubwaPressables}>
-            
-
-            <Pressable onPress={MFKWthdrwss} style={styles.kfkubwaView}>
-              <Text style={styles.kfkubwaPressableText}>Withdraw</Text>
-            </Pressable>
-
-            <Pressable onPress={VwMFKWthdrwlsSgnInss} style={styles.kfkubwaView}>
-              <Text style={styles.kfkubwaPressableText}>My Withdrawals</Text>
-            </Pressable>
-
-            <Pressable onPress={UpdateMFKComss} style={styles.kfkubwaView}>
-              <Text style={styles.kfkubwaPressableText}>UpdtCom</Text>
-            </Pressable>
-          </View>
-        </View>
-      </View>
+        </LinearGradient>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 export default KFKubwaScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  scrollContainer: {
+    paddingVertical: 20,
+    alignItems: 'center',
+  },
+  section: {
+    width: '90%',
+    padding: 20,
+    marginBottom: 20,
+    borderRadius: 15,
+    elevation: 5,
+  },
+  sectionTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: 'black',
+    textAlign: 'center',
+    marginBottom: 15,
+  },
+  buttonGroup: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    margin: 5,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: 'black',
+  },
+
+  button2: {
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    margin: 5,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  buttonText2: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: 'black',
+
+  },
+});

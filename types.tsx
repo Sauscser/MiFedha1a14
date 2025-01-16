@@ -19,6 +19,7 @@ declare global {
       MakeNVwPayPalDpsits:undefined;
       BizReadPayPalTNC:undefined;
       CreateExRates:undefined;
+      AddBeneficiaryProduct:undefined;
       UpdateMainAc:undefined;
       AddBeneficiary:undefined;
       BizAddAdmin:undefined;

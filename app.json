@@ -26,10 +26,7 @@
       }
     },
     "android": {
-
       "package": "com.MiFedhaLimited.MiFedha",
-      "targetSdkVersion": 34,
-      "compileSdkVersion": 34,
       "versionCode": 120,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
@@ -45,7 +42,6 @@
           "apiKey": "AIzaSyBRZNkT-P9MBJks_olCoqLGzbG3n484BnU"
         }
       }
-      
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
@@ -56,6 +52,9 @@
       "eas": {
         "projectId": "b30d507b-60bc-4c1c-a017-0d179493b241"
       }
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

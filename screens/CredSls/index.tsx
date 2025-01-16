@@ -139,6 +139,12 @@ const MyLoanAccount = () => {
     navigation.navigate('VwBizDpsts');
   };
 
+  const AddBeneficiaryProduct = () => {
+    navigation.navigate('AddBeneficiaryProduct');
+  };
+
+  
+
   const UpdateBizAc = () => {
     navigation.navigate('UpdateBizAc');
   };
@@ -152,14 +158,27 @@ const MyLoanAccount = () => {
             style={styles.clientsPressableGradient}
           >
             
+            <Section 
+          title="Biz Products"
+          options={[
+            
+            { label: 'Create Benefit Product', onPress: AddBeneficiaryProduct, style: styles.ClientsPressables },
+            { label: 'Link Beneficiary', onPress: UpdateBizAc, style: styles.ClientsPressables },
+            { label: 'Release Benefits', onPress: AddPersonelss, style: styles.ClientsPressables },
+            { label: 'View Benefit Products', onPress: RmvPersonnelsss, style: styles.ClientsPressables }
+            
+          ]}
+        />
+        
         <Section 
           title="Manage Business"
           options={[
             
-            { label: 'Create', onPress: CrtBusinessss, style: styles.ClientsPressables },
-            { label: 'Update', onPress: UpdateBizAc, style: styles.ClientsPressables },
+            { label: 'Create Biz', onPress: CrtBusinessss, style: styles.ClientsPressables },
+            { label: 'Update Biz', onPress: UpdateBizAc, style: styles.ClientsPressables },
             { label: 'Register Sales Officer', onPress: AddPersonelss, style: styles.ClientsPressables },
-            { label: 'DeReg Sales Officer', onPress: RmvPersonnelsss, style: styles.ClientsPressables }
+            { label: 'DeReg Sales Officer', onPress: RmvPersonnelsss, style: styles.ClientsPressables },
+            { label: 'View Account', onPress: SgnIn2VwBiznasss, style: styles.ClientsPressables }
           ]}
         />
 
@@ -199,7 +218,8 @@ const MyLoanAccount = () => {
           title="Cash Sales/purchases & Deposits"
           options={[
             { label: 'Pay Cash', onPress: PayCash, style: styles.ClientsPressables },
-            { label: 'Deposits', onPress: MakeNVwPayPalDpsits, style: styles.ClientsPressables }
+            { label: 'Make Deposits', onPress: MakeNVwPayPalDpsits, style: styles.ClientsPressables },
+            
           ]}
         />
 
@@ -209,7 +229,8 @@ const MyLoanAccount = () => {
             { label: 'Make Adverts', onPress: ItemAds, style: styles.ClientsPressables },
             { label: 'Delete Adverts', onPress: SgnIn2RemoveSlAd, style: styles.ClientsPressables },
             { label: 'Transfer Ownership', onPress: giveBizna, style: styles.ClientsPressables },
-            { label: 'Receive Ownership', onPress: TakeOverBizna, style: styles.ClientsPressables }
+            { label: 'Receive Ownership', onPress: TakeOverBizna, style: styles.ClientsPressables },
+            
           ]}
         />
 

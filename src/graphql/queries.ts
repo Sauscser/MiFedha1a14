@@ -137,6 +137,8 @@ export const getSMAccount = /* GraphQL */ `query GetSMAccount($awsemail: String!
     depositLimit
     owner
     createdAt
+    beneficiaryType
+    benefitsAmount
     updatedAt
     __typename
   }
@@ -287,6 +289,8 @@ export const listSMAccounts = /* GraphQL */ `query ListSMAccounts(
       depositLimit
       owner
       createdAt
+      beneficiaryType
+      benefitsAmount
       updatedAt
       __typename
     }
@@ -297,6 +301,310 @@ export const listSMAccounts = /* GraphQL */ `query ListSMAccounts(
 ` as GeneratedQuery<
   APITypes.ListSMAccountsQueryVariables,
   APITypes.ListSMAccountsQuery
+>;
+export const getBenProd2 = /* GraphQL */ `query GetBenProd2($id: ID!) {
+  getBenProd2(id: $id) {
+    id
+    benefactorAc
+    benefactorPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    prodDesc
+    prodStatus
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetBenProd2QueryVariables,
+  APITypes.GetBenProd2Query
+>;
+export const listBenProd2s = /* GraphQL */ `query ListBenProd2s(
+  $filter: ModelBenProd2FilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBenProd2s(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      benefactorAc
+      benefactorPhone
+      creatorEmail
+      prodName
+      creatorName
+      owner
+      prodCost
+      benefitsAmount
+      prodDesc
+      prodStatus
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListBenProd2sQueryVariables,
+  APITypes.ListBenProd2sQuery
+>;
+export const getBenefitContributions2 = /* GraphQL */ `query GetBenefitContributions2($id: ID!) {
+  getBenefitContributions2(id: $id) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetBenefitContributions2QueryVariables,
+  APITypes.GetBenefitContributions2Query
+>;
+export const listBenefitContributions2s = /* GraphQL */ `query ListBenefitContributions2s(
+  $filter: ModelBenefitContributions2FilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBenefitContributions2s(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      benefitsID
+      benefactorAc
+      benefactorPhone
+      beneficiaryAc
+      beneficiaryPhone
+      creatorEmail
+      prodName
+      creatorName
+      owner
+      prodCost
+      benefitsAmount
+      beneficiaryType
+      prodDesc
+      benefitStatus
+      amount
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListBenefitContributions2sQueryVariables,
+  APITypes.ListBenefitContributions2sQuery
+>;
+export const getBenefitShare2 = /* GraphQL */ `query GetBenefitShare2($id: ID!) {
+  getBenefitShare2(id: $id) {
+    id
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetBenefitShare2QueryVariables,
+  APITypes.GetBenefitShare2Query
+>;
+export const listBenefitShare2s = /* GraphQL */ `query ListBenefitShare2s(
+  $filter: ModelBenefitShare2FilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBenefitShare2s(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      benefitsID
+      benefactorAc
+      benefactorPhone
+      beneficiaryAc
+      beneficiaryPhone
+      creatorEmail
+      prodName
+      creatorName
+      owner
+      prodCost
+      benefitsAmount
+      beneficiaryType
+      prodDesc
+      benefitStatus
+      amount
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListBenefitShare2sQueryVariables,
+  APITypes.ListBenefitShare2sQuery
+>;
+export const getLinkBeneficiary2 = /* GraphQL */ `query GetLinkBeneficiary2($beneficiaryID: String!) {
+  getLinkBeneficiary2(beneficiaryID: $beneficiaryID) {
+    beneficiaryID
+    prodID
+    benefitsID
+    benefactorAc
+    benefactorPhone
+    beneficiaryAc
+    beneficiaryPhone
+    creatorEmail
+    prodName
+    creatorName
+    owner
+    prodCost
+    benefitsAmount
+    beneficiaryType
+    prodDesc
+    benefitStatus
+    amount
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetLinkBeneficiary2QueryVariables,
+  APITypes.GetLinkBeneficiary2Query
+>;
+export const listLinkBeneficiary2s = /* GraphQL */ `query ListLinkBeneficiary2s(
+  $beneficiaryID: String
+  $filter: ModelLinkBeneficiary2FilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listLinkBeneficiary2s(
+    beneficiaryID: $beneficiaryID
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      beneficiaryID
+      prodID
+      benefitsID
+      benefactorAc
+      benefactorPhone
+      beneficiaryAc
+      beneficiaryPhone
+      creatorEmail
+      prodName
+      creatorName
+      owner
+      prodCost
+      benefitsAmount
+      beneficiaryType
+      prodDesc
+      benefitStatus
+      amount
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListLinkBeneficiary2sQueryVariables,
+  APITypes.ListLinkBeneficiary2sQuery
+>;
+export const getBizPartners2 = /* GraphQL */ `query GetBizPartners2($id: ID!) {
+  getBizPartners2(id: $id) {
+    partnerId
+    bizContact
+    regNo
+    bizNpartner
+    bizName
+    partnerContact
+    partnerName
+    partnerNatId
+    AcStatus
+    owner
+    updatedAt
+    createdAt
+    id
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetBizPartners2QueryVariables,
+  APITypes.GetBizPartners2Query
+>;
+export const listBizPartners2s = /* GraphQL */ `query ListBizPartners2s(
+  $filter: ModelBizPartners2FilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBizPartners2s(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      partnerId
+      bizContact
+      regNo
+      bizNpartner
+      bizName
+      partnerContact
+      partnerName
+      partnerNatId
+      AcStatus
+      owner
+      updatedAt
+      createdAt
+      id
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListBizPartners2sQueryVariables,
+  APITypes.ListBizPartners2sQuery
 >;
 export const getSMLoansCovered = /* GraphQL */ `query GetSMLoansCovered($loanID: String!) {
   getSMLoansCovered(loanID: $loanID) {
@@ -1371,6 +1679,8 @@ export const getBizna = /* GraphQL */ `query GetBizna($BusKntct: String!) {
     earningsBal
     bizBeneficiary
     netEarnings
+    beneficiaryType
+    benefitsAmount
     owner2email
     email
     licenseNo
@@ -1485,6 +1795,8 @@ export const listBiznas = /* GraphQL */ `query ListBiznas(
       earningsBal
       bizBeneficiary
       netEarnings
+      beneficiaryType
+      benefitsAmount
       owner2email
       email
       licenseNo
@@ -1905,6 +2217,11 @@ export const getCompany = /* GraphQL */ `query GetCompany($AdminId: String!) {
     PayPalTNC
     maxDfltPen
     bizBLNo
+    b2bBenCom
+    b2pBenCom
+    p2pBenCom
+    g2pBenCom
+    p2BBenCom
     updatedAt
     __typename
   }
@@ -2078,6 +2395,11 @@ export const listCompanies = /* GraphQL */ `query ListCompanies(
       PayPalTNC
       maxDfltPen
       bizBLNo
+      b2bBenCom
+      b2pBenCom
+      p2pBenCom
+      g2pBenCom
+      p2BBenCom
       updatedAt
       __typename
     }
@@ -3000,6 +3322,8 @@ export const VwNatIdentity = /* GraphQL */ `query VwNatIdentity(
       depositLimit
       owner
       createdAt
+      beneficiaryType
+      benefitsAmount
       updatedAt
       __typename
     }
@@ -3155,6 +3479,8 @@ export const VwPnCntct = /* GraphQL */ `query VwPnCntct(
       depositLimit
       owner
       createdAt
+      beneficiaryType
+      benefitsAmount
       updatedAt
       __typename
     }
@@ -4722,6 +5048,8 @@ export const BiznaVwws = /* GraphQL */ `query BiznaVwws(
       earningsBal
       bizBeneficiary
       netEarnings
+      beneficiaryType
+      benefitsAmount
       owner2email
       email
       licenseNo

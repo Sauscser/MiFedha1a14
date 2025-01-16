@@ -130,6 +130,8 @@ export type CreateSMAccountInput = {
   depositLimit: number,
   owner: string,
   createdAt?: string | null,
+  beneficiaryType: string,
+  benefitsAmount: number,
 };
 
 export enum Status {
@@ -298,6 +300,8 @@ export type ModelSMAccountConditionInput = {
   depositLimit?: ModelFloatInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  beneficiaryType?: ModelStringInput | null,
+  benefitsAmount?: ModelFloatInput | null,
   and?: Array< ModelSMAccountConditionInput | null > | null,
   or?: Array< ModelSMAccountConditionInput | null > | null,
   not?: ModelSMAccountConditionInput | null,
@@ -490,6 +494,8 @@ export type SMAccount = {
   depositLimit: number,
   owner: string,
   createdAt: string,
+  beneficiaryType: string,
+  benefitsAmount: number,
   updatedAt: string,
 };
 
@@ -621,10 +627,425 @@ export type UpdateSMAccountInput = {
   depositLimit?: number | null,
   owner?: string | null,
   createdAt?: string | null,
+  beneficiaryType?: string | null,
+  benefitsAmount?: number | null,
 };
 
 export type DeleteSMAccountInput = {
   awsemail: string,
+};
+
+export type CreateBenProd2Input = {
+  id?: string | null,
+  benefactorAc: string,
+  benefactorPhone: string,
+  creatorEmail: string,
+  prodName: string,
+  creatorName: string,
+  owner: string,
+  prodCost: number,
+  benefitsAmount: number,
+  prodDesc: string,
+  prodStatus: string,
+  createdAt?: string | null,
+};
+
+export type ModelBenProd2ConditionInput = {
+  benefactorAc?: ModelStringInput | null,
+  benefactorPhone?: ModelStringInput | null,
+  creatorEmail?: ModelStringInput | null,
+  prodName?: ModelStringInput | null,
+  creatorName?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  prodCost?: ModelFloatInput | null,
+  benefitsAmount?: ModelFloatInput | null,
+  prodDesc?: ModelStringInput | null,
+  prodStatus?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelBenProd2ConditionInput | null > | null,
+  or?: Array< ModelBenProd2ConditionInput | null > | null,
+  not?: ModelBenProd2ConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type BenProd2 = {
+  __typename: "BenProd2",
+  id: string,
+  benefactorAc: string,
+  benefactorPhone: string,
+  creatorEmail: string,
+  prodName: string,
+  creatorName: string,
+  owner: string,
+  prodCost: number,
+  benefitsAmount: number,
+  prodDesc: string,
+  prodStatus: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateBenProd2Input = {
+  id: string,
+  benefactorAc?: string | null,
+  benefactorPhone?: string | null,
+  creatorEmail?: string | null,
+  prodName?: string | null,
+  creatorName?: string | null,
+  owner?: string | null,
+  prodCost?: number | null,
+  benefitsAmount?: number | null,
+  prodDesc?: string | null,
+  prodStatus?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteBenProd2Input = {
+  id: string,
+};
+
+export type CreateBenefitContributions2Input = {
+  id?: string | null,
+  benefitsID: string,
+  benefactorAc: string,
+  benefactorPhone: string,
+  beneficiaryAc: string,
+  beneficiaryPhone: string,
+  creatorEmail: string,
+  prodName: string,
+  creatorName: string,
+  owner: string,
+  prodCost: number,
+  benefitsAmount: number,
+  beneficiaryType: string,
+  prodDesc: string,
+  benefitStatus: string,
+  amount: number,
+  createdAt?: string | null,
+};
+
+export type ModelBenefitContributions2ConditionInput = {
+  benefitsID?: ModelStringInput | null,
+  benefactorAc?: ModelStringInput | null,
+  benefactorPhone?: ModelStringInput | null,
+  beneficiaryAc?: ModelStringInput | null,
+  beneficiaryPhone?: ModelStringInput | null,
+  creatorEmail?: ModelStringInput | null,
+  prodName?: ModelStringInput | null,
+  creatorName?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  prodCost?: ModelFloatInput | null,
+  benefitsAmount?: ModelFloatInput | null,
+  beneficiaryType?: ModelStringInput | null,
+  prodDesc?: ModelStringInput | null,
+  benefitStatus?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelBenefitContributions2ConditionInput | null > | null,
+  or?: Array< ModelBenefitContributions2ConditionInput | null > | null,
+  not?: ModelBenefitContributions2ConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type BenefitContributions2 = {
+  __typename: "BenefitContributions2",
+  id: string,
+  benefitsID: string,
+  benefactorAc: string,
+  benefactorPhone: string,
+  beneficiaryAc: string,
+  beneficiaryPhone: string,
+  creatorEmail: string,
+  prodName: string,
+  creatorName: string,
+  owner: string,
+  prodCost: number,
+  benefitsAmount: number,
+  beneficiaryType: string,
+  prodDesc: string,
+  benefitStatus: string,
+  amount: number,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateBenefitContributions2Input = {
+  id: string,
+  benefitsID?: string | null,
+  benefactorAc?: string | null,
+  benefactorPhone?: string | null,
+  beneficiaryAc?: string | null,
+  beneficiaryPhone?: string | null,
+  creatorEmail?: string | null,
+  prodName?: string | null,
+  creatorName?: string | null,
+  owner?: string | null,
+  prodCost?: number | null,
+  benefitsAmount?: number | null,
+  beneficiaryType?: string | null,
+  prodDesc?: string | null,
+  benefitStatus?: string | null,
+  amount?: number | null,
+  createdAt?: string | null,
+};
+
+export type DeleteBenefitContributions2Input = {
+  id: string,
+};
+
+export type CreateBenefitShare2Input = {
+  id?: string | null,
+  benefitsID: string,
+  benefactorAc: string,
+  benefactorPhone: string,
+  beneficiaryAc: string,
+  beneficiaryPhone: string,
+  creatorEmail: string,
+  prodName: string,
+  creatorName: string,
+  owner: string,
+  prodCost: number,
+  benefitsAmount: number,
+  beneficiaryType: string,
+  prodDesc: string,
+  benefitStatus: string,
+  amount: number,
+  createdAt?: string | null,
+};
+
+export type ModelBenefitShare2ConditionInput = {
+  benefitsID?: ModelStringInput | null,
+  benefactorAc?: ModelStringInput | null,
+  benefactorPhone?: ModelStringInput | null,
+  beneficiaryAc?: ModelStringInput | null,
+  beneficiaryPhone?: ModelStringInput | null,
+  creatorEmail?: ModelStringInput | null,
+  prodName?: ModelStringInput | null,
+  creatorName?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  prodCost?: ModelFloatInput | null,
+  benefitsAmount?: ModelFloatInput | null,
+  beneficiaryType?: ModelStringInput | null,
+  prodDesc?: ModelStringInput | null,
+  benefitStatus?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelBenefitShare2ConditionInput | null > | null,
+  or?: Array< ModelBenefitShare2ConditionInput | null > | null,
+  not?: ModelBenefitShare2ConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type BenefitShare2 = {
+  __typename: "BenefitShare2",
+  id: string,
+  benefitsID: string,
+  benefactorAc: string,
+  benefactorPhone: string,
+  beneficiaryAc: string,
+  beneficiaryPhone: string,
+  creatorEmail: string,
+  prodName: string,
+  creatorName: string,
+  owner: string,
+  prodCost: number,
+  benefitsAmount: number,
+  beneficiaryType: string,
+  prodDesc: string,
+  benefitStatus: string,
+  amount: number,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateBenefitShare2Input = {
+  id: string,
+  benefitsID?: string | null,
+  benefactorAc?: string | null,
+  benefactorPhone?: string | null,
+  beneficiaryAc?: string | null,
+  beneficiaryPhone?: string | null,
+  creatorEmail?: string | null,
+  prodName?: string | null,
+  creatorName?: string | null,
+  owner?: string | null,
+  prodCost?: number | null,
+  benefitsAmount?: number | null,
+  beneficiaryType?: string | null,
+  prodDesc?: string | null,
+  benefitStatus?: string | null,
+  amount?: number | null,
+  createdAt?: string | null,
+};
+
+export type DeleteBenefitShare2Input = {
+  id: string,
+};
+
+export type CreateLinkBeneficiary2Input = {
+  beneficiaryID: string,
+  prodID: string,
+  benefitsID: string,
+  benefactorAc: string,
+  benefactorPhone: string,
+  beneficiaryAc: string,
+  beneficiaryPhone: string,
+  creatorEmail: string,
+  prodName: string,
+  creatorName: string,
+  owner: string,
+  prodCost: number,
+  benefitsAmount: number,
+  beneficiaryType: string,
+  prodDesc: string,
+  benefitStatus: string,
+  amount: number,
+  createdAt?: string | null,
+  updatedAt?: string | null,
+};
+
+export type ModelLinkBeneficiary2ConditionInput = {
+  prodID?: ModelStringInput | null,
+  benefitsID?: ModelStringInput | null,
+  benefactorAc?: ModelStringInput | null,
+  benefactorPhone?: ModelStringInput | null,
+  beneficiaryAc?: ModelStringInput | null,
+  beneficiaryPhone?: ModelStringInput | null,
+  creatorEmail?: ModelStringInput | null,
+  prodName?: ModelStringInput | null,
+  creatorName?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  prodCost?: ModelFloatInput | null,
+  benefitsAmount?: ModelFloatInput | null,
+  beneficiaryType?: ModelStringInput | null,
+  prodDesc?: ModelStringInput | null,
+  benefitStatus?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelLinkBeneficiary2ConditionInput | null > | null,
+  or?: Array< ModelLinkBeneficiary2ConditionInput | null > | null,
+  not?: ModelLinkBeneficiary2ConditionInput | null,
+};
+
+export type LinkBeneficiary2 = {
+  __typename: "LinkBeneficiary2",
+  beneficiaryID: string,
+  prodID: string,
+  benefitsID: string,
+  benefactorAc: string,
+  benefactorPhone: string,
+  beneficiaryAc: string,
+  beneficiaryPhone: string,
+  creatorEmail: string,
+  prodName: string,
+  creatorName: string,
+  owner: string,
+  prodCost: number,
+  benefitsAmount: number,
+  beneficiaryType: string,
+  prodDesc: string,
+  benefitStatus: string,
+  amount: number,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateLinkBeneficiary2Input = {
+  beneficiaryID: string,
+  prodID?: string | null,
+  benefitsID?: string | null,
+  benefactorAc?: string | null,
+  benefactorPhone?: string | null,
+  beneficiaryAc?: string | null,
+  beneficiaryPhone?: string | null,
+  creatorEmail?: string | null,
+  prodName?: string | null,
+  creatorName?: string | null,
+  owner?: string | null,
+  prodCost?: number | null,
+  benefitsAmount?: number | null,
+  beneficiaryType?: string | null,
+  prodDesc?: string | null,
+  benefitStatus?: string | null,
+  amount?: number | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
+};
+
+export type DeleteLinkBeneficiary2Input = {
+  beneficiaryID: string,
+};
+
+export type CreateBizPartners2Input = {
+  partnerId: string,
+  bizContact: string,
+  regNo: string,
+  bizNpartner: string,
+  bizName: string,
+  partnerContact: string,
+  partnerName: string,
+  partnerNatId: string,
+  AcStatus: Status,
+  owner: string,
+  updatedAt?: string | null,
+  createdAt?: string | null,
+  id?: string | null,
+};
+
+export type ModelBizPartners2ConditionInput = {
+  partnerId?: ModelStringInput | null,
+  bizContact?: ModelStringInput | null,
+  regNo?: ModelStringInput | null,
+  bizNpartner?: ModelStringInput | null,
+  bizName?: ModelStringInput | null,
+  partnerContact?: ModelStringInput | null,
+  partnerName?: ModelStringInput | null,
+  partnerNatId?: ModelStringInput | null,
+  AcStatus?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelBizPartners2ConditionInput | null > | null,
+  or?: Array< ModelBizPartners2ConditionInput | null > | null,
+  not?: ModelBizPartners2ConditionInput | null,
+};
+
+export type BizPartners2 = {
+  __typename: "BizPartners2",
+  partnerId: string,
+  bizContact: string,
+  regNo: string,
+  bizNpartner: string,
+  bizName: string,
+  partnerContact: string,
+  partnerName: string,
+  partnerNatId: string,
+  AcStatus: Status,
+  owner: string,
+  updatedAt: string,
+  createdAt: string,
+  id: string,
+};
+
+export type UpdateBizPartners2Input = {
+  partnerId?: string | null,
+  bizContact?: string | null,
+  regNo?: string | null,
+  bizNpartner?: string | null,
+  bizName?: string | null,
+  partnerContact?: string | null,
+  partnerName?: string | null,
+  partnerNatId?: string | null,
+  AcStatus?: Status | null,
+  owner?: string | null,
+  updatedAt?: string | null,
+  createdAt?: string | null,
+  id: string,
+};
+
+export type DeleteBizPartners2Input = {
+  id: string,
 };
 
 export type CreateSMLoansCoveredInput = {
@@ -2059,6 +2480,8 @@ export type CreateBiznaInput = {
   earningsBal: number,
   bizBeneficiary: string,
   netEarnings: number,
+  beneficiaryType: string,
+  benefitsAmount: number,
   owner2email?: string | null,
   email: string,
   licenseNo: string,
@@ -2155,6 +2578,8 @@ export type ModelBiznaConditionInput = {
   earningsBal?: ModelFloatInput | null,
   bizBeneficiary?: ModelStringInput | null,
   netEarnings?: ModelFloatInput | null,
+  beneficiaryType?: ModelStringInput | null,
+  benefitsAmount?: ModelFloatInput | null,
   owner2email?: ModelStringInput | null,
   email?: ModelStringInput | null,
   licenseNo?: ModelStringInput | null,
@@ -2257,6 +2682,8 @@ export type Bizna = {
   earningsBal: number,
   bizBeneficiary: string,
   netEarnings: number,
+  beneficiaryType: string,
+  benefitsAmount: number,
   owner2email?: string | null,
   email: string,
   licenseNo: string,
@@ -2355,6 +2782,8 @@ export type UpdateBiznaInput = {
   earningsBal?: number | null,
   bizBeneficiary?: string | null,
   netEarnings?: number | null,
+  beneficiaryType?: string | null,
+  benefitsAmount?: number | null,
   owner2email?: string | null,
   email?: string | null,
   licenseNo?: string | null,
@@ -2794,6 +3223,11 @@ export type CreateCompanyInput = {
   PayPalTNC?: string | null,
   maxDfltPen: number,
   bizBLNo?: number | null,
+  b2bBenCom: number,
+  b2pBenCom: number,
+  p2pBenCom: number,
+  g2pBenCom: number,
+  p2BBenCom: number,
 };
 
 export type ModelCompanyConditionInput = {
@@ -2946,6 +3380,11 @@ export type ModelCompanyConditionInput = {
   PayPalTNC?: ModelStringInput | null,
   maxDfltPen?: ModelFloatInput | null,
   bizBLNo?: ModelFloatInput | null,
+  b2bBenCom?: ModelFloatInput | null,
+  b2pBenCom?: ModelFloatInput | null,
+  p2pBenCom?: ModelFloatInput | null,
+  g2pBenCom?: ModelFloatInput | null,
+  p2BBenCom?: ModelFloatInput | null,
   and?: Array< ModelCompanyConditionInput | null > | null,
   or?: Array< ModelCompanyConditionInput | null > | null,
   not?: ModelCompanyConditionInput | null,
@@ -3104,6 +3543,11 @@ export type Company = {
   PayPalTNC?: string | null,
   maxDfltPen: number,
   bizBLNo?: number | null,
+  b2bBenCom: number,
+  b2pBenCom: number,
+  p2pBenCom: number,
+  g2pBenCom: number,
+  p2BBenCom: number,
   updatedAt: string,
 };
 
@@ -3258,6 +3702,11 @@ export type UpdateCompanyInput = {
   PayPalTNC?: string | null,
   maxDfltPen?: number | null,
   bizBLNo?: number | null,
+  b2bBenCom?: number | null,
+  b2pBenCom?: number | null,
+  p2pBenCom?: number | null,
+  g2pBenCom?: number | null,
+  p2BBenCom?: number | null,
 };
 
 export type DeleteCompanyInput = {
@@ -4485,6 +4934,8 @@ export type ModelSMAccountFilterInput = {
   depositLimit?: ModelFloatInput | null,
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  beneficiaryType?: ModelStringInput | null,
+  benefitsAmount?: ModelFloatInput | null,
   id?: ModelIDInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelSMAccountFilterInput | null > | null,
@@ -4517,6 +4968,148 @@ export enum ModelSortDirection {
 export type ModelSMAccountConnection = {
   __typename: "ModelSMAccountConnection",
   items:  Array<SMAccount | null >,
+  nextToken?: string | null,
+};
+
+export type ModelBenProd2FilterInput = {
+  id?: ModelIDInput | null,
+  benefactorAc?: ModelStringInput | null,
+  benefactorPhone?: ModelStringInput | null,
+  creatorEmail?: ModelStringInput | null,
+  prodName?: ModelStringInput | null,
+  creatorName?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  prodCost?: ModelFloatInput | null,
+  benefitsAmount?: ModelFloatInput | null,
+  prodDesc?: ModelStringInput | null,
+  prodStatus?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelBenProd2FilterInput | null > | null,
+  or?: Array< ModelBenProd2FilterInput | null > | null,
+  not?: ModelBenProd2FilterInput | null,
+};
+
+export type ModelBenProd2Connection = {
+  __typename: "ModelBenProd2Connection",
+  items:  Array<BenProd2 | null >,
+  nextToken?: string | null,
+};
+
+export type ModelBenefitContributions2FilterInput = {
+  id?: ModelIDInput | null,
+  benefitsID?: ModelStringInput | null,
+  benefactorAc?: ModelStringInput | null,
+  benefactorPhone?: ModelStringInput | null,
+  beneficiaryAc?: ModelStringInput | null,
+  beneficiaryPhone?: ModelStringInput | null,
+  creatorEmail?: ModelStringInput | null,
+  prodName?: ModelStringInput | null,
+  creatorName?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  prodCost?: ModelFloatInput | null,
+  benefitsAmount?: ModelFloatInput | null,
+  beneficiaryType?: ModelStringInput | null,
+  prodDesc?: ModelStringInput | null,
+  benefitStatus?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelBenefitContributions2FilterInput | null > | null,
+  or?: Array< ModelBenefitContributions2FilterInput | null > | null,
+  not?: ModelBenefitContributions2FilterInput | null,
+};
+
+export type ModelBenefitContributions2Connection = {
+  __typename: "ModelBenefitContributions2Connection",
+  items:  Array<BenefitContributions2 | null >,
+  nextToken?: string | null,
+};
+
+export type ModelBenefitShare2FilterInput = {
+  id?: ModelIDInput | null,
+  benefitsID?: ModelStringInput | null,
+  benefactorAc?: ModelStringInput | null,
+  benefactorPhone?: ModelStringInput | null,
+  beneficiaryAc?: ModelStringInput | null,
+  beneficiaryPhone?: ModelStringInput | null,
+  creatorEmail?: ModelStringInput | null,
+  prodName?: ModelStringInput | null,
+  creatorName?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  prodCost?: ModelFloatInput | null,
+  benefitsAmount?: ModelFloatInput | null,
+  beneficiaryType?: ModelStringInput | null,
+  prodDesc?: ModelStringInput | null,
+  benefitStatus?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelBenefitShare2FilterInput | null > | null,
+  or?: Array< ModelBenefitShare2FilterInput | null > | null,
+  not?: ModelBenefitShare2FilterInput | null,
+};
+
+export type ModelBenefitShare2Connection = {
+  __typename: "ModelBenefitShare2Connection",
+  items:  Array<BenefitShare2 | null >,
+  nextToken?: string | null,
+};
+
+export type ModelLinkBeneficiary2FilterInput = {
+  beneficiaryID?: ModelStringInput | null,
+  prodID?: ModelStringInput | null,
+  benefitsID?: ModelStringInput | null,
+  benefactorAc?: ModelStringInput | null,
+  benefactorPhone?: ModelStringInput | null,
+  beneficiaryAc?: ModelStringInput | null,
+  beneficiaryPhone?: ModelStringInput | null,
+  creatorEmail?: ModelStringInput | null,
+  prodName?: ModelStringInput | null,
+  creatorName?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+  prodCost?: ModelFloatInput | null,
+  benefitsAmount?: ModelFloatInput | null,
+  beneficiaryType?: ModelStringInput | null,
+  prodDesc?: ModelStringInput | null,
+  benefitStatus?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  and?: Array< ModelLinkBeneficiary2FilterInput | null > | null,
+  or?: Array< ModelLinkBeneficiary2FilterInput | null > | null,
+  not?: ModelLinkBeneficiary2FilterInput | null,
+};
+
+export type ModelLinkBeneficiary2Connection = {
+  __typename: "ModelLinkBeneficiary2Connection",
+  items:  Array<LinkBeneficiary2 | null >,
+  nextToken?: string | null,
+};
+
+export type ModelBizPartners2FilterInput = {
+  partnerId?: ModelStringInput | null,
+  bizContact?: ModelStringInput | null,
+  regNo?: ModelStringInput | null,
+  bizNpartner?: ModelStringInput | null,
+  bizName?: ModelStringInput | null,
+  partnerContact?: ModelStringInput | null,
+  partnerName?: ModelStringInput | null,
+  partnerNatId?: ModelStringInput | null,
+  AcStatus?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  and?: Array< ModelBizPartners2FilterInput | null > | null,
+  or?: Array< ModelBizPartners2FilterInput | null > | null,
+  not?: ModelBizPartners2FilterInput | null,
+};
+
+export type ModelBizPartners2Connection = {
+  __typename: "ModelBizPartners2Connection",
+  items:  Array<BizPartners2 | null >,
   nextToken?: string | null,
 };
 
@@ -5024,6 +5617,8 @@ export type ModelBiznaFilterInput = {
   earningsBal?: ModelFloatInput | null,
   bizBeneficiary?: ModelStringInput | null,
   netEarnings?: ModelFloatInput | null,
+  beneficiaryType?: ModelStringInput | null,
+  benefitsAmount?: ModelFloatInput | null,
   owner2email?: ModelStringInput | null,
   email?: ModelStringInput | null,
   licenseNo?: ModelStringInput | null,
@@ -5349,6 +5944,11 @@ export type ModelCompanyFilterInput = {
   PayPalTNC?: ModelStringInput | null,
   maxDfltPen?: ModelFloatInput | null,
   bizBLNo?: ModelFloatInput | null,
+  b2bBenCom?: ModelFloatInput | null,
+  b2pBenCom?: ModelFloatInput | null,
+  p2pBenCom?: ModelFloatInput | null,
+  g2pBenCom?: ModelFloatInput | null,
+  p2BBenCom?: ModelFloatInput | null,
   id?: ModelIDInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelCompanyFilterInput | null > | null,
@@ -5862,6 +6462,8 @@ export type ModelSubscriptionSMAccountFilterInput = {
   withdrawalLimit?: ModelSubscriptionFloatInput | null,
   depositLimit?: ModelSubscriptionFloatInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  beneficiaryType?: ModelSubscriptionStringInput | null,
+  benefitsAmount?: ModelSubscriptionFloatInput | null,
   id?: ModelSubscriptionIDInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSMAccountFilterInput | null > | null,
@@ -5909,6 +6511,113 @@ export type ModelSubscriptionIDInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionBenProd2FilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  benefactorAc?: ModelSubscriptionStringInput | null,
+  benefactorPhone?: ModelSubscriptionStringInput | null,
+  creatorEmail?: ModelSubscriptionStringInput | null,
+  prodName?: ModelSubscriptionStringInput | null,
+  creatorName?: ModelSubscriptionStringInput | null,
+  prodCost?: ModelSubscriptionFloatInput | null,
+  benefitsAmount?: ModelSubscriptionFloatInput | null,
+  prodDesc?: ModelSubscriptionStringInput | null,
+  prodStatus?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionBenProd2FilterInput | null > | null,
+  or?: Array< ModelSubscriptionBenProd2FilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionBenefitContributions2FilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  benefitsID?: ModelSubscriptionStringInput | null,
+  benefactorAc?: ModelSubscriptionStringInput | null,
+  benefactorPhone?: ModelSubscriptionStringInput | null,
+  beneficiaryAc?: ModelSubscriptionStringInput | null,
+  beneficiaryPhone?: ModelSubscriptionStringInput | null,
+  creatorEmail?: ModelSubscriptionStringInput | null,
+  prodName?: ModelSubscriptionStringInput | null,
+  creatorName?: ModelSubscriptionStringInput | null,
+  prodCost?: ModelSubscriptionFloatInput | null,
+  benefitsAmount?: ModelSubscriptionFloatInput | null,
+  beneficiaryType?: ModelSubscriptionStringInput | null,
+  prodDesc?: ModelSubscriptionStringInput | null,
+  benefitStatus?: ModelSubscriptionStringInput | null,
+  amount?: ModelSubscriptionFloatInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionBenefitContributions2FilterInput | null > | null,
+  or?: Array< ModelSubscriptionBenefitContributions2FilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionBenefitShare2FilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  benefitsID?: ModelSubscriptionStringInput | null,
+  benefactorAc?: ModelSubscriptionStringInput | null,
+  benefactorPhone?: ModelSubscriptionStringInput | null,
+  beneficiaryAc?: ModelSubscriptionStringInput | null,
+  beneficiaryPhone?: ModelSubscriptionStringInput | null,
+  creatorEmail?: ModelSubscriptionStringInput | null,
+  prodName?: ModelSubscriptionStringInput | null,
+  creatorName?: ModelSubscriptionStringInput | null,
+  prodCost?: ModelSubscriptionFloatInput | null,
+  benefitsAmount?: ModelSubscriptionFloatInput | null,
+  beneficiaryType?: ModelSubscriptionStringInput | null,
+  prodDesc?: ModelSubscriptionStringInput | null,
+  benefitStatus?: ModelSubscriptionStringInput | null,
+  amount?: ModelSubscriptionFloatInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionBenefitShare2FilterInput | null > | null,
+  or?: Array< ModelSubscriptionBenefitShare2FilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionLinkBeneficiary2FilterInput = {
+  beneficiaryID?: ModelSubscriptionStringInput | null,
+  prodID?: ModelSubscriptionStringInput | null,
+  benefitsID?: ModelSubscriptionStringInput | null,
+  benefactorAc?: ModelSubscriptionStringInput | null,
+  benefactorPhone?: ModelSubscriptionStringInput | null,
+  beneficiaryAc?: ModelSubscriptionStringInput | null,
+  beneficiaryPhone?: ModelSubscriptionStringInput | null,
+  creatorEmail?: ModelSubscriptionStringInput | null,
+  prodName?: ModelSubscriptionStringInput | null,
+  creatorName?: ModelSubscriptionStringInput | null,
+  prodCost?: ModelSubscriptionFloatInput | null,
+  benefitsAmount?: ModelSubscriptionFloatInput | null,
+  beneficiaryType?: ModelSubscriptionStringInput | null,
+  prodDesc?: ModelSubscriptionStringInput | null,
+  benefitStatus?: ModelSubscriptionStringInput | null,
+  amount?: ModelSubscriptionFloatInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionLinkBeneficiary2FilterInput | null > | null,
+  or?: Array< ModelSubscriptionLinkBeneficiary2FilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionBizPartners2FilterInput = {
+  partnerId?: ModelSubscriptionStringInput | null,
+  bizContact?: ModelSubscriptionStringInput | null,
+  regNo?: ModelSubscriptionStringInput | null,
+  bizNpartner?: ModelSubscriptionStringInput | null,
+  bizName?: ModelSubscriptionStringInput | null,
+  partnerContact?: ModelSubscriptionStringInput | null,
+  partnerName?: ModelSubscriptionStringInput | null,
+  partnerNatId?: ModelSubscriptionStringInput | null,
+  AcStatus?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionBizPartners2FilterInput | null > | null,
+  or?: Array< ModelSubscriptionBizPartners2FilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionSMLoansCoveredFilterInput = {
@@ -6296,6 +7005,8 @@ export type ModelSubscriptionBiznaFilterInput = {
   earningsBal?: ModelSubscriptionFloatInput | null,
   bizBeneficiary?: ModelSubscriptionStringInput | null,
   netEarnings?: ModelSubscriptionFloatInput | null,
+  beneficiaryType?: ModelSubscriptionStringInput | null,
+  benefitsAmount?: ModelSubscriptionFloatInput | null,
   owner2email?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
   licenseNo?: ModelSubscriptionStringInput | null,
@@ -6592,6 +7303,11 @@ export type ModelSubscriptionCompanyFilterInput = {
   PayPalTNC?: ModelSubscriptionStringInput | null,
   maxDfltPen?: ModelSubscriptionFloatInput | null,
   bizBLNo?: ModelSubscriptionFloatInput | null,
+  b2bBenCom?: ModelSubscriptionFloatInput | null,
+  b2pBenCom?: ModelSubscriptionFloatInput | null,
+  p2pBenCom?: ModelSubscriptionFloatInput | null,
+  g2pBenCom?: ModelSubscriptionFloatInput | null,
+  p2BBenCom?: ModelSubscriptionFloatInput | null,
   id?: ModelSubscriptionIDInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCompanyFilterInput | null > | null,
@@ -7020,6 +7736,8 @@ export type CreateSMAccountMutation = {
     depositLimit: number,
     owner: string,
     createdAt: string,
+    beneficiaryType: string,
+    benefitsAmount: number,
     updatedAt: string,
   } | null,
 };
@@ -7159,6 +7877,8 @@ export type UpdateSMAccountMutation = {
     depositLimit: number,
     owner: string,
     createdAt: string,
+    beneficiaryType: string,
+    benefitsAmount: number,
     updatedAt: string,
   } | null,
 };
@@ -7298,7 +8018,417 @@ export type DeleteSMAccountMutation = {
     depositLimit: number,
     owner: string,
     createdAt: string,
+    beneficiaryType: string,
+    benefitsAmount: number,
     updatedAt: string,
+  } | null,
+};
+
+export type CreateBenProd2MutationVariables = {
+  input: CreateBenProd2Input,
+  condition?: ModelBenProd2ConditionInput | null,
+};
+
+export type CreateBenProd2Mutation = {
+  createBenProd2?:  {
+    __typename: "BenProd2",
+    id: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    prodDesc: string,
+    prodStatus: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateBenProd2MutationVariables = {
+  input: UpdateBenProd2Input,
+  condition?: ModelBenProd2ConditionInput | null,
+};
+
+export type UpdateBenProd2Mutation = {
+  updateBenProd2?:  {
+    __typename: "BenProd2",
+    id: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    prodDesc: string,
+    prodStatus: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteBenProd2MutationVariables = {
+  input: DeleteBenProd2Input,
+  condition?: ModelBenProd2ConditionInput | null,
+};
+
+export type DeleteBenProd2Mutation = {
+  deleteBenProd2?:  {
+    __typename: "BenProd2",
+    id: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    prodDesc: string,
+    prodStatus: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateBenefitContributions2MutationVariables = {
+  input: CreateBenefitContributions2Input,
+  condition?: ModelBenefitContributions2ConditionInput | null,
+};
+
+export type CreateBenefitContributions2Mutation = {
+  createBenefitContributions2?:  {
+    __typename: "BenefitContributions2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateBenefitContributions2MutationVariables = {
+  input: UpdateBenefitContributions2Input,
+  condition?: ModelBenefitContributions2ConditionInput | null,
+};
+
+export type UpdateBenefitContributions2Mutation = {
+  updateBenefitContributions2?:  {
+    __typename: "BenefitContributions2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteBenefitContributions2MutationVariables = {
+  input: DeleteBenefitContributions2Input,
+  condition?: ModelBenefitContributions2ConditionInput | null,
+};
+
+export type DeleteBenefitContributions2Mutation = {
+  deleteBenefitContributions2?:  {
+    __typename: "BenefitContributions2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateBenefitShare2MutationVariables = {
+  input: CreateBenefitShare2Input,
+  condition?: ModelBenefitShare2ConditionInput | null,
+};
+
+export type CreateBenefitShare2Mutation = {
+  createBenefitShare2?:  {
+    __typename: "BenefitShare2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateBenefitShare2MutationVariables = {
+  input: UpdateBenefitShare2Input,
+  condition?: ModelBenefitShare2ConditionInput | null,
+};
+
+export type UpdateBenefitShare2Mutation = {
+  updateBenefitShare2?:  {
+    __typename: "BenefitShare2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteBenefitShare2MutationVariables = {
+  input: DeleteBenefitShare2Input,
+  condition?: ModelBenefitShare2ConditionInput | null,
+};
+
+export type DeleteBenefitShare2Mutation = {
+  deleteBenefitShare2?:  {
+    __typename: "BenefitShare2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateLinkBeneficiary2MutationVariables = {
+  input: CreateLinkBeneficiary2Input,
+  condition?: ModelLinkBeneficiary2ConditionInput | null,
+};
+
+export type CreateLinkBeneficiary2Mutation = {
+  createLinkBeneficiary2?:  {
+    __typename: "LinkBeneficiary2",
+    beneficiaryID: string,
+    prodID: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateLinkBeneficiary2MutationVariables = {
+  input: UpdateLinkBeneficiary2Input,
+  condition?: ModelLinkBeneficiary2ConditionInput | null,
+};
+
+export type UpdateLinkBeneficiary2Mutation = {
+  updateLinkBeneficiary2?:  {
+    __typename: "LinkBeneficiary2",
+    beneficiaryID: string,
+    prodID: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteLinkBeneficiary2MutationVariables = {
+  input: DeleteLinkBeneficiary2Input,
+  condition?: ModelLinkBeneficiary2ConditionInput | null,
+};
+
+export type DeleteLinkBeneficiary2Mutation = {
+  deleteLinkBeneficiary2?:  {
+    __typename: "LinkBeneficiary2",
+    beneficiaryID: string,
+    prodID: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateBizPartners2MutationVariables = {
+  input: CreateBizPartners2Input,
+  condition?: ModelBizPartners2ConditionInput | null,
+};
+
+export type CreateBizPartners2Mutation = {
+  createBizPartners2?:  {
+    __typename: "BizPartners2",
+    partnerId: string,
+    bizContact: string,
+    regNo: string,
+    bizNpartner: string,
+    bizName: string,
+    partnerContact: string,
+    partnerName: string,
+    partnerNatId: string,
+    AcStatus: Status,
+    owner: string,
+    updatedAt: string,
+    createdAt: string,
+    id: string,
+  } | null,
+};
+
+export type UpdateBizPartners2MutationVariables = {
+  input: UpdateBizPartners2Input,
+  condition?: ModelBizPartners2ConditionInput | null,
+};
+
+export type UpdateBizPartners2Mutation = {
+  updateBizPartners2?:  {
+    __typename: "BizPartners2",
+    partnerId: string,
+    bizContact: string,
+    regNo: string,
+    bizNpartner: string,
+    bizName: string,
+    partnerContact: string,
+    partnerName: string,
+    partnerNatId: string,
+    AcStatus: Status,
+    owner: string,
+    updatedAt: string,
+    createdAt: string,
+    id: string,
+  } | null,
+};
+
+export type DeleteBizPartners2MutationVariables = {
+  input: DeleteBizPartners2Input,
+  condition?: ModelBizPartners2ConditionInput | null,
+};
+
+export type DeleteBizPartners2Mutation = {
+  deleteBizPartners2?:  {
+    __typename: "BizPartners2",
+    partnerId: string,
+    bizContact: string,
+    regNo: string,
+    bizNpartner: string,
+    bizName: string,
+    partnerContact: string,
+    partnerName: string,
+    partnerNatId: string,
+    AcStatus: Status,
+    owner: string,
+    updatedAt: string,
+    createdAt: string,
+    id: string,
   } | null,
 };
 
@@ -8733,6 +9863,8 @@ export type CreateBiznaMutation = {
     earningsBal: number,
     bizBeneficiary: string,
     netEarnings: number,
+    beneficiaryType: string,
+    benefitsAmount: number,
     owner2email?: string | null,
     email: string,
     licenseNo: string,
@@ -8839,6 +9971,8 @@ export type UpdateBiznaMutation = {
     earningsBal: number,
     bizBeneficiary: string,
     netEarnings: number,
+    beneficiaryType: string,
+    benefitsAmount: number,
     owner2email?: string | null,
     email: string,
     licenseNo: string,
@@ -8945,6 +10079,8 @@ export type DeleteBiznaMutation = {
     earningsBal: number,
     bizBeneficiary: string,
     netEarnings: number,
+    beneficiaryType: string,
+    benefitsAmount: number,
     owner2email?: string | null,
     email: string,
     licenseNo: string,
@@ -9401,6 +10537,11 @@ export type CreateCompanyMutation = {
     PayPalTNC?: string | null,
     maxDfltPen: number,
     bizBLNo?: number | null,
+    b2bBenCom: number,
+    b2pBenCom: number,
+    p2pBenCom: number,
+    g2pBenCom: number,
+    p2BBenCom: number,
     updatedAt: string,
   } | null,
 };
@@ -9563,6 +10704,11 @@ export type UpdateCompanyMutation = {
     PayPalTNC?: string | null,
     maxDfltPen: number,
     bizBLNo?: number | null,
+    b2bBenCom: number,
+    b2pBenCom: number,
+    p2pBenCom: number,
+    g2pBenCom: number,
+    p2BBenCom: number,
     updatedAt: string,
   } | null,
 };
@@ -9725,6 +10871,11 @@ export type DeleteCompanyMutation = {
     PayPalTNC?: string | null,
     maxDfltPen: number,
     bizBLNo?: number | null,
+    b2bBenCom: number,
+    b2pBenCom: number,
+    p2pBenCom: number,
+    g2pBenCom: number,
+    p2BBenCom: number,
     updatedAt: string,
   } | null,
 };
@@ -10910,6 +12061,8 @@ export type GetSMAccountQuery = {
     depositLimit: number,
     owner: string,
     createdAt: string,
+    beneficiaryType: string,
+    benefitsAmount: number,
     updatedAt: string,
   } | null,
 };
@@ -11054,7 +12207,303 @@ export type ListSMAccountsQuery = {
       depositLimit: number,
       owner: string,
       createdAt: string,
+      beneficiaryType: string,
+      benefitsAmount: number,
       updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetBenProd2QueryVariables = {
+  id: string,
+};
+
+export type GetBenProd2Query = {
+  getBenProd2?:  {
+    __typename: "BenProd2",
+    id: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    prodDesc: string,
+    prodStatus: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListBenProd2sQueryVariables = {
+  filter?: ModelBenProd2FilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBenProd2sQuery = {
+  listBenProd2s?:  {
+    __typename: "ModelBenProd2Connection",
+    items:  Array< {
+      __typename: "BenProd2",
+      id: string,
+      benefactorAc: string,
+      benefactorPhone: string,
+      creatorEmail: string,
+      prodName: string,
+      creatorName: string,
+      owner: string,
+      prodCost: number,
+      benefitsAmount: number,
+      prodDesc: string,
+      prodStatus: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetBenefitContributions2QueryVariables = {
+  id: string,
+};
+
+export type GetBenefitContributions2Query = {
+  getBenefitContributions2?:  {
+    __typename: "BenefitContributions2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListBenefitContributions2sQueryVariables = {
+  filter?: ModelBenefitContributions2FilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBenefitContributions2sQuery = {
+  listBenefitContributions2s?:  {
+    __typename: "ModelBenefitContributions2Connection",
+    items:  Array< {
+      __typename: "BenefitContributions2",
+      id: string,
+      benefitsID: string,
+      benefactorAc: string,
+      benefactorPhone: string,
+      beneficiaryAc: string,
+      beneficiaryPhone: string,
+      creatorEmail: string,
+      prodName: string,
+      creatorName: string,
+      owner: string,
+      prodCost: number,
+      benefitsAmount: number,
+      beneficiaryType: string,
+      prodDesc: string,
+      benefitStatus: string,
+      amount: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetBenefitShare2QueryVariables = {
+  id: string,
+};
+
+export type GetBenefitShare2Query = {
+  getBenefitShare2?:  {
+    __typename: "BenefitShare2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListBenefitShare2sQueryVariables = {
+  filter?: ModelBenefitShare2FilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBenefitShare2sQuery = {
+  listBenefitShare2s?:  {
+    __typename: "ModelBenefitShare2Connection",
+    items:  Array< {
+      __typename: "BenefitShare2",
+      id: string,
+      benefitsID: string,
+      benefactorAc: string,
+      benefactorPhone: string,
+      beneficiaryAc: string,
+      beneficiaryPhone: string,
+      creatorEmail: string,
+      prodName: string,
+      creatorName: string,
+      owner: string,
+      prodCost: number,
+      benefitsAmount: number,
+      beneficiaryType: string,
+      prodDesc: string,
+      benefitStatus: string,
+      amount: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetLinkBeneficiary2QueryVariables = {
+  beneficiaryID: string,
+};
+
+export type GetLinkBeneficiary2Query = {
+  getLinkBeneficiary2?:  {
+    __typename: "LinkBeneficiary2",
+    beneficiaryID: string,
+    prodID: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListLinkBeneficiary2sQueryVariables = {
+  beneficiaryID?: string | null,
+  filter?: ModelLinkBeneficiary2FilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListLinkBeneficiary2sQuery = {
+  listLinkBeneficiary2s?:  {
+    __typename: "ModelLinkBeneficiary2Connection",
+    items:  Array< {
+      __typename: "LinkBeneficiary2",
+      beneficiaryID: string,
+      prodID: string,
+      benefitsID: string,
+      benefactorAc: string,
+      benefactorPhone: string,
+      beneficiaryAc: string,
+      beneficiaryPhone: string,
+      creatorEmail: string,
+      prodName: string,
+      creatorName: string,
+      owner: string,
+      prodCost: number,
+      benefitsAmount: number,
+      beneficiaryType: string,
+      prodDesc: string,
+      benefitStatus: string,
+      amount: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetBizPartners2QueryVariables = {
+  id: string,
+};
+
+export type GetBizPartners2Query = {
+  getBizPartners2?:  {
+    __typename: "BizPartners2",
+    partnerId: string,
+    bizContact: string,
+    regNo: string,
+    bizNpartner: string,
+    bizName: string,
+    partnerContact: string,
+    partnerName: string,
+    partnerNatId: string,
+    AcStatus: Status,
+    owner: string,
+    updatedAt: string,
+    createdAt: string,
+    id: string,
+  } | null,
+};
+
+export type ListBizPartners2sQueryVariables = {
+  filter?: ModelBizPartners2FilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBizPartners2sQuery = {
+  listBizPartners2s?:  {
+    __typename: "ModelBizPartners2Connection",
+    items:  Array< {
+      __typename: "BizPartners2",
+      partnerId: string,
+      bizContact: string,
+      regNo: string,
+      bizNpartner: string,
+      bizName: string,
+      partnerContact: string,
+      partnerName: string,
+      partnerNatId: string,
+      AcStatus: Status,
+      owner: string,
+      updatedAt: string,
+      createdAt: string,
+      id: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -12102,6 +13551,8 @@ export type GetBiznaQuery = {
     earningsBal: number,
     bizBeneficiary: string,
     netEarnings: number,
+    beneficiaryType: string,
+    benefitsAmount: number,
     owner2email?: string | null,
     email: string,
     licenseNo: string,
@@ -12213,6 +13664,8 @@ export type ListBiznasQuery = {
       earningsBal: number,
       bizBeneficiary: string,
       netEarnings: number,
+      beneficiaryType: string,
+      benefitsAmount: number,
       owner2email?: string | null,
       email: string,
       licenseNo: string,
@@ -12617,6 +14070,11 @@ export type GetCompanyQuery = {
     PayPalTNC?: string | null,
     maxDfltPen: number,
     bizBLNo?: number | null,
+    b2bBenCom: number,
+    b2pBenCom: number,
+    p2pBenCom: number,
+    g2pBenCom: number,
+    p2BBenCom: number,
     updatedAt: string,
   } | null,
 };
@@ -12784,6 +14242,11 @@ export type ListCompaniesQuery = {
       PayPalTNC?: string | null,
       maxDfltPen: number,
       bizBLNo?: number | null,
+      b2bBenCom: number,
+      b2pBenCom: number,
+      p2pBenCom: number,
+      g2pBenCom: number,
+      p2BBenCom: number,
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
@@ -13679,6 +15142,8 @@ export type VwNatIdentityQuery = {
       depositLimit: number,
       owner: string,
       createdAt: string,
+      beneficiaryType: string,
+      benefitsAmount: number,
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
@@ -13826,6 +15291,8 @@ export type VwPnCntctQuery = {
       depositLimit: number,
       owner: string,
       createdAt: string,
+      beneficiaryType: string,
+      benefitsAmount: number,
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
@@ -15130,6 +16597,8 @@ export type BiznaVwwsQuery = {
       earningsBal: number,
       bizBeneficiary: string,
       netEarnings: number,
+      beneficiaryType: string,
+      benefitsAmount: number,
       owner2email?: string | null,
       email: string,
       licenseNo: string,
@@ -16337,6 +17806,8 @@ export type OnCreateSMAccountSubscription = {
     depositLimit: number,
     owner: string,
     createdAt: string,
+    beneficiaryType: string,
+    benefitsAmount: number,
     updatedAt: string,
   } | null,
 };
@@ -16476,6 +17947,8 @@ export type OnUpdateSMAccountSubscription = {
     depositLimit: number,
     owner: string,
     createdAt: string,
+    beneficiaryType: string,
+    benefitsAmount: number,
     updatedAt: string,
   } | null,
 };
@@ -16615,7 +18088,417 @@ export type OnDeleteSMAccountSubscription = {
     depositLimit: number,
     owner: string,
     createdAt: string,
+    beneficiaryType: string,
+    benefitsAmount: number,
     updatedAt: string,
+  } | null,
+};
+
+export type OnCreateBenProd2SubscriptionVariables = {
+  filter?: ModelSubscriptionBenProd2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateBenProd2Subscription = {
+  onCreateBenProd2?:  {
+    __typename: "BenProd2",
+    id: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    prodDesc: string,
+    prodStatus: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateBenProd2SubscriptionVariables = {
+  filter?: ModelSubscriptionBenProd2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateBenProd2Subscription = {
+  onUpdateBenProd2?:  {
+    __typename: "BenProd2",
+    id: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    prodDesc: string,
+    prodStatus: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteBenProd2SubscriptionVariables = {
+  filter?: ModelSubscriptionBenProd2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteBenProd2Subscription = {
+  onDeleteBenProd2?:  {
+    __typename: "BenProd2",
+    id: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    prodDesc: string,
+    prodStatus: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateBenefitContributions2SubscriptionVariables = {
+  filter?: ModelSubscriptionBenefitContributions2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateBenefitContributions2Subscription = {
+  onCreateBenefitContributions2?:  {
+    __typename: "BenefitContributions2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateBenefitContributions2SubscriptionVariables = {
+  filter?: ModelSubscriptionBenefitContributions2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateBenefitContributions2Subscription = {
+  onUpdateBenefitContributions2?:  {
+    __typename: "BenefitContributions2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteBenefitContributions2SubscriptionVariables = {
+  filter?: ModelSubscriptionBenefitContributions2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteBenefitContributions2Subscription = {
+  onDeleteBenefitContributions2?:  {
+    __typename: "BenefitContributions2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateBenefitShare2SubscriptionVariables = {
+  filter?: ModelSubscriptionBenefitShare2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateBenefitShare2Subscription = {
+  onCreateBenefitShare2?:  {
+    __typename: "BenefitShare2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateBenefitShare2SubscriptionVariables = {
+  filter?: ModelSubscriptionBenefitShare2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateBenefitShare2Subscription = {
+  onUpdateBenefitShare2?:  {
+    __typename: "BenefitShare2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteBenefitShare2SubscriptionVariables = {
+  filter?: ModelSubscriptionBenefitShare2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteBenefitShare2Subscription = {
+  onDeleteBenefitShare2?:  {
+    __typename: "BenefitShare2",
+    id: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateLinkBeneficiary2SubscriptionVariables = {
+  filter?: ModelSubscriptionLinkBeneficiary2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateLinkBeneficiary2Subscription = {
+  onCreateLinkBeneficiary2?:  {
+    __typename: "LinkBeneficiary2",
+    beneficiaryID: string,
+    prodID: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateLinkBeneficiary2SubscriptionVariables = {
+  filter?: ModelSubscriptionLinkBeneficiary2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateLinkBeneficiary2Subscription = {
+  onUpdateLinkBeneficiary2?:  {
+    __typename: "LinkBeneficiary2",
+    beneficiaryID: string,
+    prodID: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteLinkBeneficiary2SubscriptionVariables = {
+  filter?: ModelSubscriptionLinkBeneficiary2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteLinkBeneficiary2Subscription = {
+  onDeleteLinkBeneficiary2?:  {
+    __typename: "LinkBeneficiary2",
+    beneficiaryID: string,
+    prodID: string,
+    benefitsID: string,
+    benefactorAc: string,
+    benefactorPhone: string,
+    beneficiaryAc: string,
+    beneficiaryPhone: string,
+    creatorEmail: string,
+    prodName: string,
+    creatorName: string,
+    owner: string,
+    prodCost: number,
+    benefitsAmount: number,
+    beneficiaryType: string,
+    prodDesc: string,
+    benefitStatus: string,
+    amount: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateBizPartners2SubscriptionVariables = {
+  filter?: ModelSubscriptionBizPartners2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateBizPartners2Subscription = {
+  onCreateBizPartners2?:  {
+    __typename: "BizPartners2",
+    partnerId: string,
+    bizContact: string,
+    regNo: string,
+    bizNpartner: string,
+    bizName: string,
+    partnerContact: string,
+    partnerName: string,
+    partnerNatId: string,
+    AcStatus: Status,
+    owner: string,
+    updatedAt: string,
+    createdAt: string,
+    id: string,
+  } | null,
+};
+
+export type OnUpdateBizPartners2SubscriptionVariables = {
+  filter?: ModelSubscriptionBizPartners2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateBizPartners2Subscription = {
+  onUpdateBizPartners2?:  {
+    __typename: "BizPartners2",
+    partnerId: string,
+    bizContact: string,
+    regNo: string,
+    bizNpartner: string,
+    bizName: string,
+    partnerContact: string,
+    partnerName: string,
+    partnerNatId: string,
+    AcStatus: Status,
+    owner: string,
+    updatedAt: string,
+    createdAt: string,
+    id: string,
+  } | null,
+};
+
+export type OnDeleteBizPartners2SubscriptionVariables = {
+  filter?: ModelSubscriptionBizPartners2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteBizPartners2Subscription = {
+  onDeleteBizPartners2?:  {
+    __typename: "BizPartners2",
+    partnerId: string,
+    bizContact: string,
+    regNo: string,
+    bizNpartner: string,
+    bizName: string,
+    partnerContact: string,
+    partnerName: string,
+    partnerNatId: string,
+    AcStatus: Status,
+    owner: string,
+    updatedAt: string,
+    createdAt: string,
+    id: string,
   } | null,
 };
 
@@ -18049,6 +19932,8 @@ export type OnCreateBiznaSubscription = {
     earningsBal: number,
     bizBeneficiary: string,
     netEarnings: number,
+    beneficiaryType: string,
+    benefitsAmount: number,
     owner2email?: string | null,
     email: string,
     licenseNo: string,
@@ -18154,6 +20039,8 @@ export type OnUpdateBiznaSubscription = {
     earningsBal: number,
     bizBeneficiary: string,
     netEarnings: number,
+    beneficiaryType: string,
+    benefitsAmount: number,
     owner2email?: string | null,
     email: string,
     licenseNo: string,
@@ -18259,6 +20146,8 @@ export type OnDeleteBiznaSubscription = {
     earningsBal: number,
     bizBeneficiary: string,
     netEarnings: number,
+    beneficiaryType: string,
+    benefitsAmount: number,
     owner2email?: string | null,
     email: string,
     licenseNo: string,
@@ -18715,6 +20604,11 @@ export type OnCreateCompanySubscription = {
     PayPalTNC?: string | null,
     maxDfltPen: number,
     bizBLNo?: number | null,
+    b2bBenCom: number,
+    b2pBenCom: number,
+    p2pBenCom: number,
+    g2pBenCom: number,
+    p2BBenCom: number,
     updatedAt: string,
   } | null,
 };
@@ -18877,6 +20771,11 @@ export type OnUpdateCompanySubscription = {
     PayPalTNC?: string | null,
     maxDfltPen: number,
     bizBLNo?: number | null,
+    b2bBenCom: number,
+    b2pBenCom: number,
+    p2pBenCom: number,
+    g2pBenCom: number,
+    p2BBenCom: number,
     updatedAt: string,
   } | null,
 };
@@ -19039,6 +20938,11 @@ export type OnDeleteCompanySubscription = {
     PayPalTNC?: string | null,
     maxDfltPen: number,
     bizBLNo?: number | null,
+    b2bBenCom: number,
+    b2pBenCom: number,
+    p2pBenCom: number,
+    g2pBenCom: number,
+    p2BBenCom: number,
     updatedAt: string,
   } | null,
 };
