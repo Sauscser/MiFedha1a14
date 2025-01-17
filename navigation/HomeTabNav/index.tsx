@@ -517,6 +517,7 @@ import CreateExRates from "../../screens/Settings/CreateExRates";
 import MemberDtls from "../../screens/Chama/ViewChamaActivities/Membership/MemberDtls";
 import ChmMmbrContriss from "../../screens/Chama/ViewChamaActivities/Contributions/Member";
 import AddBeneficiaryProduct from "../../screens/CredSls/BeneficiaryProducts/AddBeneficiaryProduct";
+import VwBenProds from "../../screens/CredSls/BeneficiaryProducts/VwBenProds";
 
 
 
@@ -532,7 +533,7 @@ const HomeNavigator = props => {
       <Stack.Screen name={'ChmMmbrContriss'} component={ChmMmbrContriss} />
       
       <Stack.Screen name={'MemberDtls'} component={MemberDtls} />
-      
+      <Stack.Screen name={'VwBenProds'} component={VwBenProds} />
       <Stack.Screen name={'AddBeneficiaryProduct'} component={AddBeneficiaryProduct} />
       <Stack.Screen name={'CreateExRates'} component={CreateExRates} />
       <Stack.Screen name={'MemberReqChm'} component={MemberReqChm} />

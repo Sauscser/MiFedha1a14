@@ -57,7 +57,9 @@ const UpdtSMPW = (props) => {
     navigation.navigate("VwCompPrivacys");
   };
 
-  
+  const GoHome = () => {
+    navigation.navigate('Homes');
+  };  
       
  return (
             <View>
@@ -65,8 +67,15 @@ const UpdtSMPW = (props) => {
                  style={styles.image}>
                 <ScrollView>    
                   
-                    <View style={styles.loanTitleView2}>
-                    <Pressable onPress={moveToAbt}
+                    
+                    <Pressable onPress={GoHome}
+                    style={styles.sendLoanButton}>
+                        <Text style={styles.sendLoanButtonText}>
+                            Go Home
+                        </Text>
+                    </Pressable>
+                    
+                     <Pressable onPress={moveToAbt}
                     style={styles.sendLoanButton}>
                         <Text style={styles.sendLoanButtonText}>
                             About
@@ -88,7 +97,7 @@ const UpdtSMPW = (props) => {
                     </Pressable>
 
                     
-                  </View>
+                
         
                   
                 </ScrollView>

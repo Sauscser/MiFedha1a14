@@ -163,6 +163,7 @@ prodStatus: "AccountActive"
               );
               
             } catch (error) {
+              console.log(error)
               if (error){
                 Alert.alert("Error! Access denied!")
                 return

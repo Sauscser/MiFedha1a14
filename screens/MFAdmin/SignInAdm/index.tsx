@@ -33,6 +33,9 @@ const AdminSignIn = (props) => {
     navigation.navigate("MFAdminstrator");
   };
 
+  const GoHome = () => {
+    navigation.navigate('Homes');
+  }; 
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     setownr(userInfo.attributes.sub);  
@@ -109,9 +112,10 @@ const AdminSignIn = (props) => {
               <View
                  style={styles.image}>
                 <ScrollView>
-                  <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Details Below</Text>
-                  </View>
+                  <TouchableOpacity onPress={GoHome}
+                  style={styles.loanTitleView}>
+                    <Text style={styles.title}>Go Home</Text>
+                  </TouchableOpacity>
         
                   <View style={styles.sendLoanView}>
                     <TextInput
