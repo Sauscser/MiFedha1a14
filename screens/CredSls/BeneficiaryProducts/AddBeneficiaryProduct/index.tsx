@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import { createBenProd2, createBizna, createChamaMembers, createGroup,   createPersonel,   updateCompany} from '../../../../src/graphql/mutations';
+import { createBenProd2, createBizna, createChamaMembers, createGroup,   createLinkBeneficiary2,   createPersonel,   updateCompany} from '../../../../src/graphql/mutations';
 import { getBizna, getCompany, getSMAccount,   } from '../../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
@@ -38,8 +38,8 @@ const CreateChama = (props:UserReg) => {
   const navigation = useNavigation();
 
   const [ChmPhn, setChmPhn] = useState('');
-  const [nam, setName] = useState(null);
-  const [phoneContact, setPhoneContact] = useState(null);
+  const [nam, setName] = useState('');
+  const [phoneContact, setPhoneContact] = useState('');
   
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
@@ -48,6 +48,8 @@ const CreateChama = (props:UserReg) => {
   const [ChmRegNo, setChmRegNo] = useState('');
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState('');
+  
+    
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
 
@@ -144,10 +146,11 @@ const CreateChama = (props:UserReg) => {
         setIsLoading(true);
         try {
           await API.graphql(
-          graphqlOperation(createBenProd2, {
+          graphqlOperation(createLinkBeneficiary2, {
           input: {
             
-benefactorAc: ChmRegNo,
+            
+              benefactorAc: ChmRegNo,
 benefactorPhone: ChmRegNo,
 creatorEmail: userInfo.attributes.email,
 prodName: ChmPhn,
@@ -163,6 +166,7 @@ prodStatus: "AccountActive"
               );
               
             } catch (error) {
+              console.log(error)
               if (error){
                 Alert.alert("Error! Access denied!")
                 return
@@ -320,9 +324,11 @@ prodStatus: "AccountActive"
               setChmRegNo("")
               setMmbaID("")
               setSign2Phn("");
+              
   }
 
     
+
       useEffect(() =>{
         const MmbaIDs=MmbaID
           if(!MmbaIDs && MmbaIDs!=="")

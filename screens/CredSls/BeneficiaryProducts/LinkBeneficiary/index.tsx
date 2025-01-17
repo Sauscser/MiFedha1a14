@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import { createBenProd2, createBizna, createChamaMembers, createGroup,   createPersonel,   updateCompany} from '../../../../src/graphql/mutations';
-import { getBizna, getCompany, getSMAccount,   } from '../../../../src/graphql/queries';
+import { getBizna, getCompany, getSMAccount, listPersonels,   } from '../../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -38,8 +38,8 @@ const CreateChama = (props:UserReg) => {
   const navigation = useNavigation();
 
   const [ChmPhn, setChmPhn] = useState('');
-  const [nam, setName] = useState(null);
-  const [phoneContact, setPhoneContact] = useState(null);
+  const [nam, setName] = useState('');
+  const [phoneContact, setPhoneContact] = useState('');
   
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
@@ -49,7 +49,17 @@ const CreateChama = (props:UserReg) => {
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
+const [nationalId, setNationalid] = useState('');
+    const[eml, setEml] =useState("");
+  
+    
+    
+    const [saRegNo, setSARegNo] = useState('');
+    const [BkName, setBkName] = useState('');
+    const [BkAcNu, setBkAcNu] = useState('');
+    const[lat, setLat] = useState('');
+    const[twn, settwn] = useState("");
+    const[lon, setLon] = useState("");
 
   const WorkerID = ChmDesc+ChmRegNo
 
@@ -66,10 +76,21 @@ const CreateChama = (props:UserReg) => {
           const UsrDtls:any = await API.graphql(
             graphqlOperation(getSMAccount, { awsemail:userInfo.attributes.email}),
                         
-          )
-
-       
+          )       
           const pwsz = UsrDtls.data.getSMAccount.pw;
+
+          const ChckPhnUse = async () => {
+                      try {
+                        const UsrDtlss:any = await API.graphql(
+                          graphqlOperation(listPersonels,
+                            { filter: {
+                                
+                              phoneKontact: { eq: userInfo.attributes.email},
+                              BusinessRegNo:{eq: ChmRegNo}
+                                            
+                              }}
+                          )
+                        )
 
           const PckBiznaDtls = async () => {
             if(isLoading){
@@ -146,6 +167,8 @@ const CreateChama = (props:UserReg) => {
           await API.graphql(
           graphqlOperation(createBenProd2, {
           input: {
+
+            
             
 benefactorAc: ChmRegNo,
 benefactorPhone: ChmRegNo,
@@ -304,6 +327,17 @@ prodStatus: "AccountActive"
 
     await PckBiznaDtls();
       
+  } catch (error) {
+        
+    if (error){Alert.alert("Error! Create a business first!")
+  return}
+  }
+
+  setIsLoading(false)
+            
+}
+
+await ChckPhnUse(); 
 
     } catch (e) {
       console.error(e);
@@ -321,8 +355,142 @@ prodStatus: "AccountActive"
               setChmRegNo("")
               setMmbaID("")
               setSign2Phn("");
+              setNationalid('');
+                            
+                  setPW('');
+                  setName('');
+                  setEml("");
+                  setLat("");
+                  setLon("");
+                  setBkAcNu("");
+                  setBkName("");
+                  setPhoneContact('');
+                  setSARegNo('');
+                  settwn("")
   }
 
+  useEffect(() =>{
+          const BkNames=BkName
+            if(!BkNames && BkNames!=="")
+            {
+              setBkName("");
+              return;
+            }
+            setBkName(BkNames);
+            }, [BkName]
+             );
+      
+             useEffect(() =>{
+              const BkAcNus=BkAcNu
+                if(!BkAcNus && BkAcNus!=="")
+                {
+                  setBkAcNu("");
+                  return;
+                }
+                setBkAcNu(BkAcNus);
+                }, [BkAcNu]
+                 );
+      
+                 useEffect(() =>{
+                  const natId=nationalId
+                    if(!natId && natId!=="")
+                    {
+                      setNationalid("");
+                      return;
+                    }
+                    setNationalid(natId);
+                    }, [nationalId]
+                     );
+      
+             useEffect(() =>{
+              const twns=twn
+                if(!twns && twns!=="")
+                {
+                  settwn("");
+                  return;
+                }
+                settwn(twns);
+                }, [twn]
+                 );
+        
+             useEffect(() =>{
+              const pws=pword
+                if(!pws && pws!=="")
+                {
+                  setPW("");
+                  return;
+                }
+                setPW(pws);
+                }, [pword]
+                 );
+        
+                 useEffect(() =>{
+                  const phn=phoneContact
+                    if(!phn && phn!=="")
+                    {
+                      setPhoneContact("");
+                      return;
+                    }
+                    setPhoneContact(phn);
+                    }, [phoneContact]
+                     );
+        
+                     useEffect(() =>{
+                      const name=nam
+                        if(!name && name!=="")
+                        {
+                          setName("");
+                          return;
+                        }
+                        setName(name);
+                        }, [nam]
+                         );
+      
+                         useEffect(() =>{
+                          const email=eml
+                            if(!email && email!=="")
+                            {
+                              setEml("");
+                              return;
+                            }
+                            setEml(email);
+                            }, [eml]
+                             );
+                        
+                             useEffect(() =>{
+                              const lati=lat
+                                if(!lati && lati!=="")
+                                {
+                                  setLat("");
+                                  return;
+                                }
+                                setLat(lati);
+                                }, [lat]
+                                 );
+                        
+                                 useEffect(() =>{
+                                  const long=lon
+                                    if(!long && long!=="")
+                                    {
+                                      setLon("");
+                                      return;
+                                    }
+                                    setLon(long);
+                                    }, [lon]
+                                     );
+                        
+                                     
+                          
+                                         useEffect(() =>{
+                                          const saRN=saRegNo
+                                            if(!saRN && saRN!=="")
+                                            {
+                                              setSARegNo("");
+                                              return;
+                                            }
+                                            setSARegNo(saRN);
+                                            }, [saRegNo]
+                                             );
     
       useEffect(() =>{
         const MmbaIDs=MmbaID
