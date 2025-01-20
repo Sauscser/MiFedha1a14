@@ -20,7 +20,9 @@ declare global {
       BizReadPayPalTNC:undefined;
       CreateExRates:undefined;
       AddBeneficiaryProduct:undefined;
+      LinkBeneficiary: {id:string};
       UpdateMainAc:undefined;
+      ViewBenProds: undefined;
       AddBeneficiary:undefined;
       BizAddAdmin:undefined;
       AddBizBeneficiary:undefined;

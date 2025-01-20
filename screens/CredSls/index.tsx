@@ -148,6 +148,14 @@ const MyLoanAccount = () => {
   const UpdateBizAc = () => {
     navigation.navigate('UpdateBizAc');
   };
+
+  const ViewBenProds = () => {
+    navigation.navigate('ViewBenProds');
+  };
+
+  
+
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -165,7 +173,8 @@ const MyLoanAccount = () => {
             { label: 'Create Benefit Product', onPress: AddBeneficiaryProduct, style: styles.ClientsPressables },
             { label: 'Link Beneficiary', onPress: UpdateBizAc, style: styles.ClientsPressables },
             { label: 'Release Benefits', onPress: AddPersonelss, style: styles.ClientsPressables },
-            { label: 'View Benefit Products', onPress: RmvPersonnelsss, style: styles.ClientsPressables }
+            { label: 'View Benefit Products', onPress: ViewBenProds, style: styles.ClientsPressables },
+            { label: 'View Beneficiaries', onPress: ViewBenProds, style: styles.ClientsPressables }
             
           ]}
         />

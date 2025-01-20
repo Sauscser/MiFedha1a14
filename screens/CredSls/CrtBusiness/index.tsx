@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 
 import {createBizna, createChamaMembers, createGroup,   createPersonel,   updateCompany} from '../../../src/graphql/mutations';
-import { getCompany, getSMAccount, listBiznas, listChamasRegConfirms, vwViaPhonss,  } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount, listBiznas,  } from '../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
-
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import {
   View,
@@ -14,13 +15,13 @@ import {
   
   TextInput,
   ScrollView,
-  
+  StyleSheet,
   
   TouchableOpacity,
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import styles from './styles';
+
 
 
 
@@ -39,6 +40,7 @@ const CreateBiz = (props) => {
   const [ChmRegNo, setChmRegNo] = useState('');
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const WorkerID = "00001"+ChmPhn
 
@@ -273,6 +275,11 @@ const CreateBiz = (props) => {
     else if (UsrDtls2.data.listBiznas.items.length> 0)
     {Alert.alert ("You have a business blacklisted by one of your clients")}
 
+    else if (pword !== ChmRegNo) {
+      Alert.alert('Passwords do not match.');
+      return;
+    }
+
 
     else{
                            await CreateNewSMAc();}
@@ -406,78 +413,141 @@ useEffect(() =>{
              );
 
         
-          return (
-            <View>
-              <View
-                 style={styles.image}>
-                <ScrollView>
-           
-                  <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Business Details Below</Text>
-                  </View>
-        
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                     placeholder="+2547xxxxxxxx"
-                      value={ChmPhn}
-                      onChangeText={setChmPhn}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Business Phone</Text>
-                  </View>
+             return (
+              <LinearGradient
+                colors={['#e58d29', 'skyblue']}
+                start={[0, 0]}
+                end={[1, 1]}
+                style={{ flex: 1 }}
+              >
+                <View style={styles.container}>
+                  <ScrollView>
+                  
+                    <View style={styles.formContainer}>
+                      <TextInput
+                        placeholder="Business Phone Number"
+                        value={ChmPhn}
+                        onChangeText={setChmPhn}
+                        style={styles.input}
+                      />
+                      <TextInput
+                        placeholder="Business Name"
+                        value={ChmNm}
+                        onChangeText={setChmNm}
+                        style={styles.input}
+                      />
+                      <TextInput
+                        placeholder="Registration Number"
+                        value={Sign2Phn}
+                        onChangeText={setSign2Phn}
+                        style={styles.input}
+                      />
+                      <TextInput
+                        placeholder="Business Description"
+                        value={ChmDesc}
+                        onChangeText={setChmDesc}
+                        style={styles.input}
+                        multiline={true}  // Enables multi-line input
+                textAlignVertical="top"
+                      />
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={ChmNm}
-                      onChangeText={setChmNm}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Business Name</Text>
-                  </View>
-
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={Sign2Phn}
-                      onChangeText={setSign2Phn}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Registration/License Number</Text>
-                  </View>
-
-        
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={pword}
-                      onChangeText={setPW}
-                      secureTextEntry = {true}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Business Pass Word</Text>
-                  </View>
-
-                  <View style={styles.sendAmtViewDesc}>
-                    <TextInput
-                      value={ChmDesc}
-                      multiline={true}
-                      onChangeText={setChmDesc}
-                      style={styles.sendAmtInputDesc}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Business Description</Text>
-                  </View>
-
-        
-                  <TouchableOpacity
-                    onPress={fetchAcDtls}
-                    style={styles.sendLoanButton}>
-                    <Text style={styles.sendLoanButtonText}>
-                      Click to Register Business
-                    </Text>
-                    {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
-                  </TouchableOpacity>
-                </ScrollView>
-              </View>
-            </View>
-          );
-        };
+                      <View style={styles.passwordContainer}>
+                                                                 <TextInput
+                                                                   placeholder="Biz Account Password"
+                                                               style={styles.passwordInput}
+                                                                                                    
+                                                               value={pword}
+                                                               onChangeText={setPW}
+                                                               secureTextEntry={!isPasswordVisible}
+                                                               placeholderTextColor="#ccc"
+                                                                       />
+                                                               <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                                                              <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
+                                                               </TouchableOpacity>
+                                                               </View>
+                     
+                                                               <View style={styles.passwordContainer}>
+                                                                 <TextInput
+                                                                   placeholder="Confirm Biz Account Password"
+                                                               style={styles.passwordInput}
+                                                                                                    
+                                                               value={ChmRegNo}
+                                                               onChangeText={setChmRegNo}
+                                                               secureTextEntry={!isPasswordVisible}
+                                                               placeholderTextColor="#ccc"
+                                                               />
+                                                               <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                                                              <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
+                                                               </TouchableOpacity>
+                                                              </View>
+                      
+                      <TouchableOpacity onPress={fetchAcDtls} style={styles.button}>
+                        {isLoading ? (
+                          <ActivityIndicator color="#fff" />
+                        ) : (
+                          <Text style={styles.locationText}>Submit</Text>
+                        )}
+                      </TouchableOpacity>
+                    </View>
+                  </ScrollView>
+                </View>
+              </LinearGradient>
+            );
+          };
+          
+          const styles = StyleSheet.create({
+              gradient: {
+                flex: 1,
+              },
+              container: {
+                flex: 1,
+                padding: 20,
+              },
+              loanTitleView: {
+                marginBottom: 20,
+                alignItems: 'center',
+              },
+              title: {
+                fontSize: 24,
+                fontWeight: 'bold',
+                color: '#ffffff',
+                textAlign: 'center',
+              },
+              formContainer: {
+                backgroundColor: '#ffffff',
+                borderRadius: 10,
+                padding: 20,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 4,
+                elevation: 5,
+              },
+              input: {
+                height: 45,
+                borderColor: '#ccc',
+                borderWidth: 1,
+                marginBottom: 15,
+                borderRadius: 5,
+                paddingLeft: 10,
+              },
+              button: {
+                backgroundColor: '#e58d29',
+                paddingVertical: 12,
+                borderRadius: 5,
+                alignItems: 'center',
+                marginTop: 20,
+              },
+              locationContainer: {
+                marginVertical: 10,
+              },
+              locationText: {
+                fontSize: 16,
+                color: '#333',
+              },
+              passwordContainer: { flexDirection: 'row', alignItems: 'center', 
+                  backgroundColor: '#fff', borderRadius: 8, marginBottom: 10, height:50 },
+          passwordInput: { flex: 1, padding: 12 },
+            });
         
         export default CreateBiz;

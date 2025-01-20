@@ -6,7 +6,7 @@ import NonLnSent from "../../../components/VwCredSales/ViewBizInfo2Take";
 import styles from './styles';
 
 
-import { biznaVwws, listAgents, listBiznas} from '../../../src/graphql/queries';
+import {  listAgents, listBiznas} from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 
 const FetchSMNonLnsSnt = props => {

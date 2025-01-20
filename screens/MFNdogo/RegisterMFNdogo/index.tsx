@@ -1,24 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {Alert} from "react-native"
+import { LinearGradient } from 'expo-linear-gradient';
 
 import {createAgent, updateCompany, updateSAgent, updateSMAccount} from '../../../src/graphql/mutations';
 
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 
-import {
-  View,
-  Text,
-  
-  
-  TextInput,
-  ScrollView,
-  
-  
-  TouchableOpacity,
-  ActivityIndicator
-} from 'react-native';
-import styles from './styles';
+import { Alert, View, Text, TextInput, ScrollView, 
+  TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
+import * as Location from 'expo-location'; // Importing Expo Location
+import { Ionicons } from '@expo/vector-icons';
+
 import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../src/graphql/queries';
 
   const RegisterKFNdgAcForm = props => {
@@ -36,6 +28,40 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
   const[twn, settwn] = useState("");
   const[lon, setLon] = useState("");
   const[isLoading, setIsLoading]=useState(false);
+  const [latitudez, setLatitude] = useState('');
+  const [longitudez, setLongitude] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+
+   // Fetch user attributes and location on component mount
+   useEffect(() => {
+    const initializeData = async () => {
+      setIsLoading(true);
+      try {
+        // Fetch user attributes
+        
+
+        // Fetch location
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          Alert.alert('Permission Denied', 'Location permission is required to use this feature.');
+          setIsLoading(false);
+          return;
+        }
+
+        const location = await Location.getCurrentPositionAsync({});
+        setLatitude(location.coords.latitude.toString());
+        setLongitude(location.coords.longitude.toString());
+      } catch (error) {
+        Alert.alert('Error', 'Failed to initialize data. Please try again.');
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    initializeData();
+  }, []);
   
   
    const gtMFKDtsl = async () =>{
@@ -117,8 +143,8 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
                     TtlFltIn: 0,
                     TtlFltOut: 0,
                     floatBal: 0,   
-                    latitude: lat,
-                    longitude: lon,              
+                    latitude: latitudez,
+                    longitude: longitudez,              
                     agentEarningBal: 0,
                     MFNWithdrwlFee:0,
                     town:twn,      
@@ -152,6 +178,11 @@ import { getCompany, getSAgent,  getSMAccount,  listSMAccounts } from '../../../
         Alert.alert("Please first purchase this account");
         return;
       } 
+
+      else if (pword !== lat) {
+        Alert.alert('Passwords do not match.');
+        return;
+      }
 
       
       else if((actvMFNdogs+1)>mfnTtl){
@@ -416,124 +447,174 @@ return;
                                        );
 
 
-  return (
-    <View>
-      <View
-        
-        style={styles.image}>
-        <ScrollView>
-          <View style={styles.loanTitleView}>
-            <Text style={styles.title}>Fill Details Below</Text>
-          </View>
+                                       return (
+                                        <LinearGradient
+                                          colors={['#e58d29', 'skyblue']}
+                                          start={[0, 0]}
+                                          end={[1, 1]}
+                                          style={{ flex: 1 }}
+                                        >
+                                          <View style={styles.container}>
+                                            <ScrollView>
 
-          <View style={styles.sendLoanView}>
+          <View style={styles.formContainer}>
             <TextInput
-            placeholder="+2547xxxxxxxx"
+            placeholder="MFKubwa Phone number"
               value={saRegNo}
               onChangeText={setSARegNo}
-              style={styles.sendLoanInput}
+              style={styles.input}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFKubwa Phone number</Text>
-          </View>
+            
           
-          <View style={styles.sendLoanView}>
             <TextInput
-            placeholder={"+2547xxxxxxxx"}
+            placeholder={"MFNdogo Phone"}
               value={phoneContact}
               onChangeText={setPhoneContact}
-              style={styles.sendLoanInput}
+              style={styles.input}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo Phone</Text>
-          </View>
+           
 
-          <View style={styles.sendLoanView}>
+          
             <TextInput
+            placeholder={"MFNdogo Name"}
               value={nam}
               onChangeText={setName}
-              style={styles.sendLoanInput}
+              style={styles.input}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo Name</Text>
-          </View>
-
-          <View style={styles.sendLoanView}>
+            
+          
             <TextInput
+            placeholder={"Bank Name"}
               value={BkAcNu}
               onChangeText={setBkAcNu}
-              style={styles.sendLoanInput}
+              style={styles.input}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>Bank Name</Text>
-          </View>
-
-          <View style={styles.sendLoanView}>
+            
+          
             <TextInput
+            placeholder={"Bank Account Number"}
               value={BkName}
               onChangeText={setBkName}
-              style={styles.sendLoanInput}
+              style={styles.input}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>Bank Ac Number</Text>
-          </View>
+            
 
-          <View style={styles.sendLoanView}>
+         
             <TextInput
+            placeholder={"MFNdogo Email"}
               value={eml}
               onChangeText={setEml}
-              style={styles.sendLoanInput}
+              style={styles.input}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo Email</Text>
-          </View>
-
-          <View style={styles.sendLoanView}>
+         
             <TextInput
-              value={pword}
-              onChangeText={setPW}
-              secureTextEntry = {true}
-              style={styles.sendLoanInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo Pass Word</Text>
-          </View>
-
-          <View style={styles.sendLoanView}>
-            <TextInput
-            
-              value={lat}
-              onChangeText={setLat}
-              style={styles.sendLoanInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>Location Latitude</Text>
-          </View>
-
-          <View style={styles.sendLoanView}>
-            <TextInput
-            
-              value={lon}
-              onChangeText={setLon}
-              style={styles.sendLoanInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>Location Longitude</Text>
-          </View>
-
-          <View style={styles.sendLoanView}>
-            <TextInput
-            
+            placeholder={"Nearby Town"}
               value={twn}
               onChangeText={settwn}
-              style={styles.sendLoanInput}
+              style={styles.input}
               editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>MFNdogo Nearby Town</Text>
-          </View>
+           
 
-          <TouchableOpacity
-            onPress={gtMFKDtsl}
-            style={styles.sendLoanButton}>
-            <Text style={styles.sendLoanButtonText}>
-              Click to Create Account
-            </Text>
-            {isLoading && <ActivityIndicator color={'blue'} size = "large" />}
-          </TouchableOpacity>
+           <View style={styles.passwordContainer}>
+                                                       <TextInput
+                                                         placeholder="Main Account Password"
+                                                     style={styles.passwordInput}
+                                                                                          
+                                                     value={pword}
+                                                     onChangeText={setPW}
+                                                     secureTextEntry={!isPasswordVisible}
+                                                     placeholderTextColor="#ccc"
+                                                             />
+                                                     <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                                                    <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
+                                                     </TouchableOpacity>
+                                                     </View>
+           
+                                                     <View style={styles.passwordContainer}>
+                                                       <TextInput
+                                                         placeholder="Confirm Account Password"
+                                                     style={styles.passwordInput}
+                                                                                          
+                                                     value={lat}
+                                                     onChangeText={setLat}
+                                                     secureTextEntry={!isPasswordVisible}
+                                                     placeholderTextColor="#ccc"
+                                                     />
+                                                     <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                                                    <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
+                                                     </TouchableOpacity>
+                                                    </View>
+            <View style={styles.locationContainer}>
+              <Text style={styles.locationText}>Latitude: {latitudez || 'Fetching...'}</Text>
+              <Text style={styles.locationText}>Longitude: {longitudez || 'Fetching...'}</Text>
+            </View>
+            <TouchableOpacity onPress={gtMFKDtsl} style={styles.button}>
+              {isLoading ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={styles.locationText}>Submit</Text>
+              )}
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
-export default RegisterKFNdgAcForm;
+const styles = StyleSheet.create({
+    gradient: {
+      flex: 1,
+    },
+    container: {
+      flex: 1,
+      padding: 20,
+    },
+    loanTitleView: {
+      marginBottom: 20,
+      alignItems: 'center',
+    },
+    title: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: '#ffffff',
+      textAlign: 'center',
+    },
+    formContainer: {
+      backgroundColor: '#ffffff',
+      borderRadius: 10,
+      padding: 20,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    input: {
+      height: 45,
+      borderColor: '#ccc',
+      borderWidth: 1,
+      marginBottom: 15,
+      borderRadius: 5,
+      paddingLeft: 10,
+    },
+    button: {
+      backgroundColor: '#e58d29',
+      paddingVertical: 12,
+      borderRadius: 5,
+      alignItems: 'center',
+      marginTop: 20,
+    },
+    locationContainer: {
+      marginVertical: 10,
+    },
+    locationText: {
+      fontSize: 16,
+      color: '#333',
+    },
+    passwordContainer: { flexDirection: 'row', alignItems: 'center', 
+        backgroundColor: '#fff', borderRadius: 8, marginBottom: 10, height:50 },
+passwordInput: { flex: 1, padding: 12 },
+  });
+
+  export default RegisterKFNdgAcForm;
