@@ -27,6 +27,9 @@ const AdminSignIn = (props) => {
   const [PWTwos, setPWTwo] = useState(""); 
   const [ownr, setownr] = useState(null);  
  
+  const GoHome = () => {
+    navigation.navigate('Homes');
+  };  
 
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
@@ -303,9 +306,10 @@ const AdminSignIn = (props) => {
               <View
                  style={styles.image}>
                 <ScrollView>
-                  <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Details Below</Text>
-                  </View>
+                <TouchableOpacity onPress={GoHome}
+                  style={styles.loanTitleView}>
+                    <Text style={styles.title}>Go Home</Text>
+                  </TouchableOpacity>
         
                   <View style={styles.sendLoanView}>
                     <TextInput

@@ -17,6 +17,7 @@ declare global {
       Vw2SelectChm2Req:undefined;
       BizPayPalDposit:{itemPrys:string};
       MakeNVwPayPalDpsits:undefined;
+      VwBenProds:undefined;
       BizReadPayPalTNC:undefined;
       CreateExRates:undefined;
       AddBeneficiaryProduct:undefined;

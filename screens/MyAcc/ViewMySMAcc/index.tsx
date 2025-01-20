@@ -35,7 +35,8 @@ const FetchSMNonCovLns = props => {
                     }
                   }}
                   ));
-              setLoanees(Lonees.data.listSMAccounts.items);
+                  const Acc = Lonees.data.listSMAccounts.items
+              setLoanees(Acc);
             } catch (e) {
               console.log(e);
             } finally {
@@ -49,6 +50,7 @@ const FetchSMNonCovLns = props => {
           }  else {
            await fetchLoanees();}
 } catch (e) {
+  console.log(e);
 if (e)
 {Alert.alert ("Please first create a main account on home page")}
 return} finally {

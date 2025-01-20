@@ -1,11 +1,19 @@
 import React, {useEffect, useState} from 'react';
 
+<<<<<<< HEAD
 import { createBenProd2, createBizna, createChamaMembers, createGroup,   createLinkBeneficiary2,   createPersonel,   updateCompany} from '../../../../src/graphql/mutations';
 import { getBenProd2, getBizna, getCompany, getSMAccount, listPersonels,   } from '../../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 
 import {useNavigation, useRoute} from '@react-navigation/native';
+=======
+import { createBenProd2, createBizna, createChamaMembers, createGroup,   createPersonel,   updateCompany} from '../../../../src/graphql/mutations';
+import { getBizna, getCompany, getSMAccount, listPersonels,   } from '../../../../src/graphql/queries';
+import {Auth,  graphqlOperation, API} from 'aws-amplify';
+
+import {useNavigation} from '@react-navigation/native';
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
 
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -33,9 +41,15 @@ const CreateChama = (props:UserReg) => {
 
   const{usr} = props;
 
+<<<<<<< HEAD
   const route = useRoute();
 
  const [Recvrs, setRecvrs] = useState([]);
+=======
+  
+
+
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
   const navigation = useNavigation();
 
   const [ChmPhn, setChmPhn] = useState('');
@@ -63,7 +77,11 @@ const [nationalId, setNationalid] = useState('');
     const[lon, setLon] = useState("");
 
   const WorkerID = ChmDesc+ChmRegNo
+<<<<<<< HEAD
 const ProdID = route.params.id
+=======
+
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
 
     
       const ChckUsrExistence = async () => {
@@ -74,6 +92,7 @@ const ProdID = route.params.id
         const userInfo = await Auth.currentAuthenticatedUser();
       
         try {
+<<<<<<< HEAD
           const UsrDtlssszs:any = await API.graphql(
             graphqlOperation(getSMAccount, { awsemail:userInfo.attributes.email}),
                         
@@ -121,17 +140,47 @@ const ProdID = route.params.id
 
 
           const PckBiznaBenefactorDtls = async () => {
+=======
+          const UsrDtls:any = await API.graphql(
+            graphqlOperation(getSMAccount, { awsemail:userInfo.attributes.email}),
+                        
+          )       
+          const pwsz = UsrDtls.data.getSMAccount.pw;
+
+          const ChckPhnUse = async () => {
+                      try {
+                        const UsrDtlss:any = await API.graphql(
+                          graphqlOperation(listPersonels,
+                            { filter: {
+                                
+                              phoneKontact: { eq: userInfo.attributes.email},
+                              BusinessRegNo:{eq: ChmRegNo}
+                                            
+                              }}
+                          )
+                        )
+
+          const PckBiznaDtls = async () => {
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
             if(isLoading){
               return;
             }
             setIsLoading(true);
             try {
               const BznaDtls:any = await API.graphql(
+<<<<<<< HEAD
                 graphqlOperation(getBizna, { BusKntct:benefactorAcs}),
                             
               )
     
              
+=======
+                graphqlOperation(getBizna, { BusKntct:ChmRegNo}),
+                            
+              )
+    
+              const pws = BznaDtls.data.getBizna.pw;
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
               const ownerz = BznaDtls.data.getBizna.owner;
               const BiznaNames = BznaDtls.data.getBizna.busName;
               const Admin1 = BznaDtls.data.getBizna.Admin1;
@@ -184,6 +233,7 @@ const ProdID = route.params.id
               const Admin48 = BznaDtls.data.getBizna.Admin48;
               const Admin49 = BznaDtls.data.getBizna.Admin49;
               const Admin50 = BznaDtls.data.getBizna.Admin50;
+<<<<<<< HEAD
 
               const ChckPhnUse = async () => {
                 try {
@@ -201,6 +251,8 @@ const ProdID = route.params.id
                   const personnel = UsrDtlsscz.data.listPersonels.items
                   setRecvrs(personnel)
                   console.log(ProdID)
+=======
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
               
               
       const onCreateNewSMAc = async () => {
@@ -210,6 +262,7 @@ const ProdID = route.params.id
         setIsLoading(true);
         try {
           await API.graphql(
+<<<<<<< HEAD
           graphqlOperation(createLinkBeneficiary2, {
           input: {
 
@@ -233,6 +286,23 @@ amount:0,
 prodDesc: prodDescs,
 benefitStatus: "Active",
 
+=======
+          graphqlOperation(createBenProd2, {
+          input: {
+
+            
+            
+benefactorAc: ChmRegNo,
+benefactorPhone: ChmRegNo,
+creatorEmail: userInfo.attributes.email,
+prodName: ChmPhn,
+creatorName: BiznaNames,
+owner: userInfo.username,
+prodCost: Sign2Phn,
+benefitsAmount: 0,
+prodDesc: ChmDesc,
+prodStatus: "AccountActive"
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
             
                   },
                 }),
@@ -246,14 +316,22 @@ benefitStatus: "Active",
               }
             
             }
+<<<<<<< HEAD
             Alert.alert("Beneficiary Linked successfully")
+=======
+            Alert.alert("Product created successfully")
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
             
             setIsLoading(false);
             
             
           };
           if (pwsz!==pword){
+<<<<<<< HEAD
             Alert.alert("Wrong Main Account password")
+=======
+            Alert.alert("Wrong Admin password")
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
           }
 
            
@@ -361,19 +439,30 @@ benefitStatus: "Active",
             Admin49 === userInfo.attributes.email 
             ||
             Admin50 === userInfo.attributes.email 
+<<<<<<< HEAD
             ||
             Recvrs.length > 0
 
+=======
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
             ){
               onCreateNewSMAc();
           }
           else{
          
+<<<<<<< HEAD
             Alert.alert("You are Not an Creator/Admin/worker of this Bizna")
           }
       } catch (error) {
         console.error(error);
         if (error){Alert.alert("Error! Call customer care or update app!")
+=======
+            Alert.alert("You are Neither the Creator/Admin of this business")
+          }
+      } catch (error) {
+        
+        if (error){Alert.alert("Error! Create a business first!")
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
       return}
       }
   
@@ -381,12 +470,20 @@ benefitStatus: "Active",
                 
     }
 
+<<<<<<< HEAD
     await ChckPhnUse();
       
   } catch (error) {
     console.error(error);
         
     if (error){Alert.alert("Error! Call customer care or update app!")
+=======
+    await PckBiznaDtls();
+      
+  } catch (error) {
+        
+    if (error){Alert.alert("Error! Create a business first!")
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
   return}
   }
 
@@ -394,6 +491,7 @@ benefitStatus: "Active",
             
 }
 
+<<<<<<< HEAD
 await PckBiznaBenefactorDtls(); 
 
 } catch (error) {
@@ -420,6 +518,9 @@ await PckBiznaBeneficiaryDtls();
 }
 
 await checkBenProd(); 
+=======
+await ChckPhnUse(); 
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
 
     } catch (e) {
       console.error(e);
@@ -666,16 +767,55 @@ useEffect(() =>{
         
                   <View style={styles.formContainer}>
                     <TextInput
+<<<<<<< HEAD
                      placeholder="Beneficiary Business Phone"
+=======
+                     placeholder="Business Phone Number"
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
                       value={ChmRegNo}
                       onChangeText={setChmRegNo}
                       style={styles.input}
                       editable={true}></TextInput>
                     
+<<<<<<< HEAD
                     
                    <View style={styles.passwordContainer}>
                                                                  <TextInput
                                                                    placeholder=" Your Main Account Password"
+=======
+                    <TextInput
+                     placeholder="Product Name"
+                      value={ChmPhn}
+                      onChangeText={setChmPhn}
+                     
+                      style={styles.input}
+                      editable={true}></TextInput>
+                   
+                 
+                    <TextInput
+                     placeholder="Product Description"
+                      value={ChmDesc}
+                      onChangeText={setChmDesc}
+                      style={styles.input}
+                      editable={true}
+                      multiline={true}  // Enables multi-line input
+                textAlignVertical="top">
+                        
+                      </TextInput>
+                    
+                    <TextInput
+                    placeholder="Enter Product Cost"
+                      value={Sign2Phn}
+                      onChangeText={setSign2Phn}
+                      keyboardType={"decimal-pad"}
+                      style={styles.input}
+                      editable={true}></TextInput>
+                   
+
+                   <View style={styles.passwordContainer}>
+                                                                 <TextInput
+                                                                   placeholder="Admin Main Account Password"
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
                                                                style={styles.passwordInput}
                                                                                                     
                                                                value={pword}

@@ -517,8 +517,12 @@ import CreateExRates from "../../screens/Settings/CreateExRates";
 import MemberDtls from "../../screens/Chama/ViewChamaActivities/Membership/MemberDtls";
 import ChmMmbrContriss from "../../screens/Chama/ViewChamaActivities/Contributions/Member";
 import AddBeneficiaryProduct from "../../screens/CredSls/BeneficiaryProducts/AddBeneficiaryProduct";
+<<<<<<< HEAD
 import ViewBenProds from "../../screens/CredSls/BeneficiaryProducts/ViewBenProds";
 import LinkBeneficiary from "../../screens/CredSls/BeneficiaryProducts/LinkBeneficiary";
+=======
+import VwBenProds from "../../screens/CredSls/BeneficiaryProducts/VwBenProds";
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
 
 
 
@@ -534,8 +538,12 @@ const HomeNavigator = props => {
       <Stack.Screen name={'ChmMmbrContriss'} component={ChmMmbrContriss} />
       <Stack.Screen name={'ViewBenProds'} component={ViewBenProds} />
       <Stack.Screen name={'MemberDtls'} component={MemberDtls} />
+<<<<<<< HEAD
       <Stack.Screen name={'LinkBeneficiary'} component={LinkBeneficiary} />
       
+=======
+      <Stack.Screen name={'VwBenProds'} component={VwBenProds} />
+>>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
       <Stack.Screen name={'AddBeneficiaryProduct'} component={AddBeneficiaryProduct} />
       <Stack.Screen name={'CreateExRates'} component={CreateExRates} />
       <Stack.Screen name={'MemberReqChm'} component={MemberReqChm} />

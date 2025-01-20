@@ -6,11 +6,13 @@ const styles = StyleSheet.create({
     height: "100%",
     resizeMode: 'cover',
     justifyContent: 'center',
-    marginTop: 30,
-
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginTop: 1,
+    flexWrap:"wrap"
   },
   title: {
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'black',
   },
@@ -19,36 +21,44 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "40%",
+    height: 40,
     borderRadius: 5,
-    marginTop: "25%",
+    marginTop: 30,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    
-    
-    
+    top: 10,
   
   },
 
-  loanTitleView2: {
-    backgroundColor: 'skyblue',
+  sendAmtViewDesc: {
+    backgroundColor: '#72ebd8',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
-    height: "80%",
-    borderRadius: 5,
+    height: "12%",
+    borderRadius: 20,
     marginTop: "5%",
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    padding:"1%",
+   
+  },
+
+  sendAmtInputDesc: {
+    backgroundColor: 'white',
+    marginHorizontal: 15,
+    width: Dimensions.get('screen').width - 30,
+    height: "70%",
+    borderRadius: 10,
+    marginTop: "2%",
+    justifyContent: 'center',
+    alignItems: 'center',
     
-    
-    
-  
   },
 
   sendLoanView: {
-    backgroundColor: 'skyblue',
+    backgroundColor: '#72ebd8',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     height: 90,
@@ -70,14 +80,14 @@ const styles = StyleSheet.create({
   },
   sendLoanButton: {
     backgroundColor: '#fff',
-    height: 40,
+    height: 45,
     borderRadius: 30,
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
-   
+    marginTop: 30,
+    marginBottom: 400,
   },
   sendLoanButtonText: {
     fontSize: 15,
@@ -106,7 +116,7 @@ const styles = StyleSheet.create({
   },
 
   loanSpecificationView: {
-    backgroundColor: 'skyblue',
+    backgroundColor: '#72ebd8',
     marginHorizontal: 10,
     width: Dimensions.get('screen').width - 20,
     height: 250,
