@@ -14,6 +14,7 @@ declare global {
       MemberDtls:{ChamaNMember:string}
       VwToRegMFK:undefined;
       SndMbrsMnys:{ChamaNMember:string};
+      B2BPayCashB2BBen:{id: string};
       Vw2SelectChm2Req:undefined;
       BizPayPalDposit:{itemPrys:string};
       MakeNVwPayPalDpsits:undefined;

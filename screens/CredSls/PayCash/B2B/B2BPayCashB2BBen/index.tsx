@@ -14,6 +14,7 @@ import {
   updateBizna,
   createBizSls,
   updateBizSlsReq,
+  createBenefitContributions2,
   
 } from '../../../../../src/graphql/mutations';
 
@@ -66,7 +67,7 @@ const fetchSaleReqDtls = async () => {
   if(isLoading){
     return;
   }
-  setIsLoading(false);
+  setIsLoading(true);
   try {
     const accountDtl:any = await API.graphql(
       graphqlOperation(getBizSlsReq, {id: route.params.id}),
@@ -83,7 +84,7 @@ const fetchSaleReqDtls = async () => {
     
     
     const fetchCvLnSM = async () => {
-      setIsLoading(true);
+      
 
       const userInfo = await Auth.currentAuthenticatedUser();
 
@@ -102,7 +103,7 @@ const fetchSaleReqDtls = async () => {
            
         
                     const fetchCLCrdSl = async () => {
-                      setIsLoading(true);
+                      
                       try {
                         const Lonees3:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
                           { filter: {
@@ -117,7 +118,7 @@ const fetchSaleReqDtls = async () => {
                             
 
                                     const fetchCLChm = async () => {
-                                      setIsLoading(true);
+                                      
                                       try {
                                         const Lonees5:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
                                           { filter: {
@@ -136,10 +137,7 @@ const fetchSaleReqDtls = async () => {
                                             
                                           
 const fetchSenderUsrDtls = async () => {
-    if(isLoading){
-      return;
-    }
-    setIsLoading(false);
+    
     try {
       const accountDtl:any = await API.graphql(
         graphqlOperation(getBizna, {BusKntct: senderPhn}),
@@ -152,7 +150,7 @@ const fetchSenderUsrDtls = async () => {
       const ownerz =accountDtl.data.getBizna.owner;
       const SenderAcstatus =accountDtl.data.getBizna.status;
       const pw =accountDtl.data.getBizna.pw;
-      const noBL =accountDtl.data.getBizna.noBL;
+      const SenderbenefitsAmount =accountDtl.data.getBizna.benefitsAmount;
       const objectionStatus =accountDtl.data.getBizna.objectionStatus;
               const Admin1 = accountDtl.data.getBizna.Admin1;      
               const Admin2 = accountDtl.data.getBizna.Admin2;
@@ -206,10 +204,7 @@ const fetchSenderUsrDtls = async () => {
               const Admin50 = accountDtl.data.getBizna.Admin50;
 
       const fetchCompDtls = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
+        
         try {
           const CompDtls:any = await API.graphql(
             graphqlOperation(getCompany, {
@@ -217,13 +212,16 @@ const fetchSenderUsrDtls = async () => {
             }),
           );
           
-            
-          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-          const UsrTransferFeeAmt = UsrTransferFee*parseFloat(amount);
+          const b2bBenCom = CompDtls.data.getCompany.b2bBenCom;   
+          
+          const biznaCashSaleFee = CompDtls.data.getCompany.userTransferFee;
+          const biznaCashSaleFeeAmt = parseFloat(biznaCashSaleFee)*parseFloat(amount);
           const UsrTransferFee2 = parseFloat(SenderUsrBal) -parseFloat(amount);
-          const TotalTransacted = parseFloat(amount)  + parseFloat(UsrTransferFee)*parseFloat(amount);
+          const TotalTransacted = parseFloat(amount)  + parseFloat(biznaCashSaleFee)*parseFloat(amount);
           const TotalTransacted2 = parseFloat(amount)  + UsrTransferFee2;
-          const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
+          const BizBenPercentage =   parseFloat(b2bBenCom) * parseFloat(biznaCashSaleFee);
+          const BizBenefits = BizBenPercentage * parseFloat(amount);
+          const CompEarnings = biznaCashSaleFeeAmt - BizBenefits;
           
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
@@ -233,10 +231,7 @@ const fetchSenderUsrDtls = async () => {
          
                     
           const fetchRecUsrDtls = async () => {
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
+            
             try {
                 const RecAccountDtl:any = await API.graphql(
                     graphqlOperation(getBizna, {BusKntct: recPhn}),
@@ -244,14 +239,12 @@ const fetchSenderUsrDtls = async () => {
                     const RecUsrBal =RecAccountDtl.data.getBizna.netEarnings;                    
                     const bizBeneficiary =RecAccountDtl.data.getBizna.bizBeneficiary; 
                     const RecBizType =RecAccountDtl.data.getBizna.bizType;
-                    const namess =RecAccountDtl.data.getBizna.busName;
+                    const RecbenefitsAmount =RecAccountDtl.data.getBizna.benefitsAmount;
                     const RecAcstatus =RecAccountDtl.data.getBizna.status;
+                    
 
                     const fetchSenderBizUsrDtls = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(false);
+                      
                       try {
                         const accountDtl7:any = await API.graphql(
                           graphqlOperation(getSMAccount, {awsemail: bizBeneficiaryz}),
@@ -261,10 +254,7 @@ const fetchSenderUsrDtls = async () => {
                         const senderbeneficiaryAmt =accountDtl7.data.getSMAccount.beneficiaryAmt;
 
                         const fetchRecBizUsrDtls = async () => {
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(false);
+                         
                           try {
                             const accountDtl8:any = await API.graphql(
                               graphqlOperation(getSMAccount, {awsemail: bizBeneficiary}),
@@ -273,909 +263,17 @@ const fetchSenderUsrDtls = async () => {
                             const SenderUsrBal8 =accountDtl8.data.getSMAccount.balance;
                             const recbeneficiaryAmt =accountDtl8.data.getSMAccount.beneficiaryAmt;                    
                     
-                  
-                            const sendSMNonLn13 = async () => {
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true)
-                              try {
-                                await API.graphql(
-                                  graphqlOperation(createBizSls, {
-                                    input: {
-                                      saleId:route.params.id,
-                                      recPhn: recPhn,
-                                      senderPhn: senderPhn,                                  
-                                      amount: parseFloat(amount).toFixed(0),                              
-                                      description: description,
-                                      RecName:RecName,
-                                      SenderName:SenderName,
-                                      status: "cashSales",
-                                      owner: owner,
-                                      attendingAdmin:attendingAdmin
-                                    },
-                                  }),
-                                );
-        
-        
-                              } catch (error) {
-                                if (error){
-                                  Alert.alert("Sending unsuccessful; Retry")
-                                  return
-                                }
-                              }
-                              setIsLoading(false);
-                              await updtSendrAc13();
-                            };
-        
-                            const sendSMNonLn14 = async () => {
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true)
-                              try {
-                                await API.graphql(
-                                  graphqlOperation(createBizSls, {
-                                    input: {
-                                      saleId:route.params.id,
-                                      recPhn: recPhn,
-                                      senderPhn: senderPhn,                                  
-                                      amount: parseFloat(amount).toFixed(0),                              
-                                      description: description,
-                                      RecName:RecName,
-                                      SenderName:SenderName,
-                                      status: "cashSales",
-                                      owner: owner,
-                                      attendingAdmin:attendingAdmin
-                                    },
-                                  }),
-                                );
-        
-        
-                              } catch (error) {
-                                if (error){
-                                  Alert.alert("Sending unsuccessful; Retry")
-                                  return
-                                }
-                              
-                              }
-                              setIsLoading(false);
-                              await updtSendrAc14();
-                            };
-        
-        
-                            const updtSendrAc13 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizna, {
-                                      input:{
-                                        BusKntct: senderPhn,                                
-                                        netEarnings:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0)                               
-                                        
-                                      }
-                                    })
-                                  )
-        
-        
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtRecAc13();
-                            }
-        
-                            const updtSendrAc14 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizna, {
-                                      input:{
-                                        BusKntct: senderPhn,                                  
-                                        netEarnings:(parseFloat(SenderUsrBal)-TotalTransacted2).toFixed(0)    
-                                       
-                                        
-                                      }
-                                    })
-                                  )
-        
-        
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtRecAc14();
-                            }
-        
-                            const updtRecAc13 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizna, {
-                                      input:{
-                                        BusKntct:recPhn,
-                                        
-                                        netEarnings:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),                                   
-                                        earningsBal:   (parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0)                         
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtBenAc13();
-                            }
-        
-                            const updtBenAc13 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateSMAccount, {
-                                      input:{
-                                        awsemail:bizBeneficiaryz,                                
-                                        balance:((parseFloat(UsrTransferFee) * parseFloat(amount))*0.3 + parseFloat(SenderUsrBal7)).toFixed(0),
-                                        beneficiaryAmt: ((parseFloat(UsrTransferFee) * parseFloat(amount))*0.3 + parseFloat(senderbeneficiaryAmt)).toFixed(0),
-                                                                 
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtRecBenAc13();
-                            }
-        
-                            const updtRecBenAc13 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateSMAccount, {
-                                      input:{
-                                        awsemail:bizBeneficiary,                                
-                                        balance:((parseFloat(UsrTransferFee) * parseFloat(amount))*0.3 + parseFloat(SenderUsrBal8)).toFixed(0),
-                                        beneficiaryAmt: ((parseFloat(UsrTransferFee) * parseFloat(amount))*0.3 + parseFloat(recbeneficiaryAmt)).toFixed(0),
-                                                                 
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtLnReqAc13();
-                            }
-
-                            const updtLnReqAc13 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizSlsReq, {
-                                      input:{
-                                        id:route.params.id,                                
-                                        status:"Approved",
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtComp13();
-                            }
-        
+                            console.log(SenderUsrBal)
+                            console.log(TotalTransacted)
+                            console.log(biznaCashSaleFee)
+                            console.log(b2bBenCom)
+                            console.log(recPhn)
+                            
                             
         
-                            const updtRecAc14 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizna, {
-                                      input:{
-                                        BusKntct:recPhn,                                        
-                                        netEarnings:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),                                   
-                                        earningsBal:   (parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0)
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtLnReqAc14();
-                            }
-        
-                            const updtComp13 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateCompany, {
-                                      input:{
-                                        AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                       
-                                        companyEarningBal:(parseFloat(UsrTransferFee) * parseFloat(amount))*0.4 + parseFloat(companyEarningBals),
-                                        companyEarning: (parseFloat(UsrTransferFee) * parseFloat(amount))*0.4 + parseFloat(companyEarnings),                                                    
-                                        
-                                        ttlNonLonssRecSM: parseFloat(amount) + parseFloat(ttlNonLonssRecSMs),
-                                        ttlNonLonssSentSM: parseFloat(amount) + parseFloat(ttlNonLonssSentSMs),
-                                        
-                                      }
-                                    })
-                                  )
-                                  
-                                  
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                            return;}
-                              }
-                              Alert.alert("Amount:Ksh. "+parseFloat(amount).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0)
-                              );
-                              setIsLoading(false);
-                            }
-
-                            const updtLnReqAc14 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizSlsReq, {
-                                      input:{
-                                        id:route.params.id,                                
-                                        status:"Approved",
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtComp14();
-                            }
-        
-                            const updtComp14 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateCompany, {
-                                      input:{
-                                        AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                       
-                                        companyEarningBal:UsrTransferFee2 + parseFloat(companyEarningBals),
-                                        companyEarning: UsrTransferFee2 + parseFloat(companyEarnings),                                                    
-                                        
-                                        ttlNonLonssRecSM: parseFloat(amount) + parseFloat(ttlNonLonssRecSMs),
-                                        ttlNonLonssSentSM: parseFloat(amount) + parseFloat(ttlNonLonssSentSMs),
-                                        
-                                      }
-                                    })
-                                  )
-                                  
-                                  
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                            return;}
-                              }
-                             
-                              Alert.alert("Insufficient transaction fees? No worries! Ksh. " +parseFloat(amount).toFixed(0) + " sent!");
-                              setIsLoading(false);
-                            }
-                            
-                            const sendSMNonLn11 = async () => {
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true)
-                              try {
-                                await API.graphql(
-                                  graphqlOperation(createBizSls, {
-                                    input: {
-                                      saleId:route.params.id,
-                                      recPhn: recPhn,
-                                      senderPhn: senderPhn,                                  
-                                      amount: parseFloat(amount).toFixed(0),                              
-                                      description: description,
-                                      RecName:RecName,
-                                      SenderName:SenderName,
-                                      status: "cashSales",
-                                      owner: owner,
-                                      attendingAdmin:attendingAdmin
-                                    },
-                                  }),
-                                );
-        
-        
-                              } catch (error) {
-                                if (error){
-                                  Alert.alert("Sending unsuccessful; Retry")
-                                  return
-                                }
-                              }
-                              setIsLoading(false);
-                              await updtSendrAc11();
-                            };
-        
-                            const sendSMNonLn12 = async () => {
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true)
-                              try {
-                                await API.graphql(
-                                  graphqlOperation(createBizSls, {
-                                    input: {
-                                      saleId:route.params.id,
-                                      recPhn: recPhn,
-                                      senderPhn: senderPhn,                                  
-                                      amount: parseFloat(amount).toFixed(0),                              
-                                      description: description,
-                                      RecName:RecName,
-                                      SenderName:SenderName,
-                                      status: "cashSales",
-                                      owner: owner,
-                                      attendingAdmin:attendingAdmin
-                                    },
-                                  }),
-                                );
-        
-        
-                              } catch (error) {
-                                if (error){
-                                  Alert.alert("Sending unsuccessful; Retry")
-                                  return
-                                }
-                              
-                              }
-                              setIsLoading(false);
-                              await updtSendrAc12();
-                            };
-        
-        
-                            const updtSendrAc11 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizna, {
-                                      input:{
-                                        BusKntct: senderPhn,                                
-                                        netEarnings:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0)                               
-                                        
-                                      }
-                                    })
-                                  )
-        
-        
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtRecAc11();
-                            }
-        
-                            const updtSendrAc12 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizna, {
-                                      input:{
-                                        BusKntct: senderPhn,                                  
-                                        netEarnings:(parseFloat(SenderUsrBal)-TotalTransacted2).toFixed(0)    
-                                       
-                                        
-                                      }
-                                    })
-                                  )
-        
-        
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtRecAc12();
-                            }
-        
-                            const updtRecAc11 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizna, {
-                                      input:{
-                                        BusKntct:recPhn,
-                                        
-                                        netEarnings:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),                                   
-                                        earningsBal:   (parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0)                         
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtRecBenAc11();
-                            }
-        
-                            
-        
-                            const updtRecBenAc11 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateSMAccount, {
-                                      input:{
-                                        awsemail:bizBeneficiary,                                
-                                        balance:((parseFloat(UsrTransferFee) * parseFloat(amount))*0.3 + parseFloat(SenderUsrBal7)).toFixed(0),
-                                        beneficiaryAmt: ((parseFloat(UsrTransferFee) * parseFloat(amount))*0.3 + parseFloat(recbeneficiaryAmt)).toFixed(0),
-                                                                 
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtLnReqAc11();
-                            }
-        
-                            
-        
-                            const updtRecAc12 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizna, {
-                                      input:{
-                                        BusKntct:recPhn,
-                                        
-                                        netEarnings:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),                                   
-                                        earningsBal:   (parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0)
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtLnReqAc12();
-                            }
-        
-                            const updtComp11 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateCompany, {
-                                      input:{
-                                        AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                       
-                                        companyEarningBal:(parseFloat(UsrTransferFee) * parseFloat(amount))*0.4 + parseFloat(companyEarningBals),
-                                        companyEarning: (parseFloat(UsrTransferFee) * parseFloat(amount))*0.4 + parseFloat(companyEarnings),                                                    
-                                        
-                                        ttlNonLonssRecSM: parseFloat(amount) + parseFloat(ttlNonLonssRecSMs),
-                                        ttlNonLonssSentSM: parseFloat(amount) + parseFloat(ttlNonLonssSentSMs),
-                                        
-                                      }
-                                    })
-                                  )
-                                  
-                                  
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                            return;}
-                              }
-                              Alert.alert("Amount:Ksh. "+parseFloat(amount).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0)
-                              );
-                              setIsLoading(false);
-                            }
-        
-                            const updtComp12 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateCompany, {
-                                      input:{
-                                        AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                       
-                                        companyEarningBal:UsrTransferFee2 + parseFloat(companyEarningBals),
-                                        companyEarning: UsrTransferFee2 + parseFloat(companyEarnings),                                                    
-                                        
-                                        ttlNonLonssRecSM: parseFloat(amount) + parseFloat(ttlNonLonssRecSMs),
-                                        ttlNonLonssSentSM: parseFloat(amount) + parseFloat(ttlNonLonssSentSMs),
-                                        
-                                      }
-                                    })
-                                  )
-                                  
-                                  
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                            return;}
-                              }
-                             
-                              Alert.alert("Insufficient transaction fees? No worries! Ksh. " +parseFloat(amount).toFixed(0) + " sent!");
-                              setIsLoading(false);
-                            }
-                            
-                            const sendSMNonLn9 = async () => {
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true)
-                              try {
-                                await API.graphql(
-                                  graphqlOperation(createBizSls, {
-                                    input: {
-                                      saleId:route.params.id,
-                                      recPhn: recPhn,
-                                      senderPhn: senderPhn,                                  
-                                      amount: parseFloat(amount).toFixed(0),                              
-                                      description: description,
-                                      RecName:RecName,
-                                      SenderName:SenderName,
-                                      status: "cashSales",
-                                      owner: owner,
-                                      attendingAdmin:attendingAdmin
-                                    },
-                                  }),
-                                );
-        
-        
-                              } catch (error) {
-                                if (error){
-                                  Alert.alert("Sending unsuccessful; Retry")
-                                  return
-                                }
-                              }
-                              setIsLoading(false);
-                              await updtSendrAc9();
-                            };
-        
-                            const sendSMNonLn10 = async () => {
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true)
-                              try {
-                                await API.graphql(
-                                  graphqlOperation(createBizSls, {
-                                    input: {
-                                      saleId:route.params.id,
-                                      recPhn: recPhn,
-                                      senderPhn: senderPhn,                                  
-                                      amount: parseFloat(amount).toFixed(0),                              
-                                      description: description,
-                                      RecName:RecName,
-                                      SenderName:SenderName,
-                                      status: "cashSales",
-                                      owner: owner,
-                                      attendingAdmin:attendingAdmin
-                                    },
-                                  }),
-                                );
-        
-        
-                              } catch (error) {
-                                if (error){
-                                  Alert.alert("Sending unsuccessful; Retry")
-                                  return
-                                }
-                              
-                              }
-                              setIsLoading(false);
-                              await updtSendrAc10();
-                            };
-        
-        
-                            const updtSendrAc9 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizna, {
-                                      input:{
-                                        BusKntct: senderPhn,                                
-                                        netEarnings:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0)                               
-                                        
-                                      }
-                                    })
-                                  )
-        
-        
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtRecAc9();
-                            }
-        
-                            const updtSendrAc10 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizna, {
-                                      input:{
-                                        BusKntct: senderPhn,                                  
-                                        netEarnings:(parseFloat(SenderUsrBal)-TotalTransacted2).toFixed(0)    
-                                       
-                                        
-                                      }
-                                    })
-                                  )
-        
-        
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtRecAc10();
-                            }
-        
-                            const updtRecAc9 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizna, {
-                                      input:{
-                                        BusKntct:recPhn,
-                                        
-                                        netEarnings:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),                                   
-                                        earningsBal:   (parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0)                         
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtBenAc9();
-                            }
-        
-                            const updtBenAc9 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateSMAccount, {
-                                      input:{
-                                        awsemail:bizBeneficiaryz,                                
-                                        balance:((parseFloat(UsrTransferFee) * parseFloat(amount))*0.3 + parseFloat(SenderUsrBal7)).toFixed(0),
-                                        beneficiaryAmt: ((parseFloat(UsrTransferFee) * parseFloat(amount))*0.3 + parseFloat(senderbeneficiaryAmt)).toFixed(0),
-                                                                 
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtLnReqAc9();
-                            }
-        
-                            
-        
-                            const updtRecAc10 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizna, {
-                                      input:{
-                                        BusKntct:recPhn,
-                                        
-                                        netEarnings:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),                                   
-                                        earningsBal:   (parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0)
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtLnReqAc10();
-                            }
-        
-                            const updtComp9 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateCompany, {
-                                      input:{
-                                        AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                       
-                                        companyEarningBal:(parseFloat(UsrTransferFee) * parseFloat(amount))*0.4 + parseFloat(companyEarningBals),
-                                        companyEarning: (parseFloat(UsrTransferFee) * parseFloat(amount))*0.4 + parseFloat(companyEarnings),                                                    
-                                        
-                                        ttlNonLonssRecSM: parseFloat(amount) + parseFloat(ttlNonLonssRecSMs),
-                                        ttlNonLonssSentSM: parseFloat(amount) + parseFloat(ttlNonLonssSentSMs),
-                                        
-                                      }
-                                    })
-                                  )
-                                  
-                                  
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                            return;}
-                              }
-                              Alert.alert("Amount:Ksh. "+parseFloat(amount).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0)
-                              );
-                              setIsLoading(false);
-                            }
-        
-                            const updtComp10 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateCompany, {
-                                      input:{
-                                        AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                       
-                                        companyEarningBal:UsrTransferFee2 + parseFloat(companyEarningBals),
-                                        companyEarning: UsrTransferFee2 + parseFloat(companyEarnings),                                                    
-                                        
-                                        ttlNonLonssRecSM: parseFloat(amount) + parseFloat(ttlNonLonssRecSMs),
-                                        ttlNonLonssSentSM: parseFloat(amount) + parseFloat(ttlNonLonssSentSMs),
-                                        
-                                      }
-                                    })
-                                  )
-                                  
-                                  
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                            return;}
-                              }
-                             
-                              Alert.alert("Insufficient transaction fees? No worries! Ksh. " +parseFloat(amount).toFixed(0) + " sent!");
-                              setIsLoading(false);
-                            }
                             
                             const sendSMNonLn7 = async () => {
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true)
+                              
                               try {
                                 await API.graphql(
                                   graphqlOperation(createBizSls, {
@@ -1196,63 +294,27 @@ const fetchSenderUsrDtls = async () => {
         
         
                               } catch (error) {
+                                console.log(error)
                                 if (error){
                                   Alert.alert("Sending unsuccessful; Retry")
                                   return
                                 }
                               }
-                              setIsLoading(false);
+                             
                               await updtSendrAc7();
                             };
         
-                            const sendSMNonLn8 = async () => {
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true)
-                              try {
-                                await API.graphql(
-                                  graphqlOperation(createBizSls, {
-                                    input: {
-                                      saleId:route.params.id,
-                                      recPhn: recPhn,
-                                      senderPhn: senderPhn,                                  
-                                      amount: parseFloat(amount).toFixed(0),                              
-                                      description: description,
-                                      RecName:RecName,
-                                      SenderName:SenderName,
-                                      status: "cashSales",
-                                      owner: owner,
-                                      attendingAdmin:attendingAdmin
-                                    },
-                                  }),
-                                );
-        
-        
-                              } catch (error) {
-                                if (error){
-                                  Alert.alert("Sending unsuccessful; Retry")
-                                  return
-                                }
-                              
-                              }
-                              setIsLoading(false);
-                              await updtSendrAc8();
-                            };
-        
+                           
         
                             const updtSendrAc7 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
+                              
                               try{
                                   await API.graphql(
                                     graphqlOperation(updateBizna, {
                                       input:{
                                         BusKntct: senderPhn,                                
-                                        netEarnings:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0)                               
-                                        
+                                        netEarnings:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,                              
+                                        benefitsAmount: parseFloat(senderbeneficiaryAmt) + BizBenefits
                                       }
                                     })
                                   )
@@ -1261,46 +323,51 @@ const fetchSenderUsrDtls = async () => {
                               }
                               catch(error){
                                 console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
+                                if (error){Alert.alert("Retry or update your app1")
                                 return;}
                               }
-                              setIsLoading(false);
+                              
+                              await createBizBenefits4 ();
+                            }
+
+                            const createBizBenefits4 = async () =>{
+                             
+                              try{
+                                  await API.graphql(
+                                    graphqlOperation(createBenefitContributions2, {
+                                      input:{
+                                        benefitsID: "String",
+                                        benefactorAc: recPhn,
+                                        benefactorPhone: recPhn,
+                                        beneficiaryAc: "recPhn",
+                                        beneficiaryPhone: "String",
+                                        creatorEmail: "String",
+                                        prodName: "String",
+                                        creatorName: "String",
+                                        owner: userInfo.attributes.sub,
+                                        prodCost: 0,
+                                        benefitsAmount: BizBenefits,
+                                        beneficiaryType: "Pal",
+                                        prodDesc: "String",
+                                        benefitStatus: "Active",
+                                        amount: BizBenefits                  
+                                        
+                                      }
+                                    })
+                                  )                              
+                              }
+                              catch(error){
+                                console.log(error)
+                                if (error){Alert.alert("Retry or update your app2")
+                                return;}
+                              }
+                              
                               await updtRecAc7();
                             }
         
-                            const updtSendrAc8 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizna, {
-                                      input:{
-                                        BusKntct: senderPhn,                                  
-                                        netEarnings:(parseFloat(SenderUsrBal)-TotalTransacted2).toFixed(0)    
-                                       
-                                        
-                                      }
-                                    })
-                                  )
-        
-        
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtRecAc8();
-                            }
         
                             const updtRecAc7 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
+                              
                               try{
                                   await API.graphql(
                                     graphqlOperation(updateBizna, {
@@ -1308,7 +375,8 @@ const fetchSenderUsrDtls = async () => {
                                         BusKntct:recPhn,
                                         
                                         netEarnings:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),                                   
-                                        earningsBal:   (parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0)                         
+                                        earningsBal:   (parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),
+                                        benefitsAmount: parseFloat(senderbeneficiaryAmt) + BizBenefits                        
                                         
                                       }
                                     })
@@ -1316,56 +384,63 @@ const fetchSenderUsrDtls = async () => {
                               }
                               catch(error){
                                 console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
+                                if (error){Alert.alert("Retry or update your app3")
                                 return;}
                               }
-                              setIsLoading(false);
-                              await updtLnReqAc7();
+                              
+                              await createBizBenefits3();
                             }
         
-                            
-        
-                            
-        
-                            const updtRecAc8 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
+
+                            const createBizBenefits3 = async () =>{
+                              
                               try{
                                   await API.graphql(
-                                    graphqlOperation(updateBizna, {
+                                    graphqlOperation(createBenefitContributions2, {
                                       input:{
-                                        BusKntct:recPhn,
+                                        benefitsID: "String",
+                                        benefactorAc: senderPhn,
+                                        benefactorPhone: senderPhn,
+                                        beneficiaryAc: "recPhn",
+                                        beneficiaryPhone: "String",
+                                        creatorEmail: "String",
+                                        prodName: "String",
+                                        creatorName: "String",
+                                        owner: userInfo.attributes.sub,
+                                        prodCost: 0,
+                                        benefitsAmount: BizBenefits,
+                                        beneficiaryType: "Pal",
+                                        prodDesc: "String",
+                                        benefitStatus: "Active",
+                                        amount: BizBenefits                  
                                         
-                                        netEarnings:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),                                   
-                                        earningsBal:   (parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0)
                                       }
                                     })
                                   )                              
                               }
                               catch(error){
                                 console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
+                                if (error){Alert.alert("Retry or update your app4")
                                 return;}
                               }
-                              setIsLoading(false);
-                              await updtLnReqAc8();
-                            }
+                              
+                              await updtComp7();
+                            }                                 
+        
+                            
+        
+        
         
                             const updtComp7 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
+                              
                               try{
                                   await API.graphql(
                                     graphqlOperation(updateCompany, {
                                       input:{
                                         AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                        
-                                        companyEarningBal:(parseFloat(UsrTransferFee) * parseFloat(amount))*0.4 + parseFloat(companyEarningBals),
-                                        companyEarning: (parseFloat(UsrTransferFee) * parseFloat(amount))*0.4 + parseFloat(companyEarnings),                                                    
+                                        companyEarningBal:CompEarnings + parseFloat(companyEarningBals),
+                                        companyEarning: CompEarnings + parseFloat(companyEarnings),                                                    
                                         
                                         ttlNonLonssRecSM: parseFloat(amount) + parseFloat(ttlNonLonssRecSMs),
                                         ttlNonLonssSentSM: parseFloat(amount) + parseFloat(ttlNonLonssSentSMs),
@@ -1378,123 +453,16 @@ const fetchSenderUsrDtls = async () => {
                               }
                               catch(error){
                                 console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
+                                if (error){Alert.alert("Retry or update your app5")
                             return;}
                               }
-                              Alert.alert("Amount:Ksh. "+parseFloat(amount).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0)
-                              );
-                              setIsLoading(false);
-
-
-                            }
-
-                            const updtLnReqAc12 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizSlsReq, {
-                                      input:{
-                                        id:route.params.id,                                
-                                        status:"Approved",
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtComp12();
-                            }
-
-                            const updtLnReqAc11 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizSlsReq, {
-                                      input:{
-                                        id:route.params.id,                                
-                                        status:"Approved",
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtComp11();
-                            }
-
-                            const updtLnReqAc10 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizSlsReq, {
-                                      input:{
-                                        id:route.params.id,                                
-                                        status:"Approved",
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtComp10();
-                            }
-
-                            const updtLnReqAc9 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizSlsReq, {
-                                      input:{
-                                        id:route.params.id,                                
-                                        status:"Approved",
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtComp9();
+                              await updtLnReqAc7 ()
                             }
 
                             const updtLnReqAc7 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
+                              
                               try{
-                                  await API.graphql(
+                                const response = await API.graphql(
                                     graphqlOperation(updateBizSlsReq, {
                                       input:{
                                         id:route.params.id,                                
@@ -1502,76 +470,26 @@ const fetchSenderUsrDtls = async () => {
                                         
                                       }
                                     })
-                                  )                              
+                                  )    
+                                  
+                                  if (response?.data?.updateBizSlsReq) {
+                                    Alert.alert(
+                                      "Success",
+                                      `Amount: Ksh. ${parseFloat(amount).toFixed(0)}. Transaction fee: Ksh. ${biznaCashSaleFeeAmt.toFixed(0)}`
+                                    );
+                                  } else {
+                                    Alert.alert("Update failed", "No response or invalid response from the database.");
+                                  }
                               }
                               catch(error){
                                 console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
+                                if (error){Alert.alert("Retry or update your app6")
                                 return;}
                               }
-                              setIsLoading(false);
-                              await updtComp7();
+                              
                             }
 
-                            const updtLnReqAc8 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateBizSlsReq, {
-                                      input:{
-                                        id:route.params.id,                                
-                                        status:"Approved",
-                                        
-                                      }
-                                    })
-                                  )                              
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await updtComp8();
-                            }
-        
-                            const updtComp8 = async () =>{
-                              if(isLoading){
-                                return;
-                              }
-                              setIsLoading(true);
-                              try{
-                                  await API.graphql(
-                                    graphqlOperation(updateCompany, {
-                                      input:{
-                                        AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                       
-                                        companyEarningBal:UsrTransferFee2 + parseFloat(companyEarningBals),
-                                        companyEarning: UsrTransferFee2 + parseFloat(companyEarnings),                                                    
-                                        
-                                        ttlNonLonssRecSM: parseFloat(amount) + parseFloat(ttlNonLonssRecSMs),
-                                        ttlNonLonssSentSM: parseFloat(amount) + parseFloat(ttlNonLonssSentSMs),
-                                        
-                                      }
-                                    })
-                                  )
-                                  
-                                  
-                              }
-                              catch(error){
-                                console.log(error)
-                                if (error){Alert.alert("Retry or update your app")
-                            return;}
-                              }
-                             
-                              Alert.alert("Insufficient transaction fees? No worries! Ksh. " +parseFloat(amount).toFixed(0) + " sent!");
-                              setIsLoading(false);
-                            }
-                            
-                            
+                       
                     
                     if (userInfo.attributes.sub!==ownerz
                       &&Admin1 !== userInfo.attributes.email
@@ -1686,10 +604,7 @@ const fetchSenderUsrDtls = async () => {
                    
                     else if(objectionStatus === "Objected"){Alert.alert('Business account locked by the creator or admin');}
                         
-                    else if (
-                      UsrTransferFee2 < 0
-                    ) {Alert.alert('Requested amount is more than you have in your account');}
-                   
+                    
                     else if (
                       Lonees3.data.listCovCreditSellers.items.length > 0 
                       
@@ -1698,37 +613,19 @@ const fetchSenderUsrDtls = async () => {
                         SndChmMmbrMny();
                     } 
 
-                    else if(UsrTransferFeeAmt >= UsrTransferFee2 )
-                       {
-                        Alert.alert('Insufficient Funds');
-                    }
+                    
 
-                    else if(SenderUsrBal >= TotalTransacted 
-                       && SenderbizType !== "Public" 
-                      && RecBizType !== "Public"){
-                        sendSMNonLn13();
-                    }
-
-                    else if(SenderUsrBal >= TotalTransacted
-                       && SenderbizType === "Public" 
-                      && RecBizType !== "Public"){
-                        sendSMNonLn11();
-                    }
-
-                    else if(SenderUsrBal >= TotalTransacted
-                       && SenderbizType !== "Public" 
-                      && RecBizType === "Public"){
-                        sendSMNonLn9();
-                    }
+             
 
                     
-                     else if(SenderUsrBal >= TotalTransacted
-                      && SenderbizType === "Public" 
-                     && RecBizType === "Public"){
-                      sendSMNonLn7();
+                     else if(TotalTransacted >= SenderUsrBal
+                      ){
+                        Alert.alert("Your account balance is insufficient")
                     }   
                     
-                    else {Alert.alert("Please retry or update your app")}
+                    else {
+                      await sendSMNonLn7();
+                    }
                  
                   }       
                   catch(e) {   
@@ -1736,7 +633,7 @@ const fetchSenderUsrDtls = async () => {
                     if (e){Alert.alert("Retry or update app or call customer care")
     return;}                 
                   }
-                  setIsLoading(false);
+                 
                   }                    
                     await fetchRecBizUsrDtls();
                   
@@ -1746,7 +643,7 @@ const fetchSenderUsrDtls = async () => {
                     if (e){Alert.alert("Retry or update app or call customer care")
     return;}                 
                   }
-                  setIsLoading(false);
+                  
                   }                    
                     await fetchSenderBizUsrDtls();
                   
@@ -1756,15 +653,15 @@ const fetchSenderUsrDtls = async () => {
                   if (e){Alert.alert("Retry or update app or call customer care")
   return;}                 
                 }
-                setIsLoading(false);
+                
                 }                    
                   await fetchRecUsrDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Retry or update your app")
+          if (e){Alert.alert("Retry or update your app7")
       return;}
         }
-        setIsLoading(false);        
+             
       };
       await fetchCompDtls();
     
@@ -1776,11 +673,11 @@ const fetchSenderUsrDtls = async () => {
 }     
 catch (e) {
   console.log(e)
-  if (e){Alert.alert("Retry or update your app")
+  if (e){Alert.alert("Retry or update your app8")
   return;}
      
 }   
-setIsLoading(false);
+
 };
 
 await fetchSenderUsrDtls();
@@ -1788,11 +685,11 @@ await fetchSenderUsrDtls();
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Retry or update your app")
+      if (e){Alert.alert("Retry or update your app9")
       return;}
          
     }   
-    setIsLoading(false);
+    
     };
     
     await fetchCLChm();
@@ -1802,11 +699,11 @@ await fetchSenderUsrDtls();
     }     
     catch (e) {
       console.log(e)
-      if (e){Alert.alert("Retry or update your app")
+      if (e){Alert.alert("Retry or update your app10")
       return;}
          
     }   
-    setIsLoading(false);
+   
     };
     
     await fetchCLCrdSl();
@@ -1814,11 +711,11 @@ await fetchSenderUsrDtls();
   }     
   catch (e) {
     console.log(e)
-    if (e){Alert.alert("Retry or update your app")
+    if (e){Alert.alert("Retry or update your app11")
     return;}
        
   }   
-  setIsLoading(false);
+  
   };
   
   await fetchCvLnSM();
@@ -1828,9 +725,11 @@ await fetchSenderUsrDtls();
           console.log(e)
           if (e){Alert.alert("Please fill details correctly or Retry or update your app")
           return;}
-      };
+      }
   
-      setIsLoading(false);
+      finally {
+        setIsLoading(false); // Ensure loading state is reset
+      }
 
       
 }

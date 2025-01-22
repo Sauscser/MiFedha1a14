@@ -1,19 +1,9 @@
 import React, {useEffect, useState} from 'react';
-
-<<<<<<< HEAD
-import { createBenProd2, createBizna, createChamaMembers, createGroup,   createLinkBeneficiary2,   createPersonel,   updateCompany} from '../../../../src/graphql/mutations';
-import { getBenProd2, getBizna, getCompany, getSMAccount, listPersonels,   } from '../../../../src/graphql/queries';
-import {Auth,  graphqlOperation, API} from 'aws-amplify';
-
-
-import {useNavigation, useRoute} from '@react-navigation/native';
-=======
-import { createBenProd2, createBizna, createChamaMembers, createGroup,   createPersonel,   updateCompany} from '../../../../src/graphql/mutations';
-import { getBizna, getCompany, getSMAccount, listPersonels,   } from '../../../../src/graphql/queries';
+import { createBenProd2} from '../../../../src/graphql/mutations';
+import { getBizna, getSMAccount, listPersonels,   } from '../../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
 
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -41,15 +31,9 @@ const CreateChama = (props:UserReg) => {
 
   const{usr} = props;
 
-<<<<<<< HEAD
-  const route = useRoute();
-
- const [Recvrs, setRecvrs] = useState([]);
-=======
   
 
 
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
   const navigation = useNavigation();
 
   const [ChmPhn, setChmPhn] = useState('');
@@ -77,11 +61,7 @@ const [nationalId, setNationalid] = useState('');
     const[lon, setLon] = useState("");
 
   const WorkerID = ChmDesc+ChmRegNo
-<<<<<<< HEAD
-const ProdID = route.params.id
-=======
 
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
 
     
       const ChckUsrExistence = async () => {
@@ -92,55 +72,6 @@ const ProdID = route.params.id
         const userInfo = await Auth.currentAuthenticatedUser();
       
         try {
-<<<<<<< HEAD
-          const UsrDtlssszs:any = await API.graphql(
-            graphqlOperation(getSMAccount, { awsemail:userInfo.attributes.email}),
-                        
-          )       
-          const pwsz = UsrDtlssszs.data.getSMAccount.pw;
-
-          const checkBenProd = async () => {
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
-            const userInfo = await Auth.currentAuthenticatedUser();
-          
-            try {
-              const UsrDtls:any = await API.graphql(
-                graphqlOperation(getBenProd2, { id:ProdID}),
-                            
-              )       
-              const benefactorAcs = UsrDtls.data.getBenProd2.benefactorAc;
-              const benefactorPhones = UsrDtls.data.getBenProd2.benefactorPhone;
-              const creatorEmails = UsrDtls.data.getBenProd2.creatorEmail;
-              const prodNames = UsrDtls.data.getBenProd2.prodName;
-              const creatorNames = UsrDtls.data.getBenProd2.creatorName;
-              const owners = UsrDtls.data.getBenProd2.owner;
-              const prodCosts = UsrDtls.data.getBenProd2.prodCost;
-              const benefitsAmounts = UsrDtls.data.getBenProd2.benefitsAmount;
-              const prodDescs = UsrDtls.data.getBenProd2.prodDesc;
-              const prodStatus = UsrDtls.data.getBenProd2.prodStatus;
-
-          
-              const PckBiznaBeneficiaryDtls = async () => {
-                if(isLoading){
-                  return;
-                }
-                setIsLoading(true);
-                try {
-                  const BznaDtlsz:any = await API.graphql(
-                    graphqlOperation(getBizna, { BusKntct:ChmRegNo}),                                
-                  )
-
-                  const BusKntctzszs = BznaDtlsz.data.getBizna.BusKntct;
-              
-            
-
-
-
-          const PckBiznaBenefactorDtls = async () => {
-=======
           const UsrDtls:any = await API.graphql(
             graphqlOperation(getSMAccount, { awsemail:userInfo.attributes.email}),
                         
@@ -161,26 +92,17 @@ const ProdID = route.params.id
                         )
 
           const PckBiznaDtls = async () => {
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
             if(isLoading){
               return;
             }
             setIsLoading(true);
             try {
               const BznaDtls:any = await API.graphql(
-<<<<<<< HEAD
-                graphqlOperation(getBizna, { BusKntct:benefactorAcs}),
-                            
-              )
-    
-             
-=======
                 graphqlOperation(getBizna, { BusKntct:ChmRegNo}),
                             
               )
     
               const pws = BznaDtls.data.getBizna.pw;
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
               const ownerz = BznaDtls.data.getBizna.owner;
               const BiznaNames = BznaDtls.data.getBizna.busName;
               const Admin1 = BznaDtls.data.getBizna.Admin1;
@@ -233,26 +155,6 @@ const ProdID = route.params.id
               const Admin48 = BznaDtls.data.getBizna.Admin48;
               const Admin49 = BznaDtls.data.getBizna.Admin49;
               const Admin50 = BznaDtls.data.getBizna.Admin50;
-<<<<<<< HEAD
-
-              const ChckPhnUse = async () => {
-                try {
-                  const UsrDtlsscz:any = await API.graphql(
-                    graphqlOperation(listPersonels,
-                      { filter: {
-                          
-                        phoneKontact: { eq: userInfo.attributes.email},
-                        BusinessRegNo:{eq: benefactorAcs}
-                                      
-                        }}
-                    )
-                  )
-
-                  const personnel = UsrDtlsscz.data.listPersonels.items
-                  setRecvrs(personnel)
-                  console.log(ProdID)
-=======
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
               
               
       const onCreateNewSMAc = async () => {
@@ -262,31 +164,6 @@ const ProdID = route.params.id
         setIsLoading(true);
         try {
           await API.graphql(
-<<<<<<< HEAD
-          graphqlOperation(createLinkBeneficiary2, {
-          input: {
-
-            
-            beneficiaryID: ProdID+ChmRegNo,
-            prodID: ProdID,   
-            benefitsID : "benefitsID", 
-benefactorAc: benefactorAcs,
-benefactorPhone: benefactorPhones,
-beneficiaryAc: BusKntctzszs,
-beneficiaryPhone: BusKntctzszs,
-creatorEmail: creatorEmails,
-
-prodName: prodNames,
-creatorName: creatorNames,
-owner: owners,
-prodCost: prodCosts,
-benefitsAmount: benefitsAmounts,
-beneficiaryType: "Biz",
-amount:0,
-prodDesc: prodDescs,
-benefitStatus: "Active",
-
-=======
           graphqlOperation(createBenProd2, {
           input: {
 
@@ -302,7 +179,6 @@ prodCost: Sign2Phn,
 benefitsAmount: 0,
 prodDesc: ChmDesc,
 prodStatus: "AccountActive"
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
             
                   },
                 }),
@@ -316,22 +192,14 @@ prodStatus: "AccountActive"
               }
             
             }
-<<<<<<< HEAD
-            Alert.alert("Beneficiary Linked successfully")
-=======
             Alert.alert("Product created successfully")
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
             
             setIsLoading(false);
             
             
           };
           if (pwsz!==pword){
-<<<<<<< HEAD
-            Alert.alert("Wrong Main Account password")
-=======
             Alert.alert("Wrong Admin password")
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
           }
 
            
@@ -439,30 +307,16 @@ prodStatus: "AccountActive"
             Admin49 === userInfo.attributes.email 
             ||
             Admin50 === userInfo.attributes.email 
-<<<<<<< HEAD
-            ||
-            Recvrs.length > 0
-
-=======
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
             ){
               onCreateNewSMAc();
           }
           else{
          
-<<<<<<< HEAD
-            Alert.alert("You are Not an Creator/Admin/worker of this Bizna")
-          }
-      } catch (error) {
-        console.error(error);
-        if (error){Alert.alert("Error! Call customer care or update app!")
-=======
             Alert.alert("You are Neither the Creator/Admin of this business")
           }
       } catch (error) {
         
         if (error){Alert.alert("Error! Create a business first!")
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
       return}
       }
   
@@ -470,20 +324,11 @@ prodStatus: "AccountActive"
                 
     }
 
-<<<<<<< HEAD
-    await ChckPhnUse();
-      
-  } catch (error) {
-    console.error(error);
-        
-    if (error){Alert.alert("Error! Call customer care or update app!")
-=======
     await PckBiznaDtls();
       
   } catch (error) {
         
     if (error){Alert.alert("Error! Create a business first!")
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
   return}
   }
 
@@ -491,36 +336,7 @@ prodStatus: "AccountActive"
             
 }
 
-<<<<<<< HEAD
-await PckBiznaBenefactorDtls(); 
-
-} catch (error) {
-        
-    if (error){Alert.alert("Error! Let Beneficiary create a business first!")
-  return}
-  }
-
-  setIsLoading(false)
-            
-}
-
-await PckBiznaBeneficiaryDtls(); 
-
-} catch (error) {
-        
-    if (error){Alert.alert("Error!!")
-  return
-}
-  }
-
-  setIsLoading(false)
-            
-}
-
-await checkBenProd(); 
-=======
 await ChckPhnUse(); 
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
 
     } catch (e) {
       console.error(e);
@@ -767,22 +583,12 @@ useEffect(() =>{
         
                   <View style={styles.formContainer}>
                     <TextInput
-<<<<<<< HEAD
-                     placeholder="Beneficiary Business Phone"
-=======
                      placeholder="Business Phone Number"
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
                       value={ChmRegNo}
                       onChangeText={setChmRegNo}
                       style={styles.input}
                       editable={true}></TextInput>
                     
-<<<<<<< HEAD
-                    
-                   <View style={styles.passwordContainer}>
-                                                                 <TextInput
-                                                                   placeholder=" Your Main Account Password"
-=======
                     <TextInput
                      placeholder="Product Name"
                       value={ChmPhn}
@@ -815,7 +621,6 @@ useEffect(() =>{
                    <View style={styles.passwordContainer}>
                                                                  <TextInput
                                                                    placeholder="Admin Main Account Password"
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
                                                                style={styles.passwordInput}
                                                                                                     
                                                                value={pword}

@@ -15,16 +15,16 @@ const FetchSMNonCovLns = props => {
     const [Loanees, setLoanees] = useState([]);
     
         const fetchUsrDtls = async () => {
-          const userInfo = await Auth.currentAuthenticatedUser();
-        
+          const userInfo = await Auth.currentAuthenticatedUser();        
           
           try {
                   const MFNDtls: any = await API.graphql(
                       graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
                   ),);
-    
                   const balances = MFNDtls.data.getSMAccount.balance;
                   const owner = MFNDtls.data.getSMAccount.owner;
+
+                  
 
         const fetchLoanees = async () => {
             setLoading(true);

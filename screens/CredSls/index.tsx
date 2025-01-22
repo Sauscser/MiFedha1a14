@@ -149,13 +149,8 @@ const MyLoanAccount = () => {
     navigation.navigate('UpdateBizAc');
   };
 
-<<<<<<< HEAD
   const ViewBenProds = () => {
     navigation.navigate('ViewBenProds');
-=======
-  const VwBenProds = () => {
-    navigation.navigate('VwBenProds');
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
   };
 
   
@@ -178,13 +173,8 @@ const MyLoanAccount = () => {
             { label: 'Create Benefit Product', onPress: AddBeneficiaryProduct, style: styles.ClientsPressables },
             { label: 'Link Beneficiary', onPress: UpdateBizAc, style: styles.ClientsPressables },
             { label: 'Release Benefits', onPress: AddPersonelss, style: styles.ClientsPressables },
-<<<<<<< HEAD
             { label: 'View Benefit Products', onPress: ViewBenProds, style: styles.ClientsPressables },
             { label: 'View Beneficiaries', onPress: ViewBenProds, style: styles.ClientsPressables }
-=======
-            { label: 'View Benefit Products', onPress: VwBenProds, style: styles.ClientsPressables },
-            { label: 'View Beneficiaries', onPress: VwBenProds, style: styles.ClientsPressables }
->>>>>>> f005c34c92fb2c420080c694d7fe3676d3387a8a
             
           ]}
         />
@@ -236,7 +226,7 @@ const MyLoanAccount = () => {
         <Section 
           title="Cash Sales/purchases & Deposits"
           options={[
-            { label: 'Pay Cash', onPress: PayCash, style: styles.ClientsPressables },
+            { label: 'Cash Sales', onPress: PayCash, style: styles.ClientsPressables },
             { label: 'Make Deposits', onPress: MakeNVwPayPalDpsits, style: styles.ClientsPressables },
             
           ]}

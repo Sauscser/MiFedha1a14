@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {View, Text,   ScrollView, Pressable} from 'react-native';
-import { deleteReqLoan, updateNonLoans, updateReqLoan } from '../../../../../src/graphql/mutations';
+import { deleteReqLoan, updateBizSlsReq, updateNonLoans, updateReqLoan } from '../../../../../src/graphql/mutations';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 import {StyleSheet, Dimensions} from 'react-native';
 
@@ -44,7 +44,7 @@ const SMCvLnStts = (props:SMAccount) => {
    
 
    const SndChmMmbrMny = () => {
-       navigation.navigate("B2BPayCash", {id})
+       navigation.navigate("B2BPayCashB2BBen", {id})
 
    }
 
@@ -55,7 +55,7 @@ const SMCvLnStts = (props:SMAccount) => {
     setIsLoading(true);
         try{
             await API.graphql(
-              graphqlOperation(updateNonLoans,{
+              graphqlOperation(updateBizSlsReq,{
                 input:{
                   id:id,
                   status:"Declined"
@@ -91,19 +91,19 @@ const SMCvLnStts = (props:SMAccount) => {
                      
                     <View style = {styles.viewForPressables2}>
                     <View>
-                    <Pressable
+                    <TouchableOpacity
                       onPress={SndChmMmbrMny}
                       style = {styles.loanFriendButton}
                       >            
                         <Text>Approve</Text>            
-                    </Pressable>
+                    </TouchableOpacity>
                     </View>   
                     <View>
-                    <Pressable
+                    <TouchableOpacity
                       onPress={updtCashSale}
                       style = {styles.loanFriendButton}>            
                         <Text>Decline</Text>            
-                    </Pressable>  
+                    </TouchableOpacity>  
                     </View>
                      
                     </View>

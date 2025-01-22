@@ -31,20 +31,22 @@ import {
 
 import {useNavigation} from '@react-navigation/native';
 
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+
 import {
   View,
   Text,
-  Linking,
-  Pressable,
+  
+  
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+  StyleSheet,
+  
   TouchableOpacity,
   Alert,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
-import styles from './styles';
 
 
 const SMASendNonLns = props => {
@@ -59,6 +61,7 @@ const SMASendNonLns = props => {
  
   const[isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation()
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const SndChmMmbrMny = () => {
     navigation.navigate("AutomaticRepayAllTyps")
@@ -149,7 +152,7 @@ const SMASendNonLns = props => {
             graphqlOperation(listPersonels,
               { filter: {
                   
-                phoneKontact: { eq: userInfo.attributes.email},
+                phoneKontact: { eq: AttendAdmin},
                 BusinessRegNo:{eq: SenderNatId}
                               
                 }}
@@ -184,6 +187,7 @@ const SMASendNonLns = props => {
                   
                         const phonecontactxs =accountDtl7.data.getSMAccount.phonecontact;
                         const namexs =accountDtl7.data.getSMAccount.name;
+                        const pwszsx =accountDtl7.data.getSMAccount.pw;
 
                         const fetchRecBizUsrDtls = async () => {
                           if(isLoading){
@@ -196,6 +200,7 @@ const SMASendNonLns = props => {
                             );
                       
                             const namezx =accountDtl7.data.getSMAccount.name;
+                            
                             const phonecontactzx =accountDtl7.data.getSMAccount.phonecontact;
 
                     
@@ -231,20 +236,20 @@ const SMASendNonLns = props => {
                         }
                       }
                       setIsLoading(false);
-                      Communications.textWithoutEncoding(phonecontactxs,'MiFedha. Hi '+ namexs 
-                          + ', ' +namezx + ' of '+ name + ' business has requested to send Ksh. '
+
+                      Alert.alert("Request Successful")
+                      Communications.textWithoutEncoding(SenderNatId,'MiFedha. Greetings '+ name + ", "+ 
+                        namexs +' working at your business has requested to pay Ksh. '
                           + amounts +' to ' + namess + ' business. '
-                          + '. Please proceed to authorise if it is a legitimate transaction '
+                          + '. Please call customer care if it is not a valid transaction '
                           + ' as per your business policies. For clarification reach the personnel through '
                         + phonecontactzx +'. Thank you.');
                     };
                       
-                    if(
-                    UsrDtls.data.listPersonels.items.length < 1)
-                    {Alert.alert ("You dont work here")}
-                    
-                    else if(RecAcstatus === "AccountInactive"){Alert.alert('Receiver account is inactive');}
+                    if(RecAcstatus === "AccountInactive"){Alert.alert('Receiver account is inactive');}
+                    else if(SnderPW !== pwszsx){Alert.alert('Wrong Main Account Password');}
                     else if(SenderAcstatus === "AccountInactive"){Alert.alert('Sender account is inactive');}
+                    else if(AttendAdmin !== userInfo.attributes.email){Alert.alert('Attending Admin must be the owner of User Account');}                    
                     else if ( Admin1 !== AttendAdmin
                       &&
                       Admin2 !== AttendAdmin 
@@ -345,11 +350,14 @@ const SMASendNonLns = props => {
                       &&
                       Admin49 !== AttendAdmin 
                       &&
-                      Admin50 !== AttendAdmin )
+                      Admin50 !== AttendAdmin 
+                    &&
+                    UsrDtls.data.listPersonels.items.length < 1
+                  )
                    
-                  {Alert.alert ("The admin is not an admin in this business")}
+                  {Alert.alert ("You do not work here neither are you an admin")}
                      else {
-                      sendSMNonLn();
+                      await sendSMNonLn();
                     }                                                
                  
                   }       
@@ -486,98 +494,147 @@ useEffect(() =>{
                             setSnderPW(SnderPWss);
                             }, [SnderPW]
                              );
-
-                             
-
-                                 
-
-  return (
-    <View>
-      <View
+return (
+                        <LinearGradient
+                          colors={['#e58d29', 'skyblue']}
+                          start={[0, 0]}
+                          end={[1, 1]}
+                          style={{ flex: 1 }}
+                        >
+                          <View style={styles.container}>
+                            <ScrollView>
         
-        style={styles.image}>
-        <ScrollView>
-         
-          <View style={styles.amountTitleView}>
-            <Text style={styles.title}>Fill account Details Below</Text>
-          </View>
+                  <View style={styles.formContainer}>
+                    <TextInput
+                     placeholder="Purchasing Business Phone Number"
+                      value={SenderNatId}
+                      onChangeText={setSenderNatId}
+                      style={styles.input}
+                      editable={true}></TextInput>
+                    
+                    <TextInput
+                     placeholder="Selling Business Phone Number"
+                      value={RecNatId}
+                      onChangeText={setRecNatId}
+                     
+                      style={styles.input}
+                      editable={true}></TextInput>
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-            placeholder="Sending Business Phone"
-              value={SenderNatId}
-              onChangeText={setSenderNatId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Sending Business Phone</Text>
-          </View>
+<TextInput
+                     placeholder="Attending Personnel Email"
+                      value={AttendAdmin}
+                      onChangeText={setAttendAdmin}
+                      style={styles.input}
+                      editable={true}></TextInput>
+                    
+                    
+                   
+                 
+                    <TextInput
+                     placeholder="Item/Sale Request Description"
+                      value={Desc}
+                      onChangeText={setDesc}
+                      style={styles.input}
+                      editable={true}
+                      multiline={true}  // Enables multi-line input
+                textAlignVertical="top">
+                        
+                      </TextInput>
+                    
+                    <TextInput
+                    placeholder="Enter Item Cost"
+                      value={amounts}
+                      onChangeText={setAmount}
+                      keyboardType={"decimal-pad"}
+                      style={styles.input}
+                      editable={true}></TextInput>
+                   
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-            placeholder="Receiving Business Phone"
-              value={RecNatId}
-              onChangeText={setRecNatId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Receiving Business Phone</Text>
-          </View>
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-            placeholder="AttendingAdminEmail"
-              value={AttendAdmin}
-              onChangeText={setAttendAdmin}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>AttendingAdminEmail</Text>
-          </View>
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-            keyboardType={"decimal-pad"}
-              value={amounts}
-              onChangeText={setAmount}
-              style={styles.sendAmtInput}
-              editable={true}
-              ></TextInput>
-              
-            <Text style={styles.sendAmtText}>Amount Sent</Text>
-          </View>
-
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={SnderPW}
-              onChangeText={setSnderPW}
-              secureTextEntry = {true}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Personnel PassWord</Text>
-          </View>
-
-
-          <View style={styles.sendAmtViewDesc}>
-            <TextInput
-              multiline={true}
-              value={Desc}
-              onChangeText={setDesc}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Description</Text>
-          </View>
-
-          <TouchableOpacity
-            onPress={fetchSenderUsrDtls}
-            style={styles.sendAmtButton}>
-            <Text style={styles.sendAmtButtonText}>Send</Text>
-            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
-          </TouchableOpacity>
-
-          
-        </ScrollView>
-      </View>
-    </View>
-  );
-};
-
+                   <View style={styles.passwordContainer}>
+                                                                 <TextInput
+                                                                   placeholder="Personnel Main Account Password"
+                                                               style={styles.passwordInput}
+                                                                                                    
+                                                               value={SnderPW}
+                                                               onChangeText={setSnderPW}
+                                                               secureTextEntry={!isPasswordVisible}
+                                                               placeholderTextColor="#ccc"
+                                                                       />
+                                                               <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                                                              <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
+                                                               </TouchableOpacity>
+                                                               </View>
+                     
+                                                              
+                  <TouchableOpacity
+                    onPress={fetchSenderUsrDtls}
+                    style={styles.button}>
+                    {isLoading ? (
+                                              <ActivityIndicator color="#fff" />
+                                            ) : (
+                                              <Text style={styles.locationText}>Submit</Text>
+                                            )}
+                                          </TouchableOpacity>
+                                        </View>
+                                      </ScrollView>
+                                    </View>
+                                  </LinearGradient>
+                                );
+                              };
+                              
+                              const styles = StyleSheet.create({
+                                  gradient: {
+                                    flex: 1,
+                                  },
+                                  container: {
+                                    flex: 1,
+                                    padding: 20,
+                                  },
+                                  loanTitleView: {
+                                    marginBottom: 20,
+                                    alignItems: 'center',
+                                  },
+                                  title: {
+                                    fontSize: 24,
+                                    fontWeight: 'bold',
+                                    color: '#ffffff',
+                                    textAlign: 'center',
+                                  },
+                                  formContainer: {
+                                    backgroundColor: '#ffffff',
+                                    borderRadius: 10,
+                                    padding: 20,
+                                    shadowColor: '#000',
+                                    shadowOffset: { width: 0, height: 2 },
+                                    shadowOpacity: 0.25,
+                                    shadowRadius: 4,
+                                    elevation: 5,
+                                  },
+                                  input: {
+                                    height: 45,
+                                    borderColor: '#ccc',
+                                    borderWidth: 1,
+                                    marginBottom: 15,
+                                    borderRadius: 5,
+                                    paddingLeft: 10,
+                                  },
+                                  button: {
+                                    backgroundColor: '#e58d29',
+                                    paddingVertical: 12,
+                                    borderRadius: 5,
+                                    alignItems: 'center',
+                                    marginTop: 20,
+                                  },
+                                  locationContainer: {
+                                    marginVertical: 10,
+                                  },
+                                  locationText: {
+                                    fontSize: 16,
+                                    color: '#333',
+                                  },
+                                  passwordContainer: { flexDirection: 'row', alignItems: 'center', 
+                                      backgroundColor: '#fff', borderRadius: 8, marginBottom: 10, height:50 },
+                              passwordInput: { flex: 1, padding: 12 },
+                                });
+        
 export default SMASendNonLns;
