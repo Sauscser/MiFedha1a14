@@ -14,6 +14,7 @@ import {
   updateBizna,
   createBizSls,
   updateBizSlsReq,
+  createBenefitContributions2,
   
 } from '../../../../../src/graphql/mutations';
 
@@ -150,6 +151,7 @@ const fetchSenderUsrDtls = async () => {
       const pw =accountDtl.data.getBizna.pw;
       const objectionStatus =accountDtl.data.getBizna.objectionStatus;
       const noBL =accountDtl.data.getBizna.noBL;
+      const BizBenefitsAmount =accountDtl.data.getBizna.benefitsAmount;
               const Admin1 = accountDtl.data.getBizna.Admin1;
               const Admin2 = accountDtl.data.getBizna.Admin2;
               const Admin3 = accountDtl.data.getBizna.Admin3;
@@ -213,10 +215,16 @@ const fetchSenderUsrDtls = async () => {
             
           const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
           const UsrTransferFeeAmt = UsrTransferFee*parseFloat(amount);
-          const UsrTransferFee2 = parseFloat(SenderUsrBal) -parseFloat(amount);
-          const TotalTransacted = parseFloat(amount)  + parseFloat(UsrTransferFee)*parseFloat(amount);
-          const TotalTransacted2 = parseFloat(amount)  + UsrTransferFee2;
-          const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
+          
+          const b2pBenCom = CompDtls.data.getCompany.b2pBenCom; 
+          const biznaCashSaleFee = CompDtls.data.getCompany.userTransferFee;
+                    const biznaCashSaleFeeAmt = parseFloat(biznaCashSaleFee)*parseFloat(amount);
+                    const UsrTransferFee2 = parseFloat(SenderUsrBal) -parseFloat(amount);
+                    const TotalTransacted = parseFloat(amount)  + parseFloat(biznaCashSaleFee)*parseFloat(amount);
+                    const TotalTransacted2 = parseFloat(amount)  + UsrTransferFee2;
+                    const BizBenPercentage =   parseFloat(b2pBenCom) * parseFloat(biznaCashSaleFee);
+                    const BizBenefits = BizBenPercentage * parseFloat(amount);
+                    const CompEarnings = biznaCashSaleFeeAmt - (2*BizBenefits);       
           
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
@@ -234,8 +242,9 @@ const fetchSenderUsrDtls = async () => {
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const beneficiary =RecAccountDtl.data.getSMAccount.beneficiary; 
                     
-                    const namess =RecAccountDtl.data.getSMAccount.name;
+                    const RecbenefitsAmount =RecAccountDtl.data.getSMAccount.benefitsAmount;
                     const RecAcstatus =RecAccountDtl.data.getSMAccount.status;
+                    const beneficiaryType =RecAccountDtl.data.getSMAccount.beneficiaryType;
 
                     const fetchSenderBizUsrDtls = async () => {
                      
@@ -255,7 +264,7 @@ const fetchSenderUsrDtls = async () => {
                               graphqlOperation(getSMAccount, {awsemail: beneficiary}),
                             );
                       
-                            const SenderUsrBal8 =accountDtl8.data.getSMAccount.balance;
+                            const RecUsrBenBal =accountDtl8.data.getSMAccount.balance;
                             const recbeneficiaryAmt =accountDtl8.data.getSMAccount.beneficiaryAmt;                    
                     
 
@@ -298,8 +307,8 @@ const fetchSenderUsrDtls = async () => {
                                     graphqlOperation(updateBizna, {
                                       input:{
                                         BusKntct: senderPhn,                                
-                                        netEarnings:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0)                               
-                                        
+                                        netEarnings:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0),                              
+                                        benefitsAmount: BizBenefits + parseFloat(BizBenefitsAmount)
                                       }
                                     })
                                   )
@@ -323,7 +332,7 @@ const fetchSenderUsrDtls = async () => {
                                     graphqlOperation(updateSMAccount, {
                                       input:{
                                         awsemail:recPhn,
-                                        
+                                        benefitsAmount: parseFloat(RecbenefitsAmount) + BizBenefits,
                                         balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),
                                       }
                                     })
@@ -335,14 +344,44 @@ const fetchSenderUsrDtls = async () => {
                                 return;}
                               }
                               
-                              await updtComp7();
+                              await createBizBenefits1();
                             }
         
-                            
-        
-                            
-        
-                            
+                           const createBizBenefits1 = async () =>{
+                                                        
+                                                         try{
+                                                             await API.graphql(
+                                                               graphqlOperation(createBenefitContributions2, {
+                                                                 input:{
+                                                                   benefitsID: "String",
+                                                                   benefactorAc: recPhn,
+                                                                   benefactorPhone: recPhn,
+                                                                   beneficiaryAc: senderPhn,
+                                                                   beneficiaryPhone: "String",
+                                                                   creatorEmail: "String",
+                                                                   prodName: "String",
+                                                                   creatorName: "String",
+                                                                   owner: userInfo.attributes.sub,
+                                                                   prodCost: 0,
+                                                                   benefitsAmount: BizBenefits,
+                                                                   beneficiaryType: "Pal",
+                                                                   prodDesc: "String",
+                                                                   benefitStatus: "Active",
+                                                                   amount: BizBenefits                  
+                                                                   
+                                                                 }
+                                                               })
+                                                             )                              
+                                                         }
+                                                         catch(error){
+                                                           console.log(error)
+                                                           if (error){Alert.alert("Retry or update your app2")
+                                                           return;}
+                                                         }
+                                                         
+                                                         await updtComp7();
+                                                       }
+                                   
         
                             const updtComp7 = async () =>{
                              
@@ -352,8 +391,8 @@ const fetchSenderUsrDtls = async () => {
                                       input:{
                                         AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                        
-                                        companyEarningBal:(parseFloat(UsrTransferFee) * parseFloat(amount))*0.4 + parseFloat(companyEarningBals),
-                                        companyEarning: (parseFloat(UsrTransferFee) * parseFloat(amount))*0.4 + parseFloat(companyEarnings),                                                    
+                                        companyEarningBal:CompEarnings + parseFloat(companyEarningBals),
+                                        companyEarning: CompEarnings + parseFloat(companyEarnings),                                                    
                                         
                                         ttlNonLonssRecSM: parseFloat(amount) + parseFloat(ttlNonLonssRecSMs),
                                         ttlNonLonssSentSM: parseFloat(amount) + parseFloat(ttlNonLonssSentSMs),
@@ -369,10 +408,45 @@ const fetchSenderUsrDtls = async () => {
                                 if (error){Alert.alert("Retry or update your app")
                             return;}
                               }
+                              await createBizBenefits2();
+                            }
+
+                            const createBizBenefits2 = async () =>{
+                                                        
+                              try{
+                                  await API.graphql(
+                                    graphqlOperation(createBenefitContributions2, {
+                                      input:{
+                                        benefitsID: "String",
+                                        benefactorAc: senderPhn,
+                                        benefactorPhone: senderPhn,
+                                        beneficiaryAc: recPhn,
+                                        beneficiaryPhone: "String",
+                                        creatorEmail: "String",
+                                        prodName: "String",
+                                        creatorName: "String",
+                                        owner: userInfo.attributes.sub,
+                                        prodCost: 0,
+                                        benefitsAmount: BizBenefits,
+                                        beneficiaryType: "Pal",
+                                        prodDesc: "String",
+                                        benefitStatus: "Active",
+                                        amount: BizBenefits                  
+                                        
+                                      }
+                                    })
+                                  )                              
+                              }
+                              catch(error){
+                                console.log(error)
+                                if (error){Alert.alert("Retry or update your app2")
+                                return;}
+                              }
+                              
                               await updtLnReqAc7();
                             }
-        
-                           
+
+                            
                             const updtLnReqAc7 = async () =>{
                               
                               try{
@@ -403,6 +477,204 @@ const fetchSenderUsrDtls = async () => {
                               
                               
                             }
+
+                            const sendSMNonLn = async () => {
+                              
+                              try {
+                                await API.graphql(
+                                  graphqlOperation(createBizSls, {
+                                    input: {
+                                      saleId:route.params.id,
+                                      recPhn: recPhn,
+                                      senderPhn: senderPhn,                                  
+                                      amount: parseFloat(amount).toFixed(0),                              
+                                      description: description,
+                                      RecName:RecName,
+                                      SenderName:SenderName,
+                                      status: "cashSales",
+                                      owner: owner,
+                                      attendingAdmin:attendingAdmin
+                                    },
+                                  }),
+                                );
+        
+        
+                              } catch (error) {
+                                if (error){
+                                  Alert.alert("Sending unsuccessful; Retry")
+                                  return
+                                }
+                              }
+                             
+                              await updtSendrAc();
+                            };
+        
+                            
+                            const updtSendrAc = async () =>{
+                              
+                              try{
+                                  await API.graphql(
+                                    graphqlOperation(updateBizna, {
+                                      input:{
+                                        BusKntct: senderPhn,                                
+                                        netEarnings:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0),                              
+                                        benefitsAmount: parseFloat(BizBenefitsAmount) + BizBenefitsAmount
+                                      }
+                                    })
+                                  )
+        
+        
+                              }
+                              catch(error){
+                                console.log(error)
+                                if (error){Alert.alert("Retry or update your app")
+                                return;}
+                              }
+                             
+                              await updtRecAc();
+                            }
+        
+                            
+                            const updtRecAc = async () =>{
+                             
+                              try{
+                                  await API.graphql(
+                                    graphqlOperation(updateSMAccount, {
+                                      input:{
+                                        awsemail:recPhn,
+                                        
+                                        balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),
+                                      }
+                                    })
+                                  )                              
+                              }
+                              catch(error){
+                                console.log(error)
+                                if (error){Alert.alert("Retry or update your app")
+                                return;}
+                              }
+                              
+                              await createBizBenefits3();
+                            }
+        
+                           const createBizBenefits3 = async () =>{
+                                                        
+                                                         try{
+                                                             await API.graphql(
+                                                               graphqlOperation(createBenefitContributions2, {
+                                                                 input:{
+                                                                   benefitsID: "String",
+                                                                   benefactorAc: senderPhn,
+                                                                   benefactorPhone: senderPhn,
+                                                                   beneficiaryAc: recPhn,
+                                                                   beneficiaryPhone: "String",
+                                                                   creatorEmail: "String",
+                                                                   prodName: "String",
+                                                                   creatorName: "String",
+                                                                   owner: userInfo.attributes.sub,
+                                                                   prodCost: 0,
+                                                                   benefitsAmount: BizBenefits,
+                                                                   beneficiaryType: "Pal",
+                                                                   prodDesc: "String",
+                                                                   benefitStatus: "Active",
+                                                                   amount: BizBenefits                  
+                                                                   
+                                                                 }
+                                                               })
+                                                             )                              
+                                                         }
+                                                         catch(error){
+                                                           console.log(error)
+                                                           if (error){Alert.alert("Retry or update your app2")
+                                                           return;}
+                                                         }
+                                                         
+                                                         await updtComp();
+                                                       }
+                                   
+        
+                            const updtComp = async () =>{
+                             
+                              try{
+                                  await API.graphql(
+                                    graphqlOperation(updateCompany, {
+                                      input:{
+                                        AdminId: "BaruchHabaB'ShemAdonai2",                                                      
+                                       
+                                        companyEarningBal:CompEarnings + parseFloat(companyEarningBals),
+                                        companyEarning: CompEarnings + parseFloat(companyEarnings),                                                    
+                                        
+                                        ttlNonLonssRecSM: parseFloat(amount) + parseFloat(ttlNonLonssRecSMs),
+                                        ttlNonLonssSentSM: parseFloat(amount) + parseFloat(ttlNonLonssSentSMs),
+                                        
+                                      }
+                                    })
+                                  )
+                                  
+                                  
+                              }
+                              catch(error){
+                                console.log(error)
+                                if (error){Alert.alert("Retry or update your app")
+                            return;}
+                              }
+                              await updtRecBen();
+                            }
+
+                            const updtRecBen = async () =>{
+                             
+                              try{
+                                  await API.graphql(
+                                    graphqlOperation(updateSMAccount, {
+                                      input:{
+                                        awsemail:beneficiary,
+                                        beneficiaryAmt: parseFloat(recbeneficiaryAmt) + BizBenefits,
+                                        balance:(parseFloat(RecUsrBenBal) + BizBenefits).toFixed(0),
+                                      }
+                                    })
+                                  )                              
+                              }
+                              catch(error){
+                                console.log(error)
+                                if (error){Alert.alert("Retry or update your app")
+                                return;}
+                              }
+                              
+                              await updtLnReqAc();
+                            }
+
+                            
+                            const updtLnReqAc = async () =>{
+                              
+                              try{
+                                  const upcredsl= await API.graphql(
+                                    graphqlOperation(updateBizSlsReq, {
+                                      input:{
+                                        id:route.params.id,                                
+                                        status:"Approved",
+                                        
+                                      }
+                                    })
+                                  )  
+                                  if (upcredsl?.data?.updateBizSlsReq)
+                                  {
+                                    Alert.alert("Amount:Ksh. "+parseFloat(amount).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0) );
+                                  }
+                                  
+                                                         
+                              }
+
+                             
+                            
+                              catch(error){
+                                console.log(error)
+                                if (error){Alert.alert("Retry or update your app")
+                                return;}
+                              }
+                              
+                              
+                            }
+
 
                             
                     
@@ -518,11 +790,6 @@ const fetchSenderUsrDtls = async () => {
                     else if(RecAcstatus === "AccountInactive"){Alert.alert('Receiver account is inactive');}
                     else if(SenderAcstatus === "AccountInactive"){Alert.alert('Sender account is inactive');}
                    
-                    
-                    else if (
-                      UsrTransferFee2 < 0
-                    ) {Alert.alert('Requested amount is more than you have in your account');}
-                   
                     else if (
                       Lonees3.data.listCovCreditSellers.items.length > 0 
                       
@@ -531,21 +798,16 @@ const fetchSenderUsrDtls = async () => {
                         SndChmMmbrMny();
                     } 
 
-                   
-                   
-                    else if(UsrTransferFeeAmt >= UsrTransferFee2 )
-                      {
-                       Alert.alert('Insufficient Funds');
-                   }
-
-                    
-                   
-                    
-                     else if(TotalTransacted >= SenderUsrBal
+                     else if(TotalTransacted > SenderUsrBal
                        
                      ){
                      Alert.alert("Insufficient funds in your account") 
                     }   
+
+                    else if(beneficiaryType === "Pal"){
+                    await sendSMNonLn ();
+                    return
+                   }   
                     
                     else {
                       await sendSMNonLn7();

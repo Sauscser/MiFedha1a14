@@ -221,7 +221,7 @@ const fetchSenderUsrDtls = async () => {
           const TotalTransacted2 = parseFloat(amount)  + UsrTransferFee2;
           const BizBenPercentage =   parseFloat(b2bBenCom) * parseFloat(biznaCashSaleFee);
           const BizBenefits = BizBenPercentage * parseFloat(amount);
-          const CompEarnings = biznaCashSaleFeeAmt - BizBenefits;
+          const CompEarnings = biznaCashSaleFeeAmt - (2*BizBenefits);
           
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
@@ -314,7 +314,7 @@ const fetchSenderUsrDtls = async () => {
                                       input:{
                                         BusKntct: senderPhn,                                
                                         netEarnings:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,                              
-                                        benefitsAmount: parseFloat(senderbeneficiaryAmt) + BizBenefits
+                                        benefitsAmount: parseFloat(SenderbenefitsAmount) + BizBenefits
                                       }
                                     })
                                   )
@@ -339,7 +339,7 @@ const fetchSenderUsrDtls = async () => {
                                         benefitsID: "String",
                                         benefactorAc: recPhn,
                                         benefactorPhone: recPhn,
-                                        beneficiaryAc: "recPhn",
+                                        beneficiaryAc: senderPhn,
                                         beneficiaryPhone: "String",
                                         creatorEmail: "String",
                                         prodName: "String",
@@ -376,7 +376,7 @@ const fetchSenderUsrDtls = async () => {
                                         
                                         netEarnings:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),                                   
                                         earningsBal:   (parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0),
-                                        benefitsAmount: parseFloat(senderbeneficiaryAmt) + BizBenefits                        
+                                        benefitsAmount: parseFloat(RecbenefitsAmount) + BizBenefits                        
                                         
                                       }
                                     })
@@ -401,7 +401,7 @@ const fetchSenderUsrDtls = async () => {
                                         benefitsID: "String",
                                         benefactorAc: senderPhn,
                                         benefactorPhone: senderPhn,
-                                        beneficiaryAc: "recPhn",
+                                        beneficiaryAc: recPhn,
                                         beneficiaryPhone: "String",
                                         creatorEmail: "String",
                                         prodName: "String",
@@ -613,12 +613,7 @@ const fetchSenderUsrDtls = async () => {
                         SndChmMmbrMny();
                     } 
 
-                    
-
-             
-
-                    
-                     else if(TotalTransacted >= SenderUsrBal
+                     else if(TotalTransacted > SenderUsrBal
                       ){
                         Alert.alert("Your account balance is insufficient")
                     }   
