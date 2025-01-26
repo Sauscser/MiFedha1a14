@@ -104,6 +104,10 @@ const ProdId = route.params.id
                             const prodDescz = BznaDtlsx.data.getBenProd2.prodDesc;
               const prodCostz = BznaDtlsx.data.getBenProd2.prodCost;
               const prodNamez = BznaDtlsx.data.getBenProd2.prodName;
+              /*
+                            ProdCreatorAc
+                            */
+                            const benefactorPhone = BznaDtlsx.data.getBenProd2.benefactorPhone;
           
                         const PckBiznaDtls = async () => {
             if(isLoading){
@@ -183,7 +187,7 @@ const ProdId = route.params.id
             prodID: route.params.id,
             benefitsID: "benefitsID",    
 benefactorAc: ChmRegNo,
-benefactorPhone: ChmRegNo,
+benefactorPhone: benefactorPhone,
 beneficiaryAc:ChmNm,
 beneficiaryPhone:ChmNm,
 creatorEmail: userInfo.attributes.email,

@@ -11,145 +11,106 @@ import {
   updateCompany,
   
   updateSMAccount,
+  updateBizna,
+  createBenefitShare2,
+  updateLinkBeneficiary2,
   
 } from '../../../../src/graphql/mutations';
 
 import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {
   
+  getBizna,
   getCompany,
+  getLinkBeneficiary2,
   getSMAccount,
-  listCovCreditSellers,
-  listCvrdGroupLoans,
-  listSMLoansCovereds,
-  
   
 } from '../../../../src/graphql/queries';
-
-import {useNavigation} from '@react-navigation/native';
 
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+  
+  
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+  StyleSheet,
+  
   TouchableOpacity,
   Alert,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
-import styles from './styles';
+
+import {useNavigation, useRoute} from '@react-navigation/native';
+
+
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 
 const SMASendNonLns = props => {
   const [SenderNatId, setSenderNatId] = useState('');
   const [RecNatId, setRecNatId] = useState('');
   const [SnderPW, setSnderPW] = useState("");
- 
+  const [SendrPhn, setSendrPhn] = useState(null);  
   const [amounts, setAmount] = useState("");
   
   const [Desc, setDesc] = useState("");
- 
+
   const[isLoading, setIsLoading] = useState(false);
-  const navigation = useNavigation()
-  const SndChmMmbrMny = () => {
-    navigation.navigate("AutomaticRepayAllTyps")
- }
-  
-  
- 
-    const fetchCvLnSM = async () => {
-      setIsLoading(true);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false); 
+  const route = useRoute();
 
-      const userInfo = await Auth.currentAuthenticatedUser();
-
-
-      try {
-        const Lonees1:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
-          { filter: {
-              and: {
-                status: { eq: "LoanBL"},
-                lonBala: { gt: 0},
-                loaneeEmail: { eq: userInfo.attributes.email},
-              }
-            }}
-            ));
-
-            
-        
-                    const fetchCLCrdSl = async () => {
-                      setIsLoading(true);
-                      try {
-                        const Lonees3:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
-                          { filter: {
-                              and: {
-                                status: { eq: "LoanBL"},
-                        lonBala: { gt: 0},
-                        buyerContact: { eq: userInfo.attributes.email},
-                              }
-                            }}
-                            ));
-
-                           
-
-                                    const fetchCLChm = async () => {
-                                      setIsLoading(true);
-                                      try {
-                                        const Lonees5:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
-                                          { filter: {
-                                              and: {
-                                                status: { eq: "LoanBL"},
-                                        lonBala: { gt: 0},
-                                        loaneePhn: { eq: userInfo.attributes.email},
-                                              }
-                                            }}
-                                            ));
-
-  const fetchSenderUsrDtls = async () => {
+  const fetchBenProdUsrDtls = async () => {
     if(isLoading){
       return;
     }
-    setIsLoading(false);
+    setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser();
+   
+    try {
+      const accountDtlzx:any = await API.graphql(
+        graphqlOperation(getLinkBeneficiary2, {beneficiaryID: route.params.beneficiaryID}),
+      );
+
+      const prodIDs =accountDtlzx.data.getLinkBeneficiary2.prodID;
+      const benefitsIDs =accountDtlzx.data.getLinkBeneficiary2.benefitsID;
+      const benefactorAcs =accountDtlzx.data.getLinkBeneficiary2.benefactorAc;
+      const benefactorPhones =accountDtlzx.data.getLinkBeneficiary2.benefactorPhone;
+      const beneficiaryAcs =accountDtlzx.data.getLinkBeneficiary2.beneficiaryAc;
+      const beneficiaryPhones =accountDtlzx.data.getLinkBeneficiary2.beneficiaryPhone;
+      const creatorEmails =accountDtlzx.data.getLinkBeneficiary2.creatorEmail;
+      const prodNames =accountDtlzx.data.getLinkBeneficiary2.prodName;
+      const creatorNames =accountDtlzx.data.getLinkBeneficiary2.creatorName;
+      const prodCosts =accountDtlzx.data.getLinkBeneficiary2.prodCost;
+      const benefitsAmounts =accountDtlzx.data.getLinkBeneficiary2.benefitsAmount;
+      const beneficiaryTypes =accountDtlzx.data.getLinkBeneficiary2.beneficiaryType;
+      const prodDescs =accountDtlzx.data.getLinkBeneficiary2.prodDesc;
+      const benefitStatuss =accountDtlzx.data.getLinkBeneficiary2.benefitStatus;
+      const amountsx =accountDtlzx.data.getLinkBeneficiary2.amount;
+    
+      
+      const fetchSenderUsrDtls = async () => {
+    
     try {
       const accountDtl:any = await API.graphql(
         graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
       );
 
-      const SenderUsrBal =accountDtl.data.getSMAccount.balance;
+      const benefitsAmountsz =accountDtl.data.getSMAccount.benefitsAmount;
       const usrPW =accountDtl.data.getSMAccount.pw;
-      const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
+      const busNames =accountDtl.data.getSMAccount.name;
       const SenderSub =accountDtl.data.getSMAccount.owner;
-      const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
-      const loanLimits =accountDtl.data.getSMAccount.loanLimit;
       
-      const names =accountDtl.data.getSMAccount.name;
-      const owner =accountDtl.data.getSMAccount.owner;
-      const senderbeneficiary =accountDtl.data.getSMAccount.beneficiary;
-    
-
-
-      const fetchSenderBeneficiaryUsrDtls = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(false);
-        try {
-          const accountDtl:any = await API.graphql(
-            graphqlOperation(getSMAccount, {awsemail: senderbeneficiary}),
-          );
-    
-          const SenderBeneficiarySenderUsrBal =accountDtl.data.getSMAccount.balance;
-          
-          const senderbeneficiaryAmt =accountDtl.data.getSMAccount.beneficiaryAmt;
+     
+      const statuss =accountDtl.data.getBizna.acStatus;
+      
+      
+      
       
       const fetchCompDtls = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
+        
         try {
           const CompDtls:any = await API.graphql(
             graphqlOperation(getCompany, {
@@ -158,11 +119,8 @@ const SMASendNonLns = props => {
           );
           
             
-          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-          const UsrTransferFeeAmt = UsrTransferFee*parseFloat(amounts);
-          const UsrTransferFee2 = parseFloat(SenderUsrBal) -parseFloat(amounts);
+          const UsrTransferFee = CompDtls.data.getCompany.biznaTransferFee;
           const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
-          const TotalTransacted2 = parseFloat(amounts)  + UsrTransferFee2;
           const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
           
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
@@ -170,61 +128,40 @@ const SMASendNonLns = props => {
           const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
           const ttlNonLonssSentSMs = CompDtls.data.getCompany.ttlNonLonssSentSM; 
           
-          
          
                     
           const fetchRecUsrDtls = async () => {
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
+            
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getSMAccount, {awsemail: RecNatId}),
+                    graphqlOperation(getBizna, {BusKntct: benefactorAcs}),
                     );
-                    const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
-                    const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
-                    const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
-                    const namess =RecAccountDtl.data.getSMAccount.name;
-                    const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
-                    const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
-                    const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
-                    const phonecontact =RecAccountDtl.data.getSMAccount.phonecontact;
-                    const receiverbeneficiary =RecAccountDtl.data.getSMAccount.beneficiary;
-                    
-
-                    const fetchRecUsrDtlsBeneficiary = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try {
-                          const RecAccountDtl:any = await API.graphql(
-                              graphqlOperation(getSMAccount, {awsemail: receiverbeneficiary}),
-                              );
-                              const RecBeneficiaryUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
-                            
-                              
-                              const receiverbeneficiaryAmt =RecAccountDtl.data.getSMAccount.beneficiaryAmt;
-                    
+                                       
+                    const netEarnings =RecAccountDtl.data.getBizna.netEarnings;
+                    const statussx =RecAccountDtl.data.getBizna.status;
                   
                     const sendSMNonLn = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true)
+                      
                       try {
                         await API.graphql(
-                          graphqlOperation(createNonLoans, {
+                          graphqlOperation(createBenefitShare2, {
                             input: {
-                              recPhn: RecNatId,
-                              senderPhn: userInfo.attributes.email,                                  
-                              amount: parseFloat(amounts).toFixed(0),                              
-                              description: Desc,
-                              RecName:namess,
-                              SenderName:names,
-                              status: "SMNonLons",
-                              owner: userInfo.attributes.sub
+                              benefitsID: benefitsIDs,
+                              benefactorAc: benefactorAcs,                                  
+                              amount: parseFloat(amounts).toFixed(2),                              
+                              benefactorPhone: SenderNatId,
+                              beneficiaryAc:beneficiaryAcs,
+                              beneficiaryPhone:beneficiaryPhones,
+                              creatorEmail: userInfo.attributes.email,
+                              owner: userInfo.attributes.sub,
+                              prodName:prodNames,
+                              creatorName:creatorNames,
+                              prodCost:prodCosts,
+                              benefitsAmount:parseFloat(benefitsAmounts) + parseFloat(benefitsAmountsz),
+                              beneficiaryType:beneficiaryTypes,
+                              prodDesc:prodDescs,
+                              benefitStatus:benefitStatuss,
+
                             },
                           }),
                         );
@@ -232,29 +169,23 @@ const SMASendNonLns = props => {
 
                       } catch (error) {
                         if (error){
-                          Alert.alert("Sending unsuccessful; Retry")
+                          Alert.alert("Revenue sharing unsuccessful; Retry")
                           return
                         }
                       }
-                      setIsLoading(false);
+                      
                       await updtSendrAc();
                     };
 
-                    
-
-
                     const updtSendrAc = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
+                     
                       try{
                           await API.graphql(
                             graphqlOperation(updateSMAccount, {
                               input:{
                                 awsemail:userInfo.attributes.email,
-                                ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(0),
-                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) 
+                                
+                                benefitsAmount:(parseFloat(benefitsAmountsz)-TotalTransacted).toFixed(2) 
                                
                                 
                               }
@@ -265,29 +196,24 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Retry or update app or call customer care")
+                        if (error){Alert.alert("Error! Enter details correctly")
                         return;}
                       }
-                      setIsLoading(false);
+                    
                       await updtRecAc();
                     }
 
-                    
-
-                    
                     const updtRecAc = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
+                      
                       try{
                           await API.graphql(
-                            graphqlOperation(updateSMAccount, {
+                            graphqlOperation(updateBizna, {
                               input:{
-                                awsemail:RecNatId,
-                                ttlNonLonsRecSM: (parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts)).toFixed(0) ,
-                                balance:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(0)                                     
-                                                                
+                                BusKntct:benefactorPhones,
+                               
+                                netEarnings:(parseFloat(netEarnings) + parseFloat(amounts)).toFixed(2)                                     
+                                
+                                                                  
                                 
                               }
                             })
@@ -298,79 +224,35 @@ const SMASendNonLns = props => {
                         if (error){Alert.alert("Retry or update app or call customer care")
                         return;}
                       }
-                      setIsLoading(false);
-                      await updtSendrBeneficiaryAc();
+                    
+                      await updtLinkedBenefits();
                     }
 
-                    const updtSendrBeneficiaryAc = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
+                    const updtLinkedBenefits = async () =>{
+                      
                       try{
                           await API.graphql(
-                            graphqlOperation(updateSMAccount, {
+                            graphqlOperation(updateLinkBeneficiary2, {
                               input:{
-                                awsemail:senderbeneficiary,
-                                balance:((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(SenderBeneficiarySenderUsrBal)).toFixed(0),
-                                beneficiaryAmt: ((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(senderbeneficiaryAmt)).toFixed(0),
-                                                         
-                                
+                                beneficiaryID:route.params.beneficiaryID,
+                               
+                                benefitsAmount:(parseFloat(benefitsAmounts) + parseFloat(amounts)).toFixed(2)                                     
+                               
                               }
                             })
-                          )
-
-
+                          )                              
                       }
                       catch(error){
                         console.log(error)
                         if (error){Alert.alert("Retry or update app or call customer care")
                         return;}
                       }
-                      setIsLoading(false);
-                      await updtRecBeneficiaryAc();
-
-
-                    }
-
-                    const updtRecBeneficiaryAc = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateSMAccount, {
-                              input:{
-                                awsemail:receiverbeneficiary,
-                                balance:((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(RecBeneficiaryUsrBal)).toFixed(0),
-                                beneficiaryAmt: ((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(receiverbeneficiaryAmt)).toFixed(0),
-                                                         
-                                
-                              }
-                            })
-                          )
-
-
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Retry or update app or call customer care")
-                        return;}
-                      }
-                      setIsLoading(false);
+                    
                       await updtComp();
                     }
 
-                   
-
-                   
-
                     const updtComp = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
+                      
                       try{
                           await API.graphql(
                             graphqlOperation(updateCompany, {
@@ -391,63 +273,38 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Retry or update app or call customer care")
+                        if (error){Alert.alert("Check your internet connection")
                     return;}
                       }
-                      Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0)
-                      );
-                      Communications.textWithoutEncoding(phonecontact,'Hi '
-                              + namess + ', ' +names + ' has sent you a non loan of Ksh. ' 
-                              + amounts 
-                              +'. For clarification call the sender '
-                            + userInfo.attributes.phone_number + '. Thank you. MiFedha')
-                            
-                            setIsLoading(false);
+                      Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(2) + " Transaction: Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
+                      Communications.textWithoutEncoding(beneficiaryPhones,
+                        'Confirmed. '
+                                  + busNames 
+                                  + ' Benefactor has sent you Ksh. '
+                                  + amounts + ' as Benefits ' + 
+                                  'Please confirm this transaction record is on your Mifedha app. Thank you. MiFedha');
+                                  
+                                  setIsLoading(false);
                     }
-
-                    
                     
                                           
                     
-                    if (userInfo.attributes.sub!==owner) {
-                      Alert.alert("Please first create a main account")
-                      return;
-                    }  else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                    else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                    else if(SenderNatId === RecNatId){Alert.alert('You cannot Send money to yourself Yourself');}
-                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
-                    else if (
-                      UsrTransferFee2 < 0
-                    ) {Alert.alert('Requested amount is more than you have in your account');}
+                     if(statuss !== "AccountActive" ){Alert.alert('Beneficiary account is inactive');}
+                     if(statussx !== "AccountActive" ){Alert.alert('Benefactor account is inactive');}
                     
                     else if (
-                      (parseFloat(RecUsrBal) + parseFloat(amounts)) > parseFloat(MaxAcBals) 
-                    ) {Alert.alert('Receiver Call customer care to have wallet capacity adjusted');}
+                      parseFloat(benefitsAmountsz) < TotalTransacted 
+                    ) {Alert.alert('Requested amount is more than your Benefits');}
                     
+                   
+
+                    else if(noBL > 0){Alert.alert('Please first clear your lenders');}
+                   
                     else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                    else if(userInfo.attributes.sub !==SenderSub){Alert.alert('Please send from your own  account');}
+                    else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You do not own this business');}
                     
-                    else if(parseFloat(loanLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');}
-                    
-                    else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
-                      
-                      ||
-                      Lonees3.data.listCovCreditSellers.items.length > 0 
-                      
-                      ||
-                      Lonees5.data.listCvrdGroupLoans.items.length > 0 
-                     
-
-                    
-                      ) {
-                        SndChmMmbrMny();
-                    } 
-
-                    else if (UsrTransferFeeAmt > UsrTransferFee2 
-                      ){Alert.alert('Insufficient Funds');}
-
                      else {
-                      sendSMNonLn();
+                     await sendSMNonLn();
                     }                                                
                 }       
                 catch(e) {   
@@ -455,17 +312,7 @@ const SMASendNonLns = props => {
                   if (e){Alert.alert("Retry or update app or call customer care")
   return;}                 
                 }
-                setIsLoading(false);
-                }                    
-                  await fetchRecUsrDtlsBeneficiary();
-
-                }       
-                catch(e) {   
-                  console.log(e)  
-                  if (e){Alert.alert("Retry or update app or call customer care")
-  return;}                 
-                }
-                setIsLoading(false);
+              
                 }                    
                   await fetchRecUsrDtls();
         } catch (e) {
@@ -473,69 +320,25 @@ const SMASendNonLns = props => {
           if (e){Alert.alert("Retry or update app or call customer care")
       return;}
         }
-        setIsLoading(false);        
+       
       };
       await fetchCompDtls();
+
+    } catch (e) {
+      console.log(e)
+      if (e){Alert.alert("Retry or update app or call customer care")
+  return;}
+    }
+   
+  };
+  await fetchSenderUsrDtls();
     
       
-    }     
-    catch (e) {
+    } catch (e) {
       console.log(e)
       if (e){Alert.alert("Retry or update app or call customer care")
       return;}
-         
-    }   
-    setIsLoading(false);
-    };
-    
-    await fetchSenderBeneficiaryUsrDtls();
-
-  }     
-  catch (e) {
-    console.log(e)
-    if (e){Alert.alert("Retry or update app or call customer care")
-    return;}
-       
-  }   
-  setIsLoading(false);
   };
-  
-  await fetchSenderUsrDtls();
-
-  
-    }     
-    catch (e) {
-      console.log(e)
-      if (e){Alert.alert("Retry or update app or call customer care")
-      return;}
-         
-    }   
-    setIsLoading(false);
-    };
-    
-    await fetchCLChm();
-    
-   
-    }     
-    catch (e) {
-      console.log(e)
-      if (e){Alert.alert("Retry or update app or call customer care")
-      return;}
-         
-    }   
-    setIsLoading(false);
-    };
-    
-    await fetchCLCrdSl();
-    
-   
-          
-        } catch (e) {
-          console.log(e)
-          if (e){Alert.alert("Retry or update app or call customer care")
-          return;}
-      };
-  
       setIsLoading(false);
       setSenderNatId('');
       setAmount("");
@@ -604,81 +407,106 @@ useEffect(() =>{
                             setSnderPW(SnderPWss);
                             }, [SnderPW]
                              );
-
-                             
-
-                                 
-
-  return (
-    <View>
-      <View
-        
-        style={styles.image}>
-        <ScrollView>
-         
-          <View style={styles.amountTitleView}>
-            <Text style={styles.title}>Fill account Details Below</Text>
-          </View>
-
-          
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-            placeholder="Receiver Email"
-              value={RecNatId}
-              onChangeText={setRecNatId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Receiver Email</Text>
-          </View>
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-            keyboardType={"decimal-pad"}
-              value={amounts}
-              onChangeText={setAmount}
-              style={styles.sendAmtInput}
-              editable={true}
-              ></TextInput>
+                             return (
+                              <LinearGradient
+                                colors={['#e58d29', 'skyblue']}
+                                start={[0, 0]}
+                                end={[1, 1]}
+                                style={{ flex: 1 }}
+                              >
+                                <View style={styles.container}>
+                                  <ScrollView>
               
-            <Text style={styles.sendAmtText}>Amount Sent</Text>
-          </View>
-
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={SnderPW}
-              onChangeText={setSnderPW}
-              secureTextEntry = {true}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Sender PassWord</Text>
-          </View>
-
-          
-
-          <View style={styles.sendAmtViewDesc}>
-            <TextInput
-              multiline={true}
-              value={Desc}
-              onChangeText={setDesc}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Description</Text>
-          </View>
-
-          <TouchableOpacity
-            onPress={fetchCvLnSM}
-            style={styles.sendAmtButton}>
-            <Text style={styles.sendAmtButtonText}>Send</Text>
-            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
-          </TouchableOpacity>
-
-          
-        </ScrollView>
-      </View>
-    </View>
-  );
-};
+                        <View style={styles.formContainer}>
+                          
+                          
+                          
+                         <View style={styles.passwordContainer}>
+                                                                       <TextInput
+                                                                         placeholder="My Main Account Password"
+                                                                     style={styles.passwordInput}
+                                                                                                          
+                                                                     value={SnderPW}
+                                                                     onChangeText={setSnderPW}
+                                                                     secureTextEntry={!isPasswordVisible}
+                                                                     placeholderTextColor="#ccc"
+                                                                             />
+                                                                     <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                                                                    <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
+                                                                     </TouchableOpacity>
+                                                                     </View>
+                           
+                                                                    
+                        <TouchableOpacity
+                          onPress={fetchBenProdUsrDtls}
+                          style={styles.button}>
+                          {isLoading ? (
+                                                    <ActivityIndicator color="#fff" />
+                                                  ) : (
+                                                    <Text style={styles.locationText}>Submit</Text>
+                                                  )}
+                                                </TouchableOpacity>
+                                              </View>
+                                            </ScrollView>
+                                          </View>
+                                        </LinearGradient>
+                                      );
+                                    };
+                                    
+                                    const styles = StyleSheet.create({
+                                        gradient: {
+                                          flex: 1,
+                                        },
+                                        container: {
+                                          flex: 1,
+                                          padding: 20,
+                                        },
+                                        loanTitleView: {
+                                          marginBottom: 20,
+                                          alignItems: 'center',
+                                        },
+                                        title: {
+                                          fontSize: 24,
+                                          fontWeight: 'bold',
+                                          color: '#ffffff',
+                                          textAlign: 'center',
+                                        },
+                                        formContainer: {
+                                          backgroundColor: '#ffffff',
+                                          borderRadius: 10,
+                                          padding: 20,
+                                          shadowColor: '#000',
+                                          shadowOffset: { width: 0, height: 2 },
+                                          shadowOpacity: 0.25,
+                                          shadowRadius: 4,
+                                          elevation: 5,
+                                        },
+                                        input: {
+                                          height: 45,
+                                          borderColor: '#ccc',
+                                          borderWidth: 1,
+                                          marginBottom: 15,
+                                          borderRadius: 5,
+                                          paddingLeft: 10,
+                                        },
+                                        button: {
+                                          backgroundColor: '#e58d29',
+                                          paddingVertical: 12,
+                                          borderRadius: 5,
+                                          alignItems: 'center',
+                                          marginTop: 20,
+                                        },
+                                        locationContainer: {
+                                          marginVertical: 10,
+                                        },
+                                        locationText: {
+                                          fontSize: 16,
+                                          color: '#333',
+                                        },
+                                        passwordContainer: { flexDirection: 'row', alignItems: 'center', 
+                                            backgroundColor: '#fff', borderRadius: 8, marginBottom: 10, height:50 },
+                                    passwordInput: { flex: 1, padding: 12 },
+                                      });
+              
 
 export default SMASendNonLns;

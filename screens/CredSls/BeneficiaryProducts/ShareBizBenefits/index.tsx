@@ -13,6 +13,7 @@ import {
   updateSMAccount,
   updateBizna,
   createBenefitShare2,
+  updateLinkBeneficiary2,
   
 } from '../../../../src/graphql/mutations';
 
@@ -199,16 +200,38 @@ const SMASendNonLns = props => {
                         return;}
                       }
                     
-                      await updtRecAc();
+                      await updtLinkedBenefits();
                     }
 
+                    const updtLinkedBenefits = async () =>{
+                                          
+                                          try{
+                                              await API.graphql(
+                                                graphqlOperation(updateLinkBeneficiary2, {
+                                                  input:{
+                                                    beneficiaryID:route.params.beneficiaryID,
+                                                   
+                                                    benefitsAmount:(parseFloat(benefitsAmounts) + parseFloat(amounts)).toFixed(2)                                     
+                                                    
+                                                  }
+                                                })
+                                              )                              
+                                          }
+                                          catch(error){
+                                            console.log(error)
+                                            if (error){Alert.alert("Retry or update app or call customer care")
+                                            return;}
+                                          }
+                                        
+                                          await updtRecAc();
+                                        }
                     const updtRecAc = async () =>{
                       
                       try{
                           await API.graphql(
                             graphqlOperation(updateBizna, {
                               input:{
-                                BusKntct:beneficiaryAcs,
+                                BusKntct:benefactorPhones,
                                
                                 netEarnings:(parseFloat(netEarnings) + parseFloat(amounts)).toFixed(2)                                     
                                 
@@ -395,48 +418,20 @@ useEffect(() =>{
               
                         <View style={styles.formContainer}>
                           <TextInput
-                           placeholder="Business Phone Number"
-                            value={ChmRegNo}
-                            onChangeText={setChmRegNo}
+                           placeholder="My Business Phone Number"
+                            value={SenderNatId}
+                            onChangeText={setSenderNatId}
                             style={styles.input}
                             editable={true}></TextInput>
                           
-                          <TextInput
-                           placeholder="Product Name"
-                            value={ChmPhn}
-                            onChangeText={setChmPhn}
-                           
-                            style={styles.input}
-                            editable={true}></TextInput>
-                         
-                       
-                          <TextInput
-                           placeholder="Product Description"
-                            value={ChmDesc}
-                            onChangeText={setChmDesc}
-                            style={styles.input}
-                            editable={true}
-                            multiline={true}  // Enables multi-line input
-                      textAlignVertical="top">
-                              
-                            </TextInput>
                           
-                          <TextInput
-                          placeholder="Enter Product Cost"
-                            value={Sign2Phn}
-                            onChangeText={setSign2Phn}
-                            keyboardType={"decimal-pad"}
-                            style={styles.input}
-                            editable={true}></TextInput>
-                         
-      
                          <View style={styles.passwordContainer}>
                                                                        <TextInput
-                                                                         placeholder="Admin Main Account Password"
+                                                                         placeholder="Business Owner (CEO) Password"
                                                                      style={styles.passwordInput}
                                                                                                           
-                                                                     value={pword}
-                                                                     onChangeText={setPW}
+                                                                     value={SnderPW}
+                                                                     onChangeText={setSnderPW}
                                                                      secureTextEntry={!isPasswordVisible}
                                                                      placeholderTextColor="#ccc"
                                                                              />
