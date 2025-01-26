@@ -153,6 +153,12 @@ const MyLoanAccount = () => {
     navigation.navigate('ViewBenProds');
   };
 
+  const VwBenToShare = () => {
+    navigation.navigate('VwBenToShare');
+  };
+
+  
+
   
 
 
@@ -172,7 +178,7 @@ const MyLoanAccount = () => {
             
             { label: 'Create Benefit Product', onPress: AddBeneficiaryProduct, style: styles.ClientsPressables },
             { label: 'Link Beneficiary', onPress: UpdateBizAc, style: styles.ClientsPressables },
-            { label: 'Release Benefits', onPress: AddPersonelss, style: styles.ClientsPressables },
+            { label: 'Share Benefits', onPress: VwBenToShare, style: styles.ClientsPressables },
             { label: 'View Benefit Products', onPress: ViewBenProds, style: styles.ClientsPressables },
             { label: 'View Beneficiaries', onPress: ViewBenProds, style: styles.ClientsPressables }
             

@@ -10,8 +10,12 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {
-      MemberReqChm:{ChamaNMember:String}
-      MemberDtls:{ChamaNMember:string}
+      MemberReqChm:{ChamaNMember:String};
+      VwBenToShare: {beneficiaryID:string};
+      VwBenProdsDtls:{beneficiaryID:string};
+      SharePalBenefits: {beneficiaryID:string};
+      ShareBizBenefits: {beneficiaryID:string};
+      MemberDtls:{ChamaNMember:string};
       VwToRegMFK:undefined;
       SndMbrsMnys:{ChamaNMember:string};
       B2BPayCashB2BBen:{id: string};
@@ -22,7 +26,8 @@ declare global {
       BizReadPayPalTNC:undefined;
       CreateExRates:undefined;
       AddBeneficiaryProduct:undefined;
-      LinkBeneficiary: {id:string};
+      LinkBizBeneficiary: {id:string};
+      LinkPalBeneficiary: {id:string};
       UpdateMainAc:undefined;
       ViewBenProds: undefined;
       AddBeneficiary:undefined;

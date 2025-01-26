@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import { createBenProd2} from '../../../../src/graphql/mutations';
-import { getBizna, getSMAccount, listPersonels,   } from '../../../../src/graphql/queries';
+import { createBenProd2, createLinkBeneficiary2} from '../../../../src/graphql/mutations';
+import { getBenProd2, getBizna, getSMAccount, listPersonels,   } from '../../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -61,7 +61,8 @@ const [nationalId, setNationalid] = useState('');
     const[lon, setLon] = useState("");
 
   const WorkerID = ChmDesc+ChmRegNo
-
+  const route = useRoute();
+const ProdId = route.params.id
 
     
       const ChckUsrExistence = async () => {
@@ -70,6 +71,7 @@ const [nationalId, setNationalid] = useState('');
         }
         setIsLoading(true);
         const userInfo = await Auth.currentAuthenticatedUser();
+        const ProdIDX = ChmRegNo+ProdId
       
         try {
           const UsrDtls:any = await API.graphql(
@@ -91,7 +93,19 @@ const [nationalId, setNationalid] = useState('');
                           )
                         )
 
-          const PckBiznaDtls = async () => {
+                        const PckBenProdDtls = async () => {
+                         
+                          try {
+                            const BznaDtlsx:any = await API.graphql(
+                              graphqlOperation(getBenProd2, { id:route.params.id}),
+                                          
+                            )
+
+                            const prodDescz = BznaDtlsx.data.getBenProd2.prodDesc;
+              const prodCostz = BznaDtlsx.data.getBenProd2.prodCost;
+              const prodNamez = BznaDtlsx.data.getBenProd2.prodName;
+          
+                        const PckBiznaDtls = async () => {
             if(isLoading){
               return;
             }
@@ -158,27 +172,30 @@ const [nationalId, setNationalid] = useState('');
               
               
       const onCreateNewSMAc = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
+        
         try {
           await API.graphql(
-          graphqlOperation(createBenProd2, {
+          graphqlOperation(createLinkBeneficiary2, {
           input: {
 
             
-            
+            beneficiaryID: ProdIDX,
+            prodID: route.params.id,
+            benefitsID: "benefitsID",    
 benefactorAc: ChmRegNo,
 benefactorPhone: ChmRegNo,
+beneficiaryAc:ChmNm,
+beneficiaryPhone:ChmNm,
 creatorEmail: userInfo.attributes.email,
-prodName: ChmPhn,
+prodName: prodNamez,
 creatorName: BiznaNames,
 owner: userInfo.username,
-prodCost: Sign2Phn,
+prodCost: prodCostz,
 benefitsAmount: 0,
-prodDesc: ChmDesc,
-prodStatus: "AccountActive"
+beneficiaryType: "Biz",
+prodDesc: prodDescz,
+benefitStatus: "AccountActive",
+amount: 0
             
                   },
                 }),
@@ -193,9 +210,6 @@ prodStatus: "AccountActive"
             
             }
             Alert.alert("Product created successfully")
-            
-            setIsLoading(false);
-            
             
           };
           if (pwsz!==pword){
@@ -308,7 +322,7 @@ prodStatus: "AccountActive"
             ||
             Admin50 === userInfo.attributes.email 
             ){
-              onCreateNewSMAc();
+             await onCreateNewSMAc();
           }
           else{
          
@@ -319,21 +333,27 @@ prodStatus: "AccountActive"
         if (error){Alert.alert("Error! Create a business first!")
       return}
       }
-  
-      setIsLoading(false)
-                
+     
     }
 
     await PckBiznaDtls();
+
+  } catch (error) {
+        
+    if (error){Alert.alert("Error! Create a business first!")
+  return}
+  }
+      
+}
+
+await PckBenProdDtls();
       
   } catch (error) {
         
     if (error){Alert.alert("Error! Create a business first!")
   return}
   }
-
-  setIsLoading(false)
-            
+    
 }
 
 await ChckPhnUse(); 
@@ -582,41 +602,21 @@ useEffect(() =>{
                             <ScrollView>
         
                   <View style={styles.formContainer}>
-                    <TextInput
-                     placeholder="Business Phone Number"
+                  <TextInput
+                     placeholder="Benefactor Business Number"
                       value={ChmRegNo}
                       onChangeText={setChmRegNo}
                       style={styles.input}
                       editable={true}></TextInput>
-                    
-                    <TextInput
-                     placeholder="Product Name"
-                      value={ChmPhn}
-                      onChangeText={setChmPhn}
-                     
+                      
+                      <TextInput
+                     placeholder="Beneficiary Business Number"
+                      value={ChmNm}
+                      onChangeText={setChmNm}
                       style={styles.input}
                       editable={true}></TextInput>
-                   
-                 
-                    <TextInput
-                     placeholder="Product Description"
-                      value={ChmDesc}
-                      onChangeText={setChmDesc}
-                      style={styles.input}
-                      editable={true}
-                      multiline={true}  // Enables multi-line input
-                textAlignVertical="top">
-                        
-                      </TextInput>
                     
-                    <TextInput
-                    placeholder="Enter Product Cost"
-                      value={Sign2Phn}
-                      onChangeText={setSign2Phn}
-                      keyboardType={"decimal-pad"}
-                      style={styles.input}
-                      editable={true}></TextInput>
-                   
+                  
 
                    <View style={styles.passwordContainer}>
                                                                  <TextInput

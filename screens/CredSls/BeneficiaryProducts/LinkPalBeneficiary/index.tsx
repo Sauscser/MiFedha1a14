@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
-
-import { createBenProd2, createBizna, createChamaMembers, createGroup,   createLinkBeneficiary2,   createPersonel,   updateCompany} from '../../../../src/graphql/mutations';
-import { getBizna, getCompany, getSMAccount,   } from '../../../../src/graphql/queries';
+import { createBenProd2, createLinkBeneficiary2} from '../../../../src/graphql/mutations';
+import { getBenProd2, getBizna, getSMAccount, listPersonels,   } from '../../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -48,13 +47,22 @@ const CreateChama = (props:UserReg) => {
   const [ChmRegNo, setChmRegNo] = useState('');
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+const [nationalId, setNationalid] = useState('');
+    const[eml, setEml] =useState("");
   
     
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
+    
+    const [saRegNo, setSARegNo] = useState('');
+    const [BkName, setBkName] = useState('');
+    const [BkAcNu, setBkAcNu] = useState('');
+    const[lat, setLat] = useState('');
+    const[twn, settwn] = useState("");
+    const[lon, setLon] = useState("");
 
   const WorkerID = ChmDesc+ChmRegNo
-
+  const route = useRoute();
+const ProdId = route.params.id
 
     
       const ChckUsrExistence = async () => {
@@ -63,17 +71,41 @@ const CreateChama = (props:UserReg) => {
         }
         setIsLoading(true);
         const userInfo = await Auth.currentAuthenticatedUser();
+        const ProdIDX = ChmRegNo+ProdId
       
         try {
           const UsrDtls:any = await API.graphql(
             graphqlOperation(getSMAccount, { awsemail:userInfo.attributes.email}),
                         
-          )
-
-       
+          )       
           const pwsz = UsrDtls.data.getSMAccount.pw;
 
-          const PckBiznaDtls = async () => {
+          const ChckPhnUse = async () => {
+                      try {
+                        const UsrDtlss:any = await API.graphql(
+                          graphqlOperation(listPersonels,
+                            { filter: {
+                                
+                              phoneKontact: { eq: userInfo.attributes.email},
+                              BusinessRegNo:{eq: ChmRegNo}
+                                            
+                              }}
+                          )
+                        )
+
+                        const PckBenProdDtls = async () => {
+                         
+                          try {
+                            const BznaDtlsx:any = await API.graphql(
+                              graphqlOperation(getBenProd2, { id:route.params.id}),
+                                          
+                            )
+
+                            const prodDescz = BznaDtlsx.data.getBenProd2.prodDesc;
+              const prodCostz = BznaDtlsx.data.getBenProd2.prodCost;
+              const prodNamez = BznaDtlsx.data.getBenProd2.prodName;
+          
+                        const PckBiznaDtls = async () => {
             if(isLoading){
               return;
             }
@@ -140,26 +172,30 @@ const CreateChama = (props:UserReg) => {
               
               
       const onCreateNewSMAc = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
+        
         try {
           await API.graphql(
-          graphqlOperation(createBenProd2, {
+          graphqlOperation(createLinkBeneficiary2, {
           input: {
+
             
-            
-              benefactorAc: ChmRegNo,
+            beneficiaryID: ProdIDX,
+            prodID: route.params.id,
+            benefitsID: "benefitsID",    
+benefactorAc: ChmRegNo,
 benefactorPhone: ChmRegNo,
+beneficiaryAc:ChmNm,
+beneficiaryPhone:ChmNm,
 creatorEmail: userInfo.attributes.email,
-prodName: ChmPhn,
+prodName: prodNamez,
 creatorName: BiznaNames,
 owner: userInfo.username,
-prodCost: Sign2Phn,
+prodCost: prodCostz,
 benefitsAmount: 0,
-prodDesc: ChmDesc,
-prodStatus: "AccountActive"
+beneficiaryType: "Biz",
+prodDesc: prodDescz,
+benefitStatus: "AccountActive",
+amount: 0
             
                   },
                 }),
@@ -174,9 +210,6 @@ prodStatus: "AccountActive"
             
             }
             Alert.alert("Product created successfully")
-            
-            setIsLoading(false);
-            
             
           };
           if (pwsz!==pword){
@@ -289,7 +322,7 @@ prodStatus: "AccountActive"
             ||
             Admin50 === userInfo.attributes.email 
             ){
-              onCreateNewSMAc();
+             await onCreateNewSMAc();
           }
           else{
          
@@ -300,13 +333,30 @@ prodStatus: "AccountActive"
         if (error){Alert.alert("Error! Create a business first!")
       return}
       }
-  
-      setIsLoading(false)
-                
+     
     }
 
     await PckBiznaDtls();
+
+  } catch (error) {
+        
+    if (error){Alert.alert("Error! Create a business first!")
+  return}
+  }
       
+}
+
+await PckBenProdDtls();
+      
+  } catch (error) {
+        
+    if (error){Alert.alert("Error! Create a business first!")
+  return}
+  }
+    
+}
+
+await ChckPhnUse(); 
 
     } catch (e) {
       console.error(e);
@@ -324,11 +374,143 @@ prodStatus: "AccountActive"
               setChmRegNo("")
               setMmbaID("")
               setSign2Phn("");
-              
+              setNationalid('');
+                            
+                  setPW('');
+                  setName('');
+                  setEml("");
+                  setLat("");
+                  setLon("");
+                  setBkAcNu("");
+                  setBkName("");
+                  setPhoneContact('');
+                  setSARegNo('');
+                  settwn("")
   }
 
+  useEffect(() =>{
+          const BkNames=BkName
+            if(!BkNames && BkNames!=="")
+            {
+              setBkName("");
+              return;
+            }
+            setBkName(BkNames);
+            }, [BkName]
+             );
+      
+             useEffect(() =>{
+              const BkAcNus=BkAcNu
+                if(!BkAcNus && BkAcNus!=="")
+                {
+                  setBkAcNu("");
+                  return;
+                }
+                setBkAcNu(BkAcNus);
+                }, [BkAcNu]
+                 );
+      
+                 useEffect(() =>{
+                  const natId=nationalId
+                    if(!natId && natId!=="")
+                    {
+                      setNationalid("");
+                      return;
+                    }
+                    setNationalid(natId);
+                    }, [nationalId]
+                     );
+      
+             useEffect(() =>{
+              const twns=twn
+                if(!twns && twns!=="")
+                {
+                  settwn("");
+                  return;
+                }
+                settwn(twns);
+                }, [twn]
+                 );
+        
+             useEffect(() =>{
+              const pws=pword
+                if(!pws && pws!=="")
+                {
+                  setPW("");
+                  return;
+                }
+                setPW(pws);
+                }, [pword]
+                 );
+        
+                 useEffect(() =>{
+                  const phn=phoneContact
+                    if(!phn && phn!=="")
+                    {
+                      setPhoneContact("");
+                      return;
+                    }
+                    setPhoneContact(phn);
+                    }, [phoneContact]
+                     );
+        
+                     useEffect(() =>{
+                      const name=nam
+                        if(!name && name!=="")
+                        {
+                          setName("");
+                          return;
+                        }
+                        setName(name);
+                        }, [nam]
+                         );
+      
+                         useEffect(() =>{
+                          const email=eml
+                            if(!email && email!=="")
+                            {
+                              setEml("");
+                              return;
+                            }
+                            setEml(email);
+                            }, [eml]
+                             );
+                        
+                             useEffect(() =>{
+                              const lati=lat
+                                if(!lati && lati!=="")
+                                {
+                                  setLat("");
+                                  return;
+                                }
+                                setLat(lati);
+                                }, [lat]
+                                 );
+                        
+                                 useEffect(() =>{
+                                  const long=lon
+                                    if(!long && long!=="")
+                                    {
+                                      setLon("");
+                                      return;
+                                    }
+                                    setLon(long);
+                                    }, [lon]
+                                     );
+                        
+                                     
+                          
+                                         useEffect(() =>{
+                                          const saRN=saRegNo
+                                            if(!saRN && saRN!=="")
+                                            {
+                                              setSARegNo("");
+                                              return;
+                                            }
+                                            setSARegNo(saRN);
+                                            }, [saRegNo]
+                                             );
     
-
       useEffect(() =>{
         const MmbaIDs=MmbaID
           if(!MmbaIDs && MmbaIDs!=="")
@@ -420,42 +602,19 @@ useEffect(() =>{
                             <ScrollView>
         
                   <View style={styles.formContainer}>
-                    <TextInput
-                     placeholder="Business Phone Number"
+                  <TextInput
+                     placeholder="Benefactor Business Number"
                       value={ChmRegNo}
                       onChangeText={setChmRegNo}
                       style={styles.input}
                       editable={true}></TextInput>
-                    
-                    <TextInput
-                     placeholder="Product Name"
-                      value={ChmPhn}
-                      onChangeText={setChmPhn}
-                     
+                      
+                      <TextInput
+                     placeholder="Beneficiary email"
+                      value={ChmNm}
+                      onChangeText={setChmNm}
                       style={styles.input}
                       editable={true}></TextInput>
-                   
-                 
-                    <TextInput
-                     placeholder="Product Description"
-                      value={ChmDesc}
-                      onChangeText={setChmDesc}
-                      style={styles.input}
-                      editable={true}
-                      multiline={true}  // Enables multi-line input
-                textAlignVertical="top">
-                        
-                      </TextInput>
-                    
-                    <TextInput
-                    placeholder="Enter Product Cost"
-                      value={Sign2Phn}
-                      onChangeText={setSign2Phn}
-                      keyboardType={"decimal-pad"}
-                      style={styles.input}
-                      editable={true}></TextInput>
-                   
-
                    <View style={styles.passwordContainer}>
                                                                  <TextInput
                                                                    placeholder="Admin Main Account Password"
@@ -470,8 +629,6 @@ useEffect(() =>{
                                                               <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
                                                                </TouchableOpacity>
                                                                </View>
-                     
-                                                              
                   <TouchableOpacity
                     onPress={ChckUsrExistence}
                     style={styles.button}>

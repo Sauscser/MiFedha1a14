@@ -519,8 +519,13 @@ import ChmMmbrContriss from "../../screens/Chama/ViewChamaActivities/Contributio
 import AddBeneficiaryProduct from "../../screens/CredSls/BeneficiaryProducts/AddBeneficiaryProduct";
 import ViewBenProds from "../../screens/CredSls/BeneficiaryProducts/ViewBenProds";
 import VwBenProds from "../../screens/CredSls/BeneficiaryProducts/VwBenProds";
-import LinkBeneficiary from "../../screens/CredSls/BeneficiaryProducts/LinkBeneficiary";
+import LinkBizBeneficiary from "../../screens/CredSls/BeneficiaryProducts/LinkBizBeneficiary";
+import LinkPalBeneficiary from "../../screens/CredSls/BeneficiaryProducts/LinkPalBeneficiary";
 import B2BPayCashB2BBen from "../../screens/CredSls/PayCash/B2B/B2BPayCashB2BBen";
+import VwBenToShare from "../../screens/CredSls/BeneficiaryProducts/VwBenToShare";
+import SharePalBenefits from "../../screens/MyAcc/PalProds/SharePalBenefits";
+import ShareBizBenefits from "../../screens/CredSls/BeneficiaryProducts/ShareBizBenefits";
+import VwBenProdsDtls from "../../screens/CredSls/BeneficiaryProducts/VwBenProdsDtls";
 
 
 
@@ -532,14 +537,19 @@ const HomeNavigator = props => {
         headerShown: false,
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />      
+
+      <Stack.Screen name={'SharePalBenefits'} component={SharePalBenefits} />  
+      <Stack.Screen name={'ShareBizBenefits'} component={ShareBizBenefits} />  
       
       <Stack.Screen name={'ChmMmbrContriss'} component={ChmMmbrContriss} />
+      <Stack.Screen name={'VwBenToShare'} component={VwBenToShare} />
       <Stack.Screen name={'B2BPayCashB2BBen'} component={B2BPayCashB2BBen} />
       <Stack.Screen name={'ViewBenProds'} component={ViewBenProds} />
       <Stack.Screen name={'VwBenProds'} component={VwBenProds} />
       <Stack.Screen name={'MemberDtls'} component={MemberDtls} />
-      <Stack.Screen name={'LinkBeneficiary'} component={LinkBeneficiary} />
-      
+      <Stack.Screen name={'LinkBizBeneficiary'} component={LinkBizBeneficiary} />
+      <Stack.Screen name={'LinkPalBeneficiary'} component={LinkPalBeneficiary} />
+      <Stack.Screen name={'VwBenProdsDtls'} component={VwBenProdsDtls} />
       <Stack.Screen name={'AddBeneficiaryProduct'} component={AddBeneficiaryProduct} />
       <Stack.Screen name={'CreateExRates'} component={CreateExRates} />
       <Stack.Screen name={'MemberReqChm'} component={MemberReqChm} />
