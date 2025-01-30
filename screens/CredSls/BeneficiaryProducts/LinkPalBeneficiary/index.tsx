@@ -80,6 +80,20 @@ const ProdId = route.params.id
           )       
           const pwsz = UsrDtls.data.getSMAccount.pw;
 
+          const ChckBeneficiaryDtls = async () => {
+            if(isLoading){
+              return;
+            }
+            setIsLoading(true);
+            
+            try {
+              const UsrDtls:any = await API.graphql(
+                graphqlOperation(getSMAccount, { awsemail:userInfo.attributes.email}),
+                            
+              )       
+              const BeneficiaryName = UsrDtls.data.getSMAccount.name;
+    
+
           const ChckPhnUse = async () => {
                       try {
                         const UsrDtlss:any = await API.graphql(
@@ -189,7 +203,7 @@ const ProdId = route.params.id
 benefactorAc: ChmRegNo,
 benefactorPhone: benefactorPhone,
 beneficiaryAc:ChmNm,
-beneficiaryPhone:ChmNm,
+beneficiaryPhone:BeneficiaryName,
 creatorEmail: userInfo.attributes.email,
 prodName: prodNamez,
 creatorName: BiznaNames,
@@ -361,6 +375,16 @@ await PckBenProdDtls();
 }
 
 await ChckPhnUse(); 
+
+} catch (error) {
+        
+  if (error){Alert.alert("Error! Create a business first!")
+return}
+}
+  
+}
+
+await ChckBeneficiaryDtls(); 
 
     } catch (e) {
       console.error(e);

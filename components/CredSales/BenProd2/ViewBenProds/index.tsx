@@ -57,7 +57,7 @@ const SMCvLnStts = (props:SMAccount) => {
                    
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
-                      Phone: {benefactorPhone}                  
+                      Phone: {benefactorAc}                  
                     </Text> 
 
                     <Text style = {styles.repaymentPeriod}>                       

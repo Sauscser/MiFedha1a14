@@ -126,16 +126,14 @@ const MyLoanAccount = props => {
       navigation.navigate('ChmUpdate');
     };
 
-    const ChmObject = () => {
-      navigation.navigate('ChmObject');
+    const AddPalBizBeneficiary = () => {
+      navigation.navigate('AddPalBizBeneficiary');
     };
 
-    const AddBeneficiary = () => {
-      navigation.navigate('AddBeneficiary');
+    const AddPalPalBeneficiary = () => {
+      navigation.navigate('AddPalPalBeneficiary');
     };
     
-  
-
   return (
     <SafeAreaView>
       <ScrollView>
@@ -150,16 +148,22 @@ const MyLoanAccount = props => {
               <View style={styles.viewForClientsCategories7}>
                   
                   <Pressable 
-                  onPress={AddBeneficiary}
+                  onPress={AddPalPalBeneficiary}
                   
                   style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Change Beneficiary</Text>
+                  <Text style={styles.salesPressableText}>Add Beneficiary (Pal)</Text>
                   </Pressable>
                 </View>
 
-            
-
-                
+                <View style={styles.viewForClientsCategories7}>
+                  
+                  <Pressable 
+                  onPress={AddPalBizBeneficiary}
+                  
+                  style={styles.viewForClientsPressables}>
+                  <Text style={styles.salesPressableText}>Add Beneficiary (Biz)</Text>
+                  </Pressable>
+                </View>
 
                 <View style={styles.viewForClientsCategories7}>
                 <Pressable 

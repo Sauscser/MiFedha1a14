@@ -16,7 +16,8 @@ prodName: string,
 creatorName: string,
 prodCost: number,
 prodDesc: string,
-benefitsAmount: number
+benefitsAmount: number,
+beneficiaryPhone:string
     }}
 
 const SMCvLnStts = (props:SMAccount) => {
@@ -29,7 +30,8 @@ const SMCvLnStts = (props:SMAccount) => {
         creatorName,
         prodCost,
         prodDesc,
-        benefitsAmount
+        benefitsAmount,
+        beneficiaryPhone
     
    }} = props ;
 
@@ -61,13 +63,10 @@ const SMCvLnStts = (props:SMAccount) => {
                         
                      <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                      Product Creator: {creatorName}                 
+                       Benefactor Business/Company: {creatorName}                 
                     </Text>
 
-                                  <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Phone: {benefactorAc}                  
-                    </Text> 
+                                  
 
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
@@ -81,7 +80,7 @@ const SMCvLnStts = (props:SMAccount) => {
 
                     <Text style = {styles.repaymentPeriod} numberOfLines={3}>                       
                        {/* repaymentPeriod*/}
-                      More Description: {prodDesc}                  
+                      Beneficiary Name: {beneficiaryPhone}                  
                     </Text> 
 
 
@@ -92,14 +91,14 @@ const SMCvLnStts = (props:SMAccount) => {
 onPress={BenefitPal}
 style = {styles.loanFriendButton}
 >            
-  <Text>Share Benefits to (Pal)</Text>            
+  <Text>Share Benefits (Pal)</Text>            
 </Pressable>
 </View>   
 <View>
 <Pressable
 onPress={BenefitBiz}
 style = {styles.loanFriendButton}>            
-  <Text>Share Benefits to (Bizna)</Text>            
+  <Text>Share Benefits (Bizna)</Text>            
 </Pressable>  
 </View>
 

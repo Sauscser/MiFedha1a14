@@ -7,20 +7,23 @@ import {  graphqlOperation, API,Auth} from 'aws-amplify';
 import {useNavigation} from '@react-navigation/native';
 
 
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
+  
+  
   TextInput,
   ScrollView,
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
+  StyleSheet,
+  
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
-import styles from './styles';
+
 
 
   
@@ -33,6 +36,7 @@ const UpdtSMPW = (props) => {
   const [LnAcCod, setLnAcCod] = useState("");
   const [SMPW, setSMPW] = useState("");
   const[isLoading, setIsLoading] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   
 
   
@@ -161,51 +165,109 @@ const UpdtSMPW = (props) => {
                           setSMPW(SMPWs);
                           }, [SMPW]
                            );
-  
-  
- return (
-            <View>
-              <View
-                 style={styles.image}>
-                <ScrollView>
-           
-                  <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Details Below</Text>
-                  </View>
-        
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={LnAcCod}
-                      onChangeText={setLnAcCod}
-                      secureTextEntry = {true}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}> Beneficiary Main Ac Email</Text>
-                  </View>       
-                  
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={SMPW}
-                      onChangeText={setSMPW}
-                      secureTextEntry = {true}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}> Main Account PW</Text>
-                  </View>       
-
-                  
-                  <TouchableOpacity
-                    onPress={fetchSMDtls}
-                    style={styles.sendLoanButton}>
-                    <Text style={styles.sendLoanButtonText}>
-                      Click to Update Details
-                    </Text>
-                    {isLoading && <ActivityIndicator color={'Blue'} size="large"/>}
-                  </TouchableOpacity>
-                </ScrollView>
-              </View>
-            </View>
-          );
-        };
+   return (
+                          <LinearGradient
+                            colors={['#e58d29', 'skyblue']}
+                            start={[0, 0]}
+                            end={[1, 1]}
+                            style={{ flex: 1 }}
+                          >
+                            <View style={styles.container}>
+                              <ScrollView>
+          
+                    <View style={styles.formContainer}>
+                      <TextInput
+                       placeholder="Beneficiary Email"
+                        value={LnAcCod}
+                        onChangeText={setLnAcCod}
+                        style={styles.input}
+                        editable={true}></TextInput>
+                     
+                     <View style={styles.passwordContainer}>
+                                                                   <TextInput
+                                                                     placeholder="My Main Account Password"
+                                                                 style={styles.passwordInput}
+                                                                                                      
+                                                                 value={SMPW}
+                                                                 onChangeText={setSMPW}
+                                                                 secureTextEntry={!isPasswordVisible}
+                                                                 placeholderTextColor="#ccc"
+                                                                         />
+                                                                 <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                                                                <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
+                                                                 </TouchableOpacity>
+                                                                 </View>
+                       
+                                                                
+                    <TouchableOpacity
+                      onPress={fetchSMDtls}
+                      style={styles.button}>
+                      {isLoading ? (
+                                                <ActivityIndicator color="#fff" />
+                                              ) : (
+                                                <Text style={styles.locationText}>Submit</Text>
+                                              )}
+                                            </TouchableOpacity>
+                                          </View>
+                                        </ScrollView>
+                                      </View>
+                                    </LinearGradient>
+                                  );
+                                };
+                                
+                                const styles = StyleSheet.create({
+                                    gradient: {
+                                      flex: 1,
+                                    },
+                                    container: {
+                                      flex: 1,
+                                      padding: 20,
+                                    },
+                                    loanTitleView: {
+                                      marginBottom: 20,
+                                      alignItems: 'center',
+                                    },
+                                    title: {
+                                      fontSize: 24,
+                                      fontWeight: 'bold',
+                                      color: '#ffffff',
+                                      textAlign: 'center',
+                                    },
+                                    formContainer: {
+                                      backgroundColor: '#ffffff',
+                                      borderRadius: 10,
+                                      padding: 20,
+                                      shadowColor: '#000',
+                                      shadowOffset: { width: 0, height: 2 },
+                                      shadowOpacity: 0.25,
+                                      shadowRadius: 4,
+                                      elevation: 5,
+                                    },
+                                    input: {
+                                      height: 45,
+                                      borderColor: '#ccc',
+                                      borderWidth: 1,
+                                      marginBottom: 15,
+                                      borderRadius: 5,
+                                      paddingLeft: 10,
+                                    },
+                                    button: {
+                                      backgroundColor: '#e58d29',
+                                      paddingVertical: 12,
+                                      borderRadius: 5,
+                                      alignItems: 'center',
+                                      marginTop: 20,
+                                    },
+                                    locationContainer: {
+                                      marginVertical: 10,
+                                    },
+                                    locationText: {
+                                      fontSize: 16,
+                                      color: '#333',
+                                    },
+                                    passwordContainer: { flexDirection: 'row', alignItems: 'center', 
+                                        backgroundColor: '#fff', borderRadius: 8, marginBottom: 10, height:50 },
+                                passwordInput: { flex: 1, padding: 12 },
+                                  });
         
         export default UpdtSMPW;

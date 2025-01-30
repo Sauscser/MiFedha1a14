@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, FlatList, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, FlatList
+    , StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/CredSales/BenProd2/ViewBenToShare";
 
@@ -45,23 +46,26 @@ const FetchSMNonCovLns = props => {
     
 
     return (
-        <View style={styles.image}>
-
-            {/* Always Visible Search Bar */}
-            <View style={styles.sendLoanView}>
-                <TextInput
-                    placeholder="..................."
+       <KeyboardAvoidingView
+                   style={{ flex: 1 }} 
+                   behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+               >
+                   <View style={styles.container}>
+                       {/* Search Bar */}
+                       <View style={styles.searchBar}>
+                           <TextInput
+                    placeholder="Benefactor Name"
                     value={awsEmail}
                     onChangeText={handleSearch} 
-                    style={styles.sendLoanInput}
-                    editable={true}
+                    style={styles.searchInput}
+                    
                 />
             </View>
 
             {/* Conditional Rendering: FlatList only shows when typing */}
             {awsEmail.length > 0 ? (
                 <FlatList
-                    style={{ width: "100%" }}
+                    style={{ flex: 1 }}
                     data={filteredLoanees}
                     renderItem={({ item }) => (
                         <View>
@@ -71,27 +75,38 @@ const FetchSMNonCovLns = props => {
                     )}
                     keyExtractor={(item, index) => index.toString()}
                     refreshing={loading}
+                    keyboardShouldPersistTaps="handled"
+                  
                 />
             ) : (
-                <Text style={styles.label}>Start typing Business/product creator name.</Text>
+                <Text style={styles.placeholderText}>Start typing Benefactor name.</Text>
             )}
         </View>
+         </KeyboardAvoidingView>
     );
 };
 
-const styles = {
-    ...styles,
-    copyButton: {
-        marginTop: 10,
-        backgroundColor: 'orange',
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#f5f5f5',
         padding: 10,
-        borderRadius: 5,
-        alignItems: 'center'
     },
-    copyButtonText: {
-        color: 'white',
-        fontWeight: 'bold'
-    }
-};
+    searchBar: {
+        marginBottom: 10,
+    },
+    searchInput: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 5,
+        padding: 10,
+        backgroundColor: '#fff',
+    },
+    placeholderText: {
+        textAlign: 'center',
+        color: '#aaa',
+        marginTop: 20,
+    },
+});
 
 export default FetchSMNonCovLns;

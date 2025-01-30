@@ -119,7 +119,7 @@ const HomeScreen = () => {
         </View>
 
         {/* Loan Button */}
-        <View style={styles.loanContainer}>
+        
           <LinearGradient colors={['#72ebd8', '#34a4a1']} style={styles.loanButton}>
           <TouchableOpacity style={styles.loanContainer} onPress={RequestLoansPage}>
 
@@ -129,7 +129,7 @@ const HomeScreen = () => {
 
             </TouchableOpacity>
           </LinearGradient>
-        </View>
+        
 
         {/* Alert Section */}
         <LinearGradient colors={['#e58d29', '#f3c642']} style={styles.alertContainer}>
@@ -232,7 +232,10 @@ const styles = StyleSheet.create({
   },
   loanContainer: {
     width: '90%',
+    height:'100%',
     marginVertical: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   loanButton: {
     width: '100%',

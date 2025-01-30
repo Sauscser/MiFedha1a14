@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, FlatList, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, FlatList, Alert, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/CredSales/PayCash/BenProds/ViewBenProds";
 
 import { listBenProd2s, listSMAccounts } from '../../../../src/graphql/queries';
 import * as Clipboard from 'expo-clipboard';  
+import { ScrollView } from 'react-native-gesture-handler';
 
 const FetchSMNonCovLns = props => {
     const [Loanees, setLoanees] = useState([]);  // Stores fetched accounts
@@ -42,56 +43,67 @@ const FetchSMNonCovLns = props => {
         setFilteredLoanees(filtered);
     };
 
-    
-
     return (
-        <View style={styles.image}>
+        <KeyboardAvoidingView 
+            style={{ flex: 1 }} 
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+            <View style={styles.container}>
+                {/* Search Bar */}
+                <View style={styles.searchBar}>
+                    <TextInput
+                        placeholder="Search by creator name..."
+                        value={awsEmail}
+                        onChangeText={handleSearch}
+                        style={styles.searchInput}
+                    />
+                </View>
 
-            {/* Always Visible Search Bar */}
-            <View style={{padding: 10}}>
-                <TextInput
-                    placeholder="..................."
-                    value={awsEmail}
-                    onChangeText={handleSearch} 
-                    style={{padding: 1}}
-                    editable={true}
-                />
+                {/* Results */}
+                {awsEmail.length > 0 ? (
+                    <FlatList
+                        style={{ flex: 1 }}
+                        data={filteredLoanees}
+                        renderItem={({ item }) => (
+                            <View>
+                                <LnerStts SMAc={item} />
+                            </View>
+                        )}
+                        keyExtractor={(item, index) => index.toString()}
+                        refreshing={loading}
+                        keyboardShouldPersistTaps="handled"
+                    />
+                ) : (
+                    <Text style={styles.placeholderText}>
+                        Start typing product creator name.
+                    </Text>
+                )}
             </View>
-
-            {/* Conditional Rendering: FlatList only shows when typing */}
-            {awsEmail.length > 0 ? (
-                <FlatList
-                    style={{ width: "100%" }}
-                    data={filteredLoanees}
-                    renderItem={({ item }) => (
-                        <View>
-                            <LnerStts SMAc={item} />
-                           
-                        </View>
-                    )}
-                    keyExtractor={(item, index) => index.toString()}
-                    refreshing={loading}
-                />
-            ) : (
-                <Text style={styles.label}>Start typing Bizna/Company name.</Text>
-            )}
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 
-const styles = {
-    ...styles,
-    copyButton: {
-        marginTop: 10,
-        backgroundColor: 'orange',
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#f5f5f5',
         padding: 10,
-        borderRadius: 5,
-        alignItems: 'center'
     },
-    copyButtonText: {
-        color: 'white',
-        fontWeight: 'bold'
-    }
-};
+    searchBar: {
+        marginBottom: 10,
+    },
+    searchInput: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 5,
+        padding: 10,
+        backgroundColor: '#fff',
+    },
+    placeholderText: {
+        textAlign: 'center',
+        color: '#aaa',
+        marginTop: 20,
+    },
+});
 
 export default FetchSMNonCovLns;

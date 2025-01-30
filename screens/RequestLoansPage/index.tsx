@@ -102,7 +102,7 @@ const MyAccount = props => {
 
 
         <View style={styles.accountView}>
-          <Text style={styles.accountText}>Request Loans</Text>
+          <Text style={styles.accountText}>Requests</Text>
 
           <View style={styles.viewForSalesPressables}>
             
@@ -110,7 +110,7 @@ const MyAccount = props => {
 
           <Pressable onPress={PalProdsRequest} style={styles.acPressables}>
             <View >
-            <Text style={styles.acPressableText}>PalLoans</Text>
+            <Text style={styles.acPressableText}>Pal Requests</Text>
             </View>
             <View style = {{flexDirection:"row"}}>
             

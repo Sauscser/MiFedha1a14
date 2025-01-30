@@ -259,7 +259,7 @@ const SMASendNonLns = props => {
                                             benefactorPhone: RecNatId,
                                             beneficiaryAc: userInfo.attributes.email,
                                             beneficiaryPhone: "String",
-                                            creatorEmail: "String",
+                                            creatorEmail: userInfo.attributes.email,
                                             prodName: "String",
                                             creatorName: "String",
                                             owner: userInfo.attributes.sub,
@@ -351,7 +351,7 @@ const SMASendNonLns = props => {
                                     benefactorPhone: userInfo.attributes.email,
                                     beneficiaryAc: RecNatId,
                                     beneficiaryPhone: "String",
-                                    creatorEmail: "String",
+                                    creatorEmail: userInfo.attributes.email,
                                     prodName: "String",
                                     creatorName: "String",
                                     owner: userInfo.attributes.sub,
@@ -453,7 +453,7 @@ const SMASendNonLns = props => {
                                 benefactorPhone: RecNatId,
                                 beneficiaryAc: userInfo.attributes.email,
                                 beneficiaryPhone: "String",
-                                creatorEmail: "String",
+                                creatorEmail: userInfo.attributes.email,
                                 prodName: "String",
                                 creatorName: "String",
                                 owner: userInfo.attributes.sub,
@@ -641,7 +641,7 @@ const SMASendNonLns = props => {
                     ) {Alert.alert('Requested amount is more than you have in your account');}
                     
                     else if 
-                     (beneficiaryType === "Bizna")
+                     (beneficiaryType === "Biz")
                      {
                       await sendSMNonLn7();
                       return;

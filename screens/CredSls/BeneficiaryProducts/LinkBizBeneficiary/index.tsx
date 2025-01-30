@@ -107,18 +107,31 @@ const ProdId = route.params.id
               /*
               ProdCreatorAc
               */
-              const benefactorPhone = BznaDtlsx.data.getBenProd2.benefactorPhone;
+          const benefactorPhone = BznaDtlsx.data.getBenProd2.benefactorPhone;
           
-                        const PckBiznaDtls = async () => {
+          const PckBeneficiaryDtls = async () => {
             if(isLoading){
               return;
             }
             setIsLoading(true);
             try {
-              const BznaDtls:any = await API.graphql(
-                graphqlOperation(getBizna, { BusKntct:ChmRegNo}),
+              const BznaDtlsx:any = await API.graphql(
+                graphqlOperation(getBizna, { BusKntct:ChmNm}),
                             
               )
+
+              const busNamex = BznaDtlsx.data.getBizna.busName;
+
+              const PckBiznaDtls = async () => {
+                if(isLoading){
+                  return;
+                }
+                setIsLoading(true);
+                try {
+                  const BznaDtls:any = await API.graphql(
+                    graphqlOperation(getBizna, { BusKntct:ChmRegNo}),
+                                
+                  )
     
               const pws = BznaDtls.data.getBizna.pw;
               const ownerz = BznaDtls.data.getBizna.owner;
@@ -187,9 +200,11 @@ const ProdId = route.params.id
             prodID: route.params.id,
             benefitsID: "benefitsID",    
 benefactorAc: ChmRegNo,
+/*ProdCreatorAc*/
 benefactorPhone: benefactorPhone,
 beneficiaryAc:ChmNm,
-beneficiaryPhone:ChmNm,
+/*Beneficiary Name*/
+beneficiaryPhone:busNamex,
 creatorEmail: userInfo.attributes.email,
 prodName: prodNamez,
 creatorName: BiznaNames,
@@ -341,6 +356,16 @@ amount: 0
     }
 
     await PckBiznaDtls();
+
+  } catch (error) {
+        
+    if (error){Alert.alert("Error! Create a business first!")
+  return}
+  }
+ 
+}
+
+await PckBeneficiaryDtls();
 
   } catch (error) {
         

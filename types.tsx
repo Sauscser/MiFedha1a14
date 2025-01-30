@@ -11,6 +11,17 @@ declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {
       MemberReqChm:{ChamaNMember:String};
+      VwAsBeneficiary:undefined;
+      VwAsBenefactors: undefined;
+      ViewBenShares:undefined;
+      ViewBizBenefactorShares:undefined;
+      VwBenefactorContriDtls:{benefactorAc:string};
+
+      VwPalBeneficiaryShares:undefined;
+      VwBizBeneficiaryShares:undefined;
+      AddPalPalBeneficiary:undefined;
+      AddPalBizBeneficiary:undefined;
+      Benefits:undefined;
       VwBenToShare: {beneficiaryID:string};
       VwBenProdsDtls:{beneficiaryID:string};
       SharePalBenefits: {beneficiaryID:string};

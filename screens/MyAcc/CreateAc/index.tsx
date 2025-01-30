@@ -3,9 +3,9 @@ import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import {createSMAccount, updateCompany} from '../../../src/graphql/mutations';
 import { getCompany, listSMAccounts, } from '../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
-
 import {useNavigation} from '@react-navigation/native';
 
+import { Ionicons } from '@expo/vector-icons';
 
 import {
   View,
@@ -13,12 +13,13 @@ import {
   
   TextInput,
   ScrollView,
-  
+  StyleSheet,
   TouchableOpacity,
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import styles from './styles';
+
+import { LinearGradient } from 'expo-linear-gradient';
 
 
   
@@ -31,12 +32,16 @@ const CreateAcForm = (props) => {
 
   const [nationalId, setNationalid] = useState('');
   
-  
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
 
   
       const ChckUsrExistence = async () => {
+        if(isLoading){
+          return;
+        }
+        setIsLoading(true);
         const userInfo = await Auth.currentAuthenticatedUser();
         try {
           const UsrDtls:any = await API.graphql(
@@ -52,7 +57,6 @@ const CreateAcForm = (props) => {
           )
 
           const ChckUsrExistence2 = async () => {
-            const userInfoz = await Auth.currentAuthenticatedUser();
             try {
               const UsrDtlsz:any = await API.graphql(
                 graphqlOperation(listSMAccounts,
@@ -67,10 +71,7 @@ const CreateAcForm = (props) => {
               )
 
           const gtCompDtls = async () =>{
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
+            
             try{
               const compDtls :any= await API.graphql(
                 graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -79,10 +80,7 @@ const CreateAcForm = (props) => {
                 
               
             const onCreateNewSMAc = async () => {
-              if(isLoading){
-                return;
-              }
-              setIsLoading(true);
+             
               try {
                 await API.graphql(
                 graphqlOperation(createSMAccount, {
@@ -247,7 +245,7 @@ const CreateAcForm = (props) => {
                   
                   }
                   await updtActAdm();
-                  setIsLoading(false);
+                 
                   
                 };
                 
@@ -271,10 +269,7 @@ const CreateAcForm = (props) => {
             }
       
                 const updtActAdm = async()=>{
-                  if(isLoading){
-                    return;
-                  }
-                  setIsLoading(true);
+                  
                   try{
                       await API.graphql(
                         graphqlOperation(updateCompany,{
@@ -294,7 +289,7 @@ const CreateAcForm = (props) => {
                   }
                   }
                   Alert.alert("Account successfully created")    
-                  setIsLoading(false);
+                  
                 }
 
                            
@@ -358,49 +353,112 @@ useEffect(() =>{
         }, [pword]
          );
         
-          return (
-            <View>
-              <View
-                 style={styles.image}>
-                <ScrollView>
-           
-                  <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Enter Your Details Below</Text>
-                  </View>
-        
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={nationalId}
-                      onChangeText={setNationalid}
-                      
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>National Id</Text>
-                  </View>
-        
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={pword}
-                      onChangeText={setPW}
-                      secureTextEntry = {true}
-                                       
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Pass Word</Text>
-                  </View>
-        
-                  <TouchableOpacity
-                    onPress={ChckUsrExistence}
-                    style={styles.sendLoanButton}>
-                    <Text style={styles.sendLoanButtonText}>
-                      Click to Create Main Account
-                    </Text>
-                    {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
-                  </TouchableOpacity>
-                </ScrollView>
-              </View>
-            </View>
-          );
-        };
+         return (
+          <LinearGradient
+            colors={['#e58d29', 'skyblue']}
+            start={[0, 0]}
+            end={[1, 1]}
+            style={{ flex: 1 }}
+          >
+            <View style={styles.container}>
+              <ScrollView>
+
+    <View style={styles.formContainer}>
+      <TextInput
+       placeholder="National ID"
+        value={nationalId}
+        onChangeText={setNationalid}
+        style={styles.input}
+        editable={true}></TextInput>
+      
+     
+     
+
+     <View style={styles.passwordContainer}>
+                                                   <TextInput
+                                                     placeholder="Main Account Password"
+                                                 style={styles.passwordInput}
+                                                                                      
+                                                 value={pword}
+                                                 onChangeText={setPW}
+                                                 secureTextEntry={!isPasswordVisible}
+                                                 placeholderTextColor="#ccc"
+                                                         />
+                                                 <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                                                <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
+                                                 </TouchableOpacity>
+                                                 </View>
+       
+                                                
+    <TouchableOpacity
+      onPress={ChckUsrExistence}
+      style={styles.button}>
+      {isLoading ? (
+                                <ActivityIndicator color="#fff" />
+                              ) : (
+                                <Text style={styles.locationText}>Submit</Text>
+                              )}
+                            </TouchableOpacity>
+                          </View>
+                        </ScrollView>
+                      </View>
+                    </LinearGradient>
+                  );
+                };
+                
+                const styles = StyleSheet.create({
+                    gradient: {
+                      flex: 1,
+                    },
+                    container: {
+                      flex: 1,
+                      padding: 20,
+                    },
+                    loanTitleView: {
+                      marginBottom: 20,
+                      alignItems: 'center',
+                    },
+                    title: {
+                      fontSize: 24,
+                      fontWeight: 'bold',
+                      color: '#ffffff',
+                      textAlign: 'center',
+                    },
+                    formContainer: {
+                      backgroundColor: '#ffffff',
+                      borderRadius: 10,
+                      padding: 20,
+                      shadowColor: '#000',
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 4,
+                      elevation: 5,
+                    },
+                    input: {
+                      height: 45,
+                      borderColor: '#ccc',
+                      borderWidth: 1,
+                      marginBottom: 15,
+                      borderRadius: 5,
+                      paddingLeft: 10,
+                    },
+                    button: {
+                      backgroundColor: '#e58d29',
+                      paddingVertical: 12,
+                      borderRadius: 5,
+                      alignItems: 'center',
+                      marginTop: 20,
+                    },
+                    locationContainer: {
+                      marginVertical: 10,
+                    },
+                    locationText: {
+                      fontSize: 16,
+                      color: '#333',
+                    },
+                    passwordContainer: { flexDirection: 'row', alignItems: 'center', 
+                        backgroundColor: '#fff', borderRadius: 8, marginBottom: 10, height:50 },
+                passwordInput: { flex: 1, padding: 12 },
+                  });
         
         export default CreateAcForm;

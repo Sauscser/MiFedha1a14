@@ -16,7 +16,8 @@ prodName: string,
 creatorName: string,
 prodCost: number,
 prodDesc: string,
-benefitsAmount: number
+benefitsAmount: number,
+beneficiaryPhone:string
     }}
 
 const SMCvLnStts = (props:SMAccount) => {
@@ -29,7 +30,8 @@ const SMCvLnStts = (props:SMAccount) => {
         creatorName,
         prodCost,
         prodDesc,
-        benefitsAmount
+        benefitsAmount,
+        beneficiaryPhone
     
    }} = props ;
 
@@ -50,10 +52,7 @@ const SMCvLnStts = (props:SMAccount) => {
                       Benefactor Business/Company: {creatorName}                 
                     </Text>
 
-                                  <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Phone Phone: {benefactorAc}                  
-                    </Text> 
+                                 
 
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
@@ -63,6 +62,17 @@ const SMCvLnStts = (props:SMAccount) => {
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
                       Benefits Shared: {benefitsAmount}                  
+                    </Text> 
+
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                      Product Name: {prodName}                  
+                    </Text> 
+
+
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                      Beneficiary Name: {beneficiaryPhone}                  
                     </Text> 
 
                     <Text style = {styles.repaymentPeriod} 

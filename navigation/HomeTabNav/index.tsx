@@ -396,7 +396,7 @@ import VwB2PReceived from "../../screens/MyAcc/Loans/LRpyments/B2PReceived";
 import VwP2PReceived from "../../screens/MyAcc/Loans/LRpyments/P2PReceived";
 import VwP2PSent from "../../screens/MyAcc/Loans/LRpyments/P2PSent";
 
-import PalProdsRequest from "../../screens/MyAcc/PalProdsRequest";
+import PalProdsRequest from "../../screens/MyAcc/PalBenProds/PalProdsRequest";
 import PlaceLnReqP2P from "../../screens/MyAcc/LoanRequest/PlaceLnReq";
 import PlaceLnReqB2P from "../../screens/MyAcc/LoanRequest/PlaceLnReq2";
 
@@ -523,9 +523,20 @@ import LinkBizBeneficiary from "../../screens/CredSls/BeneficiaryProducts/LinkBi
 import LinkPalBeneficiary from "../../screens/CredSls/BeneficiaryProducts/LinkPalBeneficiary";
 import B2BPayCashB2BBen from "../../screens/CredSls/PayCash/B2B/B2BPayCashB2BBen";
 import VwBenToShare from "../../screens/CredSls/BeneficiaryProducts/VwBenToShare";
-import SharePalBenefits from "../../screens/MyAcc/PalProds/SharePalBenefits";
+import SharePalBenefits from "../../screens/MyAcc/PalBenProds/SharePalBenefits";
 import ShareBizBenefits from "../../screens/CredSls/BeneficiaryProducts/ShareBizBenefits";
 import VwBenProdsDtls from "../../screens/CredSls/BeneficiaryProducts/VwBenProdsDtls";
+import Benefits from "../../screens/CredSls/BeneficiaryProducts/Benefits";
+import AddPalPalBeneficiary from "../../screens/MyAcc/PalBenProds/AddPalPalBeneficiary";
+import AddPalBizBeneficiary from "../../screens/MyAcc/PalBenProds/AddPalBizBeneficiary";
+
+import ViewBenShares from "../../screens/CredSls/BeneficiaryProducts/Benefits/ViewBenShares";
+import VwAsBenefactors from "../../screens/CredSls/BeneficiaryProducts/Benefits/VwAsBenefactors";
+import VwAsBeneficiary from "../../screens/CredSls/BeneficiaryProducts/Benefits/VwAsBeneficiary";
+import ViewBizBenefactorShares from "../../screens/CredSls/BeneficiaryProducts/Benefits/ViewBizBenefactorShares";
+import VwBenefactorContriDtls from "../../screens/CredSls/BeneficiaryProducts/VwBenefactorContriDtls";
+import VwBizBeneficiaryShares from "../../screens/CredSls/BeneficiaryProducts/VwBizBeneficiaryShares";
+import VwPalBeneficiaryShares from "../../screens/CredSls/BeneficiaryProducts/VwPalBeneficiaryShares";
 
 
 
@@ -538,9 +549,23 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />      
 
-      <Stack.Screen name={'SharePalBenefits'} component={SharePalBenefits} />  
-      <Stack.Screen name={'ShareBizBenefits'} component={ShareBizBenefits} />  
+      <Stack.Screen name={'VwPalBeneficiaryShares'} component={VwPalBeneficiaryShares} />
+      <Stack.Screen name={'ViewBenShares'} component={ViewBenShares} />       
+      <Stack.Screen name={'VwAsBenefactors'} component={VwAsBenefactors} />  
+      <Stack.Screen name={'VwAsBeneficiary'} component={VwAsBeneficiary} />
+      <Stack.Screen name={'VwBenefactorContriDtls'} component={VwBenefactorContriDtls} />
+      <Stack.Screen name={'VwBizBeneficiaryShares'} component={VwBizBeneficiaryShares} />
+       
+
+      <Stack.Screen name={'ViewBizBenefactorShares'} component={ViewBizBenefactorShares} /> 
       
+      <Stack.Screen name={'SharePalBenefits'} component={SharePalBenefits} />       
+      <Stack.Screen name={'AddPalPalBeneficiary'} component={AddPalPalBeneficiary} />  
+      <Stack.Screen name={'AddPalBizBeneficiary'} component={AddPalBizBeneficiary} />  
+
+      <Stack.Screen name={'Benefits'} component={Benefits} />  
+      <Stack.Screen name={'ShareBizBenefits'} component={ShareBizBenefits} />  
+
       <Stack.Screen name={'ChmMmbrContriss'} component={ChmMmbrContriss} />
       <Stack.Screen name={'VwBenToShare'} component={VwBenToShare} />
       <Stack.Screen name={'B2BPayCashB2BBen'} component={B2BPayCashB2BBen} />

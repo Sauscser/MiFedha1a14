@@ -296,10 +296,6 @@ const SMASendNonLns = props => {
                       parseFloat(benefitsAmountsz) < TotalTransacted 
                     ) {Alert.alert('Requested amount is more than your Benefits');}
                     
-                   
-
-                    else if(noBL > 0){Alert.alert('Please first clear your lenders');}
-                   
                     else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
                     else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You do not own this business');}
                     
@@ -419,7 +415,13 @@ useEffect(() =>{
               
                         <View style={styles.formContainer}>
                           
-                          
+                          <TextInput
+                                                     placeholder="Amount to share"
+                                                      value={amounts}
+                                                      onChangeText={setAmount}
+                                                      style={styles.input}
+                                                      keyboardType={"decimal-pad"}
+                                                      editable={true}></TextInput>
                           
                          <View style={styles.passwordContainer}>
                                                                        <TextInput
@@ -431,6 +433,8 @@ useEffect(() =>{
                                                                      secureTextEntry={!isPasswordVisible}
                                                                      placeholderTextColor="#ccc"
                                                                              />
+
+                                                                             
                                                                      <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
                                                                     <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
                                                                      </TouchableOpacity>

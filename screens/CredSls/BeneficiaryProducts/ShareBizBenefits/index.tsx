@@ -149,7 +149,7 @@ const SMASendNonLns = props => {
                               benefitsID: benefitsIDs,
                               benefactorAc: benefactorAcs,                                  
                               amount: parseFloat(amounts).toFixed(2),                              
-                              benefactorPhone: SenderNatId,
+                              benefactorPhone: benefactorPhones,
                               beneficiaryAc:beneficiaryAcs,
                               beneficiaryPhone:beneficiaryPhones,
                               creatorEmail: userInfo.attributes.email,
@@ -234,9 +234,7 @@ const SMASendNonLns = props => {
                                 BusKntct:benefactorPhones,
                                
                                 netEarnings:(parseFloat(netEarnings) + parseFloat(amounts)).toFixed(2)                                     
-                                
-                                                                  
-                                
+                              
                               }
                             })
                           )                              
@@ -299,8 +297,9 @@ const SMASendNonLns = props => {
 
                     else if(noBL > 0){Alert.alert('Please first clear your lenders');}
                    
-                    else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-                    else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You do not own this business');}
+                    else if(usrPW !==SnderPW){Alert.alert('Wrong Business Password');}
+                    else if(userInfo.attributes.sub !==SenderSub)
+                      {Alert.alert('You do not own this business');}
                     
                      else {
                      await sendSMNonLn();
@@ -423,11 +422,21 @@ useEffect(() =>{
                             onChangeText={setSenderNatId}
                             style={styles.input}
                             editable={true}></TextInput>
+
+                            <TextInput
+                           placeholder="Amount to share"
+                            value={amounts}
+                            onChangeText={setAmount}
+                            style={styles.input}
+                            keyboardType={"decimal-pad"}
+                            editable={true}></TextInput>
+
+
                           
                           
                          <View style={styles.passwordContainer}>
                                                                        <TextInput
-                                                                         placeholder="Business Owner (CEO) Password"
+                                                                         placeholder="Business/Company Account Password"
                                                                      style={styles.passwordInput}
                                                                                                           
                                                                      value={SnderPW}

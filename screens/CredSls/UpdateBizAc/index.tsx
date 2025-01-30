@@ -161,17 +161,7 @@ const MyLoanAccount = props => {
 
             
 
-                <View style={styles.viewForClientsCategories7}>
-                  
-                  <Pressable 
-                  onPress={AddBizBeneficiary}
-                  
-                  style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Add Beneficiary</Text>
-
-                  </Pressable>
-                </View>
-
+               
               
                 <View style={styles.viewForClientsCategories7}>
                 <Pressable 

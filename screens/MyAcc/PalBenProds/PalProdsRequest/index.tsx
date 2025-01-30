@@ -87,7 +87,7 @@ const MyAccount = props => {
 
 
         <View style={styles.accountView}>
-          <Text style={styles.accountText}>Request Loans</Text>
+          <Text style={styles.accountText}>Request </Text>
 
           <View style={styles.viewForSalesPressables}>
            
