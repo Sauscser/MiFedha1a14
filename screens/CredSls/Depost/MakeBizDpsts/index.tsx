@@ -55,7 +55,7 @@ const SMADepositForm = props => {
       
       const names = accountDtl.data.getBizna.busName;  
 
-      const email = accountDtl.data.getBizna.email;  
+      const Admin1 = accountDtl.data.getBizna.Admin1;  
        
       
       const fetchAgtBal = async () => {
@@ -95,7 +95,7 @@ const SMADepositForm = props => {
                     setIsLoading(true)
                     try{
                       const compDtlsxz :any= await API.graphql(
-                      graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+                      graphqlOperation(getSMAccount,{awsemail:Admin1})
                         );
                           const nationalidz = compDtlsxz.data.getSMAccount.nationalid
                           
@@ -365,7 +365,7 @@ const SMADepositForm = props => {
 
           <View style={styles.sendAmtView}>
             <TextInput
-            placeholder="Business Email"
+            placeholder="Business Phone"
               value={nationalId}
               onChangeText={setNationalid}
               style={styles.sendAmtInput}

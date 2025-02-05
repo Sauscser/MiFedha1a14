@@ -13,12 +13,17 @@ import {
   updateSMAccount,
   updateGroup,
   updateChamaMembers,
+  createBenefitContributions2,
   
 } from '../../.././../src/graphql/mutations';
 
 import {API, Auth, graphqlOperation} from 'aws-amplify';
 
 
+
+
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {
@@ -28,13 +33,13 @@ import {
   Pressable,
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
+  StyleSheet,
   Platform,
   TouchableOpacity,
   Alert,
   ActivityIndicator
 } from 'react-native';
-import styles from './styles';
+
 import { getChamaMembers, getCompany, getGroup, getSMAccount, listCovCreditSellers, listCvrdGroupLoans, listSMLoansCovereds } from '../../../../src/graphql/queries';
 
 
@@ -48,6 +53,7 @@ const SMASendNonLns = props => {
   const [Desc, setDesc] = useState("");
  
   const[isLoading, setIsLoading] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   
   const route = useRoute();
   const navigation = useNavigation()
@@ -142,12 +148,15 @@ const SMASendNonLns = props => {
           );
           
             
-          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-          const UsrTransferFeeAmt = UsrTransferFee*parseFloat(amounts);
-          const UsrTransferFee2 = parseFloat(SenderUsrBal) -parseFloat(amounts);
-          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
-          const TotalTransacted2 = parseFloat(amounts)  + UsrTransferFee2;
-          const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
+           const p2pBenCom = CompDtls.data.getCompany.p2pBenCom;
+                    const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
+                    const UsrTransferFeeAmt = UsrTransferFee*parseFloat(amounts);
+                    const UsrTransferFee2 = parseFloat(SenderUsrBal) -parseFloat(amounts);
+                    const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
+                    const TotalTransacted2 = parseFloat(amounts)  + UsrTransferFee2;
+                    const CompPhoneContact = CompDtls.data.getCompany.phoneContact; 
+                    const PalBenefits = parseFloat(p2pBenCom) *  UsrTransferFeeAmt;
+                    const CompEarnings =  UsrTransferFeeAmt - (2*PalBenefits)          
           
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
@@ -168,12 +177,28 @@ const SMASendNonLns = props => {
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
                     const ttlNonLonsRecSMs =RecAccountDtl.data.getSMAccount.ttlNonLonsRecSM;
-                    const namess =RecAccountDtl.data.getSMAccount.name;
+                    const ReceiverName =RecAccountDtl.data.getSMAccount.name;
                     const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
                     const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
                     const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
                     const phonecontact =RecAccountDtl.data.getSMAccount.phonecontact;
                     const p2pchmBenefits =accountDtl.data.getSMAccount.p2pchmBenefits;
+                    const ReceiverbeneficiaryType =RecAccountDtl.data.getSMAccount.beneficiaryType;
+                    const ReceiverbenefitsAmount =RecAccountDtl.data.getSMAccount.benefitsAmount;
+                    const receiverbeneficiary =RecAccountDtl.data.getSMAccount.beneficiary;
+
+                    const fetchRecBenUsrDtls = async () => {
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try {
+                          const RecAccountDtl:any = await API.graphql(
+                              graphqlOperation(getSMAccount, {awsemail: receiverbeneficiary}),
+                              );
+                              const RecBenUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
+                             
+                              const receiverbeneficiaryAmt =RecAccountDtl.data.getSMAccount.beneficiaryAmt;
 
 
                     const fetchMmbrDtls = async () => {
@@ -188,7 +213,8 @@ const SMASendNonLns = props => {
                               const ttlNonLonAcBal =RecAccountDtl17.data.getChamaMembers.ttlNonLonAcBal; 
                               const groupContact =RecAccountDtl17.data.getChamaMembers.groupContact; 
                               const memberChmBenefit =RecAccountDtl17.data.getChamaMembers.memberChmBenefit; 
-                              
+                              const subscribedAmt  =RecAccountDtl17.data.getChamaMembers.subscribedAmt; 
+                             
                               const fetchChmDtls = async () => {
                                 if(isLoading){
                                   return;
@@ -216,7 +242,7 @@ const SMASendNonLns = props => {
                               senderPhn: userInfo.attributes.email,                                  
                               amount: parseFloat(amounts).toFixed(0),                              
                               description: Desc,
-                              RecName:namess,
+                              RecName:ReceiverName,
                               SenderName:names,
                               status: "SMNonLons",
                               owner: userInfo.attributes.sub
@@ -280,8 +306,34 @@ const SMASendNonLns = props => {
                               input:{
                                 awsemail:RecNatId,
                                 ttlNonLonsRecSM: (parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts)).toFixed(0) ,
-                                balance:(parseFloat(RecUsrBal) + (parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(amounts)).toFixed(0),                                     
-                                p2pchmBenefits: (parseFloat(p2pchmBenefits) + (parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3).toFixed(0) ,                       
+                                balance:(parseFloat(RecUsrBal)  + parseFloat(amounts)).toFixed(0),                                     
+                                
+                              }
+                            })
+                          )                              
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Retry or update app or call customer care")
+                        return;}
+                      }
+                      console.log((parseFloat(RecUsrBal) + (parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(amounts)).toFixed(0), )
+                      setIsLoading(false);
+                      await updtRecBenAc();
+                    }
+
+                    const updtRecBenAc = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateSMAccount, {
+                              input:{
+                                awsemail:receiverbeneficiary,
+                                
+                                balance:(parseFloat(RecBenUsrBal) + PalBenefits ).toFixed(0),                                     
                                 
                               }
                             })
@@ -307,8 +359,8 @@ const SMASendNonLns = props => {
                             graphqlOperation(updateGroup, {
                               input:{
                                 grpContact: groupContact,
-                                grpBal: (parseFloat(grpBal) + (parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3).toFixed(0) ,
-                                ChmBenefits: (parseFloat(ChmBenefits) + (parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3).toFixed(0) ,
+                                grpBal: (parseFloat(grpBal) + PalBenefits).toFixed(0) ,
+                                ChmBenefits: (parseFloat(ChmBenefits) + PalBenefits).toFixed(0) ,
                               }
                             })
                           )                              
@@ -333,7 +385,9 @@ const SMASendNonLns = props => {
                               input:{
                                 ChamaNMember: route.params.ChamaNMember,
                                 
-                                memberChmBenefit: (parseFloat(memberChmBenefit) + (parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3).toFixed(0) ,
+                                memberChmBenefit: (parseFloat(memberChmBenefit) + PalBenefits).toFixed(0) ,
+                                subscribedAmt: (parseFloat(subscribedAmt) + PalBenefits).toFixed(0) ,
+                            
                               }
                             })
                           )                              
@@ -360,8 +414,8 @@ const SMASendNonLns = props => {
                               input:{
                                 AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                
-                                companyEarningBal:(parseFloat(UsrTransferFee) * parseFloat(amounts))*0.4 + parseFloat(companyEarningBals),
-                                companyEarning: (parseFloat(UsrTransferFee) * parseFloat(amounts))*0.4 + parseFloat(companyEarnings),                                                    
+                                companyEarningBal:CompEarnings + parseFloat(companyEarningBals),
+                                companyEarning: CompEarnings + parseFloat(companyEarnings),                                                    
                                 
                                 ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
                                 ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
@@ -380,7 +434,233 @@ const SMASendNonLns = props => {
                       Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0)
                       );
                       Communications.textWithoutEncoding(phonecontact,'Hi '
-                              + namess + ", "+names + ' has sent you a non loan of Ksh. ' 
+                              + ReceiverName + ", "+names + ' has sent you a non loan of Ksh. ' 
+                              + amounts 
+                              +'. For clarification call the sender '
+                            + userInfo.attributes.phone_number + '. Thank you. MiFedha')
+                            
+                            setIsLoading(false);
+                    }
+                   
+                    const sendSMNonLn1 = async () => {
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true)
+                      try {
+                        await API.graphql(
+                          graphqlOperation(createNonLoans, {
+                            input: {
+                              recPhn: RecNatId,
+                              senderPhn: userInfo.attributes.email,                                  
+                              amount: parseFloat(amounts).toFixed(0),                              
+                              description: Desc,
+                              RecName:ReceiverName,
+                              SenderName:names,
+                              status: "SMNonLons",
+                              owner: userInfo.attributes.sub
+                            },
+                          }),
+                        );
+
+
+                      } catch (error) {
+                        if (error){
+                          Alert.alert("Sending unsuccessful; Retry")
+                          return
+                        }
+                      }
+                      setIsLoading(false);
+                      await updtSendrAc1();
+                    };
+
+                    
+
+
+                    const updtSendrAc1 = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateSMAccount, {
+                              input:{
+                                awsemail:userInfo.attributes.email,
+                                ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(0),
+                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) 
+                               
+                                
+                              }
+                            })
+                          )
+
+
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Retry or update app or call customer care")
+                        return;}
+                      }
+                      setIsLoading(false);
+                      await updtRecAc1();
+                    }
+
+                   
+
+                    const updtRecAc1 = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateSMAccount, {
+                              input:{
+                                awsemail:RecNatId,
+                                ttlNonLonsRecSM: (parseFloat(ttlNonLonsRecSMs) + parseFloat(amounts)).toFixed(0) ,
+                                balance:(parseFloat(RecUsrBal)  + parseFloat(amounts)).toFixed(0),                                     
+                                benefitsAmount: (parseFloat(ReceiverbenefitsAmount) + PalBenefits).toFixed(0)
+                              }
+                            })
+                          )                              
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Retry or update app or call customer care")
+                        return;}
+                      }
+                      console.log((parseFloat(RecUsrBal) + (parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(amounts)).toFixed(0), )
+                      setIsLoading(false);
+                      await updtRecBenAc1();
+                    }
+
+                    const updtRecBenAc1 = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(createBenefitContributions2, {
+                              input:{
+                                benefitsID: "String",
+                                                                                          benefactorAc: userInfo.attributes.email,
+                                                                                          /*benefactorName*/
+                                                                                          benefactorPhone: userInfo.username,
+                                                                                          beneficiaryAc: RecNatId,
+                                                                                          beneficiaryPhone: "String",
+                                                                                          creatorEmail: "String",
+                                                                                          prodName: "String",
+                                                                                          creatorName: "String",
+                                                                                          owner: userInfo.attributes.sub,
+                                                                                          prodCost: 0,
+                                                                                          benefitsAmount: PalBenefits.toFixed(0),
+                                                                                          beneficiaryType: "Pal",
+                                                                                          prodDesc: "String",
+                                                                                          benefitStatus: "Active",
+                                                                                          amount: PalBenefits.toFixed(0)                  
+                                                                                                                               
+                                
+                              }
+                            })
+                          )                              
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Retry or update app or call customer care")
+                        return;}
+                      }
+                      console.log((parseFloat(RecUsrBal) + (parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(amounts)).toFixed(0), )
+                      setIsLoading(false);
+                      await updtChmAc1();
+                    }
+
+                    const updtChmAc1 = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateGroup, {
+                              input:{
+                                grpContact: groupContact,
+                                grpBal: (parseFloat(grpBal) + PalBenefits).toFixed(0) ,
+                                ChmBenefits: (parseFloat(ChmBenefits) + PalBenefits).toFixed(0) ,
+                              }
+                            })
+                          )                              
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Retry or update app or call customer care")
+                        return;}
+                      }
+                      setIsLoading(false);
+                      await updtChmMbrAc1();
+                    }
+
+                    const updtChmMbrAc1 = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateChamaMembers, {
+                              input:{
+                                ChamaNMember: route.params.ChamaNMember,
+                                subscribedAmt:(parseFloat(subscribedAmt) + PalBenefits).toFixed(0) ,
+                              
+                                memberChmBenefit: (parseFloat(memberChmBenefit) + PalBenefits).toFixed(0) ,
+                              }
+                            })
+                          )                              
+                      }
+                      catch(error){
+                        console.log(error)
+                        if (error){Alert.alert("Retry or update app or call customer care")
+                        return;}
+                      }
+                      setIsLoading(false);
+                      await updtComp1();
+                    }
+
+                    
+
+                    const updtComp1 = async () =>{
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try{
+                          await API.graphql(
+                            graphqlOperation(updateCompany, {
+                              input:{
+                                AdminId: "BaruchHabaB'ShemAdonai2",                                                      
+                               
+                                companyEarningBal:CompEarnings + parseFloat(companyEarningBals),
+                                companyEarning: CompEarnings + parseFloat(companyEarnings),                                                    
+                                
+                                ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
+                                ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
+                                
+                              }
+                            })
+                          )
+                          
+                          
+                      }
+                      catch(error){
+                        
+                        if (error){console.log(error)
+                    return;}
+                      }
+                      Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0)
+                      );
+                      Communications.textWithoutEncoding(phonecontact,'Hi '
+                              + ReceiverName + ", "+names + ' has sent you a non loan of Ksh. ' 
                               + amounts 
                               +'. For clarification call the sender '
                             + userInfo.attributes.phone_number + '. Thank you. MiFedha')
@@ -396,11 +676,6 @@ const SMASendNonLns = props => {
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                     else if(SenderNatId === RecNatId){Alert.alert('You cannot Send money to yourself Yourself');}
                     else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
-                    else if (
-                      UsrTransferFee2 < 0
-                    ) {Alert.alert('Requested amount is more than you have in your account');}
-
-                    
                     
                     else if (
                       (parseFloat(RecUsrBal) + parseFloat(amounts)) > parseFloat(MaxAcBals) 
@@ -425,11 +700,21 @@ const SMASendNonLns = props => {
                         SndChmMmbrMny();
                     } 
 
-                    else if (UsrTransferFeeAmt > UsrTransferFee2 
+                    else if (TotalTransacted > SenderUsrBal 
                       ){Alert.alert('Insufficient funds');}
 
+                      else if (ReceiverbeneficiaryType === "Pal" 
+                      ){
+                        await sendSMNonLn();
+                      }
+
+                      else if (ReceiverbeneficiaryType === "Biz" 
+                      ){
+                        await sendSMNonLn1();
+                      }
+
                      else {
-                      sendSMNonLn();
+                      Alert.alert("Please call customer care or update app")
                     }                                                
                
                   }       
@@ -467,7 +752,20 @@ const SMASendNonLns = props => {
                 }
                 setIsLoading(false);
                 }                    
+                  await fetchRecBenUsrDtls();
+
+                }       
+                catch(e) {   
+                  
+                  if (e){
+                  console.log(e)  
+  return;}                 
+                }
+                setIsLoading(false);
+                }                    
                   await fetchRecUsrDtls();
+
+
         } catch (e) {
           
           if (e){console.log(e)
@@ -595,81 +893,131 @@ useEffect(() =>{
                             setSnderPW(SnderPWss);
                             }, [SnderPW]
                              );
+return (
+<LinearGradient
+                            colors={['#e58d29', 'skyblue']}
+                            start={[0, 0]}
+                            end={[1, 1]}
+                            style={{ flex: 1 }}
+                          >
+                            <View style={styles.container}>
+                              <ScrollView>
+          
+                    <View style={styles.formContainer}>
+                      <TextInput
+                       placeholder="Receiver Email"
+                        value={RecNatId}
+                        onChangeText={setRecNatId}
+                        style={styles.input}
+                        editable={true}>                          
+                        </TextInput>
 
-                             
+                        <TextInput
+                       placeholder="Amount"
+                        value={amounts}
+                        onChangeText={setAmount}
+                        style={styles.input}
+                        editable={true}
+                        keyboardType='decimal-pad'>                                                                         
+                        </TextInput>   
 
-                                 
-
-  return (
-    <View>
-      <View
+                        <TextInput
+                       placeholder="Description"
+                        value={Desc}
+                        onChangeText={setDesc}
+                        style={styles.input}
+                        editable={true}
+                        
+                        multiline={true}
+                        >                                                                         
+                        </TextInput>                     
+                     
+                     <View style={styles.passwordContainer}>
+                                                                   <TextInput
+                                                                     placeholder="My Main Account Password"
+                                                                 style={styles.passwordInput}
+                                                                                                      
+                                                                 value={SnderPW}
+                                                                 onChangeText={setSnderPW}
+                                                                 secureTextEntry={!isPasswordVisible}
+                                                                 placeholderTextColor="#ccc"
+                                                                         />
+                                                                 <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                                                                <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
+                                                                 </TouchableOpacity>
+                                                                 </View>
+                       
+                                                                
+                    <TouchableOpacity
+                      onPress={fetchCvLnSM}
+                      style={styles.button}>
+                      {isLoading ? (
+                                                <ActivityIndicator color="#fff" />
+                                              ) : (
+                                                <Text style={styles.locationText}>Submit</Text>
+                                              )}
+                                            </TouchableOpacity>
+                                          </View>
+                                        </ScrollView>
+                                      </View>
+                                    </LinearGradient>
+                                  );
+                                };
+                                
+                                const styles = StyleSheet.create({
+                                    gradient: {
+                                      flex: 1,
+                                    },
+                                    container: {
+                                      flex: 1,
+                                      padding: 20,
+                                    },
+                                    loanTitleView: {
+                                      marginBottom: 20,
+                                      alignItems: 'center',
+                                    },
+                                    title: {
+                                      fontSize: 24,
+                                      fontWeight: 'bold',
+                                      color: '#ffffff',
+                                      textAlign: 'center',
+                                    },
+                                    formContainer: {
+                                      backgroundColor: '#ffffff',
+                                      borderRadius: 10,
+                                      padding: 20,
+                                      shadowColor: '#000',
+                                      shadowOffset: { width: 0, height: 2 },
+                                      shadowOpacity: 0.25,
+                                      shadowRadius: 4,
+                                      elevation: 5,
+                                    },
+                                    input: {
+                                      height: 45,
+                                      borderColor: '#ccc',
+                                      borderWidth: 1,
+                                      marginBottom: 15,
+                                      borderRadius: 5,
+                                      paddingLeft: 10,
+                                    },
+                                    button: {
+                                      backgroundColor: '#e58d29',
+                                      paddingVertical: 12,
+                                      borderRadius: 5,
+                                      alignItems: 'center',
+                                      marginTop: 20,
+                                    },
+                                    locationContainer: {
+                                      marginVertical: 10,
+                                    },
+                                    locationText: {
+                                      fontSize: 16,
+                                      color: '#333',
+                                    },
+                                    passwordContainer: { flexDirection: 'row', alignItems: 'center', 
+                                        backgroundColor: '#fff', borderRadius: 8, marginBottom: 10, height:50 },
+                                passwordInput: { flex: 1, padding: 12 },
+                                  });
         
-        style={styles.image}>
-        <ScrollView>
-         
-          <View style={styles.amountTitleView}>
-            <Text style={styles.title}>Fill account Details Below</Text>
-          </View>
-
-          
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-            placeholder="Receiver Email"
-              value={RecNatId}
-              onChangeText={setRecNatId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Receiver Email</Text>
-          </View>
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-            keyboardType={"decimal-pad"}
-              value={amounts}
-              onChangeText={setAmount}
-              style={styles.sendAmtInput}
-              editable={true}
-              ></TextInput>
-              
-            <Text style={styles.sendAmtText}>Amount Sent</Text>
-          </View>
-
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={SnderPW}
-              onChangeText={setSnderPW}
-              secureTextEntry = {true}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Sender PassWord</Text>
-          </View>
-
-          
-
-          <View style={styles.sendAmtViewDesc}>
-            <TextInput
-              multiline={true}
-              value={Desc}
-              onChangeText={setDesc}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Description</Text>
-          </View>
-
-          <TouchableOpacity
-            onPress={fetchCvLnSM}
-            style={styles.sendAmtButton}>
-            <Text style={styles.sendAmtButtonText}>Send</Text>
-            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
-          </TouchableOpacity>
-
-          
-        </ScrollView>
-      </View>
-    </View>
-  );
-};
 
 export default SMASendNonLns;

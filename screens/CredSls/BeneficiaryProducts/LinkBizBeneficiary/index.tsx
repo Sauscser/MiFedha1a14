@@ -191,7 +191,7 @@ const ProdId = route.params.id
       const onCreateNewSMAc = async () => {
         
         try {
-          await API.graphql(
+         const resp = await API.graphql(
           graphqlOperation(createLinkBeneficiary2, {
           input: {
 
@@ -213,26 +213,29 @@ prodCost: prodCostz,
 benefitsAmount: 0,
 beneficiaryType: "Biz",
 prodDesc: prodDescz,
-benefitStatus: "AccountActive",
+benefitStatus: "Active",
 amount: 0
             
                   },
                 }),
               );
-              
+              if (resp?.data?.createLinkBeneficiary2)
+              {
+                Alert.alert("Beneficiary linked successfully")
+              }
             } catch (error) {
               console.log(error)
               if (error){
-                Alert.alert("Error! Access denied!")
+                Alert.alert("Error! retry or update App!")
                 return
               }
             
             }
-            Alert.alert("Product created successfully")
+            
             
           };
           if (pwsz!==pword){
-            Alert.alert("Wrong Admin password")
+            Alert.alert("Wrong password")
           }
 
            

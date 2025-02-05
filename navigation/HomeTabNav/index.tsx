@@ -537,6 +537,10 @@ import ViewBizBenefactorShares from "../../screens/CredSls/BeneficiaryProducts/B
 import VwBenefactorContriDtls from "../../screens/CredSls/BeneficiaryProducts/VwBenefactorContriDtls";
 import VwBizBeneficiaryShares from "../../screens/CredSls/BeneficiaryProducts/VwBizBeneficiaryShares";
 import VwPalBeneficiaryShares from "../../screens/CredSls/BeneficiaryProducts/VwPalBeneficiaryShares";
+import BoostPooledBen from "../../screens/CredSls/BeneficiaryProducts/BoostPooledBen";
+import BoostPalBenefits from "../../screens/MyAcc/PalBenProds/BoostPalBenefits";
+import VwPalBenefactorContriDtls from "../../screens/MyAcc/PalBenProds/VwPalBenefactorContriDtls";
+import ViewPalBenefactorShares from "../../screens/MyAcc/PalBenProds/ViewPalBenefactorShares";
 
 
 
@@ -549,8 +553,13 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />      
 
+      <Stack.Screen name={'VwPalBenefactorContriDtls'} component={VwPalBenefactorContriDtls} />
+      <Stack.Screen name={'ViewPalBenefactorShares'} component={ViewPalBenefactorShares} />
+      
       <Stack.Screen name={'VwPalBeneficiaryShares'} component={VwPalBeneficiaryShares} />
-      <Stack.Screen name={'ViewBenShares'} component={ViewBenShares} />       
+      <Stack.Screen name={'BoostPalBenefits'} component={BoostPalBenefits} />
+      <Stack.Screen name={'ViewBenShares'} component={ViewBenShares} /> 
+      <Stack.Screen name={'BoostPooledBen'} component={BoostPooledBen} />      
       <Stack.Screen name={'VwAsBenefactors'} component={VwAsBenefactors} />  
       <Stack.Screen name={'VwAsBeneficiary'} component={VwAsBeneficiary} />
       <Stack.Screen name={'VwBenefactorContriDtls'} component={VwBenefactorContriDtls} />

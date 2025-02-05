@@ -87,6 +87,10 @@ const MyAccount = props => {
     navigation.navigate('VwPlLn2Remove');
   };
 
+  const BoostPalBenefits = () => {
+    navigation.navigate('BoostPalBenefits');
+  };
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -124,7 +128,7 @@ const MyAccount = props => {
         <Section 
           title="Other Operations"
           options={[
-            { label: 'Search Pal', onPress: SearchUser },
+            { label: 'Boost pooled Benefits', onPress: BoostPalBenefits },
             { label: 'Advertise', onPress: LoanAds },
             { label: 'Delete ', onPress: VwPlLn2Remove },
            

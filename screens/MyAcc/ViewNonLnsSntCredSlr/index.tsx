@@ -4,7 +4,8 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../components/MyAc/ViewSentNonLns";
 import styles from './styles';
-import { getCompany, getSMAccount, listNonLoanss, listSMAccounts, vwMySntMny } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount, listSMAccounts, 
+  VwMySntMny } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 import { useRoute } from '@react-navigation/native';
 
@@ -32,7 +33,7 @@ const FetchSMNonLnsSnt = props => {
            
                  
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMySntMny, 
+              const Lonees:any = await API.graphql(graphqlOperation(VwMySntMny, 
               {
                       senderPhn: userInfo.attributes.email,
                       sortDirection: 'DESC',

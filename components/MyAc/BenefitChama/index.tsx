@@ -55,7 +55,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    }
 
    const BenefitChmSenderOnly = () => {
-      navigation.navigate("BenefitChmSenderOnly", {ChamaNMember})
+      navigation.navigate("BenefitChmSenderOnly")
    }
 
 

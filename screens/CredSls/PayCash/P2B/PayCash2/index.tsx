@@ -256,7 +256,9 @@ const SMASendNonLns = props => {
                                           input:{
                                             benefitsID: "String",
                                             benefactorAc: RecNatId,
-                                            benefactorPhone: RecNatId,
+                                             /*
+                                            Benefactor Name*/
+                                            benefactorPhone: namess,
                                             beneficiaryAc: userInfo.attributes.email,
                                             beneficiaryPhone: "String",
                                             creatorEmail: userInfo.attributes.email,
@@ -348,7 +350,7 @@ const SMASendNonLns = props => {
                                   input:{
                                     benefitsID: "String",
                                     benefactorAc: userInfo.attributes.email,
-                                    benefactorPhone: userInfo.attributes.email,
+                                    benefactorPhone: userInfo.username,
                                     beneficiaryAc: RecNatId,
                                     beneficiaryPhone: "String",
                                     creatorEmail: userInfo.attributes.email,
@@ -450,7 +452,9 @@ const SMASendNonLns = props => {
                               input:{
                                 benefitsID: "String",
                                 benefactorAc: RecNatId,
-                                benefactorPhone: RecNatId,
+                                /*
+                                Benefactor Name*/
+                                benefactorPhone: namess,
                                 beneficiaryAc: userInfo.attributes.email,
                                 beneficiaryPhone: "String",
                                 creatorEmail: userInfo.attributes.email,

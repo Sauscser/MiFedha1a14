@@ -185,9 +185,9 @@ const SMASendNonLns = props => {
                           graphqlOperation(getSMAccount, {awsemail: AttendAdmin}),
                         );
                   
-                        const phonecontactxs =accountDtl7.data.getSMAccount.phonecontact;
+                        const phonecontactxsc =accountDtl7.data.getSMAccount.phonecontact;
                         const namexs =accountDtl7.data.getSMAccount.name;
-                        const pwszsx =accountDtl7.data.getSMAccount.pw;
+                       
 
                         const fetchRecBizUsrDtls = async () => {
                           if(isLoading){
@@ -195,13 +195,13 @@ const SMASendNonLns = props => {
                           }
                           setIsLoading(false);
                           try {
-                            const accountDtl7:any = await API.graphql(
+                            const accountDtl7b:any = await API.graphql(
                               graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
                             );
                       
-                            const namezx =accountDtl7.data.getSMAccount.name;
-                            
-                            const phonecontactzx =accountDtl7.data.getSMAccount.phonecontact;
+                            const namezx =accountDtl7b.data.getSMAccount.name;
+                            const pwszsx =accountDtl7b.data.getSMAccount.pw;
+                            const phonecontactzx =accountDtl7b.data.getSMAccount.phonecontact;
 
                     
                     
@@ -249,7 +249,9 @@ const SMASendNonLns = props => {
                     if(RecAcstatus === "AccountInactive"){Alert.alert('Receiver account is inactive');}
                     else if(SnderPW !== pwszsx){Alert.alert('Wrong Main Account Password');}
                     else if(SenderAcstatus === "AccountInactive"){Alert.alert('Sender account is inactive');}
-                    else if(AttendAdmin !== userInfo.attributes.email){Alert.alert('Attending Admin must be the owner of User Account');}                    
+                    else if (UsrDtls.data.listPersonels.items.length < 1)
+                    {Alert.alert("You dont work here")}
+                    
                     else if ( Admin1 !== AttendAdmin
                       &&
                       Admin2 !== AttendAdmin 
@@ -351,11 +353,11 @@ const SMASendNonLns = props => {
                       Admin49 !== AttendAdmin 
                       &&
                       Admin50 !== AttendAdmin 
-                    &&
-                    UsrDtls.data.listPersonels.items.length < 1
+                    
+                    
                   )
                    
-                  {Alert.alert ("You do not work here neither are you an admin")}
+                  {Alert.alert ("This Admin does not belong to this Business")}
                      else {
                       await sendSMNonLn();
                     }                                                
@@ -521,7 +523,7 @@ return (
                       editable={true}></TextInput>
 
 <TextInput
-                     placeholder="Attending Personnel Email"
+                     placeholder="Attending Admin Email"
                       value={AttendAdmin}
                       onChangeText={setAttendAdmin}
                       style={styles.input}

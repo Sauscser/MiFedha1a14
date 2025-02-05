@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import RecNonLns from "../../../components/MyAc/ViewRecNonLns";
 import styles from './styles';
-import { getCompany, getSMAccount,  listSMAccounts, vwMyRecMny } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount,  listSMAccounts, VwMyRecMny } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
 const FetchSMNonLnsRec = props => {
@@ -29,7 +29,7 @@ const FetchSMNonLnsRec = props => {
               
        
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyRecMny, 
+              const Lonees:any = await API.graphql(graphqlOperation(VwMyRecMny, 
               {
                       recPhn: userInfo.attributes.email,
                       sortDirection: 'DESC',

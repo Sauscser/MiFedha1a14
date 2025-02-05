@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, Alert, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../components/CredSales/BenProd2/ViewMyBeneficiaryShares";
+import LnerStts from "../../../../components/CredSales/BenProd2/ViewBizBeneficiaryShares";
 
 import { listBenefitContributions2s, listBenefitShare2s, listBenProd2s, listBiznas, listLinkBeneficiary2s, listSMAccounts } from '../../../../src/graphql/queries';
 import * as Clipboard from 'expo-clipboard';  
@@ -26,7 +26,7 @@ const FetchSMNonCovLns = props => {
               graphqlOperation(listBiznas,
                 { filter: {
                     
-                    busName: { eq: awsEmail},
+                    BusKntct: { eq: awsEmail},
                     owner: { eq: userInfo.attributes.sub},
                                                    
                   }}
@@ -44,7 +44,7 @@ const FetchSMNonCovLns = props => {
                 graphqlOperation(listLinkBeneficiary2s, {
                     filter: 
                     { benefitStatus: { eq: "Active" },
-                    beneficiaryPhone: {eq: awsEmail}
+                    beneficiaryAc: {eq: awsEmail}
                      }
                 })
             );
@@ -66,7 +66,7 @@ const FetchSMNonCovLns = props => {
 
     if (benefitContributors.length < 1)
     {
-        Alert.alert("This is not your account")
+        Alert.alert("This is not your Business/Company")
     }
 
     else{
@@ -97,11 +97,14 @@ const FetchSMNonCovLns = props => {
                 {/* Search Bar */}
                 <View style={styles.searchBar}>
                     <TextInput
-                        placeholder="Search by Company/Biz Beneficiary Number..."
+                        placeholder="Company/Biz Beneficiary Number..."
                         value={awsEmail}
                         onChangeText={setAWSEmail}
                         style={styles.searchInput}
                     />
+                    <Text style={styles.placeholderText}>
+                        Swipe down to load or refresh.
+                    </Text>
                 </View>
 
                 {/* Results */}
@@ -120,9 +123,7 @@ const FetchSMNonCovLns = props => {
                         keyboardShouldPersistTaps="handled"
                     />
                 
-                    <Text style={styles.placeholderText}>
-                        Start typing Beneficiary Company/Biz Number.
-                    </Text>
+                    
                 
             </View>
         </KeyboardAvoidingView>

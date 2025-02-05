@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, Alert, TouchableOpacity } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../components/CredSales/BenProd2/ViewBenContributions";
+import LnerStts from "../../../../components/CredSales/BenProd2/ViewBenContributionsPal";
 
-import { listBenefitContributions2s, listBenefitShare2s, listBenProd2s, listLinkBeneficiary2s, listSMAccounts } from '../../../../src/graphql/queries';
+import { listBenefitContributions2s, listBenefitShare2s, 
+  listBenProd2s, listLinkBeneficiary2s, listSMAccounts } 
+  from '../../../../src/graphql/queries';
 import * as Clipboard from 'expo-clipboard';  
 import { useNavigation, useRoute } from '@react-navigation/native';
 import styles from './styles';
@@ -15,7 +17,7 @@ const FetchSMNonCovLns = props => {
     const [awsEmail, setAWSEmail] = useState("");
     const route = useRoute();
 
-    const {benefactorAc, benefactorPhone, creatorName, prodName} 
+    const {benefactorAc, benefactorPhone, creatorName} 
     = route.params;
 
     useEffect(() => {
@@ -29,9 +31,9 @@ const FetchSMNonCovLns = props => {
             const Lonees = await API.graphql(
                 graphqlOperation(listBenefitShare2s, {
                     filter: {  
-                      prodName:{eq:route.params.prodName},
-                      benefactorPhone: {eq: route.params.benefactorPhone},
-                      creatorName: {eq: route.params.creatorName}
+                      benefactorAc:{eq:route.params.benefactorAc},
+                      creatorEmail: {eq: userInfo.attributes.email},
+                      benefactorAc:{eq:route.params.benefactorAc}
 
                   }
                     

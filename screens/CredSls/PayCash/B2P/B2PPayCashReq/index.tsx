@@ -195,7 +195,7 @@ const SMASendNonLns = props => {
                       
                             const namezx =accountDtl7.data.getSMAccount.name;
                             const phonecontactzx =accountDtl7.data.getSMAccount.phonecontact;
-
+                            const pwscx =accountDtl7.data.getSMAccount.pw;
                     
                     
                   
@@ -243,7 +243,10 @@ const SMASendNonLns = props => {
                     UsrDtls.data.listPersonels.items.length < 1)
                     {Alert.alert ("You dont work here")}
                     
-                    else if(RecAcstatus === "AccountInactive"){Alert.alert('Receiver account is inactive');}
+                    else if(RecAcstatus === "AccountInactive")
+                      {Alert.alert('Receiver account is inactive');}
+                    else if(SnderPW !== pwscx)
+                      {Alert.alert('Wrong Password');}
                     else if(SenderAcstatus === "AccountInactive"){Alert.alert('Sender account is inactive');}
                     else if ( Admin1 !== AttendAdmin
                       &&
@@ -529,7 +532,7 @@ useEffect(() =>{
               onChangeText={setAttendAdmin}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>AttendingAdminEmail</Text>
+            <Text style={styles.sendAmtText}>Attending Admin Email</Text>
           </View>
 
           <View style={styles.sendAmtView}>
@@ -552,7 +555,7 @@ useEffect(() =>{
               secureTextEntry = {true}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Personnel PassWord</Text>
+            <Text style={styles.sendAmtText}>Main Account PassWord</Text>
           </View>
 
 

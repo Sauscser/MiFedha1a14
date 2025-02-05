@@ -67,8 +67,10 @@ fetchUsrDtls();
       <FlatList
       style= {{width:"100%"}}
         data={Loanees}
-        renderItem={({item}) => <LnerStts SMAc={item} />}
-        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item}) => 
+        <LnerStts SMAc={item} />}
+        keyExtractor=
+        {(item, index) => index.toString()}
         onRefresh={fetchUsrDtls}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
@@ -77,7 +79,8 @@ fetchUsrDtls();
           <>
             
             <Text style={styles.label}> My Account</Text>
-            <Text style={styles.label2}> (Please swipe down to load)</Text>
+            <Text style={styles.label2}> 
+              (Please swipe down to load)</Text>
           </>
         )}
       />

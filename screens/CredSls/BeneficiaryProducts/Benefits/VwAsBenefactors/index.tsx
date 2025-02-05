@@ -39,8 +39,8 @@ const MyLoanAccount = () => {
     navigation.navigate('ViewBizBenefactorShares');
   };
 
-  const VwBenToShare = () => {
-    navigation.navigate('VwBenToShare');
+  const ViewPalBenefactorShares = () => {
+    navigation.navigate('ViewPalBenefactorShares');
   };
 
   
@@ -63,7 +63,7 @@ const MyLoanAccount = () => {
           options={[
             
             { label: 'Biz', onPress: ViewBizBenefactorShares, style: styles.ClientsPressables },
-            { label: 'Pal', onPress: UpdateBizAc, style: styles.ClientsPressables },
+            { label: 'Pal', onPress: ViewPalBenefactorShares, style: styles.ClientsPressables },
             
           ]}
         />

@@ -145,7 +145,7 @@ const fetchSenderUsrDtls = async () => {
       const SenderUsrBal =accountDtl.data.getBizna.netEarnings;                    
       const bizBeneficiaryz =accountDtl.data.getBizna.bizBeneficiary; 
       const SenderbizType =accountDtl.data.getBizna.bizType;
-      const name =accountDtl.data.getBizna.busName;
+      const Benefactornamexs =accountDtl.data.getBizna.busName;
       const ownerz =accountDtl.data.getBizna.owner;
       const SenderAcstatus =accountDtl.data.getBizna.status;
       const pw =accountDtl.data.getBizna.pw;
@@ -241,6 +241,7 @@ const fetchSenderUsrDtls = async () => {
                     );
                     const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
                     const beneficiary =RecAccountDtl.data.getSMAccount.beneficiary; 
+                    const Benefactorname =RecAccountDtl.data.getSMAccount.name; 
                     
                     const RecbenefitsAmount =RecAccountDtl.data.getSMAccount.benefitsAmount;
                     const RecAcstatus =RecAccountDtl.data.getSMAccount.status;
@@ -355,7 +356,8 @@ const fetchSenderUsrDtls = async () => {
                                                                  input:{
                                                                    benefitsID: "String",
                                                                    benefactorAc: recPhn,
-                                                                   benefactorPhone: recPhn,
+                                                                   /*Benefactorname*/
+                                                                   benefactorPhone: Benefactorname,
                                                                    beneficiaryAc: senderPhn,
                                                                    beneficiaryPhone: "String",
                                                                    creatorEmail: userInfo.attributes.email,
@@ -419,7 +421,7 @@ const fetchSenderUsrDtls = async () => {
                                       input:{
                                         benefitsID: "String",
                                         benefactorAc: senderPhn,
-                                        benefactorPhone: senderPhn,
+                                        benefactorPhone: Benefactornamexs,
                                         beneficiaryAc: recPhn,
                                         beneficiaryPhone: "String",
                                         creatorEmail: userInfo.attributes.email,
@@ -565,7 +567,7 @@ const fetchSenderUsrDtls = async () => {
                                                                  input:{
                                                                    benefitsID: "String",
                                                                    benefactorAc: senderPhn,
-                                                                   benefactorPhone: senderPhn,
+                                                                   benefactorPhone: Benefactornamexs,
                                                                    beneficiaryAc: recPhn,
                                                                    beneficiaryPhone: "String",
                                                                    creatorEmail: userInfo.attributes.email,

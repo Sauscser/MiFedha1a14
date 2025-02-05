@@ -15,7 +15,7 @@ import KFNdogoLoc from '../../screens/MFNdogo/SearchMFN';
 import FindKFNdogoLoc from '../../screens/MFNdogo/SignInMFN';
 import MyAccount from '../../screens/MyAcc';
 import SearchPal from '../../screens/MyAcc/LoanRequest/VwMakeLnReq';
-import CredtSales from '../../screens/CredSls/index.=tsx';
+import CredtSales from '../../screens/CredSls';
 import ChamaScreen from '../../screens/Chama';
 import EntrAdvLoc from '../../screens/Advocate/EnterAdvLoc';
 import Welc from '../../screens/MyAcc/T&CAcceptanceForm';

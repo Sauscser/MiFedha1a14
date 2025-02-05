@@ -104,7 +104,7 @@ const SMASendNonLns = props => {
       const SenderSub =accountDtl.data.getSMAccount.owner;
       
      
-      const statuss =accountDtl.data.getBizna.acStatus;
+      const statuss =accountDtl.data.getSMAccount.acStatus;
       
       
       
@@ -134,22 +134,25 @@ const SMASendNonLns = props => {
             
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getBizna, {BusKntct: benefactorAcs}),
+                    graphqlOperation(getBizna, {BusKntct: benefactorPhones}),
                     );
                                        
                     const netEarnings =RecAccountDtl.data.getBizna.netEarnings;
                     const statussx =RecAccountDtl.data.getBizna.status;
-                  
+                    const prodCreatorName =RecAccountDtl.data.getBizna.busName;
+                                    
                     const sendSMNonLn = async () => {
                       
                       try {
                         await API.graphql(
                           graphqlOperation(createBenefitShare2, {
                             input: {
-                              benefitsID: benefitsIDs,
+                              /*contributorName*/
+                              benefitsID: userInfo.username,
                               benefactorAc: benefactorAcs,                                  
-                              amount: parseFloat(amounts).toFixed(2),                              
-                              benefactorPhone: SenderNatId,
+                              amount: parseFloat(amounts).toFixed(2), 
+                               /*contributorAc*/                            
+                              benefactorPhone: benefactorPhones,
                               beneficiaryAc:beneficiaryAcs,
                               beneficiaryPhone:beneficiaryPhones,
                               creatorEmail: userInfo.attributes.email,
@@ -158,8 +161,10 @@ const SMASendNonLns = props => {
                               creatorName:creatorNames,
                               prodCost:prodCosts,
                               benefitsAmount:parseFloat(benefitsAmounts) + parseFloat(benefitsAmountsz),
-                              beneficiaryType:beneficiaryTypes,
-                              prodDesc:prodDescs,
+                              /*Contributor Ac*/ 
+                              beneficiaryType:userInfo.attributes.email,
+                              /*ProdCreator Name*/
+                              prodDesc:prodCreatorName,
                               benefitStatus:benefitStatuss,
 
                             },

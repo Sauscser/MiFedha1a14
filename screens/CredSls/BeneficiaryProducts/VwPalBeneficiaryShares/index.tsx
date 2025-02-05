@@ -4,7 +4,8 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/CredSales/BenProd2/ViewMyBeneficiaryShares";
 
 import { listBenefitContributions2s, listBenefitShare2s, listBenProd2s, listBiznas, listLinkBeneficiary2s, listSMAccounts } from '../../../../src/graphql/queries';
-import * as Clipboard from 'expo-clipboard';  
+import * as Clipboard from 'expo-clipboard'; 
+import { useRoute } from '@react-navigation/native'; 
 
 
 const FetchSMNonCovLns = props => {
@@ -14,7 +15,11 @@ const FetchSMNonCovLns = props => {
     const [loading, setLoading] = useState(false);
     const [awsEmail, setAWSEmail] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-     
+     const route = useRoute();
+     const {beneficiaryAc, 
+        benefactorPhone, 
+        creatorName,
+        prodName} = route.params;
 
 
     const fetchLoanees = async () => {
@@ -23,23 +28,20 @@ const FetchSMNonCovLns = props => {
         try {
             
             const Lonees = await API.graphql(
-                graphqlOperation(listLinkBeneficiary2s, {
+                graphqlOperation(listBenefitShare2s, {
                     filter: 
                     { benefitStatus: { eq: "Active" },
-                    beneficiaryPhone: {eq: userInfo.username}
+                    beneficiaryAc: {eq: route.params.beneficiaryAc},
+                    prodName: {eq: route.params.prodName},
+                    benefactorPhone: {eq: route.params.benefactorPhone}
                      }
                 })
             );
 
-            const contribution = Lonees.data.listLinkBeneficiary2s.items
+            const contribution = Lonees.data.listBenefitShare2s.items
             setLoanees(contribution);
 
-            if (contribution.length < 1)
-                {
-                    Alert.alert("No one has contributed for you")
-                }
             
-
         } catch (e) {
             console.log(e);
         } 

@@ -4,7 +4,7 @@ import {View, Text,   FlatList, Alert} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import RecNonLns from "../../../components/MyAc/ViewRecNonLns";
 import styles from './styles';
-import { getCompany, getGroup,    listLoanRepayments,    listNonLoans,    vwMyRecMny } from '../../../src/graphql/queries';
+import { getCompany, getGroup,    listLoanRepayments,    listNonLoans,    VwMyRecMny } from '../../../src/graphql/queries';
 import { updateCompany, updateGroup,  } from '../../../src/graphql/mutations';
 import { useRoute } from '@react-navigation/core';
 

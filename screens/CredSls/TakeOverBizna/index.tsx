@@ -75,7 +75,8 @@ const CreateBiz = (props) => {
             BusKntct:Sign2Phn,
             
             email:userInfo.attributes.email,
-            owner: userInfo.attributes.sub
+            owner: userInfo.attributes.sub,
+            Admin1: userInfo.attributes.email
                   },
                 })
                 

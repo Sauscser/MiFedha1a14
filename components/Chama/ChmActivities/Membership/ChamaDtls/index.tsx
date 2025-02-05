@@ -126,6 +126,11 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
                        Group Benefits (Ksh): {(ttlNonLonAcBal).toFixed(2)}
+                    </Text>  
+
+                     <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Group subscriptions (Ksh): {(subscribedAmt).toFixed(2)}
                     </Text>    
                     
                     <Text style ={styles.amountoffered}>                       

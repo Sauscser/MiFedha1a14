@@ -15,9 +15,27 @@ declare global {
       VwAsBenefactors: undefined;
       ViewBenShares:undefined;
       ViewBizBenefactorShares:undefined;
-      VwBenefactorContriDtls:{benefactorAc:string};
+      ViewPalBenefactorShares:undefined;
+      BoostPooledBen:undefined;
+      BoostPalBenefits: undefined;
+      
 
-      VwPalBeneficiaryShares:undefined;
+      VwPalBenefactorContriDtls:
+      {benefactorAc:string, 
+        benefactorPhone:string, 
+        creatorName:string,
+        prodName:string};
+      
+      VwBenefactorContriDtls:
+      {benefactorAc:string, 
+        benefactorPhone:string, 
+        creatorName:string,
+        prodName:string};
+      BenefitChmSenderOnly:undefined;
+      VwPalBeneficiaryShares:{beneficiaryAc:string, 
+        benefactorPhone:string, 
+        creatorName:string,
+        prodName:string};
       VwBizBeneficiaryShares:undefined;
       AddPalPalBeneficiary:undefined;
       AddPalBizBeneficiary:undefined;
@@ -74,7 +92,7 @@ declare global {
       P2BPayCash:undefined;
       PenaliseMember: {ChamaNMember:string};
       SendNLBnftChm:{ChamaNMember:string};
-      BenefitChmSenderOnly:{ChamaNMember:string};
+      
       SendNLBnftNone:undefined;
       Vw2SelectChmBeneficiary:undefined;
       ChamaDtls: {ChamaNMember:string};

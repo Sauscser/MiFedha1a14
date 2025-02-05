@@ -517,7 +517,7 @@ return;
 
            <View style={styles.passwordContainer}>
                                                        <TextInput
-                                                         placeholder="Main Account Password"
+                                                         placeholder="New MFNdogo Password"
                                                      style={styles.passwordInput}
                                                                                           
                                                      value={pword}
@@ -532,7 +532,7 @@ return;
            
                                                      <View style={styles.passwordContainer}>
                                                        <TextInput
-                                                         placeholder="Confirm Account Password"
+                                                         placeholder="Confirm Password"
                                                      style={styles.passwordInput}
                                                                                           
                                                      value={lat}

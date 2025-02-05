@@ -37,12 +37,14 @@ const MyLoanAccount = () => {
   };
 
 
-  const VwAsBenefactors = () => {
+  const ViewBizBenefactorShares = () => {
     navigation.navigate('ViewBizBenefactorShares');
   };
 
  
-
+  const VwAsBenefactors = () => {
+    navigation.navigate('VwAsBenefactors');
+  };
   
 
   

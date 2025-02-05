@@ -212,7 +212,7 @@ prodCost: prodCostz,
 benefitsAmount: 0,
 beneficiaryType: "Biz",
 prodDesc: prodDescz,
-benefitStatus: "AccountActive",
+benefitStatus: "Active",
 amount: 0
             
                   },

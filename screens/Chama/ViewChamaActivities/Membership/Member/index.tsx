@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/Chama/ChmActivities/Membership/Member";
 import styles from './styles';
-import { getCompany, getSMAccount, vwMyChamas } from '../../../../../src/graphql/queries';
+import { getCompany, getSMAccount, VwMyChamas } from '../../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
 
 const FetchSMCovLns = props => {
@@ -22,7 +22,7 @@ const FetchSMCovLns = props => {
               
    
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyChamas, 
+              const Lonees:any = await API.graphql(graphqlOperation(VwMyChamas, 
                 {
                       memberContact: userInfo.attributes.email,
                       sortDirection: 'DESC',

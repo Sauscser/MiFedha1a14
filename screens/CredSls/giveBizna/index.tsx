@@ -76,6 +76,7 @@ const CreateBiz = (props) => {
             
             owner2email:userInfo.attributes.email,
             
+            
                   },
                 })
                 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, FlatList, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, FlatList, Alert, StyleSheet,
+    TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/MyAc/LoanReq/MakeLnReq";
 
@@ -36,8 +37,9 @@ const FetchSMNonCovLns = props => {
     // Dynamic Filtering based on input
     const handleSearch = (text) => {
         setAWSEmail(text);
+        const lowerText = text.toLowerCase();
         const filtered = Loanees.filter(loanee =>
-            loanee.phonecontact.includes(text)
+            loanee.name.toLowerCase().includes(lowerText)
         );
         setFilteredLoanees(filtered);
     };
@@ -49,15 +51,20 @@ const FetchSMNonCovLns = props => {
     };
 
     return (
-        <View style={styles.image}>
+        <KeyboardAvoidingView
+                          style={{ flex: 1 }} 
+                          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                      >
+                          <View style={styles.container}>
+                              {/* Search Bar */}
 
             {/* Always Visible Search Bar */}
-            <View style={styles.sendLoanView}>
+            <View style={styles.searchBar}>
                 <TextInput
-                    placeholder="+254724......"
+                    placeholder="Pal Name"
                     value={awsEmail}
                     onChangeText={handleSearch} 
-                    style={styles.sendLoanInput}
+                    style={styles.searchInput}
                     editable={true}
                 />
             </View>
@@ -81,14 +88,34 @@ const FetchSMNonCovLns = props => {
                     refreshing={loading}
                 />
             ) : (
-                <Text style={styles.label}>Start typing a phone number to see your pal. Start with country code.</Text>
+                <Text style={styles.placeholderText}>Start typing your pal name. Start with country code.</Text>
             )}
         </View>
+                </KeyboardAvoidingView>
     );
 };
 
-const styles = {
-    ...styles,
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#f5f5f5',
+        padding: 10,
+    },
+    searchBar: {
+        marginBottom: 10,
+    },
+    searchInput: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 5,
+        padding: 10,
+        backgroundColor: '#fff',
+    },
+    placeholderText: {
+        textAlign: 'center',
+        color: '#aaa',
+        marginTop: 20,
+    },
     copyButton: {
         marginTop: 10,
         backgroundColor: 'orange',
@@ -100,6 +127,6 @@ const styles = {
         color: 'white',
         fontWeight: 'bold'
     }
-};
+});
 
 export default FetchSMNonCovLns;

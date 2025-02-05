@@ -39,7 +39,8 @@ const SMCvLnStts = (props:SMAccount) => {
    const navigation = useNavigation();
    
    const VwBenefactorContriDtls = () => {
-    navigation.navigate("VwBenefactorContriDtls", {benefactorAc})
+    navigation.navigate("VwBenefactorContriDtls", 
+      {benefactorAc, benefactorPhone, creatorName, prodName})
 }
 
     return (

@@ -9,15 +9,18 @@ import styles from './styles';
 export interface SMAccount {
     SMAc: {
       id: string,
+      benefitsID:string,
 benefactorAc: string,
 benefactorPhone: string,
 beneficiaryPhone:string,
+beneficiaryAc:string,
 prodName: string,
 creatorName: string,
 prodCost: number,
 prodDesc: string,
 createdAt: string,
-benefitsAmount:number
+amount: number,
+beneficiaryType:string
 
     }}
 
@@ -25,22 +28,22 @@ const SMCvLnStts = (props:SMAccount) => {
    const {
       SMAc: {
         id ,
+        beneficiaryType,
         benefactorAc,
-        benefactorPhone,
         beneficiaryPhone,
-        prodName,
         creatorName,
-        prodCost,
+        beneficiaryAc,
+        benefactorPhone,
         prodDesc,
-        benefitsAmount
+        createdAt,
+        amount,
+        benefitsID
     
    }} = props ;
 
    const navigation = useNavigation();
    
-   const VwBenefactorContriDtls = () => {
-    navigation.navigate("VwBenefactorContriDtls", {benefactorAc})
-}
+   
 
     return (
         
@@ -50,40 +53,61 @@ const SMCvLnStts = (props:SMAccount) => {
                   
             
             <View style = {styles.container}>              
-                       
             <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                      Product Creator Account: {benefactorPhone}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Beneficiary Creator: {benefactorAc}                 
-                    </Text>
+                      Contribution ID: {id}                 
+                    </Text>  
+                        
                      <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                      Beneficiary Creator: {creatorName}                 
+                      Benefactor Name: {creatorName}                 
                     </Text>
                                         
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Product Cost: {prodCost}                  
-                    </Text> 
+                   
                    
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
-                      Benefits Pooled: {benefitsAmount}                  
+                      Benefactor Account: {benefactorAc}                  
                     </Text> 
 
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                      Product Creator Account: {benefactorPhone}                  
+                    </Text> 
                     
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
-                      More Description: {prodDesc}                  
+                      Product Creator Name: {prodDesc}                  
                     </Text> 
+
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                      Contributor Account: {beneficiaryType}                  
+                    </Text> 
+                    
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                      Contributor Name: {benefitsID}                  
+                    </Text> 
+
+                   
+
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                      Contribution Amount: {amount}                  
+                    </Text> 
+
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                      Contribution Time: {createdAt}                  
+                    </Text> 
+                    
 
 
         </View >
-        
+        <View style = {styles.viewForPressables2}>
+
+</View>
        </View> 
 
         

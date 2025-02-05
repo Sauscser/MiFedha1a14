@@ -177,7 +177,6 @@ const MyLoanAccount = () => {
           options={[
             
             { label: 'Biz', onPress: VwBizBeneficiaryShares, style: styles.ClientsPressables },
-            { label: 'Pal', onPress: VwPalBeneficiaryShares, style: styles.ClientsPressables },
             
           ]}
         />

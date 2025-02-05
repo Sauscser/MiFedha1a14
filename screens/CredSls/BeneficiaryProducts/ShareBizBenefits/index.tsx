@@ -102,15 +102,11 @@ const SMASendNonLns = props => {
       const usrPW =accountDtl.data.getBizna.pw;
       const busNames =accountDtl.data.getBizna.busName;
       const SenderSub =accountDtl.data.getBizna.owner;
-      const noBL =accountDtl.data.getBizna.noBL;
-     
+      const noBL =accountDtl.data.getBizna.noBL;     
       const statuss =accountDtl.data.getBizna.status;
       
       
-      
-      
-      const fetchCompDtls = async () => {
-        
+      const fetchCompDtls = async () => {        
         try {
           const CompDtls:any = await API.graphql(
             graphqlOperation(getCompany, {
@@ -134,11 +130,12 @@ const SMASendNonLns = props => {
             
             try {
                 const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getBizna, {BusKntct: beneficiaryAcs}),
+                    graphqlOperation(getBizna, {BusKntct: benefactorPhones}),
                     );
                                        
                     const netEarnings =RecAccountDtl.data.getBizna.netEarnings;
                     const statussx =RecAccountDtl.data.getBizna.status;
+                    const prodCreatorName =RecAccountDtl.data.getBizna.busName;
                   
                     const sendSMNonLn = async () => {
                       
@@ -146,20 +143,25 @@ const SMASendNonLns = props => {
                         await API.graphql(
                           graphqlOperation(createBenefitShare2, {
                             input: {
-                              benefitsID: benefitsIDs,
+                               /*contributorName*/
+                              benefitsID: busNames,
                               benefactorAc: benefactorAcs,                                  
-                              amount: parseFloat(amounts).toFixed(2),                              
+                              amount: parseFloat(amounts).toFixed(2),  
+                              /*Product Creator Ac*/                            
                               benefactorPhone: benefactorPhones,
                               beneficiaryAc:beneficiaryAcs,
                               beneficiaryPhone:beneficiaryPhones,
                               creatorEmail: userInfo.attributes.email,
                               owner: userInfo.attributes.sub,
                               prodName:prodNames,
+                              /*Benefactor Name*/
                               creatorName:creatorNames,
                               prodCost:prodCosts,
                               benefitsAmount:parseFloat(benefitsAmounts) + parseFloat(benefitsAmountsz),
-                              beneficiaryType:beneficiaryTypes,
-                              prodDesc:prodDescs,
+                              /*Contributor Ac*/ 
+                              beneficiaryType:SenderNatId,
+                              /*ProdCreator Name*/
+                              prodDesc:prodCreatorName,
                               benefitStatus:benefitStatuss,
 
                             },

@@ -153,8 +153,8 @@ const MyLoanAccount = () => {
     navigation.navigate('ViewBenProds');
   };
 
-  const VwBenToShare = () => {
-    navigation.navigate('VwBenToShare');
+  const BoostPooledBen = () => {
+    navigation.navigate('BoostPooledBen');
   };
 
   const Benefits = () => {
@@ -184,6 +184,7 @@ const MyLoanAccount = () => {
             
             { label: 'Benefits (Share or View)', onPress: Benefits, style: styles.ClientsPressables },
             { label: 'Link Beneficiary', onPress: ViewBenProds, style: styles.ClientsPressables },
+            { label: 'Boost Pooled Benefits', onPress: BoostPooledBen, style: styles.ClientsPressables },
            
           ]}
         />

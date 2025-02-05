@@ -1,10 +1,10 @@
 import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
+import {View, Text, ImageBackground, StyleSheet, FlatList, Alert, KeyboardAvoidingView, Platform} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/MyAc/BenefitChama";
-import styles from './styles';
-import { getCompany, getSMAccount, listChamaMembers, vwMyChamas } from '../../../../src/graphql/queries';
+
+import { getCompany, getSMAccount, listChamaMembers } from '../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../src/graphql/mutations';
 import { useNavigation } from '@react-navigation/native';
 
@@ -16,7 +16,7 @@ const FetchSMCovLns = props => {
 
     const navigation = useNavigation();
     const noBenefit = () => {
-      navigation.navigate ("SendNLBnftNone")
+      navigation.navigate ("BenefitChmSenderOnly")
     }
     
     const fetchUsrDtls = async () => {
@@ -167,7 +167,12 @@ const FetchSMCovLns = props => {
           }, [])     
 
   return (
-    <View style={styles.root}>
+   <KeyboardAvoidingView
+                      style={{ flex: 1 }} 
+                      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                  >
+                      <View style={styles.container}>
+                          {/* Search Bar */}
       <FlatList
       style= {{width:"100%"}}
         data={Loanees}
@@ -180,12 +185,36 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Select one of your groups to benefit</Text>
+            <Text > Select one of your groups to benefit</Text>
           </>
         )}
       />
-    </View>
+     </View>
+             </KeyboardAvoidingView>
   );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#f5f5f5',
+        padding: 10,
+    },
+    searchBar: {
+        marginBottom: 10,
+    },
+    searchInput: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 5,
+        padding: 10,
+        backgroundColor: '#fff',
+    },
+    placeholderText: {
+        textAlign: 'center',
+        color: '#aaa',
+        marginTop: 20,
+    },
+});
 
 export default FetchSMCovLns;

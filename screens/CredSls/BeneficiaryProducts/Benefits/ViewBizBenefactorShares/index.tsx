@@ -3,7 +3,7 @@ import { View, Text, TextInput, FlatList, Alert, StyleSheet, KeyboardAvoidingVie
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/CredSales/BenProd2/ViewBizBenefactorShares";
 
-import { listBenefitContributions2s, listBenefitShare2s, listBenProd2s, listLinkBeneficiary2s, listSMAccounts } from '../../../../../src/graphql/queries';
+import { listBenefitContributions2s, listBenefitShare2s, listBenProd2s, listLinkBeneficiary2s, listPersonels, listSMAccounts } from '../../../../../src/graphql/queries';
 import * as Clipboard from 'expo-clipboard';  
 
 
@@ -13,29 +13,46 @@ const FetchSMNonCovLns = props => {
     const [filteredLoanees, setFilteredLoanees] = useState([]); // Stores filtered results
     const [loading, setLoading] = useState(false);
     const [awsEmail, setAWSEmail] = useState("");
+    const [awsEmail2, setAWSEmail2] = useState("");
+    const [awsEmail3, setAWSEmail3] = useState("");
     const [isLoading, setIsLoading] = useState(false);
      
-useEffect(() => {
-    ChckPersonelExistence();
-    }, []);
 
-    const ChckPersonelExistence = async () => {
+    const ChckPersonnelDtls = async () => {
           
         setIsLoading(true)
         const userInfo = await Auth.currentAuthenticatedUser();
           try {
-            const UsrDtls:any = await API.graphql(
-              graphqlOperation(listBenefitContributions2s,
+            const UsrDtlsz:any = await API.graphql(
+              graphqlOperation(listPersonels,
                 { filter: {
                     
-                    creatorEmail: { eq: userInfo.attributes.email},
-                   
+                    BusinessRegNo: { eq: awsEmail},
+                    email:{contains: userInfo.attributes.email}
+                    
+                                
+                  }}
+              )
+            )
+            const personelDtls = UsrDtlsz.data.listPersonels.items 
+
+            const ChckPersonelExistence = async () => {
+          
+        setIsLoading(true)
+          try {
+            const UsrDtls:any = await API.graphql(
+              graphqlOperation(listBenefitShare2s,
+                { filter: {
+                    
+                    beneficiaryType: { eq: awsEmail},
+                    creatorName:{contains: awsEmail2},
+                    prodName: {contains: awsEmail3}
                                 
                   }}
               )
             )
 
-            const benefitContributors = UsrDtls.data.listBenefitContributions2s.items;
+            const benefitContributors = UsrDtls.data.listBenefitShare2s.items;
             setUsrDtls(benefitContributors)
 
     const fetchLoanees = async () => {
@@ -46,6 +63,8 @@ useEffect(() => {
                 graphqlOperation(listLinkBeneficiary2s, {
                     filter: 
                     { benefitStatus: { eq: "Active" },
+                    creatorName:{contains: awsEmail2},
+                    prodName:{contains: awsEmail3}
                     
                      }
                 })
@@ -65,16 +84,38 @@ useEffect(() => {
         } 
     };
 
-    if (benefitContributors.length < 1)
+    if (personelDtls.length < 1)
     {
-        Alert.alert("You have not yet contributed to this Beneficiary")
+        Alert.alert("You do not work here");
+        return;
+    }
+
+    else if (benefitContributors.length < 1)
+    {
+        Alert.alert("You have not yet contributed to this Beneficiary");
+        return;
     }
 
     else{
         await fetchLoanees();
     }
 
-    }
+}
+    
+catch(e){
+console.log(e)
+if(e){
+Alert.alert("Error! Access denied")
+return;
+}
+}
+  setIsLoading(false)
+      
+              
+  };
+  await ChckPersonelExistence();
+
+}
     
               catch(e){
               console.log(e)
@@ -84,19 +125,14 @@ useEffect(() => {
               }
               }
                 setIsLoading(false)
-                
-                            
+                setAWSEmail("")
+                setAWSEmail2("")  
+                setAWSEmail3("")    
                             
                 };
     
     // Dynamic Filtering based on input
-    const handleSearch = (text) => {
-        setAWSEmail(text);
-        const filtered = UsrDtls.filter(loanee =>
-            loanee.creatorName.includes(text)
-        );
-        setFilteredLoanees(filtered);
-    };
+    
     
     return (
         <KeyboardAvoidingView 
@@ -107,33 +143,54 @@ useEffect(() => {
                 {/* Search Bar */}
                 <View style={styles.searchBar}>
                     <TextInput
-                        placeholder="Search by Beneficiary Creator name..."
+                        placeholder="My Business full number..."
                         value={awsEmail}
-                        onChangeText={handleSearch}
+                        onChangeText={setAWSEmail}
+                        style={styles.searchInput}
+                    />
+
+<TextInput
+                        placeholder="Beneficiary Creator name..even partial"
+                        value={awsEmail2}
+                        onChangeText={setAWSEmail2}
+                        style={styles.searchInput}
+                    />
+                    <TextInput
+                        placeholder="Product Name...even partial"
+                        value={awsEmail3}
+                        onChangeText={setAWSEmail3}
                         style={styles.searchInput}
                     />
                 </View>
 
                 {/* Results */}
-                {awsEmail.length > 0 ? (
+                
                     <FlatList
                         style={{ flex: 1 }}
-                        data={filteredLoanees}
+                        data={Loanees}
                         renderItem={({ item }) => (
-                            <View>
+                           
                                 <LnerStts SMAc={item} />
-                            </View>
+                           
                         )}
-                        keyExtractor={(item, index) => index.toString()}
-                        refreshing={loading}
-                        keyboardShouldPersistTaps="handled"
-                    />
-                ) : (
+                        keyExtractor={(item, index) => 
+                            index.toString()}
+                            onRefresh={ChckPersonnelDtls}
+                            refreshing={loading}
+                            showsVerticalScrollIndicator={false}
+                            ListHeaderComponentStyle
+                            ={{alignItems: 'center'}}
+                            ListHeaderComponent={() => (
+                              <>
+               
                     <Text style={styles.placeholderText}>
-                        Start typing Beneficiary Creator name.
+                        Swipe down to load or refresh.
                     </Text>
+                    </>
                 )}
+                />
             </View>
+            
         </KeyboardAvoidingView>
     );
 };

@@ -4,7 +4,8 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../components/MyAc/ViewSentNonLns";
 import styles from './styles';
-import { getCompany, getSMAccount, listLoanRepayments, listNonLoans,  listSMAccounts, vwMySntMny } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount, listLoanRepayments, listNonLoans,  listSMAccounts, 
+  VwMySntMny } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 import { useRoute } from '@react-navigation/native';
 

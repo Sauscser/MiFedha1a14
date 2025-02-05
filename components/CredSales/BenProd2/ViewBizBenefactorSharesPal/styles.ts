@@ -38,8 +38,7 @@ const styles = StyleSheet.create ({
     repaymentPeriod: {
         fontSize: 15,
         fontWeight: '900',
-        color: '#7b0e45',
-        marginTop:10
+        color: '#7b0e45'
     },
 
     interest: {

@@ -4,70 +4,60 @@ import {View, Text,   ScrollView, Pressable} from 'react-native';
 
 
 import styles from './styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 export interface SMAccount {
     SMAc: {
-      beneficiaryID: string,
+      id: string,
 benefactorAc: string,
 benefactorPhone: string,
+beneficiaryPhone:string,
 prodName: string,
 creatorName: string,
 prodCost: number,
 prodDesc: string,
-benefitsAmount: number,
-beneficiaryPhone:string
+createdAt: string,
+benefitsAmount:number
+
     }}
 
 const SMCvLnStts = (props:SMAccount) => {
    const {
       SMAc: {
-        beneficiaryID ,
+        id ,
         benefactorAc,
         benefactorPhone,
+        beneficiaryPhone,
         prodName,
         creatorName,
         prodCost,
         prodDesc,
-        benefitsAmount,
-        beneficiaryPhone
+        benefitsAmount
     
    }} = props ;
 
    const navigation = useNavigation();
    
-
-   const BenefitPal = () => {
-    navigation.navigate("SharePalBenefits", {beneficiaryID});
-  }
-
-  const BenefitBiz = () => {
-    navigation.navigate("ShareBizBenefits", {beneficiaryID});
-  }
-
-  const BenDtls = () => {
-    navigation.navigate("VwBenProdsDtls", {beneficiaryID});
-  }
-
-
+   const VwBenefactorContriDtls = () => {
+    navigation.navigate("VwPalBenefactorContriDtls", 
+      {benefactorAc, benefactorPhone, creatorName, prodName})
+}
 
     return (
         
              <View style = {{marginTop:"10%", justifyContent: 'center',
               alignItems: 'center',
               flexDirection: 'column'}}>
+                  
             
-            <TouchableOpacity style = {styles.container} onPress={BenDtls}>              
+            <View style = {styles.container}>              
                        
                         
                      <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                       Benefactor Business/Company: {creatorName}                 
+                      Product Creator: {creatorName}                 
                     </Text>
-
-                                  
-
+                                        
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
                       Product Cost: {prodCost}                  
@@ -75,32 +65,33 @@ const SMCvLnStts = (props:SMAccount) => {
                    
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
-                       Benefits pooled: {benefitsAmount}                  
+                      Benefits Pooled: {benefitsAmount}                  
                     </Text> 
 
-                    <Text style = {styles.repaymentPeriod} numberOfLines={3}>                       
+                    <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
                       Beneficiary Name: {beneficiaryPhone}                  
+                    </Text>
+
+                    
+
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                      More Description: {prodDesc}                  
                     </Text> 
 
 
-        </TouchableOpacity >
+        </View >
         <View style = {styles.viewForPressables2}>
 <View>
 <Pressable
-onPress={BenefitPal}
+onPress={VwBenefactorContriDtls}
 style = {styles.loanFriendButton}
 >            
-  <Text>Share Benefits (Pal)</Text>            
+  <Text>View My Contributions</Text>            
 </Pressable>
 </View>   
-<View>
-<Pressable
-onPress={BenefitBiz}
-style = {styles.loanFriendButton}>            
-  <Text>Share Benefits (Bizna)</Text>            
-</Pressable>  
-</View>
+
 
 </View>
        </View> 

@@ -16,7 +16,7 @@ export interface SMAccount {
       TtlWthdrwnSM: number,
       ttlNonLonsRecSM: number,
       ttlNonLonsSentSM:number,
-    
+      benefitsAmount:number,
       ttlNonLonsRecChm: number,
       ttlNonLonsSentChm:number,
     
@@ -112,7 +112,7 @@ const SMCvLnStts = (props:SMAccount) => {
          ttlDpstSM,
          TtlWthdrwnSM,
        
-       
+         benefitsAmount,
          TtlActvLonsTmsLnrCov,
          TtlActvLonsTmsLneeCov,
          TtlActvLonsAmtLnrCov,
@@ -225,6 +225,12 @@ const SMCvLnStts = (props:SMAccount) => {
                       Times I am Black-Listed: {MaxTymsBL}                  
                     </Text> 
 
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                      Benefits Pooled: {benefitsAmount}                  
+                    </Text> 
+
+                    
 
                    
 

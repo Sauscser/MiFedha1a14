@@ -28,6 +28,7 @@ export interface ChamaMmbrshpInfo {
       ttlLateSubs:number,
       timeCrtd:number,
       subscribedAmt:number,
+      memberChmBenefit:number,
       totalSubAmt:number
     }}
 
@@ -55,6 +56,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
          ttlNonLonAcBal,
          createdAt,       
          AcStatus,
+         memberChmBenefit
        
        
    }} = props ;
@@ -127,7 +129,10 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
                        Group Benefits (Ksh): {(ttlNonLonAcBal).toFixed(2)}
                     </Text>    
 
-                    
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       My Group contributions  (Ksh): {(subscribedAmt).toFixed(2)}
+                    </Text> 
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
                        Gross Loans (Ksh): {GrossLnsGvn.toFixed(2)}

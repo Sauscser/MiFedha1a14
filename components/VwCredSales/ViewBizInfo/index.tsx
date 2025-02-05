@@ -13,7 +13,7 @@ export interface ChmaInfo {
       busName: string,
       TtlEarnings: number,
       earningsBal: number
-      
+      benefitsAmount:number,
       description: string,
         
     }}
@@ -22,7 +22,7 @@ const ChmInfo = (props:ChmaInfo) => {
    const {
       ChmDtls: {
         
-      BusKntct,
+         benefitsAmount,
       netEarnings,
       busName,
       TtlEarnings,
@@ -47,16 +47,16 @@ const ChmInfo = (props:ChmaInfo) => {
                        {/*loaner details */}  
                       Business Name: {busName}                
                     </Text> 
-                    
-                   
-                                                                   
-                    
-                      
-
+                  
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
                        Business Balance : {netEarnings.toFixed(2)}
                     </Text>  
+
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Pooled Benefits : {benefitsAmount.toFixed(2)}
+                    </Text> 
 
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  

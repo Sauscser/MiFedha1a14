@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, Alert, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../components/CredSales/BenProd2/ViewBizBenefactorShares";
+import LnerStts from "../../../../components/CredSales/BenProd2/ViewBizBenefactorSharesPal";
 
-import { listBenefitContributions2s, listBenefitShare2s, listBenProd2s, listLinkBeneficiary2s, listSMAccounts } from '../../../../../src/graphql/queries';
+import { listBenefitContributions2s, listBenefitShare2s, 
+    listBenProd2s, listLinkBeneficiary2s, listSMAccounts } 
+    from '../../../../src/graphql/queries';
 import * as Clipboard from 'expo-clipboard';  
 
 
@@ -13,11 +15,9 @@ const FetchSMNonCovLns = props => {
     const [filteredLoanees, setFilteredLoanees] = useState([]); // Stores filtered results
     const [loading, setLoading] = useState(false);
     const [awsEmail, setAWSEmail] = useState("");
+    const [awsEmail2, setAWSEmail2] = useState("");
     const [isLoading, setIsLoading] = useState(false);
      
-useEffect(() => {
-    ChckPersonelExistence();
-    }, []);
 
     const ChckPersonelExistence = async () => {
           
@@ -29,8 +29,8 @@ useEffect(() => {
                 { filter: {
                     
                     creatorEmail: { eq: userInfo.attributes.email},
-                   
-                                
+                    creatorName:{contains: awsEmail},
+                     prodName:     {contains: awsEmail2}      
                   }}
               )
             )
@@ -46,6 +46,8 @@ useEffect(() => {
                 graphqlOperation(listLinkBeneficiary2s, {
                     filter: 
                     { benefitStatus: { eq: "Active" },
+                    creatorName:{contains: awsEmail},
+                    prodName:     {contains: awsEmail2}
                     
                      }
                 })
@@ -84,19 +86,14 @@ useEffect(() => {
               }
               }
                 setIsLoading(false)
-                
+                setAWSEmail2("");
+                setAWSEmail();
                             
                             
                 };
     
     // Dynamic Filtering based on input
-    const handleSearch = (text) => {
-        setAWSEmail(text);
-        const filtered = UsrDtls.filter(loanee =>
-            loanee.creatorName.includes(text)
-        );
-        setFilteredLoanees(filtered);
-    };
+    
     
     return (
         <KeyboardAvoidingView 
@@ -107,33 +104,48 @@ useEffect(() => {
                 {/* Search Bar */}
                 <View style={styles.searchBar}>
                     <TextInput
-                        placeholder="Search by Beneficiary Creator name..."
+                        placeholder="Beneficiary Creator name...even partial"
                         value={awsEmail}
-                        onChangeText={handleSearch}
+                        onChangeText={setAWSEmail}
+                        style={styles.searchInput}
+                    />
+
+<TextInput
+                        placeholder="Product name...even partial"
+                        value={awsEmail2}
+                        onChangeText={setAWSEmail2}
                         style={styles.searchInput}
                     />
                 </View>
 
                 {/* Results */}
-                {awsEmail.length > 0 ? (
+                
                     <FlatList
                         style={{ flex: 1 }}
-                        data={filteredLoanees}
+                        data={Loanees}
                         renderItem={({ item }) => (
-                            <View>
+                           
                                 <LnerStts SMAc={item} />
-                            </View>
+                           
                         )}
-                        keyExtractor={(item, index) => index.toString()}
-                        refreshing={loading}
-                        keyboardShouldPersistTaps="handled"
-                    />
-                ) : (
+                        keyExtractor={(item, index) => 
+                            index.toString()}
+                            onRefresh={ChckPersonelExistence}
+                            refreshing={loading}
+                            showsVerticalScrollIndicator={false}
+                            ListHeaderComponentStyle
+                            ={{alignItems: 'center'}}
+                            ListHeaderComponent={() => (
+                              <>
+               
                     <Text style={styles.placeholderText}>
-                        Start typing Beneficiary Creator name.
+                        Swipe down to load or refresh.
                     </Text>
+                    </>
                 )}
+                />
             </View>
+            
         </KeyboardAvoidingView>
     );
 };

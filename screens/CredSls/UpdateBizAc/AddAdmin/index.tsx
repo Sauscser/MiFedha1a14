@@ -1591,9 +1591,7 @@ const UpdtSMPW = (props) => {
                                        
                                       }
 
-                                      else if (AdminNo === 0) {
-                                        updtSMDtls1();                                       
-                                      }
+                                      
 
                                       else if (AdminNo === 1) {
                                         updtSMDtls2();                                       

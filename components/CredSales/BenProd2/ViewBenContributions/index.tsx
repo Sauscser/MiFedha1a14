@@ -11,6 +11,7 @@ export interface SMAccount {
       id: string,
 benefactorAc: string,
 benefactorPhone: string,
+beneficiaryAc:string,
 beneficiaryPhone:string,
 prodName: string,
 creatorName: string,
@@ -25,10 +26,11 @@ const SMCvLnStts = (props:SMAccount) => {
    const {
       SMAc: {
         id ,
+        beneficiaryAc,
         benefactorAc,
         beneficiaryPhone,
         creatorName,
-        prodCost,
+        benefactorPhone,
         prodDesc,
         createdAt,
         amount
@@ -47,11 +49,14 @@ const SMCvLnStts = (props:SMAccount) => {
                   
             
             <View style = {styles.container}>              
-                       
+            <Text style = {styles.ownerName}>                       
+                       {/*loaner details */}   
+                      Contribution ID: {id}                 
+                    </Text>  
                         
                      <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                      Product Creator: {creatorName}                 
+                      Benefactor Name: {creatorName}                 
                     </Text>
                                         
                    
@@ -59,6 +64,21 @@ const SMCvLnStts = (props:SMAccount) => {
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
                       Benefactor Account: {benefactorAc}                  
+                    </Text> 
+
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                      Product Creator Account: {benefactorPhone}                  
+                    </Text> 
+                    
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                      Product Creator Name: {prodDesc}                  
+                    </Text> 
+
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                      Beneficiary Account: {beneficiaryAc}                  
                     </Text> 
 
                     <Text style = {styles.repaymentPeriod}>                       
