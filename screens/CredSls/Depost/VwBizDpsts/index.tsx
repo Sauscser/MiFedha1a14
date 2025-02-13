@@ -5,7 +5,7 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../../components/MyAc/VwDeposits";
 import styles from './styles';
 
-import {  getBizna, getSMAccount, vwMyUsrDposits, vwMyUsrWthdrwls } from '../../../../src/graphql/queries';
+import {  getBizna, getSMAccount, listFloatReductions,   } from '../../../../src/graphql/queries';
 import { TextInput } from 'react-native-gesture-handler';
 
 const FetchSMNonLnsSnt = props => {
@@ -35,16 +35,16 @@ const FetchSMNonLnsSnt = props => {
             setLoading(true);
           
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyUsrDposits, 
+              const Lonees:any = await API.graphql(graphqlOperation(listFloatReductions, 
                 { 
-                      depositerid: BizPhone,
+                    filter:{  depositerid: {eq:BizPhone}},
                       sortDirection: "DESC",
                       limit:100
                       
                     }
                
                   ))
-                  setRecvrs(Lonees.data.VwMyUsrDposits.items);
+                  setRecvrs(Lonees.data.listFloatReductions.items);
                   console.log(Lonees)
             } catch (e) {
               console.log(e);

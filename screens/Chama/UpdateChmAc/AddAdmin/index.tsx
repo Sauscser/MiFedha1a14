@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
 import {  updateBizna, updateCompany, updateGroup,  updateSMAccount} from '../../../../src/graphql/mutations';
-import {  getGroup, getCompany,   getSMAccount, listSMAccounts, listChamaMembers } from '../../../../src/graphql/queries';
+import {  getGroup, getCompany,   getSMAccount, 
+  listSMAccounts, listChamaMembers } from '../../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';

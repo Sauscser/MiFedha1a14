@@ -6,7 +6,7 @@ import NonLnSent from "../../../components/MFNdogo/VwUsrDposit";
 import styles from './styles';
 
 
-import {  getCompany, getSMAccount, vwMFNFltDeductns } from '../../../src/graphql/queries';
+import {  getCompany, getSMAccount, listAgentWithdrawals, listFloatReductions, vwMFNFltDeductns } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
@@ -31,18 +31,19 @@ const FetchSMNonLnsSnt = props => {
                   const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMFNFltDeductns, 
+              const Lonees:any = await API.graphql(graphqlOperation(listFloatReductions, 
                 { 
-                      agContact: route.params.MFNId,
+                     
                       sortDirection: "DESC",
                       
                       limit:100,
-                      filter:{depositerid: { ne: "None"}},
+                      filter:{depositerid: { ne: "None"},
+                      agContact: {eq:route.params.MFNId}},
                       
                     },
                   
                   ));
-                  setRecvrs(Lonees.data.VwMFNFltDeductns.items);
+                  setRecvrs(Lonees.data.listFloatReductions.items);
 
                   
               

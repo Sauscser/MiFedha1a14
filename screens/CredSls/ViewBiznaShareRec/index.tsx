@@ -25,7 +25,7 @@ const FetchSMNonLnsSnt = props => {
                
                 sortDirection: 'DESC',
                 limit: 100,
-                filter:{status:{eq:"BiznaShare"},
+                filter:{status:{eq:"BiznaShareCash"},
                 recPhn:{eq:userInfo.attributes.email}}
               }
          
@@ -61,49 +61,7 @@ const FetchSMNonLnsSnt = props => {
                                       const enquiryFees = MFNDtls1.data.getCompany.enquiryFee;
                                       
                                       
-                                                  const updtActAdm = async()=>{
-                                                    
-                                                    try{
-                                                        await API.graphql(
-                                                          graphqlOperation(updateCompany,{
-                                                            input:{
-                                                              AdminId:"BaruchHabaB'ShemAdonai2",
-                                                              companyEarningBal:parseFloat(companyEarningBals) + parseFloat(enquiryFees),
-                                                              companyEarning:parseFloat(companyEarnings) + parseFloat(enquiryFees),
-                                                            }
-                                                          })
-                                                        )
-                                                    }
-                                                    catch(error){
-                                                      if(error){
-                                                        Alert.alert("Check your internet connection")
-                                                        return;
-                                                    }
-                                                    }
-                                                    await updtUsrAc();
-                                                    
-                                                  }
-              
-                                                  const updtUsrAc = async()=>{
-                                                    
-                                                    try{
-                                                        await API.graphql(
-                                                          graphqlOperation(updateSMAccount,{
-                                                            input:{
-                                                              awsemail: userInfo.attributes.email,
-                                                              balance:parseFloat(balances) - parseFloat(enquiryFees),
-                                                            }
-                                                          })
-                                                        )
-                                                    }
-                                                    catch(error){
-                                                      if(error){
-                                                        Alert.alert("Retry or update app or call customer cares")
-                                                        return;
-                                                    }
-                                                    }
-                                                                                                        
-                                                  }
+                                                  
                               
               
                       if(parseFloat(balances) < parseFloat(enquiryFees) ){
@@ -113,14 +71,11 @@ const FetchSMNonLnsSnt = props => {
                         else if  (userInfo.attributes.sub !== owner)
                           {Alert.alert ("Please first create main account")}
 
-                          else if (Recvrs.length < 1 ){
+                          else if (revshare.length < 1 ){
                             Alert.alert("No revenue share")
                           }
                           
-                          else {
-                            
-                          await updtActAdm();
-                            }
+                          
                             
                               }
                           catch (e)

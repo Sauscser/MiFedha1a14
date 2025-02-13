@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/Chama/ChmActivities/Membership/Chama";
 import styles from './styles';
-import { getCompany, getGroup,   vwChamaMembers } from '../../../../../src/graphql/queries';
+import { getCompany, getGroup,   listChamaMembers,    } from '../../../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/native';
 import { updateCompany, updateGroup } from '../../../../../src/graphql/mutations';
 
@@ -30,15 +30,15 @@ const FetchSMCovLns = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwChamaMembers, 
+              const Lonees:any = await API.graphql(graphqlOperation(listChamaMembers, 
                {
-                      groupContact: route.params.grpContact,
+                    filter: {  groupContact: {eq:route.params.grpContact}},
                       sortDirection: 'DESC',
                       limit: 100,
                     }
                  
                   ));
-              setLoanees(Lonees.data.VwChamaMembers.items);
+              setLoanees(Lonees.data.listChamaMembers.items);
 
               
             } catch (e) {

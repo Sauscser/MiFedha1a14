@@ -40,7 +40,7 @@ const MyLoanAccount = (props) => {
         <View style={styles.adminImage}>
           <View style={styles.clientsView}>
             {/* Loan Section */}
-            <Text style={styles.salesText}>Group Loan</Text>
+            <Text style={styles.salesText}>Group Advance</Text>
             <View style={styles.viewForClientsAndTitle}>
              
               <LinearGradient
@@ -50,7 +50,7 @@ const MyLoanAccount = (props) => {
                 style={styles.gradientPressable}
               >
                 <Pressable onPress={VwGrp2LnCov} style={styles.clientsPressable}>
-                  <Text style={styles.clientsPressableText}>Give Member Loan</Text>
+                  <Text style={styles.clientsPressableText}>Give Member Advance</Text>
                 </Pressable>
               </LinearGradient>
             </View>

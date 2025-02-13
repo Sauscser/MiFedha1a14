@@ -4,7 +4,7 @@ import {View, Text,   FlatList, Alert} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../../../components/MyAc/ViewSentNonLns";
 import styles from './styles';
-import { getBizna, getCompany, getSMAccount,   listBizSls,   listBiznas,   listPersonels,   vwMyRecMny, vwMyRecMny7, vwMySntMny7 } from '../../../../../src/graphql/queries';
+import { listNonLoans, listPersonels,   } from '../../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
 import { TextInput } from 'react-native-gesture-handler';
 
@@ -49,16 +49,18 @@ const FetchSMNonLnsSnt = props => {
                   
                     const userInfo = await Auth.currentAuthenticatedUser();
                         try {
-                          const Lonees:any = await API.graphql(graphqlOperation(vwMySntMny7, 
+                          const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
                           {
-                            
-                            senderPhn:itemPrys   ,                                         
+                            filter: {
+                              senderPhn:{eq:itemPrys}   ,
+                            },
+                                                                     
                             sortDirection: 'DESC',
                             limit: 100,
                                 }
                            
                               ));
-                              setRecvrs(Lonees.data.VwMySntMny7.items);
+                              setRecvrs(Lonees.data.listNonLoans.items);
                    
                         } catch (e) {
                           console.log(e);

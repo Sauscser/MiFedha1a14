@@ -28,18 +28,19 @@ const FetchSMCovLns = props => {
           
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyDebtors, 
+              const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
                 {
-                        loanerPhn: userInfo.attributes.email,
+                        
                         sortDirection: 'DESC',
                       limit: 100,
                       filter:{
+                        loanerPhn: {eq:userInfo.attributes.email},
                       lonBala:{gt:0}
                       }
                     }
               
                   ));
-              setLoanees(Lonees.data.VwMyDebtors.items);
+              setLoanees(Lonees.data.listSMLoansCovereds.items);
 
               
                         

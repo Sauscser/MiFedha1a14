@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/Chama/Loans/Received/LoanersDtls";
 import styles from './styles';
-import { getCompany, getSMAccount,  listCvrdGroupLoans,  vwMyChamass,   } from '../../../../../src/graphql/queries';
+import { getCompany, getSMAccount,  listCvrdGroupLoans,   } from '../../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
 import { useRoute } from '@react-navigation/native';
 

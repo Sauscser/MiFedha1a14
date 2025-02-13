@@ -79,8 +79,8 @@ const MyAccount = props => {
     navigation.navigate('UpdateMainAc');
   };
 
-  const PayPalDposit = () => {
-    navigation.navigate('VwAcBfDpst');
+  const DepositOptions = () => {
+    navigation.navigate('DepositOptions');
   };
 
   const VwPlLn2Remove = () => {
@@ -89,6 +89,10 @@ const MyAccount = props => {
 
   const BoostPalBenefits = () => {
     navigation.navigate('BoostPalBenefits');
+  };
+
+  const UrLnks = () => {
+    navigation.navigate('UrLnks');
   };
 
   return (
@@ -105,7 +109,7 @@ const MyAccount = props => {
           title="Account"
           options={[
             
-            { label: 'Deposit Money', onPress: PayPalDposit, style: styles.ClientsPressables },
+            { label: 'Deposit Money', onPress: DepositOptions, style: styles.ClientsPressables },
             { label: 'View Deposits', onPress: SMDpsitsss, style: styles.ClientsPressables },
             { label: 'Update Main Account', onPress: UpdateMainAc, style: styles.ClientsPressables },
             { label: 'Send Cash', onPress: goToSMASndnonln, style: styles.ClientsPressables },
@@ -120,7 +124,9 @@ const MyAccount = props => {
           title="Withdrawals"
           options={[
             { label: 'Withdraw Money', onPress: goWithdrwMny },
-            { label: 'View Withdrawals', onPress: SMWthdrwlsss }
+            { label: 'Withdraw Money', onPress: goWithdrwMny },
+            
+            
            
           ]}
         />

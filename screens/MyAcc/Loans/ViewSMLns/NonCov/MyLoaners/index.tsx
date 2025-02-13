@@ -28,19 +28,20 @@ const FetchSMNonCovLns = props => {
                   const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyDebtss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
                 {
-                      loaneePhn:userInfo.attributes.email,
+                      
                       sortDirection: 'DESC',
                       limit: 100,
                       filter:{
+                        loaneePhn:{eq:userInfo.attributes.email},
                       lonBala:{gt:0}
                       }
                       
                     }
              
                   ));
-              setLoanees(Lonees.data.VwMyDebtss.items);
+              setLoanees(Lonees.data.listSMLoansCovereds.items);
 
               
                         

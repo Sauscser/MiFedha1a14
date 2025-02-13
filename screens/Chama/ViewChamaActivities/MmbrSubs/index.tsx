@@ -4,7 +4,7 @@ import {View, Text,   FlatList, Alert} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import ChmMbrContr from "../../../../components/Chama/ChmActivities/Contributions/VwChama2";
 import styles from './styles';
-import { getCompany, getGroup,   listGrpMembersContributions,   vwChamaMembersssss } from '../../../../src/graphql/queries';
+import { getCompany, getGroup,   listGrpMembersContributions } from '../../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 import { updateCompany, updateGroup } from '../../../../src/graphql/mutations';
 

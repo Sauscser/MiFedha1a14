@@ -4,7 +4,8 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/MyAc/LoanReq/VwChama2Req";
 import styles from './styles';
-import { getCompany, getSMAccount, vwMyChamas } from '../../../../src/graphql/queries';
+import { getCompany, getSMAccount, listChamaMembers, 
+  listGroups, vwMyChamas } from '../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../src/graphql/mutations';
 import { useNavigation } from '@react-navigation/native';
 
@@ -34,16 +35,18 @@ const FetchSMCovLns = props => {
               
    
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyChamas, 
+              const Lonees:any = await API.graphql(graphqlOperation(listChamaMembers, 
                 {
-                      memberContact: userInfo.attributes.email,
+                    filter :{
+                      memberContact: {eq:userInfo.attributes.email}
+                    } ,
                       sortDirection: 'DESC',
                       limit: 100,
                     }
                  
                   ));
-              setLoanees(Lonees.data.VwMyChamas.items);
-              if (Lonees.data.VwMyChamas.items.length<1)
+              setLoanees(Lonees.data.listChamaMembers.items);
+              if (Lonees.data.listChamaMembers.items.length<1)
               {Alert.alert("You dont belong to any group")}
                         
                         

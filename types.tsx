@@ -18,8 +18,8 @@ declare global {
       ViewPalBenefactorShares:undefined;
       BoostPooledBen:undefined;
       BoostPalBenefits: undefined;
-      
-
+      ShareCredSlsRevss:undefined;
+      Mpesa:undefined;
       VwPalBenefactorContriDtls:
       {benefactorAc:string, 
         benefactorPhone:string, 
@@ -240,7 +240,7 @@ declare global {
       VwMFNAcDtls:{phonecontact:string};
       ApplyMFKubwa:undefined;
       ViewAlertDtls:undefined;
-      ViewBiznaShareSent:{MFNId:string};
+      ViewBiznaShareSent:undefined;
       SgnIn2VwRevenueShare:undefined;
       ViewBiznaShareRec:undefined;
       RequestLoansPage:undefined;
@@ -510,13 +510,13 @@ declare global {
       ElimCredCvLnrs:undefined;
       ElimCredNonCvLnees:undefined;
       ElimCredNonCvLnrs:undefined;
-
+      ShareCredSlsRev2Biz:undefined;
       ElimChmVwMbrshpMembrs:undefined;
       ElimChmVwNonCvLns:undefined;
       ElimChmVwRmtncMembrs:undefined;
       ElimChmVwCovLnss:undefined;
       ElimChmVwCntrMembrs:undefined;
-
+      ViewBiznaShareRecBiz:undefined;
       SendNonLonsRev:{id:string};
       SendNonLonsRevSgnIn:undefined;
       SendNonLonsRevVw:{phoneContacts:string};
@@ -528,7 +528,7 @@ declare global {
       SignitoryDepositss:undefined; 
       Sgn2CnfrmWthdrwlsss:undefined; 
       
-
+      
       AddPersonels:undefined; 
       CrtBusinesss:undefined; 
 
@@ -538,7 +538,7 @@ declare global {
       Vw2CredSellCovs:undefined;
       Vw2CredSellNonCovs:undefined;
       SgnIn2VwBiznass:undefined; 
-      ShareCredSlsRevss:undefined; 
+      
 
       SgnIn2VwCovCrdSlsLneesss:undefined; 
       SgnIn2VwNCCrdSlsLneess:undefined; 

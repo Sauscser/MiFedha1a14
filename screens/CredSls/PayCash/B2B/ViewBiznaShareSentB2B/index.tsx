@@ -4,7 +4,7 @@ import {View, Text,   FlatList, Alert} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../../../components/MyAc/ViewSentNonLns";
 import styles from './styles';
-import { getBizna, getCompany, getSMAccount,   listBizSls,   listBiznas,   listPersonels,   vwMyRecMny, vwMyRecMny7, vwMySntMny7 } from '../../../../../src/graphql/queries';
+import {  listNonLoans,   listPersonels,   } from '../../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
 import { TextInput } from 'react-native-gesture-handler';
 
@@ -38,7 +38,7 @@ const FetchSMNonLnsSnt = props => {
                     }
                
                   ));
-                  
+                  const Persnl = Lonees.data.listPersonels.items
                   
                   const fetchLoanees2 = async () => {
             
@@ -49,15 +49,15 @@ const FetchSMNonLnsSnt = props => {
                   
                     const userInfo = await Auth.currentAuthenticatedUser();
                         try {
-                          const Lonees1:any = await API.graphql(graphqlOperation(vwMySntMny7, 
+                          const Lonees1:any = await API.graphql(graphqlOperation(listNonLoans, 
                           {
-                            senderPhn:itemPrys   ,                                         
-                            sortDirection: 'DESC',
-                            limit: 100,
+                            filter:{status:{eq:"BiznaShare"},
+                            senderPhn:{eq:itemPrys}}
+                              
                                 }
                            
                               ));
-                              setRecvrs(Lonees1.data.VwMySntMny7.items);
+                              setRecvrs(Lonees1.data.listNonLoans.items);
                    
                         } catch (e) {
                           console.log(e);
@@ -70,7 +70,7 @@ const FetchSMNonLnsSnt = props => {
                             
                               
               
-                      if(parseFloat(Lonees.data.listPersonels.items.length) < 1 )
+                      if(parseFloat(Persnl.length) < 1 )
                       {
                           Alert.alert("Sorry You do not work here");
                           return;

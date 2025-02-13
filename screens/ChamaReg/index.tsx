@@ -17,7 +17,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import styles from './styles';
-import { createChamasNPwnBrkrs, createChamasRegConfirm } from '../../src/graphql/mutations';
+import { createChamasNPwnBrkrs } from '../../src/graphql/mutations';
 
   const RegisterMFAdvAcForms = props => {
 
@@ -54,7 +54,7 @@ import { createChamasNPwnBrkrs, createChamasRegConfirm } from '../../src/graphql
           setIsLoading(true);
           try {
             await API.graphql(
-              graphqlOperation(createChamasRegConfirm, {
+              graphqlOperation(createChamasNPwnBrkrs, {
                 input: {                    
                   contact: pword,
                   

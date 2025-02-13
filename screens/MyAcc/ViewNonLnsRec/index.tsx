@@ -4,7 +4,7 @@ import {View, Text,   FlatList, Alert} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../components/MyAc/ViewRecNonLns";
 import styles from './styles';
-import { getCompany, getSMAccount,   VwMyRecMny } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount,   listNonLoans,   VwMyRecMny } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
 const FetchSMNonLnsSnt = props => {
@@ -29,16 +29,17 @@ const FetchSMNonLnsSnt = props => {
               
         
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(VwMyRecMny, 
+              const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
               {
-                      recPhn: userInfo.attributes.email,
+                      
                       sortDirection: 'DESC',
                       limit: 100,
-                      filter:{status:{eq:"SMNonLons"}}
+                      filter:{recPhn: {eq:userInfo.attributes.email},
+                        status:{eq:"SMNonLons"}}
                     }
                
                   ));
-                  setRecvrs(Lonees.data.VwMyRecMny.items);
+                  setRecvrs(Lonees.data.listNonLoans.items);
 
                   
                             

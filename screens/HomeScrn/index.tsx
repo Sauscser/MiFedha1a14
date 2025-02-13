@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, 
+  Pressable, Dimensions, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { graphqlOperation, API } from 'aws-amplify';
-import { getCompany } from '../../src/graphql/queries';
+import { getCompany, getCompanyUrls } from '../../src/graphql/queries';
 import { LinearGradient } from 'expo-linear-gradient';
+import { FontAwesome } from '@expo/vector-icons';
 
 const { height, width } = Dimensions.get('window'); // Get screen dimensions for dynamic scaling
 
 const HomeScreen = () => {
   const [alert, setAlert] = useState("");
+  const [Url, setUrl] = useState("");
   const navigation = useNavigation();
 
   const navigateTo = (screen, params = {}) => {
@@ -67,6 +70,23 @@ const HomeScreen = () => {
     getCompanyDetails();
   }, []);
 
+  const getCompUrls = async () => {
+    try {
+      const compDetailsz = await API.graphql(
+        graphqlOperation(getCompanyUrls, { AdminId: "BaruchHabaB'ShemAdonai2Ulr" })
+      );
+      const Url1 = compDetailsz.data.getCompanyUrls.Url1;
+      setUrl(Url1);
+      console.log(Url1)
+    } catch (error) {
+      console.error("Error fetching company details:", error);
+    }
+  };
+
+  useEffect(() => {
+    getCompUrls();
+  }, []);
+
  
 
   return (
@@ -95,7 +115,10 @@ const HomeScreen = () => {
 
         {/* Motivational Quote */}
         <LinearGradient colors={['#e58d29', '#f3c642']} style={styles.quoteContainer}>
-          <Text style={styles.quoteText}>Life is helping out each other</Text>
+        <Pressable onPress={() => Linking.openURL(Url)}>
+    <Text style={styles.quoteText}>Life is helping out each other. Visit website</Text>
+    <FontAwesome name="globe" size={24} color="white" style={{marginLeft: 5,}} />
+  </Pressable>
         </LinearGradient>
 
         {/* Product Buttons */}
@@ -174,6 +197,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#ffffff',
   },
+  pressable: {
+    flexDirection: 'row', 
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   signOutText: {
     fontSize: 16,
     color: '#ffffff',
@@ -198,11 +226,11 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   quoteContainer: {
-    width: '90%',
-    padding: 20,
-    borderRadius: 20,
-    justifyContent: 'center',
+    padding: 15,
+    borderRadius: 10,
     alignItems: 'center',
+    flexDirection: 'row', 
+    justifyContent: 'center', 
   },
   quoteText: {
     fontSize: 18,

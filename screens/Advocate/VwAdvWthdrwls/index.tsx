@@ -6,7 +6,7 @@ import NonLnSent from "../../../components/Advocate/VwAdvWthdrwls";
 import styles from './styles';
 
 
-import { getCompany, getSMAccount, vwAdvWthdrwls,  } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount, listAdvocateWithdrawals, vwAdvWthdrwls,  } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
@@ -32,16 +32,16 @@ const FetchSMNonLnsSnt = props => {
         const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwAdvWthdrwls, 
+              const Lonees:any = await API.graphql(graphqlOperation(listAdvocateWithdrawals, 
          {
-                      advregnu: route.params.AdvReNo,
+                    filter :  {advregnu: {eq:route.params.AdvReNo}},
                       sortDirection: "DESC",
                       limit:100
                       
                     }
                  
                   ));
-                  setRecvrs(Lonees.data.VwAdvWthdrwls.items);
+                  setRecvrs(Lonees.data.listAdvocateWithdrawals.items);
 
                   
                             

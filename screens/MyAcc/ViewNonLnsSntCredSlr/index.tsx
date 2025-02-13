@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../components/MyAc/ViewSentNonLns";
 import styles from './styles';
-import { getCompany, getSMAccount, listSMAccounts, 
+import { getCompany, getSMAccount, listNonLoans, listSMAccounts, 
   VwMySntMny } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 import { useRoute } from '@react-navigation/native';
@@ -33,16 +33,18 @@ const FetchSMNonLnsSnt = props => {
            
                  
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(VwMySntMny, 
+              const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
               {
-                      senderPhn: userInfo.attributes.email,
+                     
                       sortDirection: 'DESC',
                       limit: 100,
-                      filter:{status:{eq:"CredSlrLonRepayment"}}
+                      filter:{
+                        senderPhn: {eq:userInfo.attributes.email},
+                        status:{eq:"CredSlrLonRepayment"}}
                     }
                
                   ));
-                  setRecvrs(Lonees.data.VwMySntMny.items);
+                  setRecvrs(Lonees.data.listNonLoans.items);
 
                   
                             

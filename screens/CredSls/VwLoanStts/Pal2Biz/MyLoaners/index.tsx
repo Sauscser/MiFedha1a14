@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/VwCredSales/CrdStatus/Pal/Pal2BizLoaners";
 import styles from './styles';
-import { getCompany, getSMAccount, listCovCreditSellers, listPersonels, listSMLoansCovereds } from '../../../../../src/graphql/queries';
+import { getCompany, getSMAccount, listCovCreditSellers, listPersonels, } from '../../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
 import { TextInput } from 'react-native-gesture-handler';
 

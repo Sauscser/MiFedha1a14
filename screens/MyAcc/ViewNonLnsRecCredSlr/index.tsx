@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import RecNonLns from "../../../components/MyAc/ViewRecNonLns";
 import styles from './styles';
-import { getCompany, getSMAccount, listSMAccounts, VwMyRecMny } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount, listNonLoans, listSMAccounts, VwMyRecMny } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 import { useRoute } from '@react-navigation/native';
 
@@ -31,17 +31,18 @@ const FetchSMNonLnsRec = props => {
               
         
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(VwMyRecMny, 
+              const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
               {
-                      recPhn: route.params.MFNId,
+                      
                       sortDirection: 'DESC',
                       limit: 100,
-                      filter:{status:{eq:"CredSlrLonRepayment"}}
+                      filter:{recPhn: {eq:route.params.MFNId},
+                        status:{eq:"CredSlrLonRepayment"}}
                       
                     }
                   
                   ));
-              setLoanees(Lonees.data.VwMyRecMny.items);
+              setLoanees(Lonees.data.listNonLoans.items);
 
               
                         

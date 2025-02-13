@@ -4,7 +4,7 @@ import {View, Text, Alert, TouchableOpacity, FlatList, ActivityIndicator} from '
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/VwCredSales/Vw2Grant/Pal2Biz";
 import styles from './styles';
-import {  listGroups, listRafikiLnAds, listReqLoanChamas, listReqLoanCredSls, listSMAccounts } from '../../../../../src/graphql/queries';
+import {  listReqLoanCredSls, listSMAccounts } from '../../../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/native';
 
 const FetchSMNonCovLns = props => {

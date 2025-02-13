@@ -3,7 +3,8 @@ import { View, Text, TextInput, FlatList, Alert, StyleSheet, KeyboardAvoidingVie
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/CredSales/BenProd2/ViewBizBenefactorShares";
 
-import { listBenefitContributions2s, listBenefitShare2s, listBenProd2s, listLinkBeneficiary2s, listPersonels, listSMAccounts } from '../../../../../src/graphql/queries';
+import { listBenefitContributions2s, listBenefitShare2s,
+     listLinkBeneficiary2s, listPersonels, listSMAccounts } from '../../../../../src/graphql/queries';
 import * as Clipboard from 'expo-clipboard';  
 
 

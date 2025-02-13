@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Communications from 'react-native-communications';
 import {updateCompany, updateSMAccount, updateCvrdGroupLoans, updateGroup,  updateChamaMembers, } from '../../../src/graphql/mutations';
-import {getCompany, getSMAccount, getCvrdGroupLoans, getGroup, getChamaMembers } from '../../../src/graphql/queries';
+import {getCompany, getSMAccount, getCvrdGroupLoans, 
+  getGroup, getChamaMembers } from '../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation, useRoute} from '@react-navigation/native';

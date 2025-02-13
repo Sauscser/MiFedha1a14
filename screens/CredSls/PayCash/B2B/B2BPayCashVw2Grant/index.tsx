@@ -4,7 +4,8 @@ import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator, Al
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/CredSales/PayCash/Biz2Biz/Vw2GrantB2B";
 import styles from './styles';
-import { getSMAccount, listBizSlsReqs, listReqLoanChamas, listReqLoanCredSls, listReqLoans } from '../../../../../src/graphql/queries';
+import { getSMAccount, listBizSlsReqs, listReqLoanChamas, 
+  listReqLoanCredSls, listReqLoans } from '../../../../../src/graphql/queries';
 
 
 

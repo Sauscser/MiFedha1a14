@@ -4,7 +4,7 @@ import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator} fr
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../components/CompTC";
 import styles from './styles';
-import { listReqLoans } from '../../../../src/graphql/queries';
+import { listReqLoans } from '../../../src/graphql/queries';
 import { listCompanies } from '../../../src/graphql/queries';
 
 

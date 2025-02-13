@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text,   FlatList, Alert} from 'react-native';
+import {View, Text,   FlatList, Alert, StyleSheet, KeyboardAvoidingView
+  , Platform, TextInput
+} from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import NonLnSent from "../../../components/MyAc/ViewRecNonLns";
-import styles from './styles';
-import { getCompany, getSMAccount,   listNonLoans,   vwMyRecMny, vwMySntMny } from '../../../src/graphql/queries';
+import NonLnSent from "../../../components/MyAc/ViewSentNonLns";
+
+import { getBizna, getCompany, getSMAccount,   listNonLoans } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 import { useRoute } from '@react-navigation/native';
 
@@ -13,6 +15,7 @@ const FetchSMNonLnsSnt = props => {
     
     const [loading, setLoading] = useState(false);
     const [Recvrs, setRecvrs] = useState([]);
+    const [awsEmail, setAWSEmail] = useState("")
     const route = useRoute();
 
     
@@ -22,11 +25,12 @@ const FetchSMNonLnsSnt = props => {
       
           try {
                   const MFNDtls: any = await API.graphql(
-                      graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
+                      graphqlOperation(getBizna, 
+                        {BusKntct: awsEmail}
                   ),);
     
-                  const balances = MFNDtls.data.getSMAccount.balance;
-                  const owner = MFNDtls.data.getSMAccount.owner;
+                  
+                  const owner = MFNDtls.data.getBizna.owner;
                   
                   
                   const fetchLoanees = async () => {
@@ -37,8 +41,8 @@ const FetchSMNonLnsSnt = props => {
                       
                       sortDirection: 'DESC',
                       limit: 100,
-                      filter:{status:{eq:"BiznaShare"},
-                      senderPhn:{eq:route.params.MFNId}}
+                      filter:{status:{eq:"BiznaShareCash"},
+                      senderPhn:{eq:awsEmail}}
                     }
                
                   ));
@@ -57,65 +61,19 @@ const FetchSMNonLnsSnt = props => {
                                       const enquiryFees = MFNDtls1.data.getCompany.enquiryFee;
                                       
                                       
-                                                  const updtActAdm = async()=>{
-                                                    
-                                                    try{
-                                                        await API.graphql(
-                                                          graphqlOperation(updateCompany,{
-                                                            input:{
-                                                              AdminId:"BaruchHabaB'ShemAdonai2",
-                                                              companyEarningBal:parseFloat(companyEarningBals) + parseFloat(enquiryFees),
-                                                              companyEarning:parseFloat(companyEarnings) + parseFloat(enquiryFees),
-                                                            }
-                                                          })
-                                                        )
-                                                    }
-                                                    catch(error){
-                                                      if(error){
-                                                        Alert.alert("Please enter details correctly")
-                                                        return;
-                                                    }
-                                                    }
-                                                    await updtUsrAc();
-                                                    
-                                                  }
+                                                 
               
-                                                  const updtUsrAc = async()=>{
-                                                    
-                                                    try{
-                                                        await API.graphql(
-                                                          graphqlOperation(updateSMAccount,{
-                                                            input:{
-                                                              awsemail: userInfo.attributes.email,
-                                                              balance:parseFloat(balances) - parseFloat(enquiryFees),
-                                                            }
-                                                          })
-                                                        )
-                                                    }
-                                                    catch(error){
-                                                      if(error){
-                                                        Alert.alert("Retry or update app or call customer care")
-                                                        return;
-                                                    }
-                                                    }
-                                                                                                        
-                                                  }
+                                                  
                               
               
-                      if(parseFloat(balances) < parseFloat(enquiryFees) ){
-                          Alert.alert("Account Balance is very little");
-                          return;
-                        }
-                        else{
+                      
                             
-                          updtActAdm();
-                            }
                             
                               }
                           catch (e)
                           {
                             if(e){
-                              Alert.alert("User does not exist does not exist; otherwise check internet connection");
+                              Alert.alert(" Retry or update app");
                               return;
                             }
                               console.log(e)
@@ -143,7 +101,7 @@ const FetchSMNonLnsSnt = props => {
                           
                            }
                            if (userInfo.attributes.sub !== owner)
-                           {Alert.alert ("Please first create main account")}
+                           {Alert.alert ("This is not your Business")}
                            else{
                                                   await fetchLoanees();}
             } catch (e) {
@@ -151,34 +109,74 @@ const FetchSMNonLnsSnt = props => {
             } finally {
               setLoading(false);
             }
+            setAWSEmail("");
           };
         
-          useEffect(() => {
-            fetchUsrDtls();
-          }, [])
+         
 
-  return (
-    <View style={styles.root}>
-      <FlatList
-      style= {{width:"100%"}}
-        data={Recvrs}
-        renderItem={({item}) => <NonLnSent SMAc={item} />}
-        keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchUsrDtls}
-        refreshing={loading}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponentStyle={{alignItems: 'center'}}
-        ListHeaderComponent={() => (
-          <>
-            
-            
-            <Text style={styles.label2}> (Please swipe down to load)</Text>
-            <Text style={styles.label}> Money shared among Partners</Text>
-          </>
-        )}
-      />
-    </View>
-  );
-};
+          return (
+            <KeyboardAvoidingView 
+                style={{ flex: 1 }} 
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            >
+                <View style={styles.container}>
+                    {/* Search Bar */}
+                    <View style={styles.searchBar}>
+                        <TextInput
+                            placeholder="Company/Biz Phone Number..."
+                            value={awsEmail}
+                            onChangeText={setAWSEmail}
+                            style={styles.searchInput}
+                        />
+                        <Text style={styles.placeholderText}>
+                            Swipe down to load or refresh.
+                        </Text>
+                    </View>
+    
+                    {/* Results */}
+                    
+                        <FlatList
+                            style={{ flex: 1 }}
+                            data={Recvrs}
+                            renderItem={({ item }) => (
+                                <View>
+                                    <NonLnSent SMAc={item} />
+                                </View>
+                            )}
+                            keyExtractor={(item, index) => index.toString()}
+                            onRefresh={fetchUsrDtls}
+                            refreshing={loading}
+                            keyboardShouldPersistTaps="handled"
+                        />
+                    
+                        
+                    
+                </View>
+            </KeyboardAvoidingView>
+        );
+    };
+    
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: '#f5f5f5',
+            padding: 10,
+        },
+        searchBar: {
+            marginBottom: 10,
+        },
+        searchInput: {
+            borderWidth: 1,
+            borderColor: '#ddd',
+            borderRadius: 5,
+            padding: 10,
+            backgroundColor: '#fff',
+        },
+        placeholderText: {
+            textAlign: 'center',
+            color: '#aaa',
+            marginTop: 20,
+        },
+    });
 
 export default FetchSMNonLnsSnt;

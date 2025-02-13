@@ -75,10 +75,6 @@ const MyLoanAccount = () => {
     navigation.navigate('SgnIn2RemoveSlAd');
   };
 
-  const ViewBiznaShareRec = () => {
-    navigation.navigate('ViewBiznaShareRec');
-  };
-
   const SgnIn2VwRevenueShare = () => {
     navigation.navigate('SgnIn2VwRevenueShare');
   };
@@ -135,9 +131,7 @@ const MyLoanAccount = () => {
     navigation.navigate('TakeOverBizna');
   };
 
-  const VwBizDpsts = () => {
-    navigation.navigate('VwBizDpsts');
-  };
+  
 
   const AddBeneficiaryProduct = () => {
     navigation.navigate('AddBeneficiaryProduct');
@@ -161,8 +155,28 @@ const MyLoanAccount = () => {
     navigation.navigate('Benefits');
   };
 
-  
+  const ShareCredSlsRevss = () => {
+    navigation.navigate('ShareCredSlsRevss');
+  };
 
+  const ViewBiznaShareRec = () => {
+    navigation.navigate('ViewBiznaShareRec');
+  };
+
+  const ViewBiznaShareSent = () => {
+    navigation.navigate('ViewBiznaShareSent');
+  };
+
+  const ShareCredSlsRev2Biz = () => {
+    navigation.navigate('ShareCredSlsRev2Biz');
+  };
+
+  const ViewBiznaShareRecBiz = () => {
+    navigation.navigate('ViewBiznaShareRecBiz');
+  };
+  
+  
+  
   
 
 
@@ -242,8 +256,20 @@ const MyLoanAccount = () => {
           ]}
         />
 
+<Section 
+          title="Business Cash Transfers "
+          options={[
+           { label: 'Send Cash to Pal', onPress: ShareCredSlsRevss, style: styles.ClientsPressables },
+            { label: 'Send Cash to Biz', onPress: ShareCredSlsRev2Biz, style: styles.ClientsPressables },
+            { label: 'View Received Cash (Pal)', onPress: ViewBiznaShareRec, style: styles.ClientsPressables },
+            { label: 'View Received Cash (Biz)', onPress: ViewBiznaShareRecBiz, style: styles.ClientsPressables },
+            { label: 'View Sent Cash (Biz)', onPress: ViewBiznaShareSent, style: styles.ClientsPressables },
+            
+          ]}
+        />
+        
         <Section 
-          title="BizAdverts and Revenue Sharings"
+          title="Biz Adverts"
           options={[
             { label: 'Make Adverts', onPress: ItemAds, style: styles.ClientsPressables },
             { label: 'Delete Adverts', onPress: SgnIn2RemoveSlAd, style: styles.ClientsPressables },
@@ -252,6 +278,7 @@ const MyLoanAccount = () => {
             
           ]}
         />
+
 
 </LinearGradient>
       </ScrollView>

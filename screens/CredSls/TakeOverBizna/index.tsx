@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {createBizna, createChamaMembers, createGroup,   createPersonel,   updateBizna,   updateCompany} from '../../../src/graphql/mutations';
-import { getBizna, getCompany, getSMAccount, listChamasRegConfirms, vwViaPhonss,  } from '../../../src/graphql/queries';
+import { getBizna, } from '../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
 import {useNavigation, useRoute} from '@react-navigation/native';

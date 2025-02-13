@@ -11,7 +11,8 @@ import {
   
 } from '../../../src/graphql/mutations';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {getAgent, getCompany, getSAgent, getSMAccount, listCovCreditSellers, listCvrdGroupLoans, listGroupNonLoans,   listSMLoansCovereds, listSMLoansNonCovereds} from '../../../src/graphql/queries';
+import {getAgent, getCompany, getSAgent, getSMAccount, listCovCreditSellers, 
+  listCvrdGroupLoans, listGroupNonLoans,   listSMLoansCovereds, listSMLoansNonCovereds} from '../../../src/graphql/queries';
 import {
   View,
   Text,

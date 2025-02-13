@@ -541,6 +541,12 @@ import BoostPooledBen from "../../screens/CredSls/BeneficiaryProducts/BoostPoole
 import BoostPalBenefits from "../../screens/MyAcc/PalBenProds/BoostPalBenefits";
 import VwPalBenefactorContriDtls from "../../screens/MyAcc/PalBenProds/VwPalBenefactorContriDtls";
 import ViewPalBenefactorShares from "../../screens/MyAcc/PalBenProds/ViewPalBenefactorShares";
+import ViewBiznaShareRecBiz from "../../screens/CredSls/ViewBiznaShareRecBiz";
+import ShareCredSlsRev2Biz from "../../screens/CredSls/ShareCredSlsRev2Biz";
+import HowTo from "../../screens/HowTos";
+import HowTo2 from "../../screens/HowTo2";
+import Mpesa from "../../screens/MyAcc/DepositMny/Mpesa";
+import DepositOptions from "../../screens/MyAcc/DepositMny/DepositOptions";
 
 
 
@@ -552,10 +558,17 @@ const HomeNavigator = props => {
         headerShown: false,
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />      
-
+      
       <Stack.Screen name={'VwPalBenefactorContriDtls'} component={VwPalBenefactorContriDtls} />
       <Stack.Screen name={'ViewPalBenefactorShares'} component={ViewPalBenefactorShares} />
-      
+      <Stack.Screen name={'ShareCredSlsRev2Biz'} component={ShareCredSlsRev2Biz} />
+      <Stack.Screen name={'HowTo'} component={HowTo} />
+      <Stack.Screen name={'DepositOptions'} component={DepositOptions} />
+      <Stack.Screen name={'Mpesa'} component={Mpesa} />
+   
+      <Stack.Screen name={'HowTo2'} component={HowTo2} />
+
+      <Stack.Screen name={'ViewBiznaShareRecBiz'} component={ViewBiznaShareRecBiz} />
       <Stack.Screen name={'VwPalBeneficiaryShares'} component={VwPalBeneficiaryShares} />
       <Stack.Screen name={'BoostPalBenefits'} component={BoostPalBenefits} />
       <Stack.Screen name={'ViewBenShares'} component={ViewBenShares} /> 

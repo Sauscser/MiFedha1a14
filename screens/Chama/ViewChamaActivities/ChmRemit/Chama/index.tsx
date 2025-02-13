@@ -6,7 +6,7 @@ import ChamReminfo from "../../../../../components/Chama/ChmActivities/ChmRemit/
 import styles from './styles';
 
 import { useRoute } from '@react-navigation/native';
-import { getCompany, getGroup,  vwChamaMemberssss } from '../../../../../src/graphql/queries';
+import { getCompany, getGroup,  listChamaMembers, listGroupNonLoans } from '../../../../../src/graphql/queries';
 import { updateCompany, updateGroup } from '../../../../../src/graphql/mutations';
 
 const FetchSMCovLns = props => {
@@ -21,14 +21,14 @@ const FetchSMCovLns = props => {
         const fetchChm = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwChamaMemberssss, 
-                { grpContact: route.params.grpContact,
+              const Lonees:any = await API.graphql(graphqlOperation(listGroupNonLoans, 
+                { filter: {grpContact: {eq:route.params.grpContact}},
                   sortDirection: 'DESC',
                   limit: 100,
                   
                 }
                   ));
-              setChm(Lonees.data.VwChamaMemberssss.items);
+              setChm(Lonees.data.listGroupNonLoans.items);
 
               const fetchUsrDtls = async () => {
                 try {

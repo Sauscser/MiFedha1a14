@@ -4,7 +4,7 @@ import {View, Text,   FlatList, Alert} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnRec from "../../../../../../components/MyAc/ViewRecNonLns";
 import styles from './styles';
-import { getBizna, getCompany, getSMAccount,   listBizSls,   listBiznas,   listNonLoans,   listPersonels,   vwMyRecMny, vwMyRecMny7 } from '../../../../../../src/graphql/queries';
+import { listNonLoans,   listPersonels,   } from '../../../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../../../src/graphql/mutations';
 import { TextInput } from 'react-native-gesture-handler';
 

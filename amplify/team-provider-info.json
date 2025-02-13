@@ -18,6 +18,9 @@
       },
       "api": {
         "mifedha1a": {}
+      },
+      "function": {
+        "verifyPaystackPayment": {}
       }
     }
   }

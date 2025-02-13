@@ -2,10 +2,6 @@ import React, {useEffect, useState} from 'react';
 import Communications from 'react-native-communications';
 import {
   
-  createSMLoansCovered,
-  
-  createSMLoansNonCovered,
-  
   createNonLoans,
   
   updateCompany,
@@ -133,7 +129,7 @@ const SMASendNonLns = props => {
                               description: Desc,
                               RecName:namess,
                               SenderName:busNames,
-                              status: "BiznaShare",
+                              status: "BiznaShareCash",
                               owner: userInfo.attributes.sub
                             },
                           }),

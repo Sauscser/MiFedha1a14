@@ -28,7 +28,7 @@ const FetchSMNonCovLns = props => {
               
      
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
+              const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
                 { filter: {
                     and: {
                       loaneePhn: { eq: userInfo.attributes.email},
@@ -37,7 +37,7 @@ const FetchSMNonCovLns = props => {
                     }
                   }}
                   ));
-              setLoanees(Lonees.data.listSMLoansNonCovereds.items);
+              setLoanees(Lonees.data.listSMLoansCovereds.items);
             } catch (e) {
               console.log(e);
             } finally {

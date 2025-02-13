@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert, ActivityIndicat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/MyAc/ReadPayPalTNC";
 import styles from './styles';
-import { getCompany, getExRates, getSMAccount, listBiznas, listCompanies, listExRates, listSMAccounts } from '../../../../../src/graphql/queries';
+import {   listBiznas } from '../../../../../src/graphql/queries';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 

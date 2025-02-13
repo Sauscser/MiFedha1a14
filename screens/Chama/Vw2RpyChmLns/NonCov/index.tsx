@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/Chama/RepayChmLn/RepyChmNonCovLn";
 import styles from './styles';
-import {  getSMAccount, listNonCvrdGroupLoans,  } from '../../../../src/graphql/queries';
+import {  getSMAccount, listCvrdGroupLoans,  } from '../../../../src/graphql/queries';
 
 const FetchSMNonCovLns = props => {
 
@@ -29,7 +29,7 @@ const FetchSMNonCovLns = props => {
        
 
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listNonCvrdGroupLoans, 
+              const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
                 { filter: {
                     and: {
                       loaneePhn: { eq: userInfo.attributes.email},

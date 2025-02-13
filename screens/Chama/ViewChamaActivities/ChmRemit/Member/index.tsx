@@ -4,7 +4,8 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import MmbrChmRemInfo from "../../../../../components/Chama/ChmActivities/ChmRemit/VwMember";
 import styles from './styles';
-import { getCompany, getSMAccount,  vwMyChamassss } from '../../../../../src/graphql/queries';
+import { getCompany, getSMAccount,  listGroupNonLoans,  
+   } from '../../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
 
 const FetchSMCovLns = props => {
@@ -29,16 +30,18 @@ const FetchSMCovLns = props => {
               
             
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyChamassss, 
+              const Lonees:any = await API.graphql(graphqlOperation(listGroupNonLoans, 
                 {
-                      recipientPhn: userInfo.attributes.email,
+                    filter: {
+                      recipientPhn: {eq:userInfo.attributes.email}
+                    }  ,
                       sortDirection: 'DESC',
                       limit: 100,
                       
                     }
                   
                   ));
-              setLoanees(Lonees.data.VwMyChamassss.items);
+              setLoanees(Lonees.data.listGroupNonLoans.items);
 
               
                         

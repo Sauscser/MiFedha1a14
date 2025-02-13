@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 
-import { getAgent, getBankAdmin, getBizna, getCompany, getSAgent, getSMAccount, listPersonels} from '../../../../src/graphql/queries';
+import { getSMAccount, listPersonels} from '../../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';

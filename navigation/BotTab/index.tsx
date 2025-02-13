@@ -1,43 +1,21 @@
-import { FontAwesome, Fontisto, MaterialCommunityIcons , Entypo, MaterialIcons, Octicons} from '@expo/vector-icons';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import { FontAwesome, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Linking, TouchableOpacity } from 'react-native';
 
-import Colors from '../../constants/Colors';
-import useColorScheme from '../../hooks/useColorScheme';
-import ModalScreen from '../../screens/ModalScreen';
-import NotFoundScreen from '../../screens/NotFoundScreen';
-import TabOneScreen from '../../screens/TabOneScreen';
-import HomeScreen from '../../screens/HomeScrn';
-import KFNdogoLoc from '../../screens/MFNdogo/SearchMFN';
+import HomeTabNav from "../HomeTabNav";
 import FindKFNdogoLoc from '../../screens/MFNdogo/SignInMFN';
 import MyAccount from '../../screens/MyAcc';
-import SearchPal from '../../screens/MyAcc/LoanRequest/VwMakeLnReq';
-import CredtSales from '../../screens/CredSls';
-import ChamaScreen from '../../screens/Chama';
-import EntrAdvLoc from '../../screens/Advocate/EnterAdvLoc';
-import Welc from '../../screens/MyAcc/T&CAcceptanceForm';
-import TabTwoScreen from '../../screens/TabTwoScreen';
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
-import LinkingConfiguration from '../LinkingConfiguration';
-
-import LoanChmz from "../../screens/Ads/Search/LoanChm";
-import SrchItemAdz from "../../screens/Ads/Search/SrchItemAd";
 import SrchLoanAdz from "../../screens/Ads/Search/SrchLoanAd";
-import HomeTabNav from "../HomeTabNav";
+import SearchPal from '../../screens/MyAcc/LoanRequest/VwMakeLnReq';
+import HowTo from '../../screens/HowTos'
 
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
-const HomeTabNavigator = props => {
+const BottomTab = createBottomTabNavigator();
+
+
+const HomeTabNavigator = () => {
   return (
-
-    
     <BottomTab.Navigator
       initialRouteName="Home"
 
@@ -54,62 +32,54 @@ const HomeTabNavigator = props => {
           ),
         }}
       />
+
+      {/* MFNdogo (Location) */}
       <BottomTab.Screen
-        name='MFNdogo'
+        name="MFNdogo"
         component={FindKFNdogoLoc}
         options={{
-          tabBarIcon: ({color: string}) => (
-            <FontAwesome name="map-marker" size={25} color={'skyblue'} />
-          ),
+          tabBarIcon: ({ color }) => <FontAwesome name="map-marker" size={25} color={color} />,
         }}
       />
 
-<BottomTab.Screen
-        name='MyAc'
+      {/* My Account */}
+      <BottomTab.Screen
+        name="MyAc"
         component={MyAccount}
         options={{
-          tabBarIcon: ({color: string}) => (
-            <MaterialCommunityIcons name="account" size={25} color={'skyblue'} />
-          ),
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="account" size={25} color={color} />,
         }}
       />
 
-<BottomTab.Screen
-        name='PalDeals'
+      {/* Pal Deals */}
+      <BottomTab.Screen
+        name="PalDeals"
         component={SrchLoanAdz}
         options={{
-          tabBarIcon: ({color: string}) => (
-            <FontAwesome name="search" size={25} color={'skyblue'} />
-          ),
+          tabBarIcon: ({ color }) => <FontAwesome name="search" size={25} color={color} />,
         }}
       />
 
-<BottomTab.Screen
-        name='CredSale'
-        component={SrchItemAdz}
+      {/* How To (Opens YouTube Channel) */}
+      <BottomTab.Screen
+        name="How To"
+        component={HowTo} // No actual screen, just an action
         options={{
-          tabBarIcon: ({color: string}) => (
-            <FontAwesome name="search" size={25} color={'skyblue'} />
-          ),
+          tabBarIcon: ({ color }) => <FontAwesome name="youtube-play" size={25} color={color} />,
+          
         }}
       />
 
-<BottomTab.Screen
-        name='Search Pal'
+      {/* Search Pal */}
+      <BottomTab.Screen
+        name="Search Pal"
         component={SearchPal}
         options={{
-          tabBarIcon: ({color: string}) => (
-            <FontAwesome name="search" size={25} color={'skyblue'} />
-          ),
+          tabBarIcon: ({ color }) => <FontAwesome name="search" size={25} color={color} />,
         }}
       />
-
-
     </BottomTab.Navigator>
   );
-}
+};
 
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
- export default HomeTabNavigator;
+export default HomeTabNavigator;

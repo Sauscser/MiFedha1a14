@@ -12,9 +12,6 @@ import {
   
   
   TextInput,
-  ScrollView,
-  
-  
   TouchableOpacity,
   Alert,
   ActivityIndicator,
@@ -32,7 +29,6 @@ const CreateBiz = (props) => {
 
   const [ChmPhn, setChmPhn] = useState('');
   const [nam, setName] = useState(null);
-
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');

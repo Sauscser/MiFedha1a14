@@ -31,15 +31,17 @@ const FetchSMNonLnsSnt = props => {
                   const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMFNFltAdds, 
+              const Lonees:any = await API.graphql(graphqlOperation(listFloatAdds, 
                 {
-                      agentPhonecontact: route.params.MFNId,
+                    filter: {
+                      agentPhonecontact: {eq:route.params.MFNId}
+                    }  ,
                       sortDirection: "DESC",
                       limit: 100
                     }
                   
                   ));
-                  setRecvrs(Lonees.data.VwMFNFltAdds.items);
+                  setRecvrs(Lonees.data.listFloatAdds.items);
 
                   
                             

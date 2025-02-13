@@ -5,7 +5,7 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../../components/Chama/VwWithdrawalsChm";
 import styles from './styles';
 
-import { getCompany, getSMAccount, listFloatReductions, vwMyUsrDposits, vwMyUsrWthdrwls } from '../../../../src/graphql/queries';
+import { getCompany, getSMAccount, listFloatAdds} from '../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../src/graphql/mutations';
 import { useRoute } from '@react-navigation/native';
 
@@ -33,15 +33,15 @@ const FetchSMNonLnsSnt = props => {
               
              
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(vwMyUsrWthdrwls, 
+              const Lonees:any = await API.graphql(graphqlOperation(listFloatAdds, 
                 { 
-                      withdrawerid: route.params.grpContact,
+                     filter:{ withdrawerid: {eq:route.params.grpContact}},
                       sortDirection: "DESC",
                       limit:100
                     }
                 
                   ));
-                  setRecvrs(Lonees.data.VwMyUsrWthdrwls.items);
+                  setRecvrs(Lonees.data.listFloatAdds.items);
 
                   
                             

@@ -6,10 +6,10 @@ import {
   updateAgent,
   updateCompany,
   updateGroup,
-  updateSMAccount,
+  
 } from '../../../src/graphql/mutations';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {getAgent, getCompany, getGroup, getSMAccount} from '../../../src/graphql/queries';
+import {getAgent, getCompany, getGroup} from '../../../src/graphql/queries';
 import {
   View,
   Text,
