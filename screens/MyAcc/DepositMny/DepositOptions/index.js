@@ -63,7 +63,7 @@ const MyAccount = props => {
           options={[
             
             { label: 'PayPal', onPress: PayPalDposit, style: styles.ClientsPressables },
-            { label: 'Mpesa', onPress: Mpesa, style: styles.ClientsPressables },
+            { label: 'MPesa/Airtel/Cards', onPress: Mpesa, style: styles.ClientsPressables },
            
           ]}
         />

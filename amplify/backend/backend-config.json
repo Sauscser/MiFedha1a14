@@ -67,5 +67,22 @@
       "service": "Cognito-UserPool-Groups"
     }
   },
-  "function": {}
+  "function": {
+    "paystackWebhookHandler": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_paystackWebhookHandler_paystackSecretKey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "paystackWebhookHandler"
+        }
+      ]
+    }
+  }
 }

@@ -1,0 +1,9 @@
+{
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "paystackSecretKey",
+      "environmentVariableName": "PAYSTACK_SECRET_KEY"
+    }
+  ]
+}

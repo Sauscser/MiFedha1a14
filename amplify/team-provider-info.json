@@ -20,7 +20,10 @@
         "mifedha1a": {}
       },
       "function": {
-        "verifyPaystackPayment": {}
+        "verifyPaystackPayment": {},
+        "paystackWebhookHandler": {
+          "paystackSecretKey": "sk_live_9ae17d3506df2aaa6ffdc50b8cd9de7bd60433bd"
+        }
       }
     }
   }

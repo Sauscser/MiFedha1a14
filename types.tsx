@@ -12,6 +12,10 @@ declare global {
     interface RootParamList extends RootStackParamList {
       MemberReqChm:{ChamaNMember:String};
       VwAsBeneficiary:undefined;
+      UpdatePayStack:{amounts:string};
+      PaystackPayment: {
+        amount:string
+      };
       VwAsBenefactors: undefined;
       ViewBenShares:undefined;
       ViewBizBenefactorShares:undefined;
@@ -20,6 +24,7 @@ declare global {
       BoostPalBenefits: undefined;
       ShareCredSlsRevss:undefined;
       Mpesa:undefined;
+      DepositOptions:undefined;
       VwPalBenefactorContriDtls:
       {benefactorAc:string, 
         benefactorPhone:string, 

@@ -547,6 +547,8 @@ import HowTo from "../../screens/HowTos";
 import HowTo2 from "../../screens/HowTo2";
 import Mpesa from "../../screens/MyAcc/DepositMny/Mpesa";
 import DepositOptions from "../../screens/MyAcc/DepositMny/DepositOptions";
+import PaystackPayment from "../../screens/MyAcc/DepositMny/PaystackPayment";
+import UpdatePayStack from "../../screens/MyAcc/DepositMny/UpdatePayStack";
 
 
 
@@ -559,9 +561,12 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />      
       
+      <Stack.Screen name={'UpdatePayStack'} component={UpdatePayStack} />
+      
       <Stack.Screen name={'VwPalBenefactorContriDtls'} component={VwPalBenefactorContriDtls} />
       <Stack.Screen name={'ViewPalBenefactorShares'} component={ViewPalBenefactorShares} />
       <Stack.Screen name={'ShareCredSlsRev2Biz'} component={ShareCredSlsRev2Biz} />
+      <Stack.Screen name={'PaystackPayment'} component={PaystackPayment} />
       <Stack.Screen name={'HowTo'} component={HowTo} />
       <Stack.Screen name={'DepositOptions'} component={DepositOptions} />
       <Stack.Screen name={'Mpesa'} component={Mpesa} />
