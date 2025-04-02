@@ -4,7 +4,7 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../components/Chama/SyncGrpLnsOut";
 
 import { useRoute } from '@react-navigation/native'; 
-import { listChamaApplies, listGroups } from '../../../src/graphql/queries';
+import { listChamaApplies, listChamaDepositSyncs, listGroups } from '../../../src/graphql/queries';
 
 
 const FetchSMNonCovLns = props => {
@@ -24,17 +24,17 @@ const FetchSMNonCovLns = props => {
         try {
             
             const Lonees = await API.graphql(
-                graphqlOperation(listGroups, {
+                graphqlOperation(listChamaDepositSyncs, {
                     filter: 
                     { status: { eq: "AccountActive" },
-                    GrpLoanOutSync: {gt: 0},
-                    BankAdminEmail: {eq: userInfo.attributes.email}
+                    BankAdminEmail: {eq: userInfo.attributes.email},
+                    transactionType:  {eq: "GrpLoanOutSync"}                  
                     
-                     }
+                }
                 })
             );
 
-            const Applications = Lonees.data.listGroups.items
+            const Applications = Lonees.data.listChamaDepositSyncs.items
             setLoanees(Applications);
 
             

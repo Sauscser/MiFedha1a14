@@ -4,7 +4,7 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../components/Chama/SyncGrpDividends";
 import * as Clipboard from 'expo-clipboard'; 
 import { useRoute } from '@react-navigation/native'; 
-import {  listGroups } from '../../../src/graphql/queries';
+import {  listChamaDepositSyncs, listGroups } from '../../../src/graphql/queries';
 
 
 const FetchSMNonCovLns = props => {
@@ -24,17 +24,17 @@ const FetchSMNonCovLns = props => {
         try {
             
             const Lonees = await API.graphql(
-                graphqlOperation(listGroups, {
+                graphqlOperation(listChamaDepositSyncs, {
                     filter: 
                     { status: { eq: "AccountActive" },
-                    MemberDividendSync: {gt: 0},
-                    BankAdminEmail: {eq: userInfo.attributes.email}
+                    BankAdminEmail: {eq: userInfo.attributes.email},
+                    transactionType:  {eq: "MemberDividendSync"}                  
                     
-                     }
-                })
+                }
+        })
             );
 
-            const Applications = Lonees.data.listGroups.items
+            const Applications = Lonees.data.listChamaDepositSyncs.items
             setLoanees(Applications);
 
             

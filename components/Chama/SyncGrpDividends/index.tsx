@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, {useState} from 'react';
-import {View, Text,   ScrollView, Pressable, Alert} from 'react-native';
+import {View, Text,   ScrollView, Pressable, Alert, ActivityIndicator} from 'react-native';
 import {API, Auth, graphqlOperation, DataStore} from 'aws-amplify';
 
 
@@ -16,7 +16,6 @@ export interface SMAccount {
       grpContact: string,
       grpName: string,
       signitoryContact: string,
-
       signitoryName:string,
       MemberDividendSync:number
 
@@ -61,7 +60,7 @@ export interface SMAccount {
                 BankAdminEmail,
                 ChamaName: grpName,
                 BankName: "Equity",
-                BranchNu,
+                BranchNu:BranchNu,
                 transactionType: "MemberDividendSync",
                 status: "AccountActive",
               },
@@ -69,7 +68,9 @@ export interface SMAccount {
           );
     
           setIsSynced(true); // Mark as synced to disable button
-          onSyncComplete(); // Call parent function to refresh screen
+          if (onSyncComplete) {
+            onSyncComplete(); // ✅ Call parent function to refresh screen
+          } //  // Call parent function to refresh screen
           MFBankAdmin();
         } catch (error) {
           console.error("Sync error:", error);
@@ -90,13 +91,17 @@ export interface SMAccount {
           </View>
     
           <View style={styles.viewForPressables2}>
-            <TouchableOpacity
-              onPress={gtUsrDtls4AdminDtls}
-              style={[styles.loanFriendButton, isSynced && { backgroundColor: "gray" }]} // Disable style
-              disabled={isSynced} // Prevent clicking again
-            >
-              <Text>{isSynced ? "Synced" : "Click to sync"}</Text>
-            </TouchableOpacity>
+          <TouchableOpacity
+          onPress={gtUsrDtls4AdminDtls}
+          style={[styles.loanFriendButton, isSynced && { backgroundColor: "gray" }]} // Disable style
+          disabled={isSynced || isLoading} // Prevent clicking again
+        >
+          {isLoading ? (
+            <ActivityIndicator size="small" color="blue" /> // 🔄 Show loader when syncing
+          ) : (
+            <Text>{isSynced ? "Synced" : "Click to sync"}</Text>
+          )}
+        </TouchableOpacity>
           </View>
         </View>
       );

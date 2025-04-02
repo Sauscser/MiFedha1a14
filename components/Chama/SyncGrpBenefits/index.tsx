@@ -24,7 +24,11 @@ export interface SMAccount {
 
     const SMCvLnStts = (props: SMAccount & { onSyncComplete: () => void }) => {
       const {
-        SMAc: { grpContact, grpName, signitoryContact, signitoryName, chamaBenSync },
+        SMAc: { grpContact, 
+          grpName, 
+          signitoryContact, 
+          signitoryName, 
+          chamaBenSync },
         onSyncComplete, // Callback function from parent
       } = props;
     
@@ -61,7 +65,7 @@ export interface SMAccount {
                 BankAdminEmail,
                 ChamaName: grpName,
                 BankName: "Equity",
-                BranchNu,
+                BranchNu:BranchNu,
                 transactionType: "chamaBenSync",
                 status: "AccountActive",
               },
