@@ -179,12 +179,12 @@ useEffect(() =>{
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="+2547xxxxxxxx"
+                   
                       value={grpContact}
                       onChangeText={setChmPhn}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Phone Number</Text>
+                    <Text style={styles.sendLoanText}>Chama Account Number</Text>
                   </View>
 
         

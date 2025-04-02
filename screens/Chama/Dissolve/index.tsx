@@ -228,7 +228,7 @@ const DissolveChm = (props) => {
                       onChangeText={setgroupCnt}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Phone</Text>
+                    <Text style={styles.sendLoanText}>Chama Account Number</Text>
                   </View>
 
                   <View style={styles.sendLoanView}>

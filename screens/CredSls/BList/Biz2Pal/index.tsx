@@ -165,18 +165,20 @@ const curYrs = parseFloat(years)*365;
               const LonBal = parseFloat(lonBala)
 
               const LonBal1 = parseFloat(amountExpectedBackWthClrncs) * 
-              ((Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 
-              Math.pow(1 + parseFloat(interest)/36500, tmDif)) /
-              (Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 1))
+              ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
+
+              const clearanceAmts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds);
+             
 
               const ClrnceCosts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)  + parseFloat(DefaultPenaltyCredSls)
               const ClrnceCost = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
               const LonBal4 = LonBal1 + ClrnceCosts
-              const LonBal5 = LonBal1 + ClrnceCost
+              const LonBal5 = LonBal1 + DefaultPenaltyCredSls
              
               const pymtFrqncy = tmDif2/parseFloat(paymentFrequency)
               const Amt2HvBnPaid = pymtFrqncy* parseFloat(installmentAmount)
-              const LonBal6 = parseFloat(lonBala) + parseFloat(DefaultPenaltyCredSls)
+          
+              
               console.log(daysUpToDate)
               console.log(dfltUpdate)
               console.log(tmDif)
@@ -226,10 +228,10 @@ const curYrs = parseFloat(years)*365;
                                   graphqlOperation(updateCovCreditSeller, {
                                     input:{
                                       loanID:route.params.loanID,
-                                      amountExpectedBackWthClrnc:(LonBal6).toFixed(0),
+                                      amountExpectedBackWthClrnc:(LonBal5).toFixed(0),
                                       
                                       DefaultPenaltyCredSl2:DefaultPenaltyCredSls.toFixed(0),
-                                      lonBala:LonBal6.toFixed(0),
+                                      lonBala:LonBal5.toFixed(0),
                                       dfltUpdate: daysUpToDate,
                                       blOfficer:userInfo.attributes.email
                                       
@@ -332,6 +334,8 @@ const curYrs = parseFloat(years)*365;
                                           loanID:route.params.loanID,
                                           amountExpectedBackWthClrnc:LonBal4.toFixed(0),
                                           status:"LoanBL",
+                                          clearanceAmt:(clearanceAmts).toFixed(0),
+                                         
                                           DefaultPenaltyCredSl2:DefaultPenaltyCredSls.toFixed(0),
                                           lonBala:LonBal4.toFixed(0),
                                           dfltUpdate:daysUpToDate,

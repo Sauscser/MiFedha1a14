@@ -133,7 +133,7 @@ const DeregMFKForm = (props) => {
                       onChangeText={setMFKID}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>MFKubwa RegNo</Text>
+                    <Text style={styles.sendLoanText}>MFKubwa Phone Number</Text>
                   </View>
         
                   

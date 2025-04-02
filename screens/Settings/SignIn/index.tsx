@@ -5,6 +5,7 @@ import { getCompany} from '../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
+import { COMPID1, COMPID2} from '@env';
 
 
 import {
@@ -26,6 +27,7 @@ const AdminSignIn = (props) => {
   const [PWOnes, setPWOne] = useState("");
   const [PWTwos, setPWTwo] = useState(""); 
   const [ownr, setownr] = useState(null);  
+  const compID = COMPID1+ "'" + COMPID2
  
   const GoHome = () => {
     navigation.navigate('Homes');
@@ -56,7 +58,7 @@ const AdminSignIn = (props) => {
       await API.graphql(
         graphqlOperation(createCompany, {
           input: {
-            AdminId: "BaruchHabaB'ShemAdonai2",
+            AdminId: compID,
             phoneContact: "0724071582, 0711852707",
             companyEmail: "myfedha@gmail.com",
             termsNconditions: "TERMS AND CONDITIONS",
@@ -67,11 +69,12 @@ const AdminSignIn = (props) => {
             recom: "Be alert for any",
             pw1: PWOnes,
             pw2: PWTwos,            
-          
+            companyComDisc:0,
             agentwithdrawalFee: 0.02,
-            agentCom: 40,
-            sagentCom: 35,
-            companyCom: 25,
+            agentCom: 60,
+            sagentCom: 19,
+            companyCom: 20,
+            
             AdvCom: 0.6,
             AdvCompanyCom:0.4,
             bankAdminCom: 0.02,
@@ -79,6 +82,7 @@ const AdminSignIn = (props) => {
             advuserwithdrawalFee: 0.02,
             bankAdmuserwithdrawalFee: 0.02,
             userLoanTransferFee: 0.02,
+
             userTransferFee: 0.02,
             chmMmbrTransferFee: 0.02,
             chmTransferFee: 0.02,
@@ -201,7 +205,7 @@ const AdminSignIn = (props) => {
 
             maxInterestSM: 0.00033,
 
-            maxInterestPwnBrkr:0.006,
+            maxInterestPwnBrkr:0.05,
             maxInterestCredSllr: 0.00033,
             maxInterestGrp: 0.00033,
             
@@ -217,12 +221,13 @@ const AdminSignIn = (props) => {
             AdvocateTC: "AdvocateTC",
             MFNdogoTC: "MFNdogoTC",
             MFKubwaTC: "MFKubwaTC",
-            ChampCom: 3,
+            ChampCom: 1,
             b2bBenCom: 30,
             b2pBenCom: 30,
             p2pBenCom: 30,
             g2pBenCom: 30,
-            p2BBenCom: 30
+            p2BBenCom: 30,
+            BankMifedhaSyncFee:0.05
           },
         }),
       );
@@ -244,7 +249,7 @@ const AdminSignIn = (props) => {
       const fetchExDtls = async () => {
         try {
                 const ExDtls: any = await API.graphql(
-                    graphqlOperation(getCompany, {AdminId: "BaruchHabaB'ShemAdonai2"}
+                    graphqlOperation(getCompany, {AdminId: compID}
                 ),);
 
                 const pw1s = ExDtls.data.getCompany.pw1;

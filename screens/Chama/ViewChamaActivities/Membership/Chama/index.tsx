@@ -33,8 +33,7 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listChamaMembers, 
                {
                     filter: {  groupContact: {eq:route.params.grpContact}},
-                      sortDirection: 'DESC',
-                      limit: 100,
+                      
                     }
                  
                   ));

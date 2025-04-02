@@ -23,9 +23,8 @@ const FetchSMNonLnsSnt = props => {
         const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
         {
                
-                sortDirection: 'DESC',
-                limit: 100,
-                filter:{status:{eq:"BiznaShareCash"},
+                
+                filter:{status:{eq:"BiznaShareCash2Biz"},
                 recPhn:{eq:userInfo.attributes.email}}
               }
          

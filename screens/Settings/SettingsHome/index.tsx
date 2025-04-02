@@ -75,7 +75,19 @@ const SettinsHm = props => {
   const CreateExRates = () => {
     navigation.navigate('CreateExRates');
   };  
+
+  const UrlLinks = () => {
+    navigation.navigate('UrlLinks');
+  };  
   
+  const RegBankAdmin = () => {
+    navigation.navigate('RegBankAdmin');
+  };
+
+  const GroupControlTable = () => {
+    navigation.navigate('GroupControlTable');
+  };
+   
   
 
   return (
@@ -92,19 +104,15 @@ const SettinsHm = props => {
                
 
                   <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={crtAdmin}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>Create Admin</Text>
-                    </Pressable>
+                    
 
                     <Pressable
-                      onPress={Recommendationssss}
+                      onPress={RegBankAdmin}
                       style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        UpdtRecom
-                      </Text>
+                      <Text style={styles.clientsPressableText}>Create Bank Admin</Text>
                     </Pressable>
+
+                    
                   </View>
                 </View>
 
@@ -134,11 +142,7 @@ const SettinsHm = props => {
                
 
                   <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={TransactionFeesss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>UpdtTrsnctnFee</Text>
-                    </Pressable>
+                   
 
                     <Pressable
                       onPress={Maximumsss}
@@ -159,11 +163,7 @@ const SettinsHm = props => {
               <View style={styles.viewForClientsCategories}>
                   
                   <View style={styles.viewForClientsPressables}>
-                    <Pressable
-                      onPress={Contactssss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>UpdtContcts</Text>
-                    </Pressable>
+                   
 
                     <Pressable
                       onPress={TCsss}
@@ -253,6 +253,67 @@ const SettinsHm = props => {
                       <Text style={styles.clientsPressableText}>
                         CreateExRate
                       </Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={UrlLinks}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        Add URL
+                      </Text>
+                    </Pressable>
+
+
+                   
+                  </View>
+                </View>
+
+            
+
+                
+                
+              </View>
+            </View>
+
+
+            <View style={styles.clientsView}>
+              <Text style={styles.salesText}>Clients</Text>
+
+              <View style={styles.viewForClientsAndTitle}>
+              <View style={styles.viewForClientsCategories}>
+                  
+                  <View style={styles.viewForClientsPressables}>
+                  <Pressable
+                      onPress={crtAdmin}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>Create MiFedha Admin</Text>
+                    </Pressable>
+                    <Pressable
+                      onPress={GroupControlTable}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        GrpCntrl
+                      </Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={TransactionFeesss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>UpdtTrsnctnFee</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={Recommendationssss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>
+                        UpdtRecom
+                      </Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={Contactssss}
+                      style={styles.ClientsPressables}>
+                      <Text style={styles.clientsPressableText}>UpdtContcts</Text>
                     </Pressable>
 
 

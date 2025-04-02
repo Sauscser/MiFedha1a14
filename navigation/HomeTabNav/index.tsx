@@ -545,11 +545,35 @@ import ViewBiznaShareRecBiz from "../../screens/CredSls/ViewBiznaShareRecBiz";
 import ShareCredSlsRev2Biz from "../../screens/CredSls/ShareCredSlsRev2Biz";
 import HowTo from "../../screens/HowTos";
 import HowTo2 from "../../screens/HowTo2";
+import UrlLinks from "../../screens/UrlLinks";
 import Mpesa from "../../screens/MyAcc/DepositMny/Mpesa";
 import DepositOptions from "../../screens/MyAcc/DepositMny/DepositOptions";
 import PaystackPayment from "../../screens/MyAcc/DepositMny/PaystackPayment";
 import UpdatePayStack from "../../screens/MyAcc/DepositMny/UpdatePayStack";
+import RegBankAdmin from "../../screens/MFBankAdmin/RegAdmin";
+import RegGrp from "../../screens/MFBankAdmin/RegGrp";
+import SignBankInAdm from "../../screens/MFBankAdmin/SignInAdm";
+import SyncGrpdividends from "../../screens/MFBankAdmin/SyncGrpdividends";
+import SyncGrpLnRpyment from "../../screens/MFBankAdmin/SyncGrpLnRpyment";
+import SyncGrpLoansOut from "../../screens/MFBankAdmin/SyncGrpLoansOut";
+import SyncGrpSubscription from "../../screens/MFBankAdmin/SyncGrpSubscription";
+import WithdrawBankAdmin from "../../screens/MFBankAdmin/Withdraw";
+import UpdateBankAdminAc from "../../screens/MFBankAdmin/Update";
+import BuyFloatBnkAdm from "../../screens/MFNdogo/Float/BuyFloatBnkAdm";
+import GroupControlTable from "../../screens/Settings/GroupControlTable";
+import MFBankAdmin from "../../screens/MFBankAdmin";
+import ViewGrpApplications from "../../screens/Chama/ViewGrpApplications";
+import SyncGrpWithdrawals from "../../screens/MFBankAdmin/SyncGrpWithdrawals";
+import SyncGrpDeposits from "../../screens/MFBankAdmin/SyncGrpDeposits";
+import SyncGrpBenefits from "../../screens/MFBankAdmin/SyncGrpBenefits";
 
+import ViewSyncedGrpBenefits from "../../screens/MFBankAdmin/ViewSyncedGrpBenefits";
+import ViewSyncedGrpLoansOut from "../../screens/MFBankAdmin/ViewSyncedGrpLoansOut";
+import ViewSyncedGrpWithdrawals from "../../screens/MFBankAdmin/ViewSyncedGrpWithdrawals";
+import ViewSyncedGrpdividends from "../../screens/MFBankAdmin/ViewSyncedGrpdividends";
+import ViewMFBankAdmin from "../../screens/MFBankAdmin/ViewMFBankAdmin";
+
+import PaystackTNC from "../../screens/MyAcc/DepositMny/PaystackTNC";
 
 
 const Stack = createNativeStackNavigator();
@@ -561,7 +585,40 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} />      
       
+      <Stack.Screen name={'BuyFloatBnkAdm'} component={BuyFloatBnkAdm} />
+      <Stack.Screen name={'RegBankAdmin'} component={RegBankAdmin} />
+      <Stack.Screen name={'GroupControlTable'} component={GroupControlTable} />
+      <Stack.Screen name={'PaystackTNC'} component={PaystackTNC} />
+      <Stack.Screen name={'ViewMFBankAdmin'} component={ViewMFBankAdmin} />
+
+      <Stack.Screen name={'ViewSyncedGrpBenefits'} component={ViewSyncedGrpBenefits} />
+      <Stack.Screen name={'ViewSyncedGrpLoansOut'} component={ViewSyncedGrpLoansOut} />
+      <Stack.Screen name={'ViewSyncedGrpWithdrawals'} component={ViewSyncedGrpWithdrawals} />
+      <Stack.Screen name={'ViewSyncedGrpdividends'} component={ViewSyncedGrpdividends} />
+
+      <Stack.Screen name={'SyncGrpWithdrawals'} component={SyncGrpWithdrawals} />
+      <Stack.Screen name={'SyncGrpDeposits'} component={SyncGrpDeposits} />
+      <Stack.Screen name={'SyncGrpBenefits'} component={SyncGrpBenefits} />
+      
+
+      <Stack.Screen name={'UpdateBankAdminAc'} component={UpdateBankAdminAc} />
+      <Stack.Screen name={'MFBankAdmin'} component={MFBankAdmin} />
+
+      <Stack.Screen name={'ViewGrpApplications'} component={ViewGrpApplications} />
+     
+
+     <Stack.Screen name={'RegGrp'} component={RegGrp} />
+      
+      <Stack.Screen name={'SignBankInAdm'} component={SignBankInAdm} />
+      <Stack.Screen name={'SyncGrpdividends'} component={SyncGrpdividends} />
+      <Stack.Screen name={'SyncGrpLnRpyment'} component={SyncGrpLnRpyment} />
+      <Stack.Screen name={'SyncGrpLoansOut'} component={SyncGrpLoansOut} />
+      <Stack.Screen name={'SyncGrpSubscription'} component={SyncGrpSubscription} />
+      <Stack.Screen name={'WithdrawBankAdmin'} component={WithdrawBankAdmin} />
+
+
       <Stack.Screen name={'UpdatePayStack'} component={UpdatePayStack} />
+      <Stack.Screen name={'UrlLinks'} component={UrlLinks} />
       
       <Stack.Screen name={'VwPalBenefactorContriDtls'} component={VwPalBenefactorContriDtls} />
       <Stack.Screen name={'ViewPalBenefactorShares'} component={ViewPalBenefactorShares} />

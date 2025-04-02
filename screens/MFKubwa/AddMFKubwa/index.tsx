@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {  createMFKOfferz, updateSMAccount} from '../../../src/graphql/mutations';
-import {  getAgent, getSMAccount} from '../../../src/graphql/queries';
+import {  getAgent, getGroup, getSMAccount} from '../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 import Communications from 'react-native-communications';
 import {useNavigation} from '@react-navigation/native';
@@ -52,7 +52,21 @@ const UpdtMFNPW = (props) => {
                 const MFKubwaNetCosts = MFNDtls.data.getSMAccount.MFKubwaNetCost
                 const namezs = MFNDtls.data.getSMAccount.name
                 const phonecontact = MFNDtls.data.getSMAccount.phonecontact
-                          
+                       
+                
+                const fetchBankAdminDtls = async () =>{
+                  if(isLoading){
+                    return;
+                  }
+                  setIsLoading(true);
+                  
+                  try{
+                    const MFNDtlsxz :any= await API.graphql(
+                      graphqlOperation(getGroup,{grpContact:MFChamp})
+                      );
+                      const BankAdminEmail = MFNDtlsxz.data.getGroup.BankAdminEmail   
+     
+                           
                 
                           
                                       const updtMFNDtls = async () => {
@@ -67,24 +81,29 @@ const UpdtMFNPW = (props) => {
                                                   awsemail:AdminID,
                                                   MFKubwaCost:parseFloat(NewAdmnPW) + parseFloat(MFKubwaCosts),
                                                   MFKubwaNetCost:parseFloat(SigntryPW) + parseFloat(MFKubwaNetCosts),
-                                                  TtlClrdLonsAmtSllrCov:parseFloat(TtlClrdLonsAmtSllrCovs) + parseFloat(OldAdmnPW)
+                                                  TtlClrdLonsAmtSllrCov:parseFloat(TtlClrdLonsAmtSllrCovs) + 1
                                                 }
                                               })
                                             )
                                     
                                         }
-                                        catch(error){if (error){
-                                          Alert.alert("Addition unsuccessful; Retry")
-                                          return
+                                        catch(error)
+
+                                        {
+                                          if (error){
+                                            console.log(error)
+                                            Alert.alert("Addition unsuccessful; Retry")
+                                            return
+                                          }
+                                      
+                                          
                                         }
-                                    }
                                         setIsLoading(false);
 
                                         await CreateNewSAOffer ();
                                         
                                       } 
-
-                                      updtMFNDtls();
+                                      
 
                                       const CreateNewSAOffer = async () => {
                                         if(isLoading){
@@ -97,9 +116,10 @@ const UpdtMFNPW = (props) => {
                                               input: {
                                                 
                                                 offerStatus: OfferStatus,
-                                                acCost: NewAdmnPW,
-                                                amtPaid:SigntryPW,
-                                                mfnOffered: MFNS,
+                                                acCost: parseFloat(NewAdmnPW),
+                                                amtPaid:parseFloat(SigntryPW),
+                                                mfnOffered: parseFloat(MFNS),
+                                                /* group account number */
                                                 acChamp: MFChamp,
                                                 mfnReg: 0,
                                                 status:"AccountActive",
@@ -126,11 +146,28 @@ const UpdtMFNPW = (props) => {
                                         + LnAcCod + ' has been approved. Please proceed to create your MFKubwa account on MiFedha App' 
                                          );
                                       };
+
+                                      if (
+                                        BankAdminEmail !== userInfo.attributes.email
+                                      )
+
+                                      {
+                                        Alert.alert(
+                                          "Your are not the Bank Supervisor of the group"
+                                        )
+
+                                        return;
+                                      }
+
+                                      else {
+                                        await updtMFNDtls();
+                                      }
                                 
 
             } catch (error) {
                 if(error){
-                  Alert.alert("Retry or update app or call customer care")
+                  console.log(error)
+                  Alert.alert("Retry1! or update app or call customer care")
                   return
                 }
               }
@@ -138,16 +175,33 @@ const UpdtMFNPW = (props) => {
            
 
             setIsLoading(false);
-              setNewAdmnPW("");
-              setSigntryPW("")
-              setOldAdmnPW("")
-              setAdminId("")
-              setLnAcCod(" ");
-              setMFNS(" ")
-              setMFChamp ("")
-              setOfferStatus(" ")
+              
           
             }
+
+            await fetchBankAdminDtls();
+
+          } catch (error) {
+            console.log(error)
+            if(error){
+              Alert.alert("Error2! Retry or update app or call customer care")
+              return
+            }
+          }
+     
+       
+
+        setIsLoading(false);
+          setNewAdmnPW("");
+          setSigntryPW("")
+          setOldAdmnPW("")
+          setAdminId("")
+          setLnAcCod("");
+          setMFNS("")
+          setMFChamp ("")
+          setOfferStatus("")
+      
+        }
         
         useEffect(() =>{
           const MFChamps=MFChamp
@@ -263,12 +317,12 @@ const UpdtMFNPW = (props) => {
 
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="MFChamp Email"
+                    
                       value={MFChamp}
                       onChangeText={setMFChamp}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>MFChamp Email</Text>
+                    <Text style={styles.sendLoanText}>Beneficiary Group Account</Text>
                   </View> 
 
                   <View style={styles.sendLoanView}>
@@ -278,7 +332,7 @@ const UpdtMFNPW = (props) => {
                       onChangeText={setAdminId}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>User Email</Text>
+                    <Text style={styles.sendLoanText}>Group Admin Email</Text>
                   </View> 
 
                   <View style={styles.sendLoanView}>
@@ -291,17 +345,7 @@ const UpdtMFNPW = (props) => {
                     <Text style={styles.sendLoanText}>Offer Status</Text>
                   </View> 
         
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={OldAdmnPW}
-                      keyboardType={'decimal-pad'}
-                      onChangeText={setOldAdmnPW}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Number of MFKubwas</Text>
-                  </View>   
-
-                       
+                  
                   <View style={styles.sendLoanView}>
                     <TextInput
                     placeholder="Cost"

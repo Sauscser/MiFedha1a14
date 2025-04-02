@@ -85,7 +85,7 @@ colors={['#ffffff', '#ffffff', 'skyblue']}
             <CustomButton title="Update Account" onPress={UpdtMFKPWss} />
             <CustomButton title="View Account" onPress={VwMFKAcSgnInss} />
             <CustomButton title="Create Account" onPress={RegMFKbws} />
-            <CustomButton title="Apply for MiFedha Kubwa Account" onPress={ApplyMFKubwa} />
+           
           </View>
         </LinearGradient>
 

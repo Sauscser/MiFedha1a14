@@ -67,7 +67,7 @@ const BLSMCovLoanee = (props) => {
               const lonBala = compDtls.data.getSMLoansCovered.lonBala
               
               const amountrepaids = compDtls.data.getSMLoansCovered.amountrepaid
-              const dfltUpdate = compDtls.data.getSMLoansCovered.dfltUpdate
+              
               const dfltUpdates = compDtls.data.getSMLoansCovered.dfltUpdate
               const dfltDeadLn = compDtls.data.getSMLoansCovered.repaymentPeriod
               
@@ -136,22 +136,27 @@ const BLSMCovLoanee = (props) => {
               const crtnMnthsz = parseFloat(crtnMnthz)*30.4375;
               const daysAtCrtnz = crtnYearsz + crtnMnthsz + parseFloat(crtnDyz)
 
+              /* tmdif is since the latest payment */
+
               const tmDif = daysUpToDate - dfltUpdates;
+
+              /* tmdif2 is the time since the loan was given */
               const tmDif2 = daysUpToDate - crtnDate;
               
               const lglGrcePrd = 60 - tmDif;
               const paymentFrequency = compDtls.data.getSMLoansCovered.paymentFrequency;              
               const installmentAmount = compDtls.data.getSMLoansCovered.installmentAmount;
+              const clearanceAmts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds);
               const MmbrClrnceCosts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) + parseFloat(DefaultPenaltySMs);
               const MmbrClrnceCost = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
 
               const LonBal1 = parseFloat(amountExpectedBackWthClrncs)*
-              ((Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 
-              Math.pow(1 + parseFloat(interest)/36500, tmDif)) /
-              (Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 1))
+              ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
 
               const LonBal4 = LonBal1 + MmbrClrnceCosts
-              const LonBal5 = LonBal1 + MmbrClrnceCost
+
+              /* default penalty kinks in if blacklisting is yet or past */
+              const LonBal5 = LonBal1 + DefaultPenaltySMs
              
               const pymtFrqncy = tmDif2/parseFloat(paymentFrequency)
               const Amt2HvBnPaid = pymtFrqncy* parseFloat(installmentAmount)
@@ -197,8 +202,8 @@ const BLSMCovLoanee = (props) => {
                                   graphqlOperation(updateSMLoansCovered, {
                                     input:{
                                       loanID:route.params.loanID,
-                                      amountExpectedBackWthClrnc:(LonBal6).toFixed(0),
-                                      lonBala:LonBal6.toFixed(0),
+                                      amountExpectedBackWthClrnc:(LonBal5).toFixed(0),
+                                      lonBala:LonBal5.toFixed(0),
                                       DefaultPenaltySM2:DefaultPenaltySMs.toFixed(0),
                                       dfltUpdate: daysUpToDate,
                                       blOfficer:userInfo.attributes.email
@@ -331,6 +336,7 @@ const BLSMCovLoanee = (props) => {
                                           DefaultPenaltySM2:DefaultPenaltySMs.toFixed(0),
                                           status:"LoanBL",
                                           dfltUpdate:daysUpToDate,
+                                          clearanceAmt:(clearanceAmts).toFixed(0),
                                           blOfficer:userInfo.attributes.email
                                         }
                                       })
@@ -402,15 +408,22 @@ const BLSMCovLoanee = (props) => {
                               else if (tmDif < parseFloat(paymentFrequency))
                               {Alert.alert("Time to Blacklist is not yet")}
 
+
+/*Penalise but dont blacklist*/ 
                               else if (tmDif2 > parseFloat(paymentFrequency) 
                               && parseFloat(amountrepaids) < Amt2HvBnPaid && tmDif2 < dfltDeadLn
                               && statussxzs !== "LoanBL"){
                                 updateLoanDtls3()
                               }
+                              
+                              
+                              /*Blacklist */
+
                               else if(tmDif2 > dfltDeadLn && statussxzs !== "LoanBL"){
                                 updateLoanerDtls()
                               } 
-    
+    /*Penalise since it is already blacklisted*/ 
+
                               else if(tmDif > parseFloat(paymentFrequency) && statussxzs === "LoanBL"){
                                 updateLoanerDtls2()
                               } 
@@ -488,6 +501,7 @@ const BLSMCovLoanee = (props) => {
                                               loanID:route.params.loanID,
                                               amountExpectedBackWthClrnc:(LonBal5).toFixed(0),
                                               lonBala:LonBal5.toFixed(0),
+                                              
                                               DefaultPenaltySM2:DefaultPenaltySMs.toFixed(0),
                                               status:"LoanBL",
                                               dfltUpdate:daysUpToDate,                                              

@@ -109,7 +109,8 @@ const MyAccount = props => {
           title="Account"
           options={[
             
-            { label: 'Deposit Money', onPress: DepositOptions, style: styles.ClientsPressables },
+          /*  { label: 'Deposit Money', onPress: DepositOptions, style: styles.ClientsPressables },
+          */
             { label: 'View Deposits', onPress: SMDpsitsss, style: styles.ClientsPressables },
             { label: 'Update Main Account', onPress: UpdateMainAc, style: styles.ClientsPressables },
             { label: 'Send Cash', onPress: goToSMASndnonln, style: styles.ClientsPressables },
@@ -124,7 +125,7 @@ const MyAccount = props => {
           title="Withdrawals"
           options={[
             { label: 'Withdraw Money', onPress: goWithdrwMny },
-            { label: 'Withdraw Money', onPress: goWithdrwMny },
+            { label: 'View Withdrawn Money', onPress: SMWthdrwlsss },
             
             
            

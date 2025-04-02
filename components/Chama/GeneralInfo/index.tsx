@@ -17,7 +17,15 @@ export interface ChmaInfo {
     
       ttlNonLonsRecChm: number,
       ttlNonLonsSentChm:number,
-    
+      
+      GrpLoanOutSync: number,
+                  GrpLoanRpymntSync: number,
+                  MemberSubscrptnSync: number,
+                  MemberDividendSync: number,
+                  DepositSync:number,
+                  WithdrawalSync:number,
+                  BankName: string,
+                  BranchNu: string,
       
     
       TtlActvLonsTmsLnrChmCov: number,
@@ -54,7 +62,14 @@ const ChmInfo = (props:ChmaInfo) => {
       ttlNonLonsRecChm,
       ttlNonLonsSentChm,
     
-      
+      GrpLoanOutSync,
+      GrpLoanRpymntSync,
+      MemberSubscrptnSync,
+      MemberDividendSync,
+      DepositSync,
+      WithdrawalSync,
+      BankName,
+      BranchNu,
     
       TtlActvLonsTmsLnrChmCov,
       TtlActvLonsAmtLnrChmCov,
@@ -101,6 +116,9 @@ const ChmInfo = (props:ChmaInfo) => {
                        {/*loaner details */}  
                        Account Balance (Ksh): {grpBal.toFixed(2)}                
                     </Text>   
+
+                   
+
                     <Text style = {styles.ownerContact}>                       
                        {/*loaner details */}  
                        Chama Benefits (Ksh): {TtlActvLonsTmsLnrChmNonCov.toFixed(2)}                
@@ -117,6 +135,50 @@ const ChmInfo = (props:ChmaInfo) => {
                        {/* interest*/}
                        Chama Withdrawals(Ksh): {ttlWthdrwn.toFixed(2)}                    
                     </Text> 
+
+
+
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                       After sync dividend balance (Ksh): {MemberDividendSync.toFixed(2)}                
+                    </Text>    
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                       After sync withrawal Balance : {WithdrawalSync.toFixed(2)}                
+                    </Text>                                               
+                   
+
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                       After sync loan Balance (Ksh): {GrpLoanOutSync.toFixed(2)}                
+                    </Text>  
+
+                    <Text style = {styles.ownerContact}>                       
+                       {/*loaner details */}  
+                       Chama Benefits (Ksh): {TtlActvLonsTmsLnrChmNonCov.toFixed(2)}                
+                    </Text>                    
+                    <Text style ={styles.amountoffered}>                       
+                       {/* amount*/} 
+                       Chama Members: {ttlGrpMembers}
+                    </Text>   
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                       Chama Deposits(Ksh): {ttlDpst.toFixed(2)}                  
+                    </Text> 
+                    <Text style = {styles.interest}>                       
+                       {/* interest*/}
+                       Chama Withdrawals(Ksh): {ttlWthdrwn.toFixed(2)}                    
+                    </Text> 
+
+                    <Text style = {styles.repaymentPeriod}>                       
+                       {/* repaymentPeriod*/}
+                       Total Loans Given(Ksh): {TtlActvLonsAmtLnrChmCov.toFixed(2)}                  
+                    </Text> 
+                    <Text style = {styles.interest}>                       
+                       {/* interest*/}
+                       Loans Recovered(Ksh): {TtlClrdLonsAmtLnrChmCov.toFixed(2)}                    
+                    </Text> 
+
                     
                     <View style = {{alignItems:"center"}}>
                      <Text style = {styles.subTitle}>                       

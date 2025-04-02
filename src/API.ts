@@ -1058,6 +1058,8 @@ export type CreateSMLoansCoveredInput = {
   advregnu?: string | null,
   loanerId: string,
   amountgiven: number,
+  clearanceAmt: number,
+  clearanceAmt2: number,
   amountexpected: number,
   amountExpectedBackWthClrnc: number,
   dfltUpdate?: string | null,
@@ -1095,6 +1097,8 @@ export type ModelSMLoansCoveredConditionInput = {
   advregnu?: ModelStringInput | null,
   loanerId?: ModelStringInput | null,
   amountgiven?: ModelFloatInput | null,
+  clearanceAmt?: ModelFloatInput | null,
+  clearanceAmt2?: ModelFloatInput | null,
   amountexpected?: ModelFloatInput | null,
   amountExpectedBackWthClrnc?: ModelFloatInput | null,
   dfltUpdate?: ModelStringInput | null,
@@ -1138,6 +1142,8 @@ export type SMLoansCovered = {
   advregnu?: string | null,
   loanerId: string,
   amountgiven: number,
+  clearanceAmt: number,
+  clearanceAmt2: number,
   amountexpected: number,
   amountExpectedBackWthClrnc: number,
   dfltUpdate?: string | null,
@@ -1177,6 +1183,8 @@ export type UpdateSMLoansCoveredInput = {
   advregnu?: string | null,
   loanerId?: string | null,
   amountgiven?: number | null,
+  clearanceAmt?: number | null,
+  clearanceAmt2?: number | null,
   amountexpected?: number | null,
   amountExpectedBackWthClrnc?: number | null,
   dfltUpdate?: string | null,
@@ -1230,6 +1238,8 @@ export type CreateCovCreditSellerInput = {
   amountExpectedBackWthClrnc: number,
   amountRepaid: number,
   repaymentPeriod: number,
+  clearanceAmt: number,
+  clearanceAmt2: number,
   giverStatus: Status,
   timeExpBack: number,
   timeExpBack2: number,
@@ -1267,6 +1277,8 @@ export type ModelCovCreditSellerConditionInput = {
   amountExpectedBackWthClrnc?: ModelFloatInput | null,
   amountRepaid?: ModelFloatInput | null,
   repaymentPeriod?: ModelFloatInput | null,
+  clearanceAmt?: ModelFloatInput | null,
+  clearanceAmt2?: ModelFloatInput | null,
   giverStatus?: ModelStatusInput | null,
   timeExpBack?: ModelFloatInput | null,
   timeExpBack2?: ModelFloatInput | null,
@@ -1310,6 +1322,8 @@ export type CovCreditSeller = {
   amountExpectedBackWthClrnc: number,
   amountRepaid: number,
   repaymentPeriod: number,
+  clearanceAmt: number,
+  clearanceAmt2: number,
   giverStatus: Status,
   timeExpBack: number,
   timeExpBack2: number,
@@ -1349,6 +1363,8 @@ export type UpdateCovCreditSellerInput = {
   amountExpectedBackWthClrnc?: number | null,
   amountRepaid?: number | null,
   repaymentPeriod?: number | null,
+  clearanceAmt?: number | null,
+  clearanceAmt2?: number | null,
   giverStatus?: Status | null,
   timeExpBack?: number | null,
   timeExpBack2?: number | null,
@@ -1382,6 +1398,8 @@ export type CreateCvrdGroupLoansInput = {
   advEmail?: string | null,
   amountExpectedBack: number,
   amountExpectedBackWthClrnc: number,
+  clearanceAmt: number,
+  clearanceAmt2: number,
   amountRepaid: number,
   description?: string | null,
   dfltUpdate?: string | null,
@@ -1416,6 +1434,8 @@ export type ModelCvrdGroupLoansConditionInput = {
   advEmail?: ModelStringInput | null,
   amountExpectedBack?: ModelFloatInput | null,
   amountExpectedBackWthClrnc?: ModelFloatInput | null,
+  clearanceAmt?: ModelFloatInput | null,
+  clearanceAmt2?: ModelFloatInput | null,
   amountRepaid?: ModelFloatInput | null,
   description?: ModelStringInput | null,
   dfltUpdate?: ModelStringInput | null,
@@ -1456,6 +1476,8 @@ export type CvrdGroupLoans = {
   advEmail?: string | null,
   amountExpectedBack: number,
   amountExpectedBackWthClrnc: number,
+  clearanceAmt: number,
+  clearanceAmt2: number,
   amountRepaid: number,
   description?: string | null,
   dfltUpdate?: string | null,
@@ -1492,6 +1514,8 @@ export type UpdateCvrdGroupLoansInput = {
   advEmail?: string | null,
   amountExpectedBack?: number | null,
   amountExpectedBackWthClrnc?: number | null,
+  clearanceAmt?: number | null,
+  clearanceAmt2?: number | null,
   amountRepaid?: number | null,
   description?: string | null,
   dfltUpdate?: string | null,
@@ -2938,6 +2962,477 @@ export type DeleteBankAdminInput = {
   nationalid: string,
 };
 
+export type CreateMiFedhaBankAdminInput = {
+  nationalid: string,
+  name: string,
+  phonecontact: string,
+  TtlEarnings: number,
+  pw: string,
+  BankAdmBal: number,
+  email: string,
+  bank: string,
+  BankAcNu: string,
+  status: Status,
+  owner: string,
+  createdAt?: string | null,
+};
+
+export type ModelMiFedhaBankAdminConditionInput = {
+  name?: ModelStringInput | null,
+  phonecontact?: ModelStringInput | null,
+  TtlEarnings?: ModelFloatInput | null,
+  pw?: ModelStringInput | null,
+  BankAdmBal?: ModelFloatInput | null,
+  email?: ModelStringInput | null,
+  bank?: ModelStringInput | null,
+  BankAcNu?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelMiFedhaBankAdminConditionInput | null > | null,
+  or?: Array< ModelMiFedhaBankAdminConditionInput | null > | null,
+  not?: ModelMiFedhaBankAdminConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type MiFedhaBankAdmin = {
+  __typename: "MiFedhaBankAdmin",
+  nationalid: string,
+  name: string,
+  phonecontact: string,
+  TtlEarnings: number,
+  pw: string,
+  BankAdmBal: number,
+  email: string,
+  bank: string,
+  BankAcNu: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateMiFedhaBankAdminInput = {
+  nationalid: string,
+  name?: string | null,
+  phonecontact?: string | null,
+  TtlEarnings?: number | null,
+  pw?: string | null,
+  BankAdmBal?: number | null,
+  email?: string | null,
+  bank?: string | null,
+  BankAcNu?: string | null,
+  status?: Status | null,
+  owner?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteMiFedhaBankAdminInput = {
+  nationalid: string,
+};
+
+export type CreateChamaLoanSyncInput = {
+  id?: string | null,
+  amount: number,
+  GrpAc: string,
+  GrpAdmEmail: string,
+  BankAdminEmail: string,
+  ChamaName: string,
+  BankName: string,
+  BranchNu: string,
+  transactionType: string,
+  status: Status,
+  createdAt?: string | null,
+};
+
+export type ModelChamaLoanSyncConditionInput = {
+  amount?: ModelFloatInput | null,
+  GrpAc?: ModelStringInput | null,
+  GrpAdmEmail?: ModelStringInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  ChamaName?: ModelStringInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
+  transactionType?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChamaLoanSyncConditionInput | null > | null,
+  or?: Array< ModelChamaLoanSyncConditionInput | null > | null,
+  not?: ModelChamaLoanSyncConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ChamaLoanSync = {
+  __typename: "ChamaLoanSync",
+  id: string,
+  amount: number,
+  GrpAc: string,
+  GrpAdmEmail: string,
+  BankAdminEmail: string,
+  ChamaName: string,
+  BankName: string,
+  BranchNu: string,
+  transactionType: string,
+  status: Status,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateChamaLoanSyncInput = {
+  id: string,
+  amount?: number | null,
+  GrpAc?: string | null,
+  GrpAdmEmail?: string | null,
+  BankAdminEmail?: string | null,
+  ChamaName?: string | null,
+  BankName?: string | null,
+  BranchNu?: string | null,
+  transactionType?: string | null,
+  status?: Status | null,
+  createdAt?: string | null,
+};
+
+export type DeleteChamaLoanSyncInput = {
+  id: string,
+};
+
+export type CreateChamaDividendsSyncInput = {
+  id?: string | null,
+  amount: number,
+  GrpAc: string,
+  GrpAdmEmail: string,
+  BankAdminEmail: string,
+  ChamaName: string,
+  BankName: string,
+  BranchNu: string,
+  transactionType: string,
+  status: Status,
+  createdAt?: string | null,
+};
+
+export type ModelChamaDividendsSyncConditionInput = {
+  amount?: ModelFloatInput | null,
+  GrpAc?: ModelStringInput | null,
+  GrpAdmEmail?: ModelStringInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  ChamaName?: ModelStringInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
+  transactionType?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChamaDividendsSyncConditionInput | null > | null,
+  or?: Array< ModelChamaDividendsSyncConditionInput | null > | null,
+  not?: ModelChamaDividendsSyncConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ChamaDividendsSync = {
+  __typename: "ChamaDividendsSync",
+  id: string,
+  amount: number,
+  GrpAc: string,
+  GrpAdmEmail: string,
+  BankAdminEmail: string,
+  ChamaName: string,
+  BankName: string,
+  BranchNu: string,
+  transactionType: string,
+  status: Status,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateChamaDividendsSyncInput = {
+  id: string,
+  amount?: number | null,
+  GrpAc?: string | null,
+  GrpAdmEmail?: string | null,
+  BankAdminEmail?: string | null,
+  ChamaName?: string | null,
+  BankName?: string | null,
+  BranchNu?: string | null,
+  transactionType?: string | null,
+  status?: Status | null,
+  createdAt?: string | null,
+};
+
+export type DeleteChamaDividendsSyncInput = {
+  id: string,
+};
+
+export type CreateChamaSubscrptnSyncInput = {
+  id?: string | null,
+  amount: number,
+  GrpAc: string,
+  GrpAdmEmail: string,
+  BankAdminEmail: string,
+  ChamaName: string,
+  BankName: string,
+  BranchNu: string,
+  transactionType: string,
+  status: Status,
+  createdAt?: string | null,
+};
+
+export type ModelChamaSubscrptnSyncConditionInput = {
+  amount?: ModelFloatInput | null,
+  GrpAc?: ModelStringInput | null,
+  GrpAdmEmail?: ModelStringInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  ChamaName?: ModelStringInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
+  transactionType?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChamaSubscrptnSyncConditionInput | null > | null,
+  or?: Array< ModelChamaSubscrptnSyncConditionInput | null > | null,
+  not?: ModelChamaSubscrptnSyncConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ChamaSubscrptnSync = {
+  __typename: "ChamaSubscrptnSync",
+  id: string,
+  amount: number,
+  GrpAc: string,
+  GrpAdmEmail: string,
+  BankAdminEmail: string,
+  ChamaName: string,
+  BankName: string,
+  BranchNu: string,
+  transactionType: string,
+  status: Status,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateChamaSubscrptnSyncInput = {
+  id: string,
+  amount?: number | null,
+  GrpAc?: string | null,
+  GrpAdmEmail?: string | null,
+  BankAdminEmail?: string | null,
+  ChamaName?: string | null,
+  BankName?: string | null,
+  BranchNu?: string | null,
+  transactionType?: string | null,
+  status?: Status | null,
+  createdAt?: string | null,
+};
+
+export type DeleteChamaSubscrptnSyncInput = {
+  id: string,
+};
+
+export type CreateChamaDepositSyncInput = {
+  id?: string | null,
+  amount: number,
+  GrpAc: string,
+  GrpAdmEmail: string,
+  BankAdminEmail: string,
+  ChamaName: string,
+  BankName: string,
+  BranchNu: string,
+  transactionType: string,
+  status: Status,
+  createdAt?: string | null,
+};
+
+export type ModelChamaDepositSyncConditionInput = {
+  amount?: ModelFloatInput | null,
+  GrpAc?: ModelStringInput | null,
+  GrpAdmEmail?: ModelStringInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  ChamaName?: ModelStringInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
+  transactionType?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChamaDepositSyncConditionInput | null > | null,
+  or?: Array< ModelChamaDepositSyncConditionInput | null > | null,
+  not?: ModelChamaDepositSyncConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ChamaDepositSync = {
+  __typename: "ChamaDepositSync",
+  id: string,
+  amount: number,
+  GrpAc: string,
+  GrpAdmEmail: string,
+  BankAdminEmail: string,
+  ChamaName: string,
+  BankName: string,
+  BranchNu: string,
+  transactionType: string,
+  status: Status,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateChamaDepositSyncInput = {
+  id: string,
+  amount?: number | null,
+  GrpAc?: string | null,
+  GrpAdmEmail?: string | null,
+  BankAdminEmail?: string | null,
+  ChamaName?: string | null,
+  BankName?: string | null,
+  BranchNu?: string | null,
+  transactionType?: string | null,
+  status?: Status | null,
+  createdAt?: string | null,
+};
+
+export type DeleteChamaDepositSyncInput = {
+  id: string,
+};
+
+export type CreateChamaWithdrawalSyncInput = {
+  id?: string | null,
+  amount: number,
+  GrpAc: string,
+  GrpAdmEmail: string,
+  BankAdminEmail: string,
+  ChamaName: string,
+  BankName: string,
+  BranchNu: string,
+  transactionType: string,
+  status: Status,
+  createdAt?: string | null,
+};
+
+export type ModelChamaWithdrawalSyncConditionInput = {
+  amount?: ModelFloatInput | null,
+  GrpAc?: ModelStringInput | null,
+  GrpAdmEmail?: ModelStringInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  ChamaName?: ModelStringInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
+  transactionType?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChamaWithdrawalSyncConditionInput | null > | null,
+  or?: Array< ModelChamaWithdrawalSyncConditionInput | null > | null,
+  not?: ModelChamaWithdrawalSyncConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ChamaWithdrawalSync = {
+  __typename: "ChamaWithdrawalSync",
+  id: string,
+  amount: number,
+  GrpAc: string,
+  GrpAdmEmail: string,
+  BankAdminEmail: string,
+  ChamaName: string,
+  BankName: string,
+  BranchNu: string,
+  transactionType: string,
+  status: Status,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateChamaWithdrawalSyncInput = {
+  id: string,
+  amount?: number | null,
+  GrpAc?: string | null,
+  GrpAdmEmail?: string | null,
+  BankAdminEmail?: string | null,
+  ChamaName?: string | null,
+  BankName?: string | null,
+  BranchNu?: string | null,
+  transactionType?: string | null,
+  status?: Status | null,
+  createdAt?: string | null,
+};
+
+export type DeleteChamaWithdrawalSyncInput = {
+  id: string,
+};
+
+export type CreateChamaLoanRpymntSyncInput = {
+  id?: string | null,
+  amount: number,
+  GrpAc: string,
+  GrpAdmEmail: string,
+  BankAdminEmail: string,
+  ChamaName: string,
+  BankName: string,
+  BranchNu: string,
+  transactionType: string,
+  status: Status,
+  createdAt?: string | null,
+};
+
+export type ModelChamaLoanRpymntSyncConditionInput = {
+  amount?: ModelFloatInput | null,
+  GrpAc?: ModelStringInput | null,
+  GrpAdmEmail?: ModelStringInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  ChamaName?: ModelStringInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
+  transactionType?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChamaLoanRpymntSyncConditionInput | null > | null,
+  or?: Array< ModelChamaLoanRpymntSyncConditionInput | null > | null,
+  not?: ModelChamaLoanRpymntSyncConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ChamaLoanRpymntSync = {
+  __typename: "ChamaLoanRpymntSync",
+  id: string,
+  amount: number,
+  GrpAc: string,
+  GrpAdmEmail: string,
+  BankAdminEmail: string,
+  ChamaName: string,
+  BankName: string,
+  BranchNu: string,
+  transactionType: string,
+  status: Status,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateChamaLoanRpymntSyncInput = {
+  id: string,
+  amount?: number | null,
+  GrpAc?: string | null,
+  GrpAdmEmail?: string | null,
+  BankAdminEmail?: string | null,
+  ChamaName?: string | null,
+  BankName?: string | null,
+  BranchNu?: string | null,
+  transactionType?: string | null,
+  status?: Status | null,
+  createdAt?: string | null,
+};
+
+export type DeleteChamaLoanRpymntSyncInput = {
+  id: string,
+};
+
 export type CreateAdvocateInput = {
   advregnu: string,
   nationalid: string,
@@ -3072,6 +3567,59 @@ export type DeleteAdvocateWithdrawalsInput = {
   id: string,
 };
 
+export type CreateMFBankWithdrawalsInput = {
+  id?: string | null,
+  bankAdmnId: string,
+  amount: number,
+  bankName: string,
+  bkAcNo: string,
+  status: Status,
+  owner: string,
+  createdAt?: string | null,
+};
+
+export type ModelMFBankWithdrawalsConditionInput = {
+  bankAdmnId?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  bankName?: ModelStringInput | null,
+  bkAcNo?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelMFBankWithdrawalsConditionInput | null > | null,
+  or?: Array< ModelMFBankWithdrawalsConditionInput | null > | null,
+  not?: ModelMFBankWithdrawalsConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type MFBankWithdrawals = {
+  __typename: "MFBankWithdrawals",
+  id: string,
+  bankAdmnId: string,
+  amount: number,
+  bankName: string,
+  bkAcNo: string,
+  status: Status,
+  owner: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateMFBankWithdrawalsInput = {
+  id: string,
+  bankAdmnId?: string | null,
+  amount?: number | null,
+  bankName?: string | null,
+  bkAcNo?: string | null,
+  status?: Status | null,
+  owner?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteMFBankWithdrawalsInput = {
+  id: string,
+};
+
 export type CreateCompanyInput = {
   AdminId: string,
   phoneContact: string,
@@ -3088,6 +3636,7 @@ export type CreateCompanyInput = {
   agentCom: number,
   sagentCom: number,
   companyCom: number,
+  companyComDisc: number,
   AdvCom: number,
   ChampCom: number,
   AdvCompanyCom: number,
@@ -3228,6 +3777,7 @@ export type CreateCompanyInput = {
   p2pBenCom: number,
   g2pBenCom: number,
   p2BBenCom: number,
+  BankMifedhaSyncFee: number,
 };
 
 export type ModelCompanyConditionInput = {
@@ -3245,6 +3795,7 @@ export type ModelCompanyConditionInput = {
   agentCom?: ModelFloatInput | null,
   sagentCom?: ModelFloatInput | null,
   companyCom?: ModelFloatInput | null,
+  companyComDisc?: ModelFloatInput | null,
   AdvCom?: ModelFloatInput | null,
   ChampCom?: ModelFloatInput | null,
   AdvCompanyCom?: ModelFloatInput | null,
@@ -3385,6 +3936,7 @@ export type ModelCompanyConditionInput = {
   p2pBenCom?: ModelFloatInput | null,
   g2pBenCom?: ModelFloatInput | null,
   p2BBenCom?: ModelFloatInput | null,
+  BankMifedhaSyncFee?: ModelFloatInput | null,
   and?: Array< ModelCompanyConditionInput | null > | null,
   or?: Array< ModelCompanyConditionInput | null > | null,
   not?: ModelCompanyConditionInput | null,
@@ -3408,6 +3960,7 @@ export type Company = {
   agentCom: number,
   sagentCom: number,
   companyCom: number,
+  companyComDisc: number,
   AdvCom: number,
   ChampCom: number,
   AdvCompanyCom: number,
@@ -3548,6 +4101,7 @@ export type Company = {
   p2pBenCom: number,
   g2pBenCom: number,
   p2BBenCom: number,
+  BankMifedhaSyncFee: number,
   updatedAt: string,
 };
 
@@ -3567,6 +4121,7 @@ export type UpdateCompanyInput = {
   agentCom?: number | null,
   sagentCom?: number | null,
   companyCom?: number | null,
+  companyComDisc?: number | null,
   AdvCom?: number | null,
   ChampCom?: number | null,
   AdvCompanyCom?: number | null,
@@ -3707,6 +4262,7 @@ export type UpdateCompanyInput = {
   p2pBenCom?: number | null,
   g2pBenCom?: number | null,
   p2BBenCom?: number | null,
+  BankMifedhaSyncFee?: number | null,
 };
 
 export type DeleteCompanyInput = {
@@ -4155,6 +4711,18 @@ export type CreateGroupInput = {
   signitory2Sub: string,
   WithdrawCnfrmtn: string,
   WithdrawCnfrmtnAmt: number,
+  BankAdminEmail: string,
+  BankAdminAcNu: string,
+  SignatoryEmail: string,
+  GrpLoanOutSync: number,
+  GrpLoanRpymntSync: number,
+  MemberSubscrptnSync: number,
+  MemberDividendSync: number,
+  DepositSync: number,
+  WithdrawalSync: number,
+  chamaBenSync: number,
+  BankName: string,
+  BranchNu: string,
   grpEmail: string,
   grpBal: number,
   ttlGrpMembers: number,
@@ -4222,6 +4790,18 @@ export type ModelGroupConditionInput = {
   signitory2Sub?: ModelStringInput | null,
   WithdrawCnfrmtn?: ModelStringInput | null,
   WithdrawCnfrmtnAmt?: ModelFloatInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  BankAdminAcNu?: ModelStringInput | null,
+  SignatoryEmail?: ModelStringInput | null,
+  GrpLoanOutSync?: ModelFloatInput | null,
+  GrpLoanRpymntSync?: ModelFloatInput | null,
+  MemberSubscrptnSync?: ModelFloatInput | null,
+  MemberDividendSync?: ModelFloatInput | null,
+  DepositSync?: ModelFloatInput | null,
+  WithdrawalSync?: ModelFloatInput | null,
+  chamaBenSync?: ModelFloatInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
   grpEmail?: ModelStringInput | null,
   grpBal?: ModelFloatInput | null,
   ttlGrpMembers?: ModelFloatInput | null,
@@ -4295,6 +4875,18 @@ export type Group = {
   signitory2Sub: string,
   WithdrawCnfrmtn: string,
   WithdrawCnfrmtnAmt: number,
+  BankAdminEmail: string,
+  BankAdminAcNu: string,
+  SignatoryEmail: string,
+  GrpLoanOutSync: number,
+  GrpLoanRpymntSync: number,
+  MemberSubscrptnSync: number,
+  MemberDividendSync: number,
+  DepositSync: number,
+  WithdrawalSync: number,
+  chamaBenSync: number,
+  BankName: string,
+  BranchNu: string,
   grpEmail: string,
   grpBal: number,
   ttlGrpMembers: number,
@@ -4364,6 +4956,18 @@ export type UpdateGroupInput = {
   signitory2Sub?: string | null,
   WithdrawCnfrmtn?: string | null,
   WithdrawCnfrmtnAmt?: number | null,
+  BankAdminEmail?: string | null,
+  BankAdminAcNu?: string | null,
+  SignatoryEmail?: string | null,
+  GrpLoanOutSync?: number | null,
+  GrpLoanRpymntSync?: number | null,
+  MemberSubscrptnSync?: number | null,
+  MemberDividendSync?: number | null,
+  DepositSync?: number | null,
+  WithdrawalSync?: number | null,
+  chamaBenSync?: number | null,
+  BankName?: string | null,
+  BranchNu?: string | null,
   grpEmail?: string | null,
   grpBal?: number | null,
   ttlGrpMembers?: number | null,
@@ -5175,6 +5779,7 @@ export type CreateMFKOfferz2Input = {
   amtPaid: number,
   mfnOffered: number,
   acChamp: string,
+  bankAdminEmail: string,
   mfnReg: number,
   status: Status,
   mfkAc: string,
@@ -5188,6 +5793,7 @@ export type ModelMFKOfferz2ConditionInput = {
   amtPaid?: ModelFloatInput | null,
   mfnOffered?: ModelFloatInput | null,
   acChamp?: ModelStringInput | null,
+  bankAdminEmail?: ModelStringInput | null,
   mfnReg?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
   mfkAc?: ModelStringInput | null,
@@ -5208,6 +5814,7 @@ export type MFKOfferz2 = {
   amtPaid: number,
   mfnOffered: number,
   acChamp: string,
+  bankAdminEmail: string,
   mfnReg: number,
   status: Status,
   mfkAc: string,
@@ -5224,6 +5831,7 @@ export type UpdateMFKOfferz2Input = {
   amtPaid?: number | null,
   mfnOffered?: number | null,
   acChamp?: string | null,
+  bankAdminEmail?: string | null,
   mfnReg?: number | null,
   status?: Status | null,
   mfkAc?: string | null,
@@ -5232,6 +5840,239 @@ export type UpdateMFKOfferz2Input = {
 };
 
 export type DeleteMFKOfferz2Input = {
+  id: string,
+};
+
+export type CreateChamaApplyInput = {
+  id?: string | null,
+  ChamaAdminEmail: string,
+  bankAdminEmail: string,
+  BankAdminAccount: string,
+  mfnReg: number,
+  status: Status,
+  ChamaAcNu: string,
+  createdAt?: string | null,
+};
+
+export type ModelChamaApplyConditionInput = {
+  ChamaAdminEmail?: ModelStringInput | null,
+  bankAdminEmail?: ModelStringInput | null,
+  BankAdminAccount?: ModelStringInput | null,
+  mfnReg?: ModelFloatInput | null,
+  status?: ModelStatusInput | null,
+  ChamaAcNu?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChamaApplyConditionInput | null > | null,
+  or?: Array< ModelChamaApplyConditionInput | null > | null,
+  not?: ModelChamaApplyConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ChamaApply = {
+  __typename: "ChamaApply",
+  id: string,
+  ChamaAdminEmail: string,
+  bankAdminEmail: string,
+  BankAdminAccount: string,
+  mfnReg: number,
+  status: Status,
+  ChamaAcNu: string,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateChamaApplyInput = {
+  id: string,
+  ChamaAdminEmail?: string | null,
+  bankAdminEmail?: string | null,
+  BankAdminAccount?: string | null,
+  mfnReg?: number | null,
+  status?: Status | null,
+  ChamaAcNu?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteChamaApplyInput = {
+  id: string,
+};
+
+export type CreateChamaApply2Input = {
+  id?: string | null,
+  ChamaAdminEmail: string,
+  bankAdminEmail: string,
+  BankAdminAccount: string,
+  mfnReg: number,
+  status: Status,
+  ChamaAcNu: string,
+  createdAt?: string | null,
+};
+
+export type ModelChamaApply2ConditionInput = {
+  ChamaAdminEmail?: ModelStringInput | null,
+  bankAdminEmail?: ModelStringInput | null,
+  BankAdminAccount?: ModelStringInput | null,
+  mfnReg?: ModelFloatInput | null,
+  status?: ModelStatusInput | null,
+  ChamaAcNu?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChamaApply2ConditionInput | null > | null,
+  or?: Array< ModelChamaApply2ConditionInput | null > | null,
+  not?: ModelChamaApply2ConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ChamaApply2 = {
+  __typename: "ChamaApply2",
+  id: string,
+  ChamaAdminEmail: string,
+  bankAdminEmail: string,
+  BankAdminAccount: string,
+  mfnReg: number,
+  status: Status,
+  ChamaAcNu: string,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateChamaApply2Input = {
+  id: string,
+  ChamaAdminEmail?: string | null,
+  bankAdminEmail?: string | null,
+  BankAdminAccount?: string | null,
+  mfnReg?: number | null,
+  status?: Status | null,
+  ChamaAcNu?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteChamaApply2Input = {
+  id: string,
+};
+
+export type CreateChamaControlTableInput = {
+  GroupID: string,
+  Institution: string,
+  LoansGiven: number,
+  LoansRepayment: number,
+  Subscriptions: number,
+  Dividends: number,
+  Withdrawals: number,
+  Deposits: number,
+  BankAdminEarnings: number,
+  GrpLoanOutEarnings: number,
+  GrpLoanEarnings: number,
+  SubscriptionsEarnings: number,
+  DividendsEarnings: number,
+  WithdrawalsEarnings: number,
+  DepositsEarnings: number,
+  GroupTotal: number,
+  MembersTotal: number,
+  BankAdminTotal: number,
+  status: Status,
+  createdAt?: string | null,
+  id?: string | null,
+};
+
+export type ModelChamaControlTableConditionInput = {
+  GroupID?: ModelIDInput | null,
+  Institution?: ModelStringInput | null,
+  LoansGiven?: ModelFloatInput | null,
+  LoansRepayment?: ModelFloatInput | null,
+  Subscriptions?: ModelFloatInput | null,
+  Dividends?: ModelFloatInput | null,
+  Withdrawals?: ModelFloatInput | null,
+  Deposits?: ModelFloatInput | null,
+  BankAdminEarnings?: ModelFloatInput | null,
+  GrpLoanOutEarnings?: ModelFloatInput | null,
+  GrpLoanEarnings?: ModelFloatInput | null,
+  SubscriptionsEarnings?: ModelFloatInput | null,
+  DividendsEarnings?: ModelFloatInput | null,
+  WithdrawalsEarnings?: ModelFloatInput | null,
+  DepositsEarnings?: ModelFloatInput | null,
+  GroupTotal?: ModelFloatInput | null,
+  MembersTotal?: ModelFloatInput | null,
+  BankAdminTotal?: ModelFloatInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelChamaControlTableConditionInput | null > | null,
+  or?: Array< ModelChamaControlTableConditionInput | null > | null,
+  not?: ModelChamaControlTableConditionInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type ChamaControlTable = {
+  __typename: "ChamaControlTable",
+  GroupID: string,
+  Institution: string,
+  LoansGiven: number,
+  LoansRepayment: number,
+  Subscriptions: number,
+  Dividends: number,
+  Withdrawals: number,
+  Deposits: number,
+  BankAdminEarnings: number,
+  GrpLoanOutEarnings: number,
+  GrpLoanEarnings: number,
+  SubscriptionsEarnings: number,
+  DividendsEarnings: number,
+  WithdrawalsEarnings: number,
+  DepositsEarnings: number,
+  GroupTotal: number,
+  MembersTotal: number,
+  BankAdminTotal: number,
+  status: Status,
+  createdAt: string,
+  id: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateChamaControlTableInput = {
+  GroupID?: string | null,
+  Institution?: string | null,
+  LoansGiven?: number | null,
+  LoansRepayment?: number | null,
+  Subscriptions?: number | null,
+  Dividends?: number | null,
+  Withdrawals?: number | null,
+  Deposits?: number | null,
+  BankAdminEarnings?: number | null,
+  GrpLoanOutEarnings?: number | null,
+  GrpLoanEarnings?: number | null,
+  SubscriptionsEarnings?: number | null,
+  DividendsEarnings?: number | null,
+  WithdrawalsEarnings?: number | null,
+  DepositsEarnings?: number | null,
+  GroupTotal?: number | null,
+  MembersTotal?: number | null,
+  BankAdminTotal?: number | null,
+  status?: Status | null,
+  createdAt?: string | null,
+  id: string,
+};
+
+export type DeleteChamaControlTableInput = {
   id: string,
 };
 
@@ -5370,22 +6211,6 @@ export type ModelSMAccountFilterInput = {
   and?: Array< ModelSMAccountFilterInput | null > | null,
   or?: Array< ModelSMAccountFilterInput | null > | null,
   not?: ModelSMAccountFilterInput | null,
-};
-
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
 };
 
 export enum ModelSortDirection {
@@ -5552,6 +6377,8 @@ export type ModelSMLoansCoveredFilterInput = {
   advregnu?: ModelStringInput | null,
   loanerId?: ModelStringInput | null,
   amountgiven?: ModelFloatInput | null,
+  clearanceAmt?: ModelFloatInput | null,
+  clearanceAmt2?: ModelFloatInput | null,
   amountexpected?: ModelFloatInput | null,
   amountExpectedBackWthClrnc?: ModelFloatInput | null,
   dfltUpdate?: ModelStringInput | null,
@@ -5612,6 +6439,8 @@ export type ModelCovCreditSellerFilterInput = {
   amountExpectedBackWthClrnc?: ModelFloatInput | null,
   amountRepaid?: ModelFloatInput | null,
   repaymentPeriod?: ModelFloatInput | null,
+  clearanceAmt?: ModelFloatInput | null,
+  clearanceAmt2?: ModelFloatInput | null,
   giverStatus?: ModelStatusInput | null,
   timeExpBack?: ModelFloatInput | null,
   timeExpBack2?: ModelFloatInput | null,
@@ -5652,6 +6481,8 @@ export type ModelCvrdGroupLoansFilterInput = {
   advEmail?: ModelStringInput | null,
   amountExpectedBack?: ModelFloatInput | null,
   amountExpectedBackWthClrnc?: ModelFloatInput | null,
+  clearanceAmt?: ModelFloatInput | null,
+  clearanceAmt2?: ModelFloatInput | null,
   amountRepaid?: ModelFloatInput | null,
   description?: ModelStringInput | null,
   dfltUpdate?: ModelStringInput | null,
@@ -6172,6 +7003,182 @@ export type ModelBankAdminConnection = {
   nextToken?: string | null,
 };
 
+export type ModelMiFedhaBankAdminFilterInput = {
+  nationalid?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  phonecontact?: ModelStringInput | null,
+  TtlEarnings?: ModelFloatInput | null,
+  pw?: ModelStringInput | null,
+  BankAdmBal?: ModelFloatInput | null,
+  email?: ModelStringInput | null,
+  bank?: ModelStringInput | null,
+  BankAcNu?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelMiFedhaBankAdminFilterInput | null > | null,
+  or?: Array< ModelMiFedhaBankAdminFilterInput | null > | null,
+  not?: ModelMiFedhaBankAdminFilterInput | null,
+};
+
+export type ModelMiFedhaBankAdminConnection = {
+  __typename: "ModelMiFedhaBankAdminConnection",
+  items:  Array<MiFedhaBankAdmin | null >,
+  nextToken?: string | null,
+};
+
+export type ModelChamaLoanSyncFilterInput = {
+  id?: ModelIDInput | null,
+  amount?: ModelFloatInput | null,
+  GrpAc?: ModelStringInput | null,
+  GrpAdmEmail?: ModelStringInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  ChamaName?: ModelStringInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
+  transactionType?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelChamaLoanSyncFilterInput | null > | null,
+  or?: Array< ModelChamaLoanSyncFilterInput | null > | null,
+  not?: ModelChamaLoanSyncFilterInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelChamaLoanSyncConnection = {
+  __typename: "ModelChamaLoanSyncConnection",
+  items:  Array<ChamaLoanSync | null >,
+  nextToken?: string | null,
+};
+
+export type ModelChamaDividendsSyncFilterInput = {
+  id?: ModelIDInput | null,
+  amount?: ModelFloatInput | null,
+  GrpAc?: ModelStringInput | null,
+  GrpAdmEmail?: ModelStringInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  ChamaName?: ModelStringInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
+  transactionType?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelChamaDividendsSyncFilterInput | null > | null,
+  or?: Array< ModelChamaDividendsSyncFilterInput | null > | null,
+  not?: ModelChamaDividendsSyncFilterInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelChamaDividendsSyncConnection = {
+  __typename: "ModelChamaDividendsSyncConnection",
+  items:  Array<ChamaDividendsSync | null >,
+  nextToken?: string | null,
+};
+
+export type ModelChamaSubscrptnSyncFilterInput = {
+  id?: ModelIDInput | null,
+  amount?: ModelFloatInput | null,
+  GrpAc?: ModelStringInput | null,
+  GrpAdmEmail?: ModelStringInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  ChamaName?: ModelStringInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
+  transactionType?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelChamaSubscrptnSyncFilterInput | null > | null,
+  or?: Array< ModelChamaSubscrptnSyncFilterInput | null > | null,
+  not?: ModelChamaSubscrptnSyncFilterInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelChamaSubscrptnSyncConnection = {
+  __typename: "ModelChamaSubscrptnSyncConnection",
+  items:  Array<ChamaSubscrptnSync | null >,
+  nextToken?: string | null,
+};
+
+export type ModelChamaDepositSyncFilterInput = {
+  id?: ModelIDInput | null,
+  amount?: ModelFloatInput | null,
+  GrpAc?: ModelStringInput | null,
+  GrpAdmEmail?: ModelStringInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  ChamaName?: ModelStringInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
+  transactionType?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelChamaDepositSyncFilterInput | null > | null,
+  or?: Array< ModelChamaDepositSyncFilterInput | null > | null,
+  not?: ModelChamaDepositSyncFilterInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelChamaDepositSyncConnection = {
+  __typename: "ModelChamaDepositSyncConnection",
+  items:  Array<ChamaDepositSync | null >,
+  nextToken?: string | null,
+};
+
+export type ModelChamaWithdrawalSyncFilterInput = {
+  id?: ModelIDInput | null,
+  amount?: ModelFloatInput | null,
+  GrpAc?: ModelStringInput | null,
+  GrpAdmEmail?: ModelStringInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  ChamaName?: ModelStringInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
+  transactionType?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelChamaWithdrawalSyncFilterInput | null > | null,
+  or?: Array< ModelChamaWithdrawalSyncFilterInput | null > | null,
+  not?: ModelChamaWithdrawalSyncFilterInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelChamaWithdrawalSyncConnection = {
+  __typename: "ModelChamaWithdrawalSyncConnection",
+  items:  Array<ChamaWithdrawalSync | null >,
+  nextToken?: string | null,
+};
+
+export type ModelChamaLoanRpymntSyncFilterInput = {
+  id?: ModelIDInput | null,
+  amount?: ModelFloatInput | null,
+  GrpAc?: ModelStringInput | null,
+  GrpAdmEmail?: ModelStringInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  ChamaName?: ModelStringInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
+  transactionType?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelChamaLoanRpymntSyncFilterInput | null > | null,
+  or?: Array< ModelChamaLoanRpymntSyncFilterInput | null > | null,
+  not?: ModelChamaLoanRpymntSyncFilterInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelChamaLoanRpymntSyncConnection = {
+  __typename: "ModelChamaLoanRpymntSyncConnection",
+  items:  Array<ChamaLoanRpymntSync | null >,
+  nextToken?: string | null,
+};
+
 export type ModelAdvocateFilterInput = {
   advregnu?: ModelStringInput | null,
   nationalid?: ModelStringInput | null,
@@ -6222,6 +7229,27 @@ export type ModelAdvocateWithdrawalsConnection = {
   nextToken?: string | null,
 };
 
+export type ModelMFBankWithdrawalsFilterInput = {
+  id?: ModelIDInput | null,
+  bankAdmnId?: ModelStringInput | null,
+  amount?: ModelFloatInput | null,
+  bankName?: ModelStringInput | null,
+  bkAcNo?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelMFBankWithdrawalsFilterInput | null > | null,
+  or?: Array< ModelMFBankWithdrawalsFilterInput | null > | null,
+  not?: ModelMFBankWithdrawalsFilterInput | null,
+};
+
+export type ModelMFBankWithdrawalsConnection = {
+  __typename: "ModelMFBankWithdrawalsConnection",
+  items:  Array<MFBankWithdrawals | null >,
+  nextToken?: string | null,
+};
+
 export type ModelCompanyFilterInput = {
   AdminId?: ModelStringInput | null,
   phoneContact?: ModelStringInput | null,
@@ -6238,6 +7266,7 @@ export type ModelCompanyFilterInput = {
   agentCom?: ModelFloatInput | null,
   sagentCom?: ModelFloatInput | null,
   companyCom?: ModelFloatInput | null,
+  companyComDisc?: ModelFloatInput | null,
   AdvCom?: ModelFloatInput | null,
   ChampCom?: ModelFloatInput | null,
   AdvCompanyCom?: ModelFloatInput | null,
@@ -6378,6 +7407,7 @@ export type ModelCompanyFilterInput = {
   p2pBenCom?: ModelFloatInput | null,
   g2pBenCom?: ModelFloatInput | null,
   p2BBenCom?: ModelFloatInput | null,
+  BankMifedhaSyncFee?: ModelFloatInput | null,
   id?: ModelIDInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelCompanyFilterInput | null > | null,
@@ -6521,6 +7551,18 @@ export type ModelGroupFilterInput = {
   signitory2Sub?: ModelStringInput | null,
   WithdrawCnfrmtn?: ModelStringInput | null,
   WithdrawCnfrmtnAmt?: ModelFloatInput | null,
+  BankAdminEmail?: ModelStringInput | null,
+  BankAdminAcNu?: ModelStringInput | null,
+  SignatoryEmail?: ModelStringInput | null,
+  GrpLoanOutSync?: ModelFloatInput | null,
+  GrpLoanRpymntSync?: ModelFloatInput | null,
+  MemberSubscrptnSync?: ModelFloatInput | null,
+  MemberDividendSync?: ModelFloatInput | null,
+  DepositSync?: ModelFloatInput | null,
+  WithdrawalSync?: ModelFloatInput | null,
+  chamaBenSync?: ModelFloatInput | null,
+  BankName?: ModelStringInput | null,
+  BranchNu?: ModelStringInput | null,
   grpEmail?: ModelStringInput | null,
   grpBal?: ModelFloatInput | null,
   ttlGrpMembers?: ModelFloatInput | null,
@@ -6853,6 +7895,7 @@ export type ModelMFKOfferz2FilterInput = {
   amtPaid?: ModelFloatInput | null,
   mfnOffered?: ModelFloatInput | null,
   acChamp?: ModelStringInput | null,
+  bankAdminEmail?: ModelStringInput | null,
   mfnReg?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
   mfkAc?: ModelStringInput | null,
@@ -6868,6 +7911,85 @@ export type ModelMFKOfferz2FilterInput = {
 export type ModelMFKOfferz2Connection = {
   __typename: "ModelMFKOfferz2Connection",
   items:  Array<MFKOfferz2 | null >,
+  nextToken?: string | null,
+};
+
+export type ModelChamaApplyFilterInput = {
+  id?: ModelIDInput | null,
+  ChamaAdminEmail?: ModelStringInput | null,
+  bankAdminEmail?: ModelStringInput | null,
+  BankAdminAccount?: ModelStringInput | null,
+  mfnReg?: ModelFloatInput | null,
+  status?: ModelStatusInput | null,
+  ChamaAcNu?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelChamaApplyFilterInput | null > | null,
+  or?: Array< ModelChamaApplyFilterInput | null > | null,
+  not?: ModelChamaApplyFilterInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelChamaApplyConnection = {
+  __typename: "ModelChamaApplyConnection",
+  items:  Array<ChamaApply | null >,
+  nextToken?: string | null,
+};
+
+export type ModelChamaApply2FilterInput = {
+  id?: ModelIDInput | null,
+  ChamaAdminEmail?: ModelStringInput | null,
+  bankAdminEmail?: ModelStringInput | null,
+  BankAdminAccount?: ModelStringInput | null,
+  mfnReg?: ModelFloatInput | null,
+  status?: ModelStatusInput | null,
+  ChamaAcNu?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelChamaApply2FilterInput | null > | null,
+  or?: Array< ModelChamaApply2FilterInput | null > | null,
+  not?: ModelChamaApply2FilterInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelChamaApply2Connection = {
+  __typename: "ModelChamaApply2Connection",
+  items:  Array<ChamaApply2 | null >,
+  nextToken?: string | null,
+};
+
+export type ModelChamaControlTableFilterInput = {
+  GroupID?: ModelIDInput | null,
+  Institution?: ModelStringInput | null,
+  LoansGiven?: ModelFloatInput | null,
+  LoansRepayment?: ModelFloatInput | null,
+  Subscriptions?: ModelFloatInput | null,
+  Dividends?: ModelFloatInput | null,
+  Withdrawals?: ModelFloatInput | null,
+  Deposits?: ModelFloatInput | null,
+  BankAdminEarnings?: ModelFloatInput | null,
+  GrpLoanOutEarnings?: ModelFloatInput | null,
+  GrpLoanEarnings?: ModelFloatInput | null,
+  SubscriptionsEarnings?: ModelFloatInput | null,
+  DividendsEarnings?: ModelFloatInput | null,
+  WithdrawalsEarnings?: ModelFloatInput | null,
+  DepositsEarnings?: ModelFloatInput | null,
+  GroupTotal?: ModelFloatInput | null,
+  MembersTotal?: ModelFloatInput | null,
+  BankAdminTotal?: ModelFloatInput | null,
+  status?: ModelStatusInput | null,
+  createdAt?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelChamaControlTableFilterInput | null > | null,
+  or?: Array< ModelChamaControlTableFilterInput | null > | null,
+  not?: ModelChamaControlTableFilterInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelChamaControlTableConnection = {
+  __typename: "ModelChamaControlTableConnection",
+  items:  Array<ChamaControlTable | null >,
   nextToken?: string | null,
 };
 
@@ -7176,6 +8298,8 @@ export type ModelSubscriptionSMLoansCoveredFilterInput = {
   advregnu?: ModelSubscriptionStringInput | null,
   loanerId?: ModelSubscriptionStringInput | null,
   amountgiven?: ModelSubscriptionFloatInput | null,
+  clearanceAmt?: ModelSubscriptionFloatInput | null,
+  clearanceAmt2?: ModelSubscriptionFloatInput | null,
   amountexpected?: ModelSubscriptionFloatInput | null,
   amountExpectedBackWthClrnc?: ModelSubscriptionFloatInput | null,
   dfltUpdate?: ModelSubscriptionStringInput | null,
@@ -7229,6 +8353,8 @@ export type ModelSubscriptionCovCreditSellerFilterInput = {
   amountExpectedBackWthClrnc?: ModelSubscriptionFloatInput | null,
   amountRepaid?: ModelSubscriptionFloatInput | null,
   repaymentPeriod?: ModelSubscriptionFloatInput | null,
+  clearanceAmt?: ModelSubscriptionFloatInput | null,
+  clearanceAmt2?: ModelSubscriptionFloatInput | null,
   giverStatus?: ModelSubscriptionStringInput | null,
   timeExpBack?: ModelSubscriptionFloatInput | null,
   timeExpBack2?: ModelSubscriptionFloatInput | null,
@@ -7262,6 +8388,8 @@ export type ModelSubscriptionCvrdGroupLoansFilterInput = {
   advEmail?: ModelSubscriptionStringInput | null,
   amountExpectedBack?: ModelSubscriptionFloatInput | null,
   amountExpectedBackWthClrnc?: ModelSubscriptionFloatInput | null,
+  clearanceAmt?: ModelSubscriptionFloatInput | null,
+  clearanceAmt2?: ModelSubscriptionFloatInput | null,
   amountRepaid?: ModelSubscriptionFloatInput | null,
   description?: ModelSubscriptionStringInput | null,
   dfltUpdate?: ModelSubscriptionStringInput | null,
@@ -7663,6 +8791,133 @@ export type ModelSubscriptionBankAdminFilterInput = {
   owner?: ModelStringInput | null,
 };
 
+export type ModelSubscriptionMiFedhaBankAdminFilterInput = {
+  nationalid?: ModelSubscriptionStringInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  phonecontact?: ModelSubscriptionStringInput | null,
+  TtlEarnings?: ModelSubscriptionFloatInput | null,
+  pw?: ModelSubscriptionStringInput | null,
+  BankAdmBal?: ModelSubscriptionFloatInput | null,
+  email?: ModelSubscriptionStringInput | null,
+  bank?: ModelSubscriptionStringInput | null,
+  BankAcNu?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionMiFedhaBankAdminFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMiFedhaBankAdminFilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionChamaLoanSyncFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  amount?: ModelSubscriptionFloatInput | null,
+  GrpAc?: ModelSubscriptionStringInput | null,
+  GrpAdmEmail?: ModelSubscriptionStringInput | null,
+  BankAdminEmail?: ModelSubscriptionStringInput | null,
+  ChamaName?: ModelSubscriptionStringInput | null,
+  BankName?: ModelSubscriptionStringInput | null,
+  BranchNu?: ModelSubscriptionStringInput | null,
+  transactionType?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionChamaLoanSyncFilterInput | null > | null,
+  or?: Array< ModelSubscriptionChamaLoanSyncFilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionChamaDividendsSyncFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  amount?: ModelSubscriptionFloatInput | null,
+  GrpAc?: ModelSubscriptionStringInput | null,
+  GrpAdmEmail?: ModelSubscriptionStringInput | null,
+  BankAdminEmail?: ModelSubscriptionStringInput | null,
+  ChamaName?: ModelSubscriptionStringInput | null,
+  BankName?: ModelSubscriptionStringInput | null,
+  BranchNu?: ModelSubscriptionStringInput | null,
+  transactionType?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionChamaDividendsSyncFilterInput | null > | null,
+  or?: Array< ModelSubscriptionChamaDividendsSyncFilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionChamaSubscrptnSyncFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  amount?: ModelSubscriptionFloatInput | null,
+  GrpAc?: ModelSubscriptionStringInput | null,
+  GrpAdmEmail?: ModelSubscriptionStringInput | null,
+  BankAdminEmail?: ModelSubscriptionStringInput | null,
+  ChamaName?: ModelSubscriptionStringInput | null,
+  BankName?: ModelSubscriptionStringInput | null,
+  BranchNu?: ModelSubscriptionStringInput | null,
+  transactionType?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionChamaSubscrptnSyncFilterInput | null > | null,
+  or?: Array< ModelSubscriptionChamaSubscrptnSyncFilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionChamaDepositSyncFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  amount?: ModelSubscriptionFloatInput | null,
+  GrpAc?: ModelSubscriptionStringInput | null,
+  GrpAdmEmail?: ModelSubscriptionStringInput | null,
+  BankAdminEmail?: ModelSubscriptionStringInput | null,
+  ChamaName?: ModelSubscriptionStringInput | null,
+  BankName?: ModelSubscriptionStringInput | null,
+  BranchNu?: ModelSubscriptionStringInput | null,
+  transactionType?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionChamaDepositSyncFilterInput | null > | null,
+  or?: Array< ModelSubscriptionChamaDepositSyncFilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionChamaWithdrawalSyncFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  amount?: ModelSubscriptionFloatInput | null,
+  GrpAc?: ModelSubscriptionStringInput | null,
+  GrpAdmEmail?: ModelSubscriptionStringInput | null,
+  BankAdminEmail?: ModelSubscriptionStringInput | null,
+  ChamaName?: ModelSubscriptionStringInput | null,
+  BankName?: ModelSubscriptionStringInput | null,
+  BranchNu?: ModelSubscriptionStringInput | null,
+  transactionType?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionChamaWithdrawalSyncFilterInput | null > | null,
+  or?: Array< ModelSubscriptionChamaWithdrawalSyncFilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionChamaLoanRpymntSyncFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  amount?: ModelSubscriptionFloatInput | null,
+  GrpAc?: ModelSubscriptionStringInput | null,
+  GrpAdmEmail?: ModelSubscriptionStringInput | null,
+  BankAdminEmail?: ModelSubscriptionStringInput | null,
+  ChamaName?: ModelSubscriptionStringInput | null,
+  BankName?: ModelSubscriptionStringInput | null,
+  BranchNu?: ModelSubscriptionStringInput | null,
+  transactionType?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionChamaLoanRpymntSyncFilterInput | null > | null,
+  or?: Array< ModelSubscriptionChamaLoanRpymntSyncFilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
 export type ModelSubscriptionAdvocateFilterInput = {
   advregnu?: ModelSubscriptionStringInput | null,
   nationalid?: ModelSubscriptionStringInput | null,
@@ -7699,6 +8954,20 @@ export type ModelSubscriptionAdvocateWithdrawalsFilterInput = {
   owner?: ModelStringInput | null,
 };
 
+export type ModelSubscriptionMFBankWithdrawalsFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  bankAdmnId?: ModelSubscriptionStringInput | null,
+  amount?: ModelSubscriptionFloatInput | null,
+  bankName?: ModelSubscriptionStringInput | null,
+  bkAcNo?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionMFBankWithdrawalsFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMFBankWithdrawalsFilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
 export type ModelSubscriptionCompanyFilterInput = {
   AdminId?: ModelSubscriptionStringInput | null,
   phoneContact?: ModelSubscriptionStringInput | null,
@@ -7715,6 +8984,7 @@ export type ModelSubscriptionCompanyFilterInput = {
   agentCom?: ModelSubscriptionFloatInput | null,
   sagentCom?: ModelSubscriptionFloatInput | null,
   companyCom?: ModelSubscriptionFloatInput | null,
+  companyComDisc?: ModelSubscriptionFloatInput | null,
   AdvCom?: ModelSubscriptionFloatInput | null,
   ChampCom?: ModelSubscriptionFloatInput | null,
   AdvCompanyCom?: ModelSubscriptionFloatInput | null,
@@ -7854,6 +9124,7 @@ export type ModelSubscriptionCompanyFilterInput = {
   p2pBenCom?: ModelSubscriptionFloatInput | null,
   g2pBenCom?: ModelSubscriptionFloatInput | null,
   p2BBenCom?: ModelSubscriptionFloatInput | null,
+  BankMifedhaSyncFee?: ModelSubscriptionFloatInput | null,
   id?: ModelSubscriptionIDInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCompanyFilterInput | null > | null,
@@ -7984,6 +9255,18 @@ export type ModelSubscriptionGroupFilterInput = {
   signitory2Sub?: ModelSubscriptionStringInput | null,
   WithdrawCnfrmtn?: ModelSubscriptionStringInput | null,
   WithdrawCnfrmtnAmt?: ModelSubscriptionFloatInput | null,
+  BankAdminEmail?: ModelSubscriptionStringInput | null,
+  BankAdminAcNu?: ModelSubscriptionStringInput | null,
+  SignatoryEmail?: ModelSubscriptionStringInput | null,
+  GrpLoanOutSync?: ModelSubscriptionFloatInput | null,
+  GrpLoanRpymntSync?: ModelSubscriptionFloatInput | null,
+  MemberSubscrptnSync?: ModelSubscriptionFloatInput | null,
+  MemberDividendSync?: ModelSubscriptionFloatInput | null,
+  DepositSync?: ModelSubscriptionFloatInput | null,
+  WithdrawalSync?: ModelSubscriptionFloatInput | null,
+  chamaBenSync?: ModelSubscriptionFloatInput | null,
+  BankName?: ModelSubscriptionStringInput | null,
+  BranchNu?: ModelSubscriptionStringInput | null,
   grpEmail?: ModelSubscriptionStringInput | null,
   grpBal?: ModelSubscriptionFloatInput | null,
   ttlGrpMembers?: ModelSubscriptionFloatInput | null,
@@ -8246,6 +9529,7 @@ export type ModelSubscriptionMFKOfferz2FilterInput = {
   amtPaid?: ModelSubscriptionFloatInput | null,
   mfnOffered?: ModelSubscriptionFloatInput | null,
   acChamp?: ModelSubscriptionStringInput | null,
+  bankAdminEmail?: ModelSubscriptionStringInput | null,
   mfnReg?: ModelSubscriptionFloatInput | null,
   status?: ModelSubscriptionStringInput | null,
   mfkAc?: ModelSubscriptionStringInput | null,
@@ -8254,6 +9538,64 @@ export type ModelSubscriptionMFKOfferz2FilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMFKOfferz2FilterInput | null > | null,
   or?: Array< ModelSubscriptionMFKOfferz2FilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionChamaApplyFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  ChamaAdminEmail?: ModelSubscriptionStringInput | null,
+  bankAdminEmail?: ModelSubscriptionStringInput | null,
+  BankAdminAccount?: ModelSubscriptionStringInput | null,
+  mfnReg?: ModelSubscriptionFloatInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  ChamaAcNu?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionChamaApplyFilterInput | null > | null,
+  or?: Array< ModelSubscriptionChamaApplyFilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionChamaApply2FilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  ChamaAdminEmail?: ModelSubscriptionStringInput | null,
+  bankAdminEmail?: ModelSubscriptionStringInput | null,
+  BankAdminAccount?: ModelSubscriptionStringInput | null,
+  mfnReg?: ModelSubscriptionFloatInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  ChamaAcNu?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionChamaApply2FilterInput | null > | null,
+  or?: Array< ModelSubscriptionChamaApply2FilterInput | null > | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionChamaControlTableFilterInput = {
+  GroupID?: ModelSubscriptionIDInput | null,
+  Institution?: ModelSubscriptionStringInput | null,
+  LoansGiven?: ModelSubscriptionFloatInput | null,
+  LoansRepayment?: ModelSubscriptionFloatInput | null,
+  Subscriptions?: ModelSubscriptionFloatInput | null,
+  Dividends?: ModelSubscriptionFloatInput | null,
+  Withdrawals?: ModelSubscriptionFloatInput | null,
+  Deposits?: ModelSubscriptionFloatInput | null,
+  BankAdminEarnings?: ModelSubscriptionFloatInput | null,
+  GrpLoanOutEarnings?: ModelSubscriptionFloatInput | null,
+  GrpLoanEarnings?: ModelSubscriptionFloatInput | null,
+  SubscriptionsEarnings?: ModelSubscriptionFloatInput | null,
+  DividendsEarnings?: ModelSubscriptionFloatInput | null,
+  WithdrawalsEarnings?: ModelSubscriptionFloatInput | null,
+  DepositsEarnings?: ModelSubscriptionFloatInput | null,
+  GroupTotal?: ModelSubscriptionFloatInput | null,
+  MembersTotal?: ModelSubscriptionFloatInput | null,
+  BankAdminTotal?: ModelSubscriptionFloatInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionChamaControlTableFilterInput | null > | null,
+  or?: Array< ModelSubscriptionChamaControlTableFilterInput | null > | null,
   owner?: ModelStringInput | null,
 };
 
@@ -9105,6 +10447,8 @@ export type CreateSMLoansCoveredMutation = {
     advregnu?: string | null,
     loanerId: string,
     amountgiven: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountexpected: number,
     amountExpectedBackWthClrnc: number,
     dfltUpdate?: string | null,
@@ -9152,6 +10496,8 @@ export type UpdateSMLoansCoveredMutation = {
     advregnu?: string | null,
     loanerId: string,
     amountgiven: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountexpected: number,
     amountExpectedBackWthClrnc: number,
     dfltUpdate?: string | null,
@@ -9199,6 +10545,8 @@ export type DeleteSMLoansCoveredMutation = {
     advregnu?: string | null,
     loanerId: string,
     amountgiven: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountexpected: number,
     amountExpectedBackWthClrnc: number,
     dfltUpdate?: string | null,
@@ -9257,6 +10605,8 @@ export type CreateCovCreditSellerMutation = {
     amountExpectedBackWthClrnc: number,
     amountRepaid: number,
     repaymentPeriod: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     giverStatus: Status,
     timeExpBack: number,
     timeExpBack2: number,
@@ -9304,6 +10654,8 @@ export type UpdateCovCreditSellerMutation = {
     amountExpectedBackWthClrnc: number,
     amountRepaid: number,
     repaymentPeriod: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     giverStatus: Status,
     timeExpBack: number,
     timeExpBack2: number,
@@ -9351,6 +10703,8 @@ export type DeleteCovCreditSellerMutation = {
     amountExpectedBackWthClrnc: number,
     amountRepaid: number,
     repaymentPeriod: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     giverStatus: Status,
     timeExpBack: number,
     timeExpBack2: number,
@@ -9389,6 +10743,8 @@ export type CreateCvrdGroupLoansMutation = {
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountRepaid: number,
     description?: string | null,
     dfltUpdate?: string | null,
@@ -9433,6 +10789,8 @@ export type UpdateCvrdGroupLoansMutation = {
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountRepaid: number,
     description?: string | null,
     dfltUpdate?: string | null,
@@ -9477,6 +10835,8 @@ export type DeleteCvrdGroupLoansMutation = {
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountRepaid: number,
     description?: string | null,
     dfltUpdate?: string | null,
@@ -10894,6 +12254,510 @@ export type DeleteBankAdminMutation = {
   } | null,
 };
 
+export type CreateMiFedhaBankAdminMutationVariables = {
+  input: CreateMiFedhaBankAdminInput,
+  condition?: ModelMiFedhaBankAdminConditionInput | null,
+};
+
+export type CreateMiFedhaBankAdminMutation = {
+  createMiFedhaBankAdmin?:  {
+    __typename: "MiFedhaBankAdmin",
+    nationalid: string,
+    name: string,
+    phonecontact: string,
+    TtlEarnings: number,
+    pw: string,
+    BankAdmBal: number,
+    email: string,
+    bank: string,
+    BankAcNu: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateMiFedhaBankAdminMutationVariables = {
+  input: UpdateMiFedhaBankAdminInput,
+  condition?: ModelMiFedhaBankAdminConditionInput | null,
+};
+
+export type UpdateMiFedhaBankAdminMutation = {
+  updateMiFedhaBankAdmin?:  {
+    __typename: "MiFedhaBankAdmin",
+    nationalid: string,
+    name: string,
+    phonecontact: string,
+    TtlEarnings: number,
+    pw: string,
+    BankAdmBal: number,
+    email: string,
+    bank: string,
+    BankAcNu: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteMiFedhaBankAdminMutationVariables = {
+  input: DeleteMiFedhaBankAdminInput,
+  condition?: ModelMiFedhaBankAdminConditionInput | null,
+};
+
+export type DeleteMiFedhaBankAdminMutation = {
+  deleteMiFedhaBankAdmin?:  {
+    __typename: "MiFedhaBankAdmin",
+    nationalid: string,
+    name: string,
+    phonecontact: string,
+    TtlEarnings: number,
+    pw: string,
+    BankAdmBal: number,
+    email: string,
+    bank: string,
+    BankAcNu: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateChamaLoanSyncMutationVariables = {
+  input: CreateChamaLoanSyncInput,
+  condition?: ModelChamaLoanSyncConditionInput | null,
+};
+
+export type CreateChamaLoanSyncMutation = {
+  createChamaLoanSync?:  {
+    __typename: "ChamaLoanSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateChamaLoanSyncMutationVariables = {
+  input: UpdateChamaLoanSyncInput,
+  condition?: ModelChamaLoanSyncConditionInput | null,
+};
+
+export type UpdateChamaLoanSyncMutation = {
+  updateChamaLoanSync?:  {
+    __typename: "ChamaLoanSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteChamaLoanSyncMutationVariables = {
+  input: DeleteChamaLoanSyncInput,
+  condition?: ModelChamaLoanSyncConditionInput | null,
+};
+
+export type DeleteChamaLoanSyncMutation = {
+  deleteChamaLoanSync?:  {
+    __typename: "ChamaLoanSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateChamaDividendsSyncMutationVariables = {
+  input: CreateChamaDividendsSyncInput,
+  condition?: ModelChamaDividendsSyncConditionInput | null,
+};
+
+export type CreateChamaDividendsSyncMutation = {
+  createChamaDividendsSync?:  {
+    __typename: "ChamaDividendsSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateChamaDividendsSyncMutationVariables = {
+  input: UpdateChamaDividendsSyncInput,
+  condition?: ModelChamaDividendsSyncConditionInput | null,
+};
+
+export type UpdateChamaDividendsSyncMutation = {
+  updateChamaDividendsSync?:  {
+    __typename: "ChamaDividendsSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteChamaDividendsSyncMutationVariables = {
+  input: DeleteChamaDividendsSyncInput,
+  condition?: ModelChamaDividendsSyncConditionInput | null,
+};
+
+export type DeleteChamaDividendsSyncMutation = {
+  deleteChamaDividendsSync?:  {
+    __typename: "ChamaDividendsSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateChamaSubscrptnSyncMutationVariables = {
+  input: CreateChamaSubscrptnSyncInput,
+  condition?: ModelChamaSubscrptnSyncConditionInput | null,
+};
+
+export type CreateChamaSubscrptnSyncMutation = {
+  createChamaSubscrptnSync?:  {
+    __typename: "ChamaSubscrptnSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateChamaSubscrptnSyncMutationVariables = {
+  input: UpdateChamaSubscrptnSyncInput,
+  condition?: ModelChamaSubscrptnSyncConditionInput | null,
+};
+
+export type UpdateChamaSubscrptnSyncMutation = {
+  updateChamaSubscrptnSync?:  {
+    __typename: "ChamaSubscrptnSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteChamaSubscrptnSyncMutationVariables = {
+  input: DeleteChamaSubscrptnSyncInput,
+  condition?: ModelChamaSubscrptnSyncConditionInput | null,
+};
+
+export type DeleteChamaSubscrptnSyncMutation = {
+  deleteChamaSubscrptnSync?:  {
+    __typename: "ChamaSubscrptnSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateChamaDepositSyncMutationVariables = {
+  input: CreateChamaDepositSyncInput,
+  condition?: ModelChamaDepositSyncConditionInput | null,
+};
+
+export type CreateChamaDepositSyncMutation = {
+  createChamaDepositSync?:  {
+    __typename: "ChamaDepositSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateChamaDepositSyncMutationVariables = {
+  input: UpdateChamaDepositSyncInput,
+  condition?: ModelChamaDepositSyncConditionInput | null,
+};
+
+export type UpdateChamaDepositSyncMutation = {
+  updateChamaDepositSync?:  {
+    __typename: "ChamaDepositSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteChamaDepositSyncMutationVariables = {
+  input: DeleteChamaDepositSyncInput,
+  condition?: ModelChamaDepositSyncConditionInput | null,
+};
+
+export type DeleteChamaDepositSyncMutation = {
+  deleteChamaDepositSync?:  {
+    __typename: "ChamaDepositSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateChamaWithdrawalSyncMutationVariables = {
+  input: CreateChamaWithdrawalSyncInput,
+  condition?: ModelChamaWithdrawalSyncConditionInput | null,
+};
+
+export type CreateChamaWithdrawalSyncMutation = {
+  createChamaWithdrawalSync?:  {
+    __typename: "ChamaWithdrawalSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateChamaWithdrawalSyncMutationVariables = {
+  input: UpdateChamaWithdrawalSyncInput,
+  condition?: ModelChamaWithdrawalSyncConditionInput | null,
+};
+
+export type UpdateChamaWithdrawalSyncMutation = {
+  updateChamaWithdrawalSync?:  {
+    __typename: "ChamaWithdrawalSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteChamaWithdrawalSyncMutationVariables = {
+  input: DeleteChamaWithdrawalSyncInput,
+  condition?: ModelChamaWithdrawalSyncConditionInput | null,
+};
+
+export type DeleteChamaWithdrawalSyncMutation = {
+  deleteChamaWithdrawalSync?:  {
+    __typename: "ChamaWithdrawalSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateChamaLoanRpymntSyncMutationVariables = {
+  input: CreateChamaLoanRpymntSyncInput,
+  condition?: ModelChamaLoanRpymntSyncConditionInput | null,
+};
+
+export type CreateChamaLoanRpymntSyncMutation = {
+  createChamaLoanRpymntSync?:  {
+    __typename: "ChamaLoanRpymntSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateChamaLoanRpymntSyncMutationVariables = {
+  input: UpdateChamaLoanRpymntSyncInput,
+  condition?: ModelChamaLoanRpymntSyncConditionInput | null,
+};
+
+export type UpdateChamaLoanRpymntSyncMutation = {
+  updateChamaLoanRpymntSync?:  {
+    __typename: "ChamaLoanRpymntSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteChamaLoanRpymntSyncMutationVariables = {
+  input: DeleteChamaLoanRpymntSyncInput,
+  condition?: ModelChamaLoanRpymntSyncConditionInput | null,
+};
+
+export type DeleteChamaLoanRpymntSyncMutation = {
+  deleteChamaLoanRpymntSync?:  {
+    __typename: "ChamaLoanRpymntSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
 export type CreateAdvocateMutationVariables = {
   input: CreateAdvocateInput,
   condition?: ModelAdvocateConditionInput | null,
@@ -11035,6 +12899,66 @@ export type DeleteAdvocateWithdrawalsMutation = {
   } | null,
 };
 
+export type CreateMFBankWithdrawalsMutationVariables = {
+  input: CreateMFBankWithdrawalsInput,
+  condition?: ModelMFBankWithdrawalsConditionInput | null,
+};
+
+export type CreateMFBankWithdrawalsMutation = {
+  createMFBankWithdrawals?:  {
+    __typename: "MFBankWithdrawals",
+    id: string,
+    bankAdmnId: string,
+    amount: number,
+    bankName: string,
+    bkAcNo: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateMFBankWithdrawalsMutationVariables = {
+  input: UpdateMFBankWithdrawalsInput,
+  condition?: ModelMFBankWithdrawalsConditionInput | null,
+};
+
+export type UpdateMFBankWithdrawalsMutation = {
+  updateMFBankWithdrawals?:  {
+    __typename: "MFBankWithdrawals",
+    id: string,
+    bankAdmnId: string,
+    amount: number,
+    bankName: string,
+    bkAcNo: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteMFBankWithdrawalsMutationVariables = {
+  input: DeleteMFBankWithdrawalsInput,
+  condition?: ModelMFBankWithdrawalsConditionInput | null,
+};
+
+export type DeleteMFBankWithdrawalsMutation = {
+  deleteMFBankWithdrawals?:  {
+    __typename: "MFBankWithdrawals",
+    id: string,
+    bankAdmnId: string,
+    amount: number,
+    bankName: string,
+    bkAcNo: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type CreateCompanyMutationVariables = {
   input: CreateCompanyInput,
   condition?: ModelCompanyConditionInput | null,
@@ -11058,6 +12982,7 @@ export type CreateCompanyMutation = {
     agentCom: number,
     sagentCom: number,
     companyCom: number,
+    companyComDisc: number,
     AdvCom: number,
     ChampCom: number,
     AdvCompanyCom: number,
@@ -11198,6 +13123,7 @@ export type CreateCompanyMutation = {
     p2pBenCom: number,
     g2pBenCom: number,
     p2BBenCom: number,
+    BankMifedhaSyncFee: number,
     updatedAt: string,
   } | null,
 };
@@ -11225,6 +13151,7 @@ export type UpdateCompanyMutation = {
     agentCom: number,
     sagentCom: number,
     companyCom: number,
+    companyComDisc: number,
     AdvCom: number,
     ChampCom: number,
     AdvCompanyCom: number,
@@ -11365,6 +13292,7 @@ export type UpdateCompanyMutation = {
     p2pBenCom: number,
     g2pBenCom: number,
     p2BBenCom: number,
+    BankMifedhaSyncFee: number,
     updatedAt: string,
   } | null,
 };
@@ -11392,6 +13320,7 @@ export type DeleteCompanyMutation = {
     agentCom: number,
     sagentCom: number,
     companyCom: number,
+    companyComDisc: number,
     AdvCom: number,
     ChampCom: number,
     AdvCompanyCom: number,
@@ -11532,6 +13461,7 @@ export type DeleteCompanyMutation = {
     p2pBenCom: number,
     g2pBenCom: number,
     p2BBenCom: number,
+    BankMifedhaSyncFee: number,
     updatedAt: string,
   } | null,
 };
@@ -11901,6 +13831,18 @@ export type CreateGroupMutation = {
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     WithdrawCnfrmtnAmt: number,
+    BankAdminEmail: string,
+    BankAdminAcNu: string,
+    SignatoryEmail: string,
+    GrpLoanOutSync: number,
+    GrpLoanRpymntSync: number,
+    MemberSubscrptnSync: number,
+    MemberDividendSync: number,
+    DepositSync: number,
+    WithdrawalSync: number,
+    chamaBenSync: number,
+    BankName: string,
+    BranchNu: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -11978,6 +13920,18 @@ export type UpdateGroupMutation = {
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     WithdrawCnfrmtnAmt: number,
+    BankAdminEmail: string,
+    BankAdminAcNu: string,
+    SignatoryEmail: string,
+    GrpLoanOutSync: number,
+    GrpLoanRpymntSync: number,
+    MemberSubscrptnSync: number,
+    MemberDividendSync: number,
+    DepositSync: number,
+    WithdrawalSync: number,
+    chamaBenSync: number,
+    BankName: string,
+    BranchNu: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -12055,6 +14009,18 @@ export type DeleteGroupMutation = {
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     WithdrawCnfrmtnAmt: number,
+    BankAdminEmail: string,
+    BankAdminAcNu: string,
+    SignatoryEmail: string,
+    GrpLoanOutSync: number,
+    GrpLoanRpymntSync: number,
+    MemberSubscrptnSync: number,
+    MemberDividendSync: number,
+    DepositSync: number,
+    WithdrawalSync: number,
+    chamaBenSync: number,
+    BankName: string,
+    BranchNu: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -12870,6 +14836,7 @@ export type CreateMFKOfferz2Mutation = {
     amtPaid: number,
     mfnOffered: number,
     acChamp: string,
+    bankAdminEmail: string,
     mfnReg: number,
     status: Status,
     mfkAc: string,
@@ -12894,6 +14861,7 @@ export type UpdateMFKOfferz2Mutation = {
     amtPaid: number,
     mfnOffered: number,
     acChamp: string,
+    bankAdminEmail: string,
     mfnReg: number,
     status: Status,
     mfkAc: string,
@@ -12918,11 +14886,240 @@ export type DeleteMFKOfferz2Mutation = {
     amtPaid: number,
     mfnOffered: number,
     acChamp: string,
+    bankAdminEmail: string,
     mfnReg: number,
     status: Status,
     mfkAc: string,
     acMainAc: string,
     createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateChamaApplyMutationVariables = {
+  input: CreateChamaApplyInput,
+  condition?: ModelChamaApplyConditionInput | null,
+};
+
+export type CreateChamaApplyMutation = {
+  createChamaApply?:  {
+    __typename: "ChamaApply",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateChamaApplyMutationVariables = {
+  input: UpdateChamaApplyInput,
+  condition?: ModelChamaApplyConditionInput | null,
+};
+
+export type UpdateChamaApplyMutation = {
+  updateChamaApply?:  {
+    __typename: "ChamaApply",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteChamaApplyMutationVariables = {
+  input: DeleteChamaApplyInput,
+  condition?: ModelChamaApplyConditionInput | null,
+};
+
+export type DeleteChamaApplyMutation = {
+  deleteChamaApply?:  {
+    __typename: "ChamaApply",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateChamaApply2MutationVariables = {
+  input: CreateChamaApply2Input,
+  condition?: ModelChamaApply2ConditionInput | null,
+};
+
+export type CreateChamaApply2Mutation = {
+  createChamaApply2?:  {
+    __typename: "ChamaApply2",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateChamaApply2MutationVariables = {
+  input: UpdateChamaApply2Input,
+  condition?: ModelChamaApply2ConditionInput | null,
+};
+
+export type UpdateChamaApply2Mutation = {
+  updateChamaApply2?:  {
+    __typename: "ChamaApply2",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteChamaApply2MutationVariables = {
+  input: DeleteChamaApply2Input,
+  condition?: ModelChamaApply2ConditionInput | null,
+};
+
+export type DeleteChamaApply2Mutation = {
+  deleteChamaApply2?:  {
+    __typename: "ChamaApply2",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateChamaControlTableMutationVariables = {
+  input: CreateChamaControlTableInput,
+  condition?: ModelChamaControlTableConditionInput | null,
+};
+
+export type CreateChamaControlTableMutation = {
+  createChamaControlTable?:  {
+    __typename: "ChamaControlTable",
+    GroupID: string,
+    Institution: string,
+    LoansGiven: number,
+    LoansRepayment: number,
+    Subscriptions: number,
+    Dividends: number,
+    Withdrawals: number,
+    Deposits: number,
+    BankAdminEarnings: number,
+    GrpLoanOutEarnings: number,
+    GrpLoanEarnings: number,
+    SubscriptionsEarnings: number,
+    DividendsEarnings: number,
+    WithdrawalsEarnings: number,
+    DepositsEarnings: number,
+    GroupTotal: number,
+    MembersTotal: number,
+    BankAdminTotal: number,
+    status: Status,
+    createdAt: string,
+    id: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateChamaControlTableMutationVariables = {
+  input: UpdateChamaControlTableInput,
+  condition?: ModelChamaControlTableConditionInput | null,
+};
+
+export type UpdateChamaControlTableMutation = {
+  updateChamaControlTable?:  {
+    __typename: "ChamaControlTable",
+    GroupID: string,
+    Institution: string,
+    LoansGiven: number,
+    LoansRepayment: number,
+    Subscriptions: number,
+    Dividends: number,
+    Withdrawals: number,
+    Deposits: number,
+    BankAdminEarnings: number,
+    GrpLoanOutEarnings: number,
+    GrpLoanEarnings: number,
+    SubscriptionsEarnings: number,
+    DividendsEarnings: number,
+    WithdrawalsEarnings: number,
+    DepositsEarnings: number,
+    GroupTotal: number,
+    MembersTotal: number,
+    BankAdminTotal: number,
+    status: Status,
+    createdAt: string,
+    id: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteChamaControlTableMutationVariables = {
+  input: DeleteChamaControlTableInput,
+  condition?: ModelChamaControlTableConditionInput | null,
+};
+
+export type DeleteChamaControlTableMutation = {
+  deleteChamaControlTable?:  {
+    __typename: "ChamaControlTable",
+    GroupID: string,
+    Institution: string,
+    LoansGiven: number,
+    LoansRepayment: number,
+    Subscriptions: number,
+    Dividends: number,
+    Withdrawals: number,
+    Deposits: number,
+    BankAdminEarnings: number,
+    GrpLoanOutEarnings: number,
+    GrpLoanEarnings: number,
+    SubscriptionsEarnings: number,
+    DividendsEarnings: number,
+    WithdrawalsEarnings: number,
+    DepositsEarnings: number,
+    GroupTotal: number,
+    MembersTotal: number,
+    BankAdminTotal: number,
+    status: Status,
+    createdAt: string,
+    id: string,
     updatedAt: string,
     owner?: string | null,
   } | null,
@@ -13526,6 +15723,8 @@ export type GetSMLoansCoveredQuery = {
     advregnu?: string | null,
     loanerId: string,
     amountgiven: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountexpected: number,
     amountExpectedBackWthClrnc: number,
     dfltUpdate?: string | null,
@@ -13578,6 +15777,8 @@ export type ListSMLoansCoveredsQuery = {
       advregnu?: string | null,
       loanerId: string,
       amountgiven: number,
+      clearanceAmt: number,
+      clearanceAmt2: number,
       amountexpected: number,
       amountExpectedBackWthClrnc: number,
       dfltUpdate?: string | null,
@@ -13637,6 +15838,8 @@ export type GetCovCreditSellerQuery = {
     amountExpectedBackWthClrnc: number,
     amountRepaid: number,
     repaymentPeriod: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     giverStatus: Status,
     timeExpBack: number,
     timeExpBack2: number,
@@ -13689,6 +15892,8 @@ export type ListCovCreditSellersQuery = {
       amountExpectedBackWthClrnc: number,
       amountRepaid: number,
       repaymentPeriod: number,
+      clearanceAmt: number,
+      clearanceAmt2: number,
       giverStatus: Status,
       timeExpBack: number,
       timeExpBack2: number,
@@ -13728,6 +15933,8 @@ export type GetCvrdGroupLoansQuery = {
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountRepaid: number,
     description?: string | null,
     dfltUpdate?: string | null,
@@ -13777,6 +15984,8 @@ export type ListCvrdGroupLoansQuery = {
       advEmail?: string | null,
       amountExpectedBack: number,
       amountExpectedBackWthClrnc: number,
+      clearanceAmt: number,
+      clearanceAmt2: number,
       amountRepaid: number,
       description?: string | null,
       dfltUpdate?: string | null,
@@ -14810,6 +17019,372 @@ export type ListBankAdminsQuery = {
   } | null,
 };
 
+export type GetMiFedhaBankAdminQueryVariables = {
+  nationalid: string,
+};
+
+export type GetMiFedhaBankAdminQuery = {
+  getMiFedhaBankAdmin?:  {
+    __typename: "MiFedhaBankAdmin",
+    nationalid: string,
+    name: string,
+    phonecontact: string,
+    TtlEarnings: number,
+    pw: string,
+    BankAdmBal: number,
+    email: string,
+    bank: string,
+    BankAcNu: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListMiFedhaBankAdminsQueryVariables = {
+  nationalid?: string | null,
+  filter?: ModelMiFedhaBankAdminFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListMiFedhaBankAdminsQuery = {
+  listMiFedhaBankAdmins?:  {
+    __typename: "ModelMiFedhaBankAdminConnection",
+    items:  Array< {
+      __typename: "MiFedhaBankAdmin",
+      nationalid: string,
+      name: string,
+      phonecontact: string,
+      TtlEarnings: number,
+      pw: string,
+      BankAdmBal: number,
+      email: string,
+      bank: string,
+      BankAcNu: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetChamaLoanSyncQueryVariables = {
+  id: string,
+};
+
+export type GetChamaLoanSyncQuery = {
+  getChamaLoanSync?:  {
+    __typename: "ChamaLoanSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListChamaLoanSyncsQueryVariables = {
+  filter?: ModelChamaLoanSyncFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListChamaLoanSyncsQuery = {
+  listChamaLoanSyncs?:  {
+    __typename: "ModelChamaLoanSyncConnection",
+    items:  Array< {
+      __typename: "ChamaLoanSync",
+      id: string,
+      amount: number,
+      GrpAc: string,
+      GrpAdmEmail: string,
+      BankAdminEmail: string,
+      ChamaName: string,
+      BankName: string,
+      BranchNu: string,
+      transactionType: string,
+      status: Status,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetChamaDividendsSyncQueryVariables = {
+  id: string,
+};
+
+export type GetChamaDividendsSyncQuery = {
+  getChamaDividendsSync?:  {
+    __typename: "ChamaDividendsSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListChamaDividendsSyncsQueryVariables = {
+  filter?: ModelChamaDividendsSyncFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListChamaDividendsSyncsQuery = {
+  listChamaDividendsSyncs?:  {
+    __typename: "ModelChamaDividendsSyncConnection",
+    items:  Array< {
+      __typename: "ChamaDividendsSync",
+      id: string,
+      amount: number,
+      GrpAc: string,
+      GrpAdmEmail: string,
+      BankAdminEmail: string,
+      ChamaName: string,
+      BankName: string,
+      BranchNu: string,
+      transactionType: string,
+      status: Status,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetChamaSubscrptnSyncQueryVariables = {
+  id: string,
+};
+
+export type GetChamaSubscrptnSyncQuery = {
+  getChamaSubscrptnSync?:  {
+    __typename: "ChamaSubscrptnSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListChamaSubscrptnSyncsQueryVariables = {
+  filter?: ModelChamaSubscrptnSyncFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListChamaSubscrptnSyncsQuery = {
+  listChamaSubscrptnSyncs?:  {
+    __typename: "ModelChamaSubscrptnSyncConnection",
+    items:  Array< {
+      __typename: "ChamaSubscrptnSync",
+      id: string,
+      amount: number,
+      GrpAc: string,
+      GrpAdmEmail: string,
+      BankAdminEmail: string,
+      ChamaName: string,
+      BankName: string,
+      BranchNu: string,
+      transactionType: string,
+      status: Status,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetChamaDepositSyncQueryVariables = {
+  id: string,
+};
+
+export type GetChamaDepositSyncQuery = {
+  getChamaDepositSync?:  {
+    __typename: "ChamaDepositSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListChamaDepositSyncsQueryVariables = {
+  filter?: ModelChamaDepositSyncFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListChamaDepositSyncsQuery = {
+  listChamaDepositSyncs?:  {
+    __typename: "ModelChamaDepositSyncConnection",
+    items:  Array< {
+      __typename: "ChamaDepositSync",
+      id: string,
+      amount: number,
+      GrpAc: string,
+      GrpAdmEmail: string,
+      BankAdminEmail: string,
+      ChamaName: string,
+      BankName: string,
+      BranchNu: string,
+      transactionType: string,
+      status: Status,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetChamaWithdrawalSyncQueryVariables = {
+  id: string,
+};
+
+export type GetChamaWithdrawalSyncQuery = {
+  getChamaWithdrawalSync?:  {
+    __typename: "ChamaWithdrawalSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListChamaWithdrawalSyncsQueryVariables = {
+  filter?: ModelChamaWithdrawalSyncFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListChamaWithdrawalSyncsQuery = {
+  listChamaWithdrawalSyncs?:  {
+    __typename: "ModelChamaWithdrawalSyncConnection",
+    items:  Array< {
+      __typename: "ChamaWithdrawalSync",
+      id: string,
+      amount: number,
+      GrpAc: string,
+      GrpAdmEmail: string,
+      BankAdminEmail: string,
+      ChamaName: string,
+      BankName: string,
+      BranchNu: string,
+      transactionType: string,
+      status: Status,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetChamaLoanRpymntSyncQueryVariables = {
+  id: string,
+};
+
+export type GetChamaLoanRpymntSyncQuery = {
+  getChamaLoanRpymntSync?:  {
+    __typename: "ChamaLoanRpymntSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListChamaLoanRpymntSyncsQueryVariables = {
+  filter?: ModelChamaLoanRpymntSyncFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListChamaLoanRpymntSyncsQuery = {
+  listChamaLoanRpymntSyncs?:  {
+    __typename: "ModelChamaLoanRpymntSyncConnection",
+    items:  Array< {
+      __typename: "ChamaLoanRpymntSync",
+      id: string,
+      amount: number,
+      GrpAc: string,
+      GrpAdmEmail: string,
+      BankAdminEmail: string,
+      ChamaName: string,
+      BankName: string,
+      BranchNu: string,
+      transactionType: string,
+      status: Status,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetAdvocateQueryVariables = {
   advregnu: string,
 };
@@ -14914,6 +17489,50 @@ export type ListAdvocateWithdrawalsQuery = {
   } | null,
 };
 
+export type GetMFBankWithdrawalsQueryVariables = {
+  id: string,
+};
+
+export type GetMFBankWithdrawalsQuery = {
+  getMFBankWithdrawals?:  {
+    __typename: "MFBankWithdrawals",
+    id: string,
+    bankAdmnId: string,
+    amount: number,
+    bankName: string,
+    bkAcNo: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListMFBankWithdrawalsQueryVariables = {
+  filter?: ModelMFBankWithdrawalsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListMFBankWithdrawalsQuery = {
+  listMFBankWithdrawals?:  {
+    __typename: "ModelMFBankWithdrawalsConnection",
+    items:  Array< {
+      __typename: "MFBankWithdrawals",
+      id: string,
+      bankAdmnId: string,
+      amount: number,
+      bankName: string,
+      bkAcNo: string,
+      status: Status,
+      owner: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetCompanyQueryVariables = {
   AdminId: string,
 };
@@ -14936,6 +17555,7 @@ export type GetCompanyQuery = {
     agentCom: number,
     sagentCom: number,
     companyCom: number,
+    companyComDisc: number,
     AdvCom: number,
     ChampCom: number,
     AdvCompanyCom: number,
@@ -15076,6 +17696,7 @@ export type GetCompanyQuery = {
     p2pBenCom: number,
     g2pBenCom: number,
     p2BBenCom: number,
+    BankMifedhaSyncFee: number,
     updatedAt: string,
   } | null,
 };
@@ -15108,6 +17729,7 @@ export type ListCompaniesQuery = {
       agentCom: number,
       sagentCom: number,
       companyCom: number,
+      companyComDisc: number,
       AdvCom: number,
       ChampCom: number,
       AdvCompanyCom: number,
@@ -15248,6 +17870,7 @@ export type ListCompaniesQuery = {
       p2pBenCom: number,
       g2pBenCom: number,
       p2BBenCom: number,
+      BankMifedhaSyncFee: number,
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
@@ -15509,6 +18132,18 @@ export type GetGroupQuery = {
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     WithdrawCnfrmtnAmt: number,
+    BankAdminEmail: string,
+    BankAdminAcNu: string,
+    SignatoryEmail: string,
+    GrpLoanOutSync: number,
+    GrpLoanRpymntSync: number,
+    MemberSubscrptnSync: number,
+    MemberDividendSync: number,
+    DepositSync: number,
+    WithdrawalSync: number,
+    chamaBenSync: number,
+    BankName: string,
+    BranchNu: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -15591,6 +18226,18 @@ export type ListGroupsQuery = {
       signitory2Sub: string,
       WithdrawCnfrmtn: string,
       WithdrawCnfrmtnAmt: number,
+      BankAdminEmail: string,
+      BankAdminAcNu: string,
+      SignatoryEmail: string,
+      GrpLoanOutSync: number,
+      GrpLoanRpymntSync: number,
+      MemberSubscrptnSync: number,
+      MemberDividendSync: number,
+      DepositSync: number,
+      WithdrawalSync: number,
+      chamaBenSync: number,
+      BankName: string,
+      BranchNu: string,
       grpEmail: string,
       grpBal: number,
       ttlGrpMembers: number,
@@ -16199,6 +18846,7 @@ export type GetMFKOfferz2Query = {
     amtPaid: number,
     mfnOffered: number,
     acChamp: string,
+    bankAdminEmail: string,
     mfnReg: number,
     status: Status,
     mfkAc: string,
@@ -16226,11 +18874,176 @@ export type ListMFKOfferz2sQuery = {
       amtPaid: number,
       mfnOffered: number,
       acChamp: string,
+      bankAdminEmail: string,
       mfnReg: number,
       status: Status,
       mfkAc: string,
       acMainAc: string,
       createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetChamaApplyQueryVariables = {
+  id: string,
+};
+
+export type GetChamaApplyQuery = {
+  getChamaApply?:  {
+    __typename: "ChamaApply",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListChamaAppliesQueryVariables = {
+  filter?: ModelChamaApplyFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListChamaAppliesQuery = {
+  listChamaApplies?:  {
+    __typename: "ModelChamaApplyConnection",
+    items:  Array< {
+      __typename: "ChamaApply",
+      id: string,
+      ChamaAdminEmail: string,
+      bankAdminEmail: string,
+      BankAdminAccount: string,
+      mfnReg: number,
+      status: Status,
+      ChamaAcNu: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetChamaApply2QueryVariables = {
+  id: string,
+};
+
+export type GetChamaApply2Query = {
+  getChamaApply2?:  {
+    __typename: "ChamaApply2",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListChamaApply2sQueryVariables = {
+  filter?: ModelChamaApply2FilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListChamaApply2sQuery = {
+  listChamaApply2s?:  {
+    __typename: "ModelChamaApply2Connection",
+    items:  Array< {
+      __typename: "ChamaApply2",
+      id: string,
+      ChamaAdminEmail: string,
+      bankAdminEmail: string,
+      BankAdminAccount: string,
+      mfnReg: number,
+      status: Status,
+      ChamaAcNu: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetChamaControlTableQueryVariables = {
+  id: string,
+};
+
+export type GetChamaControlTableQuery = {
+  getChamaControlTable?:  {
+    __typename: "ChamaControlTable",
+    GroupID: string,
+    Institution: string,
+    LoansGiven: number,
+    LoansRepayment: number,
+    Subscriptions: number,
+    Dividends: number,
+    Withdrawals: number,
+    Deposits: number,
+    BankAdminEarnings: number,
+    GrpLoanOutEarnings: number,
+    GrpLoanEarnings: number,
+    SubscriptionsEarnings: number,
+    DividendsEarnings: number,
+    WithdrawalsEarnings: number,
+    DepositsEarnings: number,
+    GroupTotal: number,
+    MembersTotal: number,
+    BankAdminTotal: number,
+    status: Status,
+    createdAt: string,
+    id: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListChamaControlTablesQueryVariables = {
+  filter?: ModelChamaControlTableFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListChamaControlTablesQuery = {
+  listChamaControlTables?:  {
+    __typename: "ModelChamaControlTableConnection",
+    items:  Array< {
+      __typename: "ChamaControlTable",
+      GroupID: string,
+      Institution: string,
+      LoansGiven: number,
+      LoansRepayment: number,
+      Subscriptions: number,
+      Dividends: number,
+      Withdrawals: number,
+      Deposits: number,
+      BankAdminEarnings: number,
+      GrpLoanOutEarnings: number,
+      GrpLoanEarnings: number,
+      SubscriptionsEarnings: number,
+      DividendsEarnings: number,
+      WithdrawalsEarnings: number,
+      DepositsEarnings: number,
+      GroupTotal: number,
+      MembersTotal: number,
+      BankAdminTotal: number,
+      status: Status,
+      createdAt: string,
+      id: string,
       updatedAt: string,
       owner?: string | null,
     } | null >,
@@ -16559,6 +19372,8 @@ export type VwMyDebts7Query = {
       advregnu?: string | null,
       loanerId: string,
       amountgiven: number,
+      clearanceAmt: number,
+      clearanceAmt2: number,
       amountexpected: number,
       amountExpectedBackWthClrnc: number,
       dfltUpdate?: string | null,
@@ -16614,6 +19429,8 @@ export type VwLnrNLneesssss7Query = {
       advregnu?: string | null,
       loanerId: string,
       amountgiven: number,
+      clearanceAmt: number,
+      clearanceAmt2: number,
       amountexpected: number,
       amountExpectedBackWthClrnc: number,
       dfltUpdate?: string | null,
@@ -16669,6 +19486,8 @@ export type VwMyDebtors7Query = {
       advregnu?: string | null,
       loanerId: string,
       amountgiven: number,
+      clearanceAmt: number,
+      clearanceAmt2: number,
       amountexpected: number,
       amountExpectedBackWthClrnc: number,
       dfltUpdate?: string | null,
@@ -16724,6 +19543,8 @@ export type VwMyLenders7Query = {
       advregnu?: string | null,
       loanerId: string,
       amountgiven: number,
+      clearanceAmt: number,
+      clearanceAmt2: number,
       amountexpected: number,
       amountExpectedBackWthClrnc: number,
       dfltUpdate?: string | null,
@@ -16790,6 +19611,8 @@ export type VwLnrNLneesss7Query = {
       amountExpectedBackWthClrnc: number,
       amountRepaid: number,
       repaymentPeriod: number,
+      clearanceAmt: number,
+      clearanceAmt2: number,
       giverStatus: Status,
       timeExpBack: number,
       timeExpBack2: number,
@@ -16845,6 +19668,8 @@ export type VwMyCrdBys7Query = {
       amountExpectedBackWthClrnc: number,
       amountRepaid: number,
       repaymentPeriod: number,
+      clearanceAmt: number,
+      clearanceAmt2: number,
       giverStatus: Status,
       timeExpBack: number,
       timeExpBack2: number,
@@ -16900,6 +19725,8 @@ export type VwMySales7Query = {
       amountExpectedBackWthClrnc: number,
       amountRepaid: number,
       repaymentPeriod: number,
+      clearanceAmt: number,
+      clearanceAmt2: number,
       giverStatus: Status,
       timeExpBack: number,
       timeExpBack2: number,
@@ -16946,6 +19773,8 @@ export type VwChamaMemberss7Query = {
       advEmail?: string | null,
       amountExpectedBack: number,
       amountExpectedBackWthClrnc: number,
+      clearanceAmt: number,
+      clearanceAmt2: number,
       amountRepaid: number,
       description?: string | null,
       dfltUpdate?: string | null,
@@ -16998,6 +19827,8 @@ export type VwMyChamass7Query = {
       advEmail?: string | null,
       amountExpectedBack: number,
       amountExpectedBackWthClrnc: number,
+      clearanceAmt: number,
+      clearanceAmt2: number,
       amountRepaid: number,
       description?: string | null,
       dfltUpdate?: string | null,
@@ -17050,6 +19881,8 @@ export type VwLnrNLnee7Query = {
       advEmail?: string | null,
       amountExpectedBack: number,
       amountExpectedBackWthClrnc: number,
+      clearanceAmt: number,
+      clearanceAmt2: number,
       amountRepaid: number,
       description?: string | null,
       dfltUpdate?: string | null,
@@ -18018,6 +20851,18 @@ export type VwNatIdentityszQuery = {
       signitory2Sub: string,
       WithdrawCnfrmtn: string,
       WithdrawCnfrmtnAmt: number,
+      BankAdminEmail: string,
+      BankAdminAcNu: string,
+      SignatoryEmail: string,
+      GrpLoanOutSync: number,
+      GrpLoanRpymntSync: number,
+      MemberSubscrptnSync: number,
+      MemberDividendSync: number,
+      DepositSync: number,
+      WithdrawalSync: number,
+      chamaBenSync: number,
+      BankName: string,
+      BranchNu: string,
       grpEmail: string,
       grpBal: number,
       ttlGrpMembers: number,
@@ -18103,6 +20948,18 @@ export type ViaChmAreaQuery = {
       signitory2Sub: string,
       WithdrawCnfrmtn: string,
       WithdrawCnfrmtnAmt: number,
+      BankAdminEmail: string,
+      BankAdminAcNu: string,
+      SignatoryEmail: string,
+      GrpLoanOutSync: number,
+      GrpLoanRpymntSync: number,
+      MemberSubscrptnSync: number,
+      MemberDividendSync: number,
+      DepositSync: number,
+      WithdrawalSync: number,
+      chamaBenSync: number,
+      BankName: string,
+      BranchNu: string,
       grpEmail: string,
       grpBal: number,
       ttlGrpMembers: number,
@@ -18188,6 +21045,18 @@ export type ViaChmVentureQuery = {
       signitory2Sub: string,
       WithdrawCnfrmtn: string,
       WithdrawCnfrmtnAmt: number,
+      BankAdminEmail: string,
+      BankAdminAcNu: string,
+      SignatoryEmail: string,
+      GrpLoanOutSync: number,
+      GrpLoanRpymntSync: number,
+      MemberSubscrptnSync: number,
+      MemberDividendSync: number,
+      DepositSync: number,
+      WithdrawalSync: number,
+      chamaBenSync: number,
+      BankName: string,
+      BranchNu: string,
       grpEmail: string,
       grpBal: number,
       ttlGrpMembers: number,
@@ -18896,6 +21765,7 @@ export type MFKOffers2Query = {
       amtPaid: number,
       mfnOffered: number,
       acChamp: string,
+      bankAdminEmail: string,
       mfnReg: number,
       status: Status,
       mfkAc: string,
@@ -19756,6 +22626,8 @@ export type OnCreateSMLoansCoveredSubscription = {
     advregnu?: string | null,
     loanerId: string,
     amountgiven: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountexpected: number,
     amountExpectedBackWthClrnc: number,
     dfltUpdate?: string | null,
@@ -19803,6 +22675,8 @@ export type OnUpdateSMLoansCoveredSubscription = {
     advregnu?: string | null,
     loanerId: string,
     amountgiven: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountexpected: number,
     amountExpectedBackWthClrnc: number,
     dfltUpdate?: string | null,
@@ -19850,6 +22724,8 @@ export type OnDeleteSMLoansCoveredSubscription = {
     advregnu?: string | null,
     loanerId: string,
     amountgiven: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountexpected: number,
     amountExpectedBackWthClrnc: number,
     dfltUpdate?: string | null,
@@ -19908,6 +22784,8 @@ export type OnCreateCovCreditSellerSubscription = {
     amountExpectedBackWthClrnc: number,
     amountRepaid: number,
     repaymentPeriod: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     giverStatus: Status,
     timeExpBack: number,
     timeExpBack2: number,
@@ -19955,6 +22833,8 @@ export type OnUpdateCovCreditSellerSubscription = {
     amountExpectedBackWthClrnc: number,
     amountRepaid: number,
     repaymentPeriod: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     giverStatus: Status,
     timeExpBack: number,
     timeExpBack2: number,
@@ -20002,6 +22882,8 @@ export type OnDeleteCovCreditSellerSubscription = {
     amountExpectedBackWthClrnc: number,
     amountRepaid: number,
     repaymentPeriod: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     giverStatus: Status,
     timeExpBack: number,
     timeExpBack2: number,
@@ -20040,6 +22922,8 @@ export type OnCreateCvrdGroupLoansSubscription = {
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountRepaid: number,
     description?: string | null,
     dfltUpdate?: string | null,
@@ -20084,6 +22968,8 @@ export type OnUpdateCvrdGroupLoansSubscription = {
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountRepaid: number,
     description?: string | null,
     dfltUpdate?: string | null,
@@ -20128,6 +23014,8 @@ export type OnDeleteCvrdGroupLoansSubscription = {
     advEmail?: string | null,
     amountExpectedBack: number,
     amountExpectedBackWthClrnc: number,
+    clearanceAmt: number,
+    clearanceAmt2: number,
     amountRepaid: number,
     description?: string | null,
     dfltUpdate?: string | null,
@@ -21542,6 +24430,510 @@ export type OnDeleteBankAdminSubscription = {
   } | null,
 };
 
+export type OnCreateMiFedhaBankAdminSubscriptionVariables = {
+  filter?: ModelSubscriptionMiFedhaBankAdminFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateMiFedhaBankAdminSubscription = {
+  onCreateMiFedhaBankAdmin?:  {
+    __typename: "MiFedhaBankAdmin",
+    nationalid: string,
+    name: string,
+    phonecontact: string,
+    TtlEarnings: number,
+    pw: string,
+    BankAdmBal: number,
+    email: string,
+    bank: string,
+    BankAcNu: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateMiFedhaBankAdminSubscriptionVariables = {
+  filter?: ModelSubscriptionMiFedhaBankAdminFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateMiFedhaBankAdminSubscription = {
+  onUpdateMiFedhaBankAdmin?:  {
+    __typename: "MiFedhaBankAdmin",
+    nationalid: string,
+    name: string,
+    phonecontact: string,
+    TtlEarnings: number,
+    pw: string,
+    BankAdmBal: number,
+    email: string,
+    bank: string,
+    BankAcNu: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteMiFedhaBankAdminSubscriptionVariables = {
+  filter?: ModelSubscriptionMiFedhaBankAdminFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteMiFedhaBankAdminSubscription = {
+  onDeleteMiFedhaBankAdmin?:  {
+    __typename: "MiFedhaBankAdmin",
+    nationalid: string,
+    name: string,
+    phonecontact: string,
+    TtlEarnings: number,
+    pw: string,
+    BankAdmBal: number,
+    email: string,
+    bank: string,
+    BankAcNu: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateChamaLoanSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaLoanSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateChamaLoanSyncSubscription = {
+  onCreateChamaLoanSync?:  {
+    __typename: "ChamaLoanSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateChamaLoanSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaLoanSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateChamaLoanSyncSubscription = {
+  onUpdateChamaLoanSync?:  {
+    __typename: "ChamaLoanSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteChamaLoanSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaLoanSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteChamaLoanSyncSubscription = {
+  onDeleteChamaLoanSync?:  {
+    __typename: "ChamaLoanSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateChamaDividendsSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaDividendsSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateChamaDividendsSyncSubscription = {
+  onCreateChamaDividendsSync?:  {
+    __typename: "ChamaDividendsSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateChamaDividendsSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaDividendsSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateChamaDividendsSyncSubscription = {
+  onUpdateChamaDividendsSync?:  {
+    __typename: "ChamaDividendsSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteChamaDividendsSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaDividendsSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteChamaDividendsSyncSubscription = {
+  onDeleteChamaDividendsSync?:  {
+    __typename: "ChamaDividendsSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateChamaSubscrptnSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaSubscrptnSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateChamaSubscrptnSyncSubscription = {
+  onCreateChamaSubscrptnSync?:  {
+    __typename: "ChamaSubscrptnSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateChamaSubscrptnSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaSubscrptnSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateChamaSubscrptnSyncSubscription = {
+  onUpdateChamaSubscrptnSync?:  {
+    __typename: "ChamaSubscrptnSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteChamaSubscrptnSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaSubscrptnSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteChamaSubscrptnSyncSubscription = {
+  onDeleteChamaSubscrptnSync?:  {
+    __typename: "ChamaSubscrptnSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateChamaDepositSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaDepositSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateChamaDepositSyncSubscription = {
+  onCreateChamaDepositSync?:  {
+    __typename: "ChamaDepositSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateChamaDepositSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaDepositSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateChamaDepositSyncSubscription = {
+  onUpdateChamaDepositSync?:  {
+    __typename: "ChamaDepositSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteChamaDepositSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaDepositSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteChamaDepositSyncSubscription = {
+  onDeleteChamaDepositSync?:  {
+    __typename: "ChamaDepositSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateChamaWithdrawalSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaWithdrawalSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateChamaWithdrawalSyncSubscription = {
+  onCreateChamaWithdrawalSync?:  {
+    __typename: "ChamaWithdrawalSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateChamaWithdrawalSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaWithdrawalSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateChamaWithdrawalSyncSubscription = {
+  onUpdateChamaWithdrawalSync?:  {
+    __typename: "ChamaWithdrawalSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteChamaWithdrawalSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaWithdrawalSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteChamaWithdrawalSyncSubscription = {
+  onDeleteChamaWithdrawalSync?:  {
+    __typename: "ChamaWithdrawalSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateChamaLoanRpymntSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaLoanRpymntSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateChamaLoanRpymntSyncSubscription = {
+  onCreateChamaLoanRpymntSync?:  {
+    __typename: "ChamaLoanRpymntSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateChamaLoanRpymntSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaLoanRpymntSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateChamaLoanRpymntSyncSubscription = {
+  onUpdateChamaLoanRpymntSync?:  {
+    __typename: "ChamaLoanRpymntSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteChamaLoanRpymntSyncSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaLoanRpymntSyncFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteChamaLoanRpymntSyncSubscription = {
+  onDeleteChamaLoanRpymntSync?:  {
+    __typename: "ChamaLoanRpymntSync",
+    id: string,
+    amount: number,
+    GrpAc: string,
+    GrpAdmEmail: string,
+    BankAdminEmail: string,
+    ChamaName: string,
+    BankName: string,
+    BranchNu: string,
+    transactionType: string,
+    status: Status,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
 export type OnCreateAdvocateSubscriptionVariables = {
   filter?: ModelSubscriptionAdvocateFilterInput | null,
   owner?: string | null,
@@ -21683,6 +25075,66 @@ export type OnDeleteAdvocateWithdrawalsSubscription = {
   } | null,
 };
 
+export type OnCreateMFBankWithdrawalsSubscriptionVariables = {
+  filter?: ModelSubscriptionMFBankWithdrawalsFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateMFBankWithdrawalsSubscription = {
+  onCreateMFBankWithdrawals?:  {
+    __typename: "MFBankWithdrawals",
+    id: string,
+    bankAdmnId: string,
+    amount: number,
+    bankName: string,
+    bkAcNo: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateMFBankWithdrawalsSubscriptionVariables = {
+  filter?: ModelSubscriptionMFBankWithdrawalsFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateMFBankWithdrawalsSubscription = {
+  onUpdateMFBankWithdrawals?:  {
+    __typename: "MFBankWithdrawals",
+    id: string,
+    bankAdmnId: string,
+    amount: number,
+    bankName: string,
+    bkAcNo: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteMFBankWithdrawalsSubscriptionVariables = {
+  filter?: ModelSubscriptionMFBankWithdrawalsFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteMFBankWithdrawalsSubscription = {
+  onDeleteMFBankWithdrawals?:  {
+    __typename: "MFBankWithdrawals",
+    id: string,
+    bankAdmnId: string,
+    amount: number,
+    bankName: string,
+    bkAcNo: string,
+    status: Status,
+    owner: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type OnCreateCompanySubscriptionVariables = {
   filter?: ModelSubscriptionCompanyFilterInput | null,
   owner?: string | null,
@@ -21706,6 +25158,7 @@ export type OnCreateCompanySubscription = {
     agentCom: number,
     sagentCom: number,
     companyCom: number,
+    companyComDisc: number,
     AdvCom: number,
     ChampCom: number,
     AdvCompanyCom: number,
@@ -21846,6 +25299,7 @@ export type OnCreateCompanySubscription = {
     p2pBenCom: number,
     g2pBenCom: number,
     p2BBenCom: number,
+    BankMifedhaSyncFee: number,
     updatedAt: string,
   } | null,
 };
@@ -21873,6 +25327,7 @@ export type OnUpdateCompanySubscription = {
     agentCom: number,
     sagentCom: number,
     companyCom: number,
+    companyComDisc: number,
     AdvCom: number,
     ChampCom: number,
     AdvCompanyCom: number,
@@ -22013,6 +25468,7 @@ export type OnUpdateCompanySubscription = {
     p2pBenCom: number,
     g2pBenCom: number,
     p2BBenCom: number,
+    BankMifedhaSyncFee: number,
     updatedAt: string,
   } | null,
 };
@@ -22040,6 +25496,7 @@ export type OnDeleteCompanySubscription = {
     agentCom: number,
     sagentCom: number,
     companyCom: number,
+    companyComDisc: number,
     AdvCom: number,
     ChampCom: number,
     AdvCompanyCom: number,
@@ -22180,6 +25637,7 @@ export type OnDeleteCompanySubscription = {
     p2pBenCom: number,
     g2pBenCom: number,
     p2BBenCom: number,
+    BankMifedhaSyncFee: number,
     updatedAt: string,
   } | null,
 };
@@ -22549,6 +26007,18 @@ export type OnCreateGroupSubscription = {
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     WithdrawCnfrmtnAmt: number,
+    BankAdminEmail: string,
+    BankAdminAcNu: string,
+    SignatoryEmail: string,
+    GrpLoanOutSync: number,
+    GrpLoanRpymntSync: number,
+    MemberSubscrptnSync: number,
+    MemberDividendSync: number,
+    DepositSync: number,
+    WithdrawalSync: number,
+    chamaBenSync: number,
+    BankName: string,
+    BranchNu: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -22626,6 +26096,18 @@ export type OnUpdateGroupSubscription = {
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     WithdrawCnfrmtnAmt: number,
+    BankAdminEmail: string,
+    BankAdminAcNu: string,
+    SignatoryEmail: string,
+    GrpLoanOutSync: number,
+    GrpLoanRpymntSync: number,
+    MemberSubscrptnSync: number,
+    MemberDividendSync: number,
+    DepositSync: number,
+    WithdrawalSync: number,
+    chamaBenSync: number,
+    BankName: string,
+    BranchNu: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -22703,6 +26185,18 @@ export type OnDeleteGroupSubscription = {
     signitory2Sub: string,
     WithdrawCnfrmtn: string,
     WithdrawCnfrmtnAmt: number,
+    BankAdminEmail: string,
+    BankAdminAcNu: string,
+    SignatoryEmail: string,
+    GrpLoanOutSync: number,
+    GrpLoanRpymntSync: number,
+    MemberSubscrptnSync: number,
+    MemberDividendSync: number,
+    DepositSync: number,
+    WithdrawalSync: number,
+    chamaBenSync: number,
+    BankName: string,
+    BranchNu: string,
     grpEmail: string,
     grpBal: number,
     ttlGrpMembers: number,
@@ -23515,6 +27009,7 @@ export type OnCreateMFKOfferz2Subscription = {
     amtPaid: number,
     mfnOffered: number,
     acChamp: string,
+    bankAdminEmail: string,
     mfnReg: number,
     status: Status,
     mfkAc: string,
@@ -23539,6 +27034,7 @@ export type OnUpdateMFKOfferz2Subscription = {
     amtPaid: number,
     mfnOffered: number,
     acChamp: string,
+    bankAdminEmail: string,
     mfnReg: number,
     status: Status,
     mfkAc: string,
@@ -23563,11 +27059,240 @@ export type OnDeleteMFKOfferz2Subscription = {
     amtPaid: number,
     mfnOffered: number,
     acChamp: string,
+    bankAdminEmail: string,
     mfnReg: number,
     status: Status,
     mfkAc: string,
     acMainAc: string,
     createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateChamaApplySubscriptionVariables = {
+  filter?: ModelSubscriptionChamaApplyFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateChamaApplySubscription = {
+  onCreateChamaApply?:  {
+    __typename: "ChamaApply",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateChamaApplySubscriptionVariables = {
+  filter?: ModelSubscriptionChamaApplyFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateChamaApplySubscription = {
+  onUpdateChamaApply?:  {
+    __typename: "ChamaApply",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteChamaApplySubscriptionVariables = {
+  filter?: ModelSubscriptionChamaApplyFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteChamaApplySubscription = {
+  onDeleteChamaApply?:  {
+    __typename: "ChamaApply",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateChamaApply2SubscriptionVariables = {
+  filter?: ModelSubscriptionChamaApply2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateChamaApply2Subscription = {
+  onCreateChamaApply2?:  {
+    __typename: "ChamaApply2",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateChamaApply2SubscriptionVariables = {
+  filter?: ModelSubscriptionChamaApply2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateChamaApply2Subscription = {
+  onUpdateChamaApply2?:  {
+    __typename: "ChamaApply2",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteChamaApply2SubscriptionVariables = {
+  filter?: ModelSubscriptionChamaApply2FilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteChamaApply2Subscription = {
+  onDeleteChamaApply2?:  {
+    __typename: "ChamaApply2",
+    id: string,
+    ChamaAdminEmail: string,
+    bankAdminEmail: string,
+    BankAdminAccount: string,
+    mfnReg: number,
+    status: Status,
+    ChamaAcNu: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateChamaControlTableSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaControlTableFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateChamaControlTableSubscription = {
+  onCreateChamaControlTable?:  {
+    __typename: "ChamaControlTable",
+    GroupID: string,
+    Institution: string,
+    LoansGiven: number,
+    LoansRepayment: number,
+    Subscriptions: number,
+    Dividends: number,
+    Withdrawals: number,
+    Deposits: number,
+    BankAdminEarnings: number,
+    GrpLoanOutEarnings: number,
+    GrpLoanEarnings: number,
+    SubscriptionsEarnings: number,
+    DividendsEarnings: number,
+    WithdrawalsEarnings: number,
+    DepositsEarnings: number,
+    GroupTotal: number,
+    MembersTotal: number,
+    BankAdminTotal: number,
+    status: Status,
+    createdAt: string,
+    id: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateChamaControlTableSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaControlTableFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateChamaControlTableSubscription = {
+  onUpdateChamaControlTable?:  {
+    __typename: "ChamaControlTable",
+    GroupID: string,
+    Institution: string,
+    LoansGiven: number,
+    LoansRepayment: number,
+    Subscriptions: number,
+    Dividends: number,
+    Withdrawals: number,
+    Deposits: number,
+    BankAdminEarnings: number,
+    GrpLoanOutEarnings: number,
+    GrpLoanEarnings: number,
+    SubscriptionsEarnings: number,
+    DividendsEarnings: number,
+    WithdrawalsEarnings: number,
+    DepositsEarnings: number,
+    GroupTotal: number,
+    MembersTotal: number,
+    BankAdminTotal: number,
+    status: Status,
+    createdAt: string,
+    id: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteChamaControlTableSubscriptionVariables = {
+  filter?: ModelSubscriptionChamaControlTableFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteChamaControlTableSubscription = {
+  onDeleteChamaControlTable?:  {
+    __typename: "ChamaControlTable",
+    GroupID: string,
+    Institution: string,
+    LoansGiven: number,
+    LoansRepayment: number,
+    Subscriptions: number,
+    Dividends: number,
+    Withdrawals: number,
+    Deposits: number,
+    BankAdminEarnings: number,
+    GrpLoanOutEarnings: number,
+    GrpLoanEarnings: number,
+    SubscriptionsEarnings: number,
+    DividendsEarnings: number,
+    WithdrawalsEarnings: number,
+    DepositsEarnings: number,
+    GroupTotal: number,
+    MembersTotal: number,
+    BankAdminTotal: number,
+    status: Status,
+    createdAt: string,
+    id: string,
     updatedAt: string,
     owner?: string | null,
   } | null,

@@ -92,6 +92,7 @@ const SMADepositForm = props => {
                   const agentComs = compDtls.data.getCompany.agentCom;
                   const sagentComs = compDtls.data.getCompany.sagentCom;
                   const companyComs = compDtls.data.getCompany.companyCom;
+                  const companyComDisc = compDtls.data.getCompany.companyComDisc;
                   const UsrWthdrwlFeess = compDtls.data.getCompany.UsrWthdrwlFees;
                  
 
@@ -120,7 +121,7 @@ const SMADepositForm = props => {
                           const MFKWithdrwlFees = compDtls.data.getSAgent.MFKWithdrwlFee;
                           const AgentCommission = (parseFloat(sagentComs) - parseFloat(MFNWithdrwlFees))/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)                                                
                           const saCommission =    (parseFloat(agentComs) - parseFloat(MFKWithdrwlFees))/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
-                          const compCommission = (parseFloat(companyComs))/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+                          const compCommission = (parseFloat(companyComs) - companyComDisc)/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
                           const UsrWithdrawalFee = AgentCommission+saCommission+compCommission;
                           const TTlAmtTrnsctd = parseFloat(amount) + UsrWithdrawalFee
                           

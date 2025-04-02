@@ -38,8 +38,7 @@ const FetchSMNonLnsSnt = props => {
                     filter:{
                       saId: {eq:route.params.MFKPhn}
                     } ,
-                      sortDirection: "DESC",
-                      limit:100
+                     
                       
                     }
   

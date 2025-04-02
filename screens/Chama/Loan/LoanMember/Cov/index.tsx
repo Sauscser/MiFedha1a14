@@ -8,9 +8,12 @@ import {
   createSMLoansCovered,
   updateAdvocate,
   updateAgent,
+  updateChamaControlTable,
   updateChamaMembers,
   updateCompany,
   updateGroup,
+  
+  updateMiFedhaBankAdmin,
   
   updateReqLoanChama,
   
@@ -30,6 +33,8 @@ import {
   
   getChamaMembers,
   getReqLoanChama,
+  getMiFedhaBankAdmin,
+  getChamaControlTable,
 } from '../../../../../src/graphql/queries';
 
 import {useNavigation} from '@react-navigation/native';
@@ -49,6 +54,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import { parse } from 'expo-linking';
+import {EQUITYTABLEID} from '@env';
 
 const ChmCovLns = props => {
   const [ChmPhn, setChmPhn] = useState('');
@@ -168,6 +174,8 @@ const ChmCovLns = props => {
       const grpNames =accountDtl.data.getGroup.grpName;
   
       const SenderSub =accountDtl.data.getGroup.owner;
+      const BankAdminAcNu =accountDtl.data.getGroup.BankAdminAcNu;
+      const GrpLoanOutSync =accountDtl.data.getGroup.GrpLoanOutSync;
       
       const fetchCompDtls = async () => {
         if(isLoading){
@@ -185,6 +193,8 @@ const ChmCovLns = props => {
           const AdvComs = CompDtls.data.getCompany.AdvCom;
           const CoverageFees = CompDtls.data.getCompany.CoverageFee;
           const AdvCompanyComs = CompDtls.data.getCompany.AdvCompanyCom;
+          const BankMifedhaSyncFee = CompDtls.data.getCompany.BankMifedhaSyncFee;
+          
           const AdvCovFee =(parseFloat(CoverageFees)*parseFloat(AdvComs))
           const CompCovFee = parseFloat(CoverageFees)*parseFloat(AdvCompanyComs);
           const AdvCovAmt =AdvCovFee*parseFloat(amount)
@@ -213,33 +223,44 @@ const ChmCovLns = props => {
           const ActualMaxSMInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) + 
           ttlCovFeeAmount)
 
-          const TransCost = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) 
-          
-          
-          
-          
 
-          const TtlTransCost2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) +  parseFloat(amount)
-          const amtrpayable2 = (parseFloat(amount) * 
-          ((Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 
-          Math.pow(1 + parseFloat(AmtExp)/36500, 0)) /
-          (Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 1))
+          const TransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount)       
+          const TransCost2 = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) 
+          
+          
+          
+         
+          
+          const amtrpayable = (parseFloat(amount) * 
+          ((Math.pow(1 + parseFloat(AmtExp)/36500, 0) ))
 )
         
-          const amtrpayable = parseFloat(amount) * 
-          ((Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 
-          Math.pow(1 + parseFloat(AmtExp)/36500, 0)) /
-          (Math.pow(1 + parseFloat(AmtExp)/36500, parseFloat(RepaymtPeriod)) - 1))
           
-          const TotalAmtExp = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable;
-          const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
-          const TtlTransCost = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) +  parseFloat(amount)
+          
+const TtlTransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount)
+const TtlTransCost2 = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount)))
+          
+
+          /* Group SYnc */
+
+          const GrpSync2 = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amount)
+          const GrpSync =  (parseFloat(userLoanTransferFees)*parseFloat(amount) + amount)
+
+/*Advocate fees */
+          const TotalAmtExp = TtlTransCost2 + amtrpayable;
+          /* without Advocate fees */
+          const TotalAmtExp2 =  TtlTransCost + amtrpayable;
 
           const AllTtlTrnsCst = TtlTransCost + MaxSMInterest;
 
           console.log(TotalAmtExp)
           console.log(TtlTransCost)
           console.log (amtrpayable)
+
+          const grossCompEarning = parseFloat(userLoanTransferFees)*parseFloat(amount)
+          const BankAdminEarning = grossCompEarning * parseFloat(BankMifedhaSyncFee)
+          const netCompEarning = grossCompEarning - BankAdminEarning;
+          
 
           
 
@@ -270,6 +291,31 @@ const ChmCovLns = props => {
                         const RecomDfltPnltyRate = (parseFloat(AmtRepaids)*20) / 100;
                           console.log (memberContacts)
 
+                          const fetchCntrlTble = async () => {
+                            if(isLoading){
+                              return;
+                            }
+                            setIsLoading(true);
+                            try {
+                                const contlTbl:any = await API.graphql(
+                                    graphqlOperation(getChamaControlTable, {id: EQUITYTABLEID}),
+                                    );
+                                    const GrpLoanOutEarnings =contlTbl.data.getChamaControlTable.GrpLoanOutEarnings;
+                                    const BankAdminEarnings =contlTbl.data.getChamaControlTable.BankAdminEarnings;
+                                    
+
+                          const fetchBankAdmin = async () => {
+                            if(isLoading){
+                              return;
+                            }
+                            setIsLoading(true);
+                            try {
+                                const BankAdmDtls:any = await API.graphql(
+                                    graphqlOperation(getMiFedhaBankAdmin, {nationalid: BankAdminAcNu}),
+                                    );
+                                    const BankAdmBal =BankAdmDtls.data.getMiFedhaBankAdmin.BankAdmBal;
+                                    
+
                         const sendSMLn = async () => {
                           if(isLoading){
                             return;
@@ -295,6 +341,8 @@ const ChmCovLns = props => {
                                     timeExpBack2: 61 + daysUpToDate,
                                     crtnDate: daysUpToDate,
                                     description: description,
+                                    clearanceAmt: 0,
+                                    clearanceAmt2: 0,
                                     lonBala: TotalAmtExp2.toFixed(0),
                                     advRegNu: "None",
                                     loaneeName: namess,
@@ -369,9 +417,10 @@ const ChmCovLns = props => {
                                   input:{
                                     grpContact:groupContacts,
                                     TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs)+1,
-                                    TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + TotalAmtExp2).toFixed(0),
+                                    TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + GrpSync).toFixed(0),
                                                                               
-                                    grpBal:(parseFloat(grpBals)-TtlTransCost2).toFixed(0) 
+                                    grpBal:(parseFloat(grpBals)-GrpSync).toFixed(0) ,
+                                    GrpLoanOutSync:(parseFloat(GrpLoanOutSync)+GrpSync).toFixed(0) 
                                    
                                     
                                   }
@@ -432,8 +481,8 @@ const ChmCovLns = props => {
                                     ttlCompCovEarnings: parseFloat(ttlCompCovEarningss),
                                     AdvEarningBal: parseFloat(AdvEarningBals),                                                                                                                                                     
                                     AdvEarning: parseFloat(AdvEarnings),
-                                    companyEarningBal: parseFloat(companyEarningBals) + parseFloat(userLoanTransferFees)*parseFloat(amount),
-                                    companyEarning:  parseFloat(companyEarnings) + parseFloat(userLoanTransferFees)*parseFloat(amount),                                                    
+                                    companyEarningBal: parseFloat(companyEarningBals) + netCompEarning,
+                                    companyEarning:  parseFloat(companyEarnings) + netCompEarning,                                                    
                                     
                                     ttlChmLnsInAmtCov: TotalAmtExp2 + parseFloat(ttlChmLnsInAmtCovs),
                                    
@@ -452,10 +501,67 @@ const ChmCovLns = props => {
                         return;}
                           }
                           setIsLoading(false);
-                          await updtLnReq();
+                          await updtBankAdmin();
                         }
                         
 
+                        const updtBankAdmin = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(false);
+                          
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateMiFedhaBankAdmin, {
+                                  input:{
+                                    nationalid:BankAdminAcNu,                                                      
+                                    BankAdmBal:(parseFloat(BankAdmBal) + BankAdminEarning).toFixed(0)
+                                  }
+                                })
+                              )
+                              
+                              
+                          }
+                          catch(error){
+                            console.log(error);
+                            if (error){Alert.alert("Error! Access denied!")
+                        return;}
+                          }
+                         await updtCntrlTbl ();
+                          setIsLoading(false);
+                          
+                        }
+
+                        const updtCntrlTbl = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(false);
+                          
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateChamaControlTable, {
+                                  input:{
+                                    id:EQUITYTABLEID,                                                      
+                                    GrpLoanOutEarnings:(parseFloat(GrpLoanOutEarnings) + BankAdminEarning).toFixed(0),
+                                    BankAdminEarnings: (parseFloat(BankAdminEarnings) + BankAdminEarning).toFixed(0)
+                                  }
+                                })
+                              )
+                              
+                              
+                          }
+                          catch(error){
+                            console.log(error);
+                            if (error){Alert.alert("Error! Access denied!")
+                        return;}
+                          }
+                         await updtLnReq ();
+                          setIsLoading(false);
+                          
+                        }
+                        
                         const updtLnReq = async () =>{
                           if(isLoading){
                             return;
@@ -524,6 +630,8 @@ const ChmCovLns = props => {
                                     amountExpectedBack: TotalAmtExp.toFixed(0),
                                     amountExpectedBackWthClrnc: TotalAmtExp.toFixed(0),
                                     amountRepaid: 0,
+                                    clearanceAmt: 0,
+                                    clearanceAmt2: 0,
                                     DefaultPenaltyChm:defaultPenalty,
                                     DefaultPenaltyChm2:0,
                                     timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
@@ -605,9 +713,10 @@ const ChmCovLns = props => {
                                   input:{
                                     grpContact:groupContacts,
                                     TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs)+1,
-                                    TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + TotalAmtExp).toFixed(0),
+                                    TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + GrpSync2).toFixed(0),
                                                                               
-                                    grpBal:(parseFloat(grpBals)-TtlTransCost).toFixed(0) 
+                                    grpBal:(parseFloat(grpBals)-GrpSync2).toFixed(0) ,
+                                    GrpLoanOutSync:(parseFloat(GrpLoanOutSync) + GrpSync2).toFixed(0)
                                    
                                     
                                   }
@@ -668,8 +777,8 @@ const ChmCovLns = props => {
                                     ttlCompCovEarnings:CompCovAmt + parseFloat(ttlCompCovEarningss),
                                     AdvEarningBal:AdvCovAmt + parseFloat(AdvEarningBals),                                                                                                                                                     
                                     AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
-                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals) + parseFloat(userLoanTransferFees)*parseFloat(amount),
-                                    companyEarning: CompCovAmt + parseFloat(companyEarnings) + parseFloat(userLoanTransferFees)*parseFloat(amount),                                                    
+                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals) + netCompEarning,
+                                    companyEarning: CompCovAmt + parseFloat(companyEarnings) + netCompEarning,                                                    
                                     
                                     ttlChmLnsInAmtCov: TotalAmtExp + parseFloat(ttlChmLnsInAmtCovs),
                                    
@@ -714,8 +823,64 @@ const ChmCovLns = props => {
                           }
                           
 
-                          await updtLnReq2();
+                          await updtBankAdmin2();
                           setIsLoading(false);
+                        }
+
+                        const updtBankAdmin2 = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(false);
+                          
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateMiFedhaBankAdmin, {
+                                  input:{
+                                    nationalid:BankAdminAcNu,                                                      
+                                    BankAdmBal:(parseFloat(BankAdmBal) + BankAdminEarning).toFixed(0)
+                                  }
+                                })
+                              )
+                              
+                              
+                          }
+                          catch(error){
+                            console.log(error);
+                            if (error){Alert.alert("Error! Access denied!")
+                        return;}
+                          }
+                         await updtCntrlTbl2 ();
+                          setIsLoading(false);
+                          
+                        }
+
+                        const updtCntrlTbl2 = async () =>{
+                          if(isLoading){
+                            return;
+                          }
+                          setIsLoading(false);
+                          
+                          try{
+                              await API.graphql(
+                                graphqlOperation(updateChamaControlTable, {
+                                  input:{
+                                    id:EQUITYTABLEID,                                                      
+                                    GrpLoanOutEarnings:(parseFloat(GrpLoanOutEarnings) + BankAdminEarning).toFixed(0)
+                                  }
+                                })
+                              )
+                              
+                              
+                          }
+                          catch(error){
+                            console.log(error);
+                            if (error){Alert.alert("Error! Retry or update!")
+                        return;}
+                          }
+                         await updtLnReq2 ();
+                          setIsLoading(false);
+                          
                         }
 
                         const updtLnReq2 = async () =>{
@@ -816,9 +981,27 @@ const ChmCovLns = props => {
             setIsLoading(false);
           }
           
-          await fetchRecUsrDtls();
+          await fetchBankAdmin();
 
-          
+        }
+        catch (e){
+          console.log(e);
+          if (e){Alert.alert("Error! Access denied!")
+  return;}
+        }
+        setIsLoading(false);
+      }
+      
+      await fetchCntrlTble ();
+
+    } catch (e) {
+      console.log(e);
+      if (e){Alert.alert("Error! Access denied!")
+  return;}
+    } 
+    setIsLoading(false);       
+  };
+  await fetchRecUsrDtls(); 
         
         } catch (e) {
           console.log(e);

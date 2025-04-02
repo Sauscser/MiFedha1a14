@@ -324,14 +324,13 @@ const SMASendLns = props => {
           const TtlTransCost2 = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount)  + parseFloat(amount);
           const CompanyTotalEarnings2 = parseFloat(userLoanTransferFees)*parseFloat(amount)
           const amtrpayable2 = parseFloat(amount) * 
-          ((Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 
-          Math.pow(1 + parseFloat(Interest)/36500, 0)) /
-          (Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 1))
+          ((Math.pow(1 + parseFloat(Interest)/36500, 0)))
         
           const amtrpayable = parseFloat(amount) * 
-          ((Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 
-          Math.pow(1 + parseFloat(Interest)/36500, 0)) /
-          (Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 1))
+          ((Math.pow(1 + parseFloat(Interest)/36500, 0)))  
+          
+        
+        
           const TotalAmtExp = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) + amtrpayable;
           const TotalAmtExp2 =  parseFloat(userLoanTransferFees)*parseFloat(amount) + amtrpayable2;
           
@@ -373,6 +372,8 @@ const SMASendLns = props => {
                                   loanID:route.params.id,
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,
+                                  clearanceAmt: 0,
+                                  clearanceAmt2: 0,
                                   loanerPhn:loanerEmail,
                                   loaneePhn: phonecontact,  
                                   loaneeEmail:loaneeEmail,
@@ -590,6 +591,8 @@ const SMASendLns = props => {
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,
                                   loanerPhn:loanerEmail,
+                                  clearanceAmt: 0,
+                                  clearanceAmt2: 0,
                                   loaneePhn: phonecontact,  
                                   loaneeEmail:loaneeEmail,
                                   loanerLoanee:userInfo.attributes.email+loaneeEmail,

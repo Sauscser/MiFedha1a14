@@ -60,6 +60,7 @@ const SMADepositForm = props => {
       const owners = ChmDtl.data.getGroup.owner;
       const names = ChmDtl.data.getGroup.grpName;
       const WithdrawCnfrmtnAmt = ChmDtl.data.getGroup.WithdrawCnfrmtnAmt;
+      const WithdrawalSync = ChmDtl.data.getGroup.WithdrawalSync;
          
       
       const fetchAgtBal = async () => {
@@ -183,7 +184,7 @@ const SMADepositForm = props => {
                           graphqlOperation(updateGroup, {
                             input: {
                               grpContact: ChmKntct,
-                  
+                              WithdrawalSync: parseFloat(WithdrawalSync) + parseFloat(amount).toFixed(0),
                               grpBal: (parseFloat(grpBals) - TTlAmtTrnsctd).toFixed(0) ,
                               ttlWthdrwn: (parseFloat(ttlWthdrwns) + parseFloat(amount)).toFixed(0),
                               WithdrawCnfrmtn: "NO"

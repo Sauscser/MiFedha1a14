@@ -21,7 +21,10 @@ export interface SMCvLnSttus {
         updatedAt:string,
         amountExpectedBackWthClrnc: number,
         DefaultPenaltySM2:number,
-        advEmail:string
+        clearanceAmt:number,
+        advEmail:string,
+        crtnDate: number,
+      interest:number
         
         
     }}
@@ -40,10 +43,12 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
     amountExpectedBackWthClrnc,
     DefaultPenaltySM2,
     loaneename,
-    status,
+    clearanceAmt,
     description,
     createdAt,
     advEmail,
+    crtnDate,
+         interest
    }} = props ;
 
    const navigation = useNavigation();
@@ -63,7 +68,31 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
       navigation.navigate ("WaiveSMBiz2Pal", {loanID})
    }
 
-   
+   const today = new Date();
+              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
+              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
+              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
+              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
+              let months2 = parseFloat(months)
+              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
+              
+              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
+
+              const curYrs = parseFloat(years)*365;
+              const curMnths = (months2)*30.4375;
+              const daysUpToDate = curYrs + curMnths + parseFloat(days)
+
+              const dayselapsed = (crtnDate - daysUpToDate) *(-1)
+
+              const netLnBal = (amountExpectedBackWthClrnc) - 
+              (clearanceAmt) -  (DefaultPenaltySM2)
+      
+              const netLnBal2 = (netLnBal) * 
+              ((Math.pow(1 + (interest)/36500, dayselapsed)))
+
+              const LonBal1 = netLnBal2 + (clearanceAmt) +  (DefaultPenaltySM2)
+
    
     return (
         <View style = {{marginTop:"10%"}}>              
@@ -85,7 +114,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
 
                     <Text style = {styles.ownerName}>                       
                        {/* interest*/}
-                       Loan Balance(Ksh): {lonBala.toFixed(2)}                    
+                       Loan Balance with penalties(Ksh): {LonBal1.toFixed(0)}                    
                     </Text> 
 
                     </Pressable>

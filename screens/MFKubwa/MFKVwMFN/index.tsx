@@ -37,8 +37,7 @@ const FetchSMNonLnsSnt = props => {
                 {
                  
                       
-                      sortDirection: "DESC",
-                      limit:100,
+                      
                       filter:{status: { eq: "AccountActive"},
                       eq:route.params.MFKPhn},
                       

@@ -25,8 +25,7 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listChamaMembers, 
                 {
                     filter:{  memberContact: {eq:userInfo.attributes.email}},
-                      sortDirection: 'DESC',
-                      limit: 100,
+                      
                     }
                  
                   ));

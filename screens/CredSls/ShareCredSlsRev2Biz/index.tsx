@@ -127,7 +127,7 @@ const SMASendNonLns = props => {
                               description: Desc,
                               RecName:namess,
                               SenderName:busNames,
-                              status: "BiznaShareCash",
+                              status: "BiznaShareCash2Biz",
                               owner: userInfo.attributes.sub
                             },
                           }),

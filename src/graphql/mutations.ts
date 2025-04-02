@@ -871,6 +871,8 @@ export const createSMLoansCovered = /* GraphQL */ `mutation CreateSMLoansCovered
     advregnu
     loanerId
     amountgiven
+    clearanceAmt
+    clearanceAmt2
     amountexpected
     amountExpectedBackWthClrnc
     dfltUpdate
@@ -919,6 +921,8 @@ export const updateSMLoansCovered = /* GraphQL */ `mutation UpdateSMLoansCovered
     advregnu
     loanerId
     amountgiven
+    clearanceAmt
+    clearanceAmt2
     amountexpected
     amountExpectedBackWthClrnc
     dfltUpdate
@@ -967,6 +971,8 @@ export const deleteSMLoansCovered = /* GraphQL */ `mutation DeleteSMLoansCovered
     advregnu
     loanerId
     amountgiven
+    clearanceAmt
+    clearanceAmt2
     amountexpected
     amountExpectedBackWthClrnc
     dfltUpdate
@@ -1026,6 +1032,8 @@ export const createCovCreditSeller = /* GraphQL */ `mutation CreateCovCreditSell
     amountExpectedBackWthClrnc
     amountRepaid
     repaymentPeriod
+    clearanceAmt
+    clearanceAmt2
     giverStatus
     timeExpBack
     timeExpBack2
@@ -1074,6 +1082,8 @@ export const updateCovCreditSeller = /* GraphQL */ `mutation UpdateCovCreditSell
     amountExpectedBackWthClrnc
     amountRepaid
     repaymentPeriod
+    clearanceAmt
+    clearanceAmt2
     giverStatus
     timeExpBack
     timeExpBack2
@@ -1122,6 +1132,8 @@ export const deleteCovCreditSeller = /* GraphQL */ `mutation DeleteCovCreditSell
     amountExpectedBackWthClrnc
     amountRepaid
     repaymentPeriod
+    clearanceAmt
+    clearanceAmt2
     giverStatus
     timeExpBack
     timeExpBack2
@@ -1161,6 +1173,8 @@ export const createCvrdGroupLoans = /* GraphQL */ `mutation CreateCvrdGroupLoans
     advEmail
     amountExpectedBack
     amountExpectedBackWthClrnc
+    clearanceAmt
+    clearanceAmt2
     amountRepaid
     description
     dfltUpdate
@@ -1206,6 +1220,8 @@ export const updateCvrdGroupLoans = /* GraphQL */ `mutation UpdateCvrdGroupLoans
     advEmail
     amountExpectedBack
     amountExpectedBackWthClrnc
+    clearanceAmt
+    clearanceAmt2
     amountRepaid
     description
     dfltUpdate
@@ -1251,6 +1267,8 @@ export const deleteCvrdGroupLoans = /* GraphQL */ `mutation DeleteCvrdGroupLoans
     advEmail
     amountExpectedBack
     amountExpectedBackWthClrnc
+    clearanceAmt
+    clearanceAmt2
     amountRepaid
     description
     dfltUpdate
@@ -2720,6 +2738,531 @@ export const deleteBankAdmin = /* GraphQL */ `mutation DeleteBankAdmin(
   APITypes.DeleteBankAdminMutationVariables,
   APITypes.DeleteBankAdminMutation
 >;
+export const createMiFedhaBankAdmin = /* GraphQL */ `mutation CreateMiFedhaBankAdmin(
+  $input: CreateMiFedhaBankAdminInput!
+  $condition: ModelMiFedhaBankAdminConditionInput
+) {
+  createMiFedhaBankAdmin(input: $input, condition: $condition) {
+    nationalid
+    name
+    phonecontact
+    TtlEarnings
+    pw
+    BankAdmBal
+    email
+    bank
+    BankAcNu
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateMiFedhaBankAdminMutationVariables,
+  APITypes.CreateMiFedhaBankAdminMutation
+>;
+export const updateMiFedhaBankAdmin = /* GraphQL */ `mutation UpdateMiFedhaBankAdmin(
+  $input: UpdateMiFedhaBankAdminInput!
+  $condition: ModelMiFedhaBankAdminConditionInput
+) {
+  updateMiFedhaBankAdmin(input: $input, condition: $condition) {
+    nationalid
+    name
+    phonecontact
+    TtlEarnings
+    pw
+    BankAdmBal
+    email
+    bank
+    BankAcNu
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateMiFedhaBankAdminMutationVariables,
+  APITypes.UpdateMiFedhaBankAdminMutation
+>;
+export const deleteMiFedhaBankAdmin = /* GraphQL */ `mutation DeleteMiFedhaBankAdmin(
+  $input: DeleteMiFedhaBankAdminInput!
+  $condition: ModelMiFedhaBankAdminConditionInput
+) {
+  deleteMiFedhaBankAdmin(input: $input, condition: $condition) {
+    nationalid
+    name
+    phonecontact
+    TtlEarnings
+    pw
+    BankAdmBal
+    email
+    bank
+    BankAcNu
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteMiFedhaBankAdminMutationVariables,
+  APITypes.DeleteMiFedhaBankAdminMutation
+>;
+export const createChamaLoanSync = /* GraphQL */ `mutation CreateChamaLoanSync(
+  $input: CreateChamaLoanSyncInput!
+  $condition: ModelChamaLoanSyncConditionInput
+) {
+  createChamaLoanSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateChamaLoanSyncMutationVariables,
+  APITypes.CreateChamaLoanSyncMutation
+>;
+export const updateChamaLoanSync = /* GraphQL */ `mutation UpdateChamaLoanSync(
+  $input: UpdateChamaLoanSyncInput!
+  $condition: ModelChamaLoanSyncConditionInput
+) {
+  updateChamaLoanSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateChamaLoanSyncMutationVariables,
+  APITypes.UpdateChamaLoanSyncMutation
+>;
+export const deleteChamaLoanSync = /* GraphQL */ `mutation DeleteChamaLoanSync(
+  $input: DeleteChamaLoanSyncInput!
+  $condition: ModelChamaLoanSyncConditionInput
+) {
+  deleteChamaLoanSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteChamaLoanSyncMutationVariables,
+  APITypes.DeleteChamaLoanSyncMutation
+>;
+export const createChamaDividendsSync = /* GraphQL */ `mutation CreateChamaDividendsSync(
+  $input: CreateChamaDividendsSyncInput!
+  $condition: ModelChamaDividendsSyncConditionInput
+) {
+  createChamaDividendsSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateChamaDividendsSyncMutationVariables,
+  APITypes.CreateChamaDividendsSyncMutation
+>;
+export const updateChamaDividendsSync = /* GraphQL */ `mutation UpdateChamaDividendsSync(
+  $input: UpdateChamaDividendsSyncInput!
+  $condition: ModelChamaDividendsSyncConditionInput
+) {
+  updateChamaDividendsSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateChamaDividendsSyncMutationVariables,
+  APITypes.UpdateChamaDividendsSyncMutation
+>;
+export const deleteChamaDividendsSync = /* GraphQL */ `mutation DeleteChamaDividendsSync(
+  $input: DeleteChamaDividendsSyncInput!
+  $condition: ModelChamaDividendsSyncConditionInput
+) {
+  deleteChamaDividendsSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteChamaDividendsSyncMutationVariables,
+  APITypes.DeleteChamaDividendsSyncMutation
+>;
+export const createChamaSubscrptnSync = /* GraphQL */ `mutation CreateChamaSubscrptnSync(
+  $input: CreateChamaSubscrptnSyncInput!
+  $condition: ModelChamaSubscrptnSyncConditionInput
+) {
+  createChamaSubscrptnSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateChamaSubscrptnSyncMutationVariables,
+  APITypes.CreateChamaSubscrptnSyncMutation
+>;
+export const updateChamaSubscrptnSync = /* GraphQL */ `mutation UpdateChamaSubscrptnSync(
+  $input: UpdateChamaSubscrptnSyncInput!
+  $condition: ModelChamaSubscrptnSyncConditionInput
+) {
+  updateChamaSubscrptnSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateChamaSubscrptnSyncMutationVariables,
+  APITypes.UpdateChamaSubscrptnSyncMutation
+>;
+export const deleteChamaSubscrptnSync = /* GraphQL */ `mutation DeleteChamaSubscrptnSync(
+  $input: DeleteChamaSubscrptnSyncInput!
+  $condition: ModelChamaSubscrptnSyncConditionInput
+) {
+  deleteChamaSubscrptnSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteChamaSubscrptnSyncMutationVariables,
+  APITypes.DeleteChamaSubscrptnSyncMutation
+>;
+export const createChamaDepositSync = /* GraphQL */ `mutation CreateChamaDepositSync(
+  $input: CreateChamaDepositSyncInput!
+  $condition: ModelChamaDepositSyncConditionInput
+) {
+  createChamaDepositSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateChamaDepositSyncMutationVariables,
+  APITypes.CreateChamaDepositSyncMutation
+>;
+export const updateChamaDepositSync = /* GraphQL */ `mutation UpdateChamaDepositSync(
+  $input: UpdateChamaDepositSyncInput!
+  $condition: ModelChamaDepositSyncConditionInput
+) {
+  updateChamaDepositSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateChamaDepositSyncMutationVariables,
+  APITypes.UpdateChamaDepositSyncMutation
+>;
+export const deleteChamaDepositSync = /* GraphQL */ `mutation DeleteChamaDepositSync(
+  $input: DeleteChamaDepositSyncInput!
+  $condition: ModelChamaDepositSyncConditionInput
+) {
+  deleteChamaDepositSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteChamaDepositSyncMutationVariables,
+  APITypes.DeleteChamaDepositSyncMutation
+>;
+export const createChamaWithdrawalSync = /* GraphQL */ `mutation CreateChamaWithdrawalSync(
+  $input: CreateChamaWithdrawalSyncInput!
+  $condition: ModelChamaWithdrawalSyncConditionInput
+) {
+  createChamaWithdrawalSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateChamaWithdrawalSyncMutationVariables,
+  APITypes.CreateChamaWithdrawalSyncMutation
+>;
+export const updateChamaWithdrawalSync = /* GraphQL */ `mutation UpdateChamaWithdrawalSync(
+  $input: UpdateChamaWithdrawalSyncInput!
+  $condition: ModelChamaWithdrawalSyncConditionInput
+) {
+  updateChamaWithdrawalSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateChamaWithdrawalSyncMutationVariables,
+  APITypes.UpdateChamaWithdrawalSyncMutation
+>;
+export const deleteChamaWithdrawalSync = /* GraphQL */ `mutation DeleteChamaWithdrawalSync(
+  $input: DeleteChamaWithdrawalSyncInput!
+  $condition: ModelChamaWithdrawalSyncConditionInput
+) {
+  deleteChamaWithdrawalSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteChamaWithdrawalSyncMutationVariables,
+  APITypes.DeleteChamaWithdrawalSyncMutation
+>;
+export const createChamaLoanRpymntSync = /* GraphQL */ `mutation CreateChamaLoanRpymntSync(
+  $input: CreateChamaLoanRpymntSyncInput!
+  $condition: ModelChamaLoanRpymntSyncConditionInput
+) {
+  createChamaLoanRpymntSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateChamaLoanRpymntSyncMutationVariables,
+  APITypes.CreateChamaLoanRpymntSyncMutation
+>;
+export const updateChamaLoanRpymntSync = /* GraphQL */ `mutation UpdateChamaLoanRpymntSync(
+  $input: UpdateChamaLoanRpymntSyncInput!
+  $condition: ModelChamaLoanRpymntSyncConditionInput
+) {
+  updateChamaLoanRpymntSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateChamaLoanRpymntSyncMutationVariables,
+  APITypes.UpdateChamaLoanRpymntSyncMutation
+>;
+export const deleteChamaLoanRpymntSync = /* GraphQL */ `mutation DeleteChamaLoanRpymntSync(
+  $input: DeleteChamaLoanRpymntSyncInput!
+  $condition: ModelChamaLoanRpymntSyncConditionInput
+) {
+  deleteChamaLoanRpymntSync(input: $input, condition: $condition) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteChamaLoanRpymntSyncMutationVariables,
+  APITypes.DeleteChamaLoanRpymntSyncMutation
+>;
 export const createAdvocate = /* GraphQL */ `mutation CreateAdvocate(
   $input: CreateAdvocateInput!
   $condition: ModelAdvocateConditionInput
@@ -2867,6 +3410,69 @@ export const deleteAdvocateWithdrawals = /* GraphQL */ `mutation DeleteAdvocateW
   APITypes.DeleteAdvocateWithdrawalsMutationVariables,
   APITypes.DeleteAdvocateWithdrawalsMutation
 >;
+export const createMFBankWithdrawals = /* GraphQL */ `mutation CreateMFBankWithdrawals(
+  $input: CreateMFBankWithdrawalsInput!
+  $condition: ModelMFBankWithdrawalsConditionInput
+) {
+  createMFBankWithdrawals(input: $input, condition: $condition) {
+    id
+    bankAdmnId
+    amount
+    bankName
+    bkAcNo
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateMFBankWithdrawalsMutationVariables,
+  APITypes.CreateMFBankWithdrawalsMutation
+>;
+export const updateMFBankWithdrawals = /* GraphQL */ `mutation UpdateMFBankWithdrawals(
+  $input: UpdateMFBankWithdrawalsInput!
+  $condition: ModelMFBankWithdrawalsConditionInput
+) {
+  updateMFBankWithdrawals(input: $input, condition: $condition) {
+    id
+    bankAdmnId
+    amount
+    bankName
+    bkAcNo
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateMFBankWithdrawalsMutationVariables,
+  APITypes.UpdateMFBankWithdrawalsMutation
+>;
+export const deleteMFBankWithdrawals = /* GraphQL */ `mutation DeleteMFBankWithdrawals(
+  $input: DeleteMFBankWithdrawalsInput!
+  $condition: ModelMFBankWithdrawalsConditionInput
+) {
+  deleteMFBankWithdrawals(input: $input, condition: $condition) {
+    id
+    bankAdmnId
+    amount
+    bankName
+    bkAcNo
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteMFBankWithdrawalsMutationVariables,
+  APITypes.DeleteMFBankWithdrawalsMutation
+>;
 export const createCompany = /* GraphQL */ `mutation CreateCompany(
   $input: CreateCompanyInput!
   $condition: ModelCompanyConditionInput
@@ -2887,6 +3493,7 @@ export const createCompany = /* GraphQL */ `mutation CreateCompany(
     agentCom
     sagentCom
     companyCom
+    companyComDisc
     AdvCom
     ChampCom
     AdvCompanyCom
@@ -3027,6 +3634,7 @@ export const createCompany = /* GraphQL */ `mutation CreateCompany(
     p2pBenCom
     g2pBenCom
     p2BBenCom
+    BankMifedhaSyncFee
     updatedAt
     __typename
   }
@@ -3055,6 +3663,7 @@ export const updateCompany = /* GraphQL */ `mutation UpdateCompany(
     agentCom
     sagentCom
     companyCom
+    companyComDisc
     AdvCom
     ChampCom
     AdvCompanyCom
@@ -3195,6 +3804,7 @@ export const updateCompany = /* GraphQL */ `mutation UpdateCompany(
     p2pBenCom
     g2pBenCom
     p2BBenCom
+    BankMifedhaSyncFee
     updatedAt
     __typename
   }
@@ -3223,6 +3833,7 @@ export const deleteCompany = /* GraphQL */ `mutation DeleteCompany(
     agentCom
     sagentCom
     companyCom
+    companyComDisc
     AdvCom
     ChampCom
     AdvCompanyCom
@@ -3363,6 +3974,7 @@ export const deleteCompany = /* GraphQL */ `mutation DeleteCompany(
     p2pBenCom
     g2pBenCom
     p2BBenCom
+    BankMifedhaSyncFee
     updatedAt
     __typename
   }
@@ -3736,6 +4348,18 @@ export const createGroup = /* GraphQL */ `mutation CreateGroup(
     signitory2Sub
     WithdrawCnfrmtn
     WithdrawCnfrmtnAmt
+    BankAdminEmail
+    BankAdminAcNu
+    SignatoryEmail
+    GrpLoanOutSync
+    GrpLoanRpymntSync
+    MemberSubscrptnSync
+    MemberDividendSync
+    DepositSync
+    WithdrawalSync
+    chamaBenSync
+    BankName
+    BranchNu
     grpEmail
     grpBal
     ttlGrpMembers
@@ -3814,6 +4438,18 @@ export const updateGroup = /* GraphQL */ `mutation UpdateGroup(
     signitory2Sub
     WithdrawCnfrmtn
     WithdrawCnfrmtnAmt
+    BankAdminEmail
+    BankAdminAcNu
+    SignatoryEmail
+    GrpLoanOutSync
+    GrpLoanRpymntSync
+    MemberSubscrptnSync
+    MemberDividendSync
+    DepositSync
+    WithdrawalSync
+    chamaBenSync
+    BankName
+    BranchNu
     grpEmail
     grpBal
     ttlGrpMembers
@@ -3892,6 +4528,18 @@ export const deleteGroup = /* GraphQL */ `mutation DeleteGroup(
     signitory2Sub
     WithdrawCnfrmtn
     WithdrawCnfrmtnAmt
+    BankAdminEmail
+    BankAdminAcNu
+    SignatoryEmail
+    GrpLoanOutSync
+    GrpLoanRpymntSync
+    MemberSubscrptnSync
+    MemberDividendSync
+    DepositSync
+    WithdrawalSync
+    chamaBenSync
+    BankName
+    BranchNu
     grpEmail
     grpBal
     ttlGrpMembers
@@ -4735,6 +5383,7 @@ export const createMFKOfferz2 = /* GraphQL */ `mutation CreateMFKOfferz2(
     amtPaid
     mfnOffered
     acChamp
+    bankAdminEmail
     mfnReg
     status
     mfkAc
@@ -4760,6 +5409,7 @@ export const updateMFKOfferz2 = /* GraphQL */ `mutation UpdateMFKOfferz2(
     amtPaid
     mfnOffered
     acChamp
+    bankAdminEmail
     mfnReg
     status
     mfkAc
@@ -4785,6 +5435,7 @@ export const deleteMFKOfferz2 = /* GraphQL */ `mutation DeleteMFKOfferz2(
     amtPaid
     mfnOffered
     acChamp
+    bankAdminEmail
     mfnReg
     status
     mfkAc
@@ -4798,4 +5449,241 @@ export const deleteMFKOfferz2 = /* GraphQL */ `mutation DeleteMFKOfferz2(
 ` as GeneratedMutation<
   APITypes.DeleteMFKOfferz2MutationVariables,
   APITypes.DeleteMFKOfferz2Mutation
+>;
+export const createChamaApply = /* GraphQL */ `mutation CreateChamaApply(
+  $input: CreateChamaApplyInput!
+  $condition: ModelChamaApplyConditionInput
+) {
+  createChamaApply(input: $input, condition: $condition) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateChamaApplyMutationVariables,
+  APITypes.CreateChamaApplyMutation
+>;
+export const updateChamaApply = /* GraphQL */ `mutation UpdateChamaApply(
+  $input: UpdateChamaApplyInput!
+  $condition: ModelChamaApplyConditionInput
+) {
+  updateChamaApply(input: $input, condition: $condition) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateChamaApplyMutationVariables,
+  APITypes.UpdateChamaApplyMutation
+>;
+export const deleteChamaApply = /* GraphQL */ `mutation DeleteChamaApply(
+  $input: DeleteChamaApplyInput!
+  $condition: ModelChamaApplyConditionInput
+) {
+  deleteChamaApply(input: $input, condition: $condition) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteChamaApplyMutationVariables,
+  APITypes.DeleteChamaApplyMutation
+>;
+export const createChamaApply2 = /* GraphQL */ `mutation CreateChamaApply2(
+  $input: CreateChamaApply2Input!
+  $condition: ModelChamaApply2ConditionInput
+) {
+  createChamaApply2(input: $input, condition: $condition) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateChamaApply2MutationVariables,
+  APITypes.CreateChamaApply2Mutation
+>;
+export const updateChamaApply2 = /* GraphQL */ `mutation UpdateChamaApply2(
+  $input: UpdateChamaApply2Input!
+  $condition: ModelChamaApply2ConditionInput
+) {
+  updateChamaApply2(input: $input, condition: $condition) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateChamaApply2MutationVariables,
+  APITypes.UpdateChamaApply2Mutation
+>;
+export const deleteChamaApply2 = /* GraphQL */ `mutation DeleteChamaApply2(
+  $input: DeleteChamaApply2Input!
+  $condition: ModelChamaApply2ConditionInput
+) {
+  deleteChamaApply2(input: $input, condition: $condition) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteChamaApply2MutationVariables,
+  APITypes.DeleteChamaApply2Mutation
+>;
+export const createChamaControlTable = /* GraphQL */ `mutation CreateChamaControlTable(
+  $input: CreateChamaControlTableInput!
+  $condition: ModelChamaControlTableConditionInput
+) {
+  createChamaControlTable(input: $input, condition: $condition) {
+    GroupID
+    Institution
+    LoansGiven
+    LoansRepayment
+    Subscriptions
+    Dividends
+    Withdrawals
+    Deposits
+    BankAdminEarnings
+    GrpLoanOutEarnings
+    GrpLoanEarnings
+    SubscriptionsEarnings
+    DividendsEarnings
+    WithdrawalsEarnings
+    DepositsEarnings
+    GroupTotal
+    MembersTotal
+    BankAdminTotal
+    status
+    createdAt
+    id
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateChamaControlTableMutationVariables,
+  APITypes.CreateChamaControlTableMutation
+>;
+export const updateChamaControlTable = /* GraphQL */ `mutation UpdateChamaControlTable(
+  $input: UpdateChamaControlTableInput!
+  $condition: ModelChamaControlTableConditionInput
+) {
+  updateChamaControlTable(input: $input, condition: $condition) {
+    GroupID
+    Institution
+    LoansGiven
+    LoansRepayment
+    Subscriptions
+    Dividends
+    Withdrawals
+    Deposits
+    BankAdminEarnings
+    GrpLoanOutEarnings
+    GrpLoanEarnings
+    SubscriptionsEarnings
+    DividendsEarnings
+    WithdrawalsEarnings
+    DepositsEarnings
+    GroupTotal
+    MembersTotal
+    BankAdminTotal
+    status
+    createdAt
+    id
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateChamaControlTableMutationVariables,
+  APITypes.UpdateChamaControlTableMutation
+>;
+export const deleteChamaControlTable = /* GraphQL */ `mutation DeleteChamaControlTable(
+  $input: DeleteChamaControlTableInput!
+  $condition: ModelChamaControlTableConditionInput
+) {
+  deleteChamaControlTable(input: $input, condition: $condition) {
+    GroupID
+    Institution
+    LoansGiven
+    LoansRepayment
+    Subscriptions
+    Dividends
+    Withdrawals
+    Deposits
+    BankAdminEarnings
+    GrpLoanOutEarnings
+    GrpLoanEarnings
+    SubscriptionsEarnings
+    DividendsEarnings
+    WithdrawalsEarnings
+    DepositsEarnings
+    GroupTotal
+    MembersTotal
+    BankAdminTotal
+    status
+    createdAt
+    id
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteChamaControlTableMutationVariables,
+  APITypes.DeleteChamaControlTableMutation
 >;

@@ -20,7 +20,7 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
-import { getCompany, getMFKOfferz, getSMAccount, listSMAccounts } from '../../../src/graphql/queries';
+import { getCompany, getGroup, getMFKOfferz, getSMAccount, listSMAccounts } from '../../../src/graphql/queries';
 
 const RegisterMFKubwaAcForm = props => {
   const [nationalId, setNationalid] = useState("");
@@ -94,6 +94,19 @@ const RegisterMFKubwaAcForm = props => {
                     const acChamp = UsrDtlsz.data.getMFKOfferz.acChamp
                     const mfkAc = UsrDtlsz.data.getMFKOfferz.mfkAc
                     const acMainAc = UsrDtlsz.data.getMFKOfferz.acMainAc
+
+                    const fetchChamaDtls = async () => {
+                      try {
+                        const UsrDtlszx:any = await API.graphql(
+                          graphqlOperation(getGroup, 
+                            { 
+                              grpContact:acChamp
+                            }
+                          )
+                        );
+                        const BankAdminEmail = UsrDtlszx.data.getGroup.BankAdminEmail
+                        const BankName = UsrDtlszx.data.getGroup.BankName
+                       
                   
 
             const CreateNewSA = async () => {
@@ -106,18 +119,20 @@ const RegisterMFKubwaAcForm = props => {
                   graphqlOperation(createSAgent, {
                     input: {
                       
+                      saPhoneContact: acMainAc,
+                      
                       saNationalid: nationalidssss,
                       name: nam,
-                      saPhoneContact: acMainAc,
+                      
                       pw: pword,
                       TtlEarnings: 0,
-                      bankName:BkAcNu,
+                      bankName:BankName,
                       mfnTtl:mfnOffered,
-                      bkAcNo:BkName,
+                      bkAcNo:acChamp,
                       offerStatus: offerStatus,
                       cost: acCost,
                       costBal: amtPaid,
-                      acChamp:acChamp,
+                      acChamp:BankAdminEmail,
                       actvMFNdog:0,
                       InctvMFNdog:0,
                       email: mfkAc,
@@ -179,6 +194,7 @@ const RegisterMFKubwaAcForm = props => {
                   )
               }
               catch(error){if(error){
+                console.log(error)
                 Alert.alert("Retry or update app or call customer care")
                 return
               }}
@@ -230,34 +246,45 @@ const RegisterMFKubwaAcForm = props => {
                 Alert.alert("Retry or update app or call customer care")
                 return;
               }}
-              Alert.alert("MFKubwa Account registered successfully")   
+              Alert.alert("MFKubwa Account created successfully")   
               setIsLoading(false);
             }
 
-           
-            
           } catch (e) {
+            console.error(e);
             if(e){Alert.alert("Retry or update app or call customer care")
           return}
+           
+          }
+        }
+         
+        await fetchChamaDtls();
+            
+          } catch (e) {
             console.error(e);
+            if(e){Alert.alert("Retry or update app or call customer care")
+          return}
+            
           }
         }
          
         await fetchMFKOffer();
       
       } catch (e) {
+        console.error(e);
             if(e){Alert.alert("Retry or update app or call customer care")
           return}
-            console.error(e);
+            
           }
         }
          
         await ChckUsrExistence();
       
       } catch (e) {
+        console.error(e);
             if(e){Alert.alert("Retry or update app or call customer care")
           return}
-            console.error(e);
+           
           }
         }
 
@@ -271,6 +298,7 @@ const RegisterMFKubwaAcForm = props => {
       }
 
   catch(e){
+    console.error(e);
     if(e){
       Alert.alert("Please ensure all details are filled correctly")
       return
@@ -381,23 +409,7 @@ useEffect(() =>{
             <Text style={styles.sendLoanText}>MFKubwa Name</Text>
           </View>
 
-          <View style={styles.sendLoanView}>
-            <TextInput
-              value={BkAcNu}
-              onChangeText={setBkAcNu}
-              style={styles.sendLoanInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>Bank Name</Text>
-          </View>
-
-          <View style={styles.sendLoanView}>
-            <TextInput
-              value={BkName}
-              onChangeText={setBkName}
-              style={styles.sendLoanInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendLoanText}>Bank Ac Number</Text>
-          </View>
+         
 
           <View style={styles.sendLoanView}>
             <TextInput

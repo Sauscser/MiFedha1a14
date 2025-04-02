@@ -140,24 +140,24 @@ const SMADepositForm = props => {
             }
             setIsLoading(true);
             try{
-              const compDtls :any= await API.graphql(
+              const compDtlsxzc :any= await API.graphql(
               graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
                 );
-                  const ttlUserWthdrwls = compDtls.data.getCompany.ttlUserWthdrwl;
-                  const agentComs = compDtls.data.getCompany.agentCom;
-                  const sagentComs = compDtls.data.getCompany.sagentCom;
-                  const companyComs = compDtls.data.getCompany.companyCom;
-                  const UsrWthdrwlFeess = compDtls.data.getCompany.UsrWthdrwlFees;
+                  const ttlUserWthdrwls = compDtlsxzc.data.getCompany.ttlUserWthdrwl;
+                  const agentComs = compDtlsxzc.data.getCompany.agentCom;
+                  const sagentComs = compDtlsxzc.data.getCompany.sagentCom;
+                  const companyComs = compDtlsxzc.data.getCompany.companyCom;
+                  const UsrWthdrwlFeess = compDtlsxzc.data.getCompany.UsrWthdrwlFees;
 
-                  const ChampCom = compDtls.data.getCompany.ChampCom;
+                  const ChampCom = compDtlsxzc.data.getCompany.ChampCom;
                  
-                  const companyEarningBals = compDtls.data.getCompany.companyEarningBal
-                  const companyEarnings = compDtls.data.getCompany.companyEarning
-                  const agentEarningBals = compDtls.data.getCompany.agentEarningBal
-                  const agentEarnings = compDtls.data.getCompany.agentEarning
-                  const saEarningBals = compDtls.data.getCompany.saEarningBal
-                  const saEarnings = compDtls.data.getCompany.saEarning
-                  const agentFloatIns = compDtls.data.getCompany.agentFloatIn                 
+                  const companyEarningBals = compDtlsxzc.data.getCompany.companyEarningBal
+                  const companyEarnings = compDtlsxzc.data.getCompany.companyEarning
+                  const agentEarningBals = compDtlsxzc.data.getCompany.agentEarningBal
+                  const agentEarnings = compDtlsxzc.data.getCompany.agentEarning
+                  const saEarningBals = compDtlsxzc.data.getCompany.saEarningBal
+                  const saEarnings = compDtlsxzc.data.getCompany.saEarning
+                  const agentFloatIns = compDtlsxzc.data.getCompany.agentFloatIn                 
                   
                   const gtsaDtls = async () =>{
                     if(isLoading){

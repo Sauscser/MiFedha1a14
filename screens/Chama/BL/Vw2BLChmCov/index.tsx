@@ -4,7 +4,7 @@ import {View, Text, Pressable, FlatList, Alert} from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/Chama/BL/BLChmCovLn";
 import styles from './styles';
-import { getCompany, getGroup,  listCvrdGroupLoans,  vwChamaMemberss, vwChamaMembersss, vwLnrNLnee } from '../../../../src/graphql/queries';
+import { getCompany, getGroup,  getSMAccount,  listCvrdGroupLoans,  vwChamaMemberss, vwChamaMembersss, vwLnrNLnee } from '../../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/core';
 import { updateCompany, updateGroup } from '../../../../src/graphql/mutations';
 
@@ -53,12 +53,11 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
                {
                 
-                      sortDirection: 'DESC',
-                      limit: 100,
+                     
                       filter: {
                         and: {
                           
-                          lonBala:{gt:0},
+                          amountExpectedBackWthClrnc:{gt:0},
                           status:{ne:"LoanBL"},
                           timeExpBack:{le: daysUpToDate},
                           timeExpBack2:{le:daysUpToDate},

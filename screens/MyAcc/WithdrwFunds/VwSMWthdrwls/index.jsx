@@ -36,9 +36,7 @@ const FetchSMNonLnsSnt = props => {
                 { 
                     filter:{
                       withdrawerid: {eq:userInfo.attributes.email}
-                    } ,
-                      sortDirection: "DESC",
-                      limit:100
+                    }
                     }
                 
                   ));

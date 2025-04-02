@@ -4,7 +4,7 @@ import {
   
   createSMLoansCovered,
   
-  createSMLoansNonCovered,
+  
   
   createNonLoans,
   
@@ -81,10 +81,14 @@ const RepayCovLnsss = props => {
                 const loanerEmail =RecAccountDtl.data.getSMLoansCovered.loanerEmail; 
                 const amountrepaids =RecAccountDtl.data.getSMLoansCovered.amountrepaid; 
                 const amountExpectedBacks =RecAccountDtl.data.getSMLoansCovered.amountexpected;
-                const ClranceAmt = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountExpectedBacks); 
-                const LonBalsss = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountrepaids);     
+                 const LonBalsss = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountrepaids);     
                 const loanerPhns =RecAccountDtl.data.getSMLoansCovered.loanerPhn; 
-                const DefaultPenaltySM2s =RecAccountDtl.data.getSMLoansCovered.DefaultPenaltySM2;
+                
+                 const DefaultPenaltySM2s =RecAccountDtl.data.getSMLoansCovered.DefaultPenaltySM2;
+                const clearanceAmts = RecAccountDtl.data.getSMLoansCovered.clearanceAmt;
+                
+                const ClranceAmt = parseFloat(clearanceAmts) + (DefaultPenaltySM2s);
+                
 
                 const repaymentPeriod =RecAccountDtl.data.getSMLoansCovered.repaymentPeriod; 
                 const amountgiven =RecAccountDtl.data.getSMLoansCovered.amountgiven; 
@@ -126,7 +130,7 @@ const RepayCovLnsss = props => {
               const daysUpToDate = curYrs + curMnths + parseFloat(days)
 
              
-
+/*
               let charz = crtnDate;
               let char1z = charz.charAt(0)
               let char2z = charz.charAt(1)
@@ -151,24 +155,21 @@ const RepayCovLnsss = props => {
               const crtnMnthsz = parseFloat(crtnMnthz)*30.4375;
               const daysAtCrtnz = crtnYearsz + crtnMnthsz + parseFloat(crtnDyz)
 
+              */
+
               const tmDif = daysUpToDate - dfltUpdate;
               const tmDif2 = daysUpToDate - crtnDate;
 
+              const netLnBal = parseFloat(amountExpectedBackWthClrncs) - 
+              parseFloat(clearanceAmts) - parseFloat (DefaultPenaltySM2s)
+      
+              const netLnBal2 = (netLnBal) * 
+              ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
 
+              const LonBal1 = (netLnBal2 + parseFloat(clearanceAmts) + parseFloat (DefaultPenaltySM2s)).toFixed(0)
+                const LoanBalz = parseFloat(LonBal1) - parseFloat(amounts)
 
-
-                const LoanBal = parseFloat(amountExpectedBackWthClrncs) * 
-                ((Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 
-                Math.pow(1 + parseFloat(interest)/36500, tmDif)) /
-                (Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 1))
-
-                const LoanBalz = (ClranceAmt + LoanBal) - parseFloat(amountrepaids)
-
-                const amountExpectedBackWthClrncszz = (LoanBalz + ClranceAmt) - parseFloat(amounts)
-
-
-
-
+              
 
               const fetchSenderUsrDtls = async () => {
                   if(isLoading){
@@ -305,10 +306,11 @@ const RepayCovLnsss = props => {
                                         input:{
                                           loanID: route.params.loanID,
                                           amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
-                                          lonBala: ((LoanBalz)-parseFloat(amounts)).toFixed(0),
-                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncszz.toFixed(0),
+                                          lonBala: LoanBalz.toFixed(0),
+                                          amountExpectedBackWthClrnc:LoanBalz.toFixed(0),
                                           status: "LoanCleared",
-                                          DefaultPenaltySM2:0
+                                          DefaultPenaltySM2:0,
+                                          clearanceAmt:0
                                       }})
                                     )
           
@@ -435,9 +437,10 @@ const RepayCovLnsss = props => {
                                         input:{
                                           loanID: route.params.loanID,
                                           amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
-                                          lonBala: ((LoanBalz) - parseFloat(amounts)).toFixed(0),
+                                          lonBala: LoanBalz.toFixed(0),
                                           DefaultPenaltySM2:0,
-                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncszz.toFixed(0),
+                                          amountExpectedBackWthClrnc:LoanBalz.toFixed(0),
+                                          clearanceAmt:0
                                         }
                                       })
                                     )
@@ -591,13 +594,14 @@ const RepayCovLnsss = props => {
                           }
                             
 
-                          else if(parseFloat(amounts) > parseFloat(lonBalas)){Alert.alert("The Loan Balance is lesser: "+lonBalas)}
+                          else if(parseFloat(amounts) > parseFloat(LonBal1))
+                            {Alert.alert("The Loan Balance is lesser: "+LonBal1)}
                           
 
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLs) === parseFloat(maxBLss) )
+                          else if(parseFloat(amounts) === parseFloat(LonBal1)  && parseFloat(MaxTymsBLs) === parseFloat(maxBLss) )
                           {updtSendrAcLonOvr1();}          
                           
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLs) > parseFloat(maxBLss) )
+                          else if(parseFloat(amounts) === parseFloat(LonBal1)  && parseFloat(MaxTymsBLs) > parseFloat(maxBLss) )
                           {updtSendrAcLonOvr2();}  
                                else {
                                 repyCovLn();

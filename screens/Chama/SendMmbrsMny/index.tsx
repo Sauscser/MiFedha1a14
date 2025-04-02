@@ -10,15 +10,20 @@ import {
   
   createGroupNonLoans,
   updateChamaMembers,
+  updateMiFedhaBankAdmin,
+  updateChamaControlTable,
   
 } from '../../.././src/graphql/mutations';
 
 import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {
   
+  getChamaControlTable,
   getChamaMembers,
   getCompany,
   getGroup,
+  
+  getMiFedhaBankAdmin,
   
   getSMAccount,
   
@@ -37,6 +42,7 @@ import {
   Alert,
   ActivityIndicator
 } from 'react-native';
+import {EQUITYTABLEID} from '@env';
 import styles from './styles';
 
 
@@ -88,6 +94,9 @@ const SMASendNonLns = props => {
       const ttlNonLonsSentChms =accountDtl.data.getGroup.ttlNonLonsSentChm;
       
       const grpNames =accountDtl.data.getGroup.grpName;
+      const MemberDividendSync =accountDtl.data.getGroup.MemberDividendSync;
+            const BankAdminAcNu =accountDtl.data.getGroup.BankAdminAcNu;
+           
       
       
       const fetchCompDtls = async () => {
@@ -104,10 +113,22 @@ const SMASendNonLns = props => {
           
             
           
-          const TotalTransacted = parseFloat(amounts);
-          
-          const ttlNonLonssSentChms = CompDtls.data.getCompany.ttlNonLonssSentChm; 
          
+          const BankMifedhaSyncFee = CompDtls.data.getCompany.BankMifedhaSyncFee;
+          const ttlNonLonssSentChms = CompDtls.data.getCompany.ttlNonLonssSentChm; 
+          const chmTransferFee = CompDtls.data.getCompany.chmTransferFee; 
+
+          const companyEarningBals = CompDtls.data.getCompany.companyEarningBal; 
+          const companyEarnings = CompDtls.data.getCompany.companyEarning;
+          
+          const grossCompEarning = parseFloat(chmTransferFee)*parseFloat(amounts)
+          const BankAdminEarning = grossCompEarning * parseFloat(BankMifedhaSyncFee)
+          const netCompEarning = grossCompEarning - BankAdminEarning;
+
+          const TotalTransacted = grossCompEarning + parseFloat(amounts)
+          
+
+
                     
           const fetchRecUsrDtls = async () => {
             if(isLoading){
@@ -125,6 +146,32 @@ const SMASendNonLns = props => {
                     const namess =RecAccountDtl.data.getSMAccount.name;
                     const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
                     const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
+
+
+                    const fetchBankAdmin = async () => {
+                      if(isLoading){
+                        return;
+                      }
+                      setIsLoading(true);
+                      try {
+                          const BankAdmDtls:any = await API.graphql(
+                              graphqlOperation(getMiFedhaBankAdmin, {nationalid: BankAdminAcNu}),
+                              );
+                              const BankAdmBal =BankAdmDtls.data.getMiFedhaBankAdmin.BankAdmBal;
+                                                                  
+
+                              const fetchCntrlTble = async () => {
+                                                          if(isLoading){
+                                                            return;
+                                                          }
+                                                          setIsLoading(true);
+                                                          try {
+                                                              const contlTbl:any = await API.graphql(
+                                                                  graphqlOperation(getChamaControlTable, {id: EQUITYTABLEID}),
+                                                                  );
+                                                                  const DividendsEarnings =contlTbl.data.getChamaControlTable.DividendsEarnings;
+                                                                  const BankAdminEarnings =contlTbl.data.getChamaControlTable.BankAdminEarnings;
+                                                                
                     
                     const GrpNonLns = async () => {
                       if(isLoading){
@@ -172,6 +219,7 @@ const SMASendNonLns = props => {
                             graphqlOperation(updateGroup, {
                               input:{
                                 grpContact:groupContacts,
+                                MemberDividendSync: (parseFloat(MemberDividendSync) + parseFloat(amounts)).toFixed(0),
                                 ttlNonLonsSentChm: (parseFloat(ttlNonLonsSentChms)+parseFloat(amounts)).toFixed(0),
                                 grpBal:(parseFloat(grpBals)-TotalTransacted).toFixed(0) 
                               }
@@ -227,7 +275,9 @@ const SMASendNonLns = props => {
                             graphqlOperation(updateCompany, {
                               input:{
                                 AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                               
+                                companyEarningBal: parseFloat(companyEarningBals) + netCompEarning,
+                                companyEarning:  parseFloat(companyEarnings) + netCompEarning,                                                    
+                                
                                 ttlNonLonssSentChm: parseFloat(amounts) + parseFloat(ttlNonLonssSentChms),
                                 
                               }
@@ -241,9 +291,66 @@ const SMASendNonLns = props => {
                         if (error){Alert.alert("Error! Access denied!")
                     return;}
                       }
-                      await updtChmMbr();
+                      await updtBankAdmin ();
                       setIsLoading(false);
                     }
+
+                    const updtBankAdmin = async () =>{
+                                              if(isLoading){
+                                                return;
+                                              }
+                                              setIsLoading(false);
+                                              
+                                              try{
+                                                  await API.graphql(
+                                                    graphqlOperation(updateMiFedhaBankAdmin, {
+                                                      input:{
+                                                        nationalid:BankAdminAcNu,                                                      
+                                                        BankAdmBal:(parseFloat(BankAdmBal) + BankAdminEarning).toFixed(0)
+                                                      }
+                                                    })
+                                                  )
+                                                  
+                                                  
+                                              }
+                                              catch(error){
+                                                console.log(error);
+                                                if (error){Alert.alert("Error! Access denied!")
+                                            return;}
+                                              }
+                                             await updtCntrlTbl ();
+                                              setIsLoading(false);
+                                              
+                                            }
+                    
+                                            const updtCntrlTbl = async () =>{
+                                              if(isLoading){
+                                                return;
+                                              }
+                                              setIsLoading(false);
+                                              
+                                              try{
+                                                  await API.graphql(
+                                                    graphqlOperation(updateChamaControlTable, {
+                                                      input:{
+                                                        id:EQUITYTABLEID,                                                      
+                                                        DividendsEarnings:(parseFloat(DividendsEarnings) + BankAdminEarning).toFixed(0),
+                                                        BankAdminEarnings: (parseFloat(BankAdminEarnings) + BankAdminEarning).toFixed(0)
+                                                      }
+                                                    })
+                                                  )
+                                                  
+                                                  
+                                              }
+                                              catch(error){
+                                                console.log(error);
+                                                if (error){Alert.alert("Error! Access denied!")
+                                            return;}
+                                              }
+                                             await updtChmMbr ();
+                                              setIsLoading(false);
+                                              
+                                            }
 
                     const updtChmMbr = async () =>{
                       if(isLoading){
@@ -307,18 +414,42 @@ const SMASendNonLns = props => {
                      else {
                       GrpNonLns();
                     }                                                
+               
+                  }       
+                  catch(e) {     
+                    console.log(e) 
+                    if (e){Alert.alert("Error! Retry or update app!")
+    return;}                 
+                  }
+                  setIsLoading(false);
+                  }                    
+                    await fetchCntrlTble();
+                  
+                  
+                  }       
+                catch(e) {     
+                  console.log(e) 
+                  if (e){Alert.alert("Error! Retry or update app!")
+  return;}                 
+                }
+                setIsLoading(false);
+                }                    
+                  await fetchBankAdmin();
+
                 }       
                 catch(e) {     
                   console.log(e) 
-                  if (e){Alert.alert("Error! Access denied!")
+                  if (e){Alert.alert("Error! Retry or update app!")
   return;}                 
                 }
                 setIsLoading(false);
                 }                    
                   await fetchRecUsrDtls();
+
+
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Error! Access denied!")
+          if (e){Alert.alert("Error! Retry or update app!")
       return;}
         }
         setIsLoading(false);        
@@ -328,7 +459,7 @@ const SMASendNonLns = props => {
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error! Access denied!")
+      if (e){Alert.alert("Error! Retry or update app!")
       return;}
   };
       setIsLoading(false);
@@ -337,7 +468,7 @@ const SMASendNonLns = props => {
 
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Error! Access denied!")
+      if (e){Alert.alert("Error! Retry or update app!")
   return;}
     }
         

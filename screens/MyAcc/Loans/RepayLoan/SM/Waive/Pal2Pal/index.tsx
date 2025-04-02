@@ -102,11 +102,11 @@ const RepayCovLnsss = props => {
                 const loanerEmail =RecAccountDtl.data.getSMLoansCovered.loanerEmail; 
                 const amountrepaids =RecAccountDtl.data.getSMLoansCovered.amountrepaid; 
                 const amountExpectedBacks =RecAccountDtl.data.getSMLoansCovered.amountexpected;
-                const ClranceAmt = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountExpectedBacks); 
-                const LonBalsss = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountrepaids);     
-                const loanerPhns =RecAccountDtl.data.getSMLoansCovered.loanerPhn; 
-                const DefaultPenaltySM2s =RecAccountDtl.data.getSMLoansCovered.DefaultPenaltySM2;
-
+                 const DefaultPenaltySM2s =RecAccountDtl.data.getSMLoansCovered.DefaultPenaltySM2;
+                              const clearanceAmts = RecAccountDtl.data.getSMLoansCovered.clearanceAmt;
+                
+                                const ClranceAmt = parseFloat(clearanceAmts) + (DefaultPenaltySM2s);
+                
                 const repaymentPeriod =RecAccountDtl.data.getSMLoansCovered.repaymentPeriod; 
                 const amountgiven =RecAccountDtl.data.getSMLoansCovered.amountgiven; 
                 const interest =RecAccountDtl.data.getSMLoansCovered.interest;
@@ -124,22 +124,14 @@ const RepayCovLnsss = props => {
               const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
 
               const now1:any = "2024-05-20";
-             
-              
-              
-              
-              
-              
-             
-
-        
+           
               const curYrs = parseFloat(years)*365;
               const curMnths = (months2)*30.4375;
               const daysUpToDate = curYrs + curMnths + parseFloat(days)
 
-             
+             /*
 
-              let charz = crtnDate;
+              let charz = creationAt;
               let char1z = charz.charAt(0)
               let char2z = charz.charAt(1)
               let char3z = charz.charAt(2)
@@ -163,21 +155,19 @@ const RepayCovLnsss = props => {
               const crtnMnthsz = parseFloat(crtnMnthz)*30.4375;
               const daysAtCrtnz = crtnYearsz + crtnMnthsz + parseFloat(crtnDyz)
 
+              */
+
               const tmDif = daysUpToDate - dfltUpdate;
               const tmDif2 = daysUpToDate - crtnDate;
 
+              const netLnBal = parseFloat(amountExpectedBackWthClrncs) - 
+              parseFloat(clearanceAmts) - parseFloat (DefaultPenaltySM2s)
+      
+              const netLnBal2 = (netLnBal) * 
+              ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
 
-
-
-                const LoanBal = parseFloat(amountExpectedBackWthClrncs) * 
-                ((Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 
-                Math.pow(1 + parseFloat(interest)/36500, tmDif)) /
-                (Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 1))
-
-                const LoanBalz = (ClranceAmt + LoanBal) - parseFloat(amountrepaids)
-
-                const amountExpectedBackWthClrncszz = (LoanBalz + ClranceAmt) - parseFloat(amounts)
-
+              const LonBal1 = (netLnBal2 + parseFloat(clearanceAmts) + parseFloat (DefaultPenaltySM2s)).toFixed(0)
+                const LoanBalz = parseFloat(LonBal1) - parseFloat(amounts)
 
       
       const fetchCompDtls = async () => {
@@ -270,9 +260,7 @@ const RepayCovLnsss = props => {
                               input:{
                                 awsemail:userInfo.attributes.email,
                                 
-                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
-                                
-                                
+                               
                                 TtlClrdLonsTmsLneeCov: 1 + parseFloat(TtlClrdLonsTmsLneeCovs),
                                 TtlClrdLonsAmtLneeCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(0),
                                 TtlBLLonsTmsLneeCov: parseFloat(TtlBLLonsTmsLneeCovs) - 1,
@@ -305,10 +293,11 @@ const RepayCovLnsss = props => {
                                         input:{
                                           loanID: route.params.loanID,
                                           amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
-                                          lonBala: ((LoanBalz)-parseFloat(amounts)).toFixed(0),
-                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncszz.toFixed(0),
+                                          lonBala: LoanBalz.toFixed(0),
+                                          amountExpectedBackWthClrnc:LoanBalz.toFixed(0),
                                           status: "LoanCleared",
-                                          DefaultPenaltySM2:0
+                                          DefaultPenaltySM2:0,
+                                          clearanceAmt:0
                                       }})
                                     )
           
@@ -371,7 +360,6 @@ const RepayCovLnsss = props => {
                                         input:{
                                           awsemail:loanerEmail,
                                           
-                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + parseFloat(DefaultPenaltySM2s))).toFixed(0), 
                                           MaxTymsIHvBL:parseFloat(MaxTymsIHvBLs) - 1,                                     
                                           TymsMyLnClrd: parseFloat(TymsMyLnClrds) + 1,
                                           TtlClrdLonsTmsLnrCov: parseFloat(TtlClrdLonsTmsLnrCovssss) + 1,
@@ -401,8 +389,6 @@ const RepayCovLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                          
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt - parseFloat(DefaultPenaltySM2s),
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt - parseFloat(DefaultPenaltySM2s),                                                    
                                           totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                           
                                           ttlSMLnsInClrdAmtCov: parseFloat(ttlSMLnsInClrdAmtCovs) + parseFloat(amounts), 
@@ -446,9 +432,10 @@ const RepayCovLnsss = props => {
                                         input:{
                                           loanID: route.params.loanID,
                                           amountrepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
-                                          lonBala: (parseFloat(LoanBalz) - parseFloat(amounts)).toFixed(0),
+                                          lonBala: ((LoanBalz) - parseFloat(amounts)).toFixed(0),
                                           DefaultPenaltySM2:0,
-                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncszz.toFixed(0),
+                                          amountExpectedBackWthClrnc:((LoanBalz) - parseFloat(amounts)).toFixed(0),
+                                          clearanceAmt:0
                                         }
                                       })
                                     )
@@ -511,8 +498,7 @@ const RepayCovLnsss = props => {
                                         input:{
                                           awsemail:userInfo.attributes.email,
                                           TtlClrdLonsAmtLneeCov: (parseFloat(TtlClrdLonsAmtLneeCovs) + parseFloat(amounts)).toFixed(0),
-                                          balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0),
-                                          
+                                         
                                         }
                                       })
                                     )
@@ -539,9 +525,7 @@ const RepayCovLnsss = props => {
                                         input:{
                                           awsemail:loanerEmail,
                                           TtlClrdLonsAmtLnrCov: (parseFloat(TtlClrdLonsAmtLnrCovssss) + parseFloat(amounts)).toFixed(0),
-                                          
-                                          balance:(parseFloat(RecUsrBal) + (parseFloat(amounts) + parseFloat(DefaultPenaltySM2s))).toFixed(0),
-                                          
+                                         
                                         }
                                       })
                                     )                              
@@ -566,9 +550,7 @@ const RepayCovLnsss = props => {
                                         input:{
                                           AdminId: "BaruchHabaB'ShemAdonai2",                                                      
                                           ttlSMLnsInClrdAmtCov: parseFloat(ttlSMLnsInClrdAmtCovs) + parseFloat(amounts), 
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt - parseFloat(DefaultPenaltySM2s),
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt - parseFloat(DefaultPenaltySM2s),                                                    
-                                          
+                                         
                                           totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
                                         }
                                       })
@@ -615,13 +597,14 @@ const RepayCovLnsss = props => {
                           }
                               
                              
-                          else if(parseFloat(amounts) > parseFloat(lonBalas)){Alert.alert("The Loan Balance is lesser: "+lonBalas)}
+                          else if(parseFloat(amounts) > parseFloat(LonBal1))
+                            {Alert.alert("The Loan Balance is lesser: "+LonBal1)}
                           
 
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLs) === parseFloat(maxBLss) )
+                          else if(parseFloat(amounts) === parseFloat(LonBal1)  && parseFloat(MaxTymsBLs) === parseFloat(maxBLss) )
                           {updtSendrAcLonOvr1();}          
                           
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLs) > parseFloat(maxBLss) )
+                          else if(parseFloat(amounts) === parseFloat(LonBal1)  && parseFloat(MaxTymsBLs) > parseFloat(maxBLss) )
                           {updtSendrAcLonOvr2();}  
                                else {
                                 repyCovLn();

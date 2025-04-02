@@ -48,6 +48,12 @@ const MyAccount = props => {
     navigation.navigate('Mpesa');
   };
 
+  const PaystackTNC = () => {
+    navigation.navigate('PaystackTNC');
+  };
+
+  
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -59,11 +65,12 @@ const MyAccount = props => {
           >
             
         <Section 
-          title="Account"
+          title="Proceed"
           options={[
             
-            { label: 'PayPal', onPress: PayPalDposit, style: styles.ClientsPressables },
-            { label: 'MPesa/Airtel/Cards', onPress: Mpesa, style: styles.ClientsPressables },
+         /*   { label: 'PayPal',onPress: PayPalDposit, style: styles.ClientsPressables },  */
+            
+            { label: 'MPesa/Airtel/Cards', onPress: PaystackTNC, style: styles.ClientsPressables },
            
           ]}
         />

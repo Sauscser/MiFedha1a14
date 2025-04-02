@@ -134,20 +134,20 @@ const BLSMCovLoanee = (props) => {
               const lglGrcePrd = 60 - tmDif;
               const paymentFrequency = compDtls.data.getSMLoansCovered.paymentFrequency;              
               const installmentAmount = compDtls.data.getSMLoansCovered.installmentAmount;
+              const clearanceAmts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds);
               const MmbrClrnceCosts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds) + parseFloat(DefaultPenaltySMs);
               const MmbrClrnceCost = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
 
               const LonBal1 = parseFloat(amountExpectedBackWthClrncs)*
-              ((Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 
-              Math.pow(1 + parseFloat(interest)/36500, tmDif)) /
-              (Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 1))
+              ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
 
               const LonBal4 = LonBal1 + MmbrClrnceCosts
-              const LonBal5 = LonBal1 + MmbrClrnceCost
+              const LonBal5 = LonBal1 + DefaultPenaltySMs
            
               const pymtFrqncy = tmDif2/parseFloat(paymentFrequency)
               const Amt2HvBnPaid = pymtFrqncy* parseFloat(installmentAmount)
               const LonBal6 = parseFloat(lonBala) + parseFloat(DefaultPenaltySMs)
+              
               
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -195,8 +195,8 @@ const BLSMCovLoanee = (props) => {
                                   graphqlOperation(updateSMLoansCovered, {
                                     input:{
                                       loanID:route.params.loanID,
-                                      amountExpectedBackWthClrnc:(LonBal6).toFixed(0),
-                                      lonBala:LonBal6.toFixed(0),
+                                      amountExpectedBackWthClrnc:(LonBal5).toFixed(0),
+                                      lonBala:LonBal5.toFixed(0),
                                       DefaultPenaltySM2:DefaultPenaltySMs.toFixed(0),
                                       dfltUpdate: daysUpToDate,
                                       blOfficer:userInfo.attributes.email
@@ -334,6 +334,7 @@ const BLSMCovLoanee = (props) => {
                                           lonBala:LonBal4.toFixed(0),
                                           DefaultPenaltySM2:DefaultPenaltySMs.toFixed(0),
                                           status:"LoanBL",
+                                          clearanceAmt:(clearanceAmts).toFixed(0),
                                           dfltUpdate:daysUpToDate,
                                           blOfficer:userInfo.attributes.email
                                         }

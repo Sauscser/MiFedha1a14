@@ -14,14 +14,13 @@ import {
   updateGroup,
   updateChamaMembers,
   createBenefitContributions2,
+  updateMiFedhaBankAdmin,
+  updateChamaControlTable,
   
 } from '../../.././../src/graphql/mutations';
 
 import {API, Auth, graphqlOperation} from 'aws-amplify';
-
-
-
-
+import {EQUITYTABLEID} from '@env';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -40,7 +39,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 
-import { getChamaMembers, getCompany, getGroup, getSMAccount, listCovCreditSellers, listCvrdGroupLoans, listSMLoansCovereds } from '../../../../src/graphql/queries';
+import { getChamaControlTable, getChamaMembers, getCompany, getGroup, getMiFedhaBankAdmin, getSMAccount, listCovCreditSellers, listCvrdGroupLoans, listSMLoansCovereds } from '../../../../src/graphql/queries';
 
 
 const SMASendNonLns = props => {
@@ -150,19 +149,23 @@ const SMASendNonLns = props => {
             
            const p2pBenCom = CompDtls.data.getCompany.p2pBenCom;
                     const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-                    const UsrTransferFeeAmt = UsrTransferFee*parseFloat(amounts);
+                    const UsrTransferFeeAmt = parseFloat(UsrTransferFee) *parseFloat(amounts);
                     const UsrTransferFee2 = parseFloat(SenderUsrBal) -parseFloat(amounts);
                     const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
                     const TotalTransacted2 = parseFloat(amounts)  + UsrTransferFee2;
                     const CompPhoneContact = CompDtls.data.getCompany.phoneContact; 
-                    const PalBenefits = parseFloat(p2pBenCom) *  UsrTransferFeeAmt;
-                    const CompEarnings =  UsrTransferFeeAmt - (2*PalBenefits)          
+                          
           
           const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
           const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
           const ttlNonLonssSentSMs = CompDtls.data.getCompany.ttlNonLonssSentSM; 
-          
+          const bankAdminCom = CompDtls.data.getCompany.bankAdminCom;
+          const PalBenefits = parseFloat(p2pBenCom) *  (UsrTransferFeeAmt);
+          const bankAdmEarning = parseFloat(bankAdminCom)* UsrTransferFeeAmt
+          const empowermentFee = bankAdmEarning + (2*PalBenefits)
+                    const CompEarnings =  UsrTransferFeeAmt - (empowermentFee)    
+         
          
                     
           const fetchRecUsrDtls = async () => {
@@ -226,9 +229,24 @@ const SMASendNonLns = props => {
                                         );
                                         const grpBal =RecAccountDtl117.data.getGroup.grpBal; 
                                         const ChmBenefits =RecAccountDtl117.data.getGroup.ChmBenefits;
-                              
+                                         const BankAdminAcNu =RecAccountDtl117.data.getGroup.BankAdminAcNu;
+                                              const chamaBenSync =RecAccountDtl117.data.getGroup.chamaBenSync;
                     
-                  
+                            const contlTbl:any = await API.graphql(
+                                                                graphqlOperation(getChamaControlTable, {id: "EquityTable"}),
+                                                                );
+                                                                /*
+                                                                Bank Admin Earnings
+                                                                */
+                                                                const DepositsEarnings =contlTbl.data.getChamaControlTable.DepositsEarnings;
+                                                                const BankAdminEarnings =contlTbl.data.getChamaControlTable.BankAdminEarnings;
+                                                                
+                                  const BankAdmDtls:any = await API.graphql(
+                                                                      graphqlOperation(getMiFedhaBankAdmin, {nationalid: BankAdminAcNu}),
+                                                                      );
+                                                                      const BankAdmBal =BankAdmDtls.data.getMiFedhaBankAdmin.BankAdmBal;
+                                                                      
+
                     const sendSMNonLn = async () => {
                       if(isLoading){
                         return;
@@ -361,9 +379,31 @@ const SMASendNonLns = props => {
                                 grpContact: groupContact,
                                 grpBal: (parseFloat(grpBal) + PalBenefits).toFixed(0) ,
                                 ChmBenefits: (parseFloat(ChmBenefits) + PalBenefits).toFixed(0) ,
-                              }
+                                chamaBenSync:(parseFloat(chamaBenSync)+PalBenefits).toFixed(0) 
+                                   
+                              
+                              },
                             })
-                          )                              
+                          )  ;
+                          
+                          await API.graphql(
+                            graphqlOperation(updateMiFedhaBankAdmin, {
+                              input:{
+                                nationalid:BankAdminAcNu,                                                      
+                                BankAdmBal:(parseFloat(BankAdmBal) + bankAdmEarning).toFixed(0)
+                              },
+                            })
+                          );
+
+                          await API.graphql(
+                                                          graphqlOperation(updateChamaControlTable, {
+                                                            input:{
+                                                              id:"EquityTable",                                                      
+                                                              DepositsEarnings:(parseFloat(DepositsEarnings) + bankAdmEarning).toFixed(0),
+                                                              BankAdminEarnings: (parseFloat(BankAdminEarnings) + bankAdmEarning).toFixed(0)
+                                                            }
+                                                          })
+                                                        )
                       }
                       catch(error){
                         console.log(error)
@@ -588,9 +628,30 @@ const SMASendNonLns = props => {
                                 grpContact: groupContact,
                                 grpBal: (parseFloat(grpBal) + PalBenefits).toFixed(0) ,
                                 ChmBenefits: (parseFloat(ChmBenefits) + PalBenefits).toFixed(0) ,
-                              }
+                                chamaBenSync:(parseFloat(chamaBenSync)+PalBenefits).toFixed(0) 
+                              
+                              },
                             })
-                          )                              
+                          )  ;
+                          
+                           await API.graphql(
+                                                          graphqlOperation(updateMiFedhaBankAdmin, {
+                                                            input:{
+                                                              nationalid:BankAdminAcNu,                                                      
+                                                              BankAdmBal:(parseFloat(BankAdmBal) + bankAdmEarning).toFixed(0)
+                                                            },
+                                                          })
+                                                        );
+
+                                                        await API.graphql(
+                                                                                        graphqlOperation(updateChamaControlTable, {
+                                                                                          input:{
+                                                                                            id:"EquityTable",                                                      
+                                                                                            DepositsEarnings:(parseFloat(DepositsEarnings) + bankAdmEarning).toFixed(0),
+                                                                                            BankAdminEarnings: (parseFloat(BankAdminEarnings) + bankAdmEarning).toFixed(0)
+                                                                                          }
+                                                                                        })
+                                                                                      )
                       }
                       catch(error){
                         console.log(error)
@@ -724,6 +785,7 @@ const SMASendNonLns = props => {
                       
                       console.log(e) 
                       Alert.alert("Retry or update app or call customer care");
+                      
                   }                 
                   }
                   setIsLoading(false);
@@ -758,8 +820,9 @@ const SMASendNonLns = props => {
                 catch(e) {   
                   
                   if (e){
-                  console.log(e)  
-  return;}                 
+                    Alert.alert("Error Fetching receiver data")
+  return;
+}                 
                 }
                 setIsLoading(false);
                 }                    
@@ -768,7 +831,7 @@ const SMASendNonLns = props => {
 
         } catch (e) {
           
-          if (e){console.log(e)
+          if (e){Alert.alert("Error Fetching Sender data")
 
       return;}
         }

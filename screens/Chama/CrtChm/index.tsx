@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 
-import {createChamaMembers, createGroup,   updateCompany} from '../../../src/graphql/mutations';
-import { getCompany, getSMAccount,  vwViaPhons,   } from '../../../src/graphql/queries';
+import {createChamaMembers, createGroup,   updateChamaApply,   updateChamaApply2,   updateCompany} from '../../../src/graphql/mutations';
+import { getBankAdmin, getCompany, getMiFedhaBankAdmin, getSMAccount,   } from '../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 
 import {
@@ -53,18 +53,31 @@ const CreateChama = (props:UserReg) => {
   const [SubFreq, setSubFreq] = useState('');
   const [SubAmt, setSubAmt] = useState('');
   const [lateSub, setlateSub] = useState('');
+  const route = useRoute()
+  const {id, bankAdminEmail, ChamaAcNu} = route.params
 
  
 
-  const ChmPhnNphoneContact = MmbaID+ChmPhn
+  const ChmPhnNphoneContact = MmbaID+ChamaAcNu
 
 
-  
+  const BankAdminDtls = async () => {
+    const userInfo = await Auth.currentAuthenticatedUser();
+ 
+    try {
+      const UsrDtlsx:any = await API.graphql(
+        graphqlOperation(getMiFedhaBankAdmin, { nationalid:bankAdminEmail}),
+                    
+      )
+
+      const BankBranch = UsrDtlsx.data.getMiFedhaBankAdmin.bank;
+      const BankAdminEml = UsrDtlsx.data.getMiFedhaBankAdmin.email;
+      
 
   
 
       const ChckUsrExistence = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
+        
      
         try {
           const UsrDtls:any = await API.graphql(
@@ -122,22 +135,35 @@ const CreateChama = (props:UserReg) => {
                 await API.graphql(
                 graphqlOperation(createGroup, {
                 input: {
-                  grpContact: ChmPhn,
+                  grpContact: ChamaAcNu,
                   regNo:ChmRegNo,
-                  signitoryContact: userInfo.attributes.email,
+                  signitoryContact: userInfo.attributes.phone_number,
+                  SignatoryEmail: userInfo.attributes.email, 
                   SignitoryNatid: nationalidsss,
                   signitoryName: namess,
                   grpName: ChmNm,
                   signitoryPW: pword,
                   signitory2Sub: ownrsss,
                   WithdrawCnfrmtn: "NO",
+                  WithdrawCnfrmtnAmt:0,
+                  BankAdminEmail: BankAdminEml,
+                  BankAdminAcNu: bankAdminEmail,
+                  
+                  GrpLoanOutSync: 0,
+                  GrpLoanRpymntSync: 0,
+                  MemberSubscrptnSync: 0,
+                  MemberDividendSync: 0,
+                  DepositSync:0,
+                  WithdrawalSync:0,
+                  BankName: "Equity",
+                  BranchNu: BankBranch,
                   grpEmail: awsEmail,
                   oprtnArea:oprtnAreas,
                   venture: ventures,
                   grpBal: 0,
                   ttlGrpMembers: 1,
                   description: ChmDesc,
-                  WithdrawCnfrmtnAmt:0,
+                  
                   ChmBenefits:0,
                   subscriptionFrequency: SubFreq,
                   subscriptionAmt: SubAmt,
@@ -194,7 +220,7 @@ const CreateChama = (props:UserReg) => {
                     );
                     
                   } catch (error) {
-                    
+                    console.log(error)
                     if (error){
                       Alert.alert("Creation unsuccessful; enter details correctly")
                       return
@@ -229,7 +255,7 @@ const CreateChama = (props:UserReg) => {
                 graphqlOperation(createChamaMembers, {
                 input: {
                   MembaId:MmbaID,
-                  groupContact: ChmPhn,
+                  groupContact: ChamaAcNu,
                   regNo:ChmRegNo,
                   ChamaNMember:ChmPhnNphoneContact,
                   memberContact: userInfo.attributes.email,
@@ -261,14 +287,39 @@ const CreateChama = (props:UserReg) => {
                   } catch (error) {
                     
                     
-                  
+                    console.log(error)
                   }
                   
                   setIsLoading(false);
-                  await updtActAdm();
+                  await updtChamaAppl();
                 };
                 
       
+                const updtChamaAppl = async()=>{
+                  if(isLoading){
+                    return;
+                  }
+                  setIsLoading(true);
+                  try{
+                      await API.graphql(
+                        graphqlOperation(updateChamaApply2,{
+                          input:{
+                            id:id,
+                            status: "AccountInactive"
+                          }
+                        })
+                      )
+                  }
+                  catch(error){
+                    console.log(error)
+                    if(error){
+                      Alert.alert("Check your internet connection")
+                      return;
+                  }
+                  }
+                  await updtActAdm();
+                   setIsLoading(false);
+                }
                 const updtActAdm = async()=>{
                   if(isLoading){
                     return;
@@ -286,6 +337,7 @@ const CreateChama = (props:UserReg) => {
                       )
                   }
                   catch(error){
+                    console.log(error)
                     if(error){
                       Alert.alert("Check your internet connection")
                       return;
@@ -324,10 +376,19 @@ const CreateChama = (props:UserReg) => {
     else{
     await FetchSign2();}
 
+  } catch (e) {
+    console.log(e)
+    if (e){Alert.alert("Retry or update app or call customer care")
+    return;}
+};
+   
+}
 
+ await ChckUsrExistence();
          
         
         } catch (e) {
+          console.log(e)
           if (e){
             Alert.alert("Creation unsuccessful; Retry")
             return
@@ -506,15 +567,7 @@ useEffect(() =>{
                     <Text style={styles.title}>Fill Chama Details Below</Text>
                   </View>
         
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                     placeholder="Enter Chama Phone"
-                      value={ChmPhn}
-                      onChangeText={setChmPhn}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    
-                  </View>
+                  
 
                   <View style={styles.sendLoanView}>
                     <TextInput
@@ -559,16 +612,7 @@ useEffect(() =>{
 
                   
         
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    placeholder="Enter Chama PassWord"
-                      value={pword}
-                      onChangeText={setPW}
-                      secureTextEntry = {true}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                   
-                  </View>
+                 
 
                   <View style={styles.sendLoanView}>
                     <TextInput
@@ -646,9 +690,20 @@ useEffect(() =>{
                       editable={true}></TextInput>
                     
                   </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder="Enter Chama PassWord"
+                      value={pword}
+                      onChangeText={setPW}
+                      secureTextEntry = {true}
+                      style={styles.sendLoanInput}
+                      editable={true}></TextInput>
+                   
+                  </View>
         
                   <TouchableOpacity
-                    onPress={ChckUsrExistence}
+                    onPress={BankAdminDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Create Chama

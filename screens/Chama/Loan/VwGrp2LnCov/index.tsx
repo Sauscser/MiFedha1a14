@@ -45,7 +45,7 @@ const FetchSMNonCovLns = props => {
                     
                   filter: {
                   
-                    signitoryContact: { eq: userInfo.attributes.email},
+                    SignatoryEmail: { eq: userInfo.attributes.email},
                     status:{eq:"AccountActive"}
                 }
                 }

@@ -98,7 +98,7 @@ const CreateBiz = (props) => {
                   graphqlOperation(getGroup, {grpContact: groupContact}),
                 );
           
-                const signitoryContact =accountDtl.data.getGroup.signitoryContact;
+                const SignatoryEmail =accountDtl.data.getGroup.SignatoryEmail;
                 const grpName =accountDtl.data.getGroup.grpName;
                 
                 const gtComp = async () =>{
@@ -124,15 +124,13 @@ const CreateBiz = (props) => {
                   setIsLoading(true);
                   try {
                       const RecAccountDtl:any = await API.graphql(
-                          graphqlOperation(getSMAccount, {awsemail: signitoryContact}),
+                          graphqlOperation(getSMAccount, {awsemail: SignatoryEmail}),
                           );
                           
                           const phonecontact =RecAccountDtl.data.getSMAccount.phonecontact; 
                           const name =RecAccountDtl.data.getSMAccount.name; 
                           const amtrpayable = parseFloat(itemPrys) * 
-                                              ((Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 
-                                              Math.pow(1 + parseFloat(lnPrsntg)/36500, 0)) /
-                                              (Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 1))
+                                              ((Math.pow(1 + parseFloat(lnPrsntg)/36500, 0)))
                           
                           
                           const ExpInstmnt = amtrpayable/parseFloat(rpymntPrd)
@@ -149,7 +147,7 @@ const CreateBiz = (props) => {
                                
                                 loaneeEmail:userInfo.attributes.email,
                                 chamaPhone:groupContact,
-                                loaneeName: name,
+                                loaneeName: userInfo.username,
                                 loaneePhone:phonecontacts,
                                 amount: parseFloat(itemPrys).toFixed(2),
                                 repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
@@ -204,7 +202,7 @@ const CreateBiz = (props) => {
                                 );
                             
                                 const email = compDtls5.data.getAdvocate.email;
-                                const phonecontact = compDtls5.data.getAdvocate.phonecontact;
+                                const Advphonecontact = compDtls5.data.getAdvocate.phonecontact;
                           
             
 
@@ -220,7 +218,7 @@ const CreateBiz = (props) => {
            
             loaneeEmail:userInfo.attributes.email,
             chamaPhone:groupContact,
-            loaneeName: name,
+            loaneeName: userInfo.username,
             loaneePhone:phonecontacts,
             amount: parseFloat(itemPrys).toFixed(2),
             repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
@@ -257,14 +255,16 @@ const CreateBiz = (props) => {
             
             }
             Alert.alert("Loan Request Successful");
-            Communications.textWithoutEncoding(phonecontact,'MiFedha. Greetings! '
+            Communications.textWithoutEncoding(Advphonecontact,'MiFedha. Greetings! '
             + 'We ' + name + ', the loanee and ' + grpName + ', the Loaning Group humbly' +  
             ' request that you witness our loan contract on MiFedha app amounting to Ksh. '+
             itemPrys + ' repayable with ' + lnPrsntg + '% percentage by the end of ' +rpymntPrd + 
             ' days. Default penalty is Ksh. '+ ChmDesc + '. You can reach my loaner through '+ groupContact +
              '. You can also reach me through ' +phonecontacts +'. Thank you.');
           };
-          CreateNewSMAc();
+
+         await CreateNewSMAc();
+         
           
 
         } catch (e) {
@@ -274,44 +274,52 @@ const CreateBiz = (props) => {
   
       }
 
+      
       if (pword !== pws)
-          {Alert.alert("Wrong User password");
-        
-      } 
+        {Alert.alert("Wrong User password");
       
-      
-      else if (parseFloat(rpymntPrd) < 1){
-        Alert.alert("Enter repayment Period greater than 1 day")
-      }
-      else if (parseFloat(lnPrsntg) > 100){
-        Alert.alert("Interest exploits you; enter lesser repayment amount");
-        return;
-      }
-      else if (ExpInstmnt > parseFloat(InstAmt)){
-        Alert.alert("Enter Installment greater than "+(ExpInstmnt+1).toFixed(0))
-      }
-      else if (Sign2Phn != "")
-      {
-      
-      await gtAdvDtls();
-      
+    } 
     
+    
+    else if (parseFloat(rpymntPrd) < 1){
+      Alert.alert("Enter repayment Period greater than 1 day")
     }
+    else if (parseFloat(lnPrsntg) > 100){
+      Alert.alert("Interest exploits you; enter lesser repayment amount");
+      return;
+    }
+    else if (ExpInstmnt > parseFloat(InstAmt)){
+      Alert.alert("Enter Installment greater than "+(ExpInstmnt+1).toFixed(0))
+    }
+    else if (!Sign2Phn)
 
-    else {CreateNewSMAc2();}
+      /*
+      else if (!Sign2Phn || Sign2Phn.trim() === "")
+*/
+    {
+    
+    await CreateNewSMAc2 ();
+    
+  
+  }
+
+  else {await gtAdvDtls();}
+
 
         }       
         catch(e) {    
           console.log(e); 
-          if (e){Alert.alert("Retry or update app or call customer care")
+          if (e){Alert.alert("Error1! Retry or update app or call customer care")
 return;}                 
         }
         setIsLoading(false);
-        }                    
+        }   
+        
+        
           await fetchRecUsrDtls();        
 
         } catch (e) {
-          if(e){Alert.alert("Retry or update app or call customer care")}
+          if(e){Alert.alert("Error2! Retry or update app or call customer care")}
           console.error(e);
         }
         setIsLoading(false);
@@ -322,20 +330,23 @@ return;}
       
       } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Retry or update app or call customer care")
+          if (e){Alert.alert("Error3! Retry or update app or call customer care")
           return;}
       };
           setIsLoading(false);
+         
           
           
     }
+
+    
     await fetchSenderUsrDtls();
           
 
         } catch (error) {
           console.log(error)
           if(error){
-            Alert.alert("Retry or update app or call customer care")
+            Alert.alert("Error4! Retry or update app or call customer care")
             return;
         } 
         
@@ -350,7 +361,7 @@ return;}
       await gtChmDtls();}
 
         } catch (e) {
-          if(e){Alert.alert("Retry or update app or call customer care")
+          if(e){Alert.alert("Error5! Retry or update app or call customer care")
         return}
           console.error(e);
         }

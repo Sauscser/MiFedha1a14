@@ -1,345 +1,140 @@
-import React, {useState} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Modal,
-  ActivityIndicator,
-  Alert,
-} from 'react-native';
-import {WebView} from 'react-native-webview';
-import Feather from 'react-native-vector-icons/Feather';
-import { useRoute } from '@react-navigation/native';
-import { getCompany, getExRates, getSMAccount } from '../../../../src/graphql/queries';
-import { createFloatReduction, updateCompany, updateSMAccount } from '../../../../src/graphql/mutations';
-import { Auth, API, graphqlOperation } from 'aws-amplify'
-const PayPalPg = () => {
-  const [showGateway, setShowGateway] = useState(false);
-  const [prog, setProg] = useState(false);
-  const[isLoading, setIsLoading] = useState(false);
-  const route = useRoute();
-  const runFirst = 'amountsx = route.params.amounts;'
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, ScrollView, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { WebView } from 'react-native-webview';
+import { useNavigation } from '@react-navigation/native';
+import { Auth, API, graphqlOperation } from 'aws-amplify';
+import { PAYPAL_CLIENT_ID } from '@env';
+import { getSMAccount } from '../../../../src/graphql/queries';
+import { Ionicons } from '@expo/vector-icons';
+
+const DepositScreen = () => {
+  const navigation = useNavigation();
+  const [amount, setAmount] = useState('');
+  const [password, setPassword] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [checkoutUrl, setCheckoutUrl] = useState(null);
+  const amountValue = parseFloat(amount);
+
+  const createPayPalOrder = async (amount, email) => {
+    try {
+      const response = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${PAYPAL_CLIENT_ID}`,
+        },
+        body: JSON.stringify({
+          intent: 'CAPTURE',
+          purchase_units: [{ amount: { currency_code: 'USD', value: amount } }],
+          payer: { email_address: email }
+        })
+      });
       
-      true;// note: this is required, or you'll sometimes get silent failures
-    
-    
-  const [progClr, setProgClr] = useState('#000');
-  function onMessage(e) {
-    let data = e.nativeEvent.data;
-    setShowGateway(false);
-    console.log(data);
-    let payment = JSON.parse(data);
-    let Amts = payment.purchase_units[0]
-    const Amountss = Amts.amount.value
-
-    
-    if (payment.status === 'COMPLETED') {
-      const fetchAcDtls = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
-        const userInfo = await Auth.currentAuthenticatedUser();
-        try {
-          const accountDtl = await API.graphql(
-            graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
-          );
-    
-          const usrBala = accountDtl.data.getSMAccount.balance;      
-          const usrTlDpst = accountDtl.data.getSMAccount.ttlDpstSM;
-          const usrStts = accountDtl.data.getSMAccount.acStatus; 
-          const depositLimits = accountDtl.data.getSMAccount.depositLimit;
-          const names = accountDtl.data.getSMAccount.name;  
-          const nationality = accountDtl.data.getSMAccount.nationality; 
-          const MaxAcBals = accountDtl.data.getSMAccount.MaxAcBal; 
-          const phonecontact = accountDtl.data.getSMAccount.phonecontact;
-    
-          
-         
-              
-              const gtCompDtls = async () =>{
-                if(isLoading){
-                    return;
-                }
-                setIsLoading(true)
-                try{
-                  const compDtls = await API.graphql(
-                  graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
-                    );
-                      const ttlUsrDpsts = compDtls.data.getCompany.ttlUsrDep
-                      const agentFloatOuts = compDtls.data.getCompany.agentFloatOut
-
-                      const gtExchangeRt = async () =>{
-                        if(isLoading){
-                            return;
-                        }
-                        setIsLoading(true)
-                        try{
-                          const compDtls1 = await API.graphql(
-                          graphqlOperation(getExRates,{cur:nationality})
-                            );
-                              const buyingPrice = compDtls1.data.getExRates.buyingPrice
-                              const symbol = compDtls1.data.getExRates.symbol
-
-                              const Amtz = parseFloat(Amountss)*parseFloat(buyingPrice)
-                              const WalCap = parseFloat(usrBala) + Amtz;
-
-
-    
-                      const CrtFltRed = async () => {
-                        try {
-                          await API.graphql(
-                            graphqlOperation(createFloatReduction, {
-                              input: {
-                                
-                                depositerid: userInfo.attributes.email,                    
-                                agContact: "PayPal",
-                                agentName:"PayPal",
-                                userName:names,
-                                amount: Amtz,
-                                status: 'AccountActive',
-                              },
-                              
-                            }),
-                          );
-                          
-        
-                } catch (error) {
-                  if (error){
-                    Alert.alert("Deposit unsuccessful; Retry")
-                    return
-                  }
-                }
-                setIsLoading(false);
-                await onUpdtUsrBal();
-                };  
-    
-                const onUpdtUsrBal = async () => {
-                  if(isLoading){
-                    return;
-                  }
-                  setIsLoading(true);
-                  try {
-                    await API.graphql(
-                      graphqlOperation(updateSMAccount, {
-                        input: {
-                          awsemail: userInfo.attributes.email,
-              
-                          balance: (parseFloat(usrBala) + Amtz).toFixed(2),
-                          ttlDpstSM: (parseFloat(usrTlDpst) + Amtz).toFixed(2),
-                        },
-                      }),
-                    );
-                  }
-    
-                  catch (error) {
-                    console.log(error)
-                    if (error){Alert.alert("Check internet Connection")
-                    return;}
-                  }
-                  setIsLoading(false);
-                  await onUpdtCompBal();
-                  }; 
-    
-                  
-    
-                    const onUpdtCompBal = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try {
-                        await API.graphql(
-                          graphqlOperation(updateCompany, {
-                            input: {
-                              AdminId:"BaruchHabaB'ShemAdonai2",
-                  
-                             
-                              ttlUsrDep: parseFloat(ttlUsrDpsts) + Amtz,
-                              agentFloatOut: parseFloat(agentFloatOuts) + Amtz,
-                            },
-                          }),
-                        );
-                      }
-      
-                      catch (error) {
-                        console.log(error)
-                        
-                      }
-                      Alert.alert(symbol + Amtz+" deposited in "+ names+ "'s ac ");
-                      
-                      setIsLoading(false);
-                      }; 
-                
-                if (usrStts==="AccountInactive") {
-                  Alert.alert("User Account is inactive")
-                  return;
-                } 
-    
-                
-                
-                else if(Amtz>parseFloat(depositLimits)) {
-                  Alert.alert('Limit exceeded; call customer care for adjusment');
-                  return;
-                }
-               
-    
-                else if ((WalCap) > parseFloat(MaxAcBals)) {
-                  Alert.alert("Depositor call customer care to have wallet capacity adjusted")
-                  return;
-                } 
-    
-               
-              
-    
-                else{CrtFltRed()}   
-                
-                
-                } catch (error) {
-                  console.log(error)
-              if (error){Alert.alert("Retry or update app or call customer care")
-                      return;}
-                }
-                setIsLoading(false);
-                };    
-    
-                await gtExchangeRt();       
-                
-              } catch (error) {
-                console.log(error)
-            if (error){Alert.alert("Retry or update app or call customer care")
-                    return;}
-              }
-              setIsLoading(false);
-              };    
-  
-              await gtCompDtls();      
-          
-        
-        }
-    
-        catch (e) {
-          console.log(e)
-          if (e){Alert.alert("Retry or update app or call customer care")
-          return;}
-              
-         }  
-           
-         setIsLoading(false);
-      }; 
-     
-      fetchAcDtls();
-    } else {
-      alert('PAYMENT FAILED. PLEASE TRY AGAIN.');
+      const data = await response.json();
+      return data.links.find(link => link.rel === 'approve').href;
+    } catch (error) {
+      console.error('PayPal Order Error:', error);
+      return null;
     }
+  };
 
+  const initializeTransaction = async () => {
+    setIsLoading(true);
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      const userEmail = user.attributes.email;
+      
+      if (isNaN(amountValue) || amountValue <= 0) {
+        Alert.alert('Invalid amount');
+        setIsLoading(false);
+        return;
+      }
 
-  }
+      const accountData = await API.graphql(graphqlOperation(getSMAccount, { awsemail: userEmail }));
+      const account = accountData.data.getSMAccount;
+
+      if (!account || account.acStatus === 'AccountInactive') {
+        Alert.alert('Account is inactive or not found');
+        setIsLoading(false);
+        return;
+      }
+
+      if (amountValue > parseFloat(account.depositLimit)) {
+        Alert.alert('Limit exceeded; contact customer care.');
+        setIsLoading(false);
+        return;
+      }
+
+      if (password !== account.pw) {
+        Alert.alert('Wrong Main Account Password');
+        setIsLoading(false);
+        return;
+      }
+
+      const url = await createPayPalOrder(amountValue, userEmail);
+      if (!url) {
+        Alert.alert('Transaction Error', 'Could not start PayPal transaction. Try again.');
+      } else {
+        setCheckoutUrl(url);
+      }
+    } catch (error) {
+      Alert.alert('Transaction Error', 'Could not start transaction. Try again.');
+    }
+    setIsLoading(false);
+  };
+
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <LinearGradient colors={['#e58d29', 'skyblue']} start={[0, 0]} end={[1, 1]} style={{ flex: 1 }}>
       <View style={styles.container}>
-        <View style={styles.btnCon}>
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => setShowGateway(true)}>
-            <Text style={styles.btnTxt}>Deposit Using PayPal</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      {showGateway ? (
-        <Modal
-          visible={showGateway}
-          onDismiss={() => setShowGateway(false)}
-          onRequestClose={() => setShowGateway(false)}
-          animationType={'fade'}
-          transparent>
-          <View style={styles.webViewCon}>
-            <View style={styles.wbHead}>
-              <TouchableOpacity
-                style={{padding: 13}}
-                onPress={() => setShowGateway(false)}>
-                <Feather name={'x'} size={24} />
-              </TouchableOpacity>
-              <Text
-                style={{
-                  flex: 1,
-                  textAlign: 'center',
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  color: '#00457C',
-                }}>
-                MiFedha
-              </Text>
-              <View style={{padding: 13, opacity: prog ? 1 : 0}}>
-                <ActivityIndicator size={24} color={progClr} />
+        {!checkoutUrl ? (
+          <ScrollView>
+            <View style={styles.formContainer}>
+              <TextInput
+                placeholder="Amount"
+                value={amount}
+                onChangeText={setAmount}
+                style={styles.input}
+                keyboardType='decimal-pad'
+              />
+              <View style={styles.passwordContainer}>
+                <TextInput
+                  placeholder="Main Account Password"
+                  style={styles.passwordInput}
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry={!isPasswordVisible}
+                  placeholderTextColor="#ccc"
+                />
+                <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                  <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
+                </TouchableOpacity>
               </View>
+
+              <Text style={styles.label}>Select Payment Method:</Text>
+              <TouchableOpacity onPress={initializeTransaction} style={styles.paymentButton}>
+                <Text style={styles.buttonText}>Pay with PayPal</Text>
+              </TouchableOpacity>
             </View>
-            <WebView
-              source={{uri: 'https://dev.d1vm77kgq4pjrd.amplifyapp.com/'}}
-              style={{flex: 1}}
-              onLoadStart={() => {
-                setProg(true);
-                setProgClr('#000');
-              }}
-              onLoadProgress={() => {
-                setProg(true);
-                setProgClr('#00457C');
-              }}
-              onLoadEnd={() => {
-                setProg(false);
-              }}
-              onLoad={() => {
-                setProg(false);
-              }}
-              injectedJavaScript = {runFirst}
-              
-              onMessage={onMessage}
-              
-            />
-          </View>
-        </Modal>
-      ) : null}
-    </SafeAreaView>
+          </ScrollView>
+        ) : (
+          <WebView source={{ uri: checkoutUrl }} />
+        )}
+      </View>
+    </LinearGradient>
   );
 };
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-  },
-  btnCon: {
-    height: 45,
-    width: '70%',
-    elevation: 1,
-    backgroundColor: '#00457C',
-    borderRadius: 3,
-  },
-  btn: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  btnTxt: {
-    color: '#fff',
-    fontSize: 18,
-  },
-  webViewCon: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-  wbHead: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f9f9f9',
-    zIndex: 25,
-    elevation: 2,
-  },
+  container: { flex: 1, padding: 20 },
+  formContainer: { backgroundColor: '#fff', borderRadius: 10, padding: 20, elevation: 5 },
+  input: { height: 45, borderColor: '#ccc', borderWidth: 1, marginBottom: 15, borderRadius: 5, paddingLeft: 10 },
+  buttonText: { fontSize: 16, color: '#fff' },
+  passwordContainer: { flexDirection: 'row', alignItems: 'center', borderRadius: 8, marginBottom: 10, height: 50 },
+  passwordInput: { flex: 1, padding: 12 },
+  label: { fontSize: 16, fontWeight: 'bold', marginVertical: 10 },
+  paymentButton: { backgroundColor: '#e58d29', paddingVertical: 12, borderRadius: 5, alignItems: 'center', marginTop: 10 },
 });
-export default PayPalPg;
+
+export default DepositScreen;

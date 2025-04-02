@@ -35,8 +35,7 @@ const FetchSMCovLns = props => {
                     filter: {
                       recipientPhn: {eq:userInfo.attributes.email}
                     }  ,
-                      sortDirection: 'DESC',
-                      limit: 100,
+                      
                       
                     }
                   

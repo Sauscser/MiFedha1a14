@@ -143,6 +143,7 @@ const SMASendChmNonLns = props => {
                                 const statuss =RecAccountDtl.data.getGroup.status; 
                                 const ttlNonLonsRecChmsssssss =RecAccountDtl.data.getGroup.ttlNonLonsRecChm;
                                 const grpNames =RecAccountDtl.data.getGroup.grpName;
+                                const MemberSubscrptnSync =RecAccountDtl.data.getGroup.MemberSubscrptnSync;
                                 
                                 
                                 
@@ -218,7 +219,7 @@ const SMASendChmNonLns = props => {
                                         graphqlOperation(updateGroup, {
                                           input:{
                                             grpContact:groupContacts,
-                                            
+                                            MemberSubscrptnSync: (parseFloat(MemberSubscrptnSync) + parseFloat(amounts)).toFixed(0),
                                             grpBal:(parseFloat(grpBals) + parseFloat(amounts)).toFixed(0),                                     
                                             ttlNonLonsRecChm: (parseFloat(amounts) + parseFloat(ttlNonLonsRecChmsssssss)).toFixed(0)
                                                                               
@@ -372,7 +373,7 @@ const SMASendChmNonLns = props => {
                                         graphqlOperation(updateGroup, {
                                           input:{
                                             grpContact:groupContacts,
-                                            
+                                            MemberSubscrptnSync: (parseFloat(MemberSubscrptnSync) + parseFloat(amounts)).toFixed(0),
                                             grpBal:(parseFloat(grpBals) + parseFloat(amounts)).toFixed(0),                                     
                                             ttlNonLonsRecChm: (parseFloat(amounts) + parseFloat(ttlNonLonsRecChmsssssss)).toFixed(0)
                                                                               

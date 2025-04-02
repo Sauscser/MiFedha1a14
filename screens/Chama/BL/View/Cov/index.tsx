@@ -33,8 +33,7 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
                {
                       
-                      sortDirection: 'DESC',
-                      limit: 100,
+                      
                       filter: {
                         and: {
                           

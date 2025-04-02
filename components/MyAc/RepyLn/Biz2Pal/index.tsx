@@ -19,6 +19,8 @@ export interface SMCvLnSttus {
         description: string,
         createdAt:string,
         updatedAt:string,
+        crtnDate: number,
+      interest:number
         
     }}
 
@@ -30,6 +32,8 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
     lonBala,
     
     loanername,
+    crtnDate,
+         interest
     
    }} = props ;
 
@@ -38,6 +42,8 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
    const SndChmMmbrMny = () => {
        navigation.navigate("RpyBiz2Pal", {loanID})
    }
+
+   
     return (
         <Pressable 
         onPress={SndChmMmbrMny}

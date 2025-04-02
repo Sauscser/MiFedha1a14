@@ -464,6 +464,10 @@ type SMLoansCovered
   advregnu: String
   loanerId: String!  
   amountgiven: Float!
+
+  clearanceAmt: Float!
+  clearanceAmt2: Float!
+
   amountexpected: Float!
   amountExpectedBackWthClrnc: Float!
   dfltUpdate: String
@@ -552,6 +556,10 @@ dfltDeadLn: Float!
   amountExpectedBackWthClrnc: Float!
   amountRepaid: Float!
   repaymentPeriod: Float!
+
+   clearanceAmt: Float!
+  clearanceAmt2: Float!
+
 giverStatus:Status!
   timeExpBack: Float!
   timeExpBack2: Float!
@@ -621,6 +629,10 @@ type CvrdGroupLoans
   advEmail:String
   amountExpectedBack: Float!
   amountExpectedBackWthClrnc: Float!
+
+   clearanceAmt: Float!
+  clearanceAmt2: Float!
+  
   amountRepaid: Float!
   description: String
   dfltUpdate: String
@@ -643,12 +655,6 @@ type CvrdGroupLoans
   installmentAmount:Float!
   paymentFrequency:Float!
 }
-
-
-
-
-
-
 
 
 type NonLoans
@@ -1602,6 +1608,294 @@ type BankAdmin
   createdAt: String!
 }
 
+type MiFedhaBankAdmin
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+     
+      { allow: private, operations: [read, update] }
+      { allow: owner, operations: [ create, read, update] }
+     
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, delete, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: groups
+        groups: ["KFNdogo"]
+        operations: [read, update]
+      }
+
+     
+      {
+        allow: groups
+        groups: ["Advocate"]
+        operations: [read, update]
+      }
+      {
+        allow: groups
+        groups: ["KFKubwa"]
+        operations: [read, update]
+      }
+    ]
+  )
+   {
+  nationalid: String! @primaryKey
+  name: String!
+  phonecontact: String!
+  TtlEarnings: Float!
+  pw: String!
+  BankAdmBal: Float!
+  email: String!
+  bank:String!
+  BankAcNu: String!
+  status: Status!
+  owner: String!
+  createdAt: String!
+}
+
+
+type ChamaLoanSync
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, update] }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [create, delete, read, update] }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+ 
+ 
+ 
+  {
+  id:ID!
+  amount: Float!
+  GrpAc:String!
+  GrpAdmEmail: String!
+  BankAdminEmail: String!
+  ChamaName: String!
+  BankName: String!
+  BranchNu: String!
+ transactionType: String!
+  status: Status!
+  createdAt: String!
+}
+
+type ChamaDividendsSync
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, update] }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [create, delete, read, update] }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+ 
+ 
+ 
+  {
+  id:ID!
+  amount: Float!
+  GrpAc:String!
+  GrpAdmEmail: String!
+  BankAdminEmail: String!
+  ChamaName: String!
+  BankName: String!
+  BranchNu: String!
+  transactionType: String!
+  status: Status!
+  createdAt: String!
+}
+
+type ChamaSubscrptnSync
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, update] }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+ 
+ 
+ 
+  {
+  id:ID!
+  amount: Float!
+  GrpAc:String!
+  GrpAdmEmail: String!
+  BankAdminEmail: String!
+  ChamaName: String!
+  BankName: String!
+  BranchNu: String!
+  transactionType: String!
+  status: Status!
+  createdAt: String!
+}
+
+type ChamaDepositSync
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: owner, operations: [create, read, update] }
+      { allow: private, operations: [read, update] }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+ 
+ 
+ 
+  {
+  id:ID!
+  amount: Float!
+  GrpAc:String!
+  GrpAdmEmail: String!
+  BankAdminEmail: String!
+  ChamaName: String!
+  BankName: String!
+  BranchNu: String!
+  transactionType: String!
+  status: Status!
+  createdAt: String!
+}
+
+type ChamaWithdrawalSync
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: private, operations: [read, update] }
+      { allow: owner, operations: [create, read, update] }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [create, delete, read, update] }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+ 
+ 
+ 
+  {
+  id:ID!
+  amount: Float!
+  GrpAc:String!
+  GrpAdmEmail: String!
+  BankAdminEmail: String!
+  ChamaName: String!
+  BankName: String!
+  BranchNu: String!
+  transactionType: String!
+  status: Status!
+  createdAt: String!
+}
+
+
+
+type ChamaLoanRpymntSync
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: private, operations: [read, update] }
+      { allow: owner, operations: [create, read, update] }
+     
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+ 
+ 
+ 
+  {
+  id:ID!
+  amount: Float!
+  GrpAc:String!
+  GrpAdmEmail: String!
+  BankAdminEmail: String!
+  ChamaName: String!
+  BankName: String!
+  BranchNu: String!
+  transactionType: String!
+  status: Status!
+  createdAt: String!
+}
 
 
 type Advocate
@@ -1703,6 +1997,51 @@ type AdvocateWithdrawals
   createdAt: String!
 }
 
+type MFBankWithdrawals
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["BankAdmin"], operations: [create, read] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      { allow: owner, operations: [read, create] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, update] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["Advocate"], operations: [read, create] }
+    ]
+  )
+ 
+  {
+  id:ID!
+  bankAdmnId: String!
+  
+  amount: Float!
+  bankName:String!
+  bkAcNo:String!
+  status: Status!
+  owner: String!
+  createdAt: String!
+}
+
+
 type Company
   @model
   @auth(
@@ -1733,6 +2072,7 @@ type Company
   agentCom: Float!
   sagentCom: Float!
   companyCom: Float!
+  companyComDisc: Float!
   AdvCom: Float!
   ChampCom: Float!
   AdvCompanyCom: Float!
@@ -1879,6 +2219,7 @@ type Company
   p2pBenCom: Float!
   g2pBenCom: Float!
   p2BBenCom: Float!
+  BankMifedhaSyncFee: Float!
 }
 
 type CompanyUrls
@@ -2064,6 +2405,19 @@ type Group
   signitory2Sub: String!
   WithdrawCnfrmtn: String!
    WithdrawCnfrmtnAmt: Float!
+   BankAdminEmail: String!
+   BankAdminAcNu: String!
+   SignatoryEmail:String!
+   GrpLoanOutSync: Float!
+   GrpLoanRpymntSync: Float!
+   MemberSubscrptnSync: Float!
+   MemberDividendSync: Float!
+   DepositSync: Float!
+   WithdrawalSync: Float!
+   chamaBenSync:Float!
+   BankName: String!
+  BranchNu: String!
+
  
   grpEmail: String!
   grpBal: Float!
@@ -2589,10 +2943,118 @@ type MFKOfferz2
   amtPaid:Float!
   mfnOffered: Float!
   acChamp: String!
+  bankAdminEmail: String!
   mfnReg: Float!
   status:Status!
   mfkAc: String! @index(name: "MFKOffer2", sortKeyFields: ["createdAt"], queryField: "MFKOffers2")
   acMainAc: String!
+  createdAt: String!  
+}
+
+type ChamaApply
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, delete, read, update] }
+      { allow: private, operations: [read] }
+      {
+        allow: groups
+        groups: ["AdminOneTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["KFKubwa"], operations: [read, create, update] }
+     
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )  
+
+  {
+  id:ID!
+  
+  ChamaAdminEmail: String!
+  bankAdminEmail: String!
+  BankAdminAccount: String!
+  mfnReg: Float!
+  status:Status!
+  ChamaAcNu: String!
+  createdAt: String!  
+}
+
+type ChamaApply2
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, delete, read, update] }
+      { allow: private, operations: [read, update] }
+      {
+        allow: groups
+        groups: ["AdminOneTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["KFKubwa"], operations: [read, create, update] }
+     
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )  
+
+  {
+  id:ID!
+  
+  ChamaAdminEmail: String!
+  bankAdminEmail: String!
+  BankAdminAccount: String!
+  mfnReg: Float!
+  status:Status!
+  ChamaAcNu: String!
+  createdAt: String!  
+}
+
+
+type ChamaControlTable
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, delete, read, update] }
+      { allow: private, operations: [read, update] }
+      
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )  
+
+  {
+  GroupID:ID!
+  
+  Institution: String!
+  LoansGiven: Float!
+  LoansRepayment: Float!
+  Subscriptions: Float!
+  Dividends: Float!
+  Withdrawals: Float!
+  Deposits: Float!
+  BankAdminEarnings: Float!
+  GrpLoanOutEarnings: Float!
+  GrpLoanEarnings: Float!
+  SubscriptionsEarnings: Float!
+  DividendsEarnings: Float!
+  WithdrawalsEarnings: Float!
+  DepositsEarnings: Float!
+  
+ GroupTotal: Float!
+ MembersTotal:Float!
+ BankAdminTotal: Float!
+ status:Status!
   createdAt: String!  
 }
 
@@ -2623,6 +3085,9 @@ enum Status {
   No
   Waived
   Forfeited
+  BiznaShareCash2Biz
+  BiznaShareCash2Pal
+  BiznaShareCash2Grp
   Sold
   CredSlrLonRepayment
   AwaitingResponse
@@ -2633,4 +3098,3 @@ enum Status {
   Objected
   NotObjected
 }
-

@@ -68,8 +68,16 @@ const RegKFKubwa = props => {
     navigation.navigate('AddMFKubwas');
   };  
 
-  const crtAdmin = () => {
-    navigation.navigate('CrtAdmin');
+  const SyncGrpLnRpyment = () => {
+    navigation.navigate('SyncGrpLnRpyment');
+  };
+
+  const SyncGrpSubscription = () => {
+    navigation.navigate('SyncGrpSubscription');
+  };
+
+  const SyncGrpDeposits = () => {
+    navigation.navigate('SyncGrpDeposits');
   };
 
 
@@ -110,7 +118,7 @@ const RegKFKubwa = props => {
                       onPress={AddMFndogoss}
                       style={styles.ClientsPressables}>
                       <Text style={styles.clientsPressableText}>
-                        Add
+                        AddMFN
                       </Text>
                     </Pressable>
                   </View>
@@ -132,14 +140,7 @@ const RegKFKubwa = props => {
                       </Text>
                     </Pressable>
 
-                    <Pressable
-                      onPress={ChamaRegss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                        RegChm
-                      </Text>
-                    </Pressable>
-
+                   
                     <Pressable
                       onPress={AddMFKubwass}
                       style={styles.ClientsPressables}>
@@ -165,14 +166,7 @@ const RegKFKubwa = props => {
                       
                     </Pressable>
 
-                    <Pressable
-                      onPress={PwnBrkrRegss}
-                      style={styles.ClientsPressables}>
-                      <Text style={styles.clientsPressableText}>
-                      RegPwnBrkr
-                      </Text>
-                      
-                    </Pressable>
+                    
                   </View>
                 </View>
               </View>
@@ -233,6 +227,35 @@ const RegKFKubwa = props => {
                 onPress={AdjustUsrLimitsss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>AdjUsrLim</Text>
+              </Pressable>
+                  </View>
+                </View>
+
+                <View style={styles.acEarningsView}>
+              <Text style={styles.salesText}>SM Users</Text>
+
+              
+
+                  <View style={styles.viewForAcEarningsPressables}>
+                    
+                    <Pressable
+                      onPress={SyncGrpLnRpyment}
+                      style={styles.earningsAcPressables}>
+                      <Text style={styles.earningsAcPressableText}>Sync Loan Repayments</Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={SyncGrpSubscription}
+                      style={styles.earningsAcPressables}>
+                      <Text style={styles.earningsAcPressableText}>
+                        Sync Subscriptions
+                      </Text>
+                    </Pressable>
+
+                    <Pressable
+                onPress={SyncGrpDeposits}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>Sync Deposits</Text>
               </Pressable>
                   </View>
                 </View>

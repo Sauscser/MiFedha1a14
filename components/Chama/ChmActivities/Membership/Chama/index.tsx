@@ -143,7 +143,7 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
               <Pressable
                 onPress={SendNonLoans}
                 style = {styles.loanFriendButton}>            
-                  <Text style = {styles.loanAFriendText}>SendNonLoans</Text>            
+                  <Text style = {styles.loanAFriendText}>SendNonLoans/Dividends</Text>            
               </Pressable>  
              
             

@@ -67,7 +67,7 @@ const SMADepositForm = props => {
    
 
     const fetchCvLnSM = async () => {
-      setLoading(true);
+      
       
     
       try {
@@ -84,7 +84,7 @@ const SMADepositForm = props => {
             
         
                     const fetchCLCrdSl = async () => {
-                      setLoading(true);
+                     
                       try {
                         const Lonees3:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
                           { filter: {
@@ -99,7 +99,7 @@ const SMADepositForm = props => {
                             
 
                                     const fetchCLChm = async () => {
-                                      setLoading(true);
+                                     
                                       try {
                                         const Lonees5:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
                                           { filter: {
@@ -116,10 +116,7 @@ const SMADepositForm = props => {
          
       
       const fetchAgtBal = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
+       
         try {
           const AgentBal:any = await API.graphql(
             graphqlOperation(getAgent, {phonecontact: AgentPhn}),
@@ -135,10 +132,7 @@ const SMADepositForm = props => {
           const MFNWithdrwlFees = AgentBal.data.getAgent.MFNWithdrwlFee;
 
           const gtCompDtls = async () =>{
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
+            
             try{
               const compDtls :any= await API.graphql(
               graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -147,6 +141,7 @@ const SMADepositForm = props => {
                   const agentComs = compDtls.data.getCompany.agentCom;
                   const sagentComs = compDtls.data.getCompany.sagentCom;
                   const companyComs = compDtls.data.getCompany.companyCom;
+                  const companyComDisc = compDtls.data.getCompany.companyComDisc;
                   const UsrWthdrwlFeess = compDtls.data.getCompany.UsrWthdrwlFees;
 
                   const ChampCom = compDtls.data.getCompany.ChampCom;
@@ -160,32 +155,26 @@ const SMADepositForm = props => {
                   const agentFloatIns = compDtls.data.getCompany.agentFloatIn                 
                   
                   const gtsaDtls = async () =>{
-                    if(isLoading){
-                      return;
-                    }
-                    setIsLoading(true);
+                   
                     try{
-                      const compDtls :any= await API.graphql(
+                      const compDtlsxc :any= await API.graphql(
                       graphqlOperation(getSAgent,{saPhoneContact:sagentregnos})
                         );
-                          const TtlEarningss = compDtls.data.getSAgent.TtlEarnings;
-                          const saBalances = compDtls.data.getSAgent.saBalance;
-                          const acChamp = compDtls.data.getSAgent.acChamp;
-                          const namessssssss = compDtls.data.getSAgent.name;
-                          const MFKWithdrwlFees = compDtls.data.getSAgent.MFKWithdrwlFee;
+                          const TtlEarningss = compDtlsxc.data.getSAgent.TtlEarnings;
+                          const saBalances = compDtlsxc.data.getSAgent.saBalance;
+                          const acChamp = compDtlsxc.data.getSAgent.acChamp;
+                          const namessssssss = compDtlsxc.data.getSAgent.name;
+                          const MFKWithdrwlFees = compDtlsxc.data.getSAgent.MFKWithdrwlFee;
                           const AgentCommission = (parseFloat(agentComs) - parseFloat(MFNWithdrwlFees))/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)                                                
                           const saCommission = (parseFloat(sagentComs) - parseFloat(MFKWithdrwlFees))/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
-                          const compCommission = parseFloat(companyComs)/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
+                          const compCommission = (parseFloat(companyComs) - parseFloat(companyComDisc))/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
                           const ChampCommission = parseFloat(ChampCom)/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
                           const UsrWithdrawalFee = AgentCommission+saCommission+compCommission+ChampCommission;
                           const TTlAmtTrnsctd = parseFloat(amount) + UsrWithdrawalFee
 
 
                           const gtMFChamp = async () =>{
-                            if(isLoading){
-                              return;
-                            }
-                            setIsLoading(true);
+                           
                             try{
                               const compDtlsx :any= await API.graphql(
                               graphqlOperation(getSMAccount,{awsemail:acChamp})
@@ -212,6 +201,8 @@ const SMADepositForm = props => {
                                   },
                                 }),
                               );
+
+                              await onUpdtUsrBal();
             
                     } catch (error) {
                       if (error){
@@ -219,15 +210,12 @@ const SMADepositForm = props => {
                         return
                       }
                     }
-                    setIsLoading(false);
-                    await onUpdtUsrBal();
+                   
+                    
                     };  
         
                     const onUpdtUsrBal = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
+                    
                       try {
                         await API.graphql(
                           graphqlOperation(updateSMAccount, {
@@ -239,6 +227,7 @@ const SMADepositForm = props => {
                             },
                           }),
                         );
+                        await onUpdtAgntBal();
                       }
         
                       catch (error) {
@@ -246,15 +235,12 @@ const SMADepositForm = props => {
                         if (error){Alert.alert("Retry, or update app or call customer care")
                         return;}
                       }
-                      setIsLoading(false);
-                      await onUpdtAgntBal();
+                     
+                     
                       }; 
         
                       const onUpdtAgntBal = async () => {
-                        if(isLoading){
-                          return;
-                        }
-                        setIsLoading(true);
+                      
                         try {
                           await API.graphql(
                             graphqlOperation(updateAgent, {
@@ -269,6 +255,7 @@ const SMADepositForm = props => {
                               },
                             }),
                           );
+                          await onUpdtsaDtls();
                         }
         
                         catch (error) {
@@ -276,17 +263,14 @@ const SMADepositForm = props => {
                           if (error){Alert.alert("Retry, or update app or call customer care")
                           return;}
                         }
-                        setIsLoading(false);
-                        await onUpdtsaDtls();
+                       
+                       
                         }; 
         
                         
         
                           const onUpdtsaDtls = async () => {
-                            if(isLoading){
-                              return;
-                            }
-                            setIsLoading(true);
+                           
                             try {
                               await API.graphql(
                                 graphqlOperation(updateSAgent, {
@@ -299,6 +283,8 @@ const SMADepositForm = props => {
                                   },
                                 }),
                               );
+
+                              await onUpdtMFChamp ();
                             }
             
                             catch (error) {
@@ -306,15 +292,40 @@ const SMADepositForm = props => {
                               if (error){Alert.alert("Retry, or update app or call customer care")
                               return;}
                             }
-                            await onUpdtCompDtls();
-                            setIsLoading(false);
+                            
+                           
                             }; 
 
-                            const onUpdtCompDtls = async () => {
+                            const onUpdtMFChamp = async () => {
                               if(isLoading){
                                 return;
                               }
-                                setIsLoading(true);
+                              setIsLoading(true);
+                              try {
+                                await API.graphql(
+                                  graphqlOperation(updateSMAccount, {
+                                    input: {
+                                      awsemail: acChamp,
+                          
+                                      balance: (ChampCommission + balancesx).toFixed(0) ,
+                                      
+                                    },
+                                  }),
+                                );
+                                await onUpdtCompDtls();
+                              }
+                
+                              catch (error) {
+                                console.log(error)
+                                if (error){Alert.alert("Retry, or update app or call customer care")
+                                return;}
+                              }
+                              setIsLoading(false);
+                              
+                              }; 
+
+                            const onUpdtCompDtls = async () => {
+                             
                               try {
                                 await API.graphql(
                                   graphqlOperation(updateCompany, {
@@ -345,32 +356,7 @@ const SMADepositForm = props => {
                               Alert.alert(names + " has withdrawn Ksh. " + parseFloat(amount).toFixed(2) + " from " + namess + " MFNdogo");
                               }; 
 
-                              const onUpdtMFChamp = async () => {
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try {
-                                  await API.graphql(
-                                    graphqlOperation(updateSMAccount, {
-                                      input: {
-                                        awsemail: acChamp,
-                            
-                                        balance: (ChampCommission + balancesx).toFixed(0) ,
-                                        
-                                      },
-                                    }),
-                                  );
-                                }
-                  
-                                catch (error) {
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry, or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                
-                                }; 
+                             
                     
                     
                     if (TTlAmtTrnsctd > parseFloat(usrBala)) {
@@ -417,7 +403,7 @@ const SMADepositForm = props => {
                         SndChmMmbrMny();
                     } 
         
-                    else{await CrtFltAdd()}   
+                    else{ CrtFltAdd()}   
         
         
                     } catch (error) {
@@ -425,7 +411,7 @@ const SMADepositForm = props => {
                   if (error){Alert.alert("Retry, update app or call customer care")
                           return;}
                     }
-                    setIsLoading(false);
+                   
                     };    
         
                     await gtMFChamp();        
@@ -435,7 +421,7 @@ const SMADepositForm = props => {
                 if (error){Alert.alert("Retry, update app or call customer care")
                         return;}
                   }
-                  setIsLoading(false);
+                
                   };    
       
                   await gtsaDtls();      
@@ -445,7 +431,7 @@ const SMADepositForm = props => {
           if (error){Alert.alert("Retry, update app or call customer care")
                   return;}
             }
-           setIsLoading(false);
+          
             };    
 
             await gtCompDtls();           
@@ -457,7 +443,7 @@ const SMADepositForm = props => {
       return;}
          
     }   
-  setIsLoading(false);
+ 
 };
 
     await fetchAgtBal();
@@ -471,7 +457,7 @@ const SMADepositForm = props => {
     return;}
        
   }   
-setIsLoading(false);
+
 };
 
   await fetchCLChm();
@@ -485,7 +471,7 @@ setIsLoading(false);
     return;}
        
   }   
-setIsLoading(false);
+
 };
 
   await fetchCLCrdSl();
@@ -499,7 +485,7 @@ setIsLoading(false);
     return;}
        
   }   
-setIsLoading(false);
+
 };
 
 if (userInfo.attributes.sub !== owners)
@@ -514,7 +500,7 @@ if (userInfo.attributes.sub !== owners)
       return;}
           
      }       
-    setIsLoading(false)
+    
     
     setAmount("");
     setUsrPWd("")

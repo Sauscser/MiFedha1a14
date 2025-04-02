@@ -871,6 +871,8 @@ export const onCreateSMLoansCovered = /* GraphQL */ `subscription OnCreateSMLoan
     advregnu
     loanerId
     amountgiven
+    clearanceAmt
+    clearanceAmt2
     amountexpected
     amountExpectedBackWthClrnc
     dfltUpdate
@@ -919,6 +921,8 @@ export const onUpdateSMLoansCovered = /* GraphQL */ `subscription OnUpdateSMLoan
     advregnu
     loanerId
     amountgiven
+    clearanceAmt
+    clearanceAmt2
     amountexpected
     amountExpectedBackWthClrnc
     dfltUpdate
@@ -967,6 +971,8 @@ export const onDeleteSMLoansCovered = /* GraphQL */ `subscription OnDeleteSMLoan
     advregnu
     loanerId
     amountgiven
+    clearanceAmt
+    clearanceAmt2
     amountexpected
     amountExpectedBackWthClrnc
     dfltUpdate
@@ -1026,6 +1032,8 @@ export const onCreateCovCreditSeller = /* GraphQL */ `subscription OnCreateCovCr
     amountExpectedBackWthClrnc
     amountRepaid
     repaymentPeriod
+    clearanceAmt
+    clearanceAmt2
     giverStatus
     timeExpBack
     timeExpBack2
@@ -1074,6 +1082,8 @@ export const onUpdateCovCreditSeller = /* GraphQL */ `subscription OnUpdateCovCr
     amountExpectedBackWthClrnc
     amountRepaid
     repaymentPeriod
+    clearanceAmt
+    clearanceAmt2
     giverStatus
     timeExpBack
     timeExpBack2
@@ -1122,6 +1132,8 @@ export const onDeleteCovCreditSeller = /* GraphQL */ `subscription OnDeleteCovCr
     amountExpectedBackWthClrnc
     amountRepaid
     repaymentPeriod
+    clearanceAmt
+    clearanceAmt2
     giverStatus
     timeExpBack
     timeExpBack2
@@ -1161,6 +1173,8 @@ export const onCreateCvrdGroupLoans = /* GraphQL */ `subscription OnCreateCvrdGr
     advEmail
     amountExpectedBack
     amountExpectedBackWthClrnc
+    clearanceAmt
+    clearanceAmt2
     amountRepaid
     description
     dfltUpdate
@@ -1206,6 +1220,8 @@ export const onUpdateCvrdGroupLoans = /* GraphQL */ `subscription OnUpdateCvrdGr
     advEmail
     amountExpectedBack
     amountExpectedBackWthClrnc
+    clearanceAmt
+    clearanceAmt2
     amountRepaid
     description
     dfltUpdate
@@ -1251,6 +1267,8 @@ export const onDeleteCvrdGroupLoans = /* GraphQL */ `subscription OnDeleteCvrdGr
     advEmail
     amountExpectedBack
     amountExpectedBackWthClrnc
+    clearanceAmt
+    clearanceAmt2
     amountRepaid
     description
     dfltUpdate
@@ -2711,6 +2729,531 @@ export const onDeleteBankAdmin = /* GraphQL */ `subscription OnDeleteBankAdmin(
   APITypes.OnDeleteBankAdminSubscriptionVariables,
   APITypes.OnDeleteBankAdminSubscription
 >;
+export const onCreateMiFedhaBankAdmin = /* GraphQL */ `subscription OnCreateMiFedhaBankAdmin(
+  $filter: ModelSubscriptionMiFedhaBankAdminFilterInput
+  $owner: String
+) {
+  onCreateMiFedhaBankAdmin(filter: $filter, owner: $owner) {
+    nationalid
+    name
+    phonecontact
+    TtlEarnings
+    pw
+    BankAdmBal
+    email
+    bank
+    BankAcNu
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateMiFedhaBankAdminSubscriptionVariables,
+  APITypes.OnCreateMiFedhaBankAdminSubscription
+>;
+export const onUpdateMiFedhaBankAdmin = /* GraphQL */ `subscription OnUpdateMiFedhaBankAdmin(
+  $filter: ModelSubscriptionMiFedhaBankAdminFilterInput
+  $owner: String
+) {
+  onUpdateMiFedhaBankAdmin(filter: $filter, owner: $owner) {
+    nationalid
+    name
+    phonecontact
+    TtlEarnings
+    pw
+    BankAdmBal
+    email
+    bank
+    BankAcNu
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateMiFedhaBankAdminSubscriptionVariables,
+  APITypes.OnUpdateMiFedhaBankAdminSubscription
+>;
+export const onDeleteMiFedhaBankAdmin = /* GraphQL */ `subscription OnDeleteMiFedhaBankAdmin(
+  $filter: ModelSubscriptionMiFedhaBankAdminFilterInput
+  $owner: String
+) {
+  onDeleteMiFedhaBankAdmin(filter: $filter, owner: $owner) {
+    nationalid
+    name
+    phonecontact
+    TtlEarnings
+    pw
+    BankAdmBal
+    email
+    bank
+    BankAcNu
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMiFedhaBankAdminSubscriptionVariables,
+  APITypes.OnDeleteMiFedhaBankAdminSubscription
+>;
+export const onCreateChamaLoanSync = /* GraphQL */ `subscription OnCreateChamaLoanSync(
+  $filter: ModelSubscriptionChamaLoanSyncFilterInput
+  $owner: String
+) {
+  onCreateChamaLoanSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateChamaLoanSyncSubscriptionVariables,
+  APITypes.OnCreateChamaLoanSyncSubscription
+>;
+export const onUpdateChamaLoanSync = /* GraphQL */ `subscription OnUpdateChamaLoanSync(
+  $filter: ModelSubscriptionChamaLoanSyncFilterInput
+  $owner: String
+) {
+  onUpdateChamaLoanSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateChamaLoanSyncSubscriptionVariables,
+  APITypes.OnUpdateChamaLoanSyncSubscription
+>;
+export const onDeleteChamaLoanSync = /* GraphQL */ `subscription OnDeleteChamaLoanSync(
+  $filter: ModelSubscriptionChamaLoanSyncFilterInput
+  $owner: String
+) {
+  onDeleteChamaLoanSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteChamaLoanSyncSubscriptionVariables,
+  APITypes.OnDeleteChamaLoanSyncSubscription
+>;
+export const onCreateChamaDividendsSync = /* GraphQL */ `subscription OnCreateChamaDividendsSync(
+  $filter: ModelSubscriptionChamaDividendsSyncFilterInput
+  $owner: String
+) {
+  onCreateChamaDividendsSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateChamaDividendsSyncSubscriptionVariables,
+  APITypes.OnCreateChamaDividendsSyncSubscription
+>;
+export const onUpdateChamaDividendsSync = /* GraphQL */ `subscription OnUpdateChamaDividendsSync(
+  $filter: ModelSubscriptionChamaDividendsSyncFilterInput
+  $owner: String
+) {
+  onUpdateChamaDividendsSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateChamaDividendsSyncSubscriptionVariables,
+  APITypes.OnUpdateChamaDividendsSyncSubscription
+>;
+export const onDeleteChamaDividendsSync = /* GraphQL */ `subscription OnDeleteChamaDividendsSync(
+  $filter: ModelSubscriptionChamaDividendsSyncFilterInput
+  $owner: String
+) {
+  onDeleteChamaDividendsSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteChamaDividendsSyncSubscriptionVariables,
+  APITypes.OnDeleteChamaDividendsSyncSubscription
+>;
+export const onCreateChamaSubscrptnSync = /* GraphQL */ `subscription OnCreateChamaSubscrptnSync(
+  $filter: ModelSubscriptionChamaSubscrptnSyncFilterInput
+  $owner: String
+) {
+  onCreateChamaSubscrptnSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateChamaSubscrptnSyncSubscriptionVariables,
+  APITypes.OnCreateChamaSubscrptnSyncSubscription
+>;
+export const onUpdateChamaSubscrptnSync = /* GraphQL */ `subscription OnUpdateChamaSubscrptnSync(
+  $filter: ModelSubscriptionChamaSubscrptnSyncFilterInput
+  $owner: String
+) {
+  onUpdateChamaSubscrptnSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateChamaSubscrptnSyncSubscriptionVariables,
+  APITypes.OnUpdateChamaSubscrptnSyncSubscription
+>;
+export const onDeleteChamaSubscrptnSync = /* GraphQL */ `subscription OnDeleteChamaSubscrptnSync(
+  $filter: ModelSubscriptionChamaSubscrptnSyncFilterInput
+  $owner: String
+) {
+  onDeleteChamaSubscrptnSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteChamaSubscrptnSyncSubscriptionVariables,
+  APITypes.OnDeleteChamaSubscrptnSyncSubscription
+>;
+export const onCreateChamaDepositSync = /* GraphQL */ `subscription OnCreateChamaDepositSync(
+  $filter: ModelSubscriptionChamaDepositSyncFilterInput
+  $owner: String
+) {
+  onCreateChamaDepositSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateChamaDepositSyncSubscriptionVariables,
+  APITypes.OnCreateChamaDepositSyncSubscription
+>;
+export const onUpdateChamaDepositSync = /* GraphQL */ `subscription OnUpdateChamaDepositSync(
+  $filter: ModelSubscriptionChamaDepositSyncFilterInput
+  $owner: String
+) {
+  onUpdateChamaDepositSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateChamaDepositSyncSubscriptionVariables,
+  APITypes.OnUpdateChamaDepositSyncSubscription
+>;
+export const onDeleteChamaDepositSync = /* GraphQL */ `subscription OnDeleteChamaDepositSync(
+  $filter: ModelSubscriptionChamaDepositSyncFilterInput
+  $owner: String
+) {
+  onDeleteChamaDepositSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteChamaDepositSyncSubscriptionVariables,
+  APITypes.OnDeleteChamaDepositSyncSubscription
+>;
+export const onCreateChamaWithdrawalSync = /* GraphQL */ `subscription OnCreateChamaWithdrawalSync(
+  $filter: ModelSubscriptionChamaWithdrawalSyncFilterInput
+  $owner: String
+) {
+  onCreateChamaWithdrawalSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateChamaWithdrawalSyncSubscriptionVariables,
+  APITypes.OnCreateChamaWithdrawalSyncSubscription
+>;
+export const onUpdateChamaWithdrawalSync = /* GraphQL */ `subscription OnUpdateChamaWithdrawalSync(
+  $filter: ModelSubscriptionChamaWithdrawalSyncFilterInput
+  $owner: String
+) {
+  onUpdateChamaWithdrawalSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateChamaWithdrawalSyncSubscriptionVariables,
+  APITypes.OnUpdateChamaWithdrawalSyncSubscription
+>;
+export const onDeleteChamaWithdrawalSync = /* GraphQL */ `subscription OnDeleteChamaWithdrawalSync(
+  $filter: ModelSubscriptionChamaWithdrawalSyncFilterInput
+  $owner: String
+) {
+  onDeleteChamaWithdrawalSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteChamaWithdrawalSyncSubscriptionVariables,
+  APITypes.OnDeleteChamaWithdrawalSyncSubscription
+>;
+export const onCreateChamaLoanRpymntSync = /* GraphQL */ `subscription OnCreateChamaLoanRpymntSync(
+  $filter: ModelSubscriptionChamaLoanRpymntSyncFilterInput
+  $owner: String
+) {
+  onCreateChamaLoanRpymntSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateChamaLoanRpymntSyncSubscriptionVariables,
+  APITypes.OnCreateChamaLoanRpymntSyncSubscription
+>;
+export const onUpdateChamaLoanRpymntSync = /* GraphQL */ `subscription OnUpdateChamaLoanRpymntSync(
+  $filter: ModelSubscriptionChamaLoanRpymntSyncFilterInput
+  $owner: String
+) {
+  onUpdateChamaLoanRpymntSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateChamaLoanRpymntSyncSubscriptionVariables,
+  APITypes.OnUpdateChamaLoanRpymntSyncSubscription
+>;
+export const onDeleteChamaLoanRpymntSync = /* GraphQL */ `subscription OnDeleteChamaLoanRpymntSync(
+  $filter: ModelSubscriptionChamaLoanRpymntSyncFilterInput
+  $owner: String
+) {
+  onDeleteChamaLoanRpymntSync(filter: $filter, owner: $owner) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteChamaLoanRpymntSyncSubscriptionVariables,
+  APITypes.OnDeleteChamaLoanRpymntSyncSubscription
+>;
 export const onCreateAdvocate = /* GraphQL */ `subscription OnCreateAdvocate(
   $filter: ModelSubscriptionAdvocateFilterInput
   $owner: String
@@ -2858,6 +3401,69 @@ export const onDeleteAdvocateWithdrawals = /* GraphQL */ `subscription OnDeleteA
   APITypes.OnDeleteAdvocateWithdrawalsSubscriptionVariables,
   APITypes.OnDeleteAdvocateWithdrawalsSubscription
 >;
+export const onCreateMFBankWithdrawals = /* GraphQL */ `subscription OnCreateMFBankWithdrawals(
+  $filter: ModelSubscriptionMFBankWithdrawalsFilterInput
+  $owner: String
+) {
+  onCreateMFBankWithdrawals(filter: $filter, owner: $owner) {
+    id
+    bankAdmnId
+    amount
+    bankName
+    bkAcNo
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateMFBankWithdrawalsSubscriptionVariables,
+  APITypes.OnCreateMFBankWithdrawalsSubscription
+>;
+export const onUpdateMFBankWithdrawals = /* GraphQL */ `subscription OnUpdateMFBankWithdrawals(
+  $filter: ModelSubscriptionMFBankWithdrawalsFilterInput
+  $owner: String
+) {
+  onUpdateMFBankWithdrawals(filter: $filter, owner: $owner) {
+    id
+    bankAdmnId
+    amount
+    bankName
+    bkAcNo
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateMFBankWithdrawalsSubscriptionVariables,
+  APITypes.OnUpdateMFBankWithdrawalsSubscription
+>;
+export const onDeleteMFBankWithdrawals = /* GraphQL */ `subscription OnDeleteMFBankWithdrawals(
+  $filter: ModelSubscriptionMFBankWithdrawalsFilterInput
+  $owner: String
+) {
+  onDeleteMFBankWithdrawals(filter: $filter, owner: $owner) {
+    id
+    bankAdmnId
+    amount
+    bankName
+    bkAcNo
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMFBankWithdrawalsSubscriptionVariables,
+  APITypes.OnDeleteMFBankWithdrawalsSubscription
+>;
 export const onCreateCompany = /* GraphQL */ `subscription OnCreateCompany(
   $filter: ModelSubscriptionCompanyFilterInput
   $owner: String
@@ -2878,6 +3484,7 @@ export const onCreateCompany = /* GraphQL */ `subscription OnCreateCompany(
     agentCom
     sagentCom
     companyCom
+    companyComDisc
     AdvCom
     ChampCom
     AdvCompanyCom
@@ -3018,6 +3625,7 @@ export const onCreateCompany = /* GraphQL */ `subscription OnCreateCompany(
     p2pBenCom
     g2pBenCom
     p2BBenCom
+    BankMifedhaSyncFee
     updatedAt
     __typename
   }
@@ -3046,6 +3654,7 @@ export const onUpdateCompany = /* GraphQL */ `subscription OnUpdateCompany(
     agentCom
     sagentCom
     companyCom
+    companyComDisc
     AdvCom
     ChampCom
     AdvCompanyCom
@@ -3186,6 +3795,7 @@ export const onUpdateCompany = /* GraphQL */ `subscription OnUpdateCompany(
     p2pBenCom
     g2pBenCom
     p2BBenCom
+    BankMifedhaSyncFee
     updatedAt
     __typename
   }
@@ -3214,6 +3824,7 @@ export const onDeleteCompany = /* GraphQL */ `subscription OnDeleteCompany(
     agentCom
     sagentCom
     companyCom
+    companyComDisc
     AdvCom
     ChampCom
     AdvCompanyCom
@@ -3354,6 +3965,7 @@ export const onDeleteCompany = /* GraphQL */ `subscription OnDeleteCompany(
     p2pBenCom
     g2pBenCom
     p2BBenCom
+    BankMifedhaSyncFee
     updatedAt
     __typename
   }
@@ -3727,6 +4339,18 @@ export const onCreateGroup = /* GraphQL */ `subscription OnCreateGroup(
     signitory2Sub
     WithdrawCnfrmtn
     WithdrawCnfrmtnAmt
+    BankAdminEmail
+    BankAdminAcNu
+    SignatoryEmail
+    GrpLoanOutSync
+    GrpLoanRpymntSync
+    MemberSubscrptnSync
+    MemberDividendSync
+    DepositSync
+    WithdrawalSync
+    chamaBenSync
+    BankName
+    BranchNu
     grpEmail
     grpBal
     ttlGrpMembers
@@ -3805,6 +4429,18 @@ export const onUpdateGroup = /* GraphQL */ `subscription OnUpdateGroup(
     signitory2Sub
     WithdrawCnfrmtn
     WithdrawCnfrmtnAmt
+    BankAdminEmail
+    BankAdminAcNu
+    SignatoryEmail
+    GrpLoanOutSync
+    GrpLoanRpymntSync
+    MemberSubscrptnSync
+    MemberDividendSync
+    DepositSync
+    WithdrawalSync
+    chamaBenSync
+    BankName
+    BranchNu
     grpEmail
     grpBal
     ttlGrpMembers
@@ -3883,6 +4519,18 @@ export const onDeleteGroup = /* GraphQL */ `subscription OnDeleteGroup(
     signitory2Sub
     WithdrawCnfrmtn
     WithdrawCnfrmtnAmt
+    BankAdminEmail
+    BankAdminAcNu
+    SignatoryEmail
+    GrpLoanOutSync
+    GrpLoanRpymntSync
+    MemberSubscrptnSync
+    MemberDividendSync
+    DepositSync
+    WithdrawalSync
+    chamaBenSync
+    BankName
+    BranchNu
     grpEmail
     grpBal
     ttlGrpMembers
@@ -4723,6 +5371,7 @@ export const onCreateMFKOfferz2 = /* GraphQL */ `subscription OnCreateMFKOfferz2
     amtPaid
     mfnOffered
     acChamp
+    bankAdminEmail
     mfnReg
     status
     mfkAc
@@ -4748,6 +5397,7 @@ export const onUpdateMFKOfferz2 = /* GraphQL */ `subscription OnUpdateMFKOfferz2
     amtPaid
     mfnOffered
     acChamp
+    bankAdminEmail
     mfnReg
     status
     mfkAc
@@ -4773,6 +5423,7 @@ export const onDeleteMFKOfferz2 = /* GraphQL */ `subscription OnDeleteMFKOfferz2
     amtPaid
     mfnOffered
     acChamp
+    bankAdminEmail
     mfnReg
     status
     mfkAc
@@ -4786,4 +5437,241 @@ export const onDeleteMFKOfferz2 = /* GraphQL */ `subscription OnDeleteMFKOfferz2
 ` as GeneratedSubscription<
   APITypes.OnDeleteMFKOfferz2SubscriptionVariables,
   APITypes.OnDeleteMFKOfferz2Subscription
+>;
+export const onCreateChamaApply = /* GraphQL */ `subscription OnCreateChamaApply(
+  $filter: ModelSubscriptionChamaApplyFilterInput
+  $owner: String
+) {
+  onCreateChamaApply(filter: $filter, owner: $owner) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateChamaApplySubscriptionVariables,
+  APITypes.OnCreateChamaApplySubscription
+>;
+export const onUpdateChamaApply = /* GraphQL */ `subscription OnUpdateChamaApply(
+  $filter: ModelSubscriptionChamaApplyFilterInput
+  $owner: String
+) {
+  onUpdateChamaApply(filter: $filter, owner: $owner) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateChamaApplySubscriptionVariables,
+  APITypes.OnUpdateChamaApplySubscription
+>;
+export const onDeleteChamaApply = /* GraphQL */ `subscription OnDeleteChamaApply(
+  $filter: ModelSubscriptionChamaApplyFilterInput
+  $owner: String
+) {
+  onDeleteChamaApply(filter: $filter, owner: $owner) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteChamaApplySubscriptionVariables,
+  APITypes.OnDeleteChamaApplySubscription
+>;
+export const onCreateChamaApply2 = /* GraphQL */ `subscription OnCreateChamaApply2(
+  $filter: ModelSubscriptionChamaApply2FilterInput
+  $owner: String
+) {
+  onCreateChamaApply2(filter: $filter, owner: $owner) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateChamaApply2SubscriptionVariables,
+  APITypes.OnCreateChamaApply2Subscription
+>;
+export const onUpdateChamaApply2 = /* GraphQL */ `subscription OnUpdateChamaApply2(
+  $filter: ModelSubscriptionChamaApply2FilterInput
+  $owner: String
+) {
+  onUpdateChamaApply2(filter: $filter, owner: $owner) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateChamaApply2SubscriptionVariables,
+  APITypes.OnUpdateChamaApply2Subscription
+>;
+export const onDeleteChamaApply2 = /* GraphQL */ `subscription OnDeleteChamaApply2(
+  $filter: ModelSubscriptionChamaApply2FilterInput
+  $owner: String
+) {
+  onDeleteChamaApply2(filter: $filter, owner: $owner) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteChamaApply2SubscriptionVariables,
+  APITypes.OnDeleteChamaApply2Subscription
+>;
+export const onCreateChamaControlTable = /* GraphQL */ `subscription OnCreateChamaControlTable(
+  $filter: ModelSubscriptionChamaControlTableFilterInput
+  $owner: String
+) {
+  onCreateChamaControlTable(filter: $filter, owner: $owner) {
+    GroupID
+    Institution
+    LoansGiven
+    LoansRepayment
+    Subscriptions
+    Dividends
+    Withdrawals
+    Deposits
+    BankAdminEarnings
+    GrpLoanOutEarnings
+    GrpLoanEarnings
+    SubscriptionsEarnings
+    DividendsEarnings
+    WithdrawalsEarnings
+    DepositsEarnings
+    GroupTotal
+    MembersTotal
+    BankAdminTotal
+    status
+    createdAt
+    id
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateChamaControlTableSubscriptionVariables,
+  APITypes.OnCreateChamaControlTableSubscription
+>;
+export const onUpdateChamaControlTable = /* GraphQL */ `subscription OnUpdateChamaControlTable(
+  $filter: ModelSubscriptionChamaControlTableFilterInput
+  $owner: String
+) {
+  onUpdateChamaControlTable(filter: $filter, owner: $owner) {
+    GroupID
+    Institution
+    LoansGiven
+    LoansRepayment
+    Subscriptions
+    Dividends
+    Withdrawals
+    Deposits
+    BankAdminEarnings
+    GrpLoanOutEarnings
+    GrpLoanEarnings
+    SubscriptionsEarnings
+    DividendsEarnings
+    WithdrawalsEarnings
+    DepositsEarnings
+    GroupTotal
+    MembersTotal
+    BankAdminTotal
+    status
+    createdAt
+    id
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateChamaControlTableSubscriptionVariables,
+  APITypes.OnUpdateChamaControlTableSubscription
+>;
+export const onDeleteChamaControlTable = /* GraphQL */ `subscription OnDeleteChamaControlTable(
+  $filter: ModelSubscriptionChamaControlTableFilterInput
+  $owner: String
+) {
+  onDeleteChamaControlTable(filter: $filter, owner: $owner) {
+    GroupID
+    Institution
+    LoansGiven
+    LoansRepayment
+    Subscriptions
+    Dividends
+    Withdrawals
+    Deposits
+    BankAdminEarnings
+    GrpLoanOutEarnings
+    GrpLoanEarnings
+    SubscriptionsEarnings
+    DividendsEarnings
+    WithdrawalsEarnings
+    DepositsEarnings
+    GroupTotal
+    MembersTotal
+    BankAdminTotal
+    status
+    createdAt
+    id
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteChamaControlTableSubscriptionVariables,
+  APITypes.OnDeleteChamaControlTableSubscription
 >;

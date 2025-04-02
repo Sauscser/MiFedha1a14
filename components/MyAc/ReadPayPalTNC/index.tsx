@@ -36,7 +36,7 @@ const FetchSMNonCovLns = props => {
     const navigation = useNavigation();
 
     const PyPlDpst = () => {
-      navigation.navigate("PayPalDposit");
+      navigation.navigate("Mpesa");
     }
 
     const PyPlDpst2 = () => {

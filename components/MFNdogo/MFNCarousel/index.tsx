@@ -82,10 +82,11 @@ const ViewSMDeposts = (props:SMAccount) => {
                   const MFNDtlszz :any= await API.graphql(
                     graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
                     );
-                    setCompWithdrwlFee(MFNDtlszz.data.getCompany.companyCom); 
+                    setCompWithdrwlFee(MFNDtlszz.data.getCompany.companyComDisc); 
                     setUsrWthdrwlFees(MFNDtlszz.data.getCompany.UsrWthdrwlFees); 
                     setMFNWDFFrmCmp(MFNDtlszz.data.getCompany.agentCom);
                     setMFKWDFeeFrmCmp(MFNDtlszz.data.getCompany.sagentCom);
+                    
                      
                   
                    
@@ -139,7 +140,7 @@ const ViewSMDeposts = (props:SMAccount) => {
 
 
           <Text style={styles.amountoffered} numberOfLines={4}>
-          Company Disc:{20 - parseFloat(CompWithdrwlFee)}%
+          Company Disc:{parseFloat(CompWithdrwlFee)}%
           </Text>
 
           {/* Type & Description */}
@@ -155,7 +156,7 @@ const ViewSMDeposts = (props:SMAccount) => {
 
           {/* Type & Description */}
           <Text style={styles.amountoffered} numberOfLines={2}>
-          Total Disc:{(20 - parseFloat(CompWithdrwlFee) )+MFKWithdrwlFee + MFNWithdrwlFee}%
+          Total Disc:{(parseFloat(CompWithdrwlFee) )+MFKWithdrwlFee + MFNWithdrwlFee}%
           </Text>
 
           {/*  Old price & new price */}

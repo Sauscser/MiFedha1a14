@@ -12,7 +12,7 @@ export interface SMAccount {
       acMainAc: string,
       id:string,
       mfkAc: string,  
-        
+      acChamp:string,
       createdAt:string,
       updatedAt:string,
               
@@ -22,7 +22,7 @@ const ViewSMDeposts = (props:SMAccount) => {
    const {
       SMAc: {
          acMainAc,
-         mfkAc,  
+         acChamp,  
          id,
          createdAt,
          updatedAt,
@@ -38,16 +38,16 @@ const ViewSMDeposts = (props:SMAccount) => {
         <View style = {styles.container}>              
                       
             <Pressable onPress={VwToReg}>              
-                      
-                     
-
-                    <Text style ={styles.amountoffered}>                       
+                    
+            
+            <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                       User Email: {mfkAc}
+                      Group Account: {acChamp}
                     </Text>
+                    
                     <Text style ={styles.amountoffered}>                       
                        {/* amount*/} 
-                     MFKubwa ACNo: {acMainAc}
+                     MFKubwa Account Number: {acMainAc}
                     </Text>
 
                     <Text style ={styles.amountoffered}>                       

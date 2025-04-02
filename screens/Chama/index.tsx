@@ -16,7 +16,7 @@ const MyLoanAccount = (props) => {
   const [ChamaNMember, setChamaNMember] = useState("");
 
   // Navigation functions for each button
-  const CreateChmss = () => navigation.navigate('CreateChms');
+  const CreateChmss = () => navigation.navigate('ViewGrpApplications');
   const AddChmMembrssss = () => navigation.navigate('AddChmMembrsss');
   const SgnIn2RemoveMmbrss = () => navigation.navigate('RemoveChmMbrs', { id });
   const DissolveChmss = () => navigation.navigate('DissolveChms');

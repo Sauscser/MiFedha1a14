@@ -157,17 +157,18 @@ const BLChmCovLoanee = (props) => {
               
               const paymentFrequency = compDtls2.data.getCvrdGroupLoans.paymentFrequency
               const installmentAmount = compDtls2.data.getCvrdGroupLoans.installmentAmount
-              const LonBal1 = parseFloat(amountExpectedBackWthClrncs) * 
-              ((Math.pow(1 + parseFloat(interest)/36500, parseFloat(dfltDeadLn)) - 
-              Math.pow(1 + parseFloat(interest)/36500, tmDif)) /
-              (Math.pow(1 + parseFloat(interest)/36500, parseFloat(dfltDeadLn)) - 1))
+              const clearanceAmts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds);
+              
+              const LonBal1 = (parseFloat(lonBala) * 
+              (Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
+           
             
               const pymtFrqncy = tmDif2/parseFloat(paymentFrequency)
               const Amt2HvBnPaid = pymtFrqncy* parseFloat(installmentAmount)
 
               const LonBal4 = LonBal1 + MmbrClrnceCosts
-              const LonBal5 = LonBal1 + MmbrClrnceCost
-              const LonBal6 = parseFloat(lonBala) + parseFloat(DefaultPenaltyChms)
+              const LonBal5 = LonBal1 + DefaultPenaltyChms
+             
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -228,8 +229,8 @@ const BLChmCovLoanee = (props) => {
                                         graphqlOperation(updateCvrdGroupLoans, {
                                           input:{
                                             loanID:route.params.loanID,
-                                            amountExpectedBackWthClrnc:LonBal6.toFixed(0),
-                                            lonBala:LonBal6.toFixed(0),
+                                            amountExpectedBackWthClrnc:LonBal5.toFixed(0),
+                                            lonBala:parseFloat(LonBal5).toFixed(0),
                                             dfltUpdate: daysUpToDate,
                                             blOfficer:userInfo.attributes.email,
                                             DefaultPenaltyChm2:DefaultPenaltyChms.toFixed(0),
@@ -276,8 +277,7 @@ const BLChmCovLoanee = (props) => {
                                       tymsChmHvBL: parseFloat(tymsChmHvBLs) + 1,
                                       TtlBLLonsTmsLnrChmCov: parseFloat(TtlBLLonsTmsLnrChmCovs) + 1,
                                       TtlBLLonsAmtLnrChmCov: (parseFloat(TtlBLLonsAmtLnrChmCovs) + amountExpectedBackWthClrncss).toFixed(0),
-                                      TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(0),
-                                      
+                                     
                                     }
                                   })
                                 )
@@ -368,10 +368,11 @@ const BLChmCovLoanee = (props) => {
                                       graphqlOperation(updateCvrdGroupLoans, {
                                         input:{
                                           loanID:route.params.loanID,
-                                          amountExpectedBackWthClrnc:LonBal4.toFixed(0),
-                                          lonBala:LonBal4.toFixed(0),
+                                          amountExpectedBackWthClrnc:(LonBal4).toFixed(0),
+                                          lonBala:(LonBal4).toFixed(0),
                                           status:"LoanBL",
                                           dfltUpdate:daysUpToDate,
+                                          clearanceAmt:(clearanceAmts).toFixed(0),                                         
                                           blOfficer:userInfo.attributes.email,
                                           DefaultPenaltyChm2:DefaultPenaltyChms.toFixed(0),
                                         }
@@ -443,7 +444,6 @@ const BLChmCovLoanee = (props) => {
                                           grpContact:loanerPhns,
                                                                                     
                                           TtlBLLonsAmtLnrChmCov: (parseFloat(TtlBLLonsAmtLnrChmCovs) + amountExpectedBackWthClrncss).toFixed(0),
-                                          TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + (parseFloat(userClearanceFees) * parseFloat(amountexpecteds))).toFixed(0),
                                           
                                         }
                                       })
@@ -479,7 +479,7 @@ const BLChmCovLoanee = (props) => {
                               else if (tmDif < parseFloat(paymentFrequency))
                                  {Alert.alert("Time to Blacklist is not yet")}
 
-                                 
+                                 /* time to blacklist not yet but can be penalised */
                               
                               else if (tmDif2 > parseFloat(paymentFrequency) 
                               && parseFloat(amountrepaids) < Amt2HvBnPaid && tmDif2 < dfltDeadLn
@@ -487,11 +487,12 @@ const BLChmCovLoanee = (props) => {
                                 updateLoanDtls3()
                               }
                               
+                              /*Black list */
                               else if (tmDif2 > parseFloat(dfltDeadLn) && statussxzs !== "LoanBL"){
                                 updateLoanerDtls()
                               }                              
                               
-    
+     /*already blacklisted but is not repaying */
                               else if (parseFloat(paymentFrequency) < tmDif && statussxzs === "LoanBL"){
                                 updateLoanerDtls2()
                               }
@@ -571,8 +572,8 @@ const BLChmCovLoanee = (props) => {
                                           graphqlOperation(updateCvrdGroupLoans, {
                                             input:{
                                               loanID:route.params.loanID,
-                                              amountExpectedBackWthClrnc:LonBal5.toFixed(0),
-                                              lonBala:LonBal5.toFixed(0),
+                                              amountExpectedBackWthClrnc:parseFloat(LonBal5).toFixed(0),
+                                              lonBala:parseFloat(LonBal5).toFixed(0),
                                               status:"LoanBL",
                                               dfltUpdate:daysUpToDate,
                                               blOfficer:userInfo.attributes.email,

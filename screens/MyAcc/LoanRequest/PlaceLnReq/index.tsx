@@ -104,9 +104,7 @@ const CreateBiz = (props) => {
                   const namez = compDtls.data.getSMAccount.name;
 
                   const amtrpayable = parseFloat(itemPrys) * 
-                  ((Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 
-                  Math.pow(1 + parseFloat(lnPrsntg)/36500, 0)) /
-                  (Math.pow(1 + parseFloat(lnPrsntg)/36500, parseFloat(rpymntPrd)) - 1))
+                  ((Math.pow(1 + parseFloat(lnPrsntg)/36500, 0)))
 
                           const ExpInstmnt = amtrpayable/parseFloat(rpymntPrd)
 

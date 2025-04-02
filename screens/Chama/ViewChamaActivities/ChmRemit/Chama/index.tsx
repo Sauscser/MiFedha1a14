@@ -23,8 +23,7 @@ const FetchSMCovLns = props => {
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listGroupNonLoans, 
                 { filter: {grpContact: {eq:route.params.grpContact}},
-                  sortDirection: 'DESC',
-                  limit: 100,
+                  
                   
                 }
                   ));

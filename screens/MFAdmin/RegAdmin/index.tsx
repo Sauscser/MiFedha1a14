@@ -32,10 +32,7 @@ const CreateAdminForm = () => {
   const [isLoading, setISLoading] = useState(false);
 
   const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-      
-    
-    setOwner(userInfo.attributes.sub);
+  
 
       };
       useEffect(() => {
@@ -45,6 +42,7 @@ const CreateAdminForm = () => {
     
 
     const gtCompDtls = async () =>{
+      const userInfo = await Auth.currentAuthenticatedUser();
       if(isLoading){
         return;
       }
@@ -81,7 +79,7 @@ const CreateAdminForm = () => {
                         input: {
                           nationalid: adminId,
                           name: adminName,
-                          phonecontact: PhoneContact,
+                          phonecontact: userInfo.attributes.phone_number,
                           TtlEarnings: 0,
                           pw: pword,
                           BankAdmBal: 0,

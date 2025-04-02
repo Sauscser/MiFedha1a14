@@ -63,12 +63,14 @@ const RepayCovSellerLnsss = props => {
                 const amountExpectedBacks =RecAccountDtl.data.getCovCreditSeller.amountexpectedBack;
                 const amountRepaidss =RecAccountDtl.data.getCovCreditSeller.amountRepaid; 
                 const LonBalsss = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountRepaidss); 
-              const ClranceAmt = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountExpectedBacks); 
-              const DefaultPenaltyCredSl2s =RecAccountDtl.data.getCovCreditSeller.DefaultPenaltyCredSl2;
+              
+              
               const dfltUpdate = RecAccountDtl.data.getCovCreditSeller.dfltUpdate
               const crtnDate = RecAccountDtl.data.getCovCreditSeller.crtnDate
               const interest = RecAccountDtl.data.getCovCreditSeller.interest
-              const repaymentPeriod = RecAccountDtl.data.getCovCreditSeller.repaymentPeriod
+              const DefaultPenaltyCredSl2s =RecAccountDtl.data.getCovCreditSeller.DefaultPenaltyCredSl2;
+              const clearanceAmts = RecAccountDtl.data.getCovCreditSeller.clearanceAmt
+              const ClranceAmt = parseFloat(clearanceAmts)+ parseFloat(DefaultPenaltyCredSl2s)
 
               const today = new Date();
               let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
@@ -90,43 +92,19 @@ const RepayCovSellerLnsss = props => {
               const daysUpToDate = curYrs + curMnths + parseFloat(days)
 
 
-              let charz = crtnDate;
-              let char1z = charz.charAt(0)
-              let char2z = charz.charAt(1)
-              let char3z = charz.charAt(2)
-              let char4z = charz.charAt(3)
-              let char5z = charz.charAt(4)
-              let char6z = charz.charAt(5)
-              let char7z = charz.charAt(6)
-              let char8z = charz.charAt(7)
-              let char9z = charz.charAt(8)
-              let char10z = charz.charAt(9)
-              let char11z = charz.charAt(10)
-              let char12z = charz.charAt(11)
-              let char13z = charz.charAt(12)
-
-              
-              let crtnYrz = char1z+char2z+char3z+char4z;
-              let crtnMnthz = char6z+char7z;
-              let crtnDyz = char9z+char10z;
-              let crtnHrz = char12z+char13z;
-              const crtnYearsz = parseFloat(crtnYrz)*365;
-              const crtnMnthsz = parseFloat(crtnMnthz)*30.4375;
-              const daysAtCrtnz = crtnYearsz + crtnMnthsz + parseFloat(crtnDyz)
-
-              const tmDif = daysUpToDate - dfltUpdate;
-              const tmDif2 = daysUpToDate - crtnDate;
-      
-              const LonBal1 = parseFloat(amountExpectedBackWthClrncs) * 
-              ((Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 
-              Math.pow(1 + parseFloat(interest)/36500, tmDif)) /
-              (Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 1))
-
-              const LoanBalz = (ClranceAmt + LonBal1) - parseFloat(amountrepaids)
-            
-              const amountExpectedBackWthClrncszz = (LoanBalz + ClranceAmt) 
              
 
+              const tmDif2 = daysUpToDate - parseFloat(crtnDate);
+
+              const netLnBal = parseFloat(amountExpectedBackWthClrncs) - 
+              parseFloat(clearanceAmts) - parseFloat (DefaultPenaltyCredSl2s)
+      
+              const netLnBal2 = netLnBal * 
+              ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
+
+              const LonBal1 = (netLnBal2 + parseFloat(clearanceAmts) + parseFloat (DefaultPenaltyCredSl2s)).toFixed(0)
+
+              const LoanBalz = parseFloat(LonBal1) - parseFloat(amounts)
 
 
               const fetchLoanerDtls = async () => {
@@ -174,7 +152,7 @@ const RepayCovSellerLnsss = props => {
           const companyEarnings = CompDtls.data.getCompany.companyEarning;
           const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
           const ttlNonLonssSentSMs = CompDtls.data.getCompany.ttlNonLonssSentSM; 
-          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts) + ClranceAmt; 
+          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
           const maxBLss = CompDtls.data.getCompany.maxBLs;
          
                     
@@ -236,9 +214,10 @@ const RepayCovSellerLnsss = props => {
                           await API.graphql(
                             graphqlOperation(updateBizna, {
                               input:{
-                                BusKntct: sellerContacts,
+                                BusKntct: buyerContact,
                                 
-                                netEarnings:(parseFloat(netEarnings1) +TotalTransacted ).toFixed(0) ,
+                                netEarnings:(parseFloat(netEarnings2)-TotalTransacted).toFixed(0) ,
+                                
                                 noBL: parseFloat(noBL) - 1, 
                               }
                             })
@@ -267,10 +246,11 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           loanID:route.params.loanID,
                                           amountRepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
-                                          lonBala: (LonBal1-parseFloat(amounts)).toFixed(0),
-                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncszz.toFixed(0),
+                                          lonBala: LoanBalz.toFixed(0),
+                                          amountExpectedBackWthClrnc:LoanBalz.toFixed(0),
                                           status: "LoanCleared",
-                                          DefaultPenaltyCredSl2:0
+                                          DefaultPenaltyCredSl2:0,
+                                          clearanceAmt: 0
                                       }})
                                     )
           
@@ -333,8 +313,8 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           BusKntct:sellerContacts,
                                           
-                                          netEarnings: (parseFloat(netEarnings1) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(0),
-                                          TtlEarnings: (parseFloat(TtlEarnings1) + (parseFloat(amounts) + parseFloat(DefaultPenaltyCredSl2s))).toFixed(0),
+                                          netEarnings: (parseFloat(netEarnings1) + (parseFloat(amounts) - parseFloat(clearanceAmts))).toFixed(0),
+                                          TtlEarnings: (parseFloat(TtlEarnings1) + (parseFloat(amounts) - parseFloat(clearanceAmts))).toFixed(0),
                                          
                                         }
                                       })
@@ -393,9 +373,10 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           loanID:route.params.loanID,
                                           amountRepaid: (parseFloat(amounts) + parseFloat(amountrepaids)).toFixed(0),
-                                          lonBala: (LoanBalz - parseFloat(amounts)).toFixed(0),
+                                          lonBala: LoanBalz.toFixed(0),
                                           DefaultPenaltyCredSl2:0,
-                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncszz.toFixed(0),
+                                          amountExpectedBackWthClrnc:LoanBalz.toFixed(0),
+                                          clearanceAmt:0
                                         }
                                       })
                                     )
@@ -458,8 +439,7 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                             BusKntct: buyerContact,
                                 
-                                            netEarnings:(parseFloat(netEarnings2)-TotalTransacted).toFixed(0) ,
-                                            
+                                            netEarnings:(parseFloat(netEarnings2)-TotalTransacted).toFixed(0) ,                                            
                                           
                                         }
                                       })
@@ -487,8 +467,8 @@ const RepayCovSellerLnsss = props => {
                                         input:{
                                           BusKntct:sellerContacts,
                                           
-                                          netEarnings:(parseFloat(netEarnings1) + parseFloat(amounts) ).toFixed(0) ,
-                                          TtlEarnings:(parseFloat(TtlEarnings1) + parseFloat(amounts)).toFixed(0) ,
+                                          netEarnings:(parseFloat(netEarnings1) + parseFloat(amounts) - parseFloat(clearanceAmts)).toFixed(0) ,
+                                          TtlEarnings:(parseFloat(TtlEarnings1) + parseFloat(amounts) - parseFloat(clearanceAmts)).toFixed(0) ,
                                           
                                         }
                                       })
@@ -553,13 +533,13 @@ const RepayCovSellerLnsss = props => {
                             return;
                           }
 
-                          else if(parseFloat(amounts) > lonBalas){Alert.alert("Your Loan Balance is lesser: "+lonBalas)}
+                          else if(parseFloat(amounts) === parseFloat(LonBal1)){Alert.alert("Your Loan Balance is lesser: "+parseFloat(LonBal1).toFixed(0))}
                           
 
-                          else if((parseFloat(amounts) === parseFloat(lonBalas))  && (parseFloat(noBL) === parseFloat(maxBLss)) )
+                          else if(parseFloat(LonBal1) === (parseFloat(amounts))  && (parseFloat(noBL) === parseFloat(maxBLss)) )
                           {updtSendrAcLonOvr1();}          
                           
-                          else if((parseFloat(amounts) === parseFloat(lonBalas))  && (parseFloat(noBL) > parseFloat(maxBLss)))
+                          else if(parseFloat(LonBal1) === (parseFloat(amounts))  && (parseFloat(noBL) > parseFloat(maxBLss)))
                           {updtSendrAcLonOvr2();}        
                               
                                else {

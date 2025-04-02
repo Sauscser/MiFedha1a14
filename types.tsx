@@ -13,10 +13,46 @@ declare global {
       MemberReqChm:{ChamaNMember:String};
       VwAsBeneficiary:undefined;
       UpdatePayStack:{amounts:string};
+      UrlLinks:undefined;
+      UpdateBankAdminAc:undefined;
+      BuyFloatBnkAdm:undefined;
+      GroupControlTable:undefined;
+      ViewGrpApplications:undefined;
+      PaystackTNC:undefined;
+      ViewMFBankAdmin:undefined;
+
+      ViewSyncedGrpdividends: undefined;
+      ViewSyncedGrpLoansOut: undefined;
+      ViewSyncedGrpWithdrawals: undefined;
+      ViewSyncedGrpBenefits:undefined;
+
+
+      
+      MFBankAdmin:undefined;
       PaystackPayment: {
         amount:string
       };
+      CreateChms: {
+        id:string,
+        bankAdminEmail:string,
+        ChamaAcNu:string
+      }
       VwAsBenefactors: undefined;
+      
+
+      RegBankAdmin:undefined;
+      RegGrp:undefined;
+      SignBankInAdm:undefined;
+      SyncGrpdividends:undefined;
+      SyncGrpBenefits:undefined;
+      SyncGrpLnRpyment: undefined;
+      SyncGrpLoansOut:undefined;
+      SyncGrpSubscription:undefined;
+      SyncGrpWithdrawals:undefined;
+      SyncGrpDeposits:undefined;
+      WithdrawBankAdmin:undefined;
+
+
       ViewBenShares:undefined;
       ViewBizBenefactorShares:undefined;
       ViewPalBenefactorShares:undefined;
@@ -291,7 +327,7 @@ declare global {
       CovCredSls:{id:string};
       NonCovCredSlss:{id:string};
       CredSlsHms:undefined;
-      CreateChms:undefined;
+      
       AddChmMembrsss:undefined;
       ChmCovLons:{id:string};
       ChmNonCovLons:{id:string};

@@ -40,8 +40,7 @@ const FetchSMCovLns = props => {
                     filter :{
                       memberContact: {eq:userInfo.attributes.email}
                     } ,
-                      sortDirection: 'DESC',
-                      limit: 100,
+                      
                     }
                  
                   ));

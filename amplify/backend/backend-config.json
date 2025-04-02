@@ -7,7 +7,7 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "mifedha1a638affdc"
+          "resourceName": "mifedha1a2418a4fd"
         }
       ],
       "output": {
@@ -16,7 +16,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authmifedha1a638affdc"
+              "userPoolId": "authmifedha1a2418a4fd"
             }
           }
         }
@@ -26,7 +26,7 @@
     }
   },
   "auth": {
-    "mifedha1a638affdc": {
+    "mifedha1a2418a4fd": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -60,27 +60,34 @@
             "IdentityPoolId"
           ],
           "category": "auth",
-          "resourceName": "mifedha1a638affdc"
+          "resourceName": "mifedha1a2418a4fd"
         }
       ],
       "providerPlugin": "awscloudformation",
       "service": "Cognito-UserPool-Groups"
     }
   },
-  "function": {
-    "paystackWebhookHandler": {
-      "build": true,
-      "dependsOn": [],
+  "hosting": {
+    "amplifyhosting": {
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "service": "amplifyhosting",
+      "type": "manual"
     }
   },
   "parameters": {
-    "AMPLIFY_function_paystackWebhookHandler_paystackSecretKey": {
+    "AMPLIFY_hosting_amplifyhosting_appId": {
       "usedBy": [
         {
-          "category": "function",
-          "resourceName": "paystackWebhookHandler"
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_type": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
         }
       ]
     }

@@ -265,14 +265,10 @@ const SMASendLns = props => {
           const CompanyTotalEarnings2 = parseFloat(userLoanTransferFees)*parseFloat(amount)
 
           const amtrpayable2 = parseFloat(amount) * 
-          ((Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 
-          Math.pow(1 + parseFloat(Interest)/36500, 0)) /
-          (Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 1))
+          ((Math.pow(1 + parseFloat(Interest)/36500, 0)))
 
           const amtrpayable = parseFloat(amount) * 
-          ((Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 
-          Math.pow(1 + parseFloat(Interest)/36500, 0)) /
-          (Math.pow(1 + parseFloat(Interest)/36500, parseFloat(RepaymtPeriod)) - 1))
+          ((Math.pow(1 + parseFloat(Interest)/36500, 0)))
           
           const TotalAmtExp = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount))) + amtrpayable;
           const TotalAmtExp2 =  (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amtrpayable2;
@@ -318,6 +314,8 @@ const SMASendLns = props => {
                                   loanID:route.params.id,
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,
+                                  clearanceAmt: 0,
+                                  clearanceAmt2: 0,
                                   loanerPhn:phonecontactxz,
                                   loaneePhn: phonecontact,  
                                   loaneeEmail:loaneeEmail,
@@ -369,21 +367,7 @@ const SMASendLns = props => {
                           }
                           setIsLoading(true);
                           try{
-                              await API.graphql(
-                                graphqlOperation(updateSMAccount, {
-                                  input:{
-                                    awsemail:userInfo.attributes.email,
-                                    TtlActvLonsTmsLnrCov: parseFloat(TtlActvLonsTmsLnrCovs)+1,
-                                    TtlActvLonsAmtLnrCov: (parseFloat(TtlActvLonsAmtLnrCovs) + TotalAmtExp2).toFixed(0),
-                                    TtlActvLonsTmsLneeCov: parseFloat(TtlActvLonsTmsLneeCovs2) +1 ,
-                                    TtlActvLonsAmtLneeCov: (parseFloat(TtlActvLonsAmtLneeCovs2)+ TotalAmtExp2).toFixed(0),
-                                    TymsIHvGivnLn: parseFloat(TymsIHvGivnLns) + 1,                                       
-                                    balance:(parseFloat(SenderUsrBal)-TtlTransCost2).toFixed(0) 
-                                   
-                                    
-                                  }
-                                })
-                              )
+                              
 
 
                           }
@@ -537,6 +521,8 @@ const SMASendLns = props => {
                                   loaneeid: RecNatId,
                                   loanerId: SenderNatId,
                                   loanerPhn:phonecontactxz,
+                                  clearanceAmt: 0,
+                                  clearanceAmt2: 0,
                                   loanID:route.params.id,
                                   loaneePhn: phonecontact,  
                                   loaneeEmail:loaneeEmail, 

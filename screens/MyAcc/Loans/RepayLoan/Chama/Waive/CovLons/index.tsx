@@ -111,31 +111,6 @@ const RepayCovChmLnsss = props => {
               const curMnths = (months2)*30.4375;
               const daysUpToDate = curYrs + curMnths + parseFloat(days)
 
-             
-
-              let charz = crtnDate;
-              let char1z = charz.charAt(0)
-              let char2z = charz.charAt(1)
-              let char3z = charz.charAt(2)
-              let char4z = charz.charAt(3)
-              let char5z = charz.charAt(4)
-              let char6z = charz.charAt(5)
-              let char7z = charz.charAt(6)
-              let char8z = charz.charAt(7)
-              let char9z = charz.charAt(8)
-              let char10z = charz.charAt(9)
-              let char11z = charz.charAt(10)
-              let char12z = charz.charAt(11)
-              let char13z = charz.charAt(12)
-
-              
-              let crtnYrz = char1z+char2z+char3z+char4z;
-              let crtnMnthz = char6z+char7z;
-              let crtnDyz = char9z+char10z;
-              let crtnHrz = char12z+char13z;
-              const crtnYearsz = parseFloat(crtnYrz)*365;
-              const crtnMnthsz = parseFloat(crtnMnthz)*30.4375;
-              const daysAtCrtnz = crtnYearsz + crtnMnthsz + parseFloat(crtnDyz)
 
               const tmDif = daysUpToDate - dfltUpdate;
               const tmDif2 = daysUpToDate - crtnDate;
@@ -143,17 +118,21 @@ const RepayCovChmLnsss = props => {
 
               
                
-              const ClranceAmt = parseFloat(amountExpectedBackWthClrncs) - parseFloat(amountExpectedBacks); 
+                                                         const clearanceAmts = RecAccountDtl.data.getCvrdGroupLoans.clearanceAmt;
+                                           
+                                                           const ClranceAmt = parseFloat(clearanceAmts) + parseFloat(DefaultPenaltyChm2s);
+                                           
+                                                           const netLnBal = parseFloat(amountExpectedBackWthClrncs) - 
+                                                           parseFloat(clearanceAmts) - parseFloat (DefaultPenaltyChm2s)
+                                                   
+                                                           const netLnBal2 = (netLnBal) * 
+                                                           ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
+                                             
+                                                           const LonBal1 = (netLnBal2 + parseFloat(clearanceAmts) + parseFloat (DefaultPenaltyChm2s)).toFixed(0)
+              
+              const LonBalsss = parseFloat(LonBal1) - parseFloat(amounts);
 
-              const LonBal1 = parseFloat(amountExpectedBackWthClrncs) * 
-              ((Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 
-              Math.pow(1 + parseFloat(interest)/36500, tmDif)) /
-              (Math.pow(1 + parseFloat(interest)/36500, parseFloat(repaymentPeriod)) - 1))
-
-              const LonBalsss = (ClranceAmt + LonBal1) - parseFloat(amountRepaidss);
-
-              const amountExpectedBackWthClrncszz = (LonBalsss + ClranceAmt) - parseFloat(amounts)
-
+             
             
   const fetchSenderUsrDtls = async () => {
     if(isLoading){
@@ -318,7 +297,7 @@ const RepayCovChmLnsss = props => {
                                                   input:{
                                                     ChamaNMember:memberIds,
                                                     AmtRepaid: (parseFloat(AmtRepaids)+parseFloat(amounts)).toFixed(0) ,
-                                                    LnBal: ((LonBalsss)-parseFloat(amounts)).toFixed(0)  ,
+                                                    LnBal: LonBalsss.toFixed(0)  ,
                                                     
                                                     
                                                 }})
@@ -346,10 +325,11 @@ const RepayCovChmLnsss = props => {
                                         input:{
                                           loanID: route.params.loanID,
                                           amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(0),
-                                          lonBala: (LonBalsss-parseFloat(amounts)).toFixed(0),
-                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncszz.toFixed(0),
+                                          lonBala: (LonBalsss).toFixed(0),
+                                          amountExpectedBackWthClrnc:LonBalsss.toFixed(0),
                                           DefaultPenaltyChm2:0,
                                           status: "LoanCleared",
+                                          clearanceAmt: 0
                                       }})
                                     )
           
@@ -466,7 +446,7 @@ const RepayCovChmLnsss = props => {
                                         input:{
                                           ChamaNMember:memberIds,
                                           AmtRepaid: (parseFloat(AmtRepaids)+parseFloat(amounts)).toFixed(0) ,
-                                          LnBal: ((LonBalsss)-parseFloat(amounts)).toFixed(0) ,
+                                          LnBal: LonBalsss.toFixed(0) ,
                                           
                                       }})
                                     )
@@ -494,9 +474,10 @@ const RepayCovChmLnsss = props => {
                                         input:{
                                           loanID: route.params.loanID,
                                           amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(0),
-                                          lonBala: ((LonBalsss)-parseFloat(amounts)).toFixed(0),
-                                          amountExpectedBackWthClrnc:amountExpectedBackWthClrncszz.toFixed(0),
-                                          DefaultPenaltyChm2:0
+                                          lonBala: (LonBalsss).toFixed(0),
+                                          amountExpectedBackWthClrnc:LonBalsss.toFixed(0),
+                                          DefaultPenaltyChm2:0,
+                                          clearanceAmt: 0
                                         }
                                       })
                                     )
@@ -643,13 +624,13 @@ const RepayCovChmLnsss = props => {
                         }
 
 
-                          else if(parseFloat(amounts) > lonBalas){Alert.alert("The Loan Balance is lesser: Ksh. "+lonBalas)}
+                          else if(parseFloat(amounts) > parseFloat(LonBal1)){Alert.alert("The Loan Balance is lesser: Ksh. "+lonBalas)}
                           
 
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) === parseFloat(maxBLss) )
+                          else if(parseFloat(amounts) === parseFloat(LonBal1)  && parseFloat(MaxTymsBLss) === parseFloat(maxBLss) )
                           {updtSendrAcLonOvr1();}          
                           
-                          else if(parseFloat(amounts) === parseFloat(lonBalas)  && parseFloat(MaxTymsBLss) > parseFloat(maxBLss))
+                          else if(parseFloat(amounts) === parseFloat(LonBal1)  && parseFloat(MaxTymsBLss) > parseFloat(maxBLss))
                           {updtSendrAcLonOvr2();} 
                               
                                else {

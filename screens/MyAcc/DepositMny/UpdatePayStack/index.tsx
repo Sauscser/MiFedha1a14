@@ -1,74 +1,157 @@
-// UpdatePayStack.js
-import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, ActivityIndicator, Alert } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, ScrollView, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { WebView } from 'react-native-webview';
+import { useNavigation } from '@react-navigation/native';
 import { Auth, API, graphqlOperation } from 'aws-amplify';
-import { getCompany, getSMAccount, getExRates } from '../../../../src/graphql/queries';
+import { PAYSTACK_SECRET_KEY } from '@env';
+import { getCompany, getExRates, getSMAccount } from '../../../../src/graphql/queries';
 import { createFloatReduction, updateCompany, updateSMAccount } from '../../../../src/graphql/mutations';
+import { Ionicons } from '@expo/vector-icons';
 
-const UpdatePayStack = () => {
+const DepositScreen = () => {
+  const navigation = useNavigation();
+  const [amount, setAmount] = useState('');
+  const [password, setPassword] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const route = useRoute();
-  const amount = parseFloat(route.params.amounts);
+  const [checkoutUrl, setCheckoutUrl] = useState(null);
+  const amountValue = parseFloat(amount);
 
-  useEffect(() => {
-    updateUserBalance();
-  }, []);
+  const fetchPaystackFees = async (amount) => {
+    try {
+      const response = await fetch(`https://api.paystack.co/transaction/fee?amount=${Math.round(amount * 100)}`, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${PAYSTACK_SECRET_KEY}` }
+      });
+      const result = await response.json();
+      return result.data?.total || 0;
+    } catch (error) {
+      console.error('Error fetching Paystack fees:', error);
+      return 0;
+    }
+  };
 
-  const updateUserBalance = async () => {
+  const initializeTransaction = async () => {
     setIsLoading(true);
     try {
       const user = await Auth.currentAuthenticatedUser();
       const userEmail = user.attributes.email;
+
+      if (isNaN(amountValue) || amountValue <= 0) {
+        Alert.alert('Invalid amount');
+        setIsLoading(false);
+        return;
+      }
+
       const accountData = await API.graphql(graphqlOperation(getSMAccount, { awsemail: userEmail }));
       const account = accountData.data.getSMAccount;
+
+      if (!account || account.acStatus === 'AccountInactive') {
+        Alert.alert('Account is inactive or not found');
+        setIsLoading(false);
+        return;
+      }
+
+      if (amountValue > parseFloat(account.depositLimit)) {
+        Alert.alert('Limit exceeded; contact customer care.');
+        setIsLoading(false);
+        return;
+      }
+
+      if (password !== account.pw) {
+        Alert.alert('Wrong Main Account Password');
+        setIsLoading(false);
+        return;
+      }
       
-      const exchangeData = await API.graphql(graphqlOperation(getExRates, { cur: 'Nig' }));
-      const exchangeRate = parseFloat(exchangeData.data.getExRates.buyingPrice);
-      const convertedAmount = amount * exchangeRate;
-      
-      await API.graphql(graphqlOperation(createFloatReduction, {
-        input: {
-          depositerid: account.nationalid,
-          agContact: 'Paystack',
-          agentName: 'Paystack',
-          userName: account.name,
-          amount: convertedAmount,
-          status: 'AccountActive',
+      const paystackFees = await fetchPaystackFees(amountValue);
+      const totalAmount = amountValue * 100 + paystackFees;
+
+      const response = await fetch('https://api.paystack.co/transaction/initialize', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${PAYSTACK_SECRET_KEY}`,
+          'Content-Type': 'application/json',
         },
-      }));
+        body: JSON.stringify({
+          email: userEmail,
+          amount: Math.round(totalAmount),
+          currency: 'KES',
+          reference: `MiFedha_${Date.now()}`,
+        }),
+      });
 
-      await API.graphql(graphqlOperation(updateSMAccount, {
-        input: {
-          awsemail: userEmail,
-          balance: (parseFloat(account.balance) + convertedAmount).toFixed(2),
-          ttlDpstSM: (parseFloat(account.ttlDpstSM) + convertedAmount).toFixed(2),
-        },
-      }));
-
-      const companyData = await API.graphql(graphqlOperation(getCompany, { AdminId: "BaruchHabaB'ShemAdonai2" }));
-      const company = companyData.data.getCompany;
-
-      await API.graphql(graphqlOperation(updateCompany, {
-        input: {
-          AdminId: "BaruchHabaB'ShemAdonai2",
-          ttlUsrDep: parseFloat(company.ttlUsrDep) + convertedAmount,
-          agentFloatOut: parseFloat(company.agentFloatOut) + convertedAmount,
-        },
-      }));
-
-      Alert.alert(`${exchangeData.data.getExRates.symbol} ${convertedAmount} deposited in ${account.name}'s account`);
+      const result = await response.json();
+      if (result.status && result.data?.authorization_url) {
+        setCheckoutUrl(result.data.authorization_url);
+      } else {
+        throw new Error(result.message || 'Transaction initialization failed');
+      }
     } catch (error) {
-      Alert.alert('Error', 'Transaction update failed. Try again.');
+      Alert.alert('Transaction Error', 'Could not start transaction. Try again.');
     }
     setIsLoading(false);
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>{isLoading && <ActivityIndicator size="large" color="#e58d29" />}</View>
-    </SafeAreaView>
+    <LinearGradient colors={['#e58d29', 'skyblue']} start={[0, 0]} end={[1, 1]} style={{ flex: 1 }}>
+      <View style={styles.container}>
+        {!checkoutUrl ? (
+          <ScrollView>
+            <View style={styles.formContainer}>
+              <TextInput
+                placeholder="Amount"
+                value={amount}
+                onChangeText={setAmount}
+                style={styles.input}
+                keyboardType='decimal-pad'
+              />
+              <View style={styles.passwordContainer}>
+                <TextInput
+                  placeholder="Main Account Password"
+                  style={styles.passwordInput}
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry={!isPasswordVisible}
+                  placeholderTextColor="#ccc"
+                />
+                <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                  <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity onPress={initializeTransaction} style={styles.button}>
+                {isLoading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Submit</Text>}
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        ) : (
+          <WebView
+            source={{ uri: checkoutUrl }}
+            onNavigationStateChange={(navState) => {
+              if (navState.url.includes('reference=')) {
+                const referenceMatch = navState.url.match(/reference=([^&]+)/);
+                if (referenceMatch) {
+                  verifyPaymentAndNavigate(referenceMatch[1]);
+                }
+              }
+            }}
+          />
+        )}
+      </View>
+    </LinearGradient>
   );
 };
 
-export default UpdatePayStack;
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 20 },
+  formContainer: { backgroundColor: '#fff', borderRadius: 10, padding: 20, elevation: 5 },
+  input: { height: 45, borderColor: '#ccc', borderWidth: 1, marginBottom: 15, borderRadius: 5, paddingLeft: 10 },
+  button: { backgroundColor: '#e58d29', paddingVertical: 12, borderRadius: 5, alignItems: 'center', marginTop: 20 },
+  buttonText: { fontSize: 16, color: '#fff' },
+  passwordContainer: { flexDirection: 'row', alignItems: 'center', borderRadius: 8, marginBottom: 10, height: 50 },
+  passwordInput: { flex: 1, padding: 12 },
+});
+
+export default DepositScreen;
+

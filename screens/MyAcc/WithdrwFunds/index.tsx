@@ -12,7 +12,7 @@ import {
 } from '../../../src/graphql/mutations';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {getAgent, getCompany, getSAgent, getSMAccount, listCovCreditSellers, 
-  listCvrdGroupLoans, listGroupNonLoans,   listSMLoansCovereds, listSMLoansNonCovereds} from '../../../src/graphql/queries';
+  listCvrdGroupLoans, listGroupNonLoans,   listSMLoansCovereds} from '../../../src/graphql/queries';
 import {
   View,
   Text,
@@ -165,14 +165,14 @@ const SMADepositForm = props => {
                     }
                     setIsLoading(true);
                     try{
-                      const compDtls :any= await API.graphql(
+                      const compDtlscxv :any= await API.graphql(
                       graphqlOperation(getSAgent,{saPhoneContact:sagentregnos})
                         );
-                          const TtlEarningss = compDtls.data.getSAgent.TtlEarnings;
-                          const saBalances = compDtls.data.getSAgent.saBalance;
-                          const acChamp = compDtls.data.getSAgent.acChamp;
-                          const namessssssss = compDtls.data.getSAgent.name;
-                          const MFKWithdrwlFees = compDtls.data.getSAgent.MFKWithdrwlFee;
+                          const TtlEarningss = compDtlscxv.data.getSAgent.TtlEarnings;
+                          const saBalances = compDtlscxv.data.getSAgent.saBalance;
+                          const acChamp = compDtlscxv.data.getSAgent.acChamp;
+                          const namessssssss = compDtlscxv.data.getSAgent.name;
+                          const MFKWithdrwlFees = compDtlscxv.data.getSAgent.MFKWithdrwlFee;
                           const AgentCommission = (parseFloat(agentComs) - parseFloat(MFNWithdrwlFees))/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)                                                
                           const saCommission = (parseFloat(sagentComs) - parseFloat(MFKWithdrwlFees))/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
                           const compCommission = parseFloat(companyComs)/100*parseFloat(amount)*parseFloat(UsrWthdrwlFeess)
@@ -193,231 +193,188 @@ const SMADepositForm = props => {
                                   const balancesx = compDtlsx.data.getSMAccount.balance;
                                   
                           
-                          const CrtFltAdd = async () => {
-                            try {
-                              await API.graphql(
-                                graphqlOperation(createFloatAdd, {
-                                  input: {
+                                  const CrtFltAdd = async () => {
+                                    try {
+                                      await API.graphql(
+                                        graphqlOperation(createFloatAdd, {
+                                          input: {
+                                            withdrawerid: userInfo.attributes.email,
+                                            agentPhonecontact: AgentPhn,
+                                            sagentId: sagentregnos,
+                                            owner: userInfo.attributes.sub,
+                                            amount: parseFloat(amount),
+                                            agentName: namess,
+                                            userName: names,
+                                            saName: namessssssss,
+                                            saPhone: sagentregnos,
+                                            status: "AccountActive",
+                                          },
+                                        })
+                                      );
+                                      await onUpdtUsrBal();
+                                    } catch (error) {
+                                      Alert.alert("Withdrawal unsuccessful; Retry");
+                                      console.error(error);
+                                    }
+                                  };
                                   
-                                    withdrawerid: userInfo.attributes.email,                    
-                                    agentPhonecontact: AgentPhn,
-                                    sagentId: sagentregnos,
-                                    owner: userInfo.attributes.sub,
-                                    amount: parseFloat(amount).toFixed(0),
-                                    agentName:namess,
-                                    userName:names,
-                                    saName:namessssssss,
-                                    saPhone:sagentregnos,
-                                    status: 'AccountActive',
-                                  },
-                                }),
-                              );
-            
-                    } catch (error) {
-                      if (error){
-                        Alert.alert("Withdrawal unsuccessful; Retry")
-                        return
-                      }
-                    }
-                    setIsLoading(false);
-                    await onUpdtUsrBal();
-                    };  
-        
-                    const onUpdtUsrBal = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try {
-                        await API.graphql(
-                          graphqlOperation(updateSMAccount, {
-                            input: {
-                              awsemail: userInfo.attributes.email,
-                  
-                              balance: (parseFloat(usrBala) - TTlAmtTrnsctd).toFixed(0) ,
-                              TtlWthdrwnSM: (parseFloat(TtlWthdrwnSMs) + parseFloat(amount)).toFixed(0),
-                            },
-                          }),
-                        );
-                      }
-        
-                      catch (error) {
-                        console.log(error)
-                        if (error){Alert.alert("Retry, or update app or call customer care")
-                        return;}
-                      }
-                      setIsLoading(false);
-                      await onUpdtAgntBal();
-                      }; 
-        
-                      const onUpdtAgntBal = async () => {
-                        if(isLoading){
-                          return;
-                        }
-                        setIsLoading(true);
-                        try {
-                          await API.graphql(
-                            graphqlOperation(updateAgent, {
-                              input: {
-                                phonecontact: AgentPhn,                   
-                               
-                                ttlEarnings: (parseFloat(ttlEarningssss) + AgentCommission).toFixed(0),
-                                agentEarningBal: (parseFloat(agentEarningBalsss) + AgentCommission).toFixed(0),
-                                floatBal: (parseFloat(floatBals) + parseFloat(amount)).toFixed(0),
-                                TtlFltIn: (parseFloat(TtlFltInsss) + parseFloat(amount)).toFixed(0),
+                                  const onUpdtUsrBal = async () => {
+                                    try {
+                                      await API.graphql(
+                                        graphqlOperation(updateSMAccount, {
+                                          input: {
+                                            awsemail: userInfo.attributes.email,
+                                            balance: parseFloat(usrBala) - TTlAmtTrnsctd,
+                                            TtlWthdrwnSM: parseFloat(TtlWthdrwnSMs) + parseFloat(amount),
+                                          },
+                                        })
+                                      );
+                                      await onUpdtAgntBal();
+                                    } catch (error) {
+                                      Alert.alert("Retry, or update app or call customer care");
+                                      console.error(error);
+                                    }
+                                  };
+                                  
+                                  const onUpdtAgntBal = async () => {
+                                    try {
+                                      await API.graphql(
+                                        graphqlOperation(updateAgent, {
+                                          input: {
+                                            phonecontact: AgentPhn,
+                                            ttlEarnings: parseFloat(ttlEarningssss) + AgentCommission,
+                                            agentEarningBal: parseFloat(agentEarningBalsss) + AgentCommission,
+                                            floatBal: parseFloat(floatBals) + parseFloat(amount),
+                                            TtlFltIn: parseFloat(TtlFltInsss) + parseFloat(amount),
+                                          },
+                                        })
+                                      );
+                                      await onUpdtsaDtls();
+                                    } catch (error) {
+                                      Alert.alert("Retry, or update app or call customer care");
+                                      console.error(error);
+                                    }
+                                  };
+                                  
+                                  const onUpdtsaDtls = async () => {
+                                    try {
+                                      await API.graphql(
+                                        graphqlOperation(updateSAgent, {
+                                          input: {
+                                            saPhoneContact: sagentregnos,
+                                            TtlEarnings: parseFloat(TtlEarningss) + saCommission,
+                                            saBalance: parseFloat(saBalances) + saCommission,
+                                          },
+                                        })
+                                      );
+                                      await onUpdtMFChamp();
+                                    } catch (error) {
+                                      Alert.alert("Retry, or update app or call customer care");
+                                      console.error(error);
+                                    }
+                                  };
 
-                              },
-                            }),
-                          );
-                        }
-        
-                        catch (error) {
-                          console.log(error)
-                          if (error){Alert.alert("Retry, or update app or call customer care")
-                          return;}
-                        }
-                        setIsLoading(false);
-                        await onUpdtsaDtls();
-                        }; 
-        
-                        
-        
-                          const onUpdtsaDtls = async () => {
-                            if(isLoading){
-                              return;
-                            }
-                            setIsLoading(true);
-                            try {
-                              await API.graphql(
-                                graphqlOperation(updateSAgent, {
-                                  input: {
-                                    saPhoneContact: sagentregnos,
-                        
-                                    TtlEarnings: (parseFloat(TtlEarningss) + saCommission).toFixed(0),
-                                    saBalance: (parseFloat(saBalances) + saCommission).toFixed(0),
-                                      
-                                  },
-                                }),
-                              );
-                            }
-            
-                            catch (error) {
-                              console.log(error)
-                              if (error){Alert.alert("Retry, or update app or call customer care")
-                              return;}
-                            }
-                            await onUpdtCompDtls();
-                            setIsLoading(false);
-                            }; 
-
-                            const onUpdtCompDtls = async () => {
-                              if(isLoading){
-                                return;
-                              }
-                                setIsLoading(true);
-                              try {
-                                await API.graphql(
-                                  graphqlOperation(updateCompany, {
-                                    input: {
-                                      AdminId:"BaruchHabaB'ShemAdonai2",                    
-                                     
-                                      companyEarningBal: parseFloat(companyEarningBals) + compCommission,
-                                      companyEarning: parseFloat(companyEarnings) + compCommission,
-                                      agentEarningBal: parseFloat(agentEarningBals) + AgentCommission,
-                                      agentEarning: parseFloat(agentEarnings) + AgentCommission,
-                                      saEarningBal: parseFloat(saEarningBals) + saCommission,
-                                      saEarning: parseFloat(saEarnings) + saCommission,
-                                      ttlUserWthdrwl: parseFloat(ttlUserWthdrwls) + parseFloat(amount),
-                                      agentFloatIn: parseFloat(agentFloatIns) + parseFloat(amount),
-                                      
-                                    },
-                                  }),
-                                );
-                              }
-              
-                              catch (error) {
-                                console.log(error)
-                                if (error){Alert.alert("Retry, or update app or call customer care")
-                                return;}
-                              }
-                              setIsLoading(false);
-                              await onUpdtMFChamp();
-                              Alert.alert(names + " has withdrawn Ksh. " + parseFloat(amount).toFixed(2) + " from " + namess + " MFNdogo");
-                              }; 
-
-                              const onUpdtMFChamp = async () => {
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try {
-                                  await API.graphql(
-                                    graphqlOperation(updateSMAccount, {
-                                      input: {
-                                        awsemail: acChamp,
-                            
-                                        balance: (ChampCommission + balancesx).toFixed(0) ,
-                                        
-                                      },
-                                    }),
-                                  );
-                                }
-                  
-                                catch (error) {
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry, or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
+                                  const onUpdtMFChamp = async () => {
+                                    
+                                    try {
+                                      await API.graphql(
+                                        graphqlOperation(updateSMAccount, {
+                                          input: {
+                                            awsemail: acChamp,
                                 
-                                }; 
-                    
-                    
-                    if (TTlAmtTrnsctd > parseFloat(usrBala)) {
-                      Alert.alert("Cancelled."+ "Bal: "+ usrBala +". Deductable: " + TTlAmtTrnsctd.toFixed(2) 
-                      + ". "+ ((TTlAmtTrnsctd) - parseFloat(usrBala)).toFixed(2) + ' more needed')
-                      return;
-                    } 
-        
-                    else if (usrStts==="AccountInactive") {
-                      Alert.alert("User Account has been deactivated")
-                      return;
-                    } 
-
-                    else if (userInfo.attributes.sub !==owners) {
-                      Alert.alert("You cannot withdraw from another account")
-                      return;
-                    }  
-
-                    else if(parseFloat(amount)>parseFloat(withdrawalLimits)) {
-                      Alert.alert('Withdrawal limit exceeded');
-                      return;
-                    }
-                    else if (AgAcAct==="AccountInactive") {
-                      Alert.alert("MFNdogo Account has been deactivated")
-                      return;
-                    } 
-                    
-                    else if (UsrPWd!==pws) {
-                      Alert.alert("User credentials are wrong; access denied")
-                      return;
-                    } 
-
-                    else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
+                                            balance: (ChampCommission + balancesx).toFixed(0) ,
+                                            
+                                          },
+                                        }),
+                                      );
+                                      await onUpdtCompDtls();
+                                    }
                       
-                      ||
-                      Lonees3.data.listCovCreditSellers.items.length > 0 
-                      ||
-                      
-                      Lonees5.data.listCvrdGroupLoans.items.length > 0 
-                     
-
-                    
-                      ) {
-                        SndChmMmbrMny();
-                    } 
-        
-                    else{await CrtFltAdd()}   
+                                    catch (error) {
+                                      console.log(error)
+                                      if (error){Alert.alert("Retry, or update app or call customer care")
+                                      return;}
+                                    }
+                                   
+                                    }; 
+                                  
+                                  const onUpdtCompDtls = async () => {
+                                    try {
+                                      await API.graphql(
+                                        graphqlOperation(updateCompany, {
+                                          input: {
+                                            AdminId: "BaruchHabaB'ShemAdonai2",
+                                            companyEarningBal: parseFloat(companyEarningBals) + compCommission,
+                                            companyEarning: parseFloat(companyEarnings) + compCommission,
+                                            agentEarningBal: parseFloat(agentEarningBals) + AgentCommission,
+                                            agentEarning: parseFloat(agentEarnings) + AgentCommission,
+                                            saEarningBal: parseFloat(saEarningBals) + saCommission,
+                                            saEarning: parseFloat(saEarnings) + saCommission,
+                                            ttlUserWthdrwl: parseFloat(ttlUserWthdrwls) + parseFloat(amount),
+                                            agentFloatIn: parseFloat(agentFloatIns) + parseFloat(amount),
+                                          },
+                                        })
+                                      );
+                                      Alert.alert(
+                                        `${names} has withdrawn Ksh. ${parseFloat(amount).toFixed(2)} from ${namess} MFNdogo`
+                                      );
+                                    } catch (error) {
+                                      Alert.alert("Retry, update app or call customer care");
+                                      console.error(error);
+                                    }
+                                  };
+                                  
+                                 
+                                  
+                                    if (TTlAmtTrnsctd > parseFloat(usrBala)) {
+                                      Alert.alert(
+                                        `Cancelled. Bal: ${usrBala}. Deductable: ${TTlAmtTrnsctd.toFixed(2)}. ${
+                                          (TTlAmtTrnsctd - parseFloat(usrBala)).toFixed(2)
+                                        } more needed`
+                                      );
+                                      setIsLoading(false);
+                                      return;
+                                    }
+                                  
+                                    if (usrStts === "AccountInactive") {
+                                      Alert.alert("User Account has been deactivated");
+                                      setIsLoading(false);
+                                      return;
+                                    }
+                                  
+                                    if (userInfo.attributes.sub !== owners) {
+                                      Alert.alert("You cannot withdraw from another account");
+                                      setIsLoading(false);
+                                      return;
+                                    }
+                                  
+                                    if (parseFloat(amount) > parseFloat(withdrawalLimits)) {
+                                      Alert.alert("Withdrawal limit exceeded");
+                                      setIsLoading(false);
+                                      return;
+                                    }
+                                  
+                                    if (AgAcAct === "AccountInactive") {
+                                      Alert.alert("MFNdogo Account has been deactivated");
+                                      setIsLoading(false);
+                                      return;
+                                    }
+                                  
+                                    if (UsrPWd !== pws) {
+                                      Alert.alert("User credentials are wrong; access denied");
+                                      setIsLoading(false);
+                                      return;
+                                    }
+                                  
+                                    if (
+                                      Lonees1.data.listSMLoansCovereds.items.length > 0 ||
+                                      Lonees3.data.listCovCreditSellers.items.length > 0 ||
+                                      Lonees5.data.listCvrdGroupLoans.items.length > 0
+                                    ) {
+                                      SndChmMmbrMny();
+                                    } else {
+                                      await CrtFltAdd();
+                                    }
         
         
                     } catch (error) {

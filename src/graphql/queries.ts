@@ -617,6 +617,8 @@ export const getSMLoansCovered = /* GraphQL */ `query GetSMLoansCovered($loanID:
     advregnu
     loanerId
     amountgiven
+    clearanceAmt
+    clearanceAmt2
     amountexpected
     amountExpectedBackWthClrnc
     dfltUpdate
@@ -675,6 +677,8 @@ export const listSMLoansCovereds = /* GraphQL */ `query ListSMLoansCovereds(
       advregnu
       loanerId
       amountgiven
+      clearanceAmt
+      clearanceAmt2
       amountexpected
       amountExpectedBackWthClrnc
       dfltUpdate
@@ -734,6 +738,8 @@ export const getCovCreditSeller = /* GraphQL */ `query GetCovCreditSeller($loanI
     amountExpectedBackWthClrnc
     amountRepaid
     repaymentPeriod
+    clearanceAmt
+    clearanceAmt2
     giverStatus
     timeExpBack
     timeExpBack2
@@ -792,6 +798,8 @@ export const listCovCreditSellers = /* GraphQL */ `query ListCovCreditSellers(
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      clearanceAmt
+      clearanceAmt2
       giverStatus
       timeExpBack
       timeExpBack2
@@ -831,6 +839,8 @@ export const getCvrdGroupLoans = /* GraphQL */ `query GetCvrdGroupLoans($loanID:
     advEmail
     amountExpectedBack
     amountExpectedBackWthClrnc
+    clearanceAmt
+    clearanceAmt2
     amountRepaid
     description
     dfltUpdate
@@ -886,6 +896,8 @@ export const listCvrdGroupLoans = /* GraphQL */ `query ListCvrdGroupLoans(
       advEmail
       amountExpectedBack
       amountExpectedBackWthClrnc
+      clearanceAmt
+      clearanceAmt2
       amountRepaid
       description
       dfltUpdate
@@ -1951,6 +1963,394 @@ export const listBankAdmins = /* GraphQL */ `query ListBankAdmins(
   APITypes.ListBankAdminsQueryVariables,
   APITypes.ListBankAdminsQuery
 >;
+export const getMiFedhaBankAdmin = /* GraphQL */ `query GetMiFedhaBankAdmin($nationalid: String!) {
+  getMiFedhaBankAdmin(nationalid: $nationalid) {
+    nationalid
+    name
+    phonecontact
+    TtlEarnings
+    pw
+    BankAdmBal
+    email
+    bank
+    BankAcNu
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetMiFedhaBankAdminQueryVariables,
+  APITypes.GetMiFedhaBankAdminQuery
+>;
+export const listMiFedhaBankAdmins = /* GraphQL */ `query ListMiFedhaBankAdmins(
+  $nationalid: String
+  $filter: ModelMiFedhaBankAdminFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listMiFedhaBankAdmins(
+    nationalid: $nationalid
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      nationalid
+      name
+      phonecontact
+      TtlEarnings
+      pw
+      BankAdmBal
+      email
+      bank
+      BankAcNu
+      status
+      owner
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListMiFedhaBankAdminsQueryVariables,
+  APITypes.ListMiFedhaBankAdminsQuery
+>;
+export const getChamaLoanSync = /* GraphQL */ `query GetChamaLoanSync($id: ID!) {
+  getChamaLoanSync(id: $id) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetChamaLoanSyncQueryVariables,
+  APITypes.GetChamaLoanSyncQuery
+>;
+export const listChamaLoanSyncs = /* GraphQL */ `query ListChamaLoanSyncs(
+  $filter: ModelChamaLoanSyncFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChamaLoanSyncs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      amount
+      GrpAc
+      GrpAdmEmail
+      BankAdminEmail
+      ChamaName
+      BankName
+      BranchNu
+      transactionType
+      status
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListChamaLoanSyncsQueryVariables,
+  APITypes.ListChamaLoanSyncsQuery
+>;
+export const getChamaDividendsSync = /* GraphQL */ `query GetChamaDividendsSync($id: ID!) {
+  getChamaDividendsSync(id: $id) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetChamaDividendsSyncQueryVariables,
+  APITypes.GetChamaDividendsSyncQuery
+>;
+export const listChamaDividendsSyncs = /* GraphQL */ `query ListChamaDividendsSyncs(
+  $filter: ModelChamaDividendsSyncFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChamaDividendsSyncs(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      amount
+      GrpAc
+      GrpAdmEmail
+      BankAdminEmail
+      ChamaName
+      BankName
+      BranchNu
+      transactionType
+      status
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListChamaDividendsSyncsQueryVariables,
+  APITypes.ListChamaDividendsSyncsQuery
+>;
+export const getChamaSubscrptnSync = /* GraphQL */ `query GetChamaSubscrptnSync($id: ID!) {
+  getChamaSubscrptnSync(id: $id) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetChamaSubscrptnSyncQueryVariables,
+  APITypes.GetChamaSubscrptnSyncQuery
+>;
+export const listChamaSubscrptnSyncs = /* GraphQL */ `query ListChamaSubscrptnSyncs(
+  $filter: ModelChamaSubscrptnSyncFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChamaSubscrptnSyncs(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      amount
+      GrpAc
+      GrpAdmEmail
+      BankAdminEmail
+      ChamaName
+      BankName
+      BranchNu
+      transactionType
+      status
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListChamaSubscrptnSyncsQueryVariables,
+  APITypes.ListChamaSubscrptnSyncsQuery
+>;
+export const getChamaDepositSync = /* GraphQL */ `query GetChamaDepositSync($id: ID!) {
+  getChamaDepositSync(id: $id) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetChamaDepositSyncQueryVariables,
+  APITypes.GetChamaDepositSyncQuery
+>;
+export const listChamaDepositSyncs = /* GraphQL */ `query ListChamaDepositSyncs(
+  $filter: ModelChamaDepositSyncFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChamaDepositSyncs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      amount
+      GrpAc
+      GrpAdmEmail
+      BankAdminEmail
+      ChamaName
+      BankName
+      BranchNu
+      transactionType
+      status
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListChamaDepositSyncsQueryVariables,
+  APITypes.ListChamaDepositSyncsQuery
+>;
+export const getChamaWithdrawalSync = /* GraphQL */ `query GetChamaWithdrawalSync($id: ID!) {
+  getChamaWithdrawalSync(id: $id) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetChamaWithdrawalSyncQueryVariables,
+  APITypes.GetChamaWithdrawalSyncQuery
+>;
+export const listChamaWithdrawalSyncs = /* GraphQL */ `query ListChamaWithdrawalSyncs(
+  $filter: ModelChamaWithdrawalSyncFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChamaWithdrawalSyncs(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      amount
+      GrpAc
+      GrpAdmEmail
+      BankAdminEmail
+      ChamaName
+      BankName
+      BranchNu
+      transactionType
+      status
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListChamaWithdrawalSyncsQueryVariables,
+  APITypes.ListChamaWithdrawalSyncsQuery
+>;
+export const getChamaLoanRpymntSync = /* GraphQL */ `query GetChamaLoanRpymntSync($id: ID!) {
+  getChamaLoanRpymntSync(id: $id) {
+    id
+    amount
+    GrpAc
+    GrpAdmEmail
+    BankAdminEmail
+    ChamaName
+    BankName
+    BranchNu
+    transactionType
+    status
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetChamaLoanRpymntSyncQueryVariables,
+  APITypes.GetChamaLoanRpymntSyncQuery
+>;
+export const listChamaLoanRpymntSyncs = /* GraphQL */ `query ListChamaLoanRpymntSyncs(
+  $filter: ModelChamaLoanRpymntSyncFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChamaLoanRpymntSyncs(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      amount
+      GrpAc
+      GrpAdmEmail
+      BankAdminEmail
+      ChamaName
+      BankName
+      BranchNu
+      transactionType
+      status
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListChamaLoanRpymntSyncsQueryVariables,
+  APITypes.ListChamaLoanRpymntSyncsQuery
+>;
 export const getAdvocate = /* GraphQL */ `query GetAdvocate($advregnu: String!) {
   getAdvocate(advregnu: $advregnu) {
     advregnu
@@ -2065,6 +2465,50 @@ export const listAdvocateWithdrawals = /* GraphQL */ `query ListAdvocateWithdraw
   APITypes.ListAdvocateWithdrawalsQueryVariables,
   APITypes.ListAdvocateWithdrawalsQuery
 >;
+export const getMFBankWithdrawals = /* GraphQL */ `query GetMFBankWithdrawals($id: ID!) {
+  getMFBankWithdrawals(id: $id) {
+    id
+    bankAdmnId
+    amount
+    bankName
+    bkAcNo
+    status
+    owner
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetMFBankWithdrawalsQueryVariables,
+  APITypes.GetMFBankWithdrawalsQuery
+>;
+export const listMFBankWithdrawals = /* GraphQL */ `query ListMFBankWithdrawals(
+  $filter: ModelMFBankWithdrawalsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMFBankWithdrawals(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      bankAdmnId
+      amount
+      bankName
+      bkAcNo
+      status
+      owner
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListMFBankWithdrawalsQueryVariables,
+  APITypes.ListMFBankWithdrawalsQuery
+>;
 export const getCompany = /* GraphQL */ `query GetCompany($AdminId: String!) {
   getCompany(AdminId: $AdminId) {
     AdminId
@@ -2082,6 +2526,7 @@ export const getCompany = /* GraphQL */ `query GetCompany($AdminId: String!) {
     agentCom
     sagentCom
     companyCom
+    companyComDisc
     AdvCom
     ChampCom
     AdvCompanyCom
@@ -2222,6 +2667,7 @@ export const getCompany = /* GraphQL */ `query GetCompany($AdminId: String!) {
     p2pBenCom
     g2pBenCom
     p2BBenCom
+    BankMifedhaSyncFee
     updatedAt
     __typename
   }
@@ -2260,6 +2706,7 @@ export const listCompanies = /* GraphQL */ `query ListCompanies(
       agentCom
       sagentCom
       companyCom
+      companyComDisc
       AdvCom
       ChampCom
       AdvCompanyCom
@@ -2400,6 +2847,7 @@ export const listCompanies = /* GraphQL */ `query ListCompanies(
       p2pBenCom
       g2pBenCom
       p2BBenCom
+      BankMifedhaSyncFee
       updatedAt
       __typename
     }
@@ -2667,6 +3115,18 @@ export const getGroup = /* GraphQL */ `query GetGroup($grpContact: String!) {
     signitory2Sub
     WithdrawCnfrmtn
     WithdrawCnfrmtnAmt
+    BankAdminEmail
+    BankAdminAcNu
+    SignatoryEmail
+    GrpLoanOutSync
+    GrpLoanRpymntSync
+    MemberSubscrptnSync
+    MemberDividendSync
+    DepositSync
+    WithdrawalSync
+    chamaBenSync
+    BankName
+    BranchNu
     grpEmail
     grpBal
     ttlGrpMembers
@@ -2752,6 +3212,18 @@ export const listGroups = /* GraphQL */ `query ListGroups(
       signitory2Sub
       WithdrawCnfrmtn
       WithdrawCnfrmtnAmt
+      BankAdminEmail
+      BankAdminAcNu
+      SignatoryEmail
+      GrpLoanOutSync
+      GrpLoanRpymntSync
+      MemberSubscrptnSync
+      MemberDividendSync
+      DepositSync
+      WithdrawalSync
+      chamaBenSync
+      BankName
+      BranchNu
       grpEmail
       grpBal
       ttlGrpMembers
@@ -3376,6 +3848,7 @@ export const getMFKOfferz2 = /* GraphQL */ `query GetMFKOfferz2($id: ID!) {
     amtPaid
     mfnOffered
     acChamp
+    bankAdminEmail
     mfnReg
     status
     mfkAc
@@ -3403,6 +3876,7 @@ export const listMFKOfferz2s = /* GraphQL */ `query ListMFKOfferz2s(
       amtPaid
       mfnOffered
       acChamp
+      bankAdminEmail
       mfnReg
       status
       mfkAc
@@ -3419,6 +3893,174 @@ export const listMFKOfferz2s = /* GraphQL */ `query ListMFKOfferz2s(
 ` as GeneratedQuery<
   APITypes.ListMFKOfferz2sQueryVariables,
   APITypes.ListMFKOfferz2sQuery
+>;
+export const getChamaApply = /* GraphQL */ `query GetChamaApply($id: ID!) {
+  getChamaApply(id: $id) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetChamaApplyQueryVariables,
+  APITypes.GetChamaApplyQuery
+>;
+export const listChamaApplies = /* GraphQL */ `query ListChamaApplies(
+  $filter: ModelChamaApplyFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChamaApplies(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      ChamaAdminEmail
+      bankAdminEmail
+      BankAdminAccount
+      mfnReg
+      status
+      ChamaAcNu
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListChamaAppliesQueryVariables,
+  APITypes.ListChamaAppliesQuery
+>;
+export const getChamaApply2 = /* GraphQL */ `query GetChamaApply2($id: ID!) {
+  getChamaApply2(id: $id) {
+    id
+    ChamaAdminEmail
+    bankAdminEmail
+    BankAdminAccount
+    mfnReg
+    status
+    ChamaAcNu
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetChamaApply2QueryVariables,
+  APITypes.GetChamaApply2Query
+>;
+export const listChamaApply2s = /* GraphQL */ `query ListChamaApply2s(
+  $filter: ModelChamaApply2FilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChamaApply2s(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      ChamaAdminEmail
+      bankAdminEmail
+      BankAdminAccount
+      mfnReg
+      status
+      ChamaAcNu
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListChamaApply2sQueryVariables,
+  APITypes.ListChamaApply2sQuery
+>;
+export const getChamaControlTable = /* GraphQL */ `query GetChamaControlTable($id: ID!) {
+  getChamaControlTable(id: $id) {
+    GroupID
+    Institution
+    LoansGiven
+    LoansRepayment
+    Subscriptions
+    Dividends
+    Withdrawals
+    Deposits
+    BankAdminEarnings
+    GrpLoanOutEarnings
+    GrpLoanEarnings
+    SubscriptionsEarnings
+    DividendsEarnings
+    WithdrawalsEarnings
+    DepositsEarnings
+    GroupTotal
+    MembersTotal
+    BankAdminTotal
+    status
+    createdAt
+    id
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetChamaControlTableQueryVariables,
+  APITypes.GetChamaControlTableQuery
+>;
+export const listChamaControlTables = /* GraphQL */ `query ListChamaControlTables(
+  $filter: ModelChamaControlTableFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChamaControlTables(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      GroupID
+      Institution
+      LoansGiven
+      LoansRepayment
+      Subscriptions
+      Dividends
+      Withdrawals
+      Deposits
+      BankAdminEarnings
+      GrpLoanOutEarnings
+      GrpLoanEarnings
+      SubscriptionsEarnings
+      DividendsEarnings
+      WithdrawalsEarnings
+      DepositsEarnings
+      GroupTotal
+      MembersTotal
+      BankAdminTotal
+      status
+      createdAt
+      id
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListChamaControlTablesQueryVariables,
+  APITypes.ListChamaControlTablesQuery
 >;
 export const VwNatIdentity = /* GraphQL */ `query VwNatIdentity(
   $nationalid: String!
@@ -3757,6 +4399,8 @@ export const VwMyDebts7 = /* GraphQL */ `query VwMyDebts7(
       advregnu
       loanerId
       amountgiven
+      clearanceAmt
+      clearanceAmt2
       amountexpected
       amountExpectedBackWthClrnc
       dfltUpdate
@@ -3820,6 +4464,8 @@ export const VwLnrNLneesssss7 = /* GraphQL */ `query VwLnrNLneesssss7(
       advregnu
       loanerId
       amountgiven
+      clearanceAmt
+      clearanceAmt2
       amountexpected
       amountExpectedBackWthClrnc
       dfltUpdate
@@ -3883,6 +4529,8 @@ export const VwMyDebtors7 = /* GraphQL */ `query VwMyDebtors7(
       advregnu
       loanerId
       amountgiven
+      clearanceAmt
+      clearanceAmt2
       amountexpected
       amountExpectedBackWthClrnc
       dfltUpdate
@@ -3946,6 +4594,8 @@ export const VwMyLenders7 = /* GraphQL */ `query VwMyLenders7(
       advregnu
       loanerId
       amountgiven
+      clearanceAmt
+      clearanceAmt2
       amountexpected
       amountExpectedBackWthClrnc
       dfltUpdate
@@ -4020,6 +4670,8 @@ export const VwLnrNLneesss7 = /* GraphQL */ `query VwLnrNLneesss7(
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      clearanceAmt
+      clearanceAmt2
       giverStatus
       timeExpBack
       timeExpBack2
@@ -4083,6 +4735,8 @@ export const VwMyCrdBys7 = /* GraphQL */ `query VwMyCrdBys7(
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      clearanceAmt
+      clearanceAmt2
       giverStatus
       timeExpBack
       timeExpBack2
@@ -4146,6 +4800,8 @@ export const VwMySales7 = /* GraphQL */ `query VwMySales7(
       amountExpectedBackWthClrnc
       amountRepaid
       repaymentPeriod
+      clearanceAmt
+      clearanceAmt2
       giverStatus
       timeExpBack
       timeExpBack2
@@ -4200,6 +4856,8 @@ export const VwChamaMemberss7 = /* GraphQL */ `query VwChamaMemberss7(
       advEmail
       amountExpectedBack
       amountExpectedBackWthClrnc
+      clearanceAmt
+      clearanceAmt2
       amountRepaid
       description
       dfltUpdate
@@ -4260,6 +4918,8 @@ export const VwMyChamass7 = /* GraphQL */ `query VwMyChamass7(
       advEmail
       amountExpectedBack
       amountExpectedBackWthClrnc
+      clearanceAmt
+      clearanceAmt2
       amountRepaid
       description
       dfltUpdate
@@ -4320,6 +4980,8 @@ export const VwLnrNLnee7 = /* GraphQL */ `query VwLnrNLnee7(
       advEmail
       amountExpectedBack
       amountExpectedBackWthClrnc
+      clearanceAmt
+      clearanceAmt2
       amountRepaid
       description
       dfltUpdate
@@ -5495,6 +6157,18 @@ export const VwNatIdentitysz = /* GraphQL */ `query VwNatIdentitysz(
       signitory2Sub
       WithdrawCnfrmtn
       WithdrawCnfrmtnAmt
+      BankAdminEmail
+      BankAdminAcNu
+      SignatoryEmail
+      GrpLoanOutSync
+      GrpLoanRpymntSync
+      MemberSubscrptnSync
+      MemberDividendSync
+      DepositSync
+      WithdrawalSync
+      chamaBenSync
+      BankName
+      BranchNu
       grpEmail
       grpBal
       ttlGrpMembers
@@ -5588,6 +6262,18 @@ export const ViaChmArea = /* GraphQL */ `query ViaChmArea(
       signitory2Sub
       WithdrawCnfrmtn
       WithdrawCnfrmtnAmt
+      BankAdminEmail
+      BankAdminAcNu
+      SignatoryEmail
+      GrpLoanOutSync
+      GrpLoanRpymntSync
+      MemberSubscrptnSync
+      MemberDividendSync
+      DepositSync
+      WithdrawalSync
+      chamaBenSync
+      BankName
+      BranchNu
       grpEmail
       grpBal
       ttlGrpMembers
@@ -5681,6 +6367,18 @@ export const ViaChmVenture = /* GraphQL */ `query ViaChmVenture(
       signitory2Sub
       WithdrawCnfrmtn
       WithdrawCnfrmtnAmt
+      BankAdminEmail
+      BankAdminAcNu
+      SignatoryEmail
+      GrpLoanOutSync
+      GrpLoanRpymntSync
+      MemberSubscrptnSync
+      MemberDividendSync
+      DepositSync
+      WithdrawalSync
+      chamaBenSync
+      BankName
+      BranchNu
       grpEmail
       grpBal
       ttlGrpMembers
@@ -6527,6 +7225,7 @@ export const MFKOffers2 = /* GraphQL */ `query MFKOffers2(
       amtPaid
       mfnOffered
       acChamp
+      bankAdminEmail
       mfnReg
       status
       mfkAc
