@@ -26,7 +26,7 @@ declare global {
       ViewSyncedGrpWithdrawals: undefined;
       ViewSyncedGrpBenefits:undefined;
 
-
+      ViewAsProdCreator:undefined;
       
       MFBankAdmin:undefined;
       PaystackPayment: {

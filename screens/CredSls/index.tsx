@@ -175,7 +175,9 @@ const MyLoanAccount = () => {
     navigation.navigate('ViewBiznaShareRecBiz');
   };
   
-  
+  const ViewAsProdCreator = () => {
+    navigation.navigate('ViewAsProdCreator');
+  };
   
   
 
@@ -200,6 +202,10 @@ const MyLoanAccount = () => {
             { label: 'Link Beneficiary', onPress: ViewBenProds, style: styles.ClientsPressables },
             { label: 'Boost Pooled Benefits', onPress: BoostPooledBen, style: styles.ClientsPressables },
            
+            { label: 'View Product Contributions', onPress: ViewAsProdCreator, style: styles.ClientsPressables },
+           
+            
+
           ]}
         />
         

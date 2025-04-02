@@ -572,6 +572,7 @@ import ViewSyncedGrpLoansOut from "../../screens/MFBankAdmin/ViewSyncedGrpLoansO
 import ViewSyncedGrpWithdrawals from "../../screens/MFBankAdmin/ViewSyncedGrpWithdrawals";
 import ViewSyncedGrpdividends from "../../screens/MFBankAdmin/ViewSyncedGrpdividends";
 import ViewMFBankAdmin from "../../screens/MFBankAdmin/ViewMFBankAdmin";
+import ViewAsProdCreator from "../../screens/CredSls/BeneficiaryProducts/ViewAsProdCreator";
 
 import PaystackTNC from "../../screens/MyAcc/DepositMny/PaystackTNC";
 
@@ -587,6 +588,9 @@ const HomeNavigator = props => {
       
       <Stack.Screen name={'BuyFloatBnkAdm'} component={BuyFloatBnkAdm} />
       <Stack.Screen name={'RegBankAdmin'} component={RegBankAdmin} />
+
+      <Stack.Screen name={'ViewAsProdCreator'} component={ViewAsProdCreator} />
+
       <Stack.Screen name={'GroupControlTable'} component={GroupControlTable} />
       <Stack.Screen name={'PaystackTNC'} component={PaystackTNC} />
       <Stack.Screen name={'ViewMFBankAdmin'} component={ViewMFBankAdmin} />
