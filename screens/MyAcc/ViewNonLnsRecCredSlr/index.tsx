@@ -33,9 +33,7 @@ const FetchSMNonLnsRec = props => {
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
               {
-                      
-                      sortDirection: 'DESC',
-                      limit: 100,
+                     
                       filter:{recPhn: {eq:route.params.MFNId},
                         status:{eq:"CredSlrLonRepayment"}}
                       

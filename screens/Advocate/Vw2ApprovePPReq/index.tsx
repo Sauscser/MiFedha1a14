@@ -35,8 +35,7 @@ const FetchSMNonLnsSnt = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listReqLoans, 
                 {
                   
-                  sortDirection: 'DESC',
-                  limit: 100, 
+                 
                       filter: {
                         AdvEmail:{eq:userInfo.attributes.email},
                           

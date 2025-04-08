@@ -36,7 +36,7 @@ const FetchSMNonLnsSnt = props => {
                  {
                       filter:{owner2email:{eq:userInfo.attributes.email}},
                       
-                      limit: 100,
+                   
                       
                     }
                  

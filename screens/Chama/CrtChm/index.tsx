@@ -143,7 +143,7 @@ const CreateChama = (props:UserReg) => {
                   signitoryName: namess,
                   grpName: ChmNm,
                   signitoryPW: pword,
-                  signitory2Sub: ownrsss,
+                  signitory2Sub: Sign2Phn,
                   WithdrawCnfrmtn: "NO",
                   WithdrawCnfrmtnAmt:0,
                   BankAdminEmail: BankAdminEml,

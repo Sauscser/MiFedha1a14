@@ -39,8 +39,7 @@ const FetchSMNonLnsSnt = props => {
 
                   {
                    
-                    sortDirection: 'DESC',
-                    limit: 100,
+                    
                     filter: {
                       and: {
                         

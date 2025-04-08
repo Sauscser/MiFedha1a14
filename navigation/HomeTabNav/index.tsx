@@ -573,6 +573,8 @@ import ViewSyncedGrpWithdrawals from "../../screens/MFBankAdmin/ViewSyncedGrpWit
 import ViewSyncedGrpdividends from "../../screens/MFBankAdmin/ViewSyncedGrpdividends";
 import ViewMFBankAdmin from "../../screens/MFBankAdmin/ViewMFBankAdmin";
 import ViewAsProdCreator from "../../screens/CredSls/BeneficiaryProducts/ViewAsProdCreator";
+import VwBeneficiaryContriDtls from "../../screens/CredSls/BeneficiaryProducts/VwBeneficiaryContriDtls";
+import VwBenCreatorContriDtls from "../../screens/CredSls/BeneficiaryProducts/VwBenCreatorContriDtls";
 
 import PaystackTNC from "../../screens/MyAcc/DepositMny/PaystackTNC";
 
@@ -587,9 +589,13 @@ const HomeNavigator = props => {
       <Stack.Screen name={'Homeie'} component={Homeie} />      
       
       <Stack.Screen name={'BuyFloatBnkAdm'} component={BuyFloatBnkAdm} />
+      <Stack.Screen name={'VwBeneficiaryContriDtls'} component={VwBeneficiaryContriDtls} />
+
+      <Stack.Screen name={'VwBenCreatorContriDtls'} component={VwBenCreatorContriDtls} />
+
       <Stack.Screen name={'RegBankAdmin'} component={RegBankAdmin} />
 
-      <Stack.Screen name={'ViewAsProdCreator'} component={ViewAsProdCreator} />
+<Stack.Screen name={'ViewAsProdCreator'} component={ViewAsProdCreator} />
 
       <Stack.Screen name={'GroupControlTable'} component={GroupControlTable} />
       <Stack.Screen name={'PaystackTNC'} component={PaystackTNC} />

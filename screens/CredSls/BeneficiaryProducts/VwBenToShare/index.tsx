@@ -12,29 +12,32 @@ const FetchSMNonCovLns = props => {
     const [filteredLoanees, setFilteredLoanees] = useState([]); // Stores filtered results
     const [loading, setLoading] = useState(false);
     const [awsEmail, setAWSEmail] = useState("");
+    const [awsEmail2, setAWSEmail2] = useState("");
 
-    useEffect(() => {
-        fetchLoanees();
-    }, []);
-
+    
     const fetchLoanees = async () => {
         setLoading(true);
         try {
             const userInfo = await Auth.currentAuthenticatedUser();
             const Lonees = await API.graphql(
                 graphqlOperation(listLinkBeneficiary2s, {
-                    filter: { benefitStatus: { eq: "Active" } }
+                    filter: { benefitStatus: { eq: "Active" } ,
+                    benefactorAc: { eq: awsEmail },
+                    beneficiaryPhone: { eq: awsEmail2 }
+                }
                 })
             );
             setLoanees(Lonees.data.listLinkBeneficiary2s.items);
         } catch (e) {
             console.error("Error fetching accounts:", e);
         } finally {
+            setAWSEmail("")
+            setAWSEmail2("")
             setLoading(false);
         }
     };
 
-    // Dynamic Filtering based on input
+    /* Dynamic Filtering based on input
     const handleSearch = (text) => {
         setAWSEmail(text);
         const filtered = Loanees.filter(loanee =>
@@ -43,70 +46,73 @@ const FetchSMNonCovLns = props => {
         setFilteredLoanees(filtered);
     };
 
-    
+    */
 
     return (
-       <KeyboardAvoidingView
-                   style={{ flex: 1 }} 
-                   behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-               >
-                   <View style={styles.container}>
-                       {/* Search Bar */}
-                       <View style={styles.searchBar}>
-                           <TextInput
-                    placeholder="Benefactor Name"
-                    value={awsEmail}
-                    onChangeText={handleSearch} 
-                    style={styles.searchInput}
-                    
-                />
-            </View>
-
-            {/* Conditional Rendering: FlatList only shows when typing */}
-            {awsEmail.length > 0 ? (
-                <FlatList
-                    style={{ flex: 1 }}
-                    data={filteredLoanees}
-                    renderItem={({ item }) => (
-                        <View>
-                            <LnerStts SMAc={item} />
-                           
-                        </View>
-                    )}
-                    keyExtractor={(item, index) => index.toString()}
-                    refreshing={loading}
-                    keyboardShouldPersistTaps="handled"
-                  
-                />
-            ) : (
-                <Text style={styles.placeholderText}>Start typing Benefactor name.</Text>
+        <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <View style={styles.container}>
+          <View style={styles.searchBar}>
+            <TextInput
+              placeholder="Benefactor account number..."
+              value={awsEmail}
+              onChangeText={setAWSEmail}
+              autoCapitalize="none"
+              style={styles.searchInput}
+            />
+  
+            <TextInput
+              placeholder="Beneficiary Name"
+              value={awsEmail2}
+              onChangeText={setAWSEmail2}
+              autoCapitalize="none"
+              style={styles.searchInput}
+            />
+          </View>
+  
+          <FlatList
+            style={{ flex: 1 }}
+            data={Loanees}
+            renderItem={({ item }) => <LnerStts SMAc={item} />}
+            keyExtractor={(item, index) => index.toString()}
+            onRefresh={fetchLoanees}
+            refreshing={loading}
+            showsVerticalScrollIndicator={false}
+            ListHeaderComponent={() => (
+              <Text style={styles.placeholderText}>
+                Swipe down to load or refresh.
+              </Text>
             )}
+          />
         </View>
-         </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     );
-};
-
-const styles = StyleSheet.create({
+  };
+  
+  const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#f5f5f5',
-        padding: 10,
+      flex: 1,
+      backgroundColor: '#f5f5f5',
+      padding: 10,
     },
     searchBar: {
-        marginBottom: 10,
+      marginBottom: 10,
     },
     searchInput: {
-        borderWidth: 1,
-        borderColor: '#ddd',
-        borderRadius: 5,
-        padding: 10,
-        backgroundColor: '#fff',
+      borderWidth: 1,
+      borderColor: '#ddd',
+      borderRadius: 5,
+      padding: 10,
+      backgroundColor: '#fff',
+      marginBottom: 8,
     },
     placeholderText: {
-        textAlign: 'center',
-        color: '#aaa',
-        marginTop: 20,
+      textAlign: 'center',
+      color: '#aaa',
+      marginVertical: 20,
     },
-});
+  });
 
 export default FetchSMNonCovLns;

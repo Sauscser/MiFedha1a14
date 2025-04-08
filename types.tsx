@@ -21,6 +21,32 @@ declare global {
       PaystackTNC:undefined;
       ViewMFBankAdmin:undefined;
 
+      VwBenefactorContriDtls:
+      {benefactorAc:string, 
+        benefactorPhone:string, 
+        beneficiaryAc:string,
+      };
+
+      VwBeneficiaryContriDtls:{beneficiaryAc:string, 
+        benefactorAc:string, 
+        prodName:string
+      };
+
+      VwBenCreatorContriDtls:{benefactorPhone:string, 
+        beneficiaryAc:string,
+        prodName:string,
+        benefactorAc:string,
+        
+      };
+
+      VwBenContributionsPal: {
+        beneficiaryAc:string,
+        prodName:string,
+        benefactorAc:string
+      };
+
+      
+
       ViewSyncedGrpdividends: undefined;
       ViewSyncedGrpLoansOut: undefined;
       ViewSyncedGrpWithdrawals: undefined;
@@ -39,7 +65,7 @@ declare global {
       }
       VwAsBenefactors: undefined;
       
-
+      
       RegBankAdmin:undefined;
       RegGrp:undefined;
       SignBankInAdm:undefined;
@@ -67,16 +93,11 @@ declare global {
         creatorName:string,
         prodName:string};
       
-      VwBenefactorContriDtls:
-      {benefactorAc:string, 
-        benefactorPhone:string, 
-        creatorName:string,
-        prodName:string};
+      
+
+
       BenefitChmSenderOnly:undefined;
-      VwPalBeneficiaryShares:{beneficiaryAc:string, 
-        benefactorPhone:string, 
-        creatorName:string,
-        prodName:string};
+      VwPalBeneficiaryShares:undefined;
       VwBizBeneficiaryShares:undefined;
       AddPalPalBeneficiary:undefined;
       AddPalBizBeneficiary:undefined;

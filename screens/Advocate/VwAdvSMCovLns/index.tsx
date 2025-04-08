@@ -35,8 +35,7 @@ const FetchSMNonLnsSnt = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
                 {
                   
-                      sortDirection: 'DESC',
-                      limit: 100,
+                     
                       filter: {
                         
                           lonBala:{gt:0},

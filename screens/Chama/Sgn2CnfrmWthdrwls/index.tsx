@@ -97,7 +97,7 @@ const SMADepositForm = props => {
                       Alert.alert("Chama Withdrawal confirmed")
                     }
 
-                    if (userInfo.attributes.sub !==owners) {
+                    if (userInfo.attributes.email !==owners) {
                       Alert.alert("Not authorised to confirm chama withdrawal")
                       return;
                     }  
@@ -205,12 +205,12 @@ const SMADepositForm = props => {
 
           <View style={styles.sendAmtView}>
             <TextInput
-            placeholder="+2547xxxxxxxx"
+           
               value={grpKntct}
               onChangeText={setgrpKntct}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Chama Phone</Text>
+            <Text style={styles.sendAmtText}>Chama Account</Text>
           </View>
 
           <View style={styles.sendAmtView}>

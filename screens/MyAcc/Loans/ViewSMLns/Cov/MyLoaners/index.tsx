@@ -33,8 +33,7 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
                {
                       
-                      sortDirection: 'DESC',
-                      limit: 100,
+                     
                       filter:{
                         loaneePhn: {eq:userInfo.attributes.email},
                       lonBala:{gt:0}

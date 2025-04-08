@@ -34,9 +34,7 @@ const FetchSMNonLnsSnt = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listFloatReductions, 
                 { 
                      
-                      sortDirection: "DESC",
                       
-                      limit:100,
                       filter:{depositerid: { ne: "None"},
                       agContact: {eq:route.params.MFNId}},
                       

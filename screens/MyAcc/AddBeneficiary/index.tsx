@@ -93,6 +93,11 @@ const UpdtSMPW = (props) => {
                                           Alert.alert("Unauthorised to update Beneficiary");
                                       }
 
+                                      else if(userInfo.attributes.email === LnAcCod)
+                                        {
+                                            Alert.alert("You cant be your own beneficiary");
+                                        }
+
                                       else if(pw !== SMPW)
                                       {
                                           Alert.alert("Wrong password");

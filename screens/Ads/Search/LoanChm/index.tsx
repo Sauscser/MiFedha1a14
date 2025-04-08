@@ -53,7 +53,7 @@ const FetchSMNonCovLns = props => {
                     }
                     },
                   
-                  limit: 100
+                 
                 }
                   ));
               setLoanees(Lonees.data.listGroups.items);

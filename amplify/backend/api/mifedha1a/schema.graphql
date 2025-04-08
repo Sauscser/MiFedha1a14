@@ -3085,9 +3085,6 @@ enum Status {
   No
   Waived
   Forfeited
-  BiznaShareCash2Biz
-  BiznaShareCash2Pal
-  BiznaShareCash2Grp
   Sold
   CredSlrLonRepayment
   AwaitingResponse

@@ -51,9 +51,8 @@ const FetchSMNonCovLns = props => {
               };
 
               const Lonees:any = await API.graphql(graphqlOperation(listSokoAds, 
-                { filter,
-                  sortDirection: 'DESC',
-                  limit: 100
+                { filter : {sokoname: { contains: itemPrys}}
+                  
                 }
                   ));
               setLoanees(Lonees.data.listSokoAds.items);

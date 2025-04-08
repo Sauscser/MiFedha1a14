@@ -219,7 +219,7 @@ const SMASendNonLns = props => {
                             graphqlOperation(updateGroup, {
                               input:{
                                 grpContact:groupContacts,
-                                MemberDividendSync: (parseFloat(MemberDividendSync) + parseFloat(amounts)).toFixed(0),
+                                MemberDividendSync: (parseFloat(MemberDividendSync) + TotalTransacted).toFixed(0),
                                 ttlNonLonsSentChm: (parseFloat(ttlNonLonsSentChms)+parseFloat(amounts)).toFixed(0),
                                 grpBal:(parseFloat(grpBals)-TotalTransacted).toFixed(0) 
                               }

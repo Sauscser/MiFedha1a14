@@ -64,8 +64,7 @@ const FetchSMCovLns = props => {
                       
                     }
                   },
-                  limit: 100,
-                  sortDirection: 'DESC',
+                 
                 }
                   ));
 

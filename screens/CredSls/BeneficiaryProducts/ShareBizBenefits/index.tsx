@@ -171,7 +171,7 @@ const SMASendNonLns = props => {
 
                       } catch (error) {
                         if (error){
-                          Alert.alert("Revenue sharing unsuccessful; Retry")
+                          Alert.alert("Sharing unsuccessful; Retry")
                           return
                         }
                       }

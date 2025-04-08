@@ -184,7 +184,7 @@ const SMADepositForm = props => {
                           graphqlOperation(updateGroup, {
                             input: {
                               grpContact: ChmKntct,
-                              WithdrawalSync: parseFloat(WithdrawalSync) + parseFloat(amount).toFixed(0),
+                              WithdrawalSync: parseFloat(WithdrawalSync) + TTlAmtTrnsctd.toFixed(0),
                               grpBal: (parseFloat(grpBals) - TTlAmtTrnsctd).toFixed(0) ,
                               ttlWthdrwn: (parseFloat(ttlWthdrwns) + parseFloat(amount)).toFixed(0),
                               WithdrawCnfrmtn: "NO"
@@ -493,12 +493,12 @@ const SMADepositForm = props => {
 
           <View style={styles.sendAmtView}>
             <TextInput
-            placeholder="+2547xxxxxxxx"
+            
               value={ChmKntct}
               onChangeText={setChmKntct}
               style={styles.sendAmtInput}
               editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Chama Phone</Text>
+            <Text style={styles.sendAmtText}>Chama Account</Text>
           </View>
 
           <View style={styles.sendAmtView}>

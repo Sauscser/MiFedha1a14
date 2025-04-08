@@ -97,7 +97,7 @@ const FetchSMNonCovLns = props => {
                 {/* Search Bar */}
                 <View style={styles.searchBar}>
                     <TextInput
-                        placeholder="Company/Biz Beneficiary Number..."
+                        placeholder="Company/Biz Account Number..."
                         value={awsEmail}
                         onChangeText={setAWSEmail}
                         style={styles.searchInput}

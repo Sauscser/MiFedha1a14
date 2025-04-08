@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, Alert, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../components/Chama/SyncGrpWithdrawal";
+import LnerStts from "../../../components/Chama/ViewSyncGrpBenefits";
 
 import { useRoute } from '@react-navigation/native'; 
 import { listChamaApplies, listChamaDepositSyncs, listGroups } from '../../../src/graphql/queries';

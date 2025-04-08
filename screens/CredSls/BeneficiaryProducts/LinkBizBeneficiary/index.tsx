@@ -71,7 +71,7 @@ const ProdId = route.params.id
         }
         setIsLoading(true);
         const userInfo = await Auth.currentAuthenticatedUser();
-        const ProdIDX = ChmRegNo+ProdId
+        const ProdIDX = ChmRegNo+ProdId+ChmNm
       
         try {
           const UsrDtls:any = await API.graphql(

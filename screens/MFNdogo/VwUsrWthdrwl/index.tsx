@@ -36,8 +36,7 @@ const FetchSMNonLnsSnt = props => {
                     filter: {
                       agentPhonecontact: {eq:route.params.MFNId}
                     }  ,
-                      sortDirection: "DESC",
-                      limit: 100
+                      
                     }
                   
                   ));

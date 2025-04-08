@@ -33,10 +33,9 @@ const FetchSMNonLnsSnt = props => {
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listBiznas, 
                  {
-                      filter:{BusKntct:{eq:route.params.BusinessRegNos,}},
+                      filter:{BusKntct:{eq:route.params.BusinessRegNos}},
                       
-                      limit: 100,
-                      
+                     
                     }
                  
                   ));

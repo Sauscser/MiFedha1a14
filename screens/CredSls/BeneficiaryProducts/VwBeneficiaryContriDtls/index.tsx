@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, Alert, TouchableOpacity } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../components/CredSales/BenProd2/ViewBenContributions";
+import LnerStts from "../../../../components/CredSales/BenProd2/ViewBenContributionsPal";
 
 import { listBenefitContributions2s, listBenefitShare2s, listBenProd2s, listLinkBeneficiary2s, listSMAccounts } from '../../../../src/graphql/queries';
 import * as Clipboard from 'expo-clipboard';  
@@ -15,7 +15,7 @@ const FetchSMNonCovLns = props => {
     const [awsEmail, setAWSEmail] = useState("");
     const route = useRoute();
 
-    const {benefactorAc, benefactorPhone, beneficiaryAc} 
+    const {benefactorAc, beneficiaryAc} 
     = route.params;
 
     useEffect(() => {
@@ -30,9 +30,7 @@ const FetchSMNonCovLns = props => {
                 graphqlOperation(listBenefitShare2s, {
                     filter: {  
                       benefactorAc:{eq:route.params.benefactorAc},
-                      benefactorPhone: {eq: route.params.benefactorPhone},
-                      beneficiaryAc: {eq: route.params.beneficiaryAc}
-
+                      beneficiaryAc: {eq: route.params.beneficiaryAc},
                   }
                     
                 })

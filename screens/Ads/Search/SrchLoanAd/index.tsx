@@ -48,20 +48,15 @@ const FetchSMNonCovLns = props => {
             setLoading(true);
             try {
 
-            let  filter = {
-              and: {rafikiamnt: { gt: parseFloat(itemPrys)}},
-              
-            };
+           
             
 
               const Lonees:any = await API.graphql(graphqlOperation(listRafikiLnAds, 
                 { 
                     
-                  filter,
-                    
-                      sortDirection: 'DESC',
-                  
-                  limit: 100
+                  filter
+                  : {rafikiamnt: { gt: parseFloat(itemPrys)}}
+                      
                 }
                   ));
               setLoanees(Lonees.data.listRafikiLnAds.items);

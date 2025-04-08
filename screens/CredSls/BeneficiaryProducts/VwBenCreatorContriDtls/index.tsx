@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, Alert, TouchableOpacity } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../components/CredSales/BenProd2/ViewBenContributions";
+import LnerStts from "../../../../components/CredSales/BenProd2/VwProdCreatorContrDtls";
 
 import { listBenefitContributions2s, listBenefitShare2s, listBenProd2s, listLinkBeneficiary2s, listSMAccounts } from '../../../../src/graphql/queries';
 import * as Clipboard from 'expo-clipboard';  
@@ -15,7 +15,7 @@ const FetchSMNonCovLns = props => {
     const [awsEmail, setAWSEmail] = useState("");
     const route = useRoute();
 
-    const {benefactorAc, benefactorPhone, beneficiaryAc} 
+    const {beneficiaryAc, benefactorPhone} 
     = route.params;
 
     useEffect(() => {
@@ -29,9 +29,9 @@ const FetchSMNonCovLns = props => {
             const Lonees = await API.graphql(
                 graphqlOperation(listBenefitShare2s, {
                     filter: {  
-                      benefactorAc:{eq:route.params.benefactorAc},
+                      beneficiaryAc:{eq:route.params.beneficiaryAc},
                       benefactorPhone: {eq: route.params.benefactorPhone},
-                      beneficiaryAc: {eq: route.params.beneficiaryAc}
+                     
 
                   }
                     
@@ -69,7 +69,7 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> My Contributions</Text>
+            <Text style={styles.label}> Client's Contributions</Text>
             <Text style={styles.label2}> (Please swipe down to load)</Text>
           </>
         )}

@@ -82,14 +82,14 @@ const SMCvLnStts = (props:SMAccount) => {
 onPress={LinkPalBeneficiary}
 style = {styles.loanFriendButton}
 >            
-  <Text>Link Beneficiary (Pal)</Text>            
+  <Text>Link Pal Beneficiary </Text>            
 </Pressable>
 </View>   
 <View>
 <Pressable
 onPress={LinkBizBeneficiary}
 style = {styles.loanFriendButton}>            
-  <Text>Link Beneficiary (Bizna)</Text>            
+  <Text>Link Biz Beneficiary </Text>            
 </Pressable>  
 </View>
 

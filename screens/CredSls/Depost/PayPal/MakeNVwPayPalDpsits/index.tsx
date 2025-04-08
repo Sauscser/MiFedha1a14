@@ -146,18 +146,11 @@ const MyLoanAccount = props => {
 
 
             <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Make and View Business Deposits</Text>
+              <Text style={styles.salesText}>View Business Deposits</Text>
 
               <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories7}>
-                  
-                  <Pressable 
-                  onPress={BizReadPayPalTNC}
-                  
-                  style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Deposit Via Paypal</Text>
-                  </Pressable>
-                </View>
+
+               
 
                 <View style={styles.viewForClientsCategories7}>
                 <Pressable 

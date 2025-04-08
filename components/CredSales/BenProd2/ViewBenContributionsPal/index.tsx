@@ -19,6 +19,7 @@ prodCost: number,
 prodDesc: string,
 createdAt: string,
 amount: number,
+benefitsID:string
 
     }}
 
@@ -33,7 +34,8 @@ const SMCvLnStts = (props:SMAccount) => {
         benefactorPhone,
         prodDesc,
         createdAt,
-        amount
+        amount,
+        benefitsID
     
    }} = props ;
 
@@ -56,7 +58,7 @@ const SMCvLnStts = (props:SMAccount) => {
                         
                      <Text style = {styles.ownerName}>                       
                        {/*loaner details */}   
-                      Benefactor Name: {creatorName}                 
+                      Benefactor Name: {benefitsID}                 
                     </Text>
                                         
                    

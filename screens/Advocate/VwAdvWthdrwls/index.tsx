@@ -35,9 +35,7 @@ const FetchSMNonLnsSnt = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listAdvocateWithdrawals, 
          {
                     filter :  {advregnu: {eq:route.params.AdvReNo}},
-                      sortDirection: "DESC",
-                      limit:100
-                      
+                     
                     }
                  
                   ));

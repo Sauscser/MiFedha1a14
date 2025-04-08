@@ -39,7 +39,7 @@ const FetchSMCovLns = props => {
                     }
                     },
                   
-                  limit: 100
+                  
                 }
                  
                   ));

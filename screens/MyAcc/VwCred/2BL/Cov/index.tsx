@@ -54,8 +54,7 @@ const FetchSMCovLns = props => {
 
                   },
                   
-                  sortDirection:"ASC",
-                limit:100
+                  
               }
                   ));
               setLoanees(Lonees.data.listCovCreditSellers.items);

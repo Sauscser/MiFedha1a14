@@ -71,7 +71,7 @@ const ProdId = route.params.id
         }
         setIsLoading(true);
         const userInfo = await Auth.currentAuthenticatedUser();
-        const ProdIDX = ChmRegNo+ProdId
+        const ProdIDX = ChmRegNo+ProdId+ChmNm
       
         try {
           const UsrDtls:any = await API.graphql(
@@ -88,7 +88,7 @@ const ProdId = route.params.id
             
             try {
               const UsrDtls:any = await API.graphql(
-                graphqlOperation(getSMAccount, { awsemail:userInfo.attributes.email}),
+                graphqlOperation(getSMAccount, { awsemail:ChmNm}),
                             
               )       
               const BeneficiaryName = UsrDtls.data.getSMAccount.name;
@@ -199,9 +199,10 @@ const ProdId = route.params.id
             
             beneficiaryID: ProdIDX,
             prodID: route.params.id,
-            benefitsID: "benefitsID",    
+            benefitsID: ProdIDX,    
 benefactorAc: ChmRegNo,
 benefactorPhone: benefactorPhone,
+//beneficiary email/account
 beneficiaryAc:ChmNm,
 beneficiaryPhone:BeneficiaryName,
 creatorEmail: userInfo.attributes.email,
@@ -227,7 +228,7 @@ amount: 0
               }
             
             }
-            Alert.alert("Product created successfully")
+            Alert.alert("Beneficiary Linked successfully")
             
           };
           if (pwsz!==pword){

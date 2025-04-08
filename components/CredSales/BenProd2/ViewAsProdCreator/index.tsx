@@ -17,7 +17,8 @@ creatorName: string,
 prodCost: number,
 prodDesc: string,
 createdAt: string,
-benefitsAmount:number
+benefitsAmount:number,
+beneficiaryAc:string
 
     }}
 
@@ -32,15 +33,16 @@ const SMCvLnStts = (props:SMAccount) => {
         creatorName,
         prodCost,
         prodDesc,
-        benefitsAmount
+        benefitsAmount,
+        beneficiaryAc
     
    }} = props ;
 
    const navigation = useNavigation();
    
    const VwBenefactorContriDtls = () => {
-    navigation.navigate("VwBenefactorContriDtls", 
-      {benefactorAc, benefactorPhone, creatorName, prodName})
+    navigation.navigate("VwBenCreatorContriDtls", 
+      {benefactorAc, benefactorPhone, beneficiaryAc, prodName})
 }
 
     return (
@@ -80,12 +82,14 @@ const SMCvLnStts = (props:SMAccount) => {
 
         </View >
         <View style = {styles.viewForPressables2}>
+
+          
 <View>
 <Pressable
 onPress={VwBenefactorContriDtls}
 style = {styles.loanFriendButton}
 >            
-  <Text>View My Contributions</Text>            
+  <Text>View Client's Contributions</Text>            
 </Pressable>
 </View>   
 

@@ -196,12 +196,12 @@ const SMASendNonLns = props => {
                       }
                       setIsLoading(true);
                       try {
-                          const RecAccountDtl:any = await API.graphql(
+                          const RecAccountDtl2zs:any = await API.graphql(
                               graphqlOperation(getSMAccount, {awsemail: receiverbeneficiary}),
                               );
-                              const RecBenUsrBal =RecAccountDtl.data.getSMAccount.balance;                    
+                              const RecBenUsrBal =RecAccountDtl2zs.data.getSMAccount.balance;                    
                              
-                              const receiverbeneficiaryAmt =RecAccountDtl.data.getSMAccount.beneficiaryAmt;
+                              const receiverbeneficiaryAmt =RecAccountDtl2zs.data.getSMAccount.beneficiaryAmt;
 
 
                     const fetchMmbrDtls = async () => {

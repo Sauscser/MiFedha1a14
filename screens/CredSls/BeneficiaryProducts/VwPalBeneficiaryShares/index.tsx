@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, Alert, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../components/CredSales/BenProd2/ViewMyBeneficiaryShares";
+import LnerStts from "../../../../components/CredSales/BenProd2/ViewPalBeneficiaryShares";
 
 import { listBenefitContributions2s, listBenefitShare2s, listBenProd2s, listBiznas, listLinkBeneficiary2s, listSMAccounts } from '../../../../src/graphql/queries';
 import * as Clipboard from 'expo-clipboard'; 
@@ -16,10 +16,7 @@ const FetchSMNonCovLns = props => {
     const [awsEmail, setAWSEmail] = useState("");
     const [isLoading, setIsLoading] = useState(false);
      const route = useRoute();
-     const {beneficiaryAc, 
-        benefactorPhone, 
-        creatorName,
-        prodName} = route.params;
+     
 
 
     const fetchLoanees = async () => {
@@ -28,17 +25,19 @@ const FetchSMNonCovLns = props => {
         try {
             
             const Lonees = await API.graphql(
-                graphqlOperation(listBenefitShare2s, {
+                graphqlOperation(listLinkBeneficiary2s, {
                     filter: 
                     { benefitStatus: { eq: "Active" },
-                    beneficiaryAc: {eq: route.params.beneficiaryAc},
-                    prodName: {eq: route.params.prodName},
-                    benefactorPhone: {eq: route.params.benefactorPhone}
+                    
+                    beneficiaryAc: {eq: userInfo.attributes.email},
+                    
                      }
                 })
             );
 
-            const contribution = Lonees.data.listBenefitShare2s.items
+            // 334939
+
+            const contribution = Lonees.data.listLinkBeneficiary2s.items
             setLoanees(contribution);
 
             

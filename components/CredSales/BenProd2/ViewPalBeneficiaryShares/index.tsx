@@ -40,14 +40,18 @@ const SMCvLnStts = (props:SMAccount) => {
 
    const navigation = useNavigation();
    
+   
    const VwBenefactorContriDtls = () => {
-    navigation.navigate("VwPalBeneficiaryShares", 
+
+    
+    navigation.navigate("VwBeneficiaryContriDtls", 
       {beneficiaryAc, 
-        benefactorPhone, 
-        creatorName,
+        benefactorAc, 
         prodName}
     )
 }
+
+
 
 
     return (
@@ -84,8 +88,11 @@ const SMCvLnStts = (props:SMAccount) => {
 
         </View >
         <View style = {styles.viewForPressables2}>
+          
+          
 <View>
 <Pressable
+
 onPress={VwBenefactorContriDtls}
 style = {styles.loanFriendButton}
 >            

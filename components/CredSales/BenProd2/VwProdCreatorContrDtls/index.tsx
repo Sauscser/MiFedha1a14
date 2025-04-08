@@ -12,13 +12,13 @@ export interface SMAccount {
 benefactorAc: string,
 benefactorPhone: string,
 beneficiaryPhone:string,
+beneficiaryAc:string,
 prodName: string,
 creatorName: string,
 prodCost: number,
 prodDesc: string,
 createdAt: string,
-benefitsAmount:number,
-beneficiaryAc:string
+amount:number
 
     }}
 
@@ -26,7 +26,6 @@ const SMCvLnStts = (props:SMAccount) => {
    const {
       SMAc: {
         id ,
-        beneficiaryAc,
         benefactorAc,
         benefactorPhone,
         beneficiaryPhone,
@@ -34,21 +33,17 @@ const SMCvLnStts = (props:SMAccount) => {
         creatorName,
         prodCost,
         prodDesc,
-        benefitsAmount
+        beneficiaryAc,
+        amount
     
    }} = props ;
 
    const navigation = useNavigation();
    
    const VwBenefactorContriDtls = () => {
-    navigation.navigate("VwBeneficiaryContriDtls", 
-      {beneficiaryAc, 
-        benefactorAc, 
-      
-        prodName}
-    )
+    navigation.navigate("VwBenefactorContriDtls", 
+      {benefactorAc, benefactorPhone, creatorName, prodName})
 }
-
 
     return (
         
@@ -60,10 +55,7 @@ const SMCvLnStts = (props:SMAccount) => {
             <View style = {styles.container}>              
                        
                         
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Product Creator: {creatorName}                 
-                    </Text>
+                    
                                         
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
@@ -72,26 +64,16 @@ const SMCvLnStts = (props:SMAccount) => {
                    
                     <Text style = {styles.repaymentPeriod}>                       
                        {/* repaymentPeriod*/}
-                      Benefits Pooled: {benefitsAmount}                  
+                      Benefits Contributed: {amount}                  
                     </Text> 
 
                     
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      More Description: {prodDesc}                  
-                    </Text> 
 
 
         </View >
         <View style = {styles.viewForPressables2}>
-<View>
-<Pressable
-onPress={VwBenefactorContriDtls}
-style = {styles.loanFriendButton}
->            
-  <Text>View My Contributions</Text>            
-</Pressable>
-</View>   
+
+ 
 
 
 </View>

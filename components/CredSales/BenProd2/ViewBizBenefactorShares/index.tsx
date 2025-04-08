@@ -17,7 +17,9 @@ creatorName: string,
 prodCost: number,
 prodDesc: string,
 createdAt: string,
-benefitsAmount:number
+benefitsAmount:number,
+benefitsID:string,
+beneficiaryAc:string
 
     }}
 
@@ -32,15 +34,17 @@ const SMCvLnStts = (props:SMAccount) => {
         creatorName,
         prodCost,
         prodDesc,
-        benefitsAmount
-    
+        benefitsAmount,
+        benefitsID,
+        beneficiaryAc
+
    }} = props ;
 
    const navigation = useNavigation();
    
    const VwBenefactorContriDtls = () => {
     navigation.navigate("VwBenefactorContriDtls", 
-      {benefactorAc, benefactorPhone, creatorName, prodName})
+      {benefactorAc, benefactorPhone, beneficiaryAc})
 }
 
     return (

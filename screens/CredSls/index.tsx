@@ -179,7 +179,9 @@ const MyLoanAccount = () => {
     navigation.navigate('ViewAsProdCreator');
   };
   
-  
+  const VwBizDpsts = () => {
+    navigation.navigate('VwBizDpsts');
+  }; 
 
 
   return (
@@ -202,7 +204,7 @@ const MyLoanAccount = () => {
             { label: 'Link Beneficiary', onPress: ViewBenProds, style: styles.ClientsPressables },
             { label: 'Boost Pooled Benefits', onPress: BoostPooledBen, style: styles.ClientsPressables },
            
-            { label: 'View Product Contributions', onPress: ViewAsProdCreator, style: styles.ClientsPressables },
+            { label: 'View As Product Creator', onPress: ViewAsProdCreator, style: styles.ClientsPressables },
            
             
 
@@ -258,6 +260,7 @@ const MyLoanAccount = () => {
           options={[
             { label: 'Cash Sales', onPress: PayCash, style: styles.ClientsPressables },
             { label: 'Make Deposits', onPress: MakeNVwPayPalDpsits, style: styles.ClientsPressables },
+            { label: 'View Deposits', onPress: VwBizDpsts, style: styles.ClientsPressables },
             
           ]}
         />
