@@ -81,78 +81,28 @@ const ChmCvLnSttsSent = (props:ChmCvLnSttusSent) => {
 
 
     return (
-        <View style = {styles.container}>              
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.loanAdvert}>                       
-                       {/*loaner details */}   
-                       {loaneeName}               
-                    </Text>
-            </View>
-            
-            <ScrollView >              
-                   
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loan Id: {loanID}                 
-                    </Text>
+        <View style = {styles.pageContainer}>              
+            <View style = {styles.card}>
 
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Member Chama ID: {memberId}                 
-                    </Text>
-                    
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Amount Given (Ksh): {amountGiven.toFixed(2)}                
-                    </Text>                     
-                    
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                       Amount Repaid(Ksh): {amountRepaid.toFixed(2)}                  
-                    </Text> 
-                   
+               <Text style={styles.prodName}>{loaneeName}</Text>
 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Loan Balance with penalties(Ksh): {LonBal1.toFixed(0)}                    
-                    </Text> 
-
+        <Text style={styles.prodInfo}><Text style={styles.label}>Loan Id:</Text> {loanID}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Member Chama ID:</Text> {memberId}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Amount Given:</Text> KES {amountGiven.toFixed(2)}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Amount Repaid:</Text> KES {amountRepaid.toFixed(2)}</Text>
+       
+       <Text style={styles.prodInfo}><Text style={styles.label}>Loan Balance with penalties:</Text> {LonBal1.toFixed(2)}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Repayment Period in days:</Text> {repaymentPeriod}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Member Contact:</Text> {loaneePhn}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Advocate Registration Number:</Text> {advRegNu}</Text>
+      
+        <Text style={styles.prodInfo}><Text style={styles.label}>Loan Status:</Text> {status}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Time Loan was taken:</Text> {createdAt}</Text>
+       
+     <Text style={styles.prodDesc}>{description}</Text>
                     
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Repayment Period in days: {repaymentPeriod}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      member Contact: {loaneePhn}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Advocate Registration Number: {advRegNu}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Loan Status: {status}                    
-                    </Text> 
-                    <ScrollView>
-                    <Text style = {styles.loanerotherdescriptions} >                       
-                       {/* other description*/} 
-                       Created At: {createdAt}                 
-                    </Text>   
-                    <Text style = {styles.loanerotherdescriptions} >                       
-                       {/* other description*/} 
-                       Last Update: {updatedAt}                 
-                    </Text>   
-                    <Text style = {styles.loanerotherdescriptions} >                       
-                       {/* other description*/} 
-                       More: {description}                 
-                    </Text>   
-                    </ScrollView>              
-            
-                
-                
-            
-        </ScrollView>
+                    
+        </View>
                 
         </View>
     );

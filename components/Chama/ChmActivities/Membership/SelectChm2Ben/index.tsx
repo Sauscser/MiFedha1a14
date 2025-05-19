@@ -53,43 +53,17 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    }
    
     return (
-        <Pressable style = {styles.container}>              
-                
-            
-            <Text style = {styles.subTitle}>                       
-                       {/*loaner details */}   
-                       {groupName}             
-                    </Text>
-            <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Member Chama Number: {MembaId}                
-                    </Text>    
+      <View style = {styles.pageContainer}>              
+      <View  style = {styles.card}>
+         <Text style={styles.prodName}>{groupName}</Text>
+         <Text style={styles.prodInfo}><Text style={styles.label}>Member Chama Number:</Text> {MembaId}</Text>
+         <Text style={styles.prodInfo}><Text style={styles.label}> Group Benefits:</Text> KES {memberChmBenefit.toFixed(2)}</Text>
+         <Text style={styles.prodInfo}><Text style={styles.label}>Chama Phone:</Text> {groupContact}</Text>
+         <Text style={styles.prodInfo}><Text style={styles.label}>Membership Status:</Text> {AcStatus}</Text>
 
-                   
-
-                     <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Group Benefits (Ksh): {(memberChmBenefit).toFixed(2)}
-                    </Text>    
-
-                    
-                    
-                    
-                   
-                      
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Chama Phone: {groupContact}                  
-                    </Text> 
-                   
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Membership Status: {AcStatus}                    
-                    </Text> 
-            
-                    
-                
-        </Pressable>
+          </View>      
+        
+      </View>
     );
 }; 
 

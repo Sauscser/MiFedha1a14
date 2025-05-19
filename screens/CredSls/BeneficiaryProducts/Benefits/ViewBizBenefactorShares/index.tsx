@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, Alert, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/CredSales/BenProd2/ViewBizBenefactorShares";
+import CustomAlert from '../../../../../components/CustomAlert/CustomAlert'; // adjust the path
+
 
 import { listBenefitContributions2s, listBenefitShare2s,
      listLinkBeneficiary2s, listPersonels, listSMAccounts } from '../../../../../src/graphql/queries';
@@ -17,6 +19,9 @@ const FetchSMNonCovLns = props => {
     const [awsEmail2, setAWSEmail2] = useState("");
     const [awsEmail3, setAWSEmail3] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+
      
 
     const ChckPersonnelDtls = async () => {
@@ -37,24 +42,7 @@ const FetchSMNonCovLns = props => {
             )
             const personelDtls = UsrDtlsz.data.listPersonels.items 
 
-            const ChckPersonelExistence = async () => {
-          
-        setIsLoading(true)
-          try {
-            const UsrDtls:any = await API.graphql(
-              graphqlOperation(listBenefitShare2s,
-                { filter: {
-                    
-                    beneficiaryType: { eq: awsEmail},
-                    creatorName:{contains: awsEmail2},
-                    prodName: {contains: awsEmail3}
-                                
-                  }}
-              )
-            )
-
-            const benefitContributors = UsrDtls.data.listBenefitShare2s.items;
-            setUsrDtls(benefitContributors)
+           
 
     const fetchLoanees = async () => {
         
@@ -64,8 +52,8 @@ const FetchSMNonCovLns = props => {
                 graphqlOperation(listLinkBeneficiary2s, {
                     filter: 
                     { benefitStatus: { eq: "Active" },
-                    creatorName:{contains: awsEmail2},
-                    prodName:{contains: awsEmail3}
+                    benefactorAc:{eq: awsEmail},
+                    beneficiaryPhone:{contains: awsEmail3}
                     
                      }
                 })
@@ -76,7 +64,9 @@ const FetchSMNonCovLns = props => {
 
             if (contribution.length < 1)
                 {
-                    Alert.alert("This Benefactor has not yet shared any benefits")
+                    setModalMessage("You have not linked this beneficiary. "
+                        + "Otherwise ensure you have entered details correctly even paying attention to caps.");
+setModalVisible(true);
                 }
             
 
@@ -87,34 +77,18 @@ const FetchSMNonCovLns = props => {
 
     if (personelDtls.length < 1)
     {
-        Alert.alert("You do not work here");
-        return;
+        setModalMessage("Either you do not own this business/company or you do" 
+            +" not work here or you have incorrectly entered the business number. You have entered this number: "
+            + awsEmail + ". If you are sure it is the one please call customer care");
+        setModalVisible(true);
+         return;
     }
 
-    else if (benefitContributors.length < 1)
-    {
-        Alert.alert("You have not yet contributed to this Beneficiary");
-        return;
-    }
-
+   
     else{
         await fetchLoanees();
     }
 
-}
-    
-catch(e){
-console.log(e)
-if(e){
-Alert.alert("Error! Access denied")
-return;
-}
-}
-  setIsLoading(false)
-      
-              
-  };
-  await ChckPersonelExistence();
 
 }
     
@@ -150,14 +124,9 @@ return;
                         style={styles.searchInput}
                     />
 
-<TextInput
-                        placeholder="Beneficiary Creator name..even partial"
-                        value={awsEmail2}
-                        onChangeText={setAWSEmail2}
-                        style={styles.searchInput}
-                    />
+
                     <TextInput
-                        placeholder="Product Name...even partial"
+                        placeholder="Beneficiary Name...even partial"
                         value={awsEmail3}
                         onChangeText={setAWSEmail3}
                         style={styles.searchInput}
@@ -191,6 +160,13 @@ return;
                 )}
                 />
             </View>
+
+            <CustomAlert
+  visible={modalVisible}
+  message={modalMessage}
+  onClose={() => setModalVisible(false)}
+/>
+
             
         </KeyboardAvoidingView>
     );

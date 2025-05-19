@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text,    ScrollView} from 'react-native';
+import { Text,    View} from 'react-native';
 import styles from './styles';
+
 
 
 export interface ChmCvLnSttusRec {
@@ -19,18 +20,12 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
 
    
     return (
-                
-            <ScrollView >
-            <Text style = {styles.loanAdvert}>                       
-                       {/*loaner details */}   
-                       {about}               
-                    </Text>
-            </ScrollView>
-            
-                     
-        
-                
-        
+              <View style = {styles.pageContainer}>
+                      <View style = {styles.card}>
+                        <Text style={styles.prodName}>{about}</Text>
+                      </View> 
+              </View>  
+           
     );
 }; 
 

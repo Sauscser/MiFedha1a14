@@ -86,17 +86,17 @@ export interface SMAccount {
       };
     
       return (
-        <View style={{ marginTop: "10%", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-          <View style={styles.container}>
-            <Text style={styles.ownerName}>Group Name: {grpName}</Text>
-            <Text style={styles.repaymentPeriod}>Group Account: {grpContact}</Text>
-            <Text style={styles.ownerName}>Group Admin Contact: {signitoryContact}</Text>
-            <Text style={styles.repaymentPeriod}>Group Admin Name: {signitoryName}</Text>
-            <Text style={styles.repaymentPeriod}>Sync Amount: {GrpLoanOutSync}</Text>
-          </View>
-    
-          <View style={styles.viewForPressables2}>
-          <TouchableOpacity
+        <View style={styles.pageContainer}>
+          <View style={styles.card}>
+          <Text style={styles.prodInfo}><Text style={styles.label}>Group Name:</Text> {grpName}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Group Account:</Text> {grpContact}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Group Admin Contact:</Text> {signitoryContact}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Group Admin Name:</Text> {signitoryName}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Sync Amount:</Text> KES {GrpLoanOutSync.toFixed(2)}</Text>
+      </View>
+      
+       <View style={styles.buttonRow}>
+          <Pressable
           onPress={gtUsrDtls4AdminDtls}
           style={[styles.loanFriendButton, isSynced && { backgroundColor: "gray" }]} // Disable style
           disabled={isSynced || isLoading} // Prevent clicking again
@@ -106,7 +106,7 @@ export interface SMAccount {
           ) : (
             <Text>{isSynced ? "Synced" : "Click to sync"}</Text>
           )}
-        </TouchableOpacity>
+        </Pressable>
           </View>
         </View>
       );

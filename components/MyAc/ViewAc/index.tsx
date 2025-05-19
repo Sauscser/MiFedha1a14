@@ -200,67 +200,22 @@ const SMCvLnStts = (props:SMAccount) => {
 
  
     return (
-        <View style = {styles.container}>              
+        <View style = {styles.pageContainer}>              
             
             
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.subTitle}>                       
-                       {/*loaner details */}   
-                       General Information Summary             
-                    </Text>
-            </View>
-                  
-                  
-            
-            <ScrollView >              
-                       
-                        
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Ac Balance (Ksh): {balance.toFixed(2)}                 
-                    </Text>
-                                        
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Times I am Black-Listed: {MaxTymsBL}                  
-                    </Text> 
+            <View style={styles.card}>         
+            <Text style={styles.prodInfo}><Text style={styles.label}>Ac Balance:</Text> KES {balance.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Times I am Black-Listed: </Text> {MaxTymsBL}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Benefits Pooled:</Text> KES {benefitsAmount.toFixed(2)}</Text>
+           
+            <Text style={styles.prodDesc}>Cash Flow  </Text>
+    
+            <Text style={styles.prodInfo}><Text style={styles.label}>Total Deposits:</Text> KES {ttlDpstSM.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Total Withdrawn:</Text> KES {ttlNonLonsRecSM}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Total Non Loans Sent:</Text> KES {ttlNonLonsSentSM.toFixed(2)}</Text>
+           
 
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Benefits Pooled: {benefitsAmount}                  
-                    </Text> 
-
-                    
-
-                   
-
-                    <View style = {{alignItems:"center"}}>
-                        <Text style = {styles.subTitle}>                       
-                       {/*loaner details */}   
-                       Cash Flow           
-                        </Text>
-                     </View>
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Total Deposits(Ksh): {ttlDpstSM.toFixed(2)}                  
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Total Withdrawn (Ksh): {TtlWthdrwnSM.toFixed(2)}                    
-                    </Text> 
-                   <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Total Non Loans Received (Ksh): {ttlNonLonsRecSM.toFixed(2)}                    
-                    </Text> 
-                    
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Total Non Loans Sent (Ksh): {ttlNonLonsSentSM.toFixed(2)}                    
-                    </Text> 
-                   
-                    
-
-        </ScrollView>
+        </View>
                 
         </View>
     );

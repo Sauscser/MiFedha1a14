@@ -69,8 +69,8 @@ const SMCvLnStts = (props:SMAccount) => {
           
                        
                     <Pressable onPress={updtRecAc2}
-                      style = {styles.container}>
-                      <Text style = {styles.ownerName}>                       
+                      style = {styles.pageContainer}>
+                      <Text style = {styles.prodInfo}>                       
                        {/*loaner details */}   
                       Hi! it's {loaneeName}. Kindly Loan me Ksh. {amount}. I 
                       commit to repay at a compound interest of {repaymentAmt}% per month within {repaymentPeriod} days. 

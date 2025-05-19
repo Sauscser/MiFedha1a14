@@ -74,71 +74,29 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
 
 
     return (
-        <View style = {styles.container}>              
-            
-            
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.loanAdvert}>                       
-                       {/*loaner details */}   
-                       {loanerName}               
-                    </Text>
-            </View>
-                  
-            
-            <ScrollView >              
-                       
-                        
+        <View style = {styles.pageContainer}>              
+        <View style = {styles.card}>
 
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loan Id: {loanID}                 
-                    </Text>
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loanee Contact: {loaneePhn}                 
-                    </Text>
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Amount Given (Ksh): {amountGiven.toFixed(2)}                
-                    </Text>                     
-                   
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Loan Balance with Clearance(Ksh): {LonBal1.toFixed(0)}
-                    </Text>  
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                       Amount Repaid(Ksh): {amountRepaid.toFixed(2)}                  
-                    </Text> 
+        <Text style={styles.prodName}>{loanerName}</Text>
+
+        <Text style={styles.prodInfo}><Text style={styles.label}>Loan Id:</Text> {loanID}</Text>
+         <Text style={styles.prodInfo}><Text style={styles.label}>Amount Given:</Text> KES {amountGiven.toFixed(2)}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Amount Repaid:</Text> KES {amountRepaid.toFixed(2)}</Text>
+       
+       <Text style={styles.prodInfo}><Text style={styles.label}>Loan Balance with penalties:</Text> {LonBal1.toFixed(2)}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Repayment Period in days:</Text> {repaymentPeriod}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Member Contact:</Text> {loaneePhn}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Advocate Registration Number:</Text> {advRegNu}</Text>
+      
+        <Text style={styles.prodInfo}><Text style={styles.label}>Loan Status:</Text> {status}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Time Loan was taken:</Text> {createdAt}</Text>
+       
+        <Text style={styles.prodDesc}>{description}</Text>
                     
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Repayment Period in days: {repaymentPeriod}                    
-                    </Text> 
                     
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Loan Status: {status}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Created At: {createdAt}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                     Last Update: {updatedAt}                    
-                    </Text> 
-                    <ScrollView>
-                    <Text style = {styles.loanerotherdescriptions} >                       
-                       {/* other description*/} 
-                       Other Specifications: {description}                 
-                    </Text>   
-                    </ScrollView>              
+        </View>
             
-                
-                
-            
-        </ScrollView>
+       
                 
         </View>
     );

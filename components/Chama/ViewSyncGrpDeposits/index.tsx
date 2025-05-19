@@ -39,49 +39,15 @@ const SMCvLnStts = (props:SMAccount) => {
 
 
     return (
-        
-             <View style = {{marginTop:"10%", justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column'}}>
-                  
-            
-            <View style = {styles.container}>              
-                       
-                        
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Group Name: {ChamaName}                 
-                    </Text>
-                                        
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Group Account: {GrpAc}                  
-                    </Text> 
+       <View style={styles.pageContainer}>
+          <View style={styles.card}>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Group Name:</Text> {ChamaName}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Group Account:</Text> {GrpAc}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Sync Amount:</Text> KES {amount.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Time Synced:</Text> {createdAt}</Text>
+          </View>
+        </View> 
 
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                     Amount Synced: {amount}                 
-                    </Text>
-                                        
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                     Time Synced: {createdAt}                  
-                    </Text> 
-
-                   
-
-
-        </View >
-        <View style = {styles.viewForPressables2}>
-   
-
-
-</View>
-       </View> 
-
-        
-                
-       
     );
 }; 
 

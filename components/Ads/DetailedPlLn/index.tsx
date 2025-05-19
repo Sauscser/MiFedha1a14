@@ -37,54 +37,20 @@ const ViewSMDeposts = (props:SMAccount) => {
 
  
     return (
-        <View style = {styles.container}>              
+        <View style = {styles.pageContainer}>              
               
             
-            <ScrollView >              
+              <View style={styles.card}>           
                        
-                        
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loaner Name: {rafikiName}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loaner Contact: {rafikicntct}                 
-                    </Text>
-
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                     Loaner Email: {rafikiEmail}
-                    </Text>                                      
-                    
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Loan Amount: {rafikiamnt.toFixed(2)}
-                       
-                    </Text>
-
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Repayment days: {rafikirpymntperiod.toFixed(2)}
-                       
-                    </Text>
-
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Annual Percentage Rate: {rafikiprcntg.toFixed(2)}
-                       
-                    </Text>
-            
-
-                    <Text style ={styles.amountoffered} numberOfLines={2}>                         
-                       {/* amount*/} 
-                     Pal Loan Description: {rafikidesc}
-                  
-                    </Text>
-                    
-                    
-        </ScrollView>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Loaner Name:</Text> {rafikiName}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Loaner Contact:</Text> {rafikicntct}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Loaner Email:</Text> {rafikiEmail}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Loan Amount:</Text> KES {rafikiamnt.toLocaleString()}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Repayment days:</Text> {rafikirpymntperiod.toLocaleString()}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Annual Percentage Rate:</Text> {rafikiprcntg.toLocaleString()}</Text>
+            <Text style={styles.prodDesc}>{rafikidesc}</Text>            
+                   
+        </View>
                 
         </View>
     );

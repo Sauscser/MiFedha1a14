@@ -20,7 +20,7 @@ export interface SMAccount {
       description:string,
       defaultPenalty:number,
       repaymentPeriod:number,
-      
+      signitoryContact:string,
       createdAt:string,
       
               
@@ -31,7 +31,7 @@ const ViewSMDeposts = (props:SMAccount) => {
       SMAc: {
          id,
          loaneePhone,
-         loanerPhone, 
+         signitoryContact, 
          loanerName,
          loaneeName,
          amount,
@@ -74,7 +74,7 @@ const ViewSMDeposts = (props:SMAccount) => {
          }
          SndChmMmbrMny3();
 
-         Communications.textWithoutEncoding(chamaPhone,
+         Communications.textWithoutEncoding(signitoryContact,
           'MiFedha. Hi, I have witnessed the'
          + ' loan contract between ' + loanerName +
          ' group and ' + loaneeName + ' the Loaned. Thank you.');  
@@ -113,49 +113,44 @@ const ViewSMDeposts = (props:SMAccount) => {
         
                   
                   
-            <View style = {{marginTop:"10%"}}>
-
-                  
-                       
-                      <View >
-                      <Text style = {styles.ownerName}>                       
+      <View style = {styles.pageContainer}>              
+            
+            
+      <View style = {styles.card}>     
+                      <Text style = {styles.prodDesc}>                       
                        {/*loaner details */}   
                       MiFedha.
                       Greetings! We, {loaneeName}, the loanee and {loanerName}, the Loaning Group humbly 
                       request that you witness our loan contract amounting to Ksh.
-                     {amount}, repayable at a compund interest of {repaymentAmt}% per month by the end of {repaymentPeriod} days,
+                     {amount}, repayable at a compund interest of {repaymentAmt}% per Year by the end of {repaymentPeriod} days,
                       default penalty is Ksh. {defaultPenalty} and its description is as 
                       as follows: "{description}." You can reach
-                     my loaner through {chamaPhone}. You can also reach me through {loaneePhone}. Thank you.
+                     my loaner through {signitoryContact}. You can also reach me through {loaneePhone}. Thank you.
                       
-                    </Text>
+                     </Text>
                     </View>  
                      
-                    <View style = {styles.viewForPressables2}>
-                    <View>
+                    <View style = {styles.buttonRow}>
+                   
                     <Pressable
                       onPress={SndChmMmbrMny}
                       style = {styles.loanFriendButton}
                       >            
-                        <Text>Witness</Text>            
+                        <Text style={styles.buttonText}>Witness</Text>            
                     </Pressable>
-                    </View>   
-                    <View>
+                    
                     <Pressable
                       onPress={SndChmMmbrMny2}
-                      style = {styles.loanFriendButton}>            
-                        <Text>Decline</Text>            
+                      style = {styles.redeemButton}>            
+                        <Text style={styles.buttonText}>Decline</Text>            
                     </Pressable>  
-                    </View>
+                  
                      
                     </View>
                       
 
       
             </View>
-            
-                
-        
     );
 }; 
 

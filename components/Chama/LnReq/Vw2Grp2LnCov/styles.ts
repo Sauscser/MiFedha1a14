@@ -1,207 +1,70 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 
-const styles = StyleSheet.create ({
-    container: {
-        margin: 25,
-        alignItems: 'center',
-    flexDirection: 'column',
-        
-    },
+const styles = StyleSheet.create({
+  pageContainer: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 50,
+  },
 
-    
-    ownerName: {
-        fontSize: 15,
-        fontWeight: '900',
-        color: '#ad1c65'
-    },
+  card: {
+    width: '90%',
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 5,
+  },
 
-    ownerContact: {
-        fontSize: 15,
-        fontWeight: '900',
-        color: '#981658'
-    },
+  prodName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    color: '#333',
+  },
 
-    amountoffered: {
-        fontSize: 15,
-        fontWeight: '900',
-        color: '#88124e',
-        
-    },
+  prodInfo: {
+    fontSize: 16,
+    marginBottom: 4,
+  },
 
-    subTitle: {
-        fontSize: 25,
-        fontWeight: '900',
-        color: '#88124e',
-        marginTop:"5%",
-        textDecorationLine: "underline"
-    },
+  label: {
+    fontWeight: 'bold',
+  },
 
+  prodDesc: {
+    fontSize: 16,
+    marginTop: 10,
+    color: '#666',
+  },
 
-    repaymentPeriod: {
-        fontSize: 15,
-        fontWeight: '900',
-        color: '#7b0e45'
-    },
+  buttonRow: {
+    flexDirection: 'row',
+    marginTop: 20,
+    gap: 10,
+  },
 
-    interest: {
-        fontSize: 15,
-        fontWeight: '900',
-        color: '#69093a'
-    },
+  loanFriendButton: {
+    backgroundColor: '#FFA500',
+    paddingVertical: 12,
+    paddingHorizontal: 18,
+    borderRadius: 10,
+  },
 
-    
+  redeemButton: {
+    backgroundColor: '#00BFFF',
+    paddingVertical: 12,
+    paddingHorizontal: 18,
+    borderRadius: 10,
+  },
 
-    loanerotherdescriptions: {
-        fontSize: 15,
-        fontWeight: '900',
-        color: '#420423'
-    }, 
-
-    loanAdvert: {
-        fontSize:35,
-        justifyContent: 'center',
-        color: 'blue',
-        
-        top: 2
-    },
-
-    image: {
-        width: '100%',
-        height: "100%",
-        resizeMode: 'cover',
-        top:"2%",
-        
-        alignItems: 'center',
-        flexDirection: 'column',
-    
-        backgroundColor: 'white',
-      },
-
-      viewForPressables1: {
-        backgroundColor: 'white',
-        
-        width: "100%",
-        height: "40%",
-        borderRadius: 20,
-        marginTop: "8%",
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-       
-      },
-    
-      viewForPressables2: {
-        
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        
-        width:"100%"
-
-      },
-      title: {
-        fontSize: 25,
-        fontWeight: 'bold',
-        color: 'skyblue',
-        width: '70%',
-        marginLeft: "5%",
-        
-      },
-
-         
-      loanFriendButton: {
-        
-        width: "50%",
-        marginRight:"20%",
-        marginLeft:"20%",
-        marginTop:"10%"
-      
-      },
-
-      viewForPressables3: {
-        backgroundColor: '#72ebd8',
-        marginHorizontal: 10,
-        width: Dimensions.get('screen').width - 20,
-        height: "25%",
-        borderRadius: 20,
-        marginTop: "9%",
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-      },
-
-      viewForPressables4: {
-        backgroundColor: 'white',
-        height: "30%",
-        borderRadius: 30,
-        marginHorizontal: 30,
-        width: Dimensions.get('screen').width - 60,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        marginTop: "1%",
-      },
-
-      chamaLoanAndCreditSalesButton4: {
-        backgroundColor: 'white',
-        height: "90%",
-        borderRadius: 30,
-        width:"90%",
-        justifyContent: 'center',
-        alignItems: 'center',
-    
-        marginTop: "1%",
-      },
-    
-    
-      chamaLoanAndCreditSalesButton: {
-        backgroundColor: 'white',
-        height: "50%",
-        borderRadius: 30,
-        marginHorizontal: 30,
-        width: Dimensions.get('screen').width - 60,
-        justifyContent: 'center',
-        alignItems: 'center',
-    
-        marginTop: "1%",
-      },
-    
-     
-    
-      chamaLoanAndCreditSalesButton5: {
-        backgroundColor: 'white',
-        height: "90%",
-        borderRadius: 30,
-        width:"90%",
-        justifyContent: 'center',
-        alignItems: 'center',
-    
-        marginTop: "1%",
-      },
-    
-      ChamaLoanAndCreditSalesText: {
-        fontSize: 10,
-        fontWeight: 'bold',
-        color: 'black',
-        
-      },
-    
-      ChamaLoanAndCreditSalesText4: {
-        fontSize: 10,
-        fontWeight: 'bold',
-        color: 'black',
-        
-      },
-    
-      loanAFriendText: {
-        fontSize: 12,
-        fontWeight: 'bold',
-        color: 'black',
-        
-      },
-    
-
-    
-      
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
 });
-export default styles
+
+export default styles;

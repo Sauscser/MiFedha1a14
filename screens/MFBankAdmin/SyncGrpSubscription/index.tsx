@@ -60,8 +60,8 @@ const FetchSMNonCovLns = () => {
                 
                 <FlatList
                     data={loanees}
-                    renderItem={({ item }) => <LnerStts SMAc={item} />}
-                    keyExtractor={(item) => item.grpContact.toString()} // Ensure unique keys
+                    renderItem={({ item }) => <LnerStts SMAc={item} onSyncComplete={fetchLoanees} />}
+                    keyExtractor={(item, index) => index.toString()} // Ensure unique keys
                     onRefresh={fetchLoanees}
                     refreshing={isLoading}
                     keyboardShouldPersistTaps="handled"

@@ -198,7 +198,7 @@ const ProdId = route.params.id
             
             beneficiaryID: ProdIDX,
             prodID: route.params.id,
-            benefitsID: "benefitsID",    
+            benefitsID: ProdId,    
 benefactorAc: ChmRegNo,
 /*ProdCreatorAc*/
 benefactorPhone: benefactorPhone,
@@ -207,6 +207,7 @@ beneficiaryAc:ChmNm,
 beneficiaryPhone:busNamex,
 creatorEmail: userInfo.attributes.email,
 prodName: prodNamez,
+/*Benefactor Name */
 creatorName: BiznaNames,
 owner: userInfo.username,
 prodCost: prodCostz,

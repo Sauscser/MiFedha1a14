@@ -74,24 +74,12 @@ const ViewSMDeposts = (props:SMAccount) => {
     return (
       <TouchableOpacity 
       onPress={DeleteSlsAd}
-      style = {styles.container}>  
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Bizna Contact: {sokokntct}                 
-                    </Text>
+      style = {styles.pageContainer}>  
 
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                     Item Name: {sokoname}
-                    </Text>                                      
-                    
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Item Price: {sokoprice.toFixed(2)}
-                       
-                    </Text>
-
-                   
+            <Text style={styles.prodInfo}><Text style={styles.label}>Bizna Contact: </Text> {sokokntct}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Item Name: </Text> {sokoname}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Item Price: </Text> KES {sokoprice.toLocaleString()}</Text>
+           
                     </TouchableOpacity>
     );
 }; 

@@ -31,27 +31,15 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
     return (
        <Pressable 
        onPress={SndChmMmbrMny}
-       style = {styles.container}>          
+       style = {styles.pageContainer}>          
           
-          <View style = {{alignItems:"center"}}>
-            <Text style = {styles.loanAdvert}>                       
-                       {/*loaner details */}   
-                       Member Name: {memberName}               
-                    </Text>
-            </View>
-
-
-            <ScrollView > 
-                     <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Member Chama ID: {id}                
-                    </Text>                                               
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                     Member Contact: {memberContact}                
-                    </Text>   
-                   
-             </ScrollView>                   
+          <View style = {styles.card}>
+         
+         <Text style={styles.prodInfo}><Text style={styles.label}>Member Name:</Text> {memberName}</Text>
+         <Text style={styles.prodInfo}><Text style={styles.label}> Member Chama ID:</Text> {id}</Text>
+         <Text style={styles.prodInfo}><Text style={styles.label}>Member Contact:</Text> {memberContact}</Text>
+        
+             </View>                   
                
         </Pressable>
     );

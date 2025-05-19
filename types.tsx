@@ -20,7 +20,7 @@ declare global {
       ViewGrpApplications:undefined;
       PaystackTNC:undefined;
       ViewMFBankAdmin:undefined;
-
+      
       VwBenefactorContriDtls:
       {benefactorAc:string, 
         benefactorPhone:string, 
@@ -628,6 +628,7 @@ declare global {
       
       Vw2GrantLnReq:undefined;
       Vw2DelLnReqs:undefined;
+      Vw2DelLnReqsBiz:undefined;
       Vw2GrantLnReq2:undefined;
       EntrAdvLoc:undefined;
       ChamaPlaceLnReq:undefined;

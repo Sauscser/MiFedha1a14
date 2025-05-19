@@ -33,44 +33,21 @@ const ViewSMDeposts = (props:SMAccount) => {
 
  
     return (
-        <View style = {styles.container}>              
+        <View style = {styles.pageContainer}>              
               
             
-            <ScrollView >              
+              <View style={styles.card}>              
                        
                         
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Chama Name: {grpName}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Chama Contact: {grpContact}                 
-                    </Text>
-                                      
-                    
-                    <Text style ={styles.amountoffered} >                       
-                       {/* amount*/} 
-                       Chama Venture: {venture}
-                       
-                    </Text>
-
-                    <Text style ={styles.amountoffered} >                       
-                       {/* amount*/} 
-                      Base Region/Town: {oprtnArea}
-                       
-                    </Text>
-
-                    <Text style ={styles.amountoffered} >                       
-                       {/* amount*/} 
-                       Chama Description: {description}
-                       
-                    </Text>
+                     <Text style = {styles.prodInfo}> <Text style={styles.label}>Chama Name:</Text> {grpName}</Text>  
+                     <Text style = {styles.prodInfo}> <Text style={styles.label}>Chama Contact:</Text> {grpContact}</Text>                 
+                     <Text style={styles.prodInfo}><Text style={styles.label}>Chama Venture:</Text> {venture}</Text>
+                     
+                     <Text style = {styles.prodInfo}> <Text style={styles.label}>Base Region/Town:</Text> {oprtnArea}</Text>  
+                     <Text style={styles.prodDesc}>{description}</Text>
                     
                     
-                    
-        </ScrollView>
+        </View>
                 
         </View>
     );

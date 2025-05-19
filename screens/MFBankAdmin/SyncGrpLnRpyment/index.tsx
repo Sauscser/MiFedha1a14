@@ -66,7 +66,7 @@ const FetchSMNonCovLns = props => {
                         data={Loanees}
                         renderItem={({ item }) => (
                             <View>
-                                <LnerStts SMAc={item} />
+                                <LnerStts SMAc={item} onSyncComplete={fetchLoanees}/>
                             </View>
                         )}
                         keyExtractor={(item, index) => index.toString()}

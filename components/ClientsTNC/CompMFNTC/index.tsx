@@ -37,45 +37,27 @@ const CreateSMAcs = () => {
 
 
     return (
-        
-                  
-                  
-            <View style = {{marginTop:"10%"}}>
-
-                  
-                       
-                      <View >
-                      <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      {MFNdogoTC}       
-                    </Text>
-                    </View>  
-                     
-                    <View style = {styles.viewForPressables2}>
-                    <View>
-                    <Pressable
-                      onPress={CreateSMAcs}
-                      style = {styles.loanFriendButton}
-                      >            
+        <View style = {styles.pageContainer}>
+                      <View style = {styles.card}>
+                        <Text style={styles.prodName}>{MFNdogoTC}</Text>
+                      </View> 
+                      <View style = {styles.buttonRow}>
+                    
+                        <Pressable
+                          onPress={CreateSMAcs}
+                          style = {styles.loanFriendButton}
+                        >            
                         <Text>Accept</Text>            
-                    </Pressable>
-                    </View>   
-                    <View>
-                    <Pressable
-                      onPress={SgnOut}
-                      style = {styles.loanFriendButton}>            
+                        </Pressable>
+                    
+                        <Pressable
+                          onPress={SgnOut}
+                          style = {styles.redeemButton}>            
                         <Text>Decline</Text>            
-                    </Pressable>  
-                    </View>
-                     
-                    </View>
-                      
-
-      
+                        </Pressable>  
+                      </View>
             </View>
             
-                
-        
     );
 }; 
 

@@ -85,98 +85,30 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    const ttlArrears = (ttlLateSubs + Amt2HvBnSub).toFixed(0)
    
     return (
-        <View style = {styles.container}>              
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.subTitle}>                       
-                       {/*loaner details */}   
-                       {groupName}             
-                    </Text>
-            </View>
-            
-            <ScrollView >       
-               
+        <View style = {styles.pageContainer}>              
+            <View style = {styles.card}>
 
-            <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Member Chama Number: {MembaId}                
-                    </Text>    
+<Text style={styles.prodName}>{groupName}</Text>
 
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Member Chama ID: {ChamaNMember}                
-                    </Text>                                                 
-                                   
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Funds to and from member Account (Ksh): {NonLoanAcBal.toFixed(2)}
-                    </Text>  
-
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Subscription due: {Amt2HvBnSub.toFixed(0)}                  
-                    </Text>                                       
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Late subscription Penalties (Ksh): {ttlLateSubs.toFixed(2)}
-                    </Text>  
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Subscription and Penalties (Ksh): {ttlArrears}
-                    </Text>    
-                    
-                     <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Group Benefits (Ksh): {(ttlNonLonAcBal).toFixed(2)}
-                    </Text>    
-
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       My Group contributions  (Ksh): {(subscribedAmt).toFixed(2)}
-                    </Text> 
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Gross Loans (Ksh): {GrossLnsGvn.toFixed(2)}
-                    </Text>  
-
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Actual Loans (Ksh): {LonAmtGven.toFixed(2)}
-                    </Text>   
-                    
-                    
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                      Amount repaid (Ksh): {AmtRepaid.toFixed(2)}
-                    </Text>     
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Loan Balance (Ksh): {LnBal.toFixed(2)}
-                    </Text>   
-                    
-                   
-                      
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Chama Phone: {groupContact}                  
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Time Created: {createdAt}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Loan Status: {loanStatus}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Black-Listing status: {blStatus}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Membership Status: {AcStatus}                    
-                    </Text> 
-            
-        </ScrollView>
+<Text style={styles.prodInfo}><Text style={styles.label}>Member Chama Number:</Text> {MembaId}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Member Chama ID:</Text> {ChamaNMember}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Funds to and from member Account:</Text> KES {NonLoanAcBal.toFixed(2)}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Subscription due:</Text> KES {Amt2HvBnSub.toFixed(2)}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Late subscription Penalties:</Text> KES {ttlLateSubs.toFixed(2)}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Subscription and Penalties:</Text> KES {ttlArrears}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Group Benefits:</Text> KES {ttlNonLonAcBal.toFixed(2)}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Group subscriptions:</Text> KES {subscribedAmt.toFixed(2)}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Gross Loans:</Text> KES {GrossLnsGvn.toFixed(2)}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Actual Loans:</Text> KES {LonAmtGven}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Amount repaid:</Text> KES {AmtRepaid.toFixed(2)}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Loan Balance:</Text> KES {LnBal.toFixed(2)}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Gross Loans:</Text> KES {GrossLnsGvn.toFixed(2)}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Loan Status:</Text> {loanStatus}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Black-Listing Statuse:</Text> {blStatus}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Membership Status:</Text> {AcStatus}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Time Created:</Text>  {createdAt}</Text>
+         
+        </View>
                 
         </View>
     );

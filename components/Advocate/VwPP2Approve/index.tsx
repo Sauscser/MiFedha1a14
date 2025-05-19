@@ -117,17 +117,16 @@ const ViewSMDeposts = (props:SMAccount) => {
         
                   
                   
-            <View style = {{marginTop:"10%"}}>
+            <View style={styles.pageContainer}>
 
                   
                        
-                      <View >
-                      <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
+                      <View style={styles.card}>
+                      <Text style={styles.prodName}>   {/*loaner details */}   
                       MiFedha.
                       Greetings! We, {loaneeName}, the loaned and {loanerName}, the loaner, humbly 
                       request that you witness our loan contract amounting to Ksh.
-                     {amount}, repayable at a compound interest of {repaymentAmt}% per month by the end of {repaymentPeriod} days,
+                     {amount}, repayable at a compound interest of {repaymentAmt}% per year by the end of {repaymentPeriod} days,
                       default penalty is Ksh. {defaultPenalty} and its description is as 
                       as follows: "{description}." You can reach
                      my loaner through {loanerPhone}. You can also reach me through {loaneePhone}. 
@@ -136,22 +135,22 @@ const ViewSMDeposts = (props:SMAccount) => {
                     </Text>
                     </View>  
                      
-                    <View style = {styles.viewForPressables2}>
-                    <View>
+
+                    <View style = {styles.buttonRow}>
+                    
                     <Pressable
                       onPress={SndChmMmbrMny}
                       style = {styles.loanFriendButton}
                       >            
                         <Text>Witness</Text>            
                     </Pressable>
-                    </View>   
-                    <View>
+                    
                     <Pressable
                       onPress={SndChmMmbrMny2}
-                      style = {styles.loanFriendButton}>            
+                      style = {styles.redeemButton}>            
                         <Text>Decline</Text>            
                     </Pressable>  
-                    </View>
+                    
                      
                     </View>
                       

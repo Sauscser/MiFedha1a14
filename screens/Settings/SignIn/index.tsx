@@ -51,7 +51,7 @@ const AdminSignIn = (props) => {
     navigation.navigate("SttinsHm");
   };
 
-  
+  /*
 
   const CompCreation = async () => {
     try {
@@ -245,7 +245,8 @@ const AdminSignIn = (props) => {
        
       };
 
-    
+      */
+      
       const fetchExDtls = async () => {
         try {
                 const ExDtls: any = await API.graphql(
@@ -337,7 +338,7 @@ const AdminSignIn = (props) => {
                   </View>
         
                   <TouchableOpacity
-                    onPress={CompCreation}
+                    onPress={fetchExDtls}
                     style={styles.sendLoanButton}>
                     <Text style={styles.sendLoanButtonText}>
                       Click to Sign In

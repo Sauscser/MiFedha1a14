@@ -1,72 +1,70 @@
 import { StyleSheet } from "react-native";
 
-const styles = StyleSheet.create ({
-    container: {
-        margin: 25,
-        
-    },
+const styles = StyleSheet.create({
+  pageContainer: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 50,
+  },
 
-    image: {
-        width:'100%',
-        aspectRatio: 3/2,
-        resizeMode: 'cover',
-        alignItems: 'center',
-        borderRadius: 20,   
-        
+  card: {
+    width: '90%',
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 5,
+  },
 
-    },
-    ownerName: {
-        fontSize: 13,
-        fontWeight: '900',
-        color: '#ad1c65'
-    },
+  prodName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    color: '#333',
+  },
 
-    ownerContact: {
-        fontSize: 13,
-        fontWeight: '900',
-        color: '#981658'
-    },
+  prodInfo: {
+    fontSize: 16,
+    marginBottom: 4,
+  },
 
-    amountoffered: {
-        fontSize: 13,
-        fontWeight: '900',
-        color: '#88124e',
-        
-    },
+  label: {
+    fontWeight: 'bold',
+  },
 
-    repaymentPeriod: {
-        fontSize: 13,
-        fontWeight: '900',
-        color: '#7b0e45'
-    },
+  prodDesc: {
+    fontSize: 16,
+    marginTop: 10,
+    color: '#666',
+  },
 
-    interest: {
-        fontSize: 13,
-        fontWeight: '900',
-        color: '#69093a'
-    },
+  buttonRow: {
+    flexDirection: 'row',
+    marginTop: 20,
+    gap: 10,
+  },
 
-    subTitle: {
-        fontSize: 25,
-        fontWeight: '900',
-        color: '#88124e',
-        marginTop:"5%",
-        textDecorationLine: "underline"
-    },   
+  loanFriendButton: {
+    backgroundColor: '#FFA500',
+    paddingVertical: 12,
+    paddingHorizontal: 18,
+    borderRadius: 10,
+  },
 
-    loanerotherdescriptions: {
-        fontSize: 13,
-        fontWeight: '900',
-        color: '#420423'
-    }, 
+  redeemButton: {
+    backgroundColor: '#00BFFF',
+    paddingVertical: 12,
+    paddingHorizontal: 18,
+    borderRadius: 10,
+  },
 
-    loanAdvert: {
-        fontSize:35,
-        justifyContent: 'center',
-        color: 'blue',
-        
-        top: 2
-    }
-
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
 });
-export default styles
+
+export default styles;

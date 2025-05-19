@@ -70,6 +70,20 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
+  sendLoanView2: {
+    backgroundColor: '#72ebd8',
+    marginHorizontal: 10,
+    width: Dimensions.get('screen').width - 20,
+    height: 110,
+    borderRadius: 20,
+    marginTop: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginBottom: 20,
+  },
+
+
   sendLoanText: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -97,13 +111,29 @@ const styles = StyleSheet.create({
 
   sendLoanInput: {
     backgroundColor: 'white',
-    width: 300,
+    
     height: 45,
     borderRadius: 10,
+    width: Dimensions.get('screen').width - 20,
     marginTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
+    marginHorizontal: 10,
   },
+
+  sendLoanInput2: {
+    backgroundColor: 'white',
+    width: Dimensions.get('screen').width - 20,
+    height: 95,
+    borderRadius: 10,
+    padding:20,
+    marginTop: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
+
 
   loanSpecificationsTextInput: {
     backgroundColor: 'white',

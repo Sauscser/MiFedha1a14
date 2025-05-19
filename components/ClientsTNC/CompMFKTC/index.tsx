@@ -21,7 +21,7 @@ const MFKTC = props =>{
    
 
 const SgnOut = async () => {
-  const UsrSgnOut = await Auth.signOut();
+  await Auth.signOut();
 }
 
 const route = useRoute();
@@ -57,45 +57,27 @@ const gtCompDtls = async () =>{
 
 
     return (
-        
-                  
-                  
-            <View style = {{marginTop:"10%"}}>
-
-                  
-<View >
-                      
-                      <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      {Alrt}       
-                    </Text>
-                    </View>
-                     
-                    <View style = {styles.viewForPressables2}>
-                    <View>
-                    <Pressable
-                      onPress={CreateSMAcs}
-                      style = {styles.loanFriendButton}
-                      >            
+        <View style = {styles.pageContainer}>
+                      <View style = {styles.card}>
+                        <Text style={styles.prodName}>{Alrt}</Text>
+                      </View> 
+                      <View style = {styles.buttonRow}>
+                    
+                        <Pressable
+                          onPress={CreateSMAcs}
+                          style = {styles.loanFriendButton}
+                        >            
                         <Text>Accept</Text>            
-                    </Pressable>
-                    </View>   
-                    <View>
-                    <Pressable
-                      onPress={SgnOut}
-                      style = {styles.loanFriendButton}>            
+                        </Pressable>
+                    
+                        <Pressable
+                          onPress={SgnOut}
+                          style = {styles.redeemButton}>            
                         <Text>Decline</Text>            
-                    </Pressable>  
-                    </View>
-                     
-                    </View>
-                      
-
-      
+                        </Pressable>  
+                      </View>
             </View>
-            
-                
-        
+              
     );
 }; 
 

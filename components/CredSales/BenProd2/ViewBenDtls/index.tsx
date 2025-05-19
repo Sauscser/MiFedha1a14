@@ -40,52 +40,18 @@ const SMCvLnStts = (props:SMAccount) => {
 
 
     return (
-        
-           
-                  
-            
-            <View style = {styles.container} >              
-                       
-                        
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Benefactor Business/Company: {creatorName}                 
-                    </Text>
-
-                                 
-
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Product Cost: {prodCost}                  
-                    </Text> 
-                   
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Benefits Shared: {benefitsAmount}                  
-                    </Text> 
-
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Product Name: {prodName}                  
-                    </Text> 
-
-
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Beneficiary Name: {beneficiaryPhone}                  
-                    </Text> 
-
-                    <Text style = {styles.repaymentPeriod} 
-                   >                       
-                       {/* repaymentPeriod*/}
-                      More Description: {prodDesc}                  
-                    </Text> 
-
-
+            <View style={styles.pageContainer}>
+            <View style={styles.card}>
+              
+              <Text style={styles.prodInfo}><Text style={styles.label}>Benefactor Business/Company:</Text> {creatorName}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Product Cost:</Text> {prodCost}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Benefits Shared:</Text> {benefitsAmount}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Product Name:</Text> {prodName}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Beneficiary Name:</Text> {beneficiaryPhone}</Text>
+              <Text style={styles.prodDesc}>{prodDesc}</Text>
+             
+          </View >      
         </View >
-        
-     
-       
     );
 }; 
 

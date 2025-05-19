@@ -300,6 +300,8 @@ import VwMakeLnReq from "../../screens/MyAcc/LoanRequest/VwMakeLnReq";
 
 
 import Vw2DelLnReqs from "../../screens/MyAcc/LoanRequest/Vw2DelLnReqs";
+import Vw2DelLnReqsBiz from "../../screens/MyAcc/LoanRequest/Vw2DelLnReqsBiz";
+
 import Vw2GrantLnReq2 from "../../screens/MyAcc/LoanRequest/View2GrntLnReq/CompVw2GrantLnReq2";
 import EntrAdvLoc from '../../screens/Advocate/EnterAdvLoc';
 
@@ -399,6 +401,7 @@ import VwP2PSent from "../../screens/MyAcc/Loans/LRpyments/P2PSent";
 import PalProdsRequest from "../../screens/MyAcc/PalBenProds/PalProdsRequest";
 import PlaceLnReqP2P from "../../screens/MyAcc/LoanRequest/PlaceLnReq";
 import PlaceLnReqB2P from "../../screens/MyAcc/LoanRequest/PlaceLnReq2";
+
 
 import VwB2PMyLoanersDtld from "../../screens/MyAcc/Loans/ViewSMLns/Biz2Pal/MyLoanersDtld";
 import VwB2PMyLoaneesDtld from "../../screens/MyAcc/Loans/ViewSMLns/Biz2Pal/MyLoaneesDtld";
@@ -590,6 +593,9 @@ const HomeNavigator = props => {
       
       <Stack.Screen name={'BuyFloatBnkAdm'} component={BuyFloatBnkAdm} />
       <Stack.Screen name={'VwBeneficiaryContriDtls'} component={VwBeneficiaryContriDtls} />
+
+     
+      
 
       <Stack.Screen name={'VwBenCreatorContriDtls'} component={VwBenCreatorContriDtls} />
 
@@ -902,6 +908,8 @@ const HomeNavigator = props => {
       <Stack.Screen name={'EntrAdvLoc'} component={EntrAdvLoc} />
      
       <Stack.Screen name={'Vw2DelLnReqs'} component={Vw2DelLnReqs} />
+      <Stack.Screen name={'Vw2DelLnReqsBiz'} component={Vw2DelLnReqsBiz} />
+
       <Stack.Screen name={'AutomaticRepayAllTyps'} component={AutomaticRepayAllTyps} />
       
       <Stack.Screen name={'VwMakeLnReq'} component={VwMakeLnReq} />

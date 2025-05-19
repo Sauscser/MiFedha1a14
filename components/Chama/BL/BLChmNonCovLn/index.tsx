@@ -34,26 +34,13 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
     return (
        <Pressable 
        onPress={SndChmMmbrMny}
-       style = {styles.container}>          
+       style = {styles.pageContainer}>          
           
-                     <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Loan ID: {id}                
-                    </Text>                                               
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                     Member Name: {loaneeName}                
-                    </Text>  
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                     Loan Balance: (Ksh) {lonBala.toFixed(2)}                
-                    </Text>  
-
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                     Time given: {createdAt}                
-                    </Text>   
-                                
+       <Text style={styles.prodInfo}><Text style={styles.label}>Loan ID: </Text> {id}</Text>
+     <Text style={styles.prodInfo}><Text style={styles.label}>member Name: </Text> {loaneeName}</Text>
+     <Text style={styles.prodInfo}><Text style={styles.label}>Time loan was taken: </Text> {createdAt}</Text>
+     <Text style={styles.prodInfo}><Text style={styles.label}>loan Balance: </Text> KES {lonBala.toFixed(2)}</Text>
+   
                
         </Pressable>
     );

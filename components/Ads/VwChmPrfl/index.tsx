@@ -41,30 +41,12 @@ const ViewSMDeposts = (props:SMAccount) => {
     return (
       <TouchableOpacity 
       onPress={SndChmMmbrMny}
-      style = {styles.container}>              
-                       
-                        
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Chama Name: {grpName}                 
-                    </Text>
+      style = {styles.pageContainer}>     
 
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Chama Contact: {grpContact}                 
-                    </Text>
-                                      
+      <Text style={styles.prodInfo}><Text style={styles.label}>Chama Name:</Text> {grpName}</Text>
+      <Text style={styles.prodInfo}><Text style={styles.label}>Chama Contact:</Text> {grpContact}</Text>
+      <Text style={styles.prodInfo}><Text style={styles.label}>Chama Venture:</Text> {venture}</Text>
                     
-                    <Text style ={styles.amountoffered} numberOfLines={2}>                       
-                       {/* amount*/} 
-                       Chama Venture: {venture}
-                       
-                    </Text>
-                    
-                    
-                    
-        
-                
         </TouchableOpacity>
     );
 }; 

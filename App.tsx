@@ -1,31 +1,32 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Platform, Text, View, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import * as Location from 'expo-location';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import RootNav from './navigation/RootNav';
-import { withAuthenticator } from 'aws-amplify-react-native'
-import { Amplify } from 'aws-amplify'
-import awsconfig from './src/aws-exports'
+import { withAuthenticator } from 'aws-amplify-react-native';
+import { Amplify } from 'aws-amplify';
+import awsconfig from './src/aws-exports';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getCompanyUrls } from './src/graphql/queries';
 import { graphqlOperation, API } from 'aws-amplify';
 
-Amplify.configure(awsconfig)
+// 🛡️ Prevent crash from screen capture permission on emulator
+try {
+  require('expo-screen-capture');
+} catch (err) {
+  console.warn('expo-screen-capture failed to load:', err?.message);
+}
+
+Amplify.configure(awsconfig);
 
 function App() {
-  
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
   const [Url, setUrl] = useState("");
-
-  
-  
-
-
 
   if (!isLoadingComplete) {
     return null;
@@ -34,7 +35,6 @@ function App() {
       <SafeAreaProvider>
         <RootNav colorScheme={colorScheme} />
         <StatusBar />
-       
       </SafeAreaProvider>
     );
   }
@@ -73,9 +73,9 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   pressable: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   signOutText: {
     fontSize: 16,
@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
-    flexDirection: 'row', 
-    justifyContent: 'center', 
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   quoteText: {
     fontSize: 18,
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   },
   loanContainer: {
     width: '90%',
-    height:'100%',
+    height: '100%',
     marginVertical: 20,
     justifyContent: 'center',
     alignItems: 'center',

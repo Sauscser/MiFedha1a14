@@ -479,7 +479,7 @@ useEffect(() =>{
 
         
           return (
-            <View>
+         
               <View
                  style={styles.image}>
                 <ScrollView>
@@ -489,7 +489,7 @@ useEffect(() =>{
                   </View>
         
                   
-                  <View style={styles.sendLoanView}>
+                 
                     <TextInput
                     
                     placeholder='Loaner Email'
@@ -497,10 +497,10 @@ useEffect(() =>{
                       onChangeText={setAWSEmail}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loaner Email</Text>
-                  </View>
+                   
+               
 
-                  <View style={styles.sendLoanView}>
+                 
                     <TextInput
                     
                     placeholder='Advocate License Number (Optional)'
@@ -508,43 +508,36 @@ useEffect(() =>{
                       onChangeText={setSign2Phn}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Advocate License Number</Text>
-                  </View>
+                   
                   
-                  <View style={styles.sendLoanView}>
+                  
+                
                     <TextInput
                      keyboardType='decimal-pad'
-                     
+                     placeholder = "Loan Amount"
                       value={itemPrys}
                       onChangeText={setitemPrys}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loan Amount</Text>
-                  </View>
-                  <View style={styles.sendLoanView}>
+                  
+                  
                     <TextInput
                     keyboardType='decimal-pad'
-                    placeholder='Example: 8% write 8'
+                    placeholder='Annual Interest rate; Example: 8% write 8'
                       value={lnPrsntg}
                       onChangeText={setlnPrsntg}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Annual Interest rate</Text>
-                  </View>
-
-
-                  <View style={styles.sendLoanView}>
+                   
                     <TextInput
                     keyboardType='decimal-pad'
-                    placeholder='Enter number of Days'
+                    placeholder='Repayment Period in Days'
                       value={rpymntPrd}
                       onChangeText={setrpymntPrd}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Repayment Period</Text>
-                  </View>
-
-                  <View style={styles.sendLoanView}>
+                  
+                  
                     <TextInput
                     placeholder='Payment Frequency (Days)'
                      keyboardType='decimal-pad'
@@ -554,9 +547,7 @@ useEffect(() =>{
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     
-                  </View>      
-
-                  <View style={styles.sendLoanView}>
+                 
                     <TextInput
                     placeholder='Installment Amount'
                      keyboardType='decimal-pad'
@@ -566,11 +557,7 @@ useEffect(() =>{
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
                     
-                  </View>
-
-                             
-                  
-                   <View style={styles.sendLoanView}>
+               
                     <TextInput
                     keyboardType='decimal-pad'
                     placeholder='Default Penalty'
@@ -578,31 +565,25 @@ useEffect(() =>{
                       onChangeText={setMmbaID}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Default Penalty</Text>
-                  </View>
-
-                
-                  <View style={styles.sendLoanView}>
+                   
                     <TextInput
                     
                     placeholder='Loan Description (Optional)'
                       value={ChmRegNo}
                       multiline= {true}
                       onChangeText={setChmRegNo}
-                      style={styles.sendLoanInput}
+                      style={styles.sendLoanInput2}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loan Description</Text>
-                  </View>
-
-                  <View style={styles.sendLoanView}>
+                   
                     <TextInput
                       value={pword}
+                    
                       onChangeText={setPW}
+                      placeholder='Main Account Password'
                       secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}> User PassWord</Text>
-                  </View>
+                   
 
                   <TouchableOpacity
                     onPress={gtBizna}
@@ -614,7 +595,7 @@ useEffect(() =>{
                   </TouchableOpacity>
                 </ScrollView>
               </View>
-            </View>
+           
           );
         };
         

@@ -39,54 +39,18 @@ const MmbrContriInfo = (props:MmbrContriInfo) => {
 
  
    return (
-       <View style = {styles.container}>              
-           
-           
-           <ScrollView >       
-              
-
-                    <Text style = {styles.ownerContact}>                       
-                      {/*loaner details */}  
-                      Transaction ID: {id}                
-                   </Text>                                               
-                   <Text style = {styles.ownerContact}>                       
-                      {/*loaner details */}  
-                    Chama Name: {SenderName}                
-                   </Text>                     
-                   <Text style ={styles.amountoffered}>                       
-                      {/* amount*/} 
-                      Amount (Ksh): {amountSent.toFixed(2)}
-                   </Text>   
-                   <Text style = {styles.repaymentPeriod}>                       
-                      {/* repaymentPeriod*/}
-                     Chama Phone: {grpContact}                  
-                   </Text> 
-                   <Text style = {styles.interest}>                       
-                      {/* interest*/}
-                      Time Sent: {createdAt}                    
-                   </Text> 
-                   <Text style = {styles.interest}>                       
-                      {/* interest*/}
-                     Status: {status}                    
-                   </Text> 
-
-
-
-                   
-                   <ScrollView>
-                   
-                   <Text style = {styles.interest} >                       
-                      {/* other description*/} 
-                      More about Remittance: {description}                 
-                   </Text>   
-                   </ScrollView>              
-           
+      <View style = {styles.pageContainer}>              
+      <View style={styles.card}>
+       <Text style={styles.prodInfo}><Text style={styles.label}>Transaction ID: </Text> {id}</Text>
+       <Text style={styles.prodInfo}><Text style={styles.label}> Member Chama ID: </Text> {memberId}</Text>
+       <Text style={styles.prodInfo}><Text style={styles.label}> Chama Name:</Text> {SenderName}</Text>
+       <Text style={styles.prodInfo}><Text style={styles.label}> Amount: </Text> KES {amountSent.toFixed(2)}</Text>
+       <Text style={styles.prodInfo}><Text style={styles.label}> Time Sent :</Text> {createdAt}</Text>
+       <Text style={styles.prodDesc}>{description}</Text>
+     </View>
+     </View>
                
-               
-           
-       </ScrollView>
-               
-       </View>
+       
    );
 }; 
 

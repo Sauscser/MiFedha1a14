@@ -65,8 +65,8 @@ const MyAccount = props => {
     navigation.navigate('ChamaVw2DelLnReqs');
   };
 
-  const ChamaPlaceLnReq = () => {
-    navigation.navigate('ChamaPlaceLnReq');
+  const Vw2DelLnReqsBiz = () => {
+    navigation.navigate('Vw2DelLnReqsBiz');
   };
 
   const Vw2DelLnReqs = () => {
@@ -102,7 +102,7 @@ const MyAccount = props => {
               <Text style={styles.acPressableText}>Request</Text>
             </Pressable>
 
-            <Pressable onPress={Vw2DelLnReqs} style={styles.acNonLnsPressables}>
+            <Pressable onPress={Vw2DelLnReqsBiz} style={styles.acNonLnsPressables}>
               <Text style={styles.acPressableText}>View</Text>
             </Pressable>
             

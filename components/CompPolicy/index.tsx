@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text,    ScrollView} from 'react-native';
+import { Text,    View} from 'react-native';
 import styles from './styles';
 
 
@@ -17,18 +17,12 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
    }} = props ;
    
     return (
-                
-            <ScrollView >
-            <Text style = {styles.loanAdvert}>                       
-                       {/*loaner details */}   
-                       {policy}               
-                    </Text>
-            </ScrollView>
+              <View style = {styles.pageContainer}>
+                      <View style = {styles.card}>
+                        <Text style={styles.prodName}>{policy}</Text>
+                      </View> 
+              </View>    
             
-                     
-        
-                
-        
     );
 }; 
 

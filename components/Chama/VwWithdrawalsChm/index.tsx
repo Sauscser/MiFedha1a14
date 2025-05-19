@@ -33,47 +33,17 @@ const ViewSMWithdrwls = (props:SMAccount) => {
 
 
    return (
-       <View style = {styles.container}>              
-           
-           
-           <View style = {{alignItems:"center"}}>
-           <Text style = {styles.subTitle}>                       
-                      {/*loaner details */}   
-                      {agentName}             
-                   </Text>
-           </View>
-                 
-                 
-           
-           <ScrollView >              
-                      
-                       
-                    <Text style = {styles.ownerName}>                       
-                      {/*loaner details */}   
-                      Transaction ID: {id}                 
-                   </Text>
 
-                   <Text style = {styles.ownerName}>                       
-                      {/*loaner details */}   
-                      Amount (Ksh): {amount.toFixed(2)}                 
-                   </Text>
-                   <Text style = {styles.ownerContact}>                       
-                      {/*loaner details */}  
-                      MFNdogo Number: {agentPhonecontact}                
-                   </Text>                     
-                   
-                   <Text style ={styles.amountoffered}>                       
-                      {/* amount*/} 
-                      Created At: {createdAt}
-                   </Text>
-                   <Text style ={styles.amountoffered}>                       
-                      {/* amount*/} 
-                    Last Update: {updatedAt}
-                   </Text>
-                   
-                   
-       </ScrollView>
-               
+      <View style={styles.pageContainer}>
+        <View style={styles.card}>
+        <Text style={styles.prodName}>{agentName}</Text>
+
+        <Text style={styles.prodInfo}><Text style={styles.label}>Transaction ID:</Text> {id}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>MFNdogo Number:</Text> {agentPhonecontact}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Amount:</Text> KES {amount.toFixed(2)}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Transaction Time:</Text> {createdAt}</Text>
+    
+       </View>               
        </View>
    );
 }; 

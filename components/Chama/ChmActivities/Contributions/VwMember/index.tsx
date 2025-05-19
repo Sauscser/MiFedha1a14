@@ -41,35 +41,16 @@ const MemberContriInfo = (props:MmbrContriInfo) => {
    navigation.navigate("ChmLnsGvnOuts", {grpContact});
   }
    return (
-       <View style = {styles.container}>              
-           
-           
-           <ScrollView >       
-              
+      <View style = {styles.pageContainer}>              
+      <View style={styles.card}>
 
-                    <Text style = {styles.ownerContact}>                       
-                      {/*loaner details */}  
-                      Transaction ID: {id}                
-                   </Text>                                               
-                   <Text style = {styles.ownerContact}>                       
-                      {/*loaner details */}  
-                    Chama Name: {GrpName}                
-                   </Text>                     
-                   <Text style ={styles.amountoffered}>                       
-                      {/* amount*/} 
-                      Amount (Ksh): {contriAmount.toFixed(2)}
-                   </Text>   
-                   
-                   <Text style = {styles.interest}>                       
-                      {/* interest*/}
-                      Time Sent: {createdAt}                    
-                   </Text> 
-                   <Text style = {styles.interest}>                       
-                      {/* interest*/}
-                     Status: {status}                    
-                   </Text> 
-
-       </ScrollView>
+  <Text style={styles.prodInfo}><Text style={styles.label}>Transaction ID: </Text> {id}</Text>
+  <Text style={styles.prodInfo}><Text style={styles.label}> Chama Name: </Text> {GrpName}</Text>
+  <Text style={styles.prodInfo}><Text style={styles.label}> Amount: </Text> KES {contriAmount.toFixed(2)}</Text>
+  <Text style={styles.prodInfo}><Text style={styles.label}> Time Sent :</Text> {createdAt}</Text>
+                         
+                  
+       </View>
                
        </View>
    );

@@ -54,39 +54,18 @@ const SMCvLnStts = (props:SMAccount) => {
 
     return (
         
-             <View style = {{marginTop:"10%", justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column'}}>
-            
-            <TouchableOpacity style = {styles.container} onPress={BenDtls}>              
-                       
-                        
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Benefactor Business/Company: {creatorName}                 
-                    </Text>
+             <View style={styles.pageContainer}>
+      <Pressable style={styles.card} onPress={BenDtls}>
+        <Text style={styles.prodName}>{prodName}</Text>
 
-                                  
+        <Text style={styles.prodInfo}><Text style={styles.label}>Benefactor Business/Company:</Text> {creatorName}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Beneficiary Name:</Text> {beneficiaryPhone}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Cost:</Text> KES {prodCost.toLocaleString()}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Benefits Pooled:</Text> KES {benefitsAmount.toLocaleString()}</Text>
+       <Text style={styles.prodDesc}>{prodDesc}</Text>
+      </Pressable>
 
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Product Cost: {prodCost}                  
-                    </Text> 
-                   
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                       Benefits pooled: {benefitsAmount}                  
-                    </Text> 
-
-                    <Text style = {styles.repaymentPeriod} numberOfLines={3}>                       
-                       {/* repaymentPeriod*/}
-                      Beneficiary Name: {beneficiaryPhone}                  
-                    </Text> 
-
-
-        </TouchableOpacity >
-        <View style = {styles.viewForPressables2}>
-<View>
+<View style ={styles.buttonRow}>
 <Pressable
 onPress={BenefitPal}
 style = {styles.loanFriendButton}
@@ -97,12 +76,12 @@ style = {styles.loanFriendButton}
 <View>
 <Pressable
 onPress={BenefitBiz}
-style = {styles.loanFriendButton}>            
+style = {styles.redeemButton}>            
   <Text>Share Benefits (Bizna)</Text>            
 </Pressable>  
 </View>
 
-</View>
+
        </View> 
 
         

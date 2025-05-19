@@ -49,55 +49,18 @@ const ChmRemitInfo = (props:ChamaRemitInfo) => {
         onPress={go2Contri2Mbr}
         style = {styles.container}>       </Pressable>       
             */
-            <View style = {styles.wholeVw}>
-            <ScrollView >       
-               
-
-                     <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Transaction ID: {id}                
-                    </Text>                                               
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                     Member Name: {receiverName}                
-                    </Text>    
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                     Member Chama ID: {memberId}                
-                    </Text>                   
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Amount (Ksh): {amountSent.toFixed(2)}
-                    </Text>   
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Member Contact: {recipientPhn}                  
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Time Sent: {createdAt}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Status: {status}                    
-                    </Text> 
-
-
-
-                    
-                    <ScrollView>
-                    
-                    <Text style = {styles.loanerotherdescriptions} >                       
-                       {/* other description*/} 
-                       More about Remittance: {description}                 
-                    </Text>   
-                    </ScrollView>              
-            
-                
-                
-            
-        </ScrollView>
-                
+            <View style = {styles.pageContainer}>
+            <View style={styles.card}>
+       
+        <Text style={styles.prodInfo}><Text style={styles.label}>Transaction ID: </Text> {id}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}> Member Chama ID: </Text> {memberId}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}> Amount:</Text> KES {amountSent.toLocaleString()}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}> Time Sent: </Text> {createdAt}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}> Status: </Text> {status}</Text>
+        
+        <Text style={styles.prodDesc}>{description}</Text>
+      </View>
+                  
         </View>
     );
 }; 

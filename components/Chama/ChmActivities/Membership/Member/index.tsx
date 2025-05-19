@@ -97,43 +97,30 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
    }
    
     return (
-      <View style = {{marginTop:"10%"}}>              
+      <View style = {styles.pageContainer}>              
             
-      <Pressable onPress={ViewMmberDtls} style = {styles.container}>
-      <Text style = {styles.subTitle}>                       
-                       {/*loaner details */}   
-                       {groupName}             
-                    </Text>
+      <Pressable onPress={ViewMmberDtls} style = {styles.card}>
+      <Text style={styles.prodName}>{groupName}</Text>
 
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Member Chama Number: {MembaId}                
-                    </Text>  
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Subscription up to date: {subscribedAmt}                
-                    </Text>   
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Subscription with Penalties: {ttlArrears}                
-                    </Text>  
-            
-      
+<Text style={styles.prodInfo}><Text style={styles.label}>Member Chama Number:</Text> {MembaId}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Subscription done up to date:</Text> KES {subscribedAmt.toFixed(2)}</Text>
+<Text style={styles.prodInfo}><Text style={styles.label}>Subscription due with Penalties:</Text> KES {ttlArrears}</Text>
+
               </Pressable>
 
-              <View style = {styles.viewForPressables2}>
+              <View style = {styles.buttonRow}>
               <Pressable
                 onPress={ViewSubs}
                 style = {styles.loanFriendButton}
                 >            
-                  <Text style = {styles.loanAFriendText}>Subscriptions</Text>            
+                  <Text style = {styles.buttonText}>Subscriptions</Text>            
               </Pressable>
               
               
               <Pressable
                 onPress={SndChmMmbrMny}
                 style = {styles.loanFriendButton}>            
-                  <Text style = {styles.loanAFriendText}>Subscribe</Text>            
+                  <Text style = {styles.buttonText}>Subscribe</Text>            
               </Pressable>  
              
             

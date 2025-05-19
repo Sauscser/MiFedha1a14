@@ -100,6 +100,8 @@ const CreateBiz = (props) => {
           
                 const SignatoryEmail =accountDtl.data.getGroup.SignatoryEmail;
                 const grpName =accountDtl.data.getGroup.grpName;
+                const signitoryContact =accountDtl.data.getGroup.signitoryContact;
+                
                 
                 const gtComp = async () =>{
                   if(isLoading){
@@ -161,7 +163,7 @@ const CreateBiz = (props) => {
                                 advLicNo:"None",
                                 lnType:"GrpLn",
                                 loanerName: grpName,
-                                loanerPhone: groupContact,
+                                loanerPhone: signitoryContact,
                                 description: ChmNm,
                                 defaultPenalty:ChmDesc,
                                 installmentAmount:InstAmt,
@@ -184,7 +186,7 @@ const CreateBiz = (props) => {
                                 
                                 }
                                 Alert.alert("Loan Request Successful");
-                                Communications.textWithoutEncoding(phonecontact,'MiFedha. Hi '+ name + '. '
+                                Communications.textWithoutEncoding(signitoryContact,'MiFedha. Hi '+ name + '. '
                                               + userInfo.username + ', member Id ' + MembaId
                                               + ' has requested Ksh. '+ itemPrys +
                                             ' loan from group ' + grpName +'. Thank you.');
@@ -232,7 +234,7 @@ const CreateBiz = (props) => {
             advLicNo:Sign2Phn,
             lnType:"GrpLn",
             loanerName: grpName,
-            loanerPhone: groupContact,
+            loanerPhone: signitoryContact,
             description: ChmNm,
             defaultPenalty:ChmDesc,
             installmentAmount:InstAmt,
@@ -258,8 +260,8 @@ const CreateBiz = (props) => {
             Communications.textWithoutEncoding(Advphonecontact,'MiFedha. Greetings! '
             + 'We ' + name + ', the loanee and ' + grpName + ', the Loaning Group humbly' +  
             ' request that you witness our loan contract on MiFedha app amounting to Ksh. '+
-            itemPrys + ' repayable with ' + lnPrsntg + '% percentage by the end of ' +rpymntPrd + 
-            ' days. Default penalty is Ksh. '+ ChmDesc + '. You can reach my loaner through '+ groupContact +
+            itemPrys + ' repayable with ' + lnPrsntg + '% per year by the end of ' +rpymntPrd + 
+            ' days. Default penalty is Ksh. '+ ChmDesc + '. You can reach my loaner through '+ signitoryContact +
              '. You can also reach me through ' +phonecontacts +'. Thank you.');
           };
 

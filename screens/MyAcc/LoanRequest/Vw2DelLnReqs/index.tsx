@@ -57,6 +57,7 @@ const FetchSMNonCovLns = props => {
                   filter: {
                   
                     loaneeEmail: { eq:userInfo.attributes.email},
+                    lnType: { eq:"Pal2Pal"},
                     
                                
                 }

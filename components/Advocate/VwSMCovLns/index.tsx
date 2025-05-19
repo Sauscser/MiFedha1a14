@@ -46,73 +46,23 @@ const ViewSMDeposts = (props:SMAccount) => {
 
  
     return (
-        <View style = {styles.container}>              
-          <View style = {{alignItems:"center"}}>
-            <Text style = {styles.subTitle}>                       
-                       {/*loaner details */}   
-                       Loan ID: {loanID}             
-                    </Text>
-            </View>
-            <ScrollView >              
-            <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loaner Name : {loanername}                 
-                    </Text>
+        <View style = {styles.pageContainer}>              
+          <View style = {styles.card}>
+         <Text style={styles.prodInfo}><Text style={styles.label}>Loan ID: </Text> {loanID}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Loaner Name: </Text> {loanername}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Loanee Name: </Text> {loaneename}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Loaner Contact: </Text> {loanerPhn}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}> Loanee Contact: </Text> {loaneePhn}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Time taken: </Text> {createdAt}</Text>
 
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loanee Name: {loaneename}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Loan Amount (Ksh): {amountgiven.toFixed(2)}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                     Amount Expected Back (Ksh): {amountexpected.toFixed(2)}                 
-                    </Text>
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Repayment Period : {repaymentPeriod}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Amount Repaid : {amountrepaid.toFixed(2)}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loan Balance: {lonBala.toFixed(2)}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Loaner Contact : {loanerPhn}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loanee Contact: {loaneePhn}                 
-                    </Text>                                                               
-                    
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Created At: {createdAt}
-                    </Text>
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                     Last Update: {updatedAt}
-                    </Text>
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      More: {description}                 
-                    </Text>
-                    
-                                       
-        </ScrollView>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Loan Amount:</Text> KES {amountgiven.toFixed(2)}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Amount Expected Back: </Text> KES {loanername}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Repayment Period: </Text> {loaneename} days</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Loaner Contact: </Text> {loanerPhn}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}> Amount Repaid:</Text> KES {lonBala.toFixed(2)}</Text>
+        <Text style={styles.prodDesc}>{description}</Text>
+        
+        </View>
                 
         </View>
     );

@@ -39,34 +39,17 @@ const SMCvLnStts = (props:SMAccount) => {
        navigation.navigate("PlaceLnReq")
    }
     return (
-        
-                  
-            
-            <View style = {styles.container}>              
-                       
-                        
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Product Creator: {creatorName}                 
-                    </Text>
-                                        
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Product Cost: {prodCost}                  
-                    </Text> 
-                   
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Phone: {benefactorAc}                  
-                    </Text> 
-
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      More Description: {prodDesc}                  
-                    </Text> 
-
-
-        </View >
+<View style={styles.pageContainer}>
+            <View style={styles.card}>
+              
+              <Text style={styles.prodInfo}><Text style={styles.label}>Product Creator:</Text> {creatorName}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Product Cost:</Text> {prodCost}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Phone:</Text> {benefactorAc}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Product Name:</Text> {prodName}</Text>
+              <Text style={styles.prodDesc}>{prodDesc}</Text>
+             
+          </View >      
+      </View >
                 
        
     );

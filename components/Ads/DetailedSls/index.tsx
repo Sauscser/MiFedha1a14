@@ -40,46 +40,17 @@ const ViewSMDeposts = (props:SMAccount) => {
 
  
     return (
-        <View style = {styles.container}>              
-              
-            
-            <ScrollView >              
-                       
-                        
-                     
+        <View style = {styles.pageContainer}>              
+          <View style={styles.card}>
 
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Bizna Contact: {sokokntct}                 
-                    </Text>
-
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                     Item Name: {sokoname}
-                    </Text>                                      
-                    
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Item Price: {sokoprice.toFixed(2)}
-                       
-                    </Text>
-
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Percentage Discount: {sokolnprcntg.toFixed(2)} %
-                       
-                    </Text>
-
-                              
-
-                    <Text style ={styles.amountoffered} >                         
-                       {/* amount*/} 
-                     Sales Description: {sokodesc}
-                     
-                    </Text>
-                    
-                    
-        </ScrollView>
+          <Text style={styles.prodInfo}><Text style={styles.label}>Bizna Contact:</Text> {sokokntct}</Text>
+          <Text style={styles.prodInfo}><Text style={styles.label}>Item Name:</Text> {sokoname}</Text>
+         <Text style={styles.prodInfo}><Text style={styles.label}>Item Price:</Text> KES {sokoprice.toLocaleString()}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Percentage Discount:</Text> {sokolnprcntg.toLocaleString()}</Text>
+        <Text style={styles.prodDesc}>{sokodesc}</Text>
+     
+                   
+        </View>
                 
         </View>
     );

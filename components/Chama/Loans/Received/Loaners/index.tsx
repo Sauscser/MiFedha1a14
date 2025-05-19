@@ -89,51 +89,31 @@ const ChmCvLnSttsRec = (props:ChmCvLnSttusRec) => {
 
 
     return (
-      <View style = {{marginTop:"10%"}}>              
+      <View style = {styles.pageContainer}>              
             
-      <Pressable onPress={SndChmMmbrMny} style = {styles.container}>
-      <Text style = {styles.ownerName}>                       
-               
-                 Group Name: {LoanerName}               
-              </Text>
-            
-      <Text style = {styles.ownerName}>                       
-                 
-                 Loan Id: {loanID}                 
-              </Text>
-              <Text style = {styles.ownerName}>                       
-                
-                 Group Contact: {grpContact}                 
-              </Text>
-
-             
-
-              <Text style = {styles.ownerName}>                       
-                 {/* interest*/}
-                 Loan Balance with penaties(Ksh): {LonBal1.toFixed(0)}                    
-              </Text>
-
-               
-
+      <Pressable onPress={SndChmMmbrMny} style = {styles.card}>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Group Name:</Text> {LoanerName}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Loan Id:</Text> {loanID}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>loan Balance with penalties:</Text> KES {LonBal1.toFixed(2)}</Text>
+       
+     
               </Pressable>
 
-              <View style = {styles.viewForPressables2}>
-              <View>
+              <View style = {styles.buttonRow}>
+             
               <Pressable
                 onPress={VwRpayments}
                 style = {styles.loanFriendButton}
                 >            
                   <Text>ViewRpymnts</Text>            
               </Pressable>
-              </View>   
-              <View>
+              
               <Pressable
                 onPress={Repay}
                 style = {styles.loanFriendButton}>            
                   <Text>Repay</Text>            
               </Pressable>  
-              </View>
-               
+          
               </View>
   </View>
     );

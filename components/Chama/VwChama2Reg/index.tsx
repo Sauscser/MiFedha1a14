@@ -39,38 +39,21 @@ const SMCvLnStts = (props:SMAccount) => {
 
 
     return (
-        
-             <View style = {{marginTop:"10%", justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column'}}>
-                  
-            
-            <View style = {styles.container}>              
-                       
-                        
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Chama Account: {ChamaAcNu}                 
-                    </Text>
-                                        
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Applied On: {createdAt}                  
-                    </Text> 
-                   
-                    
-
-
+        <View style={styles.pageContainer}>
+          <View style={styles.card}>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Group Account:</Text> {ChamaAcNu}</Text>
+             <Text style={styles.prodInfo}><Text style={styles.label}>Applied on:</Text> {createdAt}</Text>
+          
         </View >
-        <View style = {styles.viewForPressables2}>
-<View>
+        <View style = {styles.buttonRow}>
+
 <Pressable
 onPress={VwChamaApplications}
 style = {styles.loanFriendButton}
 >            
   <Text>Click to Proceed to Create</Text>            
 </Pressable>
-</View>   
+
 
 
 </View>

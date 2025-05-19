@@ -43,44 +43,20 @@ const ChmContriInfo = (props:ChamaContriInfo) => {
    navigation.navigate("ChmLnsGvnOuts", {grpContact});
   }
    return (
-       <View style = {styles.container}>              
-           
-           
-           <ScrollView >       
-              
 
-                    <Text style = {styles.ownerContact}>                       
-                      {/*loaner details */}  
-                      Transaction ID: {id}                
-                   </Text>                                               
-                   <Text style = {styles.ownerContact}>                       
-                      {/*loaner details */}  
-                    Member Name: {mmberNme}                
-                   </Text>      
-                   <Text style = {styles.ownerContact}>                       
-                      {/*loaner details */}  
-                    Member Chama ID: {memberId}                
-                   </Text>                    
-                   <Text style ={styles.amountoffered}>                       
-                      {/* amount*/} 
-                      Amount (Ksh): {contriAmount.toFixed(2)}
-                   </Text>   
-                   <Text style = {styles.repaymentPeriod}>                       
-                      {/* repaymentPeriod*/}
-                     Member Contact: {memberPhn}                  
-                   </Text> 
-                   <Text style = {styles.interest}>                       
-                      {/* interest*/}
-                      Time Sent: {createdAt}                    
-                   </Text> 
-                   <Text style = {styles.interest}>                       
-                      {/* interest*/}
-                     Status: {status}                    
-                   </Text> 
-
-       </ScrollView>
-               
-       </View>
+      <View style = {styles.pageContainer}>              
+      <View style={styles.card}>
+       <Text style={styles.prodInfo}><Text style={styles.label}>Transaction ID: </Text> {id}</Text>
+       <Text style={styles.prodInfo}><Text style={styles.label}> Member Name: </Text> {mmberNme}</Text>
+       <Text style={styles.prodInfo}><Text style={styles.label}> Member Chama ID:</Text> {memberId}</Text>
+       <Text style={styles.prodInfo}><Text style={styles.label}> Amount: </Text> KES {contriAmount.toFixed(2)}</Text>
+       <Text style={styles.prodInfo}><Text style={styles.label}> Member Contact :</Text> {memberPhn}</Text>
+       <Text style={styles.prodInfo}><Text style={styles.label}> Time Sent :</Text> {createdAt}</Text>
+       
+     </View>
+     </View>
+                 
+                
    );
 }; 
 

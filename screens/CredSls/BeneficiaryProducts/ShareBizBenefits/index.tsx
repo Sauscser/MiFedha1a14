@@ -295,7 +295,11 @@ const SMASendNonLns = props => {
                       parseFloat(benefitsAmountsz) < TotalTransacted 
                     ) {Alert.alert('Requested amount is more than your Benefits');}
                     
-                   
+                    else if (
+                      benefitStatuss !== "Active" 
+                    ) {Alert.alert('This Beneficiary linkage is not active');}
+                    
+                    
 
                     else if(noBL > 0){Alert.alert('Please first clear your lenders');}
                    

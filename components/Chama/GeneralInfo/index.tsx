@@ -88,116 +88,28 @@ const ChmInfo = (props:ChmaInfo) => {
    }} = props ;
 
     return (
-        <View style = {styles.container}>              
+        <View style = {styles.pageContainer}>              
             
             
-            <ScrollView >       
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.subTitle}>                       
-                       {/*loaner details */}   
-                       General Chama Info  Summary            
-                    </Text>
-            </View>      
+            <View style= {styles.card}>       
 
-                     <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Chama Contact: {grpContact}                
-                    </Text> 
-                    
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Chama Name: {grpName}                
-                    </Text>    
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Registration Number : {regNo}                
-                    </Text>                                               
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Account Balance (Ksh): {grpBal.toFixed(2)}                
-                    </Text>   
-
-                   
-
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Chama Benefits (Ksh): {TtlActvLonsTmsLnrChmNonCov.toFixed(2)}                
-                    </Text>                    
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Chama Members: {ttlGrpMembers}
-                    </Text>   
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                       Chama Deposits(Ksh): {ttlDpst.toFixed(2)}                  
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Chama Withdrawals(Ksh): {ttlWthdrwn.toFixed(2)}                    
-                    </Text> 
-
-
-
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       After sync dividend balance (Ksh): {MemberDividendSync.toFixed(2)}                
-                    </Text>    
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       After sync withrawal Balance : {WithdrawalSync.toFixed(2)}                
-                    </Text>                                               
-                   
-
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       After sync loan Balance (Ksh): {GrpLoanOutSync.toFixed(2)}                
-                    </Text>  
-
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Chama Benefits (Ksh): {TtlActvLonsTmsLnrChmNonCov.toFixed(2)}                
-                    </Text>                    
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Chama Members: {ttlGrpMembers}
-                    </Text>   
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                       Chama Deposits(Ksh): {ttlDpst.toFixed(2)}                  
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Chama Withdrawals(Ksh): {ttlWthdrwn.toFixed(2)}                    
-                    </Text> 
-
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                       Total Loans Given(Ksh): {TtlActvLonsAmtLnrChmCov.toFixed(2)}                  
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Loans Recovered(Ksh): {TtlClrdLonsAmtLnrChmCov.toFixed(2)}                    
-                    </Text> 
-
-                    
-                    <View style = {{alignItems:"center"}}>
-                     <Text style = {styles.subTitle}>                       
-                       {/*loaner details */}   
-                       Non-Loans               
-                    </Text>
-                     </View>
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Members Contributions: {ttlNonLonsRecChm.toFixed(2)}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Money Sent to Members (Ksh): {ttlNonLonsSentChm.toFixed(2)}                    
-                    </Text> 
-
-
+            <Text style={styles.prodInfo}><Text style={styles.label}>Chama Contact:</Text> {grpContact}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Chama Name:</Text> {grpName}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Registration Number:</Text> {regNo}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Account Balance:</Text> KES {grpBal.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Chama Benefits:</Text> KES {TtlActvLonsTmsLnrChmNonCov.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Chama Members:</Text>  {ttlGrpMembers}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Chama Deposits:</Text> KES {ttlDpst.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Chama Withdrawals:</Text> KES {ttlWthdrwn.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>After sync dividend balance:</Text> KES {MemberDividendSync.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>After sync withrawal Balance:</Text> KES {WithdrawalSync.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>After sync loan Balance:</Text> KES {GrpLoanOutSync.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Total Loans Given:</Text> KES {TtlActvLonsAmtLnrChmCov.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Loans Recovered:</Text> KES {TtlClrdLonsAmtLnrChmCov.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Members Contributions:</Text> KES {ttlNonLonsRecChm.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Money Sent to Members:</Text> KES {ttlNonLonsSentChm.toFixed(2)}</Text>
             
-        </ScrollView>
+        </View>
                 
         </View>
     );

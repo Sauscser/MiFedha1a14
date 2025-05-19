@@ -39,31 +39,16 @@ const SMCvLnStts = (props:SMAccount) => {
 
     return (
         
-                  
-                  
-            <Pressable 
-            onPress={SndChmMmbrMny} 
-            style = {styles.container}>
-
-                      <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                     Group Name: {grpName}  
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                     Group Contact: {grpContact}  
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                     Group Balance: {grpBal}  
-                    </Text>
+           <Pressable onPress = {SndChmMmbrMny}
+            style = {styles.pageContainer}
+            >
+        <Text style={styles.prodInfo}><Text style={styles.label}>Group Name:</Text> {grpName}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Group Contact:</Text> {grpContact}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Group Balance:</Text> {grpBal.toFixed(2)}</Text>
+       
+                     
                   
             </Pressable>
-            
-                
-        
     );
 }; 
 
