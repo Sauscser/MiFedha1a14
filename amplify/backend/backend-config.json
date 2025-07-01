@@ -91,5 +91,12 @@
         }
       ]
     }
+  },
+  "storage": {
+    "MifedhaPhotos": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    }
   }
 }

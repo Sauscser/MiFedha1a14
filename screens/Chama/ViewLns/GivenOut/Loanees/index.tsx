@@ -100,6 +100,7 @@ const FetchSMNonCovLns = props => {
           <>
             
             <Text style={styles.label}> Group Loanees</Text>
+            <Text style={styles.label}> Swipe to reload</Text>
           </>
         )}
       />

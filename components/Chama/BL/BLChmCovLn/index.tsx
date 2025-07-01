@@ -14,6 +14,9 @@ export interface ChamaMmbrshpInfo {
       createdAt:string,
       crtnDate: number,
       interest:number
+        amountExpectedBack
+:number,
+      amountRepaid:number
       
     }}
 
@@ -26,7 +29,9 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
          createdAt,
          amountExpectedBackWthClrnc,
          crtnDate,
-         interest
+         interest,
+         amountExpectedBack,
+         amountRepaid
          
    }} = props ;
 
@@ -53,7 +58,9 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
 
               const dayselapsed = crtnDate - daysUpToDate
 
-              const lonBalance = (amountExpectedBackWthClrnc * 
+              const netLnBal = amountExpectedBack - amountRepaid
+
+              const lonBalance = ((netLnBal) * 
               ((Math.pow(1 + interest/36500, dayselapsed) ))
     )
    

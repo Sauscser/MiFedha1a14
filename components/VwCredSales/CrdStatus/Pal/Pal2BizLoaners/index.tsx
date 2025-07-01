@@ -11,7 +11,7 @@ export interface ChmCvLnSttusRec {
   
       buyerContact: string,
       
-      buyerName:string,
+      SellerName:string,
    
       amountSold: number,
       amountexpectedBack: number,
@@ -41,7 +41,7 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
       clearanceAmt,
       buyerContact,
       
-      buyerName,
+      SellerName,
    
       amountSold,
       amountexpectedBack,
@@ -96,49 +96,38 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
 
 
     return (
-        <View style = {{marginTop:"10%"}}>              
-            
-            <Pressable onPress={SndChmMmbrMny} style = {styles.container}>
-            <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Buyer Name: {buyerName}               
-                    </Text>
+        <View style = {styles.pageContainer}>              
+           
+           <Pressable onPress={SndChmMmbrMny} style = {styles.card}>
+           <Text style = {styles.prodName}>                       
+                      {/*loaner details */}   
+                      Seller Name: {SellerName}               
+                   </Text>
+
+               <Text style={styles.prodInfo}><Text style={styles.label}>Loan ID:</Text> {loanID}</Text>
+               <Text style={styles.prodInfo}><Text style={styles.label}>Loan Balance with Penalties:</Text> KES {LonBal1.toFixed(2)}</Text>
+               <Text style={styles.prodInfo}><Text style={styles.label}>Seller Contact:</Text> {sellerContact}</Text>
+             
+</Pressable>
+
+                   <View style = {styles.buttonRow}>
                   
-            <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loan Id: {loanID}                 
-                    </Text>
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Buyer Contact: {buyerContact}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/* interest*/}
-                       Loan Balance with Penalties(Ksh): {LonBal1.toFixed(0)}                    
-                    </Text> 
-
-                    </Pressable>
-
-                    <View style = {styles.viewForPressables2}>
-                    <View>
-                    <Pressable
-                      onPress={VwRpayments}
-                      style = {styles.loanFriendButton}
-                      >            
-                        <Text style = {styles.loanAFriendText}>ViewRpymnts</Text>            
-                    </Pressable>
-                    </View>   
-                    <View>
-                    <Pressable
-                      onPress={Repay}
-                      style = {styles.loanFriendButton}>            
-                        <Text style = {styles.loanAFriendText}>Repay</Text>            
-                    </Pressable>  
-                    </View>
-                     
-                    </View>
-        </View>
+                   <Pressable
+                     onPress={VwRpayments}
+                     style = {styles.loanFriendButton}
+                     >            
+                       <Text style = {styles.buttonText}>ViewRpymnts</Text>            
+                   </Pressable>
+                  
+                   <Pressable
+                     onPress={Repay}
+                     style = {styles.redeemButton}>            
+                       <Text style = {styles.buttonText}>Repay</Text>            
+                   </Pressable>  
+                  
+                    
+                   </View>
+       </View>
     );
 }; 
 

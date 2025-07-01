@@ -30,5 +30,11 @@ export type AmplifyDependentResourcesAttributes = {
       "RegionalAdminGroupRole": "string",
       "SpareGrpGroupRole": "string"
     }
+  },
+  "storage": {
+    "MifedhaPhotos": {
+      "BucketName": "string",
+      "Region": "string"
+    }
   }
 }

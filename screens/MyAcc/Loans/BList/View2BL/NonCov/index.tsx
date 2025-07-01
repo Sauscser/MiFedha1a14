@@ -50,9 +50,7 @@ const FetchSMNonCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listSMLoansNonCovereds, 
                 { 
                   
-                   
-                  sortDirection: 'DESC',
-                  limit: 100,   
+                 
                               
                   filter: {
                     

@@ -12,13 +12,14 @@ export interface SMAccount {
 benefactorAc: string,
 benefactorPhone: string,
 beneficiaryPhone:string,
-beneficiaryAc:string,
+benefitStatus:string,
 prodName: string,
 creatorName: string,
 prodCost: number,
 prodDesc: string,
 createdAt: string,
-amount:number
+amount:number,
+benefitsID:string
 
     }}
 
@@ -33,8 +34,9 @@ const SMCvLnStts = (props:SMAccount) => {
         creatorName,
         prodCost,
         prodDesc,
-        beneficiaryAc,
-        amount
+        benefitStatus,
+        amount,
+        benefitsID
     
    }} = props ;
 
@@ -47,41 +49,19 @@ const SMCvLnStts = (props:SMAccount) => {
 
     return (
         
-             <View style = {{marginTop:"10%", justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column'}}>
-                  
-            
-            <View style = {styles.container}>              
-                       
+             
                         
-                    
-                                        
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Product Cost: {prodCost}                  
-                    </Text> 
-                   
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Benefits Contributed: {amount}                  
-                    </Text> 
-
-                    
-
-
-        </View >
-        <View style = {styles.viewForPressables2}>
-
- 
-
-
-</View>
+      <View style = {styles.pageContainer}>
+        <View style = {styles.card}>              
+       <Text style={styles.prodInfo}><Text style={styles.label}>ProdCost:</Text> KES {prodCost.toLocaleString()}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Contributer:</Text> {benefitsID}</Text>
+       <Text style={styles.prodInfo}><Text style={styles.label}>Contributions Amount:</Text> KES {amount.toLocaleString()}</Text>
+       
+       
+       <Text style={styles.prodDesc}>{prodDesc}</Text>                   
+        </View >      
        </View> 
 
-        
-                
-       
     );
 }; 
 

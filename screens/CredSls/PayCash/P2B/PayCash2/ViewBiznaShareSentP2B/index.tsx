@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text,   FlatList, Alert} from 'react-native';
 
-import { API, graphqlOperation, Auth } from 'aws-amplify';
+import { API, graphqlOperation, Auth, SortDirection } from 'aws-amplify';
 import NonLnRec from "../../../../../../components/MyAc/ViewSentNonLns";
 import styles from './styles';
-import { listNonLoans } from '../../../../../../src/graphql/queries';
+import { listNonLoans, VwMySntMny } from '../../../../../../src/graphql/queries';
 
 
 const FetchSMNonLnsSnt = props => {
@@ -26,21 +26,24 @@ const FetchSMNonLnsSnt = props => {
                   
                     const userInfo = await Auth.currentAuthenticatedUser();
                         try {
-                          const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
+                          const Lonees:any = await API.graphql(graphqlOperation(VwMySntMny, 
 
                           {
+
+                            senderPhn:userInfo.attributes.email,
+                            SortDirection:"DESC",
+                            limit:100,
                             filter:{
-                              senderPhn:{eq:userInfo.attributes.email},
+                              
                               status:{eq:"cashSales"}                                       
                             
                             },
-                            sortDirection: 'DESC',
-                            limit: 100,
+                           
                             
                                 }
                            
                               ));
-                              setRecvrs(Lonees.data.listNonLoans.items);
+                              setRecvrs(Lonees.data.VwMySntMny.items);
                    
                         
                               

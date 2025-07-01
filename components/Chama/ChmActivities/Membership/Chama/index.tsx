@@ -1,8 +1,45 @@
-import { useNavigation } from '@react-navigation/core';
-import React from 'react';
-import { View, Text, ScrollView, Pressable } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { useNavigation, useRoute } from '@react-navigation/core';
+
+import { View, Text, ScrollView, Pressable, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+  
+import Communications from 'react-native-communications';
+import {
+  
+  
+  updateCompany,
+  
+  updateSMAccount,
+  updateGroup,
+  
+  createGroupNonLoans,
+  updateChamaMembers,
+  updateMiFedhaBankAdmin,
+  updateChamaControlTable,
+  
+} from '../../../../../src/graphql/mutations';
+
+import {API, Auth, graphqlOperation} from 'aws-amplify';
+import {
+  
+  getChamaControlTable,
+  getChamaMembers,
+  getCompany,
+  getGroup,
+  
+  getMiFedhaBankAdmin,
+  
+  getSMAccount,
+  
+} from '../../../../../src/graphql/queries';
+
+
+
+
+import {EQUITYTABLEID} from '@env';
 import styles from './styles';
+
 
 export interface ChamaMmbrshpInfo {
   ChamaMmbrshpDtls: {
@@ -28,6 +65,7 @@ export interface ChamaMmbrshpInfo {
     timeCrtd: number;
     subscribedAmt: number;
     totalSubAmt: number;
+    
   };
 }
 
@@ -76,10 +114,25 @@ const ChmMbrShpInfo = (props: ChamaMmbrshpInfo) => {
   const ttlArrears = (ttlLateSubs + Amt2HvBnSub).toFixed(0);
 
   const navigation = useNavigation();
+   const [SenderNatId, setSenderNatId] = useState('');
+    
+    const [SnderPW, setSnderPW] = useState("");
+    
+    const [amounts, setAmount] = useState("");
+    
+    const [Desc, setDesc] = useState("");
+   
+    const[isLoading, setIsLoading] = useState(false);
+   
+    const route = useRoute();
   const Penalise = () => navigation.navigate('PenaliseMember', { ChamaNMember });
   const ViewMmberDtls = () => navigation.navigate('ChamaDtls', { ChamaNMember });
   const ViewSubs = () => navigation.navigate('VwMbrSubsDirectly', { ChamaNMember });
   const SendNonLoans = () => navigation.navigate('SndMbrsMnys', { ChamaNMember });
+
+  
+  
+
 
   return (
     <View style={styles.pageContainer}>
@@ -92,7 +145,7 @@ const ChmMbrShpInfo = (props: ChamaMmbrshpInfo) => {
           <Text style={styles.label}>Subscription up to date:</Text> KES {subscribedAmt.toFixed(2)}
         </Text>
         <Text style={styles.prodInfo}>
-          <Text style={styles.label}>Subscription with Penalties:</Text> KES {parseFloat(ttlArrears).toLocaleString()}
+          <Text style={styles.label}>Subscription with Penalties:</Text> KES {parseFloat(ttlArrears).toFixed(2)}
         </Text>
       </Pressable>
 

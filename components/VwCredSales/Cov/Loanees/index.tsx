@@ -47,79 +47,27 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
       updatedAt,
    }} = props ;
     return (
-        <View style = {styles.container}>              
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.loanAdvert}>                       
+        <View style = {styles.pageContainer}>              
+            <View style = {styles.card}>
+            <Text style = {styles.prodName}>                       
                        {/*loaner details */}   
                        {buyerName}               
                     </Text>
-            </View>
-            
-            <ScrollView >              
-                       
-                        
 
-                    
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loan Id: {id}                 
-                    </Text>
-
-                    
-                    
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Cash Price (Ksh): {amountSold.toFixed(2)}                
-                    </Text>                     
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Credit Sale Price(Ksh): {amountexpectedBack.toFixed(2)}
-                    </Text>   
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                       Amount Repaid(Ksh): {amountRepaid.toFixed(2)}                  
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Loan Balance(Ksh): {lonBala.toFixed(2)}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Repayment Period in days: {repaymentPeriod}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                     Buyer Contact: {buyerContact}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Advocate Registration Number: {advregnu}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Item Name(s): {itemName}                    
-                    </Text> 
-          
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Loan Status: {status}                    
-                    </Text> 
-                    <ScrollView>
-                    <Text style = {styles.loanerotherdescriptions} >                       
-                       {/* other description*/} 
-                       Created At: {createdAt}                 
-                    </Text>   
-                    <Text style = {styles.loanerotherdescriptions} >                       
-                       {/* other description*/} 
-                       Last Update: {updatedAt}                 
-                    </Text>   
-                    <Text style = {styles.loanerotherdescriptions} >                       
-                       {/* other description*/} 
-                       More: {description}                 
-                    </Text>   
-                    </ScrollView>              
+            <Text style={styles.prodInfo}><Text style={styles.label}>Transaction ID:</Text> {id}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Cash Price:</Text> KES {amountSold.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Credit Sale Price:</Text> KES {amountexpectedBack.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Amount Repaid:</Text> KES {amountRepaid.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Loan Balance:</Text> KES {lonBala.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Repayment Period in days:</Text> {repaymentPeriod}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Buyer Contact:</Text> {buyerContact}</Text>
+             <Text style={styles.prodInfo}><Text style={styles.label}>Advocate Registration Number:</Text> {advregnu}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Item Name(s):</Text> {itemName}</Text>
+             <Text style={styles.prodInfo}><Text style={styles.label}>Loan Status:</Text> {status}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Created At:</Text> {createdAt}</Text>
+            <Text style={styles.prodDesc} > {description} </Text> 
             
-        </ScrollView>
+        </View>
                 
         </View>
     );

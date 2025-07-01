@@ -108,7 +108,7 @@ const FetchSMNonCovLns = props => {
 
 </View>
 
-<View style={styles.sendLoanView}>
+
                     <TextInput
                      placeholder='Enter Minimum Amount in Ksh.'
                      keyboardType='decimal-pad'
@@ -117,7 +117,7 @@ const FetchSMNonCovLns = props => {
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
              
-    </View>
+   
     </View>
   );
 };

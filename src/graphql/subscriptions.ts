@@ -28,6 +28,7 @@ export const onCreateSMAccount = /* GraphQL */ `subscription OnCreateSMAccount(
     beneficiary
     beneficiaryAmt
     loanAcceptanceCode
+    mfchampEarnings
     ttlDpstSM
     TtlWthdrwnSM
     TtlActvLonsTmsLnrCov
@@ -170,6 +171,7 @@ export const onUpdateSMAccount = /* GraphQL */ `subscription OnUpdateSMAccount(
     beneficiary
     beneficiaryAmt
     loanAcceptanceCode
+    mfchampEarnings
     ttlDpstSM
     TtlWthdrwnSM
     TtlActvLonsTmsLnrCov
@@ -312,6 +314,7 @@ export const onDeleteSMAccount = /* GraphQL */ `subscription OnDeleteSMAccount(
     beneficiary
     beneficiaryAmt
     loanAcceptanceCode
+    mfchampEarnings
     ttlDpstSM
     TtlWthdrwnSM
     TtlActvLonsTmsLnrCov
@@ -1599,14 +1602,24 @@ export const onCreateSokoAd = /* GraphQL */ `subscription OnCreateSokoAd(
   onCreateSokoAd(filter: $filter, owner: $owner) {
     id
     sokokntct
-    sokoname
-    sokoprice
     sokotown
     sokolnprcntg
     sokolpymntperiod
     sokodesc
+    itemCodeBar
+    itemPhoto
     owner
     createdAt
+    latitude
+    longitude
+    sokoname
+    businessType
+    itemUnit
+    unitQuantity
+    sokoprice
+    itemBrand
+    bizName
+    bizContact
     updatedAt
     __typename
   }
@@ -1622,14 +1635,24 @@ export const onUpdateSokoAd = /* GraphQL */ `subscription OnUpdateSokoAd(
   onUpdateSokoAd(filter: $filter, owner: $owner) {
     id
     sokokntct
-    sokoname
-    sokoprice
     sokotown
     sokolnprcntg
     sokolpymntperiod
     sokodesc
+    itemCodeBar
+    itemPhoto
     owner
     createdAt
+    latitude
+    longitude
+    sokoname
+    businessType
+    itemUnit
+    unitQuantity
+    sokoprice
+    itemBrand
+    bizName
+    bizContact
     updatedAt
     __typename
   }
@@ -1645,14 +1668,24 @@ export const onDeleteSokoAd = /* GraphQL */ `subscription OnDeleteSokoAd(
   onDeleteSokoAd(filter: $filter, owner: $owner) {
     id
     sokokntct
-    sokoname
-    sokoprice
     sokotown
     sokolnprcntg
     sokolpymntperiod
     sokodesc
+    itemCodeBar
+    itemPhoto
     owner
     createdAt
+    latitude
+    longitude
+    sokoname
+    businessType
+    itemUnit
+    unitQuantity
+    sokoprice
+    itemBrand
+    bizName
+    bizContact
     updatedAt
     __typename
   }
@@ -2362,6 +2395,10 @@ export const onCreateBizna = /* GraphQL */ `subscription OnCreateBizna($filter: 
     description
     createdAt
     noBL
+    latitude
+    longitude
+    businessType
+    bizContact
     TtlActvLonsTmsLnrCredSlsB2B
     TtlActvLonsAmtLnrCredSlsB2B
     TtlBLLonsTmsLnrCredSlsB2B
@@ -2468,6 +2505,10 @@ export const onUpdateBizna = /* GraphQL */ `subscription OnUpdateBizna($filter: 
     description
     createdAt
     noBL
+    latitude
+    longitude
+    businessType
+    bizContact
     TtlActvLonsTmsLnrCredSlsB2B
     TtlActvLonsAmtLnrCredSlsB2B
     TtlBLLonsTmsLnrCredSlsB2B
@@ -2574,6 +2615,10 @@ export const onDeleteBizna = /* GraphQL */ `subscription OnDeleteBizna($filter: 
     description
     createdAt
     noBL
+    latitude
+    longitude
+    businessType
+    bizContact
     TtlActvLonsTmsLnrCredSlsB2B
     TtlActvLonsAmtLnrCredSlsB2B
     TtlBLLonsTmsLnrCredSlsB2B
@@ -4336,9 +4381,14 @@ export const onCreateGroup = /* GraphQL */ `subscription OnCreateGroup(
     signitoryPW
     oprtnArea
     venture
+    signatory2Email
     signitory2Sub
     WithdrawCnfrmtn
+    Signatory3Email
     WithdrawCnfrmtnAmt
+    signitory3Sub2
+    WithdrawCnfrmtn2
+    WithdrawCnfrmtnAmt2
     BankAdminEmail
     BankAdminAcNu
     SignatoryEmail
@@ -4426,9 +4476,14 @@ export const onUpdateGroup = /* GraphQL */ `subscription OnUpdateGroup(
     signitoryPW
     oprtnArea
     venture
+    signatory2Email
     signitory2Sub
     WithdrawCnfrmtn
+    Signatory3Email
     WithdrawCnfrmtnAmt
+    signitory3Sub2
+    WithdrawCnfrmtn2
+    WithdrawCnfrmtnAmt2
     BankAdminEmail
     BankAdminAcNu
     SignatoryEmail
@@ -4516,9 +4571,14 @@ export const onDeleteGroup = /* GraphQL */ `subscription OnDeleteGroup(
     signitoryPW
     oprtnArea
     venture
+    signatory2Email
     signitory2Sub
     WithdrawCnfrmtn
+    Signatory3Email
     WithdrawCnfrmtnAmt
+    signitory3Sub2
+    WithdrawCnfrmtn2
+    WithdrawCnfrmtnAmt2
     BankAdminEmail
     BankAdminAcNu
     SignatoryEmail
@@ -4779,6 +4839,11 @@ export const onCreateGroupNonLoans = /* GraphQL */ `subscription OnCreateGroupNo
     amountSent
     memberId
     description
+    senderEmail
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     status
     owner
     createdAt
@@ -4803,6 +4868,11 @@ export const onUpdateGroupNonLoans = /* GraphQL */ `subscription OnUpdateGroupNo
     amountSent
     memberId
     description
+    senderEmail
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     status
     owner
     createdAt
@@ -4827,6 +4897,11 @@ export const onDeleteGroupNonLoans = /* GraphQL */ `subscription OnDeleteGroupNo
     amountSent
     memberId
     description
+    senderEmail
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     status
     owner
     createdAt
@@ -4934,6 +5009,8 @@ export const onCreateReqLoan = /* GraphQL */ `subscription OnCreateReqLoan(
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
     updatedAt
     __typename
   }
@@ -4969,6 +5046,8 @@ export const onUpdateReqLoan = /* GraphQL */ `subscription OnUpdateReqLoan(
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
     updatedAt
     __typename
   }
@@ -5004,6 +5083,8 @@ export const onDeleteReqLoan = /* GraphQL */ `subscription OnDeleteReqLoan(
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
     updatedAt
     __typename
   }
@@ -5040,6 +5121,10 @@ export const onCreateReqLoanChama = /* GraphQL */ `subscription OnCreateReqLoanC
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     updatedAt
     __typename
   }
@@ -5076,6 +5161,10 @@ export const onUpdateReqLoanChama = /* GraphQL */ `subscription OnUpdateReqLoanC
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     updatedAt
     __typename
   }
@@ -5112,6 +5201,10 @@ export const onDeleteReqLoanChama = /* GraphQL */ `subscription OnDeleteReqLoanC
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     updatedAt
     __typename
   }

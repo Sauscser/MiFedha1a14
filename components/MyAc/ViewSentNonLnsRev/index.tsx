@@ -42,37 +42,24 @@ const SMNonLnSnt = (props:SMAccount) => {
 
  
     return (
-        <Pressable 
-        
+
+      <View style = {styles.pageContainer}>
+        <Pressable
         onPress={SndChmMmbrMny}
-        style = {styles.container}>
+        style = {styles.card}>
             
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.subTitle}>                       
+            
+            <Text style = {styles.prodName}>                       
                        {/*loaner details */}   
                        {RecName}             
                     </Text>
-            </View>
-                  
-                  
+            <Text style={styles.prodInfo}><Text style={styles.label}>Transaction ID:</Text> {id}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Amount:</Text> KES {amount.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Created At:</Text> {createdAt}</Text>
             
-            <ScrollView >              
-                       
-                        
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       ID: {id}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Amount (Ksh): {amount.toFixed(2)}                 
-                    </Text>
-                    
-                    
-        </ScrollView>
-                
         </Pressable>
+
+        </View>
     );
 }; 
 

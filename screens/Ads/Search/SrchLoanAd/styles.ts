@@ -54,11 +54,12 @@ const styles = StyleSheet.create({
   sendLoanInput: {
     backgroundColor: 'white',
     width: "100%",
-    height: "25%",
+    height: "15%",
     borderRadius: 10,
     marginTop: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding:15
   },
 
   label: {

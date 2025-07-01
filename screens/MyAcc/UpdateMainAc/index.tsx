@@ -138,47 +138,20 @@ const MyLoanAccount = props => {
     <SafeAreaView>
       <ScrollView>
  
-
-
-
-            <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Update User Account</Text>
+            <Pressable onPress={BizUpdatePW} style={styles.clientsView}>
+              <Text style={styles.salesText}>Change Password</Text>
 
               <View style={styles.viewForClientsAndTitle}>
-              <View style={styles.viewForClientsCategories7}>
-                  
-                  <Pressable 
-                  onPress={AddPalPalBeneficiary}
-                  
-                  style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Add Beneficiary (Pal)</Text>
-                  </Pressable>
-                </View>
+              
+
+               
 
                 <View style={styles.viewForClientsCategories7}>
-                  
-                  <Pressable 
-                  onPress={AddPalBizBeneficiary}
-                  
-                  style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Add Beneficiary (Biz)</Text>
-                  </Pressable>
-                </View>
-
-                <View style={styles.viewForClientsCategories7}>
-                <Pressable 
-                onPress={BizUpdatePW}
                 
-                style={styles.viewForClientsPressables}>
-                  <Text style={styles.salesPressableText}>Change Password</Text>
-
-                  </Pressable>
                 </View>
-
-                
 
               </View>
-            </View>
+            </Pressable>
 
        
 

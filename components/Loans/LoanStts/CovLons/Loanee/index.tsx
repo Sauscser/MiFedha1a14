@@ -43,82 +43,27 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
     updatedAt,
    }} = props ;
     return (
-        <View style = {styles.container}>              
-            
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.loanAdvert}>                       
+        <View style = {styles.pageContainer}>    
+            <View style = {styles.card}>
+            <Text style = {styles.prodName}>                       
                        {/*loaner details */}   
                        {loaneename}               
                     </Text>
-            </View>
-             
-            <ScrollView >              
-                       
-                        
-            <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loan Id: {loanID}                 
-                    </Text>
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loanee Contact: {loaneePhn}                 
-                    </Text>
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Amount Given (Ksh): {amountgiven.toFixed(2)}                
-                    </Text>                     
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Amount Expected Back(Ksh): {amountexpected.toFixed(2)}
-                    </Text>   
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                       Amount Repaid(Ksh): {amountrepaid.toFixed(2)}                  
-                    </Text> 
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                      Balance if Blacklisted(Ksh): {amountExpectedBackWthClrnc.toFixed(2)}
-                    </Text>   
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Loaner Blacklisting Penalty(Ksh): {DefaultPenaltySM2.toFixed(2)}
-                    </Text>   
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Loan Balance(Ksh): {lonBala.toFixed(2)}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Repayment Period in days: {repaymentPeriod}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Advocate Registration Number: {advregnu}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Loan Status: {status}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                     Created At: {createdAt}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                     Last Update: {updatedAt}                    
-                    </Text> 
-                    <ScrollView>
-                    <Text style = {styles.loanerotherdescriptions} >                       
-                       {/* other description*/} 
-                       Other Specifications: {description}                 
-                    </Text>   
-                    </ScrollView>              
-            
+                <Text style={styles.prodInfo}><Text style={styles.label}>Loan Id:</Text> {loanID}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Loanee Contact:</Text> {loaneePhn}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Loan Balance with penalties:</Text> KES {LonBal1.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Amount Given:</Text> KES {amountgiven.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Amount Expected Back:</Text> KES {amountexpected.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Amount Repaid:</Text> KES {amountrepaid.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Balance if Blacklisted:</Text> KES {amountExpectedBackWthClrnc.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Loaner Blacklisting Penalty:</Text> KES {DefaultPenaltySM2.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Loan Balance:</Text> KES {lonBala.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Repayment Period in days:</Text> {repaymentPeriod}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Advocate Registration Number:</Text> {advregnu}</Text>
+
+                <Text style={styles.prodInfo}><Text style={styles.label}>Loan Status:</Text> {status}</Text>
                 
-                
-            
-        </ScrollView>
-                
+        </View>
         </View>
     );
 }; 

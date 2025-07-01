@@ -1,184 +1,172 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
-
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Alert, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import NonLnSent from "../../../components/MFNdogo/VwUsrWthdrwls";
-import styles from './styles';
 
-import { getCompany, getSMAccount, listFloatAdds, vwMFNFltAdds } from '../../../src/graphql/queries';
-import { useRoute } from '@react-navigation/core';
-import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
+import NonLnRec from "../../../components/MFNdogo/VwUsrWthdrwls";
 
-const FetchSMNonLnsSnt = props => {
+import { getAgent, VwMFNFltAdds } from '../../../src/graphql/queries';
 
-    
-    const [loading, setLoading] = useState(false);
-    const [Recvrs, setRecvrs] = useState([]);
-    const route = useRoute();
+const FetchSMNonLnsSnt = () => {
+  const [loading, setLoading] = useState(false);
+  const [allRecords, setAllRecords] = useState<any[]>([]);
+  const [filteredRecords, setFilteredRecords] = useState<any[]>([]);
+  const [bizPhone, setBizPhone] = useState('');
+  const [MFNPW, setMFNPW] = useState('');
+  const [buyerFilter, setBuyerFilter] = useState('');
+
+const fetchLoanees = async () => {
+  if (loading) return;
+
+  if (!bizPhone || !MFNPW) {
+    Alert.alert("Missing Fields", "Please enter your Number and password.");
+    return;
+  }
+
+  setLoading(true);
+  try {
+    const personnelCheck: any = await API.graphql(
+      graphqlOperation(getAgent, { phonecontact: bizPhone })
+    );
+
+    const agentData = personnelCheck.data.getAgent;
+
+    if (!agentData) {
+      Alert.alert("There is no such an agent");
+      return;
+    }
+
+    if (agentData.pw !== MFNPW) {
+      Alert.alert("Access Denied", "Wrong Agent Password.");
+      return;
+    }
+
+    const result: any = await API.graphql(
+      graphqlOperation(VwMFNFltAdds, {
+        agentPhonecontact: bizPhone,
+        sortDirection: "DESC",
+        limit: 100,
+      })
+    );
+
+    const items = result.data.VwMFNFltAdds.items || [];
+
+    setAllRecords(items);
+    setFilteredRecords(items);
+
+    if (items.length < 1) {
+      Alert.alert("No Withdrawals");
+    }
+
+  } catch (e) {
+    console.log("Error fetching loanees", e);
+    Alert.alert("Error", "No such a MFNdogo.");
+  } finally {
+    setBizPhone('');
+    setMFNPW('');
+    setLoading(false);
+  }
+};
 
 
+  useEffect(() => {
+    if (!buyerFilter) {
+      setFilteredRecords(allRecords);
+    } else {
+      const filtered = allRecords.filter(item =>
+        item?.userName?.toLowerCase().includes(buyerFilter.toLowerCase())
+      );
+      setFilteredRecords(filtered);
+    }
+  }, [buyerFilter, allRecords]);
 
-        const fetchUsrDtls = async () => {
-          const userInfo = await Auth.currentAuthenticatedUser();              
-        
-          try {
-                  const MFNDtls: any = await API.graphql(
-                      graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}                        ),);
-    
-                  const balances = MFNDtls.data.getSMAccount.balance;
-                  const owner = MFNDtls.data.getSMAccount.owner;
-                  
-                  const fetchLoanees = async () => {
-            setLoading(true);
-            try {
-              const Lonees:any = await API.graphql(graphqlOperation(listFloatAdds, 
-                {
-                    filter: {
-                      agentPhonecontact: {eq:route.params.MFNId}
-                    }  ,
-                      
-                    }
-                  
-                  ));
-                  setRecvrs(Lonees.data.listFloatAdds.items);
-
-                  
-                            
-                            const fetchCompDtls = async () => {
-                              try {
-                                      const MFNDtls: any = await API.graphql(
-                                          graphqlOperation(getCompany, {AdminId: "BaruchHabaB'ShemAdonai2"}
-                                      ),);
-                      
-                                      const companyEarningBals = MFNDtls.data.getCompany.companyEarningBal;
-                                      const companyEarnings = MFNDtls.data.getCompany.companyEarning;
-                                      const enquiryFees = MFNDtls.data.getCompany.enquiryFee;
-                                      
-                                      
-                                                  const updtActAdm = async()=>{
-                                                    
-                                                    try{
-                                                        await API.graphql(
-                                                          graphqlOperation(updateCompany,{
-                                                            input:{
-                                                              AdminId:"BaruchHabaB'ShemAdonai2",
-                                                              companyEarningBal:parseFloat(companyEarningBals) + parseFloat(enquiryFees),
-                                                              companyEarning:parseFloat(companyEarnings) + parseFloat(enquiryFees),
-                                                            }
-                                                          })
-                                                        )
-                                                    }
-                                                    catch(error){
-                                                      if(error){
-                                                        Alert.alert("Check your internet connection")
-                                                        return;
-                                                    }
-                                                    }
-                                                    updtUsrAc();
-                                                    
-                                                  }
-              
-                                                  const updtUsrAc = async()=>{
-                                                    
-                                                    try{
-                                                        await API.graphql(
-                                                          graphqlOperation(updateSMAccount,{
-                                                            input:{
-                                                              awsemail: SenderEmail,
-                                                              balance:parseFloat(balances) - parseFloat(enquiryFees),
-                                                            }
-                                                          })
-                                                        )
-                                                    }
-                                                    catch(error){
-                                                      if(error){
-                                                        Alert.alert("Retry or update app or call customer care")
-                                                        return;
-                                                    }
-                                                    }
-                                                                                                        
-                                                  }
-                              
-              
-              
-                              
-              
-                      if(parseFloat(balances) < parseFloat(enquiryFees) ){
-                          Alert.alert("Account Balance is very little");
-                        }
-                        else{
-                            
-                          await updtActAdm();
-                            }
-                            
-                              }
-                          catch (e)
-                          {
-                            if(e){
-                              Alert.alert("Chama does not exist does not exist; otherwise check internet connection");
-                              return;
-                            }
-                              console.log(e)
-                             
-                              
-                          }    
-              
-                  
-                           }
-                           await fetchCompDtls();
-              
-                          }
-              
-                          catch (e)
-                          {
-                            if(e){
-                              Alert.alert("Chama does not exist; otherwise check internet connection");
-                              return;
-                            }
-                              console.log(e)
-                             
-                              
-                          }    
-              
-                          
-                           }
-    
-                           if (userInfo.attributes.sub !== owner)
-                           {Alert.alert ("Please first create main account")}
-                           else{
-                                                  await fetchLoanees();}
-            } catch (e) {
-              console.log(e);
-            } finally {
-              setLoading(false);
-            }
-          };
-        
-          useEffect(() => {
-            fetchUsrDtls();
-            }, [])
+  
 
   return (
-    <View style={styles.root}>
-      <FlatList
-      style= {{width:"100%"}}
-        data={Recvrs}
-        renderItem={({item}) => <NonLnSent SMAc={item} />}
-        keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchUsrDtls}
-        refreshing={loading}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponentStyle={{alignItems: 'center'}}
-        ListHeaderComponent={() => (
-          <>
-            
-            <Text style={styles.label}> User Withdrawals</Text>
-            <Text style={styles.label2}> (Please swipe down to load)</Text>
-          </>
-        )}
+    <View style={styles.container}>
+      <View style={styles.inputBlock}>
+        <TextInput
+          placeholder="My Full Agent Number"
+          value={bizPhone}
+          onChangeText={setBizPhone}
+          style={styles.input}
+        />
+      
+      <TextInput
+          placeholder="Full Agent Password"
+          value={MFNPW}
+          onChangeText={setMFNPW}
+          style={styles.input}
+        />
+
+      <TextInput
+        placeholder="Withdrawing entity Name. Even partially"
+        value={buyerFilter}
+        onChangeText={setBuyerFilter}
+        style={styles.input}
       />
+
+</View>
+      
+        <FlatList
+          data={filteredRecords}
+          renderItem={({ item }) => <NonLnRec SMAc={item} />}
+          keyExtractor={(item, index) => index.toString()}
+          onRefresh={fetchLoanees}
+          refreshing={loading}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={() => (
+            <>
+              <Text style={styles.label2}>(Please swipe down to reload)</Text>
+              <Text style={styles.label}> Withdrawals</Text>
+            </>
+          )}
+        />
+      
     </View>
   );
 };
 
 export default FetchSMNonLnsSnt;
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f2f4f7',
+    paddingHorizontal: 16,
+    paddingTop: 20,
+  },
+  inputBlock: {
+    marginBottom: 16,
+  },
+  input: {
+    height: 48,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    fontSize: 16,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  label: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#222',
+    textAlign: 'center',
+    marginVertical: 10,
+  },
+  label2: {
+    fontSize: 13,
+    fontStyle: 'italic',
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+});
+

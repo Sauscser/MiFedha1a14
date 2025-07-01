@@ -22,8 +22,8 @@ const FetchSMNonCovLns = props => {
             const Lonees = await API.graphql(
                 graphqlOperation(listLinkBeneficiary2s, {
                     filter: { benefitStatus: { eq: "Active" } ,
-                    benefactorAc: { eq: awsEmail },
-                    beneficiaryPhone: { eq: awsEmail2 }
+                    creatorName: { contains: awsEmail },
+                    beneficiaryPhone: { contains: awsEmail2 }
                 }
                 })
             );
@@ -56,7 +56,7 @@ const FetchSMNonCovLns = props => {
         <View style={styles.container}>
           <View style={styles.searchBar}>
             <TextInput
-              placeholder="Benefactor account number..."
+              placeholder="Benefactor Business Name..."
               value={awsEmail}
               onChangeText={setAWSEmail}
               autoCapitalize="none"
@@ -64,7 +64,7 @@ const FetchSMNonCovLns = props => {
             />
   
             <TextInput
-              placeholder="Beneficiary Name"
+              placeholder="Beneficiary Name...even partially"
               value={awsEmail2}
               onChangeText={setAWSEmail2}
               autoCapitalize="none"

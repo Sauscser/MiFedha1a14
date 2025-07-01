@@ -39,26 +39,19 @@ const ChmInfo = (props:ChmaInfo) => {
    }
 
     return (
+
+      <View style = {styles.pageContainer}>
       <Pressable 
       onPress={SndChmMmbrMny}
-      style = {styles.container}>            
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.loanAdvert}>                       
-                       {/*loaner details */}   
-                       {busName}: {BusKntct}               
-                    </Text>
-            </View>
-            
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                    Status: {status}                 
-                    </Text>
-                    
+      style = {styles.card}>   
 
-                    
-        
-                
+      <Text style={styles.prodInfo}><Text style={styles.label}>Business Name:</Text> {busName}</Text>
+      <Text style={styles.prodInfo}><Text style={styles.label}>Business Contact:</Text> {BusKntct}</Text>
+      <Text style={styles.prodInfo}><Text style={styles.label}>Business Status:</Text> {status}</Text>
+           
         </Pressable>
+        </View>
+
     );
 }; 
 

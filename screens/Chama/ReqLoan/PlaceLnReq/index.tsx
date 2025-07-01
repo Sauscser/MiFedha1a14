@@ -101,7 +101,9 @@ const CreateBiz = (props) => {
                 const SignatoryEmail =accountDtl.data.getGroup.SignatoryEmail;
                 const grpName =accountDtl.data.getGroup.grpName;
                 const signitoryContact =accountDtl.data.getGroup.signitoryContact;
-                
+                const signitory2Sub =accountDtl.data.getGroup.signitory2Sub;
+               const Signatory3Email =accountDtl.data.getGroup.Signatory3Email;
+               
                 
                 const gtComp = async () =>{
                   if(isLoading){
@@ -156,7 +158,7 @@ const CreateBiz = (props) => {
                                 repaymentPeriod:rpymntPrd,
                                 loaneeMemberId:MembaId,
                                 status: "AwaitingResponse",
-                                owner: userInfo.attributes.sub,
+                                owner: SignatoryEmail,
                                 statusNumber: 0,
                                 dfltDeadLn:0,
                                 AdvEmail: "None",
@@ -167,7 +169,11 @@ const CreateBiz = (props) => {
                                 description: ChmNm,
                                 defaultPenalty:ChmDesc,
                                 installmentAmount:InstAmt,
-                                paymentFrequency:InstFreq
+                                paymentFrequency:InstFreq,
+                                confirm1:"NO",
+                                confirm2: "NO",
+                                signatory2: signitory2Sub,
+                                signatory3: Signatory3Email
                                       },
                                     })
                                     
@@ -221,13 +227,15 @@ const CreateBiz = (props) => {
             loaneeEmail:userInfo.attributes.email,
             chamaPhone:groupContact,
             loaneeName: userInfo.username,
+            confirm1:"NO",
+            confirm2: "NO",
             loaneePhone:phonecontacts,
             amount: parseFloat(itemPrys).toFixed(2),
             repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
             repaymentPeriod:rpymntPrd,
             loaneeMemberId:MembaId,
             status: "AwaitingResponse",
-            owner: userInfo.attributes.sub,
+            owner: SignatoryEmail,
             statusNumber: 0,
             dfltDeadLn:0,
             AdvEmail: email,
@@ -238,7 +246,10 @@ const CreateBiz = (props) => {
             description: ChmNm,
             defaultPenalty:ChmDesc,
             installmentAmount:InstAmt,
-            paymentFrequency:InstFreq
+            paymentFrequency:InstFreq,
+            
+                                signatory2: signitory2Sub,
+                                signatory3: Signatory3Email
                   },
                 })
                 
@@ -307,6 +318,9 @@ const CreateBiz = (props) => {
 
   else {await gtAdvDtls();}
 
+console.log(signitory2Sub)
+console.log(SignatoryEmail)
+console.log(Signatory3Email)
 
         }       
         catch(e) {    
@@ -361,6 +375,9 @@ return;}
     else{
 
       await gtChmDtls();}
+
+      console.log(userInfo.attributes.email)
+      
 
         } catch (e) {
           if(e){Alert.alert("Error5! Retry or update app or call customer care")

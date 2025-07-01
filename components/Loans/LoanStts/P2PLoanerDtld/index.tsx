@@ -13,7 +13,7 @@ export interface SMCvLnSttus {
         lonBala: number,
         repaymentPeriod: number,
         advregnu: string,
-        loaneename:string,
+        loanername:string,
         status: string,
         description: string,
         createdAt:string,
@@ -41,7 +41,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
     advregnu,
     amountExpectedBackWthClrnc,
     DefaultPenaltySM2,
-    loaneename,
+    loanername,
     status,
     description,
     createdAt,
@@ -67,8 +67,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
 
               const dayselapsed = (crtnDate - daysUpToDate) *(-1)
 
-              const netLnBal = (amountExpectedBackWthClrnc) - 
-              (clearanceAmt) -  (DefaultPenaltySM2)
+              const netLnBal = amountexpected - amountrepaid
       
               const netLnBal2 = (netLnBal) * 
               ((Math.pow(1 + (interest)/36500, dayselapsed)))
@@ -76,78 +75,27 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
               const LonBal1 = netLnBal2 + (clearanceAmt) +  (DefaultPenaltySM2)
 
     return (
-        <View style = {styles.container}>              
+        <View style = {styles.pageContainer}>              
             
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.loanAdvert}>                       
-                       {/*loaner details */}   
-                       {loaneename}               
-                    </Text>
-            </View>
-             
-            <ScrollView >              
-                       
-                        
-            <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loan Id: {loanID}                 
-                    </Text>
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loaner Contact: {loanerPhn}                 
-                    </Text>
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                       Amount Given (Ksh): {amountgiven.toFixed(2)}                
-                    </Text>                     
-                    
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                       Amount Repaid(Ksh): {amountrepaid.toFixed(2)}                  
-                    </Text> 
-                   
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Loaner Blacklisting Penalty(Ksh): {DefaultPenaltySM2.toFixed(2)}
-                    </Text>   
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Loan Balance with Penalties(Ksh): {LonBal1.toFixed(0)}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Repayment Period in days: {repaymentPeriod}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Advocate Registration Number: {advregnu}                    
-                    </Text> 
-
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                     Advocate Email: {advEmail}                    
-                    </Text>
-                    
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                      Loan Status: {status}                    
-                    </Text> 
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                     Created At: {createdAt}                    
-                    </Text> 
-                     
-                    <ScrollView>
-                    <Text style = {styles.loanerotherdescriptions} >                       
-                       {/* other description*/} 
-                       Other Specifications: {description}                 
-                    </Text>   
-                    </ScrollView>              
-            
-                
-                
-            
-        </ScrollView>
+            <View style = {styles.card}>
+                      
+                <Text style={styles.prodInfo}>{loanername}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Loan Id:</Text> {loanID}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Loaner Contact:</Text> {loanerPhn}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Loan Balance with penalties:</Text> KES {LonBal1.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Amount Given:</Text> KES {amountgiven.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Amount Expected Back:</Text> KES {amountexpected.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Amount Repaid:</Text> KES {amountrepaid.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Balance if Blacklisted:</Text> KES {amountExpectedBackWthClrnc.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Loaner Blacklisting Penalty:</Text> KES {DefaultPenaltySM2.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Loan Balance:</Text> KES {LonBal1.toFixed(2)}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Repayment Period in days:</Text> {repaymentPeriod}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Advocate Registration Number:</Text> {advregnu}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Advocate Email:</Text> {advEmail}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Loan Status:</Text> {status}</Text>
+                <Text style={styles.prodDesc}> {description}</Text>
+                  
+                  </View>
                 
         </View>
     );

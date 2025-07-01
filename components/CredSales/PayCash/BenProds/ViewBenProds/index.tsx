@@ -46,58 +46,30 @@ const SMCvLnStts = (props:SMAccount) => {
 
     return (
         
-             <View style = {{marginTop:"10%", justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column'}}>
-                  
-            
-            <View style = {styles.container}>              
-                       
+             <View style = {styles.pageContainer}>
+            <View style = {styles.card}>              
+                <Text style={styles.prodInfo}><Text style={styles.label}>Product Creator:</Text> {creatorName}</Text>
+                <Text style={styles.prodInfo}><Text style={styles.label}>Product Cost:</Text> KES {prodCost.toFixed(2)}</Text>
+                <Text style={styles.prodDesc}>{prodDesc}</Text> 
                         
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Product Creator: {creatorName}                 
-                    </Text>
-                                        
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Product Cost: {prodCost}                  
-                    </Text> 
-                   
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Phone: {benefactorAc}                  
-                    </Text> 
-
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      More Description: {prodDesc}                  
-                    </Text> 
-
-
+                    
         </View >
-        <View style = {styles.viewForPressables2}>
-<View>
+        <View style = {styles.buttonRow}>       
+         
 <Pressable
 onPress={LinkPalBeneficiary}
 style = {styles.loanFriendButton}
 >            
   <Text>Link Pal Beneficiary </Text>            
 </Pressable>
-</View>   
-<View>
+
 <Pressable
 onPress={LinkBizBeneficiary}
-style = {styles.loanFriendButton}>            
+style = {styles.redeemButton}>            
   <Text>Link Biz Beneficiary </Text>            
 </Pressable>  
 </View>
-
 </View>
-       </View> 
-
-        
-                
        
     );
 }; 

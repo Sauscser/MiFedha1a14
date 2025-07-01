@@ -43,39 +43,24 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
       navigation.navigate("BListCredByrCovs", {id})
    }
     return (
+
+      <View style = {styles.pageContainer}>
       <Pressable 
       onPress={SndChmMmbrMny}
-      style = {styles.container}>            
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.loanAdvert}>                       
+      style = {styles.card}>            
+           
+            <Text style = {styles.prodName}>                       
                        {/*loaner details */}   
                        {buyerName}               
                     </Text>
-            </View>
-            
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loan Id: {id}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Item Name: {itemName}                 
-                    </Text>                    
-
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Loan Balance(Ksh): {lonBala.toFixed(2)}                    
-                    </Text> 
-
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Time given: {createdAt}                    
-                    </Text> 
-                    
-        
-                
+           <Text style={styles.prodInfo}><Text style={styles.label}>Loan ID:</Text> {id}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Loan Balance:</Text> KES {lonBala.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Item Name:</Text> {itemName}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Time loan was given:</Text> {createdAt}</Text>
+           
         </Pressable>
+
+        </View>
     );
 }; 
 

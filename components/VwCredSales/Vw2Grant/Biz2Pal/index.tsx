@@ -56,43 +56,32 @@ const SMCvLnStts = (props:SMAccount) => {
 
     return (
         
-                  
-                  
-            <View style = {{marginTop:"10%"}}>
-
-                  
-                       
-                      <View >
-                      <Text style = {styles.ownerName}>                       
+            <View style = {styles.pageContainer}>
+                      <View style = {styles.card}>
+                      <Text style = {styles.prodName}>                       
                        {/*loaner details */}   
                       Hi! it's {loaneeName}. Kindly Loan me {itemName} worth Ksh. {amount}. I 
-                      commit to repay at a compound interest of {repaymentAmt}% per month within {repaymentPeriod} days. 
+                      commit to repay at a compound interest of {repaymentAmt}% per  within {repaymentPeriod} days. 
                       Each Installment is {installmentAmount} after every {paymentFrequency} days.
                       You can reach me through {loaneePhone}. {status}  
                     </Text>
                     </View>  
                      
-                    <View style = {styles.viewForPressables2}>
-                    <View>
+                    <View style = {styles.buttonRow}>
+                   
                     <Pressable
                       onPress={SndChmMmbrMny}
                       style = {styles.loanFriendButton}
                       >            
                         <Text>Accept</Text>            
                     </Pressable>
-                    </View>   
-                    <View>
+                  
                     <Pressable
                       onPress={SndChmMmbrMny2}
-                      style = {styles.loanFriendButton}>            
+                      style = {styles.redeemButton}>            
                         <Text>Decline</Text>            
                     </Pressable>  
                     </View>
-                     
-                    </View>
-                      
-
-      
             </View>
             
                 

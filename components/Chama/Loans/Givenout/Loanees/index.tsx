@@ -25,7 +25,8 @@ export interface ChmNonCvLnSttusSent {
         crtnDate: number,
       interest:number,
       clearanceAmt:number,
-      DefaultPenaltyChm2: number
+      DefaultPenaltyChm2: number,
+      
         
     }}
 
@@ -39,7 +40,7 @@ const ChmNonCvLnSttsSent = (props:ChmNonCvLnSttusSent) => {
     amountRepaid,
     lonBala,
     amountExpectedBackWthClrnc,
-    
+    amountExpectedBack,
     status,
     loaneeName,
     memberId,
@@ -86,8 +87,7 @@ const ChmNonCvLnSttsSent = (props:ChmNonCvLnSttusSent) => {
               const dayselapsed = (crtnDate - daysUpToDate) *(-1)
 
 
-    const netLnBal = (amountExpectedBackWthClrnc) - 
-              (clearanceAmt) -  (DefaultPenaltyChm2)
+              const netLnBal = amountExpectedBack - amountRepaid
       
               const netLnBal2 = (netLnBal) * 
               ((Math.pow(1 + (interest)/36500, dayselapsed)))

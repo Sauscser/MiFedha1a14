@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/VwCredSales/CrdStatus/Pal/Pal2BizLoanees";
 import styles from './styles';
-import { getCompany, getSMAccount, listCovCreditSellers, listSMLoansCovereds } from '../../../../../src/graphql/queries';
+import { getCompany, getSMAccount, listCovCreditSellers, listSMLoansCovereds, VwMySales7 } from '../../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
 
 
@@ -30,15 +30,17 @@ const FetchSMCovLns = props => {
           
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
+              const Lonees:any = await API.graphql(graphqlOperation(VwMySales7, 
                 {
                         
-                        
+                        sellerContact: userInfo.attributes.email,
+                        sortDirection: "DESC",
+                        limit:100,   
                       
                       filter:{
                         and :{
                       lonBala:{gt:0},
-                      sellerContact: {eq:userInfo.attributes.email},
+                      
                       lnType:{eq:"Pal2Biz"},
                       
                         }
@@ -48,7 +50,7 @@ const FetchSMCovLns = props => {
                     }
               
                   ));
-              setLoanees(Lonees.data.listCovCreditSellers.items);
+              setLoanees(Lonees.data.VwMySales7.items);
 
                       }          
                       catch (e)

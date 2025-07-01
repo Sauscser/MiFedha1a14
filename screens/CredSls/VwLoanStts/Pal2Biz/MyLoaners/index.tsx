@@ -1,177 +1,146 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
-
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Alert, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../components/VwCredSales/CrdStatus/Pal/Pal2BizLoaners";
-import styles from './styles';
-import { getCompany, getSMAccount, listCovCreditSellers, listPersonels, } from '../../../../../src/graphql/queries';
-import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
-import { TextInput } from 'react-native-gesture-handler';
+import NonLnRec from "../../../../../components/VwCredSales/CrdStatus/Pal/Pal2BizLoaners";
+import { listPersonels, VwMyCrdBys7, VwMyRecMny } from '../../../../../src/graphql/queries';
 
+const FetchSMNonLnsSnt = () => {
+  const [loading, setLoading] = useState(false);
+  const [allRecords, setAllRecords] = useState<any[]>([]);
+  const [filteredRecords, setFilteredRecords] = useState<any[]>([]);
+  const [bizPhone, setBizPhone] = useState('');
+  const [buyerFilter, setBuyerFilter] = useState('');
 
-const FetchSMCovLns = props => {
+  const fetchLoanees = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      const userInfo = await Auth.currentAuthenticatedUser();
 
-   
-    const [loading, setLoading] = useState(false);
-    const [Loanees, setLoanees] = useState([]);
-    const [Loaneesz, setLoaneesz] = useState([]);
-    const [itemPrys, setitemPrys] = useState("");
+      const personnelCheck: any = await API.graphql(graphqlOperation(listPersonels, {
+        filter: {
+          phoneKontact: { eq: userInfo.attributes.email },
+          BusinessRegNo: { eq: bizPhone },
+        }
+      }));
 
-   
+      if (personnelCheck.data.listPersonels.items.length < 1) {
+        Alert.alert("Access Denied", "Retry if you're sure you work here.");
+        return;
+      }
 
-        const fetchUsrDtls = async () => {
-          const userInfo = await Auth.currentAuthenticatedUser();
-              
-        
-          try {
-                  const MFNDtls: any = await API.graphql(
-                      graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
-                  ),);
-    
-                  const balances = MFNDtls.data.getSMAccount.balance;
-                  const owner = MFNDtls.data.getSMAccount.owner; 
+      const result: any = await API.graphql(graphqlOperation(VwMyCrdBys7, {
+        buyerContact: bizPhone,
+        sortDirection: "DESC",
+        limit:100,
+        filter : {
+          lnType:{eq:"Pal2Biz"},
+          lonBala:{gt:0},
+        }
+      }));
 
-                  const fetchPersonels = async () => {
-                    setLoading(true);
-                    try {
-                      const Lonees:any = await API.graphql(graphqlOperation(listPersonels, 
-                        {
-                                
-                                
-                              
-                              filter:{
-                                and :{
-                                  phoneKontact:{eq:userInfo.attributes.email},
-                                  BusinessRegNo: {eq:itemPrys},
-                                }
-                              },
-                              
-                            }
-                      
-                          ));
-                      setLoaneesz(Lonees.data.listPersonels.items);
-                  
-                  
-                  const fetchLoanees = async () => {
-            setLoading(true);
-            try {
-              const Lonees:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
-                {
-                        
-                        
-                      
-                      filter:{
-                        and :{
-                      lonBala:{gt:0},
-                      buyerContact: {eq:itemPrys},
-                      lnType:{eq:"Pal2Biz"},
-                        }
-                       
-                      },
-                      
-                  
-                    }
-              
-                  ));
-              setLoanees(Lonees.data.listCovCreditSellers.items);
+      const items = result.data.VwMyCrdBys7.items || [];
+      setAllRecords(items);
+      setFilteredRecords(items);
 
-          
-                      }
-          
-                      catch (e)
-                      {
-                        if(e){
-                          console.log(e)
-                        }
-                         
-                      }    
-          
-                      
-                      
-                       }
-                       if (userInfo.attributes.sub!==owner) {
-                        Alert.alert("Please first create a main account")
-                        return;
-                      }  else {
-                       await fetchLoanees();}
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                      }
-          
-                      catch (e)
-                      {
-                        if(e){
-                          console.log(e)
-                        }
-                          
-                         
-                          
-                      }    
-          
-                      
-                      
-                       }
-                       
-                       await fetchPersonels();
-            } catch (e) {
-            console.log(e);
-            } finally {
-            setLoading(false);
-            setitemPrys("");
-            }
-            };
-            
-            useEffect(() => {
-            fetchUsrDtls();
-            }, [])   
-
-            useEffect(() =>{
-              const itemPryss=itemPrys
-                if(!itemPryss && itemPryss!=="")
-                {
-                  setitemPrys("");
-                  return;
-                }
-                setitemPrys(itemPryss);
-                }, [itemPrys]
-                 );
-
+  useEffect(() => {
+    if (!buyerFilter) {
+      setFilteredRecords(allRecords);
+    } else {
+      const filtered = allRecords.filter(item =>
+        item?.SellerName?.toLowerCase().includes(buyerFilter.toLowerCase())
+      );
+      setFilteredRecords(filtered);
+    }
+  }, [buyerFilter, allRecords]);
 
   return (
-    <View style={styles.image}>
+    <View style={styles.container}>
+      <View style={styles.inputBlock}>
+        <TextInput
+          placeholder="Full Business Number"
+          value={bizPhone}
+          onChangeText={setBizPhone}
+          style={styles.input}
+        />
+      
 
-    <View style={styles.root}>
-      <FlatList
-      style= {{width:"100%"}}
-      data={Loanees}
-      renderItem={({item}) => <LnerStts Loanee={item} />}
-      keyExtractor={(item, index) => index.toString()}
-      onRefresh={fetchUsrDtls}
-      refreshing={loading}
-      showsVerticalScrollIndicator={false}
-      ListHeaderComponentStyle={{alignItems: 'center'}}
-      ListHeaderComponent={() => (
-          <>
-            
-            <Text style={styles.label}> Business Loaners</Text>
-            <Text style={styles.label2}> (Fill below and swipe here to filter)</Text>
-          </>
-        )}
+      <TextInput
+        placeholder="Seller's Name. Even partially"
+        value={buyerFilter}
+        onChangeText={setBuyerFilter}
+        style={styles.input}
       />
 
 </View>
-
-<View style={styles.sendLoanView}>
-                    <TextInput
-                     placeholder='Enter Business Phone'
-                     
-                      value={itemPrys}
-                      onChangeText={setitemPrys}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-             
-    </View>
+      
+        <FlatList
+          data={filteredRecords}
+          renderItem={({ item }) => <NonLnRec Loanee={item} />}
+          keyExtractor={(item, index) => index.toString()}
+          onRefresh={fetchLoanees}
+          refreshing={loading}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={() => (
+            <>
+              <Text style={styles.label2}>(Please swipe down to reload)</Text>
+              <Text style={styles.label}>Business Credit Purchases</Text>
+            </>
+          )}
+        />
+      
     </View>
   );
 };
 
-export default FetchSMCovLns;
+export default FetchSMNonLnsSnt;
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f2f4f7',
+    paddingHorizontal: 16,
+    paddingTop: 20,
+  },
+  inputBlock: {
+    marginBottom: 16,
+  },
+  input: {
+    height: 48,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    fontSize: 16,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  label: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#222',
+    textAlign: 'center',
+    marginVertical: 10,
+  },
+  label2: {
+    fontSize: 13,
+    fontStyle: 'italic',
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+});
+

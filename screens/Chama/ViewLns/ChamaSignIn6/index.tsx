@@ -45,7 +45,7 @@ const ChmSignIn = (props) => {
 
 
   const FetchGrpLonsSts = () => {
-    navigation.navigate("ChmVwMmbrss", {grpContact});
+    navigation.navigate("ChmVwMmbrss", {groupContact});
   };
   
   const gtChmDtls = async () =>{

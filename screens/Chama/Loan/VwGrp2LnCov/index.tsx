@@ -4,7 +4,7 @@ import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator} fr
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../components/Chama/LnReq/Vw2Grp2LnCov";
 import styles from './styles';
-import {  listGroups, listRafikiLnAds, listReqLoanChamas, 
+import {  listChamaMembers, listGroups, listRafikiLnAds, listReqLoanChamas, 
   listSMAccounts } from '../../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/native';
 
@@ -40,17 +40,17 @@ const FetchSMNonCovLns = props => {
             const userInfo = await Auth.currentAuthenticatedUser();
             try {
 
-              const Lonees:any = await API.graphql(graphqlOperation(listGroups, 
+              const Lonees:any = await API.graphql(graphqlOperation(listChamaMembers, 
                 { 
                     
                   filter: {
                   
-                    SignatoryEmail: { eq: userInfo.attributes.email},
-                    status:{eq:"AccountActive"}
+                    memberContact: {eq:userInfo.attributes.email},
+                    AcStatus:{eq:"AccountActive"}
                 }
                 }
                   ));
-              setLoanees(Lonees.data.listGroups.items);
+              setLoanees(Lonees.data.listChamaMembers.items);
             } catch (e) {
             
               console.log(e);
@@ -92,8 +92,8 @@ const FetchSMNonCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Swipe down to refresh</Text>
-            <Text style={styles.label2}> (Select Group to proceed)</Text>
+           
+            <Text style={styles.label2}> (Select Group to proceed!)</Text>
           </>
         )}
       />

@@ -41,15 +41,18 @@ const ViewSMDeposts = (props:SMAccount) => {
    }
  
     return (
+
+      <View style = {styles.pageContainer}>
       <TouchableOpacity 
       onPress={SndChmMmbrMny}
-      style = {styles.pageContainer}>    
+      style = {styles.card}>    
 
       <Text style={styles.prodInfo}><Text style={styles.label}>Loaner Name: </Text> {rafikiName}</Text>
       <Text style={styles.prodInfo}><Text style={styles.label}>Loaner Contact: </Text> {rafikicntct}</Text>
       <Text style={styles.prodInfo}><Text style={styles.label}>Loan Amount:</Text> KES {rafikiamnt.toLocaleString()}</Text>
          
       </TouchableOpacity>
+      </View>
     );
 }; 
 

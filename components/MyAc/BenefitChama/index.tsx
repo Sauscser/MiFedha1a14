@@ -60,45 +60,31 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
 
 
     return (
-      <View style = {{marginTop:"10%"}}>              
-            
-      <View style = {styles.container}>
-      <Text style = {styles.ownerName}>                       
-               
-                 Group Name: {groupName}               
-              </Text>
-            
-      <Text style = {styles.ownerName}>                       
-                 
-                Group Contact: {groupContact}                 
-              </Text>
+      <View style = {styles.pageContainer}>     
+      <View style = {styles.card}>
 
-              <Text style = {styles.ownerName}>                       
-                 
-                Chama Benefits Earned: {memberChmBenefit}                 
-              </Text>
-              
-
+        <Text style={styles.prodInfo}><Text style={styles.label}>GroupName:</Text> {groupName}</Text>
+           
+            <Text style={styles.prodInfo}><Text style={styles.label}> Chama Benefits Earned:</Text> KES {memberChmBenefit.toFixed(2)}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}> Group Contact:</Text> {groupContact}</Text>
+            
               </View>
 
-              <View style = {styles.viewForPressables2}>
+              <View style = {styles.buttonRow}>
               <Pressable
                 onPress={BenefitChama}
                 style = {styles.loanFriendButton}
                 >            
-                  <Text style = {styles.loanAFriendText}>Benefit</Text>            
+                  <Text style = {styles.buttonText}>Benefit</Text>            
               </Pressable>
               
               
               <Pressable
                 onPress={BenefitChmSenderOnly}
                 style = {styles.loanFriendButton}>            
-                  <Text style = {styles.loanAFriendText}>Dont Benefit</Text>            
+                  <Text style = {styles.buttonText}>Dont Benefit</Text>            
               </Pressable>  
              
-            
-             
-               
               </View>
   </View>
         

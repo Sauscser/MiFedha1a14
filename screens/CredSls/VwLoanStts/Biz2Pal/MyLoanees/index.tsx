@@ -1,108 +1,146 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
-
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Alert, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../components/VwCredSales/CrdStatus/Biz/Biz2PalLoanees";
-import styles from './styles';
+import NonLnRec from "../../../../../components/VwCredSales/CrdStatus/Biz/Biz2PalLoanees";
+import { listPersonels, VwMySales7 } from '../../../../../src/graphql/queries';
 
-import { useRoute } from '@react-navigation/native';
-import { getCompany, getSMAccount, listCovCreditSellers, listSMLoansCovereds } from '../../../../../src/graphql/queries';
-import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
+const FetchSMNonLnsSnt = () => {
+  const [loading, setLoading] = useState(false);
+  const [allRecords, setAllRecords] = useState<any[]>([]);
+  const [filteredRecords, setFilteredRecords] = useState<any[]>([]);
+  const [bizPhone, setBizPhone] = useState('');
+  const [buyerFilter, setBuyerFilter] = useState('');
 
-const FetchSMCovLns = props => {
-
-    const[LnerPhn, setLnerPhn] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [Loanees, setLoanees] = useState([]);
-
-    const route = useRoute();
-    const fetchUsrDtls = async () => {
+  const fetchLoanees = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
       const userInfo = await Auth.currentAuthenticatedUser();
-      try {
-              const MFNDtls: any = await API.graphql(
-                  graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}
-              ),);
 
-              const balances = MFNDtls.data.getSMAccount.balance;
-              const owner = MFNDtls.data.getSMAccount.owner;
-              
-              
-              const fetchLoanees = async () => {
-          
-            setLoading(true);
-            try {
-              const Lonees:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
-                {
-                        
-                        
-                      
-                      filter:{
-                        and :{
-                      lonBala:{gt:0},
-                      sellerContact: {eq:route.params.ChmDesc},
-                      lnType:{eq:"Biz2Pal"},
-                        }
-                      }
-                      
-               
-                    }
-              
-                  ));
-              setLoanees(Lonees.data.listCovCreditSellers.items);
+      const personnelCheck: any = await API.graphql(graphqlOperation(listPersonels, {
+        filter: {
+          phoneKontact: { eq: userInfo.attributes.email },
+          BusinessRegNo: { eq: bizPhone },
+        }
+      }));
 
-           
-          
-                      }
-          
-                      catch (e)
-                      {
-                        if(e){
-                          Alert.alert("Retry or update app or call customer care");
-                          return;
-                        }
-                          console.log(e)
-                         
-                          
-                      }    
-          
-                      
-                       }
-                       if (userInfo.attributes.sub!==owner) {
-                        Alert.alert("Please first create a main account")
-                        return;
-                      }  else {
-                       await fetchLoanees();}
-            } catch (e) {
-            console.log(e);
-            } finally {
-            setLoading(false);
-            }
-            };
-            
-            useEffect(() => {
-            fetchUsrDtls();
-            }, [])   
+      if (personnelCheck.data.listPersonels.items.length < 1) {
+        Alert.alert("Access Denied", "Retry if you're sure you work here.");
+        return;
+      }
+
+      const result: any = await API.graphql(graphqlOperation(VwMySales7, {
+        sellerContact: bizPhone,
+        sortDirection: "DESC",
+        limit:100,
+        filter : {
+          lnType:{eq:"Biz2Pal"},
+          lonBala:{gt:0},
+        }
+      }));
+
+      const items = result.data.VwMySales7.items || [];
+      setAllRecords(items);
+      setFilteredRecords(items);
+
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!buyerFilter) {
+      setFilteredRecords(allRecords);
+    } else {
+      const filtered = allRecords.filter(item =>
+        item?.buyerName?.toLowerCase().includes(buyerFilter.toLowerCase())
+      );
+      setFilteredRecords(filtered);
+    }
+  }, [buyerFilter, allRecords]);
+
   return (
-    <View style={styles.root}>
-      <FlatList
-      style= {{width:"100%"}}
-        data={Loanees}
-        renderItem={({item}) => <LnerStts Loanee={item} />}
-        keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchUsrDtls}
-        refreshing={loading}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponentStyle={{alignItems: 'center'}}
-        ListHeaderComponent={() => (
-          <>
-            
-            <Text style={styles.label}> My Loanees</Text>
-            <Text style={styles.label2}> (Please swipe down to load)</Text>
-          </>
-        )}
+    <View style={styles.container}>
+      <View style={styles.inputBlock}>
+        <TextInput
+          placeholder="My Full Business Number"
+          value={bizPhone}
+          onChangeText={setBizPhone}
+          style={styles.input}
+        />
+      
+
+      <TextInput
+        placeholder="Buyer's Name. Even partially"
+        value={buyerFilter}
+        onChangeText={setBuyerFilter}
+        style={styles.input}
       />
+
+</View>
+      
+        <FlatList
+          data={filteredRecords}
+          renderItem={({ item }) => <NonLnRec Loanee={item} />}
+          keyExtractor={(item, index) => index.toString()}
+          onRefresh={fetchLoanees}
+          refreshing={loading}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={() => (
+            <>
+              <Text style={styles.label2}>(Please swipe down to reload)</Text>
+              <Text style={styles.label}>Business Credit Sales</Text>
+            </>
+          )}
+        />
+      
     </View>
   );
 };
 
-export default FetchSMCovLns;
+export default FetchSMNonLnsSnt;
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f2f4f7',
+    paddingHorizontal: 16,
+    paddingTop: 20,
+  },
+  inputBlock: {
+    marginBottom: 16,
+  },
+  input: {
+    height: 48,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    fontSize: 16,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  label: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#222',
+    textAlign: 'center',
+    marginVertical: 10,
+  },
+  label2: {
+    fontSize: 13,
+    fontStyle: 'italic',
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+});
+

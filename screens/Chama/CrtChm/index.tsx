@@ -47,6 +47,7 @@ const CreateChama = (props:UserReg) => {
   const [ChmRegNo, setChmRegNo] = useState('');
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState('');
+  const [Sign3Phn, setSign3Phn] = useState('');
   const [oprtnAreas, setoprtnAreas] = useState('');
   const [ventures, setventures] = useState('');
   const [Err1, setErr1] = useState(null);
@@ -144,6 +145,13 @@ const CreateChama = (props:UserReg) => {
                   grpName: ChmNm,
                   signitoryPW: pword,
                   signitory2Sub: Sign2Phn,
+                  signatory2Email: Sign2Phn,
+ 
+                  Signatory3Email:Sign3Phn,
+                  
+                  signitory3Sub2: Sign3Phn,
+                  WithdrawCnfrmtn2: "NO",
+                  WithdrawCnfrmtnAmt2: 0,
                   WithdrawCnfrmtn: "NO",
                   WithdrawCnfrmtnAmt:0,
                   BankAdminEmail: BankAdminEml,
@@ -404,6 +412,7 @@ const CreateChama = (props:UserReg) => {
                   setChmRegNo("")
                   setMmbaID("")
                   setSign2Phn("");
+                  setSign3Phn("");
                   setventures("");
                   setoprtnAreas("");
                   setSubAmt("");
@@ -535,6 +544,17 @@ useEffect(() =>{
              );
 
              useEffect(() =>{
+          const Sign3Phns=Sign3Phn
+            if(!Sign3Phns && Sign3Phns!=="")
+            {
+              setSign3Phn("");
+              return;
+            }
+            setSign3Phn(Sign3Phns);
+            }, [Sign3Phn]
+             );
+
+             useEffect(() =>{
               const oprtnAreass=oprtnAreas
                 if(!oprtnAreass && oprtnAreass!=="")
                 {
@@ -619,6 +639,16 @@ useEffect(() =>{
                     placeholder="Enter Signatory 2 Email"
                       value={Sign2Phn}
                       onChangeText={setSign2Phn}
+                      style={styles.sendAmtInputDesc}
+                      editable={true}></TextInput>
+                    
+                  </View>
+
+                  <View style={styles.sendLoanView}>
+                    <TextInput
+                    placeholder="Enter Signatory 3 Email"
+                      value={Sign3Phn}
+                      onChangeText={setSign3Phn}
                       style={styles.sendAmtInputDesc}
                       editable={true}></TextInput>
                     

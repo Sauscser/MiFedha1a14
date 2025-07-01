@@ -51,7 +51,7 @@ const FetchSMNonCovLns = props => {
             const Lonees = await API.graphql(
                 graphqlOperation(listLinkBeneficiary2s, {
                     filter: 
-                    { benefitStatus: { eq: "Active" },
+                    { 
                     benefactorAc:{eq: awsEmail},
                     beneficiaryPhone:{contains: awsEmail3}
                     

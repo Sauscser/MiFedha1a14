@@ -34,38 +34,20 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
       navigation.navigate("BLPal2Pal", {loanID})
    }
     return (
-        <Pressable 
+      
+      <View style = {styles.pageContainer}>
+      <Pressable 
        onPress={SndChmMmbrMny}
-       style = {styles.container}>            
+       style = {styles.card}>  
+            <Text style={styles.prodInfo}><Text style={styles.label}>Loanee Name:</Text> {loaneename}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Loan ID:</Text> {loanID}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}> Loanee Contact:</Text> {loaneePhn}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}> Loan Balance:</Text> KES {lonBala}</Text>
+            <Text style={styles.prodInfo}><Text style={styles.label}>Time Loan was given:</Text> {createdAt}</Text>
             
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.loanAdvert}>                       
-                       {/*loaner details */}   
-                       {loaneename}               
-                    </Text>
-            </View>
-           
-                   <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loan Id: {loanID}                 
-                    </Text>
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loanee Contact: {loaneePhn}                 
-                    </Text>
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                      Loan Balance (Ksh): {lonBala}                
-                    </Text>   
-
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                     Time given: {createdAt}                
-                    </Text>                    
-                    
-                     
-          
         </Pressable>
+        </View>
+
     );
 }; 
 

@@ -54,6 +54,7 @@ const UpdtSMPW = (props) => {
                 
                 const owners = compDtls.data.getSMAccount.owner 
                 const pw = compDtls.data.getSMAccount.pw
+                const beneficiary = compDtls.data.getSMAccount.beneficiary
                         
                 
                           
@@ -98,6 +99,12 @@ const UpdtSMPW = (props) => {
                                           Alert.alert("Wrong password");
                                       }
 
+                                      else if(beneficiary === groupCnt)
+                                      {
+                                          Alert.alert("You cannot be your own beneficiary");
+                                      }
+
+                                      
                                       
                                       
                                       else {updtSMDtls();}
@@ -176,6 +183,16 @@ const UpdtSMPW = (props) => {
                               <ScrollView>
           
                     <View style={styles.formContainer}>
+
+                      <TextInput
+                                                                     placeholder="Beneficiary Email"
+                                                                 style={styles.passwordInput}
+                                                                                                      
+                                                                 value={groupCnt}
+                                                                 onChangeText={setgroupCnt}
+                                                                 
+                                                                 placeholderTextColor="#ccc"
+                                                                         />
                       
                      <View style={styles.passwordContainer}>
                                                                    <TextInput

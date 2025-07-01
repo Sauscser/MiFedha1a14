@@ -19,7 +19,7 @@ export interface SMAccount {
       benefitsAmount:number,
       ttlNonLonsRecChm: number,
       ttlNonLonsSentChm:number,
-    
+    p2pchmBenefits:number,
       MaxTymsBL: number,
       
       
@@ -113,6 +113,7 @@ const SMCvLnStts = (props:SMAccount) => {
          TtlWthdrwnSM,
        
          benefitsAmount,
+         p2pchmBenefits,
          TtlActvLonsTmsLnrCov,
          TtlActvLonsTmsLneeCov,
          TtlActvLonsAmtLnrCov,
@@ -206,14 +207,12 @@ const SMCvLnStts = (props:SMAccount) => {
             <View style={styles.card}>         
             <Text style={styles.prodInfo}><Text style={styles.label}>Ac Balance:</Text> KES {balance.toFixed(2)}</Text>
             <Text style={styles.prodInfo}><Text style={styles.label}>Times I am Black-Listed: </Text> {MaxTymsBL}</Text>
-            <Text style={styles.prodInfo}><Text style={styles.label}>Benefits Pooled:</Text> KES {benefitsAmount.toFixed(2)}</Text>
-           
+            <Text style={styles.prodInfo}><Text style={styles.label}>Secured Benefits Pooled:</Text> KES {benefitsAmount.toFixed(2)}</Text>
+              
             <Text style={styles.prodDesc}>Cash Flow  </Text>
     
             <Text style={styles.prodInfo}><Text style={styles.label}>Total Deposits:</Text> KES {ttlDpstSM.toFixed(2)}</Text>
-            <Text style={styles.prodInfo}><Text style={styles.label}>Total Withdrawn:</Text> KES {ttlNonLonsRecSM}</Text>
-            <Text style={styles.prodInfo}><Text style={styles.label}>Total Non Loans Sent:</Text> KES {ttlNonLonsSentSM.toFixed(2)}</Text>
-           
+            <Text style={styles.prodInfo}><Text style={styles.label}>Total Withdrawn:</Text> KES {TtlWthdrwnSM}</Text>
 
         </View>
                 

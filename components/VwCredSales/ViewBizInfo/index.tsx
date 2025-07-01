@@ -32,38 +32,20 @@ const ChmInfo = (props:ChmaInfo) => {
    }} = props ;
 
     return (
-        <View style = {styles.container}>              
-            
-            
-            <ScrollView >       
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.subTitle}>                       
+        <View style = {styles.pageContainer}>              
+               
+            <View style = {styles.card}>
+            <Text style = {styles.prodName}>                       
                        {/*loaner details */}   
                        Business Info          
                     </Text>
-            </View>      
+                
 
-                     <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                      Business Name: {busName}                
-                    </Text> 
-                  
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Business Balance : {netEarnings.toFixed(2)}
-                    </Text>  
-
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Pooled Benefits : {benefitsAmount.toFixed(2)}
-                    </Text> 
-
-                    <Text style = {styles.ownerContact}>                       
-                       {/*loaner details */}  
-                      Description: {description}                
-                    </Text>  
-                    
-        </ScrollView>
+                   <Text style={styles.prodInfo}><Text style={styles.label}>Business Name:</Text> {busName}</Text>
+                   <Text style={styles.prodInfo}><Text style={styles.label}>Business Balance:</Text> KES {netEarnings.toFixed(2)}</Text>
+                   <Text style={styles.prodInfo}><Text style={styles.label}>Pooled Benefits:</Text> KES {benefitsAmount.toFixed(2)}</Text>
+                   <Text style={styles.prodDesc} > {description} </Text>     
+                     </View>
                 
         </View>
     );

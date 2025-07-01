@@ -250,23 +250,23 @@ useEffect(() =>{
         
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    placeholder="+2547xxxxxxxx"
+                    placeholder="Chama Account Number"
                       value={grpContact}
                       onChangeText={setChmPhn}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Chama Phone Number</Text>
+                   
                   </View>
 
                   <View style={styles.sendLoanView}>
                     <TextInput
-                    
+                    placeholder="Main account PassWord"
                       value={pword}
                       onChangeText={setPW}
                       secureTextEntry = {true}
                       style={styles.sendLoanInput}
                       editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Main account PassWord</Text>
+                    
                   </View>
 
 

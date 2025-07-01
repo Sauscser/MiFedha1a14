@@ -55,7 +55,6 @@ const SMCvLnStts = (props:SMAccount) => {
         <Text style={styles.prodInfo}><Text style={styles.label}>Contributor Account:</Text> {beneficiaryType}</Text>
         <Text style={styles.prodInfo}><Text style={styles.label}> Contributor Name:</Text> {benefitsID}</Text>
 
-        <Text style={styles.prodInfo}><Text style={styles.label}>Product Creator Name:</Text> {prodDesc}</Text>
         <Text style={styles.prodInfo}><Text style={styles.label}>Product Creator Account:</Text> {beneficiaryPhone}</Text>
         <Text style={styles.prodInfo}><Text style={styles.label}>Contribution Amount:</Text> KES {amount.toFixed(2)}</Text>
         <Text style={styles.prodInfo}><Text style={styles.label}>Contribution Time:</Text> {createdAt}</Text>

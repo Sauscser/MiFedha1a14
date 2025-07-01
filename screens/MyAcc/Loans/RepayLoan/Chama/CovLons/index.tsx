@@ -125,10 +125,12 @@ const RepayCovChmLnsss = props => {
               const tmDif = daysUpToDate - dfltUpdate;
               const tmDif2 = daysUpToDate - crtnDate;
 
+              const netLnBalz = amountExpectedBacks - amountRepaidss
+
               const netLnBal = parseFloat(amountExpectedBackWthClrncs) - 
               parseFloat(clearanceAmts) - parseFloat (DefaultPenaltyChm2s)
       
-              const netLnBal2 = (netLnBal) * 
+              const netLnBal2 = (netLnBalz) * 
               ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
 
               const LonBal1 = (netLnBal2 + parseFloat(clearanceAmts) + parseFloat (DefaultPenaltyChm2s)).toFixed(0)
@@ -662,7 +664,7 @@ const RepayCovChmLnsss = props => {
                             return;
                           }
 
-                          else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Too little repayment: at least "+ClranceAmt);
+                          else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "At least pay clearance fee and default penalty: "+ClranceAmt);
                           return;
                         }
 

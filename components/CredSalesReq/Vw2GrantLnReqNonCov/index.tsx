@@ -54,12 +54,12 @@ const SMCvLnStts = (props:SMAccount) => {
         
                   
                   
-            <View style = {{marginTop:"10%"}}>
+            <View style = {styles.pageContainer}>
 
                   
                        
-                      <View >
-                      <Text style = {styles.ownerName}>                       
+                      <View style = {styles.card}>
+                      <Text style = {styles.prodName}>                       
                        {/*loaner details */}   
                       Hi! it's {loaneeName}. Kindly Loan me {itemName} worth Ksh. {amount}. I 
                       commit to repay a Total of Ksh. {repaymentAmt} within {repaymentPeriod} days. 
@@ -67,27 +67,22 @@ const SMCvLnStts = (props:SMAccount) => {
                     </Text>
                     </View>  
                      
-                    <View style = {styles.viewForPressables2}>
-                    <View>
+                    <View style = {styles.buttonRow}>
+                   
                     <Pressable
                       onPress={SndChmMmbrMny}
                       style = {styles.loanFriendButton}
                       >            
                         <Text>Accept</Text>            
                     </Pressable>
-                    </View>   
-                    <View>
+
                     <Pressable
                       onPress={SndChmMmbrMny2}
-                      style = {styles.loanFriendButton}>            
+                      style = {styles.redeemButton}>            
                         <Text>Decline</Text>            
                     </Pressable>  
                     </View>
-                     
-                    </View>
-                      
-
-      
+                    
             </View>
             
                 

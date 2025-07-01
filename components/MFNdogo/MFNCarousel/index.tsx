@@ -1,44 +1,41 @@
+import React, { useState, useEffect } from 'react';
 
 import {View, Text, Alert, useWindowDimensions, ScrollView, Pressable } from 'react-native';
 
 
-import styles from './styles';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+
+import { useNavigation, NavigationProp, useRoute } from '@react-navigation/native';
+
+
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 import { getAgent, getCompany, getSAgent } from '../../../src/graphql/queries';
 import { RotateInUpLeft } from 'react-native-reanimated';
 
+import styles from './styles';
 
+interface Agent {
+  id: string;
+  latitude: string;
+  longitude: string;
+  MFNWithdrwlFee: number;
+  name: string;
+  phonecontact: string;
+  town: string;
+  totalDiscount: number;
+  MFN:number;
+  MFK:number;
+  companyDisc:number
 
-export interface SMAccount {
-  Agent: {
-      id: string,
-      latitude:string,
-      longitude:string,
-      MFNWithdrwlFee:number,
-      name: string,  
-      phonecontact:string,
-      town:string,
-    }}
+}
 
-const ViewSMDeposts = (props:SMAccount) => {
+interface Props {
+  Agent: Agent;
+  isSelected?: boolean;
+}
 
-  
-   const {
-    Agent: {
-         id,
-         name,  
-         town,
-         phonecontact,
-         latitude,
-         longitude,
-         MFNWithdrwlFee,
-         
-                 
-   }} = props ;
+const ViewSMDeposts = ({ Agent, isSelected = false }: Props) => {
 
-   const[MFKWithdrwlFee, setMFKWithdrwlFee] = useState("");
+  const[MFKWithdrwlFee, setMFKWithdrwlFee] = useState("");
    const[CompWithdrwlFee, setCompWithdrwlFee] = useState("");
    const[MFKWDFeeFrmCmp, setMFKWDFeeFrmCmp] = useState("");
    const[MFNWDFFrmCmp, setMFNWDFFrmCmp] = useState("");
@@ -46,6 +43,13 @@ const ViewSMDeposts = (props:SMAccount) => {
   const width = useWindowDimensions().width;
   const[isLoading, setIsLoading] = useState(false);
   const route = useRoute();
+  const navigation = useNavigation<NavigationProp<any>>();
+
+  const handlePress = () => {
+    navigation.navigate('WithdrawFundsFromMap', {
+      phonecontact: Agent.phonecontact,
+    });
+  };
 
   const fetchMFNDtls = async () =>{
     if(isLoading){
@@ -54,7 +58,7 @@ const ViewSMDeposts = (props:SMAccount) => {
     setIsLoading(true);
     try{
       const MFNDtls :any= await API.graphql(
-        graphqlOperation(getAgent,{phonecontact:route.params.phonecontact})
+        graphqlOperation(getAgent,{phonecontact:Agent.phonecontact})
         );
       
         const sagentregno = MFNDtls.data.getAgent.sagentregno;
@@ -121,50 +125,29 @@ const ViewSMDeposts = (props:SMAccount) => {
     useEffect(() => {
       fetchMFNDtls();
     }, []);
- 
-    return (
-               
-         <View style={styles.container}>
-          {/* Bed & Bedroom  */}
-          <Text style={styles.ownerName}>
-          MiFedha Ndogo Name:{name}
-          </Text>
-          
-          <Text style={styles.ownerName}>
-          MiFedha Ndogo Number:{phonecontact}
-          </Text>
 
-          <Text style={styles.amountoffered} >
-          Withdrawal Fee:{parseFloat(UsrWthdrwlFees)*100}%
-          </Text>
+  return (
+    <View style={[styles.pageContainer, isSelected && { zIndex: 5 }]}>
+      <Pressable
+        onPress={handlePress}
+        style={[
+          styles.card,
+          isSelected && {
+            borderColor: '#007AFF',
+            borderWidth: 2,
+            transform: [{ scale: 1.03 }],
+            backgroundColor: '#f0f8ff',
+          },
+        ]}
+      >
+        <Text style={styles.prodInfo}> {Agent.name} | {Agent.phonecontact} || {'\n'}
+          <Text style={styles.label}>Fee: {parseFloat(UsrWthdrwlFees)*100}% [-{Agent.MFNWithdrwlFee}% | -{MFKWithdrwlFee}% 
+          | -{parseFloat(CompWithdrwlFee)}%]
+          {Agent.MFN} {Agent.MFK} {Agent.companyDisc} </Text > || Withdraw</Text>
 
+      </Pressable>
+    </View>
+  );
+};
 
-          <Text style={styles.amountoffered} numberOfLines={4}>
-          Company Disc:{parseFloat(CompWithdrwlFee)}%
-          </Text>
-
-          {/* Type & Description */}
-          <Text style={styles.amountoffered} numberOfLines={2}>
-
-          MiFedha Kubwa Disc:{MFKWithdrwlFee}%
-          </Text>
-
-          <Text style={styles.amountoffered} numberOfLines={4}>
-
-          MiFedha Ndogo Disc:{MFNWithdrwlFee}%
-          </Text>
-
-          {/* Type & Description */}
-          <Text style={styles.amountoffered} numberOfLines={2}>
-          Total Disc:{(parseFloat(CompWithdrwlFee) )+MFKWithdrwlFee + MFNWithdrwlFee}%
-          </Text>
-
-          {/*  Old price & new price */}
-          
-        </View>
-      
-       
-    );
-}; 
-
-export default ViewSMDeposts
+export default React.memo(ViewSMDeposts);

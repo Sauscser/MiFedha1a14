@@ -44,72 +44,24 @@ const SMCvLnStts = (props:SMAccount) => {
    
 
     return (
-        
-             <View style = {{marginTop:"10%", justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column'}}>
-                  
-            
-            <View style = {styles.container}>              
-            <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Contribution ID: {id}                 
-                    </Text>  
-                        
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Benefactor Name: {benefitsID}                 
-                    </Text>
-                                        
-                   
-                   
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Benefactor Account: {benefactorAc}                  
-                    </Text> 
-
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Product Creator Account: {benefactorPhone}                  
-                    </Text> 
-                    
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Product Creator Name: {prodDesc}                  
-                    </Text> 
-
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Beneficiary Account: {beneficiaryAc}                  
-                    </Text> 
-
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Beneficiary Name: {beneficiaryPhone}                  
-                    </Text> 
-
-
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Contribution Amount: {amount}                  
-                    </Text> 
-
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Contribution Time: {createdAt}                  
-                    </Text> 
-                    
-
-
-        </View >
-        <View style = {styles.viewForPressables2}>
-
-</View>
+         <View style={styles.pageContainer}>
+            <View style={styles.card}>
+              
+              <Text style={styles.prodInfo}><Text style={styles.label}>Contribution ID:</Text> {id}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Benefactor Name:</Text> {benefitsID}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Benefactor Account:</Text> {benefactorAc}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Product Creator Account:</Text> {benefactorPhone}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Product Creator Name:</Text> {prodDesc}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Beneficiary Account:</Text> {beneficiaryAc}</Text>
+              
+              <Text style={styles.prodInfo}><Text style={styles.label}>Beneficiary Name:</Text> {beneficiaryPhone}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Contribution Amount:</Text> {amount}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Contribution Time:</Text> {createdAt}</Text>
+             <Text style={styles.prodDesc}>{prodDesc}</Text>
+             
+          </View>
        </View> 
 
-        
-                
-       
     );
 }; 
 

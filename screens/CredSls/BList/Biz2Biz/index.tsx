@@ -143,7 +143,9 @@ const BLCovCredByr = (props) => {
               const Amt2HvBnPaid = pymtFrqncy* parseFloat(installmentAmount)
               const LonBal6 = parseFloat(lonBala) + parseFloat(DefaultPenaltyCredSls)
 
-              const LonBal1 = parseFloat(amountExpectedBackWthClrncs) * 
+              const netLnBalz = amountexpecteds - amountrepaids
+
+              const LonBal1 = (netLnBalz) * 
               ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
 
               const LoanBalz = (ClrnceCosts + LonBal1) - parseFloat(amountrepaids)

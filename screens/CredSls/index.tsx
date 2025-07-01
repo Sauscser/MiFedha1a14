@@ -35,14 +35,14 @@ const MyLoanAccount = () => {
   };
 
   const SI2VwBiz2PalLoanees = () => {
-    navigation.navigate('SI2VwBiz2PalLoanees');
+    navigation.navigate('VwBiz2PalLnees');
   };
   const SI2VwBiz2BizLoaners = () => {
-    navigation.navigate('SI2VwBiz2BizLoaners');
+    navigation.navigate('VwBizLners');
   };
 
   const SI2VwBiz2BizLoanees = () => {
-    navigation.navigate('SI2VwBiz2BizLoanees');
+    navigation.navigate('VwBizLnees');
   };
 
   const SI2VwBiz2PalLoaners = () => {
@@ -71,8 +71,8 @@ const MyLoanAccount = () => {
     navigation.navigate('RmvPersonnelss');
   };
 
-  const SgnIn2RemoveSlAd = () => {
-    navigation.navigate('SgnIn2RemoveSlAd');
+  const VwSlsAds2Remove = () => {
+    navigation.navigate('VwSlsAds2Remove');
   };
 
   const SgnIn2VwRevenueShare = () => {
@@ -92,7 +92,7 @@ const MyLoanAccount = () => {
   };
 
   const MakeNVwPayPalDpsits = () => {
-    navigation.navigate('MakeNVwPayPalDpsits');
+    navigation.navigate('MakeBizDpsts');
   };
 
   const VwPal2BizLnees = () => {
@@ -184,6 +184,8 @@ const MyLoanAccount = () => {
   }; 
 
 
+
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -216,7 +218,10 @@ const MyLoanAccount = () => {
           options={[
             
             { label: 'Create Biz', onPress: CrtBusinessss, style: styles.ClientsPressables },
-            { label: 'Update Biz', onPress: UpdateBizAc, style: styles.ClientsPressables },
+            { label: 'Add Item', onPress: ItemAds, style: styles.ClientsPressables },
+             { label: 'Delete Sales Item', onPress: VwSlsAds2Remove, style: styles.ClientsPressables },
+          
+             { label: 'Update Biz', onPress: UpdateBizAc, style: styles.ClientsPressables },
             { label: 'Register Sales Officer', onPress: AddPersonelss, style: styles.ClientsPressables },
             { label: 'DeReg Sales Officer', onPress: RmvPersonnelsss, style: styles.ClientsPressables },
             { label: 'View Account', onPress: SgnIn2VwBiznasss, style: styles.ClientsPressables }
@@ -280,9 +285,7 @@ const MyLoanAccount = () => {
         <Section 
           title="Biz Adverts"
           options={[
-            { label: 'Make Adverts', onPress: ItemAds, style: styles.ClientsPressables },
-            { label: 'Delete Adverts', onPress: SgnIn2RemoveSlAd, style: styles.ClientsPressables },
-            { label: 'Transfer Ownership', onPress: giveBizna, style: styles.ClientsPressables },
+   { label: 'Transfer Ownership', onPress: giveBizna, style: styles.ClientsPressables },
             { label: 'Receive Ownership', onPress: TakeOverBizna, style: styles.ClientsPressables },
             
           ]}

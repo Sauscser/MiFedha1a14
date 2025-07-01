@@ -4,8 +4,8 @@ import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-nat
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import LnerStts from "../../../../../components/VwCredSales/CrdStatus/Pal/Pal2PalLoaners";
 import styles from './styles';
-import { getCompany, getSMAccount, listCovCreditSellers, listSMLoansCovereds } from '../../../../../src/graphql/queries';
-import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
+import { getCompany, getSMAccount, listCovCreditSellers, listSMLoansCovereds, VwMyCrdBys7 } from '../../../../../src/graphql/queries';
+
 
 
 const FetchSMCovLns = props => {
@@ -32,15 +32,17 @@ const FetchSMCovLns = props => {
                   const fetchLoanees = async () => {
             setLoading(true);
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
+              const Lonees:any = await API.graphql(graphqlOperation(VwMyCrdBys7, 
                 {
                         
-                        
+                        buyerContact: userInfo.attributes.email,
+                        sortDirection: "DESC",
+                        limit:100,      
                       
                       filter:{
                         and :{
                       lonBala:{gt:0},
-                      buyerContact: {eq:userInfo.attributes.email},
+                     
                       lnType:{eq:"Pal2Pal"},
                         }
                       }
@@ -49,7 +51,7 @@ const FetchSMCovLns = props => {
                     }
               
                   ));
-              setLoanees(Lonees.data.listCovCreditSellers.items);
+              setLoanees(Lonees.data.VwMyCrdBys7.items);
 
            
                       }

@@ -1,897 +1,350 @@
-import React, {useEffect, useState} from 'react';
-import Communications from 'react-native-communications';
+// SMASendNonLns.js - Refactored Version
+
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, ScrollView, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { API, Auth, graphqlOperation } from 'aws-amplify';
 import {
-  
-  createSMLoansCovered,
-  
-  
-  
+  createBenefitContributions2,
   createNonLoans,
-  
   updateCompany,
-  
   updateSMAccount,
   updateBizna,
-  createBenefitContributions2,
-  
 } from '../../../../../src/graphql/mutations';
-
-import {API, Auth, graphqlOperation} from 'aws-amplify';
 import {
-  
   getBizna,
   getCompany,
   getSMAccount,
   listCovCreditSellers,
   listCvrdGroupLoans,
   listSMLoansCovereds,
- 
 } from '../../../../../src/graphql/queries';
 
-import {useNavigation} from '@react-navigation/native';
-
-import {
-  View,
-  Text,
-  Linking,
-  Pressable,
-  TextInput,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-  Alert,
-  ActivityIndicator
-} from 'react-native';
-import styles from './styles';
-
-
-const SMASendNonLns = props => {
-  const [SenderNatId, setSenderNatId] = useState('');
-  const [RecNatId, setRecNatId] = useState('');
+const SMASendNonLns = () => {
   const [SnderPW, setSnderPW] = useState("");
- 
-  const [amounts, setAmount] = useState("");
-  
-  const [Desc, setDesc] = useState("");
- 
-  const[isLoading, setIsLoading] = useState(false);
-  const navigation = useNavigation()
-  const SndChmMmbrMny = () => {
-    navigation.navigate("AutomaticRepayAllTyps")
- }
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const navigation = useNavigation();
+  const route = useRoute();
 
- 
-  
- 
-    const fetchCvLnSM = async () => {
-      setIsLoading(true);
+  const {
+    sokoname, sokoprice, sokokntct, quantity, itemUnit,
+    totalCost
+  } = route.params;
 
-      const userInfo = await Auth.currentAuthenticatedUser();
+  const navigateToChmRepay = () => navigation.navigate("AutomaticRepayAllTyps");
 
-
-      try {
-        const Lonees1:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
-          { filter: {
-              and: {
-                status: { eq: "LoanBL"},
-                lonBala: { gt: 0},
-                loaneeEmail: { eq: userInfo.attributes.email},
-              }
-            }}
-            ));
-
-           
-        
-                    const fetchCLCrdSl = async () => {
-                      setIsLoading(true);
-                      try {
-                        const Lonees3:any = await API.graphql(graphqlOperation(listCovCreditSellers, 
-                          { filter: {
-                              and: {
-                                status: { eq: "LoanBL"},
-                        lonBala: { gt: 0},
-                        buyerContact: { eq: userInfo.attributes.email},
-                              }
-                            }}
-                            ));
-
-                            
-
-                                    const fetchCLChm = async () => {
-                                      setIsLoading(true);
-                                      try {
-                                        const Lonees5:any = await API.graphql(graphqlOperation(listCvrdGroupLoans, 
-                                          { filter: {
-                                              and: {
-                                                status: { eq: "LoanBL"},
-                                        lonBala: { gt: 0},
-                                        loaneePhn: { eq: userInfo.attributes.email},
-                                              }
-                                            }}
-                                            ));
-
-                                            
-
-
-
-  const fetchSenderUsrDtls = async () => {
-    if(isLoading){
-      return;
-    }
+  const showError = (msg) => {
+    Alert.alert(msg);
     setIsLoading(false);
+  }
+
+  const fetchCvLnSM = async () => {
+    setIsLoading(true);
+
+    let userInfo;
     try {
-      const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
-      );
-
-      const SenderUsrBal =accountDtl.data.getSMAccount.balance;
-      const usrPW =accountDtl.data.getSMAccount.pw;
-      const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const SenderSub =accountDtl.data.getSMAccount.owner;
-      const ttlNonLonsSentSMs =accountDtl.data.getSMAccount.ttlNonLonsSentSM;
-      const loanLimits =accountDtl.data.getSMAccount.loanLimit;
-      const beneficiaryType =accountDtl.data.getSMAccount.beneficiaryType;
-      const names =accountDtl.data.getSMAccount.name;
-      const owner =accountDtl.data.getSMAccount.owner;
-      const beneficiary =accountDtl.data.getSMAccount.beneficiary;
-      const SenderbenefitsAmount =accountDtl.data.getSMAccount.benefitsAmount;
-
-
-      const fetchBeneficiaryUsrDtls = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(false);
-        try {
-          const accountDtl7:any = await API.graphql(
-            graphqlOperation(getSMAccount, {awsemail: beneficiary}),
-          );
-    
-          const SenderBenUsrBal7 =accountDtl7.data.getSMAccount.balance;
-          const senderbeneficiaryAmt =accountDtl7.data.getSMAccount.beneficiaryAmt;
-
-          
-      
-      const fetchCompDtls = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
-        try {
-          const CompDtls:any = await API.graphql(
-            graphqlOperation(getCompany, {
-              AdminId: "BaruchHabaB'ShemAdonai2",
-            }),
-          );
-          
-            
-          const UsrTransferFee = CompDtls.data.getCompany.userTransferFee;
-          const p2bBenCom = CompDtls.data.getCompany.p2bBenCom; 
-          const UserTransferFeeAmt = parseFloat(UsrTransferFee)*parseFloat(amounts);
-          const UsrTransferFeeAmt = UsrTransferFee*parseFloat(amounts);
-          const UsrTransferFee2 = parseFloat(SenderUsrBal) -parseFloat(amounts);
-          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts);
-          const TotalTransacted2 = parseFloat(amounts)  + UsrTransferFee2;
-          const BizBenPercentage =   parseFloat(p2bBenCom) * parseFloat(UsrTransferFee);
-          const BizBenefits = BizBenPercentage * parseFloat(amounts);
-          const CompEarnings = UsrTransferFeeAmt - (2*BizBenefits);
-          const CompPhoneContact = CompDtls.data.getCompany.phoneContact;         
-          
-          const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
-          const companyEarnings = CompDtls.data.getCompany.companyEarning;
-          const ttlNonLonssRecSMs = CompDtls.data.getCompany.ttlNonLonssRecSM;
-          const ttlNonLonssSentSMs = CompDtls.data.getCompany.ttlNonLonssSentSM; 
-          
-         
-                    
-          const fetchRecUsrDtls = async () => {
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
-            try {
-                const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getBizna, {BusKntct: RecNatId}),
-                    );
-                    const RecUsrBal =RecAccountDtl.data.getBizna.netEarnings;                    
-                    const bizBeneficiary =RecAccountDtl.data.getBizna.bizBeneficiary; 
-                    const bizType =RecAccountDtl.data.getBizna.bizType;
-                    const namess =RecAccountDtl.data.getBizna.busName;
-                    const RecieverbenefitsAmount =RecAccountDtl.data.getBizna.benefitsAmount;
-
-                    const fetchBizBeneficiaryUsrDtls = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(false);
-                      try {
-                        const accountDtl8:any = await API.graphql(
-                          graphqlOperation(getSMAccount, {awsemail: bizBeneficiary}),
-                        );
-                  
-                        const RecUsrBal8 =accountDtl8.data.getSMAccount.balance;              
-                        const recbeneficiaryAmt =accountDtl8.data.getSMAccount.beneficiaryAmt; 
-                    
-                  
-                        const sendSMNonLn7 = async () => {
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true)
-                          try {
-                            await API.graphql(
-                              graphqlOperation(createNonLoans, {
-                                input: {
-                                  
-                                  recPhn: RecNatId,
-                                  senderPhn: userInfo.attributes.email,                                  
-                                  amount: parseFloat(amounts).toFixed(0),                              
-                                  description: Desc,
-                                  RecName:namess,
-                                  SenderName:names,
-                                  status: "cashSales",
-                                  owner: userInfo.attributes.sub
-                                },
-                              }),
-                            );
-    
-    
-                          } catch (error) {
-                            if (error){
-                              Alert.alert("Sending unsuccessful; Retry")
-                              return
-                            }
-                          }
-                          setIsLoading(false);
-                          await createBizBenefits1();
-                        };
-    
-                       
-    const createBizBenefits1 = async () =>{
-                                 
-                                  try{
-                                      await API.graphql(
-                                        graphqlOperation(createBenefitContributions2, {
-                                          input:{
-                                            benefitsID: "String",
-                                            benefactorAc: RecNatId,
-                                             /*
-                                            Benefactor Name*/
-                                            benefactorPhone: namess,
-                                            beneficiaryAc: userInfo.attributes.email,
-                                            beneficiaryPhone: "String",
-                                            creatorEmail: userInfo.attributes.email,
-                                            prodName: "String",
-                                            creatorName: "String",
-                                            owner: userInfo.attributes.sub,
-                                            prodCost: 0,
-                                            benefitsAmount: BizBenefits,
-                                            beneficiaryType: "Pal",
-                                            prodDesc: "String",
-                                            benefitStatus: "Active",
-                                            amount: BizBenefits                  
-                                            
-                                          }
-                                        })
-                                      )                              
-                                  }
-                                  catch(error){
-                                    console.log(error)
-                                    if (error){Alert.alert("Retry or update your app2")
-                                    return;}
-                                  }
-                                  
-                                  await updtSendrAc7();
-                                }
-    
-                        const updtSendrAc7 = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateSMAccount, {
-                                  input:{
-                                    awsemail:userInfo.attributes.email,
-                                    ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(0),
-                                    balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
-                                    benefitsAmount: parseFloat(SenderbenefitsAmount) + BizBenefits
-                                    
-                                  }
-                                })
-                              )
-    
-    
-                          }
-                          catch(error){
-                            console.log(error)
-                            if (error){Alert.alert("Check your internet connection")
-                            return;}
-                          }
-                          setIsLoading(false);
-                          await updtRecAc7();
-                        }
-    
-                      
-                        const updtRecAc7 = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateBizna, {
-                                  input:{
-                                    BusKntct:RecNatId,
-                                    benefitsAmount: parseFloat(RecieverbenefitsAmount) + BizBenefits,
-                                    netEarnings:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(0),                                   
-                                    earningsBal:   (parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(0)                         
-                                    
-                                  }
-                                })
-                              )                              
-                          }
-                          catch(error){
-                            console.log(error)
-                            if (error){Alert.alert("Check your internet connection")
-                            return;}
-                          }
-                          setIsLoading(false);
-                          await createBizBenefits2();
-                        }
-    
-                        const createBizBenefits2 = async () =>{
-                                 
-                          try{
-                              await API.graphql(
-                                graphqlOperation(createBenefitContributions2, {
-                                  input:{
-                                    benefitsID: "String",
-                                    benefactorAc: userInfo.attributes.email,
-                                    benefactorPhone: userInfo.username,
-                                    beneficiaryAc: RecNatId,
-                                    beneficiaryPhone: "String",
-                                    creatorEmail: userInfo.attributes.email,
-                                    prodName: "String",
-                                    creatorName: "String",
-                                    owner: userInfo.attributes.sub,
-                                    prodCost: 0,
-                                    benefitsAmount: BizBenefits,
-                                    beneficiaryType: "Pal",
-                                    prodDesc: "String",
-                                    benefitStatus: "Active",
-                                    amount: BizBenefits                  
-                                    
-                                  }
-                                })
-                              )                              
-                          }
-                          catch(error){
-                            console.log(error)
-                            if (error){Alert.alert("Retry or update your app2")
-                            return;}
-                          }
-                          
-                          await updtComp7();
-                        }
-    
-                        const updtComp7 = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateCompany, {
-                                  input:{
-                                    AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                   
-                                    companyEarningBal: CompEarnings + parseFloat(companyEarningBals),
-                                    companyEarning: CompEarnings + parseFloat(companyEarnings),                                                    
-                                    
-                                    ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
-                                    ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
-                                    
-                                  }
-                                })
-                              )
-                              
-                              
-                          }
-                          catch(error){
-                            console.log(error)
-                            if (error){Alert.alert("Check your internet connection")
-                        return;}
-                          }
-                          Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0)
-                          );
-                          setIsLoading(false);
-                        }
-    
-                       
-                        
-                        const sendSMNonLn = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true)
-                      try {
-                        await API.graphql(
-                          graphqlOperation(createNonLoans, {
-                            input: {
-                              recPhn: RecNatId,
-                              senderPhn: userInfo.attributes.email,                                  
-                              amount: parseFloat(amounts).toFixed(0),                              
-                              description: Desc,
-                              RecName:namess,
-                              SenderName:names,
-                              status: "cashSales",
-                              owner: userInfo.attributes.sub
-                            },
-                          }),
-                        );
-
-
-                      } catch (error) {
-                        if (error){
-                          Alert.alert("Sending unsuccessful; Retry")
-                          return
-                        }
-                      }
-                      setIsLoading(false);
-                      await createBizBenefits3();
-                    };
-
-                    const createBizBenefits3 = async () =>{
-                                 
-                      try{
-                          await API.graphql(
-                            graphqlOperation(createBenefitContributions2, {
-                              input:{
-                                benefitsID: "String",
-                                benefactorAc: RecNatId,
-                                /*
-                                Benefactor Name*/
-                                benefactorPhone: namess,
-                                beneficiaryAc: userInfo.attributes.email,
-                                beneficiaryPhone: "String",
-                                creatorEmail: userInfo.attributes.email,
-                                prodName: "String",
-                                creatorName: "String",
-                                owner: userInfo.attributes.sub,
-                                prodCost: 0,
-                                benefitsAmount: BizBenefits,
-                                beneficiaryType: "Pal",
-                                prodDesc: "String",
-                                benefitStatus: "Active",
-                                amount: BizBenefits                  
-                                
-                              }
-                            })
-                          )                              
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Retry or update your app2")
-                        return;}
-                      }
-                      
-                      await updtSendrAc();
-                    }
-
-                    const updtSendrAc = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateSMAccount, {
-                              input:{
-                                awsemail:userInfo.attributes.email,
-                                ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSMs)+parseFloat(amounts)).toFixed(0),
-                                balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
-                                
-                              }
-                            })
-                          )
-
-
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
-                        return;}
-                      }
-                      setIsLoading(false);
-                      await updtRecAc();
-                    }
-
-                  
-
-                    const updtRecAc = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateBizna, {
-                              input:{
-                                BusKntct:RecNatId,
-                                
-                                netEarnings:(parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(0),                                   
-                                earningsBal:   (parseFloat(RecUsrBal) + parseFloat(amounts)).toFixed(0),                         
-                                benefitsAmount: RecieverbenefitsAmount + BizBenefits
-                              }
-                            })
-                          )                              
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
-                        return;}
-                      }
-                      setIsLoading(false);
-                      await updtPalBen();
-                    }
-
-                    const updtPalBen = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateSMAccount, {
-                              input:{
-                                awsemail: beneficiary,
-                                
-                                balance:(parseFloat(SenderBenUsrBal7) + BizBenefits).toFixed(0) ,
-                                beneficiaryAmt: parseFloat(senderbeneficiaryAmt) + BizBenefits
-                                
-                              }
-                            })
-                          )
-
-
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
-                        return;}
-                      }
-                      setIsLoading(false);
-                      await updtComp();
-                    }
-
-
-                  
-                    const updtComp = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try{
-                          await API.graphql(
-                            graphqlOperation(updateCompany, {
-                              input:{
-                                AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                               
-                                companyEarningBal:CompEarnings + parseFloat(companyEarningBals),
-                                companyEarning: CompEarnings + parseFloat(companyEarnings),                                                    
-                                
-                                ttlNonLonssRecSM: parseFloat(amounts) + parseFloat(ttlNonLonssRecSMs),
-                                ttlNonLonssSentSM: parseFloat(amounts) + parseFloat(ttlNonLonssSentSMs),
-                                
-                              }
-                            })
-                          )
-                          
-                          
-                      }
-                      catch(error){
-                        console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
-                    return;}
-                      }
-                      Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(0) + ". Transaction fee: Ksh. "+ UsrTransferFeeAmt.toFixed(0)
-                      );
-                      setIsLoading(false);
-                    }
-
-                   
-                    
-                                          
-                    
-                    if (userInfo.attributes.sub!==owner) {
-                      Alert.alert("Please first create a main account")
-                      return;
-                    }  
-                    
-                   
-                    else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
-                    
-                   
-                    
-                    
-                    
-                    else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
-
-                    
-                    else if(userInfo.attributes.sub !==SenderSub){Alert.alert('Please send from your own  account');}
-                    
-                    else if(parseFloat(loanLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');}
-                    
-
-                    else if (Lonees1.data.listSMLoansCovereds.items.length > 0 
-                      ||
-                      
-                      Lonees3.data.listCovCreditSellers.items.length > 0 
-                      
-                      ||
-                      Lonees5.data.listCvrdGroupLoans.items.length > 0 
-                      
-
-                    
-                      ) {
-                        SndChmMmbrMny();
-                    } 
-
-                    else if (
-                      TotalTransacted > SenderUsrBal
-                    ) {Alert.alert('Requested amount is more than you have in your account');}
-                    
-                    else if 
-                     (beneficiaryType === "Biz")
-                     {
-                      await sendSMNonLn7();
-                      return;
-                     }
-
-                     else 
-                     {
-                      await sendSMNonLn();
-                    }     
-                    
-                     
-                    
-                  }     
-                  catch (e) {
-                    console.log(e)
-                    if (e){Alert.alert("Please retry or update your app")
-                    return;}
-                       
-                  }   
-                  setIsLoading(false);
-                  };
-                  
-                  await fetchBizBeneficiaryUsrDtls();
-                
-                }       
-                catch(e) {   
-                  console.log(e)  
-                  if (e){Alert.alert("Please retry or update your app")
-  return;}                 
-                }
-                setIsLoading(false);
-                }                    
-                  await fetchRecUsrDtls();
-        } catch (e) {
-          console.log(e)
-          if (e){Alert.alert("Please retry or update your app")
-      return;}
-        }
-        setIsLoading(false);        
-      };
-      await fetchCompDtls();
-    
-      
-    
-
-  }     
-  catch (e) {
-    console.log(e)
-    if (e){Alert.alert("Please retry or update your app")
-    return;}
-       
-  }   
-  setIsLoading(false);
-  };
-  
-  await fetchBeneficiaryUsrDtls();
-
-}     
-catch (e) {
-  console.log(e)
-  if (e){Alert.alert("Please retry or update your app")
-  return;}
-     
-}   
-setIsLoading(false);
-};
-
-await fetchSenderUsrDtls();
-    
-    }     
-    catch (e) {
-      console.log(e)
-      if (e){Alert.alert("Please retry or update your app")
-      return;}
-         
-    }   
-    setIsLoading(false);
-    };
-    
-    await fetchCLChm();
-    
-    
-    
-    }     
-    catch (e) {
-      console.log(e)
-      if (e){Alert.alert("Please retry or update your app")
-      return;}
-         
-    }   
-    setIsLoading(false);
-    };
-    
-    await fetchCLCrdSl();
-    
-    
-    
-          
-        } catch (e) {
-          console.log(e)
-          if (e){Alert.alert("Fill details correctly or update your app")
-          return;}
-      };
-  
-      setIsLoading(false);
-      setSenderNatId('');
-      setAmount("");
-      setRecNatId('');
-      
-      setDesc("");
-      setSnderPW("");
-      
-}
-
-useEffect(() =>{
-  const SnderNatIds=SenderNatId
-    if(!SnderNatIds && SnderNatIds!=="")
-    {
-      setSenderNatId("");
-      return;
+      userInfo = await Auth.currentAuthenticatedUser();
+    } catch {
+      return showError("User authentication failed");
     }
-    setSenderNatId(SnderNatIds);
-    }, [SenderNatId]
-     );
 
-     useEffect(() =>{
-      const amt=amounts
-        if(!amt && amt!=="")
-        {
-          setAmount("");
-          return;
-        }
-        setAmount(amt);
-        }, [amounts]
-         );
-
-         useEffect(() =>{
-          const RecNatIds=RecNatId
-            if(!RecNatIds && RecNatIds!=="")
-            {
-              setRecNatId("");
-              return;
+    const checkLoans = async () => {
+      try {
+        const [loan1, loan2, loan3] = await Promise.all([
+          API.graphql(graphqlOperation(listSMLoansCovereds, {
+            filter: {
+              and: [
+                { status: { eq: "LoanBL" } },
+                { lonBala: { gt: 0 } },
+                { loaneeEmail: { eq: userInfo.attributes.email } }
+              ]
             }
-            setRecNatId(RecNatIds);
-            }, [RecNatId]
-             );
+          })),
+          API.graphql(graphqlOperation(listCovCreditSellers, {
+            filter: {
+              and: [
+                { status: { eq: "LoanBL" } },
+                { lonBala: { gt: 0 } },
+                { buyerContact: { eq: userInfo.attributes.email } }
+              ]
+            }
+          })),
+          API.graphql(graphqlOperation(listCvrdGroupLoans, {
+            filter: {
+              and: [
+                { status: { eq: "LoanBL" } },
+                { lonBala: { gt: 0 } },
+                { loaneePhn: { eq: userInfo.attributes.email } }
+              ]
+            }
+          }))
+        ])
 
-             
+        const hasLoan = loan1.data.listSMLoansCovereds.items.length > 0 ||
+          loan2.data.listCovCreditSellers.items.length > 0 ||
+          loan3.data.listCvrdGroupLoans.items.length > 0;
 
-                 
+        if (hasLoan) {
+          return navigateToChmRepay();
+        }
 
-                     useEffect(() =>{
-                      const descr=Desc
-                        if(!descr && descr!=="")
-                        {
-                          setDesc("");
-                          return;
-                        }
-                        setDesc(descr);
-                        }, [Desc]
-                         );
+        await validateAndTransact(userInfo);
 
-                         useEffect(() =>{
-                          const SnderPWss=SnderPW
-                            if(!SnderPWss && SnderPWss!=="")
-                            {
-                              setSnderPW("");
-                              return;
-                            }
-                            setSnderPW(SnderPWss);
-                            }, [SnderPW]
-                             );
+      } catch (e) {
+        console.log(e);
+        return showError("Loan check failed");
+      }
+    };
 
-                             
+    await checkLoans();
+  };
 
-                                 
+  const validateAndTransact = async (userInfo) => {
+    try {
+      const senderAccount = await API.graphql(graphqlOperation(getSMAccount, {
+        awsemail: userInfo.attributes.email
+      }));
+      const sender = senderAccount.data.getSMAccount;
+
+      const {
+        pw: storedPW,
+        acStatus,
+        owner: senderOwner,
+        ttlNonLonsSentSM,
+        loanLimit,
+        balance,
+        beneficiaryType,
+        name,
+        beneficiary,
+        benefitsAmount
+      } = sender;
+
+      if (userInfo.attributes.sub !== senderOwner) return showError("Invalid account owner");
+      if (acStatus !== "AccountActive") return showError("Account inactive");
+      setIsLoading(true);
+if (storedPW !== SnderPW) {
+  setIsLoading(false); // reset loading so UI returns to normal
+  return showError("Wrong password");
+}
+      if (parseFloat(loanLimit) < parseFloat(totalCost)) return showError("Send limit exceeded");
+
+      const companyData = await API.graphql(graphqlOperation(getCompany, { AdminId: "BaruchHabaB'ShemAdonai2" }));
+      const company = companyData.data.getCompany;
+      const { userTransferFee, p2bBenCom, companyEarningBal, companyEarning, ttlNonLonssRecSM, ttlNonLonssSentSM } = company;
+
+      console.log(p2bBenCom)
+
+      const fee = parseFloat(userTransferFee || 0) * parseFloat(totalCost);
+      const totalDebit = parseFloat(totalCost) + fee;
+
+      if (parseFloat(balance) < totalDebit) return showError("Insufficient balance");
+
+      const benefit = parseFloat(p2bBenCom || 0) * fee;
+      const compEarnings = fee - 2 * benefit;
+
+      const bizData = await API.graphql(graphqlOperation(getBizna, { BusKntct: sokokntct }));
+      const biz = bizData.data.getBizna;
+
+      const recipientName = biz.busName;
+      const bizBeneficiary = biz.bizBeneficiary;
+      const netEarnings = parseFloat(biz.netEarnings);
+      const bizBenefits = parseFloat(biz.benefitsAmount);
+
+      if (beneficiaryType === "Biz") {
+
+      await API.graphql(graphqlOperation(createNonLoans, {
+        input: {
+          recPhn: sokokntct,
+          senderPhn: userInfo.attributes.email,
+          amount: parseFloat(totalCost).toFixed(0),
+          description: `${quantity} ${itemUnit} of ${sokoname} @ ${sokoprice} = ${totalCost}`,
+          RecName: recipientName,
+          SenderName: name,
+          status: "cashSales",
+          owner: userInfo.attributes.sub
+        }
+      }));
+
+      await API.graphql(graphqlOperation(createBenefitContributions2, {
+        input: {
+          benefitsID: "String",
+          benefactorAc: sokokntct,
+          benefactorPhone: recipientName,
+          beneficiaryAc: userInfo.attributes.email,
+          beneficiaryPhone: "String",
+          creatorEmail: userInfo.attributes.email,
+          prodName: "String",
+          creatorName: "String",
+          owner: userInfo.attributes.sub,
+          prodCost: 0,
+          benefitsAmount: benefit,
+          beneficiaryType: "Pal",
+          prodDesc: "String",
+          benefitStatus: "Active",
+          amount: benefit
+        }
+      }));
+
+      await Promise.all([
+        API.graphql(graphqlOperation(updateSMAccount, {
+          input: {
+            awsemail: userInfo.attributes.email,
+            ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSM) + parseFloat(totalCost)).toFixed(0),
+            balance: (parseFloat(balance) - totalDebit).toFixed(0),
+            benefitsAmount: parseFloat(benefitsAmount) + benefit
+          }
+        })),
+
+        API.graphql(graphqlOperation(updateBizna, {
+          input: {
+            BusKntct: sokokntct,
+            netEarnings: (netEarnings + parseFloat(totalCost)).toFixed(0),
+            earningsBal: (netEarnings + parseFloat(totalCost)).toFixed(0),
+            benefitsAmount: bizBenefits + benefit
+          }
+        })),
+
+        API.graphql(graphqlOperation(updateCompany, {
+          input: {
+            AdminId: "BaruchHabaB'ShemAdonai2",
+            companyEarningBal: compEarnings + parseFloat(companyEarningBal),
+            companyEarning: compEarnings + parseFloat(companyEarning),
+            ttlNonLonssRecSM: parseFloat(totalCost) + parseFloat(ttlNonLonssRecSM),
+            ttlNonLonssSentSM: parseFloat(totalCost) + parseFloat(ttlNonLonssSentSM)
+          }
+        }))
+      ]);
+
+      Alert.alert(`Successful! Transaction fee: Ksh. ${fee.toFixed(0)}`);
+      setIsLoading(false);
+      setSnderPW("");
+
+    } 
+
+    if (beneficiaryType === "Pal")
+    {
+      await API.graphql(graphqlOperation(createNonLoans, {
+        input: {
+          recPhn: sokokntct,
+          senderPhn: userInfo.attributes.email,
+          amount: parseFloat(totalCost).toFixed(0),
+          description: `${quantity} ${itemUnit} of ${sokoname} @ ${sokoprice} = ${totalCost}`,
+          RecName: recipientName,
+          SenderName: name,
+          status: "cashSales",
+          owner: userInfo.attributes.sub
+        }
+      }));
+
+
+      await Promise.all([
+        API.graphql(graphqlOperation(updateSMAccount, {
+          input: {
+            awsemail: userInfo.attributes.email,
+            ttlNonLonsSentSM: (parseFloat(ttlNonLonsSentSM) + parseFloat(totalCost)).toFixed(0),
+            balance: ((parseFloat(balance) - totalDebit) + benefit).toFixed(0),
+           
+          }
+        })),
+
+        API.graphql(graphqlOperation(updateBizna, {
+          input: {
+            BusKntct: sokokntct,
+            netEarnings: (netEarnings + parseFloat(totalCost)).toFixed(0),
+            earningsBal: (netEarnings + parseFloat(totalCost)).toFixed(0),
+            benefitsAmount: bizBenefits + benefit
+          }
+        })),
+
+        API.graphql(graphqlOperation(updateCompany, {
+          input: {
+            AdminId: "BaruchHabaB'ShemAdonai2",
+            companyEarningBal: compEarnings + parseFloat(companyEarningBal),
+            companyEarning: compEarnings + parseFloat(companyEarning),
+            ttlNonLonssRecSM: parseFloat(totalCost) + parseFloat(ttlNonLonssRecSM),
+            ttlNonLonssSentSM: parseFloat(totalCost) + parseFloat(ttlNonLonssSentSM)
+          }
+        }))
+      ]);
+
+      Alert.alert(`Successful! Transaction fee: Ksh. ${fee.toFixed(0)}`);
+      setIsLoading(false);
+      setSnderPW("");
+
+    }
+  }
+   
+  catch (e) {
+      console.log(e);
+      return showError("Transaction failed");
+    }
+  };
 
   return (
-    <View>
-      <View
-        
-        style={styles.image}>
-        <ScrollView>
-         
-          <View style={styles.amountTitleView}>
-            <Text style={styles.title}>Fill account Details Below</Text>
-          </View>
-
-          
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-            placeholder="Business Phone"
-              value={RecNatId}
-              onChangeText={setRecNatId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Business Phone</Text>
-          </View>
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-            keyboardType={"decimal-pad"}
-              value={amounts}
-              onChangeText={setAmount}
-              style={styles.sendAmtInput}
-              editable={true}
-              ></TextInput>
-              
-            <Text style={styles.sendAmtText}>Amount Sent</Text>
-          </View>
-
-
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={SnderPW}
-              onChangeText={setSnderPW}
-              secureTextEntry = {true}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Buyer PassWord</Text>
-          </View>
-
-
-          <View style={styles.sendAmtViewDesc}>
-            <TextInput
-              multiline={true}
-              value={Desc}
-              onChangeText={setDesc}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Description</Text>
-          </View>
-
-          <TouchableOpacity
-            onPress={fetchCvLnSM}
-            style={styles.sendAmtButton}>
-            <Text style={styles.sendAmtButtonText}>Send</Text>
-            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
+    <LinearGradient colors={['#e58d29', '#2c5364']} style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.passwordContainer}>
+          <TextInput
+            placeholder="Main Account Password"
+            style={styles.passwordInput}
+            value={SnderPW}
+            onChangeText={setSnderPW}
+            secureTextEntry={!isPasswordVisible}
+            placeholderTextColor="#ccc"
+          />
+          <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+            <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
           </TouchableOpacity>
+        </View>
 
-          
-        </ScrollView>
-      </View>
-    </View>
+        <TouchableOpacity
+  style={styles.button}
+  disabled={isLoading}
+  onPress={fetchCvLnSM}
+>
+  {isLoading ? (
+    <ActivityIndicator color="#fff" style={{ marginVertical: 10 }} />
+  ) : (
+    <Text style={styles.buttonText}>Authenticate Owner</Text>
+  )}
+</TouchableOpacity>
+
+      </ScrollView>
+    </LinearGradient>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+  },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    marginBottom: 10,
+    height: 50,
+  },
+  passwordInput: {
+    flex: 1,
+    padding: 12,
+  },
+  button: {
+    marginTop: 20,
+    backgroundColor: '#f5a623',
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#1b1b1b',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+});
 
 export default SMASendNonLns;

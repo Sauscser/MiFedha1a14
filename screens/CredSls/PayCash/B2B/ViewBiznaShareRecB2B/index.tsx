@@ -1,136 +1,144 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text,   FlatList, Alert} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Alert, TextInput, StyleSheet } from 'react-native';
+import { API, graphqlOperation, Auth, SortDirection } from 'aws-amplify';
+import NonLnRec from '../../../../../components/MyAc/ViewRecNonLns';
+import { listPersonels, listNonLoans, VwMyRecMny } from '../../../../../src/graphql/queries';
 
-import { API, graphqlOperation, Auth } from 'aws-amplify';
-import NonLnRec from "../../../../../components/MyAc/ViewRecNonLns";
-import styles from './styles';
-import { getBizna, getCompany, getSMAccount,   
-  listBizSls,   listBizSlsReqs,   listBiznas,   listNonLoans,   listPersonels,   vwMyRecMny, vwMyRecMny7 } from '../../../../../src/graphql/queries';
-import { updateCompany, updateSMAccount } from '../../../../../src/graphql/mutations';
-import { TextInput } from 'react-native-gesture-handler';
+const FetchSMNonLnsSnt = () => {
+  const [loading, setLoading] = useState(false);
+  const [recvrs, setRecvrs] = useState<any[]>([]);
+  const [bizPhone, setBizPhone] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
-const FetchSMNonLnsSnt = props => {
+  const fetchLoanees = async () => {
+    if (loading || !bizPhone) return;
+    setLoading(true);
 
-    
-    const [loading, setLoading] = useState(false);
-    const [Recvrs, setRecvrs] = useState([]);
-    const [itemPrys, setitemPrys] = useState('');
-    const[isLoading, setIsLoading] = useState(false);
-   
-    
+    try {
+      const userInfo = await Auth.currentAuthenticatedUser();
 
-        const fetchLoanees = async () => {
-            
-        if(isLoading){
-          return;
+      const personnelRes: any = await API.graphql(graphqlOperation(listPersonels, {
+        filter: {
+          phoneKontact: { eq: userInfo.attributes.email },
+          BusinessRegNo: { eq: bizPhone }
         }
-        setIsLoading(true);
-      
-        const userInfo = await Auth.currentAuthenticatedUser();
-            try {
-              const Lonees:any = await API.graphql(graphqlOperation(listPersonels, 
-              {
-                filter: {
-                  
-                  phoneKontact: { eq: userInfo.attributes.email},
-                  BusinessRegNo:{eq: itemPrys}
-                                
-                  }
-                    }
-               
-                  ));
+      }));
 
-                  const Persnl = Lonees.data.listPersonels.items
-                  
-                  
-                  const fetchLoanees2 = async () => {
-            
-                    if(isLoading){
-                      return;
-                    }
-                    setIsLoading(true);
-                  
-                    const userInfo = await Auth.currentAuthenticatedUser();
-                        try {
-                          const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
-                          {
-                            
-                          filter:{  recPhn:{eq:itemPrys},
-                          status:{eq:"BiznaShare"}
-                         }                                         
-                            
-                                }
-                           
-                              ));
-                              setRecvrs(Lonees.data.listNonLoans.items);
-                   
-                        } catch (e) {
-                          console.log(e);
-                        } finally {
-                          setIsLoading(false);
-                          
-                        }
-                      };   
-                            
-                              
-              
-                      if(parseFloat(Persnl.length) < 1 )
-                      {
-                          Alert.alert("Sorry You do not work here");
-                          return;
-                        }
-                        else{
-                            
-                          await fetchLoanees2();
-                            }
-                            
-                              
-                         
-            } catch (e) {
-              console.log(e);
-            } finally {
-              setIsLoading(false);
-              setitemPrys("")
-            }
-          };
-        
-          
+      const personnels = personnelRes?.data?.listPersonels?.items || [];
+
+      if (personnels.length < 1) {
+        Alert.alert('Access Denied', "Sorry, you do not work here.");
+        return;
+      }
+
+      const recordsRes: any = await API.graphql(graphqlOperation(VwMyRecMny, {
+        recPhn: bizPhone ,
+        sortDirection:"DESC",
+        limit:100,
+        filter: {
+          status: { eq: 'BiznaShare' }
+        }
+      }));
+
+      const items = recordsRes?.data?.VwMyRecMny?.items || [];
+
+      if (!items.length) {
+        Alert.alert('No Records', 'No money received yet from businesses.');
+      }
+
+      setRecvrs(items);
+    } catch (e) {
+      console.log('Error fetching loanees:', e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredRecvrs = recvrs.filter(item => {
+    const q = searchQuery.toLowerCase();
+    return item.SenderName?.toLowerCase().includes(q);
+  });
+
+  useEffect(() => {
+    if (bizPhone.length > 6) {
+      fetchLoanees();
+    }
+  }, [bizPhone]);
 
   return (
+    <View style={styles.container}>
+      <View style={styles.inputBlock}>
+        <TextInput
+          placeholder="Enter My Business Phone"
+          value={bizPhone}
+          onChangeText={setBizPhone}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Buyer Name even partial"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          style={styles.input}
+        />
+      </View>
 
-    <View style={styles.image}>
-    <View style={styles.root}>
       <FlatList
-      style= {{width:"100%"}}
-        data={Recvrs}
-        renderItem={({item}) => <NonLnRec SMAc={item} />}
+        data={filteredRecvrs}
+        renderItem={({ item }) => <NonLnRec SMAc={item} />}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={fetchLoanees}
         refreshing={loading}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponentStyle={{alignItems: 'center'}}
         ListHeaderComponent={() => (
           <>
-            
-            
-            <Text style={styles.label2}> (Please swipe down to load)</Text>
-            <Text style={styles.label}> Money received from other businesses</Text>
+            <Text style={styles.label2}>(Please swipe down to load)</Text>
+            <Text style={styles.label}>Sales to Businesses</Text>
           </>
         )}
       />
-    </View>
-    <View style={styles.sendLoanView}>
-                    <TextInput
-                     placeholder='Enter Business Phone'
-                   
-                      value={itemPrys}
-                      onChangeText={setitemPrys}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-             
-    </View>
     </View>
   );
 };
 
 export default FetchSMNonLnsSnt;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f2f4f7',
+    paddingHorizontal: 16,
+    paddingTop: 20,
+  },
+  inputBlock: {
+    marginBottom: 16,
+  },
+  input: {
+    height: 48,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    fontSize: 16,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  label: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#222',
+    textAlign: 'center',
+    marginVertical: 10,
+  },
+  label2: {
+    fontSize: 13,
+    fontStyle: 'italic',
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+});

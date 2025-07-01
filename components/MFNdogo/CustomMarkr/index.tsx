@@ -1,67 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import {View, Text, Alert, Pressable} from 'react-native';
-import {Marker} from 'react-native-maps';
-import {graphqlOperation, API} from 'aws-amplify';
-import { getCompany } from '../../../src/graphql/queries';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { View, Text } from 'react-native';
+import { Marker } from 'react-native-maps';
 
+interface Props {
+  coordinate: { latitude: number; longitude: number };
+  totalDiscount: number;
+  onPress: () => void;
+  isSelected: boolean;
+}
 
+const CustomMarker = ({ coordinate, totalDiscount, onPress, isSelected }: Props) => {
+  return (
+    <Marker coordinate={coordinate} onPress={onPress}>
+      <View
+        style={{
+          backgroundColor: isSelected ? 'orange' : 'black',
+          padding: 4,
+          borderRadius: 6,
+          borderColor: isSelected ? 'red' : 'green',
+          borderWidth: 2,
+          transform: [{ scale: isSelected ? 1 : 1 }],
+        }}
+      >
+        <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 12 }}>
+          -{totalDiscount.toFixed(1)}%
+        </Text>
+      </View>
+    </Marker>
+  );
+};
 
-
-const CustomMarker = props => {
-  const [Alrt, setAlrt] = useState ( );
-  const navigation = useNavigation();
-  const VwMFNDtls = () => {
-    navigation.navigate ("VwMFNAcDtls", {phonecontact})
- }
-  
-
-  const gtCompDtls = async () =>{
-    
-      
-    try{
-      const compDtls :any= await API.graphql(
-        graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
-        );
-  
-        setAlrt(compDtls.data.getCompany.companyCom)
-        
-      }
-      
-      catch(e){
-        console.log(e)
-       
-      }};
-  
-      useEffect(() => {
-        gtCompDtls();
-      }, []);
-    const {coordinate, name, onPress, isSelected, phonecontact, town, longitude, latitude, MFNWithdrwlFee, phone} = props;
-    return (
-      <Marker coordinate={coordinate} onPress={VwMFNDtls}>
-        <View
-          style={{
-            backgroundColor: 'black',
-            padding: 3,
-            borderRadius: 5,
-            borderColor: 'green',
-            borderWidth: 1,
-            flexDirection: "column"
-          }}>
-            
-          <Text
-            style={{
-              color: 'white',
-              fontSize: 10,
-              fontWeight: 'bold',
-              
-            }}>
-           {MFNWithdrwlFee} %
-          </Text>
-          
-        </View>
-      </Marker>
-    );
-  };
-  
-  export default CustomMarker;
+export default React.memo(CustomMarker);

@@ -31,7 +31,7 @@ const ChmCvLnSttsRec = (props:ChmCvLnSttusRec) => {
    const {
     Loanee: {
       loanID,
-    
+    amountExpectedBack,
     clearanceAmt,
     DefaultPenaltyChm2,
     amountExpectedBackWthClrnc,
@@ -79,8 +79,7 @@ const ChmCvLnSttsRec = (props:ChmCvLnSttusRec) => {
 
               const dayselapsed = (crtnDate - daysUpToDate) *(-1)
 
-              const netLnBal = (amountExpectedBackWthClrnc) - 
-              (clearanceAmt) -  (DefaultPenaltyChm2)
+              const netLnBal = amountExpectedBack - amountRepaid
       
               const netLnBal2 = (netLnBal) * 
               ((Math.pow(1 + (interest)/36500, dayselapsed)))

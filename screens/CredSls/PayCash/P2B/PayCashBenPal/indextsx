@@ -146,7 +146,7 @@ const SMASendNonLns = props => {
             graphqlOperation(getSMAccount, {awsemail: beneficiary}),
           );
     
-          const SenderUsrBal7 =accountDtl7.data.getSMAccount.balance;
+          const SenderUsrBal7 =accountDtl7.data.getSMAccount.p2pchmBenefits;
           const senderbeneficiaryAmt =accountDtl7.data.getSMAccount.beneficiaryAmt;
 
           
@@ -310,7 +310,7 @@ const SMASendNonLns = props => {
                                   input:{
     
                                     awsemail:beneficiary,                                
-                                    balance:((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(SenderUsrBal7)).toFixed(0),
+                                    p2pchmBenefits:((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(SenderUsrBal7)).toFixed(0),
                                     beneficiaryAmt: ((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(senderbeneficiaryAmt)).toFixed(0),
                                           
                                                            
@@ -468,7 +468,7 @@ const SMASendNonLns = props => {
                               input:{
                                 awsemail:beneficiary,
                                 
-                                balance:((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(SenderUsrBal7)).toFixed(0), 
+                                p2pchmBenefits:((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(SenderUsrBal7)).toFixed(0), 
                                 
                                 beneficiaryAmt: ((parseFloat(UsrTransferFee) * parseFloat(amounts))*0.3 + parseFloat(senderbeneficiaryAmt)).toFixed(0),
                                           

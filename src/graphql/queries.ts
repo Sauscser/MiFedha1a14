@@ -25,6 +25,7 @@ export const getSMAccount = /* GraphQL */ `query GetSMAccount($awsemail: String!
     beneficiary
     beneficiaryAmt
     loanAcceptanceCode
+    mfchampEarnings
     ttlDpstSM
     TtlWthdrwnSM
     TtlActvLonsTmsLnrCov
@@ -177,6 +178,7 @@ export const listSMAccounts = /* GraphQL */ `query ListSMAccounts(
       beneficiary
       beneficiaryAmt
       loanAcceptanceCode
+      mfchampEarnings
       ttlDpstSM
       TtlWthdrwnSM
       TtlActvLonsTmsLnrCov
@@ -1143,14 +1145,24 @@ export const getSokoAd = /* GraphQL */ `query GetSokoAd($id: ID!) {
   getSokoAd(id: $id) {
     id
     sokokntct
-    sokoname
-    sokoprice
     sokotown
     sokolnprcntg
     sokolpymntperiod
     sokodesc
+    itemCodeBar
+    itemPhoto
     owner
     createdAt
+    latitude
+    longitude
+    sokoname
+    businessType
+    itemUnit
+    unitQuantity
+    sokoprice
+    itemBrand
+    bizName
+    bizContact
     updatedAt
     __typename
   }
@@ -1165,14 +1177,24 @@ export const listSokoAds = /* GraphQL */ `query ListSokoAds(
     items {
       id
       sokokntct
-      sokoname
-      sokoprice
       sokotown
       sokolnprcntg
       sokolpymntperiod
       sokodesc
+      itemCodeBar
+      itemPhoto
       owner
       createdAt
+      latitude
+      longitude
+      sokoname
+      businessType
+      itemUnit
+      unitQuantity
+      sokoprice
+      itemBrand
+      bizName
+      bizContact
       updatedAt
       __typename
     }
@@ -1702,6 +1724,10 @@ export const getBizna = /* GraphQL */ `query GetBizna($BusKntct: String!) {
     description
     createdAt
     noBL
+    latitude
+    longitude
+    businessType
+    bizContact
     TtlActvLonsTmsLnrCredSlsB2B
     TtlActvLonsAmtLnrCredSlsB2B
     TtlBLLonsTmsLnrCredSlsB2B
@@ -1818,6 +1844,10 @@ export const listBiznas = /* GraphQL */ `query ListBiznas(
       description
       createdAt
       noBL
+      latitude
+      longitude
+      businessType
+      bizContact
       TtlActvLonsTmsLnrCredSlsB2B
       TtlActvLonsAmtLnrCredSlsB2B
       TtlBLLonsTmsLnrCredSlsB2B
@@ -3112,9 +3142,14 @@ export const getGroup = /* GraphQL */ `query GetGroup($grpContact: String!) {
     signitoryPW
     oprtnArea
     venture
+    signatory2Email
     signitory2Sub
     WithdrawCnfrmtn
+    Signatory3Email
     WithdrawCnfrmtnAmt
+    signitory3Sub2
+    WithdrawCnfrmtn2
+    WithdrawCnfrmtnAmt2
     BankAdminEmail
     BankAdminAcNu
     SignatoryEmail
@@ -3209,9 +3244,14 @@ export const listGroups = /* GraphQL */ `query ListGroups(
       signitoryPW
       oprtnArea
       venture
+      signatory2Email
       signitory2Sub
       WithdrawCnfrmtn
+      Signatory3Email
       WithdrawCnfrmtnAmt
+      signitory3Sub2
+      WithdrawCnfrmtn2
+      WithdrawCnfrmtnAmt2
       BankAdminEmail
       BankAdminAcNu
       SignatoryEmail
@@ -3428,6 +3468,11 @@ export const getGroupNonLoans = /* GraphQL */ `query GetGroupNonLoans($id: ID!) 
     amountSent
     memberId
     description
+    senderEmail
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     status
     owner
     createdAt
@@ -3454,6 +3499,11 @@ export const listGroupNonLoans = /* GraphQL */ `query ListGroupNonLoans(
       amountSent
       memberId
       description
+      senderEmail
+      confirm1
+      confirm2
+      signatory2
+      signatory3
       status
       owner
       createdAt
@@ -3544,6 +3594,8 @@ export const getReqLoan = /* GraphQL */ `query GetReqLoan($id: ID!) {
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
     updatedAt
     __typename
   }
@@ -3581,6 +3633,8 @@ export const listReqLoans = /* GraphQL */ `query ListReqLoans(
       defaultPenalty
       installmentAmount
       paymentFrequency
+      confirm1
+      confirm2
       updatedAt
       __typename
     }
@@ -3617,6 +3671,10 @@ export const getReqLoanChama = /* GraphQL */ `query GetReqLoanChama($id: ID!) {
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     updatedAt
     __typename
   }
@@ -3655,6 +3713,10 @@ export const listReqLoanChamas = /* GraphQL */ `query ListReqLoanChamas(
       defaultPenalty
       installmentAmount
       paymentFrequency
+      confirm1
+      confirm2
+      signatory2
+      signatory3
       updatedAt
       __typename
     }
@@ -4094,6 +4156,7 @@ export const VwNatIdentity = /* GraphQL */ `query VwNatIdentity(
       beneficiary
       beneficiaryAmt
       loanAcceptanceCode
+      mfchampEarnings
       ttlDpstSM
       TtlWthdrwnSM
       TtlActvLonsTmsLnrCov
@@ -4251,6 +4314,7 @@ export const VwPnCntct = /* GraphQL */ `query VwPnCntct(
       beneficiary
       beneficiaryAmt
       loanAcceptanceCode
+      mfchampEarnings
       ttlDpstSM
       TtlWthdrwnSM
       TtlActvLonsTmsLnrCov
@@ -5349,14 +5413,24 @@ export const DakaByName = /* GraphQL */ `query DakaByName(
     items {
       id
       sokokntct
-      sokoname
-      sokoprice
       sokotown
       sokolnprcntg
       sokolpymntperiod
       sokodesc
+      itemCodeBar
+      itemPhoto
       owner
       createdAt
+      latitude
+      longitude
+      sokoname
+      businessType
+      itemUnit
+      unitQuantity
+      sokoprice
+      itemBrand
+      bizName
+      bizContact
       updatedAt
       __typename
     }
@@ -5963,6 +6037,10 @@ export const BiznaVwws = /* GraphQL */ `query BiznaVwws(
       description
       createdAt
       noBL
+      latitude
+      longitude
+      businessType
+      bizContact
       TtlActvLonsTmsLnrCredSlsB2B
       TtlActvLonsAmtLnrCredSlsB2B
       TtlBLLonsTmsLnrCredSlsB2B
@@ -6154,9 +6232,14 @@ export const VwNatIdentitysz = /* GraphQL */ `query VwNatIdentitysz(
       signitoryPW
       oprtnArea
       venture
+      signatory2Email
       signitory2Sub
       WithdrawCnfrmtn
+      Signatory3Email
       WithdrawCnfrmtnAmt
+      signitory3Sub2
+      WithdrawCnfrmtn2
+      WithdrawCnfrmtnAmt2
       BankAdminEmail
       BankAdminAcNu
       SignatoryEmail
@@ -6259,9 +6342,14 @@ export const ViaChmArea = /* GraphQL */ `query ViaChmArea(
       signitoryPW
       oprtnArea
       venture
+      signatory2Email
       signitory2Sub
       WithdrawCnfrmtn
+      Signatory3Email
       WithdrawCnfrmtnAmt
+      signitory3Sub2
+      WithdrawCnfrmtn2
+      WithdrawCnfrmtnAmt2
       BankAdminEmail
       BankAdminAcNu
       SignatoryEmail
@@ -6364,9 +6452,14 @@ export const ViaChmVenture = /* GraphQL */ `query ViaChmVenture(
       signitoryPW
       oprtnArea
       venture
+      signatory2Email
       signitory2Sub
       WithdrawCnfrmtn
+      Signatory3Email
       WithdrawCnfrmtnAmt
+      signitory3Sub2
+      WithdrawCnfrmtn2
+      WithdrawCnfrmtnAmt2
       BankAdminEmail
       BankAdminAcNu
       SignatoryEmail
@@ -6701,6 +6794,11 @@ export const VwChamaMemberssss = /* GraphQL */ `query VwChamaMemberssss(
       amountSent
       memberId
       description
+      senderEmail
+      confirm1
+      confirm2
+      signatory2
+      signatory3
       status
       owner
       createdAt
@@ -6740,6 +6838,11 @@ export const VwMyChamassss = /* GraphQL */ `query VwMyChamassss(
       amountSent
       memberId
       description
+      senderEmail
+      confirm1
+      confirm2
+      signatory2
+      signatory3
       status
       owner
       createdAt
@@ -6869,6 +6972,8 @@ export const VwMyLoaneeReq = /* GraphQL */ `query VwMyLoaneeReq(
       defaultPenalty
       installmentAmount
       paymentFrequency
+      confirm1
+      confirm2
       updatedAt
       __typename
     }
@@ -6919,6 +7024,8 @@ export const VwLoaneeReq = /* GraphQL */ `query VwLoaneeReq(
       defaultPenalty
       installmentAmount
       paymentFrequency
+      confirm1
+      confirm2
       updatedAt
       __typename
     }
@@ -6970,6 +7077,10 @@ export const ByChmaLnee = /* GraphQL */ `query ByChmaLnee(
       defaultPenalty
       installmentAmount
       paymentFrequency
+      confirm1
+      confirm2
+      signatory2
+      signatory3
       updatedAt
       __typename
     }
@@ -7021,6 +7132,10 @@ export const ByChmaNoDesc = /* GraphQL */ `query ByChmaNoDesc(
       defaultPenalty
       installmentAmount
       paymentFrequency
+      confirm1
+      confirm2
+      signatory2
+      signatory3
       updatedAt
       __typename
     }

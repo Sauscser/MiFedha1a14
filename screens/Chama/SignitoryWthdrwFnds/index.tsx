@@ -55,12 +55,15 @@ const SMADepositForm = props => {
       const grpBals = ChmDtl.data.getGroup.grpBal;      
       const ttlWthdrwns = ChmDtl.data.getGroup.ttlWthdrwn;
       const usrStts = ChmDtl.data.getGroup.status; 
-      const WithdrawCnfrmtns = ChmDtl.data.getGroup.WithdrawCnfrmtn;  
       const pws = ChmDtl.data.getGroup.signitoryPW;
       const owners = ChmDtl.data.getGroup.owner;
       const names = ChmDtl.data.getGroup.grpName;
       const WithdrawCnfrmtnAmt = ChmDtl.data.getGroup.WithdrawCnfrmtnAmt;
+      const WithdrawCnfrmtns = ChmDtl.data.getGroup.WithdrawCnfrmtn;  
+      const WithdrawCnfrmtnAmt2 = ChmDtl.data.getGroup.WithdrawCnfrmtnAmt2;
+      const WithdrawCnfrmtn2 = ChmDtl.data.getGroup.WithdrawCnfrmtn2;  
       const WithdrawalSync = ChmDtl.data.getGroup.WithdrawalSync;
+      
          
       
       const fetchAgtBal = async () => {
@@ -187,7 +190,8 @@ const SMADepositForm = props => {
                               WithdrawalSync: parseFloat(WithdrawalSync) + TTlAmtTrnsctd.toFixed(0),
                               grpBal: (parseFloat(grpBals) - TTlAmtTrnsctd).toFixed(0) ,
                               ttlWthdrwn: (parseFloat(ttlWthdrwns) + parseFloat(amount)).toFixed(0),
-                              WithdrawCnfrmtn: "NO"
+                              WithdrawCnfrmtn: "NO",
+                              WithdrawCnfrmtn2: "NO"
                             },
                           }),
                         );
@@ -325,12 +329,22 @@ const SMADepositForm = props => {
                     
                     
                               if (WithdrawCnfrmtns==="NO") {
-                                Alert.alert("Let co-signitory confirm withdrawal first")
+                                Alert.alert("Let signatory 2 confirm withdrawal first")
                                 return;
                               } 
 
                               else if (WithdrawCnfrmtnAmt !== parseFloat(amount)) {
-                                Alert.alert("Enter agreed amount")
+                                Alert.alert("Enter amount agreed with signatory 2 ")
+                                return;
+                              } 
+
+                              else if (WithdrawCnfrmtn2==="NO") {
+                                Alert.alert("Let signatory 3 confirm withdrawal first")
+                                return;
+                              } 
+
+                              else if (WithdrawCnfrmtnAmt2 !== parseFloat(amount)) {
+                                Alert.alert("Enter amount agreed with signatory 3 ")
                                 return;
                               } 
                               

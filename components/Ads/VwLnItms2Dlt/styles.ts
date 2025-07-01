@@ -1,69 +1,49 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   pageContainer: {
-    flex: 1,
+    padding: 16,
+    backgroundColor: '#f9f9f9',
     alignItems: 'center',
-    paddingTop: 50,
   },
-
   card: {
-    width: '90%',
     backgroundColor: '#fff',
     borderRadius: 16,
-    padding: 20,
+    padding: 16,
+    width: '100%',
     shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
     elevation: 5,
+    marginBottom: 24,
   },
-
-  prodName: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  carouselImage: {
+    width: '95%',
+    height: width * 0.6,
+    borderRadius: 12,
+    marginBottom: 16,
+     alignSelf: 'center',
+  },
+  infoSection: {
+    marginTop: 8,
+  },
+  prodInfo: {
+    fontSize: 16,
     marginBottom: 8,
     color: '#333',
   },
-
-  prodInfo: {
-    fontSize: 16,
-    marginBottom: 4,
-  },
-
   label: {
-    fontWeight: 'bold',
+    fontWeight: '600',
+    color: '#444',
   },
-
   prodDesc: {
-    fontSize: 16,
-    marginTop: 10,
-    color: '#666',
-  },
-
-  buttonRow: {
-    flexDirection: 'row',
-    marginTop: 20,
-    gap: 10,
-  },
-
-  loanFriendButton: {
-    backgroundColor: '#FFA500',
-    paddingVertical: 12,
-    paddingHorizontal: 18,
-    borderRadius: 10,
-  },
-
-  redeemButton: {
-    backgroundColor: '#00BFFF',
-    paddingVertical: 12,
-    paddingHorizontal: 18,
-    borderRadius: 10,
-  },
-
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    fontSize: 15,
+    marginTop: 12,
+    color: '#555',
+    lineHeight: 22,
   },
 });
 

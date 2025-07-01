@@ -9,6 +9,7 @@ import MyAccount from '../../screens/MyAcc';
 import SrchLoanAdz from "../../screens/Ads/Search/SrchLoanAd";
 import SearchPal from '../../screens/MyAcc/LoanRequest/VwMakeLnReq';
 import HowTo from '../../screens/HowTos'
+import GoShopping from '../../screens/Ads/Search/SrchItemAd'
 
 
 const BottomTab = createBottomTabNavigator();
@@ -62,10 +63,10 @@ const HomeTabNavigator = () => {
 
       {/* How To (Opens YouTube Channel) */}
       <BottomTab.Screen
-        name="How To"
-        component={HowTo} // No actual screen, just an action
+        name="GoShopping"
+        component={GoShopping} // No actual screen, just an action
         options={{
-          tabBarIcon: ({ color }) => <FontAwesome name="youtube-play" size={25} color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome name="map-marker" size={25} color={color} />,
           
         }}
       />

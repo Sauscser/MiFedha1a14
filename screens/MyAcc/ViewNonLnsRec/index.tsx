@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text,   FlatList, Alert} from 'react-native';
 
-import { API, graphqlOperation, Auth } from 'aws-amplify';
+import { API, graphqlOperation, Auth, SortDirection } from 'aws-amplify';
 import NonLnSent from "../../../components/MyAc/ViewRecNonLns";
 import styles from './styles';
 import { getCompany, getSMAccount,   listNonLoans,   VwMyRecMny } from '../../../src/graphql/queries';
@@ -29,15 +29,21 @@ const FetchSMNonLnsSnt = props => {
               
         
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
+              const Lonees:any = await API.graphql(graphqlOperation(VwMyRecMny, 
               {
-                      
-                      filter:{recPhn: {eq:userInfo.attributes.email},
+                      recPhn:userInfo.attributes.email,
+                      sortDirection:"DESC",
+                      filter:{
                         status:{eq:"SMNonLons"}}
                     }
                
                   ));
-                  setRecvrs(Lonees.data.listNonLoans.items);
+                  const lds = Lonees.data.VwMyRecMny.items
+                  if(lds.length<1)
+                  {
+                    Alert.alert("No money received")
+                  }
+                  setRecvrs(lds);
 
                   
                             

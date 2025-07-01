@@ -13,12 +13,13 @@ benefactorAc: string,
 benefactorPhone: string,
 beneficiaryPhone:string,
 prodName: string,
-creatorName: string,
+benefitStatus: string,
 prodCost: number,
 prodDesc: string,
 createdAt: string,
 benefitsAmount:number,
 beneficiaryAc:string
+creatorName:string
 
     }}
 
@@ -30,6 +31,7 @@ const SMCvLnStts = (props:SMAccount) => {
         benefactorPhone,
         beneficiaryPhone,
         prodName,
+        benefitStatus,
         creatorName,
         prodCost,
         prodDesc,
@@ -49,8 +51,11 @@ const SMCvLnStts = (props:SMAccount) => {
         <View style={styles.pageContainer}>
             <View style={styles.card}>
               <Text style={styles.prodName}>{prodName}</Text>
-              <Text style={styles.prodInfo}><Text style={styles.label}>Beneficiary Phone:</Text> {beneficiaryPhone}</Text>
-              <Text style={styles.prodInfo}><Text style={styles.label}>Cost:</Text> KES {prodCost.toLocaleString()}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Beneficiary Name:</Text> {beneficiaryPhone}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Benefactor Name:</Text> {creatorName}</Text>
+             <Text style={styles.prodInfo}><Text style={styles.label}>Cost:</Text> KES {prodCost.toLocaleString()}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Status:</Text> {benefitStatus}</Text>
+             
               <Text style={styles.prodInfo}><Text style={styles.label}>Benefits Pooled:</Text> KES {benefitsAmount.toLocaleString()}</Text>
               <Text style={styles.prodDesc}>{prodDesc}</Text>
             </View >

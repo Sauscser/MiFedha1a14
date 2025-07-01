@@ -21,7 +21,8 @@ export interface SMCvLnSttus {
         crtnDate: number,
       interest:number,
       clearanceAmt:number,
-      DefaultPenaltyChm2: number
+      DefaultPenaltyChm2: number,
+      advRegNu:string
         
     }}
 
@@ -44,7 +45,8 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
     crtnDate,
          interest,
          clearanceAmt,
-         DefaultPenaltyChm2
+         DefaultPenaltyChm2,
+         advRegNu
    }} = props ;
 
    const today = new Date();
@@ -64,8 +66,7 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
 
               const dayselapsed = (crtnDate - daysUpToDate) *(-1)
 
-              const netLnBal = (amountExpectedBackWthClrnc) - 
-              (clearanceAmt) -  (DefaultPenaltyChm2)
+              const netLnBal = amountExpectedBack - amountRepaid
       
               const netLnBal2 = (netLnBal) * 
               ((Math.pow(1 + (interest)/36500, dayselapsed)))

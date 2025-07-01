@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     backgroundColor: 'white',
+    marginBottom: 100
   },
   label: {
     fontSize: 18,

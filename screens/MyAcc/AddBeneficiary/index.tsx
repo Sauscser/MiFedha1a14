@@ -95,7 +95,7 @@ const UpdtSMPW = (props) => {
 
                                       else if(userInfo.attributes.email === LnAcCod)
                                         {
-                                            Alert.alert("You cant be your own beneficiary");
+                                            Alert.alert("You can't be your own beneficiary");
                                         }
 
                                       else if(pw !== SMPW)

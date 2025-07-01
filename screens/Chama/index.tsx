@@ -23,8 +23,8 @@ const MyLoanAccount = (props) => {
   const ChmSignInsss = () => navigation.navigate('ChmSignInss');
   const ChmLnsRec = () => navigation.navigate('ChmLnsRec');
   const ChamSignIn3ss = () => navigation.navigate('ChamSignIn3s');
-  const ChamSignIn4ss = () => navigation.navigate('ChamSignIn4s');
-  const ChmSignIn6ss = () => navigation.navigate('ChmSignIn6s');
+  const ViewGrp2ConfirmDividends = () => navigation.navigate('ViewGrp2ConfirmDividends');
+  const ViewGrp2ShareDividends = () => navigation.navigate('ViewGrp2ShareDividends');
   const ChmMmbrMmbrsss = () => navigation.navigate('ElimChmVwMbrshpMembrs');
   const ChamaMmbrRemtss = () => navigation.navigate('ElimChmVwRmtncMembrs');
   const SignitoryWthdrwFndssss = () => navigation.navigate('SignitoryWthdrwFndsss');
@@ -107,7 +107,7 @@ const MyLoanAccount = (props) => {
               end={{ x: 1, y: 1 }}
               style={styles.gradientPressable}
             >
-              <Pressable onPress={ChamSignIn4ss} style={styles.clientsPressable}>
+              <Pressable onPress={ViewGrp2ConfirmDividends} style={styles.clientsPressable}>
                 <Text style={styles.clientsPressableText}>View Members' remittances</Text>
               </Pressable>
               <Pressable onPress={ChamaMmbrRemtss} style={styles.clientsPressable}>
@@ -124,7 +124,7 @@ const MyLoanAccount = (props) => {
               end={{ x: 1, y: 1 }}
               style={styles.gradientPressable}
             >
-              <Pressable onPress={ChmSignIn6ss} style={styles.clientsPressable}>
+              <Pressable onPress={ViewGrp2ShareDividends} style={styles.clientsPressable}>
                 <Text style={styles.clientsPressableText}>View Members</Text>
               </Pressable>
               <Pressable onPress={ChmMmbrMmbrsss} style={styles.clientsPressable}>
@@ -175,7 +175,10 @@ const MyLoanAccount = (props) => {
               style={styles.gradientPressable}
             >
               <Pressable onPress={Sgn2CnfrmWthdrwlssss} style={styles.clientsPressable}>
-                <Text style={styles.clientsPressableText}>Confirm Group Withdrawals</Text>
+                <Text style={styles.clientsPressableText}>Signatory 2 Confirm Group Withdrawals</Text>
+              </Pressable>
+              <Pressable onPress={SignitoryWthdrwFndssss} style={styles.clientsPressable}>
+                <Text style={styles.clientsPressableText}>Signatory 3 Confirm Group Withdrawals</Text>
               </Pressable>
               <Pressable onPress={SignitoryWthdrwFndssss} style={styles.clientsPressable}>
                 <Text style={styles.clientsPressableText}>Execute Group Withdrawls</Text>

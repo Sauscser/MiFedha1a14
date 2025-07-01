@@ -118,7 +118,8 @@ const ProdId = route.params.id
                             const prodDescz = BznaDtlsx.data.getBenProd2.prodDesc;
               const prodCostz = BznaDtlsx.data.getBenProd2.prodCost;
               const prodNamez = BznaDtlsx.data.getBenProd2.prodName;
-              /*
+             const ProdCreatorName = BznaDtlsx.data.getBenProd2.creatorName;
+                        /*
                             ProdCreatorAc
                             */
                             const benefactorPhone = BznaDtlsx.data.getBenProd2.benefactorPhone;
@@ -211,6 +212,7 @@ creatorName: BiznaNames,
 owner: userInfo.username,
 prodCost: prodCostz,
 benefitsAmount: 0,
+/*ProdCreatorName */
 beneficiaryType: "Biz",
 prodDesc: prodDescz,
 benefitStatus: "Active",

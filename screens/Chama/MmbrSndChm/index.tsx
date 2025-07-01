@@ -40,9 +40,11 @@ const FetchSMCovLns = props => {
                   }}
                   ));
               setLoanees(Lonees.data.listChamaMembers.items);
+
+              
             } catch (e) {
               if (e){
-                Alert.alert("Transaction unsuccessful; Retry")
+                Alert.alert("Retry or call customer care")
                 return
               }
             } finally {

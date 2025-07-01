@@ -5,7 +5,7 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../../components/MyAc/VwDeposits";
 import styles from './styles';
 
-import {  getSMAccount, listFloatReductions, vwMyUsrDposits, vwMyUsrWthdrwls } from '../../../../src/graphql/queries';
+import {  getSMAccount, listFloatReductions, VwMyUsrDposits } from '../../../../src/graphql/queries';
 
 const FetchSMNonLnsSnt = props => {
 
@@ -29,18 +29,23 @@ const FetchSMNonLnsSnt = props => {
             setLoading(true);
           
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listFloatReductions, 
+              const Lonees:any = await API.graphql(graphqlOperation(VwMyUsrDposits, 
                 { 
-                   filter: {
-                    depositerid: {eq:userInfo.attributes.email}
-                   }  ,
+                   
+
+                   depositerid: userInfo.attributes.email,
                       sortDirection: "DESC",
-                      limit:100
-                      
+                     
                     }
                
                   ))
-                  setRecvrs(Lonees.data.listFloatReductions.items);
+
+                   const lds = Lonees.data.VwMyUsrDposits.items
+                                   if(lds.length<1)
+                                                     {
+                                                       Alert.alert("No money Deposited")
+                                                     }
+                  setRecvrs(lds);
                   console.log(Lonees)
             } catch (e) {
               console.log(e);

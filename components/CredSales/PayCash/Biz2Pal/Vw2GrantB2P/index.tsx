@@ -53,15 +53,9 @@ const SMCvLnStts = (props:SMAccount) => {
 }
  
     return (
-        
-                  
-                  
-            <View style = {{marginTop:"10%"}}>
-
-                  
-                       
-                      <View >
-                      <Text style = {styles.ownerName}>                       
+                    <View style = {styles.pageContainer}>
+                      <View style = {styles.card}>
+                      <Text style = {styles.prodName}>                
                        {/*loaner details */}   
                       Hi! Kindly approve this cash payment to {RecName}  
                       amounting to Ksh. {amount}. More about the payment is
@@ -70,27 +64,21 @@ const SMCvLnStts = (props:SMAccount) => {
                     </Text>
                     </View>  
                      
-                    <View style = {styles.viewForPressables2}>
-                    <View>
+                    <View style = {styles.buttonRow}>
+                    
                     <Pressable
                       onPress={SndChmMmbrMny}
                       style = {styles.loanFriendButton}
                       >            
                         <Text>Accept</Text>            
                     </Pressable>
-                    </View>   
-                    <View>
+                   
                     <Pressable
                       onPress={SndChmMmbrMny2}
-                      style = {styles.loanFriendButton}>            
+                      style = {styles.redeemButton}>            
                         <Text>Decline</Text>            
                     </Pressable>  
                     </View>
-                     
-                    </View>
-                      
-
-      
             </View>
             
                 

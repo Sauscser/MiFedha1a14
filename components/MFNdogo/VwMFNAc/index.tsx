@@ -44,51 +44,18 @@ const ViewSMDeposts = (props:SMAccount) => {
 
  
     return (
-        <View style = {styles.container}>              
+        <View style = {styles.pageContainer}>             
           
-            <ScrollView >              
-                       
-                        
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Total Float In (Ksh): {TtlFltIn.toFixed(2)}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Total Float Out (Ksh): {TtlFltOut.toFixed(2)}                 
-                    </Text>
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Float Balance (Ksh): {floatBal.toFixed(2)}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Total Earnings (Ksh): {ttlEarnings.toFixed(2)}                 
-                    </Text>
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Earning Balance (Ksh): {agentEarningBal.toFixed(2)}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       MFKubwa Number: {sagentregno}                 
-                    </Text>
-                                      
-                    
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Created At: {createdAt}
-                    </Text>
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                     Last Update: {updatedAt}
-                    </Text>
-                    
-                    
-        </ScrollView>
+            <View style = {styles.card}>              
+             <Text style={styles.prodInfo}><Text style={styles.label}>Total Float In:</Text> KES {TtlFltIn.toFixed(2)}</Text>
+             <Text style={styles.prodInfo}><Text style={styles.label}>Total Float Out:</Text> KES {TtlFltOut.toFixed(2)}</Text>
+             <Text style={styles.prodInfo}><Text style={styles.label}>Float Balance:</Text> KES {floatBal.toFixed(2)}</Text>
+             <Text style={styles.prodInfo}><Text style={styles.label}>Total Earnings:</Text> KES {ttlEarnings.toFixed(2)}</Text>
+             <Text style={styles.prodInfo}><Text style={styles.label}>Earning Balance:</Text> KES {agentEarningBal.toFixed(2)}</Text>
+             <Text style={styles.prodInfo}><Text style={styles.label}>MFKubwa Number:</Text> {sagentregno}</Text>
+             <Text style={styles.prodInfo}><Text style={styles.label}>Created At:</Text> {createdAt}</Text>
+                  
+        </View>
                 
         </View>
     );

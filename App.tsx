@@ -1,3 +1,4 @@
+
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
@@ -15,11 +16,6 @@ import { getCompanyUrls } from './src/graphql/queries';
 import { graphqlOperation, API } from 'aws-amplify';
 
 // 🛡️ Prevent crash from screen capture permission on emulator
-try {
-  require('expo-screen-capture');
-} catch (err) {
-  console.warn('expo-screen-capture failed to load:', err?.message);
-}
 
 Amplify.configure(awsconfig);
 
@@ -40,7 +36,7 @@ function App() {
   }
 }
 
-export default withAuthenticator(App, {
+export default withAuthenticator(App , {
   includeGreetings: true,
 });
 

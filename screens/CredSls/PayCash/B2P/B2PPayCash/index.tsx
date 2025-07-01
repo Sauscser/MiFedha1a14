@@ -265,7 +265,7 @@ const fetchSenderUsrDtls = async () => {
                               graphqlOperation(getSMAccount, {awsemail: beneficiary}),
                             );
                       
-                            const RecUsrBenBal =accountDtl8.data.getSMAccount.balance;
+                            const RecUsrBenBal =accountDtl8.data.getSMAccount.p2pchmBenefits;
                             const recbeneficiaryAmt =accountDtl8.data.getSMAccount.beneficiaryAmt;                    
                     
 
@@ -631,7 +631,7 @@ const fetchSenderUsrDtls = async () => {
                                       input:{
                                         awsemail:beneficiary,
                                         beneficiaryAmt: parseFloat(recbeneficiaryAmt) + BizBenefits,
-                                        balance:(parseFloat(RecUsrBenBal) + BizBenefits).toFixed(0),
+                                        p2pchmBenefits:(parseFloat(RecUsrBenBal) + BizBenefits).toFixed(0),
                                       }
                                     })
                                   )                              

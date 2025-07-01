@@ -115,7 +115,7 @@ const RepayCovLnsss = props => {
                 const interest =RecAccountDtl.data.getSMLoansCovered.interest;
                 const dfltUpdate =RecAccountDtl.data.getSMLoansCovered.dfltUpdate;
 
-                const today = new Date();
+              const today = new Date();
               let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
               let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
               let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
@@ -128,14 +128,6 @@ const RepayCovLnsss = props => {
 
               const now1:any = "2024-05-20";
              
-              
-              
-              
-              
-              
-             
-
-        
               const curYrs = parseFloat(years)*365;
               const curMnths = (months2)*30.4375;
               const daysUpToDate = curYrs + curMnths + parseFloat(days)
@@ -148,12 +140,12 @@ const RepayCovLnsss = props => {
               const tmDif2 = daysUpToDate - crtnDate;
 
 
-
+              const netLnBalz = amountExpectedBacks - amountrepaids
 
               const netLnBal = parseFloat(amountExpectedBackWthClrncs) - 
               parseFloat(clearanceAmts) - parseFloat (DefaultPenaltySM2s)
       
-              const netLnBal2 = (netLnBal) * 
+              const netLnBal2 = (netLnBalz) * 
               ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
 
               const LonBal1 = (netLnBal2 + parseFloat(clearanceAmts) + parseFloat (DefaultPenaltySM2s)).toFixed(0)
@@ -605,7 +597,7 @@ const RepayCovLnsss = props => {
                           }
                        
 
-                          else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Too little repayment: at least "+ClranceAmt.toFixed(2));
+                          else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Clear default penalty + clearance fee: "+ClranceAmt.toFixed(2));
                             return;
                           }
                               

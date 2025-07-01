@@ -28,6 +28,7 @@ export const createSMAccount = /* GraphQL */ `mutation CreateSMAccount(
     beneficiary
     beneficiaryAmt
     loanAcceptanceCode
+    mfchampEarnings
     ttlDpstSM
     TtlWthdrwnSM
     TtlActvLonsTmsLnrCov
@@ -170,6 +171,7 @@ export const updateSMAccount = /* GraphQL */ `mutation UpdateSMAccount(
     beneficiary
     beneficiaryAmt
     loanAcceptanceCode
+    mfchampEarnings
     ttlDpstSM
     TtlWthdrwnSM
     TtlActvLonsTmsLnrCov
@@ -312,6 +314,7 @@ export const deleteSMAccount = /* GraphQL */ `mutation DeleteSMAccount(
     beneficiary
     beneficiaryAmt
     loanAcceptanceCode
+    mfchampEarnings
     ttlDpstSM
     TtlWthdrwnSM
     TtlActvLonsTmsLnrCov
@@ -1599,14 +1602,24 @@ export const createSokoAd = /* GraphQL */ `mutation CreateSokoAd(
   createSokoAd(input: $input, condition: $condition) {
     id
     sokokntct
-    sokoname
-    sokoprice
     sokotown
     sokolnprcntg
     sokolpymntperiod
     sokodesc
+    itemCodeBar
+    itemPhoto
     owner
     createdAt
+    latitude
+    longitude
+    sokoname
+    businessType
+    itemUnit
+    unitQuantity
+    sokoprice
+    itemBrand
+    bizName
+    bizContact
     updatedAt
     __typename
   }
@@ -1622,14 +1635,24 @@ export const updateSokoAd = /* GraphQL */ `mutation UpdateSokoAd(
   updateSokoAd(input: $input, condition: $condition) {
     id
     sokokntct
-    sokoname
-    sokoprice
     sokotown
     sokolnprcntg
     sokolpymntperiod
     sokodesc
+    itemCodeBar
+    itemPhoto
     owner
     createdAt
+    latitude
+    longitude
+    sokoname
+    businessType
+    itemUnit
+    unitQuantity
+    sokoprice
+    itemBrand
+    bizName
+    bizContact
     updatedAt
     __typename
   }
@@ -1645,14 +1668,24 @@ export const deleteSokoAd = /* GraphQL */ `mutation DeleteSokoAd(
   deleteSokoAd(input: $input, condition: $condition) {
     id
     sokokntct
-    sokoname
-    sokoprice
     sokotown
     sokolnprcntg
     sokolpymntperiod
     sokodesc
+    itemCodeBar
+    itemPhoto
     owner
     createdAt
+    latitude
+    longitude
+    sokoname
+    businessType
+    itemUnit
+    unitQuantity
+    sokoprice
+    itemBrand
+    bizName
+    bizContact
     updatedAt
     __typename
   }
@@ -2365,6 +2398,10 @@ export const createBizna = /* GraphQL */ `mutation CreateBizna(
     description
     createdAt
     noBL
+    latitude
+    longitude
+    businessType
+    bizContact
     TtlActvLonsTmsLnrCredSlsB2B
     TtlActvLonsAmtLnrCredSlsB2B
     TtlBLLonsTmsLnrCredSlsB2B
@@ -2474,6 +2511,10 @@ export const updateBizna = /* GraphQL */ `mutation UpdateBizna(
     description
     createdAt
     noBL
+    latitude
+    longitude
+    businessType
+    bizContact
     TtlActvLonsTmsLnrCredSlsB2B
     TtlActvLonsAmtLnrCredSlsB2B
     TtlBLLonsTmsLnrCredSlsB2B
@@ -2583,6 +2624,10 @@ export const deleteBizna = /* GraphQL */ `mutation DeleteBizna(
     description
     createdAt
     noBL
+    latitude
+    longitude
+    businessType
+    bizContact
     TtlActvLonsTmsLnrCredSlsB2B
     TtlActvLonsAmtLnrCredSlsB2B
     TtlBLLonsTmsLnrCredSlsB2B
@@ -4345,9 +4390,14 @@ export const createGroup = /* GraphQL */ `mutation CreateGroup(
     signitoryPW
     oprtnArea
     venture
+    signatory2Email
     signitory2Sub
     WithdrawCnfrmtn
+    Signatory3Email
     WithdrawCnfrmtnAmt
+    signitory3Sub2
+    WithdrawCnfrmtn2
+    WithdrawCnfrmtnAmt2
     BankAdminEmail
     BankAdminAcNu
     SignatoryEmail
@@ -4435,9 +4485,14 @@ export const updateGroup = /* GraphQL */ `mutation UpdateGroup(
     signitoryPW
     oprtnArea
     venture
+    signatory2Email
     signitory2Sub
     WithdrawCnfrmtn
+    Signatory3Email
     WithdrawCnfrmtnAmt
+    signitory3Sub2
+    WithdrawCnfrmtn2
+    WithdrawCnfrmtnAmt2
     BankAdminEmail
     BankAdminAcNu
     SignatoryEmail
@@ -4525,9 +4580,14 @@ export const deleteGroup = /* GraphQL */ `mutation DeleteGroup(
     signitoryPW
     oprtnArea
     venture
+    signatory2Email
     signitory2Sub
     WithdrawCnfrmtn
+    Signatory3Email
     WithdrawCnfrmtnAmt
+    signitory3Sub2
+    WithdrawCnfrmtn2
+    WithdrawCnfrmtnAmt2
     BankAdminEmail
     BankAdminAcNu
     SignatoryEmail
@@ -4791,6 +4851,11 @@ export const createGroupNonLoans = /* GraphQL */ `mutation CreateGroupNonLoans(
     amountSent
     memberId
     description
+    senderEmail
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     status
     owner
     createdAt
@@ -4815,6 +4880,11 @@ export const updateGroupNonLoans = /* GraphQL */ `mutation UpdateGroupNonLoans(
     amountSent
     memberId
     description
+    senderEmail
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     status
     owner
     createdAt
@@ -4839,6 +4909,11 @@ export const deleteGroupNonLoans = /* GraphQL */ `mutation DeleteGroupNonLoans(
     amountSent
     memberId
     description
+    senderEmail
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     status
     owner
     createdAt
@@ -4946,6 +5021,8 @@ export const createReqLoan = /* GraphQL */ `mutation CreateReqLoan(
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
     updatedAt
     __typename
   }
@@ -4981,6 +5058,8 @@ export const updateReqLoan = /* GraphQL */ `mutation UpdateReqLoan(
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
     updatedAt
     __typename
   }
@@ -5016,6 +5095,8 @@ export const deleteReqLoan = /* GraphQL */ `mutation DeleteReqLoan(
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
     updatedAt
     __typename
   }
@@ -5052,6 +5133,10 @@ export const createReqLoanChama = /* GraphQL */ `mutation CreateReqLoanChama(
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     updatedAt
     __typename
   }
@@ -5088,6 +5173,10 @@ export const updateReqLoanChama = /* GraphQL */ `mutation UpdateReqLoanChama(
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     updatedAt
     __typename
   }
@@ -5124,6 +5213,10 @@ export const deleteReqLoanChama = /* GraphQL */ `mutation DeleteReqLoanChama(
     defaultPenalty
     installmentAmount
     paymentFrequency
+    confirm1
+    confirm2
+    signatory2
+    signatory3
     updatedAt
     __typename
   }

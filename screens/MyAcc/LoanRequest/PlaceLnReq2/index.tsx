@@ -136,7 +136,9 @@ const CreateBiz = (props) => {
                         description: ChmRegNo,
                         defaultPenalty: MmbaID,
                         installmentAmount:InstAmt,
-                        paymentFrequency:InstFreq
+                        paymentFrequency:InstFreq,
+                        confirm1:"NO",
+                        confirm2: "NO"
                               },
                             })
                             
@@ -213,7 +215,9 @@ const CreateNewSMAc = async () => {
       description: ChmRegNo,
       defaultPenalty: MmbaID,
       installmentAmount:InstAmt,
-      paymentFrequency:InstFreq
+      paymentFrequency:InstFreq,
+      confirm1:"NO",
+      confirm2: "NO"
             },
           })
           

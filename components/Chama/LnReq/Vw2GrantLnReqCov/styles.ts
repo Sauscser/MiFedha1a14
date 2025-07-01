@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
 
   buttonRow: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginTop: 20,
     gap: 10,
   },

@@ -55,41 +55,38 @@ const SMCvLnStts = (props:SMAccount) => {
         
                   
                   
-            <View style = {{marginTop:"10%"}}>
+            <View style = {styles.pageContainer}>
 
                   
                        
                       <View >
-                      <Text style = {styles.ownerName}>                       
+                      <Text style = {styles.card}>                       
                        {/*loaner details */}   
                       Hi! it's {loaneeName}. Kindly Loan me Ksh. {amount}. I 
-                      commit to repay at a compound interest of {repaymentAmt}% per month within {repaymentPeriod} days. 
+                      commit to repay at a compound interest of {repaymentAmt}% per year within {repaymentPeriod} days. 
                       Each Installment is {installmentAmount} after every {paymentFrequency} days.
                       You can reach me through {loaneePhone}.       
                     </Text>
                     </View>  
                      
-                    <View style = {styles.viewForPressables2}>
-                    <View>
+                    <View style = {styles.buttonRow}>
+                    
                     <Pressable
                       onPress={SndChmMmbrMny}
                       style = {styles.loanFriendButton}
                       >            
                         <Text>Accept</Text>            
                     </Pressable>
-                    </View>   
-                    <View>
+                   
+                   
                     <Pressable
                       onPress={SndChmMmbrMny2}
-                      style = {styles.loanFriendButton}>            
+                      style = {styles.redeemButton}>            
                         <Text>Decline</Text>            
                     </Pressable>  
-                    </View>
+                   
                      
                     </View>
-                      
-
-      
             </View>
             
                 

@@ -7,6 +7,11 @@ import KFNdogo from "../../screens/MFNdogo"
 import Homeie from "../../screens/HomeScrn"
 import RegisterKFKubwaAcForm from '../../screens/MFKubwa/RegisterMFKubwa';
 import CreateAcForm from '../../screens/MyAcc/CreateAc';
+import ViewGrp2ShareDividends from '../../screens/Chama/SendDividends/VwGrp2SendMemberMoney';
+import VwChamaMembers from '../../screens/Chama/ViewChamaActivities/Membership/Chama';
+import PayCash3 from '../../screens/CredSls/PayCash/P2B/PayCash3';
+import VwBizDpstsMFN from '../../screens/MFNdogo/VwBizDpsts';
+
 
 import RegMFNdogoFm from '../../screens/MFNdogo/RegisterMFNdogo';
 import BuyFltForm from "../../screens/MFNdogo/Float/BuyFloat";
@@ -14,11 +19,11 @@ import DpstMny from "../../screens/MyAcc/DepositMny";
 import CrtAdmn from "../../screens/MFAdmin/RegAdmin";
 import SettnsHm from "../../screens/Settings/SettingsHome";
 import MFAdm from "../../screens/MFAdmin";
-
-
+import ViewGrp2ConfirmDividends from "../../screens/Chama/ConfirmDividends/ViewGrp2Confirm";
 
 import MFKbw from "../../screens/MFKubwa";
 import MFN from "../../screens/MFNdogo";
+import SendMmbrsMny from "../../screens/Chama/SendMmbrsMny";
 import AdvcHm from "../../screens/Advocate/AdvocateHm";
 import AdvHm from "../../screens/Advocate/AdvocateHm";
 import AdvReg from "../../screens/Advocate/AdvReg";
@@ -580,6 +585,7 @@ import VwBeneficiaryContriDtls from "../../screens/CredSls/BeneficiaryProducts/V
 import VwBenCreatorContriDtls from "../../screens/CredSls/BeneficiaryProducts/VwBenCreatorContriDtls";
 
 import PaystackTNC from "../../screens/MyAcc/DepositMny/PaystackTNC";
+import WithdrawFundsFromMap from "../../screens/MyAcc/WithdrwFundsOptions/WithdrawFundsFromMap";
 
 
 const Stack = createNativeStackNavigator();
@@ -593,9 +599,16 @@ const HomeNavigator = props => {
       
       <Stack.Screen name={'BuyFloatBnkAdm'} component={BuyFloatBnkAdm} />
       <Stack.Screen name={'VwBeneficiaryContriDtls'} component={VwBeneficiaryContriDtls} />
+      <Stack.Screen name={'WithdrawFundsFromMap'} component={WithdrawFundsFromMap} />
+      <Stack.Screen name={'ViewGrp2ConfirmDividends'} component={ViewGrp2ConfirmDividends} />
+      <Stack.Screen name={'ViewGrp2ShareDividends'} component={ViewGrp2ShareDividends} />
+      <Stack.Screen name={'SendMmbrsMny'} component={SendMmbrsMny} />
+      <Stack.Screen name={'VwChamaMembers'} component={VwChamaMembers} />
+      <Stack.Screen name={'PayCash3'} component={PayCash3} />
+      <Stack.Screen name={'VwBizDpstsMFN'} component={VwBizDpstsMFN} />
+   
+  
 
-     
-      
 
       <Stack.Screen name={'VwBenCreatorContriDtls'} component={VwBenCreatorContriDtls} />
 

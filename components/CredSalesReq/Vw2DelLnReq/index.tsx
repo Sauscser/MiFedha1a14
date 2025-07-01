@@ -68,19 +68,18 @@ const SMCvLnStts = (props:SMAccount) => {
 
 
     return (
-        
-          
-                       
+        <View style = {styles.pageContainer}>
+                     
                     <Pressable onPress={updtRecAc2}
-                      style = {styles.container}>
-                      <Text style = {styles.ownerName}>                       
+                      style = {styles.card}>
+                      <Text style = {styles.prodName}>                       
                        {/*loaner details */}   
                       Hi! it's {loaneeName}. Kindly sell me a {itemName} on credit whose cash price is Ksh. {amount}. I 
-                      commit to repay at a compound interest of {repaymentAmt}% per month within {repaymentPeriod} days. 
+                      commit to repay at a compound interest of {repaymentAmt}% per year within {repaymentPeriod} days. 
                       You can reach me through {loaneePhone}. {status}    
                     </Text>
                     </Pressable>  
-                     
+               </View>      
                    
     );
 }; 

@@ -5,7 +5,7 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import NonLnSent from "../../../../components/MyAc/VwWithdrawals";
 import styles from './styles';
 
-import { getCompany, getSMAccount, listFloatAdds, listFloatReductions, vwMyUsrDposits, vwMyUsrWthdrwls } from '../../../../src/graphql/queries';
+import { getCompany, getSMAccount, listFloatAdds, listFloatReductions, vwMyUsrDposits, VwMyUsrWthdrwls, vwMyUsrWthdrwls } from '../../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../../src/graphql/mutations';
 
 const FetchSMNonLnsSnt = props => {
@@ -32,16 +32,17 @@ const FetchSMNonLnsSnt = props => {
               
         
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listFloatAdds, 
+              const Lonees:any = await API.graphql(graphqlOperation(VwMyUsrWthdrwls, 
                 { 
-                    filter: {
-                      withdrawerid: {eq:userInfo.attributes.email}
-                    }  ,
-                      
+
+                  withdrawerid: userInfo.attributes.email,
+                  sortDirection: "DESC",
+                  limit:100,
+                    
                     }
                 
                   ));
-                  setRecvrs(Lonees.data.listFloatAdds.items);
+                  setRecvrs(Lonees.data.VwMyUsrWthdrwls.items);
 
                   
 

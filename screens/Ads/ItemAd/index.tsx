@@ -1,426 +1,282 @@
-import React, {useEffect, useState} from 'react';
-
-import {createBizna, createChamaMembers,  createGroup,      createSokoAd,   updateCompany} from '../../../src/graphql/mutations';
-import { getBizna, getCompany, getSMAccount, listChamasRegConfirms, listPersonels, vwViaPhonss,  } from '../../../src/graphql/queries';
-import {Auth,  graphqlOperation, API} from 'aws-amplify';
-
-import {useNavigation} from '@react-navigation/native';
-
-
+import React, { useEffect, useState } from 'react';
 import {
-  View,
-  Text,
-  
-  
-  TextInput,
-  ScrollView,
-  
-  
-  TouchableOpacity,
-  Alert,
-  ActivityIndicator,
+  View, Text, TextInput, ScrollView, TouchableOpacity,
+  Alert, ActivityIndicator, StyleSheet, Image
 } from 'react-native';
-import styles from './styles';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
+import * as Location from 'expo-location';
+import * as ImagePicker from 'expo-image-picker';
+import * as ImageManipulator from 'expo-image-manipulator';
+import { Auth, API, graphqlOperation, Storage } from 'aws-amplify';
+
+import { createSokoAd } from '../../../src/graphql/mutations';
+import { getSMAccount, getBizna, listPersonels } from '../../../src/graphql/queries';
 
 
+const MAX_IMAGE_SIZE_MB = 5;
 
-const CreateBiz = (props) => {
+const CreateBiz = () => {
+  const [formData, setFormData] = useState({
+    bizContact: '', itemName: '', itemTown: '', itemDesc: '',
+    itemPrice: '', brandName: '', businessType: '',
+    itemUnit: '', unitQuantity: '', bizPassword: '', ItemCode: '',
+  });
 
-  
-
-  const [ChmPhn, setChmPhn] = useState('');
-  const [nam, setName] = useState(null);
-
-  const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [pword, setPW] = useState('');
-  const [ChmNm, setChmNm] = useState('');
-  const [ChmDesc, setChmDesc] = useState('');
-  const [ChmRegNo, setChmRegNo] = useState('');
-  const [MmbaID, setMmbaID] = useState('');
-  const [Sign2Phn, setSign2Phn] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [itemPhotoKey, setItemPhotoKey] = useState<string | null>(null);
+  const [itemPhotoUri, setItemPhotoUri] = useState<string | null>(null);
 
-  const [itemPrys, setitemPrys] = useState('');
-  const [itemTwn, setitemTwn] = useState('');
-  const [lnPrsntg, setlnPrsntg] = useState('');
-  const [rpymntPrd, setrpymntPrd] = useState('');
+  const updateForm = (key: string, value: string) =>
+    setFormData(prev => ({ ...prev, [key]: value }));
 
+  useEffect(() => {
+    requestLocationPermission();
+  }, []);
 
-
-
-  const gtUzr = async () =>{
-    if(isLoading){
-      return;
+  const requestLocationPermission = async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('Permission Denied', 'Location access is required.');
     }
-    setIsLoading(true);
-    const userInfo = await Auth.currentAuthenticatedUser();
-    try{
-      const compDtls :any= await API.graphql(
-        graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
-        );
-        
-        const owner = compDtls.data.getSMAccount.owner;
+  };
 
-
-      const ChckPersonelExistence = async () => {
-        try {
-          const UsrDtls:any = await API.graphql(
-            graphqlOperation(listPersonels,
-              { filter: {
-                  
-                phoneKontact: { eq: userInfo.attributes.email},
-                BusinessRegNo:{eq: ChmPhn}
-                              
-                }}
-            )
-          )
-          
-      const gtBizna = async () =>{
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
-        try{
-          const compDtls :any= await API.graphql(
-            graphqlOperation(getBizna,{BusKntct:ChmPhn})
-            );
-            const pws = compDtls.data.getBizna.pw;
-            
-            const busNames = compDtls.data.getBizna.busName;
-
-
-            
-            
-
-      const CreateNewSMAc = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
-        try {
-          await API.graphql(
-          graphqlOperation(createSokoAd, {
-          input: {
-            
-            sokokntct:ChmPhn,
-            
-            sokoname: awsEmail,
-            sokoprice: parseFloat(itemPrys),
-            sokotown: "itemTwn",
-            sokolnprcntg: parseFloat(lnPrsntg),
-            sokolpymntperiod: 61,
-            sokodesc:ChmDesc,
-            owner: userInfo.attributes.sub,
-                  },
-                })
-                
-                ,
-              );
-
-              if (pword !== pws)
-          {Alert.alert("Wrong Business password");
-        
-      } 
-      else if (UsrDtls.data.listPersonels.items.length < 1) {
-        Alert.alert("You do not work here");
-        return;
-        
-      }
-      
-      else {
-        Alert.alert("Advert successfully Published")
-      }
-
-              
-            } catch (error) {
-              console.log(error)
-              if(error){
-                Alert.alert("Error! Access denied")
-                return;
-            } 
-            
-            }
-            
-            
-            
-          };
-
-          CreateNewSMAc();
-
-       
-      
-
-
-        } catch (e) {
-          if(e){Alert.alert("Error! Access denied")}
-          console.error(e);
-        }
-
-          }
-        
-        await gtBizna();
-      }
-
-      catch(e){
-      console.log(e)
-      if(e){
-      Alert.alert("Error! Access denied")
-      return;
-      }
-      }
-
-                            
-                        
-    };
-
-    if (userInfo.attributes.sub !== owner)
-    {Alert.alert ("Error! Access denied")}
-    else{
-
-    await ChckPersonelExistence();
-    }
-  } catch (e) {
-  
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: false, // ⛔ turn off editing for now
+    aspect: [4, 3],
+    quality: 1,
+    });
+    if (!result.canceled && result.assets?.[0]?.uri) {
+    const uri = result.assets[0].uri;
+    console.log('Picked image URI:', uri);
+    handleImage(uri); // ✅ now valid image
+  } else {
+    console.log('Image selection canceled or failed.');
   }
-        setIsLoading(false);
-            setChmPhn('');
-            setPW('');
-            setAWSEmail("")
-            setChmDesc("")
-            setChmNm("")
-            setChmRegNo("")
-            setMmbaID("")
-            setSign2Phn("");
-            setrpymntPrd("");
-            setlnPrsntg("");
-            setitemTwn("");
-            setitemPrys("");
+};
+
+  const takePhoto = async () => {
+    const result = await ImagePicker.launchCameraAsync({
+     
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: false, // ⛔ turn off editing for now
+    aspect: [4, 3],
+    quality: 1,
+    });
+    if (!result.canceled && result.assets?.[0]?.uri) {
+    const uri = result.assets[0].uri;
+    console.log('Picked image URI:', uri);
+    handleImage(uri); // ✅ now valid image
+  } else {
+    console.log('Image selection canceled or failed.');
+  }
+};
+ 
+  const handleImage = async (uri: string) => {
+
+     console.log('Original image URI:', uri);
+    try {
+      const manipResult = await ImageManipulator.manipulateAsync(
+        uri,
+        [{ resize: { width: 800 } }],
+        { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
+      );
+
+      
+
+      const response = await fetch(manipResult.uri);
+      const blob = await response.blob();
+
+      const imageSizeMB = blob.size / (1024 * 1024);
+      if (imageSizeMB > MAX_IMAGE_SIZE_MB) {
+        Alert.alert('Image too large', `Image is ${imageSizeMB.toFixed(2)}MB. Max allowed is ${MAX_IMAGE_SIZE_MB}MB.`);
+        return;
       }
-    
-          
-    
-          useEffect(() =>{
-            const itemPryss=itemPrys
-              if(!itemPryss && itemPryss!=="")
-              {
-                setitemPrys("");
-                return;
-              }
-              setitemPrys(itemPryss);
-              }, [itemPrys]
-               );
-               
-               useEffect(() =>{
-                const itemTwns=itemTwn
-                  if(!itemTwns && itemTwns!=="")
-                  {
-                    setitemTwn("");
-                    return;
-                  }
-                  setitemTwn(itemTwns);
-                  }, [itemTwn]
-                   );
-                   
-                   useEffect(() =>{
-                    const lnPrsntgs=lnPrsntg
-                      if(!lnPrsntgs && lnPrsntgs!=="")
-                      {
-                        setlnPrsntg("");
-                        return;
-                      }
-                      setlnPrsntg(lnPrsntgs);
-                      }, [lnPrsntg]
-                       );
-                       
-                       useEffect(() =>{
-                        const rpymntPrds=rpymntPrd
-                          if(!rpymntPrds && rpymntPrds!=="")
-                          {
-                            setrpymntPrd("");
-                            return;
-                          }
-                          setrpymntPrd(rpymntPrds);
-                          }, [rpymntPrd]
-                           );
-                           
-                           
-                           useEffect(() =>{
-        const MmbaIDs=MmbaID
-          if(!MmbaIDs && MmbaIDs!=="")
-          {
-            setMmbaID("");
-            return;
-          }
-          setMmbaID(MmbaIDs);
-          }, [MmbaID]
-           );
-           
-           useEffect(() =>{
-        const ChmRegNos=ChmRegNo
-          if(!ChmRegNos && ChmRegNos!=="")
-          {
-            setChmRegNo("");
-            return;
-          }
-          setChmRegNo(ChmRegNos);
-          }, [ChmRegNo]
-           );
-           
-           useEffect(() =>{
-        const awsEmails=awsEmail
-          if(!awsEmails && awsEmails!=="")
-          {
-            setAWSEmail("");
-            return;
-          }
-          setAWSEmail(awsEmails);
-          }, [awsEmail]
-           );
 
-      useEffect(() =>{
-        const ChmNms=ChmNm
-          if(!ChmNms && ChmNms!=="")
-          {
-            setChmNm("");
-            return;
-          }
-          setChmNm(ChmNms);
-          }, [ChmNm]
-           );
+      const filename = `${Date.now()}_item.jpg`;
+      await Storage.put(filename, blob, { contentType: 'image/jpeg' });
 
-           useEffect(() =>{
-            const ChmDescs=ChmDesc
-              if(!ChmDescs && ChmDescs!=="")
-              {
-                setChmDesc("");
-                return;
-              }
-              setChmDesc(ChmDescs);
-              }, [ChmDesc]
-               );
-
-useEffect(() =>{
-  const ChmPhns=ChmPhn
-    if(!ChmPhns && ChmPhns!=="")
-    {
-      setChmPhn("");
-      return;
+      setItemPhotoKey(filename);
+      setItemPhotoUri(manipResult.uri);
+      Alert.alert('Success', 'Image uploaded successfully.');
+    } catch (err) {
+      console.error('Image upload failed:', err);
+      Alert.alert('Error', 'Failed to upload image. Please try again.');
     }
-    setChmPhn(ChmPhns);
-    }, [ChmPhn]
-     );
+  };
 
-     useEffect(() =>{
-      const pws=pword
-        if(!pws && pws!=="")
-        {
-          setPW("");
-          return;
+  const clearForm = () => {
+    setFormData({
+      bizContact: '', itemName: '', itemTown: '', itemDesc: '',
+      itemPrice: '', brandName: '', businessType: '',
+      itemUnit: '', unitQuantity: '', bizPassword: '', ItemCode: '',
+    });
+    setItemPhotoKey(null);
+    setItemPhotoUri(null);
+  };
+
+  const handleAdCreation = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+
+    const {
+      bizContact, itemName, itemTown, itemDesc, itemPrice,
+      brandName, itemUnit, unitQuantity, bizPassword, ItemCode,
+    } = formData;
+
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      const userEmail = user.attributes.email;
+
+      const accRes = await API.graphql(graphqlOperation(getSMAccount, { awsemail: userEmail }));
+      const account = accRes?.data?.getSMAccount;
+
+      if (!account || bizPassword !== account.pw) {
+        Alert.alert('Error', 'Incorrect user password.');
+        return;
+      }
+
+      const bizRes = await API.graphql(graphqlOperation(getBizna, { BusKntct: bizContact }));
+      const business = bizRes?.data?.getBizna;
+
+      if (!business) {
+        Alert.alert('Error', 'Business not found.');
+        return;
+      }
+
+      const personnelRes = await API.graphql(graphqlOperation(listPersonels, {
+        filter: {
+          phoneKontact: { eq: userEmail },
+          BusinessRegNo: { eq: bizContact }
         }
-        setPW(pws);
-        }, [pword]
-         );
+      }));
+      const isStaff = personnelRes?.data?.listPersonels?.items?.length > 0;
 
-         useEffect(() =>{
-          const Sign2Phns=Sign2Phn
-            if(!Sign2Phns && Sign2Phns!=="")
-            {
-              setSign2Phn("");
-              return;
-            }
-            setSign2Phn(Sign2Phns);
-            }, [Sign2Phn]
-             );
+      if (!isStaff) {
+        Alert.alert('Access Denied', 'You are not listed as staff of this business.');
+        return;
+      }
 
-        
-          return (
-            <View>
-              <View
-                 style={styles.image}>
-                <ScrollView>
-           
-                  <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Ad Details Below</Text>
-                  </View>
-        
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                     
-                      value={ChmPhn}
-                      onChangeText={setChmPhn}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Business Phone</Text>
-                  </View>
+      const adInput = {
+        sokokntct: bizContact,
+        sokotown: itemTown,
+        sokolnprcntg: 1,
+        sokolpymntperiod: 1,
+        sokodesc: itemDesc,
+        sokoname: itemName,
+        itemCodeBar: ItemCode,
+        itemPhoto: itemPhotoKey,
+        sokoprice: parseFloat(itemPrice),
+        latitude: business.latitude,
+        longitude: business.longitude,
+        itemBrand: brandName,
+        bizContact: business.bizContact,
+        bizName: business.busName,
+        businessType: business.businessType,
+        itemUnit: itemUnit,
+        unitQuantity: parseFloat(unitQuantity),
+        owner: user.attributes.sub,
+      };
 
-                  
-                  
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                     keyboardType='decimal-pad'
-                      value={itemPrys}
-                      onChangeText={setitemPrys}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Item Price</Text>
-                  </View>
+      await API.graphql(graphqlOperation(createSokoAd, { input: adInput }));
+      Alert.alert('Success', 'Item successfully advertised.');
+      clearForm();
+    } catch (err) {
+      console.error('Ad creation failed:', err);
+      Alert.alert('Error', 'Failed to create ad. Try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-                  
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    keyboardType='decimal-pad'
-                    placeholder='Ex for 10% discount enter 10'
-                      value={lnPrsntg}
-                      onChangeText={setlnPrsntg}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Discount Percentage</Text>
-                  </View>
+  return (
+    <LinearGradient colors={['#e58d29', '#2c5364']} style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.title}>Advertise New Item</Text>
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={awsEmail}
-                      onChangeText={setAWSEmail}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Item Name</Text>
-                  </View>
+        <InputField label="Business Phone" value={formData.bizContact} onChange={v => updateForm('bizContact', v)} />
+        <InputField label="Item Name" value={formData.itemName} onChange={v => updateForm('itemName', v)} />
+        <InputField label="Brand/Model/Type (Optional)" value={formData.brandName} onChange={v => updateForm('brandName', v)} />
+        <InputField label="Item Price (Ksh)" value={formData.itemPrice} onChange={v => updateForm('itemPrice', v)} keyboardType="numeric" />
+        <InputField label="Unit of Measure (Optional)" value={formData.itemUnit} onChange={v => updateForm('itemUnit', v)} />
+        <InputField label="Quantity per Unit (Optional)" value={formData.unitQuantity} onChange={v => updateForm('unitQuantity', v)} keyboardType="numeric" />
+        <InputField label="Serial Number (Optional)" value={formData.ItemCode} onChange={v => updateForm('ItemCode', v)} />
+        <InputField label="Item Description" value={formData.itemDesc} onChange={v => updateForm('itemDesc', v)} multiline height={100} />
 
-                  
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <TouchableOpacity onPress={pickImage} style={[styles.button, { flex: 1, marginRight: 10 }]}>
+            <Text style={styles.buttonText}>Attach Photo from Gallery</Text>
+          </TouchableOpacity>
+         
+        </View>
 
-                  <View style={styles.sendAmtViewDesc}>
-                    <TextInput
-                      value={ChmDesc}
-                      onChangeText={setChmDesc}
-                      style={styles.sendAmtInputDesc}
-                      multiline={true}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Item Desc</Text>
-                  </View>
+        {itemPhotoUri && <Image source={{ uri: itemPhotoUri }} style={styles.imagePreview} />}
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={pword}
-                      onChangeText={setPW}
-                      secureTextEntry = {true}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Business PassWord</Text>
-                  </View>
+        <View style={styles.passwordContainer}>
+          <TextInput
+            placeholder="User Main Account Password"
+            style={styles.passwordInput}
+            value={formData.bizPassword}
+            onChangeText={v => updateForm('bizPassword', v)}
+            secureTextEntry={!isPasswordVisible}
+            placeholderTextColor="#ccc"
+          />
+          <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+            <Ionicons name={isPasswordVisible ? 'eye' : 'eye-off'} size={24} color="gray" />
+          </TouchableOpacity>
+        </View>
 
+        <TouchableOpacity style={styles.button} onPress={handleAdCreation}>
+          <Text style={styles.buttonText}>Click to Add</Text>
+          {isLoading && <ActivityIndicator color="#fff" style={{ marginTop: 10 }} />}
+        </TouchableOpacity>
+      </ScrollView>
+    </LinearGradient>
+  );
+};
 
-                  <TouchableOpacity
-                    onPress={gtUzr}
-                    style={styles.sendLoanButton}>
-                    <Text style={styles.sendLoanButtonText}>
-                      Click to Advertise
-                    </Text>
-                    {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
-                  </TouchableOpacity>
-                </ScrollView>
-              </View>
-            </View>
-          );
-        };
-        
-        export default CreateBiz;
+const InputField = ({ label, value, onChange, ...props }) => (
+  <View style={styles.inputContainer}>
+    <Text style={styles.label}>{label}</Text>
+    <TextInput
+      style={[styles.input, props.multiline && { height: props.height || 100 }]}
+      value={value}
+      onChangeText={onChange}
+      {...props}
+    />
+  </View>
+);
+
+const styles = StyleSheet.create({
+  container: { padding: 20 },
+  title: {
+    fontSize: 22, color: '#fff', fontWeight: 'bold',
+    marginBottom: 20, textAlign: 'center',
+  },
+  inputContainer: { marginBottom: 15 },
+  label: { color: '#ccc', marginBottom: 5, fontSize: 14 },
+  input: {
+    backgroundColor: '#fff', borderRadius: 8,
+    padding: 12, fontSize: 16, color: '#333',
+  },
+  button: {
+    marginTop: 20, backgroundColor: '#f5a623',
+    paddingVertical: 15, borderRadius: 10, alignItems: 'center',
+  },
+  buttonText: { color: '#1b1b1b', fontWeight: 'bold', fontSize: 16 },
+  imagePreview: {
+    width: '100%', height: 200, marginTop: 10,
+    borderRadius: 10, resizeMode: 'cover',
+  },
+  passwordContainer: {
+    flexDirection: 'row', alignItems: 'center',
+    backgroundColor: '#fff', borderRadius: 8,
+    marginTop: 20, marginBottom: 10, height: 50, paddingHorizontal: 10,
+  },
+  passwordInput: { flex: 1, padding: 12 },
+});
+
+export default CreateBiz;

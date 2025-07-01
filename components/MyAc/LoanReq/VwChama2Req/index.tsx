@@ -57,28 +57,15 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
   
 
     return (
-      <View style = {{marginTop:"10%"}}>              
+      <View style = {styles.pageContainer}>              
             
-      <Pressable style = {styles.container}
+      <Pressable style = {styles.card}
       onPress={MemberReqChm}>
-      <Text style = {styles.ownerName}>                       
-               
-                 Group Name: {groupName}               
-              </Text>
+
+         <Text style={styles.prodInfo}><Text style={styles.label}>Group Name:</Text> {groupName}</Text>           
+           <Text style={styles.prodInfo}><Text style={styles.label}>Group Contact:</Text> {groupContact}</Text>           
+           <Text style={styles.prodInfo}><Text style={styles.label}>Membership number:</Text> {MembaId}</Text>
             
-      <Text style = {styles.ownerName}>                       
-                 
-                Group Contact: {groupContact}                 
-              </Text>
-
-             
-
-              <Text style = {styles.ownerName}>                       
-                 
-                 Membership number: {MembaId}                 
-               </Text>
-              
-
               </Pressable>
 
               

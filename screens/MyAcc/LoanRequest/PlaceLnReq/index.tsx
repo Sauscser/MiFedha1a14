@@ -137,7 +137,9 @@ const CreateBiz = (props) => {
                         description: ChmRegNo,
                         defaultPenalty: MmbaID,
                         installmentAmount:InstAmt,
-                        paymentFrequency:InstFreq
+                        paymentFrequency:InstFreq,
+                        confirm1:"NO",
+                        confirm2: "NO"
                               },
                             })
                             
@@ -198,6 +200,8 @@ const CreateNewSMAc = async () => {
       loaneeEmail:userInfo.attributes.email,
       loanerEmail:awsEmail,
       loaneeName: name,
+      confirm1:"NO",
+      confirm2: "NO",
       loaneePhone:phonecontacts,
       AdvEmail: email,
       advLicNo: Sign2Phn,

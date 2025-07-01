@@ -1,140 +1,64 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, Pressable, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Pressable, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const KFNdogoScreen = () => {
   const navigation = useNavigation();
 
-  const GoHome = () => {
-    navigation.navigate('Homes');
-  };
+  const nav = (route: string) => () => navigation.navigate(route);
 
-  const DpstMneys = () => {
-    navigation.navigate('DpstMney');
-  };
+  const Section = ({ title, children, gradient }: { title: string, children: React.ReactNode, gradient: string[] }) => (
+    <LinearGradient colors={gradient} style={styles.section}>
+      <Text style={styles.sectionTitle}>{title}</Text>
+      <View style={styles.buttonGroup}>{children}</View>
+    </LinearGradient>
+  );
 
-  
-  const RegMFNdogos = () => {
-    navigation.navigate('VwCompMFNTC');
-  };
-
-  
-
-  const UpdtMFNPWss = () => {
-    navigation.navigate('UpdtMFNPWs');
-  };
-
-  const WthdrwMFNss = () => {
-    navigation.navigate('WthdrwMFNs');
-  };
-
-  const WthdrwMFNFltss = () => {
-    navigation.navigate('WthdrwMFNFlts');
-  };
-
-  const VwMFNAccountSgnInss = () => {
-    navigation.navigate('VwMFNAccountSgnIns');
-  };
-
-  const MakeBizDpsts = () => {
-    navigation.navigate('MakeBizDpsts');
-  };
-  const FltWthdrwlsSgnInss = () => {
-    navigation.navigate('FltWthdrwlsSgnIns');
-  };
-
-  const UsrWthdrwlsSgnInss = () => {
-    navigation.navigate('UsrWthdrwlsSgnIns');
-  };
-
-  const MFNWithdrawlsSgnInss = () => {
-    navigation.navigate('MFNWithdrawlsSgnIns');
-  };
-
-  const UsrDpositSgnInss = () => {
-    navigation.navigate('UsrDpositSgnIns');
-  };
-  const FloatBghtSgnInss = () => {
-    navigation.navigate('FloatBghtSgnIns');
-  };
-
-  const UpdateMFNComss = () => {
-    navigation.navigate('UpdateMFNComs');
-  };
-
-  const SignitoryDepositsss = () => {
-    navigation.navigate('SignitoryDepositss');
-  };
-
-
-  // Reusable pressable button component
-  const CustomButton = ({ title, onPress }) => (
+  const CustomButton = ({ title, onPress }: { title: string, onPress: () => void }) => (
     <Pressable onPress={onPress} style={styles.button}>
       <Text style={styles.buttonText}>{title}</Text>
     </Pressable>
   );
 
-  const CustomButton2 = ({ title, onPress }) => (
-      <TouchableOpacity onPress={onPress} style={styles.buttonText2}>
-        <Text style={styles.buttonText2}>{title}</Text>
-      </TouchableOpacity>
-    );
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* View Section */}
 
-        <LinearGradient 
-                colors={['#ffffff', '#ffffff', 'skyblue']}
-                start={{ x: 0.5, y: 0 }}
-                end={{ x: 0.5, y: 1 }}
-                
-                style={styles.section}>
-                <CustomButton2 title="Go Home" onPress={GoHome} /> 
-                  
-                </LinearGradient>
-        <LinearGradient colors={['#e58d29', 'skyblue']} style={styles.section}> 
-          <Text style={styles.sectionTitle}>View</Text>
-          <View style={styles.buttonGroup}>
-            <CustomButton title="Deposit" onPress={FloatBghtSgnInss} />
-            <CustomButton title="Float Bought" onPress={UsrDpositSgnInss} />
-            <CustomButton title="MFNdogo Withdrawals" onPress={MFNWithdrawlsSgnInss} />
-            <CustomButton title="Clients Withdrawls" onPress={UsrWthdrwlsSgnInss} />
-            <CustomButton title="Float Withdrawls" onPress={FltWthdrwlsSgnInss} />
-          </View>
+        {/* Top Navigation */}
+        <LinearGradient colors={['#ffffff', 'skyblue']} style={styles.topBar}>
+          <CustomButton title="🏠 Go Home" onPress={nav('Homes')} />
         </LinearGradient>
 
-        {/* My Account Section */}
-        <LinearGradient colors={['skyblue', '#e58d29']} style={styles.section}>
-          <Text style={styles.sectionTitle}>My Account</Text>
-          <View style={styles.buttonGroup}>
-            <CustomButton title="Update Ac" onPress={UpdtMFNPWss} />
-            <CustomButton title="View Ac" onPress={VwMFNAccountSgnInss} />
-            <CustomButton title="Create Ac" onPress={RegMFNdogos} />
-          </View>
-        </LinearGradient>
+        {/* Sections */}
+        <Section title="📊 View" gradient={['#e58d29', 'skyblue']}>
+          <CustomButton title="Deposit" onPress={nav('FloatBghtSgnIns')} />
+          <CustomButton title="Float Bought" onPress={nav('UsrDpositSgnIns')} />
+          <CustomButton title="MFNdogo Withdrawals" onPress={nav('MFNWithdrawlsSgnIns')} />
+          <CustomButton title="Client Withdrawals" onPress={nav('UsrWthdrwlsSgnIns')} />
+          <CustomButton title="Float Withdrawals" onPress={nav('FltWthdrwlsSgnIns')} />
+        </Section>
 
-        {/* Float Section */}
-        <LinearGradient colors={['#e58d29', 'skyblue']} style={styles.section}>
-          <Text style={styles.sectionTitle}>Float</Text>
-          <View style={styles.buttonGroup}>
-            <CustomButton title="MFNdogo Withdraw" onPress={WthdrwMFNFltss} />
-            <CustomButton title="User Deposit" onPress={DpstMneys} />
-            <CustomButton title="Chama Deposit" onPress={SignitoryDepositsss} />
-            <CustomButton title="Biz Deposit" onPress={MakeBizDpsts} />
-          </View>
-        </LinearGradient>
+        <Section title="👤 My Account" gradient={['skyblue', '#e58d29']}>
+          <CustomButton title="Update Ac" onPress={nav('UpdtMFNPWs')} />
+          <CustomButton title="View Ac" onPress={nav('VwMFNAccountSgnIns')} />
+          <CustomButton title="Create Ac" onPress={nav('VwCompMFNTC')} />
+        </Section>
 
-        {/* Earnings Section */}
-        <LinearGradient colors={['skyblue', '#e58d29']} style={styles.section}>
-          <Text style={styles.sectionTitle}>Earnings</Text>
-          <View style={styles.buttonGroup}>
-            <CustomButton title="Withdraw" onPress={WthdrwMFNss} />
-            <CustomButton title="UpdateCommision" onPress={UpdateMFNComss} />
-          </View>
-        </LinearGradient>
+        <Section title="💰 Float" gradient={['#e58d29', 'skyblue']}>
+          <CustomButton title="MFNdogo Withdraw" onPress={nav('WthdrwMFNFlts')} />
+          <CustomButton title="User Deposit" onPress={nav('DpstMney')} />
+          <CustomButton title="Chama Deposit" onPress={nav('SignitoryDepositss')} />
+          <CustomButton title="Biz Deposit" onPress={nav('MakeBizDpsts')} />
+         <CustomButton title="View Deposit" onPress={nav('VwBizDpstsMFN')} />
+          <CustomButton title="View Withdrawals" onPress={nav('VwUsrWthdrwlss')} />
+       </Section>
+
+        <Section title="💸 Earnings" gradient={['skyblue', '#e58d29']}>
+          <CustomButton title="Withdraw" onPress={nav('WthdrwMFNs')} />
+          <CustomButton title="Update Commission" onPress={nav('UpdateMFNComs')} />
+        </Section>
+
       </ScrollView>
     </SafeAreaView>
   );
@@ -145,49 +69,61 @@ export default KFNdogoScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f0f8ff',
   },
   scrollContainer: {
     paddingVertical: 20,
+    paddingBottom: 40,
     alignItems: 'center',
+  },
+  topBar: {
+    width: '90%',
+    borderRadius: 12,
+    padding: 10,
+    marginBottom: 20,
+    alignItems: 'center',
+    elevation: 4,
   },
   section: {
     width: '90%',
-    padding: 20,
-    marginBottom: 20,
-    borderRadius: 15,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    borderRadius: 16,
+    marginBottom: 25,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
     elevation: 5,
   },
   sectionTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontWeight: '700',
     color: '#fff',
+    marginBottom: 15,
     textAlign: 'center',
-    marginBottom: 10,
   },
   buttonGroup: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    gap: 10,
   },
   button: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#ffffffcc',
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     margin: 5,
-    borderRadius: 8,
+    borderRadius: 10,
+    minWidth: 130,
+    alignItems: 'center',
+    shadowColor: '#333',
+    shadowOpacity: 0.15,
+    shadowRadius: 5,
     elevation: 3,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
-    color: '#fff',
-  },
-
-  buttonText2: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: 'black',
-
+    color: '#333',
   },
 });

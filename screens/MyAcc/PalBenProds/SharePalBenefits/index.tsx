@@ -302,6 +302,7 @@ const SMASendNonLns = props => {
                     ) {Alert.alert('Requested amount is more than your Benefits');}
                     
                     else if(usrPW !==SnderPW){Alert.alert('Wrong password');}
+                    
                     else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You do not own this business');}
                     
                      else {

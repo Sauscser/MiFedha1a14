@@ -133,8 +133,10 @@ const RepayCovSellerLnsss = props => {
 
               const netLnBal = parseFloat(amountExpectedBackWthClrncs) - 
               parseFloat(clearanceAmts) - parseFloat (DefaultPenaltyCredSl2s)
+
+              const netLnBalz = amountExpectedBacks - amountrepaids
       
-              const netLnBal2 = (netLnBal) * 
+              const netLnBal2 = (netLnBalz) * 
               ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
 
               const LonBal1 = (netLnBal2 + parseFloat(clearanceAmts) + parseFloat (DefaultPenaltyCredSl2s)).toFixed(0)

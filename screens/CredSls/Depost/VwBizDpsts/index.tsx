@@ -1,121 +1,152 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text,   FlatList, Alert} from 'react-native';
-
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Alert, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import NonLnSent from "../../../../components/MyAc/VwDeposits";
-import styles from './styles';
+import NonLnRec from "../../../../components/MyAc/VwDeposits";
 
-import {  getBizna, getSMAccount, listFloatReductions,   } from '../../../../src/graphql/queries';
-import { TextInput } from 'react-native-gesture-handler';
+import { getBizna, VwMyUsrDposits } from '../../../../src/graphql/queries';
 
-const FetchSMNonLnsSnt = props => {
+const FetchSMNonLnsSnt = () => {
+  const [loading, setLoading] = useState(false);
+  const [allRecords, setAllRecords] = useState<any[]>([]);
+  const [filteredRecords, setFilteredRecords] = useState<any[]>([]);
+  const [bizPhone, setBizPhone] = useState('');
+  const [buyerFilter, setBuyerFilter] = useState('');
 
-   
-    const [loading, setLoading] = useState(false);
-    const [Recvrs, setRecvrs] = useState([]);
-    const [BizPhone, setBizPhone] = useState("");
-
-    const [ownr, setownr] = useState("");
-
-    
-      
-      const fetchUsrDtls = async () => {
-
+  const fetchLoanees = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
       const userInfo = await Auth.currentAuthenticatedUser();
-      try {
-              const MFNDtls: any = await API.graphql(
-                  graphqlOperation(getBizna, {BusKntct: BizPhone}
-              ),);
 
-              
-              const owner = MFNDtls.data.getBizna.owner;
-              
-          const fetchLoanees = async () => {
-          
-            setLoading(true);
-          
-            try {
-              const Lonees:any = await API.graphql(graphqlOperation(listFloatReductions, 
-                { 
-                    filter:{  depositerid: {eq:BizPhone}},
-                      
-                      
-                    }
-               
-                  ))
-                  setRecvrs(Lonees.data.listFloatReductions.items);
-                  console.log(Lonees)
-            } catch (e) {
-              console.log(e);
-            } finally {
-              setLoading(false);
+      const personnelCheck: any = await API.graphql(graphqlOperation(getBizna, {BusKntct: bizPhone}),
+            );
+
+            const agentData = personnelCheck.data.getBizna;
+
+            if (!agentData)
+            {
+              Alert.alert("No such business exists")
             }
-          };
+         
+      if (agentData.owner !== userInfo.attributes.sub) {
+        Alert.alert("Access Denied", "You dont own this business.");
+        return;
+      }
+
+      const result: any = await API.graphql(graphqlOperation(VwMyUsrDposits, {
+        depositerid: bizPhone,
+        sortDirection: "DESC",
+        limit:100,
         
-          if (userInfo.attributes.sub!==owner) {
-            Alert.alert("You are not the owner of the Business")
-            return;
-          }  else {
-           await fetchLoanees();}
-} catch (e) {
-console.log(e);
-} finally {
-setLoading(false);
-setBizPhone("");
-}
-};
+      }));
 
-useEffect(() => {
-fetchUsrDtls();
-}, [])   
+      const items = result.data.VwMyUsrDposits.items || [];
+     if (items.length<1)
+      {
+        Alert.alert("No deposits made")
+      } setAllRecords(items);
+      setFilteredRecords(items);
 
-useEffect(() =>{
-  const BizPhones=BizPhone
-    if(!BizPhones && BizPhones!=="")
-    {
-      setBizPhone("");
-      return;
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setBizPhone('')
+      
+      setLoading(false);
     }
-    setBizPhone(BizPhones);
-    }, [BizPhone]
-     );
+  };
+
+  useEffect(() => {
+    if (!buyerFilter) {
+      setFilteredRecords(allRecords);
+    } else {
+      const filtered = allRecords.filter(item =>
+        item?.agentName?.toLowerCase().includes(buyerFilter.toLowerCase())
+      );
+      setFilteredRecords(filtered);
+    }
+  }, [buyerFilter, allRecords]);
 
   return (
-    <View style={styles.image}>
+    <View style={styles.container}>
+      <View style={styles.inputBlock}>
+        <TextInput
+          placeholder="My Full Business Number"
+          value={bizPhone}
+          onChangeText={setBizPhone}
+          style={styles.input}
+        />
+      
 
-    <View style={styles.root}>
-      <FlatList
-      style= {{width:"100%"}}
-        data={Recvrs}
-        renderItem={({item}) => <NonLnSent SMAc={item} />}
-        keyExtractor={(item, index) => index.toString()}
-        onRefresh={fetchUsrDtls}
-        refreshing={loading}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponentStyle={{alignItems: 'center'}}
-        ListHeaderComponent={() => (
-          <>
-            
-            <Text style={styles.label}> Business Deposits</Text>
-            <Text style={styles.label2}> (Fill below and swipe here to filter)</Text>
-          </>
-        )}
+      <TextInput
+        placeholder="MFNdogo's Name. Even partially"
+        value={buyerFilter}
+        onChangeText={setBuyerFilter}
+        style={styles.input}
       />
 
 </View>
-
-<View style={styles.sendLoanView}>
-                    <TextInput
-                                         placeholder='Enter Business Phone'
-                     
-                      value={BizPhone}
-                      onChangeText={setBizPhone}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-             
-    </View>
+      
+        <FlatList
+          data={filteredRecords}
+          renderItem={({ item }) => <NonLnRec SMAc={item} />}
+          keyExtractor={(item, index) => index.toString()}
+          onRefresh={fetchLoanees}
+          refreshing={loading}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={() => (
+            <>
+              <Text style={styles.label2}>(Please swipe down to reload)</Text>
+              <Text style={styles.label}>Business Deposits</Text>
+            </>
+          )}
+        />
+      
     </View>
   );
 };
 
 export default FetchSMNonLnsSnt;
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f2f4f7',
+    paddingHorizontal: 16,
+    paddingTop: 20,
+  },
+  inputBlock: {
+    marginBottom: 16,
+  },
+  input: {
+    height: 48,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    fontSize: 16,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  label: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#222',
+    textAlign: 'center',
+    marginVertical: 10,
+  },
+  label2: {
+    fontSize: 13,
+    fontStyle: 'italic',
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+});
+

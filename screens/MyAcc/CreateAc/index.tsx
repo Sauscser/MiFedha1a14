@@ -102,6 +102,7 @@ const CreateAcForm = (props) => {
                 loanAcceptanceCode:userInfo.attributes.email,
                 beneficiaryType: "Biz",
                 benefitsAmount: 0,
+                mfchampEarnings:0,
       
                 ttlDpstSM: 0,
                 TtlWthdrwnSM: 0,

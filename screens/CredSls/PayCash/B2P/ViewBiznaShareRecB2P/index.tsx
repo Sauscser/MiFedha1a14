@@ -29,18 +29,16 @@ const FetchSMNonLnsSnt = props => {
                   
                     const userInfo = await Auth.currentAuthenticatedUser();
                         try {
-                          const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
+                          const Lonees:any = await API.graphql(graphqlOperation(vwMyRecMny7, 
                           {
-                            filter:{
-                              recPhn:{eq:userInfo.attributes.email},
-                            },
-                                                                    
+                            recPhn:userInfo.attributes.email,
+                                 
                             sortDirection: 'DESC',
                             limit: 100,
                                 }
                            
                               ));
-                              setRecvrs(Lonees.data.listNonLoans.items);
+                              setRecvrs(Lonees.data.vwMyRecMny7.items);
                    
                         
                               

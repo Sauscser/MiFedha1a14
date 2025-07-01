@@ -1,0 +1,16 @@
+{
+  "resourceName": "MifedhaPhotos",
+  "policyUUID": "5eb61631",
+  "bucketName": "mifedhasalesadsphotos",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

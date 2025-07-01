@@ -45,28 +45,21 @@ const SMCvLnStts = (props:SMCvLnSttus) => {
 
    
     return (
+
+        <View style = {styles.pageContainer}>
         <Pressable 
         onPress={SndChmMmbrMny}
-        style = {styles.container}>             
+        style = {styles.card}>             
             
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.loanAdvert}>                       
-                       {/*loaner details */}   
-                       {loanername}               
-                    </Text>
-            </View>
-           
+            
+
+            <Text style={styles.prodInfo}><Text style={styles.label}>Loaner Name:</Text> {loanername}</Text>           
+           <Text style={styles.prodInfo}><Text style={styles.label}>Loan ID:</Text> {loanID}</Text>           
+           <Text style={styles.prodInfo}><Text style={styles.label}>Loan Balance:</Text> KES {lonBala.toFixed(2)}</Text>
+
                         
-            <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Loan Id: {loanID}                 
-                    </Text>
-                   
-                    <Text style ={styles.amountoffered}>                       
-                       {/* amount*/} 
-                       Loan Balance (Ksh): {lonBala.toFixed(2)}
-                    </Text>                      
                     </Pressable>
+                     </View>
     );
 }; 
 

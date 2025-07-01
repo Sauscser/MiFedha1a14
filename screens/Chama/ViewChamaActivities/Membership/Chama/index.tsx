@@ -29,15 +29,23 @@ const FetchSMCovLns = props => {
 
         const fetchLoanees = async () => {
             setLoading(true);
+            const userInfo = await Auth.currentAuthenticatedUser();
+        
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listChamaMembers, 
                {
-                    filter: {  groupContact: {eq:route.params.grpContact}},
+                    filter: {  groupContact: {eq:route.params.groupContact}},
                       
                     }
                  
                   ));
-              setLoanees(Lonees.data.listChamaMembers.items);
+
+                  const grps = Lonees.data.listChamaMembers.items
+                  if (grps.length <1)
+                  {
+                    Alert.alert("You dont belong to any group")
+                  }
+              setLoanees(grps);
 
               
             } catch (e) {

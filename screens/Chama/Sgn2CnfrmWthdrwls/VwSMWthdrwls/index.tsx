@@ -36,8 +36,7 @@ const FetchSMNonLnsSnt = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listFloatAdds, 
                 { 
                       filter:{withdrawerid: {eq:userInfo.attributes.email}},
-                      sortDirection: "DESC",
-                      limit:100
+                    
                     }
                 
                   ));

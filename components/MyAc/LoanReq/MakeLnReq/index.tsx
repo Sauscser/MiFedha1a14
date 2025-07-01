@@ -37,24 +37,16 @@ const SMCvLnStts = (props:SMAccount) => {
         
                   
             
-            <View style = {styles.container}>              
+            <View style = {styles.pageContainer}>   
+            <View style = {styles.card}>           
                        
-                        
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Name: {name}                 
-                    </Text>
-                                        
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Email: {awsemail}                  
-                    </Text> 
-                    <Text style = {styles.repaymentPeriod}>                       
-                       {/* repaymentPeriod*/}
-                      Phone: {phonecontact}                  
-                    </Text> 
+            <Text style={styles.prodInfo}><Text style={styles.label}>Name:</Text> {name}</Text>
+           
+           <Text style={styles.prodInfo}><Text style={styles.label}>Email:</Text> {awsemail}</Text>
+           <Text style={styles.prodInfo}><Text style={styles.label}>Phone:</Text> {phonecontact}</Text>
+          
 
-
+          </View>
         </View >
                 
        

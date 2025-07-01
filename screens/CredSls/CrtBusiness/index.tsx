@@ -1,126 +1,158 @@
-import React, {useEffect, useState} from 'react';
-
-import {createBizna, createChamaMembers, createGroup,   createPersonel,   updateCompany} from '../../../src/graphql/mutations';
-import { getCompany, getSMAccount, listBiznas,  } from '../../../src/graphql/queries';
-import {Auth,  graphqlOperation, API} from 'aws-amplify';
-
-import {useNavigation} from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
-
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  
-  
   TextInput,
-  ScrollView,
-  StyleSheet,
-  
   TouchableOpacity,
   Alert,
   ActivityIndicator,
-} from 'react-native';
+  ScrollView,
+  StyleSheet,
+} from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 
+import { Auth, API, graphqlOperation } from "aws-amplify";
+import * as Location from "expo-location";
+import { LinearGradient } from "expo-linear-gradient";
 
+import { createBizna, createPersonel } from "../../../src/graphql/mutations";
+import { listBiznas, getSMAccount } from "../../../src/graphql/queries";
+import { useNavigation } from "@react-navigation/native";
 
-
-const CreateBiz = (props) => {
-
-  
-
-  const [ChmPhn, setChmPhn] = useState('');
-  const [nam, setName] = useState(null);
- 
-  const [awsEmail, setAWSEmail] = useState("");
+const CreateBiz = () => {
+  const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
-  const [pword, setPW] = useState('');
-  const [ChmNm, setChmNm] = useState('');
-  const [ChmDesc, setChmDesc] = useState('');
-  const [ChmRegNo, setChmRegNo] = useState('');
-  const [MmbaID, setMmbaID] = useState('');
-  const [Sign2Phn, setSign2Phn] = useState('');
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  const WorkerID = "00001"+ChmPhn
-
-
-  const fetchAcDtls = async () => {
-    if(isLoading){
-      return;
-    }
-    setIsLoading(true);
-    const userInfo = await Auth.currentAuthenticatedUser();
-   
-    try {
-      const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
-      );
-
+  const [businessName, setBusinessName] = useState("");
+  const [businessPhone, setBusinessPhone] = useState("");
+  const [licenseNumber, setLicenseNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [description, setDescription] = useState("");
+  const [businessType, setbusinessType] = useState("");
+  const [bizContact, setbizContact] = useState("");
   
-      const owners = accountDtl.data.getSMAccount.owner;
-      const nationalid = accountDtl.data.getSMAccount.nationalid
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
 
-      const ChckBizExistence = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-        try {
-          const UsrDtls:any = await API.graphql(
-            graphqlOperation(listBiznas,
-              { filter: 
-                {
-                  and:{
-                    licenseNo: { eq: Sign2Phn},
-                    status: {eq: "AccountActive"},
-                    noBL: {gt: 0}
-                    
-                }                          
-                }}
-            )
-          )
-
-          const ChckBizExistence2 = async () => {
-            const userInfo = await Auth.currentAuthenticatedUser();
-            try {
-              const UsrDtls2:any = await API.graphql(
-                graphqlOperation(listBiznas,
-                  { filter: 
-                    {
-                      and:{
-                        email: { eq: userInfo.attributes.email},
-                        status: {eq: "AccountActive"},
-                        noBL: {gt: 0}
-                        
-                    }                          
-                    }}
-                )
-              )
-
-      const CreateNewSMAc = async () => {
-        if(isLoading){
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          Alert.alert("Permission to access location was denied.");
           return;
         }
-        setIsLoading(true);
-        const userInfo = await Auth.currentAuthenticatedUser();
-      
-     
-        try {
-          await API.graphql(
-          graphqlOperation(createBizna, {
+        let loc = await Location.getCurrentPositionAsync({});
+        setLocation({
+          latitude: loc.coords.latitude,
+          longitude: loc.coords.longitude,
+        });
+      } catch (error) {
+        console.warn("Error fetching location:", error);
+      }
+    };
+
+    fetchLocation();
+  }, []);
+
+  const resetForm = () => {
+    setBusinessName("");
+    setBusinessPhone("");
+    setLicenseNumber("");
+    setPassword("");
+    setConfirmPassword("");
+    setDescription("");
+    setbusinessType("");
+            setbizContact("");
+  };
+
+  const handleCreateBusiness = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+const userInfo = await Auth.currentAuthenticatedUser();
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      const { email, sub, username } = user.attributes;
+
+      const accountData = await API.graphql(
+        graphqlOperation(getSMAccount, { awsemail: email })
+      );
+      const account = accountData.data.getSMAccount;
+
+      if (sub !== account.owner) {
+        Alert.alert("Please first create main account");
+        setIsLoading(false);
+        return;
+      }
+
+      const existingByLicense = await API.graphql(
+        graphqlOperation(listBiznas, {
+          filter: {
+            and: [
+              { licenseNo: { eq: licenseNumber } },
+              { status: { eq: "AccountActive" } },
+              { noBL: { gt: 0 } },
+            ],
+          },
+        })
+      );
+
+      if (existingByLicense.data.listBiznas.items.length > 0) {
+        Alert.alert("This license number is blacklisted by one of your clients");
+        setIsLoading(false);
+        return;
+      }
+
+      const existingByUser = await API.graphql(
+        graphqlOperation(listBiznas, {
+          filter: {
+            and: [
+              { email: { eq: email } },
+              { status: { eq: "AccountActive" } },
+              { noBL: { gt: 0 } },
+            ],
+          },
+        })
+      );
+
+      if (existingByUser.data.listBiznas.items.length > 0) {
+        Alert.alert("You have a business blacklisted by one of your clients");
+        setIsLoading(false);
+        return;
+      }
+
+      if (password.length < 8) {
+        Alert.alert("Password must be at least 8 characters.");
+        setIsLoading(false);
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        Alert.alert("Passwords do not match.");
+        setIsLoading(false);
+        return;
+      }
+
+      const coords = location || { latitude: 0, longitude: 0 };
+
+      await API.graphql(
+        graphqlOperation(createBizna, {
           input: {
-           
-            BusKntct:ChmPhn,
-            busName: ChmNm,
-            pw: pword,
+            BusKntct:businessPhone,
+            busName: businessName,
+            pw: password,
             email: userInfo.attributes.email,
             owner2email:userInfo.attributes.email,
             TtlEarnings: 0,
             earningsBal: 0,
             bizBeneficiary:userInfo.attributes.email,
             netEarnings:0,
-            description: ChmDesc,
-            licenseNo: Sign2Phn,
+            description: description,
+            licenseNo: licenseNumber,
             bizType:"bizType",
             status: "AccountActive",
+            businessType: businessType,
+            bizContact: bizContact,
             owner: userInfo.attributes.sub,
             beneficiaryType: "Biz",
             benefitsAmount: 0,
@@ -206,214 +238,42 @@ const CreateBiz = (props) => {
             Admin48:"None",
             Admin49:"None",
             Admin50:"None",
-                  },
-                })
-                
-                ,
-              );
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+          },
+        })
+      );
 
-              
-              
-            } catch (error) {
-              if (error){
-                Alert.alert("Creation unsuccessful; Retry")
-                return
-              }
-            
-            }
-            await onCreateNewSMAc();
-            
-                     };
+      const workerId = "00001" + businessPhone;
 
-                     const onCreateNewSMAc = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
-                      try {
-                        await API.graphql(
-                        graphqlOperation(createPersonel, {
-                        input: {
-                          BusinessRegNo: ChmPhn,
+      await API.graphql(
+        graphqlOperation(createPersonel, {
+          input: {
+            BusinessRegNo: businessPhone,
                           phoneKontact:userInfo.attributes.email,
                           name: userInfo.username,
-                          workerId: WorkerID,
+                          workerId: workerId,
                           workId:"00001",
                           email: userInfo.attributes.email,
-                          nationalid:nationalid,
-                          BiznaName:ChmNm,
-                          ownrsss: owners,
-                                },
-                              }),
-                            );
-                            
-                          } catch (error) {
-                            if (error){
-                              Alert.alert("Error: possible this Business Phone exists here")
-                              return
-                            }
                           
-                          }
-                          Alert.alert("Business and owner accounts successfully created")
-                          
-                          setIsLoading(false);
-                          
-                          
-                        };
+            nationalid: account.nationalid,
+            BiznaName: businessName,
+            ownrsss: account.owner,
+          },
+        })
+      );
 
-                     if (pword.length < 8)
-          {Alert.alert("password is too short; at least eight characters");
-        
-      } 
-      
-     else if (userInfo.attributes.sub !== owners)
-    {Alert.alert ("Please first create main account")}
-
-    else if (UsrDtls.data.listBiznas.items.length > 0)
-    {Alert.alert ("This license number is blacklisted by one of your clients")}
-
-    else if (UsrDtls2.data.listBiznas.items.length> 0)
-    {Alert.alert ("You have a business blacklisted by one of your clients")}
-
-    else if (pword !== ChmRegNo) {
-      Alert.alert('Passwords do not match.');
-      return;
+      Alert.alert("Business and owner accounts successfully created");
+      resetForm();
+    } catch (error) {
+      console.error("Error creating business:", error);
+      Alert.alert("An error occurred. Please try again or contact support.");
     }
 
+    setIsLoading(false);
+  };
 
-    else{
-                           await CreateNewSMAc();}
-
-                          } catch (e) {
-                            if(e){Alert.alert("Retry or update app or call customer care")
-                          return}
-                            
-                          }
-                                    
-                        }
-                        
-                        await ChckBizExistence2 ();
-                      
-                      } catch (e) {
-                            if(e){Alert.alert("Retry or update app or call customer care")
-                          return}
-                            
-                          }
-                                    
-                        }
-                        
-                        await ChckBizExistence ();
-                      
-                      }
-
-        catch (e) {
-          console.log(e)
-          if (e){Alert.alert("Check your Details")
-          return;}
-              
-         }       
-         setIsLoading(false);
-         setChmPhn('');
-         setPW('');
-         setAWSEmail("")
-         setChmDesc("")
-         setChmNm("")
-         setChmRegNo("")
-         setMmbaID("")
-         setSign2Phn(""); 
-      }; 
-          
-    
-      useEffect(() =>{
-        const MmbaIDs=MmbaID
-          if(!MmbaIDs && MmbaIDs !=="")
-          {
-            setMmbaID("");
-            return;
-          }
-          setMmbaID(MmbaIDs);
-          }, [MmbaID]
-           );
-           
-           useEffect(() =>{
-        const ChmRegNos=ChmRegNo
-          if(!ChmRegNos && ChmRegNos !=="")
-          {
-            setChmRegNo("");
-            return;
-          }
-          setChmRegNo(ChmRegNos);
-          }, [ChmRegNo]
-           );
-           
-           useEffect(() =>{
-        const awsEmails=awsEmail
-          if(!awsEmails && awsEmails !=="")
-          {
-            setAWSEmail("");
-            return;
-          }
-          setAWSEmail(awsEmails);
-          }, [awsEmail]
-           );
-
-      useEffect(() =>{
-        const ChmNms=ChmNm
-          if(!ChmNms && ChmNms !=="")
-          {
-            setChmNm("");
-            return;
-          }
-          setChmNm(ChmNms);
-          }, [ChmNm]
-           );
-
-           useEffect(() =>{
-            const ChmDescs=ChmDesc
-              if(!ChmDescs && ChmDescs!=="")
-              {
-                setChmDesc("");
-                return;
-              }
-              setChmDesc(ChmDescs);
-              }, [ChmDesc]
-               );
-
-useEffect(() =>{
-  const ChmPhns=ChmPhn
-    if(!ChmPhns && ChmPhns!=="")
-    {
-      setChmPhn("");
-      return;
-    }
-    setChmPhn(ChmPhns);
-    }, [ChmPhn]
-     );
-
-     useEffect(() =>{
-      const pws=pword
-        if(!pws && pws!=="")
-        {
-          setPW("");
-          return;
-        }
-        setPW(pws);
-        }, [pword]
-         );
-
-         useEffect(() =>{
-          const Sign2Phns=Sign2Phn
-            if(!Sign2Phns && Sign2Phns !=="")
-            {
-              setSign2Phn("");
-              return;
-            }
-            setSign2Phn(Sign2Phns);
-            }, [Sign2Phn]
-             );
-
-        
-             return (
+  return (
               <LinearGradient
                 colors={['#e58d29', 'skyblue']}
                 start={[0, 0]}
@@ -426,26 +286,38 @@ useEffect(() =>{
                     <View style={styles.formContainer}>
                       <TextInput
                         placeholder="Business Phone Number"
-                        value={ChmPhn}
-                        onChangeText={setChmPhn}
+                        value={businessPhone}
+                        onChangeText={setBusinessPhone}
                         style={styles.input}
                       />
                       <TextInput
                         placeholder="Business Name"
-                        value={ChmNm}
-                        onChangeText={setChmNm}
+                        value={businessName}
+                        onChangeText={setBusinessName}
                         style={styles.input}
                       />
                       <TextInput
                         placeholder="Registration Number"
-                        value={Sign2Phn}
-                        onChangeText={setSign2Phn}
+                        value={licenseNumber}
+                        onChangeText={setLicenseNumber}
+                        style={styles.input}
+                      />
+                      <TextInput
+                        placeholder="Business Contact"
+                        value={bizContact}
+                        onChangeText={setbizContact}
+                        style={styles.input}
+                      />
+                      <TextInput
+                        placeholder="Business Type"
+                        value={businessType}
+                        onChangeText={setbusinessType}
                         style={styles.input}
                       />
                       <TextInput
                         placeholder="Business Description"
-                        value={ChmDesc}
-                        onChangeText={setChmDesc}
+                        value={description}
+                        onChangeText={setDescription}
                         style={styles.input}
                         multiline={true}  // Enables multi-line input
                 textAlignVertical="top"
@@ -456,8 +328,8 @@ useEffect(() =>{
                                                                    placeholder="Biz Account Password"
                                                                style={styles.passwordInput}
                                                                                                     
-                                                               value={pword}
-                                                               onChangeText={setPW}
+                                                               value={password}
+                                                               onChangeText={setPassword}
                                                                secureTextEntry={!isPasswordVisible}
                                                                placeholderTextColor="#ccc"
                                                                        />
@@ -471,8 +343,8 @@ useEffect(() =>{
                                                                    placeholder="Confirm Biz Account Password"
                                                                style={styles.passwordInput}
                                                                                                     
-                                                               value={ChmRegNo}
-                                                               onChangeText={setChmRegNo}
+                                                               value={confirmPassword}
+                                                               onChangeText={setConfirmPassword}
                                                                secureTextEntry={!isPasswordVisible}
                                                                placeholderTextColor="#ccc"
                                                                />
@@ -481,7 +353,7 @@ useEffect(() =>{
                                                                </TouchableOpacity>
                                                               </View>
                       
-                      <TouchableOpacity onPress={fetchAcDtls} style={styles.button}>
+                      <TouchableOpacity onPress={handleCreateBusiness} style={styles.button}>
                         {isLoading ? (
                           <ActivityIndicator color="#fff" />
                         ) : (

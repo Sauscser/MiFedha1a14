@@ -12,14 +12,18 @@ import {getAgent, getCompany, getSMAccount} from '../../../src/graphql/queries';
 import {
   View,
   Text,
-
+  StyleSheet,
   TextInput,
   ScrollView,
   ActivityIndicator,
   TouchableOpacity,
   Alert,
+  Platform,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
-import styles from './styles';
+
 
 const SMADepositForm = props => {
   const [nationalId, setNationalid] = useState("");
@@ -340,82 +344,129 @@ const SMADepositForm = props => {
                   setAgentPhn(agphn);
                   }, [AgentPhn]
                    );
+return (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+          <Text style={styles.title}>Fill Account Details Below</Text>
 
-  
-
-  
-
-
-  return (
-    <View>
-      <View>
-        
-        <ScrollView>
-          <View style={styles.amountTitleView}>
-            <Text style={styles.title}>Fill Account Details Below</Text>
-          </View>
-
-         
-
-          <View style={styles.sendAmtView}>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Depositor Email</Text>
             <TextInput
-            placeholder="User Email"
+              placeholder="User Email"
               value={nationalId}
               onChangeText={setNationalid}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Depositor Email</Text>
+              style={styles.input}
+            />
           </View>
 
-          <View style={styles.sendAmtView}>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Depositor ID</Text>
             <TextInput
+              placeholder="User ID"
               value={UsrId}
               onChangeText={setUsrId}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Depositor ID</Text>
+              style={styles.input}
+            />
           </View>
 
-         
-
-          <View style={styles.sendAmtView}>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>MFNdogo Phone</Text>
             <TextInput
-            placeholder="+2547xxxxxxxx"
+              placeholder="+2547xxxxxxxx"
               value={AgentPhn}
               onChangeText={setAgentPhn}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>MFNdogo Phone</Text>
+              style={styles.input}
+            />
           </View>
 
-          <View style={styles.sendAmtView}>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Amount</Text>
             <TextInput
-            keyboardType={"decimal-pad"}
+              placeholder="Enter amount"
+              keyboardType="decimal-pad"
               value={amount}
               onChangeText={setAmount}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Amount</Text>
+              style={styles.input}
+            />
           </View>
 
-          <View style={styles.sendAmtView}>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>MFNdogo Password</Text>
             <TextInput
+              placeholder="Enter password"
               value={agPWd}
               onChangeText={setAgPWd}
-              secureTextEntry = {true}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>MFNdogo PW</Text>
+              secureTextEntry
+              style={styles.input}
+            />
           </View>
 
-          <TouchableOpacity onPress={fetchAcDtls} style={styles.sendAmtButton}>
-            <Text style={styles.sendAmtButtonText}>Click to Deposit</Text>
-            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
+          <TouchableOpacity style={styles.button} onPress={fetchAcDtls}>
+            <Text style={styles.buttonText}>Click to Deposit</Text>
+            {isLoading && <ActivityIndicator size="small" color="#fff" style={{ marginTop: 8 }} />}
           </TouchableOpacity>
         </ScrollView>
-      </View>
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
 export default SMADepositForm;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f2f4f7',
+    padding: 16,
+  },
+  scrollContainer: {
+    paddingBottom: 40,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#e58d29',
+    textAlign: 'center',
+    marginBottom: 24,
+  },
+  inputGroup: {
+    marginBottom: 16,
+  },
+  label: {
+    marginBottom: 6,
+    color: '#00bfff',
+    fontSize: 15,
+    fontWeight: '500',
+  },
+  input: {
+    height: 48,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    paddingHorizontal: 14,
+    fontSize: 16,
+  },
+  button: {
+    marginTop: 10,
+    backgroundColor: '#e58d29',
+    paddingVertical: 14,
+    borderRadius: 10,
+    alignItems: 'center',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 3,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 16,
+  },
+});

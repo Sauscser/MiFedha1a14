@@ -10,16 +10,23 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {
-      MemberReqChm:{ChamaNMember:String};
+      MemberReqChm:{ChamaNMember:string};
       VwAsBeneficiary:undefined;
       UpdatePayStack:{amounts:string};
       UrlLinks:undefined;
+      SendMmbrsMny:{ChamaNMember:string};
+      VwChamaMembers :{groupContact:string};
+      PayCash3:undefined;
+      
+
       UpdateBankAdminAc:undefined;
       BuyFloatBnkAdm:undefined;
       GroupControlTable:undefined;
       ViewGrpApplications:undefined;
       PaystackTNC:undefined;
       ViewMFBankAdmin:undefined;
+      ViewGrp2ConfirmDividends:undefined;
+      ViewGrp2ShareDividends:undefined;
       
       VwBenefactorContriDtls:
       {benefactorAc:string, 
@@ -208,7 +215,7 @@ declare global {
       SI2VwBiz2BizLoaners:undefined;
       SI2VwBiz2PalLoanees:undefined;
 
-      VwBiz2PalLnees: {ChmDesc:string};
+      VwBiz2PalLnees: undefined;
       VwBiz2PalLners: undefined;
       VwPal2BizLnees: undefined;
       VwPal2BizLners:undefined;
@@ -401,7 +408,7 @@ declare global {
       ChamSignIn4s:undefined;
       ChmSignIn5s:undefined;
       ChmSignIn6s:undefined;
-      ChamaRemts:{grpContact:string};
+      ChamaRemts:{groupContact:string};
       ChmContris:{grpContact:string};
       ChmMmbrss:{grpContact:string};
       ChamaMmbrRemts:{id:string};
@@ -527,6 +534,7 @@ declare global {
 
       PwnBrkrRegss:undefined;
       ChamaRegss:undefined;
+      
 
       ChmVwMmbr2Removes:{ChmNMmbrPhns:string};
 
@@ -535,7 +543,7 @@ declare global {
     
       SgnIn2RemoveMmbrs:undefined;
 
-      ChmVwMmbrss:{grpContact:string};
+      ChmVwMmbrss:{ChamaNMember:string};
       SgnIn2BLSMCovs:undefined;
       SgnIn2BLSMNonCovs:undefined;
       
@@ -621,7 +629,7 @@ declare global {
       DtldSalesInfo: {id:string};
 
       SgnIn2RemoveSlAd: undefined;
-      VwSlsAds2Remove: {BiznaContact:string};
+      VwSlsAds2Remove: undefined;
       VwPlLn2Remove:undefined;
       AutomaticRepayAllTyps:undefined;
       VwMakeLnReq:undefined;

@@ -324,12 +324,9 @@ else{
                                 awsemail:senderbeneficiary,
                                 balance:(PalBenefits + parseFloat(SenderBeneficiarySenderUsrBal)).toFixed(0),
                                 beneficiaryAmt: (PalBenefits + parseFloat(senderbeneficiaryAmt)).toFixed(0),
-                                                         
-                                
-                              }
+                                                               }
                             })
                           )
-
                           if (response4?.data?.updateSMAccount)
                           {
                             await updtRecBeneficiaryAc();
@@ -576,9 +573,7 @@ else{
                                 awsemail:receiverbeneficiary,
                                 balance:(PalBenefits + parseFloat(RecBeneficiaryUsrBal)).toFixed(0),
                                 beneficiaryAmt: (PalBenefits + parseFloat(receiverbeneficiaryAmt)).toFixed(0),
-                                                         
-                                
-                              }
+                                  }
                             })
                           )
                           if (responx5?.data?.updateSMAccount)
@@ -597,6 +592,8 @@ else{
                       
                       
                     }
+
+                    
 
                     const updtComp1 = async () =>{
                     

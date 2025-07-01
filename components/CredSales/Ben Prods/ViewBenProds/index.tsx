@@ -65,10 +65,7 @@ const SMCvLnStts = (props:SMAccount) => {
                       More Description: {prodDesc}                  
                     </Text> 
 
-
         </View >
-                
-       
     );
 }; 
 

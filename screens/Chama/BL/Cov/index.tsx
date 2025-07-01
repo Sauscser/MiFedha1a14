@@ -153,13 +153,14 @@ const BLChmCovLoanee = (props) => {
               const MmbrClrnceCost = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)
               
 
+              const netLnBal = amountexpecteds - amountrepaids
               const LonBal = parseFloat(lonBala);
               
               const paymentFrequency = compDtls2.data.getCvrdGroupLoans.paymentFrequency
               const installmentAmount = compDtls2.data.getCvrdGroupLoans.installmentAmount
               const clearanceAmts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds);
               
-              const LonBal1 = (parseFloat(lonBala) * 
+              const LonBal1 = ((netLnBal) * 
               (Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
            
             

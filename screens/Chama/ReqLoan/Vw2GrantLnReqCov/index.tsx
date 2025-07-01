@@ -1,10 +1,10 @@
 import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native';
 
-import { API, graphqlOperation, Auth } from 'aws-amplify';
+import { API, graphqlOperation, Auth, SortDirection } from 'aws-amplify';
 import LnerStts from "../../../../components/Chama/LnReq/Vw2GrantLnReqCov";
 import styles from './styles';
-import {  listGroups, listRafikiLnAds, 
+import {  ByChmaNoDesc, listGroups, listRafikiLnAds, 
   listReqLoanChamas, listSMAccounts } from '../../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/native';
 
@@ -50,17 +50,17 @@ const FetchSMNonCovLns = props => {
             setLoading(true);
             try {
 
-              const Lonees:any = await API.graphql(graphqlOperation(listReqLoanChamas, 
+              const Lonees:any = await API.graphql(graphqlOperation(ByChmaNoDesc, 
                 { 
                     
+                  chamaPhone: route.params.groupContact,
+                  SortDirection:"DESC",
                   filter: {
-                  
-                    chamaPhone: { eq: route.params.grpContact},
                     status:{eq:"AwaitingResponse"}
                 }
                 }
                   ));
-              setLoanees(Lonees.data.listReqLoanChamas.items);
+              setLoanees(Lonees.data.ByChmaNoDesc.items);
             } catch (e) {
             
               console.log(e);
@@ -103,7 +103,7 @@ const FetchSMNonCovLns = props => {
           <>
             
             
-            <Text style={styles.label2}> (Select Loan Request to Grant)</Text>
+            <Text style={styles.label2}> (Swipe down to reload)</Text>
           </>
         )}
       />

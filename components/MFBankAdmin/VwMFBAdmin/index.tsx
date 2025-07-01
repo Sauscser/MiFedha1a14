@@ -32,29 +32,14 @@ const ViewSMDeposts = (props:SMAccount) => {
 
  
     return (
-        <View style = {styles.container}>              
+        <View style = {styles.pageContainer}>              
                       
-            <ScrollView >              
-                      
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Name : {name}                 
-                    </Text>
-
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                       Account Balance (Ksh): {BankAdmBal.toFixed(2)}                 
-                    </Text>
-                                      
-                    <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                      Phone Number: {phonecontact}                 
-                    </Text>
-
-                    
-                    
-                    
-        </ScrollView>
+            <View style = {styles.card}>   
+              <Text style={styles.prodInfo}><Text style={styles.label}>Name:</Text> {name}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Phone Number:</Text> {phonecontact}</Text>
+        <Text style={styles.prodInfo}><Text style={styles.label}>Account Balance:</Text> KES {BankAdmBal.toFixed(2)}</Text>
+        
+        </View>
                 
         </View>
     );

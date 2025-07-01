@@ -111,7 +111,7 @@ const MyLoanAccount = props => {
     };
 
     const P2BPayCash = () => {
-      navigation.navigate('P2BPayCash');
+      navigation.navigate('PayCash3');
     };
 
     const PersonelVw2GrntB2P = () => {

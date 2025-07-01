@@ -120,10 +120,12 @@ const RepayCovLnsss = props => {
               const tmDif = daysUpToDate - dfltUpdate;
               const tmDif2 = daysUpToDate - crtnDate;
 
+              const netLnBalz = amountExpectedBacks - amountrepaids
+
               const netLnBal = parseFloat(amountExpectedBackWthClrncs) - 
               parseFloat(clearanceAmts) - parseFloat (DefaultPenaltySM2s)
       
-              const netLnBal2 = (netLnBal) * 
+              const netLnBal2 = (netLnBalz) * 
               ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
 
               const LonBal1 = (netLnBal2 + parseFloat(clearanceAmts) + parseFloat (DefaultPenaltySM2s)).toFixed(0)

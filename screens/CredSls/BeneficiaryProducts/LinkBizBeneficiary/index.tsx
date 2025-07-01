@@ -108,6 +108,7 @@ const ProdId = route.params.id
               ProdCreatorAc
               */
           const benefactorPhone = BznaDtlsx.data.getBenProd2.benefactorPhone;
+          const ProdCreatorName = BznaDtlsx.data.getBenProd2.creatorName;
           
           const PckBeneficiaryDtls = async () => {
             if(isLoading){
@@ -202,6 +203,7 @@ const ProdId = route.params.id
 benefactorAc: ChmRegNo,
 /*ProdCreatorAc*/
 benefactorPhone: benefactorPhone,
+/*Beneficiary Account*/
 beneficiaryAc:ChmNm,
 /*Beneficiary Name*/
 beneficiaryPhone:busNamex,
@@ -212,6 +214,7 @@ creatorName: BiznaNames,
 owner: userInfo.username,
 prodCost: prodCostz,
 benefitsAmount: 0,
+/*ProdCreatorName */
 beneficiaryType: "Biz",
 prodDesc: prodDescz,
 benefitStatus: "Active",

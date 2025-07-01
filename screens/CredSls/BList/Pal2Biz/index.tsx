@@ -165,8 +165,9 @@ const curYrs = parseFloat(years)*365;
 
               const clearanceAmts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds);
              
+              const netLnBalz = amountexpecteds - amountrepaids
 
-              const LonBal1 = parseFloat(amountExpectedBackWthClrncs) * 
+              const LonBal1 = (netLnBalz) * 
               ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
 
               const ClrnceCosts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds)  + parseFloat(DefaultPenaltyCredSls)

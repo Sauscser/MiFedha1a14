@@ -34,7 +34,7 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listSokoAds, 
                { filter: {
                     and: {
-                      id: { contains: route.params.id},
+                      id: { contains: route.params.item},
                       
                     }
                     },
@@ -74,7 +74,7 @@ const FetchSMCovLns = props => {
         ListHeaderComponent={() => (
           <>
             
-            <Text style={styles.label}> Credit Sales Details</Text>
+            <Text style={styles.label}> Cash Sale Details</Text>
             <Text style={styles.label}> (Please swipe down to reload)</Text>
           </>
         )}

@@ -2,7 +2,7 @@ import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 import { getSMAccount, listSMLoansCovereds } from '../../../../../../../src/graphql/queries';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import LnerStts from "../../../../../../../components/MyAc/RepyLn/Vw2RpayCov";
+import LnerStts from "../../../../../../../components/MyAc/RepyLn/Pal2Pal";
 import styles from './styles';
 
 const FetchSMCovLns = props => {
@@ -31,7 +31,7 @@ const FetchSMCovLns = props => {
               const Lonees:any = await API.graphql(graphqlOperation(listSMLoansCovereds, 
                 { filter: {
                     and: {
-                      loanerEmail: { eq: userInfo.attributes.email},
+                      loaneeEmail: { eq: userInfo.attributes.email},
                       lonBala:{gt:0}
                       
                     }

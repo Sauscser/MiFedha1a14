@@ -29,30 +29,22 @@ const CredSlrCvLnStts = (props:ChmCvLnSttusRec) => {
       navigation.navigate("Vw2GrntBiz2Biz", {BusinessRegNo})
    }
     return (
+      
+      <View style = {styles.pageContainer}>
       <Pressable 
       onPress={SndChmMmbrMny}
-      style = {styles.container}>            
-            <View style = {{alignItems:"center"}}>
-            <Text style = {styles.loanAdvert}>                       
+      style = {styles.card}>            
+           
+            <Text style = {styles.prodName}>                       
                        {/*loaner details */}   
                        {BiznaName}               
                     </Text>
-            </View>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Business Phone:</Text> {BusinessRegNo}</Text>
+              <Text style={styles.prodInfo}><Text style={styles.label}>Work ID:</Text> {workId}</Text>
             
-                     <Text style = {styles.ownerName}>                       
-                       {/*loaner details */}   
-                    Business Phone: {BusinessRegNo}                 
-                    </Text>
-                    
-
-                    <Text style = {styles.interest}>                       
-                       {/* interest*/}
-                       Work ID: {workId}                    
-                    </Text> 
-                    
-        
-                
         </Pressable>
+        </View>
+
     );
 }; 
 

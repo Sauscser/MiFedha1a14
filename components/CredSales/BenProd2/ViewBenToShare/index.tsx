@@ -72,8 +72,7 @@ style = {styles.loanFriendButton}
 >            
   <Text>Share Benefits (Pal)</Text>            
 </Pressable>
-</View>   
-<View>
+
 <Pressable
 onPress={BenefitBiz}
 style = {styles.redeemButton}>            

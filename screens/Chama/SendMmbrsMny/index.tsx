@@ -96,6 +96,10 @@ const SMASendNonLns = props => {
       const grpNames =accountDtl.data.getGroup.grpName;
       const MemberDividendSync =accountDtl.data.getGroup.MemberDividendSync;
             const BankAdminAcNu =accountDtl.data.getGroup.BankAdminAcNu;
+
+      const Signatory3Email =accountDtl.data.getGroup.Signatory3Email;
+      const signatory2Email =accountDtl.data.getGroup.signatory2Email;
+      const SignatoryEmail =accountDtl.data.getGroup.SignatoryEmail;
            
       
       
@@ -167,7 +171,7 @@ const SMASendNonLns = props => {
                                                           setIsLoading(true);
                                                           try {
                                                               const contlTbl:any = await API.graphql(
-                                                                  graphqlOperation(getChamaControlTable, {id: EQUITYTABLEID}),
+                                                                  graphqlOperation(getChamaControlTable, {id: "EquityTable"}),
                                                                   );
                                                                   const DividendsEarnings =contlTbl.data.getChamaControlTable.DividendsEarnings;
                                                                   const BankAdminEarnings =contlTbl.data.getChamaControlTable.BankAdminEarnings;
@@ -190,6 +194,11 @@ const SMASendNonLns = props => {
 
                               description: Desc,
                               memberId:route.params.ChamaNMember,
+                              senderEmail: userInfo.attributes.email,
+                              confirm1:"NO",
+                              confirm2: "NO",
+                              signatory2: signatory2Email,
+                              signatory3: Signatory3Email,
                               status: "AccountActive",
                               owner: userInfo.attributes.sub,
                             },
@@ -204,10 +213,10 @@ const SMASendNonLns = props => {
                         }
                       }
                       setIsLoading(false);
-                      await updtSendrAc();
+                      Alert.alert("Remittance successfully booked")
                     };
                   
-                    
+                    /*
 
                     const updtSendrAc = async () =>{
                       if(isLoading){
@@ -383,7 +392,9 @@ const SMASendNonLns = props => {
                              +'. For clarification call the group Admin: '
                             + userInfo.attributes.phone_number + '. Thank you. MiFedha');
                       setIsLoading(false);
-                    }                                
+                    }       
+                      
+                    */
                                           
                     
                     if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');
@@ -404,8 +415,7 @@ const SMASendNonLns = props => {
                     + ". "+ ((TotalTransacted) - parseFloat(grpBals)).toFixed(2) + ' more needed');
                     return;}
                     
-                    else if(signitoryPWs !==SnderPW){Alert.alert('Wrong password');
-                    return;}
+                    
                     else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You are not the creator of this group');
                     return;}
                     
@@ -560,17 +570,6 @@ useEffect(() =>{
           </View>
 
 
-          <View style={styles.sendAmtView}>
-            <TextInput
-              value={SnderPW}
-              onChangeText={setSnderPW}
-              secureTextEntry = {true}
-              style={styles.sendAmtInput}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Chama PassWord</Text>
-          </View>
-
-          
 
           <View style={styles.sendAmtViewDesc}>
             <TextInput

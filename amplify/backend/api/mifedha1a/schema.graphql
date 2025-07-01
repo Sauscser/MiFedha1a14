@@ -58,7 +58,7 @@ type SMAccount
   beneficiary:   String!
   beneficiaryAmt:Float!
   loanAcceptanceCode: String!
-
+  mfchampEarnings: Float!
   ttlDpstSM: Float!
   TtlWthdrwnSM: Float!
 
@@ -916,18 +916,33 @@ type SokoAd
   id:ID!
  
   sokokntct: String!
-  sokoname: String! @index(name: "DakaName", sortKeyFields: ["createdAt"], queryField: "DakaByName")
- 
-  sokoprice: Float!
+  
+  
   sokotown: String!
   sokolnprcntg: Float!
   sokolpymntperiod: Float!
   sokodesc: String!
+  itemCodeBar:String
+  itemPhoto: String
  
   owner: String!
  
   createdAt: String!
+  latitude: String!
+  longitude: String!
+  sokoname: String! @index(name: "DakaName", sortKeyFields: ["createdAt"], queryField: "DakaByName")
+ 
+  businessType: String 
+  itemUnit: String 
+  unitQuantity:Float 
+  sokoprice: Float! 
+  itemBrand: String 
+  bizName: String! 
+  bizContact: String!
+
 }
+
+
 
 
 
@@ -1449,11 +1464,16 @@ type Bizna
   email: String!
   licenseNo: String!
   bizType: String!
+  
   status:String!
   owner: String!
   description:String!
   createdAt: String!
   noBL: Float!
+  latitude: String!
+  longitude: String!
+  businessType: String
+  bizContact: String
   TtlActvLonsTmsLnrCredSlsB2B: Float!
             TtlActvLonsAmtLnrCredSlsB2B: Float!
             TtlBLLonsTmsLnrCredSlsB2B: Float!
@@ -2402,9 +2422,14 @@ type Group
   signitoryPW: String!
   oprtnArea:String! @index(name: "byChmArea", sortKeyFields: ["createdAt"], queryField: "ViaChmArea")
   venture: String! @index(name: "byChmVenture", sortKeyFields: ["createdAt"], queryField: "ViaChmVenture")
+  signatory2Email: String!
   signitory2Sub: String!
   WithdrawCnfrmtn: String!
+   Signatory3Email:String!
    WithdrawCnfrmtnAmt: Float!
+   signitory3Sub2: String!
+   WithdrawCnfrmtn2: String!
+   WithdrawCnfrmtnAmt2: Float!
    BankAdminEmail: String!
    BankAdminAcNu: String!
    SignatoryEmail:String!
@@ -2614,9 +2639,15 @@ type GroupNonLoans
   amountSent: Float!
   memberId:String!
   description: String
+  senderEmail: String!
+  confirm1:String!
+  confirm2: String!
+  signatory2: String!
+  signatory3: String!
   status: Status!
   owner: String!
   createdAt: String!
+  
 }
 
 type GrpMembersContribution
@@ -2725,6 +2756,8 @@ dfltDeadLn: Float!
   defaultPenalty: Float!
   installmentAmount:Float!
   paymentFrequency:Float!
+  confirm1:String!
+  confirm2: String!
 }
 
 
@@ -2787,6 +2820,10 @@ type ReqLoanChama
   defaultPenalty: Float!
   installmentAmount:Float!
   paymentFrequency:Float!
+  confirm1:String!
+  confirm2: String!
+  signatory2: String!
+  signatory3: String!
 }
 
 

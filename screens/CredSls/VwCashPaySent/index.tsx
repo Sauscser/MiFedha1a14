@@ -120,7 +120,6 @@ const FetchSMNonLnsSnt = props => {
                              
                               
                           }    
-              
                   
                            }
                            await fetchCompDtls();

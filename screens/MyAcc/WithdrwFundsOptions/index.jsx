@@ -190,7 +190,7 @@ const SMADepositForm = props => {
                               const compDtlsx :any= await API.graphql(
                               graphqlOperation(getSMAccount,{awsemail:acChamp})
                                 );
-                                  const balancesx = compDtlsx.data.getSMAccount.balance;
+                                  const balancesx = compDtlsx.data.getSMAccount.mfchampEarnings;
                                   
                           
                           const CrtFltAdd = async () => {
@@ -356,7 +356,7 @@ const SMADepositForm = props => {
                                       input: {
                                         awsemail: acChamp,
                             
-                                        balance: (ChampCommission + balancesx).toFixed(0) ,
+                                        mfchampEarnings: (ChampCommission + balancesx).toFixed(0) ,
                                         
                                       },
                                     }),
