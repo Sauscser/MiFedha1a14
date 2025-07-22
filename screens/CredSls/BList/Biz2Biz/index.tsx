@@ -145,6 +145,9 @@ const BLCovCredByr = (props) => {
 
               const netLnBalz = amountexpecteds - amountrepaids
 
+              const LonBal1a = (amountexpecteds) * 
+              ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
+              
               const LonBal1 = (netLnBalz) * 
               ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
 
@@ -157,6 +160,8 @@ const BLCovCredByr = (props) => {
 
               const LonBal4 = LonBal1 + ClrnceCosts
               const LonBal5 = LonBal1 + DefaultPenaltyCredSls
+
+              console.log(tmDif)
 
               const gtLoanerDtls = async () =>{
                 if(isLoading){
@@ -375,7 +380,7 @@ const BLCovCredByr = (props) => {
                                  {Alert.alert("Time to Blacklist is not yet")}
                               
                               else if (tmDif2 > parseFloat(paymentFrequency) 
-                              && parseFloat(amountrepaids) < Amt2HvBnPaid && tmDif2 < repaymentPeriod
+                              && parseFloat(amountrepaids) < LonBal1a && tmDif2 < repaymentPeriod
                               && statusssss !== "LoanBL"){
                                 updateLoanDtls3()
                               }

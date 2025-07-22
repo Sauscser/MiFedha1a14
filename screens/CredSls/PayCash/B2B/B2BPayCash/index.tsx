@@ -1682,6 +1682,8 @@ const fetchSenderUsrDtls = async () => {
                     
                     
                     else if(RecAcstatus === "AccountInactive"){Alert.alert('Receiver account is inactive');}
+                   
+                   
                     else if(SenderAcstatus === "AccountInactive"){Alert.alert('Sender account is inactive');}
                    
                     else if(objectionStatus === "Objected"){Alert.alert('Business account locked by the creator or admin');}

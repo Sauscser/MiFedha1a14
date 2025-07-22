@@ -292,6 +292,11 @@ const CreateBiz = (props) => {
         return;
         
       }
+
+      else if (awsEmail === awsEmail2){
+              Alert.alert("This business cannot buy from itself")
+            }
+            
       else if (parseFloat(rpymntPrd) < 1){
         Alert.alert("Enter repayment Period greater than 1 day")
       }

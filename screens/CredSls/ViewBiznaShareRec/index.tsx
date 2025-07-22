@@ -24,7 +24,7 @@ const FetchSMNonLnsSnt = props => {
         {
                
                 
-                filter:{status:{eq:"BiznaShareCash2Biz"},
+                filter:{status:{eq:"BiznaShareCash"},
                 recPhn:{eq:userInfo.attributes.email}}
               }
          

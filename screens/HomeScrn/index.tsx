@@ -98,6 +98,10 @@ const HomeScreen = () => {
     });
   };
 
+  const HowTo2 = () => {
+    navigation.navigate('HowTo2');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={['#e58d29', '#f3c642']} style={styles.backgroundGradient}>
@@ -137,8 +141,8 @@ const HomeScreen = () => {
         </View>
 
         <LinearGradient colors={['#72ebd8', '#34a4a1']} style={styles.loanButton}>
-          <TouchableOpacity style={styles.loanContainer} onPress={() => navigateTo('RequestLoansPage')}>
-            <Text style={styles.loanButtonText}>Make Request</Text>
+          <TouchableOpacity style={styles.loanContainer} onPress={() => navigateTo('HowTo2')}>
+            <Text style={styles.loanButtonText}>View How To</Text>
           </TouchableOpacity>
         </LinearGradient>
 

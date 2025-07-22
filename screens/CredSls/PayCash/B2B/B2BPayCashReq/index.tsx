@@ -248,6 +248,9 @@ const SMASendNonLns = props => {
                       
                     if(RecAcstatus === "AccountInactive"){Alert.alert('Receiver account is inactive');}
                     else if(SnderPW !== pwszsx){Alert.alert('Wrong Main Account Password');}
+                    
+                    else if(SenderNatId === RecNatId){Alert.alert('This business cannot buy from itself');}
+                    
                     else if(SenderAcstatus === "AccountInactive"){Alert.alert('Sender account is inactive');}
                     else if (UsrDtls.data.listPersonels.items.length < 1)
                     {Alert.alert("You dont work here")}

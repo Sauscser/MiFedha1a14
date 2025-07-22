@@ -17,6 +17,7 @@ declare global {
       SendMmbrsMny:{ChamaNMember:string};
       VwChamaMembers :{groupContact:string};
       PayCash3:undefined;
+      ShareCredSlsRev2Grp:undefined;
       
 
       UpdateBankAdminAc:undefined;
@@ -621,8 +622,10 @@ declare global {
       SgnIn2VwChmWthdrwlss:undefined;
       VwChmWthdrwlss:{grpContact:string};
       Loans:undefined;
+      VwBiz2AddItem: undefined;
+      
 
-      ItemAds:undefined;
+      ItemAds:{BusinessRegNo:string};
       LoanAds:undefined;
       DetailedChmPrfl: {grpContact:string};
       DtldPalLnInfo: {id:string};

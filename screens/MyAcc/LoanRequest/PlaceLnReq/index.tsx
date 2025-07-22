@@ -272,6 +272,11 @@ const CreateNewSMAc = async () => {
       else if (parseFloat(rpymntPrd) < 1){
         Alert.alert("Enter repayment Period greater than 1 day")
       }
+
+      else if (awsEmail === userInfo.attributes.email){
+                    Alert.alert("You cannot buy from yourself")
+                  }
+                  
       else if (ExpInstmnt > parseFloat(InstAmt)){
         Alert.alert("Enter Installment greater than "+(ExpInstmnt+1).toFixed(0))
       }

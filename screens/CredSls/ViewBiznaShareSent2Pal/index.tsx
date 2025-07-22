@@ -4,7 +4,7 @@ import {View, Text,   FlatList, Alert,
 } from 'react-native';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import NonLnSent from "../../../components/MyAc/ViewRecNonLns";
+import NonLnSent from "../../../components/MyAc/ViewSentNonLns";
 
 import { getBizna, getCompany, getSMAccount,   listNonLoans } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
@@ -36,11 +36,10 @@ const FetchSMNonLnsSnt = props => {
             setLoading(true);
             try {
               const Lonees:any = await API.graphql(graphqlOperation(listNonLoans, 
-              {
-                      
-                     
-                      filter:{status:{eq:"BiznaShareCash2Biz"},
-                      recPhn:{eq:awsEmail}}
+              {                     
+                   
+                      filter:{status:{eq:"BiznaShareCash"},
+                      senderPhn:{eq:awsEmail}}
                     }
                
                   ));

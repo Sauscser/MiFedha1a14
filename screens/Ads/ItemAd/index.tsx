@@ -12,13 +12,14 @@ import { Auth, API, graphqlOperation, Storage } from 'aws-amplify';
 
 import { createSokoAd } from '../../../src/graphql/mutations';
 import { getSMAccount, getBizna, listPersonels } from '../../../src/graphql/queries';
+import { Route, useRoute } from '@react-navigation/native';
 
 
 const MAX_IMAGE_SIZE_MB = 5;
 
 const CreateBiz = () => {
   const [formData, setFormData] = useState({
-    bizContact: '', itemName: '', itemTown: '', itemDesc: '',
+    itemName: '', itemTown: '', itemDesc: '',
     itemPrice: '', brandName: '', businessType: '',
     itemUnit: '', unitQuantity: '', bizPassword: '', ItemCode: '',
   });
@@ -27,6 +28,7 @@ const CreateBiz = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [itemPhotoKey, setItemPhotoKey] = useState<string | null>(null);
   const [itemPhotoUri, setItemPhotoUri] = useState<string | null>(null);
+  const route = useRoute();
 
   const updateForm = (key: string, value: string) =>
     setFormData(prev => ({ ...prev, [key]: value }));
@@ -110,7 +112,7 @@ const CreateBiz = () => {
 
   const clearForm = () => {
     setFormData({
-      bizContact: '', itemName: '', itemTown: '', itemDesc: '',
+      itemName: '', itemTown: '', itemDesc: '',
       itemPrice: '', brandName: '', businessType: '',
       itemUnit: '', unitQuantity: '', bizPassword: '', ItemCode: '',
     });
@@ -123,7 +125,7 @@ const CreateBiz = () => {
     setIsLoading(true);
 
     const {
-      bizContact, itemName, itemTown, itemDesc, itemPrice,
+      itemName, itemTown, itemDesc, itemPrice,
       brandName, itemUnit, unitQuantity, bizPassword, ItemCode,
     } = formData;
 
@@ -139,7 +141,7 @@ const CreateBiz = () => {
         return;
       }
 
-      const bizRes = await API.graphql(graphqlOperation(getBizna, { BusKntct: bizContact }));
+      const bizRes = await API.graphql(graphqlOperation(getBizna, { BusKntct: route.params.BusinessRegNo }));
       const business = bizRes?.data?.getBizna;
 
       if (!business) {
@@ -150,7 +152,7 @@ const CreateBiz = () => {
       const personnelRes = await API.graphql(graphqlOperation(listPersonels, {
         filter: {
           phoneKontact: { eq: userEmail },
-          BusinessRegNo: { eq: bizContact }
+          BusinessRegNo: { eq: route.params.BusinessRegNo }
         }
       }));
       const isStaff = personnelRes?.data?.listPersonels?.items?.length > 0;
@@ -161,7 +163,7 @@ const CreateBiz = () => {
       }
 
       const adInput = {
-        sokokntct: bizContact,
+        sokokntct: route.params.BusinessRegNo,
         sokotown: itemTown,
         sokolnprcntg: 1,
         sokolpymntperiod: 1,
@@ -196,9 +198,7 @@ const CreateBiz = () => {
     <LinearGradient colors={['#e58d29', '#2c5364']} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>Advertise New Item</Text>
-
-        <InputField label="Business Phone" value={formData.bizContact} onChange={v => updateForm('bizContact', v)} />
-        <InputField label="Item Name" value={formData.itemName} onChange={v => updateForm('itemName', v)} />
+  <InputField label="Item Name" value={formData.itemName} onChange={v => updateForm('itemName', v)} />
         <InputField label="Brand/Model/Type (Optional)" value={formData.brandName} onChange={v => updateForm('brandName', v)} />
         <InputField label="Item Price (Ksh)" value={formData.itemPrice} onChange={v => updateForm('itemPrice', v)} keyboardType="numeric" />
         <InputField label="Unit of Measure (Optional)" value={formData.itemUnit} onChange={v => updateForm('itemUnit', v)} />

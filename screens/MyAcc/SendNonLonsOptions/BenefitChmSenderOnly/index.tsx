@@ -1074,7 +1074,7 @@ Alert.alert("Retry or update app or call customer care")
                     }  else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
                     else if(SenderNatId === RecNatId)
-                      {Alert.alert('You cannot Send money to yourself Yourself');}
+                      {Alert.alert('You cannot Send money to Yourself');}
                     else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0)
                       {Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
                     

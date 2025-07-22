@@ -518,7 +518,7 @@ const RepayCovSellerLnsss = props => {
                                                     
                               
                               if (userInfo.attributes.sub!==owner) {
-                                Alert.alert("Please first create a main account")
+                                Alert.alert("You are not the owner of the business")
                                 return;
                               }  
                               else if (

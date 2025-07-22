@@ -138,6 +138,7 @@ const SMASendNonLns = props => {
 
                       } catch (error) {
                         if (error){
+                          console.log(error)
                           Alert.alert("Revenue sharing unsuccessful; Retry")
                           return
                         }
@@ -268,7 +269,7 @@ const SMASendNonLns = props => {
                 }       
                 catch(e) {   
                   console.log(e)  
-                  if (e){Alert.alert("Retry or update app or call customer care")
+                  if (e){Alert.alert("Retry 1 or update app or call customer care")
   return;}                 
                 }
                 setIsLoading(false);
@@ -276,7 +277,7 @@ const SMASendNonLns = props => {
                   await fetchRecUsrDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Retry or update app or call customer care")
+          if (e){Alert.alert("Retry 2 or update app or call customer care")
       return;}
         }
         setIsLoading(false);        
@@ -286,7 +287,7 @@ const SMASendNonLns = props => {
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Retry or update app or call customer care")
+      if (e){Alert.alert("Retry 3 or update app or call customer care")
       return;}
   };
       setIsLoading(false);

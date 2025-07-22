@@ -2390,6 +2390,8 @@ export const onCreateBizna = /* GraphQL */ `subscription OnCreateBizna($filter: 
     email
     licenseNo
     bizType
+    bankType
+    bankAccount
     status
     owner
     description
@@ -2500,6 +2502,8 @@ export const onUpdateBizna = /* GraphQL */ `subscription OnUpdateBizna($filter: 
     email
     licenseNo
     bizType
+    bankType
+    bankAccount
     status
     owner
     description
@@ -2610,6 +2614,8 @@ export const onDeleteBizna = /* GraphQL */ `subscription OnDeleteBizna($filter: 
     email
     licenseNo
     bizType
+    bankType
+    bankAccount
     status
     owner
     description

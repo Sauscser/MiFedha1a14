@@ -414,7 +414,7 @@ const SMASendNonLns = props => {
                       return;
                     }  else if(usrAcActvStts !== "AccountActive"){Alert.alert('Sender account is inactive');}
                     else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');}
-                    else if(SenderNatId === RecNatId){Alert.alert('You cannot Send money to yourself Yourself');}
+                    else if(SenderNatId === RecNatId){Alert.alert('You cannot Send money to Yourself');}
                     else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs) ===0){Alert.alert('Receiver ID be verified through deposit at MFNdogo');}
                     else if (
                       UsrTransferFee2 < 0

@@ -39,8 +39,8 @@ import styles from './styles';
 
 
 const SMASendNonLns = props => {
-  const [SenderNatId, setSenderNatId] = useState('');
-  const [RecNatId, setRecNatId] = useState('');
+  const [SenderNatId, setSenderNatId] = useState("");
+  const [RecNatId, setRecNatId] = useState("");
   const [SnderPW, setSnderPW] = useState("");
   const [SendrPhn, setSendrPhn] = useState(null);  
   const [amounts, setAmount] = useState("");
@@ -57,7 +57,7 @@ const SMASendNonLns = props => {
     if(isLoading){
       return;
     }
-    setIsLoading(false);
+    setIsLoading(true);
     const userInfo = await Auth.currentAuthenticatedUser();
    
     try {
@@ -74,10 +74,7 @@ const SMASendNonLns = props => {
       
       
       const fetchCompDtls = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
+        
         try {
           const CompDtls:any = await API.graphql(
             graphqlOperation(getCompany, {
@@ -98,10 +95,7 @@ const SMASendNonLns = props => {
          
                     
           const fetchRecUsrDtls = async () => {
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
+           
             try {
                 const RecAccountDtl:any = await API.graphql(
                     graphqlOperation(getBizna, {BusKntct: RecNatId}),
@@ -113,10 +107,7 @@ const SMASendNonLns = props => {
                     
                   
                     const sendSMNonLn = async () => {
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true)
+                      
                       try {
                         await API.graphql(
                           graphqlOperation(createNonLoans, {
@@ -140,15 +131,12 @@ const SMASendNonLns = props => {
                           return
                         }
                       }
-                      setIsLoading(false);
+                      
                       await updtSendrAc();
                     };
 
                     const updtSendrAc = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
+                      
                       try{
                           await API.graphql(
                             graphqlOperation(updateBizna, {
@@ -166,18 +154,15 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Error! Enter details correctly")
+                        if (error){Alert.alert("Error1! Error! Enter details correctly")
                         return;}
                       }
-                      setIsLoading(false);
+                      
                       await updtRecAc();
                     }
 
                     const updtRecAc = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
+                     
                       try{
                           await API.graphql(
                             graphqlOperation(updateBizna, {
@@ -193,18 +178,15 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Retry or update app or call customer care")
+                        if (error){Alert.alert("Error2! Retry or update app or call customer care")
                         return;}
                       }
-                      setIsLoading(false);
+                     
                       await updtComp();
                     }
 
                     const updtComp = async () =>{
-                      if(isLoading){
-                        return;
-                      }
-                      setIsLoading(true);
+                    
                       try{
                           await API.graphql(
                             graphqlOperation(updateCompany, {
@@ -225,7 +207,7 @@ const SMASendNonLns = props => {
                       }
                       catch(error){
                         console.log(error)
-                        if (error){Alert.alert("Check your internet connection")
+                        if (error){Alert.alert("Error3! retry or update app")
                     return;}
                       }
                       Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(2) + " Transaction: Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
@@ -261,34 +243,35 @@ const SMASendNonLns = props => {
                 }       
                 catch(e) {   
                   console.log(e)  
-                  if (e){Alert.alert("Retry or update app or call customer care")
+                  if (e){Alert.alert("Error4! Retry or update app or call customer care")
   return;}                 
                 }
-                setIsLoading(false);
+              
                 }                    
                   await fetchRecUsrDtls();
         } catch (e) {
           console.log(e)
-          if (e){Alert.alert("Retry or update app or call customer care")
+          if (e){Alert.alert("Error5! Retry or update app or call customer care")
       return;}
         }
-        setIsLoading(false);        
+          
       };
       await fetchCompDtls();
     
       
     } catch (e) {
       console.log(e)
-      if (e){Alert.alert("Retry or update app or call customer care")
+      if (e){Alert.alert("Error6! Retry or update app or call customer care")
       return;}
   };
-      setIsLoading(false);
-      setSenderNatId('');
+      
+      setSenderNatId("");
       setAmount("");
-      setRecNatId('');
+      setRecNatId("");
       
       setDesc("");
       setSnderPW("");
+      setIsLoading(false);
       
 }
 

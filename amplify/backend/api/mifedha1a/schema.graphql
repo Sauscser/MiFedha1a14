@@ -1464,7 +1464,8 @@ type Bizna
   email: String!
   licenseNo: String!
   bizType: String!
-  
+  bankType:String
+  bankAccount: String
   status:String!
   owner: String!
   description:String!
@@ -3131,4 +3132,7 @@ enum Status {
   BiznaShare
   Objected
   NotObjected
+  BiznaShareCash
+  BiznaShareCash2Biz
+  BiznaShareCash2Grp
 }

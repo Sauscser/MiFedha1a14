@@ -57,7 +57,7 @@ const RepayCovSellerLnsss = props => {
       const SenderUsrBal =accountDtl.data.getSMAccount.balance;
       const usrPW =accountDtl.data.getSMAccount.pw;
       const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const owner =accountDtl.data.getSMAccount.owner;
+      
       const TtlActvLonsTmsByrCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsByrCov;
       const TtlActvLonsAmtByrCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtByrCov;
       const TtlClrdLonsAmtByrCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtByrCov;
@@ -191,7 +191,7 @@ const RepayCovSellerLnsss = props => {
                   const TtlEarnings1 =RecAccountDtl.data.getBizna.TtlEarnings;
                   
                     
-                    const busNamesz =RecAccountDtl.data.getBizna.busName;
+                    const owner =RecAccountDtl.data.getBizna.owner;
                     
                     const updtSendrAcLonOvr1 = async () =>{
                       if(isLoading){

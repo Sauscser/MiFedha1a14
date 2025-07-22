@@ -88,7 +88,6 @@ const ChmSignIn = (props) => {
                         return;
                         
                       }
-                      else if(userInfo.attributes.sub !== owners){Alert.alert("This is not your Account")}
                       else{FetchGrpLonsSts();}
 
                         }

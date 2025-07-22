@@ -107,9 +107,13 @@ const MyLoanAccount = () => {
     navigation.navigate("Vw2GrntPal2Biz");
   };
 
-  const ItemAds = () => {
-    navigation.navigate('ItemAds');
+  
+
+  const VwBiz2AddItem = () => {
+    navigation.navigate('VwBiz2AddItem');
   };
+
+  
 
   const Vw2GrntPal2Pal = () => {
     navigation.navigate('Vw2GrntPal2Pal');
@@ -167,12 +171,20 @@ const MyLoanAccount = () => {
     navigation.navigate('ViewBiznaShareSent');
   };
 
+  const ViewBiznaShareSent2Pal = () => {
+    navigation.navigate('ViewBiznaShareSent2Pal');
+  };
+
   const ShareCredSlsRev2Biz = () => {
     navigation.navigate('ShareCredSlsRev2Biz');
   };
 
   const ViewBiznaShareRecBiz = () => {
     navigation.navigate('ViewBiznaShareRecBiz');
+  };
+
+   const ShareCredSlsRev2Grp = () => {
+    navigation.navigate('ShareCredSlsRev2Grp');
   };
   
   const ViewAsProdCreator = () => {
@@ -183,7 +195,17 @@ const MyLoanAccount = () => {
     navigation.navigate('VwBizDpsts');
   }; 
 
+ const BiznaReqstPage1 = () => {
+    navigation.navigate('BiznaReqstPage1');
+  };
 
+    const ViewBenShares = () => {
+    navigation.navigate('ViewBenShares');
+  };
+
+  const VwBenToShare = () => {
+    navigation.navigate('VwBenToShare');
+  };
 
 
   return (
@@ -202,8 +224,9 @@ const MyLoanAccount = () => {
             
             { label: 'Benefit Product (Create)', onPress: AddBeneficiaryProduct, style: styles.ClientsPressables },
             
-            { label: 'Benefits (Share or View)', onPress: Benefits, style: styles.ClientsPressables },
-            { label: 'Link Beneficiary', onPress: ViewBenProds, style: styles.ClientsPressables },
+            { label: 'View Business Benefits Shared', onPress: ViewBenShares, style: styles.ClientsPressables },
+            { label: 'Share Business Benefits', onPress: VwBenToShare, style: styles.ClientsPressables },
+          { label: 'Link Beneficiary', onPress: ViewBenProds, style: styles.ClientsPressables },
             { label: 'Boost Pooled Benefits', onPress: BoostPooledBen, style: styles.ClientsPressables },
            
             { label: 'View As Product Creator', onPress: ViewAsProdCreator, style: styles.ClientsPressables },
@@ -218,7 +241,7 @@ const MyLoanAccount = () => {
           options={[
             
             { label: 'Create Biz', onPress: CrtBusinessss, style: styles.ClientsPressables },
-            { label: 'Add Item', onPress: ItemAds, style: styles.ClientsPressables },
+            { label: 'Add Item', onPress: VwBiz2AddItem, style: styles.ClientsPressables },
              { label: 'Delete Sales Item', onPress: VwSlsAds2Remove, style: styles.ClientsPressables },
           
              { label: 'Update Biz', onPress: UpdateBizAc, style: styles.ClientsPressables },
@@ -228,6 +251,13 @@ const MyLoanAccount = () => {
           ]}
         />
 
+          <Section 
+          title="Make Credit Sales Requests"
+          options={[
+            { label: 'Make Credit Sales Requests', onPress: BiznaReqstPage1 },
+            
+          ]}
+        />
 
 
         <Section 
@@ -275,9 +305,14 @@ const MyLoanAccount = () => {
           options={[
            { label: 'Send Cash to Pal', onPress: ShareCredSlsRevss, style: styles.ClientsPressables },
             { label: 'Send Cash to Biz', onPress: ShareCredSlsRev2Biz, style: styles.ClientsPressables },
-            { label: 'View Received Cash (Pal)', onPress: ViewBiznaShareRec, style: styles.ClientsPressables },
-            { label: 'View Received Cash (Biz)', onPress: ViewBiznaShareRecBiz, style: styles.ClientsPressables },
-            { label: 'View Sent Cash (Biz)', onPress: ViewBiznaShareSent, style: styles.ClientsPressables },
+          /*
+
+           { label: 'Send Cash to Groups', onPress: ShareCredSlsRev2Grp, style: styles.ClientsPressables },
+          
+           */ 
+            { label: 'View Cash Sent to Pal', onPress: ViewBiznaShareSent2Pal, style: styles.ClientsPressables },
+            { label: 'View cash Received from Biz', onPress: ViewBiznaShareRecBiz, style: styles.ClientsPressables },
+            { label: 'View Cash sent to Biz', onPress: ViewBiznaShareSent, style: styles.ClientsPressables },
             
           ]}
         />

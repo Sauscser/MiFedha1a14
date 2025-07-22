@@ -273,6 +273,10 @@ const CreateBiz = (props) => {
         Alert.alert("Enter repayment Period greater than 1 day")
       }
       
+      else if (awsEmail === awsEmail2){
+        Alert.alert("This business cannot buy from itself")
+      }
+
       else if (parseFloat(lnPrsntg) > 100){
         Alert.alert("Interest exploits you; enter lesser repayment amount")
       }

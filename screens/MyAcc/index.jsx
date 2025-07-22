@@ -95,6 +95,13 @@ const MyAccount = props => {
     navigation.navigate('UrLnks');
   };
 
+   const ViewBiznaShareRec = () => {
+    navigation.navigate('ViewBiznaShareRec');
+  };
+
+  
+
+  
   return (
     <SafeAreaView>
       <ScrollView>
@@ -115,6 +122,7 @@ const MyAccount = props => {
             { label: 'Update Main Account', onPress: UpdateMainAc, style: styles.ClientsPressables },
             { label: 'Send Cash', onPress: goToSMASndnonln, style: styles.ClientsPressables },
             { label: 'View Cash sent to Pals', onPress: ViewNonLnsSents, style: styles.ClientsPressables },
+            { label: 'View Cash received from Biz', onPress: ViewBiznaShareRec, style: styles.ClientsPressables },
             { label: 'View Cash received from Pals', onPress: ViewNonLnsRecs, style: styles.ClientsPressables }
           ]}
         />

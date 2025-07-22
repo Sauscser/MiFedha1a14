@@ -140,6 +140,9 @@ const BLSMCovLoanee = (props) => {
 
               const netLnBal = amountexpecteds - amountrepaids
       
+              const LonBal1a = (amountexpecteds)*
+              ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
+              
               const LonBal1 = (netLnBal)*
               ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
 
@@ -407,7 +410,7 @@ const BLSMCovLoanee = (props) => {
                               else if (tmDif < parseFloat(paymentFrequency))
                               {Alert.alert("Time to Blacklist is not yet")}
                               else if (tmDif2 > parseFloat(paymentFrequency) 
-                              && parseFloat(amountrepaids) < Amt2HvBnPaid && tmDif2 < dfltDeadLn
+                              && parseFloat(amountrepaids) < LonBal1a && tmDif2 < dfltDeadLn
                               && statusssss !== "LoanBL"){
                                 updateLoanDtls3()
                               }

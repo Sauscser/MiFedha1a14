@@ -33,6 +33,8 @@ const MyLoanAccount = (props) => {
   const Sgn2CnfrmWthdrwlssss = () => navigation.navigate('Sgn2CnfrmWthdrwlsss');
   const VwGrp2LnCov = () => navigation.navigate('VwGrp2LnCov');
   const UpdateChmAc = () => navigation.navigate('UpdateChmAc');
+  const ChamaVw2DelLnReqs = () => navigation.navigate('ChamaVw2DelLnReqs');
+  const Vw2SelectChm2Req = () => navigation.navigate('Vw2SelectChm2Req');
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -49,6 +51,12 @@ const MyLoanAccount = (props) => {
                 end={{ x: 1, y: 1 }}
                 style={styles.gradientPressable}
               >
+                <Pressable onPress={Vw2SelectChm2Req} style={styles.clientsPressable}>
+                  <Text style={styles.clientsPressableText}>Request loan from group</Text>
+                </Pressable>
+                <Pressable onPress={ChamaVw2DelLnReqs} style={styles.clientsPressable}>
+                  <Text style={styles.clientsPressableText}>Delete a loan request</Text>
+                </Pressable>
                 <Pressable onPress={VwGrp2LnCov} style={styles.clientsPressable}>
                   <Text style={styles.clientsPressableText}>Give Member Advance</Text>
                 </Pressable>
@@ -56,7 +64,7 @@ const MyLoanAccount = (props) => {
             </View>
 
             {/* Group Status Section */}
-            <Text style={styles.salesPressableText}>Group Status</Text>
+            <Text style={styles.salesPressableText}>View Group Status</Text>
             <LinearGradient
               colors={['#FF8C00', '#00BFFF']}
               start={{ x: 0, y: 0 }}
@@ -64,7 +72,7 @@ const MyLoanAccount = (props) => {
               style={styles.gradientPressable}
             >
               <Pressable onPress={ChmSignInsss} style={styles.clientsPressable}>
-                <Text style={styles.clientsPressableText}>View Group Status</Text>
+                <Text style={styles.clientsPressableText}>View Group Debts Status to: Blacklist, View Repayments, Waive</Text>
               </Pressable>
             </LinearGradient>
 
@@ -77,7 +85,7 @@ const MyLoanAccount = (props) => {
               style={styles.gradientPressable}
             >
               <Pressable onPress={ChmLnsRec} style={styles.clientsPressable}>
-                <Text style={styles.clientsPressableText}>Member Status</Text>
+                <Text style={styles.clientsPressableText}>View Member Debts Status to: View Repayments, Repay Debts</Text>
               </Pressable>
             </LinearGradient>
           </View>
@@ -108,7 +116,7 @@ const MyLoanAccount = (props) => {
               style={styles.gradientPressable}
             >
               <Pressable onPress={ViewGrp2ConfirmDividends} style={styles.clientsPressable}>
-                <Text style={styles.clientsPressableText}>View Members' remittances</Text>
+                <Text style={styles.clientsPressableText}>View Group's remittances to: confirm remittances (Signatories), View Remittances</Text>
               </Pressable>
               <Pressable onPress={ChamaMmbrRemtss} style={styles.clientsPressable}>
                 <Text style={styles.clientsPressableText}>View My remittances</Text>
@@ -125,10 +133,10 @@ const MyLoanAccount = (props) => {
               style={styles.gradientPressable}
             >
               <Pressable onPress={ViewGrp2ShareDividends} style={styles.clientsPressable}>
-                <Text style={styles.clientsPressableText}>View Members</Text>
+                <Text style={styles.clientsPressableText}>View Members to: Share dividends/Profits, View subscriptions, Penalise late Repayments</Text>
               </Pressable>
               <Pressable onPress={ChmMmbrMmbrsss} style={styles.clientsPressable}>
-                <Text style={styles.clientsPressableText}>View my Groups</Text>
+                <Text style={styles.clientsPressableText}>View my Groups to: View my subscriptions, send my Subscriptions</Text>
               </Pressable>
             </LinearGradient>
           </View>
@@ -159,7 +167,7 @@ const MyLoanAccount = (props) => {
                 <Text style={styles.clientsPressableText}>Update</Text>
               </Pressable>
               <Pressable onPress={ChamSignIn3ss} style={styles.clientsPressable}>
-                <Text style={styles.clientsPressableText}>View</Text>
+                <Text style={styles.clientsPressableText}>View Group Account</Text>
               </Pressable>
             </LinearGradient>
 

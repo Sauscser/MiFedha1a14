@@ -30,6 +30,8 @@ const CreateBiz = () => {
   const [description, setDescription] = useState("");
   const [businessType, setbusinessType] = useState("");
   const [bizContact, setbizContact] = useState("");
+  const [bankType, setbankType] = useState("");
+  const [bankAccount, setbankAccount] = useState("");
   
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
@@ -64,6 +66,8 @@ const CreateBiz = () => {
     setDescription("");
     setbusinessType("");
             setbizContact("");
+            setbankType("");
+            setbankAccount("")
   };
 
   const handleCreateBusiness = async () => {
@@ -157,6 +161,8 @@ const userInfo = await Auth.currentAuthenticatedUser();
             beneficiaryType: "Biz",
             benefitsAmount: 0,
             noBL:0,
+            bankType:bankType,
+            bankAccount: bankAccount,
 
             TtlActvLonsTmsLnrCredSlsB2B: 0,
             TtlActvLonsAmtLnrCredSlsB2B: 0,
@@ -312,6 +318,18 @@ const userInfo = await Auth.currentAuthenticatedUser();
                         placeholder="Business Type"
                         value={businessType}
                         onChangeText={setbusinessType}
+                        style={styles.input}
+                      />
+                      <TextInput
+                        placeholder="Bank Name"
+                        value={bankType}
+                        onChangeText={setbankType}
+                        style={styles.input}
+                      />
+                      <TextInput
+                        placeholder="Bank Account Number"
+                        value={bankAccount}
+                        onChangeText={setbankAccount}
                         style={styles.input}
                       />
                       <TextInput

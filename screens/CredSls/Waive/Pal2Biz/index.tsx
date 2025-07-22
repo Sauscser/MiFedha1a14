@@ -519,7 +519,7 @@ const RepayCovSellerLnsss = props => {
                                                     
                               
                               if (userInfo.attributes.sub!==owner) {
-                                Alert.alert("Please first create a main account")
+                                Alert.alert("This is not your account")
                                 return;
                               }  
                               

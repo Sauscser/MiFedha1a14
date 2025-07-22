@@ -256,6 +256,8 @@ const CreateBiz = (props) => {
       else if (parseFloat(rpymntPrd) < 1){
         Alert.alert("Enter repayment Period greater than 1 day")
       }
+
+      
        else if (parseFloat(lnPrsntg) > 100){
         Alert.alert("Interest exploits you; enter lesser repayment amount")
       }

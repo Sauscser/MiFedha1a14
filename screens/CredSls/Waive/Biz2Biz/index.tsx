@@ -137,6 +137,7 @@ const RepayCovSellerLnsss = props => {
                   const busName =accountDtl.data.getBizna.busName;
                   
                   const noBL =accountDtl.data.getBizna.noBL;
+                  const owner =accountDtl.data.getBizna.owner;
 
                   console.log(TtlEarnings1)
 
@@ -185,7 +186,7 @@ const RepayCovSellerLnsss = props => {
                     const noBL =RecAccountDtl2.data.getBizna.noBL;
 
                     const busName2 =RecAccountDtl2.data.getBizna.busName;
-                    const owner =RecAccountDtl2.data.getBizna.owner;
+                    
                     
                     const updtSendrAcLonOvr1 = async () =>{
                       if(isLoading){
@@ -512,7 +513,7 @@ const RepayCovSellerLnsss = props => {
                                                     
                               
                               if (userInfo.attributes.sub!==owner) {
-                                Alert.alert("Please first create a main account")
+                                Alert.alert("You are not the CEO of the business")
                                 return;
                               }  
                               

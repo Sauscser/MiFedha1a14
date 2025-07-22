@@ -11,7 +11,7 @@ import ViewGrp2ShareDividends from '../../screens/Chama/SendDividends/VwGrp2Send
 import VwChamaMembers from '../../screens/Chama/ViewChamaActivities/Membership/Chama';
 import PayCash3 from '../../screens/CredSls/PayCash/P2B/PayCash3';
 import VwBizDpstsMFN from '../../screens/MFNdogo/VwBizDpsts';
-
+import VwBiz2AddItem from '../../screens/Ads/VwBiz2AddItem';
 
 import RegMFNdogoFm from '../../screens/MFNdogo/RegisterMFNdogo';
 import BuyFltForm from "../../screens/MFNdogo/Float/BuyFloat";
@@ -321,7 +321,10 @@ import CrdSlVw2DelLnReqs from "../../screens/CredSls/SlsLnReq/Vw2DelLnReqs";
 import CrdSlVw2GrantLnReqNonCov from "../../screens/CredSls/SlsLnReq/Vw2GrantLnReqNonCov";
 import RequestLoansPage from "../../screens/RequestLoansPage";
 import ViewBiznaShareRec from "../../screens/CredSls/ViewBiznaShareRec";
+import ViewBiznaShareSent2Pal from "../../screens/CredSls/ViewBiznaShareSent2Pal";
 import ViewBiznaShareSent from "../../screens/CredSls/ViewBiznaShareSent";
+
+
 import SgnIn2VwRevenueShare from "../../screens/CredSls/SgnIn2VwRevenueShare";
 import ViewAlertDtls from "../../screens/Settings/ViewAlertDtls";
 import ApplyMFKubwa from "../../screens/MFKubwa/ApplyMFKubwa";
@@ -551,6 +554,7 @@ import VwPalBenefactorContriDtls from "../../screens/MyAcc/PalBenProds/VwPalBene
 import ViewPalBenefactorShares from "../../screens/MyAcc/PalBenProds/ViewPalBenefactorShares";
 import ViewBiznaShareRecBiz from "../../screens/CredSls/ViewBiznaShareRecBiz";
 import ShareCredSlsRev2Biz from "../../screens/CredSls/ShareCredSlsRev2Biz";
+import ShareCredSlsRev2Grp from "../../screens/CredSls/ShareCredSlsRev2Grp";
 import HowTo from "../../screens/HowTos";
 import HowTo2 from "../../screens/HowTo2";
 import UrlLinks from "../../screens/UrlLinks";
@@ -606,8 +610,11 @@ const HomeNavigator = props => {
       <Stack.Screen name={'VwChamaMembers'} component={VwChamaMembers} />
       <Stack.Screen name={'PayCash3'} component={PayCash3} />
       <Stack.Screen name={'VwBizDpstsMFN'} component={VwBizDpstsMFN} />
+       <Stack.Screen name={'ViewBiznaShareSent2Pal'} component={ViewBiznaShareSent2Pal} />
+       
+      
    
-  
+  <Stack.Screen name={'VwBiz2AddItem'} component={VwBiz2AddItem} />
 
 
       <Stack.Screen name={'VwBenCreatorContriDtls'} component={VwBenCreatorContriDtls} />

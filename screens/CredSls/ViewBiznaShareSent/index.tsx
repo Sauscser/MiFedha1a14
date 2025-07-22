@@ -40,7 +40,7 @@ const FetchSMNonLnsSnt = props => {
               {
                       
                       
-                      filter:{status:{eq:"BiznaShareCash2Pal"},
+                      filter:{status:{eq:"BiznaShareCash2Biz"},
                       senderPhn:{eq:awsEmail}}
                     }
                
@@ -71,11 +71,12 @@ const FetchSMNonLnsSnt = props => {
                               }
                           catch (e)
                           {
+                             console.log(e)
                             if(e){
                               Alert.alert(" Retry or update app");
                               return;
                             }
-                              console.log(e)
+                             
                              
                               
                           }    
@@ -88,6 +89,7 @@ const FetchSMNonLnsSnt = props => {
               
                           catch (e)
                           {
+                             console.log(e)
                             if(e){
                               Alert.alert("Retry or update app or call customer care");
                               return;

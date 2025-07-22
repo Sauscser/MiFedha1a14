@@ -1719,6 +1719,8 @@ export const getBizna = /* GraphQL */ `query GetBizna($BusKntct: String!) {
     email
     licenseNo
     bizType
+    bankType
+    bankAccount
     status
     owner
     description
@@ -1839,6 +1841,8 @@ export const listBiznas = /* GraphQL */ `query ListBiznas(
       email
       licenseNo
       bizType
+      bankType
+      bankAccount
       status
       owner
       description
@@ -6032,6 +6036,8 @@ export const BiznaVwws = /* GraphQL */ `query BiznaVwws(
       email
       licenseNo
       bizType
+      bankType
+      bankAccount
       status
       owner
       description

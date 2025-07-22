@@ -19,6 +19,9 @@ const MyLoanAccount = props => {
   const VwP2PMyLoanees = () => navigation.navigate('VwP2PMyLoanees');
   const VwB2PMyLoaners = () => navigation.navigate('VwB2PMyLoaners');
   const SI2VwB2PLoanees = () => navigation.navigate('SI2VwB2PLoanees');
+  const PalProdsRequest = () => navigation.navigate('PalProdsRequest');
+
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -27,7 +30,24 @@ const MyLoanAccount = props => {
         <View style={styles.clientsView}>
           <Text style={styles.salesText}>Loans</Text>
           
-          {/* Grant Loan Requests Section */}
+          {/* Loan Requests Section */}
+          <Text style={styles.salesPressableText}>Loan Requests</Text>
+          <View style={styles.viewForClientsPressables}>
+            <LinearGradient
+              colors={['#FF8C00', '#00BFFF']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.gradientPressable}
+            >
+              <Pressable onPress={PalProdsRequest}>
+                <Text style={styles.clientsPressableText}>Make Loan Requests</Text>
+              </Pressable>
+            </LinearGradient>
+
+           
+          </View>
+          
+            {/* Grant Loan Requests Section */}
           <Text style={styles.salesPressableText}>Grant Loan Requests</Text>
           <View style={styles.viewForClientsPressables}>
             <LinearGradient
@@ -52,6 +72,8 @@ const MyLoanAccount = props => {
               </Pressable>
             </LinearGradient>
           </View>
+
+
 
           {/* BizLoanStatus Section */}
           <Text style={styles.salesPressableText}>BizLoanStatus</Text>

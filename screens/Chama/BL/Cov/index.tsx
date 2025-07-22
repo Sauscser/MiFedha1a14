@@ -160,6 +160,9 @@ const BLChmCovLoanee = (props) => {
               const installmentAmount = compDtls2.data.getCvrdGroupLoans.installmentAmount
               const clearanceAmts = parseFloat(userClearanceFees) * parseFloat(amountexpecteds);
               
+              const LonBal1a = ((amountexpecteds) * 
+              (Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
+              
               const LonBal1 = ((netLnBal) * 
               (Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
            
@@ -483,7 +486,7 @@ const BLChmCovLoanee = (props) => {
                                  /* time to blacklist not yet but can be penalised */
                               
                               else if (tmDif2 > parseFloat(paymentFrequency) 
-                              && parseFloat(amountrepaids) < Amt2HvBnPaid && tmDif2 < dfltDeadLn
+                              && parseFloat(amountrepaids) < LonBal1a && tmDif2 < dfltDeadLn
                               && statussxzs !== "LoanBL"){
                                 updateLoanDtls3()
                               }

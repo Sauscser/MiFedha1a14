@@ -2393,6 +2393,8 @@ export const createBizna = /* GraphQL */ `mutation CreateBizna(
     email
     licenseNo
     bizType
+    bankType
+    bankAccount
     status
     owner
     description
@@ -2506,6 +2508,8 @@ export const updateBizna = /* GraphQL */ `mutation UpdateBizna(
     email
     licenseNo
     bizType
+    bankType
+    bankAccount
     status
     owner
     description
@@ -2619,6 +2623,8 @@ export const deleteBizna = /* GraphQL */ `mutation DeleteBizna(
     email
     licenseNo
     bizType
+    bankType
+    bankAccount
     status
     owner
     description

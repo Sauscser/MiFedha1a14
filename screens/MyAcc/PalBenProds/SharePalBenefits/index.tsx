@@ -281,7 +281,7 @@ const SMASendNonLns = props => {
                         if (error){Alert.alert("Check your internet connection")
                     return;}
                       }
-                      Alert.alert("Amount:Ksh. "+parseFloat(amounts).toFixed(2) + " Transaction: Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
+                      Alert.alert("Benefits Ksh. "+parseFloat(amounts).toFixed(2) + " sent. Transaction: Ksh. "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
                       Communications.textWithoutEncoding(beneficiaryPhones,
                         'Confirmed. '
                                   + busNames 
