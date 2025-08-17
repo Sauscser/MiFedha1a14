@@ -1,10 +1,10 @@
 import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 
-import { API, graphqlOperation, Auth } from 'aws-amplify';
+import { API, graphqlOperation, Auth, SortDirection } from 'aws-amplify';
 import NonLnSent from "../../../components/VwCredSales/Vw2VwCashPurchases";
 import styles from './styles';
-import { getCompany, getSMAccount, listNonLoanss, listSMAccounts,  } from '../../../src/graphql/queries';
+import { getCompany, getSMAccount, listNonLoanss, listSMAccounts, VwMySntMny,  } from '../../../src/graphql/queries';
 import { updateCompany, updateSMAccount } from '../../../src/graphql/mutations';
 
 const FetchSMNonLnsSnt = props => {
@@ -28,16 +28,18 @@ const FetchSMNonLnsSnt = props => {
               
         
             try {
-              const Lonees:any = await API.graphql(graphqlOperation(listNonLoanss, 
+              const Lonees:any = await API.graphql(graphqlOperation(VwMySntMny, 
               {
                       
-                     
+                     senderPhn: userInfo.attributes.email,
+                     sortDirection:'DESC',
+                     limit: 100,
                       filter:{status:{eq:"cashSales"},
-                      senderPhn: {eq:userInfo.attributes.email},}
+                      }
                     }
                
                   ));
-                  setRecvrs(Lonees.data.listNonLoanss.items);
+                  setRecvrs(Lonees.data.VwMySntMny.items);
 
                   
                             

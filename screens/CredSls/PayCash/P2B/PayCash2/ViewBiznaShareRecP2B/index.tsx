@@ -31,7 +31,7 @@ const FetchSMNonLnsSnt = () => {
 
       const result: any = await API.graphql(graphqlOperation(VwMyRecMny, {
         recPhn: bizPhone,
-        SortDirection: "DESC",
+        sortDirection: "DESC",
         limit:100,
         filter : {
           status: {eq: "cashSales"}

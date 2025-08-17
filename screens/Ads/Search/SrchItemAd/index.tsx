@@ -4,7 +4,8 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import {
   View, Text, TextInput, FlatList, TouchableOpacity,
-  StyleSheet, Dimensions, ActivityIndicator, Animated, PanResponder, ScrollView, Alert,
+  StyleSheet, Dimensions, ActivityIndicator,
+   Animated, PanResponder, ScrollView, Alert,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
@@ -99,6 +100,7 @@ export default function SalesItemMapScreen({ navigation }) {
   itemPhoto?: string;
   signedUrl?: string;
   ads:string;
+  sokodesc: string;
 };
 
 
@@ -392,13 +394,15 @@ const validateAndTransact = async () => {
       totalBenefit: number;
       netEarnings: number;
       earningsBal: number;
+      description: string[];
+      itemID: string;
     }> = {};
 
     
 
     // ✅ Process items individually
     for (const item of cart) {
-      const { sokoname, sokoprice, sokokntct, itemUnit, bizName, businessType, ItemCode } = item;
+      const { sokoname, sokoprice, sokokntct, sokodesc, itemUnit, bizName, businessType, ItemCode } = item;
       const qty = quantities[item.id] || 1;
       const itemCost = parseFloat(sokoprice) * qty;
       const fee = itemCost * parseFloat(company.biznaCashSaleFee);
@@ -424,21 +428,12 @@ const validateAndTransact = async () => {
         return;
       }
 
-      const description = `${qty} ${itemUnit} of ${sokoname} @ ${sokoprice} = ${itemCost} bought at ${bizName} ${businessType}: serial number ${ItemCode}`;
+     const description = `${qty} ${itemUnit} of ${sokoname} @ ${sokoprice} = ${itemCost} bought at ${bizName} ${businessType}: serial number ${ItemCode}`;
+const itemID = item.id;
+
 
       // Create transaction record
-      await API.graphql(graphqlOperation(createNonLoans, {
-        input: {
-          recPhn: sokokntct,
-          senderPhn: user.attributes.email,
-          amount: itemCost.toFixed(0),
-          description,
-          RecName: bizName,
-          SenderName: user.username,
-          status: "cashSales",
-          owner: user.attributes.sub,
-        }
-      }));
+      
 
       // Merge into sellerTotals
       if (!sellerTotals[sokokntct]) {
@@ -447,8 +442,12 @@ const validateAndTransact = async () => {
           totalBenefit: 0,
           netEarnings: parseFloat(biz.netEarnings),
           earningsBal: parseFloat(biz.earningsBal),
+          description: [],
+          itemID: ""
         };
       }
+      sellerTotals[sokokntct].description.push(description);
+      sellerTotals[sokokntct].itemID=itemID;
       sellerTotals[sokokntct].totalItemCost += itemCost;
       sellerTotals[sokokntct].totalBenefit += benefit;
 
@@ -462,9 +461,14 @@ const validateAndTransact = async () => {
 
     // ✅ Update each unique seller once
     for (const sokokntct in sellerTotals) {
+      const totals = sellerTotals[sokokntct];
       const bizResult = await API.graphql(graphqlOperation(getBizna, { BusKntct: sokokntct }));
       const biz = bizResult.data.getBizna;
-      const totals = sellerTotals[sokokntct];
+      
+      const fullDescription = totals.description.join('\n');
+      const allItemsID = totals.itemID
+
+      console.log(fullDescription, allItemsID);
 
       await API.graphql(graphqlOperation(updateBizna, {
         input: {
@@ -474,7 +478,27 @@ const validateAndTransact = async () => {
           benefitsAmount: parseFloat(biz.benefitsAmount) + totals.totalBenefit,
         }
       }));
+
+      
+      await API.graphql(graphqlOperation(createNonLoans, {
+        input: {
+          recPhn: sokokntct,
+          senderPhn: user.attributes.email,
+          amount: (totals.totalItemCost).toFixed(0),
+          description: fullDescription,
+          RecName: biz.busName,
+          SenderName: user.username,
+          status: "cashSales",
+
+          // photo url
+
+          owner: allItemsID,
+        }
+      }));
+
     }
+
+    
 
     // ✅ Update company once
     await API.graphql(graphqlOperation(updateCompany, {
@@ -682,7 +706,7 @@ const validateAndTransact = async () => {
           <ScrollView>
             {cart.map(item => (
               <View key={item.id} style={{ marginVertical: 4 }}>
-                <Text>{item.itemBrand} {item.sokoname} x {quantities[item.id] || 1} = KES {(quantities[item.id] || 1)*(item.sokoprice)}  </Text>
+                <Text>{item.itemBrand} {item.sokoname} x {quantities[item.id] || 1} = KES {((quantities[item.id] || 1)*(item.sokoprice)).toFixed(2)}  </Text>
                 <TouchableOpacity onPress={() => removeFromCart(item.id)}><Text style={{ color: 'red' }}>Remove</Text></TouchableOpacity>
               </View>
             ))}
@@ -701,7 +725,7 @@ const validateAndTransact = async () => {
           {isLoading2 ? (
             <ActivityIndicator color="#fff" />
           ) : (
-            <Text style={styles.buttonText}>Pay KES {OverallTotalDebit}</Text>
+            <Text style={styles.buttonText}>Pay KES {(OverallTotalDebit).toFixed(2)}</Text>
           )}
         </TouchableOpacity>
              

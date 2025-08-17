@@ -79,6 +79,10 @@ const MyAccount = props => {
     navigation.navigate('UpdateMainAc');
   };
 
+  const SrchLoanAdz = () => {
+    navigation.navigate('SrchLoanAdz');
+  };
+
   const DepositOptions = () => {
     navigation.navigate('DepositOptions');
   };
@@ -121,7 +125,7 @@ const MyAccount = props => {
             { label: 'View Deposits', onPress: SMDpsitsss, style: styles.ClientsPressables },
             { label: 'Update Main Account', onPress: UpdateMainAc, style: styles.ClientsPressables },
             { label: 'Send Cash', onPress: goToSMASndnonln, style: styles.ClientsPressables },
-            { label: 'View Cash sent to Pals', onPress: ViewNonLnsSents, style: styles.ClientsPressables },
+            { label: 'View Cash sent to Pals/Transpoter', onPress: ViewNonLnsSents, style: styles.ClientsPressables },
             { label: 'View Cash received from Biz', onPress: ViewBiznaShareRec, style: styles.ClientsPressables },
             { label: 'View Cash received from Pals', onPress: ViewNonLnsRecs, style: styles.ClientsPressables }
           ]}
@@ -144,6 +148,7 @@ const MyAccount = props => {
           title="Other Operations"
           options={[
             { label: 'Boost pooled Benefits', onPress: BoostPalBenefits },
+             { label: 'Search Loan Ads', onPress: SrchLoanAdz },
             { label: 'Advertise', onPress: LoanAds },
             { label: 'Delete ', onPress: VwPlLn2Remove },
            

@@ -182,7 +182,8 @@ const AddChmMmbrs = (props) => {
                             subscriptionFrequency: SubFreq,
                   subscriptionAmt: SubAmt,
                   lateSubscriptionPenalty:lateSub,
-                  ttlLateSubs:0
+                  ttlLateSubs:0,
+                  transportApproved: "ChamaTransportApprovedNo"
                             
                                   },
                                 }),

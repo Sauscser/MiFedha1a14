@@ -889,9 +889,6 @@ type LoanRepayments
 }
 
 
-
-
-
 type SokoAd
   @model
   @auth(
@@ -943,7 +940,132 @@ type SokoAd
 }
 
 
+type TransportRegister
+  @model
+  @auth(
+    rules: [
+     
+      { allow: owner, operations: [read, update, delete] }
+      { allow: private, operations: [read, create, update] }
+     
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+     
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      ]
+  )
 
+ 
+   {
+ 
+  id:ID! 
+  transportkntct: String!  
+  transportRate: Float! 
+  transportdesc: String! 
+  transportPhoto: String 
+  owner: String! 
+  createdAt: String!
+  latitude: Float!
+  longitude: Float!
+  transportName: String! @index(name: "Daka2Name", sortKeyFields: ["createdAt"], queryField: "Daka2ByName")
+ 
+  transportType: String!
+  dutyStatus: Status 
+  engagementStatus:Status 
+  transportRequest: Status
+  transportOwnerEmail: String! 
+  Earnings: Float!
+  UsrAcCommitment: Float!
+  ChmAcCommitment: Float!
+  chmAcNumber: String!
+  chmAcCommitmentStatus: Status
+  deliveryLatitude: Float!
+  deliveryLongitude: Float!
+  buyerName:String!
+  buyerContact: String!
+  deliveryID: String!
+  deliveryCost: Float!
+  customerEmail: String!
+  deliveryDesc: String!
+  bizAc:String
+  bizType: String
+  purchasePhoto: String
+  deliveryStart: Float
+  itemID: String
+  sellerContact: String
+  sellerName: String
+  sellerLatitude: Float
+  sellerLongitude:Float
+  distance:Float
+  
+}
+
+type TransportOrder
+  @model
+  @auth(
+    rules: [
+     
+      { allow: owner, operations: [read, update, delete] }
+      { allow: private, operations: [read, create, update] }
+     
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
+     
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      ]
+  )
+
+ 
+   {
+ 
+  id:ID! 
+  transportkntct: String!  
+  transportRate: Float! 
+  transportdesc: String! 
+  transportPhoto: String 
+  owner: String! 
+  createdAt: String!
+  latitude: Float!
+  longitude: Float!
+  transportName: String! 
+ 
+  transportType: String!
+  dutyStatus: Status 
+  engagementStatus:Status 
+  transportRequest: Status
+  transportOwnerEmail: String! @index(name: "transprtOwnrEmail", sortKeyFields: ["createdAt"], queryField: "BytransprtOwnrEmail")
+  Earnings: Float!
+  UsrAcCommitment: Float!
+  ChmAcCommitment: Float!
+  chmAcNumber: String!
+  chmAcCommitmentStatus: Status
+  deliveryLatitude: Float!
+  deliveryLongitude: Float!
+  buyerName:String!
+  buyerContact: String!
+  deliveryID: String!
+  deliveryCost: Float!
+  customerEmail: String! @index(name: "BuyerEmail", sortKeyFields: ["createdAt"], queryField: "ByBuyerEmail")
+  deliveryDesc: String!
+  bizAc:String
+  bizType: String
+  purchasePhoto: String
+  deliveryStart: Float
+  itemID: String
+  sellerContact: String! @index(name: "SellerEmail", sortKeyFields: ["createdAt"], queryField: "BySellerAccount")
+  sellerName: String
+  sellerLatitude: Float
+  sellerLongitude:Float
+  distance:Float
+  orderCost: Float
+  
+}
 
 
 
@@ -2241,6 +2363,8 @@ type Company
   g2pBenCom: Float!
   p2BBenCom: Float!
   BankMifedhaSyncFee: Float!
+  transportCost: Float!
+  transportCompanyShare: Float!
 }
 
 type CompanyUrls
@@ -2571,6 +2695,7 @@ type ChamaMembers
   subscriptionFrequency: Float!
   subscriptionAmt: Float!
   lateSubscriptionPenalty:Float!
+  transportApproved: Status
 }
 
 type ChamasNPwnBrkrs
@@ -3096,6 +3221,8 @@ type ChamaControlTable
   createdAt: String!  
 }
 
+
+
 enum Status {
   NoLoan
   LoanActive
@@ -3135,4 +3262,18 @@ enum Status {
   BiznaShareCash
   BiznaShareCash2Biz
   BiznaShareCash2Grp
+  TransportEngaged
+  TransportNotEngaged
+  TransportOnduty
+  TransportNotOnduty
+  TransportApproved
+  transportRequestYes
+  transportRequestNo
+  TransportChmCommitmentYes
+  TransportChmCommitmentNo
+  ChamaTransportApprovedYes
+  ChamaTransportApprovedNo
+  DeliveryPayment
+  DeliveryUpdated
+
 }

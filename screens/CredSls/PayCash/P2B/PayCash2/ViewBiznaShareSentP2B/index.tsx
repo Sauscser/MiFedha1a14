@@ -31,7 +31,7 @@ const FetchSMNonLnsSnt = props => {
                           {
 
                             senderPhn:userInfo.attributes.email,
-                            SortDirection:"DESC",
+                            sortDirection:"DESC",
                             limit:100,
                             filter:{
                               

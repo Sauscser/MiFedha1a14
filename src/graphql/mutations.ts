@@ -1694,6 +1694,315 @@ export const deleteSokoAd = /* GraphQL */ `mutation DeleteSokoAd(
   APITypes.DeleteSokoAdMutationVariables,
   APITypes.DeleteSokoAdMutation
 >;
+export const createTransportRegister = /* GraphQL */ `mutation CreateTransportRegister(
+  $input: CreateTransportRegisterInput!
+  $condition: ModelTransportRegisterConditionInput
+) {
+  createTransportRegister(input: $input, condition: $condition) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateTransportRegisterMutationVariables,
+  APITypes.CreateTransportRegisterMutation
+>;
+export const updateTransportRegister = /* GraphQL */ `mutation UpdateTransportRegister(
+  $input: UpdateTransportRegisterInput!
+  $condition: ModelTransportRegisterConditionInput
+) {
+  updateTransportRegister(input: $input, condition: $condition) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateTransportRegisterMutationVariables,
+  APITypes.UpdateTransportRegisterMutation
+>;
+export const deleteTransportRegister = /* GraphQL */ `mutation DeleteTransportRegister(
+  $input: DeleteTransportRegisterInput!
+  $condition: ModelTransportRegisterConditionInput
+) {
+  deleteTransportRegister(input: $input, condition: $condition) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteTransportRegisterMutationVariables,
+  APITypes.DeleteTransportRegisterMutation
+>;
+export const createTransportOrder = /* GraphQL */ `mutation CreateTransportOrder(
+  $input: CreateTransportOrderInput!
+  $condition: ModelTransportOrderConditionInput
+) {
+  createTransportOrder(input: $input, condition: $condition) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    orderCost
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateTransportOrderMutationVariables,
+  APITypes.CreateTransportOrderMutation
+>;
+export const updateTransportOrder = /* GraphQL */ `mutation UpdateTransportOrder(
+  $input: UpdateTransportOrderInput!
+  $condition: ModelTransportOrderConditionInput
+) {
+  updateTransportOrder(input: $input, condition: $condition) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    orderCost
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateTransportOrderMutationVariables,
+  APITypes.UpdateTransportOrderMutation
+>;
+export const deleteTransportOrder = /* GraphQL */ `mutation DeleteTransportOrder(
+  $input: DeleteTransportOrderInput!
+  $condition: ModelTransportOrderConditionInput
+) {
+  deleteTransportOrder(input: $input, condition: $condition) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    orderCost
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteTransportOrderMutationVariables,
+  APITypes.DeleteTransportOrderMutation
+>;
 export const createRafikiLnAd = /* GraphQL */ `mutation CreateRafikiLnAd(
   $input: CreateRafikiLnAdInput!
   $condition: ModelRafikiLnAdConditionInput
@@ -3686,6 +3995,8 @@ export const createCompany = /* GraphQL */ `mutation CreateCompany(
     g2pBenCom
     p2BBenCom
     BankMifedhaSyncFee
+    transportCost
+    transportCompanyShare
     updatedAt
     __typename
   }
@@ -3856,6 +4167,8 @@ export const updateCompany = /* GraphQL */ `mutation UpdateCompany(
     g2pBenCom
     p2BBenCom
     BankMifedhaSyncFee
+    transportCost
+    transportCompanyShare
     updatedAt
     __typename
   }
@@ -4026,6 +4339,8 @@ export const deleteCompany = /* GraphQL */ `mutation DeleteCompany(
     g2pBenCom
     p2BBenCom
     BankMifedhaSyncFee
+    transportCost
+    transportCompanyShare
     updatedAt
     __typename
   }
@@ -4699,6 +5014,7 @@ export const createChamaMembers = /* GraphQL */ `mutation CreateChamaMembers(
     subscriptionFrequency
     subscriptionAmt
     lateSubscriptionPenalty
+    transportApproved
     updatedAt
     __typename
   }
@@ -4739,6 +5055,7 @@ export const updateChamaMembers = /* GraphQL */ `mutation UpdateChamaMembers(
     subscriptionFrequency
     subscriptionAmt
     lateSubscriptionPenalty
+    transportApproved
     updatedAt
     __typename
   }
@@ -4779,6 +5096,7 @@ export const deleteChamaMembers = /* GraphQL */ `mutation DeleteChamaMembers(
     subscriptionFrequency
     subscriptionAmt
     lateSubscriptionPenalty
+    transportApproved
     updatedAt
     __typename
   }

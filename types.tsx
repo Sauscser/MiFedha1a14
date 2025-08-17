@@ -12,12 +12,28 @@ declare global {
     interface RootParamList extends RootStackParamList {
       MemberReqChm:{ChamaNMember:string};
       VwAsBeneficiary:undefined;
+      SrchLoanAdz:undefined;
       UpdatePayStack:{amounts:string};
       UrlLinks:undefined;
       SendMmbrsMny:{ChamaNMember:string};
       VwChamaMembers :{groupContact:string};
       PayCash3:undefined;
       ShareCredSlsRev2Grp:undefined;
+      RegisterTransport:undefined;
+      VwSalesDtls4Transport:undefined;
+      RequestTransport:{id: string};
+      TransportDetails:{id: string};
+      AcceptTransportRequest:undefined;
+      ViewChama2CommitTransport:{id: string};
+      VwTransprtReqDtls:{id: string};
+      DispatchDelivery:{BusinessRegNo: string};
+      ReceiveDelivery2: undefined;
+      VwBiz2DispatchDelivery:undefined;
+      VwTransportAccount:undefined;
+      ChangeDeliveryLocation:{id:string};
+      ShareTransportRevenue:{id:string}
+      ViewTransportPaymentRec:undefined;
+      ViewDeliveryPayments:undefined;
       
 
       UpdateBankAdminAc:undefined;

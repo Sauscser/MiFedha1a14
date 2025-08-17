@@ -4,6 +4,25 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import BtmTbNav from '../BotTab';
 import KFNdogo from "../../screens/MFNdogo"
+import SrchLoanAdz from "../../screens/Ads/Search/SrchLoanAd";
+import RegisterTransport from "../../screens/Transport/RegisterTransport";
+import VwSalesDtls4Transport from "../../screens/Transport/VwSalesDtls4Transport";
+import RequestTransport from "../../screens/Transport/RequestTransport";
+import TransportDetails from "../../screens/Transport/TransportDetails";
+import AcceptTransportRequest from "../../screens/Transport/AcceptTransportRequest";
+import ViewChama2CommitTransport from "../../screens/Transport/ViewChama2CommitTransport";
+import VwTransprtReqDtls from "../../screens/Transport/VwTransprtReqDtls";
+import ReceiveDelivery2 from "../../screens/Transport/ReceiveDelivery2";
+
+import DispatchDelivery from "../../screens/Transport/DispatchDelivery";
+import VwBiz2DispatchDelivery from "../../screens/Transport/VwBiz2DispatchDelivery";
+import VwTransportAccount from "../../screens/Transport/VwTransportAccount";
+import ChangeDeliveryLocation from "../../screens/Transport/ChangeDeliveryLocation";
+import ShareTransportRevenue from "../../screens/Transport/ShareTransportRevenue";
+import ViewTransportPaymentRec from "../../screens/Transport/ViewTransportPaymentRec";
+import ViewDeliveryPayments from "../../screens/Transport/ViewDeliveryPayments";
+
+
 import Homeie from "../../screens/HomeScrn"
 import RegisterKFKubwaAcForm from '../../screens/MFKubwa/RegisterMFKubwa';
 import CreateAcForm from '../../screens/MyAcc/CreateAc';
@@ -602,6 +621,27 @@ const HomeNavigator = props => {
       <Stack.Screen name={'Homeie'} component={Homeie} />      
       
       <Stack.Screen name={'BuyFloatBnkAdm'} component={BuyFloatBnkAdm} />
+      <Stack.Screen name={'VwSalesDtls4Transport'} component={VwSalesDtls4Transport} />
+      <Stack.Screen name={'DispatchDelivery'} component={DispatchDelivery} />
+      <Stack.Screen name={'ReceiveDelivery2'} component={ReceiveDelivery2} />
+      <Stack.Screen name={'VwBiz2DispatchDelivery'} component={VwBiz2DispatchDelivery} />
+      <Stack.Screen name={'VwTransportAccount'} component={VwTransportAccount} />
+      <Stack.Screen name={'ChangeDeliveryLocation'} component={ChangeDeliveryLocation} />
+      <Stack.Screen name={'ShareTransportRevenue'} component={ShareTransportRevenue} />
+      <Stack.Screen name={'ViewTransportPaymentRec'} component={ViewTransportPaymentRec} />
+      <Stack.Screen name={'ViewDeliveryPayments'} component={ViewDeliveryPayments} />
+      
+
+      <Stack.Screen name={'RequestTransport'} component={RequestTransport} />
+      <Stack.Screen name={'VwTransprtReqDtls'} component={VwTransprtReqDtls} />
+
+      <Stack.Screen name={'SrchLoanAdz'} component={SrchLoanAdz} />
+      <Stack.Screen name={'RegisterTransport'} component={RegisterTransport} />
+      <Stack.Screen name={'TransportDetails'} component={TransportDetails} />
+      <Stack.Screen name={'AcceptTransportRequest'} component={AcceptTransportRequest} />
+      <Stack.Screen name={'ViewChama2CommitTransport'} component={ViewChama2CommitTransport} />
+     
+     
       <Stack.Screen name={'VwBeneficiaryContriDtls'} component={VwBeneficiaryContriDtls} />
       <Stack.Screen name={'WithdrawFundsFromMap'} component={WithdrawFundsFromMap} />
       <Stack.Screen name={'ViewGrp2ConfirmDividends'} component={ViewGrp2ConfirmDividends} />

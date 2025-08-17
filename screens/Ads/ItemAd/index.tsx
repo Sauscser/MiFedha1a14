@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View, Text, TextInput, ScrollView, TouchableOpacity,
-  Alert, ActivityIndicator, StyleSheet, Image
+  Alert, ActivityIndicator, StyleSheet, Image, Animated, Easing,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -9,13 +9,36 @@ import * as Location from 'expo-location';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { Auth, API, graphqlOperation, Storage } from 'aws-amplify';
-
 import { createSokoAd } from '../../../src/graphql/mutations';
 import { getSMAccount, getBizna, listPersonels } from '../../../src/graphql/queries';
-import { Route, useRoute } from '@react-navigation/native';
-
+import { useRoute } from '@react-navigation/native';
 
 const MAX_IMAGE_SIZE_MB = 5;
+
+const formatAndValidateUrl = (url) => {
+  if (!url) return ''; // allow empty
+
+  let formatted = url.trim();
+  if (!/^https?:\/\//i.test(formatted)) {
+    formatted = 'https://' + formatted;
+  }
+
+  try {
+    const parsed = new URL(formatted);
+
+    // Must have a dot in hostname and not be localhost
+    const hostname = parsed.hostname;
+    const hasDot = hostname.includes('.');
+    const notLocalhost = hostname.toLowerCase() !== 'localhost';
+
+    if (!hasDot || !notLocalhost) return null;
+
+    return formatted;
+  } catch {
+    return null;
+  }
+};
+
 
 const CreateBiz = () => {
   const [formData, setFormData] = useState({
@@ -23,19 +46,74 @@ const CreateBiz = () => {
     itemPrice: '', brandName: '', businessType: '',
     itemUnit: '', unitQuantity: '', bizPassword: '', ItemCode: '',
   });
-
   const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [itemPhotoKey, setItemPhotoKey] = useState<string | null>(null);
-  const [itemPhotoUri, setItemPhotoUri] = useState<string | null>(null);
+  const [itemPhotoKey, setItemPhotoKey] = useState(null);
+  const [itemPhotoUri, setItemPhotoUri] = useState(null);
   const route = useRoute();
 
-  const updateForm = (key: string, value: string) =>
+  // For pulsing animation
+  const pulseAnim = useRef(new Animated.Value(1)).current;
+  const [isUrlValid, setIsUrlValid] = useState(false);
+
+  const updateForm = (key, value) => {
     setFormData(prev => ({ ...prev, [key]: value }));
+
+    if (key === 'itemTown') {
+      const check = formatAndValidateUrl(value);
+      setIsUrlValid(check !== null);
+    }
+  };
 
   useEffect(() => {
     requestLocationPermission();
   }, []);
+
+// inside CreateBiz component
+
+
+useEffect(() => {
+  let animation:any;
+
+  if (isUrlValid) {
+    animation = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulseAnim, {
+          toValue: 1.2,
+          duration: 500,
+          useNativeDriver: true,
+          easing: Easing.ease,
+        }),
+        Animated.timing(pulseAnim, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+          easing: Easing.ease,
+        }),
+      ])
+    );
+    animation.start();
+  } else {
+    pulseAnim.setValue(1); // reset size
+    if (animation) {
+      animation.stop();
+    }
+  }
+
+  return () => {
+    if (animation) {
+      animation.stop();
+    }
+  };
+}, [isUrlValid]);
+
+
+const handleUrlChange = (v) => {
+  updateForm('itemTown', v);
+  const validUrl = formatAndValidateUrl(v);
+  setIsUrlValid(validUrl !== null && validUrl !== '');
+};
+
 
   const requestLocationPermission = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -47,39 +125,28 @@ const CreateBiz = () => {
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: false, // ⛔ turn off editing for now
-    aspect: [4, 3],
-    quality: 1,
+      allowsEditing: false,
+      aspect: [4, 3],
+      quality: 1,
     });
     if (!result.canceled && result.assets?.[0]?.uri) {
-    const uri = result.assets[0].uri;
-    console.log('Picked image URI:', uri);
-    handleImage(uri); // ✅ now valid image
-  } else {
-    console.log('Image selection canceled or failed.');
-  }
-};
+      handleImage(result.assets[0].uri);
+    }
+  };
 
   const takePhoto = async () => {
     const result = await ImagePicker.launchCameraAsync({
-     
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: false, // ⛔ turn off editing for now
-    aspect: [4, 3],
-    quality: 1,
+      allowsEditing: false,
+      aspect: [4, 3],
+      quality: 1,
     });
     if (!result.canceled && result.assets?.[0]?.uri) {
-    const uri = result.assets[0].uri;
-    console.log('Picked image URI:', uri);
-    handleImage(uri); // ✅ now valid image
-  } else {
-    console.log('Image selection canceled or failed.');
-  }
-};
- 
-  const handleImage = async (uri: string) => {
+      handleImage(result.assets[0].uri);
+    }
+  };
 
-     console.log('Original image URI:', uri);
+  const handleImage = async (uri) => {
     try {
       const manipResult = await ImageManipulator.manipulateAsync(
         uri,
@@ -87,12 +154,10 @@ const CreateBiz = () => {
         { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
       );
 
-      
-
       const response = await fetch(manipResult.uri);
       const blob = await response.blob();
-
       const imageSizeMB = blob.size / (1024 * 1024);
+
       if (imageSizeMB > MAX_IMAGE_SIZE_MB) {
         Alert.alert('Image too large', `Image is ${imageSizeMB.toFixed(2)}MB. Max allowed is ${MAX_IMAGE_SIZE_MB}MB.`);
         return;
@@ -118,6 +183,7 @@ const CreateBiz = () => {
     });
     setItemPhotoKey(null);
     setItemPhotoUri(null);
+    setIsUrlValid(false);
   };
 
   const handleAdCreation = async () => {
@@ -128,6 +194,14 @@ const CreateBiz = () => {
       itemName, itemTown, itemDesc, itemPrice,
       brandName, itemUnit, unitQuantity, bizPassword, ItemCode,
     } = formData;
+
+    // Validate URL
+    const formattedUrl = formatAndValidateUrl(itemTown);
+    if (formattedUrl === null) {
+      Alert.alert('Invalid URL', 'Please enter a valid link (http:// or https://)');
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const user = await Auth.currentAuthenticatedUser();
@@ -164,7 +238,7 @@ const CreateBiz = () => {
 
       const adInput = {
         sokokntct: route.params.BusinessRegNo,
-        sokotown: itemTown,
+        sokotown: formattedUrl,
         sokolnprcntg: 1,
         sokolpymntperiod: 1,
         sokodesc: itemDesc,
@@ -198,19 +272,42 @@ const CreateBiz = () => {
     <LinearGradient colors={['#e58d29', '#2c5364']} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>Advertise New Item</Text>
-  <InputField label="Item Name" value={formData.itemName} onChange={v => updateForm('itemName', v)} />
+
+        <InputField label="Item Name" value={formData.itemName} onChange={v => updateForm('itemName', v)} />
         <InputField label="Brand/Model/Type (Optional)" value={formData.brandName} onChange={v => updateForm('brandName', v)} />
         <InputField label="Item Price (Ksh)" value={formData.itemPrice} onChange={v => updateForm('itemPrice', v)} keyboardType="numeric" />
         <InputField label="Unit of Measure (Optional)" value={formData.itemUnit} onChange={v => updateForm('itemUnit', v)} />
         <InputField label="Quantity per Unit (Optional)" value={formData.unitQuantity} onChange={v => updateForm('unitQuantity', v)} keyboardType="numeric" />
         <InputField label="Serial Number (Optional)" value={formData.ItemCode} onChange={v => updateForm('ItemCode', v)} />
+
+        {/* URL with pulsing valid icon */}
+        <View style={styles.inputContainer}>
+  <Text style={styles.label}>Ad Video URL (Optional)</Text>
+  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <TextInput
+      style={[styles.input, { flex: 1 }]}
+      value={formData.itemTown}
+      onChangeText={handleUrlChange}
+      placeholder="e.g. youtube.com/watch?v=abc123"
+    />
+    {isUrlValid && (
+      <Animated.View style={{ transform: [{ scale: pulseAnim }], marginLeft: 8 }}>
+        <Ionicons name="checkmark-circle" size={24} color="limegreen" />
+      </Animated.View>
+    )}
+  </View>
+</View>
+
+
         <InputField label="Item Description" value={formData.itemDesc} onChange={v => updateForm('itemDesc', v)} multiline height={100} />
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableOpacity onPress={pickImage} style={[styles.button, { flex: 1, marginRight: 10 }]}>
             <Text style={styles.buttonText}>Attach Photo from Gallery</Text>
           </TouchableOpacity>
-         
+          <TouchableOpacity onPress={takePhoto} style={[styles.button, { flex: 1, marginLeft: 10 }]}>
+            <Text style={styles.buttonText}>Take Photo</Text>
+          </TouchableOpacity>
         </View>
 
         {itemPhotoUri && <Image source={{ uri: itemPhotoUri }} style={styles.imagePreview} />}

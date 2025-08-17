@@ -1206,6 +1206,220 @@ export const listSokoAds = /* GraphQL */ `query ListSokoAds(
   APITypes.ListSokoAdsQueryVariables,
   APITypes.ListSokoAdsQuery
 >;
+export const getTransportRegister = /* GraphQL */ `query GetTransportRegister($id: ID!) {
+  getTransportRegister(id: $id) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetTransportRegisterQueryVariables,
+  APITypes.GetTransportRegisterQuery
+>;
+export const listTransportRegisters = /* GraphQL */ `query ListTransportRegisters(
+  $filter: ModelTransportRegisterFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTransportRegisters(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      transportkntct
+      transportRate
+      transportdesc
+      transportPhoto
+      owner
+      createdAt
+      latitude
+      longitude
+      transportName
+      transportType
+      dutyStatus
+      engagementStatus
+      transportRequest
+      transportOwnerEmail
+      Earnings
+      UsrAcCommitment
+      ChmAcCommitment
+      chmAcNumber
+      chmAcCommitmentStatus
+      deliveryLatitude
+      deliveryLongitude
+      buyerName
+      buyerContact
+      deliveryID
+      deliveryCost
+      customerEmail
+      deliveryDesc
+      bizAc
+      bizType
+      purchasePhoto
+      deliveryStart
+      itemID
+      sellerContact
+      sellerName
+      sellerLatitude
+      sellerLongitude
+      distance
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListTransportRegistersQueryVariables,
+  APITypes.ListTransportRegistersQuery
+>;
+export const getTransportOrder = /* GraphQL */ `query GetTransportOrder($id: ID!) {
+  getTransportOrder(id: $id) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    orderCost
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetTransportOrderQueryVariables,
+  APITypes.GetTransportOrderQuery
+>;
+export const listTransportOrders = /* GraphQL */ `query ListTransportOrders(
+  $filter: ModelTransportOrderFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTransportOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      transportkntct
+      transportRate
+      transportdesc
+      transportPhoto
+      owner
+      createdAt
+      latitude
+      longitude
+      transportName
+      transportType
+      dutyStatus
+      engagementStatus
+      transportRequest
+      transportOwnerEmail
+      Earnings
+      UsrAcCommitment
+      ChmAcCommitment
+      chmAcNumber
+      chmAcCommitmentStatus
+      deliveryLatitude
+      deliveryLongitude
+      buyerName
+      buyerContact
+      deliveryID
+      deliveryCost
+      customerEmail
+      deliveryDesc
+      bizAc
+      bizType
+      purchasePhoto
+      deliveryStart
+      itemID
+      sellerContact
+      sellerName
+      sellerLatitude
+      sellerLongitude
+      distance
+      orderCost
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListTransportOrdersQueryVariables,
+  APITypes.ListTransportOrdersQuery
+>;
 export const getRafikiLnAd = /* GraphQL */ `query GetRafikiLnAd($id: ID!) {
   getRafikiLnAd(id: $id) {
     id
@@ -2702,6 +2916,8 @@ export const getCompany = /* GraphQL */ `query GetCompany($AdminId: String!) {
     g2pBenCom
     p2BBenCom
     BankMifedhaSyncFee
+    transportCost
+    transportCompanyShare
     updatedAt
     __typename
   }
@@ -2882,6 +3098,8 @@ export const listCompanies = /* GraphQL */ `query ListCompanies(
       g2pBenCom
       p2BBenCom
       BankMifedhaSyncFee
+      transportCost
+      transportCompanyShare
       updatedAt
       __typename
     }
@@ -3361,6 +3579,7 @@ export const getChamaMembers = /* GraphQL */ `query GetChamaMembers($ChamaNMembe
     subscriptionFrequency
     subscriptionAmt
     lateSubscriptionPenalty
+    transportApproved
     updatedAt
     __typename
   }
@@ -3411,6 +3630,7 @@ export const listChamaMembers = /* GraphQL */ `query ListChamaMembers(
       subscriptionFrequency
       subscriptionAmt
       lateSubscriptionPenalty
+      transportApproved
       updatedAt
       __typename
     }
@@ -5446,6 +5666,273 @@ export const DakaByName = /* GraphQL */ `query DakaByName(
   APITypes.DakaByNameQueryVariables,
   APITypes.DakaByNameQuery
 >;
+export const Daka2ByName = /* GraphQL */ `query Daka2ByName(
+  $transportName: String!
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelTransportRegisterFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  Daka2ByName(
+    transportName: $transportName
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      transportkntct
+      transportRate
+      transportdesc
+      transportPhoto
+      owner
+      createdAt
+      latitude
+      longitude
+      transportName
+      transportType
+      dutyStatus
+      engagementStatus
+      transportRequest
+      transportOwnerEmail
+      Earnings
+      UsrAcCommitment
+      ChmAcCommitment
+      chmAcNumber
+      chmAcCommitmentStatus
+      deliveryLatitude
+      deliveryLongitude
+      buyerName
+      buyerContact
+      deliveryID
+      deliveryCost
+      customerEmail
+      deliveryDesc
+      bizAc
+      bizType
+      purchasePhoto
+      deliveryStart
+      itemID
+      sellerContact
+      sellerName
+      sellerLatitude
+      sellerLongitude
+      distance
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.Daka2ByNameQueryVariables,
+  APITypes.Daka2ByNameQuery
+>;
+export const BytransprtOwnrEmail = /* GraphQL */ `query BytransprtOwnrEmail(
+  $transportOwnerEmail: String!
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelTransportOrderFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  BytransprtOwnrEmail(
+    transportOwnerEmail: $transportOwnerEmail
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      transportkntct
+      transportRate
+      transportdesc
+      transportPhoto
+      owner
+      createdAt
+      latitude
+      longitude
+      transportName
+      transportType
+      dutyStatus
+      engagementStatus
+      transportRequest
+      transportOwnerEmail
+      Earnings
+      UsrAcCommitment
+      ChmAcCommitment
+      chmAcNumber
+      chmAcCommitmentStatus
+      deliveryLatitude
+      deliveryLongitude
+      buyerName
+      buyerContact
+      deliveryID
+      deliveryCost
+      customerEmail
+      deliveryDesc
+      bizAc
+      bizType
+      purchasePhoto
+      deliveryStart
+      itemID
+      sellerContact
+      sellerName
+      sellerLatitude
+      sellerLongitude
+      distance
+      orderCost
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.BytransprtOwnrEmailQueryVariables,
+  APITypes.BytransprtOwnrEmailQuery
+>;
+export const ByBuyerEmail = /* GraphQL */ `query ByBuyerEmail(
+  $customerEmail: String!
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelTransportOrderFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  ByBuyerEmail(
+    customerEmail: $customerEmail
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      transportkntct
+      transportRate
+      transportdesc
+      transportPhoto
+      owner
+      createdAt
+      latitude
+      longitude
+      transportName
+      transportType
+      dutyStatus
+      engagementStatus
+      transportRequest
+      transportOwnerEmail
+      Earnings
+      UsrAcCommitment
+      ChmAcCommitment
+      chmAcNumber
+      chmAcCommitmentStatus
+      deliveryLatitude
+      deliveryLongitude
+      buyerName
+      buyerContact
+      deliveryID
+      deliveryCost
+      customerEmail
+      deliveryDesc
+      bizAc
+      bizType
+      purchasePhoto
+      deliveryStart
+      itemID
+      sellerContact
+      sellerName
+      sellerLatitude
+      sellerLongitude
+      distance
+      orderCost
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ByBuyerEmailQueryVariables,
+  APITypes.ByBuyerEmailQuery
+>;
+export const BySellerAccount = /* GraphQL */ `query BySellerAccount(
+  $sellerContact: String!
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelTransportOrderFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  BySellerAccount(
+    sellerContact: $sellerContact
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      transportkntct
+      transportRate
+      transportdesc
+      transportPhoto
+      owner
+      createdAt
+      latitude
+      longitude
+      transportName
+      transportType
+      dutyStatus
+      engagementStatus
+      transportRequest
+      transportOwnerEmail
+      Earnings
+      UsrAcCommitment
+      ChmAcCommitment
+      chmAcNumber
+      chmAcCommitmentStatus
+      deliveryLatitude
+      deliveryLongitude
+      buyerName
+      buyerContact
+      deliveryID
+      deliveryCost
+      customerEmail
+      deliveryDesc
+      bizAc
+      bizType
+      purchasePhoto
+      deliveryStart
+      itemID
+      sellerContact
+      sellerName
+      sellerLatitude
+      sellerLongitude
+      distance
+      orderCost
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.BySellerAccountQueryVariables,
+  APITypes.BySellerAccountQuery
+>;
 export const PataByDesc = /* GraphQL */ `query PataByDesc(
   $rafikidesc: String!
   $createdAt: ModelStringKeyConditionInput
@@ -6586,6 +7073,7 @@ export const ViaChmNMmbr = /* GraphQL */ `query ViaChmNMmbr(
       subscriptionFrequency
       subscriptionAmt
       lateSubscriptionPenalty
+      transportApproved
       updatedAt
       __typename
     }
@@ -6641,6 +7129,7 @@ export const VwChamaMembers = /* GraphQL */ `query VwChamaMembers(
       subscriptionFrequency
       subscriptionAmt
       lateSubscriptionPenalty
+      transportApproved
       updatedAt
       __typename
     }
@@ -6696,6 +7185,7 @@ export const VwMyChamas = /* GraphQL */ `query VwMyChamas(
       subscriptionFrequency
       subscriptionAmt
       lateSubscriptionPenalty
+      transportApproved
       updatedAt
       __typename
     }

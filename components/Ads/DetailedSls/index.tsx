@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView, Image, Linking, TouchableOpacity } from 'react-native';
 import styles from './styles';
 
 export interface SMAccount {
@@ -17,6 +17,8 @@ export interface SMAccount {
     unitQuantity: number;
     itemBrand: string;
     itemPhoto: string;
+    
+    sokotown?: string; // new optional video/url field
   };
 }
 
@@ -33,7 +35,15 @@ const ViewSMDeposts = ({ SMAc }: SMAccount) => {
     businessType,
     itemUnit,
     unitQuantity,
+    sokotown,
+     // added here
   } = SMAc;
+
+  const handleOpenLink = () => {
+    if (sokotown) {
+      Linking.openURL(sokotown).catch(err => console.error("Couldn't load page", err));
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.pageContainer}>
@@ -74,7 +84,17 @@ const ViewSMDeposts = ({ SMAc }: SMAccount) => {
           <Text style={styles.prodInfo}>
             <Text style={styles.label}>Number of Units:</Text> {unitQuantity}
           </Text>
+          {/* Optional video / URL display */}
+          {sokotown && (
+            <TouchableOpacity onPress={handleOpenLink} style={{ marginTop: 10 }}>
+              <Text style={[styles.prodInfo, { color: 'blue', textDecorationLine: 'underline' }]}>
+                View Related Link
+              </Text>
+            </TouchableOpacity>
+          )}
           <Text style={styles.prodDesc}>{sokodesc}</Text>
+
+          
         </View>
       </View>
     </ScrollView>

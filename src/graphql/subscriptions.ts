@@ -1694,6 +1694,315 @@ export const onDeleteSokoAd = /* GraphQL */ `subscription OnDeleteSokoAd(
   APITypes.OnDeleteSokoAdSubscriptionVariables,
   APITypes.OnDeleteSokoAdSubscription
 >;
+export const onCreateTransportRegister = /* GraphQL */ `subscription OnCreateTransportRegister(
+  $filter: ModelSubscriptionTransportRegisterFilterInput
+  $owner: String
+) {
+  onCreateTransportRegister(filter: $filter, owner: $owner) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateTransportRegisterSubscriptionVariables,
+  APITypes.OnCreateTransportRegisterSubscription
+>;
+export const onUpdateTransportRegister = /* GraphQL */ `subscription OnUpdateTransportRegister(
+  $filter: ModelSubscriptionTransportRegisterFilterInput
+  $owner: String
+) {
+  onUpdateTransportRegister(filter: $filter, owner: $owner) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateTransportRegisterSubscriptionVariables,
+  APITypes.OnUpdateTransportRegisterSubscription
+>;
+export const onDeleteTransportRegister = /* GraphQL */ `subscription OnDeleteTransportRegister(
+  $filter: ModelSubscriptionTransportRegisterFilterInput
+  $owner: String
+) {
+  onDeleteTransportRegister(filter: $filter, owner: $owner) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteTransportRegisterSubscriptionVariables,
+  APITypes.OnDeleteTransportRegisterSubscription
+>;
+export const onCreateTransportOrder = /* GraphQL */ `subscription OnCreateTransportOrder(
+  $filter: ModelSubscriptionTransportOrderFilterInput
+  $owner: String
+) {
+  onCreateTransportOrder(filter: $filter, owner: $owner) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    orderCost
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateTransportOrderSubscriptionVariables,
+  APITypes.OnCreateTransportOrderSubscription
+>;
+export const onUpdateTransportOrder = /* GraphQL */ `subscription OnUpdateTransportOrder(
+  $filter: ModelSubscriptionTransportOrderFilterInput
+  $owner: String
+) {
+  onUpdateTransportOrder(filter: $filter, owner: $owner) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    orderCost
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateTransportOrderSubscriptionVariables,
+  APITypes.OnUpdateTransportOrderSubscription
+>;
+export const onDeleteTransportOrder = /* GraphQL */ `subscription OnDeleteTransportOrder(
+  $filter: ModelSubscriptionTransportOrderFilterInput
+  $owner: String
+) {
+  onDeleteTransportOrder(filter: $filter, owner: $owner) {
+    id
+    transportkntct
+    transportRate
+    transportdesc
+    transportPhoto
+    owner
+    createdAt
+    latitude
+    longitude
+    transportName
+    transportType
+    dutyStatus
+    engagementStatus
+    transportRequest
+    transportOwnerEmail
+    Earnings
+    UsrAcCommitment
+    ChmAcCommitment
+    chmAcNumber
+    chmAcCommitmentStatus
+    deliveryLatitude
+    deliveryLongitude
+    buyerName
+    buyerContact
+    deliveryID
+    deliveryCost
+    customerEmail
+    deliveryDesc
+    bizAc
+    bizType
+    purchasePhoto
+    deliveryStart
+    itemID
+    sellerContact
+    sellerName
+    sellerLatitude
+    sellerLongitude
+    distance
+    orderCost
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteTransportOrderSubscriptionVariables,
+  APITypes.OnDeleteTransportOrderSubscription
+>;
 export const onCreateRafikiLnAd = /* GraphQL */ `subscription OnCreateRafikiLnAd(
   $filter: ModelSubscriptionRafikiLnAdFilterInput
   $owner: String
@@ -3677,6 +3986,8 @@ export const onCreateCompany = /* GraphQL */ `subscription OnCreateCompany(
     g2pBenCom
     p2BBenCom
     BankMifedhaSyncFee
+    transportCost
+    transportCompanyShare
     updatedAt
     __typename
   }
@@ -3847,6 +4158,8 @@ export const onUpdateCompany = /* GraphQL */ `subscription OnUpdateCompany(
     g2pBenCom
     p2BBenCom
     BankMifedhaSyncFee
+    transportCost
+    transportCompanyShare
     updatedAt
     __typename
   }
@@ -4017,6 +4330,8 @@ export const onDeleteCompany = /* GraphQL */ `subscription OnDeleteCompany(
     g2pBenCom
     p2BBenCom
     BankMifedhaSyncFee
+    transportCost
+    transportCompanyShare
     updatedAt
     __typename
   }
@@ -4690,6 +5005,7 @@ export const onCreateChamaMembers = /* GraphQL */ `subscription OnCreateChamaMem
     subscriptionFrequency
     subscriptionAmt
     lateSubscriptionPenalty
+    transportApproved
     updatedAt
     __typename
   }
@@ -4730,6 +5046,7 @@ export const onUpdateChamaMembers = /* GraphQL */ `subscription OnUpdateChamaMem
     subscriptionFrequency
     subscriptionAmt
     lateSubscriptionPenalty
+    transportApproved
     updatedAt
     __typename
   }
@@ -4770,6 +5087,7 @@ export const onDeleteChamaMembers = /* GraphQL */ `subscription OnDeleteChamaMem
     subscriptionFrequency
     subscriptionAmt
     lateSubscriptionPenalty
+    transportApproved
     updatedAt
     __typename
   }

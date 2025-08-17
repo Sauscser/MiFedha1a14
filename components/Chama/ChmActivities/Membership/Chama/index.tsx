@@ -130,10 +130,63 @@ const ChmMbrShpInfo = (props: ChamaMmbrshpInfo) => {
   const ViewSubs = () => navigation.navigate('VwMbrSubsDirectly', { ChamaNMember });
   const SendNonLoans = () => navigation.navigate('SndMbrsMnys', { ChamaNMember });
 
+  const ApproveMembaTransport = async () => {
+            if(isLoading){
+              return;
+            }
+            setIsLoading(true);
+            try{
+              const approval =  await API.graphql(
+                  graphqlOperation(updateChamaMembers,{
+                    input:{
+                      ChamaNMember:ChamaNMember,
+                      transportApproved:"ChamaTransportApprovedYes"
+                    }
+                  })
+                )
+        if (approval?.data?.updateChamaMembers) 
+        {
+          Alert.alert("Transport approved")
+        }
+                
+            }
+            catch(error){if (error){
+              Alert.alert("Disapproval unsuccessful; Retry")
+              return
+            } }
+            setIsLoading(false);          
+           
+          } 
   
-  
-
-
+          const DisapproveMembaTransport = async () => {
+                    if(isLoading){
+                      return;
+                    }
+                    setIsLoading(true);
+                    try{
+                      const disapprove =  await API.graphql(
+                          graphqlOperation(updateChamaMembers,{
+                            input:{
+                              ChamaNMember:ChamaNMember,
+                              transportApproved:"ChamaTransportApprovedNo"
+                            }
+                          })
+                        )
+                if (disapprove?.data?.updateChamaMembers) 
+        {
+          Alert.alert("Transport disapproved successfully")
+        }
+                
+                        
+                    }
+                    catch(error){if (error){
+                      Alert.alert("Disapproval unsuccessful; Retry")
+                      return
+                    } }
+                    setIsLoading(false);          
+                    
+                  } 
+          
   return (
     <View style={styles.pageContainer}>
       <Pressable onPress={ViewMmberDtls} style={styles.card}>
@@ -167,6 +220,19 @@ const ChmMbrShpInfo = (props: ChamaMmbrshpInfo) => {
       <Text style={styles.buttonText}>SendNonLoans/Dividends</Text>
     </Pressable>
   </LinearGradient>
+
+   <LinearGradient colors={['#FFA500', '#FF8C00']} style={styles.gradientButton}>
+    <Pressable onPress={ApproveMembaTransport} style={styles.pressableContent}>
+      <Text style={styles.buttonText}>Approve Transport</Text>
+    </Pressable>
+  </LinearGradient>
+
+   <LinearGradient colors={['#FFA500', '#FF8C00']} style={styles.gradientButton}>
+    <Pressable onPress={DisapproveMembaTransport} style={styles.pressableContent}>
+      <Text style={styles.buttonText}>Disapprove Transport</Text>
+    </Pressable>
+  </LinearGradient>
+
 </View>
 
     </View>

@@ -144,7 +144,7 @@ const MyLoanAccount = props => {
 
 
             <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Request Cash Sales/Transfer</Text>
+              <Text style={styles.salesText}>Request Cash Transfer</Text>
 
               <View style={styles.viewForClientsAndTitle}>
               <View style={styles.viewForClientsCategories7}>
@@ -175,7 +175,7 @@ const MyLoanAccount = props => {
             </View>
 
             <View style={styles.clientsView}>
-              <Text style={styles.salesText}>Granting Cash Sales/Transfers</Text>
+              <Text style={styles.salesText}>Granting Cash Transfers</Text>
 
               <View style={styles.viewForClientsAndTitle}>
               <View style={styles.viewForClientsCategories7}>

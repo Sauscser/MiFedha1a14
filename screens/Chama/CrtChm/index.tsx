@@ -288,6 +288,7 @@ const CreateChama = (props:UserReg) => {
                   subscriptionFrequency: SubFreq,
                   subscriptionAmt: SubAmt,
                   lateSubscriptionPenalty:lateSub,
+                  transportApproved: "ChamaTransportApprovedNo"
                         },
                       }),
                     );

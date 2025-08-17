@@ -37,25 +37,50 @@ const CreateBiz = () => {
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
 
   useEffect(() => {
-    const fetchLocation = async () => {
-      try {
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== "granted") {
-          Alert.alert("Permission to access location was denied.");
-          return;
-        }
-        let loc = await Location.getCurrentPositionAsync({});
-        setLocation({
-          latitude: loc.coords.latitude,
-          longitude: loc.coords.longitude,
-        });
-      } catch (error) {
-        console.warn("Error fetching location:", error);
+  const fetchLocation = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert("Permission to access location was denied.");
+        return;
       }
-    };
 
-    fetchLocation();
-  }, []);
+      const locationServicesEnabled = await Location.hasServicesEnabledAsync();
+      if (!locationServicesEnabled) {
+        Alert.alert("Location services are disabled. Please enable GPS.");
+        return;
+      }
+
+      const loc = await Location.getCurrentPositionAsync({
+            accuracy: Location.Accuracy.BestForNavigation, // Best possible GPS accuracy
+             // Wait up to 10 seconds for a good fix
+          });
+      
+          const coords = {
+            latitude: loc.coords.latitude,
+            longitude: loc.coords.longitude,
+          };
+      
+          // Optional: check for acceptable accuracy
+          if (loc.coords.accuracy && loc.coords.accuracy > 30) {
+            Alert.alert(
+              "Low GPS Accuracy",
+              `Location accuracy is about ${Math.round(
+                loc.coords.accuracy
+              )} meters. Try moving near a window or outside.`
+            );
+          }
+      
+      setLocation(coords);    
+
+      
+    } catch (error) {
+      console.warn("Error fetching location:", error);
+    }
+  };
+
+  fetchLocation();
+}, []);
 
   const resetForm = () => {
     setBusinessName("");

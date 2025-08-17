@@ -133,7 +133,9 @@ const MyLoanAccount = (props) => {
               style={styles.gradientPressable}
             >
               <Pressable onPress={ViewGrp2ShareDividends} style={styles.clientsPressable}>
-                <Text style={styles.clientsPressableText}>View Members to: Share dividends/Profits, View subscriptions, Penalise late Repayments</Text>
+                <Text style={styles.clientsPressableText}>View Members to: 
+                  Approve/disapprove Transport, Share dividends/Profits, View subscriptions, 
+                  Penalise late Repayments</Text>
               </Pressable>
               <Pressable onPress={ChmMmbrMmbrsss} style={styles.clientsPressable}>
                 <Text style={styles.clientsPressableText}>View my Groups to: View my subscriptions, send my Subscriptions</Text>

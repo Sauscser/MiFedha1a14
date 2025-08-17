@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { FontAwesome, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome, Fontisto, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { Linking, TouchableOpacity } from 'react-native';
 
 import HomeTabNav from "../HomeTabNav";
@@ -8,7 +8,7 @@ import FindKFNdogoLoc from '../../screens/MFNdogo/SignInMFN';
 import MyAccount from '../../screens/MyAcc';
 import SrchLoanAdz from "../../screens/Ads/Search/SrchLoanAd";
 import SearchPal from '../../screens/MyAcc/LoanRequest/VwMakeLnReq';
-import HowTo from '../../screens/HowTos'
+import Transport from '../../screens/Transport'
 import GoShopping from '../../screens/Ads/Search/SrchItemAd'
 
 
@@ -54,10 +54,10 @@ const HomeTabNavigator = () => {
 
       {/* Pal Deals */}
       <BottomTab.Screen
-        name="PalDeals"
-        component={SrchLoanAdz}
+        name="Transport"
+        component={Transport}
         options={{
-          tabBarIcon: ({ color }) => <FontAwesome name="search" size={25} color={color} />,
+          tabBarIcon: ({ color }) => <MaterialIcons name="emoji-transportation" size={25} color={color} />,
         }}
       />
 

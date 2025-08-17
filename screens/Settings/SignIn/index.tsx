@@ -51,7 +51,7 @@ const AdminSignIn = (props) => {
     navigation.navigate("SttinsHm");
   };
 
-  /*
+  
 
   const CompCreation = async () => {
     try {
@@ -227,7 +227,9 @@ const AdminSignIn = (props) => {
             p2pBenCom: 30,
             g2pBenCom: 30,
             p2BBenCom: 30,
-            BankMifedhaSyncFee:0.05
+            BankMifedhaSyncFee:0.05,
+            transportCost: 0.02,
+            transportCompanyShare: 0.1
           },
         }),
       );
@@ -245,7 +247,7 @@ const AdminSignIn = (props) => {
        
       };
 
-      */
+      
       
       const fetchExDtls = async () => {
         try {
