@@ -50,5 +50,9 @@
   {
     "groupName": "BizOwner",
     "precedence": 13
+  },
+  {
+    "groupName": "MFChamp",
+    "precedence": 14
   }
 ]

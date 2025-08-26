@@ -88,7 +88,7 @@ const FetchSMNonCovLns = props => {
                     refreshing={loading}
                 />
             ) : (
-                <Text style={styles.placeholderText}>Start typing your pal name. Start with country code.</Text>
+                <Text style={styles.placeholderText}>Start typing your pal name.</Text>
             )}
         </View>
                 </KeyboardAvoidingView>

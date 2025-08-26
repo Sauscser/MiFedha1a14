@@ -54,7 +54,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import { parse } from 'expo-linking';
-import {EQUITYTABLEID} from '@env';
+import {EQUITYTABLEID} from "@env";
 
 const ChmCovLns = props => {
   const [ChmPhn, setChmPhn] = useState('');
@@ -298,7 +298,7 @@ const TtlTransCost2 = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parse
                             setIsLoading(true);
                             try {
                                 const contlTbl:any = await API.graphql(
-                                    graphqlOperation(getChamaControlTable, {id: EQUITYTABLEID}),
+                                    graphqlOperation(getChamaControlTable, {id: "EQUITYTABLEID"}),
                                     );
                                     const GrpLoanOutEarnings =contlTbl.data.getChamaControlTable.GrpLoanOutEarnings;
                                     const BankAdminEarnings =contlTbl.data.getChamaControlTable.BankAdminEarnings;
@@ -543,7 +543,7 @@ const TtlTransCost2 = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parse
                               await API.graphql(
                                 graphqlOperation(updateChamaControlTable, {
                                   input:{
-                                    id:EQUITYTABLEID,                                                      
+                                    id:"EQUITYTABLEID",                                                      
                                     GrpLoanOutEarnings:(parseFloat(GrpLoanOutEarnings) + BankAdminEarning).toFixed(0),
                                     BankAdminEarnings: (parseFloat(BankAdminEarnings) + BankAdminEarning).toFixed(0)
                                   }
@@ -865,7 +865,7 @@ const TtlTransCost2 = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parse
                               await API.graphql(
                                 graphqlOperation(updateChamaControlTable, {
                                   input:{
-                                    id:EQUITYTABLEID,                                                      
+                                    id:"EQUITYTABLEID",                                                      
                                     GrpLoanOutEarnings:(parseFloat(GrpLoanOutEarnings) + BankAdminEarning).toFixed(0)
                                   }
                                 })

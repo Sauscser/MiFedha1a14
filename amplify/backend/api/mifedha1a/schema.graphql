@@ -1771,6 +1771,11 @@ type MiFedhaBankAdmin
       }
       {
         allow: groups
+        groups: ["MFChamp"]
+        operations: [read, create, update]
+      }
+      {
+        allow: groups
         groups: ["RegionalAdminTwo"]
         operations: [read, update]
       }
@@ -2166,6 +2171,11 @@ type MFBankWithdrawals
         allow: groups
         groups: ["RegionalAdminTwo"]
         operations: [read, update]
+      }
+      {
+        allow: groups
+        groups: ["MFChamp"]
+        operations: [read, create, update, delete]
       }
       { allow: groups, groups: ["CountyAdmin"], operations: [read, update] }
       { allow: groups, groups: ["Advocate"], operations: [read, create] }
@@ -3056,6 +3066,12 @@ type MFKOfferz
       }
       { allow: groups, groups: ["KFKubwa"], operations: [read, create, update] }
      
+     
+      {
+        allow: groups
+        groups: ["MFChamp"]
+        operations: [read, create, update]
+      }
       {
         allow: groups
         groups: ["Executive"]
@@ -3162,9 +3178,18 @@ type ChamaApply2
      
       {
         allow: groups
+        groups: ["MFChamp"]
+        operations: [read, create, update]
+      }
+
+     
+      {
+        allow: groups
         groups: ["Executive"]
         operations: [read, create, update, delete]
       }
+
+      
     ]
   )  
 

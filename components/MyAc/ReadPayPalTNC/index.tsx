@@ -1,10 +1,8 @@
 import React, {useState, useRef,useEffect} from 'react';
 import {View, Text, ImageBackground, Pressable, FlatList, Alert} from 'react-native';
 
-import { API, graphqlOperation, Auth } from 'aws-amplify';
-
 import styles from './styles';
-import { getCompany, getExRates, getSMAccount, listExRates, listSMAccounts } from '../../../src/graphql/queries';
+import {  getSMAccount } from '../../../src/graphql/queries';
 import { useNavigation } from '@react-navigation/native';
 
 

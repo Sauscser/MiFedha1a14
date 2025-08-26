@@ -223,6 +223,7 @@ const CreateChama = (props:UserReg) => {
                   
                   status: "AccountActive",
                   owner: userInfo.attributes.sub,
+                  chamaBenSync: 0
                         },
                       }),
                     );

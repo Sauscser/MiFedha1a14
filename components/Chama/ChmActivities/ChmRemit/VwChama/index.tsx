@@ -224,12 +224,8 @@ const ChmRemitInfo = (props:ChamaRemitInfo) => {
           const netCompEarning = grossCompEarning - BankAdminEarning;
 
           const TotalTransacted = grossCompEarning + (amountSent)
-          
 
-
-                    
-          const fetchRecUsrDtls = async () => {
-           
+          const fetchRecUsrDtls = async () => {           
             try {
                 const RecAccountDtl:any = await API.graphql(
                     graphqlOperation(getSMAccount, {awsemail: memberContacts}),
@@ -243,8 +239,7 @@ const ChmRemitInfo = (props:ChamaRemitInfo) => {
                     const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
 
 
-                    const fetchBankAdmin = async () => {
-                     
+                    const fetchBankAdmin = async () => {                     
                       try {
                           const BankAdmDtls:any = await API.graphql(
                               graphqlOperation(getMiFedhaBankAdmin, {nationalid: BankAdminAcNu}),

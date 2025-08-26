@@ -27,6 +27,7 @@ export type AmplifyDependentResourcesAttributes = {
       "ExecutiveGroupRole": "string",
       "KFKubwaGroupRole": "string",
       "KFNdogoGroupRole": "string",
+      "MFChampGroupRole": "string",
       "RegionalAdminGroupRole": "string",
       "SpareGrpGroupRole": "string"
     }

@@ -28,6 +28,7 @@ StyleSheet,
 
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import MyAccount from '../../../Transport';
 
 const SMADepositForm = props => {
   
@@ -57,6 +58,8 @@ const route = useRoute();
     const accountDtl:any = await API.graphql(
       graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
     );
+
+    const userDtlsxz = accountDtl.data.getSMAccount
     
     const usrBala = accountDtl.data.getSMAccount.balance;      
     const TtlWthdrwnSMs = accountDtl.data.getSMAccount.TtlWthdrwnSM;
@@ -66,7 +69,14 @@ const route = useRoute();
     const owners = accountDtl.data.getSMAccount.owner;
     const names = accountDtl.data.getSMAccount.name;
 
-   
+    if (!userDtlsxz) {
+      Alert.alert(
+        "Pls create a main account on the home screen"
+      )
+    }
+
+   console.log (pws)
+   console.log(UsrPWd)
 
     const fetchCvLnSM = async () => {
       setLoading(true);

@@ -5,7 +5,7 @@ import { getCompany} from '../../../src/graphql/queries';
 import {graphqlOperation, API, Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
-import { COMPID1, COMPID2} from '@env';
+import { COMPID1, COMPID2} from "@env";
 
 
 import {
@@ -51,14 +51,14 @@ const AdminSignIn = (props) => {
     navigation.navigate("SttinsHm");
   };
 
-  
+  /*
 
   const CompCreation = async () => {
     try {
       await API.graphql(
         graphqlOperation(createCompany, {
           input: {
-            AdminId: compID,
+            AdminId: "BaruchHabaB'ShemAdonai2",
             phoneContact: "0724071582, 0711852707",
             companyEmail: "myfedha@gmail.com",
             termsNconditions: "TERMS AND CONDITIONS",
@@ -247,24 +247,24 @@ const AdminSignIn = (props) => {
        
       };
 
-      
+     */
       
       const fetchExDtls = async () => {
         try {
                 const ExDtls: any = await API.graphql(
-                    graphqlOperation(getCompany, {AdminId: compID}
+                    graphqlOperation(getCompany, {AdminId: "BaruchHabaB'ShemAdonai2"}
                 ),);
 
                 const pw1s = ExDtls.data.getCompany.pw1;
                 const pw2s = ExDtls.data.getCompany.pw2;
                 const ownersss = ExDtls.data.getCompany.owner;
 
-                
-
+                console.log(compID)
+                console.log(COMPID1)
+                console.log(COMPID2)
 
                 if(PWOnes === pw1s && PWTwos ===pw2s && ownersss === ownr)
                 {
-              
                 moveToRegAdmin();
               }
               else{
@@ -275,7 +275,7 @@ const AdminSignIn = (props) => {
 
             catch (e)
             {
-              
+              console.log(e)
                 if (e){Alert.alert("Check internet; unauthorised access")}
             }    
             setPWOne("");

@@ -46,11 +46,11 @@ const CreateAdminForm = () => {
       setIsLoading(true);
         try{
             const compDtls :any= await API.graphql(
-              graphqlOperation(getChamaControlTable,{id:EQUITYTABLEID})
+              graphqlOperation(getChamaControlTable,{id:"EQUITYTABLEID"})
             );
             const BankAdminTotal = compDtls.data.getChamaControlTable.BankAdminTotal
 
-            console.log(EQUITYTABLEID)
+            console.log("EQUITYTABLEID")
             
 
             const gtUsrDtls4AdminDtls = async () => {
@@ -119,7 +119,7 @@ const CreateAdminForm = () => {
                       await API.graphql(
                         graphqlOperation(updateChamaControlTable,{
                           input:{
-                            id:EQUITYTABLEID,
+                            id:"EQUITYTABLEID",
                             BankAdminTotal:parseFloat(BankAdminTotal) + 1,
                           }
                         })

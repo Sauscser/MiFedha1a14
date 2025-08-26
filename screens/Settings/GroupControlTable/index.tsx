@@ -37,7 +37,7 @@ const AdminSignIn = (props) => {
     const userInfo = await Auth.currentAuthenticatedUser();
           try {
                   const ExDtls: any = await API.graphql(
-                      graphqlOperation(getCompany, {AdminId: compID}
+                      graphqlOperation(getCompany, {AdminId: "BaruchHabaB'ShemAdonai2"}
                   ),);
   
                   const pw1s = ExDtls.data.getCompany.pw1;

@@ -51,7 +51,8 @@
       "KFKubwa",
       "KFNdogo",
       "SpareGrp",
-      "BizOwner"
+      "BizOwner",
+      "MFChamp"
     ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
