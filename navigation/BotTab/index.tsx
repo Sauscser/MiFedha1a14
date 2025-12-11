@@ -6,7 +6,7 @@ import { Linking, TouchableOpacity } from 'react-native';
 import HomeTabNav from "../HomeTabNav";
 import FindKFNdogoLoc from '../../screens/MFNdogo/SignInMFN';
 import MyAccount from '../../screens/MyAcc';
-import SrchLoanAdz from "../../screens/Ads/Search/SrchLoanAd";
+import HowTo2 from "../../screens/HowTos";
 import SearchPal from '../../screens/MyAcc/LoanRequest/VwMakeLnReq';
 import Transport from '../../screens/Transport'
 import GoShopping from '../../screens/Ads/Search/SrchItemAd'
@@ -45,10 +45,10 @@ const HomeTabNavigator = () => {
 
       {/* My Account */}
       <BottomTab.Screen
-        name="MyAc"
-        component={MyAccount}
+        name="HowTo"
+        component={HowTo2}
         options={{
-          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="account" size={25} color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome name="youtube-play" size={25} color={color} />,
         }}
       />
 

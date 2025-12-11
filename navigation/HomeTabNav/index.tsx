@@ -611,6 +611,7 @@ import PaystackTNC from "../../screens/MyAcc/DepositMny/PaystackTNC";
 import WithdrawFundsFromMap from "../../screens/MyAcc/WithdrwFundsOptions/WithdrawFundsFromMap";
 import PassengerRequestRide from "../../screens/Transport/PassengerRequestRide";
 import AcceptRideRequest from "../../screens/Transport/AcceptRideRequest";
+import RideTrackingScreen from "../../screens/Transport/RideTrackingScreen";
 
 
 
@@ -626,6 +627,7 @@ const HomeNavigator = props => {
       
       <Stack.Screen name={'BuyFloatBnkAdm'} component={BuyFloatBnkAdm} />
       <Stack.Screen name={'VwSalesDtls4Transport'} component={VwSalesDtls4Transport} />
+      <Stack.Screen name={'RideTrackingScreen'} component={RideTrackingScreen} />
       <Stack.Screen name={'PassengerRequestRide'} component={PassengerRequestRide} />
       <Stack.Screen name={'AcceptRideRequest'} component={AcceptRideRequest} />
 

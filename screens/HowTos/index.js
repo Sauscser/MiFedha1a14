@@ -76,7 +76,7 @@ const HomeScreen = () => {
       const compDetailsz = await API.graphql(
         graphqlOperation(getCompanyUrls, { AdminId: "BaruchHabaB'ShemAdonai2Ulr" })
       );
-      const Url1 = compDetailsz.data.getCompanyUrls.Url1;
+      const Url1 = compDetailsz.data.getCompanyUrls.Url2;
       setUrl(Url1);
       console.log(Url1)
     } catch (error) {

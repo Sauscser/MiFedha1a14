@@ -122,8 +122,8 @@ const MyAccount = props => {
             { label: 'View Transport Requests to: Accept - Transporter', onPress: AcceptTransportRequest, style: styles.ClientsPressables },
             { label: 'View Transport Requests to: Receive Delivery, Cancel Delivery Request, change delivery Location - Buyer', onPress: ReceiveDelivery, style: styles.ClientsPressables },
              { label: 'View Transport Requests to: Dispatch Delivery - Seller', onPress: VwBiz2DispatchDelivery, style: styles.ClientsPressables },
-            { label: 'Request Ride - Passenger', onPress: PassengerRequestRide, style: styles.ClientsPressables },
-            { label: 'Accept Ride Request- Rider', onPress: AcceptRideRequest, style: styles.ClientsPressables },
+            { label: 'Request Ride - Passenger; coming soon....',  style: styles.ClientsPressables },
+            { label: 'Accept Ride Request- Rider; coming soon....',  style: styles.ClientsPressables },
 
             
             ]}
