@@ -12,6 +12,14 @@
       "AmplifyAppId": "d1arm3vysbz59q"
     },
     "categories": {
+      "function": {
+        "mifedhaSendNotification": {
+          "projectId": "mifedha-bd808",
+          "secretsPathAmplifyAppId": "d1arm3vysbz59q",
+          "deploymentBucketName": "amplify-mifedha1a-mifedha-c789c-deployment",
+          "s3Key": "amplify-builds/mifedhaSendNotification-674873486c7662366846-build.zip"
+        }
+      },
       "hosting": {
         "amplifyhosting": {
           "appId": "d1arm3vysbz59q",
@@ -24,9 +32,6 @@
       },
       "storage": {
         "MifedhaPhotos": {}
-      },
-      "api": {
-        "mifedha1a": {}
       }
     }
   }

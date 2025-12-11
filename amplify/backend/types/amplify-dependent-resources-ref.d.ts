@@ -32,6 +32,15 @@ export type AmplifyDependentResourcesAttributes = {
       "SpareGrpGroupRole": "string"
     }
   },
+  "function": {
+    "mifedhaSendNotification": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    }
+  },
   "storage": {
     "MifedhaPhotos": {
       "BucketName": "string",

@@ -67,6 +67,23 @@
       "service": "Cognito-UserPool-Groups"
     }
   },
+  "function": {
+    "mifedhaSendNotification": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "mifedha1a"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "hosting": {
     "amplifyhosting": {
       "providerPlugin": "awscloudformation",
@@ -75,6 +92,38 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_mifedhaSendNotification_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mifedhaSendNotification"
+        }
+      ]
+    },
+    "AMPLIFY_function_mifedhaSendNotification_projectId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mifedhaSendNotification"
+        }
+      ]
+    },
+    "AMPLIFY_function_mifedhaSendNotification_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mifedhaSendNotification"
+        }
+      ]
+    },
+    "AMPLIFY_function_mifedhaSendNotification_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mifedhaSendNotification"
+        }
+      ]
+    },
     "AMPLIFY_hosting_amplifyhosting_appId": {
       "usedBy": [
         {

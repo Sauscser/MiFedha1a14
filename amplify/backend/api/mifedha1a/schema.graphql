@@ -48,6 +48,10 @@ type SMAccount
   awsemail: String! @primaryKey
  
   balance: Float!
+
+
+benefitsAmount: Float!
+
   p2pchmBenefits:Float!
   pw: String!
   nationality: String!
@@ -190,7 +194,7 @@ type SMAccount
   owner: String!
   createdAt: String!
   beneficiaryType: String!
-  benefitsAmount: Float!
+ 
 
 }
 
@@ -921,6 +925,7 @@ type SokoAd
   sokodesc: String!
   itemCodeBar:String
   itemPhoto: String
+  itemSpecifications: String!
  
   owner: String!
  
@@ -939,44 +944,33 @@ type SokoAd
 
 }
 
-
 type TransportRegister
   @model
   @auth(
     rules: [
-     
       { allow: owner, operations: [read, update, delete] }
       { allow: private, operations: [read, create, update] }
-     
       { allow: groups, groups: ["BranchAdminTwo"], operations: [read, update] }
-     
-      {
-        allow: groups
-        groups: ["Executive"]
-        operations: [read, create, update, delete]
-      }
-      ]
+      { allow: groups, groups: ["Executive"], operations: [read, create, update, delete] }
+    ]
   )
-
- 
-   {
- 
-  id:ID! 
-  transportkntct: String!  
-  transportRate: Float! 
-  transportdesc: String! 
-  transportPhoto: String 
-  owner: String! 
+{
+  id: ID!
+  transportkntct: String!
+  transportRate: Float!
+  transportdesc: String!
+  transportPhoto: String
+  owner: String!
   createdAt: String!
   latitude: Float!
   longitude: Float!
-  transportName: String! @index(name: "Daka2Name", sortKeyFields: ["createdAt"], queryField: "Daka2ByName")
- 
+  transportName: String! 
+    @index(name: "Daka2Name", sortKeyFields: ["createdAt"], queryField: "Daka2ByName")
   transportType: String!
-  dutyStatus: Status 
-  engagementStatus:Status 
+  dutyStatus: Status
+  engagementStatus: Status
   transportRequest: Status
-  transportOwnerEmail: String! 
+  transportOwnerEmail: String!
   Earnings: Float!
   UsrAcCommitment: Float!
   ChmAcCommitment: Float!
@@ -984,13 +978,13 @@ type TransportRegister
   chmAcCommitmentStatus: Status
   deliveryLatitude: Float!
   deliveryLongitude: Float!
-  buyerName:String!
+  buyerName: String!
   buyerContact: String!
   deliveryID: String!
   deliveryCost: Float!
   customerEmail: String!
   deliveryDesc: String!
-  bizAc:String
+  bizAc: String
   bizType: String
   purchasePhoto: String
   deliveryStart: Float
@@ -998,10 +992,16 @@ type TransportRegister
   sellerContact: String
   sellerName: String
   sellerLatitude: Float
-  sellerLongitude:Float
-  distance:Float
-  
+  sellerLongitude: Float
+  distance: Float
+  lastForwardedTime: String 
+  overdue: Boolean    
+  ImageUrl: String    
+  numberPlate: String
+
 }
+
+
 
 type TransportOrder
   @model
@@ -1064,6 +1064,15 @@ type TransportOrder
   sellerLongitude:Float
   distance:Float
   orderCost: Float
+  offloadingLatitude: String
+  offloadingLongitude: String
+  offLoadingTime: Float
+  deliveryReceptionTime: Float
+  itemExtra1: String
+  itemExtra2: String
+  itemExtra3: String
+  itemExtra4: String
+  itemExtra5: String
   
 }
 
@@ -1584,13 +1593,13 @@ type Bizna
   benefitsAmount: Float!
   owner2email:String
   email: String!
-  licenseNo: String!
+  licenseNo: String
   bizType: String!
   bankType:String
   bankAccount: String
   status:String!
   owner: String!
-  description:String!
+  description:String
   createdAt: String!
   noBL: Float!
   latitude: String!
@@ -3246,9 +3255,292 @@ type ChamaControlTable
   createdAt: String!  
 }
 
+# 🛺 Ride Request Type
+type RideRequest
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update, delete] }
+      { allow: groups, groups: ["Executive"], operations: [read, update, delete] }
+    ]
+  )
+{
+  id: ID!
+  passengerEmail: String! @index(name: "byPassengerEmail", queryField: "rideRequestsByPassenger")
+  passengerName: String!
+  passengerContact: String
+  pickupLatitude: Float!
+  pickupLongitude: Float!
+  destinationLatitude: Float!
+  destinationLongitude: Float!
+  distance: Float
+  estimatedCost: Float
+  selectedRiderID: ID @index(name: "byRider", queryField: "rideRequestsByRider")
+  riderName: String
+  riderContact: String
+  riderRate: Float
+  paymentMethod: PaymentMethod!
+  paymentStatus: Status
+  rideStatus: Status
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  riderLatitude:Float!
+  riderLongitude: Float!
+}
 
+# 💳 Payment Record Type
+type Payment
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [create, read, update] }
+      { allow: owner, operations: [create, read, update] }
+      { allow: groups, groups: ["Executive"], operations: [read, update, delete] }
+    ]
+  )
+{
+  id: ID!
+  rideID: ID! @index(name: "byRide", queryField: "paymentsByRide")
+  riderID: ID!
+  passengerEmail: String!
+  amount: Float!
+  paymentMethod: PaymentMethod!
+  paymentStatus: Status
+  clearedAt: AWSDateTime
+  createdAt: String!
+  
+}
+
+type notification
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [create, read, update] }
+      { allow: owner, operations: [create, read, update] }
+      { allow: groups, groups: ["Executive"], operations: [read, update, delete] }
+    ]
+  )
+{
+  awsemail: String! @primaryKey
+  firebaseKey: String
+  
+}
+
+
+type Mutation {
+  sendNotification(riderEmail: String!, title: String!, body: String!): NotificationResponse
+    @function(name: "mifedhaSendNotification-${env}")
+}
+
+type NotificationResponse {
+  success: Boolean!
+  message: String
+}
+
+
+type RiderLocationUpdate @model(queries: null) {
+  id: ID!             # same as RideRequest ID
+  riderID: ID!
+  rideID: ID!
+  latitude: Float!
+  longitude: Float!
+  updatedAt: AWSDateTime!
+}
+
+type combContractVoucher
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [create, read, update] }
+      { allow: owner, operations: [create, read, update] }
+      { allow: groups, groups: ["Executive"], operations: [read, update, delete] }
+    ]
+  )
+{
+
+  combContractID: String
+  marketItemID: String
+  consumerEmail: String! 
+  funderEmail: String!
+  sellerEmail: String!
+  consumerAccount: String! 
+  funderAccount: String!
+  sellerAccount: String!
+  consumerContact: String! 
+  funderContact: String!
+
+  sellerName: String
+  consumerName: String
+  funderName: String
+  sellerOfficerName: String
+  consumerOfficerName: String 
+  funderOfficerName: String
+
+  sellerContact: String
+  consumerType: Status!
+  sellerType: Status
+  funderType: Status!
+  advertStatus: Status
+  marketConsumptionStatus: Status
+  itemPrice: Float
+  itemName: String
+  itemBrand: String
+  itemSpecifications: String
+  numberOfItems: Float
+  marketConsumptionPrice: Float
+  marketConsumptionFrequency: Float
+  marketConsumptionTotal:Float
+  priceDeviation: Float
+  consumptionCapping: Float
+  consumptionMarginStatus: Status
+  consumptionMargin: Float
+  updateFrequency: String!  
+  lastUpdateTime: String
+  settlementTime: String
+  prepostPay: Status
+  referencePrice: Float
+  referencePriceSource: String
+  priceFlag: PriceFlag
+  accStatus: Status
+  generalPriceDev: Float
+  repaymentPeriod: Float
+
+}
+
+type combContract
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [create, read, update] }
+      { allow: owner, operations: [create, read, update] }
+      { allow: groups, groups: ["Executive"], operations: [read, update, delete] }
+    ]
+  )
+{
+  marketItemID: String
+  consumerEmail: String! 
+  funderEmail: String!
+  sellerEmail: String!
+  consumerAccount: String! 
+  funderAccount: String!
+  sellerAccount: String!
+  consumerContact: String! 
+  funderContact: String!
+
+  sellerName: String
+  consumerName: String
+  funderName: String
+  sellerOfficerName: String
+  consumerOfficerName: String 
+  funderOfficerName: String
+
+  sellerContact: String
+  consumerType: Status!
+  sellerType: Status
+  funderType: Status!
+  advertStatus: Status
+  marketConsumptionStatus: Status
+  itemPrice: Float
+  itemName: String
+  itemBrand: String
+  itemSpecifications: String
+  numberOfItems: Float
+  marketConsumptionPrice: Float
+  marketConsumptionFrequency: Float
+  marketConsumptionTotal:Float
+  priceDeviation: Float
+  consumptionCapping: Float
+  consumptionMarginStatus: Status
+  consumptionMargin: Float
+  updateFrequency: String!  
+  lastUpdateTime: String
+  settlementTime: String
+  prepostPay: Status
+  referencePrice: Float
+  referencePriceSource: String
+  priceFlag: PriceFlag
+  accStatus: Status
+  generalPriceDev: Float
+  repaymentPeriod: Float
+
+}
+
+type MarketConsumption @model 
+@auth(rules: [{ allow: private }])
+{
+  id: ID!
+  marketItemID: String! 
+    @index(name: "byMarketItem", sortKeyFields: ["createdAt"], queryField: "byMarketItem2")
+   
+  price: Float!
+  sellerID: String!
+  buyerID: String!
+  soldAt: String!
+  sokoname: String!
+  itemBrand: String!
+  itemSpecifications: String!
+  createdAt: String!
+}
+
+
+type combPersonel
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read, update, create, delete] }
+      { allow: owner, operations: [read, update, create, delete] }
+      {
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, delete, update]
+      }
+      { allow: groups, groups: ["RegionalAdminTwo"], operations: [read] }
+      { allow: groups, groups: ["CountyAdmin"], operations: [read, update, delete] }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read] }
+      { allow: groups, groups: ["BranchAdmin"], operations: [read, update] }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read] }
+      { allow: groups, groups: ["KFKubwa"], operations: [read, update] }
+     
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )
+ 
+ 
+ 
+  {
+  phoneKontact: String! @index(name: "byCrtnTymmmms2", sortKeyFields: ["createdAt"], queryField: "WrkrsVww2")
+  BusinessRegNo: String! @index(name: "byCrtnTymmms2", sortKeyFields: ["createdAt"], queryField: "BusOwnrVwWrkrss2")
+  nationalid: String!
+  BiznaName:String!
+  name: String!
+  ownrsss:String!
+  email: String!
+  workerId:String! @primaryKey
+  workId:String!
+  createdAt: String!
+ 
+}
+
+enum PriceFlag {
+  NORMAL
+  ABOVE_REFERENCE
+  SUSPICIOUS
+  FRAUD_RISK
+  NO_MARKET_DATA
+}
 
 enum Status {
+  
   NoLoan
   LoanActive
   LnWitnessed
@@ -3300,5 +3592,28 @@ enum Status {
   ChamaTransportApprovedNo
   DeliveryPayment
   DeliveryUpdated
+  Pending
+  Active
+  Completed
+  Cancelled
+  NotCleared
+  Cleared
+  Overdue
+  consumerTypeBiz
+  consumerTypePal
+  sellerTypeBiz
+  sellerTypePal
+  funderTypeBiz
+  funderTypePal
+  ADVERTISED
+  NOT_ADVERTISED
+  SOLD
+  NOT_SOLD
+  PREPAID 
+  POSTPAID
+}
 
+enum PaymentMethod {
+  MiFedha
+  Cash
 }

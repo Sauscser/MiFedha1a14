@@ -609,6 +609,10 @@ import VwBenCreatorContriDtls from "../../screens/CredSls/BeneficiaryProducts/Vw
 
 import PaystackTNC from "../../screens/MyAcc/DepositMny/PaystackTNC";
 import WithdrawFundsFromMap from "../../screens/MyAcc/WithdrwFundsOptions/WithdrawFundsFromMap";
+import PassengerRequestRide from "../../screens/Transport/PassengerRequestRide";
+import AcceptRideRequest from "../../screens/Transport/AcceptRideRequest";
+
+
 
 
 const Stack = createNativeStackNavigator();
@@ -622,6 +626,10 @@ const HomeNavigator = props => {
       
       <Stack.Screen name={'BuyFloatBnkAdm'} component={BuyFloatBnkAdm} />
       <Stack.Screen name={'VwSalesDtls4Transport'} component={VwSalesDtls4Transport} />
+      <Stack.Screen name={'PassengerRequestRide'} component={PassengerRequestRide} />
+      <Stack.Screen name={'AcceptRideRequest'} component={AcceptRideRequest} />
+
+
       <Stack.Screen name={'DispatchDelivery'} component={DispatchDelivery} />
       <Stack.Screen name={'ReceiveDelivery2'} component={ReceiveDelivery2} />
       <Stack.Screen name={'VwBiz2DispatchDelivery'} component={VwBiz2DispatchDelivery} />

@@ -1,54 +1,117 @@
+import messaging from '@react-native-firebase/messaging';
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, Pressable, Dimensions, Linking, Animated } from 'react-native';
+import {
+  View, Text, SafeAreaView, TouchableOpacity, StyleSheet,
+  Pressable, Dimensions, Linking, Animated, Alert
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { graphqlOperation, API } from 'aws-amplify';
-import { getCompany, getCompanyUrls } from '../../src/graphql/queries';
+import { graphqlOperation, API, Auth } from 'aws-amplify';
+import { getCompany, getCompanyUrls, getNotification, getSMAccount } from '../../src/graphql/queries';
+import { createNotification, updateNotification } from '../../src/graphql/mutations';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
 
 const { height, width } = Dimensions.get('window');
 
 const HomeScreen = () => {
-  const [alert, setAlert] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
   const [Url, setUrl] = useState("");
   const [Url4, setUrl4] = useState("");
   const navigation = useNavigation();
   const letterAnim = useRef(new Animated.Value(0)).current;
-  
 
   const navigateTo = (screen, params = {}) => {
     navigation.navigate(screen, params);
   };
 
-  const getCompanyDetails = async () => {
-    try {
-      const compDetails = await API.graphql(
-        graphqlOperation(getCompany, { AdminId: "BaruchHabaB'ShemAdonai2" })
-      );
-      const alertz = compDetails.data.getCompany.alert;
-      setAlert(alertz);
-    } catch (error) {
-      console.error("Error fetching company details:", error);
-    }
-  };
+  // ------------------- FCM Helpers -------------------
+  async function requestUserPermission() {
+    const authStatus = await messaging().requestPermission();
+    return (
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL
+    );
+  }
 
+  async function getFcmToken() {
+    const token = await messaging().getToken();
+    console.log("FCM Token:", token);
+    return token;
+  }
+
+  // ------------------- Business Logic -------------------
   const getCompUrls = async () => {
     try {
       const compDetailsz = await API.graphql(
         graphqlOperation(getCompanyUrls, { AdminId: "BaruchHabaB'ShemAdonai2Ulr" })
       );
-      const Url1 = compDetailsz.data.getCompanyUrls.Url1;
-      const Url4 = compDetailsz.data.getCompanyUrls.Url4;
-      setUrl(Url1);
-      setUrl4(Url4);
-      console.log(Url1);
+      setUrl(compDetailsz.data.getCompanyUrls.Url1);
+      setUrl4(compDetailsz.data.getCompanyUrls.Url4);
     } catch (error) {
       console.error("Error fetching company URLs:", error);
     }
   };
 
   useEffect(() => {
-    getCompanyDetails();
+    const init = async () => {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        const email = user.attributes.email;
+
+        // Check if main account exists
+        const userDtls = await API.graphql(
+          graphqlOperation(getSMAccount, { awsemail: email })
+        );
+        const note = await API.graphql(
+          graphqlOperation(getNotification, { awsemail: email })
+        );
+
+        const mainAccExists = userDtls.data.getSMAccount;
+        const noteDtls = note.data.getNotification;
+
+        // Refresh FCM token every time HomeScreen renders
+        const permissionGranted = await requestUserPermission();
+        if (!permissionGranted) {
+          console.log("Notification permission not granted");
+          return;
+        }
+
+        const token = await getFcmToken();
+
+        if (!mainAccExists) {
+          Alert.alert(
+            
+            "Click 'Create Main Account' button to create it."
+          );
+        }
+
+        if (mainAccExists && noteDtls) {
+          await API.graphql(graphqlOperation(updateNotification, {
+            input: { awsemail: email, firebaseKey: token }
+          }));
+        }
+
+        if (mainAccExists && !noteDtls) {
+           await API.graphql(graphqlOperation(createNotification, {
+            input: { awsemail: email, firebaseKey: token }
+          }));
+
+         
+        }
+
+        if (!mainAccExists && !noteDtls) {
+          await API.graphql(graphqlOperation(createNotification, {
+            input: { awsemail: email, firebaseKey: token }
+          }));
+
+          
+        }
+      } catch (error) {
+        console.error("Error initializing HomeScreen:", error);
+      }
+    };
+
+    init();
     getCompUrls();
   }, []);
 
@@ -98,10 +161,6 @@ const HomeScreen = () => {
     });
   };
 
-  const HowTo2 = () => {
-    navigation.navigate('HowTo2');
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={['#e58d29', '#f3c642']} style={styles.backgroundGradient}>
@@ -148,7 +207,7 @@ const HomeScreen = () => {
 
         <View style={styles.alertContainer}>
           <TouchableOpacity style={styles.pressable} onPress={() => Linking.openURL(Url4)}>
-            <FontAwesome name="bullhorn" size={24} color="red"  />
+            <FontAwesome name="bullhorn" size={24} color="red" />
             <View style={{ flexDirection: 'row' }}>{renderAnimatedBoom()}</View>
           </TouchableOpacity>
         </View>
@@ -158,6 +217,10 @@ const HomeScreen = () => {
 };
 
 export default HomeScreen;
+
+// ------------------- Styles -------------------
+
+
 
 const styles = StyleSheet.create({
   container: {

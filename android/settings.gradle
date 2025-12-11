@@ -15,6 +15,13 @@ pluginManagement {
     "../android/expo-gradle-plugin"
   ).absolutePath
   includeBuild(expoPluginsPath)
+
+  repositories {
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+    }
+
 }
 
 plugins {
