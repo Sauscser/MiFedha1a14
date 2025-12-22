@@ -34,6 +34,7 @@ import {
   updateCompany,
   updateSMAccount,
   updateBizna,
+  createMarketConsumption,
 } from '../../../../src/graphql/mutations';
 import { FontAwesome } from '@expo/vector-icons';
 import { Image } from 'react-native'; // ✅ This is correct
@@ -70,10 +71,9 @@ export default function SalesItemMapScreen({ navigation }) {
   const [filteredItems2, setItems3] = useState<any[]>([]);
   const [Ttl, setFilteredItems3] = useState<any[]>([]);
   const [company, setCompany] = useState<Company | null>(null);
-
- 
-
-
+const VwSalesDtls4Transport = () => {
+    navigation.navigate('VwSalesDtls4Transport');
+  };
 
    
    const [OverallTotalDebit, setOverallTotalDebit] = useState(0);
@@ -305,6 +305,235 @@ export default function SalesItemMapScreen({ navigation }) {
 }, [cart, quantities, company]);
 
   
+const validateAndTransact2 = async () => {
+  if (isLoading2)
+  return
+
+  setIsLoading2(true)
+  const user = await Auth.currentAuthenticatedUser();
+
+  if (cart.length === 0) {
+     setIsLoading2(false)
+    Alert.alert("Error", "Add items to cart.");
+   
+    return;
+  }
+
+  if (!password) {
+    setIsLoading2(false)
+    Alert.alert("Error", "Enter your password to proceed.");
+   
+    return;
+  }
+
+  try {
+   
+    const navigateToChmRepay = () => navigation.navigate("AutomaticRepayAllTyps");
+
+    const [loan1, loan2, loan3] = await Promise.all([
+      API.graphql(graphqlOperation(listSMLoansCovereds, {
+        filter: {
+          and: [
+            { status: { eq: "LoanBL" } },
+            { lonBala: { gt: 0 } },
+            { loaneeEmail: { eq: user.attributes.email } }
+          ]
+        }
+      })),
+      API.graphql(graphqlOperation(listCovCreditSellers, {
+        filter: {
+          and: [
+            { status: { eq: "LoanBL" } },
+            { lonBala: { gt: 0 } },
+            { buyerContact: { eq: user.attributes.email } }
+          ]
+        }
+      })),
+      API.graphql(graphqlOperation(listCvrdGroupLoans, {
+        filter: {
+          and: [
+            { status: { eq: "LoanBL" } },
+            { lonBala: { gt: 0 } },
+            { loaneePhn: { eq: user.attributes.email } }
+          ]
+        }
+      }))
+    ]);
+
+    const hasLoan =
+      loan1.data.listSMLoansCovereds.items.length > 0 ||
+      loan2.data.listCovCreditSellers.items.length > 0 ||
+      loan3.data.listCvrdGroupLoans.items.length > 0;
+
+    if (hasLoan) return navigateToChmRepay();
+
+    const userResult = await API.graphql(graphqlOperation(getSMAccount, { awsemail: user.attributes.email }));
+    const sender = userResult.data.getSMAccount;
+
+    const benAmnts = await API.graphql(graphqlOperation(getSMAccount, { awsemail: sender.beneficiary }));
+    const beneficiaryAmt = benAmnts.data.getSMAccount;
+
+    if (!sender || sender.pw !== password) {
+       setIsLoading2(false);
+      Alert.alert("Authentication Failed", "Incorrect password.");
+     
+      return;
+    }
+
+    const companyResult = await API.graphql(graphqlOperation(getCompany, {
+      AdminId: "BaruchHabaB'ShemAdonai2"
+    }));
+    const company = companyResult.data.getCompany;
+
+    let totalCost = 0;
+    let totalCompanyEarnings = 0;
+    let totalBenefit = 0;
+   
+    const sellerTotals: Record<string, {
+      totalItemCost: number;
+      totalBenefit: number;
+      netEarnings: number;
+      earningsBal: number;
+      description: string[];
+      itemID: string;
+      itemIDs: string;
+    }> = {};
+
+    
+
+    // ✅ Process items individually
+    for (const item of cart) {
+      const { sokoname, sokoprice, itemBrand, itemSpecifications, sokokntct, id, itemUnit, bizName, businessType, ItemCode } = item;
+      const qty = quantities[item.id] || 1;
+      const itemCost = parseFloat(sokoprice) * qty;
+      const fee = itemCost * parseFloat(company.biznaCashSaleFee);
+      
+      const totalDebit = itemCost + fee;
+      const benefit = fee * parseFloat(company.p2BBenCom)*0.01;
+      const compEarnings = fee - (2 * benefit);
+
+      if (parseFloat(sender.balance) < totalDebit) {
+        setIsLoading2(false);
+        Alert.alert("Insufficient Funds");
+        
+        return;
+      }
+
+      await API.graphql(graphqlOperation(createMarketConsumption, {
+        input: {
+          marketItemID: id,
+          price: parseFloat(sokoprice).toFixed(2),
+          sellerID: sokokntct,
+          buyerID: user.attributes.email,
+          soldAt: Date.now(),
+          sokoname: sokoname,
+          itemBrand: itemBrand,
+          itemSpecifications: itemSpecifications,
+        }
+      }));
+
+
+      // Fetch business info
+      const bizResult = await API.graphql(graphqlOperation(getBizna, { BusKntct: sokokntct }));
+      const biz = bizResult.data.getBizna;
+      if (!biz) {
+         setIsLoading2(false);
+        Alert.alert(`Could not find Account for business ${bizName}`);
+       
+        return;
+      }
+
+     const description = `${qty} ${itemUnit} of ${sokoname} @ ${sokoprice} = ${itemCost} bought at ${bizName} ${businessType}: serial number ${ItemCode}`;
+const itemID = item.id;
+const itemIDs = item.id;
+
+
+      // Create transaction record
+      
+
+      // Merge into sellerTotals
+      if (!sellerTotals[sokokntct]) {
+        sellerTotals[sokokntct] = {
+          totalItemCost: 0,
+          totalBenefit: 0,
+          netEarnings: parseFloat(biz.netEarnings),
+          earningsBal: parseFloat(biz.earningsBal),
+          description: [],
+          itemID: "",
+          itemIDs: ""
+        };
+      }
+      sellerTotals[sokokntct].description.push(description);
+      sellerTotals[sokokntct].itemID=itemID;
+      itemIDs;
+      sellerTotals[sokokntct].totalItemCost += itemCost;
+      sellerTotals[sokokntct].totalBenefit += benefit;
+
+      // Accumulate global totals
+      totalCost += itemCost;
+      totalCompanyEarnings += compEarnings;
+      totalBenefit += benefit;
+   
+      
+    }
+
+    // ✅ Update each unique seller once
+    for (const sokokntct in sellerTotals) {
+      const totals = sellerTotals[sokokntct];
+      const bizResult = await API.graphql(graphqlOperation(getBizna, { BusKntct: sokokntct }));
+      const biz = bizResult.data.getBizna;
+      
+      const fullDescription = totals.description.join('\n');
+      const allItemsID = totals.itemID
+
+
+      console.log(fullDescription, allItemsID);
+
+      
+      
+      await API.graphql(graphqlOperation(createNonLoans, {
+        input: {
+          recPhn: sokokntct,
+          senderPhn: user.attributes.email,
+          amount: (totals.totalItemCost).toFixed(0),
+          description: fullDescription,
+          RecName: biz.busName,
+          SenderName: user.username,
+          status: "cashSales",
+
+          owner: allItemsID,
+        }
+      }));
+
+    }
+
+    // ✅ Update user + contribution once
+
+      
+    const res =  await API.graphql(graphqlOperation(updateSMAccount, {
+        input: {
+          awsemail: user.attributes.email,
+          ttlNonLonsSentSM: parseFloat(sender.ttlNonLonsSentSM) + totalCost,
+          balance: parseFloat(sender.balance) - OverallTotalDebit,
+        }
+      }));
+
+if (res?.data?.updateSMAccount) {
+  VwSalesDtls4Transport();
+}
+
+    setCart([]);
+    setQuantities({});
+    setPassword('');
+    Alert.alert("Success", "Transaction completed successfully.");
+  } catch (err) {
+    console.error("Transaction error:", err);
+    Alert.alert("Error", "Something went wrong during the transaction.");
+  } finally {
+    setIsLoading2(false);
+  }
+};
+
 const validateAndTransact = async () => {
   if (isLoading2)
   return
@@ -396,19 +625,20 @@ const validateAndTransact = async () => {
       earningsBal: number;
       description: string[];
       itemID: string;
+      itemIDs: string;
     }> = {};
 
     
 
     // ✅ Process items individually
     for (const item of cart) {
-      const { sokoname, sokoprice, sokokntct, sokodesc, itemUnit, bizName, businessType, ItemCode } = item;
+      const { sokoname, sokoprice, itemBrand, itemSpecifications, sokokntct, id, itemUnit, bizName, businessType, ItemCode } = item;
       const qty = quantities[item.id] || 1;
       const itemCost = parseFloat(sokoprice) * qty;
       const fee = itemCost * parseFloat(company.biznaCashSaleFee);
       
       const totalDebit = itemCost + fee;
-      const benefit = fee * parseFloat(company.p2BBenCom);
+      const benefit = fee * parseFloat(company.p2BBenCom)*0.01;
       const compEarnings = fee - (2 * benefit);
 
       if (parseFloat(sender.balance) < totalDebit) {
@@ -417,6 +647,20 @@ const validateAndTransact = async () => {
         
         return;
       }
+
+      await API.graphql(graphqlOperation(createMarketConsumption, {
+        input: {
+          marketItemID: id,
+          price: parseFloat(sokoprice).toFixed(2),
+          sellerID: sokokntct,
+          buyerID: user.attributes.email,
+          soldAt: Date.now(),
+          sokoname: sokoname,
+          itemBrand: itemBrand,
+          itemSpecifications: itemSpecifications,
+        }
+      }));
+
 
       // Fetch business info
       const bizResult = await API.graphql(graphqlOperation(getBizna, { BusKntct: sokokntct }));
@@ -430,6 +674,7 @@ const validateAndTransact = async () => {
 
      const description = `${qty} ${itemUnit} of ${sokoname} @ ${sokoprice} = ${itemCost} bought at ${bizName} ${businessType}: serial number ${ItemCode}`;
 const itemID = item.id;
+const itemIDs = item.id;
 
 
       // Create transaction record
@@ -443,11 +688,13 @@ const itemID = item.id;
           netEarnings: parseFloat(biz.netEarnings),
           earningsBal: parseFloat(biz.earningsBal),
           description: [],
-          itemID: ""
+          itemID: "",
+          itemIDs: ""
         };
       }
       sellerTotals[sokokntct].description.push(description);
       sellerTotals[sokokntct].itemID=itemID;
+      itemIDs;
       sellerTotals[sokokntct].totalItemCost += itemCost;
       sellerTotals[sokokntct].totalBenefit += benefit;
 
@@ -467,6 +714,8 @@ const itemID = item.id;
       
       const fullDescription = totals.description.join('\n');
       const allItemsID = totals.itemID
+
+      const allItemsIDs = itemIDs
 
       console.log(fullDescription, allItemsID);
 
@@ -490,8 +739,6 @@ const itemID = item.id;
           SenderName: user.username,
           status: "cashSales",
 
-          // photo url
-
           owner: allItemsID,
         }
       }));
@@ -512,7 +759,7 @@ const itemID = item.id;
     }));
 
     // ✅ Update user + contribution once
-    if (sender.beneficiaryType === "Biz") {
+    
       await API.graphql(graphqlOperation(updateSMAccount, {
         input: {
           awsemail: user.attributes.email,
@@ -545,23 +792,7 @@ const itemID = item.id;
   }
 }));
 
-    } else if (sender.beneficiaryType === "Pal") {
-      await API.graphql(graphqlOperation(updateSMAccount, {
-        input: {
-          awsemail: sender.beneficiary,
-          
-          balance: parseFloat(beneficiaryAmt.balance) + totalBenefit,
-        }
-      }));
-
-      await API.graphql(graphqlOperation(updateSMAccount, {
-        input: {
-          awsemail: user.attributes.email,
-          ttlNonLonsSentSM: parseFloat(sender.ttlNonLonsSentSM) + totalCost,
-          balance: parseFloat(sender.balance) - OverallTotalDebit,
-        }
-      }));
-    }
+    
 
     setCart([]);
     setQuantities({});
@@ -725,7 +956,16 @@ const itemID = item.id;
           {isLoading2 ? (
             <ActivityIndicator color="#fff" />
           ) : (
-            <Text style={styles.buttonText}>Pay KES {(OverallTotalDebit).toFixed(2)}</Text>
+            <Text style={styles.buttonText}>Buy in Person Pay KES {(OverallTotalDebit).toFixed(2)}</Text>
+          )}
+        </TouchableOpacity>
+
+
+        <TouchableOpacity onPress={validateAndTransact2} style={styles.button}>
+          {isLoading2 ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text style={styles.buttonText}>Buy Online Pay KES {(OverallTotalDebit).toFixed(2)}</Text>
           )}
         </TouchableOpacity>
              

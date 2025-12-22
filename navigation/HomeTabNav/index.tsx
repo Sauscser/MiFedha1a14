@@ -613,6 +613,7 @@ import PassengerRequestRide from "../../screens/Transport/PassengerRequestRide";
 import AcceptRideRequest from "../../screens/Transport/AcceptRideRequest";
 import RideTrackingScreen from "../../screens/Transport/RideTrackingScreen";
 
+import COMB from "../../screens/COMB";
 
 
 
@@ -630,6 +631,7 @@ const HomeNavigator = props => {
       <Stack.Screen name={'RideTrackingScreen'} component={RideTrackingScreen} />
       <Stack.Screen name={'PassengerRequestRide'} component={PassengerRequestRide} />
       <Stack.Screen name={'AcceptRideRequest'} component={AcceptRideRequest} />
+      <Stack.Screen name={'COMB'} component={COMB} />
 
 
       <Stack.Screen name={'DispatchDelivery'} component={DispatchDelivery} />

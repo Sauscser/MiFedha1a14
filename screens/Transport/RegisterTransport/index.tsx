@@ -22,6 +22,7 @@ const CreateBiz = () => {
     itemName: '', itemTown: '', itemDesc: '',
     itemPrice: '', brandName: '', businessType: '',
     itemUnit: '', unitQuantity: '', bizPassword: '', ItemCode: '',
+    ImageUrl: '', numberPlate: ''
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -143,6 +144,7 @@ const CreateBiz = () => {
       itemName: '', itemTown: '', itemDesc: '',
       itemPrice: '', brandName: '', businessType: '',
       itemUnit: '', unitQuantity: '', bizPassword: '', ItemCode: '',
+      ImageUrl: '', numberPlate: ''
     });
     setItemPhotoKey(null);
     setItemPhotoUri(null);
@@ -155,6 +157,7 @@ const CreateBiz = () => {
     const {
       itemName, itemTown, itemDesc, itemPrice,
       brandName, itemUnit, unitQuantity, bizPassword, ItemCode,
+      ImageUrl, numberPlate
     } = formData;
 
     try {
@@ -212,6 +215,9 @@ const CreateBiz = () => {
   itemID: "None",
   sellerContact:"None",
   sellerName: "None",
+  numberPlate: numberPlate,
+  ImageUrl: ImageUrl
+  
       };
 
       await API.graphql(graphqlOperation(createTransportRegister, { input: adInput }));
@@ -233,7 +239,9 @@ const CreateBiz = () => {
         <InputField label="Means of Transport e.g. motorbike, pickup, freight services, tuktuk" value={formData.brandName} onChange={v => updateForm('brandName', v)} />
         <InputField label="Cost per kilometer in Kenya Shillings" value={formData.itemPrice} onChange={v => updateForm('itemPrice', v)} keyboardType="numeric" />
         <InputField label="More Transport Description" value={formData.itemDesc} onChange={v => updateForm('itemDesc', v)} multiline height={100} />
-
+        <InputField label="Transport Number Plate" value={formData.numberPlate} onChange={v => updateForm('numberPlate', v)} />
+        <InputField label="Image URL (Optional)" value={formData.ImageUrl} onChange={v => updateForm('ImageUrl', v)} />
+        
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableOpacity onPress={pickImage} style={[styles.button, { flex: 1, marginRight: 10 }]}>
             <Text style={styles.buttonText}>Attach Transport Means Photo from Gallery</Text>

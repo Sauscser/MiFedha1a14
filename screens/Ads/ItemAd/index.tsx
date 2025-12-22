@@ -45,6 +45,7 @@ const CreateBiz = () => {
     itemName: '', itemTown: '', itemDesc: '',
     itemPrice: '', brandName: '', businessType: '',
     itemUnit: '', unitQuantity: '', bizPassword: '', ItemCode: '',
+    itemSpecifications: '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -180,6 +181,7 @@ const handleUrlChange = (v) => {
       itemName: '', itemTown: '', itemDesc: '',
       itemPrice: '', brandName: '', businessType: '',
       itemUnit: '', unitQuantity: '', bizPassword: '', ItemCode: '',
+      itemSpecifications: '',
     });
     setItemPhotoKey(null);
     setItemPhotoUri(null);
@@ -193,6 +195,7 @@ const handleUrlChange = (v) => {
     const {
       itemName, itemTown, itemDesc, itemPrice,
       brandName, itemUnit, unitQuantity, bizPassword, ItemCode,
+      itemSpecifications,
     } = formData;
 
     // Validate URL
@@ -243,6 +246,7 @@ const handleUrlChange = (v) => {
         sokolpymntperiod: 1,
         sokodesc: itemDesc,
         sokoname: itemName,
+        itemSpecifications: itemSpecifications,
         itemCodeBar: ItemCode,
         itemPhoto: itemPhotoKey,
         sokoprice: parseFloat(itemPrice),
@@ -279,7 +283,7 @@ const handleUrlChange = (v) => {
         <InputField label="Unit of Measure (Optional)" value={formData.itemUnit} onChange={v => updateForm('itemUnit', v)} />
         <InputField label="Quantity per Unit (Optional)" value={formData.unitQuantity} onChange={v => updateForm('unitQuantity', v)} keyboardType="numeric" />
         <InputField label="Serial Number (Optional)" value={formData.ItemCode} onChange={v => updateForm('ItemCode', v)} />
-
+        <InputField label="Item Specifications (Optional)" value={formData.itemSpecifications} onChange={v => updateForm('itemSpecifications', v)} multiline height={80} />
         {/* URL with pulsing valid icon */}
         <View style={styles.inputContainer}>
   <Text style={styles.label}>Ad Video URL (Optional)</Text>

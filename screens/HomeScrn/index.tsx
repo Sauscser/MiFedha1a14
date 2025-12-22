@@ -200,8 +200,8 @@ const HomeScreen = () => {
         </View>
 
         <LinearGradient colors={['#72ebd8', '#34a4a1']} style={styles.loanButton}>
-          <TouchableOpacity style={styles.loanContainer} onPress={() => navigateTo('HowTo2')}>
-            <Text style={styles.loanButtonText}>View How To</Text>
+          <TouchableOpacity style={styles.loanContainer} onPress={() => navigateTo('COMB')}>
+            <Text style={styles.loanButtonText}>Consume On My Bill (COMB)</Text>
           </TouchableOpacity>
         </LinearGradient>
 

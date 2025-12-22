@@ -5,7 +5,7 @@ import {View, Text,  ScrollView, Pressable, TouchableOpacity, ActivityIndicator,
 import styles from './styles';
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 import { getTransportOrder, getSMAccount, getBizna, getGroup, getChamaMembers, getCompany, getTransportRegister } from '../../../src/graphql/queries';
-import { updateTransportOrder, updateSMAccount, updateGroup, updateCompany, createNonLoans, updateTransportRegister } from '../../../src/graphql/mutations';
+import { updateTransportOrder, updateSMAccount, updateGroup, updateCompany, createNonLoans, updateTransportRegister, updateBizna, createBenefitContributions2 } from '../../../src/graphql/mutations';
 import { Linking } from 'react-native';
 import * as Location from 'expo-location';
 import { getDistance } from 'geolib';
@@ -79,7 +79,14 @@ const [distanceMeters, setDistanceMeters] = useState<number>(0);
 
              const TransportDtls = await API.graphql(graphqlOperation(getTransportRegister, { id: orderDtlz.bizAc}));
              const transportDtlz = TransportDtls.data.getTransportRegister;
-   
+
+             const bizResult = await API.graphql(graphqlOperation(getBizna, { BusKntct: orderDtlz.sellerContact }));
+             const biz = bizResult.data.getBizna;
+
+             const buyerDtls = await API.graphql(graphqlOperation(getSMAccount, { awsemail: orderDtlz.customerEmail }));
+             const buyerDtlsz = buyerDtls.data.getSMAccount;
+
+             
               const CompDtls:any = await API.graphql(
                          graphqlOperation(getCompany, {
                            AdminId: "BaruchHabaB'ShemAdonai2",
@@ -90,9 +97,15 @@ const [distanceMeters, setDistanceMeters] = useState<number>(0);
                        const compEarningShare = compDtls.transportCompanyShare;
                        const CompEarning = compEarningShare * parseFloat(orderDtlz.deliveryCost);
                        const TransporterEarning = parseFloat(orderDtlz.deliveryCost) - CompEarning
+                       
+                       const fee = parseFloat(orderDtlz.orderCost) * parseFloat(compDtls.biznaCashSaleFee);
+                       const totalDebit = parseFloat(orderDtlz.orderCost) + fee;
+                        const benefit = fee * parseFloat(compDtls.p2BBenCom)*0.01;
+                        const compEarnings = fee - (2 * benefit);
+
 
                        
-        
+                       
 
              if (orderDtlz.engagementStatus === "TransportNotEngaged")
    
@@ -175,10 +188,48 @@ const [distanceMeters, setDistanceMeters] = useState<number>(0);
                            graphqlOperation(updateCompany, {
                            input: {
                              AdminId: "BaruchHabaB'ShemAdonai2",
-                             companyEarningBal: parseFloat(compDtls.companyEarningBal) + CompEarning,
-                             companyEarning: parseFloat(compDtls.companyEarning) + CompEarning,
+                             companyEarningBal: parseFloat(compDtls.companyEarningBal) + CompEarning + compEarnings,
+                             companyEarning: parseFloat(compDtls.companyEarning) + CompEarning + compEarnings,
                              
                            }}))
+
+                           await API.graphql(
+                           graphqlOperation(updateBizna, {
+                           input: {
+                            BusKntct: orderDtlz.sellerContact,
+                            netEarnings: (biz.netEarnings + orderDtlz.orderCost).toFixed(0),
+                            earningsBal: (biz.earningsBal + orderDtlz.orderCost).toFixed(0),
+                            benefitsAmount: parseFloat(biz.benefitsAmount) + benefit,
+       
+                           }}))
+
+                           await API.graphql(graphqlOperation(updateSMAccount, {
+                                   input: {
+                                     awsemail: orderDtlz.customerEmail,
+                                      benefitsAmount: parseFloat(buyerDtlsz.benefitsAmount) + benefit,
+                                   }
+                                 }));
+
+                            await API.graphql(graphqlOperation(createBenefitContributions2, {
+                              input: {
+                                benefitsID: "String",
+                                benefactorAc: orderDtlz.sellerContact,
+                                benefactorPhone: orderDtlz.sellerName,
+                                beneficiaryAc: user.attributes.email,
+                                beneficiaryPhone: user.attributes.phone_number || "String",
+                                creatorEmail: user.attributes.email,
+                                prodName: orderDtlz.deliveryDesc,
+                                creatorName: user.username,
+                                owner: user.attributes.sub,
+                                prodCost: 0,
+                                benefitsAmount: benefit,
+                                beneficiaryType: "Pal",
+                                prodDesc: orderDtlz.deliveryDesc,
+                                benefitStatus: "Active",
+                                amount: benefit,
+                              }
+                            }));
+                            
    
         
         await API.graphql(
@@ -257,8 +308,8 @@ const [distanceMeters, setDistanceMeters] = useState<number>(0);
                            graphqlOperation(updateCompany, {
                            input: {
                              AdminId: "BaruchHabaB'ShemAdonai2",
-                            companyEarningBal: parseFloat(compDtls.companyEarningBal) + CompEarning,
-                             companyEarning: parseFloat(compDtls.companyEarning) + CompEarning,
+                            companyEarningBal: parseFloat(compDtls.companyEarningBal) + CompEarning + compEarnings,
+                             companyEarning: parseFloat(compDtls.companyEarning) + CompEarning + compEarnings,
                              
                            }}))
 
@@ -274,7 +325,44 @@ const [distanceMeters, setDistanceMeters] = useState<number>(0);
 
              
          }}));
-         
+
+         await API.graphql(
+                           graphqlOperation(updateBizna, {
+                           input: {
+                            BusKntct: orderDtlz.sellerContact,
+                            netEarnings: (biz.netEarnings + orderDtlz.orderCost).toFixed(0),
+                            earningsBal: (biz.earningsBal + orderDtlz.orderCost).toFixed(0),
+                            benefitsAmount: parseFloat(biz.benefitsAmount) + benefit,
+       
+                           }}))
+
+                           await API.graphql(graphqlOperation(updateSMAccount, {
+                                   input: {
+                                     awsemail: orderDtlz.customerEmail,
+                                      benefitsAmount: parseFloat(buyerDtlsz.benefitsAmount) + benefit,
+                                   }
+                                 }));
+
+                                 await API.graphql(graphqlOperation(createBenefitContributions2, {
+                              input: {
+                                benefitsID: "String",
+                                benefactorAc: orderDtlz.sellerContact,
+                                benefactorPhone: orderDtlz.sellerName,
+                                beneficiaryAc: user.attributes.email,
+                                beneficiaryPhone: user.attributes.phone_number || "String",
+                                creatorEmail: user.attributes.email,
+                                prodName: orderDtlz.deliveryDesc,
+                                creatorName: user.username,
+                                owner: user.attributes.sub,
+                                prodCost: 0,
+                                benefitsAmount: benefit,
+                                beneficiaryType: "Pal",
+                                prodDesc: orderDtlz.deliveryDesc,
+                                benefitStatus: "Active",
+                                amount: benefit,
+                              }
+                            }));
+                            
          
          const updateOrdr =  await API.graphql(
            graphqlOperation(updateTransportOrder, {
@@ -285,6 +373,7 @@ const [distanceMeters, setDistanceMeters] = useState<number>(0);
              transportRequest: "transportRequestNo",
             
          }}));
+
          if (updateOrdr?.data?.updateTransportOrder) {
          Alert.alert("Success", "Delivery Received!");
        // Send SMS notification

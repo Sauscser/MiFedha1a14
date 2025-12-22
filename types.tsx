@@ -18,6 +18,7 @@ declare global {
     interface RootParamList extends RootStackParamList {
       MemberReqChm:{ChamaNMember:string};
       VwAsBeneficiary:undefined;
+      COMB:undefined;
       AcceptRideRequest:undefined;
       PassengerRequestRide:undefined;
       SrchLoanAdz:undefined;
