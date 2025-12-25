@@ -9,7 +9,7 @@ import * as Location from 'expo-location';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { Auth, API, graphqlOperation, Storage } from 'aws-amplify';
-import { createSokoAd } from '../../../src/graphql/mutations';
+import { createAveragePrices, createSokoAd } from '../../../src/graphql/mutations';
 import { getSMAccount, getBizna, listPersonels } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/native';
 
@@ -262,8 +262,19 @@ const handleUrlChange = (v) => {
       };
 
       await API.graphql(graphqlOperation(createSokoAd, { input: adInput }));
+
+    const item =  await API.graphql(graphqlOperation(createAveragePrices, 
+        { input: 
+        {itemName: itemName,
+        itemBrand: brandName,
+        itemSpecs: itemSpecifications,
+        itemPrice: parseFloat(itemPrice).toFixed(2), 
+      }
+        }));
+
+if (item?.data?.createAveragePrices){
       Alert.alert('Success', 'Item successfully advertised.');
-      clearForm();
+      clearForm();}
     } catch (err) {
       console.error('Ad creation failed:', err);
       Alert.alert('Error', 'Failed to create ad. Try again.');
@@ -309,9 +320,7 @@ const handleUrlChange = (v) => {
           <TouchableOpacity onPress={pickImage} style={[styles.button, { flex: 1, marginRight: 10 }]}>
             <Text style={styles.buttonText}>Attach Photo from Gallery</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={takePhoto} style={[styles.button, { flex: 1, marginLeft: 10 }]}>
-            <Text style={styles.buttonText}>Take Photo</Text>
-          </TouchableOpacity>
+
         </View>
 
         {itemPhotoUri && <Image source={{ uri: itemPhotoUri }} style={styles.imagePreview} />}

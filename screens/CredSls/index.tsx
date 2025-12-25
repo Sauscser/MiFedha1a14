@@ -240,7 +240,7 @@ const MyLoanAccount = () => {
           title="Manage Business"
           options={[
             
-            { label: 'Create Biz', onPress: CrtBusinessss, style: styles.ClientsPressables },
+            { label: 'Create Biz/Institution', onPress: CrtBusinessss, style: styles.ClientsPressables },
             { label: 'Add Item', onPress: VwBiz2AddItem, style: styles.ClientsPressables },
              { label: 'Delete Sales Item', onPress: VwSlsAds2Remove, style: styles.ClientsPressables },
           

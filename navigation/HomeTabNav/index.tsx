@@ -614,6 +614,14 @@ import AcceptRideRequest from "../../screens/Transport/AcceptRideRequest";
 import RideTrackingScreen from "../../screens/Transport/RideTrackingScreen";
 
 import COMB from "../../screens/COMB";
+import AddCOMBPersonel from "../../screens/COMB/AddCOMBPersonel";
+import ViewMessages from "../../screens/MyAcc/ViewMessages";
+import GenerateCOMBVoucher from "../../screens/COMB/GenerateCOMBVoucher";
+import LinkCOMBSeller from "../../screens/COMB/LinkCOMBSeller";
+import CreateCOMBContract from "../../screens/COMB/CreateCOMBContract";
+import Vw2LinkSeller from "../../screens/COMB/Vw2LinkSeller";
+import Vw2GenerateVoucher from "../../screens/COMB/Vw2GenerateVoucher";
+
 
 
 
@@ -624,10 +632,20 @@ const HomeNavigator = props => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name={'Homeie'} component={Homeie} />      
-      
+      <Stack.Screen name={'Homeie'} component={Homeie} /> 
+      <Stack.Screen name={'CreateCOMBContract'} component={CreateCOMBContract} />     
+      <Stack.Screen name={'Vw2LinkSeller'} component={Vw2LinkSeller} />     
+      <Stack.Screen name={'Vw2GenerateVoucher'} component={Vw2GenerateVoucher} />     
+
       <Stack.Screen name={'BuyFloatBnkAdm'} component={BuyFloatBnkAdm} />
       <Stack.Screen name={'VwSalesDtls4Transport'} component={VwSalesDtls4Transport} />
+      <Stack.Screen name={'ViewMessages'} component={ViewMessages} />
+      <Stack.Screen name={'GenerateCOMBVoucher'} component={GenerateCOMBVoucher} />
+
+      <Stack.Screen name={'LinkCOMBSeller'} component={LinkCOMBSeller} />
+
+
+      <Stack.Screen name={'AddCOMBPersonel'} component={AddCOMBPersonel} />
       <Stack.Screen name={'RideTrackingScreen'} component={RideTrackingScreen} />
       <Stack.Screen name={'PassengerRequestRide'} component={PassengerRequestRide} />
       <Stack.Screen name={'AcceptRideRequest'} component={AcceptRideRequest} />

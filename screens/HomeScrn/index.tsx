@@ -6,10 +6,11 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { graphqlOperation, API, Auth } from 'aws-amplify';
-import { getCompany, getCompanyUrls, getNotification, getSMAccount } from '../../src/graphql/queries';
+import { getCompany, getCompanyUrls, getNotification, getSMAccount, listMessages } from '../../src/graphql/queries';
 import { createNotification, updateNotification } from '../../src/graphql/mutations';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
+import { ic_mifedha } from '../';
 
 const { height, width } = Dimensions.get('window');
 
@@ -52,6 +53,8 @@ const HomeScreen = () => {
     }
   };
 
+
+  
   useEffect(() => {
     const init = async () => {
       try {
@@ -161,6 +164,23 @@ const HomeScreen = () => {
     });
   };
 
+  useEffect(() => {
+    // Foreground notifications
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      Alert.alert(remoteMessage.notification?.title || "Notification",
+                  remoteMessage.notification?.body || "You have a new message");
+    });
+  
+    // Background/terminated notifications
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log("Background notification:", remoteMessage);
+      // System tray shows notification automatically
+    });
+  
+    return unsubscribe;
+  }, []);
+    
+
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={['#e58d29', '#f3c642']} style={styles.backgroundGradient}>
@@ -184,7 +204,15 @@ const HomeScreen = () => {
             <FontAwesome name="globe" size={24} color="white" style={styles.globeIcon} />
           </Pressable>
         </LinearGradient>
+      <View style={styles.buttonContainer2}>
+          <LinearGradient colors={['#72ebd8', '#34a4a1']} style={styles.mainButton2}>
+            <TouchableOpacity style={styles.mainButton2} onPress={() => navigateTo('ViewMessages')}>
+              <Text style={styles.mainButtonText}>Messages</Text>
+            </TouchableOpacity>
+          </LinearGradient>
 
+          
+        </View>
         <View style={styles.productContainer}>
           <TouchableOpacity style={styles.productButton} onPress={() => navigateTo('LnsScreen')}>
             <Text style={styles.productButtonText}>Pal-Pal Products</Text>
@@ -237,9 +265,25 @@ const styles = StyleSheet.create({
     width: '90%',
     marginVertical: 20,
   },
+  buttonContainer2: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '60%',
+    paddingHorizontal: 20,
+    marginVertical: 5,
+    height: 50,
+  },
   mainButton: {
     width: '45%',
     height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+    mainButton2: {
+    width: '95%',
+    
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',

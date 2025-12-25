@@ -4345,6 +4345,74 @@ export const listNotifications = /* GraphQL */ `
     }
   }
 `;
+export const getMessages = /* GraphQL */ `
+  query GetMessages($id: ID!) {
+    getMessages(id: $id) {
+      id
+      senderEmail
+      messageBody
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listMessages = /* GraphQL */ `
+  query ListMessages(
+    $filter: ModelMessagesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        senderEmail
+        messageBody
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getAveragePrices = /* GraphQL */ `
+  query GetAveragePrices($id: ID!) {
+    getAveragePrices(id: $id) {
+      id
+      itemName
+      itemBrand
+      itemSpecs
+      itemPrice
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listAveragePrices = /* GraphQL */ `
+  query ListAveragePrices(
+    $filter: ModelAveragePricesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAveragePrices(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        itemName
+        itemBrand
+        itemSpecs
+        itemPrice
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const getCombContractVoucher = /* GraphQL */ `
   query GetCombContractVoucher($id: ID!) {
     getCombContractVoucher(id: $id) {
@@ -4392,8 +4460,9 @@ export const getCombContractVoucher = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
+      voucherLastUpdate
       createdAt
+      id
       updatedAt
       owner
       __typename
@@ -4456,8 +4525,9 @@ export const listCombContractVouchers = /* GraphQL */ `
         accStatus
         generalPriceDev
         repaymentPeriod
-        id
+        voucherLastUpdate
         createdAt
+        id
         updatedAt
         owner
         __typename
@@ -4513,8 +4583,8 @@ export const getCombContract = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
       createdAt
+      id
       updatedAt
       owner
       __typename
@@ -4572,8 +4642,8 @@ export const listCombContracts = /* GraphQL */ `
         accStatus
         generalPriceDev
         repaymentPeriod
-        id
         createdAt
+        id
         updatedAt
         owner
         __typename
@@ -8234,6 +8304,474 @@ export const paymentsByRide = /* GraphQL */ `
         paymentStatus
         clearedAt
         createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const fetchMessages = /* GraphQL */ `
+  query FetchMessages(
+    $senderEmail: ID!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMessagesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    fetchMessages(
+      senderEmail: $senderEmail
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        senderEmail
+        messageBody
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const byCOMBConsumer2 = /* GraphQL */ `
+  query ByCOMBConsumer2(
+    $consumerEmail: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelcombContractVoucherFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byCOMBConsumer2(
+      consumerEmail: $consumerEmail
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        combContractID
+        marketItemID
+        consumerEmail
+        funderEmail
+        sellerEmail
+        consumerAccount
+        funderAccount
+        sellerAccount
+        consumerContact
+        funderContact
+        sellerName
+        consumerName
+        funderName
+        sellerOfficerName
+        consumerOfficerName
+        funderOfficerName
+        sellerContact
+        consumerType
+        sellerType
+        funderType
+        advertStatus
+        marketConsumptionStatus
+        itemPrice
+        itemName
+        itemBrand
+        itemSpecifications
+        numberOfItems
+        marketConsumptionPrice
+        marketConsumptionFrequency
+        marketConsumptionTotal
+        priceDeviation
+        consumptionCapping
+        consumptionMarginStatus
+        consumptionMargin
+        updateFrequency
+        lastUpdateTime
+        settlementTime
+        prepostPay
+        referencePrice
+        referencePriceSource
+        priceFlag
+        accStatus
+        generalPriceDev
+        repaymentPeriod
+        voucherLastUpdate
+        createdAt
+        id
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const byCOMBFunder2 = /* GraphQL */ `
+  query ByCOMBFunder2(
+    $funderEmail: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelcombContractVoucherFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byCOMBFunder2(
+      funderEmail: $funderEmail
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        combContractID
+        marketItemID
+        consumerEmail
+        funderEmail
+        sellerEmail
+        consumerAccount
+        funderAccount
+        sellerAccount
+        consumerContact
+        funderContact
+        sellerName
+        consumerName
+        funderName
+        sellerOfficerName
+        consumerOfficerName
+        funderOfficerName
+        sellerContact
+        consumerType
+        sellerType
+        funderType
+        advertStatus
+        marketConsumptionStatus
+        itemPrice
+        itemName
+        itemBrand
+        itemSpecifications
+        numberOfItems
+        marketConsumptionPrice
+        marketConsumptionFrequency
+        marketConsumptionTotal
+        priceDeviation
+        consumptionCapping
+        consumptionMarginStatus
+        consumptionMargin
+        updateFrequency
+        lastUpdateTime
+        settlementTime
+        prepostPay
+        referencePrice
+        referencePriceSource
+        priceFlag
+        accStatus
+        generalPriceDev
+        repaymentPeriod
+        voucherLastUpdate
+        createdAt
+        id
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const byCOMBSeller2 = /* GraphQL */ `
+  query ByCOMBSeller2(
+    $sellerEmail: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelcombContractVoucherFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byCOMBSeller2(
+      sellerEmail: $sellerEmail
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        combContractID
+        marketItemID
+        consumerEmail
+        funderEmail
+        sellerEmail
+        consumerAccount
+        funderAccount
+        sellerAccount
+        consumerContact
+        funderContact
+        sellerName
+        consumerName
+        funderName
+        sellerOfficerName
+        consumerOfficerName
+        funderOfficerName
+        sellerContact
+        consumerType
+        sellerType
+        funderType
+        advertStatus
+        marketConsumptionStatus
+        itemPrice
+        itemName
+        itemBrand
+        itemSpecifications
+        numberOfItems
+        marketConsumptionPrice
+        marketConsumptionFrequency
+        marketConsumptionTotal
+        priceDeviation
+        consumptionCapping
+        consumptionMarginStatus
+        consumptionMargin
+        updateFrequency
+        lastUpdateTime
+        settlementTime
+        prepostPay
+        referencePrice
+        referencePriceSource
+        priceFlag
+        accStatus
+        generalPriceDev
+        repaymentPeriod
+        voucherLastUpdate
+        createdAt
+        id
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const byCOMBConsumer = /* GraphQL */ `
+  query ByCOMBConsumer(
+    $consumerEmail: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelcombContractFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byCOMBConsumer(
+      consumerEmail: $consumerEmail
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        marketItemID
+        consumerEmail
+        funderEmail
+        sellerEmail
+        consumerAccount
+        funderAccount
+        sellerAccount
+        consumerContact
+        funderContact
+        sellerName
+        consumerName
+        funderName
+        sellerOfficerName
+        consumerOfficerName
+        funderOfficerName
+        sellerContact
+        consumerType
+        sellerType
+        funderType
+        advertStatus
+        marketConsumptionStatus
+        itemPrice
+        itemName
+        itemBrand
+        itemSpecifications
+        numberOfItems
+        marketConsumptionPrice
+        marketConsumptionFrequency
+        marketConsumptionTotal
+        priceDeviation
+        consumptionCapping
+        consumptionMarginStatus
+        consumptionMargin
+        updateFrequency
+        lastUpdateTime
+        settlementTime
+        prepostPay
+        referencePrice
+        referencePriceSource
+        priceFlag
+        accStatus
+        generalPriceDev
+        repaymentPeriod
+        createdAt
+        id
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const byCOMBFunder = /* GraphQL */ `
+  query ByCOMBFunder(
+    $funderEmail: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelcombContractFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byCOMBFunder(
+      funderEmail: $funderEmail
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        marketItemID
+        consumerEmail
+        funderEmail
+        sellerEmail
+        consumerAccount
+        funderAccount
+        sellerAccount
+        consumerContact
+        funderContact
+        sellerName
+        consumerName
+        funderName
+        sellerOfficerName
+        consumerOfficerName
+        funderOfficerName
+        sellerContact
+        consumerType
+        sellerType
+        funderType
+        advertStatus
+        marketConsumptionStatus
+        itemPrice
+        itemName
+        itemBrand
+        itemSpecifications
+        numberOfItems
+        marketConsumptionPrice
+        marketConsumptionFrequency
+        marketConsumptionTotal
+        priceDeviation
+        consumptionCapping
+        consumptionMarginStatus
+        consumptionMargin
+        updateFrequency
+        lastUpdateTime
+        settlementTime
+        prepostPay
+        referencePrice
+        referencePriceSource
+        priceFlag
+        accStatus
+        generalPriceDev
+        repaymentPeriod
+        createdAt
+        id
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const byCOMBSeller = /* GraphQL */ `
+  query ByCOMBSeller(
+    $sellerEmail: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelcombContractFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byCOMBSeller(
+      sellerEmail: $sellerEmail
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        marketItemID
+        consumerEmail
+        funderEmail
+        sellerEmail
+        consumerAccount
+        funderAccount
+        sellerAccount
+        consumerContact
+        funderContact
+        sellerName
+        consumerName
+        funderName
+        sellerOfficerName
+        consumerOfficerName
+        funderOfficerName
+        sellerContact
+        consumerType
+        sellerType
+        funderType
+        advertStatus
+        marketConsumptionStatus
+        itemPrice
+        itemName
+        itemBrand
+        itemSpecifications
+        numberOfItems
+        marketConsumptionPrice
+        marketConsumptionFrequency
+        marketConsumptionTotal
+        priceDeviation
+        consumptionCapping
+        consumptionMarginStatus
+        consumptionMargin
+        updateFrequency
+        lastUpdateTime
+        settlementTime
+        prepostPay
+        referencePrice
+        referencePriceSource
+        priceFlag
+        accStatus
+        generalPriceDev
+        repaymentPeriod
+        createdAt
+        id
         updatedAt
         owner
         __typename

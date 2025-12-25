@@ -3347,6 +3347,38 @@ type RiderLocationUpdate @model(queries: null) {
   updatedAt: AWSDateTime!
 }
 
+type Messages @model 
+@auth(
+    rules: [
+      { allow: private, operations: [create, read, update, delete] }
+      { allow: groups, groups: ["Executive"], operations: [read, update, delete] }
+    ]
+  ){
+  id: ID!         
+  senderEmail: ID! @index(name: "byMessages", sortKeyFields: ["createdAt"], queryField: "fetchMessages")
+  messageBody: String!
+  
+  createdAt: String!
+}
+
+
+
+
+type averagePrices @model 
+@auth(
+    rules: [
+      { allow: private, operations: [create, read, update, delete] }
+      { allow: groups, groups: ["Executive"], operations: [read, update, delete] }
+    ]
+  ){
+  id: ID!         
+  itemName: String!
+  itemBrand: String!
+  itemSpecs: String!
+  itemPrice: Float!
+  createdAt: String!
+}
+
 type combContractVoucher
   @model
   @auth(
@@ -3360,9 +3392,10 @@ type combContractVoucher
 
   combContractID: String
   marketItemID: String
-  consumerEmail: String! 
-  funderEmail: String!
-  sellerEmail: String!
+  consumerEmail: String! @index(name: "COMBConsumer2", sortKeyFields: ["createdAt"], queryField: "byCOMBConsumer2")
+  funderEmail: String! @index(name: "COMBFunder2", sortKeyFields: ["createdAt"], queryField: "byCOMBFunder2")
+  sellerEmail: String! @index(name: "COMBSeller2", sortKeyFields: ["createdAt"], queryField: "byCOMBSeller2")
+  
   consumerAccount: String! 
   funderAccount: String!
   sellerAccount: String!
@@ -3404,7 +3437,8 @@ type combContractVoucher
   accStatus: Status
   generalPriceDev: Float
   repaymentPeriod: Float
-
+  voucherLastUpdate: Float
+  createdAt: String!
 }
 
 type combContract
@@ -3418,9 +3452,9 @@ type combContract
   )
 {
   marketItemID: String
-  consumerEmail: String! 
-  funderEmail: String!
-  sellerEmail: String!
+  consumerEmail: String! @index(name: "COMBConsumer", sortKeyFields: ["createdAt"], queryField: "byCOMBConsumer")
+  funderEmail: String! @index(name: "COMBFunder", sortKeyFields: ["createdAt"], queryField: "byCOMBFunder")
+  sellerEmail: String! @index(name: "COMBSeller", sortKeyFields: ["createdAt"], queryField: "byCOMBSeller")
   consumerAccount: String! 
   funderAccount: String!
   sellerAccount: String!
@@ -3462,6 +3496,8 @@ type combContract
   accStatus: Status
   generalPriceDev: Float
   repaymentPeriod: Float
+  createdAt: String!
+
 
 }
 

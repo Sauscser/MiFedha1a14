@@ -6095,6 +6095,102 @@ export const deleteRiderLocationUpdate = /* GraphQL */ `
     }
   }
 `;
+export const createMessages = /* GraphQL */ `
+  mutation CreateMessages(
+    $input: CreateMessagesInput!
+    $condition: ModelMessagesConditionInput
+  ) {
+    createMessages(input: $input, condition: $condition) {
+      id
+      senderEmail
+      messageBody
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateMessages = /* GraphQL */ `
+  mutation UpdateMessages(
+    $input: UpdateMessagesInput!
+    $condition: ModelMessagesConditionInput
+  ) {
+    updateMessages(input: $input, condition: $condition) {
+      id
+      senderEmail
+      messageBody
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteMessages = /* GraphQL */ `
+  mutation DeleteMessages(
+    $input: DeleteMessagesInput!
+    $condition: ModelMessagesConditionInput
+  ) {
+    deleteMessages(input: $input, condition: $condition) {
+      id
+      senderEmail
+      messageBody
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createAveragePrices = /* GraphQL */ `
+  mutation CreateAveragePrices(
+    $input: CreateAveragePricesInput!
+    $condition: ModelAveragePricesConditionInput
+  ) {
+    createAveragePrices(input: $input, condition: $condition) {
+      id
+      itemName
+      itemBrand
+      itemSpecs
+      itemPrice
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateAveragePrices = /* GraphQL */ `
+  mutation UpdateAveragePrices(
+    $input: UpdateAveragePricesInput!
+    $condition: ModelAveragePricesConditionInput
+  ) {
+    updateAveragePrices(input: $input, condition: $condition) {
+      id
+      itemName
+      itemBrand
+      itemSpecs
+      itemPrice
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteAveragePrices = /* GraphQL */ `
+  mutation DeleteAveragePrices(
+    $input: DeleteAveragePricesInput!
+    $condition: ModelAveragePricesConditionInput
+  ) {
+    deleteAveragePrices(input: $input, condition: $condition) {
+      id
+      itemName
+      itemBrand
+      itemSpecs
+      itemPrice
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const createCombContractVoucher = /* GraphQL */ `
   mutation CreateCombContractVoucher(
     $input: CreateCombContractVoucherInput!
@@ -6145,8 +6241,9 @@ export const createCombContractVoucher = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
+      voucherLastUpdate
       createdAt
+      id
       updatedAt
       owner
       __typename
@@ -6203,8 +6300,9 @@ export const updateCombContractVoucher = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
+      voucherLastUpdate
       createdAt
+      id
       updatedAt
       owner
       __typename
@@ -6261,8 +6359,9 @@ export const deleteCombContractVoucher = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
+      voucherLastUpdate
       createdAt
+      id
       updatedAt
       owner
       __typename
@@ -6318,8 +6417,8 @@ export const createCombContract = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
       createdAt
+      id
       updatedAt
       owner
       __typename
@@ -6375,8 +6474,8 @@ export const updateCombContract = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
       createdAt
+      id
       updatedAt
       owner
       __typename
@@ -6432,8 +6531,8 @@ export const deleteCombContract = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
       createdAt
+      id
       updatedAt
       owner
       __typename

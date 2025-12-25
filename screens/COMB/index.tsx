@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {
   View,
@@ -13,6 +13,10 @@ import {
 import styles from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
+import messaging from '@react-native-firebase/messaging';
+import { Alert } from 'react-native';
+import { sendNotification } from '../../src/graphql/mutations';
+import { API, graphqlOperation } from 'aws-amplify';
 
 const MyAccount = props => {
   const navigation = useNavigation();
@@ -80,25 +84,24 @@ const MyAccount = props => {
     navigation.navigate('VwBiz2DispatchDelivery');
   };
 
-  const ReceiveDelivery = () => {
-    navigation.navigate('ReceiveDelivery2');
+  const Vw2GenerateVoucher = () => {
+    navigation.navigate('Vw2GenerateVoucher');
   };
 
-  const AcceptTransportRequest = () => {
-    navigation.navigate('AcceptTransportRequest');
+  const Vw2LinkSeller = () => {
+    navigation.navigate('Vw2LinkSeller');
   };
 
-  const VwSalesDtls4Transport = () => {
-    navigation.navigate('VwSalesDtls4Transport');
+  const CreateCOMBContract = () => {
+    navigation.navigate('CreateCOMBContract');
   };
 
-   const RegisterTransport = () => {
-    navigation.navigate('RegisterTransport');
+   const AddCOMBPersonel = () => {
+    navigation.navigate('AddCOMBPersonel');
   };
 
   
 
-  
   return (
     <SafeAreaView>
       <ScrollView>
@@ -115,15 +118,12 @@ const MyAccount = props => {
             
           /*  { label: 'Deposit Money', onPress: DepositOptions, style: styles.ClientsPressables },
           */
-             { label: 'Register Transport - Transporter', onPress: RegisterTransport, style: styles.ClientsPressables },
-           { label: 'View Account: Reset Location, Delete Account, Share Revenue, View Transport Revenue earnings and shares - Transporter', onPress: VwTransportAccount, style: styles.ClientsPressables },
+             { label: 'Register COMB Officer - Institution Owner', onPress: AddCOMBPersonel, style: styles.ClientsPressables },
+           { label: 'Create COMB Contract - Funder', onPress: CreateCOMBContract, style: styles.ClientsPressables },
            
-             { label: 'Ask for Transport - Buyer', onPress: VwSalesDtls4Transport, style: styles.ClientsPressables },
-            { label: 'View Transport Requests to: Accept - Transporter', onPress: AcceptTransportRequest, style: styles.ClientsPressables },
-            { label: 'View Transport Requests to: Receive Delivery, Cancel Delivery Request, change delivery Location - Buyer', onPress: ReceiveDelivery, style: styles.ClientsPressables },
-             { label: 'View Transport Requests to: Dispatch Delivery - Seller', onPress: VwBiz2DispatchDelivery, style: styles.ClientsPressables },
-            { label: 'Request Ride - Passenger; coming soon....',  style: styles.ClientsPressables },
-            { label: 'Accept Ride Request- Rider; coming soon....',  style: styles.ClientsPressables },
+             { label: 'Link Seller - Consumer', onPress: Vw2LinkSeller, style: styles.ClientsPressables },
+            { label: 'Generate COMB Voucher - Seller', onPress: Vw2GenerateVoucher, style: styles.ClientsPressables },
+
 
             
             ]}

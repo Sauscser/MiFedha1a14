@@ -18,6 +18,17 @@ declare global {
     interface RootParamList extends RootStackParamList {
       MemberReqChm:{ChamaNMember:string};
       VwAsBeneficiary:undefined;
+      AddCOMBPersonel:undefined;
+      ViewMessages:undefined;
+      GenerateCOMBVoucher:{
+        id:string
+        sellerAccount:string
+      };
+      LinkCOMBSeller: {id:string};
+      CreateCOMBContract: undefined;
+      Vw2LinkSeller: undefined;
+      Vw2GenerateVoucher:undefined;
+
       COMB:undefined;
       AcceptRideRequest:undefined;
       PassengerRequestRide:undefined;

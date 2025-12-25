@@ -6067,6 +6067,90 @@ export const onDeleteRiderLocationUpdate = /* GraphQL */ `
     }
   }
 `;
+export const onCreateMessages = /* GraphQL */ `
+  subscription OnCreateMessages($filter: ModelSubscriptionMessagesFilterInput) {
+    onCreateMessages(filter: $filter) {
+      id
+      senderEmail
+      messageBody
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateMessages = /* GraphQL */ `
+  subscription OnUpdateMessages($filter: ModelSubscriptionMessagesFilterInput) {
+    onUpdateMessages(filter: $filter) {
+      id
+      senderEmail
+      messageBody
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteMessages = /* GraphQL */ `
+  subscription OnDeleteMessages($filter: ModelSubscriptionMessagesFilterInput) {
+    onDeleteMessages(filter: $filter) {
+      id
+      senderEmail
+      messageBody
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateAveragePrices = /* GraphQL */ `
+  subscription OnCreateAveragePrices(
+    $filter: ModelSubscriptionAveragePricesFilterInput
+  ) {
+    onCreateAveragePrices(filter: $filter) {
+      id
+      itemName
+      itemBrand
+      itemSpecs
+      itemPrice
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateAveragePrices = /* GraphQL */ `
+  subscription OnUpdateAveragePrices(
+    $filter: ModelSubscriptionAveragePricesFilterInput
+  ) {
+    onUpdateAveragePrices(filter: $filter) {
+      id
+      itemName
+      itemBrand
+      itemSpecs
+      itemPrice
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteAveragePrices = /* GraphQL */ `
+  subscription OnDeleteAveragePrices(
+    $filter: ModelSubscriptionAveragePricesFilterInput
+  ) {
+    onDeleteAveragePrices(filter: $filter) {
+      id
+      itemName
+      itemBrand
+      itemSpecs
+      itemPrice
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const onCreateCombContractVoucher = /* GraphQL */ `
   subscription OnCreateCombContractVoucher(
     $filter: ModelSubscriptionCombContractVoucherFilterInput
@@ -6117,8 +6201,9 @@ export const onCreateCombContractVoucher = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
+      voucherLastUpdate
       createdAt
+      id
       updatedAt
       owner
       __typename
@@ -6175,8 +6260,9 @@ export const onUpdateCombContractVoucher = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
+      voucherLastUpdate
       createdAt
+      id
       updatedAt
       owner
       __typename
@@ -6233,8 +6319,9 @@ export const onDeleteCombContractVoucher = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
+      voucherLastUpdate
       createdAt
+      id
       updatedAt
       owner
       __typename
@@ -6290,8 +6377,8 @@ export const onCreateCombContract = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
       createdAt
+      id
       updatedAt
       owner
       __typename
@@ -6347,8 +6434,8 @@ export const onUpdateCombContract = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
       createdAt
+      id
       updatedAt
       owner
       __typename
@@ -6404,8 +6491,8 @@ export const onDeleteCombContract = /* GraphQL */ `
       accStatus
       generalPriceDev
       repaymentPeriod
-      id
       createdAt
+      id
       updatedAt
       owner
       __typename

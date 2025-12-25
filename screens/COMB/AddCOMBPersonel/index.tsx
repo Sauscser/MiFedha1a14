@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {createBizna, createChamaMembers, createGroup,   createPersonel,   updateCompany} from '../../../src/graphql/mutations';
+import {createBizna, createChamaMembers, createGroup,   createMessages,   createPersonel,   sendNotification,   updateCompany} from '../../../src/graphql/mutations';
 import { getBizna, getCompany, getSMAccount,    } from '../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -24,7 +24,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 
-        import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 
 export type UserReg = {
@@ -52,6 +52,8 @@ const CreateChama = (props:UserReg) => {
   const [ChmRegNo, setChmRegNo] = useState('');
   const [MmbaID, setMmbaID] = useState('');
   const [Sign2Phn, setSign2Phn] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  
 
 
   const WorkerID = ChmDesc+ChmRegNo
@@ -75,6 +77,7 @@ const CreateChama = (props:UserReg) => {
           const namess = UsrDtls.data.getSMAccount.name;
           const awsemails = UsrDtls.data.getSMAccount.awsemail;
           const owners = UsrDtls.data.getSMAccount.owner;
+          const pw = UsrDtls.data.getSMAccount.pw;
 
           const PckBiznaDtls = async () => {
             if(isLoading){
@@ -142,45 +145,15 @@ const CreateChama = (props:UserReg) => {
               const Admin49 = BznaDtls.data.getBizna.Admin49;
               const Admin50 = BznaDtls.data.getBizna.Admin50;
               
-              
-      const onCreateNewSMAc = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
-        try {
-          await API.graphql(
-          graphqlOperation(createPersonel, {
-          input: {
-            BusinessRegNo: ChmRegNo,
-            phoneKontact:ChmPhn,
-            name: namess,
-            workerId: WorkerID,
-            workId:ChmDesc,
-            email: awsemails,
-            nationalid:nationalidsss,
-            BiznaName:BiznaNames,
-            ownrsss: owners,
-                  },
-                }),
-              );
-              
-            } catch (error) {
-              if (error){
-                Alert.alert("Error! Access denied!")
-                return
-              }
-            
-            }
-            Alert.alert("Sales Officer added successfully")
-            
-            setIsLoading(false);
-            
-            
-          };
-          if (pws!==pword){
-            Alert.alert("Wrong Business password")
+         
+     
+       
+       
+          if (pw !==pword){
+            Alert.alert("Wrong Main Account password")
+            return;
           }
+          
 
           else if (ownerz === userInfo.attributes.sub 
             ||
@@ -286,11 +259,48 @@ const CreateChama = (props:UserReg) => {
             ||
             Admin50 === userInfo.attributes.email 
             ){
-              onCreateNewSMAc();
+
+              await API.graphql(
+          graphqlOperation(createPersonel, {
+          input: {
+            BusinessRegNo: ChmRegNo,
+            phoneKontact:ChmPhn,
+            name: namess,
+            workerId: WorkerID,
+            workId:ChmDesc,
+            email: awsemails,
+            nationalid:nationalidsss,
+            BiznaName:BiznaNames,
+            ownrsss: owners,
+                  },
+                }),
+              );
+
+              const Message =  await API.graphql(
+          graphqlOperation(createMessages, {
+          input: {
+            senderEmail: ChmPhn,
+            messageBody: `You have been registered as a COMB Officer under Institution ${BiznaNames}  successfully.`,
+            
+                  },
+                }),
+              );
+              
+         if (Message?.data?.createMessages){
+          await API.graphql(graphqlOperation(sendNotification, {
+  riderEmail: ChmPhn,
+  title: "MiFedha: COMB Officer Registration",
+  body: `You have been registered as a COMB Officer under Institution ${BiznaNames} successfully.`,
+}));
+    
+          Alert.alert("COMB Officer registered successfully");
+          navigation.goBack();
+         }
+              
           }
           else{
          
-            Alert.alert("Neither the Creator nor Admin of this business")
+            Alert.alert("Neither the Creator nor Admin of this Institution")
           }
       } catch (error) {
         
@@ -413,45 +423,60 @@ useEffect(() =>{
       
       {/* Header */}
       <View style={ui.header}>
-        <Text style={ui.headerTitle}>Register Sales Officer</Text>
-        <Text style={ui.headerSub}>MiFedha Business Portal</Text>
+        <Text style={ui.headerTitle}>Register COMB Officer</Text>
+        <Text style={ui.headerSub}> Institution Portal</Text>
       </View>
 
       {/* Card */}
       <View style={ui.card}>
         
-        <Text style={ui.label}>Business Phone</Text>
+        <Text style={ui.label}>Institution Account Number</Text>
         <TextInput
           placeholder="07xxxxxxxx"
-          placeholderTextColor="#aaa"
+          placeholderTextColor="#333"
           value={ChmRegNo}
           onChangeText={setChmRegNo}
           style={ui.input}
         />
 
-        <Text style={ui.label}>Sales Officer Email</Text>
+        <Text style={ui.label}>COMB Officer Email</Text>
         <TextInput
           placeholder="email@example.com"
-          placeholderTextColor="#aaa"
+          placeholderTextColor="#333"
           value={ChmPhn}
           onChangeText={setChmPhn}
           style={ui.input}
         />
 
-        <Text style={ui.label}>Business Password</Text>
-        <TextInput
-          secureTextEntry
-          value={pword}
-          onChangeText={setPW}
-          style={ui.input}
-        />
+        
 
-        <Text style={ui.label}>Sales Officer Work ID</Text>
+        <Text style={ui.label}>COMB Officer Work ID</Text>
         <TextInput
           value={ChmDesc}
           onChangeText={setChmDesc}
           style={ui.input}
         />
+        <Text style={{marginTop:10}}>
+          Main Account Password
+        </Text>
+        <View style={ui.passwordRow}>
+                    <TextInput
+                      style={[ui.input, { flex: 1 }]}
+                      value={pword}
+                      placeholder='Main Account Password'
+                      onChangeText={setPW}
+                      secureTextEntry={!showPassword}
+                      autoCapitalize="none"
+                    />
+                    <TouchableOpacity
+                      style={ui.eyeButton}
+                      onPress={() => setShowPassword((p) => !p)}
+                    >
+                      <Text style={{ color: "#fff", fontSize: 14 }}>
+                        {showPassword ? "Hide" : "Show"}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
 
         {/* Button */}
         <TouchableOpacity onPress={ChckUsrExistence} disabled={isLoading}>
@@ -484,6 +509,7 @@ const ui = StyleSheet.create({
     marginBottom: 30,
     marginTop: 40,
   },
+  
   headerTitle: {
     fontSize: 26,
     fontWeight: 'bold',
@@ -494,6 +520,7 @@ const ui = StyleSheet.create({
     color: '#f5f5f5',
     marginTop: 5,
   },
+
   card: {
     backgroundColor: '#fff',
     borderRadius: 20,
@@ -504,11 +531,19 @@ const ui = StyleSheet.create({
     elevation: 5,
   },
   label: {
-    color: '#555',
+    color: '#333',
     fontSize: 13,
     marginBottom: 5,
     marginTop: 15,
   },
+
+    passwordRow: { flexDirection: "row", 
+      marginTop: 10,
+      alignItems: "center" },
+
+          eyeButton: { marginLeft: 8, backgroundColor: "#e58d29", paddingVertical: 10, paddingHorizontal: 12, borderRadius: 8 },
+
+
   input: {
     borderWidth: 1,
     borderColor: '#e6e6e6',

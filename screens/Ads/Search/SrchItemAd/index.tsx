@@ -38,6 +38,7 @@ import {
 } from '../../../../src/graphql/mutations';
 import { FontAwesome } from '@expo/vector-icons';
 import { Image } from 'react-native'; // ✅ This is correct
+import { isLoading } from 'expo-font';
 
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -81,6 +82,8 @@ const VwSalesDtls4Transport = () => {
 
    
     const[isLoading2, setIsLoading2] = useState(false);
+        const[isLoading, setIsLoading] = useState(false);
+
       const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     
 
@@ -535,21 +538,21 @@ if (res?.data?.updateSMAccount) {
 };
 
 const validateAndTransact = async () => {
-  if (isLoading2)
+  if (isLoading)
   return
 
-  setIsLoading2(true)
+  setIsLoading(true)
   const user = await Auth.currentAuthenticatedUser();
 
   if (cart.length === 0) {
-     setIsLoading2(false)
+     setIsLoading(false)
     Alert.alert("Error", "Add items to cart.");
    
     return;
   }
 
   if (!password) {
-    setIsLoading2(false)
+    setIsLoading(false)
     Alert.alert("Error", "Enter your password to proceed.");
    
     return;
@@ -603,7 +606,7 @@ const validateAndTransact = async () => {
     const beneficiaryAmt = benAmnts.data.getSMAccount;
 
     if (!sender || sender.pw !== password) {
-       setIsLoading2(false);
+       setIsLoading(false);
       Alert.alert("Authentication Failed", "Incorrect password.");
      
       return;
@@ -642,7 +645,7 @@ const validateAndTransact = async () => {
       const compEarnings = fee - (2 * benefit);
 
       if (parseFloat(sender.balance) < totalDebit) {
-        setIsLoading2(false);
+        setIsLoading(false);
         Alert.alert("Insufficient Funds");
         
         return;
@@ -666,7 +669,7 @@ const validateAndTransact = async () => {
       const bizResult = await API.graphql(graphqlOperation(getBizna, { BusKntct: sokokntct }));
       const biz = bizResult.data.getBizna;
       if (!biz) {
-         setIsLoading2(false);
+         setIsLoading(false);
         Alert.alert(`Could not find Account for business ${bizName}`);
        
         return;
@@ -715,7 +718,6 @@ const itemIDs = item.id;
       const fullDescription = totals.description.join('\n');
       const allItemsID = totals.itemID
 
-      const allItemsIDs = itemIDs
 
       console.log(fullDescription, allItemsID);
 
@@ -802,7 +804,7 @@ const itemIDs = item.id;
     console.error("Transaction error:", err);
     Alert.alert("Error", "Something went wrong during the transaction.");
   } finally {
-    setIsLoading2(false);
+    setIsLoading(false);
   }
 };
 
@@ -812,7 +814,7 @@ const itemIDs = item.id;
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" />
-        <Text>Locating you…</Text>
+        <Text>Locating you now…</Text>
       </View>
     );
   }
@@ -953,7 +955,7 @@ const itemIDs = item.id;
           <FontAwesome name={isPasswordVisible ? 'eye' : 'eye-slash'} size={20} color="gray" />
         </TouchableOpacity>
         <TouchableOpacity onPress={validateAndTransact} style={styles.button}>
-          {isLoading2 ? (
+          {isLoading ? (
             <ActivityIndicator color="#fff" />
           ) : (
             <Text style={styles.buttonText}>Buy in Person Pay KES {(OverallTotalDebit).toFixed(2)}</Text>
@@ -1031,7 +1033,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',
-    
+    padding: 5,
     justifyContent: 'center'
   },
 
