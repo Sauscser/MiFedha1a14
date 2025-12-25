@@ -15,6 +15,8 @@ import {
 
 import {
   createCombContractVoucher,
+  createMessages,
+  sendNotification,
   updateCombContract,
 } from '../../../src/graphql/mutations';
 
@@ -224,45 +226,64 @@ const SellerConsumablesVoucherScreen = () => {
   }, [allItems, filters]);
 
   /* ---------------- Price Analysis (On Demand) ---------------- */
-  const getPriceAlert = useCallback(async (item: SokoItem): Promise<PriceAlert> => {
-    const priceNum = Number(item.sokoprice) || 0;
-    const allowedMargin = Number(item.sokolnprcntg ?? 15);
+ const getPriceAlert = useCallback(async (item: SokoItem): Promise<PriceAlert> => {
+  const priceNum = Number(item.sokoprice) || 0;
+  const allowedMargin = Number(item.sokolnprcntg ?? 15);
+  const itemSpecs = item.itemSpecifications || '';
 
-    const singleRes: any = await API.graphql(
-      graphqlOperation(listMarketConsumptions, { filter: { marketItemID: { eq: item.id } } })
-    );
-    const itemData = singleRes?.data?.listMarketConsumptions?.items || [];
-    const avgItemPrice = itemData.length
-      ? itemData.reduce((s: number, c: any) => s + Number(c.price || 0), 0) / itemData.length
-      : 0;
+  /* ---------------- Seller Average ---------------- */
+  const sellerRes: any = await API.graphql(
+    graphqlOperation(listMarketConsumptions, {
+      filter: { marketItemID: { eq: item.id } }
+    })
+  );
+  const sellerItems = sellerRes?.data?.listMarketConsumptions?.items || [];
+  const sellerAvg = sellerItems.length
+    ? sellerItems.reduce((sum: number, i: any) => sum + Number(i.price || 0), 0) / sellerItems.length
+    : priceNum; // fallback if no entry
+  const sellerDeviation = sellerAvg > 0 ? ((priceNum - sellerAvg) / sellerAvg) * 100 : 0;
 
-    const itemDeviation = avgItemPrice > 0 ? ((priceNum - avgItemPrice) / avgItemPrice) * 100 : 0;
+  /* ---------------- Market Average ---------------- */
+  const marketRes: any = await API.graphql(
+    graphqlOperation(listMarketConsumptions, {
+      filter: {
+        sokoname: { eq: item.sokoname },
+        itemBrand: { eq: item.itemBrand },
+        itemSpecifications: { eq: itemSpecs },
+      },
+    })
+  );
+  const marketItems = marketRes?.data?.listMarketConsumptions?.items || [];
+  const marketAvg = marketItems.length
+    ? marketItems.reduce((sum: number, i: any) => sum + Number(i.price || 0), 0) / marketItems.length
+    : sellerAvg; // fallback
+  const marketDeviation = marketAvg > 0 ? ((marketAvg - sellerAvg) / sellerAvg) * 100 : 0;
 
-    const avgPriceRes: any = await API.graphql(
-      graphqlOperation(listAveragePrices, {
-        filter: {
-          itemName: { eq: item.sokoname },
-          itemBrand: { eq: item.itemBrand },
-          itemSpecs: { eq: item.itemSpecifications || '' },
-        },
-      })
-    );
-    const avgList = avgPriceRes?.data?.listAveragePrices?.items || [];
-    const avgCategoryPrice = avgList.length
-      ? avgList.reduce((s: number, p: any) => s + Number(p.itemPrice || 0), 0) / avgList.length
-      : 0;
+  /* ---------------- Other Market Deviation ---------------- */
+  const avgFilter: any = { itemName: { eq: item.sokoname }, itemBrand: { eq: item.itemBrand } };
+  if (itemSpecs) avgFilter.itemSpecs = { eq: itemSpecs };
+  const avgRes: any = await API.graphql(
+    graphqlOperation(listAveragePrices, { filter: avgFilter })
+  );
+  const avgItems = avgRes?.data?.listAveragePrices?.items || [];
+  const referencePrice = avgItems.length
+    ? avgItems.reduce((sum: number, i: any) => sum + Number(i.itemPrice || 0), 0) / avgItems.length
+    : sellerAvg; // fallback
+  const otherMarketDeviation = referencePrice > 0 ? ((sellerAvg - referencePrice) / referencePrice) * 100 : 0;
 
-    return {
-      avgItemPrice,
-      itemDeviation,
-      allowedMargin,
-      consumptionMarginStatus: itemDeviation <= allowedMargin ? 'Cleared' : 'NotCleared',
-      priceFlag: itemDeviation > allowedMargin ? 'ABOVE_REFERENCE' : 'NORMAL',
-      avgCategoryPrice,
-      categoryDeviation: avgCategoryPrice > 0 ? ((priceNum - avgCategoryPrice) / avgCategoryPrice) * 100 : 0,
-      generalPriceDev: 0,
-    };
-  }, []);
+  return {
+    avgItemPrice: sellerAvg,
+    itemDeviation: sellerDeviation,
+    allowedMargin,
+    consumptionMarginStatus: sellerDeviation <= allowedMargin ? 'Cleared' : 'NotCleared',
+    priceFlag: sellerDeviation > allowedMargin ? 'ABOVE_REFERENCE' : 'NORMAL',
+    avgCategoryPrice: marketAvg,
+    categoryDeviation: marketDeviation,
+    generalPriceDev: otherMarketDeviation,
+  };
+}, []);
+
+
 
   /* ---------------- Add To Voucher ---------------- */
   const handleAddToVoucher = useCallback((item: SokoItem, alert: PriceAlert) => {
@@ -275,57 +296,123 @@ const SellerConsumablesVoucherScreen = () => {
   }, [quantities]);
 
   /* ---------------- Generate Voucher ---------------- */
-  const handleGenerateVoucher = useCallback(async () => {
-    if (updating) return;
-    setUpdating(true);
-    try {
-      const parentRes: any = await API.graphql(
-        graphqlOperation(getCombContract, { id: combContractID })
-      );
-      const parent = parentRes?.data?.getCombContract;
+ const handleGenerateVoucher = useCallback(async () => {
+  if (updating) return;
+  setUpdating(true);
+  try {
+    // Fetch parent contract
+    const parentRes: any = await API.graphql(
+      graphqlOperation(getCombContract, { id: combContractID })
+    );
+    const parent = parentRes?.data?.getCombContract;
 
-      for (const v of Object.values(voucherItems)) {
-        await API.graphql(graphqlOperation(createCombContractVoucher, {
-          input: {
-            combContractID,
-            marketItemID: v.item.id,
-            itemName: v.item.sokoname,
-            itemBrand: v.item.itemBrand,
-            itemSpecifications: v.item.itemSpecifications,
-            itemPrice: Number(v.item.sokoprice),
-            numberOfItems: v.quantity,
-            consumerEmail: parent?.consumerEmail,
-            funderEmail: parent?.funderEmail,
-            sellerEmail: parent?.sellerEmail,
-            consumerAccount: parent?.consumerAccount,
-            funderAccount: parent?.funderAccount,
-            sellerAccount: parent?.sellerAccount,
-            consumerContact: parent?.consumerContact,
-            funderContact: parent?.funderContact,
-            sellerContact: parent?.sellerContact,
-            consumerType: parent?.consumerType,
-            sellerType: parent?.sellerType,
-            funderType: parent?.funderType,
-            updateFrequency: parent?.updateFrequency,
-          },
-        }));
-      }
+    if (!parent) {
+      Alert.alert('Error', 'Parent contract not found.');
+      setUpdating(false);
+      return;
+    }
 
-      await API.graphql(graphqlOperation(updateCombContract, {
+    for (const v of Object.values(voucherItems)) {
+      // Get price alert for this item
+      const alert = await getPriceAlert(v.item);
+
+      await API.graphql(graphqlOperation(createCombContractVoucher, {
         input: {
-          id: combContractID,
-          accStatus: 'Completed',
+          combContractID,
+          marketItemID: v.item.id,
+          itemName: v.item.sokoname,
+          itemBrand: v.item.itemBrand,
+          itemSpecifications: v.item.itemSpecifications,
+          itemPrice: Number(v.item.sokoprice),
+          numberOfItems: v.quantity,
+
+          // Parent contract info
+          consumerEmail: parent.consumerEmail,
+          funderEmail: parent.funderEmail,
+          sellerEmail: parent.sellerEmail,
+          consumerAccount: parent.consumerAccount,
+          funderAccount: parent.funderAccount,
+          sellerAccount: parent.sellerAccount,
+          consumerContact: parent.consumerContact,
+          funderContact: parent.funderContact,
+          sellerContact: parent.sellerContact,
+          consumerType: parent.consumerType,
+          sellerType: parent.sellerType,
+          funderType: parent.funderType,
+          updateFrequency: parent.updateFrequency,
+
+          // Names
+          sellerName: parent.sellerName,
+          consumerName: parent.consumerName,
+          funderName: parent.funderName,
+          sellerOfficerName: parent.sellerOfficerName,
+          consumerOfficerName: parent.consumerOfficerName,
+          funderOfficerName: parent.funderOfficerName,
+
+          // Computed / Alert fields
+          marketConsumptionPrice: Number(v.item.sokoprice),
+          marketConsumptionFrequency: parent.marketConsumptionFrequency,
+          marketConsumptionTotal: parent.marketConsumptionTotal,
+          priceDeviation: alert.itemDeviation,
+          consumptionCapping: parent.consumptionCapping,
+          consumptionMarginStatus: alert.consumptionMarginStatus,
+          consumptionMargin: alert.itemDeviation,
+          referencePrice: alert.avgItemPrice,
+          referencePriceSource: 'Market Data',
+          priceFlag: alert.priceFlag,
+          generalPriceDev: alert.generalPriceDev,
+
+          // Status / Time
+          accStatus: 'Pending',
           marketConsumptionStatus: 'Approved',
           lastUpdateTime: new Date().toISOString(),
+          settlementTime: parent.settlementTime,
+          prepostPay: parent.prepostPay,
+          repaymentPeriod: parent.repaymentPeriod,
+          voucherLastUpdate: Date.now(),
         },
       }));
-
-      setVoucherItems({});
-      Alert.alert('Voucher Generated');
-    } finally {
-      setUpdating(false);
     }
-  }, [voucherItems, updating]);
+
+    // Update parent contract
+    await API.graphql(graphqlOperation(updateCombContract, {
+      input: {
+        id: combContractID,
+        accStatus: 'Completed',
+        marketConsumptionStatus: 'Approved',
+        lastUpdateTime: new Date().toISOString(),
+      },
+    }));
+
+    const Message =  await API.graphql(
+                            graphqlOperation(createMessages, {
+                            input: {
+                              senderEmail: parent.consumerEmail,
+                              messageBody: `A COMB voucher has been generated by ${parent.sellerName}. 
+                              Please go to COMB to approve or decline as per your funders specifications.`
+                              
+                                    },
+                                  }),
+                                );
+                                
+                           if (Message?.data?.createMessages){
+            
+                            await API.graphql(graphqlOperation(sendNotification, {
+                    riderEmail: parent.consumerEmail,
+                    title: "MiFedha: COMB Contract",
+                    body: `A COMB voucher has been generated by ${parent.sellerName}. 
+                              Please go to COMB to approve or decline as per your funders specifications.`,
+                  }));
+
+    setVoucherItems({});
+    Alert.alert('Voucher Generated');
+                }
+
+  } finally {
+    setUpdating(false);
+  }
+}, [voucherItems, updating]);
+
 
   /* ---------------- Render ---------------- */
   return (
@@ -424,12 +511,14 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginBottom: 8,
   },
+
   qtyBtn: {
     padding: 6,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#e58d29',
     borderRadius: 4,
   },
+  
   voucherCard: {
     borderWidth: 1,
     borderColor: '#ccc',

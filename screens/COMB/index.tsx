@@ -80,8 +80,8 @@ const MyAccount = props => {
     navigation.navigate('VwTransportAccount');
   };
 
-  const VwBiz2DispatchDelivery = () => {
-    navigation.navigate('VwBiz2DispatchDelivery');
+  const consumerApproveVoucher = () => {
+    navigation.navigate('consumerApproveVoucher');
   };
 
   const Vw2GenerateVoucher = () => {
@@ -123,6 +123,7 @@ const MyAccount = props => {
            
              { label: 'Link Seller - Consumer', onPress: Vw2LinkSeller, style: styles.ClientsPressables },
             { label: 'Generate COMB Voucher - Seller', onPress: Vw2GenerateVoucher, style: styles.ClientsPressables },
+            { label: 'Approve COMB Voucher - Consumer', onPress: consumerApproveVoucher, style: styles.ClientsPressables },
 
 
             

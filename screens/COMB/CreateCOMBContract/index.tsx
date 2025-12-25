@@ -166,6 +166,7 @@ const CreateCombContractScreen: React.FC = () => {
       let funderAccount = "";
       let funderOfficerName = "";
       let funderContact = "";
+      let funderName = ""
 
       const userInfo = await Auth.currentAuthenticatedUser();
 
@@ -192,6 +193,7 @@ const CreateCombContractScreen: React.FC = () => {
         funderAccount = form.funderEmail;
         funderOfficerName = acc.name || "Officer";
         funderContact = acc.phonecontact || "N/A";
+        funderName = acc.name || "Officer"
       } else {
         if (!form.funderAccount || !form.funderOfficerEmail)
           throw new Error(
@@ -251,6 +253,7 @@ const CreateCombContractScreen: React.FC = () => {
         funderAccount = form.funderAccount;
         funderOfficerName = officer.name || "Officer";
         funderContact = biz.bizContact || "N/A";
+        funderName = biz.busName || "Officer"
       }
 
       if (consumerAccount === funderAccount)
@@ -265,55 +268,58 @@ const CreateCombContractScreen: React.FC = () => {
         ? "POSTPAID"
         : "PREPAID";
 
-      const input = {
-        marketItemID: "SYSTEM",
-        itemName: "SYSTEM",
-        itemBrand: "SYSTEM",
-        itemSpecifications: "SYSTEM",
-        numberOfItems: 0,
-        itemPrice: 0,
+   const input = {
+  marketItemID: "SYSTEM",
+  itemName: "SYSTEM",
+  itemBrand: "SYSTEM",
+  itemSpecifications: "SYSTEM",
+  numberOfItems: 0,
+  itemPrice: 0,
 
-        consumerType: form.consumerType,
-        consumerEmail,
-        consumerAccount,
-        consumerOfficerName,
-        consumerContact,
+  consumerType: form.consumerType,
+  consumerEmail,
+  consumerAccount,
+  consumerOfficerName,
+  consumerContact,
+  consumerName,
 
-        funderType: form.funderType,
-        funderEmail,
-        funderAccount,
-        funderOfficerName,
-        funderContact,
-        consumerName,
-        sellerEmail: consumerEmail,
-        sellerAccount: consumerAccount,
+  funderType: form.funderType,
+  funderEmail,
+  funderAccount,
+  funderOfficerName,
+  funderContact,
+  funderName: funderName,       // default
+  sellerName: "",       // default
+  sellerEmail: consumerEmail,
+  sellerAccount: "None",
+  sellerOfficerName: "",
 
-        priceFlag: "NORMAL" as PriceFlag,
-        marketConsumptionStatus: "Pending",
-        accStatus: "Active",
+  priceFlag: "NORMAL" as PriceFlag,
+  marketConsumptionStatus: "Pending",
+  accStatus: "Active",
+  consumptionMarginStatus: isCapped ? "Active" : "Cancelled",
+  consumptionCapping: isCapped ? parseFloat(form.consumptionCapping || "0") : 0,
+  consumptionMargin: isCapped ? parseFloat(form.consumptionMargin || "0") : 0,
 
-        consumptionMarginStatus: isCapped
-          ? "Active"
-          : "Cancelled",
-        consumptionCapping: isCapped
-          ? parseFloat(form.consumptionCapping || "0")
-          : 0,
-        consumptionMargin: isCapped
-          ? parseFloat(form.consumptionMargin || "0")
-          : 0,
+  updateFrequency: isCapped ? form.updateFrequency || "Daily" : "Daily",
+  repaymentPeriod: isCapped ? parseFloat(form.repaymentPeriod || "0") : 0,
+  prepostPay,
+  lastUpdateTime: new Date().toISOString(),
+  settlementTime: "None",
+  referencePriceSource: "SYSTEM",
+  
+  marketConsumptionPrice: 0,
+  marketConsumptionFrequency: 0,
+  marketConsumptionTotal: 0,
+  priceDeviation: 0,
+  referencePrice: 0,
+  generalPriceDev: 0,
+  createdAt: new Date().toISOString(),
 
-        updateFrequency: isCapped
-          ? form.updateFrequency || "Daily"
-          : "Daily",
-        repaymentPeriod: isCapped
-          ? parseFloat(form.repaymentPeriod || "0")
-          : 0,
+  advertStatus: "Pending",
+  sellerType: "sellerTypePal",
+};
 
-        prepostPay,
-        lastUpdateTime: new Date().toISOString(),
-        settlementTime: "None",
-        referencePriceSource: "SYSTEM",
-      };
 
       await API.graphql(
         graphqlOperation(createCombContract, {
@@ -352,6 +358,7 @@ const CreateCombContractScreen: React.FC = () => {
         pword: "",
       });
     } catch (err: any) {
+      console.log(err)
       Alert.alert(
         "Error",
         err.message || "Failed to create contract"

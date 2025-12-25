@@ -893,7 +893,7 @@ const itemIDs = item.id;
       {/* RIGHT: Image */}
       {item.itemPhoto && (
         <Image
-          source={{ uri: `https://mifedhasalesadsphotos7c102-dev.s3.us-east-1.amazonaws.com/public/${item.itemPhoto}` }}
+          source={{ uri: `https://mifedhasalesadsphotosc789c-mifedha.s3.us-east-1.amazonaws.com/public/${item.itemPhoto}` }}
           style={styles.carouselImage}
           resizeMode="cover"
         />

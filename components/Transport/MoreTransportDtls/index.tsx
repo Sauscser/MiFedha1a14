@@ -44,7 +44,7 @@ const ViewSMDeposts = ({ SMAc }: SMAccount) => {
       <View style={styles.card}>
         <Image
           source={{
-            uri: `https://mifedhasalesadsphotos7c102-dev.s3.us-east-1.amazonaws.com/public/${transportPhoto}`,
+            uri: `https://mifedhasalesadsphotosc789c-mifedha.s3.us-east-1.amazonaws.com/public/${transportPhoto}`,
           }}
           style={styles.carouselImage}
           resizeMode="cover"

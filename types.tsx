@@ -24,6 +24,8 @@ declare global {
         id:string
         sellerAccount:string
       };
+      consumerApproveVoucher: undefined;
+
       LinkCOMBSeller: {id:string};
       CreateCOMBContract: undefined;
       Vw2LinkSeller: undefined;

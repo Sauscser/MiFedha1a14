@@ -24,7 +24,9 @@ const FetchSMNonCovLns = () => {
           consumerEmail: userInfo.attributes.email,
           sortDirection: 'DESC',
           limit: 100,
-        })
+          filter: {sellerAccount: {eq: "None"}}
+        },
+      )
       );
 
       const acc = response.data.byCOMBConsumer.items;

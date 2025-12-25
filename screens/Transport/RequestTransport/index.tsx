@@ -667,7 +667,7 @@ sendSMS(ItemDtls6.transportkntct, 'You have a new transport request from ' + AdD
       {/* RIGHT: Image */}
       {item.transportPhoto && (
         <Image
-          source={{ uri: `https://mifedhasalesadsphotos7c102-dev.s3.us-east-1.amazonaws.com/public/${item.transportPhoto}` }}
+          source={{ uri: `https://mifedhasalesadsphotosc789c-mifedha.s3.us-east-1.amazonaws.com/public/${item.transportPhoto}` }}
           style={styles.carouselImage}
           resizeMode="cover"
         />
