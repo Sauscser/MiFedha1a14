@@ -180,6 +180,9 @@ const UpdateCombSellerScreen: React.FC = () => {
         lastUpdateTime: new Date().toISOString(),
       };
 
+console.log("busName:", sellerName);
+
+
       await API.graphql(graphqlOperation(updateCombContract, 
         { input }));
 
@@ -199,7 +202,11 @@ const UpdateCombSellerScreen: React.FC = () => {
                 riderEmail: form.sellerEmail,
                 title: "MiFedha: COMB Contract",
                 body: `You have been linked to a COMB contract. Go to COMB and generate sale vouchers for the consumer to approve as per the funder's specifications.`,
-              }));}
+              }));
+            
+            }
+
+              
       Alert.alert("Success", "Seller details updated successfully.");
     } catch (err: any) {
       console.error("Update seller error:", err);

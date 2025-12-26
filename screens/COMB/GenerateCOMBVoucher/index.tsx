@@ -52,12 +52,14 @@ const ItemCard = ({
   setQuantities,
   getPriceAlert,
   handleAddToVoucher,
+  parent,
 }: {
   item: SokoItem;
   quantities: Record<string, number>;
   setQuantities: React.Dispatch<React.SetStateAction<Record<string, number>>>;
   getPriceAlert: (item: SokoItem) => Promise<PriceAlert>;
   handleAddToVoucher: (item: SokoItem, alert: PriceAlert) => void;
+  parent: any; // fetched from main screen
 }) => {
   const [alert, setAlert] = useState<PriceAlert | null>(null);
   const [loadingAlert, setLoadingAlert] = useState(false);
@@ -88,12 +90,16 @@ const ItemCard = ({
 
       {loadingAlert ? (
         <ActivityIndicator style={{ marginVertical: 6 }} />
-      ) : alert ? (
+      ) : alert && parent ? (
         <>
           <Text>Seller Avg: {alert.avgItemPrice.toFixed(2)}</Text>
-          <Text>Seller Dev: {alert.itemDeviation.toFixed(2)}%</Text>
+          <Text>
+            Seller Dev: {alert.itemDeviation.toFixed(2)}% | Funder Policy: {parent.marketConsumptionPrice}%
+          </Text>
           <Text>Market Avg: {alert.avgCategoryPrice.toFixed(2)}</Text>
-          <Text>Market Dev: {alert.categoryDeviation.toFixed(2)}%</Text>
+          <Text>
+            Market Dev: {alert.categoryDeviation.toFixed(2)}% | Funder Policy: {parent.marketConsumptionFrequency}%
+          </Text>
           <Text>Status: {alert.consumptionMarginStatus}</Text>
           <Text>Flag: {alert.priceFlag}</Text>
           <Text
@@ -105,7 +111,7 @@ const ItemCard = ({
                   : '#4caf50',
             }}
           >
-            Other Market Dev: {alert.generalPriceDev.toFixed(2)}%
+            Other Market Dev: {alert.generalPriceDev.toFixed(2)}% | Funder Policy: {parent.marketConsumptionTotal}%
           </Text>
         </>
       ) : (
@@ -176,9 +182,7 @@ const VoucherCartCard = ({
         <TouchableOpacity onPress={() => onUpdateQuantity(item.id, Math.max(1, quantity - 1))} style={styles.qtyBtn}><Text>-</Text></TouchableOpacity>
         <Text style={{ marginHorizontal: 8 }}>{quantity}</Text>
         <TouchableOpacity onPress={() => onUpdateQuantity(item.id, quantity + 1)} style={styles.qtyBtn}><Text>+</Text></TouchableOpacity>
-        <TouchableOpacity onPress={() => onRemove(item.id)} style={[styles.qtyBtn, { marginLeft: 6, backgroundColor: '#f44336' }]}>
-          <Text style={{ color: 'white' }}>Delete</Text>
-        </TouchableOpacity>
+        <TouchableOpacity onPress={() => onRemove(item.id)} style={[styles.qtyBtn, { marginLeft: 6, backgroundColor: '#f44336' }]}><Text style={{ color: 'white' }}>Delete</Text></TouchableOpacity>
       </View>
     </View>
   );
@@ -197,6 +201,7 @@ const SellerConsumablesVoucherScreen = () => {
   const [voucherItems, setVoucherItems] = useState<Record<string, { item: SokoItem; quantity: number }>>({});
   const [loading, setLoading] = useState(false);
   const [updating, setUpdating] = useState(false);
+  const [parent, setParent] = useState<any>(null); // <-- parent contract
 
   /* ---------------- Fetch Items ---------------- */
   useEffect(() => {
@@ -215,6 +220,21 @@ const SellerConsumablesVoucherScreen = () => {
     fetchItems();
   }, [sellerID]);
 
+  /* ---------------- Fetch Parent Contract ---------------- */
+  useEffect(() => {
+    const fetchParent = async () => {
+      try {
+        const res: any = await API.graphql(
+          graphqlOperation(getCombContract, { id: combContractID })
+        );
+        setParent(res?.data?.getCombContract);
+      } catch (err) {
+        Alert.alert('Error', 'Could not fetch parent contract.');
+      }
+    };
+    fetchParent();
+  }, [combContractID]);
+
   /* ---------------- Filtering ---------------- */
   const filteredItems = useMemo(() => {
     const n = (s: string) => s.toLowerCase().trim();
@@ -226,64 +246,54 @@ const SellerConsumablesVoucherScreen = () => {
   }, [allItems, filters]);
 
   /* ---------------- Price Analysis (On Demand) ---------------- */
- const getPriceAlert = useCallback(async (item: SokoItem): Promise<PriceAlert> => {
-  const priceNum = Number(item.sokoprice) || 0;
-  const allowedMargin = Number(item.sokolnprcntg ?? 15);
-  const itemSpecs = item.itemSpecifications || '';
+  const getPriceAlert = useCallback(async (item: SokoItem): Promise<PriceAlert> => {
+    const priceNum = Number(item.sokoprice) || 0;
+    const allowedMargin = Number(item.sokolnprcntg ?? 15);
+    const itemSpecs = item.itemSpecifications || '';
 
-  /* ---------------- Seller Average ---------------- */
-  const sellerRes: any = await API.graphql(
-    graphqlOperation(listMarketConsumptions, {
-      filter: { marketItemID: { eq: item.id } }
-    })
-  );
-  const sellerItems = sellerRes?.data?.listMarketConsumptions?.items || [];
-  const sellerAvg = sellerItems.length
-    ? sellerItems.reduce((sum: number, i: any) => sum + Number(i.price || 0), 0) / sellerItems.length
-    : priceNum; // fallback if no entry
-  const sellerDeviation = sellerAvg > 0 ? ((priceNum - sellerAvg) / sellerAvg) * 100 : 0;
+    // Seller Average
+    const sellerRes: any = await API.graphql(
+      graphqlOperation(listMarketConsumptions, { filter: { marketItemID: { eq: item.id } } })
+    );
+    const sellerItems = sellerRes?.data?.listMarketConsumptions?.items || [];
+    const sellerAvg = sellerItems.length
+      ? sellerItems.reduce((sum: number, i: any) => sum + Number(i.price || 0), 0) / sellerItems.length
+      : priceNum;
+    const sellerDeviation = sellerAvg > 0 ? ((priceNum - sellerAvg) / sellerAvg) * 100 : 0;
 
-  /* ---------------- Market Average ---------------- */
-  const marketRes: any = await API.graphql(
-    graphqlOperation(listMarketConsumptions, {
-      filter: {
-        sokoname: { eq: item.sokoname },
-        itemBrand: { eq: item.itemBrand },
-        itemSpecifications: { eq: itemSpecs },
-      },
-    })
-  );
-  const marketItems = marketRes?.data?.listMarketConsumptions?.items || [];
-  const marketAvg = marketItems.length
-    ? marketItems.reduce((sum: number, i: any) => sum + Number(i.price || 0), 0) / marketItems.length
-    : sellerAvg; // fallback
-  const marketDeviation = marketAvg > 0 ? ((marketAvg - sellerAvg) / sellerAvg) * 100 : 0;
+    // Market Average
+    const marketRes: any = await API.graphql(
+      graphqlOperation(listMarketConsumptions, {
+        filter: { sokoname: { eq: item.sokoname }, itemBrand: { eq: item.itemBrand }, itemSpecifications: { eq: itemSpecs } }
+      })
+    );
+    const marketItems = marketRes?.data?.listMarketConsumptions?.items || [];
+    const marketAvg = marketItems.length
+      ? marketItems.reduce((sum: number, i: any) => sum + Number(i.price || 0), 0) / marketItems.length
+      : sellerAvg;
+    const marketDeviation = marketAvg > 0 ? ((marketAvg - sellerAvg) / sellerAvg) * 100 : 0;
 
-  /* ---------------- Other Market Deviation ---------------- */
-  const avgFilter: any = { itemName: { eq: item.sokoname }, itemBrand: { eq: item.itemBrand } };
-  if (itemSpecs) avgFilter.itemSpecs = { eq: itemSpecs };
-  const avgRes: any = await API.graphql(
-    graphqlOperation(listAveragePrices, { filter: avgFilter })
-  );
-  const avgItems = avgRes?.data?.listAveragePrices?.items || [];
-  const referencePrice = avgItems.length
-    ? avgItems.reduce((sum: number, i: any) => sum + Number(i.itemPrice || 0), 0) / avgItems.length
-    : sellerAvg; // fallback
-  const otherMarketDeviation = referencePrice > 0 ? ((sellerAvg - referencePrice) / referencePrice) * 100 : 0;
+    // Other Market Deviation
+    const avgFilter: any = { itemName: { eq: item.sokoname }, itemBrand: { eq: item.itemBrand } };
+    if (itemSpecs) avgFilter.itemSpecs = { eq: itemSpecs };
+    const avgRes: any = await API.graphql(graphqlOperation(listAveragePrices, { filter: avgFilter }));
+    const avgItems = avgRes?.data?.listAveragePrices?.items || [];
+    const referencePrice = avgItems.length
+      ? avgItems.reduce((sum: number, i: any) => sum + Number(i.itemPrice || 0), 0) / avgItems.length
+      : sellerAvg;
+    const otherMarketDeviation = referencePrice > 0 ? ((sellerAvg - referencePrice) / referencePrice) * 100 : 0;
 
-  return {
-    avgItemPrice: sellerAvg,
-    itemDeviation: sellerDeviation,
-    allowedMargin,
-    consumptionMarginStatus: sellerDeviation <= allowedMargin ? 'Cleared' : 'NotCleared',
-    priceFlag: sellerDeviation > allowedMargin ? 'ABOVE_REFERENCE' : 'NORMAL',
-    avgCategoryPrice: marketAvg,
-    categoryDeviation: marketDeviation,
-    generalPriceDev: otherMarketDeviation,
-  };
-}, []);
-
-
+    return {
+      avgItemPrice: sellerAvg,
+      itemDeviation: sellerDeviation,
+      allowedMargin,
+      consumptionMarginStatus: sellerDeviation <= allowedMargin ? 'Cleared' : 'NotCleared',
+      priceFlag: sellerDeviation > allowedMargin ? 'ABOVE_REFERENCE' : 'NORMAL',
+      avgCategoryPrice: marketAvg,
+      categoryDeviation: marketDeviation,
+      generalPriceDev: otherMarketDeviation,
+    };
+  }, []);
 
   /* ---------------- Add To Voucher ---------------- */
   const handleAddToVoucher = useCallback((item: SokoItem, alert: PriceAlert) => {
@@ -296,123 +306,110 @@ const SellerConsumablesVoucherScreen = () => {
   }, [quantities]);
 
   /* ---------------- Generate Voucher ---------------- */
- const handleGenerateVoucher = useCallback(async () => {
-  if (updating) return;
-  setUpdating(true);
-  try {
-    // Fetch parent contract
-    const parentRes: any = await API.graphql(
-      graphqlOperation(getCombContract, { id: combContractID })
-    );
-    const parent = parentRes?.data?.getCombContract;
+  const handleGenerateVoucher = useCallback(async () => {
+    if (updating || !parent) return;
+    setUpdating(true);
+    try {
+      for (const v of Object.values(voucherItems)) {
+        const alert = await getPriceAlert(v.item);
+        await API.graphql(graphqlOperation(createCombContractVoucher, {
+          input: {
+            combContractID,
+            marketItemID: v.item.id,
+            itemName: v.item.sokoname,
+            itemBrand: v.item.itemBrand,
+            itemSpecifications: v.item.itemSpecifications,
+            itemPrice: Number(v.item.sokoprice),
+            numberOfItems: v.quantity,
 
-    if (!parent) {
-      Alert.alert('Error', 'Parent contract not found.');
-      setUpdating(false);
-      return;
-    }
+            // Parent contract info
+            consumerEmail: parent.consumerEmail,
+            funderEmail: parent.funderEmail,
+            sellerEmail: parent.sellerEmail,
+            consumerAccount: parent.consumerAccount,
+            funderAccount: parent.funderAccount,
+            sellerAccount: parent.sellerAccount,
+            consumerContact: parent.consumerContact,
+            funderContact: parent.funderContact,
+            sellerContact: parent.sellerContact,
+            consumerType: parent.consumerType,
+            sellerType: parent.sellerType,
+            funderType: parent.funderType,
+            updateFrequency: parent.updateFrequency,
 
-    for (const v of Object.values(voucherItems)) {
-      // Get price alert for this item
-      const alert = await getPriceAlert(v.item);
+            // Names
+            sellerName: parent.sellerName,
+            consumerName: parent.consumerName,
+            funderName: parent.funderName,
+            sellerOfficerName: parent.sellerOfficerName,
+            consumerOfficerName: parent.consumerOfficerName,
+            funderOfficerName: parent.funderOfficerName,
 
-      await API.graphql(graphqlOperation(createCombContractVoucher, {
+            // Computed / Alert fields
+            marketConsumptionPrice: parent.marketConsumptionPrice,
+            marketConsumptionFrequency: parent.marketConsumptionFrequency,
+            marketConsumptionTotal: parent.marketConsumptionTotal,
+            
+            priceDeviation: alert.itemDeviation,
+            referencePrice: alert.avgItemPrice,
+            generalPriceDev: alert.generalPriceDev,
+
+            
+            consumptionCapping: parent.consumptionCapping,
+            consumptionMarginStatus: parent.consumptionMarginStatus,
+            consumptionMargin: alert.itemDeviation,
+            referencePriceSource: 'Market Data',
+            priceFlag: alert.priceFlag,
+            
+            
+
+            // Status / Time
+            accStatus: 'Pending',
+            marketConsumptionStatus: 'Approved',
+            lastUpdateTime: new Date().toISOString(),
+            settlementTime: parent.settlementTime,
+            prepostPay: parent.prepostPay,
+            repaymentPeriod: parent.repaymentPeriod,
+            voucherLastUpdate: Date.now(),
+          },
+        }));
+      }
+
+      // Update parent contract
+      await API.graphql(graphqlOperation(updateCombContract, {
         input: {
-          combContractID,
-          marketItemID: v.item.id,
-          itemName: v.item.sokoname,
-          itemBrand: v.item.itemBrand,
-          itemSpecifications: v.item.itemSpecifications,
-          itemPrice: Number(v.item.sokoprice),
-          numberOfItems: v.quantity,
-
-          // Parent contract info
-          consumerEmail: parent.consumerEmail,
-          funderEmail: parent.funderEmail,
-          sellerEmail: parent.sellerEmail,
-          consumerAccount: parent.consumerAccount,
-          funderAccount: parent.funderAccount,
-          sellerAccount: parent.sellerAccount,
-          consumerContact: parent.consumerContact,
-          funderContact: parent.funderContact,
-          sellerContact: parent.sellerContact,
-          consumerType: parent.consumerType,
-          sellerType: parent.sellerType,
-          funderType: parent.funderType,
-          updateFrequency: parent.updateFrequency,
-
-          // Names
-          sellerName: parent.sellerName,
-          consumerName: parent.consumerName,
-          funderName: parent.funderName,
-          sellerOfficerName: parent.sellerOfficerName,
-          consumerOfficerName: parent.consumerOfficerName,
-          funderOfficerName: parent.funderOfficerName,
-
-          // Computed / Alert fields
-          marketConsumptionPrice: Number(v.item.sokoprice),
-          marketConsumptionFrequency: parent.marketConsumptionFrequency,
-          marketConsumptionTotal: parent.marketConsumptionTotal,
-          priceDeviation: alert.itemDeviation,
-          consumptionCapping: parent.consumptionCapping,
-          consumptionMarginStatus: alert.consumptionMarginStatus,
-          consumptionMargin: alert.itemDeviation,
-          referencePrice: alert.avgItemPrice,
-          referencePriceSource: 'Market Data',
-          priceFlag: alert.priceFlag,
-          generalPriceDev: alert.generalPriceDev,
-
-          // Status / Time
-          accStatus: 'Pending',
+          id: combContractID,
+          accStatus: 'Completed',
           marketConsumptionStatus: 'Approved',
           lastUpdateTime: new Date().toISOString(),
-          settlementTime: parent.settlementTime,
-          prepostPay: parent.prepostPay,
-          repaymentPeriod: parent.repaymentPeriod,
-          voucherLastUpdate: Date.now(),
         },
       }));
+
+      // Send message and notification
+      const Message = await API.graphql(
+        graphqlOperation(createMessages, {
+          input: {
+            senderEmail: parent.consumerEmail,
+            messageBody: `A COMB voucher has been generated by ${parent.sellerName}. Please go to COMB to approve or decline as per your funders specifications.`
+          },
+        })
+      );
+
+      if (Message?.data?.createMessages) {
+        await API.graphql(graphqlOperation(sendNotification, {
+          riderEmail: parent.consumerEmail,
+          title: "MiFedha: COMB Contract",
+          body: `A COMB voucher has been generated by ${parent.sellerName}. Please go to COMB to approve or decline as per your funders specifications.`,
+        }));
+      }
+
+      setVoucherItems({});
+      Alert.alert('Voucher Generated');
+
+    } finally {
+      setUpdating(false);
     }
-
-    // Update parent contract
-    await API.graphql(graphqlOperation(updateCombContract, {
-      input: {
-        id: combContractID,
-        accStatus: 'Completed',
-        marketConsumptionStatus: 'Approved',
-        lastUpdateTime: new Date().toISOString(),
-      },
-    }));
-
-    const Message =  await API.graphql(
-                            graphqlOperation(createMessages, {
-                            input: {
-                              senderEmail: parent.consumerEmail,
-                              messageBody: `A COMB voucher has been generated by ${parent.sellerName}. 
-                              Please go to COMB to approve or decline as per your funders specifications.`
-                              
-                                    },
-                                  }),
-                                );
-                                
-                           if (Message?.data?.createMessages){
-            
-                            await API.graphql(graphqlOperation(sendNotification, {
-                    riderEmail: parent.consumerEmail,
-                    title: "MiFedha: COMB Contract",
-                    body: `A COMB voucher has been generated by ${parent.sellerName}. 
-                              Please go to COMB to approve or decline as per your funders specifications.`,
-                  }));
-
-    setVoucherItems({});
-    Alert.alert('Voucher Generated');
-                }
-
-  } finally {
-    setUpdating(false);
-  }
-}, [voucherItems, updating]);
-
+  }, [voucherItems, updating, parent]);
 
   /* ---------------- Render ---------------- */
   return (
@@ -436,6 +433,7 @@ const SellerConsumablesVoucherScreen = () => {
               setQuantities={setQuantities}
               getPriceAlert={getPriceAlert}
               handleAddToVoucher={handleAddToVoucher}
+              parent={parent}
             />
           )}
           contentContainerStyle={{ paddingBottom: 420 }}
@@ -472,11 +470,11 @@ const SellerConsumablesVoucherScreen = () => {
       {/* Generate Button */}
       <Pressable
         onPress={handleGenerateVoucher}
-        disabled={updating || !Object.keys(voucherItems).length}
+        disabled={updating || !Object.keys(voucherItems).length || !parent}
         style={[
           styles.button,
           {
-            backgroundColor: updating || !Object.keys(voucherItems).length ? '#ccc' : '#f5a623',
+            backgroundColor: updating || !Object.keys(voucherItems).length || !parent ? '#ccc' : '#f5a623',
             position: 'absolute',
             bottom: 10,
             left: 10,
@@ -518,7 +516,7 @@ const styles = StyleSheet.create({
     borderColor: '#e58d29',
     borderRadius: 4,
   },
-  
+
   voucherCard: {
     borderWidth: 1,
     borderColor: '#ccc',

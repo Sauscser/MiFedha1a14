@@ -51,6 +51,9 @@ type FormState = {
   updateFrequency?: string;
   repaymentPeriod?: string;
 
+  MiFedhaMarketDev?: string;
+  allMarketDev?: string;
+
   pword?: string;
 };
 
@@ -69,11 +72,77 @@ const CreateCombContractScreen: React.FC = () => {
   const update = <K extends keyof FormState>(k: K, v: FormState[K]) =>
     setForm((p) => ({ ...p, [k]: v }));
 
+  /* ---------------- VALIDATION HELPERS ---------------- */
+
+
+
   /* ---------------- CREATE CONTRACT ---------------- */
 
   const handleCreateContract = async () => {
     if (isLoading) return;
     setIsLoading(true);
+
+    const getRequiredFields = (form: FormState) => {
+  const required: { field: keyof FormState; label: string }[] = [];
+
+  // Consumer fields
+  if (form.consumerType === "consumerTypePal") {
+    required.push({ field: "consumerEmail", label: "Consumer Email" });
+  } else {
+    required.push(
+      { field: "consumerAccount", label: "Consumer Business Account" },
+      { field: "consumerOfficerEmail", label: "Consumer Officer Email" }
+    );
+  }
+
+  // Funder fields
+  if (form.funderType === "funderTypePal") {
+    required.push({ field: "funderEmail", label: "Funder Email" });
+  } else {
+    required.push(
+      { field: "funderAccount", label: "Funder Institution/Business Account" },
+      { field: "funderOfficerEmail", label: "Funder Officer Email" }
+    );
+  }
+
+  // Password is always required
+  required.push({ field: "pword", label: "Main Account Password" });
+
+  // Consumption fields if capped
+  if (form.capConsumption) {
+    required.push(
+      { field: "consumptionCapping", label: "Consumption Capping" },
+      { field: "consumptionMargin", label: "Consumption Margin" },
+      { field: "updateFrequency", label: "Update Frequency" },
+      { field: "repaymentPeriod", label: "Payment Period" },
+      { field: "MiFedhaMarketDev", label: "MiFedha Market Deviation Margin" },
+      { field: "allMarketDev", label: "All Market Deviation" }
+    );
+  }
+
+  return required;
+};
+
+const validateForm = (form: FormState) => {
+ 
+  const required = getRequiredFields(form);
+  for (const { field, label } of required) {
+    if (!form[field] || form[field]?.toString().trim() === "") {
+      Alert.alert("Missing Field", `${label} is required.`);
+      return false;
+    }
+
+  }
+  return true;
+};
+
+setIsLoading(true);
+
+if (!validateForm(form)) {
+  setIsLoading(false); // stop spinner so user can correct
+  return;
+}
+
 
     try {
       /* ================= CONSUMER ================= */
@@ -276,6 +345,18 @@ const CreateCombContractScreen: React.FC = () => {
   numberOfItems: 0,
   itemPrice: 0,
 
+  marketConsumptionPrice: isCapped
+  ? parseFloat(form.consumptionMargin || "0")
+  : 0,
+
+marketConsumptionFrequency: isCapped
+  ? parseFloat(form.MiFedhaMarketDev || "0")
+  : 0,
+
+marketConsumptionTotal: isCapped
+  ? parseFloat(form.allMarketDev || "0")
+  : 0,
+
   consumerType: form.consumerType,
   consumerEmail,
   consumerAccount,
@@ -308,9 +389,9 @@ const CreateCombContractScreen: React.FC = () => {
   settlementTime: "None",
   referencePriceSource: "SYSTEM",
   
-  marketConsumptionPrice: 0,
-  marketConsumptionFrequency: 0,
-  marketConsumptionTotal: 0,
+ 
+
+
   priceDeviation: 0,
   referencePrice: 0,
   generalPriceDev: 0,
@@ -361,7 +442,7 @@ const CreateCombContractScreen: React.FC = () => {
       console.log(err)
       Alert.alert(
         "Error",
-        err.message || "Failed to create contract"
+        err.message || "Ensure you enter details correctly!"
       );
     } finally {
       setIsLoading(false);
@@ -516,10 +597,25 @@ const CreateCombContractScreen: React.FC = () => {
             />
             <TextInput
               style={styles.input}
-              placeholder="Consumption Margin: %"
+              placeholder="Seller Price Deviation Margin: %"
               keyboardType="numeric"
               value={form.consumptionMargin}
               onChangeText={(v) => update("consumptionMargin", v)}
+            />
+
+             <TextInput
+              style={styles.input}
+              placeholder="MiFedha Price Market Deviation Margin %"
+              value={form.MiFedhaMarketDev}
+              onChangeText={(v) => update("MiFedhaMarketDev", v)}
+              keyboardType="numeric"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="All Markets Price Deviation Margin %"
+              keyboardType="numeric"
+              value={form.allMarketDev}
+              onChangeText={(v) => update("allMarketDev", v)}
             />
             <TextInput
               style={styles.input}
@@ -535,7 +631,7 @@ const CreateCombContractScreen: React.FC = () => {
               value={form.repaymentPeriod}
               onChangeText={(v) => update("repaymentPeriod", v)}
             />
-            
+
           </>
         )}
 

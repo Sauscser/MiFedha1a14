@@ -304,7 +304,7 @@ const CreateChama = (props:UserReg) => {
           }
       } catch (error) {
         
-        if (error){Alert.alert("Error! Access denied!")
+        if (error){Alert.alert("Error! Ensure you enter details correctly!")
       return}
       }
   
