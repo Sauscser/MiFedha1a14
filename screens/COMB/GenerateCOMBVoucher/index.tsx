@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import {
   View, Text, FlatList, TextInput, TouchableOpacity,
-  StyleSheet, ActivityIndicator, Alert, Pressable
+  StyleSheet, ActivityIndicator, Alert, Pressable, Animated, Easing
 } from 'react-native';
 import { API, graphqlOperation } from 'aws-amplify';
 import { useRoute } from '@react-navigation/native';
@@ -21,7 +21,6 @@ import {
 } from '../../../src/graphql/mutations';
 
 /* -------------------- Types -------------------- */
-
 type SokoItem = {
   id: string;
   sokoname: string;
@@ -44,22 +43,39 @@ type PriceAlert = {
   generalPriceDev: number;
 };
 
-/* -------------------- Item Card -------------------- */
+/* -------------------- Helpers -------------------- */
+const handleError = (msg: string, err?: any) => {
+  console.error(err);
+  Alert.alert('Error', msg);
+};
 
+const useDebouncedState = <T,>(initial: T, delay = 250) => {
+  const [value, setValue] = useState<T>(initial);
+  const [debounced, setDebounced] = useState<T>(initial);
+  useEffect(() => {
+    const t = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(t);
+  }, [value, delay]);
+  return { value, setValue, debounced };
+};
+
+/* -------------------- Item Card -------------------- */
 const ItemCard = ({
   item,
   quantities,
   setQuantities,
-  getPriceAlert,
+  getPriceAlertCached,
   handleAddToVoucher,
   parent,
+  voucherItems,
 }: {
   item: SokoItem;
   quantities: Record<string, number>;
   setQuantities: React.Dispatch<React.SetStateAction<Record<string, number>>>;
-  getPriceAlert: (item: SokoItem) => Promise<PriceAlert>;
+  getPriceAlertCached: (item: SokoItem) => Promise<PriceAlert>;
   handleAddToVoucher: (item: SokoItem, alert: PriceAlert) => void;
-  parent: any; // fetched from main screen
+  parent: any;
+  voucherItems: Record<string, { item: SokoItem; quantity: number }>;
 }) => {
   const [alert, setAlert] = useState<PriceAlert | null>(null);
   const [loadingAlert, setLoadingAlert] = useState(false);
@@ -71,14 +87,26 @@ const ItemCard = ({
     if (loadingAlert) return;
     setLoadingAlert(true);
     try {
-      const res = await getPriceAlert(item);
+      const res = await getPriceAlertCached(item);
       setAlert(res);
-    } catch {
-      Alert.alert('Error', 'Could not calculate deviations.');
+    } catch (err) {
+      handleError('Could not calculate deviations.', err);
     } finally {
       setLoadingAlert(false);
     }
   };
+
+  const getCurrentVoucherTotal = () =>
+    Object.values(voucherItems).reduce(
+      (sum, v) => sum + Number(v.item.sokoprice) * Number(v.quantity),
+      0
+    );
+
+  const totalCostAfterAdd = qty * priceNum + getCurrentVoucherTotal();
+  const canAdd =
+    !parent ||
+    parent.consumptionMarginStatus !== 'Active' ||
+    totalCostAfterAdd <= Number(parent?.consumptionCapping ?? 0);
 
   return (
     <View style={styles.card}>
@@ -105,8 +133,7 @@ const ItemCard = ({
           <Text
             style={{
               color:
-                Math.abs(alert.generalPriceDev) >
-                Number(item.sokolnprcntg ?? 15)
+                Math.abs(alert.generalPriceDev) > Number(item.sokolnprcntg ?? 15)
                   ? '#f44336'
                   : '#4caf50',
             }}
@@ -115,10 +142,7 @@ const ItemCard = ({
           </Text>
         </>
       ) : (
-        <TouchableOpacity
-          onPress={runDeviationCheck}
-          style={[styles.qtyBtn, { marginVertical: 6 }]}
-        >
+        <TouchableOpacity onPress={runDeviationCheck} style={[styles.qtyBtn, { marginVertical: 6 }]}>
           <Text>Check Deviations</Text>
         </TouchableOpacity>
       )}
@@ -132,23 +156,24 @@ const ItemCard = ({
         >
           <Text>-</Text>
         </TouchableOpacity>
-
         <Text style={{ marginHorizontal: 8 }}>{qty}</Text>
-
         <TouchableOpacity
           onPress={() => setQuantities(q => ({ ...q, [item.id]: qty + 1 }))}
           style={styles.qtyBtn}
         >
           <Text>+</Text>
         </TouchableOpacity>
-
         <TouchableOpacity
           onPress={() =>
             alert
               ? handleAddToVoucher(item, alert)
               : Alert.alert('Check Price', 'Run deviation check first.')
           }
-          style={[styles.qtyBtn, { marginLeft: 10, backgroundColor: '#4caf50' }]}
+          style={[
+            styles.qtyBtn,
+            { marginLeft: 10, backgroundColor: canAdd ? '#4caf50' : '#ccc' },
+          ]}
+          disabled={!canAdd}
         >
           <Text style={{ color: 'white' }}>Add to Voucher</Text>
         </TouchableOpacity>
@@ -158,7 +183,6 @@ const ItemCard = ({
 };
 
 /* -------------------- Voucher Cart Card -------------------- */
-
 const VoucherCartCard = ({
   item,
   quantity,
@@ -179,29 +203,68 @@ const VoucherCartCard = ({
       <Text>Total: KES {(priceNum * quantity).toFixed(2)}</Text>
 
       <View style={{ flexDirection: 'row', marginTop: 6, alignItems: 'center' }}>
-        <TouchableOpacity onPress={() => onUpdateQuantity(item.id, Math.max(1, quantity - 1))} style={styles.qtyBtn}><Text>-</Text></TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => onUpdateQuantity(item.id, Math.max(1, quantity - 1))}
+          style={styles.qtyBtn}
+        >
+          <Text>-</Text>
+        </TouchableOpacity>
         <Text style={{ marginHorizontal: 8 }}>{quantity}</Text>
-        <TouchableOpacity onPress={() => onUpdateQuantity(item.id, quantity + 1)} style={styles.qtyBtn}><Text>+</Text></TouchableOpacity>
-        <TouchableOpacity onPress={() => onRemove(item.id)} style={[styles.qtyBtn, { marginLeft: 6, backgroundColor: '#f44336' }]}><Text style={{ color: 'white' }}>Delete</Text></TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => onUpdateQuantity(item.id, quantity + 1)}
+          style={styles.qtyBtn}
+        >
+          <Text>+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => onRemove(item.id)}
+          style={[styles.qtyBtn, { marginLeft: 6, backgroundColor: '#f44336' }]}
+        >
+          <Text style={{ color: 'white' }}>Delete</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
 /* -------------------- Main Screen -------------------- */
-
 const SellerConsumablesVoucherScreen = () => {
   const route = useRoute<any>();
   const sellerID = route.params.sellerAccount;
   const combContractID = route.params.id;
 
-  const [filters, setFilters] = useState({ sokoname: '', itemBrand: '', itemSpecifications: '' });
+  const { value: filters, setValue: setFilters, debounced: debouncedFilters } = useDebouncedState({
+    sokoname: '',
+    itemBrand: '',
+    itemSpecifications: '',
+  }, 300);
+
   const [allItems, setAllItems] = useState<SokoItem[]>([]);
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [voucherItems, setVoucherItems] = useState<Record<string, { item: SokoItem; quantity: number }>>({});
   const [loading, setLoading] = useState(false);
   const [updating, setUpdating] = useState(false);
-  const [parent, setParent] = useState<any>(null); // <-- parent contract
+  const [parent, setParent] = useState<any>(null);
+  const [priceAlerts, setPriceAlerts] = useState<Record<string, PriceAlert>>({});
+
+  const bottomAnim = useRef(new Animated.Value(0)).current;
+
+  // Animate bottom container
+  useEffect(() => {
+    Animated.timing(bottomAnim, {
+      toValue: Object.keys(voucherItems).length ? 1 : 0,
+      duration: 300,
+      easing: Easing.out(Easing.ease),
+      useNativeDriver: false,
+    }).start();
+  }, [voucherItems]);
+
+  const bottomContainerHeight = bottomAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 240],
+  });
+
+  const bottomPadding = Object.keys(voucherItems).length ? 250 : 20;
 
   /* ---------------- Fetch Items ---------------- */
   useEffect(() => {
@@ -212,46 +275,49 @@ const SellerConsumablesVoucherScreen = () => {
           graphqlOperation(listSokoAds, { filter: { sokokntct: { eq: sellerID } } })
         );
         setAllItems(res?.data?.listSokoAds?.items || []);
-      } catch {
-        Alert.alert('Error', 'Could not load items.');
+      } catch (err) {
+        handleError('Could not load items.', err);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchItems();
   }, [sellerID]);
 
   /* ---------------- Fetch Parent Contract ---------------- */
-  useEffect(() => {
-    const fetchParent = async () => {
-      try {
-        const res: any = await API.graphql(
-          graphqlOperation(getCombContract, { id: combContractID })
-        );
-        setParent(res?.data?.getCombContract);
-      } catch (err) {
-        Alert.alert('Error', 'Could not fetch parent contract.');
-      }
-    };
-    fetchParent();
+  const fetchParent = useCallback(async () => {
+    try {
+      const res: any = await API.graphql(
+        graphqlOperation(getCombContract, { id: combContractID })
+      );
+      setParent(res?.data?.getCombContract);
+    } catch (err) {
+      handleError('Could not fetch parent contract.', err);
+    }
   }, [combContractID]);
+
+  useEffect(() => {
+    fetchParent();
+  }, [fetchParent]);
 
   /* ---------------- Filtering ---------------- */
   const filteredItems = useMemo(() => {
+    const f = debouncedFilters;
     const n = (s: string) => s.toLowerCase().trim();
     return allItems.filter(i =>
-      (!filters.sokoname || n(i.sokoname).includes(n(filters.sokoname))) &&
-      (!filters.itemBrand || n(i.itemBrand).includes(n(filters.itemBrand))) &&
-      (!filters.itemSpecifications || n(i.itemSpecifications || '').includes(n(filters.itemSpecifications)))
+      (!f.sokoname || n(i.sokoname).includes(n(f.sokoname))) &&
+      (!f.itemBrand || n(i.itemBrand).includes(n(f.itemBrand))) &&
+      (!f.itemSpecifications || n(i.itemSpecifications || '').includes(n(f.itemSpecifications)))
     );
-  }, [allItems, filters]);
+  }, [allItems, debouncedFilters]);
 
-  /* ---------------- Price Analysis (On Demand) ---------------- */
+  /* ---------------- Price Analysis + Caching ---------------- */
   const getPriceAlert = useCallback(async (item: SokoItem): Promise<PriceAlert> => {
     const priceNum = Number(item.sokoprice) || 0;
     const allowedMargin = Number(item.sokolnprcntg ?? 15);
     const itemSpecs = item.itemSpecifications || '';
 
-    // Seller Average
+    // Seller Average (historical for this item)
     const sellerRes: any = await API.graphql(
       graphqlOperation(listMarketConsumptions, { filter: { marketItemID: { eq: item.id } } })
     );
@@ -261,7 +327,7 @@ const SellerConsumablesVoucherScreen = () => {
       : priceNum;
     const sellerDeviation = sellerAvg > 0 ? ((priceNum - sellerAvg) / sellerAvg) * 100 : 0;
 
-    // Market Average
+    // Market Average (same name/brand/specs)
     const marketRes: any = await API.graphql(
       graphqlOperation(listMarketConsumptions, {
         filter: { sokoname: { eq: item.sokoname }, itemBrand: { eq: item.itemBrand }, itemSpecifications: { eq: itemSpecs } }
@@ -273,7 +339,7 @@ const SellerConsumablesVoucherScreen = () => {
       : sellerAvg;
     const marketDeviation = marketAvg > 0 ? ((marketAvg - sellerAvg) / sellerAvg) * 100 : 0;
 
-    // Other Market Deviation
+    // Other Market Deviation (reference averages table)
     const avgFilter: any = { itemName: { eq: item.sokoname }, itemBrand: { eq: item.itemBrand } };
     if (itemSpecs) avgFilter.itemSpecs = { eq: itemSpecs };
     const avgRes: any = await API.graphql(graphqlOperation(listAveragePrices, { filter: avgFilter }));
@@ -295,134 +361,212 @@ const SellerConsumablesVoucherScreen = () => {
     };
   }, []);
 
+  const getPriceAlertCached = useCallback(async (item: SokoItem) => {
+    const cached = priceAlerts[item.id];
+    if (cached) return cached;
+    const res = await getPriceAlert(item);
+    setPriceAlerts(prev => ({ ...prev, [item.id]: res }));
+    return res;
+  }, [priceAlerts, getPriceAlert]);
+
+  /* ---------------- Voucher Helpers ---------------- */
+  const cap = Number(parent?.consumptionCapping ?? 0);
+  const isActiveCap = parent?.consumptionMarginStatus === 'Active';
+
+  const getCurrentVoucherTotal = () =>
+    Object.values(voucherItems).reduce(
+      (sum, v) => sum + Number(v.item.sokoprice) * Number(v.quantity),
+      0
+    );
+
+  const getRemainingFunds = () =>
+    isActiveCap ? cap - getCurrentVoucherTotal() : null;
+
+  const getFundsUsedPercentRaw = () =>
+    isActiveCap && cap > 0 ? (getCurrentVoucherTotal() / cap) * 100 : 0;
+
+  const getFundsUsedPercent = () => Math.min(getFundsUsedPercentRaw(), 100);
+
+  const progressColor = (() => {
+    const p = getFundsUsedPercentRaw();
+    if (p > 100) return '#f44336'; // red
+    if (p > 80) return '#f5a623'; // amber
+    return '#4caf50'; // green
+  })();
+
   /* ---------------- Add To Voucher ---------------- */
-  const handleAddToVoucher = useCallback((item: SokoItem, alert: PriceAlert) => {
-    const qty = quantities[item.id] || 1;
-    setVoucherItems(v => ({
-      ...v,
-      [item.id]: { item, quantity: (v[item.id]?.quantity || 0) + qty },
-    }));
-    Alert.alert('Added', `${item.sokoname} x${qty}`);
-  }, [quantities]);
+  const handleAddToVoucher = useCallback(
+    (item: SokoItem, alert: PriceAlert) => {
+      const qty = quantities[item.id] || 1;
+      const itemTotal = Number(item.sokoprice) * qty;
+      const currentTotal = getCurrentVoucherTotal();
+
+      if (isActiveCap && currentTotal + itemTotal > cap) {
+        Alert.alert('Insufficient Funds', "Adding this item would exceed the consumer's allocated funds.");
+        return;
+      }
+
+      setVoucherItems(v => ({
+        ...v,
+        [item.id]: { item, quantity: (v[item.id]?.quantity || 0) + qty },
+      }));
+    },
+    [quantities, cap, isActiveCap]
+  );
 
   /* ---------------- Generate Voucher ---------------- */
   const handleGenerateVoucher = useCallback(async () => {
     if (updating || !parent) return;
     setUpdating(true);
+
     try {
-      for (const v of Object.values(voucherItems)) {
-        const alert = await getPriceAlert(v.item);
-        await API.graphql(graphqlOperation(createCombContractVoucher, {
-          input: {
-            combContractID,
-            marketItemID: v.item.id,
-            itemName: v.item.sokoname,
-            itemBrand: v.item.itemBrand,
-            itemSpecifications: v.item.itemSpecifications,
-            itemPrice: Number(v.item.sokoprice),
-            numberOfItems: v.quantity,
+      const totalVoucherAmount = Object.values(voucherItems).reduce(
+        (sum, v) => sum + Number(v.item.sokoprice) * v.quantity,
+        0
+      );
 
-            // Parent contract info
-            consumerEmail: parent.consumerEmail,
-            funderEmail: parent.funderEmail,
-            sellerEmail: parent.sellerEmail,
-            consumerAccount: parent.consumerAccount,
-            funderAccount: parent.funderAccount,
-            sellerAccount: parent.sellerAccount,
-            consumerContact: parent.consumerContact,
-            funderContact: parent.funderContact,
-            sellerContact: parent.sellerContact,
-            consumerType: parent.consumerType,
-            sellerType: parent.sellerType,
-            funderType: parent.funderType,
-            updateFrequency: parent.updateFrequency,
-
-            // Names
-            sellerName: parent.sellerName,
-            consumerName: parent.consumerName,
-            funderName: parent.funderName,
-            sellerOfficerName: parent.sellerOfficerName,
-            consumerOfficerName: parent.consumerOfficerName,
-            funderOfficerName: parent.funderOfficerName,
-
-            // Computed / Alert fields
-            marketConsumptionPrice: parent.marketConsumptionPrice,
-            marketConsumptionFrequency: parent.marketConsumptionFrequency,
-            marketConsumptionTotal: parent.marketConsumptionTotal,
-            
-            priceDeviation: alert.itemDeviation,
-            referencePrice: alert.avgItemPrice,
-            generalPriceDev: alert.generalPriceDev,
-
-            
-            consumptionCapping: parent.consumptionCapping,
-            consumptionMarginStatus: parent.consumptionMarginStatus,
-            consumptionMargin: alert.itemDeviation,
-            referencePriceSource: 'Market Data',
-            priceFlag: alert.priceFlag,
-            
-            
-
-            // Status / Time
-            accStatus: 'Pending',
-            marketConsumptionStatus: 'Approved',
-            lastUpdateTime: new Date().toISOString(),
-            settlementTime: parent.settlementTime,
-            prepostPay: parent.prepostPay,
-            repaymentPeriod: parent.repaymentPeriod,
-            voucherLastUpdate: Date.now(),
-          },
-        }));
+      if (isActiveCap && totalVoucherAmount > cap) {
+        Alert.alert('Insufficient Funds');
+        return;
       }
 
-      // Update parent contract
-      await API.graphql(graphqlOperation(updateCombContract, {
-        input: {
-          id: combContractID,
-          accStatus: 'Completed',
-          marketConsumptionStatus: 'Approved',
-          lastUpdateTime: new Date().toISOString(),
-        },
-      }));
+      for (const v of Object.values(voucherItems)) {
+        const alert = await getPriceAlertCached(v.item);
+        await API.graphql(
+          graphqlOperation(createCombContractVoucher, {
+            input: {
+              combContractID,
+              marketItemID: v.item.id,
+              itemName: v.item.sokoname,
+              itemBrand: v.item.itemBrand,
+              itemSpecifications: v.item.itemSpecifications,
+              itemPrice: Number(v.item.sokoprice),
+              numberOfItems: v.quantity,
+              consumerEmail: parent.consumerEmail,
+              funderEmail: parent.funderEmail,
+              sellerEmail: parent.sellerEmail,
+              consumerAccount: parent.consumerAccount,
+              funderAccount: parent.funderAccount,
+              sellerAccount: parent.sellerAccount,
+              consumerContact: parent.consumerContact,
+              funderContact: parent.funderContact,
+              sellerContact: parent.sellerContact,
+              consumerType: parent.consumerType,
+              sellerType: parent.sellerType,
+              funderType: parent.funderType,
+              updateFrequency: parent.updateFrequency,
+              sellerName: parent.sellerName,
+              consumerName: parent.consumerName,
+              funderName: parent.funderName,
+              sellerOfficerName: parent.sellerOfficerName,
+              consumerOfficerName: parent.consumerOfficerName,
+              funderOfficerName: parent.funderOfficerName,
+              marketConsumptionPrice: parent.marketConsumptionPrice,
+              marketConsumptionFrequency: parent.marketConsumptionFrequency,
+              marketConsumptionTotal: parent.marketConsumptionTotal,
+              priceDeviation: alert.itemDeviation,
+              referencePrice: alert.avgItemPrice,
+              generalPriceDev: alert.generalPriceDev,
+              consumptionCapping: isActiveCap
+                ? Number(parent.consumptionCapping) - Number(v.item.sokoprice) * Number(v.quantity)
+                : 0,
+              consumptionMarginStatus: parent.consumptionMarginStatus,
+              consumptionMargin: alert.itemDeviation,
+              referencePriceSource: 'Market Data',
+              priceFlag: alert.priceFlag,
+              accStatus: 'Pending',
+              marketConsumptionStatus: 'Approved',
+              lastUpdateTime: new Date().toISOString(),
+              settlementTime: parent.settlementTime,
+              prepostPay: parent.prepostPay,
+              repaymentPeriod: parent.repaymentPeriod,
+              voucherLastUpdate: Date.now(),
+            },
+          })
+        );
+      }
 
-      // Send message and notification
+      // Local patch for instant UI feedback
+      
+
+      // Backend truth update
+      await API.graphql(
+        graphqlOperation(updateCombContract, {
+          input: {
+            id: combContractID,
+            accStatus: 'Completed',
+            marketConsumptionStatus: 'Approved',
+            lastUpdateTime: new Date().toISOString(),
+            consumptionCapping: isActiveCap
+              ? (Number(parent.consumptionCapping) - totalVoucherAmount).toFixed(2)
+              : 0,
+          },
+        })
+      );
+
       const Message = await API.graphql(
         graphqlOperation(createMessages, {
           input: {
             senderEmail: parent.consumerEmail,
-            messageBody: `A COMB voucher has been generated by ${parent.sellerName}. Please go to COMB to approve or decline as per your funders specifications.`
+            messageBody: `A COMB voucher has been generated by ${parent.sellerName}. Please go to COMB to approve or decline as per your funders specifications.`,
           },
         })
       );
 
       if (Message?.data?.createMessages) {
-        await API.graphql(graphqlOperation(sendNotification, {
-          riderEmail: parent.consumerEmail,
-          title: "MiFedha: COMB Contract",
-          body: `A COMB voucher has been generated by ${parent.sellerName}. Please go to COMB to approve or decline as per your funders specifications.`,
-        }));
+        await API.graphql(
+          graphqlOperation(sendNotification, {
+            riderEmail: parent.consumerEmail,
+            title: 'MiFedha: COMB Contract',
+            body: `A COMB voucher has been generated by ${parent.sellerName}. Please go to COMB to approve or decline as per your funders specifications.`,
+          })
+        );
       }
 
+      // Clear UI cart
       setVoucherItems({});
-      Alert.alert('Voucher Generated');
+      setQuantities({});
 
+      // Re-fetch parent to align UI with backend
+      await fetchParent();
+
+      Alert.alert('Voucher Generated');
+    } catch (err) {
+      handleError('Failed to generate voucher.', err);
     } finally {
       setUpdating(false);
     }
-  }, [voucherItems, updating, parent]);
+  }, [voucherItems, updating, parent, cap, isActiveCap, combContractID, fetchParent, getPriceAlertCached]);
 
-  /* ---------------- Render ---------------- */
+  /* ---------------- Render -------------------- */
   return (
     <View style={{ flex: 1, padding: 10 }}>
       {/* Filters */}
       <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-        <TextInput placeholder="Name" value={filters.sokoname} onChangeText={t => setFilters(f => ({ ...f, sokoname: t }))} style={styles.input} />
-        <TextInput placeholder="Brand" value={filters.itemBrand} onChangeText={t => setFilters(f => ({ ...f, itemBrand: t }))} style={styles.input} />
-        <TextInput placeholder="Specs" value={filters.itemSpecifications} onChangeText={t => setFilters(f => ({ ...f, itemSpecifications: t }))} style={styles.input} />
+        <TextInput
+          placeholder="Name"
+          value={filters.sokoname}
+          onChangeText={t => setFilters(f => ({ ...f, sokoname: t }))}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Brand"
+          value={filters.itemBrand}
+          onChangeText={t => setFilters(f => ({ ...f, itemBrand: t }))}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Specs"
+          value={filters.itemSpecifications}
+          onChangeText={t => setFilters(f => ({ ...f, itemSpecifications: t }))}
+          style={styles.input}
+        />
       </View>
 
-      {/* Items */}
-      {loading ? <ActivityIndicator /> : (
+      {/* Items List */}
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
         <FlatList
           data={filteredItems}
           keyExtractor={i => i.id}
@@ -431,68 +575,105 @@ const SellerConsumablesVoucherScreen = () => {
               item={item}
               quantities={quantities}
               setQuantities={setQuantities}
-              getPriceAlert={getPriceAlert}
+              getPriceAlertCached={getPriceAlertCached}
               handleAddToVoucher={handleAddToVoucher}
               parent={parent}
+              voucherItems={voucherItems}
             />
           )}
-          contentContainerStyle={{ paddingBottom: 420 }}
+          contentContainerStyle={{ paddingBottom: bottomPadding }}
         />
       )}
 
-      {/* Voucher Cart */}
-      {Object.keys(voucherItems).length > 0 && (
-        <View style={{ position: 'absolute', bottom: 60, left: 0, right: 0 }}>
-          <FlatList
-            horizontal
-            data={Object.values(voucherItems)}
-            keyExtractor={v => v.item.id}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 10 }}
-            renderItem={({ item: v }) => (
-              <VoucherCartCard
-                item={v.item}
-                quantity={v.quantity}
-                onUpdateQuantity={(id, qty) =>
-                  setVoucherItems(p => ({ ...p, [id]: { ...p[id], quantity: qty } }))
-                }
-                onRemove={(id) => {
-                  const copy = { ...voucherItems };
-                  delete copy[id];
-                  setVoucherItems(copy);
-                }}
-              />
-            )}
-          />
-        </View>
-      )}
-
-      {/* Generate Button */}
-      <Pressable
-        onPress={handleGenerateVoucher}
-        disabled={updating || !Object.keys(voucherItems).length || !parent}
-        style={[
-          styles.button,
-          {
-            backgroundColor: updating || !Object.keys(voucherItems).length || !parent ? '#ccc' : '#f5a623',
-            position: 'absolute',
-            bottom: 10,
-            left: 10,
-            right: 10,
-          },
-        ]}
+      {/* Animated Voucher Bottom Container */}
+      <Animated.View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: bottomContainerHeight,
+          backgroundColor: '#fff',
+          borderTopLeftRadius: 12,
+          borderTopRightRadius: 12,
+          paddingVertical: 10,
+          paddingHorizontal: 8,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: -3 },
+          shadowOpacity: 0.1,
+          shadowRadius: 3,
+          elevation: 5,
+        }}
       >
-        {updating && <ActivityIndicator color="white" style={{ marginRight: 6 }} />}
-        <Text style={{ color: 'white', fontWeight: 'bold' }}>
-          {updating ? 'Generating...' : `Generate Voucher — ${Object.keys(voucherItems).length} items`}
-        </Text>
-      </Pressable>
+        {Object.keys(voucherItems).length > 0 && (
+          <>
+            <FlatList
+              horizontal
+              data={Object.values(voucherItems)}
+              keyExtractor={v => v.item.id}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 10 }}
+              renderItem={({ item: v }) => (
+                <VoucherCartCard
+                  item={v.item}
+                  quantity={v.quantity}
+                  onUpdateQuantity={(id, qty) =>
+                    setVoucherItems(p => ({ ...p, [id]: { ...p[id], quantity: qty } }))
+                  }
+                  onRemove={(id) => {
+                    const copy = { ...voucherItems };
+                    delete copy[id];
+                    setVoucherItems(copy);
+                  }}
+                />
+              )}
+            />
+
+            {/* Funds Progress */}
+            {isActiveCap && (
+              <>
+                <View style={{ backgroundColor: '#eee', borderRadius: 5, marginTop: 6, height: 8 }}>
+                  <View
+                    style={{
+                      width: `${getFundsUsedPercent()}%`,
+                      backgroundColor: progressColor,
+                      borderRadius: 5,
+                      height: 8,
+                    }}
+                  />
+                </View>
+                <Text style={{ textAlign: 'center', marginTop: 4 }}>
+                  Remaining Funds: KES {getRemainingFunds()?.toFixed(2)}
+                </Text>
+              </>
+            )}
+
+            {/* Generate Button */}
+            <Pressable
+              onPress={handleGenerateVoucher}
+              disabled={updating || !Object.keys(voucherItems).length || !parent}
+              style={[
+                styles.button,
+                {
+                  backgroundColor:
+                    updating || !Object.keys(voucherItems).length || !parent ? '#ccc' : '#f5a623',
+                  marginTop: 10,
+                },
+              ]}
+            >
+              {updating && <ActivityIndicator color="white" style={{ marginRight: 6 }} />}
+              <Text style={{ color: 'white', fontWeight: 'bold' }}>
+                {updating ? 'Generating...' : `Generate Voucher — ${Object.keys(voucherItems).length} items`}
+              </Text>
+            </Pressable>
+          </>
+        )}
+      </Animated.View>
     </View>
   );
 };
 
 /* -------------------- Styles -------------------- */
-
 const styles = StyleSheet.create({
   input: {
     flex: 1,
@@ -509,14 +690,12 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginBottom: 8,
   },
-
   qtyBtn: {
     padding: 6,
     borderWidth: 1,
     borderColor: '#e58d29',
     borderRadius: 4,
   },
-
   voucherCard: {
     borderWidth: 1,
     borderColor: '#ccc',

@@ -51,7 +51,7 @@ const VoucherCard = ({ voucher, onApprove, onDecline, updatingId }: any) => {
         <View style={{ flexDirection: 'row', marginTop: 8 }}>
           <Pressable
             disabled={isUpdating}
-            style={[styles.button, { backgroundColor: '#4caf50', marginRight: 8 }]}
+            style={[styles.button, { backgroundColor: 'skyblue', marginRight: 8 }]}
             onPress={() => onApprove(voucher)}
           >
             {isUpdating ? <ActivityIndicator color="white" /> : <Text style={{ color: 'white' }}>Approve</Text>}
@@ -59,7 +59,7 @@ const VoucherCard = ({ voucher, onApprove, onDecline, updatingId }: any) => {
 
           <Pressable
             disabled={isUpdating}
-            style={[styles.button, { backgroundColor: '#f44336' }]}
+            style={[styles.button, { backgroundColor: '#e58d29' }]}
             onPress={() => onDecline(voucher)}
           >
             {isUpdating ? <ActivityIndicator color="white" /> : <Text style={{ color: 'white' }}>Decline</Text>}

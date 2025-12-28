@@ -96,14 +96,14 @@ const CreateCombContractScreen: React.FC = () => {
   }
 
   // Funder fields
-  if (form.funderType === "funderTypePal") {
-    required.push({ field: "funderEmail", label: "Funder Email" });
-  } else {
-    required.push(
-      { field: "funderAccount", label: "Funder Institution/Business Account" },
-      { field: "funderOfficerEmail", label: "Funder Officer Email" }
-    );
-  }
+ // Funder fields
+if (form.funderType === "funderTypeBiz") {
+  required.push(
+    { field: "funderAccount", label: "Funder Institution/Business Account" },
+    { field: "funderOfficerEmail", label: "Funder Officer Email" }
+  );
+}
+
 
   // Password is always required
   required.push({ field: "pword", label: "Main Account Password" });
@@ -237,33 +237,34 @@ if (!validateForm(form)) {
       let funderContact = "";
       let funderName = ""
 
-      const userInfo = await Auth.currentAuthenticatedUser();
 
-      if (form.funderType === "funderTypePal") {
-        if (!form.funderEmail)
-          throw new Error("Enter funder email");
+  const userInfo = await Auth.currentAuthenticatedUser();
+const loggedInEmail =
+  userInfo.attributes.email || userInfo.username;
 
-        const res: any = await API.graphql(
-          graphqlOperation(getSMAccount, {
-            awsemail: form.funderEmail,
-          })
-        );
+if (form.funderType === "funderTypePal") {
+  const res: any = await API.graphql(
+    graphqlOperation(getSMAccount, {
+      awsemail: loggedInEmail,
+    })
+  );
 
-        const acc = res?.data?.getSMAccount;
-        if (!acc) throw new Error("Funder account not found");
+  const acc = res?.data?.getSMAccount;
+  if (!acc) throw new Error("Your funder account was not found");
 
-        if (userInfo.attributes.sub !== acc.owner)
-          throw new Error("This is not your account");
+  if (userInfo.attributes.sub !== acc.owner)
+    throw new Error("This is not your account");
 
-        if (form.pword !== acc.pw)
-          throw new Error("Wrong main account password");
+  if (form.pword !== acc.pw)
+    throw new Error("Wrong main account password");
 
-        funderEmail = form.funderEmail;
-        funderAccount = form.funderEmail;
-        funderOfficerName = acc.name || "Officer";
-        funderContact = acc.phonecontact || "N/A";
-        funderName = acc.name || "Officer"
-      } else {
+  funderEmail = loggedInEmail;
+  funderAccount = loggedInEmail;
+  funderOfficerName = acc.name || "Officer";
+  funderContact = acc.phonecontact || "N/A";
+  funderName = acc.name || "Officer";
+}
+ else {
         if (!form.funderAccount || !form.funderOfficerEmail)
           throw new Error(
             "Enter funder business and officer email"
@@ -513,7 +514,10 @@ marketConsumptionTotal: isCapped
         <View style={styles.row}>
           <TouchableOpacity
             style={[styles.chip, form.funderType === "funderTypePal" && styles.chipActive]}
-            onPress={() => update("funderType", "funderTypePal")}
+onPress={() => {
+  update("funderType", "funderTypePal");
+  update("funderEmail", undefined);
+}}
           >
             <Text style={styles.chipText}>Individual</Text>
           </TouchableOpacity>
@@ -525,23 +529,14 @@ marketConsumptionTotal: isCapped
           </TouchableOpacity>
         </View>
 
-        {form.funderType === "funderTypePal" ? (
-          <TextInput
-            style={styles.input}
-            placeholder="Funder Email"
-            value={form.funderEmail}
-            onChangeText={(v) => update("funderEmail", v)}
-            autoCapitalize="none"
-            keyboardType="email-address"
+       {form.funderType === "funderTypePal" ? (
+  <View style={{ marginBottom: 12 }}>
+    <Text style={{ color: "#fff", fontStyle: "italic" }}>
+      Using your logged-in account as the funder
+    </Text>
+  </View>
+) : (
 
-  /* 🔒 Disable autofill & predictions */
-            autoComplete="off"
-            textContentType="none"
-            importantForAutofill="no"
-            autoCorrect={false}
-            
-          />
-        ) : (
           <>
             <TextInput
               style={styles.input}
@@ -581,7 +576,7 @@ marketConsumptionTotal: isCapped
             style={[styles.chip, form.capConsumption && styles.chipActive]}
             onPress={() => update("capConsumption", true)}
           >
-            <Text style={styles.chipText}>Set Cap Limit</Text>
+            <Text style={styles.chipText}>Set Capping</Text>
           </TouchableOpacity>
           
         </View>

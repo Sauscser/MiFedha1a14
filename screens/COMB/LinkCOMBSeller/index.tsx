@@ -210,7 +210,7 @@ console.log("busName:", sellerName);
       Alert.alert("Success", "Seller details updated successfully.");
     } catch (err: any) {
       console.error("Update seller error:", err);
-      Alert.alert("Error", err.message || "Failed to update seller.");
+      Alert.alert("Error", err.message || "Ensure you enter details correctly.");
     } finally {
       setIsLoading(false);
     }

@@ -622,7 +622,7 @@ import CreateCOMBContract from "../../screens/COMB/CreateCOMBContract";
 import Vw2LinkSeller from "../../screens/COMB/Vw2LinkSeller";
 import Vw2GenerateVoucher from "../../screens/COMB/Vw2GenerateVoucher";
 import consumerApproveVoucher from "../../screens/COMB/consumerApproveVoucher";
-
+import FunderClearBill from "../../screens/COMB/FunderClearBill";
 
 
 
@@ -635,6 +635,7 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} /> 
       <Stack.Screen name={'CreateCOMBContract'} component={CreateCOMBContract} />     
+      <Stack.Screen name={'FunderClearBill'} component={FunderClearBill} />     
       <Stack.Screen name={'Vw2LinkSeller'} component={Vw2LinkSeller} />     
       <Stack.Screen name={'Vw2GenerateVoucher'} component={Vw2GenerateVoucher} />     
       <Stack.Screen name={'consumerApproveVoucher'} component={consumerApproveVoucher} />     

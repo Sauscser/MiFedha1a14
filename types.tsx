@@ -103,6 +103,7 @@ declare global {
       VwAsBeneficiary:undefined;
       AddCOMBPersonel:undefined;
       ViewMessages:undefined;
+      FunderClearBill:undefined;
       GenerateCOMBVoucher:{
         id:string
         sellerAccount:string

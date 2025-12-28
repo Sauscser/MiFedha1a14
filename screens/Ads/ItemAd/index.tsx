@@ -10,7 +10,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { Auth, API, graphqlOperation, Storage } from 'aws-amplify';
 import { createAveragePrices, createSokoAd } from '../../../src/graphql/mutations';
-import { getSMAccount, getBizna, listPersonels } from '../../../src/graphql/queries';
+import { getSMAccount, getBizna, listPersonels, listAveragePrices } from '../../../src/graphql/queries';
 import { useRoute } from '@react-navigation/native';
 
 const MAX_IMAGE_SIZE_MB = 5;
@@ -261,9 +261,19 @@ const handleUrlChange = (v) => {
         owner: user.attributes.sub,
       };
 
-      await API.graphql(graphqlOperation(createSokoAd, { input: adInput }));
+    const addItem =  await API.graphql(graphqlOperation(createSokoAd, { input: adInput }));
 
-    const item =  await API.graphql(graphqlOperation(createAveragePrices, 
+      const itemExistence = await API.graphql(graphqlOperation(listAveragePrices, {
+        filter: {
+          itemName: { eq: itemName },
+          itemBrand: { eq: brandName },
+          itemSpecs: { eq: itemSpecifications }
+        }
+      }));
+
+      if (itemExistence?.data?.listAveragePrices?.items?.length === 0) {
+
+    await API.graphql(graphqlOperation(createAveragePrices, 
         { input: 
         {itemName: itemName,
         itemBrand: brandName,
@@ -272,7 +282,9 @@ const handleUrlChange = (v) => {
       }
         }));
 
-if (item?.data?.createAveragePrices){
+      }
+
+if (addItem?.data?.createAveragePrices){
       Alert.alert('Success', 'Item successfully advertised.');
       clearForm();}
     } catch (err) {

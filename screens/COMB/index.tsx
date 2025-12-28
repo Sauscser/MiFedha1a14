@@ -76,8 +76,8 @@ const MyAccount = props => {
     navigation.navigate('PassengerRequestRide');
   };
 
-  const VwTransportAccount = () => {
-    navigation.navigate('VwTransportAccount');
+  const FunderClearBill = () => {
+    navigation.navigate('FunderClearBill');
   };
 
   const consumerApproveVoucher = () => {
@@ -124,6 +124,7 @@ const MyAccount = props => {
              { label: 'Link Seller - Consumer', onPress: Vw2LinkSeller, style: styles.ClientsPressables },
             { label: 'Generate COMB Voucher - Seller', onPress: Vw2GenerateVoucher, style: styles.ClientsPressables },
             { label: 'Approve COMB Voucher - Consumer', onPress: consumerApproveVoucher, style: styles.ClientsPressables },
+            { label: 'Clear COMB Bills - Funder', onPress: FunderClearBill, style: styles.ClientsPressables },
 
 
             
