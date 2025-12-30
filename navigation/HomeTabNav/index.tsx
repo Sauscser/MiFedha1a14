@@ -622,7 +622,15 @@ import CreateCOMBContract from "../../screens/COMB/CreateCOMBContract";
 import Vw2LinkSeller from "../../screens/COMB/Vw2LinkSeller";
 import Vw2GenerateVoucher from "../../screens/COMB/Vw2GenerateVoucher";
 import consumerApproveVoucher from "../../screens/COMB/consumerApproveVoucher";
-import FunderClearBill from "../../screens/COMB/FunderClearBill";
+import FunderClearBill from "../../screens/Chama/ReqLoan/Vw2FloatGrpLoans";
+
+import Vw2FloatGrpLoans from "../../screens/Chama/ReqLoan/Vw2FloatGrpLoans";
+import FloatLnReq from "../../screens/Chama/ReqLoan/FloatLnReq";
+import VwFloatedLoans from "../../screens/Chama/ReqLoan/VwFloatedLoans";
+import MembersApproveLoans from "../../screens/Chama/ReqLoan/MembersApproveLoans";
+import Vw2SignLoanRequests from "../../screens/Chama/ReqLoan/Vw2SignLoanRequests";
+import ClearGroupMemberLoan from "../../screens/MFBankAdmin/ClearGroupMemberLoan";
+
 
 
 
@@ -635,7 +643,15 @@ const HomeNavigator = props => {
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} /> 
       <Stack.Screen name={'CreateCOMBContract'} component={CreateCOMBContract} />     
-      <Stack.Screen name={'FunderClearBill'} component={FunderClearBill} />     
+      <Stack.Screen name={'MembersApproveLoans'} component={MembersApproveLoans} />     
+      <Stack.Screen name={'FunderClearBill'} component={FunderClearBill} /> 
+      <Stack.Screen name={'Vw2SignLoanRequests'} component={Vw2SignLoanRequests} /> 
+      <Stack.Screen name={'ClearGroupMemberLoan'} component={ClearGroupMemberLoan} /> 
+
+      <Stack.Screen name={'VwFloatedLoans'} component={VwFloatedLoans} /> 
+      <Stack.Screen name={'FloatLnReq'} component={FloatLnReq} /> 
+      <Stack.Screen name={'Vw2FloatGrpLoans'} component={Vw2FloatGrpLoans} />
+
       <Stack.Screen name={'Vw2LinkSeller'} component={Vw2LinkSeller} />     
       <Stack.Screen name={'Vw2GenerateVoucher'} component={Vw2GenerateVoucher} />     
       <Stack.Screen name={'consumerApproveVoucher'} component={consumerApproveVoucher} />     

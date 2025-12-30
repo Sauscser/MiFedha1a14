@@ -4546,6 +4546,7 @@ export const createGroup = /* GraphQL */ `
       chamaBenSync
       BankName
       BranchNu
+      loanApprovalThreshHold
       grpEmail
       grpBal
       ttlGrpMembers
@@ -4639,6 +4640,7 @@ export const updateGroup = /* GraphQL */ `
       chamaBenSync
       BankName
       BranchNu
+      loanApprovalThreshHold
       grpEmail
       grpBal
       ttlGrpMembers
@@ -4732,6 +4734,7 @@ export const deleteGroup = /* GraphQL */ `
       chamaBenSync
       BankName
       BranchNu
+      loanApprovalThreshHold
       grpEmail
       grpBal
       ttlGrpMembers
@@ -5240,6 +5243,10 @@ export const createReqLoanChama = /* GraphQL */ `
       confirm2
       signatory2
       signatory3
+      membersApprove
+      loanMinutes
+      loanMinutesImage
+      loanFloatID
       updatedAt
       __typename
     }
@@ -5278,6 +5285,10 @@ export const updateReqLoanChama = /* GraphQL */ `
       confirm2
       signatory2
       signatory3
+      membersApprove
+      loanMinutes
+      loanMinutesImage
+      loanFloatID
       updatedAt
       __typename
     }
@@ -5316,6 +5327,10 @@ export const deleteReqLoanChama = /* GraphQL */ `
       confirm2
       signatory2
       signatory3
+      membersApprove
+      loanMinutes
+      loanMinutesImage
+      loanFloatID
       updatedAt
       __typename
     }
@@ -5668,6 +5683,135 @@ export const deleteChamaApply = /* GraphQL */ `
       mfnReg
       status
       ChamaAcNu
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const createChamaLnApproval = /* GraphQL */ `
+  mutation CreateChamaLnApproval(
+    $input: CreateChamaLnApprovalInput!
+    $condition: ModelChamaLnApprovalConditionInput
+  ) {
+    createChamaLnApproval(input: $input, condition: $condition) {
+      id
+      memberGrpNumber
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      memberName
+      grpName
+      loanID
+      status
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const updateChamaLnApproval = /* GraphQL */ `
+  mutation UpdateChamaLnApproval(
+    $input: UpdateChamaLnApprovalInput!
+    $condition: ModelChamaLnApprovalConditionInput
+  ) {
+    updateChamaLnApproval(input: $input, condition: $condition) {
+      id
+      memberGrpNumber
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      memberName
+      grpName
+      loanID
+      status
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const deleteChamaLnApproval = /* GraphQL */ `
+  mutation DeleteChamaLnApproval(
+    $input: DeleteChamaLnApprovalInput!
+    $condition: ModelChamaLnApprovalConditionInput
+  ) {
+    deleteChamaLnApproval(input: $input, condition: $condition) {
+      id
+      memberGrpNumber
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      memberName
+      grpName
+      loanID
+      status
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const createChamaAdminLnApply = /* GraphQL */ `
+  mutation CreateChamaAdminLnApply(
+    $input: CreateChamaAdminLnApplyInput!
+    $condition: ModelChamaAdminLnApplyConditionInput
+  ) {
+    createChamaAdminLnApply(input: $input, condition: $condition) {
+      id
+      grpName
+      ChamaAdminEmail
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      status
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const updateChamaAdminLnApply = /* GraphQL */ `
+  mutation UpdateChamaAdminLnApply(
+    $input: UpdateChamaAdminLnApplyInput!
+    $condition: ModelChamaAdminLnApplyConditionInput
+  ) {
+    updateChamaAdminLnApply(input: $input, condition: $condition) {
+      id
+      grpName
+      ChamaAdminEmail
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      status
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const deleteChamaAdminLnApply = /* GraphQL */ `
+  mutation DeleteChamaAdminLnApply(
+    $input: DeleteChamaAdminLnApplyInput!
+    $condition: ModelChamaAdminLnApplyConditionInput
+  ) {
+    deleteChamaAdminLnApply(input: $input, condition: $condition) {
+      id
+      grpName
+      ChamaAdminEmail
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      status
       createdAt
       updatedAt
       owner

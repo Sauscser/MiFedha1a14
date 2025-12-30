@@ -2586,8 +2586,7 @@ type Group
    chamaBenSync:Float!
    BankName: String!
   BranchNu: String!
-
- 
+  loanApprovalThreshHold: Float! 
   grpEmail: String!
   grpBal: Float!
   ttlGrpMembers: Float!
@@ -2969,6 +2968,10 @@ type ReqLoanChama
   confirm2: String!
   signatory2: String!
   signatory3: String!
+  membersApprove: Float!
+  loanMinutes: String!
+  loanMinutesImage: String!
+  loanFloatID: String!
 }
 
 
@@ -3169,6 +3172,73 @@ type ChamaApply
   mfnReg: Float!
   status:Status!
   ChamaAcNu: String!
+  createdAt: String!  
+}
+
+type ChamaLnApproval
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, delete, read, update] }
+      { allow: private, operations: [read, create, update] }
+      {
+        allow: groups
+        groups: ["AdminOneTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["KFKubwa"], operations: [read, create, update] }
+     
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )  
+
+  {
+  id:ID!
+  memberGrpNumber: String!
+  GrpAccount: String!
+  MemberEmail: String!
+  grpMinutes: String!
+  memberName: String!
+  grpName: String!
+  loanID: String!
+  status:Status!
+  description: String
+  createdAt: String!  
+}
+
+type ChamaAdminLnApply
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, delete, read, update] }
+      { allow: private, operations: [read, create, update] }
+      {
+        allow: groups
+        groups: ["AdminOneTwo"]
+        operations: [read, update]
+      }
+      { allow: groups, groups: ["KFKubwa"], operations: [read, create, update] }
+     
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  )  
+
+  {
+  id:ID!
+  grpName: String!
+  ChamaAdminEmail: String!
+  GrpAccount: String!
+  MemberEmail: String!
+  grpMinutes: String!
+  status:Status!
   createdAt: String!  
 }
 

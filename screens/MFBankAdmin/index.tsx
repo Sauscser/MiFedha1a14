@@ -63,8 +63,8 @@ const RegKFKubwa = props => {
   const DActivateMFN = () => {
     navigation.navigate('DActvteMFN');
   };
-  const DActivateMFK = () => {
-    navigation.navigate('DActvteMFK');
+  const ClearGroupMemberLoan = () => {
+    navigation.navigate('ClearGroupMemberLoan');
   };
 
   const SyncGrpWithdrawals = () => {
@@ -134,6 +134,7 @@ const RegKFKubwa = props => {
           options={[
             
             { label: 'Register Group', onPress: RegGrp, style: styles.ClientsPressables },
+            { label: 'Clear Group Member Loan Applications', onPress: ClearGroupMemberLoan, style: styles.ClientsPressables },
             
            
             { label: 'Apply MFKubwa Account', onPress: ApplyMFKubwa, style: styles.ClientsPressables },

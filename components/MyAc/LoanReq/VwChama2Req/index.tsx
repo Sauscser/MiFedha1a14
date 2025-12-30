@@ -50,17 +50,17 @@ const ChmMbrShpInfo = (props:ChamaMmbrshpInfo) => {
 
    const navigation = useNavigation();
 
-   const MemberReqChm = () => {
-      navigation.navigate("MemberReqChm", {ChamaNMember})
+ 
+   const VwFloatedLoans = () => {
+      navigation.navigate("VwFloatedLoans", {groupContact, MembaId})
    }
-
   
 
     return (
       <View style = {styles.pageContainer}>              
             
       <Pressable style = {styles.card}
-      onPress={MemberReqChm}>
+      onPress={VwFloatedLoans}>
 
          <Text style={styles.prodInfo}><Text style={styles.label}>Group Name:</Text> {groupName}</Text>           
            <Text style={styles.prodInfo}><Text style={styles.label}>Group Contact:</Text> {groupContact}</Text>           

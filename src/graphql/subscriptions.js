@@ -4524,6 +4524,7 @@ export const onCreateGroup = /* GraphQL */ `
       chamaBenSync
       BankName
       BranchNu
+      loanApprovalThreshHold
       grpEmail
       grpBal
       ttlGrpMembers
@@ -4617,6 +4618,7 @@ export const onUpdateGroup = /* GraphQL */ `
       chamaBenSync
       BankName
       BranchNu
+      loanApprovalThreshHold
       grpEmail
       grpBal
       ttlGrpMembers
@@ -4710,6 +4712,7 @@ export const onDeleteGroup = /* GraphQL */ `
       chamaBenSync
       BankName
       BranchNu
+      loanApprovalThreshHold
       grpEmail
       grpBal
       ttlGrpMembers
@@ -5215,6 +5218,10 @@ export const onCreateReqLoanChama = /* GraphQL */ `
       confirm2
       signatory2
       signatory3
+      membersApprove
+      loanMinutes
+      loanMinutesImage
+      loanFloatID
       updatedAt
       __typename
     }
@@ -5253,6 +5260,10 @@ export const onUpdateReqLoanChama = /* GraphQL */ `
       confirm2
       signatory2
       signatory3
+      membersApprove
+      loanMinutes
+      loanMinutesImage
+      loanFloatID
       updatedAt
       __typename
     }
@@ -5291,6 +5302,10 @@ export const onDeleteReqLoanChama = /* GraphQL */ `
       confirm2
       signatory2
       signatory3
+      membersApprove
+      loanMinutes
+      loanMinutesImage
+      loanFloatID
       updatedAt
       __typename
     }
@@ -5643,6 +5658,135 @@ export const onDeleteChamaApply = /* GraphQL */ `
       mfnReg
       status
       ChamaAcNu
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onCreateChamaLnApproval = /* GraphQL */ `
+  subscription OnCreateChamaLnApproval(
+    $filter: ModelSubscriptionChamaLnApprovalFilterInput
+    $owner: String
+  ) {
+    onCreateChamaLnApproval(filter: $filter, owner: $owner) {
+      id
+      memberGrpNumber
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      memberName
+      grpName
+      loanID
+      status
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onUpdateChamaLnApproval = /* GraphQL */ `
+  subscription OnUpdateChamaLnApproval(
+    $filter: ModelSubscriptionChamaLnApprovalFilterInput
+    $owner: String
+  ) {
+    onUpdateChamaLnApproval(filter: $filter, owner: $owner) {
+      id
+      memberGrpNumber
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      memberName
+      grpName
+      loanID
+      status
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onDeleteChamaLnApproval = /* GraphQL */ `
+  subscription OnDeleteChamaLnApproval(
+    $filter: ModelSubscriptionChamaLnApprovalFilterInput
+    $owner: String
+  ) {
+    onDeleteChamaLnApproval(filter: $filter, owner: $owner) {
+      id
+      memberGrpNumber
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      memberName
+      grpName
+      loanID
+      status
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onCreateChamaAdminLnApply = /* GraphQL */ `
+  subscription OnCreateChamaAdminLnApply(
+    $filter: ModelSubscriptionChamaAdminLnApplyFilterInput
+    $owner: String
+  ) {
+    onCreateChamaAdminLnApply(filter: $filter, owner: $owner) {
+      id
+      grpName
+      ChamaAdminEmail
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      status
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onUpdateChamaAdminLnApply = /* GraphQL */ `
+  subscription OnUpdateChamaAdminLnApply(
+    $filter: ModelSubscriptionChamaAdminLnApplyFilterInput
+    $owner: String
+  ) {
+    onUpdateChamaAdminLnApply(filter: $filter, owner: $owner) {
+      id
+      grpName
+      ChamaAdminEmail
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      status
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onDeleteChamaAdminLnApply = /* GraphQL */ `
+  subscription OnDeleteChamaAdminLnApply(
+    $filter: ModelSubscriptionChamaAdminLnApplyFilterInput
+    $owner: String
+  ) {
+    onDeleteChamaAdminLnApply(filter: $filter, owner: $owner) {
+      id
+      grpName
+      ChamaAdminEmail
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      status
       createdAt
       updatedAt
       owner

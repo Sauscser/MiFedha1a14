@@ -1,604 +1,447 @@
-import React, {useEffect, useState} from 'react';
+  import React, { useEffect, useState } from 'react';
+  import {
+    View,
+    Text,
+    TextInput,
+    ScrollView,
+    TouchableOpacity,
+    Alert,
+    StyleSheet,
+    ActivityIndicator,
+  } from 'react-native';
+  import { useNavigation } from '@react-navigation/native';
+  import { Auth, API, graphqlOperation } from 'aws-amplify';
 
-import {createChamaMembers,  updateCompany, updateGroup} from '../../../src/graphql/mutations';
-import { getCompany, getGroup, getSMAccount, listSMAccounts, } from '../../../src/graphql/queries';
-import {Auth, graphqlOperation, API} from 'aws-amplify';
+  import { createChamaMembers, createMessages, sendNotification, updateCompany, updateGroup } from '../../../src/graphql/mutations';
+  import { listGroups, getSMAccount, listSMAccounts } from '../../../src/graphql/queries';
 
-import {useNavigation} from '@react-navigation/native';
+  const AddChmMmbrs = () => {
+    const navigation = useNavigation();
 
-
-import {
-  View,
-  Text,
-  
-  TextInput,
-  ScrollView,
-  
-  TouchableOpacity,
-  Alert,
-  ActivityIndicator,
-} from 'react-native';
-import styles from './styles';
-
-
-const AddChmMmbrs = (props) => {
-
-  
-
-  
-
-
-  const navigation = useNavigation();
-
-  const [ChmPhn, setChmPhn] = useState('');
-
-  const [phoneContacts, setPhoneContacts] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [pword, setPW] = useState('');
-  const [ChmNm, setChmNm] = useState('');
-  const [ChmDesc, setChmDesc] = useState('');
-  const [SubFreq, setSubFreq] = useState('');
-  const [SubAmt, setSubAmt] = useState('');
-  const [lateSub, setlateSub] = useState('');
-
-  const [MmbaID, setMmbaID] = useState('');
-  const ChmPhnNphoneContacts = MmbaID+ChmPhn
+    // Form state
+    const [phoneContacts, setPhoneContacts] = useState('');
+    const [MmbaID, setMmbaID] = useState('');
+    const [SubAmt, setSubAmt] = useState('');
+    const [SubFreq, setSubFreq] = useState('');
+    const [lateSub, setLateSub] = useState('');
+    const [pword, setPW] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
 
+    // Group selection
+    const [adminGroups, setAdminGroups] = useState([]);
+    const [selectedGroup, setSelectedGroup] = useState(null);
 
-  const ChckUsrExistence2 = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    try {
-      const UsrDtls3:any = await API.graphql(
-        graphqlOperation(listSMAccounts,
-          { filter: 
-            {
-              and:{
-                awsemail: { eq: phoneContacts},
-                
-            }                          
-            }}
-        )
-      )
+    // Loading
+    const [isLoading, setIsLoading] = useState(false);
 
-      const ChckAdmDtls = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
+    // Fetch groups where current user is admin
+    useEffect(() => {
+      const fetchAdminGroups = async () => {
         try {
-          const UsrDtls2:any = await API.graphql(
-            graphqlOperation(getSMAccount, { awsemail:userInfo.attributes.email }),
-                        
-            )
-  
-            
-            const pw = UsrDtls2.data.getSMAccount.pw;
-
-      const ChckUsrExistence = async () => {
-        const userInfo = await Auth.currentAuthenticatedUser();
-      
-     
-        try {
-          const UsrDtls:any = await API.graphql(
-            graphqlOperation(getSMAccount, { awsemail:phoneContacts}),
-                        
-          )
-
-          const nationalidsss = UsrDtls.data.getSMAccount.nationalid;
-          const namess = UsrDtls.data.getSMAccount.name;
-          
-        
-          const gtCompDtls = async () =>{
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
-            try{
-              const compDtlsz :any= await API.graphql(
-                graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
-                );
-                const ttlActiveChmUserss = compDtlsz.data.getCompany.ttlActiveChmUsers;
-                
-                const gtChmDtls = async () =>{
-                  if(isLoading){
-                    return;
-                  }
-                  setIsLoading(true);
-                  try{
-                    const compDtls :any= await API.graphql(
-                      graphqlOperation(getGroup,{grpContact:ChmPhn})
-                      );
-                      const ttlGrpMemberss = compDtls.data.getGroup.ttlGrpMembers;  
-                      const grpNames = compDtls.data.getGroup.grpName; 
-                      const owners = compDtls.data.getGroup.owner;   
-                      const regNos = compDtls.data.getGroup.regNo;   
-                      const signitoryPWs = compDtls.data.getGroup.signitoryPW;    
-                      const signitory2Subs = compDtls.data.getGroup.signitory2Sub;  
-                      const objectionStatus =compDtls.data.getGroup.objectionStatus;
-                      const Admin1 = compDtls.data.getGroup.Admin1;      
-                      const Admin2 = compDtls.data.getGroup.Admin2;
-                      const Admin3 = compDtls.data.getGroup.Admin3;
-                      const Admin4 = compDtls.data.getGroup.Admin4;
-                      const Admin5 = compDtls.data.getGroup.Admin5;
-                      const Admin6 = compDtls.data.getGroup.Admin6;
-                      const Admin7 = compDtls.data.getGroup.Admin7;
-                      const Admin8 = compDtls.data.getGroup.Admin8;
-                      const Admin9 = compDtls.data.getGroup.Admin9;
-                      const Admin10 = compDtls.data.getGroup.Admin10;
-                      const Admin11 = compDtls.data.getGroup.Admin11;
-                      const Admin12 = compDtls.data.getGroup.Admin12;
-                      const Admin13 = compDtls.data.getGroup.Admin13;
-                      const Admin14 = compDtls.data.getGroup.Admin14;
-                      const Admin15 = compDtls.data.getGroup.Admin15;
-                      const Admin16 = compDtls.data.getGroup.Admin16;
-                      const Admin17 = compDtls.data.getGroup.Admin17;
-                      const Admin18 = compDtls.data.getGroup.Admin18;
-                      const Admin19 = compDtls.data.getGroup.Admin19;
-                      const Admin20 = compDtls.data.getGroup.Admin20;  
-                      const today = new Date();
-              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
-              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
-              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
-              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
-              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
-              let months2 = parseFloat(months)
-              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
-              
-              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
-
-              const curYrs = parseFloat(years)*365;
-              const curMnths = (months2)*30.4375;
-              const daysUpToDate = curYrs + curMnths + parseFloat(days)   
-                    
-                      const CrtChm = async () => {
-                        if(isLoading){
-                          return;
-                        }
-                        setIsLoading(true);
-                        try {
-                          await API.graphql(
-                          graphqlOperation(createChamaMembers, {
-                          input: {
-                            MembaId:MmbaID,
-                            groupContact: ChmPhn,
-                            memberContact: phoneContacts,
-                            regNo:regNos,
-                            ChamaNMember:ChmPhnNphoneContacts,
-                            memberNatId: nationalidsss,
-                            memberChmBenefit:0,
-                            GrossLnsGvn:0,
-                            LonAmtGven: 0,
-                            AmtRepaid:0,
-                            LnBal: 0,
-                            NonLoanAcBal: 0,
-                            ttlNonLonAcBal: 0,
-                            timeCrtd:daysUpToDate,
-                            subscribedAmt:0,
-                            groupName:grpNames,
-                            memberName:namess,
-                            AcStatus: "AccountActive",
-                            loanStatus: "NoLoan",
-                            blStatus: "AccountNotBL",
-                            owner: owners,
-                            totalSubAmt:0,
-                            subscriptionFrequency: SubFreq,
-                  subscriptionAmt: SubAmt,
-                  lateSubscriptionPenalty:lateSub,
-                  ttlLateSubs:0,
-                  transportApproved: "ChamaTransportApprovedNo"
-                            
-                                  },
-                                }),
-                              );
-                              
-                            } catch (error) {
-                              if (error){
-                                console.log(Error)
-                                Alert.alert("Error! Access denied!")
-                                return}
-                            
-                            }
-                            await updtActAdm();
-                            setIsLoading(false);
-                            
-                          };
-                          
-          
-                     if (pword !== pw)
-                          {Alert.alert("Wrong Admin password");
-                        return;
-                      } 
-
-                      else  if (userInfo.attributes.sub !== owners 
-                        && signitory2Subs !== userInfo.attributes.sub
-                        &&Admin1 !== userInfo.attributes.email
-                      &&
-                      Admin2 !== userInfo.attributes.email 
-                      &&
-                      Admin3 !== userInfo.attributes.email
-                      &&
-                      Admin4 !== userInfo.attributes.email 
-                      &&
-                      Admin5 !== userInfo.attributes.email
-                      &&
-                      Admin6 !== userInfo.attributes.email 
-                      &&
-                      Admin7 !== userInfo.attributes.email
-                      &&
-                      Admin8 !== userInfo.attributes.email 
-                      &&
-                      Admin9 !== userInfo.attributes.email
-                      &&
-                      Admin10 !== userInfo.attributes.email 
-                      &&
-                      Admin11 !== userInfo.attributes.email
-                      &&
-                      Admin12 !== userInfo.attributes.email 
-                      &&
-                      Admin13 !== userInfo.attributes.email
-                      &&
-                      Admin14 !== userInfo.attributes.email 
-                      &&
-                      Admin14 !== userInfo.attributes.email
-                      &&
-                      Admin15 !== userInfo.attributes.email 
-                      &&
-                      Admin16 !== userInfo.attributes.email
-                      &&
-                      Admin17 !== userInfo.attributes.email 
-                      &&
-                      Admin18 !== userInfo.attributes.email
-                      &&
-                      Admin19 !== userInfo.attributes.email 
-                      &&
-                      Admin20 !== userInfo.attributes.email)
-                      {Alert.alert("You are neither the author nor signatory nor admin of this Group")
-                      return;}
-                      
-                      else if (objectionStatus === "Objected")
-                      {Alert.alert ("Group account is locked by the admin")}
-                      else if (UsrDtls3.data.listSMAccounts.items.length <1) {
-                        Alert.alert("Member first create main account");
-                       
-                      }
-                      else {
-                        CrtChm();
-                      }
-                
-                          const updtActAdm = async()=>{
-                            if(isLoading){
-                              return;
-                            }
-                            setIsLoading(true);
-                            try{
-                                await API.graphql(
-                                  graphqlOperation(updateCompany,{
-                                    input:{
-                                      AdminId:"BaruchHabaB'ShemAdonai2",
-                                      ttlActiveChmUsers:parseFloat(ttlActiveChmUserss) + 1,
-                                    }
-                                  })
-                                )
-                            }
-                            catch(error){
-                              if(error){
-                                console.log(Error)
-                                Alert.alert("Error! Access denied!")
-                                return;
-                            }
-                            }
-                            await updtChm();
-                            
-                            setIsLoading(false);
-                          }                       
-                          const updtChm = async()=>{
-                            if(isLoading){
-                              return;
-                            }
-                            setIsLoading(true);
-                            try{
-                                await API.graphql(
-                                  graphqlOperation(updateGroup,{
-                                    input:{
-                                      grpContact:ChmPhn,
-                                      ttlGrpMembers:parseFloat(ttlGrpMemberss) + 1,
-                                    }
-                                  })
-                                )
-                            }
-                            catch(error){
-                              if(error){
-                                console.log(Error)
-                                Alert.alert("Error! Access denied!")
-                                return;
-                            }
-                            }
-                            Alert.alert("Congrats " + userInfo.username + ", You have added " + namess +" to " +grpNames)
-                            setIsLoading(false);
-                          }
-                          
-          
-          
-            }          
-            
-            
-            catch(e){
-              console.log(e)
-              if(e){
-                console.log(Error)
-                Alert.alert("Error! Access denied!")
-                return;
-            }
-            }
-                        setIsLoading(false)
-                        console.log(4)        
-            };
-              
-               await gtChmDtls();
-
-            
-              
-      }
-      
-      catch(e){
-        console.log(e)
-        if(e){
-          console.log(Error)
-          Alert.alert("Error! Access denied!")
-          return;
-      }
-      }
-      setIsLoading(false)
-      console.log(3)         
-      };
-        
-         await gtCompDtls();
-        
-        } catch (e) {
-          console.error(e);
-          if (e){
-            console.log(Error)
-            Alert.alert("Retry or update app or call customer care")
-        return}
-        }
-        setIsLoading(false)
-        
-        console.log(2)
-      }
-      await ChckUsrExistence()
-
-    } catch (e) {
-      console.error(e);
-      if (e){
-        console.log(Error)
-        Alert.alert("Retry or update app or call customer care")
-    return}
-    }
-    setIsLoading(false)
-    
-    console.log(2)
-  }
-  await ChckAdmDtls()
-
-    } catch (e) {
-      console.error(e);
-      if (e){
-        console.log(Error)
-        Alert.alert("Retry or update app or call customer care")
-    return}
-    }
-    console.log(1)
-    setIsLoading(false)
-                  setChmPhn('');
-                  setPW('');
-                  setPhoneContacts("")
-                  setChmDesc("")
-                  setChmNm("")
-                  setMmbaID("")
-                  setSubAmt("");
-                  setSubFreq("");
-                  setlateSub("")
-      }
-
-      
-    
-      useEffect(() =>{
-        const lateSubs=lateSub
-          if(!lateSubs && lateSubs!=="")
-          {
-            setlateSub("");
-            return;
-          }
-          setlateSub(lateSubs);
-          }, [lateSub]
-           );
-
-           useEffect(() =>{
-            const SubAmts=SubAmt
-              if(!SubAmts && SubAmts!=="")
-              {
-                setSubAmt("");
-                return;
-              }
-              setSubAmt(SubAmts);
-              }, [SubAmt]
-               );
-           
-           useEffect(() =>{
-        const SubFreqs=SubFreq
-          if(!SubFreqs && SubFreqs!=="")
-          {
-            setSubFreq("");
-            return;
-          }
-          setSubFreq(SubFreqs);
-          }, [SubFreq]
-           );
-
-  
-    
-      useEffect(() =>{
-        const MmbaIDs=MmbaID
-          if(!MmbaIDs && MmbaIDs!=="")
-          {
-            setMmbaID("");
-            return;
-          }
-          setMmbaID(MmbaIDs);
-          }, [MmbaID]
-           );
-           
-           useEffect(() =>{
-        const phoneContactss=phoneContacts
-          if(!phoneContactss && phoneContactss!=="")
-          {
-            setPhoneContacts("");
-            return;
-          }
-          setPhoneContacts(phoneContactss);
-          }, [phoneContacts]
-           );
-
-      useEffect(() =>{
-        const ChmNms=ChmNm
-          if(!ChmNms && ChmNms!=="")
-          {
-            setChmNm("");
-            return;
-          }
-          setChmNm(ChmNms);
-          }, [ChmNm]
-           );
-
-           useEffect(() =>{
-            const ChmDescs=ChmDesc
-              if(!ChmDescs && ChmDescs!=="")
-              {
-                setChmDesc("");
-                return;
-              }
-              setChmDesc(ChmDescs);
-              }, [ChmDesc]
-               );
-
-useEffect(() =>{
-  const ChmPhns=ChmPhn
-    if(!ChmPhns && ChmPhns!=="")
-    {
-      setChmPhn("");
-      return;
-    }
-    setChmPhn(ChmPhns);
-    }, [ChmPhn]
-     );
-
-     useEffect(() =>{
-      const pws=pword
-        if(!pws && pws!=="")
-        {
-          setPW("");
-          return;
-        }
-        setPW(pws);
-        }, [pword]
-         );
-        
-          return (
-            <View>
-              <View
-                 style={styles.image}>
-                <ScrollView>
-           
-                  <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Chama Details Below</Text>
-                  </View>
-        
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    
-                      value={ChmPhn}
-                      onChangeText={setChmPhn}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Group Account Number</Text>
-                  </View>
-
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    placeholder="Member Email"
-                      value={phoneContacts}
-                      onChangeText={setPhoneContacts}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Member Email</Text>
-                  </View>
-
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                     
-                      value={MmbaID}
-                      onChangeText={setMmbaID}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Member Chama Number</Text>
-                  </View>
-
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    placeholder='Subscription Amount'
-                     keyboardType='decimal-pad'
-                     
-                      value={SubAmt}
-                      onChangeText={setSubAmt}
-                      style={styles.sendAmtInputDesc}
-                      editable={true}></TextInput>
-                   
-                  </View>
-
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    placeholder='Subscription Frequency (Days)'
-                     keyboardType='decimal-pad'
-                     
-                      value={SubFreq}
-                      onChangeText={setSubFreq}
-                      style={styles.sendAmtInputDesc}
-                      editable={true}></TextInput>
-                    
-                  </View>
-
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    placeholder='Late Subscription Penalty'
-                     keyboardType='decimal-pad'
-                     
-                      value={lateSub}
-                      onChangeText={setlateSub}
-                      style={styles.sendAmtInputDesc}
-                      editable={true}></TextInput>
-                    
-                  </View>
-
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={pword}
-                      onChangeText={setPW}
-                      secureTextEntry = {true}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>AdminMainAccountPassword</Text>
-                  </View>
-
-                  <TouchableOpacity
-                    onPress={ChckUsrExistence2}
-                    style={styles.sendLoanButton}>
-                    <Text style={styles.sendLoanButtonText}>
-                      Click to Add Chama Member
-                    </Text>
-                    {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
-                  </TouchableOpacity>
-                </ScrollView>
-              </View>
-            </View>
+          const user = await Auth.currentAuthenticatedUser();
+          const groupsData: any = await API.graphql(
+            graphqlOperation(listGroups, {
+              filter: {
+                or: [
+                  { Admin1: { eq: user.attributes.email } },
+                  { Admin2: { eq: user.attributes.email } },
+                  { Admin3: { eq: user.attributes.email } },
+                  { Admin4: { eq: user.attributes.email } },
+                  { Admin5: { eq: user.attributes.email } },
+                  { Admin6: { eq: user.attributes.email } },
+                  { Admin7: { eq: user.attributes.email } },
+                  { Admin8: { eq: user.attributes.email } },
+                  { Admin9: { eq: user.attributes.email } },
+                  { Admin10: { eq: user.attributes.email } },
+                  { Admin11: { eq: user.attributes.email } },
+                  { Admin12: { eq: user.attributes.email } },
+                  { Admin13: { eq: user.attributes.email } },
+                  { Admin14: { eq: user.attributes.email } },
+                  { Admin15: { eq: user.attributes.email } },
+                  { Admin16: { eq: user.attributes.email } },
+                  { Admin17: { eq: user.attributes.email } },
+                  { Admin18: { eq: user.attributes.email } },
+                  { Admin19: { eq: user.attributes.email } },
+                  { Admin20: { eq: user.attributes.email } },
+                 
+                  // Add remaining Admin fields if needed
+                ],
+              },
+            })
           );
+
+          setAdminGroups(groupsData.data.listGroups.items);
+        } catch (error) {
+          console.error(error);
+          Alert.alert('Failed to fetch your groups');
+        }
+      };
+
+      fetchAdminGroups();
+    }, []);
+
+    // Main function to add a member
+    const handleAddMember = async () => {
+      if (!selectedGroup) {
+        Alert.alert('Please select a group first');
+        return;
+      }
+
+      if (!phoneContacts || !MmbaID || !SubAmt || !SubFreq || !pword) {
+        Alert.alert('Please fill all required fields');
+        return;
+      }
+
+      setIsLoading(true);
+
+      try {
+        const userInfo = await Auth.currentAuthenticatedUser();
+
+        // Check if member exists
+        const memberData: any = await API.graphql(
+          graphqlOperation(listSMAccounts, { filter: { awsemail: { eq: phoneContacts } } })
+        );
+
+        if (memberData.data.listSMAccounts.items.length < 1) {
+          Alert.alert('Member must first create a main account');
+          setIsLoading(false);
+          return;
+        }
+
+        // Verify admin password
+        const adminAccount: any = await API.graphql(
+          graphqlOperation(getSMAccount, { awsemail: userInfo.attributes.email })
+        );
+
+        const memberDtls: any = await API.graphql(
+          graphqlOperation(getSMAccount, { awsemail: phoneContacts })
+        );
+
+        const membaDtls = memberDtls.data.getSMAccount;
+
+        if (!membaDtls) {
+          Alert.alert('Member must first create a main account');
+          setIsLoading(false);
+          return;
+        }
+
+
+
+        // Fetch selected group details
+        const group = selectedGroup;
+
+        // Prepare member payload
+        const memberPayload = {
+          MembaId: MmbaID,
+          regNo: group.regNo,
+          groupContact: group.grpContact,
+          memberContact: phoneContacts,
+          ChamaNMember: MmbaID + group.grpContact,
+          memberNatId: membaDtls.nationalid, // Optional: fetch if needed
+          memberChmBenefit: 0,
+          GrossLnsGvn: 0,
+          LonAmtGven: 0,
+          AmtRepaid: 0,
+          LnBal: 0,
+          NonLoanAcBal: 0,
+          ttlNonLonAcBal: 0,
+          timeCrtd: Date.now().toString(),
+          subscribedAmt: 0,
+          groupName: group.grpName,
+          memberName: '', // Optional: fetch from member account if needed
+          AcStatus: 'AccountActive',
+          loanStatus: 'NoLoan',
+          blStatus: 'AccountNotBL',
+          owner: group.owner,
+          totalSubAmt: 0,
+          subscriptionFrequency: SubFreq,
+          subscriptionAmt: SubAmt,
+          lateSubscriptionPenalty: lateSub || 0,
+          ttlLateSubs: 0,
+          transportApproved: 'ChamaTransportApprovedNo',
         };
+
+        // Create member
+        await API.graphql(graphqlOperation(createChamaMembers, { input: memberPayload }));
+
+        // Update group and company counts
+        await API.graphql(
+          graphqlOperation(updateGroup, {
+            input: {
+              grpContact: group.grpContact,
+              ttlGrpMembers: group.ttlGrpMembers + 1,
+            },
+          })
+        );
+
+        await API.graphql(
+          graphqlOperation(updateCompany, {
+            input: {
+              AdminId: "BaruchHabaB'ShemAdonai2", // TODO: dynamic admin
+              ttlActiveChmUsers: 1, // Could fetch current count and increment
+            },
+          })
+        );
+
+        await API.graphql(
+              graphqlOperation(createMessages, {
+                input: {
+                  senderEmail: phoneContacts,
+                  messageBody: `You have been added to group ${group.grpName}. Welcome!`,
+                },
+              })
+            );
         
-        export default AddChmMmbrs;
+            await API.graphql(
+              graphqlOperation(sendNotification, {
+                riderEmail: phoneContacts,
+                title: "MiFedha: New Group Membership",
+                body: `You have been added to group ${group.grpName}. Welcome!`,
+              })
+            );
+        
+            Alert.alert("Success", `Member added successfully to ${group.grpName}`);
+            navigation.goBack();
+        
+
+        Alert.alert(`Member ${phoneContacts} added to ${group.grpName}`);
+        setPhoneContacts('');
+        setMmbaID('');
+        setSubAmt('');
+        setSubFreq('');
+        setLateSub('');
+        setPW('');
+        setSelectedGroup(null);
+
+      } catch (error) {
+        console.error(error);
+        Alert.alert('Error adding member. Please try again.');
+      }
+
+      setIsLoading(false);
+    };
+
+    return (
+      <View style={ui.container}>
+        <ScrollView contentContainerStyle={ui.scroll}>
+
+          {/* Header */}
+          <View style={ui.header}>
+            <Text style={ui.title}>Add Chama Member</Text>
+            <Text style={ui.subtitle}>Select a group and fill member details</Text>
+          </View>
+
+          {/* Group Selection */}
+          <View style={ui.card}>
+            <Text style={ui.label}>Select Group</Text>
+            {adminGroups.length > 0 ? (
+              adminGroups.map(group => (
+                <TouchableOpacity
+                  key={group.grpContact}
+                  style={[
+                    ui.groupButton,
+                    selectedGroup?.grpContact === group.grpContact && ui.groupButtonSelected,
+                  ]}
+                  onPress={() => setSelectedGroup(group)}
+                >
+                  <Text
+                    style={[
+                      ui.groupButtonText,
+                      selectedGroup?.grpContact === group.grpContact && { color: '#fff' },
+                    ]}
+                  >
+                    {group.grpName}
+                  </Text>
+                </TouchableOpacity>
+              ))
+            ) : (
+              <Text style={{ color: 'red', marginVertical: 10 }}>You have no groups</Text>
+            )}
+          </View>
+
+          {/* Member Form */}
+          {selectedGroup && (
+            <View style={ui.card}>
+              <View style={ui.inputGroup}>
+                <Text style={ui.label}>Member Email</Text>
+                <TextInput
+                  value={phoneContacts}
+                  onChangeText={setPhoneContacts}
+                  style={ui.input}
+                  placeholder="member@email.com"
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                />
+              </View>
+
+              <View style={ui.inputGroup}>
+                <Text style={ui.label}>Member Chama Number</Text>
+                <TextInput
+                  value={MmbaID}
+                  onChangeText={setMmbaID}
+                  style={ui.input}
+                  placeholder="Unique member ID"
+                />
+              </View>
+
+              <View style={ui.inputGroup}>
+                <Text style={ui.label}>Subscription Amount</Text>
+                <TextInput
+                  value={SubAmt}
+                  onChangeText={setSubAmt}
+                  style={ui.input}
+                  keyboardType="decimal-pad"
+                />
+              </View>
+
+              <View style={ui.inputGroup}>
+                <Text style={ui.label}>Subscription Frequency (Days)</Text>
+                <TextInput
+                  value={SubFreq}
+                  onChangeText={setSubFreq}
+                  style={ui.input}
+                  keyboardType="decimal-pad"
+                />
+              </View>
+
+              <View style={ui.inputGroup}>
+                <Text style={ui.label}>Late Subscription Penalty</Text>
+                <TextInput
+                  value={lateSub}
+                  onChangeText={setLateSub}
+                  style={ui.input}
+                  keyboardType="decimal-pad"
+                />
+              </View>
+
+              <View style={[ui.inputGroup, { flexDirection: 'row', alignItems: 'center' }]}>
+    <TextInput
+      value={pword}
+      onChangeText={setPW}
+      style={[ui.input, { flex: 1 }]} // take full width except icon
+      secureTextEntry={!showPassword}
+      placeholder="••••••••"
+    />
+    <TouchableOpacity
+      onPress={() => setShowPassword(!showPassword)}
+      style={{ marginLeft: 10 }}
+    >
+      <Text style={{ color: '#2563EB', fontWeight: '500' }}>
+        {showPassword ? 'Hide' : 'Show'}
+      </Text>
+    </TouchableOpacity>
+  </View>
+
+              <TouchableOpacity
+                style={ui.button}
+                onPress={handleAddMember}
+                disabled={isLoading}
+              >
+                {isLoading ? <ActivityIndicator color="#fff" /> : <Text style={ui.buttonText}>Add Member</Text>}
+              </TouchableOpacity>
+            </View>
+          )}
+        </ScrollView>
+      </View>
+    );
+  };
+
+  export default AddChmMmbrs;
+
+
+  const ui = StyleSheet.create({
+    // Container
+    container: {
+      flex: 1,
+      backgroundColor: '#F4F6F8',
+    },
+    scroll: {
+      padding: 20,
+      paddingBottom: 40,
+    },
+
+    // Header
+    header: {
+      marginBottom: 24,
+    },
+    title: {
+      fontSize: 24,
+      fontWeight: '700',
+      color: '#1F2933',
+    },
+    subtitle: {
+      marginTop: 6,
+      fontSize: 14,
+      color: '#6B7280',
+    },
+
+    // Card
+    card: {
+      backgroundColor: '#FFFFFF',
+      borderRadius: 14,
+      padding: 20,
+      marginBottom: 20,
+      shadowColor: '#000',
+      shadowOpacity: 0.05,
+      shadowRadius: 10,
+      shadowOffset: { width: 0, height: 2 },
+      elevation: 4,
+    },
+
+    // Input
+    inputGroup: {
+      marginBottom: 16,
+    },
+    label: {
+      fontSize: 13,
+      color: '#374151',
+      marginBottom: 6,
+      fontWeight: '500',
+    },
+    input: {
+      height: 48,
+      borderWidth: 1,
+      borderColor: '#D1D5DB',
+      borderRadius: 10,
+      paddingHorizontal: 14,
+      fontSize: 15,
+      backgroundColor: '#F9FAFB',
+    },
+
+    // Button
+    button: {
+      height: 52,
+      borderRadius: 12,
+      backgroundColor: '#e58d29',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 24,
+    },
+    buttonText: {
+      color: '#FFFFFF',
+      fontSize: 16,
+      fontWeight: '600',
+    },
+
+    // Group selection buttons
+    groupButton: {
+      padding: 12,
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: '#D1D5DB',
+      marginBottom: 10,
+      backgroundColor: '#F9FAFB',
+      alignItems: 'center',
+    },
+    groupButtonSelected: {
+      backgroundColor: '#e58d29',
+      borderColor: 'skyblue',
+    },
+    groupButtonText: {
+      fontSize: 15,
+      color: '#1F2933',
+      fontWeight: '500',
+    },
+  });
+

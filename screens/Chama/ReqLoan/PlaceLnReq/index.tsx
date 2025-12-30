@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {createReqLoanChama, updateCompany} from '../../../../src/graphql/mutations';
-import { getAdvocate, getBizna, getChamaMembers, 
+import {createMessages, createReqLoanChama, sendNotification, updateCompany} from '../../../../src/graphql/mutations';
+import { getAdvocate, getBizna, getChamaAdminLnApply, getChamaMembers, 
   getCompany, getGroup, getSMAccount, listChamaMembers  } from '../../../../src/graphql/queries';
 import {Auth,  graphqlOperation, API} from 'aws-amplify';
 
@@ -15,14 +15,14 @@ import {
   
   TextInput,
   ScrollView,
-  
+  StyleSheet,
   
   TouchableOpacity,
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import styles from './styles';
 import { createReqLoan } from '../../../../src/graphql/mutations';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 
@@ -47,635 +47,495 @@ const CreateBiz = (props) => {
   const [ChmNm, setChmNm] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
   const [ChmRegNo, setChmRegNo] = useState('');
+    const navigation = useNavigation();
+    const [showPassword, setShowPassword] = useState(false);
+
+  
   
  
 
   
   const route = useRoute();
+  const grpContacts = route.params?.groupContact;
+  const MembaId = route.params?.MembaId;
+    const id = route.params?.id;
+
+  const ChamaNMember = MembaId+grpContacts;
+
 
 
  
-  const gtBizna = async () =>{
-    if(isLoading){
+ const gtBizna = async () => {
+  if (isLoading) return;
+  setIsLoading(true);
+
+  try {
+
+    // Required fields check
+if (
+  !itemPrys.trim() ||
+  !lnPrsntg.trim() ||
+  !rpymntPrd.trim() ||
+  !InstAmt.trim() ||
+  !InstFreq.trim() ||
+  !pword.trim()
+) {
+  Alert.alert("Please fill in all required fields.");
+  return;
+}
+
+    const userInfo = await Auth.currentAuthenticatedUser();
+
+    /** ---------------- USER ACCOUNT ---------------- */
+    const smRes: any = await API.graphql(
+      graphqlOperation(getSMAccount, { awsemail: userInfo.attributes.email })
+    );
+
+    const pws = smRes.data.getSMAccount.pw;
+    const phonecontacts = smRes.data.getSMAccount.phonecontact;
+    const names = smRes.data.getSMAccount.name;
+
+
+    /** ---------------- VALIDATIONS ---------------- */
+    if (pword !== pws) {
+      Alert.alert("Wrong User password");
       return;
     }
-    setIsLoading(true);
-    const userInfo = await Auth.currentAuthenticatedUser();
-    try{
-      const compDtls :any= await API.graphql(
-        graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
-        );
-        const pws = compDtls.data.getSMAccount.pw;
-        const phonecontacts = compDtls.data.getSMAccount.phonecontact;
-        const name = compDtls.data.getSMAccount.name;
-        const owner = compDtls.data.getSMAccount.owner;
 
-      const Int = ((parseFloat(lnPrsntg) - parseFloat(itemPrys))*100)/(parseFloat(lnPrsntg)*parseFloat(rpymntPrd))
-
-    
-      const gtChmDtls = async () =>{
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
-
-
-        try{
-          const compDtlsz :any= await API.graphql(
-            graphqlOperation(getChamaMembers,{ChamaNMember:route.params.ChamaNMember})
-            );
-            const groupContact = compDtlsz.data.getChamaMembers.groupContact;
-            const MembaId = compDtlsz.data.getChamaMembers.MembaId;
-    
-            
-            const fetchSenderUsrDtls = async () => {
-              if(isLoading){
-                return;
-              }
-              setIsLoading(true);
-              try {
-                const accountDtl:any = await API.graphql(
-                  graphqlOperation(getGroup, {grpContact: groupContact}),
-                );
-          
-                const SignatoryEmail =accountDtl.data.getGroup.SignatoryEmail;
-                const grpName =accountDtl.data.getGroup.grpName;
-                const signitoryContact =accountDtl.data.getGroup.signitoryContact;
-                const signitory2Sub =accountDtl.data.getGroup.signitory2Sub;
-               const Signatory3Email =accountDtl.data.getGroup.Signatory3Email;
-               
-                
-                const gtComp = async () =>{
-                  if(isLoading){
-                    return;
-                  }
-                  setIsLoading(true);
-                  const userInfo = await Auth.currentAuthenticatedUser();
-                  try{
-                    const compDtls :any= await API.graphql(
-                      graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
-                      );
-                      const maxDefaultPen = compDtls.data.getCompany.maxDfltPen;
-    
-                      const RecomDfltPnltyRate = (parseFloat(lnPrsntg)*maxDefaultPen) / 100;
-                     
-                      
-                      
-                const fetchRecUsrDtls = async () => {
-                  if(isLoading){
-                    return;
-                  }
-                  setIsLoading(true);
-                  try {
-                      const RecAccountDtl:any = await API.graphql(
-                          graphqlOperation(getSMAccount, {awsemail: SignatoryEmail}),
-                          );
-                          
-                          const phonecontact =RecAccountDtl.data.getSMAccount.phonecontact; 
-                          const name =RecAccountDtl.data.getSMAccount.name; 
-                          const amtrpayable = parseFloat(itemPrys) * 
-                                              ((Math.pow(1 + parseFloat(lnPrsntg)/36500, 0)))
-                          
-                          
-                          const ExpInstmnt = amtrpayable/parseFloat(rpymntPrd)
-
-                          const CreateNewSMAc2 = async () => {
-                            if(isLoading){
-                              return;
-                            }
-                            setIsLoading(true);
-                            try {
-                              await API.graphql(
-                              graphqlOperation(createReqLoanChama, {
-                              input: {
-                               
-                                loaneeEmail:userInfo.attributes.email,
-                                chamaPhone:groupContact,
-                                loaneeName: userInfo.username,
-                                loaneePhone:phonecontacts,
-                                amount: parseFloat(itemPrys).toFixed(2),
-                                repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
-                                repaymentPeriod:rpymntPrd,
-                                loaneeMemberId:MembaId,
-                                status: "AwaitingResponse",
-                                owner: SignatoryEmail,
-                                statusNumber: 0,
-                                dfltDeadLn:0,
-                                AdvEmail: "None",
-                                advLicNo:"None",
-                                lnType:"GrpLn",
-                                loanerName: grpName,
-                                loanerPhone: signitoryContact,
-                                description: ChmNm,
-                                defaultPenalty:ChmDesc,
-                                installmentAmount:InstAmt,
-                                paymentFrequency:InstFreq,
-                                confirm1:"NO",
-                                confirm2: "NO",
-                                signatory2: signitory2Sub,
-                                signatory3: Signatory3Email
-                                      },
-                                    })
-                                    
-                                    
-                                  );
-                    
-                                  
-                    
-                                  
-                                } catch (error) {
-                                  console.log(error)
-                                  if(error){
-                                    Alert.alert("Please enter details correctly")
-                                    return;
-                                } 
-                                
-                                }
-                                Alert.alert("Loan Request Successful");
-                                Communications.textWithoutEncoding(signitoryContact,'MiFedha. Hi '+ name + '. '
-                                              + userInfo.username + ', member Id ' + MembaId
-                                              + ' has requested Ksh. '+ itemPrys +
-                                            ' loan from group ' + grpName +'. Thank you.');
-                              };
-
-                          const gtAdvDtls = async () =>{
-                            if(isLoading){
-                              return;
-                            }
-                            setIsLoading(true);
-                            const userInfo = await Auth.currentAuthenticatedUser();
-                            try{
-                              const compDtls5 :any= await API.graphql(
-                                graphqlOperation(getAdvocate,{advregnu:Sign2Phn})
-                                );
-                            
-                                const email = compDtls5.data.getAdvocate.email;
-                                const Advphonecontact = compDtls5.data.getAdvocate.phonecontact;
-                          
-            
-
-      const CreateNewSMAc = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
-        try {
-          await API.graphql(
-          graphqlOperation(createReqLoanChama, {
-          input: {
-           
-            loaneeEmail:userInfo.attributes.email,
-            chamaPhone:groupContact,
-            loaneeName: userInfo.username,
-            confirm1:"NO",
-            confirm2: "NO",
-            loaneePhone:phonecontacts,
-            amount: parseFloat(itemPrys).toFixed(2),
-            repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
-            repaymentPeriod:rpymntPrd,
-            loaneeMemberId:MembaId,
-            status: "AwaitingResponse",
-            owner: SignatoryEmail,
-            statusNumber: 0,
-            dfltDeadLn:0,
-            AdvEmail: email,
-            advLicNo:Sign2Phn,
-            lnType:"GrpLn",
-            loanerName: grpName,
-            loanerPhone: signitoryContact,
-            description: ChmNm,
-            defaultPenalty:ChmDesc,
-            installmentAmount:InstAmt,
-            paymentFrequency:InstFreq,
-            
-                                signatory2: signitory2Sub,
-                                signatory3: Signatory3Email
-                  },
-                })
-                
-                
-              );
-
-              
-
-              
-            } catch (error) {
-              console.log(error)
-              if(error){
-                Alert.alert("Please enter details correctly")
-                return;
-            } 
-            
-            }
-            Alert.alert("Loan Request Successful");
-            Communications.textWithoutEncoding(Advphonecontact,'MiFedha. Greetings! '
-            + 'We ' + name + ', the loanee and ' + grpName + ', the Loaning Group humbly' +  
-            ' request that you witness our loan contract on MiFedha app amounting to Ksh. '+
-            itemPrys + ' repayable with ' + lnPrsntg + '% per year by the end of ' +rpymntPrd + 
-            ' days. Default penalty is Ksh. '+ ChmDesc + '. You can reach my loaner through '+ signitoryContact +
-             '. You can also reach me through ' +phonecontacts +'. Thank you.');
-          };
-
-         await CreateNewSMAc();
-         
-          
-
-        } catch (e) {
-          if(e){Alert.alert("Error! Please enter advocate license correctly")}
-          return
-        }
-  
-      }
-
-      
-      if (pword !== pws)
-        {Alert.alert("Wrong User password");
-      
-    } 
-    
-    
-    else if (parseFloat(rpymntPrd) < 1){
-      Alert.alert("Enter repayment Period greater than 1 day")
+    if (parseFloat(rpymntPrd) < 1) {
+      Alert.alert("Enter repayment Period greater than 1 day");
+      return;
     }
-    else if (parseFloat(lnPrsntg) > 100){
+
+    if (parseFloat(lnPrsntg) > 100) {
       Alert.alert("Interest exploits you; enter lesser repayment amount");
       return;
     }
-    else if (ExpInstmnt > parseFloat(InstAmt)){
-      Alert.alert("Enter Installment greater than "+(ExpInstmnt+1).toFixed(0))
-    }
-    else if (!Sign2Phn)
 
-      /*
-      else if (!Sign2Phn || Sign2Phn.trim() === "")
-*/
-    {
-    
-    await CreateNewSMAc2 ();
-    
-  
-  }
+    /** ---------------- CHAMA MEMBER ---------------- */
+    const memberRes: any = await API.graphql(
+  graphqlOperation(getChamaMembers, { ChamaNMember: ChamaNMember })
+);
 
-  else {await gtAdvDtls();}
+const memberData = memberRes.data.getChamaMembers;
 
-console.log(signitory2Sub)
-console.log(SignatoryEmail)
-console.log(Signatory3Email)
 
-        }       
-        catch(e) {    
-          console.log(e); 
-          if (e){Alert.alert("Error1! Retry or update app or call customer care")
-return;}                 
-        }
-        setIsLoading(false);
-        }   
-        
-        
-          await fetchRecUsrDtls();        
+if (!memberData) {
+  Alert.alert("Chama member not found");
+  setIsLoading(false);
+  return;
+}
 
-        } catch (e) {
-          if(e){Alert.alert("Error2! Retry or update app or call customer care")}
-          console.error(e);
-        }
-        setIsLoading(false);
-            
-        }
-        
-        await gtComp();
-      
-      } catch (e) {
-          console.log(e)
-          if (e){Alert.alert("Error3! Retry or update app or call customer care")
-          return;}
-      };
-          setIsLoading(false);
-         
-          
-          
-    }
+    /** ---------------- APPLICATION DETAILS ---------------- */
+    const appRes: any = await API.graphql(
+      graphqlOperation(getChamaAdminLnApply, { id })
+    );
+    const AppDtls = appRes.data.getChamaAdminLnApply;
 
-    
-    await fetchSenderUsrDtls();
-          
 
-        } catch (error) {
-          console.log(error)
-          if(error){
-            Alert.alert("Error4! Retry or update app or call customer care")
-            return;
-        } 
-        
-        }
-       
-      };
+    /** ---------------- GROUP DETAILS ---------------- */
+    const groupRes: any = await API.graphql(
+      graphqlOperation(getGroup, { grpContact: grpContacts })
+    );
 
-      if (userInfo.attributes.sub !== owner)
-    {Alert.alert ("Please first create main account")}
-    else{
+    const grpDtls = groupRes.data.getGroup;
 
-      await gtChmDtls();}
+    const grpName = grpDtls.grpName;
+    const signitoryContact = grpDtls.signitoryContact;
+    const signitory2Sub = grpDtls.signitory2Sub;
+    const Signatory3Email = grpDtls.Signatory3Email;
+    const SignatoryEmail = grpDtls.SignatoryEmail;
 
-      console.log(userInfo.attributes.email)
-      
+            console.log(grpDtls.grpName)
 
-        } catch (e) {
-          if(e){Alert.alert("Error5! Retry or update app or call customer care")
-        return}
-          console.error(e);
-        }
-        setIsLoading(false);
-            setChmPhn('');
-            setPW('');
-            
-            setChmDesc("")
-            setChmNm("")
-            setChmRegNo("")
-          
-            setSign2Phn("");
-            setrpymntPrd("");
-            setlnPrsntg("");
-            setitemTwn("");
-            setitemPrys("");
-            setInstAmt("");
-            setInstFreq("")
-      }
-          
-    
-      useEffect(() =>{
-        const InstAmts=InstAmt
-          if(!InstAmts && InstAmts!=="")
-          {
-            setInstAmt("");
-            return;
-          }
-          setInstAmt(InstAmts);
-          }, [InstAmt]
-           );
-           
-           useEffect(() =>{
-            const InstFreqs=InstFreq
-              if(!InstFreqs && InstFreqs!=="")
-              {
-                setInstFreq("");
-                return;
-              }
-              setInstFreq(InstFreqs);
-              }, [InstFreq]
-               );
-               
-               
-               useEffect(() =>{
-            const itemPryss=itemPrys
-              if(!itemPryss && itemPryss!=="")
-              {
-                setitemPrys("");
-                return;
-              }
-              setitemPrys(itemPryss);
-              }, [itemPrys]
-               );
-               
-               useEffect(() =>{
-                const itemTwns=itemTwn
-                  if(!itemTwns && itemTwns!=="")
-                  {
-                    setitemTwn("");
-                    return;
-                  }
-                  setitemTwn(itemTwns);
-                  }, [itemTwn]
-                   );
-                   
-                   useEffect(() =>{
-                    const lnPrsntgs=lnPrsntg
-                      if(!lnPrsntgs && lnPrsntgs!=="")
-                      {
-                        setlnPrsntg("");
-                        return;
-                      }
-                      setlnPrsntg(lnPrsntgs);
-                      }, [lnPrsntg]
-                       );
-                       
-                       useEffect(() =>{
-                        const rpymntPrds=rpymntPrd
-                          if(!rpymntPrds && rpymntPrds!=="")
-                          {
-                            setrpymntPrd("");
-                            return;
-                          }
-                          setrpymntPrd(rpymntPrds);
-                          }, [rpymntPrd]
-                           );
-                           
-                           
-                           
-        
-           
-           useEffect(() =>{
-        const ChmRegNos=ChmRegNo
-          if(!ChmRegNos && ChmRegNos!=="")
-          {
-            setChmRegNo("");
-            return;
-          }
-          setChmRegNo(ChmRegNos);
-          }, [ChmRegNo]
-           );
-           
-          
-      useEffect(() =>{
-        const ChmNms=ChmNm
-          if(!ChmNms && ChmNms!=="")
-          {
-            setChmNm("");
-            return;
-          }
-          setChmNm(ChmNms);
-          }, [ChmNm]
-           );
 
-           useEffect(() =>{
-            const ChmDescs=ChmDesc
-              if(!ChmDescs && ChmDescs!=="")
-              {
-                setChmDesc("");
-                return;
-              }
-              setChmDesc(ChmDescs);
-              }, [ChmDesc]
-               );
+    /** ---------------- INSTALLMENT CHECK ---------------- */
+    const ExpInstmnt =
+      parseFloat(itemPrys) / parseFloat(rpymntPrd);
 
-useEffect(() =>{
-  const ChmPhns=ChmPhn
-    if(!ChmPhns && ChmPhns!=="")
-    {
-      setChmPhn("");
+    if (ExpInstmnt > parseFloat(InstAmt)) {
+      Alert.alert(
+        "Enter Installment greater than " + (ExpInstmnt + 1).toFixed(0)
+      );
       return;
     }
-    setChmPhn(ChmPhns);
-    }, [ChmPhn]
-     );
 
-     useEffect(() =>{
-      const pws=pword
-        if(!pws && pws!=="")
-        {
-          setPW("");
-          return;
-        }
-        setPW(pws);
-        }, [pword]
-         );
+    /** ---------------- ADVOCATE (OPTIONAL) ---------------- */
+    let advocateEmail = "None";
+    let advocateLicense = "None";
 
-         useEffect(() =>{
-          const Sign2Phns=Sign2Phn
-            if(!Sign2Phns && Sign2Phns!=="")
-            {
-              setSign2Phn("");
-              return;
-            }
-            setSign2Phn(Sign2Phns);
-            }, [Sign2Phn]
-             );
+    if (Sign2Phn && Sign2Phn.trim() !== "") {
+      const advRes: any = await API.graphql(
+        graphqlOperation(getAdvocate, { advregnu: Sign2Phn.trim() })
+      );
 
-        
-          return (
-            <View>
-              <View
-                 style={styles.image}>
-                <ScrollView>
-           
-                  <View style={styles.loanTitleView}>
-                    <Text style={styles.title}>Fill Details Below</Text>
-                  </View>
-        
-                  
-                 
+      if (advRes?.data?.getAdvocate) {
+        advocateEmail = advRes.data.getAdvocate.email;
+        advocateLicense = Sign2Phn.trim();
+      } else {
+        Alert.alert("Advocate not found. Proceeding without advocate.");
+      }
+    }
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    
-                    placeholder='Advocate License Number (Optional)'
-                      value={Sign2Phn}
-                      onChangeText={setSign2Phn}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Advocate License Number</Text>
-                  </View>
-                  
-                
+    /** ---------------- CREATE LOAN ---------------- */
+    await API.graphql(
+      graphqlOperation(createReqLoanChama, {
+        input: {
+          loaneeEmail: userInfo.attributes.email,
+          chamaPhone: grpContacts,
+          loaneeName: names,
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                     placeholder='Loan Description (Optional)'
-                      value={ChmNm}
-                      multiline = {true}
-                      onChangeText={setChmNm}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loan Description</Text>
-                  </View>
+          confirm1: "NO",
+          confirm2: "NO",
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    placeholder='Default Penalty'
-                     keyboardType='decimal-pad'
-                     
-                      value={ChmDesc}
-                      onChangeText={setChmDesc}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Default Penalty</Text>
-                  </View>
+          loaneePhone: phonecontacts,
+          amount: parseFloat(itemPrys).toFixed(2),
+          repaymentAmt: parseFloat(lnPrsntg).toFixed(2),
+          repaymentPeriod: rpymntPrd,
+          loaneeMemberId: MembaId,
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    placeholder='Installment Frequency (Days)'
-                     keyboardType='decimal-pad'
-                     
-                      value={InstFreq}
-                      onChangeText={setInstFreq}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    
-                  </View>     
-                  
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    placeholder='Installment Amount'
-                     keyboardType='decimal-pad'
-                     
-                      value={InstAmt}
-                      onChangeText={setInstAmt}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    
-                  </View>
+          status: "AwaitingResponse",
+          statusNumber: 0,
+          dfltDeadLn: 0,
 
-                              
+          AdvEmail: advocateEmail,
+          advLicNo: advocateLicense,
 
+          lnType: "GrpLn",
+          loanerName: grpName,
+          loanerPhone: signitoryContact,
 
+          description: ChmNm? ChmNm : "No description",
+          defaultPenalty: ChmDesc,
+          installmentAmount: InstAmt,
+          paymentFrequency: InstFreq,
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                     keyboardType='decimal-pad'
-                     
-                      value={itemPrys}
-                      onChangeText={setitemPrys}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Loan Amount</Text>
-                  </View>
+          signatory2: signitory2Sub,
+          signatory3: Signatory3Email,
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    keyboardType='decimal-pad'
-                    placeholder='Example: 8% write 8'
-                      value={lnPrsntg}
-                      onChangeText={setlnPrsntg}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Annual Interest rate</Text>
-                  </View>
+          membersApprove: 0,
+          loanMinutes: AppDtls.grpMinutes,
+          loanMinutesImage: AppDtls.MemberEmail,
+          loanFloatID: id,
 
+          owner: SignatoryEmail,
+          createdAt: new Date().toISOString(),
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                    keyboardType='decimal-pad'
-                    placeholder='Enter number of Days'
-                      value={rpymntPrd}
-                      onChangeText={setrpymntPrd}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}>Repayment Period in Days</Text>
-                  </View>
+        },
+      })
+    );
 
-                  
+    /** ---------------- NOTIFY ADVOCATE ---------------- */
+    if (advocateEmail !== "None") {
+      await API.graphql(
+        graphqlOperation(createMessages, {
+          input: {
+            senderEmail: advocateEmail,
+            messageBody: `A loan request has been made by ${names} under group ${grpName}. Please review and witness or decline.`,
+          },
+        })
+      );
 
-                  <View style={styles.sendLoanView}>
-                    <TextInput
-                      value={pword}
-                      onChangeText={setPW}
-                      secureTextEntry = {true}
-                      style={styles.sendLoanInput}
-                      editable={true}></TextInput>
-                    <Text style={styles.sendLoanText}> User PassWord</Text>
-                  </View>
+      await API.graphql(
+        graphqlOperation(sendNotification, {
+          riderEmail: advocateEmail,
+          title: "MiFedha: New Loan Request",
+          body: `A loan request has been made by ${names} under group ${grpName}.`,
+        })
+      );
+    }
 
-                  <TouchableOpacity
-                    onPress={gtBizna}
-                    style={styles.sendLoanButton}>
-                    <Text style={styles.sendLoanButtonText}>
-                      Click to Request 
-                    </Text>
-                    {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
-                  </TouchableOpacity>
-                </ScrollView>
-              </View>
-            </View>
-          );
+    /** ---------------- NOTIFY ADMIN ---------------- */
+    await API.graphql(
+      graphqlOperation(createMessages, {
+        input: {
+          senderEmail: AppDtls.ChamaAdminEmail,
+          messageBody: `A loan request has been made by ${names} under group ${grpName}. Please review.`,
+        },
+      })
+    );
+
+    await API.graphql(
+      graphqlOperation(sendNotification, {
+        riderEmail: AppDtls.ChamaAdminEmail,
+        title: "MiFedha: New Loan Request",
+        body: `A loan request has been made by ${names} under group ${grpName}.`,
+      })
+    );
+
+    Alert.alert("Loan request submitted successfully");
+    navigation.goBack();
+
+  } catch (e) {
+    console.error(e);
+    Alert.alert("Error! Please check details or contact support.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+return (
+  <LinearGradient
+    colors={['skyblue', '#e58d29']}
+    start={{ x: 0, y: 0 }}
+    end={{ x: 1, y: 1 }}
+    style={{ flex: 1 }}
+  >
+    <ScrollView
+      contentContainerStyle={styles.scrollContainer}
+      keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={false}
+    >
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Loan Request</Text>
+        <Text style={styles.headerSubtitle}>
+          Please fill in all required details carefully
+        </Text>
+      </View>
+
+      {/* Form Card */}
+      <View style={styles.formCard}>
+
+        <View style={styles.inputGroup}>
+          <TextInput
+            placeholder="Advocate License Number (Optional)"
+            placeholderTextColor="#333"
+            value={Sign2Phn}
+            onChangeText={setSign2Phn}
+            style={styles.input}
+          />
+          <Text style={styles.helperText}>Advocate License</Text>
+        </View>
+
+        <View style={styles.inputGroup}>
+          <TextInput
+            placeholder="Loan Description (Optional)"
+            placeholderTextColor="#333"
+            value={ChmNm}
+            onChangeText={setChmNm}
+            multiline
+            style={[styles.input, { height: 80 }]}
+          />
+          <Text style={styles.helperText}>Loan Purpose / Description</Text>
+        </View>
+
+        <View style={styles.inputGroup}>
+          <TextInput
+            placeholder="Default Penalty"
+            placeholderTextColor="#333"
+            keyboardType="decimal-pad"
+            value={ChmDesc}
+            onChangeText={setChmDesc}
+            style={styles.input}
+          />
+          <Text style={styles.helperText}>Penalty on default</Text>
+        </View>
+
+       
+          <View style={styles.inputGroup}>
+            <TextInput
+              placeholder="Installment Days"
+              placeholderTextColor="#333"
+              keyboardType="decimal-pad"
+              value={InstFreq}
+              onChangeText={setInstFreq}
+              style={styles.input}
+            />
+          </View>
+
+          <View style={styles.inputGroup}>
+            <TextInput
+              placeholder="Installment Amount"
+              placeholderTextColor="#333"
+              keyboardType="decimal-pad"
+              value={InstAmt}
+              onChangeText={setInstAmt}
+              style={styles.input}
+            />
+          </View>
+
+        <View style={styles.inputGroup}>
+          <TextInput
+            placeholder="Loan Amount"
+            placeholderTextColor="#333"
+            keyboardType="decimal-pad"
+            value={itemPrys}
+            onChangeText={setitemPrys}
+            style={styles.input}
+          />
+          <Text style={styles.helperText}>Principal Amount</Text>
+        </View>
+
+        <View style={styles.inputGroup}>
+          <TextInput
+            placeholder="Annual Interest Rate (e.g. 8)"
+            placeholderTextColor="#333"
+            keyboardType="decimal-pad"
+            value={lnPrsntg}
+            onChangeText={setlnPrsntg}
+            style={styles.input}
+          />
+          <Text style={styles.helperText}>Interest % per year</Text>
+        </View>
+
+        <View style={styles.inputGroup}>
+          <TextInput
+            placeholder="Repayment Period (Days)"
+            placeholderTextColor="#333"
+            keyboardType="decimal-pad"
+            value={rpymntPrd}
+            onChangeText={setrpymntPrd}
+            style={styles.input}
+          />
+          <Text style={styles.helperText}>Total repayment duration</Text>
+        </View>
+
+     <View style={{ position: 'relative' }}>
+  <TextInput
+    placeholder="User Password"
+    placeholderTextColor="#333"
+    secureTextEntry={!showPassword} // toggle hide/show
+    value={pword}
+    onChangeText={setPW}
+    style={styles.input}
+  />
+  <TouchableOpacity
+    style={{ position: 'absolute', right: 10, top: 14 }}
+    onPress={() => setShowPassword(!showPassword)}
+  >
+    <Text style={{ color: '#6b7280', fontSize: 14 }}>
+      {showPassword ? 'Hide' : 'Show'}
+    </Text>
+  </TouchableOpacity>
+</View>
+
+      </View>
+
+      {/* Submit Button */}
+      <TouchableOpacity
+        style={styles.submitButton}
+        onPress={gtBizna}
+        activeOpacity={0.85}
+      >
+        <Text style={styles.submitButtonText}>Request Loan</Text>
+        {isLoading && (
+          <ActivityIndicator
+            color="#fff"
+            style={{ marginLeft: 10 }}
+          />
+        )}
+      </TouchableOpacity>
+    </ScrollView>
+  </LinearGradient>
+);
+
+         
+          
         };
         
         export default CreateBiz;
+
+        const styles = StyleSheet.create({
+  scrollContainer: {
+    padding: 16,
+    paddingBottom: 40,
+  },
+
+  header: {
+    marginTop: 40,
+    marginBottom: 24,
+  },
+
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#ffffff',
+  },
+
+  headerSubtitle: {
+    fontSize: 14,
+    color: '#eef6ff',
+    marginTop: 6,
+  },
+
+  formCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    padding: 18,
+    marginBottom: 30,
+
+    elevation: 6,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+  },
+
+  inputGroup: {
+    marginBottom: 16,
+  },
+
+  input: {
+    backgroundColor: '#f9fafb',
+    borderRadius: 14,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    fontSize: 15,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    color: '#111827',
+  },
+
+  input2: {
+    backgroundColor: '#f9fafb',
+    borderRadius: 14,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    fontSize: 15,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    color: '#111827',
+    height: '100%',
+  },
+
+  helperText: {
+    fontSize: 12,
+    marginTop: 6,
+    color: '#6b7280',
+  },
+
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+    height: 60,
+  },
+
+  halfInput: {
+    width: '48%',
+    height: '100%',
+  },
+
+  submitButton: {
+    backgroundColor: '#e58d29',
+    borderRadius: 18,
+    paddingVertical: 16,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+
+    elevation: 4,
+    shadowColor: '#e58d29',
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+  },
+
+  submitButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: '700',
+    letterSpacing: 0.6,
+  },
+});

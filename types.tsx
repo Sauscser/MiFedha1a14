@@ -99,11 +99,27 @@ export enum Status {
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {
-      MemberReqChm:{ChamaNMember:string};
+      MemberReqChm:
+      {groupContact:string, 
+        MembaId:string,
+        id:string
+      };
+      ClearGroupMemberLoan:undefined;
+      
+      Vw2SignLoanRequests:undefined;
+      MembersApproveLoans:undefined;
+      ChmSignInsss:undefined;
       VwAsBeneficiary:undefined;
       AddCOMBPersonel:undefined;
+      Vw2FloatGrpLoans:undefined;
       ViewMessages:undefined;
       FunderClearBill:undefined;
+      
+      FloatLnReq: {grpContact:string}
+      VwFloatedLoans: {
+        groupContact:string,
+        MembaId:string
+      };
       GenerateCOMBVoucher:{
         id:string
         sellerAccount:string

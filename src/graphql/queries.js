@@ -3281,6 +3281,7 @@ export const getGroup = /* GraphQL */ `
       chamaBenSync
       BankName
       BranchNu
+      loanApprovalThreshHold
       grpEmail
       grpBal
       ttlGrpMembers
@@ -3384,6 +3385,7 @@ export const listGroups = /* GraphQL */ `
         chamaBenSync
         BankName
         BranchNu
+        loanApprovalThreshHold
         grpEmail
         grpBal
         ttlGrpMembers
@@ -3775,6 +3777,10 @@ export const getReqLoanChama = /* GraphQL */ `
       confirm2
       signatory2
       signatory3
+      membersApprove
+      loanMinutes
+      loanMinutesImage
+      loanFloatID
       updatedAt
       __typename
     }
@@ -3815,6 +3821,10 @@ export const listReqLoanChamas = /* GraphQL */ `
         confirm2
         signatory2
         signatory3
+        membersApprove
+        loanMinutes
+        loanMinutesImage
+        loanFloatID
         updatedAt
         __typename
       }
@@ -4067,6 +4077,104 @@ export const listChamaApplies = /* GraphQL */ `
         mfnReg
         status
         ChamaAcNu
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getChamaLnApproval = /* GraphQL */ `
+  query GetChamaLnApproval($id: ID!) {
+    getChamaLnApproval(id: $id) {
+      id
+      memberGrpNumber
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      memberName
+      grpName
+      loanID
+      status
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const listChamaLnApprovals = /* GraphQL */ `
+  query ListChamaLnApprovals(
+    $filter: ModelChamaLnApprovalFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listChamaLnApprovals(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        memberGrpNumber
+        GrpAccount
+        MemberEmail
+        grpMinutes
+        memberName
+        grpName
+        loanID
+        status
+        description
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getChamaAdminLnApply = /* GraphQL */ `
+  query GetChamaAdminLnApply($id: ID!) {
+    getChamaAdminLnApply(id: $id) {
+      id
+      grpName
+      ChamaAdminEmail
+      GrpAccount
+      MemberEmail
+      grpMinutes
+      status
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const listChamaAdminLnApplies = /* GraphQL */ `
+  query ListChamaAdminLnApplies(
+    $filter: ModelChamaAdminLnApplyFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listChamaAdminLnApplies(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        grpName
+        ChamaAdminEmail
+        GrpAccount
+        MemberEmail
+        grpMinutes
+        status
         createdAt
         updatedAt
         owner
@@ -7113,6 +7221,7 @@ export const VwNatIdentitysz = /* GraphQL */ `
         chamaBenSync
         BankName
         BranchNu
+        loanApprovalThreshHold
         grpEmail
         grpBal
         ttlGrpMembers
@@ -7221,6 +7330,7 @@ export const ViaChmArea = /* GraphQL */ `
         chamaBenSync
         BankName
         BranchNu
+        loanApprovalThreshHold
         grpEmail
         grpBal
         ttlGrpMembers
@@ -7329,6 +7439,7 @@ export const ViaChmVenture = /* GraphQL */ `
         chamaBenSync
         BankName
         BranchNu
+        loanApprovalThreshHold
         grpEmail
         grpBal
         ttlGrpMembers
@@ -7917,6 +8028,10 @@ export const ByChmaLnee = /* GraphQL */ `
         confirm2
         signatory2
         signatory3
+        membersApprove
+        loanMinutes
+        loanMinutesImage
+        loanFloatID
         updatedAt
         __typename
       }
@@ -7970,6 +8085,10 @@ export const ByChmaNoDesc = /* GraphQL */ `
         confirm2
         signatory2
         signatory3
+        membersApprove
+        loanMinutes
+        loanMinutesImage
+        loanFloatID
         updatedAt
         __typename
       }
