@@ -42,188 +42,138 @@ const RepayCovChmLnsss = () => {
   const route = useRoute();
 
   /** Fetch and process loan repayment */
-  const ftchCvdSMLn = async () => {
-    if (isLoading) return;
-    setIsLoading(true);
+const ftchCvdSMLn = async () => {
+  if (isLoading) return;
+  setIsLoading(true);
 
-    try {
-      const userInfo = await Auth.currentAuthenticatedUser();
+  try {
+    const userInfo = await Auth.currentAuthenticatedUser();
 
-      /** Fetch loan details */
-      const RecAccountDtl: any = await API.graphql(
-        graphqlOperation(getCvrdGroupLoans, { loanID: route.params.loanID })
-      );
+    // 1️⃣ Fetch loan details
+    const loanResp: any = await API.graphql(
+      graphqlOperation(getCvrdGroupLoans, { loanID: route.params.loanID })
+    );
+    const loan = loanResp.data.getCvrdGroupLoans;
 
-      const loanData = RecAccountDtl.data.getCvrdGroupLoans;
-      const {
-        amountExpectedBackWthClrnc,
-        memberId,
-        DefaultPenaltyChm2,
-        grpContact,
-        loaneePhn,
-        lonBala,
-        interest,
-        amountExpectedBack,
-        amountRepaid,
-        amountGiven,
-        crtnDate,
-        dfltUpdate,
-        repaymentPeriod,
-        clearanceAmt,
-      } = loanData;
+    const {
+      amountExpectedBackWthClrnc,
+      memberId,
+      DefaultPenaltyChm2,
+      grpContact,
+      loaneePhn,
+      amountExpectedBack,
+      amountRepaid,
+      clearanceAmt,
+      interest,
+      crtnDate,
+    } = loan;
 
-      const ClranceAmt = parseFloat(clearanceAmt) + parseFloat(DefaultPenaltyChm2);
-      const netLnBalz = amountExpectedBack - amountRepaid;
-      const curDate = new Date();
-      const years = curDate.getFullYear();
-      const months2 = curDate.getMonth();
-      const days = curDate.getDate();
-      const curYrs = years * 365;
-      const curMnths = months2 * 30.4375;
-      const daysUpToDate = curYrs + curMnths + days;
-      const now = Date.now(); // current timestamp in ms
-      const tmDif2 = (now - crtnDate) / (1000 * 60 * 60 * 24); // days elapsed
+    const ClranceAmt = parseFloat(clearanceAmt) + parseFloat(DefaultPenaltyChm2);
 
-      const netLnBal2 = netLnBalz * Math.pow(1 + parseFloat(interest) / 36500, tmDif2);
-      const LonBal1 = (netLnBal2 + parseFloat(clearanceAmt) + parseFloat(DefaultPenaltyChm2)).toFixed(0);
-      const LonBalsss = parseFloat(LonBal1) - parseFloat(amounts);
+    // Calculate current loan balance
+    const netLnBal = amountExpectedBack - amountRepaid;
+    const now = new Date();
+    const daysElapsed = (now.getTime() - new Date(crtnDate).getTime()) / (1000 * 60 * 60 * 24);
+    const netLnBalWithInterest = netLnBal * Math.pow(1 + parseFloat(interest) / 36500, daysElapsed);
+    const LonBal1 = (netLnBalWithInterest + ClranceAmt).toFixed(0);
+    const LonBalAfter = parseFloat(LonBal1) - parseFloat(amounts);
 
-      /** Fetch sender account */
-      const accountDtl: any = await API.graphql(
-        graphqlOperation(getSMAccount, { awsemail: loaneePhn })
-      );
+    // 2️⃣ Fetch sender account
+    const senderResp: any = await API.graphql(
+      graphqlOperation(getSMAccount, { awsemail: loaneePhn })
+    );
+    const sender = senderResp.data.getSMAccount;
+    const {
+      acStatus: senderStatus,
+      MaxTymsBL,
+      balance: senderBal,
+      name: senderName,
+      nonLonLimit,
+    } = sender;
 
-      const senderAcc = accountDtl.data.getSMAccount;
-      const { acStatus: usrAcActvStts, MaxTymsBL: MaxTymsBLss, name: names } = senderAcc;
+    // 3️⃣ Fetch company details
+    const companyResp: any = await API.graphql(
+      graphqlOperation(getCompany, { AdminId: "BaruchHabaB'ShemAdonai2" })
+    );
+    const company = companyResp.data.getCompany;
+    const { chmLnRpymntFee, maxBLs } = company;
 
-      /** Fetch company details */
-      const CompDtls: any = await API.graphql(
-        graphqlOperation(getCompany, { AdminId: "BaruchHabaB'ShemAdonai2" })
-      );
-      const company = CompDtls.data.getCompany;
-      const { chmLnRpymntFee: UsrTransferFee, maxBLs } = company;
+    const totalTransacted = parseFloat(amounts) + parseFloat(chmLnRpymntFee) * parseFloat(amounts);
 
-      /** Fetch receiver group details */
-      const RecAccountDtlGrp: any = await API.graphql(
-        graphqlOperation(getGroup, { grpContact })
-      );
+    // 4️⃣ Fetch receiver group details
+    const groupResp: any = await API.graphql(
+      graphqlOperation(getGroup, { grpContact })
+    );
+    const group = groupResp.data.getGroup;
+    const { status: groupStatus, grpBal, tymsChmHvBL, GrpLoanRpymntSync, grpName } = group;
 
-      const group = RecAccountDtlGrp.data.getGroup;
-      const { grpName: namess, status: usrAcActvSttss, tymsChmHvBL: tymsChmHvBLs } = group;
+    // 5️⃣ Fetch member details
+    const memberResp: any = await API.graphql(
+      graphqlOperation(getChamaMembers, { ChamaNMember: memberId })
+    );
+    const member = memberResp.data.getChamaMembers;
+    const { AmtRepaid } = member;
 
-      /** Fetch member details */
-      const RecAccountDtlMbr: any = await API.graphql(
-        graphqlOperation(getChamaMembers, { ChamaNMember: memberId })
-      );
-      const member = RecAccountDtlMbr.data.getChamaMembers;
-      const { AmtRepaid } = member;
-
-      /** Helper functions to sequentially update accounts and loans */
-      const updateSenderAccount = async (MaxBL: number) => {
-        await API.graphql(
-          graphqlOperation(updateSMAccount, {
-            input: { awsemail: userInfo.attributes.email, MaxTymsBL: MaxBL },
-          })
-        );
-      };
-
-      const updateMember = async () => {
-        await API.graphql(
-          graphqlOperation(updateChamaMembers, {
-            input: {
-              ChamaNMember: memberId,
-              AmtRepaid: (parseFloat(AmtRepaid) + parseFloat(amounts)).toFixed(0),
-              LnBal: LonBalsss.toFixed(0),
-            },
-          })
-        );
-      };
-
-      const updateLoan = async () => {
-        await API.graphql(
-          graphqlOperation(updateCvrdGroupLoans, {
-            input: {
-              loanID: route.params.loanID,
-              amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaid)).toFixed(0),
-              lonBala: LonBalsss.toFixed(0),
-              amountExpectedBackWthClrnc: LonBalsss.toFixed(0),
-              DefaultPenaltyChm2: 0,
-              clearanceAmt: 0,
-              status: "LoanCleared",
-            },
-          })
-        );
-      };
-
-      const updateGroupOver = async () => {
-        await API.graphql(
-          graphqlOperation(updateGroup, {
-            input: { grpContact, tymsChmHvBL: parseFloat(tymsChmHvBLs) - 1 },
-          })
-        );
-      };
-
-      const updateCompanyOver = async () => {
-        await API.graphql(
-          graphqlOperation(updateCompany, { input: { AdminId: "BaruchHabaB'ShemAdonai2" } })
-        );
-      };
-
-      const createRepaymentRecord = async (status: string) => {
-        await API.graphql(
-          graphqlOperation(createLoanRepayments, {
-            input: {
-              senderPhn: loaneePhn,
-              recPhn: grpContact,
-              RecName: namess,
-              SenderName: names,
-              loanId1: route.params.loanID,
-              loanId2: route.params.loanID,
-              loanId3: route.params.loanID,
-              amount: parseFloat(amounts).toFixed(0),
-              description: desc,
-              status,
-              owner: userInfo.attributes.sub,
-            },
-          })
-        );
-      };
-
-      /** Validation checks */
-      if (usrAcActvStts === "AccountInactive") return Alert.alert('Sender account is inactive');
-      if (usrAcActvSttss === "AccountInactive") return Alert.alert('Receiver account is inactive');
-      if (ClranceAmt > parseFloat(amounts)) return Alert.alert(`Too little amount waived: at least ${ClranceAmt}`);
-      if (parseFloat(amounts) > parseFloat(LonBal1)) return Alert.alert(`The Loan Balance is lesser: Ksh. ${LonBal1}`);
-
-      /** Process repayment */
-      if (parseFloat(amounts) === parseFloat(LonBal1)) {
-        if (parseFloat(MaxTymsBLss) === parseFloat(maxBLs)) await updateSenderAccount(0);
-        else await updateSenderAccount(parseFloat(MaxTymsBLss) - 1);
-      } else {
-        await updateMember();
-        await updateLoan();
-      }
-
-      await updateGroupOver();
-      await updateCompanyOver();
-      await createRepaymentRecord("Waived");
-
-      Alert.alert("Waived successfully!");
-      setAmount('');
-      setDesc('');
-      setSenderNatId('');
-      setSnderPW('');
-    } catch (e) {
-      console.log(e);
-      Alert.alert("Retry or update app or call customer care");
-    } finally {
-      setIsLoading(false);
+    // 6️⃣ Validation checks
+    if (senderStatus === "AccountInactive") {
+      Alert.alert("Sender account is inactive"); return;
     }
-  };
+    if (groupStatus === "AccountInactive") {
+      Alert.alert("Receiver account is inactive"); return;
+    }
+    if (parseFloat(senderBal) < totalTransacted) {
+      Alert.alert("Requested amount is more than your account balance"); return;
+    }
+    if (parseFloat(nonLonLimit) < parseFloat(amounts)) {
+      Alert.alert(`Call company to adjust your send amount limit`); return;
+    }
+    if (ClranceAmt > parseFloat(amounts)) {
+      Alert.alert(`At least pay clearance fee + default penalty: ${ClranceAmt}`); return;
+    }
+    if (parseFloat(amounts) > parseFloat(LonBal1)) {
+      Alert.alert(`Your loan balance is lesser: Ksh. ${LonBal1}`); return;
+    }
 
+    // 7️⃣ Repayment logic
+    const isFullRepayment = parseFloat(amounts) === parseFloat(LonBal1);
 
+    if (isFullRepayment && parseFloat(MaxTymsBL) === parseFloat(maxBLs)) {
+      // Full repayment + MaxTymsBL = maxBL
+      await updateSenderAccount(0);
+    } else if (isFullRepayment && parseFloat(MaxTymsBL) > parseFloat(maxBLs)) {
+      // Full repayment + MaxTymsBL > maxBL
+      await updateSenderAccount(parseFloat(MaxTymsBL) - 1);
+    } else {
+      // Partial repayment
+      await updateMemberAndLoan();
+    }
 
- 
+    // 8️⃣ Chained updates (group, company, repayment record)
+    await updateGroupAfterRepayment();
+    await updateCompanyAfterRepayment();
+    await createRepaymentRecord("ChmLonRepayment");
+
+    Alert.alert(
+      isFullRepayment
+        ? `Loan fully repaid! Clearance Fee: ${ClranceAmt.toFixed(2)}. Transaction Fee: ${(parseFloat(chmLnRpymntFee) * parseFloat(amounts)).toFixed(2)}`
+        : `Partially repaid. Clearance Fee: ${ClranceAmt.toFixed(2)}. Transaction Fee: ${(parseFloat(chmLnRpymntFee) * parseFloat(amounts)).toFixed(2)}`
+    );
+
+    // Reset form
+    setAmount("");
+    setDesc("");
+    setSenderNatId("");
+    setSnderPW("");
+    setLnId("");
+
+  } catch (error) {
+    console.log(error);
+    Alert.alert("Retry or update app or call customer care");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <View style={styles.container}>
