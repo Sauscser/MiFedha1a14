@@ -96,6 +96,8 @@ export enum Status {
 }
 
 
+
+
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {
@@ -104,7 +106,9 @@ declare global {
         MembaId:string,
         id:string
       };
+      Auditor:undefined;
       ClearGroupMemberLoan:undefined;
+      AddCOMBAuditor:undefined;
       
       Vw2SignLoanRequests:undefined;
       MembersApproveLoans:undefined;
@@ -842,3 +846,5 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
 export type UserReg = {
   usr:String;
 }
+
+

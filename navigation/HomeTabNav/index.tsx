@@ -630,6 +630,9 @@ import VwFloatedLoans from "../../screens/Chama/ReqLoan/VwFloatedLoans";
 import MembersApproveLoans from "../../screens/Chama/ReqLoan/MembersApproveLoans";
 import Vw2SignLoanRequests from "../../screens/Chama/ReqLoan/Vw2SignLoanRequests";
 import ClearGroupMemberLoan from "../../screens/MFBankAdmin/ClearGroupMemberLoan";
+import Auditor from "../../screens/COMB/Auditor";
+import AddCOMBAuditor from "../../screens/COMB/AddCOMBAuditor";
+
 
 
 
@@ -642,6 +645,8 @@ const HomeNavigator = props => {
         headerShown: false,
       }}>
       <Stack.Screen name={'Homeie'} component={Homeie} /> 
+      <Stack.Screen name={'Auditor'} component={Auditor} />     
+      <Stack.Screen name={'AddCOMBAuditor'} component={AddCOMBAuditor} />     
       <Stack.Screen name={'CreateCOMBContract'} component={CreateCOMBContract} />     
       <Stack.Screen name={'MembersApproveLoans'} component={MembersApproveLoans} />     
       <Stack.Screen name={'FunderClearBill'} component={FunderClearBill} /> 

@@ -4227,6 +4227,44 @@ export const listChamaApply2s = /* GraphQL */ `
     }
   }
 `;
+export const getAuditor = /* GraphQL */ `
+  query GetAuditor($id: ID!) {
+    getAuditor(id: $id) {
+      id
+      name
+      email
+      active
+      organization
+      regions
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listAuditors = /* GraphQL */ `
+  query ListAuditors(
+    $filter: ModelAuditorFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAuditors(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        email
+        active
+        organization
+        regions
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const getChamaControlTable = /* GraphQL */ `
   query GetChamaControlTable($id: ID!) {
     getChamaControlTable(id: $id) {

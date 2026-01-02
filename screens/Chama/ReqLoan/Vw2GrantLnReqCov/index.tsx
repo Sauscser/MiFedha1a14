@@ -56,7 +56,7 @@ const FetchSMNonCovLns = props => {
                   chamaPhone: route.params.groupContact,
                   SortDirection:"DESC",
                   filter: {
-                    status:{eq:"AwaitingResponse"}
+                    status:{eq:"Cleared"}
                 }
                 }
                   ));

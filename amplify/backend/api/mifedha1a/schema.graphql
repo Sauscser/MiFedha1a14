@@ -3284,6 +3284,51 @@ type ChamaApply2
   createdAt: String!  
 }
 
+type Auditor @model @auth(rules: [{ allow: private }, 
+{
+        allow: groups
+        groups: ["AdminOne"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["AdminOneTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["RegionalAdmin"]
+        operations: [read, delete, update]
+      }
+      {
+        allow: groups
+        groups: ["RegionalAdminTwo"]
+        operations: [read, create]
+      }
+      {
+        allow: groups
+        groups: ["CountyAdmin"]
+        operations: [read, delete, update]
+      }
+      { allow: groups, groups: ["CountyAdminTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["BranchAdmin"]
+        operations: [read, create, update]
+      }
+      { allow: groups, groups: ["BranchAdminTwo"], operations: [read, create] }
+      {
+        allow: groups
+        groups: ["Executive"]
+        operations: [read, create, update, delete]
+      }
+      
+      ]) {
+  id: ID!
+  name: String!                     # Auditor full name
+  email: String!                    # Unique email
+  active: Boolean!                  # Whether auditor is currently authorized
+  organization: String              # Optional: regulator organization
+  regions: [String]                 # Optional: regions/zones the auditor can access
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
 
 type ChamaControlTable
   @model

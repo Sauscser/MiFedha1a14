@@ -72,8 +72,8 @@ const MyAccount = props => {
     navigation.navigate('AcceptRideRequest');
   };
 
-  const PassengerRequestRide = () => {
-    navigation.navigate('PassengerRequestRide');
+  const Auditor = () => {
+    navigation.navigate('Auditor');
   };
 
   const FunderClearBill = () => {
@@ -125,7 +125,7 @@ const MyAccount = props => {
             { label: 'Generate COMB Voucher - Seller', onPress: Vw2GenerateVoucher, style: styles.ClientsPressables },
             { label: 'Approve COMB Voucher - Consumer', onPress: consumerApproveVoucher, style: styles.ClientsPressables },
             { label: 'Clear COMB Bills - Funder', onPress: FunderClearBill, style: styles.ClientsPressables },
-
+            { label: 'Audit COMB Contracts - Auditor', onPress: Auditor, style: styles.ClientsPressables },
 
             
             ]}

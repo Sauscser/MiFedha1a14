@@ -1,813 +1,340 @@
-import React, {useEffect, useState} from 'react';
 
+ import React, { useState } from 'react';
 import {
-  
-  
-  
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+  StyleSheet,
+  Alert
+} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+
+import { useRoute } from '@react-navigation/native';
+import { API, Auth, graphqlOperation } from 'aws-amplify';
+import {
+  getCvrdGroupLoans,
+  getSMAccount,
+  getCompany,
+  getGroup,
+  getChamaMembers,
+} from '../../../../../../../src/graphql/queries';
+import {
   updateCompany,
-  
   updateSMAccount,
-  
   updateCvrdGroupLoans,
   updateGroup,
-  
   updateChamaMembers,
   createLoanRepayments,
   
 } from '../../../../../../../src/graphql/mutations';
 
-import {API, Auth, graphqlOperation} from 'aws-amplify';
-import {
-  
-  getChamaMembers,
-  getCompany,
-  getCvrdGroupLoans,
-  getGroup,  
-  getSMAccount,
-  
-  
-} from '../../../../../../../src/graphql/queries';
-
-import {useNavigation, useRoute} from '@react-navigation/native';
-
-import {
-  View,
-  Text,
-  ImageBackground,
-  Pressable,
-  TextInput,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-  Alert,
-  ActivityIndicator
-} from 'react-native';
-import styles from './styles';
-
-
-const RepayCovChmLnsss = props => {
+const RepayCovChmLnsss = () => {
   const [SenderNatId, setSenderNatId] = useState('');
-  
-  const [SnderPW, setSnderPW] = useState("");
-  
-  const [amounts, setAmount] = useState("");
-  const[LnId, setLnId] = useState("")
-  const [Desc, setDesc] = useState("");
-
-  const[isLoading, setIsLoading] = useState(false);
+  const [SnderPW, setSnderPW] = useState('');
+  const [LnId, setLnId] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+   const [amounts, setAmount] = useState('');
+  const [desc, setDesc] = useState('');
 
   const route = useRoute();
-  
-    const ftchCvdSMLn = async () => {
-      if(isLoading){
-        return;
-      }
-      setIsLoading(true);
+
+  /** Fetch and process loan repayment */
+  const ftchCvdSMLn = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
       const userInfo = await Auth.currentAuthenticatedUser();
 
-      try {
-          const RecAccountDtl:any = await API.graphql(
-              graphqlOperation(getCvrdGroupLoans, {loanID: route.params.loanID}),
-              );
-              
-              const amountExpectedBackWthClrncs =RecAccountDtl.data.getCvrdGroupLoans.amountExpectedBackWthClrnc; 
-              const memberIds =RecAccountDtl.data.getCvrdGroupLoans.memberId;
-              const DefaultPenaltyChm2s =RecAccountDtl.data.getCvrdGroupLoans.DefaultPenaltyChm2;
-              const grpContactssss =RecAccountDtl.data.getCvrdGroupLoans.grpContact; 
-              const loaneePhnssss =RecAccountDtl.data.getCvrdGroupLoans.loaneePhn;
-              const lonBalas =RecAccountDtl.data.getCvrdGroupLoans.lonBala;
-              const interest =RecAccountDtl.data.getCvrdGroupLoans.interest;
-              const amountExpectedBacks =RecAccountDtl.data.getCvrdGroupLoans.amountExpectedBack;
-              const amountRepaidss =RecAccountDtl.data.getCvrdGroupLoans.amountRepaid; 
-              const amountGiven = RecAccountDtl.data.getCvrdGroupLoans.amountGiven
-              const crtnDate =RecAccountDtl.data.getCvrdGroupLoans.crtnDate; 
-              const dfltUpdate = RecAccountDtl.data.getCvrdGroupLoans.dfltUpdate
-              const repaymentPeriod = RecAccountDtl.data.getCvrdGroupLoans.repaymentPeriod
-              
-
-              const today = new Date();
-              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
-              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
-              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
-              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
-              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
-              let months2 = parseFloat(months)
-              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
-              
-              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
-
-              const now1:any = "2024-05-20";
-             
-              
-              
-              
-              
-              
-             
-
-        
-              const curYrs = parseFloat(years)*365;
-              const curMnths = (months2)*30.4375;
-              const daysUpToDate = curYrs + curMnths + parseFloat(days)
-
-
-              const tmDif = daysUpToDate - dfltUpdate;
-              const tmDif2 = daysUpToDate - crtnDate;
-
-
-              
-               
-                                                         const clearanceAmts = RecAccountDtl.data.getCvrdGroupLoans.clearanceAmt;
-                                           
-                                                           const ClranceAmt = parseFloat(clearanceAmts) + parseFloat(DefaultPenaltyChm2s);
-
-                                                           const netLnBalz = amountExpectedBacks - amountRepaidss
-                                           
-                                                           const netLnBal = parseFloat(amountExpectedBackWthClrncs) - 
-                                                           parseFloat(clearanceAmts) - parseFloat (DefaultPenaltyChm2s)
-                                                   
-                                                           const netLnBal2 = (netLnBalz) * 
-                                                           ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
-                                             
-                                                           const LonBal1 = (netLnBal2 + parseFloat(clearanceAmts) + parseFloat (DefaultPenaltyChm2s)).toFixed(0)
-              
-              const LonBalsss = parseFloat(LonBal1) - parseFloat(amounts);
-
-             
-            
-  const fetchSenderUsrDtls = async () => {
-    if(isLoading){
-      return;
-    }
-    setIsLoading(false);
-    try {
-      const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: loaneePhnssss}),
+      /** Fetch loan details */
+      const RecAccountDtl: any = await API.graphql(
+        graphqlOperation(getCvrdGroupLoans, { loanID: route.params.loanID })
       );
 
-      const SenderUsrBal =accountDtl.data.getSMAccount.balance;
-      const usrPW =accountDtl.data.getSMAccount.pw;
-      const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const TtlClrdLonsTmsLneeChmCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsLneeChmCov;
-      const TtlActvLonsTmsLneeChmCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmCov;
-      const TtlActvLonsAmtLneeChmCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmCov;
-      const TtlClrdLonsAmtLneeChmCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtLneeChmCov;
-      const TtlBLLonsTmsLneeChmCovs =accountDtl.data.getSMAccount.TtlBLLonsTmsLneeChmCov;
-      const TtlBLLonsAmtLneeChmCovs =accountDtl.data.getSMAccount.TtlBLLonsAmtLneeChmCov;
-      const names =accountDtl.data.getSMAccount.name;
-      
-      const nonLonLimits =accountDtl.data.getSMAccount.nonLonLimit;
-      const MaxTymsBLss =accountDtl.data.getSMAccount.MaxTymsBL;
-      
-      const fetchCompDtls = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
-        try {
-          const CompDtls:any = await API.graphql(
-            graphqlOperation(getCompany, {
-              AdminId: "BaruchHabaB'ShemAdonai2",
-            }),
-          );
-          
-            
-          const UsrTransferFee = CompDtls.data.getCompany.chmLnRpymntFee;
-          const CompPhoneContact = CompDtls.data.getCompany.phoneContact;  
-          const ttlChmLnsInClrdTymsCovs = CompDtls.data.getCompany.ttlChmLnsInClrdTymsCov; 
-          const ttlChmLnsInClrdAmtCovs = CompDtls.data.getCompany.ttlChmLnsInClrdAmtCov;
-          const ttlChmLnsInBlTymsCovs = CompDtls.data.getCompany.ttlChmLnsInBlTymsCov; 
-          const ttlChmLnsInBlAmtCovs = CompDtls.data.getCompany.ttlChmLnsInBlAmtCov;
-          const ttlChmLnsInActvAmtCov = CompDtls.data.getCompany.ttlChmLnsInActvAmtCov;
-          const ttlChmLnsInActvTymsCov = CompDtls.data.getCompany.ttlChmLnsInActvTymsCov;
-          const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
-          const companyEarnings = CompDtls.data.getCompany.companyEarning;
-          const ttlCompTrnsfrEarningsCovs = CompDtls.data.getCompany.ttlCompTrnsfrEarningsCov;
-          const ttlSMLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSMLnsInActvTymsCov;
-          const ttlSMLnsInActvAmtCovs = CompDtls.data.getCompany.ttlSMLnsInActvAmtCov;
-          const totalLnsRecovereds = CompDtls.data.getCompany.totalLnsRecovered;
-          const maxBLss = CompDtls.data.getCompany.maxBLs;
-         
-          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts) + ClranceAmt; 
+      const loanData = RecAccountDtl.data.getCvrdGroupLoans;
+      const {
+        amountExpectedBackWthClrnc,
+        memberId,
+        DefaultPenaltyChm2,
+        grpContact,
+        loaneePhn,
+        lonBala,
+        interest,
+        amountExpectedBack,
+        amountRepaid,
+        amountGiven,
+        crtnDate,
+        dfltUpdate,
+        repaymentPeriod,
+        clearanceAmt,
+      } = loanData;
 
-         
-                    
-          const fetchRecUsrDtls = async () => {
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
-            try {
-                const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getGroup, {grpContact: grpContactssss}),
-                    );
-                    const RecUsrBal =RecAccountDtl.data.getGroup.grpBal;                    
-                    const usrAcActvSttss =RecAccountDtl.data.getGroup.status; 
-                   
-                    const tymsChmHvBLs =RecAccountDtl.data.getGroup.tymsChmHvBL;                    
-                    const TtlClrdLonsTmsLnrChmCovs =RecAccountDtl.data.getGroup.TtlClrdLonsTmsLnrChmCov;
-                    const TtlClrdLonsAmtLnrChmCovs =RecAccountDtl.data.getGroup.TtlClrdLonsAmtLnrChmCov;
-                    const TtlBLLonsTmsLnrChmCovs =RecAccountDtl.data.getGroup.TtlBLLonsTmsLnrChmCov;
-                    const TtlBLLonsAmtLnrChmCovs =RecAccountDtl.data.getGroup.TtlBLLonsAmtLnrChmCov;
-                    const namess =RecAccountDtl.data.getGroup.grpName;
-                    const TtlActvLonsTmsLnrChmCovs =RecAccountDtl.data.getGroup.TtlActvLonsTmsLnrChmCov;
-                    const TtlActvLonsAmtLnrChmCovs =RecAccountDtl.data.getGroup.TtlActvLonsAmtLnrChmCov;
-                        
-                              const fetchMmbrDtls = async () => {
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try {
-                                    const RecAccountDtl:any = await API.graphql(
-                                        graphqlOperation(getChamaMembers, {ChamaNMember: memberIds}),
-                                        );
-                                        
-                                        const AmtRepaids =RecAccountDtl.data.getChamaMembers.AmtRepaid;
-                                        const LnBals =RecAccountDtl.data.getChamaMembers.LnBal;
-                                         
-                                        
-                                        const updtSendrAcLonOvr1 = async () =>{
-                                          if(isLoading){
-                                            return;
-                                          }
-                                          setIsLoading(true);
-                                          try{
-                                              await API.graphql(
-                                                graphqlOperation(updateSMAccount, {
-                                                  input:{
-                                                    awsemail:userInfo.attributes.email,
-                                                    
-                                                    MaxTymsBL:0 ,
-                                                    
-                                                    
-                                                  }
-                                                })
-                                              )
-                    
-                    
-                                          }
-                                          catch(error){
-                                            if (error){
-                                              Alert.alert("Waived unsuccessful; Retry")
-                                              return
-                                            }
-                                          }
-                                          setIsLoading(false);
-                                          await updtChmMbrTTlBlOvr();
-                                        }
+      const ClranceAmt = parseFloat(clearanceAmt) + parseFloat(DefaultPenaltyChm2);
+      const netLnBalz = amountExpectedBack - amountRepaid;
+      const curDate = new Date();
+      const years = curDate.getFullYear();
+      const months2 = curDate.getMonth();
+      const days = curDate.getDate();
+      const curYrs = years * 365;
+      const curMnths = months2 * 30.4375;
+      const daysUpToDate = curYrs + curMnths + days;
+      const now = Date.now(); // current timestamp in ms
+      const tmDif2 = (now - crtnDate) / (1000 * 60 * 60 * 24); // days elapsed
 
-                                        const updtSendrAcLonOvr2 = async () =>{
-                                          if(isLoading){
-                                            return;
-                                          }
-                                          setIsLoading(true);
-                                          try{
-                                              await API.graphql(
-                                                graphqlOperation(updateSMAccount, {
-                                                  input:{
-                                                    awsemail:userInfo.attributes.email,
-                                                    
-                                                    MaxTymsBL:parseFloat(MaxTymsBLss)-1 ,
-                                                   
-                                                  }
-                                                })
-                                              )
-                    
-                    
-                                          }
-                                          catch(error){
-                                            if (error){
-                                              Alert.alert("Waiving unsuccessful; Retry")
-                                              return
-                                            }
-                                          }
-                                          setIsLoading(false);
-                                          await updtChmMbrTTlBlOvr();
-                                        }
+      const netLnBal2 = netLnBalz * Math.pow(1 + parseFloat(interest) / 36500, tmDif2);
+      const LonBal1 = (netLnBal2 + parseFloat(clearanceAmt) + parseFloat(DefaultPenaltyChm2)).toFixed(0);
+      const LonBalsss = parseFloat(LonBal1) - parseFloat(amounts);
 
+      /** Fetch sender account */
+      const accountDtl: any = await API.graphql(
+        graphqlOperation(getSMAccount, { awsemail: loaneePhn })
+      );
 
-                                        const updtChmMbrTTlBlOvr  = async () =>{
-                                          if(isLoading){
-                                            return;
-                                          }
-                                          setIsLoading(true);
-                                          try{
-                                              await API.graphql(
-                                                graphqlOperation(updateChamaMembers, {
-                                                  input:{
-                                                    ChamaNMember:memberIds,
-                                                    AmtRepaid: (parseFloat(AmtRepaids)+parseFloat(amounts)).toFixed(0) ,
-                                                    LnBal: LonBalsss.toFixed(0)  ,
-                                                    
-                                                    
-                                                }})
-                                              )
-                    
-                    
-                                          }
-                                          catch(error){
-                                            if (error){Alert.alert("Retry or update app or call customer care")
-                                            return;}
-                                          }
-                                          setIsLoading(false);
-                                          await updtSMCvLnLnOver();
-                                        }
+      const senderAcc = accountDtl.data.getSMAccount;
+      const { acStatus: usrAcActvStts, MaxTymsBL: MaxTymsBLss, name: names } = senderAcc;
 
-                                        
-                              const updtSMCvLnLnOver  = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateCvrdGroupLoans, {
-                                        input:{
-                                          loanID: route.params.loanID,
-                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(0),
-                                          lonBala: (LonBalsss).toFixed(0),
-                                          amountExpectedBackWthClrnc:LonBalsss.toFixed(0),
-                                          DefaultPenaltyChm2:0,
-                                          status: "LoanCleared",
-                                          clearanceAmt: 0
-                                      }})
-                                    )
-          
-          
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await updtRecAcLonOver();
-                              }
-                              
-                              
-                              
-          
-                              const updtRecAcLonOver = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateGroup, {
-                                        input:{
-                                          grpContact:grpContactssss,
-                                          
-                                          tymsChmHvBL: parseFloat(tymsChmHvBLs) - 1,
-                                          
-                                        }
-                                      })
-                                    )                              
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await updtCompLnOvr();
-                              }
-          
-                              const updtCompLnOvr = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateCompany, {
-                                        input:{
-                                          AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                         
-                                        }
-                                      })
-                                    )
-                                    
-                                    
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  
-                                }
-                                Alert.alert("Waived. " );
-                                setIsLoading(false);
-                                await sendNonLnLnOver();
-                              } 
-                              
-                              const sendNonLnLnOver = async () => {
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true)
-                                try {
-                                  await API.graphql(
-                                    graphqlOperation(createLoanRepayments, {
-                                      input: {
-                                        senderPhn: loaneePhnssss,
-                                        recPhn: grpContactssss,     
-                                        RecName:namess,
-                                        SenderName:names,      
-                                        loanId1: "route.params.id",    
-                                        
-                                        loanId2: "route.params.id",
-                                        loanId3: route.params.loanID,                     
-                                        amount: parseFloat(amounts).toFixed(0),                              
-                                        description: Desc,
-                                        status: "Waived",
-                                        owner: userInfo.attributes.sub
-                                      },
-                                    }),
-                                  );
-          
-          
-                                } catch (error) {
-                                  if (error){
-                                    Alert.alert("Error! Retry")
-                                    return
-                                  }
-                                }
-                                setIsLoading(false);
-                                
-                              };
-                              
-                              const updtChmMbrTTlBl  = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateChamaMembers, {
-                                        input:{
-                                          ChamaNMember:memberIds,
-                                          AmtRepaid: (parseFloat(AmtRepaids)+parseFloat(amounts)).toFixed(0) ,
-                                          LnBal: LonBalsss.toFixed(0) ,
-                                          
-                                      }})
-                                    )
-          
-          
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await repyCovLn();
-                              }
-                        
+      /** Fetch company details */
+      const CompDtls: any = await API.graphql(
+        graphqlOperation(getCompany, { AdminId: "BaruchHabaB'ShemAdonai2" })
+      );
+      const company = CompDtls.data.getCompany;
+      const { chmLnRpymntFee: UsrTransferFee, maxBLs } = company;
 
-                              const repyCovLn = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateCvrdGroupLoans, {
-                                        input:{
-                                          loanID: route.params.loanID,
-                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(0),
-                                          lonBala: (LonBalsss).toFixed(0),
-                                          amountExpectedBackWthClrnc:LonBalsss.toFixed(0),
-                                          DefaultPenaltyChm2:0,
-                                          clearanceAmt: 0
-                                        }
-                                      })
-                                    )
-          
-          
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await updtSendrAc();
-                              }
-                              
-                              
-                              const updtSendrAc = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateSMAccount, {
-                                        input:{
-                                          awsemail:userInfo.attributes.email,
-                                          
-                                        }
-                                      })
-                                    )
-          
-          
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await updtRecAc();
-                              }
-          
-                              const updtRecAc = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateGroup, {
-                                        input:{
-                                          grpContact:grpContactssss,
-                                         
-                                        }
-                                      })
-                                    )                              
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await updtComp();
-                              }
-          
-                              const updtComp = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateCompany, {
-                                        input:{
-                                          AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                          
-                                        }
-                                      })
-                                    )
-                                    
-                                    
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  
-                                }
-                                Alert.alert("Partially Waived. " );
-                                setIsLoading(false);
-                                await sendNonLnLnOver2()
+      /** Fetch receiver group details */
+      const RecAccountDtlGrp: any = await API.graphql(
+        graphqlOperation(getGroup, { grpContact })
+      );
 
-                              }
+      const group = RecAccountDtlGrp.data.getGroup;
+      const { grpName: namess, status: usrAcActvSttss, tymsChmHvBL: tymsChmHvBLs } = group;
 
-                              const sendNonLnLnOver2 = async () => {
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true)
-                                try {
-                                  await API.graphql(
-                                    graphqlOperation(createLoanRepayments, {
-                                      input: {
-                                        senderPhn: loaneePhnssss,
-                                        recPhn: grpContactssss,     
-                                        RecName:namess,
-                                        SenderName:names,      
-                                        loanId1: "route.params.id",    
-                                        
-                                        loanId2: "route.params.id",
-                                        loanId3: route.params.loanID,                     
-                                        amount: parseFloat(amounts).toFixed(0),                              
-                                        description: Desc,
-                                        status: "Waived",
-                                        owner: userInfo.attributes.sub
-                                      },
-                                    }),
-                                  );
-          
-          
-                                } catch (error) {
-                                  if (error){
-                                    Alert.alert("Error! Retry")
-                                    return
-                                  }
-                                }
-                                setIsLoading(false);
-                                
-                              };
+      /** Fetch member details */
+      const RecAccountDtlMbr: any = await API.graphql(
+        graphqlOperation(getChamaMembers, { ChamaNMember: memberId })
+      );
+      const member = RecAccountDtlMbr.data.getChamaMembers;
+      const { AmtRepaid } = member;
 
-                                    
-                                                    
-                              
-                              if(usrAcActvStts === "AccountInactive"){Alert.alert('Sender account is inactive');
-                              return;
-                            }
-                              else if(usrAcActvSttss === "AccountInactive"){Alert.alert('Receiver account is inactive');
-                              return;
-                            }
-                              
-                              
-                             
-                          else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "Too little amount waived: at least "+ClranceAmt);
-                          return;
-                        }
-
-
-                          else if(parseFloat(amounts) > parseFloat(LonBal1)){Alert.alert("The Loan Balance is lesser: Ksh. "+lonBalas)}
-                          
-
-                          else if(parseFloat(amounts) === parseFloat(LonBal1)  && parseFloat(MaxTymsBLss) === parseFloat(maxBLss) )
-                          {updtSendrAcLonOvr1();}          
-                          
-                          else if(parseFloat(amounts) === parseFloat(LonBal1)  && parseFloat(MaxTymsBLss) > parseFloat(maxBLss))
-                          {updtSendrAcLonOvr2();} 
-                              
-                               else {
-                                updtChmMbrTTlBl();
-                              }
-
-                            }
-                            catch (e) {
-                              console.log(e)
-                              if (e){Alert.alert("Retry or update app or call customer care")
-                              return;}
-                          };
-                        }
-                      
-                        await fetchMmbrDtls();
-                          }
-                          catch (e) {
-                            console.log(e)
-                            if (e){Alert.alert("Retry or update app or call customer care")
-                            return;}
-                        };
-                      }
-                    
-                      await fetchRecUsrDtls();
-                                                                                         
-                }       
-                catch(e) {     
-                  console.log(e)
-                  if (e){Alert.alert("Retry or update app or call customer care")
-  return;}                 
-                }
-                setIsLoading(false);
-                }                    
-                  await fetchCompDtls();
-        } catch (e) {
-          console.log(e)
-          if (e){Alert.alert("Retry or update app or call customer care")
-      return;}
-        }
-        setIsLoading(false);        
+      /** Helper functions to sequentially update accounts and loans */
+      const updateSenderAccount = async (MaxBL: number) => {
+        await API.graphql(
+          graphqlOperation(updateSMAccount, {
+            input: { awsemail: userInfo.attributes.email, MaxTymsBL: MaxBL },
+          })
+        );
       };
-      await fetchSenderUsrDtls();
-    
-      
+
+      const updateMember = async () => {
+        await API.graphql(
+          graphqlOperation(updateChamaMembers, {
+            input: {
+              ChamaNMember: memberId,
+              AmtRepaid: (parseFloat(AmtRepaid) + parseFloat(amounts)).toFixed(0),
+              LnBal: LonBalsss.toFixed(0),
+            },
+          })
+        );
+      };
+
+      const updateLoan = async () => {
+        await API.graphql(
+          graphqlOperation(updateCvrdGroupLoans, {
+            input: {
+              loanID: route.params.loanID,
+              amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaid)).toFixed(0),
+              lonBala: LonBalsss.toFixed(0),
+              amountExpectedBackWthClrnc: LonBalsss.toFixed(0),
+              DefaultPenaltyChm2: 0,
+              clearanceAmt: 0,
+              status: "LoanCleared",
+            },
+          })
+        );
+      };
+
+      const updateGroupOver = async () => {
+        await API.graphql(
+          graphqlOperation(updateGroup, {
+            input: { grpContact, tymsChmHvBL: parseFloat(tymsChmHvBLs) - 1 },
+          })
+        );
+      };
+
+      const updateCompanyOver = async () => {
+        await API.graphql(
+          graphqlOperation(updateCompany, { input: { AdminId: "BaruchHabaB'ShemAdonai2" } })
+        );
+      };
+
+      const createRepaymentRecord = async (status: string) => {
+        await API.graphql(
+          graphqlOperation(createLoanRepayments, {
+            input: {
+              senderPhn: loaneePhn,
+              recPhn: grpContact,
+              RecName: namess,
+              SenderName: names,
+              loanId1: route.params.loanID,
+              loanId2: route.params.loanID,
+              loanId3: route.params.loanID,
+              amount: parseFloat(amounts).toFixed(0),
+              description: desc,
+              status,
+              owner: userInfo.attributes.sub,
+            },
+          })
+        );
+      };
+
+      /** Validation checks */
+      if (usrAcActvStts === "AccountInactive") return Alert.alert('Sender account is inactive');
+      if (usrAcActvSttss === "AccountInactive") return Alert.alert('Receiver account is inactive');
+      if (ClranceAmt > parseFloat(amounts)) return Alert.alert(`Too little amount waived: at least ${ClranceAmt}`);
+      if (parseFloat(amounts) > parseFloat(LonBal1)) return Alert.alert(`The Loan Balance is lesser: Ksh. ${LonBal1}`);
+
+      /** Process repayment */
+      if (parseFloat(amounts) === parseFloat(LonBal1)) {
+        if (parseFloat(MaxTymsBLss) === parseFloat(maxBLs)) await updateSenderAccount(0);
+        else await updateSenderAccount(parseFloat(MaxTymsBLss) - 1);
+      } else {
+        await updateMember();
+        await updateLoan();
+      }
+
+      await updateGroupOver();
+      await updateCompanyOver();
+      await createRepaymentRecord("Waived");
+
+      Alert.alert("Waived successfully!");
+      setAmount('');
+      setDesc('');
+      setSenderNatId('');
+      setSnderPW('');
     } catch (e) {
-      console.log(e)
-      if (e){Alert.alert("Retry or update app or call customer care")
-      return;}
-  };
+      console.log(e);
+      Alert.alert("Retry or update app or call customer care");
+    } finally {
       setIsLoading(false);
-      
-      setAmount("");
-     
-      setLnId("");
-      setDesc("");
-      setSnderPW("");
-      
-      
-}
-
-
-useEffect(() =>{
-  const SnderNatIds=SenderNatId
-    if(!SnderNatIds && SnderNatIds!=="")
-    {
-      setSenderNatId("");
-      return;
     }
-    setSenderNatId(SnderNatIds);
-    }, [SenderNatId]
-     );
+  };
 
-     useEffect(() =>{
-      const amt=amounts
-        if(!amt && amt!=="")
-        {
-          setAmount("");
-          return;
-        }
-        setAmount(amt);
-        }, [amounts]
-         );
 
-         
 
-             
-             
-
-                     useEffect(() =>{
-                      const descr=Desc
-                        if(!descr && descr!=="")
-                        {
-                          setDesc("");
-                          return;
-                        }
-                        setDesc(descr);
-                        }, [Desc]
-                         );
-
-                         useEffect(() =>{
-                          const SnderPWss=SnderPW
-                            if(!SnderPWss && SnderPWss!=="")
-                            {
-                              setSnderPW("");
-                              return;
-                            }
-                            setSnderPW(SnderPWss);
-                            }, [SnderPW]
-                             );
-
-                             useEffect(() =>{
-                              const LnIds=LnId
-                                if(!LnIds && LnIds!=="")
-                                {
-                                  setLnId("");
-                                  return;
-                                }
-                                setLnId(LnIds);
-                                }, [LnId]
-                                 );
-    
-
-                             
-
-                                 
+ 
 
   return (
-    <View>
-      <View
-        
-        style={styles.image}>
-        <ScrollView>
-         
-          <View style={styles.amountTitleView}>
-            <Text style={styles.title}>Fill account Details Below</Text>
-          </View>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
+        <Text style={styles.title}>Waive Covered Chama Loan</Text>
 
-        
-          <View style={styles.sendAmtView}>
-            <TextInput
-            keyboardType={"decimal-pad"}
-              value={amounts}
-              onChangeText={setAmount}
-              style={styles.sendAmtInput}
-              editable={true}
-              ></TextInput>
-              
-            <Text style={styles.sendAmtText}>Amount Waived</Text>
-          </View>
+        {/* Amount Input */}
+        <View style={styles.inputGroup}>
+          <TextInput
+            placeholder="Amount"
+            keyboardType="decimal-pad"
+            value={amounts}
+            onChangeText={setAmount}
+            style={styles.input}
+          />
+          <Text style={styles.inputLabel}>Amount Waived</Text>
+        </View>
 
+        {/* Description Input */}
+        <View style={styles.inputGroup}>
+          <TextInput
+            placeholder="Description"
+            multiline
+            value={desc}
+            onChangeText={setDesc}
+            style={[styles.input, { height: 80 }]}
+          />
+          <Text style={styles.inputLabel}>Description</Text>
+        </View>
 
-          <View style={styles.sendAmtViewDesc}>
-            <TextInput
-              multiline={true}
-              value={Desc}
-              onChangeText={setDesc}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Description</Text>
-          </View>
-          
-          
-
-          <TouchableOpacity
-            onPress={ftchCvdSMLn}
-            style={styles.sendAmtButton}>
-            <Text style={styles.sendAmtButtonText}>Waive</Text>
-            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
-          </TouchableOpacity>
-
-          
-        </ScrollView>
-      </View>
+        {/* Waive Button */}
+        <TouchableOpacity disabled={isLoading} style={styles.buttonWrapper}
+           onPress={ftchCvdSMLn}>
+          <LinearGradient
+            colors={['#f97316', '#3b82f6']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.buttonGradient}
+          >
+            <Text style={styles.buttonText}>Waive Loan</Text>
+            {isLoading && <ActivityIndicator size="small" color="#fff" style={{ marginLeft: 10 }} />}
+          </LinearGradient>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };
 
 export default RepayCovChmLnsss;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f0f4f8',
+  },
+  scrollContainer: {
+    padding: 20,
+    paddingTop: 40,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#1e293b',
+    marginBottom: 30,
+    textAlign: 'center',
+  },
+  inputGroup: {
+    marginBottom: 25,
+    position: 'relative',
+  },
+  input: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 15,
+    paddingVertical: 12,
+    borderRadius: 12,
+    fontSize: 16,
+    color: '#1e293b',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 5,
+    elevation: 2,
+  },
+  inputLabel: {
+    position: 'absolute',
+    top: -10,
+    left: 15,
+    backgroundColor: '#f0f4f8',
+    paddingHorizontal: 5,
+    fontSize: 12,
+    color: '#64748b',
+    fontWeight: '500',
+  },
+  buttonWrapper: {
+    marginTop: 10,
+  },
+  buttonGradient: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 14,
+    borderRadius: 12,
+    shadowColor: '#3b82f6',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+});

@@ -84,13 +84,15 @@ const ChmNonCvLnSttsSent = (props:ChmNonCvLnSttusSent) => {
               const curMnths = (months2)*30.4375;
               const daysUpToDate = curYrs + curMnths + parseFloat(days)
 
-              const dayselapsed = (crtnDate - daysUpToDate) *(-1)
+              const nows = Date.now(); // current timestamp in ms
+  const daysElapsed = (nows - crtnDate) / (1000 * 60 * 60 * 24); // ms → days
+
 
 
               const netLnBal = amountExpectedBack - amountRepaid
       
               const netLnBal2 = (netLnBal) * 
-              ((Math.pow(1 + (interest)/36500, dayselapsed)))
+              ((Math.pow(1 + (interest)/36500, daysElapsed)))
 
               const LonBal1 = netLnBal2 + (clearanceAmt) +  (DefaultPenaltyChm2)
 

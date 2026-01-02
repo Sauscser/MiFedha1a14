@@ -5879,6 +5879,60 @@ export const deleteChamaApply2 = /* GraphQL */ `
     }
   }
 `;
+export const createAuditor = /* GraphQL */ `
+  mutation CreateAuditor(
+    $input: CreateAuditorInput!
+    $condition: ModelAuditorConditionInput
+  ) {
+    createAuditor(input: $input, condition: $condition) {
+      id
+      name
+      email
+      active
+      organization
+      regions
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateAuditor = /* GraphQL */ `
+  mutation UpdateAuditor(
+    $input: UpdateAuditorInput!
+    $condition: ModelAuditorConditionInput
+  ) {
+    updateAuditor(input: $input, condition: $condition) {
+      id
+      name
+      email
+      active
+      organization
+      regions
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteAuditor = /* GraphQL */ `
+  mutation DeleteAuditor(
+    $input: DeleteAuditorInput!
+    $condition: ModelAuditorConditionInput
+  ) {
+    deleteAuditor(input: $input, condition: $condition) {
+      id
+      name
+      email
+      active
+      organization
+      regions
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const createChamaControlTable = /* GraphQL */ `
   mutation CreateChamaControlTable(
     $input: CreateChamaControlTableInput!

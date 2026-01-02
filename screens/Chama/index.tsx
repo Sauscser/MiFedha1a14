@@ -44,7 +44,7 @@ const MyLoanAccount = () => {
           {/* ------------------- Group Status ------------------- */}
           <View style={styles.clientsView}>
             <Text style={styles.salesPressableText}>View Group Status</Text>
-            <GradientButton onPress={navigateTo('ChmSignInsss')} text="View Group Debts Status: Blacklist, View Repayments, Waive" />
+            <GradientButton onPress={navigateTo('ChmSignInss')} text="View Group Debts Status: Blacklist, View Repayments, Waive" />
           </View>
 
           {/* ------------------- Member Status ------------------- */}

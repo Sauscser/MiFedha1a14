@@ -1,856 +1,340 @@
-import React, {useEffect, useState} from 'react';
-
-import {
-  
-  
-  
-  updateCompany,
-  
-  updateSMAccount,
-  
-  updateCvrdGroupLoans,
-  updateGroup,
-  
-  updateChamaMembers,
-  createLoanRepayments,
-  
-} from '../../../../../../src/graphql/mutations';
-
-import {API, Auth, graphqlOperation} from 'aws-amplify';
-import {
-  
-  getChamaMembers,
-  getCompany,
-  getCvrdGroupLoans,
-  getGroup,
-  
-  getSMAccount,
-  
-  
-} from '../../../../../../src/graphql/queries';
-
-import {useNavigation, useRoute} from '@react-navigation/native';
-
+import React, { useState } from 'react';
 import {
   View,
   Text,
-  ImageBackground,
-  Pressable,
-  TextInput,
   ScrollView,
+  TextInput,
+  TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  TouchableOpacity,
+  ActivityIndicator,
   Alert,
-  ActivityIndicator
+  StyleSheet,
+  Dimensions
 } from 'react-native';
-import styles from './styles';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
+import { API, Auth, graphqlOperation } from 'aws-amplify';
 
+import {
+  getCvrdGroupLoans,
+  getSMAccount,
+  getGroup,
+  getChamaMembers,
+  getCompany,
+} from '../../../../../../src/graphql/queries';
+import {
+  updateCvrdGroupLoans,
+  updateSMAccount,
+  updateGroup,
+  updateChamaMembers,
+  createLoanRepayments,
+  updateCompany,
+} from '../../../../../../src/graphql/mutations';
 
-const RepayCovChmLnsss = props => {
-  const [SenderNatId, setSenderNatId] = useState('');
-  
-  const [SnderPW, setSnderPW] = useState("");
-  
-  const [amounts, setAmount] = useState("");
-  const[LnId, setLnId] = useState("")
-  const [Desc, setDesc] = useState("");
+const { width } = Dimensions.get('window');
 
-  const[isLoading, setIsLoading] = useState(false);
+const RepayCovChmLnsss = ({ route }) => {
+  const [amount, setAmount] = useState('');
+  const [desc, setDesc] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const route = useRoute();
-  
-  
+  const repayLoan = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
 
-  
-
-
-    const ftchCvdSMLn = async () => {
-      if(isLoading){
-        return;
-      }
-      setIsLoading(true);
+    try {
       const userInfo = await Auth.currentAuthenticatedUser();
 
-      try {
-          const RecAccountDtl:any = await API.graphql(
-              graphqlOperation(getCvrdGroupLoans, {loanID: route.params.loanID}),
-              );
-              
-              const amountExpectedBackWthClrncs =RecAccountDtl.data.getCvrdGroupLoans.amountExpectedBackWthClrnc; 
-              const memberIds =RecAccountDtl.data.getCvrdGroupLoans.memberId;
-              
-              const grpContactssss =RecAccountDtl.data.getCvrdGroupLoans.grpContact; 
-              const loaneePhnssss =RecAccountDtl.data.getCvrdGroupLoans.loaneePhn;
-              const lonBalas =RecAccountDtl.data.getCvrdGroupLoans.lonBala;
-              const interest =RecAccountDtl.data.getCvrdGroupLoans.interest;
-              const amountExpectedBacks =RecAccountDtl.data.getCvrdGroupLoans.amountExpectedBack;
-              const amountRepaidss =RecAccountDtl.data.getCvrdGroupLoans.amountRepaid; 
-              const amountGiven = RecAccountDtl.data.getCvrdGroupLoans.amountGiven
-              const crtnDate =RecAccountDtl.data.getCvrdGroupLoans.crtnDate; 
-              const dfltUpdate = RecAccountDtl.data.getCvrdGroupLoans.dfltUpdate
-              const repaymentPeriod = RecAccountDtl.data.getCvrdGroupLoans.repaymentPeriod
-              const DefaultPenaltyChm2s =RecAccountDtl.data.getCvrdGroupLoans.DefaultPenaltyChm2;
-                                            const clearanceAmts = RecAccountDtl.data.getCvrdGroupLoans.clearanceAmt;
-                              
-                                              const ClranceAmt = parseFloat(clearanceAmts) + parseFloat(DefaultPenaltyChm2s);
-                              
+      // 1️⃣ Fetch Covered Loan
+      const loanRes: any = await API.graphql(
+        graphqlOperation(getCvrdGroupLoans, { loanID: route.params.loanID })
+      );
+      const loan = loanRes.data.getCvrdGroupLoans;
 
-              const today = new Date();
-              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
-              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
-              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
-              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
-              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
-              let months2 = parseFloat(months)
-              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
-              
-              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
+      const {
+        memberId,
+        grpContact,
+        loaneePhn,
+        lonBala,
+        interest,
+        amountExpectedBack,
+        amountRepaid,
+        clearanceAmt,
+        DefaultPenaltyChm2,
+        crtnDate,
+        dfltUpdate,
+      } = loan;
 
-              const now1:any = "2024-05-20";
-             
-              
-              
-              
-              
-              
-             
+      // ===== Preserve Original Loan Calculations =====
+      const netLnBalz = amountExpectedBack - amountRepaid;
+      const netLnBal =
+        parseFloat(loan.amountExpectedBackWthClrnc) -
+        parseFloat(clearanceAmt) -
+        parseFloat(DefaultPenaltyChm2);
 
-        
-              const curYrs = parseFloat(years)*365;
-              const curMnths = (months2)*30.4375;
-              const daysUpToDate = curYrs + curMnths + parseFloat(days)
+        const now = Date.now(); // current timestamp in ms
+const daysElapsed = (now - crtnDate) / (1000 * 60 * 60 * 24); // ms → days
+      const netLnBal2 = netLnBalz * Math.pow(1 + parseFloat(interest) / 36500, daysElapsed);
+      const LonBal1 = (netLnBal2 + parseFloat(clearanceAmt) + parseFloat(DefaultPenaltyChm2)).toFixed(0);
+      const ClranceAmt = parseFloat(clearanceAmt) + parseFloat(DefaultPenaltyChm2);
+      const repayAmount = parseFloat(amount);
+      const LonBalsss = parseFloat(LonBal1) - repayAmount;
 
+      // 2️⃣ Fetch Sender Account
+      const senderRes: any = await API.graphql(
+        graphqlOperation(getSMAccount, { awsemail: userInfo.attributes.email })
+      );
+      const sender = senderRes.data.getSMAccount;
 
-              const tmDif = daysUpToDate - dfltUpdate;
-              const tmDif2 = daysUpToDate - crtnDate;
+      if (sender.pw !== password) {
+        Alert.alert('Wrong password');
+        setIsLoading(false);
+        return;
+      }
+      if (sender.acStatus === 'AccountInactive') {
+        Alert.alert('Your account is inactive');
+        setIsLoading(false);
+        return;
+      }
 
-              const netLnBalz = amountExpectedBacks - amountRepaidss
+      if (repayAmount < ClranceAmt) {
+        Alert.alert(`At least pay clearance fee and default penalty: ${ClranceAmt}`);
+        setIsLoading(false);
+        return;
+      }
 
-              const netLnBal = parseFloat(amountExpectedBackWthClrncs) - 
-              parseFloat(clearanceAmts) - parseFloat (DefaultPenaltyChm2s)
-      
-              const netLnBal2 = (netLnBalz) * 
-              ((Math.pow(1 + parseFloat(interest)/36500, tmDif2)))
+      // 3️⃣ Fetch Receiver (Group) Account
+      const groupRes: any = await API.graphql(graphqlOperation(getGroup, { grpContact }));
+      const group = groupRes.data.getGroup;
 
-              const LonBal1 = (netLnBal2 + parseFloat(clearanceAmts) + parseFloat (DefaultPenaltyChm2s)).toFixed(0)
+      if (group.status === 'AccountInactive') {
+        Alert.alert('Receiver account is inactive');
+        setIsLoading(false);
+        return;
+      }
 
-              const LonBalsss = parseFloat(LonBal1) - parseFloat(amounts);
-              
+      // 4️⃣ Fetch Chama Member
+      const memberRes: any = await API.graphql(graphqlOperation(getChamaMembers, { ChamaNMember: memberId }));
+      const member = memberRes.data.getChamaMembers;
 
-  const fetchSenderUsrDtls = async () => {
-    if(isLoading){
-      return;
-    }
-    setIsLoading(false);
-    try {
-      const accountDtl:any = await API.graphql(
-        graphqlOperation(getSMAccount, {awsemail: loaneePhnssss}),
+      // 5️⃣ Fetch Company
+      const companyRes: any = await API.graphql(
+        graphqlOperation(getCompany, { AdminId: "BaruchHabaB'ShemAdonai2" })
+      );
+      const company = companyRes.data.getCompany;
+      const transactionFee = parseFloat(company.chmLnRpymntFee) * repayAmount;
+
+      // ===== Updates =====
+      await API.graphql(
+        graphqlOperation(updateSMAccount, {
+          input: {
+            awsemail: userInfo.attributes.email,
+            balance: (parseFloat(sender.balance) - repayAmount).toFixed(0),
+            TtlClrdLonsAmtLneeChmCov: (parseFloat(sender.TtlClrdLonsAmtLneeChmCov) + repayAmount).toFixed(0),
+            TtlClrdLonsTmsLneeChmCov: parseFloat(sender.TtlClrdLonsTmsLneeChmCov) + 1,
+          },
+        })
       );
 
-      const SenderUsrBal =accountDtl.data.getSMAccount.balance;
-      const usrPW =accountDtl.data.getSMAccount.pw;
-      const usrAcActvStts =accountDtl.data.getSMAccount.acStatus;
-      const TtlClrdLonsTmsLneeChmCovs =accountDtl.data.getSMAccount.TtlClrdLonsTmsLneeChmCov;
-      const TtlActvLonsTmsLneeChmCovs =accountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmCov;
-      const TtlActvLonsAmtLneeChmCovs =accountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmCov;
-      const TtlClrdLonsAmtLneeChmCovs =accountDtl.data.getSMAccount.TtlClrdLonsAmtLneeChmCov;
-      const TtlBLLonsTmsLneeChmCovs =accountDtl.data.getSMAccount.TtlBLLonsTmsLneeChmCov;
-      const TtlBLLonsAmtLneeChmCovs =accountDtl.data.getSMAccount.TtlBLLonsAmtLneeChmCov;
-      const names =accountDtl.data.getSMAccount.name;
-      
-      const nonLonLimits =accountDtl.data.getSMAccount.nonLonLimit;
-      const MaxTymsBLss =accountDtl.data.getSMAccount.MaxTymsBL;
-      
-      const fetchCompDtls = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
-        try {
-          const CompDtls:any = await API.graphql(
-            graphqlOperation(getCompany, {
-              AdminId: "BaruchHabaB'ShemAdonai2",
-            }),
-          );
-          
-            
-          const UsrTransferFee = CompDtls.data.getCompany.chmLnRpymntFee;
-          const CompPhoneContact = CompDtls.data.getCompany.phoneContact;  
-          const ttlChmLnsInClrdTymsCovs = CompDtls.data.getCompany.ttlChmLnsInClrdTymsCov; 
-          const ttlChmLnsInClrdAmtCovs = CompDtls.data.getCompany.ttlChmLnsInClrdAmtCov;
-          const ttlChmLnsInBlTymsCovs = CompDtls.data.getCompany.ttlChmLnsInBlTymsCov; 
-          const ttlChmLnsInBlAmtCovs = CompDtls.data.getCompany.ttlChmLnsInBlAmtCov;
-          const ttlChmLnsInActvAmtCov = CompDtls.data.getCompany.ttlChmLnsInActvAmtCov;
-          const ttlChmLnsInActvTymsCov = CompDtls.data.getCompany.ttlChmLnsInActvTymsCov;
-          const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
-          const companyEarnings = CompDtls.data.getCompany.companyEarning;
-          const ttlCompTrnsfrEarningsCovs = CompDtls.data.getCompany.ttlCompTrnsfrEarningsCov;
-          const ttlSMLnsInActvTymsCovs = CompDtls.data.getCompany.ttlSMLnsInActvTymsCov;
-          const ttlSMLnsInActvAmtCovs = CompDtls.data.getCompany.ttlSMLnsInActvAmtCov;
-          const totalLnsRecovereds = CompDtls.data.getCompany.totalLnsRecovered;
-          const maxBLss = CompDtls.data.getCompany.maxBLs;
-         
-          const TotalTransacted = parseFloat(amounts)  + parseFloat(UsrTransferFee)*parseFloat(amounts); 
+      await API.graphql(
+        graphqlOperation(updateChamaMembers, {
+          input: {
+            ChamaNMember: memberId,
+            AmtRepaid: (parseFloat(member.AmtRepaid) + repayAmount).toFixed(0),
+            LnBal: LonBalsss.toFixed(0),
+          },
+        })
+      );
 
-         
-                    
-          const fetchRecUsrDtls = async () => {
-            if(isLoading){
-              return;
-            }
-            setIsLoading(true);
-            try {
-                const RecAccountDtl:any = await API.graphql(
-                    graphqlOperation(getGroup, {grpContact: grpContactssss}),
-                    );
-                    const RecUsrBal =RecAccountDtl.data.getGroup.grpBal;                    
-                    const usrAcActvSttss =RecAccountDtl.data.getGroup.status; 
-                   
-                    const tymsChmHvBLs =RecAccountDtl.data.getGroup.tymsChmHvBL;                    
-                    const TtlClrdLonsTmsLnrChmCovs =RecAccountDtl.data.getGroup.TtlClrdLonsTmsLnrChmCov;
-                    const TtlClrdLonsAmtLnrChmCovs =RecAccountDtl.data.getGroup.TtlClrdLonsAmtLnrChmCov;
-                    const TtlBLLonsTmsLnrChmCovs =RecAccountDtl.data.getGroup.TtlBLLonsTmsLnrChmCov;
-                    const TtlBLLonsAmtLnrChmCovs =RecAccountDtl.data.getGroup.TtlBLLonsAmtLnrChmCov;
-                    const namess =RecAccountDtl.data.getGroup.grpName;
-                    const TtlActvLonsTmsLnrChmCovs =RecAccountDtl.data.getGroup.TtlActvLonsTmsLnrChmCov;
-                    const GrpLoanRpymntSync =RecAccountDtl.data.getGroup.GrpLoanRpymntSync;
-                    
-                    
+      await API.graphql(
+        graphqlOperation(updateCvrdGroupLoans, {
+          input: {
+            loanID: route.params.loanID,
+            amountRepaid: (parseFloat(amountRepaid) + repayAmount).toFixed(0),
+            lonBala: LonBalsss.toFixed(0),
+            amountExpectedBackWthClrnc: LonBalsss.toFixed(0),
+            DefaultPenaltyChm2: 0,
+            clearanceAmt: 0,
+            status: 'LoanCleared',
+          },
+        })
+      );
 
-                    
-                              
-                              const fetchMmbrDtls = async () => {
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try {
-                                    const RecAccountDtlxz:any = await API.graphql(
-                                        graphqlOperation(getChamaMembers, {ChamaNMember: memberIds}),
-                                        );
-                                        
-                                        const AmtRepaids =RecAccountDtlxz.data.getChamaMembers.AmtRepaid;
-                                        const LnBals =RecAccountDtlxz.data.getChamaMembers.LnBal;
-                                         
-                                        
-                                        const updtSendrAcLonOvr1 = async () =>{
-                                          if(isLoading){
-                                            return;
-                                          }
-                                          setIsLoading(true);
-                                          try{
-                                              await API.graphql(
-                                                graphqlOperation(updateSMAccount, {
-                                                  input:{
-                                                    awsemail:userInfo.attributes.email,
-                                                    balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
-                                                    MaxTymsBL:0 ,
-                                                    TtlClrdLonsTmsLneeChmCov:parseFloat(TtlClrdLonsTmsLneeChmCovs)+1,                                          
-                                                    TtlClrdLonsAmtLneeChmCov: (parseFloat(TtlClrdLonsAmtLneeChmCovs) + parseFloat(amounts)).toFixed(0), 
-                                                    
-                                                    
-                                                  }
-                                                })
-                                              )
-                    
-                    
-                                          }
-                                          catch(error){
-                                            if (error){
-                                              Alert.alert("Repayment unsuccessful; Retry")
-                                              return
-                                            }
-                                          }
-                                          setIsLoading(false);
-                                          await updtChmMbrTTlBlOvr();
-                                        }
+      await API.graphql(
+        graphqlOperation(updateGroup, {
+          input: {
+            grpContact,
+            grpBal: (parseFloat(group.grpBal) + repayAmount).toFixed(0),
+            TtlClrdLonsAmtLnrChmCov: (parseFloat(group.TtlClrdLonsAmtLnrChmCov) + repayAmount).toFixed(0),
+            TtlClrdLonsTmsLnrChmCov: parseFloat(group.TtlClrdLonsTmsLnrChmCov) + 1,
+          },
+        })
+      );
 
-                                        const updtSendrAcLonOvr2 = async () =>{
-                                          if(isLoading){
-                                            return;
-                                          }
-                                          setIsLoading(true);
-                                          try{
-                                              await API.graphql(
-                                                graphqlOperation(updateSMAccount, {
-                                                  input:{
-                                                    awsemail:userInfo.attributes.email,
-                                                    balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0) ,
-                                                    MaxTymsBL:parseFloat(MaxTymsBLss)-1 ,
-                                                    TtlClrdLonsTmsLneeChmCov:parseFloat(TtlClrdLonsTmsLneeChmCovs)+1,                                          
-                                                    TtlClrdLonsAmtLneeChmCov: (parseFloat(TtlClrdLonsAmtLneeChmCovs) + parseFloat(amounts)).toFixed(0), 
-                                                    TtlBLLonsTmsLneeChmCov: parseFloat(TtlBLLonsTmsLneeChmCovs) - 1,
-                                                    TtlBLLonsAmtLneeChmCov: (parseFloat(TtlBLLonsAmtLneeChmCovs) - parseFloat(amounts)).toFixed(0)
-                                                  }
-                                                })
-                                              )
-                    
-                    
-                                          }
-                                          catch(error){
-                                            if (error){
-                                              Alert.alert("Repayment unsuccessful; Retry")
-                                              return
-                                            }
-                                          }
-                                          setIsLoading(false);
-                                          await updtChmMbrTTlBlOvr();
-                                        }
+      await API.graphql(
+        graphqlOperation(updateCompany, {
+          input: {
+            AdminId: "BaruchHabaB'ShemAdonai2",
+            companyEarningBal: parseFloat(company.companyEarningBal) + transactionFee + ClranceAmt,
+            companyEarning: parseFloat(company.companyEarning) + transactionFee + ClranceAmt,
+            ttlChmLnsInClrdAmtCov: parseFloat(company.ttlChmLnsInClrdAmtCov) + repayAmount,
+            ttlChmLnsInClrdTymsCov: parseFloat(company.ttlChmLnsInClrdTymsCov) + 1,
+            totalLnsRecovered: parseFloat(company.totalLnsRecovered) + repayAmount,
+          },
+        })
+      );
 
+      await API.graphql(
+        graphqlOperation(createLoanRepayments, {
+          input: {
+            recPhn: grpContact,
+            senderPhn: userInfo.attributes.email,
+            RecName: group.grpName,
+            loanId3: route.params.loanID,
+            SenderName: sender.name,
+            amount: repayAmount.toFixed(0),
+            description: desc,
+            status: 'ChmLonRepayment',
+            owner: userInfo.attributes.sub,
+          },
+        })
+      );
 
-                                        const updtChmMbrTTlBlOvr  = async () =>{
-                                          if(isLoading){
-                                            return;
-                                          }
-                                          setIsLoading(true);
-                                          try{
-                                              await API.graphql(
-                                                graphqlOperation(updateChamaMembers, {
-                                                  input:{
-                                                    ChamaNMember:memberIds,
-                                                    AmtRepaid: (parseFloat(AmtRepaids)+parseFloat(amounts)).toFixed(0) ,
-                                                    LnBal: LonBalsss.toFixed(0)  ,
-                                                    
-                                                    
-                                                }})
-                                              )
-                    
-                    
-                                          }
-                                          catch(error){
-                                            if (error){Alert.alert("Retry or update app or call customer care")
-                                            return;}
-                                          }
-                                          setIsLoading(false);
-                                          await updtSMCvLnLnOver();
-                                        }
-
-                                        
-                              const updtSMCvLnLnOver  = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateCvrdGroupLoans, {
-                                        input:{
-                                          loanID: route.params.loanID,
-                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(0),
-                                          lonBala: (LonBalsss).toFixed(0),
-                                          amountExpectedBackWthClrnc:LonBalsss.toFixed(0),
-                                          DefaultPenaltyChm2:0,
-                                          clearanceAmt:0,
-                                          status: "LoanCleared",
-                                      }})
-                                    )
-          
-          
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await sendNonLnLnOver();
-                              }
-                              
-                              const sendNonLnLnOver = async () => {
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true)
-                                try {
-                                  await API.graphql(
-                                    graphqlOperation(createLoanRepayments, {
-                                      input: {
-                                        senderPhn: loaneePhnssss,
-                                        recPhn: grpContactssss,  
-                                        RecName:namess,
-                                        loanId1: "route.params.id",
-                                        loanId2: "route.params.id",
-                                        loanId3: route.params.loanID,  
-                                        SenderName:names,                                
-                                        amount: parseFloat(amounts).toFixed(0),                              
-                                        description: Desc,
-                                        status: "ChmLonRepayment",
-                                        owner: userInfo.attributes.sub
-                                      },
-                                    }),
-                                  );
-          
-          
-                                } catch (error) {
-                                  console.log(error)
-                                  if(error){
-                                    Alert.alert("Retry or update app or call customer care")
-                                return;}
-                                }
-                                setIsLoading(false);
-                                await updtRecAcLonOver();
-                              };
-                              
-                             
-
-                              
-          
-                              const updtRecAcLonOver = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateGroup, {
-                                        input:{
-                                          grpContact:grpContactssss,
-                                          GrpLoanRpymntSync: parseFloat(GrpLoanRpymntSync) + parseFloat(amounts).toFixed(0),
-                                          grpBal:(parseFloat(RecUsrBal) + (parseFloat(amounts) - parseFloat(clearanceAmts))).toFixed(0),                                     
-                                          
-                                          TtlClrdLonsTmsLnrChmCov: parseFloat(TtlClrdLonsTmsLnrChmCovs) + 1,
-                                          tymsChmHvBL: parseFloat(tymsChmHvBLs) - 1,
-                                          TtlClrdLonsAmtLnrChmCov: (parseFloat(TtlClrdLonsAmtLnrChmCovs) + parseFloat(amounts)).toFixed(0),
-                                          
-                                        }
-                                      })
-                                    )                              
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await updtCompLnOvr();
-                              }
-          
-                              const updtCompLnOvr = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateCompany, {
-                                        input:{
-                                          AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                         
-                                          companyEarningBal:UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt - parseFloat(DefaultPenaltyChm2s),
-                                          companyEarning: UsrTransferFee * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt - parseFloat(DefaultPenaltyChm2s),                                                    
-                                          
-                                          
-                                          ttlChmLnsInClrdAmtCov: parseFloat(ttlChmLnsInClrdAmtCovs) + parseFloat(amounts) ,
-                                          ttlChmLnsInClrdTymsCov: parseFloat(ttlChmLnsInClrdTymsCovs) + 1 ,
-                                          totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
-                                          
-                                        }
-                                      })
-                                    )
-                                    
-                                    
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  
-                                }
-                                Alert.alert("Cleared. ClearanceFee: " +ClranceAmt.toFixed(2) + ". TransactionFee: "+( parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2) );
-                                setIsLoading(false);
-                              }    
-                              
-                              const updtChmMbrTTlBl  = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateChamaMembers, {
-                                        input:{
-                                          ChamaNMember:memberIds,
-                                          AmtRepaid: (parseFloat(AmtRepaids)+parseFloat(amounts)).toFixed(0) ,
-                                          LnBal: LonBalsss.toFixed(0) ,
-                                          
-                                      }})
-                                    )
-          
-          
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await repyCovLn();
-                              }
-                        
-
-                              const repyCovLn = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateCvrdGroupLoans, {
-                                        input:{
-                                          loanID: route.params.loanID,
-                                          amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaidss)).toFixed(0),
-                                          lonBala: (LonBalsss).toFixed(0),
-                                          amountExpectedBackWthClrnc:LonBalsss.toFixed(0),
-                                          DefaultPenaltyChm2:0,
-                                          clearanceAmt:0
-                                        }
-                                      })
-                                    )
-          
-          
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await updtSendrAc();
-                              }
-                              
-                              
-                              const updtSendrAc = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateSMAccount, {
-                                        input:{
-                                          awsemail:userInfo.attributes.email,
-                                          
-                                          balance:(parseFloat(SenderUsrBal)-TotalTransacted).toFixed(0),
-                                                                               
-                                          TtlClrdLonsAmtLneeChmCov: (parseFloat(TtlClrdLonsAmtLneeChmCovs) + parseFloat(amounts)).toFixed(0),                       
-                                          
-                                        }
-                                      })
-                                    )
-          
-          
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await updtRecAc();
-                              }
-          
-                              const updtRecAc = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateGroup, {
-                                        input:{
-                                          grpContact:grpContactssss,
-                                         
-                                          GrpLoanRpymntSync: parseFloat(GrpLoanRpymntSync) + parseFloat(amounts).toFixed(0),
-                                          TtlClrdLonsAmtLnrChmCov: (parseFloat(TtlClrdLonsAmtLnrChmCovs) + parseFloat(amounts)).toFixed(0),
-                                          grpBal:(parseFloat(RecUsrBal) + (parseFloat(amounts) - parseFloat(clearanceAmts))).toFixed(0),                                     
-                                          
-                                          
-                                        }
-                                      })
-                                    )                              
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  if (error){Alert.alert("Retry or update app or call customer care")
-                                  return;}
-                                }
-                                setIsLoading(false);
-                                await updtComp();
-                              }
-          
-                              const updtComp = async () =>{
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true);
-                                try{
-                                    await API.graphql(
-                                      graphqlOperation(updateCompany, {
-                                        input:{
-                                          AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                          ttlChmLnsInClrdAmtCov: parseFloat(ttlChmLnsInClrdAmtCovs) + parseFloat(amounts) ,
-                                          totalLnsRecovered: parseFloat(totalLnsRecovereds) + parseFloat(amounts) ,
-                                          companyEarningBal:parseFloat(UsrTransferFee) * parseFloat(amounts) + parseFloat(companyEarningBals) + ClranceAmt - parseFloat(DefaultPenaltyChm2s),
-                                          companyEarning: parseFloat(UsrTransferFee) * parseFloat(amounts) + parseFloat(companyEarnings) + ClranceAmt - parseFloat(DefaultPenaltyChm2s),                                                    
-                                          
-                                        }
-                                      })
-                                    )
-                                    
-                                    
-                                }
-                                catch(error){
-                                  console.log(error)
-                                  
-                                }
-                                Alert.alert("Partially repaid. Clearance: " +ClranceAmt.toFixed(2) + ". Transaction: "+ (parseFloat(UsrTransferFee)*parseFloat(amounts)).toFixed(2));
-                                setIsLoading(false);
-
-                                await sendCovLn();
-                              }
-
-                              const sendCovLn = async () => {
-                                if(isLoading){
-                                  return;
-                                }
-                                setIsLoading(true)
-                                try {
-                                  await API.graphql(
-                                    graphqlOperation(createLoanRepayments, {
-                                      input: {
-                                        recPhn: grpContactssss,
-                                        senderPhn: userInfo.attributes.email,  
-                                        RecName:namess,
-                                        loanId3: route.params.loanID,  
-                                        loanId1: "route.params.id",
-                                        loanId2: "route.params.id",
-                                        
-                                        SenderName:names,                                  
-                                        amount: parseFloat(amounts).toFixed(0),                              
-                                        description: Desc,
-                                        status: "ChmLonRepayment",
-                                        owner: userInfo.attributes.sub
-                                      },
-                                    }),
-                                  );
-          
-          
-                                } catch (error) {
-                                  console.log(error)
-                                  if(error){Alert.alert("Retry or update app or call customer care")
-                                return;}
-                                }
-                                setIsLoading(false);
-                                
-                              };
-
-                                                          
-                                                    
-                              
-                              if(usrAcActvStts === "AccountInactive"){Alert.alert('Sender account is inactive');
-                              return;
-                            }
-                              else if(usrAcActvSttss === "AccountInactive"){Alert.alert('Receiver account is inactive');
-                              return;
-                            }
-                              
-                              else if (
-                                parseFloat(SenderUsrBal) < TotalTransacted 
-                              ) {Alert.alert('Requested amount is more than you have in your account');
-                            return;
-                          }
-                          
-                              
-                              else if(parseFloat(nonLonLimits) < parseFloat(amounts)){Alert.alert('Call ' + CompPhoneContact + ' to have your send Amount limit adjusted');
-                            return;
-                          }
-
-                          else if(ClranceAmt > parseFloat(amounts) ){Alert.alert( "At least pay clearance fee and default penalty: "+ClranceAmt);
-                          return;
-                        }
-
-
-                          else if(parseFloat(amounts) > parseFloat(LonBal1)){Alert.alert("Your Loan Balance is lesser: Ksh. "+LonBal1)}
-                          
-
-                          else if(parseFloat(amounts) === parseFloat(LonBal1)  && parseFloat(MaxTymsBLss) === parseFloat(maxBLss) )
-                          {updtSendrAcLonOvr1();}          
-                          
-                          else if(parseFloat(amounts) === parseFloat(LonBal1)  && parseFloat(MaxTymsBLss) > parseFloat(maxBLss))
-                          {updtSendrAcLonOvr2();} 
-                              
-                               else {
-                                updtChmMbrTTlBl();
-                              }
-
-                            }
-                            catch (e) {
-                              console.log(e)
-                              if (e){Alert.alert("Retry or update app or call customer care")
-                              return;}
-                          };
-                        }
-                      
-                        await fetchMmbrDtls();
-                          }
-                          catch (e) {
-                            console.log(e)
-                            if (e){Alert.alert("Retry or update app or call customer care")
-                            return;}
-                        };
-                      }
-                    
-                      await fetchRecUsrDtls();
-                                                                                         
-                }       
-                catch(e) {     
-                  console.log(e)
-                  if (e){Alert.alert("Retry or update app or call customer care")
-  return;}                 
-                }
-                setIsLoading(false);
-                }                    
-                  await fetchCompDtls();
-        } catch (e) {
-          console.log(e)
-          if (e){Alert.alert("Retry or update app or call customer care")
-      return;}
-        }
-        setIsLoading(false);        
-      };
-      await fetchSenderUsrDtls();
-    
-      
+      Alert.alert(
+        `Repayment successful!\nTransaction Fee: ${transactionFee.toFixed(2)}\nClearance: ${ClranceAmt.toFixed(2)}`
+      );
     } catch (e) {
-      console.log(e)
-      if (e){Alert.alert("Retry or update app or call customer care")
-      return;}
-  };
+      console.log(e);
+      Alert.alert('Repayment failed. Retry or contact support.');
+    } finally {
       setIsLoading(false);
-      
-      setAmount("");
-     
-      setLnId("");
-      setDesc("");
-      setSnderPW("");
-      
-      
-}
-
-
-useEffect(() =>{
-  const SnderNatIds=SenderNatId
-    if(!SnderNatIds && SnderNatIds!=="")
-    {
-      setSenderNatId("");
-      return;
+      setAmount('');
+      setDesc('');
+      setPassword('');
     }
-    setSenderNatId(SnderNatIds);
-    }, [SenderNatId]
-     );
-
-     useEffect(() =>{
-      const amt=amounts
-        if(!amt && amt!=="")
-        {
-          setAmount("");
-          return;
-        }
-        setAmount(amt);
-        }, [amounts]
-         );
-
-         
-
-             
-             
-
-                     useEffect(() =>{
-                      const descr=Desc
-                        if(!descr && descr!=="")
-                        {
-                          setDesc("");
-                          return;
-                        }
-                        setDesc(descr);
-                        }, [Desc]
-                         );
-
-                         useEffect(() =>{
-                          const SnderPWss=SnderPW
-                            if(!SnderPWss && SnderPWss!=="")
-                            {
-                              setSnderPW("");
-                              return;
-                            }
-                            setSnderPW(SnderPWss);
-                            }, [SnderPW]
-                             );
-
-                             useEffect(() =>{
-                              const LnIds=LnId
-                                if(!LnIds && LnIds!=="")
-                                {
-                                  setLnId("");
-                                  return;
-                                }
-                                setLnId(LnIds);
-                                }, [LnId]
-                                 );
-    
-
-                             
-
-                                 
+  };
 
   return (
-    <View>
-      <View
-        
-        style={styles.image}>
-        <ScrollView>
-         
-          <View style={styles.amountTitleView}>
-            <Text style={styles.title}>Fill account Details Below</Text>
-          </View>
+    <KeyboardAvoidingView
+      style={{ flex: 1, backgroundColor: '#f2f6fc' }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
 
-        
-          <View style={styles.sendAmtView}>
-            <TextInput
-            keyboardType={"decimal-pad"}
-              value={amounts}
-              onChangeText={setAmount}
-              style={styles.sendAmtInput}
-              editable={true}
-              ></TextInput>
-              
-            <Text style={styles.sendAmtText}>Amount Sent</Text>
-          </View>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Repay Chama Loan</Text>
+          <Text style={styles.subHeaderText}>Enter amount, description & password</Text>
+        </View>
 
+        <View style={styles.inputCard}>
+          <Text style={styles.inputLabel}>Amount</Text>
+          <TextInput
+            keyboardType="decimal-pad"
+            placeholder="Enter amount"
+            value={amount}
+            onChangeText={setAmount}
+            style={styles.input}
+          />
+        </View>
 
-          <View style={styles.sendAmtViewDesc}>
-            <TextInput
-              multiline={true}
-              value={Desc}
-              onChangeText={setDesc}
-              style={styles.sendAmtInputDesc}
-              editable={true}></TextInput>
-            <Text style={styles.sendAmtText}>Description</Text>
-          </View>
-          
-          
+        <View style={styles.inputCard}>
+          <Text style={styles.inputLabel}>Description</Text>
+          <TextInput
+            multiline
+            placeholder="Enter description"
+            value={desc}
+            onChangeText={setDesc}
+            style={[styles.input, { height: 80 }]}
+          />
+        </View>
 
-          <TouchableOpacity
-            onPress={ftchCvdSMLn}
-            style={styles.sendAmtButton}>
-            <Text style={styles.sendAmtButtonText}>Send</Text>
-            {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
+        <View style={styles.inputCard}>
+          <Text style={styles.inputLabel}>Admin Password</Text>
+          <TextInput
+            placeholder="Enter password"
+            secureTextEntry={!showPassword}
+            value={password}
+            onChangeText={setPassword}
+            style={styles.input}
+          />
+          <TouchableOpacity style={styles.eyeIcon} onPress={() => setShowPassword(!showPassword)}>
+            <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="#666" />
           </TouchableOpacity>
+        </View>
 
-          
-        </ScrollView>
-      </View>
-    </View>
+        <TouchableOpacity onPress={repayLoan} disabled={isLoading} style={{ marginTop: 20 }}>
+          <LinearGradient
+            colors={['#e29d58', 'skyblue']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.buttonGradient}
+          >
+            <Text style={styles.buttonText}>Send Repayment</Text>
+            {isLoading && <ActivityIndicator size="small" color="#fff" style={{ marginLeft: 10 }} />}
+          </LinearGradient>
+        </TouchableOpacity>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 export default RepayCovChmLnsss;
+
+// ==================== Styles ====================
+const styles = StyleSheet.create({
+  scrollContainer: {
+    padding: 20,
+    paddingBottom: 40,
+    backgroundColor: '#f2f6fc',
+  },
+  header: { marginBottom: 30 },
+  headerText: { fontSize: 26, fontWeight: '700', color: '#0a2540', marginBottom: 5 },
+  subHeaderText: { fontSize: 14, color: '#555' },
+  inputCard: {
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    padding: 15,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 4,
+    position: 'relative',
+  },
+  inputLabel: {
+    position: 'absolute',
+    top: -10,
+    left: 15,
+    backgroundColor: '#fff',
+    paddingHorizontal: 5,
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#888',
+  },
+  input: {
+    fontSize: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    color: '#0a2540',
+  },
+  eyeIcon: { position: 'absolute', right: 15, top: 20 },
+  buttonGradient: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+    paddingVertical: 15,
+    width: width - 40,
+    alignSelf: 'center',
+    shadowColor: '#e29d58',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  buttonText: { color: '#fff', fontSize: 18, fontWeight: '700' },
+});

@@ -30,8 +30,8 @@ const RegKFKubwa = props => {
     navigation.navigate('DActvteMFAd');
   };
 
-  const PwnBrkrRegss = () => {
-    navigation.navigate('PwnBrkrRegss');
+  const AddCOMBAuditor = () => {
+    navigation.navigate('AddCOMBAuditor');
   };
 
   const ChamaRegss = () => {
@@ -180,10 +180,17 @@ const RegKFKubwa = props => {
               
 
               <Pressable
+                onPress={AddCOMBAuditor}
+                style={styles.earningsAcPressables}>
+                <Text style={styles.earningsAcPressableText}>Add COMB Auditor</Text>
+              </Pressable>
+
+              <Pressable
                 onPress={UpdateMFAdminPWss}
                 style={styles.earningsAcPressables}>
                 <Text style={styles.earningsAcPressableText}>UpdatePW</Text>
               </Pressable>
+
               <Pressable
                 onPress={RegPwnBrkrss}
                 style={styles.earningsAcPressables}>

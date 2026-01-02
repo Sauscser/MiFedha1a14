@@ -5854,6 +5854,51 @@ export const onDeleteChamaApply2 = /* GraphQL */ `
     }
   }
 `;
+export const onCreateAuditor = /* GraphQL */ `
+  subscription OnCreateAuditor($filter: ModelSubscriptionAuditorFilterInput) {
+    onCreateAuditor(filter: $filter) {
+      id
+      name
+      email
+      active
+      organization
+      regions
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateAuditor = /* GraphQL */ `
+  subscription OnUpdateAuditor($filter: ModelSubscriptionAuditorFilterInput) {
+    onUpdateAuditor(filter: $filter) {
+      id
+      name
+      email
+      active
+      organization
+      regions
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteAuditor = /* GraphQL */ `
+  subscription OnDeleteAuditor($filter: ModelSubscriptionAuditorFilterInput) {
+    onDeleteAuditor(filter: $filter) {
+      id
+      name
+      email
+      active
+      organization
+      regions
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const onCreateChamaControlTable = /* GraphQL */ `
   subscription OnCreateChamaControlTable(
     $filter: ModelSubscriptionChamaControlTableFilterInput

@@ -1,1210 +1,410 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRoute } from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
+import { KeyboardAvoidingView, Platform, Alert, ScrollView, TextInput, TouchableOpacity, View, Text, ActivityIndicator } from 'react-native';
+
+import { API, Auth, graphqlOperation } from 'aws-amplify';
+import { StyleSheet } from 'react-native';
 
 import {
-    createCvrdGroupLoans,
-  createFloatAdd,
-  createSMAccount,
-  createSMLoansCovered,
-  updateAdvocate,
-  updateAgent,
-  updateChamaControlTable,
+  createCvrdGroupLoans,
   updateChamaMembers,
-  updateCompany,
   updateGroup,
-  
-  updateMiFedhaBankAdmin,
-  
-  updateReqLoanChama,
-  
-  updateSAgent,
   updateSMAccount,
-  
+  updateCompany,
+  updateMiFedhaBankAdmin,
+  updateChamaControlTable,
+  updateReqLoanChama,
+  updateAdvocate,
 } from '../../../../../src/graphql/mutations';
 
-import {API, Auth, graphqlOperation, DataStore} from 'aws-amplify';
 import {
-  getAgent,
-  getCompany,
-  getSMAccount,
-  getSAgent,
-  getAdvocate,
-  getGroup,
-  
-  getChamaMembers,
   getReqLoanChama,
-  getMiFedhaBankAdmin,
+  getSMAccount,
+  getChamaMembers,
+  getGroup,
+  getCompany,
   getChamaControlTable,
+  getMiFedhaBankAdmin,
+  getAdvocate,
 } from '../../../../../src/graphql/queries';
 
-import {useNavigation} from '@react-navigation/native';
+const ChmCovLns = () => {
+  const [state, setState] = useState({
+    ChmPhn: '',
+    RecNatId: '',
+    RecPhn: '',
+    SnderPW: '',
+    RepaymtPeriod: '',
+    amount: '',
+    AmtExp: '',
+    RecAccCode: '',
+    SendrPhn: null,
+    MmbrId: '',
+    isLoading: false,
+  });
 
-import {
-  View,
-  Text,
-  ImageBackground,
-  Pressable,
-  TextInput,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-  Alert,
-  ActivityIndicator,
-} from 'react-native';
-import styles from './styles';
-import { parse } from 'expo-linking';
-import {EQUITYTABLEID} from "@env";
-
-const ChmCovLns = props => {
-  const [ChmPhn, setChmPhn] = useState('');
-  const [RecNatId, setRecNatId] = useState('');
-  const [RecPhn, setRecPhn] = useState('');
-  const [SnderPW, setSnderPW] = useState("");
-  const [RepaymtPeriod, setRepaymtPeriod] = useState("");
-  const [amount, setAmount] = useState("");
-  const [AmtExp, setAmtExp] = useState("");
- 
-  const[isLoading, setIsLoading] = useState(false);
-  const [RecAccCode, setRecAccCode] = useState("");
-  const [SendrPhn, setSendrPhn] = useState(null);
-  const [MmbrId, setMmbrId] = useState('');
-  
-  
   const route = useRoute();
-
-  
-  
+  const [showPassword, setShowPassword] = useState(false);
 
 
-    
-    const fetchChmLoanReq = async () => {
-      if(isLoading){
-        return;
-      }
-      setIsLoading(true);
+  // Generic setter for state
+  const setField = (field, value) => setState((prev) => ({ ...prev, [field]: value }));
 
-      const userInfo = await Auth.currentAuthenticatedUser();
-      try {
-          const ChmMbrtDtlz:any = await API.graphql(
-              graphqlOperation(getReqLoanChama, {id: route.params.id}),
-              );
-              const loaneeEmail =ChmMbrtDtlz.data.getReqLoanChama.loaneeEmail;
-              const groupContacts =ChmMbrtDtlz.data.getReqLoanChama.chamaPhone;
-              const memberContacts =ChmMbrtDtlz.data.getReqLoanChama.loaneePhone;
-              const amount =ChmMbrtDtlz.data.getReqLoanChama.amount;
-              const AmtExp =ChmMbrtDtlz.data.getReqLoanChama.repaymentAmt;
-              const RepaymtPeriod =ChmMbrtDtlz.data.getReqLoanChama.repaymentPeriod;
-              const loaneeMemberId =ChmMbrtDtlz.data.getReqLoanChama.loaneeMemberId;
-              const advLicNo =ChmMbrtDtlz.data.getReqLoanChama.advLicNo;
-              const description =ChmMbrtDtlz.data.getReqLoanChama.description;
-              const defaultPenalty =ChmMbrtDtlz.data.getReqLoanChama.defaultPenalty;
-              const statusNumber =ChmMbrtDtlz.data.getReqLoanChama.statusNumber;
-              const AdvEmail =ChmMbrtDtlz.data.getReqLoanChama.AdvEmail;
-              const dfltDeadLn =ChmMbrtDtlz.data.getReqLoanChama.dfltDeadLn;
-              const installmentAmount =ChmMbrtDtlz.data.getReqLoanChama.installmentAmount;
-              const paymentFrequency =ChmMbrtDtlz.data.getReqLoanChama.paymentFrequency;
-              
-              const status =ChmMbrtDtlz.data.getReqLoanChama.status;
-
-              const ChmNMmbrPhns = loaneeMemberId+groupContacts
-
-              const today = new Date();
-              let hours = (today.getHours() < 10 ? '0' : '') + today.getHours();
-              let minutes = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
-              let seconds = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
-              let years = (today.getFullYear() < 10 ? '0' : '') + today.getFullYear();
-              let months = (today.getMonth() < 10 ? '0' : '') + today.getMonth();
-              let months2 = parseFloat(months)
-              let days = (today.getDate() < 10 ? '0' : '') + today.getDate();
-              
-              const now:any = years+ "-"+ "0"+months2 +"-"+ days+"T"+hours + ':' + minutes + ':' + seconds;
-
-              const curYrs = parseFloat(years)*365;
-              const curMnths = (months2)*30.4375;
-              const daysUpToDate = curYrs + curMnths + parseFloat(days)
-                         
-              const fetchAdminDtls = async () => {
-                if(isLoading){
-                  return;
-                }
-                setIsLoading(true);
-                try {
-                    const RecAccountDtl:any = await API.graphql(
-                        graphqlOperation(getSMAccount, {awsemail: userInfo.attributes.email}),
-                        );
-                        const pwscz =RecAccountDtl.data.getSMAccount.pw;
-                        
-                        
-                        const fetchChmMbrDtls = async () => {
-      if(isLoading){
-        return;
-      }
-      setIsLoading(true);
-      try {
-          const ChmMbrtDtl:any = await API.graphql(
-              graphqlOperation(getChamaMembers, {ChamaNMember: ChmNMmbrPhns}),
-              );
-
-              
-              const GrossLnsGvns =ChmMbrtDtl.data.getChamaMembers.GrossLnsGvn;
-              const LonAmtGvens =ChmMbrtDtl.data.getChamaMembers.LonAmtGven;
-              const LnBals =ChmMbrtDtl.data.getChamaMembers.LnBal;
-              const AmtRepaids =ChmMbrtDtl.data.getChamaMembers.AmtRepaid;
-              const NonLoanAcBal =ChmMbrtDtl.data.getChamaMembers.NonLoanAcBal;
-                         
-
-
-  const fetchSenderUsrDtls = async () => {
-    if(isLoading){
-      return;
-    }
-    setIsLoading(true);
+  const fetchGraphQL = async (query, variables) => {
     try {
-      const accountDtl:any = await API.graphql(
-        graphqlOperation(getGroup, {grpContact: groupContacts}),
-      );
-
-      const grpBals =accountDtl.data.getGroup.grpBal;
-      const signitoryPWs =accountDtl.data.getGroup.signitoryPW;
-      const statuss =accountDtl.data.getGroup.status;
-      
-      const TtlActvLonsTmsLnrChmCovs =accountDtl.data.getGroup.TtlActvLonsTmsLnrChmCov;
-      const TtlActvLonsAmtLnrChmCovs =accountDtl.data.getGroup.TtlActvLonsAmtLnrChmCov;
-      const grpNames =accountDtl.data.getGroup.grpName;
-  
-      const SenderSub =accountDtl.data.getGroup.owner;
-      const BankAdminAcNu =accountDtl.data.getGroup.BankAdminAcNu;
-      const GrpLoanOutSync =accountDtl.data.getGroup.GrpLoanOutSync;
-      
-      const fetchCompDtls = async () => {
-        if(isLoading){
-          return;
-        }
-        setIsLoading(true);
-        try {
-          const CompDtls:any = await API.graphql(
-            graphqlOperation(getCompany, {
-              AdminId: "BaruchHabaB'ShemAdonai2",
-            }),
-          );
-          
-          const userLoanTransferFees = CompDtls.data.getCompany.userLoanTransferFee;
-          const AdvComs = CompDtls.data.getCompany.AdvCom;
-          const CoverageFees = CompDtls.data.getCompany.CoverageFee;
-          const AdvCompanyComs = CompDtls.data.getCompany.AdvCompanyCom;
-          const BankMifedhaSyncFee = CompDtls.data.getCompany.BankMifedhaSyncFee;
-          
-          const AdvCovFee =(parseFloat(CoverageFees)*parseFloat(AdvComs))
-          const CompCovFee = parseFloat(CoverageFees)*parseFloat(AdvCompanyComs);
-          const AdvCovAmt =AdvCovFee*parseFloat(amount)
-          const CompCovAmt = CompCovFee*parseFloat(amount)
-          const ttlCovFeeAmount = parseFloat(CoverageFees)*parseFloat(amount)                
-          
-          const TotalTransacted = parseFloat(amount) + ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount);             
-          const ttlCompCovEarningss = CompDtls.data.getCompany.ttlCompCovEarnings;
-          const companyEarningBals = CompDtls.data.getCompany.companyEarningBal;
-          const companyEarnings = CompDtls.data.getCompany.companyEarning;
-          const AdvEarningBals = CompDtls.data.getCompany.AdvEarningBal;
-          const AdvEarnings = CompDtls.data.getCompany.AdvEarning;          
-          const ttlChmLnsInAmtCovs = CompDtls.data.getCompany.ttlChmLnsInAmtCov;          
-          const ttlChmLnsInTymsCovs = CompDtls.data.getCompany.ttlChmLnsInTymsCov;            
-          const maxInterestGrps = CompDtls.data.getCompany.maxInterestGrp;  
-          const IntAmt = parseFloat(AmtExp) - (parseFloat(amount) + 
-                parseFloat(userLoanTransferFees)*parseFloat(amount) + ttlCovFeeAmount)
-          const Interest = (((parseFloat(AmtExp) - parseFloat(amount))*100)/(parseFloat(amount) *parseFloat(RepaymtPeriod))).toFixed(2);     
-          const maxBLss = CompDtls.data.getCompany.maxBLs;
-         
-          const MaxSMInterest = (parseFloat(amount) +  
-          (parseFloat(userLoanTransferFees)*parseFloat(amount) 
-          + ttlCovFeeAmount) )*parseFloat(maxInterestGrps)*parseFloat(RepaymtPeriod);
-          
-          
-          const ActualMaxSMInterest = parseFloat(AmtExp) - (parseFloat(amount) +  parseFloat(userLoanTransferFees)*parseFloat(amount) + 
-          ttlCovFeeAmount)
-
-
-          const TransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount)       
-          const TransCost2 = ttlCovFeeAmount + parseFloat(userLoanTransferFees)*parseFloat(amount) 
-          
-          
-          
-         
-          
-          const amtrpayable = (parseFloat(amount) * 
-          ((Math.pow(1 + parseFloat(AmtExp)/36500, 0) ))
-)
-        
-          
-          
-const TtlTransCost =  parseFloat(userLoanTransferFees)*parseFloat(amount)
-const TtlTransCost2 = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount)))
-          
-
-          /* Group SYnc */
-
-          const GrpSync2 = (ttlCovFeeAmount + (parseFloat(userLoanTransferFees)*parseFloat(amount)) + amount)
-          const GrpSync =  (parseFloat(userLoanTransferFees)*parseFloat(amount) + amount)
-
-/*Advocate fees */
-          const TotalAmtExp = TtlTransCost2 + amtrpayable;
-          /* without Advocate fees */
-          const TotalAmtExp2 =  TtlTransCost + amtrpayable;
-
-          const AllTtlTrnsCst = TtlTransCost + MaxSMInterest;
-
-          console.log(TotalAmtExp)
-          console.log(TtlTransCost)
-          console.log (amtrpayable)
-
-          const grossCompEarning = parseFloat(userLoanTransferFees)*parseFloat(amount)
-          const BankAdminEarning = grossCompEarning * parseFloat(BankMifedhaSyncFee)
-          const netCompEarning = grossCompEarning - BankAdminEarning;
-          
-
-          
-
-   
-
-              const fetchRecUsrDtls = async () => {
-                if(isLoading){
-                  return;
-                }
-                setIsLoading(true);
-                try {
-                    const RecAccountDtl:any = await API.graphql(
-                        graphqlOperation(getSMAccount, {awsemail: loaneeEmail}),
-                        );
-                        const RecUsrBal =RecAccountDtl.data.getSMAccount.balance;
-                        const usrNoBL =RecAccountDtl.data.getSMAccount.MaxTymsBL;
-                        const usrAcActvSttss =RecAccountDtl.data.getSMAccount.acStatus; 
-                        const recAcptncCode =RecAccountDtl.data.getSMAccount.loanAcceptanceCode; 
-                        const TtlActvLonsTmsLnrCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLnrCov; 
-                        const TtlActvLonsTmsLneeCovss =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeCov;
-                        const TtlActvLonsTmsLneeChmCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsTmsLneeChmCov;
-                        const TtlActvLonsAmtLneeChmCovs =RecAccountDtl.data.getSMAccount.TtlActvLonsAmtLneeChmCov;
-                        const namess =RecAccountDtl.data.getSMAccount.name;
-                        const ttlDpstSMs =RecAccountDtl.data.getSMAccount.ttlDpstSM;
-                        const TtlWthdrwnSMs =RecAccountDtl.data.getSMAccount.TtlWthdrwnSM;
-                        const MaxAcBals =RecAccountDtl.data.getSMAccount.MaxAcBal;
-                        const DefaultPenaltyRate = parseFloat(defaultPenalty)/parseFloat(AmtRepaids) *100;
-                        const RecomDfltPnltyRate = (parseFloat(AmtRepaids)*20) / 100;
-                          console.log (memberContacts)
-
-                          const fetchCntrlTble = async () => {
-                            if(isLoading){
-                              return;
-                            }
-                            setIsLoading(true);
-                            try {
-                                const contlTbl:any = await API.graphql(
-                                    graphqlOperation(getChamaControlTable, {id: "EQUITYTABLEID"}),
-                                    );
-                                    const GrpLoanOutEarnings =contlTbl.data.getChamaControlTable.GrpLoanOutEarnings;
-                                    const BankAdminEarnings =contlTbl.data.getChamaControlTable.BankAdminEarnings;
-                                    
-
-                          const fetchBankAdmin = async () => {
-                            if(isLoading){
-                              return;
-                            }
-                            setIsLoading(true);
-                            try {
-                                const BankAdmDtls:any = await API.graphql(
-                                    graphqlOperation(getMiFedhaBankAdmin, {nationalid: BankAdminAcNu}),
-                                    );
-                                    const BankAdmBal =BankAdmDtls.data.getMiFedhaBankAdmin.BankAdmBal;
-                                    
-
-                        const sendSMLn = async () => {
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try {
-                            await API.graphql(
-                              graphqlOperation(createCvrdGroupLoans, {
-                                input: {
-                                    loanID:route.params.id,
-                                    grpContact: groupContacts,
-                                    loaneePhn: loaneeEmail,
-                                    loanerLoanee:groupContacts+memberContacts,
-                                    loanerLoaneeAdv:  groupContacts+memberContacts+"None" ,  
-                                    repaymentPeriod: RepaymtPeriod,
-                                    amountGiven: parseFloat(amount).toFixed(0),
-                                    amountExpectedBack: TotalAmtExp2.toFixed(0),
-                                    amountExpectedBackWthClrnc: TotalAmtExp2.toFixed(0),
-                                    amountRepaid: 0,
-                                    DefaultPenaltyChm:defaultPenalty,
-                                    DefaultPenaltyChm2: 0,
-                                    timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
-                                    timeExpBack2: 61 + daysUpToDate,
-                                    crtnDate: daysUpToDate,
-                                    description: description,
-                                    clearanceAmt: 0,
-                                    clearanceAmt2: 0,
-                                    lonBala: TotalAmtExp2.toFixed(0),
-                                    advRegNu: "None",
-                                    loaneeName: namess,
-                                    dfltDeadLn: dfltDeadLn,
-                                    LoanerName: grpNames,
-                                    memberId: ChmNMmbrPhns,
-                                    status: "LoanActive",
-                                    lnType: "GrpLn",
-                                    interest: AmtExp,
-                                    dfltUpdate: daysUpToDate,
-                                    owner: userInfo.attributes.sub,
-                                    advEmail:"None",
-                                    blOfficer:"None",
-                                    installmentAmount:installmentAmount,
-                                    paymentFrequency:paymentFrequency
-                                },
-                              }),
-                            );
-
-
-                          } catch (error) {
-                            if (error){
-                              console.log(error)
-                              Alert.alert("Loaning unsuccessful; enter details correctly")
-                              return}
-                          }
-                          setIsLoading(false);
-                          await updatMmbr();
-                        };
-
-                        const updatMmbr = async () => {
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try {
-                            await API.graphql(
-                              graphqlOperation(updateChamaMembers, {
-                                input: {
-                                  ChamaNMember: ChmNMmbrPhns,
-                                  LonAmtGven: (parseFloat(LonAmtGvens) + parseFloat(amount)).toFixed(0),
-                                  GrossLnsGvn: (parseFloat(GrossLnsGvns) + TotalAmtExp2).toFixed(0),
-                                  LnBal: (parseFloat(LnBals) + TotalAmtExp2).toFixed(0),                                  
-                                  loanStatus:"LoanActive",                                    
-                                  blStatus: "AccountNotBL",
-                               
-                                
-                                },
-                              }),
-                            );
-
-
-                          } catch (error) {
-                            if(error){
-                              Alert.alert("Error! Access denied!")
-                              
-                          
-                          return;}
-                          }
-                          setIsLoading(false);
-                          await updtSendrAc();
-                        };
-                        
-                        const updtSendrAc = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateGroup, {
-                                  input:{
-                                    grpContact:groupContacts,
-                                    TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs)+1,
-                                    TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + GrpSync).toFixed(0),
-                                                                              
-                                    grpBal:(parseFloat(grpBals)-GrpSync).toFixed(0) ,
-                                    GrpLoanOutSync:(parseFloat(GrpLoanOutSync)+GrpSync).toFixed(0) 
-                                   
-                                    
-                                  }
-                                })
-                              )
-
-
-                          }
-                          catch(error){
-                            if (error){Alert.alert("Error! Access denied!")
-                            return;}
-                          }
-                          setIsLoading(false);
-                          await updtRecAc();
-                        }
-                        const updtRecAc = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateSMAccount, {
-                                  input:{
-                                    awsemail:loaneeEmail,
-                                    TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
-                                    TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ TotalAmtExp).toFixed(0),
-                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0) ,
-                                    loanStatus:"LoanActive",                                    
-                                    blStatus: "AccountNotBL",
-                                    loanAcceptanceCode:"None"                                
-                                    
-                                  }
-                                })
-                              )                              
-                          }
-                          catch(error){
-                            console.log(error)
-                            if (error){Alert.alert("Error! Access denied!")
-                            return;}
-                          }
-                          setIsLoading(false);
-                          await updtComp();
-                        }
-
-                        const updtComp = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(false);
-                          
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateCompany, {
-                                  input:{
-                                    AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                        
-                                    ttlCompCovEarnings: parseFloat(ttlCompCovEarningss),
-                                    AdvEarningBal: parseFloat(AdvEarningBals),                                                                                                                                                     
-                                    AdvEarning: parseFloat(AdvEarnings),
-                                    companyEarningBal: parseFloat(companyEarningBals) + netCompEarning,
-                                    companyEarning:  parseFloat(companyEarnings) + netCompEarning,                                                    
-                                    
-                                    ttlChmLnsInAmtCov: TotalAmtExp2 + parseFloat(ttlChmLnsInAmtCovs),
-                                   
-                                    ttlChmLnsInTymsCov: 1 + parseFloat(ttlChmLnsInTymsCovs),
-                                          
-                                    
-                                  }
-                                })
-                              )
-                              
-                              
-                          }
-                          catch(error){
-                            console.log(error);
-                            if (error){Alert.alert("Error! Access denied!")
-                        return;}
-                          }
-                          setIsLoading(false);
-                          await updtBankAdmin();
-                        }
-                        
-
-                        const updtBankAdmin = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(false);
-                          
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateMiFedhaBankAdmin, {
-                                  input:{
-                                    nationalid:BankAdminAcNu,                                                      
-                                    BankAdmBal:(parseFloat(BankAdmBal) + BankAdminEarning).toFixed(0)
-                                  }
-                                })
-                              )
-                              
-                              
-                          }
-                          catch(error){
-                            console.log(error);
-                            if (error){Alert.alert("Error! Access denied!")
-                        return;}
-                          }
-                         await updtCntrlTbl ();
-                          setIsLoading(false);
-                          
-                        }
-
-                        const updtCntrlTbl = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(false);
-                          
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateChamaControlTable, {
-                                  input:{
-                                    id:"EQUITYTABLEID",                                                      
-                                    GrpLoanOutEarnings:(parseFloat(GrpLoanOutEarnings) + BankAdminEarning).toFixed(0),
-                                    BankAdminEarnings: (parseFloat(BankAdminEarnings) + BankAdminEarning).toFixed(0)
-                                  }
-                                })
-                              )
-                              
-                              
-                          }
-                          catch(error){
-                            console.log(error);
-                            if (error){Alert.alert("Error! Access denied!")
-                        return;}
-                          }
-                         await updtLnReq ();
-                          setIsLoading(false);
-                          
-                        }
-                        
-                        const updtLnReq = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(false);
-                          
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateReqLoanChama, {
-                                  input:{
-                                    id:route.params.id,                                                      
-                                    status:"Approved"
-                                  }
-                                })
-                              )
-                              
-                              
-                          }
-                          catch(error){
-                            console.log(error);
-                            if (error){Alert.alert("Error! Access denied!")
-                        return;}
-                          }
-                          Alert.alert("Success. TransactionFee: "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) 
-                         
-                          );
-                          setIsLoading(false);
-                          
-                        }
-                                              
-                        
-                        const fetchAdv = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-              
-                            const AdvDtls:any = await API.graphql(
-                              graphqlOperation(getAdvocate,
-                                {advregnu: advLicNo}),
-                                
-                            );
-                            const advTtlAern = AdvDtls.data.getAdvocate.TtlEarnings;
-                            const advBl = AdvDtls.data.getAdvocate.advBal;
-                            const advStts = AdvDtls.data.getAdvocate.status;
-                            const namesssssss = AdvDtls.data.getAdvocate.name;
-                            console.log(advLicNo)
-                        
-                        const sendSMLn2 = async () => {
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try {
-                            await API.graphql(
-                              graphqlOperation(createCvrdGroupLoans, {
-                                input: {
-                                  loanID:route.params.id,
-                                  grpContact: groupContacts,
-                                    loaneePhn: loaneeEmail,
-                                    loanerLoanee:groupContacts+memberContacts,
-                                    loanerLoaneeAdv:  groupContacts+memberContacts+advLicNo ,  
-                                    repaymentPeriod: RepaymtPeriod,
-                                    amountGiven: parseFloat(amount).toFixed(0),
-                                    amountExpectedBack: TotalAmtExp.toFixed(0),
-                                    amountExpectedBackWthClrnc: TotalAmtExp.toFixed(0),
-                                    amountRepaid: 0,
-                                    clearanceAmt: 0,
-                                    clearanceAmt2: 0,
-                                    DefaultPenaltyChm:defaultPenalty,
-                                    DefaultPenaltyChm2:0,
-                                    timeExpBack: parseFloat(RepaymtPeriod) + daysUpToDate,
-                                    timeExpBack2: 61 + daysUpToDate,
-                                    description: description,
-                                    lonBala:TotalAmtExp.toFixed(0),
-                                    advRegNu: advLicNo,
-                                    loaneeName:namess,
-                                    crtnDate:daysUpToDate,
-                                    dfltDeadLn:dfltDeadLn,
-                                    LoanerName:grpNames,
-                                    memberId:ChmNMmbrPhns,
-                                    status: "LoanActive",
-                                    interest:AmtExp,
-                                    dfltUpdate: daysUpToDate,
-                                    lnType:"GrpLn",
-                                    owner: userInfo.attributes.sub,
-                                    blOfficer:"None",
-                                    advEmail:AdvEmail,
-                                    installmentAmount:installmentAmount,
-                                    paymentFrequency:paymentFrequency
-
-                                },
-                              }),
-                            );
-
-
-                          } catch (error) {
-                            if (error){
-                              
-                              return}
-                          }
-                          setIsLoading(false);
-                          await updatMmbr2();
-                        };
-
-                        sendSMLn2();
-
-                        const updatMmbr2 = async () => {
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try {
-                            await API.graphql(
-                              graphqlOperation(updateChamaMembers, {
-                                input: {
-                                  ChamaNMember: ChmNMmbrPhns,
-                                  LonAmtGven: (parseFloat(LonAmtGvens) + parseFloat(amount)).toFixed(0),
-                                  GrossLnsGvn: (parseFloat(GrossLnsGvns) + TotalAmtExp).toFixed(0),
-                                  LnBal: (parseFloat(LnBals) + TotalAmtExp).toFixed(0),                                  
-                                  loanStatus:"LoanActive",                                    
-                                  blStatus: "AccountNotBL",
-                                
-                                },
-                              }),
-                            );
-
-
-                          } catch (error) {
-                            if(error){
-                              Alert.alert("Error! Access denied!")
-                              
-                          
-                          return;}
-                          }
-                          setIsLoading(false);
-                          await updtSendrAc2();
-                        };
-                        
-                        const updtSendrAc2 = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateGroup, {
-                                  input:{
-                                    grpContact:groupContacts,
-                                    TtlActvLonsTmsLnrChmCov: parseFloat(TtlActvLonsTmsLnrChmCovs)+1,
-                                    TtlActvLonsAmtLnrChmCov: (parseFloat(TtlActvLonsAmtLnrChmCovs) + GrpSync2).toFixed(0),
-                                                                              
-                                    grpBal:(parseFloat(grpBals)-GrpSync2).toFixed(0) ,
-                                    GrpLoanOutSync:(parseFloat(GrpLoanOutSync) + GrpSync2).toFixed(0)
-                                   
-                                    
-                                  }
-                                })
-                              )
-
-
-                          }
-                          catch(error){
-                            if (error){Alert.alert("Error! Access denied!")
-                            return;}
-                          }
-                          setIsLoading(false);
-                          await updtRecAc2();
-                        }
-                        const updtRecAc2 = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateSMAccount, {
-                                  input:{
-                                    awsemail:loaneeEmail,
-                                    TtlActvLonsTmsLneeChmCov: parseFloat(TtlActvLonsTmsLneeChmCovs) +1 ,
-                                    TtlActvLonsAmtLneeChmCov: (parseFloat(TtlActvLonsAmtLneeChmCovs)+ TotalAmtExp).toFixed(0),
-                                    balance:(parseFloat(RecUsrBal) + parseFloat(amount)).toFixed(0) ,
-                                    loanStatus:"LoanActive",                                    
-                                    blStatus: "AccountNotBL",
-                                    loanAcceptanceCode:"None"                                
-                                    
-                                  }
-                                })
-                              )                              
-                          }
-                          catch(error){
-                            console.log(error)
-                            if (error){Alert.alert("Error! Access denied!")
-                            return;}
-                          }
-                          setIsLoading(false);
-                          await updtComp2();
-                        }
-
-                        const updtComp2 = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(false);
-                          
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateCompany, {
-                                  input:{
-                                    AdminId: "BaruchHabaB'ShemAdonai2",                                                      
-                                        
-                                    ttlCompCovEarnings:CompCovAmt + parseFloat(ttlCompCovEarningss),
-                                    AdvEarningBal:AdvCovAmt + parseFloat(AdvEarningBals),                                                                                                                                                     
-                                    AdvEarning:AdvCovAmt + parseFloat(AdvEarnings),
-                                    companyEarningBal:CompCovAmt + parseFloat(companyEarningBals) + netCompEarning,
-                                    companyEarning: CompCovAmt + parseFloat(companyEarnings) + netCompEarning,                                                    
-                                    
-                                    ttlChmLnsInAmtCov: TotalAmtExp + parseFloat(ttlChmLnsInAmtCovs),
-                                   
-                                    ttlChmLnsInTymsCov: 1 + parseFloat(ttlChmLnsInTymsCovs),
-                                          
-                                    
-                                  }
-                                })
-                              )
-                              
-                              
-                          }
-                          catch(error){
-                            console.log(error);
-                            if (error){Alert.alert("Error! Access denied!")
-                        return;}
-                          }
-                          setIsLoading(false);
-                          await updtAdv2();
-                        }
-                        const updtAdv2 = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(true);
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateAdvocate, {
-                                  input:{
-                                    advregnu: advLicNo,
-                                    advBal: (AdvCovAmt + parseFloat(advBl)).toFixed(0) ,
-                                    TtlEarnings:(AdvCovAmt + parseFloat(advTtlAern)).toFixed(0),                                 
-                                    
-                                  }
-                                })
-                              )
-                          }
-                          catch(error){
-                            console.log(error);
-                            if (error){Alert.alert("Error! Access denied!")
-      return;}
-                          }
-                          
-
-                          await updtBankAdmin2();
-                          setIsLoading(false);
-                        }
-
-                        const updtBankAdmin2 = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(false);
-                          
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateMiFedhaBankAdmin, {
-                                  input:{
-                                    nationalid:BankAdminAcNu,                                                      
-                                    BankAdmBal:(parseFloat(BankAdmBal) + BankAdminEarning).toFixed(0)
-                                  }
-                                })
-                              )
-                              
-                              
-                          }
-                          catch(error){
-                            console.log(error);
-                            if (error){Alert.alert("Error! Access denied!")
-                        return;}
-                          }
-                         await updtCntrlTbl2 ();
-                          setIsLoading(false);
-                          
-                        }
-
-                        const updtCntrlTbl2 = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(false);
-                          
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateChamaControlTable, {
-                                  input:{
-                                    id:"EQUITYTABLEID",                                                      
-                                    GrpLoanOutEarnings:(parseFloat(GrpLoanOutEarnings) + BankAdminEarning).toFixed(0)
-                                  }
-                                })
-                              )
-                              
-                              
-                          }
-                          catch(error){
-                            console.log(error);
-                            if (error){Alert.alert("Error! Retry or update!")
-                        return;}
-                          }
-                         await updtLnReq2 ();
-                          setIsLoading(false);
-                          
-                        }
-
-                        const updtLnReq2 = async () =>{
-                          if(isLoading){
-                            return;
-                          }
-                          setIsLoading(false);
-                          
-                          try{
-                              await API.graphql(
-                                graphqlOperation(updateReqLoanChama, {
-                                  input:{
-                                    id:route.params.id,                                                      
-                                    status:"Approved"
-                                  }
-                                })
-                              )
-                              
-                              
-                          }
-                          catch(error){
-                            console.log(error);
-                            if (error){Alert.alert("Error! Access denied!")
-                        return;}
-                          }
-                          Alert.alert("Success. TransactionFee: "+ (parseFloat(userLoanTransferFees)*parseFloat(amount)).toFixed(2) + ". AdvocateFee "+ttlCovFeeAmount.toFixed(2)
-                         
-                          );
-                          setIsLoading(false);
-                          
-                        }
-                                              
-                        
-                    }       
-                    catch(e) {    
-                      console.log(e); 
-                      if (e){console.log(e)
-      return;}                 
-                    }
-                    setIsLoading(false);
-                    }                    
-                              
-                    if (parseFloat(usrNoBL) > parseFloat(maxBLss)){Alert.alert('Unsuccessful....Apologies. Liase with the Loaned');
-                      return;
-                    }
-                        
-                    else if(parseFloat(ttlDpstSMs) === 0 && parseFloat(TtlWthdrwnSMs)===0){Alert.alert('Loanee National ID be verified through deposit at MFNdogo');}
-
-                    
-
-                    else if((parseFloat(RecUsrBal) + parseFloat(amount)) > parseFloat(MaxAcBals))
-                    {Alert.alert('Loanee call customer care to have wallet capacity adjusted');
-                      return;
-                    }
-
-                    
-
-                    
-                    else if(userInfo.attributes.sub !==SenderSub){Alert.alert('You are not the Creator of this Chama');
-                    return;}
-                        else if(statuss !== "AccountActive"){Alert.alert('Sender account is inactive');
-                        return;}
-
-                        else if(statusNumber === 0 && advLicNo != "None"){Alert.alert('Advocate has not yet witnessed');                  
-              }
-                    
-                        else if(status === "Approved"){Alert.alert('Loan already granted');
-                        return;}
-                        else if(groupContacts === memberContacts){Alert.alert('You cannot Loan Yourself');
-                        return;}
-                        else if(usrAcActvSttss !== "AccountActive"){Alert.alert('Receiver account is inactive');
-                        return;}
-                        
-                        else if (
-                          parseFloat(grpBals) < TtlTransCost 
-                        ) {Alert.alert("Cancelled."+ "Bal: "+ grpBals +". Deductable: " + TtlTransCost.toFixed(2) 
-                        + ". "+ ((TtlTransCost) - parseFloat(grpBals)).toFixed(2) + ' more needed');
-                        return;}
-                        
-                        
-                        else if(SnderPW !==pwscz){Alert.alert('Wrong password');
-                        return;}
-
-                        else if (advLicNo === "None") { sendSMLn()}
-                                                                 
-            
-                                                 else {
-                                                  await fetchAdv();
-                        }  
-                      
-
-            }
-            catch (e){
-              console.log(e);
-              if (e){Alert.alert("Error! Access denied!")
-      return;}
-            }
-            setIsLoading(false);
-          }
-          
-          await fetchBankAdmin();
-
-        }
-        catch (e){
-          console.log(e);
-          if (e){Alert.alert("Error! Access denied!")
-  return;}
-        }
-        setIsLoading(false);
-      }
-      
-      await fetchCntrlTble ();
-
+      const result = await API.graphql(graphqlOperation(query, variables));
+      return result.data;
     } catch (e) {
       console.log(e);
-      if (e){Alert.alert("Error! Access denied!")
-  return;}
-    } 
-    setIsLoading(false);       
+      Alert.alert('Error! Access denied!');
+      setField('isLoading', false);
+      throw e;
+    }
   };
-  await fetchRecUsrDtls(); 
-        
-        } catch (e) {
-          console.log(e);
-          if (e){Alert.alert("Error! Access denied!")
-      return;}
-        } 
-        setIsLoading(false);       
-      };
-      await fetchCompDtls();
-    
-      
+
+  const updateGraphQL = async (mutation, input) => {
+    try {
+      await API.graphql(graphqlOperation(mutation, { input }));
     } catch (e) {
-      console.log(e)
-      if (e){Alert.alert("Error! Access denied!")
-      return;}
+      console.log(e);
+      Alert.alert('Error! Access denied!');
+      setField('isLoading', false);
+      throw e;
+    }
   };
-      setIsLoading(false);
-      
-      
-}
-await fetchSenderUsrDtls();
 
-} catch (e) {
-  console.log(e)
-  if (e){Alert.alert("Error! Access denied!")
-  return;}
-};
-  setIsLoading(false);
-  
-  
-}
-await fetchChmMbrDtls();
+  const fetchChmLoanReq = async () => {
+    if (state.isLoading) return;
+    setField('isLoading', true);
 
-} catch (e) {
-  console.log(e)
-  if (e){Alert.alert("Error! Access denied!")
-  return;}
-};
-  setIsLoading(false);
-  
-  
-}
-await fetchAdminDtls();
+    const userInfo = await Auth.currentAuthenticatedUser();
+    try {
+      // 1️⃣ Fetch Chama Loan Request
+      const { getReqLoanChama: loanReq } = await fetchGraphQL(getReqLoanChama, { id: route.params.id });
+      const {
+        loaneeEmail,
+        loaneePhone,
+        loaneeMemberId,
+        chamaPhone,
+        amount,
+        repaymentAmt,
+        repaymentPeriod,
+        advLicNo,
+        description,
+        defaultPenalty,
+        statusNumber,
+        AdvEmail,
+        dfltDeadLn,
+        installmentAmount,
+        paymentFrequency,
+        status,
+      } = loanReq;
 
-} catch (e) {
-  console.log(e);
-  if (e){Alert.alert("Error! Access denied!")
-return;}
-}
-setAmount("");
-      
+      const ChmNMmbrPhns = loaneeMemberId + chamaPhone;
 
-setAmtExp("");
+      // 2️⃣ Fetch Sender SM Account
+      const { getSMAccount: senderAccount } = await fetchGraphQL(getSMAccount, { awsemail: userInfo.attributes.email });
+      if (state.SnderPW !== senderAccount.pw) {
+        Alert.alert('Wrong password');
+        setField('isLoading', false);
+        return;
+      }
 
-setSnderPW("");
-setRepaymtPeriod("");
-setRecAccCode("");
+      // 3️⃣ Fetch Chama Member Details
+      const { getChamaMembers: chmMember } = await fetchGraphQL(getChamaMembers, { ChamaNMember: ChmNMmbrPhns });
 
-setChmPhn("")
-setMmbrId("")
-setIsLoading(false);        
-};
+      // 4️⃣ Fetch Group Details
+      const { getGroup: group } = await fetchGraphQL(getGroup, { grpContact: chamaPhone });
 
+      // 5️⃣ Fetch Company Details
+      const { getCompany: company } = await fetchGraphQL(getCompany, { AdminId: "BaruchHabaB'ShemAdonai2" });
 
-     useEffect(() =>{
-      const SnderNatIds=MmbrId
-        if(!SnderNatIds && SnderNatIds!=="")
-        {
-          setMmbrId("");
-          return;
-        }
-        setMmbrId(SnderNatIds);
-        }, [MmbrId]
-         );
+      // 6️⃣ Fetch Receiver SM Account
+      const { getSMAccount: recAccount } = await fetchGraphQL(getSMAccount, { awsemail: loaneeEmail });
 
-useEffect(() =>{
-  const RecPhns=RecPhn
-    if(!RecPhns && RecPhns!=="")
-    {
-      setRecPhn("");
-      return;
+      // 7️⃣ Fetch Chama Control Table
+      const { getChamaControlTable: controlTable } = await fetchGraphQL(getChamaControlTable, { id: "EQUITYTABLEID" });
+
+      // 8️⃣ Fetch Bank Admin
+      const { getMiFedhaBankAdmin: bankAdmin } = await fetchGraphQL(getMiFedhaBankAdmin, { nationalid: group.BankAdminAcNu });
+
+      // ✅ Validation Rules
+      if (status === 'Approved') { Alert.alert('Loan already granted'); setField('isLoading', false); return; }
+      if (status !== 'Cleared') { Alert.alert('Loan not yet cleared by Bank Admin'); setField('isLoading', false); return; }
+      if (state.MmbrId === chamaPhone) { Alert.alert('You cannot Loan Yourself'); setField('isLoading', false); return; }
+      if (recAccount.acStatus !== 'AccountActive') { Alert.alert('Receiver account inactive'); setField('isLoading', false); return; }
+
+      // 9️⃣ Calculate Amounts
+      const ttlCovFeeAmount = parseFloat(company.CoverageFee) * parseFloat(amount);
+      const transFee = parseFloat(company.userLoanTransferFee) * parseFloat(amount);
+      const totalAmount = parseFloat(amount) + ttlCovFeeAmount + transFee;
+
+      //  🔹 Group Sync amounts
+      const grpSync = parseFloat(amount) + transFee;
+      const grpSyncAdvocate = totalAmount;
+
+      // 10️⃣ Create Loan (with/without advocate)
+      const createLoan = async (advRegNu = 'None', loanAmount = totalAmount, grpSyncAmount = grpSync) => {
+        await updateGraphQL(createCvrdGroupLoans, {
+          loanID: route.params.id,
+          grpContact: chamaPhone,
+          loaneePhn: loaneeEmail,
+          loanerLoanee: chamaPhone + loaneePhone,
+          loanerLoaneeAdv: chamaPhone + loaneePhone + advRegNu,
+          repaymentPeriod,
+          amountGiven: parseFloat(amount).toFixed(0),
+          amountExpectedBack: loanAmount.toFixed(0),
+          amountExpectedBackWthClrnc: loanAmount.toFixed(0),
+          amountRepaid: 0,
+          DefaultPenaltyChm: defaultPenalty,
+          DefaultPenaltyChm2: 0,
+          timeExpBack: parseFloat(repaymentPeriod),
+          timeExpBack2: 61,
+          crtnDate: new Date().getTime(),
+          description,
+          clearanceAmt: 0,
+          clearanceAmt2: 0,
+          lonBala: loanAmount.toFixed(0),
+          advRegNu,
+          loaneeName: recAccount.name,
+          dfltDeadLn,
+          LoanerName: group.grpName,
+          memberId: ChmNMmbrPhns,
+          status: 'LoanActive',
+          lnType: 'GrpLn',
+          interest: repaymentAmt,
+          dfltUpdate: new Date().getTime(),
+          owner: userInfo.attributes.sub,
+          blOfficer: 'None',
+          advEmail: advRegNu === 'None' ? 'None' : AdvEmail,
+          installmentAmount,
+          paymentFrequency,
+        });
+      };
+
+      if (advLicNo === 'None') {
+        await createLoan();
+      } else {
+        // Fetch advocate info
+        const { getAdvocate: adv } = await fetchGraphQL(getAdvocate, { advregnu: advLicNo });
+        await createLoan(advLicNo, totalAmount, grpSyncAdvocate);
+
+        // Update advocate balances
+        const advEarning = ttlCovFeeAmount * parseFloat(company.AdvCom);
+        await updateGraphQL(updateAdvocate, {
+          advregnu: advLicNo,
+          advBal: (parseFloat(adv.advBal) + advEarning).toFixed(0),
+          TtlEarnings: (parseFloat(adv.TtlEarnings) + advEarning).toFixed(0),
+        });
+      }
+
+      // 11️⃣ Update Chama Members
+      await updateGraphQL(updateChamaMembers, {
+        ChamaNMember: ChmNMmbrPhns,
+        LonAmtGven: (parseFloat(chmMember.LonAmtGven) + parseFloat(amount)).toFixed(0),
+        GrossLnsGvn: (parseFloat(chmMember.GrossLnsGvn) + totalAmount).toFixed(0),
+        LnBal: (parseFloat(chmMember.LnBal) + totalAmount).toFixed(0),
+        loanStatus: 'LoanActive',
+        blStatus: 'AccountNotBL',
+      });
+
+      // 12️⃣ Update Sender & Receiver Accounts
+      await updateGraphQL(updateGroup, {
+        grpContact: chamaPhone,
+        TtlActvLonsTmsLnrChmCov: parseFloat(group.TtlActvLonsTmsLnrChmCov) + 1,
+        TtlActvLonsAmtLnrChmCov: (parseFloat(group.TtlActvLonsAmtLnrChmCov) + grpSync).toFixed(0),
+        grpBal: (parseFloat(group.grpBal) - grpSync).toFixed(0),
+        GrpLoanOutSync: (parseFloat(group.GrpLoanOutSync) + grpSync).toFixed(0),
+      });
+
+      await updateGraphQL(updateSMAccount, {
+        awsemail: loaneeEmail,
+        TtlActvLonsTmsLneeChmCov: parseFloat(recAccount.TtlActvLonsTmsLneeChmCov) + 1,
+        TtlActvLonsAmtLneeChmCov: (parseFloat(recAccount.TtlActvLonsAmtLneeChmCov) + totalAmount).toFixed(0),
+        balance: (parseFloat(recAccount.balance) + parseFloat(amount)).toFixed(0),
+        loanStatus: 'LoanActive',
+        blStatus: 'AccountNotBL',
+        loanAcceptanceCode: 'None',
+      });
+
+      // 13️⃣ Update Company & Bank
+      const grossCompEarning = transFee;
+      const bankAdminEarning = grossCompEarning * parseFloat(company.BankMifedhaSyncFee);
+      const netCompEarning = grossCompEarning - bankAdminEarning;
+
+      await updateGraphQL(updateCompany, {
+        AdminId: "BaruchHabaB'ShemAdonai2",
+        ttlCompCovEarnings: parseFloat(company.ttlCompCovEarnings) + totalAmount,
+        AdvEarningBal: parseFloat(company.AdvEarningBal) + ttlCovFeeAmount,
+        AdvEarning: parseFloat(company.AdvEarning) + ttlCovFeeAmount,
+        companyEarningBal: parseFloat(company.companyEarningBal) + netCompEarning,
+        companyEarning: parseFloat(company.companyEarning) + netCompEarning,
+        ttlChmLnsInAmtCov: parseFloat(company.ttlChmLnsInAmtCov) + totalAmount,
+        ttlChmLnsInTymsCov: parseFloat(company.ttlChmLnsInTymsCov) + 1,
+      });
+
+      await updateGraphQL(updateMiFedhaBankAdmin, {
+        nationalid: group.BankAdminAcNu,
+        BankAdmBal: (parseFloat(bankAdmin.BankAdmBal) + bankAdminEarning).toFixed(0),
+      });
+
+      await updateGraphQL(updateChamaControlTable, {
+        id: 'EQUITYTABLEID',
+        GrpLoanOutEarnings: (parseFloat(controlTable.GrpLoanOutEarnings) + bankAdminEarning).toFixed(0),
+        BankAdminEarnings: (parseFloat(controlTable.BankAdminEarnings) + bankAdminEarning).toFixed(0),
+      });
+
+      await updateGraphQL(updateReqLoanChama, { id: route.params.id, status: 'Approved' });
+
+      Alert.alert(`Success. TransactionFee: ${transFee.toFixed(2)}${advLicNo !== 'None' ? ` . AdvocateFee: ${ttlCovFeeAmount.toFixed(2)}` : ''}`);
+
+      // Clear state
+      setField('amount', '');
+      setField('AmtExp', '');
+      setField('SnderPW', '');
+      setField('RepaymtPeriod', '');
+      setField('RecAccCode', '');
+      setField('ChmPhn', '');
+      setField('MmbrId', '');
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setField('isLoading', false);
     }
-    setRecPhn(RecPhns);
-    }, [RecPhn]
-     );
-     
-     useEffect(() =>{
-  const ChmPhns=ChmPhn
-    if(!ChmPhns && ChmPhns!=="")
-    {
-      setChmPhn("");
-      return;
-    }
-    setChmPhn(ChmPhns);
-    }, [ChmPhn]
-     );
-
-     useEffect(() =>{
-      const amt=amount
-        if(!amt && amt!=="")
-        {
-          setAmount("");
-          return;
-        }
-        setAmount(amt);
-        }, [amount]
-         );
-
-         useEffect(() =>{
-          const RecNatIds=RecNatId
-            if(!RecNatIds && RecNatIds!=="")
-            {
-              setRecNatId("");
-              return;
-            }
-            setRecNatId(RecNatIds);
-            }, [RecNatId]
-             );
-
-             
-
-                 useEffect(() =>{
-                  const AmtExpss=AmtExp
-                    if(!AmtExpss && AmtExpss!=="")
-                    {
-                      setAmtExp("");
-                      return;
-                    }
-                    setAmtExp(AmtExpss);
-                    }, [AmtExp]
-                     );
-
-                     
-
-                         useEffect(() =>{
-                          const SnderPWss=SnderPW
-                            if(!SnderPWss && SnderPWss!=="")
-                            {
-                              setSnderPW("");
-                              return;
-                            }
-                            setSnderPW(SnderPWss);
-                            }, [SnderPW]
-                             );
-
-                             useEffect(() =>{
-                              const RepaymtPeriods=RepaymtPeriod
-                                if(!RepaymtPeriods && RepaymtPeriods!=="")
-                                {
-                                  setRepaymtPeriod("");
-                                  return;
-                                }
-                                setRepaymtPeriod(RepaymtPeriods);
-                                }, [RepaymtPeriod]
-                                 );
-
-                                 useEffect(() =>{
-                                  const RecAccCodes=RecAccCode
-                                    if(!RecAccCodes && RecAccCodes!=="")
-                                    {
-                                      setRecAccCode("");
-                                      return;
-                                    }
-                                    setRecAccCode(RecAccCodes);
-                                    }, [RecAccCode]
-                                     );
+  };
 
   return (
-    
-      <View style={styles.image}>
-        <ScrollView >
-         
-         <View style={styles.amountTitleView}>
-           <Text style={styles.title}>Enter Password</Text>
-         </View>
-
-
-         <View style={styles.sendAmtView}>
-           <TextInput
-           placeholder='Admin Main Account PassWord'
-             value={SnderPW}
-             multiline={false}             
-             secureTextEntry = {true}
-             onChangeText={setSnderPW}
-             style={styles.sendAmtInput}
-             editable={true}></TextInput>           
-         </View>
-
-
-
-         <TouchableOpacity
-           onPress={fetchChmLoanReq}
-           style={styles.sendAmtButton}>
-           <Text style={styles.sendAmtButtonText}>Click to loan</Text>
-           {isLoading && <ActivityIndicator size = "large" color = "blue"/>}
-         </TouchableOpacity>
-
-         
-       </ScrollView>
+  <KeyboardAvoidingView
+    style={{ flex: 1, backgroundColor: '#f2f6fc' }}
+    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+  >
+    <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
+      
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Chama Covered Loans</Text>
+        <Text style={styles.subHeaderText}>Enter your password to approve loan</Text>
       </View>
-             
-    
-  );
+
+      {/* Password Input Card */}
+      <View style={styles.inputCard}>
+        <Text style={styles.inputLabel}>Admin Password</Text>
+      <TextInput
+  placeholder="Enter password"
+  value={state.SnderPW}
+  secureTextEntry={!showPassword}
+  onChangeText={(text) => setField('SnderPW', text)} // ✅ fixed
+  style={styles.input}
+  editable={!state.isLoading} // ✅ access isLoading from state
+/>
+
+        <TouchableOpacity
+          style={styles.eyeIcon}
+          onPress={() => setShowPassword(!showPassword)}
+        >
+          <Ionicons
+            name={showPassword ? 'eye-off' : 'eye'}
+            size={24}
+            color="#666"
+          />
+        </TouchableOpacity>
+      </View>
+
+      {/* Loan Button */}
+    <TouchableOpacity
+  onPress={fetchChmLoanReq}
+  disabled={state.isLoading} // ✅ use state
+  style={{ marginTop: 30 }}
+>
+  <LinearGradient
+    colors={['#e29d58', 'skyblue']}
+    start={{ x: 0, y: 0 }}
+    end={{ x: 1, y: 0 }}
+    style={styles.buttonGradient}
+  >
+    <Text style={styles.buttonText}>Click to Loan</Text>
+    {state.isLoading && <ActivityIndicator size="small" color="#fff" style={{ marginLeft: 10 }} />}
+  </LinearGradient>
+</TouchableOpacity>
+
+
+    </ScrollView>
+  </KeyboardAvoidingView>
+);
 };
 
 export default ChmCovLns;
+
+
+const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: '#f2f6fc',
+  },
+  header: {
+    marginBottom: 30,
+    alignItems: 'center',
+  },
+  headerText: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#e29d58',
+  },
+  subHeaderText: {
+    fontSize: 16,
+    color: 'skyblue',
+    marginTop: 5,
+    textAlign: 'center',
+  },
+  inputCard: {
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    padding: 20,
+    marginVertical: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+    position: 'relative',
+  },
+  inputLabel: {
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 10,
+    fontWeight: '600',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    color: '#333',
+    backgroundColor: '#f9f9f9',
+  },
+  eyeIcon: {
+    position: 'absolute',
+    right: 25,
+    top: 50,
+  },
+  buttonGradient: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 15,
+    borderRadius: 25,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
+
+

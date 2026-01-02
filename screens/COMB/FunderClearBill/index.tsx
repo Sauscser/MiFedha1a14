@@ -235,7 +235,10 @@ const FunderClearApprovedVoucherScreen = () => {
         companyEarning: Number(company.companyEarning) + companyEarnings,
       } }));
 
-      await API.graphql(graphqlOperation(updateCombContractVoucher, { input: { id: voucher.id, accStatus: 'Cleared' } }));
+      await API.graphql(graphqlOperation(updateCombContractVoucher, 
+        { input: { id: voucher.id, accStatus: 'Cleared',
+          settlementTime: new Date().toISOString()
+         } }));
 
       const message = `COMB bill for ${voucher.itemName} has been settled by the funder ${voucher.funderName}.`;
 
