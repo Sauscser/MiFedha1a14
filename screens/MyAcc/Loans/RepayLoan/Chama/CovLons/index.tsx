@@ -1,340 +1,390 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   ScrollView,
   TextInput,
   TouchableOpacity,
+  Alert,
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
-  ActivityIndicator,
-  Alert,
-  StyleSheet,
-  Dimensions
+  StyleSheet
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
 import { API, Auth, graphqlOperation } from 'aws-amplify';
-
 import {
   getCvrdGroupLoans,
   getSMAccount,
+  getCompany,
   getGroup,
   getChamaMembers,
-  getCompany,
 } from '../../../../../../src/graphql/queries';
 import {
-  updateCvrdGroupLoans,
   updateSMAccount,
-  updateGroup,
+  updateCvrdGroupLoans,
   updateChamaMembers,
-  createLoanRepayments,
+  updateGroup,
   updateCompany,
+  createLoanRepayments,
 } from '../../../../../../src/graphql/mutations';
+import { useRoute } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
-const { width } = Dimensions.get('window');
-
-const RepayCovChmLnsss = ({ route }) => {
-  const [amount, setAmount] = useState('');
-  const [desc, setDesc] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+const RepayCovChmLnsss = () => {
+  const [SenderNatId, setSenderNatId] = useState('');
+  const [SnderPW, setSnderPW] = useState('');
+  const [amounts, setAmount] = useState('');
+  const [LnId, setLnId] = useState('');
+  const [Desc, setDesc] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const repayLoan = async () => {
+  const route = useRoute();
+
+  const resetForm = () => {
+    setAmount('');
+    setDesc('');
+    setSenderNatId('');
+    setSnderPW('');
+    setLnId('');
+  };
+
+  const ftchCvdSMLn = async () => {
     if (isLoading) return;
     setIsLoading(true);
 
     try {
       const userInfo = await Auth.currentAuthenticatedUser();
 
-      // 1️⃣ Fetch Covered Loan
-      const loanRes: any = await API.graphql(
+      // 1️⃣ Fetch loan
+      const loanResp: any = await API.graphql(
         graphqlOperation(getCvrdGroupLoans, { loanID: route.params.loanID })
       );
-      const loan = loanRes.data.getCvrdGroupLoans;
+      const loan = loanResp.data.getCvrdGroupLoans;
 
       const {
+        amountExpectedBackWthClrnc,
         memberId,
+        DefaultPenaltyChm2,
         grpContact,
         loaneePhn,
-        lonBala,
-        interest,
         amountExpectedBack,
         amountRepaid,
         clearanceAmt,
-        DefaultPenaltyChm2,
+        interest,
         crtnDate,
-        dfltUpdate,
       } = loan;
 
-      // ===== Preserve Original Loan Calculations =====
-      const netLnBalz = amountExpectedBack - amountRepaid;
-      const netLnBal =
-        parseFloat(loan.amountExpectedBackWthClrnc) -
-        parseFloat(clearanceAmt) -
-        parseFloat(DefaultPenaltyChm2);
-
-        const now = Date.now(); // current timestamp in ms
-const daysElapsed = (now - crtnDate) / (1000 * 60 * 60 * 24); // ms → days
-      const netLnBal2 = netLnBalz * Math.pow(1 + parseFloat(interest) / 36500, daysElapsed);
-      const LonBal1 = (netLnBal2 + parseFloat(clearanceAmt) + parseFloat(DefaultPenaltyChm2)).toFixed(0);
       const ClranceAmt = parseFloat(clearanceAmt) + parseFloat(DefaultPenaltyChm2);
-      const repayAmount = parseFloat(amount);
-      const LonBalsss = parseFloat(LonBal1) - repayAmount;
 
-      // 2️⃣ Fetch Sender Account
-      const senderRes: any = await API.graphql(
-        graphqlOperation(getSMAccount, { awsemail: userInfo.attributes.email })
+      const netLnBal = amountExpectedBack - amountRepaid;
+      const daysElapsed = (new Date().getTime() - new Date(crtnDate).getTime()) / (1000 * 60 * 60 * 24);
+      const LonBal1 = (
+        netLnBal * Math.pow(1 + parseFloat(interest) / 36500, daysElapsed) +
+        ClranceAmt
+      ).toFixed(0);
+
+      const LonBalAfter = parseFloat(LonBal1) - parseFloat(amounts);
+
+      // 2️⃣ Fetch sender
+      const senderResp: any = await API.graphql(
+        graphqlOperation(getSMAccount, { awsemail: loaneePhn })
       );
-      const sender = senderRes.data.getSMAccount;
+      const sender = senderResp.data.getSMAccount;
 
-      if (sender.pw !== password) {
-        Alert.alert('Wrong password');
-        setIsLoading(false);
-        return;
-      }
-      if (sender.acStatus === 'AccountInactive') {
-        Alert.alert('Your account is inactive');
-        setIsLoading(false);
-        return;
-      }
+      const {
+        acStatus: senderStatus,
+        MaxTymsBL,
+        balance: senderBal,
+        name: senderName,
+        nonLonLimit,
+      } = sender;
 
-      if (repayAmount < ClranceAmt) {
-        Alert.alert(`At least pay clearance fee and default penalty: ${ClranceAmt}`);
-        setIsLoading(false);
-        return;
-      }
-
-      // 3️⃣ Fetch Receiver (Group) Account
-      const groupRes: any = await API.graphql(graphqlOperation(getGroup, { grpContact }));
-      const group = groupRes.data.getGroup;
-
-      if (group.status === 'AccountInactive') {
-        Alert.alert('Receiver account is inactive');
-        setIsLoading(false);
-        return;
-      }
-
-      // 4️⃣ Fetch Chama Member
-      const memberRes: any = await API.graphql(graphqlOperation(getChamaMembers, { ChamaNMember: memberId }));
-      const member = memberRes.data.getChamaMembers;
-
-      // 5️⃣ Fetch Company
-      const companyRes: any = await API.graphql(
+      // 3️⃣ Fetch company
+      const compResp: any = await API.graphql(
         graphqlOperation(getCompany, { AdminId: "BaruchHabaB'ShemAdonai2" })
       );
-      const company = companyRes.data.getCompany;
-      const transactionFee = parseFloat(company.chmLnRpymntFee) * repayAmount;
+      const company = compResp.data.getCompany;
+      const { chmLnRpymntFee, maxBLs, phoneContact } = company;
 
-      // ===== Updates =====
-      await API.graphql(
-        graphqlOperation(updateSMAccount, {
-          input: {
-            awsemail: userInfo.attributes.email,
-            balance: (parseFloat(sender.balance) - repayAmount).toFixed(0),
-            TtlClrdLonsAmtLneeChmCov: (parseFloat(sender.TtlClrdLonsAmtLneeChmCov) + repayAmount).toFixed(0),
-            TtlClrdLonsTmsLneeChmCov: parseFloat(sender.TtlClrdLonsTmsLneeChmCov) + 1,
-          },
-        })
-      );
+      const totalTransacted = parseFloat(amounts) + parseFloat(chmLnRpymntFee) * parseFloat(amounts);
 
-      await API.graphql(
-        graphqlOperation(updateChamaMembers, {
-          input: {
-            ChamaNMember: memberId,
-            AmtRepaid: (parseFloat(member.AmtRepaid) + repayAmount).toFixed(0),
-            LnBal: LonBalsss.toFixed(0),
-          },
-        })
+      // 4️⃣ Fetch receiver group
+      const groupResp: any = await API.graphql(
+        graphqlOperation(getGroup, { grpContact })
       );
+      const group = groupResp.data.getGroup;
+      const { status: groupStatus, grpBal, tymsChmHvBL, GrpLoanRpymntSync, grpName } = group;
 
-      await API.graphql(
-        graphqlOperation(updateCvrdGroupLoans, {
-          input: {
-            loanID: route.params.loanID,
-            amountRepaid: (parseFloat(amountRepaid) + repayAmount).toFixed(0),
-            lonBala: LonBalsss.toFixed(0),
-            amountExpectedBackWthClrnc: LonBalsss.toFixed(0),
-            DefaultPenaltyChm2: 0,
-            clearanceAmt: 0,
-            status: 'LoanCleared',
-          },
-        })
+      // 5️⃣ Fetch member
+      const memberResp: any = await API.graphql(
+        graphqlOperation(getChamaMembers, { ChamaNMember: memberId })
       );
+      const member = memberResp.data.getChamaMembers;
+      const { AmtRepaid } = member;
 
-      await API.graphql(
-        graphqlOperation(updateGroup, {
-          input: {
-            grpContact,
-            grpBal: (parseFloat(group.grpBal) + repayAmount).toFixed(0),
-            TtlClrdLonsAmtLnrChmCov: (parseFloat(group.TtlClrdLonsAmtLnrChmCov) + repayAmount).toFixed(0),
-            TtlClrdLonsTmsLnrChmCov: parseFloat(group.TtlClrdLonsTmsLnrChmCov) + 1,
-          },
-        })
-      );
+      // 6️⃣ All conditional checks
+      if (senderStatus === 'AccountInactive') {
+        Alert.alert('Sender account is inactive'); return;
+      }
+      if (groupStatus === 'AccountInactive') {
+        Alert.alert('Receiver account is inactive'); return;
+      }
+      if (parseFloat(senderBal) < totalTransacted) {
+        Alert.alert('Requested amount is more than your account balance'); return;
+      }
+      if (parseFloat(nonLonLimit) < parseFloat(amounts)) {
+        Alert.alert(`Call ${phoneContact} to adjust your send amount limit`); return;
+      }
+      if (ClranceAmt > parseFloat(amounts)) {
+        Alert.alert(`At least pay clearance fee + default penalty: ${ClranceAmt}`); return;
+      }
+      if (parseFloat(amounts) > parseFloat(LonBal1)) {
+        Alert.alert(`Your loan balance is lesser: Ksh. ${LonBal1}`); return;
+      }
 
-      await API.graphql(
-        graphqlOperation(updateCompany, {
-          input: {
-            AdminId: "BaruchHabaB'ShemAdonai2",
-            companyEarningBal: parseFloat(company.companyEarningBal) + transactionFee + ClranceAmt,
-            companyEarning: parseFloat(company.companyEarning) + transactionFee + ClranceAmt,
-            ttlChmLnsInClrdAmtCov: parseFloat(company.ttlChmLnsInClrdAmtCov) + repayAmount,
-            ttlChmLnsInClrdTymsCov: parseFloat(company.ttlChmLnsInClrdTymsCov) + 1,
-            totalLnsRecovered: parseFloat(company.totalLnsRecovered) + repayAmount,
-          },
-        })
-      );
+      // 7️⃣ Repayment type
+      const isFullRepayment = parseFloat(amounts) === parseFloat(LonBal1);
 
-      await API.graphql(
-        graphqlOperation(createLoanRepayments, {
-          input: {
-            recPhn: grpContact,
-            senderPhn: userInfo.attributes.email,
-            RecName: group.grpName,
-            loanId3: route.params.loanID,
-            SenderName: sender.name,
-            amount: repayAmount.toFixed(0),
-            description: desc,
-            status: 'ChmLonRepayment',
-            owner: userInfo.attributes.sub,
-          },
-        })
-      );
+      const updateSenderAccountFull = async () => {
+        await API.graphql(
+          graphqlOperation(updateSMAccount, {
+            input: {
+              awsemail: userInfo.attributes.email,
+              balance: (parseFloat(senderBal) - totalTransacted).toFixed(0),
+              MaxTymsBL: 0,
+            },
+          })
+        );
+      };
+
+      const updateSenderAccountPartial = async () => {
+        await API.graphql(
+          graphqlOperation(updateSMAccount, {
+            input: {
+              awsemail: userInfo.attributes.email,
+              balance: (parseFloat(senderBal) - totalTransacted).toFixed(0),
+              MaxTymsBL: parseFloat(MaxTymsBL) - 1,
+            },
+          })
+        );
+      };
+
+      const updateChamaMemberLoan = async () => {
+        await API.graphql(
+          graphqlOperation(updateChamaMembers, {
+            input: {
+              ChamaNMember: memberId,
+              AmtRepaid: (parseFloat(AmtRepaid) + parseFloat(amounts)).toFixed(0),
+              LnBal: LonBalAfter.toFixed(0),
+            },
+          })
+        );
+      };
+
+      const updateLoan = async () => {
+        await API.graphql(
+          graphqlOperation(updateCvrdGroupLoans, {
+            input: {
+              loanID: route.params.loanID,
+              amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaid)).toFixed(0),
+              lonBala: LonBalAfter.toFixed(0),
+              amountExpectedBackWthClrnc: LonBalAfter.toFixed(0),
+              DefaultPenaltyChm2: 0,
+              clearanceAmt: 0,
+              status: isFullRepayment ? 'LoanCleared' : 'Active',
+            },
+          })
+        );
+      };
+
+      const updateGroupAndCompany = async () => {
+        await API.graphql(
+          graphqlOperation(updateGroup, {
+            input: {
+              grpContact,
+              GrpLoanRpymntSync: (parseFloat(GrpLoanRpymntSync) + parseFloat(amounts)).toFixed(0),
+              grpBal: (parseFloat(grpBal) + (parseFloat(amounts) - ClranceAmt)).toFixed(0),
+            },
+          })
+        );
+
+        await API.graphql(
+          graphqlOperation(updateCompany, {
+            input: {
+              AdminId: "BaruchHabaB'ShemAdonai2",
+              companyEarningBal: parseFloat(chmLnRpymntFee) * parseFloat(amounts),
+              companyEarning: parseFloat(chmLnRpymntFee) * parseFloat(amounts),
+            },
+          })
+        );
+      };
+
+      const createRepaymentRecord = async () => {
+        await API.graphql(
+          graphqlOperation(createLoanRepayments, {
+            input: {
+              senderPhn: loaneePhn,
+              recPhn: grpContact,
+              RecName: grpName,
+              loanId3: route.params.loanID,
+              SenderName: senderName,
+              amount: parseFloat(amounts).toFixed(0),
+              description: Desc,
+              status: 'ChmLonRepayment',
+              owner: userInfo.attributes.sub,
+            },
+          })
+        );
+      };
+
+      // 8️⃣ Execute repayment updates
+      if (isFullRepayment && parseFloat(MaxTymsBL) <= parseFloat(maxBLs)) {
+        await updateSenderAccountFull();
+      } else if (isFullRepayment && parseFloat(MaxTymsBL) > parseFloat(maxBLs)) {
+        await updateSenderAccountPartial();
+      } else {
+        await updateChamaMemberLoan();
+      }
+
+      await updateLoan();
+      await updateGroupAndCompany();
+      await createRepaymentRecord();
 
       Alert.alert(
-        `Repayment successful!\nTransaction Fee: ${transactionFee.toFixed(2)}\nClearance: ${ClranceAmt.toFixed(2)}`
+        isFullRepayment
+          ? `Loan fully repaid! Clearance Fee: ${ClranceAmt.toFixed(2)}. Transaction Fee: ${(parseFloat(chmLnRpymntFee) * parseFloat(amounts)).toFixed(2)}`
+          : `Partially repaid. Clearance Fee: ${ClranceAmt.toFixed(2)}. Transaction Fee: ${(parseFloat(chmLnRpymntFee) * parseFloat(amounts)).toFixed(2)}`
       );
-    } catch (e) {
-      console.log(e);
-      Alert.alert('Repayment failed. Retry or contact support.');
+
+      resetForm();
+
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Retry or update app or call customer care');
     } finally {
       setIsLoading(false);
-      setAmount('');
-      setDesc('');
-      setPassword('');
     }
   };
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: '#f2f6fc' }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    <LinearGradient
+      colors={['#4B9CD3', '#1C1C1E']} // MiFedha gradient
+      style={{ flex: 1 }}
     >
-      <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
+        <ScrollView
+          contentContainerStyle={{
+            padding: 20,
+            flexGrow: 1,
+            justifyContent: 'center',
+          }}
+        >
+          {/* Header */}
+          <View style={styles.headerContainer}>
+            <Text style={styles.headerText}>MiFedha Loan Repayment</Text>
+            <Text style={styles.subHeaderText}>Fill account details below</Text>
+          </View>
 
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Repay Chama Loan</Text>
-          <Text style={styles.subHeaderText}>Enter amount, description & password</Text>
-        </View>
+          {/* Amount Input */}
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Amount Sent</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType="decimal-pad"
+              placeholder="Enter amount"
+              value={amounts}
+              onChangeText={setAmount}
+              editable={!isLoading}
+            />
+          </View>
 
-        <View style={styles.inputCard}>
-          <Text style={styles.inputLabel}>Amount</Text>
-          <TextInput
-            keyboardType="decimal-pad"
-            placeholder="Enter amount"
-            value={amount}
-            onChangeText={setAmount}
-            style={styles.input}
-          />
-        </View>
+          {/* Description Input */}
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Description</Text>
+            <TextInput
+              style={[styles.input, { height: 100, textAlignVertical: 'top' }]}
+              placeholder="Enter description"
+              multiline
+              numberOfLines={4}
+              value={Desc}
+              onChangeText={setDesc}
+              editable={!isLoading}
+            />
+          </View>
 
-        <View style={styles.inputCard}>
-          <Text style={styles.inputLabel}>Description</Text>
-          <TextInput
-            multiline
-            placeholder="Enter description"
-            value={desc}
-            onChangeText={setDesc}
-            style={[styles.input, { height: 80 }]}
-          />
-        </View>
-
-        <View style={styles.inputCard}>
-          <Text style={styles.inputLabel}>Admin Password</Text>
-          <TextInput
-            placeholder="Enter password"
-            secureTextEntry={!showPassword}
-            value={password}
-            onChangeText={setPassword}
-            style={styles.input}
-          />
-          <TouchableOpacity style={styles.eyeIcon} onPress={() => setShowPassword(!showPassword)}>
-            <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="#666" />
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity onPress={repayLoan} disabled={isLoading} style={{ marginTop: 20 }}>
-          <LinearGradient
-            colors={['#e29d58', 'skyblue']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={styles.buttonGradient}
+          {/* Send Button */}
+          <TouchableOpacity
+            style={styles.button}
+            onPress={ftchCvdSMLn}
+            disabled={isLoading}
           >
-            <Text style={styles.buttonText}>Send Repayment</Text>
-            {isLoading && <ActivityIndicator size="small" color="#fff" style={{ marginLeft: 10 }} />}
-          </LinearGradient>
-        </TouchableOpacity>
-      </ScrollView>
-    </KeyboardAvoidingView>
+            {isLoading ? (
+              <ActivityIndicator size="small" color="#FFD700" />
+            ) : (
+              <Text style={styles.buttonText}>Send Payment</Text>
+            )}
+          </TouchableOpacity>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </LinearGradient>
   );
+
 };
 
 export default RepayCovChmLnsss;
 
-// ==================== Styles ====================
+
 const styles = StyleSheet.create({
-  scrollContainer: {
-    padding: 20,
-    paddingBottom: 40,
-    backgroundColor: '#f2f6fc',
+  headerContainer: {
+    marginBottom: 30,
+    alignItems: 'center',
   },
-  header: { marginBottom: 30 },
-  headerText: { fontSize: 26, fontWeight: '700', color: '#0a2540', marginBottom: 5 },
-  subHeaderText: { fontSize: 14, color: '#555' },
-  inputCard: {
-    backgroundColor: '#fff',
-    borderRadius: 15,
-    padding: 15,
+  headerText: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#e29d58', // accent
+  },
+  subHeaderText: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    marginTop: 5,
+  },
+  inputContainer: {
     marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 4,
-    position: 'relative',
   },
   inputLabel: {
-    position: 'absolute',
-    top: -10,
-    left: 15,
-    backgroundColor: '#fff',
-    paddingHorizontal: 5,
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#888',
+    color: '#e29d58',
+    marginBottom: 8,
+    fontSize: 14,
+    fontWeight: '500',
   },
   input: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 15,
     fontSize: 16,
-    paddingVertical: 10,
-    paddingHorizontal: 5,
-    color: '#0a2540',
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
-  eyeIcon: { position: 'absolute', right: 15, top: 20 },
-  buttonGradient: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+  button: {
+    backgroundColor: '#e29d58',
+    paddingVertical: 18,
+    borderRadius: 14,
     alignItems: 'center',
-    borderRadius: 25,
-    paddingVertical: 15,
-    width: width - 40,
-    alignSelf: 'center',
-    shadowColor: '#e29d58',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.5,
+    marginTop: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
     shadowRadius: 5,
-    elevation: 5,
+    elevation: 4,
   },
-  buttonText: { color: '#fff', fontSize: 18, fontWeight: '700' },
+  buttonText: {
+    color: '#1C1C1E',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
 });

@@ -1,290 +1,328 @@
-
- import React, { useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
-  TextInput,
   ScrollView,
+  TextInput,
   TouchableOpacity,
   ActivityIndicator,
-  StyleSheet,
-  Alert
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
-import { useRoute } from '@react-navigation/native';
 import { API, Auth, graphqlOperation } from 'aws-amplify';
+import { StyleSheet, Dimensions } from 'react-native';
 import {
   getCvrdGroupLoans,
   getSMAccount,
-  getCompany,
   getGroup,
+  getCompany,
   getChamaMembers,
 } from '../../../../../../../src/graphql/queries';
 import {
-  updateCompany,
   updateSMAccount,
   updateCvrdGroupLoans,
   updateGroup,
+  updateCompany,
   updateChamaMembers,
   createLoanRepayments,
-  
 } from '../../../../../../../src/graphql/mutations';
+import { useRoute } from '@react-navigation/native';
 
-const RepayCovChmLnsss = () => {
-  const [SenderNatId, setSenderNatId] = useState('');
-  const [SnderPW, setSnderPW] = useState('');
-  const [LnId, setLnId] = useState('');
+const WaiverScreen = () => {
+  const [amounts, setAmount] = useState('');
+  const [Desc, setDesc] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-   const [amounts, setAmount] = useState('');
-  const [desc, setDesc] = useState('');
 
   const route = useRoute();
 
-  /** Fetch and process loan repayment */
-const ftchCvdSMLn = async () => {
-  if (isLoading) return;
-  setIsLoading(true);
+  const ftchCvdSMLn = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
 
-  try {
-    const userInfo = await Auth.currentAuthenticatedUser();
+    try {
+      const userInfo = await Auth.currentAuthenticatedUser();
 
-    // 1️⃣ Fetch loan details
-    const loanResp: any = await API.graphql(
-      graphqlOperation(getCvrdGroupLoans, { loanID: route.params.loanID })
-    );
-    const loan = loanResp.data.getCvrdGroupLoans;
+      // Fetch loan details
+      const loanRes: any = await API.graphql(
+        graphqlOperation(getCvrdGroupLoans, { loanID: route.params.loanID })
+      );
+      const loan = loanRes.data.getCvrdGroupLoans;
+      const {
+        amountExpectedBackWthClrnc,
+        memberId,
+        DefaultPenaltyChm2,
+        grpContact,
+        loaneePhn,
+        lonBala,
+        interest,
+        amountExpectedBack,
+        amountRepaid,
+        amountGiven,
+        crtnDate,
+        dfltUpdate,
+        repaymentPeriod,
+        clearanceAmt,
+      } = loan;
 
-    const {
-      amountExpectedBackWthClrnc,
-      memberId,
-      DefaultPenaltyChm2,
-      grpContact,
-      loaneePhn,
-      amountExpectedBack,
-      amountRepaid,
-      clearanceAmt,
-      interest,
-      crtnDate,
-    } = loan;
+      // Loan calculations
+      const ClranceAmt = parseFloat(clearanceAmt) + parseFloat(DefaultPenaltyChm2);
+      const netLnBalz = amountExpectedBack - amountRepaid;
+      const now = new Date();
+      const daysElapsed = Math.floor((now.getTime() - crtnDate) / (1000 * 60 * 60 * 24));
+      const LonBal1 =
+        ((netLnBalz * Math.pow(1 + parseFloat(interest) / 36500, daysElapsed)) +
+          parseFloat(clearanceAmt) +
+          parseFloat(DefaultPenaltyChm2)
+        ).toFixed(0);
+      const LonBalsss = parseFloat(LonBal1) - parseFloat(amounts);
 
-    const ClranceAmt = parseFloat(clearanceAmt) + parseFloat(DefaultPenaltyChm2);
+      // Fetch sender account
+      const accountRes: any = await API.graphql(
+        graphqlOperation(getSMAccount, { awsemail: loaneePhn })
+      );
+      const senderAcc = accountRes.data.getSMAccount;
+      if (senderAcc.acStatus === 'AccountInactive') {
+        Alert.alert('Sender account is inactive');
+        setIsLoading(false);
+        return;
+      }
 
-    // Calculate current loan balance
-    const netLnBal = amountExpectedBack - amountRepaid;
-    const now = new Date();
-    const daysElapsed = (now.getTime() - new Date(crtnDate).getTime()) / (1000 * 60 * 60 * 24);
-    const netLnBalWithInterest = netLnBal * Math.pow(1 + parseFloat(interest) / 36500, daysElapsed);
-    const LonBal1 = (netLnBalWithInterest + ClranceAmt).toFixed(0);
-    const LonBalAfter = parseFloat(LonBal1) - parseFloat(amounts);
+      // Fetch receiver group
+      const groupRes: any = await API.graphql(
+        graphqlOperation(getGroup, { grpContact })
+      );
+      const recGrp = groupRes.data.getGroup;
+      if (recGrp.status === 'AccountInactive') {
+        Alert.alert('Receiver account is inactive');
+        setIsLoading(false);
+        return;
+      }
 
-    // 2️⃣ Fetch sender account
-    const senderResp: any = await API.graphql(
-      graphqlOperation(getSMAccount, { awsemail: loaneePhn })
-    );
-    const sender = senderResp.data.getSMAccount;
-    const {
-      acStatus: senderStatus,
-      MaxTymsBL,
-      balance: senderBal,
-      name: senderName,
-      nonLonLimit,
-    } = sender;
+      // Validation checks
+      if (ClranceAmt > parseFloat(amounts)) {
+        Alert.alert(`Too little amount waived: at least ${ClranceAmt}`);
+        setIsLoading(false);
+        return;
+      }
 
-    // 3️⃣ Fetch company details
-    const companyResp: any = await API.graphql(
-      graphqlOperation(getCompany, { AdminId: "BaruchHabaB'ShemAdonai2" })
-    );
-    const company = companyResp.data.getCompany;
-    const { chmLnRpymntFee, maxBLs } = company;
+      if (parseFloat(amounts) > parseFloat(LonBal1)) {
+        Alert.alert(`The Loan Balance is lesser: Ksh. ${lonBala}`);
+        setIsLoading(false);
+        return;
+      }
 
-    const totalTransacted = parseFloat(amounts) + parseFloat(chmLnRpymntFee) * parseFloat(amounts);
+      // Update functions
+      const updateChamaMember = async () => {
+        await API.graphql(
+          graphqlOperation(updateChamaMembers, {
+            input: {
+              ChamaNMember: memberId,
+              AmtRepaid: (parseFloat(senderAcc.AmtRepaids) + parseFloat(amounts)).toFixed(0),
+              LnBal: LonBalsss.toFixed(0),
+            },
+          })
+        );
+      };
 
-    // 4️⃣ Fetch receiver group details
-    const groupResp: any = await API.graphql(
-      graphqlOperation(getGroup, { grpContact })
-    );
-    const group = groupResp.data.getGroup;
-    const { status: groupStatus, grpBal, tymsChmHvBL, GrpLoanRpymntSync, grpName } = group;
+      const updateLoan = async () => {
+        await API.graphql(
+          graphqlOperation(updateCvrdGroupLoans, {
+            input: {
+              loanID: route.params.loanID,
+              amountRepaid: (parseFloat(amounts) + parseFloat(amountRepaid)).toFixed(0),
+              lonBala: LonBalsss.toFixed(0),
+              amountExpectedBackWthClrnc: LonBalsss.toFixed(0),
+              DefaultPenaltyChm2: 0,
+              clearanceAmt: 0,
+              status: 'LoanCleared',
+            },
+          })
+        );
+      };
 
-    // 5️⃣ Fetch member details
-    const memberResp: any = await API.graphql(
-      graphqlOperation(getChamaMembers, { ChamaNMember: memberId })
-    );
-    const member = memberResp.data.getChamaMembers;
-    const { AmtRepaid } = member;
+      // Execute updates
+      await updateChamaMember();
+      await updateLoan();
 
-    // 6️⃣ Validation checks
-    if (senderStatus === "AccountInactive") {
-      Alert.alert("Sender account is inactive"); return;
+      // Create repayment record
+      await API.graphql(
+        graphqlOperation(createLoanRepayments, {
+          input: {
+            senderPhn: loaneePhn,
+            recPhn: grpContact,
+            RecName: recGrp.grpName,
+            SenderName: senderAcc.name,
+            loanId1: route.params.loanID,
+            loanId2: route.params.loanID,
+            loanId3: route.params.loanID,
+            amount: parseFloat(amounts).toFixed(0),
+            description: Desc,
+            status: 'Waived',
+            owner: userInfo.attributes.sub,
+          },
+        })
+      );
+
+      Alert.alert('Waived successfully!');
+      setAmount('');
+      setDesc('');
+    } catch (e) {
+      console.log(e);
+      Alert.alert('Error! Retry or contact support.');
     }
-    if (groupStatus === "AccountInactive") {
-      Alert.alert("Receiver account is inactive"); return;
-    }
-    if (parseFloat(senderBal) < totalTransacted) {
-      Alert.alert("Requested amount is more than your account balance"); return;
-    }
-    if (parseFloat(nonLonLimit) < parseFloat(amounts)) {
-      Alert.alert(`Call company to adjust your send amount limit`); return;
-    }
-    if (ClranceAmt > parseFloat(amounts)) {
-      Alert.alert(`At least pay clearance fee + default penalty: ${ClranceAmt}`); return;
-    }
-    if (parseFloat(amounts) > parseFloat(LonBal1)) {
-      Alert.alert(`Your loan balance is lesser: Ksh. ${LonBal1}`); return;
-    }
-
-    // 7️⃣ Repayment logic
-    const isFullRepayment = parseFloat(amounts) === parseFloat(LonBal1);
-
-    if (isFullRepayment && parseFloat(MaxTymsBL) === parseFloat(maxBLs)) {
-      // Full repayment + MaxTymsBL = maxBL
-      await updateSenderAccount(0);
-    } else if (isFullRepayment && parseFloat(MaxTymsBL) > parseFloat(maxBLs)) {
-      // Full repayment + MaxTymsBL > maxBL
-      await updateSenderAccount(parseFloat(MaxTymsBL) - 1);
-    } else {
-      // Partial repayment
-      await updateMemberAndLoan();
-    }
-
-    // 8️⃣ Chained updates (group, company, repayment record)
-    await updateGroupAfterRepayment();
-    await updateCompanyAfterRepayment();
-    await createRepaymentRecord("ChmLonRepayment");
-
-    Alert.alert(
-      isFullRepayment
-        ? `Loan fully repaid! Clearance Fee: ${ClranceAmt.toFixed(2)}. Transaction Fee: ${(parseFloat(chmLnRpymntFee) * parseFloat(amounts)).toFixed(2)}`
-        : `Partially repaid. Clearance Fee: ${ClranceAmt.toFixed(2)}. Transaction Fee: ${(parseFloat(chmLnRpymntFee) * parseFloat(amounts)).toFixed(2)}`
-    );
-
-    // Reset form
-    setAmount("");
-    setDesc("");
-    setSenderNatId("");
-    setSnderPW("");
-    setLnId("");
-
-  } catch (error) {
-    console.log(error);
-    Alert.alert("Retry or update app or call customer care");
-  } finally {
     setIsLoading(false);
-  }
-};
-
+  };
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
-        <Text style={styles.title}>Waive Covered Chama Loan</Text>
+    <LinearGradient colors={['#e29d58', '#f2c27a']} style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
+        <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 20 }}>
+          <View style={styles.headerContainer}>
+            <Text style={styles.headerText}>Waive Loan</Text>
+            <Text style={styles.subHeaderText}>Fill account details below</Text>
+          </View>
 
-        {/* Amount Input */}
-        <View style={styles.inputGroup}>
-          <TextInput
-            placeholder="Amount"
-            keyboardType="decimal-pad"
-            value={amounts}
-            onChangeText={setAmount}
-            style={styles.input}
-          />
-          <Text style={styles.inputLabel}>Amount Waived</Text>
-        </View>
+          {/* Amount */}
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Amount Waived</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType="decimal-pad"
+              placeholder="Enter amount"
+              value={amounts}
+              onChangeText={setAmount}
+              editable={!isLoading}
+            />
+          </View>
 
-        {/* Description Input */}
-        <View style={styles.inputGroup}>
-          <TextInput
-            placeholder="Description"
-            multiline
-            value={desc}
-            onChangeText={setDesc}
-            style={[styles.input, { height: 80 }]}
-          />
-          <Text style={styles.inputLabel}>Description</Text>
-        </View>
+          {/* Description */}
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Description</Text>
+            <TextInput
+              style={[styles.input, { height: 100, textAlignVertical: 'top' }]}
+              placeholder="Enter description"
+              multiline
+              numberOfLines={4}
+              value={Desc}
+              onChangeText={setDesc}
+              editable={!isLoading}
+            />
+          </View>
 
-        {/* Waive Button */}
-        <TouchableOpacity disabled={isLoading} style={styles.buttonWrapper}
-           onPress={ftchCvdSMLn}>
-          <LinearGradient
-            colors={['#f97316', '#3b82f6']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={styles.buttonGradient}
+          {/* Waive Button */}
+          <TouchableOpacity
+            style={styles.button}
+            onPress={ftchCvdSMLn}
+            disabled={isLoading}
           >
-            <Text style={styles.buttonText}>Waive Loan</Text>
-            {isLoading && <ActivityIndicator size="small" color="#fff" style={{ marginLeft: 10 }} />}
-          </LinearGradient>
-        </TouchableOpacity>
-      </ScrollView>
-    </View>
+            {isLoading ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Waive</Text>
+            )}
+          </TouchableOpacity>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </LinearGradient>
   );
 };
 
-export default RepayCovChmLnsss;
+export default WaiverScreen;
+
+
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f0f4f8',
-  },
-  scrollContainer: {
-    padding: 20,
-    paddingTop: 40,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#1e293b',
+  // Header section
+  headerContainer: {
     marginBottom: 30,
-    textAlign: 'center',
+    alignItems: 'center',
   },
-  inputGroup: {
-    marginBottom: 25,
-    position: 'relative',
+  headerText: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  subHeaderText: {
+    fontSize: 16,
+    color: '#fff',
+    marginTop: 5,
+  },
+
+  // Input container
+  inputContainer: {
+    marginBottom: 20,
+  },
+  inputLabel: {
+    color: '#fff',
+    marginBottom: 8,
+    fontSize: 14,
+    fontWeight: '500',
   },
   input: {
     backgroundColor: '#fff',
-    paddingHorizontal: 15,
-    paddingVertical: 12,
     borderRadius: 12,
+    padding: 15,
     fontSize: 16,
-    color: '#1e293b',
     shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
-    elevation: 2,
+    elevation: 3,
   },
-  inputLabel: {
-    position: 'absolute',
-    top: -10,
-    left: 15,
-    backgroundColor: '#f0f4f8',
-    paddingHorizontal: 5,
-    fontSize: 12,
-    color: '#64748b',
-    fontWeight: '500',
-  },
-  buttonWrapper: {
-    marginTop: 10,
-  },
-  buttonGradient: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+
+  // Button
+  button: {
+    backgroundColor: '#fff',
+    paddingVertical: 18,
+    borderRadius: 14,
     alignItems: 'center',
-    paddingVertical: 14,
-    borderRadius: 12,
-    shadowColor: '#3b82f6',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
+    marginTop: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 3 },
     elevation: 4,
   },
   buttonText: {
-    color: '#fff',
+    color: '#e29d58',
     fontSize: 18,
+    fontWeight: 'bold',
+  },
+
+  // Optional: card style for future loan summary section
+  card: {
+    backgroundColor: 'rgba(255,255,255,0.95)',
+    borderRadius: 15,
+    padding: 20,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 4,
+  },
+  cardTitle: {
+    fontSize: 16,
     fontWeight: '600',
+    marginBottom: 10,
+    color: '#333',
+  },
+  cardValue: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#e29d58',
+  },
+
+  // ScrollView padding
+  scrollViewContent: {
+    flexGrow: 1,
+    padding: 20,
   },
 });
+
