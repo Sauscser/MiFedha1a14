@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Alert,
   Modal,
+  Image
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { API, graphqlOperation, Auth, Storage } from 'aws-amplify';
@@ -24,6 +25,10 @@ import {
   listCvrdGroupLoans,
   listGrpMembersContributions,
   listSMAccounts,
+  listMinutesByChama,
+  listMinuteItemsByMinutes,
+  listAttendanceByMinutes,
+  listChamaMinutes,
 } from '../../../src/graphql/queries';
 import { createMessages, sendNotification, updateReqLoanChama } from '../../../src/graphql/mutations';
 
@@ -52,6 +57,11 @@ const AdminClearLoans = () => {
   const [memberCreditInfo, setMemberCreditInfo] = useState<any>(null);
   const [loadingCredit, setLoadingCredit] = useState(false);
   const [creditTab, setCreditTab] = useState<'group' | 'global' | 'blended'>('group');
+  const [selectedMinutes, setSelectedMinutes] = useState<any | null>(null);
+const [loadingMinutes, setLoadingMinutes] = useState(false);
+
+
+
 
   // Fetch admin groups
   useEffect(() => {
@@ -69,6 +79,80 @@ const AdminClearLoans = () => {
     };
     fetchAdminGroups();
   }, []);
+
+  
+
+ const fetchMinutesForLoan = async (loan: any) => {
+  if (!loan?.loanMinutes) {
+    Alert.alert('No minutes', 'This loan has no linked minutes record');
+    return;
+  }
+
+  if (!loan?.chamaPhone) {
+    Alert.alert(
+      'Invalid loan',
+      'Loan has no chamaPhone → cannot resolve grpContact'
+    );
+    return;
+  }
+
+  setLoadingMinutes(true);
+  try {
+    // ✅ CORRECT: query by grpContact
+    const res: any = await API.graphql(
+      graphqlOperation(listChamaMinutes, {
+
+        filter: {id: { eq: loan.loanMinutes } },
+        
+      })
+    );
+
+    const minutes = res?.data?.listChamaMinutes?.items || [];
+
+    // 🔍 find the specific minutes linked to the loan
+    const min = minutes.find(
+      (m: any) => m.id === loan.loanMinutes
+    );
+
+    if (!min) {
+      Alert.alert('Minutes not found', 'Linked minutes record missing');
+      return;
+    }
+
+    // Fetch items + attendance
+    const [itemsRes, attendanceRes] = await Promise.all([
+      API.graphql(
+        graphqlOperation(listMinuteItemsByMinutes, { minutesId: min.id })
+      ),
+      API.graphql(
+        graphqlOperation(listAttendanceByMinutes, { minutesId: min.id })
+      ),
+    ]);
+
+    const chairSignUrl = min.chairpersonId
+      ? await Storage.get(min.chairpersonId)
+      : null;
+
+    const secSignUrl = min.secretaryId
+      ? await Storage.get(min.secretaryId)
+      : null;
+
+    setSelectedMinutes({
+      ...min,
+      items: itemsRes?.data?.listMinuteItemsByMinutes?.items || [],
+      attendance: attendanceRes?.data?.listAttendanceByMinutes?.items || [],
+      chairSignUrl,
+      secSignUrl,
+    });
+  } catch (err) {
+    console.error(err);
+    Alert.alert('Error', 'Failed to fetch minutes');
+  } finally {
+    setLoadingMinutes(false);
+  }
+};
+
+
 
   // Fetch loans + member names + group size
   const fetchLoans = async (groupContact: string) => {
@@ -360,120 +444,70 @@ const clearLoan = async (loan: any) => {
       setLoadingCredit(false);
     }
   };
+  
 
   // Export to PDF
- const exportToPDF = async () => {
+ const exportMinutesToPDF = async (min: any) => {
+  if (!min) return;
   try {
-    // Resolve uploaded minutes images first
-    const loanImages = await Promise.all(
-      (loans || []).map(async l => {
-        if (l.loanMinutesImage && l.loanMinutesImage !== 'NoMinutesUploaded') {
-          const url = await Storage.get(l.loanMinutesImage);
-          return { ...l, minutesImageUrl: url };
-        }
-        return { ...l, minutesImageUrl: null };
-      })
-    );
+    const present = min.attendance.filter((a) => a.attendanceStatus === "PRESENT");
 
     const html = `
       <html>
-        <head>
-          <style>
-            body { font-family: Arial; padding: 20px; }
-            h1 { color: #e29d58; }
-            h2 { margin-top: 20px; }
-            h3 { margin-top: 10px; }
-            li { margin-bottom: 12px; }
-            .bar { height: 12px; background: #e5e7eb; border-radius: 6px; overflow: hidden; }
-            .fill { height: 100%; }
-          </style>
-        </head>
-        <body>
-          <h1>Group Report: ${selectedGroup?.grpName || ''}</h1>
+      <head><style>
+        body { font-family: Arial; padding: 20px; }
+        h1 { color: #e29d58; }
+        .item { margin-bottom: 12px; }
+        .decision { font-style: italic; color: #065f46; }
+        table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+        th, td { border: 1px solid #ddd; padding: 6px; }
+        .signatures { margin-top: 24px; display: flex; justify-content: space-between; }
+        img { max-height: 80px; }
+      </style></head>
+      <body>
+        <h1>${selectedGroup?.grpName} — Official Minutes</h1>
+        <p><strong>Date:</strong> ${min.meetingDate}</p>
+        <p><strong>Venue:</strong> ${min.venue || "-"}</p>
+        <p><strong>Attendance:</strong> ${present.length}</p>
 
-          <h2>Credit Score</h2>
-          <p>${Number(memberCreditInfo?.creditScore || 0)}%</p>
-          <div class="bar">
-            <div class="fill" style="width:${Number(memberCreditInfo?.creditScore || 0)}%;
-              background-color:${Number(memberCreditInfo?.creditScore || 0) >= 70 ? 'green' :
-                                Number(memberCreditInfo?.creditScore || 0) >= 40 ? 'yellow' : 'red'}"></div>
+        <h2>Minutes</h2>
+        ${min.items
+          .sort((a, b) => a.entryOrder - b.entryOrder)
+          .map(i => `
+            <div class="item">
+              <strong>${i.entryOrder}. ${i.minuteRef}</strong>
+              <p>${i.content}</p>
+              ${i.decision ? `<div class="decision">Decision: ${i.decision}</div>` : ""}
+            </div>
+          `).join("")}
+
+        <h2>Attendance</h2>
+        <table>
+          <tr><th>Name</th><th>Status</th></tr>
+          ${min.attendance.map(a => `<tr><td>${a.memberName}</td><td>${a.attendanceStatus}</td></tr>`).join("")}
+        </table>
+
+        <div class="signatures">
+          <div>
+            <strong>Chairperson</strong><br/>
+            ${min.chairSignUrl ? `<img src="${min.chairSignUrl}" />` : "-"}
           </div>
-
-          <h2>SMAccount Overview</h2>
-          <p>Balance: KES ${memberCreditInfo?.balance || 0}</p>
-          <p>Benefits Amount: KES ${memberCreditInfo?.benefitsAmount || 0}</p>
-          <p>P2P Chama Benefits: KES ${memberCreditInfo?.p2pchmBenefits || 0}</p>
-          <p>Total Deposits (SM): KES ${memberCreditInfo?.ttlDpstSM || 0}</p>
-          <p>Max Times Borrowed Late: ${memberCreditInfo?.MaxTymsBL || 0}</p>
-
-          <h2>Group Overview</h2>
-          <p>Group balance: KES ${memberCreditInfo?.grpBal || 0}</p>
-          <p>Loans issued: KES ${memberCreditInfo?.amountGiven_group || 0}</p>
-          <p>Outstanding loans: KES ${memberCreditInfo?.lonBala_group || 0}</p>
-          <p>Repaid: KES ${memberCreditInfo?.amountRepaid_group || 0}</p>
-          <p>Non-loan receipts: KES ${memberCreditInfo?.amountSent_group || 0}</p>
-          <p>Contributions: KES ${memberCreditInfo?.contriAmount_group || 0}</p>
-          <h3>Score Components</h3>
-          <p>Liquidity: KES ${memberCreditInfo?.L_group || 0}</p>
-          <p>Exposure ratio: ${memberCreditInfo?.E_group?.toFixed?.(2)}</p>
-          <p>Repayment strength: ${Math.round((memberCreditInfo?.R_group || 0) * 100)}%</p>
-          <p>Community support: ${memberCreditInfo?.S_group?.toFixed?.(2)}</p>
-          <p>Penalty: ${memberCreditInfo?.P_group?.toFixed?.(2)}</p>
-
-          <h2>Global Overview</h2>
-          <p>Total loans issued: KES ${memberCreditInfo?.amountGiven_global || 0}</p>
-          <p>Total outstanding: KES ${memberCreditInfo?.lonBala_global || 0}</p>
-          <p>Total repaid: KES ${memberCreditInfo?.amountRepaid_global || 0}</p>
-          <p>Non-loan receipts: KES ${memberCreditInfo?.amountSent_global || 0}</p>
-          <p>Contributions: KES ${memberCreditInfo?.contriAmount_global || 0}</p>
-          <h3>Score Components</h3>
-          <p>Liquidity: KES ${memberCreditInfo?.L_global || 0}</p>
-          <p>Exposure ratio: ${memberCreditInfo?.E_global?.toFixed?.(2)}</p>
-          <p>Repayment strength: ${Math.round((memberCreditInfo?.R_global || 0) * 100)}%</p>
-          <p>Community support: ${memberCreditInfo?.S_global?.toFixed?.(2)}</p>
-          <p>Penalty: ${memberCreditInfo?.P_global?.toFixed?.(2)}</p>
-
-          <h2>Blended Summary</h2>
-          <p>Blended score (0.6 group / 0.4 global): ${memberCreditInfo?.creditScore || 0}%</p>
-          <p>Group component score: ${memberCreditInfo?.C_group?.toFixed?.(2)}</p>
-          <p>Global component score: ${memberCreditInfo?.C_global?.toFixed?.(2)}</p>
-
-          <h2>Loans</h2>
-          <ul>
-            ${loanImages.map(l => `
-              <li>
-                <strong>Loanee:</strong> ${l.loaneeName} <br/>
-                <strong>Amount:</strong> KES ${Number(l.amount).toLocaleString()} <br/>
-                <strong>Status:</strong> ${l.status} <br/>
-                <strong>Description:</strong> ${l.description || 'No description'} <br/>
-                <strong>Approvals:</strong> ${l.membersApprove}/${groupSize} <br/>
-                <strong>Written Minutes:</strong><br/>
-                ${l.loanMinutes && l.loanMinutes !== 'NoMinutesProvided'
-                  ? l.loanMinutes
-                  : 'No written minutes provided'} <br/>
-                ${l.minutesImageUrl
-                  ? `<img src="${l.minutesImageUrl}" style="max-width:100%; margin-top:8px;" />`
-                  : ''}
-              </li>
-            `).join('')}
-          </ul>
-
-          <h2>Approving Members</h2>
-          <ul>
-            ${(approvingMembers || [])
-              .map(m => `<li>${m.memberName} (${m.MemberEmail})</li>`)
-              .join('')}
-          </ul>
-        </body>
+          <div>
+            <strong>Secretary</strong><br/>
+            ${min.secSignUrl ? `<img src="${min.secSignUrl}" />` : "-"}
+          </div>
+        </div>
+      </body>
       </html>
     `;
 
     await RNPrint.print({ html });
   } catch (err) {
     console.error(err);
-    Alert.alert('Error', 'Failed to export PDF');
+    Alert.alert("PDF Error", "Failed to export minutes PDF");
   }
 };
+
 
 
 
@@ -483,8 +517,8 @@ const clearLoan = async (loan: any) => {
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
         <Text style={styles.header}>Select a Group</Text>
         <TouchableOpacity
-          style={{ backgroundColor: '#22c55e', paddingVertical: 8, paddingHorizontal: 16, borderRadius: 8 }}
-          onPress={exportToPDF}
+          style={{ backgroundColor: '#e29d58', paddingVertical: 8, paddingHorizontal: 16, borderRadius: 8 }}
+          onPress={() => exportMinutesToPDF(selectedMinutes)}
         >
           <Text style={{ color: '#fff', fontWeight: '700' }}>Export to PDF</Text>
         </TouchableOpacity>
@@ -620,11 +654,22 @@ const clearLoan = async (loan: any) => {
               </TouchableOpacity>
             )}
 
-            {loan.loanMinutes && loan.loanMinutes !== 'NoMinutesProvided' && (
-              <TouchableOpacity style={styles.secondaryBtn} onPress={() => setSelectedText(loan.loanMinutes)}>
-                <Text>Read Written Minutes</Text>
-              </TouchableOpacity>
-            )}
+            <TouchableOpacity
+  style={[
+    styles.secondaryBtn,
+    loadingMinutes && { opacity: 0.6 },
+  ]}
+  disabled={loadingMinutes}
+  onPress={() => fetchMinutesForLoan(loan)}
+>
+  {loadingMinutes ? (
+    <ActivityIndicator size="small" color="#e29d58" />
+  ) : (
+    <Text style={styles.amount}>Read Minutes</Text>
+  )}
+</TouchableOpacity>
+
+
           </View>
         );
       })}
@@ -783,6 +828,105 @@ const clearLoan = async (loan: any) => {
 </Modal>
 
 
+<Modal visible={!!selectedMinutes} transparent onRequestClose={() => setSelectedMinutes(null)}>
+  <View style={{ flex: 1, backgroundColor: "#000000aa", justifyContent: "center" }}>
+    {loadingMinutes ? (
+      <ActivityIndicator size="large" color="#e29d58" />
+    ) : (
+      <ScrollView style={styles.minutesModal}>
+        <View style={styles.minutesCard}>
+          {/* Header */}
+          <Text style={styles.groupTitle}>
+            {selectedGroup?.grpName} — Minutes
+          </Text>
+
+          <Text style={styles.date}>
+            📅 {selectedMinutes?.meetingDate}
+          </Text>
+          <Text style={styles.meta}>
+            Venue: {selectedMinutes?.venue || "-"}
+          </Text>
+          <Text style={styles.meta}>
+            Attendance:{" "}
+            {selectedMinutes?.attendance?.filter(
+              (a: any) => a.attendanceStatus === "PRESENT"
+            ).length}
+          </Text>
+
+          {/* Export */}
+          <TouchableOpacity
+            style={styles.exportBtn}
+            onPress={() => exportMinutesToPDF(selectedMinutes)}
+          >
+            <Text style={styles.exportText}>Export PDF</Text>
+          </TouchableOpacity>
+
+          {/* Minutes */}
+          <Text style={styles.section}>Minutes</Text>
+          {selectedMinutes?.items
+            ?.sort((a: any, b: any) => a.entryOrder - b.entryOrder)
+            .map((item: any) => (
+              <View key={item.id} style={styles.minuteItem}>
+                <Text style={styles.minuteTitle}>
+                  {item.entryOrder}. {item.minuteRef}
+                </Text>
+                <Text>{item.content}</Text>
+                {item.decision && (
+                  <Text style={styles.decision}>
+                    Decision: {item.decision}
+                  </Text>
+                )}
+              </View>
+            ))}
+
+          {/* Signatures */}
+         {/* Signatures */}
+<Text style={styles.section}>Signatures</Text>
+
+<View style={styles.signatures}>
+  {/* Chairperson */}
+  <View style={styles.signatureBlock}>
+    <Text style={styles.signatureLabel}>Chairperson</Text>
+    {selectedMinutes?.chairSignUrl ? (
+      <Image
+        source={{ uri: selectedMinutes.chairSignUrl }}
+        style={styles.signature}
+      />
+    ) : (
+      <Text style={styles.signatureMissing}>Not signed</Text>
+    )}
+  </View>
+
+  {/* Secretary */}
+  <View style={styles.signatureBlock}>
+    <Text style={styles.signatureLabel}>Secretary</Text>
+    {selectedMinutes?.secSignUrl ? (
+      <Image
+        source={{ uri: selectedMinutes.secSignUrl }}
+        style={styles.signature}
+      />
+    ) : (
+      <Text style={styles.signatureMissing}>Not signed</Text>
+    )}
+  </View>
+</View>
+
+
+          {/* Close */}
+          <TouchableOpacity
+            style={[styles.exportBtn, { backgroundColor: "skyblue" }]}
+            onPress={() => setSelectedMinutes(null)}
+          >
+            <Text style={styles.exportText}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    )}
+  </View>
+</Modal>
+
+
+
     </ScrollView>
   );
 };
@@ -810,6 +954,44 @@ const styles = StyleSheet.create({
   groupBtnSelected: {
     backgroundColor: '#f59e0b', // darker amber when selected
   },
+
+  signatureBlock: {
+  alignItems: 'center',
+  width: 140,
+},
+
+signatureLabel: {
+  fontSize: 13,
+  fontWeight: '700',
+  marginBottom: 6,
+  color: '#374151',
+},
+
+signatureMissing: {
+  fontSize: 12,
+  fontStyle: 'italic',
+  color: '#9ca3af',
+  marginTop: 8,
+},
+
+
+  minutesModal: {
+  margin: 20,
+  backgroundColor: "#f8f9fa",
+  borderRadius: 12,
+  maxHeight: 650,
+},
+
+minutesCard: {
+  backgroundColor: "#ffffff",
+  borderRadius: 12,
+  padding: 16,
+  shadowColor: "#000",
+  shadowOpacity: 0.08,
+  shadowRadius: 6,
+  elevation: 3,
+},
+
 
   // Loan card
   card: {
@@ -954,6 +1136,92 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 8,
   },
+
+    /* ===== Minutes Viewer Styles (Admin + ViewMinutes parity) ===== */
+
+  groupTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    marginBottom: 8,
+    color: '#1f2937',
+    textAlign: 'center',
+  },
+
+  date: {
+    fontSize: 14,
+    color: '#374151',
+    marginBottom: 4,
+    textAlign: 'center',
+  },
+
+  meta: {
+    fontSize: 13,
+    color: '#6b7280',
+    marginBottom: 4,
+    textAlign: 'center',
+  },
+
+  exportBtn: {
+    marginTop: 12,
+    marginBottom: 16,
+    backgroundColor: '#e29d58',
+    paddingVertical: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+
+  exportText: {
+    color: '#ffffff',
+    fontWeight: '700',
+    fontSize: 14,
+  },
+
+  section: {
+    fontSize: 16,
+    fontWeight: '700',
+    marginTop: 16,
+    marginBottom: 8,
+    color: '#111827',
+  },
+
+  minuteItem: {
+    backgroundColor: '#f9fafb',
+    padding: 12,
+    borderRadius: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+
+  minuteTitle: {
+    fontWeight: '700',
+    marginBottom: 4,
+    color: '#1f2937',
+  },
+
+  decision: {
+    marginTop: 6,
+    fontStyle: 'italic',
+    color: '#065f46',
+  },
+
+  signatures: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 12,
+    marginBottom: 12,
+  },
+
+  signature: {
+    width: 120,
+    height: 60,
+    resizeMode: 'contain',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 6,
+    backgroundColor: '#ffffff',
+  },
+
 
   // Tabs
   tabBtn: {

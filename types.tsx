@@ -106,6 +106,10 @@ declare global {
         MembaId:string,
         id:string
       };
+ViewMinutes: {
+    grpContact: string;  // <-- the groupContact of the selected ChamaMember
+    groupName: string;   // <-- the name of the group
+  };      CreateChamaMinutes:undefined;
       Auditor:undefined;
       ClearGroupMemberLoan:undefined;
       AddCOMBAuditor:undefined;

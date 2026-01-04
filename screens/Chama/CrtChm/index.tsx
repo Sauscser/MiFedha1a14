@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, ScrollView, TouchableOpacity, Alert, 
   KeyboardAvoidingView, Platform,
-  ActivityIndicator, Dimensions, StyleSheet} from 'react-native';
-import { API, Auth, graphqlOperation } from 'aws-amplify';
+  ActivityIndicator, Dimensions, StyleSheet, Image } from 'react-native';
+import { API, Auth, graphqlOperation, Storage } from 'aws-amplify';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as ImagePicker from 'expo-image-picker';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 import { createChamaMembers, createGroup, updateChamaApply2, updateCompany } from '../../../src/graphql/mutations';
 import { getMiFedhaBankAdmin, getSMAccount, getCompany } from '../../../src/graphql/queries';
@@ -12,6 +14,8 @@ import { getMiFedhaBankAdmin, getSMAccount, getCompany } from '../../../src/grap
 export type UserReg = {
   usr: string;
 };
+
+const MAX_IMAGE_SIZE_MB = 5;
 
 const CreateChama = (props: UserReg) => {
   const { usr } = props;
@@ -37,44 +41,112 @@ const CreateChama = (props: UserReg) => {
   const [loanApprovalThreshHold, setloanApprovalThreshHold] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  
+  // Signature states
+  const [chairSignKey, setChairSignKey] = useState<string | null>(null);
+  const [chairSignUri, setChairSignUri] = useState<string | null>(null);
+  const [secSignKey, setSecSignKey] = useState<string | null>(null);
+  const [secSignUri, setSecSignUri] = useState<string | null>(null);
 
   const ChmPhnNphoneContact = MmbaID + ChamaAcNu;
+
+  /** Image Handling **/
+  const pickSignature = async (role: 'chair' | 'sec') => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: false,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.canceled && result.assets?.[0]?.uri) {
+      handleSignature(result.assets[0].uri, role);
+    }
+  };
+
+  const takeSignature = async (role: 'chair' | 'sec') => {
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: false,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.canceled && result.assets?.[0]?.uri) {
+      handleSignature(result.assets[0].uri, role);
+    }
+  };
+
+  const handleSignature = async (uri: string, role: 'chair' | 'sec') => {
+    try {
+      const manipResult = await ImageManipulator.manipulateAsync(
+        uri,
+        [{ resize: { width: 600 } }],
+        { compress: 0.7, format: ImageManipulator.SaveFormat.PNG }
+      );
+
+      const response = await fetch(manipResult.uri);
+      const blob = await response.blob();
+      const imageSizeMB = blob.size / (1024 * 1024);
+
+      if (imageSizeMB > MAX_IMAGE_SIZE_MB) {
+        Alert.alert('Image too large', `Image is ${imageSizeMB.toFixed(2)}MB. Max allowed is ${MAX_IMAGE_SIZE_MB}MB.`);
+        return;
+      }
+
+      const filename = `${Date.now()}_${role}Sign.png`;
+      await Storage.put(filename, blob, { contentType: 'image/png' });
+
+      if (role === 'chair') {
+        setChairSignKey(filename);
+        setChairSignUri(manipResult.uri);
+      } else {
+        setSecSignKey(filename);
+        setSecSignUri(manipResult.uri);
+      }
+
+      Alert.alert('Success', `${role} signature uploaded successfully.`);
+    } catch (err) {
+      console.error('Signature upload failed:', err);
+      Alert.alert('Error', 'Failed to upload signature. Please try again.');
+    }
+  };
+
+  const clearSignature = (role: 'chair' | 'sec') => {
+    if (role === 'chair') {
+      setChairSignKey(null);
+      setChairSignUri(null);
+    } else {
+      setSecSignKey(null);
+      setSecSignUri(null);
+    }
+  };
 
   const handleCreateChama = async () => {
     setIsLoading(true);
     try {
-
       if (!MmbaID || !ChmNm || !Sign2Phn 
         || !Sign3Phn || !loanApprovalThreshHold 
         || !pword || !SubFreq || !SubAmt || !lateSub
-      || !ventures || !ChmDesc) {
+        || !ventures || !ChmDesc) {
         Alert.alert('Missing required parameters. Cannot proceed.');
         setIsLoading(false);
         return;
       }
 
-    const safeAWSEmail = awsEmail || 'None';
-    const safeChmRegNo = ChmRegNo || 'None';
-    const safeoprtnAreas = oprtnAreas || 'None';
-    const safeventures = ventures || 'None';
-
+      const safeAWSEmail = awsEmail || 'None';
+      const safeChmRegNo = ChmRegNo || 'None';
+      const safeoprtnAreas = oprtnAreas || 'None';
+      const safeventures = ventures || 'None';
 
       const userInfo = await Auth.currentAuthenticatedUser();
 
-      // Get Bank Admin Details
       const bankAdminRes: any = await API.graphql(
         graphqlOperation(getMiFedhaBankAdmin, { nationalid: bankAdminEmail })
       );
-
       const BankBranch = bankAdminRes.data.getMiFedhaBankAdmin.bank;
       const BankAdminEml = bankAdminRes.data.getMiFedhaBankAdmin.email;
 
-      // Check if user exists
       const userRes: any = await API.graphql(
         graphqlOperation(getSMAccount, { awsemail: userInfo.attributes.email })
       );
-
       const nationalidsss = userRes.data.getSMAccount.nationalid;
       const namess = userRes.data.getSMAccount.name;
       const owner = userRes.data.getSMAccount.owner;
@@ -85,39 +157,21 @@ const CreateChama = (props: UserReg) => {
         return;
       }
 
-      // Fetch Signatory 2 Details
       const sign2Res: any = await API.graphql(
         graphqlOperation(getSMAccount, { awsemail: Sign2Phn })
       );
-      const ownrsss = sign2Res.data.getSMAccount.owner;
 
-      // Get Company Details
       const compRes: any = await API.graphql(
         graphqlOperation(getCompany, { AdminId: "BaruchHabaB'ShemAdonai2" })
       );
       const ttlActiveChms = compRes.data.getCompany.ttlActiveChm;
-      const phoneContacts = compRes.data.getCompany.phoneContact;
       const ttlActiveChmUserss = compRes.data.getCompany.ttlActiveChmUsers;
 
       const today = new Date();
-      const now =
-        today.getFullYear() +
-        '-' +
-        String(today.getMonth() + 1).padStart(2, '0') +
-        '-' +
-        String(today.getDate()).padStart(2, '0') +
-        'T' +
-        String(today.getHours()).padStart(2, '0') +
-        ':' +
-        String(today.getMinutes()).padStart(2, '0') +
-        ':' +
-        String(today.getSeconds()).padStart(2, '0');
-
       const curYrs = today.getFullYear() * 365;
       const curMnths = (today.getMonth() + 1) * 30.4375;
       const daysUpToDate = curYrs + curMnths + today.getDate();
 
-      // Validate password and subscription
       if (pword.length < 8) {
         Alert.alert('Password is too short; at least eight characters');
         setIsLoading(false);
@@ -130,8 +184,7 @@ const CreateChama = (props: UserReg) => {
         return;
       }
 
-      // Create Group
-      await API.graphql(
+            await API.graphql(
         graphqlOperation(createGroup, {
           input: {
             grpContact: ChamaAcNu,
@@ -194,6 +247,7 @@ const CreateChama = (props: UserReg) => {
             Admin18: 'None',
             Admin19: 'None',
             Admin20: 'None',
+            // … other Admin fields unchanged …
             ttlNonLonsRecChm: 0,
             ttlNonLonsSentChm: 0,
             ttlDpst: 0,
@@ -215,11 +269,13 @@ const CreateChama = (props: UserReg) => {
             owner: userInfo.attributes.sub,
             chamaBenSync: 0,
             loanApprovalThreshHold: loanApprovalThreshHold,
+            // NEW signature fields
+            chairSign: chairSignKey ? chairSignKey : 'NoChairSignUploaded',
+            secSign: secSignKey ? secSignKey : 'NoSecSignUploaded',
           },
         })
       );
 
-      // Create Chama Member
       await API.graphql(
         graphqlOperation(createChamaMembers, {
           input: {
@@ -254,17 +310,12 @@ const CreateChama = (props: UserReg) => {
         })
       );
 
-      // Update Chama Application
       await API.graphql(
         graphqlOperation(updateChamaApply2, {
-          input: {
-            id: id,
-            status: 'AccountInactive',
-          },
+          input: { id: id, status: 'AccountInactive' },
         })
       );
 
-      // Update Company Active Counts
       await API.graphql(
         graphqlOperation(updateCompany, {
           input: {
@@ -292,6 +343,8 @@ const CreateChama = (props: UserReg) => {
       setSubFreq('');
       setlateSub('');
       setloanApprovalThreshHold('');
+      clearSignature('chair');
+      clearSignature('sec');
     } catch (error) {
       console.log(error);
       Alert.alert('An error occurred. Retry or contact customer care.');
@@ -300,86 +353,125 @@ const CreateChama = (props: UserReg) => {
     }
   };
 
-return (
+ return (
   <LinearGradient colors={['#e58d29', 'skyblue']} style={{ flex: 1, padding: 16 }}>
-   <KeyboardAvoidingView
-    style={{ flex: 1 }}
-    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
-  >
-    <ScrollView contentContainerStyle={styles.scroll}>   <Text style={[styles.title, { textAlign: 'center', marginBottom: 16 }]}>
-        Fill Chama Details Below
-      </Text>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+    >
+      <ScrollView contentContainerStyle={styles.scroll}>
+        <Text style={[styles.title, { textAlign: 'center', marginBottom: 16 }]}>
+          Fill Chama Details Below
+        </Text>
 
-      {[
-        { placeholder: 'Signitory Chama Number', value: MmbaID, setter: setMmbaID },
-        { placeholder: 'Chama Registration Number (Optional)', value: ChmRegNo, setter: setChmRegNo },
-        { placeholder: 'Enter Chama Name', value: ChmNm, setter: setChmNm },
-        { placeholder: 'Enter Chama Email (Optional)', value: awsEmail, setter: setAWSEmail },
-        { placeholder: 'Enter Signatory 2 Email', value: Sign2Phn, setter: setSign2Phn },
-        { placeholder: 'Enter Signatory 3 Email', value: Sign3Phn, setter: setSign3Phn },
-        { placeholder: 'Chama Region (Optional)', value: oprtnAreas, setter: setoprtnAreas },
-        { placeholder: 'Enter Chama Venture', value: ventures, setter: setventures },
-        { placeholder: 'Enter Chama Description', value: ChmDesc, setter: setChmDesc, multiline: true },
-        { placeholder: 'Enter Loan Approval Threshold %', value: loanApprovalThreshHold, setter: setloanApprovalThreshHold, keyboardType: 'numeric' },
-        { placeholder: 'Signatory Subscription Amount', value: SubAmt, setter: setSubAmt, keyboardType: 'numeric' },
-        { placeholder: 'Signatory Subscription Frequency (Days)', value: SubFreq, setter: setSubFreq, keyboardType: 'numeric' },
-        { placeholder: 'Signatory Late Subscription Penalty', value: lateSub, setter: setlateSub, keyboardType: 'numeric' },
-        { placeholder: 'Enter Chama PassWord', value: pword, setter: setPW, secureTextEntry: true },
-      ].map((item, index) => {
-        // Handle password field separately for toggle
-        if (item.secureTextEntry) {
+        {[
+          { placeholder: 'Signitory Chama Number', value: MmbaID, setter: setMmbaID },
+          { placeholder: 'Chama Registration Number (Optional)', value: ChmRegNo, setter: setChmRegNo },
+          { placeholder: 'Enter Chama Name', value: ChmNm, setter: setChmNm },
+          { placeholder: 'Enter Chama Email (Optional)', value: awsEmail, setter: setAWSEmail },
+          { placeholder: 'Enter Signatory 2 Email', value: Sign2Phn, setter: setSign2Phn },
+          { placeholder: 'Enter Signatory 3 Email', value: Sign3Phn, setter: setSign3Phn },
+          { placeholder: 'Chama Region (Optional)', value: oprtnAreas, setter: setoprtnAreas },
+          { placeholder: 'Enter Chama Venture', value: ventures, setter: setventures },
+          { placeholder: 'Enter Chama Description', value: ChmDesc, setter: setChmDesc, multiline: true },
+          { placeholder: 'Enter Loan Approval Threshold %', value: loanApprovalThreshHold, setter: setloanApprovalThreshHold, keyboardType: 'numeric' },
+          { placeholder: 'Signatory Subscription Amount', value: SubAmt, setter: setSubAmt, keyboardType: 'numeric' },
+          { placeholder: 'Signatory Subscription Frequency (Days)', value: SubFreq, setter: setSubFreq, keyboardType: 'numeric' },
+          { placeholder: 'Signatory Late Subscription Penalty', value: lateSub, setter: setlateSub, keyboardType: 'numeric' },
+          { placeholder: 'Enter Chama PassWord', value: pword, setter: setPW, secureTextEntry: true },
+        ].map((item, index) => {
+          if (item.secureTextEntry) {
+            return (
+              <View key={index} style={[styles.sendLoanView, { position: 'relative' }]}>
+                <TextInput
+                  placeholder={item.placeholder}
+                  value={item.value}
+                  onChangeText={item.setter}
+                  style={styles.sendLoanInput}
+                  secureTextEntry={!showPassword}
+                  editable
+                />
+                <TouchableOpacity
+                  style={{ position: 'absolute', right: 12, top: 12 }}
+                  onPress={() => setShowPassword(!showPassword)}
+                >
+                  <Text style={{ color: '#e58d29', fontWeight: 'bold' }}>
+                    {showPassword ? 'Hide' : 'Show'}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            );
+          }
+
           return (
-            <View key={index} style={[styles.sendLoanView, { position: 'relative' }]}>
+            <View key={index} style={styles.sendLoanView}>
               <TextInput
                 placeholder={item.placeholder}
                 value={item.value}
                 onChangeText={item.setter}
-                style={styles.sendLoanInput}
-                secureTextEntry={!showPassword}
+                style={item.multiline ? styles.sendAmtInputDesc : styles.sendLoanInput}
+                multiline={item.multiline || false}
                 editable
+                keyboardType={item.keyboardType || 'default'}
               />
-              <TouchableOpacity
-                style={{ position: 'absolute', right: 12, top: 12 }}
-                onPress={() => setShowPassword(!showPassword)}
-              >
-                <Text style={{ color: '#e58d29', fontWeight: 'bold' }}>
-                  {showPassword ? 'Hide' : 'Show'}
-                </Text>
-              </TouchableOpacity>
             </View>
           );
-        }
+        })}
 
-        return (
-          <View key={index} style={styles.sendLoanView}>
-            <TextInput
-              placeholder={item.placeholder}
-              value={item.value}
-              onChangeText={item.setter}
-              style={item.multiline ? styles.sendAmtInputDesc : styles.sendLoanInput}
-              multiline={item.multiline || false}
-              editable
-              keyboardType={item.keyboardType || 'default'}
-            />
-          </View>
-        );
-      })}
+        {/* Chair Signature Upload */}
+        <View style={styles.sendLoanView}>
+          <TouchableOpacity onPress={() => pickSignature('chair')} style={styles.sendLoanButton}>
+            <Text style={styles.sendLoanButtonText}>
+              {chairSignUri ? 'Change Chair Signature' : 'Upload Chair Signature'}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => takeSignature('chair')} style={[styles.sendLoanButton, { marginTop: 10 }]}>
+            <Text style={styles.sendLoanButtonText}>Take Chair Signature Photo</Text>
+          </TouchableOpacity>
+          {chairSignUri && (
+            <View style={styles.previewContainer}>
+              <Image source={{ uri: chairSignUri }} style={styles.previewImage} />
+              <TouchableOpacity onPress={() => clearSignature('chair')} style={styles.removeButton}>
+                <Text style={styles.removeButtonText}>Remove Chair Signature</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
 
-      <TouchableOpacity onPress={handleCreateChama} style={styles.sendLoanButton}>
-        <Text style={styles.sendLoanButtonText}>Click to Create Chama</Text>
-        {isLoading && <ActivityIndicator size="large" color="blue" style={{ marginTop: 8 }} />}
-      </TouchableOpacity>
-    </ScrollView>
-      </KeyboardAvoidingView>
+        {/* Secretary Signature Upload */}
+        <View style={styles.sendLoanView}>
+          <TouchableOpacity onPress={() => pickSignature('sec')} style={styles.sendLoanButton}>
+            <Text style={styles.sendLoanButtonText}>
+              {secSignUri ? 'Change Secretary Signature' : 'Upload Secretary Signature'}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => takeSignature('sec')} style={[styles.sendLoanButton, { marginTop: 10 }]}>
+            <Text style={styles.sendLoanButtonText}>Take Secretary Signature Photo</Text>
+          </TouchableOpacity>
+          {secSignUri && (
+            <View style={styles.previewContainer}>
+              <Image source={{ uri: secSignUri }} style={styles.previewImage} />
+              <TouchableOpacity onPress={() => clearSignature('sec')} style={styles.removeButton}>
+                <Text style={styles.removeButtonText}>Remove Secretary Signature</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
 
+        {/* Submit Button */}
+        <TouchableOpacity onPress={handleCreateChama} style={styles.sendLoanButton}>
+          <Text style={styles.sendLoanButtonText}>Click to Create Chama</Text>
+          {isLoading && <ActivityIndicator size="large" color="blue" style={{ marginTop: 8 }} />}
+        </TouchableOpacity>
+      </ScrollView>
+    </KeyboardAvoidingView>
   </LinearGradient>
 );
 
 };
 
 export default CreateChama;
-
 
 const { width } = Dimensions.get('window');
 
@@ -393,10 +485,9 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   scroll: {
-  padding: 20,
-  paddingBottom: 120, // just enough for button + keyboard
-},
-
+    padding: 20,
+    paddingBottom: 120, // just enough for button + keyboard
+  },
   sendLoanInput: {
     backgroundColor: 'rgba(255,255,255,0.9)',
     borderRadius: 8,
@@ -429,6 +520,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   sendLoanButtonText: {
     fontSize: 18,
@@ -450,5 +543,37 @@ const styles = StyleSheet.create({
     color: '#e58d29',
     fontWeight: 'bold',
   },
+  // Signature preview styles
+  previewContainer: {
+    marginTop: 16,
+    alignItems: 'center',
+  },
+  previewImage: {
+    width: 200,
+    height: 120,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    resizeMode: 'contain',
+  },
+  removeButton: {
+    marginTop: 10,
+    backgroundColor: '#e58d29',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 4,
+    shadowColor: '#e58d29',
+    shadowOpacity: 0.4,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+  },
+  removeButtonText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '700',
+  },
 });
-

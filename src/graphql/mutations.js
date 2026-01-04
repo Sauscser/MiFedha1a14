@@ -4600,6 +4600,8 @@ export const createGroup = /* GraphQL */ `
       status
       owner
       createdAt
+      chairSign
+      secSign
       updatedAt
       __typename
     }
@@ -4694,6 +4696,8 @@ export const updateGroup = /* GraphQL */ `
       status
       owner
       createdAt
+      chairSign
+      secSign
       updatedAt
       __typename
     }
@@ -4788,6 +4792,8 @@ export const deleteGroup = /* GraphQL */ `
       status
       owner
       createdAt
+      chairSign
+      secSign
       updatedAt
       __typename
     }
@@ -6862,6 +6868,186 @@ export const deleteCombPersonel = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+      __typename
+    }
+  }
+`;
+export const createChamaMinutes = /* GraphQL */ `
+  mutation CreateChamaMinutes(
+    $input: CreateChamaMinutesInput!
+    $condition: ModelChamaMinutesConditionInput
+  ) {
+    createChamaMinutes(input: $input, condition: $condition) {
+      id
+      grpContact
+      sittingNumber
+      meetingDate
+      venue
+      status
+      secretaryId
+      chairpersonId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateChamaMinutes = /* GraphQL */ `
+  mutation UpdateChamaMinutes(
+    $input: UpdateChamaMinutesInput!
+    $condition: ModelChamaMinutesConditionInput
+  ) {
+    updateChamaMinutes(input: $input, condition: $condition) {
+      id
+      grpContact
+      sittingNumber
+      meetingDate
+      venue
+      status
+      secretaryId
+      chairpersonId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteChamaMinutes = /* GraphQL */ `
+  mutation DeleteChamaMinutes(
+    $input: DeleteChamaMinutesInput!
+    $condition: ModelChamaMinutesConditionInput
+  ) {
+    deleteChamaMinutes(input: $input, condition: $condition) {
+      id
+      grpContact
+      sittingNumber
+      meetingDate
+      venue
+      status
+      secretaryId
+      chairpersonId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createChamaMinutesItem = /* GraphQL */ `
+  mutation CreateChamaMinutesItem(
+    $input: CreateChamaMinutesItemInput!
+    $condition: ModelChamaMinutesItemConditionInput
+  ) {
+    createChamaMinutesItem(input: $input, condition: $condition) {
+      id
+      minutesId
+      entryOrder
+      minuteRef
+      title
+      content
+      decision
+      relatedEntityId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateChamaMinutesItem = /* GraphQL */ `
+  mutation UpdateChamaMinutesItem(
+    $input: UpdateChamaMinutesItemInput!
+    $condition: ModelChamaMinutesItemConditionInput
+  ) {
+    updateChamaMinutesItem(input: $input, condition: $condition) {
+      id
+      minutesId
+      entryOrder
+      minuteRef
+      title
+      content
+      decision
+      relatedEntityId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteChamaMinutesItem = /* GraphQL */ `
+  mutation DeleteChamaMinutesItem(
+    $input: DeleteChamaMinutesItemInput!
+    $condition: ModelChamaMinutesItemConditionInput
+  ) {
+    deleteChamaMinutesItem(input: $input, condition: $condition) {
+      id
+      minutesId
+      entryOrder
+      minuteRef
+      title
+      content
+      decision
+      relatedEntityId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createChamaMeetingAttendance = /* GraphQL */ `
+  mutation CreateChamaMeetingAttendance(
+    $input: CreateChamaMeetingAttendanceInput!
+    $condition: ModelChamaMeetingAttendanceConditionInput
+  ) {
+    createChamaMeetingAttendance(input: $input, condition: $condition) {
+      id
+      minutesId
+      grpContact
+      memberName
+      memberEmail
+      attendanceStatus
+      markedBy
+      markedAt
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateChamaMeetingAttendance = /* GraphQL */ `
+  mutation UpdateChamaMeetingAttendance(
+    $input: UpdateChamaMeetingAttendanceInput!
+    $condition: ModelChamaMeetingAttendanceConditionInput
+  ) {
+    updateChamaMeetingAttendance(input: $input, condition: $condition) {
+      id
+      minutesId
+      grpContact
+      memberName
+      memberEmail
+      attendanceStatus
+      markedBy
+      markedAt
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteChamaMeetingAttendance = /* GraphQL */ `
+  mutation DeleteChamaMeetingAttendance(
+    $input: DeleteChamaMeetingAttendanceInput!
+    $condition: ModelChamaMeetingAttendanceConditionInput
+  ) {
+    deleteChamaMeetingAttendance(input: $input, condition: $condition) {
+      id
+      minutesId
+      grpContact
+      memberName
+      memberEmail
+      attendanceStatus
+      markedBy
+      markedAt
+      createdAt
+      updatedAt
       __typename
     }
   }

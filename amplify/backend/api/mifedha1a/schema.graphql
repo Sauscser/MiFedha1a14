@@ -2645,6 +2645,8 @@ type Group
   status: Status!
   owner: String!
   createdAt: String!
+  chairSign: String
+  secSign: String
 }
 
 type ChamaMembers
@@ -3682,6 +3684,100 @@ type combPersonel
  
 }
 
+type ChamaMinutes @model 
+@auth(
+    rules: [
+      { allow: private, operations: [read, update, create, delete] }
+    ])
+    
+    {
+  id: ID!
+
+  grpContact: ID!
+    @index(
+      name: "byChamaMinutes"
+      sortKeyFields: ["createdAt"]
+      queryField: "listMinutesByChama"
+    )
+
+  sittingNumber: Int!
+
+  meetingDate: AWSDate!
+  venue: String
+
+  status: MinutesStatus!
+
+  secretaryId: ID!
+  chairpersonId: ID!
+
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime
+}
+
+type ChamaMinutesItem @model 
+
+@auth(
+    rules: [
+      { allow: private, operations: [read, update, create, delete] }
+    ]){
+  id: ID!
+
+  minutesId: ID!
+    @index(
+      name: "byMinutesItems"
+      sortKeyFields: ["entryOrder"]
+      queryField: "listMinuteItemsByMinutes"
+    )
+
+  entryOrder: Int!        # System-controlled (1–20)
+  minuteRef: String!     # Secretary-entered (AK234, MIN/07/2026/04)
+
+  title: String!
+  content: String!
+  decision: String
+
+  relatedEntityId: ID
+
+  createdAt: AWSDateTime!
+}
+
+type ChamaMeetingAttendance @model 
+@auth(
+    rules: [
+      { allow: private, operations: [read, update, create, delete] }
+    ]){
+  id: ID!
+
+  minutesId: ID!
+    @index(
+      name: "byMinutesAttendance"
+      sortKeyFields: ["memberName"]
+      queryField: "listAttendanceByMinutes"
+    )
+
+  grpContact: ID!
+
+  memberName: String!
+  memberEmail: String!
+
+  attendanceStatus: AttendanceStatus!
+
+  markedBy: ID
+  markedAt: AWSDateTime!
+}
+
+
+enum MinutesStatus {
+  DRAFT
+  FINALIZED
+  LOCKED
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  APOLOGY
+}
 enum PriceFlag {
   NORMAL
   ABOVE_REFERENCE

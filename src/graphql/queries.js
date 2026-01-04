@@ -3335,6 +3335,8 @@ export const getGroup = /* GraphQL */ `
       status
       owner
       createdAt
+      chairSign
+      secSign
       updatedAt
       __typename
     }
@@ -3439,6 +3441,8 @@ export const listGroups = /* GraphQL */ `
         status
         owner
         createdAt
+        chairSign
+        secSign
         updatedAt
         __typename
       }
@@ -4894,6 +4898,140 @@ export const listCombPersonels = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getChamaMinutes = /* GraphQL */ `
+  query GetChamaMinutes($id: ID!) {
+    getChamaMinutes(id: $id) {
+      id
+      grpContact
+      sittingNumber
+      meetingDate
+      venue
+      status
+      secretaryId
+      chairpersonId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listChamaMinutes = /* GraphQL */ `
+  query ListChamaMinutes(
+    $filter: ModelChamaMinutesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listChamaMinutes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        grpContact
+        sittingNumber
+        meetingDate
+        venue
+        status
+        secretaryId
+        chairpersonId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getChamaMinutesItem = /* GraphQL */ `
+  query GetChamaMinutesItem($id: ID!) {
+    getChamaMinutesItem(id: $id) {
+      id
+      minutesId
+      entryOrder
+      minuteRef
+      title
+      content
+      decision
+      relatedEntityId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listChamaMinutesItems = /* GraphQL */ `
+  query ListChamaMinutesItems(
+    $filter: ModelChamaMinutesItemFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listChamaMinutesItems(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        minutesId
+        entryOrder
+        minuteRef
+        title
+        content
+        decision
+        relatedEntityId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getChamaMeetingAttendance = /* GraphQL */ `
+  query GetChamaMeetingAttendance($id: ID!) {
+    getChamaMeetingAttendance(id: $id) {
+      id
+      minutesId
+      grpContact
+      memberName
+      memberEmail
+      attendanceStatus
+      markedBy
+      markedAt
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listChamaMeetingAttendances = /* GraphQL */ `
+  query ListChamaMeetingAttendances(
+    $filter: ModelChamaMeetingAttendanceFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listChamaMeetingAttendances(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        minutesId
+        grpContact
+        memberName
+        memberEmail
+        attendanceStatus
+        markedBy
+        markedAt
+        createdAt
+        updatedAt
         __typename
       }
       nextToken
@@ -7313,6 +7451,8 @@ export const VwNatIdentitysz = /* GraphQL */ `
         status
         owner
         createdAt
+        chairSign
+        secSign
         updatedAt
         __typename
       }
@@ -7422,6 +7562,8 @@ export const ViaChmArea = /* GraphQL */ `
         status
         owner
         createdAt
+        chairSign
+        secSign
         updatedAt
         __typename
       }
@@ -7531,6 +7673,8 @@ export const ViaChmVenture = /* GraphQL */ `
         status
         owner
         createdAt
+        chairSign
+        secSign
         updatedAt
         __typename
       }
@@ -9041,6 +9185,111 @@ export const BusOwnrVwWrkrss2 = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const listMinutesByChama = /* GraphQL */ `
+  query ListMinutesByChama(
+    $grpContact: ID!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelChamaMinutesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMinutesByChama(
+      grpContact: $grpContact
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        grpContact
+        sittingNumber
+        meetingDate
+        venue
+        status
+        secretaryId
+        chairpersonId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const listMinuteItemsByMinutes = /* GraphQL */ `
+  query ListMinuteItemsByMinutes(
+    $minutesId: ID!
+    $entryOrder: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelChamaMinutesItemFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMinuteItemsByMinutes(
+      minutesId: $minutesId
+      entryOrder: $entryOrder
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        minutesId
+        entryOrder
+        minuteRef
+        title
+        content
+        decision
+        relatedEntityId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const listAttendanceByMinutes = /* GraphQL */ `
+  query ListAttendanceByMinutes(
+    $minutesId: ID!
+    $memberName: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelChamaMeetingAttendanceFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAttendanceByMinutes(
+      minutesId: $minutesId
+      memberName: $memberName
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        minutesId
+        grpContact
+        memberName
+        memberEmail
+        attendanceStatus
+        markedBy
+        markedAt
+        createdAt
+        updatedAt
         __typename
       }
       nextToken

@@ -4578,6 +4578,8 @@ export const onCreateGroup = /* GraphQL */ `
       status
       owner
       createdAt
+      chairSign
+      secSign
       updatedAt
       __typename
     }
@@ -4672,6 +4674,8 @@ export const onUpdateGroup = /* GraphQL */ `
       status
       owner
       createdAt
+      chairSign
+      secSign
       updatedAt
       __typename
     }
@@ -4766,6 +4770,8 @@ export const onDeleteGroup = /* GraphQL */ `
       status
       owner
       createdAt
+      chairSign
+      secSign
       updatedAt
       __typename
     }
@@ -6810,6 +6816,177 @@ export const onDeleteCombPersonel = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+      __typename
+    }
+  }
+`;
+export const onCreateChamaMinutes = /* GraphQL */ `
+  subscription OnCreateChamaMinutes(
+    $filter: ModelSubscriptionChamaMinutesFilterInput
+  ) {
+    onCreateChamaMinutes(filter: $filter) {
+      id
+      grpContact
+      sittingNumber
+      meetingDate
+      venue
+      status
+      secretaryId
+      chairpersonId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateChamaMinutes = /* GraphQL */ `
+  subscription OnUpdateChamaMinutes(
+    $filter: ModelSubscriptionChamaMinutesFilterInput
+  ) {
+    onUpdateChamaMinutes(filter: $filter) {
+      id
+      grpContact
+      sittingNumber
+      meetingDate
+      venue
+      status
+      secretaryId
+      chairpersonId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteChamaMinutes = /* GraphQL */ `
+  subscription OnDeleteChamaMinutes(
+    $filter: ModelSubscriptionChamaMinutesFilterInput
+  ) {
+    onDeleteChamaMinutes(filter: $filter) {
+      id
+      grpContact
+      sittingNumber
+      meetingDate
+      venue
+      status
+      secretaryId
+      chairpersonId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateChamaMinutesItem = /* GraphQL */ `
+  subscription OnCreateChamaMinutesItem(
+    $filter: ModelSubscriptionChamaMinutesItemFilterInput
+  ) {
+    onCreateChamaMinutesItem(filter: $filter) {
+      id
+      minutesId
+      entryOrder
+      minuteRef
+      title
+      content
+      decision
+      relatedEntityId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateChamaMinutesItem = /* GraphQL */ `
+  subscription OnUpdateChamaMinutesItem(
+    $filter: ModelSubscriptionChamaMinutesItemFilterInput
+  ) {
+    onUpdateChamaMinutesItem(filter: $filter) {
+      id
+      minutesId
+      entryOrder
+      minuteRef
+      title
+      content
+      decision
+      relatedEntityId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteChamaMinutesItem = /* GraphQL */ `
+  subscription OnDeleteChamaMinutesItem(
+    $filter: ModelSubscriptionChamaMinutesItemFilterInput
+  ) {
+    onDeleteChamaMinutesItem(filter: $filter) {
+      id
+      minutesId
+      entryOrder
+      minuteRef
+      title
+      content
+      decision
+      relatedEntityId
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateChamaMeetingAttendance = /* GraphQL */ `
+  subscription OnCreateChamaMeetingAttendance(
+    $filter: ModelSubscriptionChamaMeetingAttendanceFilterInput
+  ) {
+    onCreateChamaMeetingAttendance(filter: $filter) {
+      id
+      minutesId
+      grpContact
+      memberName
+      memberEmail
+      attendanceStatus
+      markedBy
+      markedAt
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateChamaMeetingAttendance = /* GraphQL */ `
+  subscription OnUpdateChamaMeetingAttendance(
+    $filter: ModelSubscriptionChamaMeetingAttendanceFilterInput
+  ) {
+    onUpdateChamaMeetingAttendance(filter: $filter) {
+      id
+      minutesId
+      grpContact
+      memberName
+      memberEmail
+      attendanceStatus
+      markedBy
+      markedAt
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteChamaMeetingAttendance = /* GraphQL */ `
+  subscription OnDeleteChamaMeetingAttendance(
+    $filter: ModelSubscriptionChamaMeetingAttendanceFilterInput
+  ) {
+    onDeleteChamaMeetingAttendance(filter: $filter) {
+      id
+      minutesId
+      grpContact
+      memberName
+      memberEmail
+      attendanceStatus
+      markedBy
+      markedAt
+      createdAt
+      updatedAt
       __typename
     }
   }
