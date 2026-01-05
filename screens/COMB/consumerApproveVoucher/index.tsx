@@ -185,7 +185,8 @@ const expiry =
     if (voucher.consumptionMarginStatus === 'Active' && expiry > now)
       {
        await API.graphql(graphqlOperation(updateCombContractVoucher, {
-      input: { id: voucher.id, accStatus: status, voucherLastUpdate: now, settlementTime: new Date().toISOString() },
+      input: { id: voucher.id, accStatus: status, 
+        voucherLastUpdate: now, settlementTime: new Date().toISOString() },
     }));
 
     if (voucher.sellerEmail) {

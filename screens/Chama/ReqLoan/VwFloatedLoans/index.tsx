@@ -89,14 +89,7 @@ const FloatedLoansList = () => {
               </TouchableOpacity>
             )}
 
-            {loan.grpMinutes && loan.grpMinutes !== 'NoMinutesProvided' && (
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => readWrittenMinutes(loan.grpMinutes)}
-              >
-                <Text style={styles.buttonText}>Read Written Minutes</Text>
-              </TouchableOpacity>
-            )}
+           
 
             <TouchableOpacity
               style={[styles.button, { backgroundColor: 'skyblue' }]}

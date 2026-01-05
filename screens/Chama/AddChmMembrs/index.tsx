@@ -114,6 +114,11 @@
           graphqlOperation(getSMAccount, { awsemail: userInfo.attributes.email })
         );
 
+        const adminDtls = adminAccount.data.getSMAccount;
+
+        if (adminDtls.pw !== pword) {Alert.alert('Incorrect password password'); 
+          setIsLoading(false); return; }
+
         const memberDtls: any = await API.graphql(
           graphqlOperation(getSMAccount, { awsemail: phoneContacts })
         );
@@ -149,7 +154,7 @@
           timeCrtd: Date.now().toString(),
           subscribedAmt: 0,
           groupName: group.grpName,
-          memberName: '', // Optional: fetch from member account if needed
+          memberName: membaDtls.name, // Optional: fetch from member account if needed
           AcStatus: 'AccountActive',
           loanStatus: 'NoLoan',
           blStatus: 'AccountNotBL',

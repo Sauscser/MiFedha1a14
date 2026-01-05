@@ -97,7 +97,7 @@ const FetchSMCovLns = () => {
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <Text style={styles.headerText}>
-            Select Group to Request Loan
+            Select Group to Approve Loan
           </Text>
         }
       />
