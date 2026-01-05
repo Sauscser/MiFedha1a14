@@ -99,6 +99,16 @@ const CreateBiz = () => {
         return;
       }
 
+      if (minutes.status !== "FINALIZED") {
+        Alert.alert('The secretary has not yet signed these minutes');
+        return;
+      }
+      
+      if (minutes.status !== "LOCKED") {
+        Alert.alert('The chair has not yet signed these minutes');
+        return;
+      }
+
       const [itemsRes, attendanceRes] = await Promise.all([
         API.graphql(graphqlOperation(listMinuteItemsByMinutes, { minutesId: minutes.id })),
         API.graphql(graphqlOperation(listAttendanceByMinutes, { minutesId: minutes.id })),

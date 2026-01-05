@@ -123,7 +123,7 @@ const MinutesCreationScreen = ({ userEmail }) => {
         sittingNumber,
         meetingDate: meetingDate.toISOString().split("T")[0],
         venue,
-        status: "LOCKED",
+        status: "DRAFT",
         chairpersonId: groupDetails.chairSign || "N/A",
         secretaryId: groupDetails.secSign || "N/A"
       };
@@ -241,12 +241,7 @@ const MinutesCreationScreen = ({ userEmail }) => {
             placeholder="Enter venue"
           />
 
-          <Text style={styles.header}>Chairperson & Secretary Signatures</Text>
-          <Text>Chairperson:</Text>
-          {chairSignUrl ? <Image source={{ uri: chairSignUrl }} style={styles.signature} /> : <Text>No chair signature yet</Text>}
-          <Text>Secretary:</Text>
-          {secSignUrl ? <Image source={{ uri: secSignUrl }} style={styles.signature} /> : <Text>No secretary signature yet</Text>}
-
+         
           <Text style={styles.header}>Minutes Entries</Text>
           {minutesEntries.map((entry, idx) => (
             <View key={idx} style={styles.entryContainer}>
