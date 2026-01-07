@@ -150,6 +150,9 @@ export const createSMAccount = /* GraphQL */ `
       owner
       createdAt
       beneficiaryType
+      photoPassport
+      idFront
+      idBack
       updatedAt
       __typename
     }
@@ -291,6 +294,9 @@ export const updateSMAccount = /* GraphQL */ `
       owner
       createdAt
       beneficiaryType
+      photoPassport
+      idFront
+      idBack
       updatedAt
       __typename
     }
@@ -432,6 +438,9 @@ export const deleteSMAccount = /* GraphQL */ `
       owner
       createdAt
       beneficiaryType
+      photoPassport
+      idFront
+      idBack
       updatedAt
       __typename
     }

@@ -41,9 +41,9 @@ const VoucherCard = ({ voucher, onApprove, onDecline, updatingId }: any) => {
       <Text>Seller Name: {voucher.sellerName}</Text>
       <Text>Seller Contact: {voucher.sellerContact}</Text>
 
-      <Text>Seller Deviation: {Number(voucher.priceDeviation)} | Policy: {voucher.marketConsumptionPrice?.toFixed(2)}%</Text>
-      <Text>MiFedha Market Deviation: {Number(voucher.referencePrice)} | Policy: {voucher.marketConsumptionFrequency}%</Text>
-      <Text>General Market Price Deviation: {Number(voucher.generalPriceDev)} | Policy: {voucher.marketConsumptionTotal}%</Text>
+      <Text>Seller Deviation: {Number(voucher.priceDeviation).toFixed(2)} | Policy: {voucher.marketConsumptionPrice?.toFixed(2)}%</Text>
+      <Text>MiFedha Market Deviation: {Number(voucher.referencePrice).toFixed(2)} | Policy: {voucher.marketConsumptionFrequency}%</Text>
+      <Text>General Market Price Deviation: {Number(voucher.generalPriceDev).toFixed(2)} | Policy: {voucher.marketConsumptionTotal}%</Text>
 
       <Text>Status: {voucher.accStatus}</Text>
 
@@ -176,7 +176,7 @@ const expiry =
           body: 'Voucher approval window closed.' 
         }));
 
-        Alert.alert("Voucher approval window closed")
+        Alert.alert("Declined! Voucher approval window closed.")
         console.log(now)
       }
       return;

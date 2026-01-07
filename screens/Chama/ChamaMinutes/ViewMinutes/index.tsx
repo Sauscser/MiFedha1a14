@@ -137,52 +137,58 @@ const ViewMinutesScreen = ({ route }) => {
     }
   };
 
-  const signAsChair = async (min: any) => {
-    try {
-      const user = await Auth.currentAuthenticatedUser();
-      const email = user.attributes.email;
-
-      const groupRes: any = await API.graphql(
-        graphqlOperation(getGroup, { grpContact: min.grpContact })
-      );
-      const group = groupRes?.data?.getGroup;
-      if (!group) {
-        Alert.alert("Error", "Group not found");
-        return;
-      }
-
-      if (group.Admin1 !== email) {
-        Alert.alert("Not authorized", "Only the chair can sign.");
-        return;
-      }
-
-      await API.graphql(
-        graphqlOperation(updateChamaMinutes, {
-          input: {
-            id: min.id,
-            status: "LOCKED",
-            chairpersonId: group.chairSign, // pick signature id from group
-          },
-        })
-      );
-
-      const chairSignUrl = group.chairSign ? await Storage.get(group.chairSign) : null;
-
-      // Update local state immediately
-      setMinutesList((prev) =>
-        prev.map((m) =>
-          m.id === min.id
-            ? { ...m, status: "LOCKED", chairpersonId: group.chairSign, chairSignUrl }
-            : m
-        )
-      );
-
-      Alert.alert("Signed", "Minutes locked by chair.");
-    } catch (err) {
-      console.error(err);
-      Alert.alert("Error", "Unable to sign as chair.");
+ const signAsChair = async (min: any) => {
+  try {
+    // ✅ Check if secretary has signed first
+    if (min.status !== "FINALIZED") {
+      Alert.alert("Not allowed", "Secretary must sign first.");
+      return;
     }
-  };
+
+    const user = await Auth.currentAuthenticatedUser();
+    const email = user.attributes.email;
+
+    const groupRes: any = await API.graphql(
+      graphqlOperation(getGroup, { grpContact: min.grpContact })
+    );
+    const group = groupRes?.data?.getGroup;
+    if (!group) {
+      Alert.alert("Error", "Group not found");
+      return;
+    }
+
+    if (group.Admin1 !== email) {
+      Alert.alert("Not authorized", "Only the chair can sign.");
+      return;
+    }
+
+    await API.graphql(
+      graphqlOperation(updateChamaMinutes, {
+        input: {
+          id: min.id,
+          status: "LOCKED",
+          chairpersonId: group.chairSign,
+        },
+      })
+    );
+
+    const chairSignUrl = group.chairSign ? await Storage.get(group.chairSign) : null;
+
+    setMinutesList((prev) =>
+      prev.map((m) =>
+        m.id === min.id
+          ? { ...m, status: "LOCKED", chairpersonId: group.chairSign, chairSignUrl }
+          : m
+      )
+    );
+
+    Alert.alert("Signed", "Minutes locked by chair.");
+  } catch (err) {
+    console.error(err);
+    Alert.alert("Error", "Unable to sign as chair.");
+  }
+};
+
 
   /* =========================
      PDF EXPORT

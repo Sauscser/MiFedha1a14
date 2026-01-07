@@ -71,6 +71,9 @@ const AdminClearLoans = () => {
   // Minutes selection
   const [selectedMinutes, setSelectedMinutes] = useState<any | null>(null);
 
+  // Identification image URLs for export
+  const [photoUrls, setPhotoUrls] = useState<{ passport?: string; idFront?: string; idBack?: string }>({});
+
   // Fetch admin groups
   useEffect(() => {
     const fetchAdminGroups = async () => {
@@ -183,6 +186,35 @@ const AdminClearLoans = () => {
       Alert.alert('Error', 'Failed to fetch minutes');
     } finally {
       setLoadingMinutes(false);
+    }
+  };
+
+  // Fetch identification images for the loanee (passport, ID front, ID back)
+  const fetchLoaneePhotos = async (loaneeEmail: string) => {
+    try {
+      const smRes: any = await API.graphql(
+        graphqlOperation(listSMAccounts, { filter: { awsemail: { eq: loaneeEmail } } })
+      );
+      const sm = smRes?.data?.listSMAccounts?.items?.[0];
+      if (!sm) {
+        setPhotoUrls({});
+        return;
+      }
+
+      const urls: { passport?: string; idFront?: string; idBack?: string } = {};
+      if (sm.photoPassport && sm.photoPassport !== 'None') {
+        urls.passport = await Storage.get(sm.photoPassport);
+      }
+      if (sm.idFront && sm.idFront !== 'None') {
+        urls.idFront = await Storage.get(sm.idFront);
+      }
+      if (sm.idBack && sm.idBack !== 'None') {
+        urls.idBack = await Storage.get(sm.idBack);
+      }
+      setPhotoUrls(urls);
+    } catch (err) {
+      console.error('Error fetching loanee photos:', err);
+      setPhotoUrls({});
     }
   };
 
@@ -447,7 +479,7 @@ const AdminClearLoans = () => {
     }
   };
 
-  // Export full loan report (uses only existing fields)
+  // Export full loan report (original details preserved) + Identification images added with ample space
   const exportLoanReportToPDF = async () => {
     if (!selectedLoan) {
       Alert.alert('Missing loan', 'Select a loan and prepare its report first');
@@ -470,6 +502,10 @@ const AdminClearLoans = () => {
           th, td { border: 1px solid #ddd; padding: 6px; }
           .signatures { margin-top: 24px; display: flex; justify-content: space-between; }
           img { max-height: 80px; }
+          .id-section { display:flex; gap:40px; margin-top:20px; }
+          .passport { border:3px solid #e29d58; border-radius:90px; overflow:hidden; width:180px; height:180px; }
+          .id { border:2px solid #e29d58; border-radius:10px; width:240px; height:150px; overflow:hidden; }
+          .id img, .passport img { width:100%; height:100%; object-fit:contain; }
         </style></head>
         <body>
           <h1>${selectedGroup?.grpName} — Full Loan Report</h1>
@@ -485,8 +521,14 @@ const AdminClearLoans = () => {
           <p><strong>Default Penalty:</strong> ${selectedLoan.defaultPenalty}</p>
           <p><strong>Description:</strong> ${selectedLoan.description || "-"}</p>
           <p><strong>Owner:</strong> ${selectedLoan.owner}</p>
-          
           ${selectedLoan.AdvEmail && selectedLoan.AdvEmail !== 'None' ? `<p><strong>Advocate:</strong> ${selectedLoan.advLicNo}</p>` : ""}
+
+          <h2>Identification</h2>
+          <div class="id-section">
+            ${photoUrls.passport ? `<div class="passport"><img src="${photoUrls.passport}" /></div>` : ""}
+            ${photoUrls.idFront ? `<div class="id"><img src="${photoUrls.idFront}" /></div>` : ""}
+            ${photoUrls.idBack ? `<div class="id"><img src="${photoUrls.idBack}" /></div>` : ""}
+          </div>
 
           <h2>Approvals</h2>
           <p>${selectedLoan.membersApprove}/${groupSize} approvals (${groupSize > 0 ? Math.round((selectedLoan.membersApprove/groupSize)*100) : 0}%)</p>
@@ -516,7 +558,7 @@ const AdminClearLoans = () => {
           <p>Group liquidity: ${creditInfo?.L_group}</p>
           <p>Global Liquidity: ${creditInfo?.L_global}</p>
           <p>Group Exposure Ratio: ${creditInfo?.E_group}</p>
-          <p>Global Exposure ration: ${creditInfo?.E_global}</p>
+          <p>Global Exposure ratio: ${creditInfo?.E_global}</p>
           <p>Group repayment strength: ${creditInfo?.R_group}</p>
           <p>Global Repayment strength: ${creditInfo?.R_global}</p>
           <p>Group community support: ${creditInfo?.S_group}</p>
@@ -526,14 +568,7 @@ const AdminClearLoans = () => {
           <p>Group composite component score: ${creditInfo?.C_group}</p>
           <p>Global composite score: ${creditInfo?.C_global}</p>
 
-          <h2>Minutes</h2>
-<div style="padding:16px; border:1px solid #ddd; border-radius:8px; background:#fafafa;">
-  <h3 style="color:#e29d58;">${selectedGroup?.grpName} — Official Minutes</h3>
-  <p><strong>Date:</strong> ${minutes?.meetingDate || "-"}</p>
-  <p><strong>Venue:</strong> ${minutes?.venue || "-"}</p>
-  <p><strong>Attendance:</strong> ${(minutes?.attendance || []).filter(a => a.attendanceStatus === "PRESENT").length}</p>
-
- 
+          
         </body>
         </html>
       `;
@@ -551,17 +586,16 @@ const AdminClearLoans = () => {
       fetchApprovingMembers(loan.id),
       fetchMinutesForLoan(loan),
       fetchMemberCredit(loan.loaneeEmail, loan.loaneeName),
+      fetchLoaneePhotos(loan.loaneeEmail),
     ]);
   };
 
-
-    return (
+  return (
     <ScrollView contentContainerStyle={{ padding: 16 }}>
       {/* Header with two export buttons */}
       <View style={styles.headerRow}>
         <Text style={styles.header}>Select a Group</Text>
         <View style={styles.exportRow}>
-          
           <TouchableOpacity
             style={styles.exportBtnLoan}
             onPress={exportLoanReportToPDF}
@@ -920,7 +954,6 @@ const AdminClearLoans = () => {
 };
 
 export default AdminClearLoans;
-
 
 const styles = StyleSheet.create({
   // Header + export controls

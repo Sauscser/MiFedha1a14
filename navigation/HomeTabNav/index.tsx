@@ -622,7 +622,7 @@ import CreateCOMBContract from "../../screens/COMB/CreateCOMBContract";
 import Vw2LinkSeller from "../../screens/COMB/Vw2LinkSeller";
 import Vw2GenerateVoucher from "../../screens/COMB/Vw2GenerateVoucher";
 import consumerApproveVoucher from "../../screens/COMB/consumerApproveVoucher";
-import FunderClearBill from "../../screens/Chama/ReqLoan/Vw2FloatGrpLoans";
+import FunderClearBill from "../../screens/COMB/FunderClearBill";
 
 import Vw2FloatGrpLoans from "../../screens/Chama/ReqLoan/Vw2FloatGrpLoans";
 import FloatLnReq from "../../screens/Chama/ReqLoan/FloatLnReq";

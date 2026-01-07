@@ -19,6 +19,24 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 
+  termsContainer: {
+  maxHeight: 300,          // 👈 key line (adjust if needed)
+  marginBottom: 15,
+  paddingRight: 5,
+},
+
+
+
+
+
+buttonText: {
+  fontWeight: '600',
+},
+
+
+
+
+
   prodName: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -61,10 +79,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
+  
 });
 
 export default styles;

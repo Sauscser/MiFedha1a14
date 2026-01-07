@@ -124,8 +124,8 @@ const MinutesCreationScreen = ({ userEmail }) => {
         meetingDate: meetingDate.toISOString().split("T")[0],
         venue,
         status: "DRAFT",
-        chairpersonId: groupDetails.chairSign || "N/A",
-        secretaryId: groupDetails.secSign || "N/A"
+        chairpersonId:  "N/A",
+        secretaryId:  "N/A"
       };
 
       const minutesRes = await API.graphql(graphqlOperation(createChamaMinutes, { input: minutesInput }));

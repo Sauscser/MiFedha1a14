@@ -110,26 +110,42 @@ const ItemCard = ({
 
   return (
     <View style={styles.card}>
+      {/* Item Info */}
       <Text style={{ fontWeight: 'bold' }}>
         {item.sokoname} ({item.itemBrand})
       </Text>
       <Text>Unit: {item.itemUnit}</Text>
       <Text>Item Price: {priceNum}</Text>
 
+      {/* Deviation Section */}
       {loadingAlert ? (
         <ActivityIndicator style={{ marginVertical: 6 }} />
       ) : alert && parent ? (
         <>
           <Text>Seller Avg: {alert.avgItemPrice.toFixed(2)}</Text>
-          <Text>
-            Seller Dev: {alert.itemDeviation.toFixed(2)}% | Funder Policy: {parent.marketConsumptionPrice}%
+          <Text
+            style={{
+              color:
+                Math.abs(alert.itemDeviation) > alert.allowedMargin
+                  ? '#f44336'
+                  : '#4caf50',
+            }}
+          >
+            Seller Deviation: {alert.itemDeviation.toFixed(2)}% | Policy Margin: {parent.marketConsumptionPrice}%
           </Text>
-          <Text>Market Avg: {alert.avgCategoryPrice.toFixed(2)}</Text>
-          <Text>
-            Market Dev: {alert.categoryDeviation.toFixed(2)}% | Funder Policy: {parent.marketConsumptionFrequency}%
+
+          <Text>Market Avg (All Sellers): {alert.avgCategoryPrice.toFixed(2)}</Text>
+          <Text
+            style={{
+              color:
+                Math.abs(alert.categoryDeviation) > alert.allowedMargin
+                  ? '#f44336'
+                  : '#4caf50',
+            }}
+          >
+            MiFedha Market Deviation: {alert.categoryDeviation.toFixed(2)}% | Policy Frequency: {parent.marketConsumptionFrequency}%
           </Text>
-          <Text>Status: {alert.consumptionMarginStatus}</Text>
-          <Text>Flag: {alert.priceFlag}</Text>
+
           <Text
             style={{
               color:
@@ -138,15 +154,22 @@ const ItemCard = ({
                   : '#4caf50',
             }}
           >
-            Other Market Dev: {alert.generalPriceDev.toFixed(2)}% | Funder Policy: {parent.marketConsumptionTotal}%
+            Reference Price Deviation: {alert.generalPriceDev.toFixed(2)}% | Policy Total: {parent.marketConsumptionTotal}%
           </Text>
+
+          <Text>Status: {alert.consumptionMarginStatus}</Text>
+          <Text>Flag: {alert.priceFlag}</Text>
         </>
       ) : (
-        <TouchableOpacity onPress={runDeviationCheck} style={[styles.qtyBtn, { marginVertical: 6 }]}>
+        <TouchableOpacity
+          onPress={runDeviationCheck}
+          style={[styles.qtyBtn, { marginVertical: 6 }]}
+        >
           <Text>Check Deviations</Text>
         </TouchableOpacity>
       )}
 
+      {/* Quantity + Add to Voucher */}
       <View style={{ flexDirection: 'row', marginTop: 6, alignItems: 'center' }}>
         <TouchableOpacity
           onPress={() =>
@@ -182,26 +205,74 @@ const ItemCard = ({
   );
 };
 
+
 /* -------------------- Voucher Cart Card -------------------- */
 const VoucherCartCard = ({
   item,
   quantity,
   onUpdateQuantity,
   onRemove,
+  alert,
+  parent,
 }: {
   item: SokoItem;
   quantity: number;
   onUpdateQuantity: (id: string, qty: number) => void;
   onRemove: (id: string) => void;
+  alert?: PriceAlert | null;   // add alert info
+  parent?: any;                // add parent contract for policy values
 }) => {
   const priceNum = Number(item.sokoprice) || 0;
+
   return (
     <View style={styles.voucherCard}>
+      {/* Basic Item Info */}
       <Text style={{ fontWeight: 'bold' }}>{item.sokoname}</Text>
       <Text>{item.itemBrand}</Text>
       <Text>Unit: KES {priceNum.toFixed(2)}</Text>
       <Text>Total: KES {(priceNum * quantity).toFixed(2)}</Text>
 
+      {/* Deviation Info if available */}
+      {alert && parent && (
+        <View style={{ marginTop: 6 }}>
+          <Text>Seller Avg: {alert.avgItemPrice.toFixed(2)}</Text>
+          <Text
+            style={{
+              color:
+                Math.abs(alert.itemDeviation) > alert.allowedMargin
+                  ? '#f44336'
+                  : '#4caf50',
+            }}
+          >
+            Seller Deviation: {alert.itemDeviation.toFixed(2)}% | Policy Margin: {parent.marketConsumptionPrice}%
+          </Text>
+
+          <Text>Market Avg (All Sellers): {alert.avgCategoryPrice.toFixed(2)}</Text>
+          <Text
+            style={{
+              color:
+                Math.abs(alert.categoryDeviation) > alert.allowedMargin
+                  ? '#f44336'
+                  : '#4caf50',
+            }}
+          >
+            MiFedha Market Deviation: {alert.categoryDeviation.toFixed(2)}% | Policy Frequency: {parent.marketConsumptionFrequency}%
+          </Text>
+
+          <Text
+            style={{
+              color:
+                Math.abs(alert.generalPriceDev) > Number(item.sokolnprcntg ?? 15)
+                  ? '#f44336'
+                  : '#4caf50',
+            }}
+          >
+            Reference Price Deviation: {alert.generalPriceDev.toFixed(2)}% | Policy Total: {parent.marketConsumptionTotal}%
+          </Text>
+        </View>
+      )}
+
+      {/* Quantity Controls */}
       <View style={{ flexDirection: 'row', marginTop: 6, alignItems: 'center' }}>
         <TouchableOpacity
           onPress={() => onUpdateQuantity(item.id, Math.max(1, quantity - 1))}
@@ -226,6 +297,7 @@ const VoucherCartCard = ({
     </View>
   );
 };
+
 
 /* -------------------- Main Screen -------------------- */
 const SellerConsumablesVoucherScreen = () => {
@@ -312,54 +384,70 @@ const SellerConsumablesVoucherScreen = () => {
   }, [allItems, debouncedFilters]);
 
   /* ---------------- Price Analysis + Caching ---------------- */
-  const getPriceAlert = useCallback(async (item: SokoItem): Promise<PriceAlert> => {
-    const priceNum = Number(item.sokoprice) || 0;
-    const allowedMargin = Number(item.sokolnprcntg ?? 15);
-    const itemSpecs = item.itemSpecifications || '';
+ const getPriceAlert = useCallback(async (item: SokoItem, parent: any): Promise<PriceAlert> => {
+  const priceNum = Number(item.sokoprice) || 0;
+  const allowedMargin = Number(item.sokolnprcntg ?? 15);
+  const itemSpecs = item.itemSpecifications || '';
 
-    // Seller Average (historical for this item)
-    const sellerRes: any = await API.graphql(
-      graphqlOperation(listMarketConsumptions, { filter: { marketItemID: { eq: item.id } } })
-    );
-    const sellerItems = sellerRes?.data?.listMarketConsumptions?.items || [];
-    const sellerAvg = sellerItems.length
-      ? sellerItems.reduce((sum: number, i: any) => sum + Number(i.price || 0), 0) / sellerItems.length
-      : priceNum;
-    const sellerDeviation = sellerAvg > 0 ? ((priceNum - sellerAvg) / sellerAvg) * 100 : 0;
+  /* -------- Seller Deviation (own history) -------- */
+  const sellerRes: any = await API.graphql(
+    graphqlOperation(listMarketConsumptions, {
+      filter: {
+        marketItemID: { eq: item.id }
+      },
+    })
+  );
+  const sellerItems = sellerRes?.data?.listMarketConsumptions?.items || [];
+  const sellerAvg = sellerItems.length
+    ? sellerItems.reduce((sum: number, i: any) => sum + Number(i.price || 0), 0) / sellerItems.length
+    : priceNum;
+  const sellerDeviation = sellerAvg > 0 ? ((priceNum - sellerAvg) / sellerAvg) * 100 : 0;
 
-    // Market Average (same name/brand/specs)
-    const marketRes: any = await API.graphql(
-      graphqlOperation(listMarketConsumptions, {
-        filter: { sokoname: { eq: item.sokoname }, itemBrand: { eq: item.itemBrand }, itemSpecifications: { eq: itemSpecs } }
-      })
-    );
-    const marketItems = marketRes?.data?.listMarketConsumptions?.items || [];
-    const marketAvg = marketItems.length
-      ? marketItems.reduce((sum: number, i: any) => sum + Number(i.price || 0), 0) / marketItems.length
-      : sellerAvg;
-    const marketDeviation = marketAvg > 0 ? ((marketAvg - sellerAvg) / sellerAvg) * 100 : 0;
+  /* -------- MiFedha Market Deviation (all sellers) -------- */
+  const marketRes: any = await API.graphql(
+    graphqlOperation(listMarketConsumptions, {
+      filter: {
+        sokoname: { eq: item.sokoname },
+        itemBrand: { eq: item.itemBrand },
+        itemSpecifications: { eq: itemSpecs },
+      },
+    })
+  );
+  const marketItems = marketRes?.data?.listMarketConsumptions?.items || [];
+  const marketAvg = marketItems.length
+    ? marketItems.reduce((sum: number, i: any) => sum + Number(i.price || 0), 0) / marketItems.length
+    : sellerAvg;
+  const marketDeviation = marketAvg > 0 ? ((priceNum - marketAvg) / marketAvg) * 100 : 0;
 
-    // Other Market Deviation (reference averages table)
-    const avgFilter: any = { itemName: { eq: item.sokoname }, itemBrand: { eq: item.itemBrand } };
-    if (itemSpecs) avgFilter.itemSpecs = { eq: itemSpecs };
-    const avgRes: any = await API.graphql(graphqlOperation(listAveragePrices, { filter: avgFilter }));
-    const avgItems = avgRes?.data?.listAveragePrices?.items || [];
-    const referencePrice = avgItems.length
-      ? avgItems.reduce((sum: number, i: any) => sum + Number(i.itemPrice || 0), 0) / avgItems.length
-      : sellerAvg;
-    const otherMarketDeviation = referencePrice > 0 ? ((sellerAvg - referencePrice) / referencePrice) * 100 : 0;
+  /* -------- Reference Deviation (reference table) -------- */
+  const avgFilter: any = {
+    itemName: { eq: item.sokoname },
+    itemBrand: { eq: item.itemBrand },
+  };
+  if (itemSpecs) avgFilter.itemSpecs = { eq: itemSpecs };
 
-    return {
-      avgItemPrice: sellerAvg,
-      itemDeviation: sellerDeviation,
-      allowedMargin,
-      consumptionMarginStatus: sellerDeviation <= allowedMargin ? 'Cleared' : 'NotCleared',
-      priceFlag: sellerDeviation > allowedMargin ? 'ABOVE_REFERENCE' : 'NORMAL',
-      avgCategoryPrice: marketAvg,
-      categoryDeviation: marketDeviation,
-      generalPriceDev: otherMarketDeviation,
-    };
-  }, []);
+  const avgRes: any = await API.graphql(
+    graphqlOperation(listAveragePrices, { filter: avgFilter })
+  );
+  const avgItems = avgRes?.data?.listAveragePrices?.items || [];
+  const referencePrice = avgItems.length
+    ? avgItems.reduce((sum: number, i: any) => sum + Number(i.itemPrice || 0), 0) / avgItems.length
+    : sellerAvg;
+  const referenceDeviation = referencePrice > 0 ? ((priceNum - referencePrice) / referencePrice) * 100 : 0;
+
+  /* -------- Return structured alert -------- */
+  return {
+    avgItemPrice: sellerAvg,
+    itemDeviation: sellerDeviation,          // seller vs own history
+    allowedMargin,
+    consumptionMarginStatus: sellerDeviation <= allowedMargin ? 'Cleared' : 'NotCleared',
+    priceFlag: sellerDeviation > allowedMargin ? 'ABOVE_REFERENCE' : 'NORMAL',
+    avgCategoryPrice: marketAvg,
+    categoryDeviation: marketDeviation,      // seller vs all sellers
+    generalPriceDev: referenceDeviation,     // seller vs reference table
+  };
+}, []);
+
 
   const getPriceAlertCached = useCallback(async (item: SokoItem) => {
     const cached = priceAlerts[item.id];
@@ -465,7 +553,7 @@ const SellerConsumablesVoucherScreen = () => {
               marketConsumptionFrequency: parent.marketConsumptionFrequency,
               marketConsumptionTotal: parent.marketConsumptionTotal,
               priceDeviation: alert.itemDeviation,
-              referencePrice: alert.avgItemPrice,
+              referencePrice: alert.categoryDeviation,
               generalPriceDev: alert.generalPriceDev,
               consumptionCapping: isActiveCap
                 ? Number(parent.consumptionCapping) - Number(v.item.sokoprice) * Number(v.quantity)

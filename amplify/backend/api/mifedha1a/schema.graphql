@@ -194,6 +194,9 @@ benefitsAmount: Float!
   owner: String!
   createdAt: String!
   beneficiaryType: String!
+  photoPassport: String
+  idFront: String
+  idBack: String
  
 
 }

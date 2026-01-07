@@ -1,223 +1,159 @@
-import React from 'react';
-import {View, Text,   ScrollView} from 'react-native';
-
-
-import styles from './styles';
-
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, Image, ActivityIndicator, StyleSheet } from 'react-native';
+import { Storage } from 'aws-amplify';
 
 export interface SMAccount {
-    SMAc: {
-      name: string,
-      balance: number,  
-      loanStatus: string,
-      acStatus: string,
-      blStatus: string, 
-      ttlDpstSM: number,
-      TtlWthdrwnSM: number,
-      ttlNonLonsRecSM: number,
-      ttlNonLonsSentSM:number,
-      benefitsAmount:number,
-      ttlNonLonsRecChm: number,
-      ttlNonLonsSentChm:number,
-    p2pchmBenefits:number,
-      MaxTymsBL: number,
-      
-      
-    
+  SMAc: {
+    name: string;
+    balance: number;
+    ttlDpstSM: number;
+    TtlWthdrwnSM: number;
+    benefitsAmount: number;
+    MaxTymsBL: number;
+    photoPassport?: string; // Amplify Storage key
+    idFront?: string;       // optional S3 key
+    idBack?: string;        // optional S3 key
+  };
+}
 
-      
-    
-    
-      TtlActvLonsTmsLnrCov: number,
-      TtlActvLonsTmsLneeCov: number,
-      TtlActvLonsAmtLnrCov: number,
-      TtlActvLonsAmtLneeCov: number,
-      
-      TtlBLLonsTmsLneeCov: number,
-      
-      TtlBLLonsAmtLneeCov: number,
-      TtlClrdLonsTmsLnrCov: number,
-      TtlClrdLonsTmsLneeCov: number,
-      TtlClrdLonsAmtLnrCov: number,
-      TtlClrdLonsAmtLneeCov: number,
+const SMCvLnStts = (props: SMAccount) => {
+  const {
+    SMAc: { name, balance, ttlDpstSM, TtlWthdrwnSM, benefitsAmount, MaxTymsBL, photoPassport, idFront, idBack },
+  } = props;
 
-      TtlBLLonsTmsLnrCov: number,
-      TtlBLLonsAmtLnrCov: number,
-      TtlBLLonsTmsLnrNonCov: number,
-      TtlBLLonsTmsLneeNonCov: number,
-      
-      TtlActvLonsTmsLneeChmCov: number,
-      TtlActvLonsAmtLneeChmCov: number,
-      TtlBLLonsTmsLneeChmCov: number,
-      TtlBLLonsAmtLneeChmCov: number,
-      TtlClrdLonsTmsLneeChmCov: number,
-      TtlClrdLonsAmtLneeChmCov: number,
-         
-      TtlActvLonsTmsSllrCov: number,
-      TtlActvLonsTmsByrCov: number,
-      TtlActvLonsAmtSllrCov: number,
-      TtlActvLonsAmtByrCov: number,
-      TtlBLLonsTmsSllrCov: number,
-      TtlBLLonsTmsByrCov: number,
-      TtlBLLonsAmtSllrCov: number,
-      TtlBLLonsAmtByrCov: number,
-      TtlClrdLonsTmsSllrCov: number,
-      TtlClrdLonsTmsByrCov: number,
-      TtlClrdLonsAmtSllrCov: number,
-      TtlClrdLonsAmtByrCov: number,
-      
-    
-      TtlActvLonsTmsLnrNonCov: number,
-      TtlActvLonsTmsLneeNonCov: number,
-      TtlActvLonsAmtLnrNonCov: number,
-      TtlActvLonsAmtLneeNonCov: number,
-      
-      TtlBLLonsAmtLnrNonCov: number,
-      TtlBLLonsAmtLneeNonCov: number,
-      TtlClrdLonsTmsLnrNonCov: number,
-      TtlClrdLonsTmsLneeNonCov: number,
-      TtlClrdLonsAmtLnrNonCov: number,
-      TtlClrdLonsAmtLneeNonCov: number,
-      
-      TtlActvLonsTmsLneeChmNonCov: number,
-      TtlActvLonsAmtLneeChmNonCov: number,
-      TtlBLLonsTmsLneeChmNonCov: number,
-      TtlBLLonsAmtLneeChmNonCov: number,
-      TtlClrdLonsTmsLneeChmNonCov: number,
-      TtlClrdLonsAmtLneeChmNonCov: number,
-      
-      TtlActvLonsTmsSllrNonCov: number,
-      TtlActvLonsTmsByrNonCov: number,
-      TtlActvLonsAmtSllrNonCov: number,
-      TtlActvLonsAmtByrNonCov: number,
-      TtlBLLonsTmsSllrNonCov: number,
-      TtlBLLonsTmsByrNonCov: number,
-      TtlBLLonsAmtSllrNonCov: number,
-      TtlBLLonsAmtByrNonCov: number,
-      TtlClrdLonsTmsSllrNonCov: number,
-      TtlClrdLonsTmsByrNonCov: number,
-      TtlClrdLonsAmtSllrNonCov: number,
-      TtlClrdLonsAmtByrNonCov: number,
-    
+  const [photoUrls, setPhotoUrls] = useState<{ passport?: string; idFront?: string; idBack?: string }>({});
+  const [loadingPhotos, setLoadingPhotos] = useState(true);
+
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      try {
+        const urls: any = {};
+        if (photoPassport) urls.passport = (await Storage.get(photoPassport)) as string;
+        if (idFront) urls.idFront = (await Storage.get(idFront)) as string;
+        if (idBack) urls.idBack = (await Storage.get(idBack)) as string;
+        setPhotoUrls(urls);
+      } catch (err) {
+        console.log('Error fetching photos:', err);
+      } finally {
+        setLoadingPhotos(false);
+      }
+    };
+    fetchPhotos();
+  }, [photoPassport, idFront, idBack]);
+
+  return (
+    <ScrollView style={styles.pageContainer} contentContainerStyle={{ paddingBottom: 20 }}>
+      {/* Profile Header */}
+      <View style={styles.profileHeader}>
+        {loadingPhotos ? (
+          <ActivityIndicator size="large" color="#e58d29" />
+        ) : photoUrls.passport ? (
+          <Image source={{ uri: photoUrls.passport }} style={styles.passportImage} />
+        ) : (
+          <View style={[styles.passportImage, { backgroundColor: '#eee' }]} />
+        )}
+        <Text style={styles.userName}>{name}</Text>
+      </View>
+
+      {/* Optional ID Images */}
       
 
-        
-    }}
+      {/* Account Info Card */}
+      <View style={styles.card}>
+        <Text style={styles.sectionTitle}>Account Overview</Text>
+        <Text style={styles.infoRow}>
+          <Text style={styles.label}>Balance: </Text>KES {balance.toFixed(2)}
+        </Text>
+        <Text style={styles.infoRow}>
+          <Text style={styles.label}>Times Blacklisted: </Text>{MaxTymsBL}
+        </Text>
+        <Text style={styles.infoRow}>
+          <Text style={styles.label}>Secured Benefits Pooled: </Text>KES {benefitsAmount.toFixed(2)}
+        </Text>
+      </View>
 
-const SMCvLnStts = (props:SMAccount) => {
-   const {
-      SMAc: {
-         name,
-         balance,   
-         ttlDpstSM,
-         TtlWthdrwnSM,
-       
-         benefitsAmount,
-         p2pchmBenefits,
-         TtlActvLonsTmsLnrCov,
-         TtlActvLonsTmsLneeCov,
-         TtlActvLonsAmtLnrCov,
-         TtlActvLonsAmtLneeCov,
-         
-         TtlBLLonsTmsLneeCov,
-         
-         TtlBLLonsAmtLneeCov,
-         TtlClrdLonsTmsLnrCov,
-         TtlClrdLonsTmsLneeCov,
-         TtlClrdLonsAmtLnrCov,
-         TtlClrdLonsAmtLneeCov,
-         
-         TtlActvLonsTmsLneeChmCov,
-         TtlActvLonsAmtLneeChmCov,
-         TtlBLLonsTmsLneeChmCov,
-         TtlBLLonsAmtLneeChmCov,
-         TtlClrdLonsTmsLneeChmCov,
-         TtlClrdLonsAmtLneeChmCov,
-            
-         TtlActvLonsTmsSllrCov,
-         TtlActvLonsTmsByrCov,
-         TtlActvLonsAmtSllrCov,
-         TtlActvLonsAmtByrCov,
-         TtlBLLonsTmsSllrCov,
-         TtlBLLonsTmsByrCov,
-         TtlBLLonsAmtSllrCov,
-         TtlBLLonsAmtByrCov,
-         TtlClrdLonsTmsSllrCov,
-         TtlClrdLonsTmsByrCov,
-         TtlClrdLonsAmtSllrCov,
-         TtlClrdLonsAmtByrCov,
+      {/* Cash Flow Card */}
+      <View style={styles.card}>
+        <Text style={styles.sectionTitle}>Cash Flow</Text>
+        <Text style={styles.infoRow}>
+          <Text style={styles.label}>Total Deposits: </Text>KES {ttlDpstSM.toFixed(2)}
+        </Text>
+        <Text style={styles.infoRow}>
+          <Text style={styles.label}>Total Withdrawn: </Text>KES {TtlWthdrwnSM.toFixed(2)}
+        </Text>
+      </View>
+    </ScrollView>
+  );
+};
 
+export default SMCvLnStts;
 
-         TtlBLLonsTmsLnrCov,
-         TtlBLLonsAmtLnrCov,
-         TtlBLLonsTmsLnrNonCov,
-         TtlBLLonsTmsLneeNonCov,
-       
-         TtlActvLonsTmsLnrNonCov,
-         TtlActvLonsTmsLneeNonCov,
-         TtlActvLonsAmtLnrNonCov,
-         TtlActvLonsAmtLneeNonCov,
-         
-         TtlBLLonsAmtLnrNonCov,
-         TtlBLLonsAmtLneeNonCov,
-         TtlClrdLonsTmsLnrNonCov,
-         TtlClrdLonsTmsLneeNonCov,
-         TtlClrdLonsAmtLnrNonCov,
-         TtlClrdLonsAmtLneeNonCov,
-         
-         TtlActvLonsTmsLneeChmNonCov,
-         TtlActvLonsAmtLneeChmNonCov,
-         TtlBLLonsTmsLneeChmNonCov,
-         TtlBLLonsAmtLneeChmNonCov,
-         TtlClrdLonsTmsLneeChmNonCov,
-         TtlClrdLonsAmtLneeChmNonCov,
-         
-         TtlActvLonsTmsSllrNonCov,
-         TtlActvLonsTmsByrNonCov,
-         TtlActvLonsAmtSllrNonCov,
-         TtlActvLonsAmtByrNonCov,
-         TtlBLLonsTmsSllrNonCov,
-         TtlBLLonsTmsByrNonCov,
-         TtlBLLonsAmtSllrNonCov,
-         TtlBLLonsAmtByrNonCov,
-         TtlClrdLonsTmsSllrNonCov,
-         TtlClrdLonsTmsByrNonCov,
-         TtlClrdLonsAmtSllrNonCov,
-         TtlClrdLonsAmtByrNonCov,
-       
-         ttlNonLonsRecSM,
-         ttlNonLonsSentSM,
-       
-         ttlNonLonsRecChm,
-         ttlNonLonsSentChm,
-       
-         MaxTymsBL,
-        
-       
-         loanStatus,
-         acStatus,
-         blStatus,
-   }} = props ;
-
- 
-    return (
-        <View style = {styles.pageContainer}>              
-            
-            
-            <View style={styles.card}>         
-            <Text style={styles.prodInfo}><Text style={styles.label}>Ac Balance:</Text> KES {balance.toFixed(2)}</Text>
-            <Text style={styles.prodInfo}><Text style={styles.label}>Times I am Black-Listed: </Text> {MaxTymsBL}</Text>
-            <Text style={styles.prodInfo}><Text style={styles.label}>Secured Benefits Pooled:</Text> KES {benefitsAmount.toFixed(2)}</Text>
-              
-            <Text style={styles.prodDesc}>Cash Flow  </Text>
-    
-            <Text style={styles.prodInfo}><Text style={styles.label}>Total Deposits:</Text> KES {ttlDpstSM.toFixed(2)}</Text>
-            <Text style={styles.prodInfo}><Text style={styles.label}>Total Withdrawn:</Text> KES {TtlWthdrwnSM}</Text>
-
-        </View>
-                
-        </View>
-    );
-}; 
-
-export default SMCvLnStts
+const styles = StyleSheet.create({
+  pageContainer: {
+    flex: 1,
+    backgroundColor: '#f5f6fa',
+  },
+  profileHeader: {
+    alignItems: 'center',
+    paddingVertical: 20,
+    backgroundColor: '#fff',
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderColor: '#eee',
+  },
+  userName: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#333',
+  },
+  card: {
+    backgroundColor: '#fff',
+    marginHorizontal: 15,
+    marginVertical: 8,
+    borderRadius: 12,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 3,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 10,
+    color: '#e58d29',
+  },
+  infoRow: {
+    fontSize: 16,
+    marginBottom: 6,
+    color: '#444',
+  },
+  label: {
+    fontWeight: '600',
+    color: '#333',
+  },
+  passportImage: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    borderWidth: 3,
+    borderColor: '#e58d29',
+    marginBottom: 12,
+    resizeMode: 'cover',
+  },
+  idSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginHorizontal: 15,
+    marginBottom: 15,
+  },
+  idImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: '#e58d29',
+    resizeMode: 'cover',
+  },
+});

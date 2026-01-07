@@ -56,6 +56,12 @@ const FetchSMNonCovLns = () => {
       <Text style={styles.cardSubtitle}>Consumer Contact {item.consumerContact}</Text>
       
       <Text style={styles.cardTitle}>Prepaid|Postpaid: {item.prepostPay || 'Contract'}</Text>
+      <Text style={styles.cardTitle}>Voucher approval frequency: {item.prepostPay === "POSTPAID" ? 
+      item.updateFrequency : "PREPAID"}</Text>
+
+      <Text style={styles.cardTitle}>Payment Period: {item.prepostPay === "POSTPAID" ? 
+      item.repaymentPeriod : "PREPAID"}</Text>
+
       <Text style={styles.cardSubtitle}>Consumption Margin: {item.consumptionCapping}</Text>
       
       <Text style={styles.cardDetail}>

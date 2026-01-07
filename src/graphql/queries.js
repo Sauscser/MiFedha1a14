@@ -134,6 +134,9 @@ export const getSMAccount = /* GraphQL */ `
       owner
       createdAt
       beneficiaryType
+      photoPassport
+      idFront
+      idBack
       updatedAt
       __typename
     }
@@ -285,6 +288,9 @@ export const listSMAccounts = /* GraphQL */ `
         owner
         createdAt
         beneficiaryType
+        photoPassport
+        idFront
+        idBack
         updatedAt
         __typename
       }
@@ -5187,6 +5193,9 @@ export const VwNatIdentity = /* GraphQL */ `
         owner
         createdAt
         beneficiaryType
+        photoPassport
+        idFront
+        idBack
         updatedAt
         __typename
       }
@@ -5343,6 +5352,9 @@ export const VwPnCntct = /* GraphQL */ `
         owner
         createdAt
         beneficiaryType
+        photoPassport
+        idFront
+        idBack
         updatedAt
         __typename
       }
