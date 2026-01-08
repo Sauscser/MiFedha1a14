@@ -38,21 +38,7 @@ const UpdtSMPW = (props) => {
   const [LnAcCod, setLnAcCod] = useState("");
   
   const[isLoading, setIsLoading] = useState(false);
-  const[ownr, setownr] = useState(null);
-  const[names, setName] = useState(null);
-  const[PhoneContact, setPhoneContact] = useState(null);
-  
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    setName(userInfo.username);
-    setownr(userInfo.attributes.sub);
-    setPhoneContact(userInfo.attributes.email);
-    
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
+ 
 
   
         const fetchSMDtls = async () =>{
@@ -60,6 +46,8 @@ const UpdtSMPW = (props) => {
               return;
             }
             setIsLoading(true);
+                const userInfo = await Auth.currentAuthenticatedUser();
+            
             try{
               const compDtls :any= await API.graphql(
                 graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -73,10 +61,7 @@ const UpdtSMPW = (props) => {
                   }
                   setIsLoading(true);
                   try{
-                    const compDtls :any= await API.graphql(
-                      graphqlOperation(getSMAccount,{awsemail:PhoneContact})
-                      );
-                      const loanAcceptanceCodes = compDtls.data.getSMAccount.loanAcceptanceCode   
+                 
                                
                           
                                       const updtSMDtls = async () => {
@@ -110,7 +95,7 @@ const UpdtSMPW = (props) => {
                                         setIsLoading(false);
                                         Alert.alert("You have successfully updated Company Transfer Fees");
                                       } 
- if(ownr!==owners)
+ if(userInfo.attributes.owner!==owners)
                                       {
                                           Alert.alert("You are not the author of this Account");
                                       }

@@ -77,7 +77,8 @@ const ProdId = route.params.id
           const UsrDtls:any = await API.graphql(
             graphqlOperation(getSMAccount, { awsemail:userInfo.attributes.email}),
                         
-          )       
+          )  
+          const usrDtlxs = UsrDtls.data.getSMAccount;     
           const pwsz = UsrDtls.data.getSMAccount.pw;
 
           const ChckPhnUse = async () => {
@@ -211,7 +212,7 @@ creatorEmail: userInfo.attributes.email,
 prodName: prodNamez,
 /*Benefactor Name */
 creatorName: BiznaNames,
-owner: userInfo.username,
+owner: usrDtlxs.name,
 prodCost: prodCostz,
 benefitsAmount: 0,
 /*ProdCreatorName */

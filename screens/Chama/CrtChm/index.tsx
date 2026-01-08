@@ -326,7 +326,7 @@ const CreateChama = (props: UserReg) => {
         })
       );
 
-      Alert.alert(`Congrats ${userInfo.username}, You have created ${ChmNm} Chama`);
+      Alert.alert(`Congrats ${namess}, You have created ${ChmNm} Chama`);
       // Reset form
       setChmPhn('');
       setPW('');

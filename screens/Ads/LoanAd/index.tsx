@@ -29,7 +29,6 @@ const CreateBiz = (props) => {
   
 
   const [ChmPhn, setChmPhn] = useState('');
-  const [nam, setName] = useState(null);
   const [UsrEmail, setUsrEmail] = useState(null);
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -46,29 +45,15 @@ const CreateBiz = (props) => {
   const [rpymntPrd, setrpymntPrd] = useState('');
 
 
-  const[ownr, setownr] = useState(null);
 
-    const fetchUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      
-      setName(userInfo.username);
-      setownr(userInfo.attributes.sub);
-      setUsrEmail(userInfo.attributes.email);
-      
-          
-    };
-
-    
-
-    useEffect(() => {
-        fetchUser();
-      }, []);
 
       const gtUzr = async () =>{
         if(isLoading){
           return;
         }
         setIsLoading(true);
+              const userInfo = await Auth.currentAuthenticatedUser();
+
         try{
           const compDtls :any= await API.graphql(
             graphqlOperation(getSMAccount,{awsemail:UsrEmail})
@@ -76,6 +61,7 @@ const CreateBiz = (props) => {
             const pws = compDtls.data.getSMAccount.pw;
             const phonecontacts = compDtls.data.getSMAccount.phonecontact;
             const owner = compDtls.data.getSMAccount.owner;
+            const namez = compDtls.data.getSMAccount.name;
             
 
       const CreateNewSMAc = async () => {
@@ -87,7 +73,7 @@ const CreateBiz = (props) => {
           await API.graphql(
           graphqlOperation(createRafikiLnAd, {
           input: {
-            rafikiName: nam,
+            rafikiName: namez,
             rafikicntct:awsEmail,
             rafikiEmail: UsrEmail,
             rafikiamnt: parseFloat(itemPrys),
@@ -99,7 +85,7 @@ const CreateBiz = (props) => {
            
             rafikirpymntperiod: rpymntPrd,
             
-            owner: ownr,
+            owner: userInfo.attributes.sub,
                   },
                 })
                 
@@ -127,7 +113,7 @@ const CreateBiz = (props) => {
         
       } 
 
-      else if (owner !== ownr)
+      else if (owner !== userInfo.attributes.sub)
       {Alert.alert("Please first create main account")}
       else if (parseFloat(lnPrsntg) >=36){
         Alert.alert("Cancelled: Exploitative Annual Interest Rate")

@@ -35,21 +35,10 @@ const UpdtMFKPW = (props) => {
   const [NewAdmnPW, setNewAdmnPW] = useState("");
   const [OldAdmnPW, setOldAdmnPW] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const[ownr, setownr] = useState(null);
-  const[names, setName] = useState(null);
+ 
   
   
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    setName(userInfo.username);
-    setownr(userInfo.attributes.sub);
-    
-    
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
+ 
 
   
         const fetchMFKDtls = async () =>{
@@ -57,6 +46,8 @@ const UpdtMFKPW = (props) => {
               return;
             }
             setIsLoading(true);
+                const userInfo = await Auth.currentAuthenticatedUser();
+
             try{
               const MFKDtls :any= await API.graphql(
                 graphqlOperation(getSAgent,{saPhoneContact:AdminID})
@@ -79,6 +70,11 @@ const UpdtMFKPW = (props) => {
                     );
                     
                     const sagentComs = CompDtls.data.getCompany.sagentCom;
+
+                    const userDtls :any= await API.graphql(
+                      graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+                      );
+                      const UserDtls = userDtls.data.getSMAccount
 
                                       const updtMFKDtls = async () => {
                                         if(isLoading){
@@ -103,7 +99,7 @@ const UpdtMFKPW = (props) => {
                                         }
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +", You have successfully Adjusted your Commission");
+                                        Alert.alert(UserDtls.name +", You have successfully Adjusted your Commission");
                                       } 
 
                                       if(pws!==OldAdmnPW)
@@ -111,7 +107,7 @@ const UpdtMFKPW = (props) => {
                                           Alert.alert("Wrong MFKubwa Password");
                                       }
                                       
-                                      else if(ownr!==owners)
+                                      else if(userInfo.attributes.owner!==owners)
                                       {
                                           Alert.alert("You are not the owner of this MFKubwa A/c");
                                       }

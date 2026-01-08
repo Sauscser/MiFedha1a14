@@ -61,7 +61,7 @@ const RegisterMFKubwaAcForm = props => {
                   )
                 )
                 const owner = UsrDtls.data.getSMAccount.owner
-                const TtlClrdLonsAmtSllrCovs = UsrDtls.data.getSMAccount.TtlClrdLonsAmtSllrCov
+                const UsrDtl = UsrDtls.data.getSMAccount
 
             const CreateNewSA = async () => {
               if(isLoading){
@@ -77,7 +77,7 @@ const RegisterMFKubwaAcForm = props => {
                       regNo: userInfo.attributes.phone_number,
                       
                       AcStatus: 'AccountActive',
-                      owner:userInfo.username,
+                      owner: UsrDtl.name,
                       
                     },
                   }),

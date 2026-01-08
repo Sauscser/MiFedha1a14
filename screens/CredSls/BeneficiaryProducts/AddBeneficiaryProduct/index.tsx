@@ -69,7 +69,7 @@ const CreateChama = (props:UserReg) => {
             graphqlOperation(getSMAccount, { awsemail:userInfo.attributes.email}),
                         
           )
-
+          const usrDtl = UsrDtls.data.getSMAccount;
        
           const pwsz = UsrDtls.data.getSMAccount.pw;
 
@@ -155,7 +155,7 @@ benefactorPhone: ChmRegNo,
 creatorEmail: userInfo.attributes.email,
 prodName: ChmPhn,
 creatorName: BiznaNames,
-owner: userInfo.username,
+owner: usrDtl.name,
 prodCost: Sign2Phn,
 benefitsAmount: 0,
 prodDesc: "Product created by " + BiznaNames +". "+ChmDesc,

@@ -33,17 +33,6 @@ const UpdtSMPW = (props) => {
   const route = useRoute();
   
 
-  useEffect(() => {
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    setName(userInfo.username);
-    
-    setAWSEmail(userInfo.attributes.email);   
-  };
-  
-    fetchUser();
-  }, []);
 
   const moveToAbt = () => {
     navigation.navigate("VwCompAbts");

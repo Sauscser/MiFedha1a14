@@ -5,7 +5,7 @@ import {View, Text,   ActivityIndicator, Pressable, Alert} from 'react-native';
 
 import styles from './styles';
 import { API, Auth, graphqlOperation } from 'aws-amplify';
-import { getLinkBeneficiary2 } from '../../../../src/graphql/queries';
+import { getLinkBeneficiary2, getSMAccount } from '../../../../src/graphql/queries';
 import { updateLinkBeneficiary2 } from '../../../../src/graphql/mutations';
 
 
@@ -71,6 +71,15 @@ const userInfo = await Auth.currentAuthenticatedUser();
                               })
                             )
 
+                            const result3 =  await API.graphql(
+                              graphqlOperation(getSMAccount, {
+                                
+                                  awsemail:userInfo.attributes.email,
+                              })
+                            )
+
+                            const userDtl = result3.data.getSMAccount
+
                             const owners= result2.data.getLinkBeneficiary2.owner
                             const benefitStatusz= result2.data.getLinkBeneficiary2.benefitStatus
                             const benefitsAmountz= result2.data.getLinkBeneficiary2.benefitsAmount
@@ -83,7 +92,7 @@ const userInfo = await Auth.currentAuthenticatedUser();
                             console.log(dateTime); 
                             // Output: "6/29/2025 2:25:45 PM"
 
-                            if(owners !== userInfo.username)
+                            if(owners !== userDtl.name)
                             {
                               Alert.alert("You are not the owner of this Business")
                             }

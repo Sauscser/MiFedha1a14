@@ -42,21 +42,10 @@ const DeregChmMmbr = (props) => {
   const [MmberId, setMmberId] = useState('');
   const [ChmDesc, setChmDesc] = useState('');
   const [memberPhn, setmemberPhn] = useState(''); 
-  const[ownr, setownr] = useState(null);
   const ChmNMmbrPhns = MmberId+grpContactz
   const route = useRoute()
   
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    setName(userInfo.username);
-    setownr(userInfo.attributes.sub);
-      
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
+  
   
   const updateChmMmbrAc = async()=>{
     if(isLoading){

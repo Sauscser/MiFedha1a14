@@ -282,7 +282,7 @@ const userInfo = await Auth.currentAuthenticatedUser();
           input: {
             BusinessRegNo: businessPhone,
                           phoneKontact:userInfo.attributes.email,
-                          name: userInfo.username,
+                          name: account.name,
                           workerId: workerId,
                           workId:"00001",
                           email: userInfo.attributes.email,

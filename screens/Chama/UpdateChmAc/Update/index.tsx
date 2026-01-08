@@ -93,7 +93,7 @@ const UpdtChm = (props) => {
                                         }
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(userInfo.attributes.username +" has updated "+grpNames+"'s Chama password");
+                                        Alert.alert(userInfo.userName +" has updated "+grpNames+"'s Chama password");
                                       } 
 
                                       if(SMPW!==pws)

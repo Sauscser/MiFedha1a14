@@ -7,7 +7,7 @@ import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { getDistance } from 'geolib';
 import { API, graphqlOperation, Auth, Storage } from 'aws-amplify';
-import { listTransportRegisters, listRideRequests } from '../../../src/graphql/queries';
+import { listTransportRegisters, listRideRequests, getSMAccount } from '../../../src/graphql/queries';
 import { createRideRequest, sendNotification } from '../../../src/graphql/mutations';
 import GooglePlacesAutocompleteNew from './GooglePlacesAutoCompleteNew';
 import messaging from '@react-native-firebase/messaging';
@@ -123,9 +123,21 @@ export default function RideRequestMapScreen({ navigation }: { navigation: any }
       setLoadingRiders(prev => ({ ...prev, [rider.id]: true }));
       const user = await Auth.currentAuthenticatedUser();
 
+      const userDtls: any = await API.graphql(
+        graphqlOperation(getSMAccount, { awsemail: user.attributes.email })
+      );
+
+      const passengerInfo = userDtls.data.getSMAccount;
+
+      if (!passengerInfo) {
+        Alert.alert('No Account', 'Please create a Main Account first.');
+        setLoadingRiders(prev => ({ ...prev, [rider.id]: false }));
+        return;
+      }
+
       const input = {
         passengerEmail: user.attributes.email,
-        passengerName: user.attributes?.name || user.username,
+        passengerName: passengerInfo.name,
         passengerContact: user.attributes.phone_contact,
         pickupLatitude: filters.pickup.latitude,
         pickupLongitude: filters.pickup.longitude,

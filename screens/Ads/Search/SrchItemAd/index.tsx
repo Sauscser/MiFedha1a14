@@ -485,6 +485,9 @@ const itemIDs = item.id;
       const totals = sellerTotals[sokokntct];
       const bizResult = await API.graphql(graphqlOperation(getBizna, { BusKntct: sokokntct }));
       const biz = bizResult.data.getBizna;
+
+      const usrDtls = await API.graphql(graphqlOperation(getSMAccount, { awsemail: user.attributes.email }));
+      const usrDtlsx = usrDtls.data.getSMAccount;
       
       const fullDescription = totals.description.join('\n');
       const allItemsID = totals.itemID
@@ -501,7 +504,7 @@ const itemIDs = item.id;
           amount: (totals.totalItemCost).toFixed(0),
           description: fullDescription,
           RecName: biz.busName,
-          SenderName: user.username,
+          SenderName: usrDtlsx.name,
           status: "cashSales",
 
           owner: allItemsID,
@@ -714,6 +717,9 @@ const itemIDs = item.id;
       const totals = sellerTotals[sokokntct];
       const bizResult = await API.graphql(graphqlOperation(getBizna, { BusKntct: sokokntct }));
       const biz = bizResult.data.getBizna;
+
+      const usrDt = await API.graphql(graphqlOperation(getSMAccount, { awsemail: user.attributes.email }));
+      const usrDts = usrDt.data.getSMAccount;
       
       const fullDescription = totals.description.join('\n');
       const allItemsID = totals.itemID
@@ -738,7 +744,7 @@ const itemIDs = item.id;
           amount: (totals.totalItemCost).toFixed(0),
           description: fullDescription,
           RecName: biz.busName,
-          SenderName: user.username,
+          SenderName: usrDts.name,
           status: "cashSales",
 
           owner: allItemsID,
@@ -780,7 +786,7 @@ const itemIDs = item.id;
     beneficiaryPhone: user.attributes.phone_number || "String",
     creatorEmail: user.attributes.email,
     prodName: cart.map(item => item.sokoname).join(", "),
-    creatorName: user.username,
+    creatorName: sender.name,
     owner: user.attributes.sub,
     prodCost: 0,
     benefitsAmount: totalBenefit,

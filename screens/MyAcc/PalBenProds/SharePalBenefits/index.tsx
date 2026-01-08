@@ -148,7 +148,7 @@ const SMASendNonLns = props => {
                           graphqlOperation(createBenefitShare2, {
                             input: {
                               /*contributorName*/
-                              benefitsID: userInfo.username,
+                              benefitsID: busNames,
                               benefactorAc: benefactorAcs,                                  
                               amount: parseFloat(amounts).toFixed(2), 
                                /*contributorAc*/                            

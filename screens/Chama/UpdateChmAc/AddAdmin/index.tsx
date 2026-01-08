@@ -43,10 +43,17 @@ const UpdtSMPW = (props) => {
               return;
             }
             setIsLoading(true);
+
+            const userInfo = await Auth.currentAuthenticatedUser();
+
             
             try{
               const compDtls :any= await API.graphql(
                 graphqlOperation(getGroup,{grpContact:groupCnt})
+                );
+
+                const UsrDtls :any= await API.graphql(
+                graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
                 );
                 
                 const owners = compDtls.data.getGroup.owner 
@@ -54,8 +61,9 @@ const UpdtSMPW = (props) => {
                 
                 const pw = compDtls.data.getGroup.signitoryPW
 
+                const UsrDtlx = UsrDtls.data.getSMAccount
+
                 const ChckUsrExistence = async () => {
-                  const userInfo = await Auth.currentAuthenticatedUser();
                   try {
                     const UsrDtls:any = await API.graphql(
                       graphqlOperation(listChamaMembers,
@@ -99,7 +107,7 @@ const UpdtSMPW = (props) => {
                     } 
                   }
                       setIsLoading(false);
-                      Alert.alert(userInfo.username +", You have successfully Added Admin number "+ (parseFloat(AdminNo)+1));
+                      Alert.alert(UsrDtlx.name +", You have successfully Added Admin number "+ (parseFloat(AdminNo)+1));
                     } 
                     
                     const updtSMDtls2 = async () => {

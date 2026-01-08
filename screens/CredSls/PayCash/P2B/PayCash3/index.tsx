@@ -332,7 +332,7 @@ const SMASendNonLns = props => {
                                   input:{
                                     benefitsID: "String",
                                     benefactorAc: userInfo.attributes.email,
-                                    benefactorPhone: userInfo.username,
+                                    benefactorPhone: names,
                                     beneficiaryAc: RecNatId,
                                     beneficiaryPhone: "String",
                                     creatorEmail: userInfo.attributes.email,

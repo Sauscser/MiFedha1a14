@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {  updateCompany, updateGroup,  updateMiFedhaBankAdmin,  updateSMAccount} from '../../../src/graphql/mutations';
-import {  getBankAdmin, getCompany,  } from '../../../src/graphql/queries';
+import {  getBankAdmin, getCompany, getSMAccount,  } from '../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 
 import {useNavigation} from '@react-navigation/native';
@@ -35,21 +35,10 @@ const UpdtMFAdmPW = (props) => {
   const [NewAdmnPW, setNewAdmnPW] = useState("");
   const [OldAdmnPW, setOldAdmnPW] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const[ownr, setownr] = useState(null);
-  const[names, setName] = useState(null);
   
   
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    setName(userInfo.username);
-    setownr(userInfo.attributes.sub);
-    
-    
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
+  
+  
 
   
         const fetchAdmnDtls = async () =>{
@@ -57,15 +46,23 @@ const UpdtMFAdmPW = (props) => {
               return;
             }
             setIsLoading(true);
+
+            const userInfo = await Auth.currentAuthenticatedUser();
+
             try{
               const compDtls :any= await API.graphql(
                 graphqlOperation(getBankAdmin,{nationalid:AdminID})
                 );
                 const pws = compDtls.data.getBankAdmin.pw   
                 const owners = compDtls.data.getBankAdmin.owner 
-                const acStatuss = compDtls.data.getBankAdmin.acStatus            
+                const acStatuss = compDtls.data.getBankAdmin.acStatus   
                 
-                          
+const userDtls :any= await API.graphql(
+  graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+);
+const UserDtls = userDtls.data.getSMAccount;
+
+
                                       const updtAdmnDtls = async () => {
                                         if(isLoading){
                                           return;
@@ -89,12 +86,12 @@ const UpdtMFAdmPW = (props) => {
                                         }
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +", You have successfully updated your PassWord");
+                                        Alert.alert(UserDtls.name +", You have successfully updated your PassWord");
                                       } 
 
                                       
                                       
-                                      if(ownr!==owners)
+                                      if(userInfo.attributes.owner!==owners)
                                       {
                                           Alert.alert("You are not the owner of this Admin A/c");
                                       }

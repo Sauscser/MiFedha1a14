@@ -35,7 +35,6 @@ const ChmSignIn = (props) => {
   const navigation = useNavigation();
 
   const [grpContact, setChmPhn] = useState('');
-  const [nam, setName] = useState(null);
   const [phoneContacts, setPhoneContacts] = useState("");
   const [awsEmail, setAWSEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +52,6 @@ const ChmSignIn = (props) => {
     const fetchUser = async () => {
       const userInfo = await Auth.currentAuthenticatedUser();
       
-      setName(userInfo.username);
       setownr(userInfo.attributes.sub);     
           
     };

@@ -4,7 +4,7 @@ import {API, Auth, graphqlOperation} from 'aws-amplify';
 import { View, Text, Pressable, Alert, ActivityIndicator } from 'react-native';
 import styles from './styles'; // adjust path as necessary
 import { updateBizna, updateLinkBeneficiary2 } from '../../../../src/graphql/mutations';
-import { getLinkBeneficiary2 } from '../../../../src/graphql/queries';
+import { getLinkBeneficiary2, getSMAccount } from '../../../../src/graphql/queries';
 
 export interface SMAccount {
   SMAc: {
@@ -73,6 +73,15 @@ const SMCvLnStts = ({ SMAc }: SMAccount) => {
                               })
                             )
 
+                          const usrDtlz =  await API.graphql(
+                              graphqlOperation(getSMAccount, {
+                                
+                                  awsemail:userInfo.attributes.emmail,
+                              })
+                            )
+
+                            const userDtl = usrDtlz.data.getSMAccount
+
                             const benefitStatusz= result2.data.getLinkBeneficiary2.benefitStatus
                             const benefitsAmountz= result2.data.getLinkBeneficiary2.benefitsAmount
                             const owners= result2.data.getLinkBeneficiary2.owner
@@ -85,7 +94,7 @@ const SMCvLnStts = ({ SMAc }: SMAccount) => {
                             console.log(dateTime); 
                             // Output: "6/29/2025 2:25:45 PM"
 
-                            if(owners !== userInfo.username)
+                            if(owners !== userDtl.name)
                             {
                               Alert.alert("You are not the owner of this Business")
                             }

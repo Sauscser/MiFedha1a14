@@ -80,6 +80,8 @@ const ProdId = route.params.id
           )       
           const pwsz = UsrDtls.data.getSMAccount.pw;
 
+          const usrDtlxs = UsrDtls.data.getSMAccount;
+
           const ChckBeneficiaryDtls = async () => {
             if(isLoading){
               return;
@@ -209,7 +211,7 @@ beneficiaryPhone:BeneficiaryName,
 creatorEmail: userInfo.attributes.email,
 prodName: prodNamez,
 creatorName: BiznaNames,
-owner: userInfo.username,
+owner: usrDtlxs.name,
 prodCost: prodCostz,
 benefitsAmount: 0,
 /*ProdCreatorName */

@@ -36,22 +36,7 @@ const UpdtSMPW = (props) => {
   const [RpymtPrd, setRpymtPrd] = useState("");
   const [DfltPnlty, setDfltPnlty] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const[ownr, setownr] = useState(null);
-  const[names, setName] = useState(null);
-
-  const[PhoneContact, setPhoneContact] = useState(null);
-  
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    setName(userInfo.username);
-    setownr(userInfo.attributes.sub);
-    setPhoneContact(userInfo.attributes.email);
-    
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
+ 
 
   
         const fetchSMDtls = async () =>{
@@ -59,14 +44,17 @@ const UpdtSMPW = (props) => {
               return;
             }
             setIsLoading(true);
+                const userInfo = await Auth.currentAuthenticatedUser();
+
             try{
               const compDtls :any= await API.graphql(
-                graphqlOperation(getSMAccount,{awsemail:PhoneContact})
+                graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
                 );
                 
                 const owners = compDtls.data.getSMAccount.owner 
                 const acStatuss = compDtls.data.getSMAccount.acStatus  
-                const pwss = compDtls.data.getSMAccount.pw                
+                const pwss = compDtls.data.getSMAccount.pw   
+                const names = compDtls.data.getSMAccount.name             
                 
                           
                                       const updtSMDtls = async () => {
@@ -78,7 +66,7 @@ const UpdtSMPW = (props) => {
                                             await API.graphql(
                                               graphqlOperation(updateSMAccount,{
                                                 input:{
-                                                  awsemail:PhoneContact,
+                                                  awsemail:userInfo.attributes.email,
                                                   DefaultPenaltySM:parseFloat(DfltPnlty).toFixed(2),
                                                   loanAcceptanceCode:LnAcCod,
                                                   TtlActvLonsTmsLnrCov:groupCnt,
@@ -97,7 +85,7 @@ const UpdtSMPW = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +", You have requested a Loan from " + LnAcCod);
+                                        Alert.alert( names+", You have requested a Loan from " + LnAcCod);
                                       } 
 
                                       if(SMPW!==pwss)
@@ -105,12 +93,12 @@ const UpdtSMPW = (props) => {
                                           Alert.alert("Wrong SM A/C password; Prove Ownership of Account");
                                       }
                                       
-                                      else if(ownr!==owners)
+                                      else if( userInfo.attributes.owner !==owners)
                                       {
                                           Alert.alert("You are not the Owner of the Account");
                                       }
 
-                                      else if(PhoneContact===LnAcCod)
+                                      else if(userInfo.attributes.email===LnAcCod)
                                       {
                                           Alert.alert("You should not request a loan from yourself");
                                       }

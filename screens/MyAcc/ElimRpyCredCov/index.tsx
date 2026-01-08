@@ -30,13 +30,11 @@ const CreateAcForm = (props) => {
   const navigation = useNavigation();
 
   const [nationalId, setNationalid] = useState('');
-  const [nam, setName] = useState(null);
   const [phoneContact, setPhoneContact] = useState(null);
   const [awsEmail, setAWSEmail] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [pword, setPW] = useState('');
 
-  const[ownr, setownr] = useState(null);
 
   const moveToWelcomPg = () => {
     navigation.navigate("Vw2RepyCredSlsCovLns");
@@ -49,7 +47,6 @@ const CreateAcForm = (props) => {
     const fetchUser = async () => {
       const userInfo = await Auth.currentAuthenticatedUser();
       
-      setName(userInfo.username);
       const me = userInfo.attributes.sub;
       setPhoneContact(userInfo.attributes.phone_number);
       setAWSEmail(userInfo.attributes.email);  

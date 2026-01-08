@@ -35,21 +35,7 @@ const UpdtMFNPW = (props) => {
   const [NewAdmnPW, setNewAdmnPW] = useState("");
   const [OldAdmnPW, setOldAdmnPW] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const[ownr, setownr] = useState(null);
-  const[names, setName] = useState(null);
-  
-  
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    setName(userInfo.username);
-    setownr(userInfo.attributes.sub);
-    
-    
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
+
 
   
         const fetchMFNDtls = async () =>{
@@ -57,13 +43,20 @@ const UpdtMFNPW = (props) => {
               return;
             }
             setIsLoading(true);
+                const userInfo = await Auth.currentAuthenticatedUser();
+
             try{
               const MFNDtls :any= await API.graphql(
                 graphqlOperation(getAgent,{phonecontact:AdminID})
                 );
                 const pws = MFNDtls.data.getAgent.pw   
                 const owners = MFNDtls.data.getAgent.owner 
-                const acStatuss = MFNDtls.data.getAgent.status            
+                const acStatuss = MFNDtls.data.getAgent.status       
+                
+                const userDtls :any= await API.graphql(
+                  graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+                  );
+                  const UserDtls = userDtls.data.getSMAccount
                 
                 const fetchCompDtls = async () => {
                   if(isLoading){
@@ -101,7 +94,7 @@ const UpdtMFNPW = (props) => {
                                         }
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +", You have successfully updated your Commission");
+                                        Alert.alert(UserDtls.name +", You have successfully updated your Commission");
                                       } 
 
                                       if(pws!==OldAdmnPW)
@@ -109,7 +102,7 @@ const UpdtMFNPW = (props) => {
                                           Alert.alert("Wrong Password; call HR");
                                       }
                                       
-                                      else if(ownr!==owners)
+                                      else if( userInfo.attributes.owner !==owners)
                                       {
                                           Alert.alert("You are not the owner of this MFNdogo A/c");
                                       }

@@ -72,6 +72,7 @@ const CreateChama = (props:UserReg) => {
 
        
           const pwsz = UsrDtls.data.getSMAccount.pw;
+          const userDtls = UsrDtls.data.getSMAccount;
 
           const PckBiznaDtls = async () => {
             if(isLoading){
@@ -155,7 +156,7 @@ benefactorPhone: ChmRegNo,
 creatorEmail: userInfo.attributes.email,
 prodName: ChmPhn,
 creatorName: BiznaNames,
-owner: userInfo.username,
+owner: userDtls.name,
 prodCost: Sign2Phn,
 benefitsAmount: 0,
 prodDesc: "Product created by " + BiznaNames +". "+ChmDesc,

@@ -163,6 +163,18 @@ if (!validateForm(form)) {
           })
         );
 
+          const userInfo = await Auth.currentAuthenticatedUser();
+
+
+        const res2: any = await API.graphql(
+          graphqlOperation(getSMAccount, {
+            awsemail: userInfo.attributes.email,
+          })
+        );
+
+        const acc2 = res2?.data?.getSMAccount;
+
+
         const acc = res?.data?.getSMAccount;
         if (!acc) throw new Error("Consumer account not found");
 
@@ -237,10 +249,10 @@ if (!validateForm(form)) {
       let funderContact = "";
       let funderName = ""
 
-
   const userInfo = await Auth.currentAuthenticatedUser();
+
 const loggedInEmail =
-  userInfo.attributes.email || userInfo.username;
+  userInfo.attributes.email;
 
 if (form.funderType === "funderTypePal") {
   const res: any = await API.graphql(

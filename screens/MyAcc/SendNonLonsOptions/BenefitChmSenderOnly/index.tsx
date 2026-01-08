@@ -528,7 +528,7 @@ else{
                                                                                           benefitsID: "String",
                                                                                           benefactorAc: userInfo.attributes.email,
                                                                                           /*BenefactorName*/
-                                                                                          benefactorPhone: userInfo.username,
+                                                                                          benefactorPhone: names,
                                                                                           beneficiaryAc: RecNatId,
                                                                                           beneficiaryPhone: "String",
                                                                                           creatorEmail: "String",
@@ -953,7 +953,7 @@ Alert.alert("Retry or update app or call customer care")
                                 input:{
                                   benefitsID: "String",
                                 benefactorAc: userInfo.attributes.email,
-                                benefactorPhone: userInfo.username,
+                                benefactorPhone: names,
                                 beneficiaryAc: RecNatId,
                                 beneficiaryPhone: "String",
                                 creatorEmail: "String",

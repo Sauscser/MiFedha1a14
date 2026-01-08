@@ -38,7 +38,6 @@ const DissolveChm = (props) => {
   const fetchUser = async () => {
     const userInfo = await Auth.currentAuthenticatedUser();
     
-    setName(userInfo.username);
     setownr(userInfo.attributes.sub);
       
   };
@@ -52,6 +51,9 @@ const DissolveChm = (props) => {
               return;
             }
             setIsLoading(true);
+
+                const userInfo = await Auth.currentAuthenticatedUser();
+
             try{
               const compDtls :any= await API.graphql(
                 graphqlOperation(getCompany,{AdminId:"BaruchHabaB'ShemAdonai2"})
@@ -76,6 +78,11 @@ const DissolveChm = (props) => {
                         const ttlNonLonsSentChms = compDtls.data.getGroup.ttlNonLonsSentChm
                         const grpBals = compDtls.data.getGroup.grpBal
                         const ttlGrpMemberss = compDtls.data.getGroup.ttlGrpMembers
+
+                        const usrDtls :any= await API.graphql(
+                          graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+                          );
+                          const awsEmails = usrDtls.data.getSMAccount.name
                         
 
                         const updateComp = async()=>{
@@ -160,7 +167,7 @@ const DissolveChm = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +" has dissolved "+grpNames+" Chama");
+                                        Alert.alert(awsEmails +" has dissolved "+grpNames+" Chama");
                                       } 
 
         

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {  updateAdvocate} from '../../../src/graphql/mutations';
-import {  getAdvocate} from '../../../src/graphql/queries';
+import {  getAdvocate, getSMAccount} from '../../../src/graphql/queries';
 import {  graphqlOperation, API,Auth} from 'aws-amplify';
 
 
@@ -30,21 +30,9 @@ const UpdtMFAdvPW = (props) => {
   const [NewAdmnPW, setNewAdmnPW] = useState("");
   const [OldAdmnPW, setOldAdmnPW] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const[ownr, setownr] = useState(null);
-  const[names, setName] = useState(null);
   
   
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    setName(userInfo.username);
-    setownr(userInfo.attributes.sub);
-    
-    
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
+  
 
   
         const fetchAdvDtls = async () =>{
@@ -52,13 +40,21 @@ const UpdtMFAdvPW = (props) => {
               return;
             }
             setIsLoading(true);
+
+                const userInfo = await Auth.currentAuthenticatedUser();
+
             try{
               const AdvDtls :any= await API.graphql(
                 graphqlOperation(getAdvocate,{advregnu:AdvRegNo})
                 );
                 const pwds = AdvDtls.data.getAdvocate.pwd   
                 const owners = AdvDtls.data.getAdvocate.owner 
-                const statuss = AdvDtls.data.getAdvocate.status            
+                const statuss = AdvDtls.data.getAdvocate.status    
+                
+                const UserDtls :any= await API.graphql(
+                graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+                );
+                const usrDtl = UserDtls.data.getSMAccount 
                 
                           
                                       const updtAdvDtls = async () => {
@@ -85,10 +81,10 @@ const UpdtMFAdvPW = (props) => {
                                       } 
                                     }
                                         setIsLoading(false);
-                                        Alert.alert(names +", You have successfully updated your PassWord");
+                                        Alert.alert(usrDtl.name +", You have successfully updated your PassWord");
                                       } 
 
-                                       if(ownr!==owners)
+                                       if(userInfo.attributes.owner!==owners)
                                       {
                                           Alert.alert("You are not the owner of this Advocate A/c");
                                       }

@@ -29,21 +29,10 @@ const UpdtMFNPW = (props) => {
   const [NewAdmnPW, setNewAdmnPW] = useState("");
   const [OldAdmnPW, setOldAdmnPW] = useState("");
   const[isLoading, setIsLoading] = useState(false);
-  const[ownr, setownr] = useState(null);
-  const[names, setName] = useState(null);
+
   
   
-  const fetchUser = async () => {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    
-    setName(userInfo.username);
-    setownr(userInfo.attributes.sub);
-    
-    
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
+
 
   
         const fetchMFNDtls = async () =>{
@@ -51,11 +40,18 @@ const UpdtMFNPW = (props) => {
               return;
             }
             setIsLoading(true);
+                const userInfo = await Auth.currentAuthenticatedUser();
+
             try{
               const MFNDtls :any= await API.graphql(
                 graphqlOperation(getSMAccount,{awsemail:AdminID})
                 );
                 const TtlClrdLonsAmtByrCovs = MFNDtls.data.getSMAccount.TtlClrdLonsAmtByrCov   
+
+                const userDtls :any= await API.graphql(
+                  graphqlOperation(getSMAccount,{awsemail:userInfo.attributes.email})
+                  );
+                  const UserDtls = userDtls.data.getSMAccount
                 
                           
                 

@@ -49,7 +49,6 @@ const CreateAcForm = (props) => {
     const fetchUser = async () => {
       const userInfo = await Auth.currentAuthenticatedUser();
       
-      setName(userInfo.username);
       const me = userInfo.attributes.sub;
       setPhoneContact(userInfo.attributes.phone_number);
       setAWSEmail(userInfo.attributes.email);  

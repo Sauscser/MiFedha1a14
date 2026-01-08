@@ -174,13 +174,17 @@ const AdminClearLoans = () => {
       const chairSignUrl = min.chairpersonId ? await Storage.get(min.chairpersonId) : null;
       const secSignUrl = min.secretaryId ? await Storage.get(min.secretaryId) : null;
 
-      setSelectedMinutes({
-        ...min,
-        items: itemsRes?.data?.listMinuteItemsByMinutes?.items || [],
-        attendance: attendanceRes?.data?.listAttendanceByMinutes?.items || [],
-        chairSignUrl,
-        secSignUrl,
-      });
+      const fullMinutes = {
+  ...min,
+  items: itemsRes?.data?.listMinuteItemsByMinutes?.items || [],
+  attendance: attendanceRes?.data?.listAttendanceByMinutes?.items || [],
+  chairSignUrl,
+  secSignUrl,
+};
+
+setSelectedMinutes(fullMinutes);
+return fullMinutes;
+
     } catch (err) {
       console.error(err);
       Alert.alert('Error', 'Failed to fetch minutes');
@@ -485,92 +489,140 @@ const AdminClearLoans = () => {
       Alert.alert('Missing loan', 'Select a loan and prepare its report first');
       return;
     }
-    const minutes = selectedMinutes;
+let minutes = selectedMinutes;
+
+if (!minutes && selectedLoan?.loanMinutes) {
+  minutes = await fetchMinutesForLoan(selectedLoan);
+}
     const creditInfo = memberCreditInfo;
     const approvals = approvingMembers;
 
     try {
       const present = minutes?.attendance?.filter((a: any) => a.attendanceStatus === 'PRESENT') || [];
 
-      const html = `
-        <html>
-        <head><style>
-          body { font-family: Arial; padding: 20px; }
-          h1 { color: #e29d58; }
-          h2 { margin-top: 20px; }
-          table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-          th, td { border: 1px solid #ddd; padding: 6px; }
-          .signatures { margin-top: 24px; display: flex; justify-content: space-between; }
-          img { max-height: 80px; }
-          .id-section { display:flex; gap:40px; margin-top:20px; }
-          .passport { border:3px solid #e29d58; border-radius:90px; overflow:hidden; width:180px; height:180px; }
-          .id { border:2px solid #e29d58; border-radius:10px; width:240px; height:150px; overflow:hidden; }
-          .id img, .passport img { width:100%; height:100%; object-fit:contain; }
-        </style></head>
-        <body>
-          <h1>${selectedGroup?.grpName} — Full Loan Report</h1>
+  const html = `
+  <html>
+  <head><style>
+    body { font-family: Arial; padding: 20px; }
+    h1 { color: #e29d58; }
+    h2 { margin-top: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { border: 1px solid #ddd; padding: 6px; }
+    .signatures { margin-top: 24px; display: flex; justify-content: space-between; }
+    img { max-height: 80px; }
+    .id-section { display:flex; gap:40px; margin-top:20px; }
+    .passport { border:3px solid #e29d58; border-radius:90px; overflow:hidden; width:180px; height:180px; }
+    .id { border:2px solid #e29d58; border-radius:10px; width:240px; height:150px; overflow:hidden; }
+    .id img, .passport img { width:100%; height:100%; object-fit:contain; }
+    .item { margin-bottom: 12px; }
+    .decision { font-style: italic; color: #065f46; }
+  </style></head>
+  <body>
 
-          <h2>Loan Summary</h2>
-          <p><strong>Loanee:</strong> ${selectedLoan.loaneeName} (${selectedLoan.loaneeEmail})</p>
-          <p><strong>Amount:</strong> KES ${Number(selectedLoan.amount).toLocaleString()}</p>
-          <p><strong>Status:</strong> ${selectedLoan.status}</p>
-          <p><strong>Interest:</strong> ${selectedLoan.repaymentAmt}%</p>
-          <p><strong>Repayment Period:</strong> ${selectedLoan.repaymentPeriod} days</p>
-          <p><strong>Installment:</strong> KES ${Number(selectedLoan.installmentAmount).toLocaleString()}</p>
-          <p><strong>Frequency:</strong> ${selectedLoan.paymentFrequency} days</p>
-          <p><strong>Default Penalty:</strong> ${selectedLoan.defaultPenalty}</p>
-          <p><strong>Description:</strong> ${selectedLoan.description || "-"}</p>
-          <p><strong>Owner:</strong> ${selectedLoan.owner}</p>
-          ${selectedLoan.AdvEmail && selectedLoan.AdvEmail !== 'None' ? `<p><strong>Advocate:</strong> ${selectedLoan.advLicNo}</p>` : ""}
+   <h1>Identification</h1>
+    <div class="id-section">
+      ${photoUrls.passport ? `<div class="passport"><img src="${photoUrls.passport}" /></div>` : ""}
+      ${photoUrls.idFront ? `<div class="id"><img src="${photoUrls.idFront}" /></div>` : ""}
+      ${photoUrls.idBack ? `<div class="id"><img src="${photoUrls.idBack}" /></div>` : ""}
+    </div>
 
-          <h2>Identification</h2>
-          <div class="id-section">
-            ${photoUrls.passport ? `<div class="passport"><img src="${photoUrls.passport}" /></div>` : ""}
-            ${photoUrls.idFront ? `<div class="id"><img src="${photoUrls.idFront}" /></div>` : ""}
-            ${photoUrls.idBack ? `<div class="id"><img src="${photoUrls.idBack}" /></div>` : ""}
-          </div>
 
-          <h2>Approvals</h2>
-          <p>${selectedLoan.membersApprove}/${groupSize} approvals (${groupSize > 0 ? Math.round((selectedLoan.membersApprove/groupSize)*100) : 0}%)</p>
-          <table>
-            <tr><th>Name</th><th>Email</th></tr>
-            ${(approvals || []).map((a: any) => `<tr><td>${a.memberName}</td><td>${a.MemberEmail}</td></tr>`).join("")}
-          </table>
+    <h2>${selectedGroup?.grpName} — Full Loan Report</h2>
 
-          <h2>Credit Score Breakdown</h2>
-          <p><strong>Blended Score:</strong> ${creditInfo?.creditScore || 0}%</p>
-          <p>Group Balance: KES ${creditInfo?.grpBal}</p>
-          <p>Balance: KES ${creditInfo?.balance}</p>
-          <p>Benefits Amount: KES ${creditInfo?.benefitsAmount}</p>
-          <p>P2P Chama Benefits: KES ${creditInfo?.p2pchmBenefits}</p>
-          <p>Total Deposits (SM): KES ${creditInfo?.ttlDpstSM}</p>
-          <p>Max Times Borrowed Late: ${creditInfo?.MaxTymsBL}</p>
-          <p>Loans Issued (Group): KES ${creditInfo?.amountGiven_group}</p>
-          <p>Loans Issued (Global): KES ${creditInfo?.amountGiven_global}</p>
-          <p>Outstanding Balance (Group): KES ${creditInfo?.lonBala_group}</p>
-          <p>Outstanding Balance (Global): KES ${creditInfo?.lonBala_global}</p>
-          <p>Amount Repaid (Group): KES ${creditInfo?.amountRepaid_group}</p>
-          <p>Amount Repaid (Global): KES ${creditInfo?.amountRepaid_global}</p>
-          <p>Non-Loan Support (Group): KES ${creditInfo?.amountSent_group}</p>
-          <p>Non-Loan Support (Global): KES ${creditInfo?.amountSent_global}</p>
-          <p>Contributions (Group): KES ${creditInfo?.contriAmount_group}</p>
-          <p>Contributions (Global): KES ${creditInfo?.contriAmount_global}</p>
-          <p>Group liquidity: ${creditInfo?.L_group}</p>
-          <p>Global Liquidity: ${creditInfo?.L_global}</p>
-          <p>Group Exposure Ratio: ${creditInfo?.E_group}</p>
-          <p>Global Exposure ratio: ${creditInfo?.E_global}</p>
-          <p>Group repayment strength: ${creditInfo?.R_group}</p>
-          <p>Global Repayment strength: ${creditInfo?.R_global}</p>
-          <p>Group community support: ${creditInfo?.S_group}</p>
-          <p>Global community support: ${creditInfo?.S_global}</p>
-          <p>Group penalties: ${creditInfo?.P_group}</p>
-          <p>Global Penalties: ${creditInfo?.P_global}</p>
-          <p>Group composite component score: ${creditInfo?.C_group}</p>
-          <p>Global composite score: ${creditInfo?.C_global}</p>
+    <h2>Loan Summary</h2>
+    <p><strong>Loanee:</strong> ${selectedLoan.loaneeName} (${selectedLoan.loaneeEmail})</p>
+    <p><strong>Amount:</strong> KES ${Number(selectedLoan.amount).toLocaleString()}</p>
+    <p><strong>Status:</strong> ${selectedLoan.status}</p>
+    <p><strong>Interest:</strong> ${selectedLoan.repaymentAmt}%</p>
+    <p><strong>Repayment Period:</strong> ${selectedLoan.repaymentPeriod} days</p>
+    <p><strong>Installment:</strong> KES ${Number(selectedLoan.installmentAmount).toLocaleString()}</p>
+    <p><strong>Frequency:</strong> ${selectedLoan.paymentFrequency} days</p>
+    <p><strong>Default Penalty:</strong> ${selectedLoan.defaultPenalty}</p>
+    <p><strong>Description:</strong> ${selectedLoan.description || "-"}</p>
+    <p><strong>Owner:</strong> ${selectedLoan.owner}</p>
+    ${selectedLoan.AdvEmail && selectedLoan.AdvEmail !== 'None' ? `<p><strong>Advocate:</strong> ${selectedLoan.advLicNo}</p>` : ""}
 
-          
-        </body>
-        </html>
+   
+
+
+    
+
+    <h2>Credit Score Breakdown</h2>
+    <p><strong>Blended Score:</strong> ${creditInfo?.creditScore || 0}%</p>
+    <p>Group Balance: KES ${creditInfo?.grpBal}</p>
+    <p>Balance: KES ${creditInfo?.balance}</p>
+    <p>Benefits Amount: KES ${creditInfo?.benefitsAmount}</p>
+    <p>P2P Chama Benefits: KES ${creditInfo?.p2pchmBenefits}</p>
+    <p>Total Deposits (SM): KES ${creditInfo?.ttlDpstSM}</p>
+    <p>Max Times Borrowed Late: ${creditInfo?.MaxTymsBL}</p>
+    <p>Loans Issued (Group): KES ${creditInfo?.amountGiven_group}</p>
+    <p>Loans Issued (Global): KES ${creditInfo?.amountGiven_global}</p>
+    <p>Outstanding Balance (Group): KES ${creditInfo?.lonBala_group}</p>
+    <p>Outstanding Balance (Global): KES ${creditInfo?.lonBala_global}</p>
+    <p>Amount Repaid (Group): KES ${creditInfo?.amountRepaid_group}</p>
+    <p>Amount Repaid (Global): KES ${creditInfo?.amountRepaid_global}</p>
+    <p>Non-Loan Support (Group): KES ${creditInfo?.amountSent_group}</p>
+    <p>Non-Loan Support (Global): KES ${creditInfo?.amountSent_global}</p>
+    <p>Contributions (Group): KES ${creditInfo?.contriAmount_group}</p>
+    <p>Contributions (Global): KES ${creditInfo?.contriAmount_global}</p>
+    <p>Group liquidity: ${creditInfo?.L_group}</p>
+    <p>Global Liquidity: ${creditInfo?.L_global}</p>
+    <p>Group Exposure Ratio: ${creditInfo?.E_group}</p>
+    <p>Global Exposure ratio: ${creditInfo?.E_global}</p>
+    <p>Group repayment strength: ${creditInfo?.R_group}</p>
+    <p>Global Repayment strength: ${creditInfo?.R_global}</p>
+    <p>Group community support: ${creditInfo?.S_group}</p>
+    <p>Global community support: ${creditInfo?.S_global}</p>
+    <p>Group penalties: ${creditInfo?.P_group}</p>
+    <p>Global Penalties: ${creditInfo?.P_global}</p>
+    <p>Group composite component score: ${creditInfo?.C_group}</p>
+    <p>Global composite score: ${creditInfo?.C_global}</p>
+
+    <h2>Approvals</h2>
+    <p>${selectedLoan.membersApprove}/${groupSize} approvals (${groupSize > 0 ? Math.round((selectedLoan.membersApprove/groupSize)*100) : 0}%)</p>
+    <table>
+      <tr><th>Name</th><th>Email</th></tr>
+      ${(approvals || []).map(a => `<tr><td>${a.memberName}</td><td>${a.MemberEmail}</td></tr>`).join("")}
+    </table>
+
+${minutes ? `
+  <h2>Meeting Minutes</h2>
+
+  <p><strong>Meeting Date:</strong> ${minutes.meetingDate}</p>
+  <p><strong>Venue:</strong> ${minutes.venue || "-"}</p>
+  <p><strong>Attendance:</strong>
+    ${minutes.attendance?.filter((a:any) => a.attendanceStatus === "PRESENT").length || 0}
+  </p>
+
+  ${minutes.items
+    ?.sort((a:any, b:any) => a.entryOrder - b.entryOrder)
+    .map((item:any) => `
+      <div class="item">
+        <strong>${item.entryOrder}. ${item.minuteRef}</strong>
+        <p>${item.content}</p>
+        ${item.decision ? `<div class="decision">Decision: ${item.decision}</div>` : ""}
+      </div>
+    `)
+    .join("")}
+
+  <div class="signatures">
+    <div>
+      <strong>Chairperson</strong><br/>
+      ${minutes.chairSignUrl ? `<img src="${minutes.chairSignUrl}" />` : "Not signed"}
+    </div>
+    <div>
+      <strong>Secretary</strong><br/>
+      ${minutes.secSignUrl ? `<img src="${minutes.secSignUrl}" />` : "Not signed"}
+    </div>
+  </div>
+` : `
+  <p><em>No minutes attached to this loan.</em></p>
+`}
+
+  </body>
+  </html>
+
+
       `;
       await RNPrint.print({ html });
     } catch (err) {

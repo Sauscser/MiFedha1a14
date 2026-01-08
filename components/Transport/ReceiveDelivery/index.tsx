@@ -124,6 +124,9 @@ const [distanceMeters, setDistanceMeters] = useState<number>(0);
              const BuyerDtls = await API.graphql(graphqlOperation(getSMAccount, { awsemail: orderDtlz.customerEmail}));
              const BuyerDtlsz = BuyerDtls.data.getSMAccount;
 
+             const BuyerDtls3 = await API.graphql(graphqlOperation(getSMAccount, { awsemail: user.attributes.email}));
+             const BuyerDtlsz3 = BuyerDtls3.data.getSMAccount;
+
             
              
              console.log(orderDtlz);
@@ -219,7 +222,7 @@ const [distanceMeters, setDistanceMeters] = useState<number>(0);
                                 beneficiaryPhone: user.attributes.phone_number || "String",
                                 creatorEmail: user.attributes.email,
                                 prodName: orderDtlz.deliveryDesc,
-                                creatorName: user.username,
+                                creatorName: BuyerDtlsz3.name,
                                 owner: user.attributes.sub,
                                 prodCost: 0,
                                 benefitsAmount: benefit,
@@ -279,6 +282,9 @@ const [distanceMeters, setDistanceMeters] = useState<number>(0);
 
               const TransporterDtls = await API.graphql(graphqlOperation(getSMAccount, { awsemail: orderDtlz.transportOwnerEmail}));
              const TransporterDtlsz = TransporterDtls.data.getSMAccount;
+
+             const BuyerDtls4 = await API.graphql(graphqlOperation(getSMAccount, { awsemail: user.attributes.email}));
+             const BuyerDtlsz4 = BuyerDtls4.data.getSMAccount;
 
             
              console.log(orderDtlz);
@@ -352,7 +358,7 @@ const [distanceMeters, setDistanceMeters] = useState<number>(0);
                                 beneficiaryPhone: user.attributes.phone_number || "String",
                                 creatorEmail: user.attributes.email,
                                 prodName: orderDtlz.deliveryDesc,
-                                creatorName: user.username,
+                                creatorName: BuyerDtlsz4.name,
                                 owner: user.attributes.sub,
                                 prodCost: 0,
                                 benefitsAmount: benefit,
