@@ -16,6 +16,8 @@ import {
   createBenefitContributions2,
   updateMiFedhaBankAdmin,
   updateChamaControlTable,
+  createMessages,
+  sendNotification,
   
 } from '../../.././../src/graphql/mutations';
 
@@ -268,6 +270,17 @@ const SMASendNonLns = props => {
                           }),
                         );
 
+await API.graphql(graphqlOperation(createMessages, {
+            input: { senderEmail: RecNatId, 
+              messageBody: `${names} has sent you Ksh. ${amounts}. The money has been deposited in your main account`
+
+             }
+          }));
+          await API.graphql(graphqlOperation(sendNotification, {
+            riderEmail: RecNatId,
+            title: 'MiFedha: Cash',
+            body: `${names} has sent you Ksh. ${amounts}. The money has been deposited in your main account`,
+          }));
 
                       } catch (error) {
                         if (error){
@@ -503,6 +516,17 @@ const SMASendNonLns = props => {
                           }),
                         );
 
+                        await API.graphql(graphqlOperation(createMessages, {
+            input: { senderEmail: RecNatId, 
+              messageBody: `${names} has sent you Ksh. ${amounts}. The money has been deposited in your main account`
+
+             }
+          }));
+          await API.graphql(graphqlOperation(sendNotification, {
+            riderEmail: RecNatId,
+            title: 'MiFedha: Cash',
+            body: `${names} has sent you Ksh. ${amounts}. The money has been deposited in your main account`,
+          }));
 
                       } catch (error) {
                         if (error){
@@ -563,7 +587,9 @@ const SMASendNonLns = props => {
                                 benefitsAmount: (parseFloat(ReceiverbenefitsAmount) + PalBenefits).toFixed(0)
                               }
                             })
-                          )                              
+                          )  
+                          
+                          
                       }
                       catch(error){
                         console.log(error)

@@ -12,6 +12,8 @@ import {
   
   updateSMAccount,
   createBenefitContributions2,
+  createMessages,
+  sendNotification,
   
 } from '../../../../src/graphql/mutations';
 
@@ -233,6 +235,18 @@ console.log(SenderbeneficiaryType)
                           }),
                         );
 
+                        await API.graphql(graphqlOperation(createMessages, {
+                                    input: { senderEmail: RecNatId, 
+                                      messageBody: `${names} has sent you Ksh. ${amounts}. The money has been deposited in your main account`
+                        
+                                     }
+                                  }));
+                                  await API.graphql(graphqlOperation(sendNotification, {
+                                    riderEmail: RecNatId,
+                                    title: 'MiFedha: Cash',
+                                    body: `${names} has sent you Ksh. ${amounts}. The money has been deposited in your main account`,
+                                  }));
+
                         if (response1?.data?.createNonLoans)
                         {
                           Alert.alert("Money Successfully sent")
@@ -440,6 +454,19 @@ else{
                             },
                           }),
                         );
+
+                        await API.graphql(graphqlOperation(createMessages, {
+                                    input: { senderEmail: RecNatId, 
+                                      messageBody: `${names} has sent you Ksh. ${amounts}. The money has been deposited in your main account`
+                        
+                                     }
+                                  }));
+                                  await API.graphql(graphqlOperation(sendNotification, {
+                                    riderEmail: RecNatId,
+                                    title: 'MiFedha: Cash',
+                                    body: `${names} has sent you Ksh. ${amounts}. The money has been deposited in your main account`,
+                                  }));
+
                         if (responx1?.data?.createNonLoans)
                         {
                           await updtSendrAc1();
@@ -656,6 +683,20 @@ else{
                             },
                           }),
                         );
+
+                        await API.graphql(graphqlOperation(createMessages, {
+                                    input: { senderEmail: RecNatId, 
+                                      messageBody: `${names} has sent you Ksh. ${amounts}. The money has been deposited in your main account`
+                        
+                                     }
+                                  }));
+                                  await API.graphql(graphqlOperation(sendNotification, {
+                                    riderEmail: RecNatId,
+                                    title: 'MiFedha: Cash',
+                                    body: `${names} has sent you Ksh. ${amounts}. The money has been deposited in your main account`,
+                                  }));
+
+
                         if (responz1?.data?.createNonLoans){
                           await updtSendrAc2();
                         }
@@ -866,6 +907,20 @@ else{
                             },
                           }),
                         );
+
+                        await API.graphql(graphqlOperation(createMessages, {
+                                    input: { senderEmail: RecNatId, 
+                                      messageBody: `${names} has sent you Ksh. ${amounts}. The money has been deposited in your main account`
+                        
+                                     }
+                                  }));
+                                  await API.graphql(graphqlOperation(sendNotification, {
+                                    riderEmail: RecNatId,
+                                    title: 'MiFedha: Cash',
+                                    body: `${names} has sent you Ksh. ${amounts}. The money has been deposited in your main account`,
+                                  }));
+
+                                  
                         if (responce1?.data?.createNonLoans)
                         {
                           await updtSendrAc3();

@@ -17,11 +17,10 @@ pluginManagement {
   includeBuild(expoPluginsPath)
 
   repositories {
-        google()
-        gradlePluginPortal()
-        mavenCentral()
-    }
-
+    google()
+    gradlePluginPortal()
+    mavenCentral()
+  }
 }
 
 plugins {

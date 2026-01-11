@@ -527,7 +527,7 @@ if (!minutes && selectedLoan?.loanMinutes) {
     </div>
 
 
-    <h2>${selectedGroup?.grpName} — Full Loan Report</h2>
+    <h2>${selectedLoan?.loaneeName} — Full Loan Application Report</h2>
 
     <h2>Loan Summary</h2>
     <p><strong>Loanee:</strong> ${selectedLoan.loaneeName} (${selectedLoan.loaneeEmail})</p>

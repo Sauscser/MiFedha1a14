@@ -26,6 +26,8 @@ import {
   updateGroup,
   updateCompany,
   createLoanRepayments,
+  sendNotification,
+  createMessages,
 } from '../../../../../../src/graphql/mutations';
 import { useRoute } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -47,6 +49,40 @@ const RepayCovChmLnsss = () => {
     setSnderPW('');
     setLnId('');
   };
+
+  const notifyLoanRepayment = async ({
+  isFullRepayment,
+  loaneeEmail,
+  grpName,
+  amountPaid,
+  loanBalanceAfter,
+}) => {
+  const messageBody = isFullRepayment
+    ? `Your loan from ${grpName} has been fully repaid. Amount paid: KES ${amountPaid}. Your loan balance is now KES 0.`
+    : `A partial repayment of KES ${amountPaid} has been made to your loan from ${grpName}. Remaining loan balance: KES ${loanBalanceAfter}.`;
+
+  const title = isFullRepayment
+    ? 'MiFedha: Loan Fully Repaid'
+    : 'MiFedha: Loan Partially Repaid';
+
+  await API.graphql(
+    graphqlOperation(createMessages, {
+      input: {
+        senderEmail: loaneeEmail,
+        messageBody,
+      },
+    })
+  );
+
+  await API.graphql(
+    graphqlOperation(sendNotification, {
+      riderEmail: loaneeEmail,
+      title,
+      body: messageBody,
+    })
+  );
+};
+
 
   const ftchCvdSMLn = async () => {
     if (isLoading) return;
@@ -250,11 +286,21 @@ const RepayCovChmLnsss = () => {
       await updateGroupAndCompany();
       await createRepaymentRecord();
 
-      Alert.alert(
-        isFullRepayment
-          ? `Loan fully repaid! Clearance Fee: ${ClranceAmt.toFixed(2)}. Transaction Fee: ${(parseFloat(chmLnRpymntFee) * parseFloat(amounts)).toFixed(2)}`
-          : `Partially repaid. Clearance Fee: ${ClranceAmt.toFixed(2)}. Transaction Fee: ${(parseFloat(chmLnRpymntFee) * parseFloat(amounts)).toFixed(2)}`
-      );
+   await notifyLoanRepayment({
+  isFullRepayment,
+  loaneeEmail: loaneePhn, // or email if different
+  grpName,
+  amountPaid: parseFloat(amounts).toFixed(0),
+  loanBalanceAfter: LonBalAfter.toFixed(0),
+});
+
+Alert.alert(
+  'Payment Successful',
+  isFullRepayment
+    ? `Loan fully repaid.\nClearance Fee: KES ${ClranceAmt.toFixed(2)}\nTransaction Fee: KES ${(parseFloat(chmLnRpymntFee) * parseFloat(amounts)).toFixed(2)}`
+    : `Partial repayment successful.\nRemaining balance: KES ${LonBalAfter.toFixed(2)}`
+);
+
 
       resetForm();
 

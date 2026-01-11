@@ -6,6 +6,8 @@ import {
   updateCvrdGroupLoans,
   updateGroup,
   updateChamaMembers,
+  createMessages,
+  sendNotification,
 } from '../../../../src/graphql/mutations';
 import {
   getCompany,
@@ -196,11 +198,19 @@ const BLChmCovLoanee = () => {
           },
         }));
 
+        await API.graphql(graphqlOperation(createMessages, {
+                    input: { senderEmail: loaneePhn, 
+                    messageBody: `MiFedha: Hi ${loaneeName}, your loan of ID ${route.params.loanID} has been blacklisted by ${grpName}. Total repayable: Ksh. ${LonBal4.toFixed(0)}.`
+                     }
+                  }));
+                  await API.graphql(graphqlOperation(sendNotification, {
+                    riderEmail: loaneePhn,
+                    title: 'MiFedha: Loan Blacklisted',
+                    body: `Hi ${loaneeName}, your loan of ID ${route.params.loanID} has been blacklisted by ${grpName}. Total repayable: Ksh. ${LonBal4.toFixed(0)}.`
+                  }));
+
         Alert.alert(`${grpName}, you have blacklisted ${loaneeName}`);
-        Communications.textWithoutEncoding(
-          loaneePhn,
-          `MiFedha. Hi ${loaneeName}, your loan of ID ${route.params.loanID} has been blacklisted by ${grpName}. Total repayable: Ksh. ${LonBal4.toFixed(0)}.`
-        );
+       
       }
 
       async function updateBlacklistedLoan() {

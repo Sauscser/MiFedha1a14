@@ -56,7 +56,7 @@ const CreateAcForm = () => {
         const size = Math.min(origW, origH);
         const crop = {
          originX: Math.floor((origW - size) / 2), 
-         originY: Math.floor((origH - size) / 2), // shift crop window down 
+         originY: Math.floor((origH - size) * 0.18), // shift crop window down 
          width: size, height: size,
         };
         actions.push({ crop });
@@ -539,31 +539,36 @@ const styles = StyleSheet.create({
   },
   // Passport avatar wrapper (circular)
   passportWrapper: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
-    borderWidth: 3,
-    borderColor: '#e58d29',
-    marginTop: 12,
-    overflow: 'hidden',
-    backgroundColor: '#fff',
-  },
+  width: 360,
+  height: 360,
+  borderRadius: 180,
+  borderWidth: 3,
+  borderColor: '#e58d29',
+  alignSelf: 'center',
+  marginTop: 16,
+  overflow: 'hidden',
+  backgroundColor: '#fff',
+},
+
+  
+
   passportImage: {
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
   },
   // ID previews (rectangular)
-  previewImage: {
-    width: 240,
-    height: 150,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    resizeMode: 'contain',
-    marginTop: 12,
-    backgroundColor: '#fff',
-  },
+ previewImage: {
+  width: '100%',
+  height: 380,
+  borderRadius: 12,
+  borderWidth: 2,
+  borderColor: '#ddd',
+  resizeMode: 'cover',
+  marginTop: 16,
+  backgroundColor: '#f5f5f5',
+},
+
  
   passwordInput: {
     flex: 1,

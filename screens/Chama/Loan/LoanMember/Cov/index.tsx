@@ -18,6 +18,8 @@ import {
   updateChamaControlTable,
   updateReqLoanChama,
   updateAdvocate,
+  createMessages,
+  sendNotification,
 } from '../../../../../src/graphql/mutations';
 
 import {
@@ -258,6 +260,23 @@ const ChmCovLns = () => {
       });
 
       await updateGraphQL(updateReqLoanChama, { id: route.params.id, status: 'Approved' });
+
+
+      await API.graphql(
+                graphqlOperation(createMessages, {
+                  input: {
+                    senderEmail: loaneeEmail,
+                    messageBody: `You have received a loan from ${group.grpName} of ${amount} repayable as ${totalAmount} at an interest of ${repaymentAmt} after ${repaymentPeriod} days. The transaction fees were ${transFee} and advocate fees of ${ttlCovFeeAmount}. The monthly installment is ${installmentAmount} payable every ${paymentFrequency} days. The money has been credited to your main account.`,
+                  },
+                })
+              );
+              await API.graphql(
+                graphqlOperation(sendNotification, {
+                  riderEmail: loaneeEmail,
+                  title: "MiFedha: New Loan",
+                  body: `You have received a loan from ${group.grpName} of ${amount} repayable as ${totalAmount} at an interest of ${repaymentAmt} after ${repaymentPeriod} days. The monthly installment is ${installmentAmount} payable every ${paymentFrequency} days. The transaction fees were ${transFee} and advocate fees of ${ttlCovFeeAmount}. The money has been credited to your main account.`,
+                })
+              );
 
       Alert.alert(`Success. TransactionFee: ${transFee.toFixed(2)}${advLicNo !== 'None' ? ` . AdvocateFee: ${ttlCovFeeAmount.toFixed(2)}` : ''}`);
 
